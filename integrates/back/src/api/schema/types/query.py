@@ -1,6 +1,3 @@
-# None
-
-
 from api.resolvers.query import (
     billing,
     event,
@@ -50,6 +47,3 @@ QUERY.set_field("vulnerability", vulnerability.resolve)
 QUERY.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )
-# --------------------------Deprecated Queries---------------------------------
-QUERY.set_field("userListGroups", list_user_groups.resolve)
-# -----------------------------------------------------------------------------

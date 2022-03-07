@@ -50,6 +50,12 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.enums import (
+    GroupStateStatus,
+)
+from db_model.groups.types import (
+    Group,
+)
 from db_model.roots.types import (
     RootItem,
 )
@@ -1534,6 +1540,14 @@ def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:
         if get_key_or_fallback(group, "group_status", "project_status")
         == "ACTIVE"
     ]
+
+
+def filter_active_groups_new(groups: Tuple[Group, ...]) -> Tuple[Group, ...]:
+    return tuple(
+        group
+        for group in groups
+        if group.state.status == GroupStateStatus.ACTIVE
+    )
 
 
 async def get_remediation_rate(

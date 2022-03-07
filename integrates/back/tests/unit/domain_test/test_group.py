@@ -59,7 +59,6 @@ from groups.domain import (
     add_group,
     filter_active_groups,
     get_active_groups,
-    get_active_groups_attributes,
     get_closed_vulnerabilities,
     get_description,
     get_group_digest_stats,

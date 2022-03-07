@@ -1,13 +1,13 @@
-from aiodataloader import (
-    DataLoader,
-)
 from aioextensions import (
     collect,
 )
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
     Group,
 )
 from decorators import (
@@ -22,7 +22,7 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    List,
+    Tuple,
 )
 
 
@@ -33,7 +33,7 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> List[Group]:
+) -> Tuple[Group, ...]:
     user_email: str = kwargs["user_email"]
     active, inactive = await collect(
         [
@@ -43,8 +43,8 @@ async def resolve(
     )
     user_groups = active + inactive
 
-    group_loader: DataLoader = info.context.loaders.group
-    groups: List[Group] = await group_loader.load_many(user_groups)
-    groups_filtered = groups_domain.filter_active_groups(groups)
-
-    return groups_filtered
+    loaders: Dataloaders = info.context.loaders
+    groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
+        user_groups
+    )
+    return groups_domain.filter_active_groups_new(groups)
