@@ -60,6 +60,6 @@ async def resolve(
     group: Group = await loaders.group_typed.load(group_name)
 
     return {
-        "files": _format_group_files(group.files),
+        "files": _format_group_files(group.files) if group.files else [],
         f"{group_name_key}": group_name,
     }
