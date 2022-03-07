@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import { ModalBody } from "./Body";
 import { ModalFooter } from "./Footer";
-import { ModalHeader } from "./Header";
-import { Container, Dialog } from "./styles";
-import { ModalTitle } from "./Title";
+import { CloseButton, Container, Dialog, Header, Title } from "./styles";
 
 interface IModalProps {
   children: React.ReactNode;
@@ -37,10 +34,13 @@ const Modal: React.FC<IModalProps> = ({
     ? createPortal(
         <Container>
           <Dialog>
-            <ModalHeader>
-              <ModalTitle>{headerTitle}</ModalTitle>
-            </ModalHeader>
-            <ModalBody>{children}</ModalBody>
+            <Header>
+              <Title>{headerTitle}</Title>
+              {onClose === undefined ? undefined : (
+                <CloseButton onClick={onClose}>{"×"}</CloseButton>
+              )}
+            </Header>
+            {children}
           </Dialog>
         </Container>,
         document.body
@@ -48,4 +48,4 @@ const Modal: React.FC<IModalProps> = ({
     : null;
 };
 
-export { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle };
+export { Modal, ModalFooter };

@@ -8,7 +8,7 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
-import { ModalTitle } from "components/Modal";
+import { Title } from "components/Modal/styles";
 import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
 import {
   GET_ACCESS_TOKEN,
@@ -64,7 +64,7 @@ describe("Update access token modal", (): void => {
       wrapper.update();
     });
 
-    const componentTitle: ReactWrapper = wrapper.find(ModalTitle);
+    const componentTitle: ReactWrapper = wrapper.find(Title);
 
     const dateField: ReactWrapper = wrapper
       .find({ type: "date" })

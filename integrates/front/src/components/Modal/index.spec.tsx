@@ -2,7 +2,7 @@ import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 import React from "react";
 
-import { Modal, ModalBody, ModalHeader, ModalTitle } from "components/Modal";
+import { Modal } from "components/Modal";
 
 describe("Modal", (): void => {
   it("should return a function", (): void => {
@@ -19,13 +19,7 @@ describe("Modal", (): void => {
       </Modal>
     );
 
-    expect(
-      wrapper.contains(
-        <ModalHeader>
-          <ModalTitle>{"Unit test title"}</ModalTitle>
-        </ModalHeader>
-      )
-    ).toBe(true);
+    expect(wrapper.text()).toContain("Unit test title");
   });
 
   it("should render modal body", (): void => {
@@ -37,13 +31,7 @@ describe("Modal", (): void => {
       </Modal>
     );
 
-    expect(
-      wrapper.contains(
-        <ModalBody>
-          <p>{"Unit modal content"}</p>
-        </ModalBody>
-      )
-    ).toBe(true);
+    expect(wrapper.text()).toContain("Unit modal content");
   });
 
   it("should render a modal", (): void => {
