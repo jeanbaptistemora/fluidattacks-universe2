@@ -115,7 +115,9 @@ def format_group_state(
         modified_by=state.get("requester") or state.get("user"),
         modified_date=convert_to_iso_str(state["date"]),
         status=state_status,
-        tier=GroupTier[str(state["tier"]).upper()],
+        tier=GroupTier[str(state["tier"]).upper()]
+        if state.get("tier")
+        else GroupTier.OTHER,
         type=GroupSubscriptionType[str(state["type"]).upper()],
         comments=state.get("comments"),
         justification=format_state_justification(state.get("reason")),

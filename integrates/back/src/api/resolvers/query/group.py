@@ -1,13 +1,10 @@
-# None
-
-
-from aiodataloader import (
-    DataLoader,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
     Group,
 )
 from decorators import (
@@ -17,12 +14,6 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from groups import (
-    validations as groups_validations,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 
 
@@ -34,9 +25,9 @@ from newutils.utils import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Group:
-    # Compatibility with the old API
-    group_name: str = get_key_or_fallback(kwargs).lower()
-    group_loader: DataLoader = info.context.loaders.group
+    group_name: str = str(kwargs["group_name"]).lower()
+    loaders: Dataloaders = info.context.loaders
+    group_loader = loaders.group_typed
     group: Group = await group_loader.load(group_name.lower())
 
-    return groups_validations.group_exist(group)
+    return group
