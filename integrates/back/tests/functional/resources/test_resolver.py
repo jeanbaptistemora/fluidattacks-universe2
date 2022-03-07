@@ -31,27 +31,27 @@ async def test_resources(populate: bool, email: str) -> None:
     files: List[Dict[str, str]] = [
         {
             "description": "Test",
-            "file_name": "test.zip",
+            "fileName": "test.zip",
             "uploader": "unittest@fluidattacks.com",
-            "upload_date": "2019-03-01 15:21",
+            "uploadDate": "2019-03-01 15:21:00",
         },
         {
             "description": "Test",
-            "file_name": "shell.exe",
+            "fileName": "shell.exe",
             "uploader": "unittest@fluidattacks.com",
-            "upload_date": "2019-04-24 14:56",
+            "uploadDate": "2019-04-24 14:56:00",
         },
         {
             "description": "Test",
-            "file_name": "shell2.exe",
+            "fileName": "shell2.exe",
             "uploader": "unittest@fluidattacks.com",
-            "upload_date": "2019-04-24 14:59",
+            "uploadDate": "2019-04-24 14:59:00",
         },
         {
             "description": "Test",
-            "file_name": "asdasd.py",
+            "fileName": "asdasd.py",
             "uploader": "unittest@fluidattacks.com",
-            "upload_date": "2019-08-06 14:28",
+            "uploadDate": "2019-08-06 14:28:00",
         },
     ]
     result: Dict[str, Any] = await get_result(

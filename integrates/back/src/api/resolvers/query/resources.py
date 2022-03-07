@@ -1,13 +1,15 @@
-from aiodataloader import (
-    DataLoader,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    Group,
-    Resource,
     Resources,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
+    GroupFile,
 )
 from decorators import (
     concurrent_decorators,
@@ -18,14 +20,29 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.datetime import (
+    convert_from_iso_str,
+)
 from newutils.utils import (
     get_key_or_fallback,
     get_present_key,
 )
 from typing import (
-    cast,
+    Dict,
     List,
 )
+
+
+def _format_group_files(group_files: List[GroupFile]) -> List[Dict[str, str]]:
+    return [
+        {
+            "description": file.description,
+            "fileName": file.filename,
+            "uploader": file.modified_by,
+            "uploadDate": convert_from_iso_str(file.modified_date),
+        }
+        for file in group_files
+    ]
 
 
 @convert_kwargs_to_snake_case
@@ -37,13 +54,12 @@ from typing import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Resources:
-    group_name: str
-    group_name = get_key_or_fallback(kwargs).lower()
+    group_name: str = str(get_key_or_fallback(kwargs)).lower()
     group_name_key = get_present_key(kwargs)
-    group_loader: DataLoader = info.context.loaders.group
-    group: Group = await group_loader.load(group_name)
+    loaders: Dataloaders = info.context.loaders
+    group: Group = await loaders.group_typed.load(group_name)
 
     return {
-        "files": cast(List[Resource], group.get("files", [])),
+        "files": _format_group_files(group.files),
         f"{group_name_key}": group_name,
     }
