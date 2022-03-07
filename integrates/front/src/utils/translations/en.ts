@@ -2878,6 +2878,7 @@ export const enTranslations: ResourceKey = {
     invalidEnvironmentUrl: "The environment URL is invalid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
     invalidMarkdown: "Invalid or malformed markdown",
+    invalidPhoneNumber: "The phone number is invalid",
     invalidSshFormat: "Invalid or malformed SSH private key",
     invalidTextBeginning:
       "Field cannot begin with the following character: {{ chars }}",

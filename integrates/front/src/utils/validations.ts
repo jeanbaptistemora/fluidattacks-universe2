@@ -288,6 +288,14 @@ const isFloatOrInteger: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
+const isValidPhoneNumber: Validator = (value: string): string | undefined => {
+  if (/^\+(?:[0-9] ?){6,14}[0-9]$/u.test(value)) {
+    return undefined;
+  }
+
+  return translate.t("validations.invalidPhoneNumber");
+};
+
 const getFileExtension: (file: File) => string = (file: File): string => {
   const splittedName: string[] = file.name.split(".");
   const extension: string =
@@ -550,6 +558,7 @@ export {
   isPositive,
   isZeroOrPositive,
   isValidEnvironmentUrl,
+  isValidPhoneNumber,
   isValidVulnSeverity,
   isFloatOrInteger,
   validDatetime,
