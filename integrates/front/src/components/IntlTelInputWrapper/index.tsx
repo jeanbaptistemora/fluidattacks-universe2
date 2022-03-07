@@ -14,11 +14,18 @@ const IntlTelInputWrapper: React.FC<IIntlTelInputWrapperProps> = (
   const { className, telInputProps } = props;
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
     if (event.key.length > 1 || /[\d\s()-]/u.test(event.key)) return;
+    if (event.ctrlKey) return;
+    event.preventDefault();
+  }
+  function onPaste(event: React.ClipboardEvent<HTMLInputElement>): void {
+    const data: string = event.clipboardData.getData("text/plain");
+    if (/^[\d\s()-]*$/u.test(data)) return;
     event.preventDefault();
   }
   const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
-    onKeyDown,
     ...telInputProps,
+    onKeyDown,
+    onPaste,
   };
 
   return (
