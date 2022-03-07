@@ -42,6 +42,7 @@ from db_model.credentials.types import (
     CredentialItem,
 )
 from db_model.enums import (
+    Notification,
     Source,
 )
 from db_model.findings.enums import (
@@ -65,6 +66,9 @@ from db_model.toe_lines.types import (
     RootToeLinesRequest,
     ToeLines,
     ToeLinesRequest,
+)
+from db_model.users.get import (
+    User,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -524,19 +528,22 @@ async def move_root(*, item: BatchProcessing) -> None:
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
         )
-    await send_mails_async(
-        email_to=[item.subject],
-        context={
-            "group": source_group_name,
-            "nickname": root.state.nickname,
-            "target": target_group_name,
-        },
-        tags=GENERAL_TAG,
-        subject=(
-            f"Root moved from [{source_group_name}] to [{target_group_name}]"
-        ),
-        template_name="root_moved",
-    )
+    user: User = await loaders.user.load(item.subject)
+    if Notification.ROOT_MOVED in user.notifications_preferences.email:
+        await send_mails_async(
+            email_to=[item.subject],
+            context={
+                "group": source_group_name,
+                "nickname": root.state.nickname,
+                "target": target_group_name,
+            },
+            tags=GENERAL_TAG,
+            subject=(
+                f"Root moved from [{source_group_name}] "
+                f"to [{target_group_name}]"
+            ),
+            template_name="root_moved",
+        )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,
