@@ -28,7 +28,10 @@ LOG = logging.getLogger(__name__)
 def _get(creds: Credentials, endpoint: str, **kwargs: Any) -> List[JsonObj]:
     response = requests.get(
         f"{API_URL_BASE}{endpoint}",
-        headers={"Authorization": f"Bearer {creds.api_key}"},
+        headers={
+            "X-Checkly-Account": creds.api_user,
+            "Authorization": f"Bearer {creds.api_key}",
+        },
         **kwargs,
     )
     response.raise_for_status()

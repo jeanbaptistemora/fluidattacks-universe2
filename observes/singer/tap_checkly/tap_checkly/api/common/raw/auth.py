@@ -2,17 +2,15 @@ from __future__ import (
     annotations,
 )
 
-from typing import (
-    NamedTuple,
+from dataclasses import (
+    dataclass,
 )
 
 
-class Credentials(NamedTuple):
+@dataclass(frozen=True)
+class Credentials:
+    api_user: str
     api_key: str
-
-    @classmethod
-    def new(cls, raw: str) -> Credentials:
-        return cls(raw)
 
     def __str__(self) -> str:
         return "masked api_key"

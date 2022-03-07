@@ -12,11 +12,13 @@ function start_etl {
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       analytics_auth_redshift \
+      checkly_api_user \
       checkly_api_key \
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-checkly stream \
+      --api-user "${checkly_api_user}" \
       --api-key "${checkly_api_key}" \
       --all-streams \
     | tap-json \

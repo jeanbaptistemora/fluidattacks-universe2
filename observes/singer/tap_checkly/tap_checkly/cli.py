@@ -17,6 +17,7 @@ from typing import (
 
 
 @click.command()
+@click.option("--api-user", type=str, required=True)
 @click.option("--api-key", type=str, required=True)
 @click.option("--all-streams", is_flag=True, default=False)
 @click.argument(
@@ -27,8 +28,10 @@ from typing import (
     required=False,
     default=None,
 )
-def stream(name: Optional[str], api_key: str, all_streams: bool) -> None:
-    creds = Credentials.new(api_key)
+def stream(
+    name: Optional[str], api_user: str, api_key: str, all_streams: bool
+) -> None:
+    creds = Credentials(api_user, api_key)
     selection = (
         tuple(SupportedStreams)
         if all_streams
