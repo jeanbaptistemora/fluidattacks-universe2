@@ -403,6 +403,8 @@
     - "wassec.1_1"
     - "wassec.3_2_1"
     - "wassec.6_2_2_5"
+    - "wassec.6_2_3_2"
+    - "wassec.6_2_3_5"
   metadata: {}
 "030":
   en:
@@ -1027,6 +1029,7 @@
     - "asvs.V12_2_1"
     - "cwe25.434"
     - "sans25.434"
+    - "wassec.6_2_4_10"
   metadata: {}
 "041":
   en:
@@ -1074,6 +1077,7 @@
     - "fedramp.RA-5"
     - "fedramp.SI-3"
     - "iec62443.SI-3_2"
+    - "wassec.6_2_4_10"
   metadata: {}
 "042":
   en:
@@ -1134,6 +1138,7 @@
     - "owasp10.A3"
     - "owasp10.A5"
     - "wassec.5_5"
+    - "wassec.6_2_5_7"
   metadata: {}
 "044":
   en:
@@ -1461,6 +1466,8 @@
     - "iso27002.8_9"
     - "iso27002.8_27"
     - "iec62443.RA-7_6"
+    - "wassec.6_2_3_1"
+    - "wassec.6_2_3_6"
   metadata: {}
 "072":
   en:
@@ -1712,6 +1719,7 @@
     - "hitrust.09_ab"
     - "iso27002.8_8"
     - "iso27002.8_26"
+    - "wassec.6_2_5_2"
   metadata: {}
 "078":
   en:
@@ -1951,6 +1959,7 @@
     - "cmmc.AC_L2-3_1_7"
     - "hitrust.09_h"
     - "hitrust.09_ab"
+    - "wassec.6_2_5_2"
   metadata: {}
 "084":
   en:
@@ -4743,6 +4752,7 @@
     - "padss.5_2_1"
     - "sans25.89"
     - "wassec.5_5"
+    - "wassec.6_2_4_4"
   metadata: {}
 "171":
   en:
@@ -4774,6 +4784,7 @@
     - "hitrust.10_i"
     - "iso27002.8_25"
     - "iso27002.8_28"
+    - "wassec.6_2_5_2"
   metadata: {}
 "172":
   en:
@@ -4842,6 +4853,7 @@
     - "mitre.M1013"
     - "cmmc.AC_L2-3_1_13"
     - "iso27002.8_28"
+    - "wassec.6_2_4_1"
   metadata: {}
 "173":
   en:
@@ -5030,6 +5042,15 @@
     - "iso27002.8_20"
     - "iso27002.8_26"
     - "iec62443.SI-3_5"
+    - "wassec.6_2_3_2"
+    - "wassec.6_2_3_4"
+    - "wassec.6_2_4_2"
+    - "wassec.6_2_4_3"
+    - "wassec.6_2_4_4"
+    - "wassec.6_2_4_6"
+    - "wassec.6_2_4_8"
+    - "wassec.6_2_4_9"
+    - "wassec.6_2_5_3"
   metadata: {}
 "174":
   en:
@@ -5064,6 +5085,7 @@
     - "cmmc.AC_L1-3_1_2"
     - "hitrust.09_y"
     - "wassec.6_1_2"
+    - "wassec.6_2_3_5"
   metadata: {}
 "175":
   en:
@@ -5242,6 +5264,7 @@
     - "iec62443.DC-4_1"
     - "wassec.6_2_2_2"
     - "wassec.6_2_2_5"
+    - "wassec.6_2_4_9"
   metadata: {}
 "177":
   en:
@@ -7564,6 +7587,7 @@
     - "fedramp.AC-22"
     - "iso27002.8_1"
     - "lgpd.7_X-3"
+    - "wassec.6_2_5_2"
   metadata: {}
 "262":
   en:
@@ -7830,6 +7854,8 @@
     - "fedramp.AC-22"
     - "fedramp.CM-5_5"
     - "iso27002.8_4"
+    - "wassec.6_2_4_3"
+    - "wassec.6_2_4_8"
   metadata: {}
 "266":
   en:
@@ -7934,6 +7960,10 @@
     - "iso27002.8_26"
     - "iso27002.8_27"
     - "iec62443.RDF-5_3"
+    - "wassec.6_2_3_6"
+    - "wassec.6_2_4_3"
+    - "wassec.6_2_4_8"
+    - "wassec.6_2_5_5"
   metadata: {}
 "273":
   en:
@@ -7988,6 +8018,7 @@
     - "cmmc.CA_L2-3_12_2"
     - "iso27002.8_7"
     - "iso27002.8_27"
+    - "wassec.6_2_3_1"
   metadata: {}
 "280":
   en:
@@ -8111,6 +8142,7 @@
     - "hitrust.09_y"
     - "hitrust.13_k"
     - "iso27002.8_11"
+    - "wassec.6_2_5_2"
   metadata: {}
 "301":
   en:
@@ -9121,6 +9153,7 @@
     - "cmmc.AC_L2-3_1_14"
     - "cmmc.CM_L2-3_4_9"
     - "hitrust.01_o"
+    - "wassec.6_2_5_3"
   metadata: {}
 "321":
   en:
@@ -9829,6 +9862,7 @@
     - "lgpd.7_VI"
     - "lgpd.26"
     - "lgpd.51"
+    - "wassec.8_4_1"
   metadata: {}
 "332":
   en:
@@ -10600,6 +10634,7 @@
     - "sans25.125"
     - "hitrust.10_b"
     - "iso27002.8_28"
+    - "wassec.6_2_5_3"
   metadata: {}
 "343":
   en:
@@ -11099,6 +11134,7 @@
     - "sans25.352"
     - "wassec.1_1"
     - "wassec.6_1_6"
+    - "wassec.6_2_3_6"
   metadata: {}
 "350":
   en:
