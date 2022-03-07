@@ -82,6 +82,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   entity={entity}
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#mttr-benchmarking`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
