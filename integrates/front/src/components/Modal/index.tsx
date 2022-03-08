@@ -50,4 +50,4 @@ const Modal: React.FC<IModalProps> = ({
     : null;
 };
 
-export { Modal, ModalFooter };
+export { IModalProps, Modal, ModalFooter };

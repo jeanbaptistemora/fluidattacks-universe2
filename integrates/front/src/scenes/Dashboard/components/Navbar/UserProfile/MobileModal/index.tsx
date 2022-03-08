@@ -22,8 +22,8 @@ import type {
 import { VerificationCodeField } from "./VerificationCodeField";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
+import { Col100, Row } from "styles/styledComponents";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
@@ -88,19 +88,18 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 <PhoneField autoFocus={true} />
               </Col100>
             </Row>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("profile.mobileModal.close")}
                   </Button>
                   <Button type={"submit"} variant={"primary"}>
                     {t("profile.mobileModal.add")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         </Formik>
       )}
@@ -123,19 +122,18 @@ const MobileModal: React.FC<IMobileModalProps> = (
             <Col100>
               <VerificationCodeField />
             </Col100>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("profile.mobileModal.close")}
                   </Button>
                   <Button type={"submit"} variant={"primary"}>
                     {t("profile.mobileModal.verify")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         </Formik>
       ) : undefined}

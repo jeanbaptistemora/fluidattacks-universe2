@@ -11,9 +11,11 @@ const parameters: Parameters = {
   },
   docs: {
     source: {
+      state: "open",
       type: "dynamic",
     },
   },
+  viewMode: "docs",
 };
 
 export { parameters };
