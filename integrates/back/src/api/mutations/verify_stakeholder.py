@@ -5,6 +5,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
+    Phone,
     SimplePayload as SimplePayloadType,
 )
 from decorators import (
@@ -40,9 +41,17 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
+        new_phone_dict = kwargs.get("new_phone")
+        new_phone = None
+        if new_phone_dict:
+            new_phone = Phone(
+                local_number=new_phone_dict["local_number"],
+                country_code=new_phone_dict["country_code"],
+            )
+
         await users_domain.verify(
             user_email,
-            kwargs.get("new_phone_number"),
+            new_phone,
             kwargs.get("verification_code"),
         )
 

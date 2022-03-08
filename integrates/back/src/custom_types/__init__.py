@@ -237,3 +237,8 @@ UpdateAccessTokenPayload = NamedTuple(
 SignPostUrlsPayload = NamedTuple(
     "SignPostUrlsPayload", [("success", bool), ("url", SignedUrl)]
 )
+
+
+class Phone(NamedTuple):
+    country_code: str
+    local_number: str

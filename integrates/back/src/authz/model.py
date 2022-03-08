@@ -1025,7 +1025,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_organization_mutate",
             "api_mutations_add_stakeholder_mutate",
             "api_mutations_invalidate_cache_mutate",
-            "api_mutations_update_stakeholder_phone_number_mutate",
+            "api_mutations_update_stakeholder_phone_mutate",
             "api_mutations_verify_stakeholder_mutate",
             "api_resolvers_query_groups_resolve",
             "api_resolvers_query_internal_names_resolve",

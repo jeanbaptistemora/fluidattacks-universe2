@@ -15,6 +15,7 @@ from custom_exceptions import (
 )
 from custom_types import (
     Invitation as InvitationType,
+    Phone,
     Stakeholder as StakeholderType,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
     User as UserType,
@@ -61,6 +62,9 @@ from typing import (
 )
 from users import (
     dal as users_dal,
+)
+from users.utils import (
+    get_international_format_phone_number,
 )
 from verify import (
     operations as verify_operations,
@@ -214,7 +218,7 @@ async def get_by_email(email: str) -> UserType:
         "last_login": "",
         "last_name": "",
         "legal_remember": False,
-        "phone_number": None,
+        "phone": None,
         "push_tokens": [],
         "is_registered": True,
     }
@@ -228,7 +232,12 @@ async def get_by_email(email: str) -> UserType:
                 "last_login": user.get("last_login", ""),
                 "last_name": user.get("last_name", ""),
                 "legal_remember": user.get("legal_remember", False),
-                "phone_number": user.get("phone_number", None),
+                "phone": None
+                if user.get("phone", None) is None
+                else Phone(
+                    country_code=user["phone"]["country_code"],
+                    local_number=user["phone"]["local_number"],
+                ),
                 "push_tokens": user.get("push_tokens", []),
             }
         )
@@ -399,44 +408,46 @@ async def update_multiple_user_attributes(
     return await users_dal.update(email, data_dict)
 
 
-async def update_phone_number(
-    email: str, new_phone_number: str, verification_code: str
+async def update_mobile(
+    email: str, new_phone: Phone, verification_code: str
 ) -> None:
     """Update the user's phone number"""
-    await verify_operations.validate_mobile(phone_number=new_phone_number)
-    await verify_operations.check_verification(
-        phone_number=new_phone_number, code=verification_code
+    await verify_operations.validate_mobile(
+        phone_number=get_international_format_phone_number(new_phone)
     )
-    await users_dal.update(email, {"phone_number": new_phone_number})
+    await verify_operations.check_verification(
+        phone_number=get_international_format_phone_number(new_phone),
+        code=verification_code,
+    )
+    await users_dal.update(email, {"phone": new_phone._asdict()})
 
 
 async def verify(
     email: str,
-    new_phone_number: Optional[str],
+    new_phone: Optional[Phone],
     verification_code: Optional[str],
 ) -> None:
     """Start a verification process using OTP"""
     user = await get_by_email(email)
-    user_phone_number = cast(Optional[str], user["phone_number"])
-    phone_number_to_verify = (
-        user_phone_number if new_phone_number is None else new_phone_number
-    )
+    user_phone = cast(Optional[Phone], user["phone"])
+    phone_to_verify = user_phone if new_phone is None else new_phone
 
-    if not phone_number_to_verify:
+    if not phone_to_verify:
         raise RequiredNewPhoneNumber()
 
-    if (
-        phone_number_to_verify == new_phone_number
-        and user_phone_number is not None
-    ):
+    if phone_to_verify is new_phone and user_phone is not None:
         if verification_code is None:
             raise RequiredVerificationCode()
 
-        await verify_operations.validate_mobile(phone_number=new_phone_number)
+        await verify_operations.validate_mobile(
+            phone_number=get_international_format_phone_number(new_phone)
+        )
         await verify_operations.check_verification(
-            phone_number=user_phone_number, code=verification_code
+            phone_number=get_international_format_phone_number(user_phone),
+            code=verification_code,
         )
 
     await verify_operations.start_verification(
-        phone_number=phone_number_to_verify, channel=Channel.SMS
+        phone_number=get_international_format_phone_number(phone_to_verify),
+        channel=Channel.SMS,
     )

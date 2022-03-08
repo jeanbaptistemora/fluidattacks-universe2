@@ -1,0 +1,7 @@
+"Mobile type definition"
+type Phone {
+  "International country code"
+  countryCode: String!
+  "Phone number without the country code"
+  localNumber: String!
+}

@@ -1024,10 +1024,10 @@ type Mutation {
     userInteraction: String!
   ): SimpleFindingPayload!
 
-  "Update the stakeholder's phone number"
-  updateStakeholderPhoneNumber(
-    "Stakeholder's phone number"
-    phoneNumber: String!
+  "Update the stakeholder's mobile"
+  updateStakeholderPhone(
+    "Stakeholder's phone"
+    phone: PhoneInput!
     "OTP code to verify the stakeholder"
     verificationCode: String!
   ): SimplePayload!
@@ -1158,9 +1158,9 @@ type Mutation {
 
   "Start a verification process for a stakeholder by using OTP"
   verifyStakeholder(
-    "Stakeholder's new mobile that needs to be verified"
-    newPhoneNumber: String
-    "OTP code to verify the stakeholder when entering a new mobile"
+    "Stakeholder's new phone that needs to be verified"
+    newPhone: PhoneInput
+    "OTP code to verify the stakeholder when entering a new phone"
     verificationCode: String
   ): SimplePayload!
 

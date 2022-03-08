@@ -49,3 +49,11 @@ input CredentialsInput {
   "Https user"
   user: String
 }
+
+"Phone definition"
+input PhoneInput {
+  "International country code"
+  countryCode: String!
+  "Phone number without the country code"
+  localNumber: String!
+}

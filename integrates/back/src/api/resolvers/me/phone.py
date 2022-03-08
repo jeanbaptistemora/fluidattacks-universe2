@@ -17,4 +17,4 @@ async def resolve(
 ) -> Optional[str]:
     user_email: str = parent["user_email"]
     user_info: dict = await users_domain.get_by_email(user_email)
-    return user_info["phone_number"]
+    return user_info["phone"]

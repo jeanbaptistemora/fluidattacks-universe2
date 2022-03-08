@@ -5,6 +5,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
+    Phone,
     SimplePayload as SimplePayloadType,
 )
 from decorators import (
@@ -21,6 +22,7 @@ from newutils import (
 )
 from typing import (
     Any,
+    Dict,
 )
 from users import (
     domain as users_domain,
@@ -35,15 +37,20 @@ from users import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    phone_number: str,
+    phone: Dict[str, str],
     verification_code: str,
     **_kwargs: Any,
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
-        await users_domain.update_phone_number(
-            user_email, phone_number, verification_code
+        await users_domain.update_mobile(
+            user_email,
+            Phone(
+                local_number=phone["local_number"],
+                country_code=phone["country_code"],
+            ),
+            verification_code,
         )
         logs_utils.cloudwatch_log(
             info.context,

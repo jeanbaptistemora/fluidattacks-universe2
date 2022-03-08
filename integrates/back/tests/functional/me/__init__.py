@@ -30,7 +30,10 @@ async def get_result(
                     name
                 }}
             }}
-            phoneNumber
+            phone{{
+                countryCode
+                localNumber
+            }}
             permissions
             remember
             role

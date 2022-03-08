@@ -1,3 +1,6 @@
+from custom_types import (
+    Phone,
+)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
@@ -63,6 +66,7 @@ safe_pickle.register_namedtuple(FindingState)
 safe_pickle.register_namedtuple(FindingUnreliableIndicators)
 safe_pickle.register_namedtuple(FindingTreatmentSummary)
 safe_pickle.register_namedtuple(FindingVerification)
+safe_pickle.register_namedtuple(Phone)
 safe_pickle.register_namedtuple(ToeInput)
 
 # Exported members
