@@ -1159,6 +1159,9 @@
   "egg-scripts": {
     "CVE-2018-3786": "<2.8.1"
   },
+  "eivindfjeldstad-dot": {
+    "SNYK-JS-EIVINDFJELDSTADDOT-564434": "<=0.0.1"
+  },
   "ejs": {
     "CVE-2017-1000188": "<2.5.5",
     "CVE-2017-1000189": "<2.5.5",
