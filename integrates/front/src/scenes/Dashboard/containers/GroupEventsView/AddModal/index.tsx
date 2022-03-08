@@ -16,10 +16,9 @@ import type {
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import globalStyle from "styles/global.css";
 import {
-  ButtonToolbar,
   Col100,
   Col50,
   ControlLabel,
@@ -559,10 +558,9 @@ const AddModal: React.FC<IAddModalProps> = ({
                 ) : undefined}
               </FormGroup>
             ) : undefined}
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("confirmmodal.cancel")}
                   </Button>
@@ -573,9 +571,9 @@ const AddModal: React.FC<IAddModalProps> = ({
                   >
                     {t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

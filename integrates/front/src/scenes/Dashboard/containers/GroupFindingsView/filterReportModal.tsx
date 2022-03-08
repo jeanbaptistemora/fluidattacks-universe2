@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import AppstoreBadge from "resources/appstore_badge.svg";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
@@ -177,16 +177,15 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
             )}
           </Col100>
         </div>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
+        <div>
+          <div>
+            <ModalFooter>
               <Button onClick={onClose} variant={"secondary"}>
                 {translate.t("group.findings.report.modalClose")}
               </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+            </ModalFooter>
+          </div>
+        </div>
       </Modal>
     </React.StrictMode>
   );

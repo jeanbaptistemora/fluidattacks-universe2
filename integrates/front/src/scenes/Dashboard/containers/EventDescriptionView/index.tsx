@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import {
   GET_EVENT_DESCRIPTION,
@@ -191,10 +191,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </Col100>
                   </Row>
                 )}
-                <hr />
-                <Row>
-                  <Col100>
-                    <ButtonToolbar>
+                <div>
+                  <div>
+                    <ModalFooter>
                       <Button onClick={closeSolvingModal} variant={"secondary"}>
                         {translate.t("confirmmodal.cancel")}
                       </Button>
@@ -205,9 +204,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       >
                         {translate.t("confirmmodal.proceed")}
                       </Button>
-                    </ButtonToolbar>
-                  </Col100>
-                </Row>
+                    </ModalFooter>
+                  </div>
+                </div>
               </Form>
             )}
           </Formik>

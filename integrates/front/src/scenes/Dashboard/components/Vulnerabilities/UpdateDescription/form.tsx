@@ -36,6 +36,7 @@ import { TreatmentField } from "./TreatmentField";
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
 import { Button } from "components/Button";
+import { ModalFooter } from "components/Modal";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateTreatmentVulnerabilityForm,
@@ -68,7 +69,7 @@ import {
   GET_FINDING_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+import { Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -532,10 +533,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         isAcceptedUndefinedSelected,
         isInProgressSelected
       )}
-      <hr />
-      <Row>
-        <Col100>
-          <ButtonToolbar>
+      <div>
+        <div>
+          <ModalFooter>
             <Button onClick={handleCloseModal} variant={"secondary"}>
               {translate.t("group.findings.report.modalClose")}
             </Button>
@@ -554,9 +554,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 {translate.t("confirmmodal.proceed")}
               </Button>
             ) : undefined}
-          </ButtonToolbar>
-        </Col100>
-      </Row>
+          </ModalFooter>
+        </div>
+      </div>
     </React.StrictMode>
   );
 };

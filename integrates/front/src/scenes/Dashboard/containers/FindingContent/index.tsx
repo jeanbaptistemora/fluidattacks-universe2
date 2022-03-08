@@ -25,7 +25,7 @@ import {
 import { ButtonCol, Title, TitleContainer } from "./styles";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
@@ -46,11 +46,8 @@ import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
 import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index";
 import {
-  ButtonToolbar,
-  Col100,
   ControlLabel,
   FormGroup,
-  Row,
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
@@ -422,19 +419,18 @@ const findingContent: React.FC = (): JSX.Element => {
                 </option>
               </Field>
             </FormGroup>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={closeDeleteModal} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
                   <Button type={"submit"} variant={"primary"}>
                     {translate.t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         </Formik>
       </Modal>
