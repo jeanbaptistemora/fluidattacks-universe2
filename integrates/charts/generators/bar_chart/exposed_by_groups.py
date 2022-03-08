@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
+    format_max_value,
+)
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
@@ -39,12 +42,6 @@ from typing import (
     List,
     Tuple,
 )
-
-
-def format_max_value(data: List[PortfoliosGroupsInfo]) -> Decimal:
-    if data:
-        return data[0].value if data[0].value else Decimal("1.0")
-    return Decimal("1.0")
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -103,7 +100,8 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["Open Severity"] + [group.value for group in data],
+                ["Open Severity"]
+                + [utils.format_cvssf_log(group.value) for group in data],
             ],
             colors={
                 "Open Severity": RISK.more_agressive,
@@ -134,7 +132,22 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
                 ),
             ),
         ),
-        maxValue=format_max_value(data),
+        logarithmic=True,
+        maxValue=format_max_value(
+            [(group.group_name, Decimal(group.value)) for group in data]
+        ),
+        maxValueLog=format_max_value(
+            [
+                (
+                    group.group_name,
+                    utils.format_cvssf_log(Decimal(group.value)),
+                )
+                for group in data
+            ]
+        ),
+        originalValues=[
+            utils.format_cvssf(Decimal(value)) for _, value in data
+        ],
     )
 
 
