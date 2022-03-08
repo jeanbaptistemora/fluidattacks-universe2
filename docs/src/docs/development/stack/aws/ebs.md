@@ -63,31 +63,33 @@ are the following:
 
 ## Alternatives
 
-- **[Google Compute Engine (GCE)](https://cloud.google.com/compute):**
-  It did not exist
-  at the time we migrated to the cloud.
-  [GCP](https://cloud.google.com/gcp) does not offer
-  an equivalent to EBS.
-  Instead,
-  their entire [disk service](https://cloud.google.com/compute/docs/disks)
-  exists within GCE.
-  It does not support disk encryption.
-- **[Azure Disk Storage](https://azure.microsoft.com/en-us/services/storage/disks/):**
-  It did not exist
-  at the time we migrated to the cloud
-  (pending review).
+[Google Compute Engine (GCE)](https://cloud.google.com/compute)
+is one alternative
+that did not exist at the time we migrated to the cloud.
+[GCP](https://cloud.google.com/gcp) does not offer
+an equivalent to EBS.
+Instead,
+their entire [disk service](https://cloud.google.com/compute/docs/disks)
+exists within GCE.
+It does not support disk encryption.
+
+> **Note:**
+> [Azure Disk Storage](https://azure.microsoft.com/en-us/services/storage/disks/)
+> is another alternative
+> that did not exist at the time we migrated to the cloud.
+> A review is pending.
 
 ## Usage
 
 We use [AWS EBS][EBS] for
 
-- [Gitlab CI](/development/stack/gitlab-ci) bastion
+- [GitLab CI](/development/stack/gitlab-ci) bastion
   (we use a 16 GiB [GP2][GP2] disk,
   as it only needs to have basic software installed
-  such as [Gitlab Runner](https://docs.gitlab.com/runner/install/)
+  such as [GitLab Runner](https://docs.gitlab.com/runner/install/)
   and [Docker Machine](https://docs.docker.com/machine/install-machine/);
   high disk throughput is not required);
-- [Gitlab CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57)
+- [GitLab CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57)
   (we use 10 GiB [GP3][GP2] disks
   just for hosting our workers' [operating system][OS].
   Additionally,

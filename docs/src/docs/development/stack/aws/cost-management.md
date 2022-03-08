@@ -62,7 +62,7 @@ are the following:
 
 We use [Cost Management][COST-MANAGEMENT] for
 
-- monitoring our [AWS][AWS] consumption constantly and
+- monitoring our [AWS][AWS] consumption constantly, and
 - grouping costs [based on product tags](https://gitlab.com/fluidattacks/product/-/blob/fca78e4277e2cb9f71a5e8de45f67219c64ccf63/.tflint.hcl#L6).
 
 We do not use Cost Management for

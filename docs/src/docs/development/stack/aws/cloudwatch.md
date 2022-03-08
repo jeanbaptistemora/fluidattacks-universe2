@@ -52,14 +52,12 @@ are the following:
 
 ## Alternatives
 
-- **[GCP Cloud Monitoring](https://cloud.google.com/monitoring):**
-  It did not exist
-  at the time we migrated to the cloud
-  (pending review).
-- **[Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview):**
-  It did not exist
-  at the time we migrated to the cloud
-  (pending review).
+> **Note:**
+> [GCP Cloud Monitoring](https://cloud.google.com/monitoring)
+> and [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview)
+> are alternatives
+> that did not exist at the time we migrated to the cloud.
+> A review of each of them is pending.
 
 ## Usage
 

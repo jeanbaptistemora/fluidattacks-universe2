@@ -120,14 +120,12 @@ are the following:
 
 ## Alternatives
 
-- **[Google Compute Engine](https://cloud.google.com/compute):**
-  It did not exist
-  at the time we migrated to the cloud
-  (pending review).
-- **[Azure Compute](https://azure.microsoft.com/en-us/product-categories/compute/):**
-  It did not exist
-  at the time we migrated to the cloud
-  (pending review).
+> **Note:**
+> [Google Compute Engine](https://cloud.google.com/compute)
+> and [Azure Compute](https://azure.microsoft.com/en-us/product-categories/compute/)
+> are alternatives
+> that did not exist at the time we migrated to the cloud.
+> A review of each of them is pending.
 
 ## Usage
 

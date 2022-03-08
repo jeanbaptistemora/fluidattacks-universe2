@@ -57,16 +57,15 @@ are the following:
 
 ## Alternatives
 
-[Gitlab CI][GITLAB-CI]:
-We used it before implementing [Batch][BATCH].
+We used [GitLab CI][GITLAB-CI] before implementing [Batch][BATCH].
 We migrated
-because Gitlab CI is not intended to run scheduled jobs
+because GitLab CI is not intended to run scheduled jobs
 that take many hours,
 often resulting in jobs becoming irresponsive
 before they could finish,
 mainly due to disconnections
 between the worker running the job
-and the [Gitlab CI Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html).
+and the [GitLab CI Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html).
 
 ## Usage
 
@@ -90,7 +89,7 @@ We use Batch for running
 - If a scheduled job takes longer than six hours,
   it should generally run in Batch;
   otherwise,
-  you can use [Gitlab CI][GITLAB-CI].
+  you can use [GitLab CI][GITLAB-CI].
 - To learn how to test
   and apply infrastructure
   via [Terraform](/development/stack/terraform/),

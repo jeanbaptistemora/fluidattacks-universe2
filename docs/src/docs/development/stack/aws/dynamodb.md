@@ -109,8 +109,11 @@ are the following:
   for web-scale applications.
   It requires managing infrastructures
   such as clusters, nodes and networks.
-- **[Azure Cosmos DB](https://azure.microsoft.com/en-us/free/cosmos-db/):**
-  (pending review.)
+
+> **Note:**
+> [Azure Cosmos DB](https://azure.microsoft.com/en-us/free/cosmos-db/)
+> is another alternative.
+> A review is pending.
 
 ## Usage
 

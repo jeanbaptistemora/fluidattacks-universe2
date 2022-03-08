@@ -34,13 +34,17 @@ are the following:
 
 ## Alternatives
 
-- **[Google Cloud Platform](https://cloud.google.com/gcp):**
-  It did not exist at the time we migrated to the cloud.
-  Its service catalog is much smaller,
-  which means less flexibility.
-- **[Microsoft Azure](https://azure.microsoft.com/en-us/):**
-  It did not exist at the time we migrated to the cloud.
-  A deeper review is still pending.
+[Google Cloud Platform](https://cloud.google.com/gcp)
+is an alternative
+that did not exist at the time we migrated to the cloud.
+Its service catalog is much smaller,
+which means less flexibility.
+
+> **Note:**
+> [Microsoft Azure](https://azure.microsoft.com/en-us/)
+> is another alternative
+> that did not exist at the time we migrated to the cloud.
+> A review is pending.
 
 ## Usage
 
