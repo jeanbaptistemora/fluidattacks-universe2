@@ -5,10 +5,21 @@ from typing import (
 )
 
 
+class Address(NamedTuple):
+    line_1: str
+    line_2: Optional[str]
+    city: str
+    state: Optional[str]
+    country: str
+    postal_code: str
+
+
 class Customer(NamedTuple):
     id: str
     name: str
+    address: Optional[Address]
     email: str
+    phone: Optional[str]
     default_payment_method: Optional[str]
 
 

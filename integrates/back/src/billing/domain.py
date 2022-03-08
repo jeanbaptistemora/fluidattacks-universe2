@@ -222,6 +222,19 @@ async def update_subscription(
     return result
 
 
+async def get_customer(
+    *,
+    org_billing_customer: str,
+) -> Customer:
+    # Raise exception if stripe customer does not exist
+    if org_billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    return await dal.get_customer(
+        org_billing_customer=org_billing_customer,
+    )
+
+
 async def customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
 ) -> List[PaymentMethod]:
@@ -252,6 +265,29 @@ async def customer_payment_methods(
         )
         for payment_method in payment_methods
     ]
+
+
+async def customer_portal(
+    *,
+    org_id: str,
+    org_name: str,
+    user_email: str,
+    org_billing_customer: Optional[str],
+) -> str:
+    """Create Stripe portal session"""
+    # Create customer if it does not exist
+    if org_billing_customer is None:
+        customer: Customer = await dal.create_customer(
+            org_id=org_id,
+            org_name=org_name,
+            user_email=user_email,
+        )
+        org_billing_customer = customer.id
+
+    return await dal.get_customer_portal(
+        org_billing_customer=org_billing_customer,
+        org_name=org_name,
+    )
 
 
 async def create_payment_method(
@@ -317,29 +353,6 @@ async def create_payment_method(
         )
 
     return result
-
-
-async def create_portal(
-    *,
-    org_id: str,
-    org_name: str,
-    user_email: str,
-    org_billing_customer: Optional[str],
-) -> str:
-    """Create Stripe portal session"""
-    # Create customer if it does not exist
-    if org_billing_customer is None:
-        customer: Customer = await dal.create_customer(
-            org_id=org_id,
-            org_name=org_name,
-            user_email=user_email,
-        )
-        org_billing_customer = customer.id
-
-    return await dal.create_portal(
-        org_billing_customer=org_billing_customer,
-        org_name=org_name,
-    )
 
 
 async def update_payment_method(

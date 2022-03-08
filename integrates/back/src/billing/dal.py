@@ -1,4 +1,5 @@
 from billing.types import (
+    Address,
     Customer,
     PaymentMethod,
     Price,
@@ -150,7 +151,9 @@ async def create_customer(
     customer: Customer = Customer(
         id=stripe_customer.id,
         name=stripe_customer.name,
+        address=None,
         email=stripe_customer.email,
+        phone=None,
         default_payment_method=None,
     )
 
@@ -202,18 +205,6 @@ async def create_subscription(
     return sub.status in ("active", "trialing")
 
 
-async def create_portal(
-    *,
-    org_billing_customer: str,
-    org_name: str,
-) -> str:
-    """Create Stripe portal session"""
-    return stripe.billing_portal.Session.create(
-        customer=org_billing_customer,
-        return_url=f"{BASE_URL}/orgs/{org_name}/billing",
-    ).url
-
-
 async def get_prices() -> Dict[str, Price]:
     """Get model prices"""
     data = stripe.Price.list(
@@ -232,37 +223,6 @@ async def get_prices() -> Dict[str, Price]:
         )
         for price in data
     }
-
-
-async def get_customer_subscriptions(
-    *,
-    org_billing_customer: str,
-    limit: int = 1000,
-    status: str = "",
-) -> List[Subscription]:
-    """Return subscriptions for a customer"""
-    data: Dict[str, Any] = {
-        "customer": org_billing_customer,
-        "limit": limit,
-    }
-    if status != "":
-        data["status"] = status
-    subs = stripe.Subscription.list(**data).data
-    return [
-        Subscription(
-            id=sub.id,
-            group=sub.metadata.group,
-            org_billing_customer=sub.customer,
-            organization=sub.metadata.organization,
-            status=sub.status,
-            type=sub.metadata.subscription,
-            items={
-                item["metadata"]["name"]: item["id"]
-                for item in sub["items"]["data"]
-            },
-        )
-        for sub in subs
-    ]
 
 
 async def get_group_subscriptions(
@@ -303,18 +263,64 @@ async def get_customer(
     org_billing_customer: str,
 ) -> Customer:
     """Retrieve Stripe customer"""
-    stripe_customer = stripe.Customer.retrieve(
+    data = stripe.Customer.retrieve(
         org_billing_customer,
     )
+
+    address: Optional[Address] = None
+    if data["address"] is not None:
+        address = Address(
+            line_1=data["address"]["line1"],
+            line_2=data["address"]["line2"],
+            city=data["address"]["city"],
+            state=data["address"]["state"],
+            country=data["address"]["country"],
+            postal_code=data["address"]["postal_code"],
+        )
+
     default_payment_method: Optional[
         str
-    ] = stripe_customer.invoice_settings.default_payment_method
+    ] = data.invoice_settings.default_payment_method
+
     return Customer(
-        id=stripe_customer.id,
-        name=stripe_customer.name,
-        email=stripe_customer.email,
+        id=data["id"],
+        name=data["name"],
+        address=address,
+        email=data["email"],
+        phone=data["phone"],
         default_payment_method=default_payment_method,
     )
+
+
+async def get_customer_subscriptions(
+    *,
+    org_billing_customer: str,
+    limit: int = 1000,
+    status: str = "",
+) -> List[Subscription]:
+    """Return subscriptions for a customer"""
+    data: Dict[str, Any] = {
+        "customer": org_billing_customer,
+        "limit": limit,
+    }
+    if status != "":
+        data["status"] = status
+    subs = stripe.Subscription.list(**data).data
+    return [
+        Subscription(
+            id=sub.id,
+            group=sub.metadata.group,
+            org_billing_customer=sub.customer,
+            organization=sub.metadata.organization,
+            status=sub.status,
+            type=sub.metadata.subscription,
+            items={
+                item["metadata"]["name"]: item["id"]
+                for item in sub["items"]["data"]
+            },
+        )
+        for sub in subs
+    ]
 
 
 async def get_customer_payment_methods(
@@ -326,6 +332,18 @@ async def get_customer_payment_methods(
         type="card",
         limit=limit,
     ).data
+
+
+async def get_customer_portal(
+    *,
+    org_billing_customer: str,
+    org_name: str,
+) -> str:
+    """Create Stripe portal session"""
+    return stripe.billing_portal.Session.create(
+        customer=org_billing_customer,
+        return_url=f"{BASE_URL}/orgs/{org_name}/billing",
+    ).url
 
 
 async def update_payment_method(
