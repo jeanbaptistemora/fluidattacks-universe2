@@ -1,18 +1,17 @@
 /* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
   Container,
   CycleContainer,
+  CycleControl,
   CycleImageContainer,
   CycleParagraph,
   CycleTextContainer,
   CycleTitle,
   MainTextContainer,
-  ProgressBar,
-  ProgressContainer,
   ServiceParagraph,
 } from "./styledComponents";
 
@@ -26,31 +25,9 @@ const ServiceSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const [cycle, setCycle] = useState(0);
   const numberOfCycles = 6;
-  const timePerProgress = 100;
-  const progressLimit = 100;
-  const [progressValue, setprogressValue] = useState(0);
-
-  useEffect((): (() => void) => {
-    const changeCycle = (): void => {
-      setCycle((currentIndex): number =>
-        currentIndex === numberOfCycles - 1 ? 0 : currentIndex + 1
-      );
-    };
-
-    const changeprogressValue = (): void => {
-      setprogressValue((currentTime): number => {
-        if (currentTime === progressLimit) {
-          changeCycle();
-        }
-
-        return currentTime === progressLimit ? 0 : currentTime + 1;
-      });
-    };
-
-    const timer = setInterval(changeprogressValue, timePerProgress);
-
+  const changeCycle = useCallback((index: number): (() => void) => {
     return (): void => {
-      clearInterval(timer);
+      setCycle(index);
     };
   }, []);
 
@@ -76,9 +53,17 @@ const ServiceSection: React.FC = (): JSX.Element => {
         <CycleTextContainer>
           <CycleTitle>{t(`service.cycleTitle${cycle}`)}</CycleTitle>
           <CycleParagraph>{t(`service.cycleParagraph${cycle}`)}</CycleParagraph>
-          <ProgressContainer>
-            <ProgressBar width={`${progressValue}%`} />
-          </ProgressContainer>
+          {Array(numberOfCycles)
+            .fill(undefined)
+            .map((_, index): JSX.Element => {
+              return (
+                <CycleControl
+                  active={index === cycle}
+                  key={`${t(`service.cycleTitle${index}`)}`}
+                  onClick={changeCycle(index)}
+                />
+              );
+            })}
         </CycleTextContainer>
       </CycleContainer>
     </Container>
