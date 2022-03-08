@@ -2,6 +2,7 @@ from core.persist import (
     diff_results,
 )
 from core.vulnerabilities import (
+    get_vulnerability_justification,
     vulns_with_reattack_requested,
 )
 from model import (
@@ -177,7 +178,7 @@ async def test_reattacked_store() -> None:
         date="2020-01-01T00:45:12+00:00",
     )
 
-    # Vulnerabilty with a reattack requested
+    # Vulnerability with a reattack requested
     integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
@@ -192,7 +193,7 @@ async def test_reattacked_store() -> None:
             where=common_where,
         )
     )
-    # Vulnerabilty with a verified status
+    # Vulnerability with a verified status
     integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
@@ -241,3 +242,89 @@ async def test_reattacked_store() -> None:
     reattacked_store = vulns_with_reattack_requested(integrates_store)
 
     assert reattacked_store.length() == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.skims_test_group("unittesting")
+async def test_vulnerability_justification() -> None:
+    namespace = "test"
+    integrates_store: EphemeralStore = get_ephemeral_store()
+    reattacked_store: EphemeralStore = get_ephemeral_store()
+    common_finding = core_model.FindingEnum.F009
+    common_kind = core_model.VulnerabilityKindEnum.LINES
+    common_where = "file"
+    common_reattack_requested = core_model.VulnerabilityVerification(
+        state=core_model.VulnerabilityVerificationStateEnum.REQUESTED,
+        date="2020-01-01T00:45:12+00:00",
+    )
+    common_verified_status = core_model.VulnerabilityVerification(
+        state=core_model.VulnerabilityVerificationStateEnum.VERIFIED,
+        date="2020-01-01T00:45:12+00:00",
+    )
+    common_skims_metadata = core_model.SkimsVulnerabilityMetadata(
+        cwe=16,
+        description="Description",
+        snippet="> Vulnerable line 1 \n \
+                > Vulnerable lines 2 \n",
+        source_method="SAST",
+        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
+        technique=core_model.TechniqueEnum.ADVANCE_SAST,
+    )
+
+    # Vulnerability with a reattack requested
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="1",
+            where=common_where,
+            skims_metadata=common_skims_metadata,
+        )
+    )
+    # On diff_store but not in reattacked store
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="1",
+            where=common_where,
+            skims_metadata=common_skims_metadata,
+        )
+    )
+
+    reattacked_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_reattack_requested,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="1",
+            where=common_where,
+            skims_metadata=None,
+        )
+    )
+
+    justification = get_vulnerability_justification(
+        reattacked_store, integrates_store
+    )
+
+    assert justification != ""
