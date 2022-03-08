@@ -1,9 +1,11 @@
-from aiodataloader import (
-    DataLoader,
-)
 from custom_types import (
-    Group,
     Organization,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -17,6 +19,7 @@ from newutils import (
 from typing import (
     Dict,
     List,
+    Tuple,
 )
 
 
@@ -31,10 +34,8 @@ async def resolve(
         user_email, organization_id=org_id
     )
 
-    group_loader: DataLoader = info.context.loaders.group
-    groups: List[Group] = await group_loader.load_many(
-        [(group, org_id) for group in user_groups]
+    loaders: Dataloaders = info.context.loaders
+    groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
+        tuple((group, org_id) for group in user_groups)
     )
-    groups_filtered = groups_domain.filter_active_groups(groups)
-
-    return groups_filtered
+    return groups_domain.filter_active_groups_new(groups)
