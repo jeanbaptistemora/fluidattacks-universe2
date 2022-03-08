@@ -5,7 +5,7 @@ import { track } from "mixpanel-browser";
 import React from "react";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import {
   useGetAPIToken,
   useInvalidateAPIToken,
@@ -16,7 +16,6 @@ import type {
   IGetAccessTokenDictAttr,
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
 import {
-  ButtonToolbar,
   ButtonToolbarLeft,
   Col100,
   ControlLabel,
@@ -176,10 +175,9 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               </ButtonToolbarLeft>
             </Col100>
           </Row>
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
+          <div>
+            <div>
+              <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
                   {translate.t("updateAccessToken.close")}
                 </Button>
@@ -190,9 +188,9 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                 >
                   {translate.t("confirmmodal.proceed")}
                 </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
+              </ModalFooter>
+            </div>
+          </div>
         </Form>
       </Formik>
     </Modal>

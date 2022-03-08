@@ -8,7 +8,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import {
   ADD_NEW_ORGANIZATION,
@@ -19,13 +19,7 @@ import type {
   IAddOrganizationMtProps,
   IAddOrganizationQryProps,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields/";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -146,10 +140,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
                 </TooltipWrapper>
               </FormGroup>
             </Row>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
@@ -160,9 +153,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
                   >
                     {translate.t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         </Formik>
       </Modal>

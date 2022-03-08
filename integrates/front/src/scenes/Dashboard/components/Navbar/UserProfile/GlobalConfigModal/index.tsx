@@ -7,7 +7,7 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
@@ -15,13 +15,7 @@ import {
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
 } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal/queries";
 import type { ISubscriptionsToEntityReport } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal/types";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { Col100, ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -208,10 +202,9 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                     </FormGroup>
                   </Col100>
                 </Row>
-                <hr />
-                <Row>
-                  <Col100>
-                    <ButtonToolbar>
+                <div>
+                  <div>
+                    <ModalFooter>
                       <Button
                         id={"config-close"}
                         onClick={onClose}
@@ -227,9 +220,9 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                       >
                         {translate.t("configuration.confirm")}
                       </Button>
-                    </ButtonToolbar>
-                  </Col100>
-                </Row>
+                    </ModalFooter>
+                  </div>
+                </div>
               </Form>
             );
           }}
