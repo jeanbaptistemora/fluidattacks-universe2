@@ -2,14 +2,8 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  RequiredField,
-  Row,
-} from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
+import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikArrayField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { composeValidators, required, validTag } from "utils/validations";
@@ -65,10 +59,9 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
               >
                 {renderTagsFields}
               </FormikArrayField>
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
+              <div>
+                <div>
+                  <ModalFooter>
                     <Button
                       id={"portfolio-add-cancel"}
                       onClick={onClose}
@@ -84,9 +77,9 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
+                  </ModalFooter>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>

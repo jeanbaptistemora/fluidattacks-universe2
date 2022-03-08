@@ -3,17 +3,12 @@ import _ from "lodash";
 import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import {
   useGetAPIToken,
   useUpdateAPIToken,
 } from "scenes/Dashboard/components/APITokenForcesModal/hooks";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  Row,
-} from "styles/styledComponents";
+import { Col100, ControlLabel, Row } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -103,10 +98,9 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
               </Button>
             </Col100>
           </Row>
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
+          <div>
+            <div>
+              <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
                   {translate.t("updateForcesToken.close")}
                 </Button>
@@ -120,9 +114,9 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                     ? translate.t("updateForcesToken.reset")
                     : translate.t("updateForcesToken.generate")}
                 </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
+              </ModalFooter>
+            </div>
+          </div>
         </Form>
       </Formik>
     </Modal>

@@ -14,7 +14,7 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
@@ -26,7 +26,6 @@ import type {
   IGroupNameProps,
 } from "scenes/Dashboard/components/AddGroupModal/types";
 import {
-  ButtonToolbar,
   Col100,
   Col40,
   ControlLabel,
@@ -389,10 +388,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 {translate.t(
                   "organization.tabs.groups.newGroup.extraChargesMayApply"
                 )}
-                <hr />
-                <Row>
-                  <Col100>
-                    <ButtonToolbar>
+                <div>
+                  <div>
+                    <ModalFooter>
                       <Button
                         id={"add-group-cancel"}
                         onClick={onClose}
@@ -408,9 +406,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       >
                         {translate.t("confirmmodal.proceed")}
                       </Button>
-                    </ButtonToolbar>
-                  </Col100>
-                </Row>
+                    </ModalFooter>
+                  </div>
+                </div>
               </Form>
             );
           }}

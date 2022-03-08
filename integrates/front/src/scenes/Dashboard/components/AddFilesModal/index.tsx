@@ -6,14 +6,9 @@ import type { ConfigurableValidator } from "revalidate";
 import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
-import {
-  ButtonToolbar,
-  Col100,
-  RequiredField,
-  Row,
-} from "styles/styledComponents";
+import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
@@ -112,10 +107,9 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                   {translate.t("searchFindings.tabResources.uploadingProgress")}
                 </div>
               ) : undefined}
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
+              <div>
+                <div>
+                  <ModalFooter>
                     <Button
                       id={"file-add-cancel"}
                       onClick={onClose}
@@ -131,9 +125,9 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
+                  </ModalFooter>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>

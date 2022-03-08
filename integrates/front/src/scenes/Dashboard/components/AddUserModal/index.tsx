@@ -9,14 +9,13 @@ import { object, string } from "yup";
 import { getNewInitialValues, getUserData } from "./helpers";
 
 import { Button } from "components/Button/index";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
 import type {
   IAddStakeholderModalProps,
   IStakeholderAttrs,
 } from "scenes/Dashboard/components/AddUserModal/types";
 import {
-  ButtonToolbar,
   Col100,
   ControlLabel,
   FormGroup,
@@ -212,19 +211,18 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                 )}
               </Col100>
             </Row>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
                   <Button type={"submit"} variant={"primary"}>
                     {translate.t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         </Formik>
       </Modal>
