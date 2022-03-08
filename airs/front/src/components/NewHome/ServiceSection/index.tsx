@@ -34,7 +34,7 @@ const ServiceSection: React.FC = (): JSX.Element => {
       <MainTextContainer>
         <WhiteBigParagraph>{t("service.homeTitle")}</WhiteBigParagraph>
         <ServiceParagraph>{t("service.homeParagraph")}</ServiceParagraph>
-        <Link className={"no-underline"} to={"/newHome"}>
+        <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
           <NewRegularRedButton className={"mv4 w-auto-ns w-100"}>
             {t("service.homeReadMore")}
           </NewRegularRedButton>
