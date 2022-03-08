@@ -116,6 +116,21 @@ locals {
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/redshift*",
         ]
       },
+      {
+        Sid    = "manageObservesSecGroups"
+        Effect = "Allow"
+        Action = [
+          "ec2:CreateSecurityGroup",
+          "ec2:DeleteSecurityGroup",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+          "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+        ]
+        Resource = ["*"]
+      },
     ]
   }
 }
