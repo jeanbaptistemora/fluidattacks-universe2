@@ -128,6 +128,9 @@ locals {
           "ec2:RevokeSecurityGroupIngress",
           "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
           "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+          "ec2:CreateTags",
+          "ec2:DeleteTags",
+          "ec2:DescribeTags",
         ]
         Resource = ["*"]
       },

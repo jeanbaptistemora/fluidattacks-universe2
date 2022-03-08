@@ -4,7 +4,7 @@ variable "clusterUser" {
 variable "clusterPass" {
   default = "fakePassword1234"
 }
-
+# IAM
 data "aws_iam_policy_document" "cluster-policy-data" {
   statement {
     sid    = "MigrationBucketManagement"
@@ -45,7 +45,6 @@ data "aws_iam_policy_document" "cluster-assume-role-document" {
     }
   }
 }
-
 resource "aws_iam_policy" "redshift-cluster-policy" {
   name        = "redshift-cluster-policy"
   path        = "/"
@@ -70,6 +69,26 @@ resource "aws_iam_role_policy_attachment" "redshift-role-default-redshift-policy
   role       = aws_iam_role.redshift-role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonRedshiftAllCommandsFullAccess"
 }
+# Network
+resource "aws_security_group" "expose-redshift" {
+  name        = "expose-redshift"
+  description = "Expose redshift endpoint"
+  vpc_id      = data.aws_vpc.main.id
+  ingress {
+    description      = "External access"
+    from_port        = 5439
+    to_port          = 5439
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+  tags = {
+    "Name"               = "observes"
+    "management:area"    = "cost"
+    "management:product" = "observes"
+    "management:type"    = "product"
+  }
+}
 resource "aws_redshift_subnet_group" "main" {
   name = "observes"
   subnet_ids = [
@@ -83,6 +102,7 @@ resource "aws_redshift_subnet_group" "main" {
     "management:type"    = "product"
   }
 }
+# Cluster
 resource "aws_redshift_cluster" "main" {
   cluster_identifier = "observes"
   database_name      = "observes"
@@ -98,6 +118,7 @@ resource "aws_redshift_cluster" "main" {
   enhanced_vpc_routing = true
 
   cluster_subnet_group_name = aws_redshift_subnet_group.main.name
+  vpc_security_group_ids    = [aws_security_group.expose-redshift.id]
 
   preferred_maintenance_window        = "sun:04:00-sun:05:00"
   automated_snapshot_retention_period = 7
