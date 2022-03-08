@@ -19,9 +19,6 @@ from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
-from decimal import (
-    Decimal,
-)
 from dynamodb.types import (
     Item,
 )
@@ -162,13 +159,13 @@ def format_group(item: Item, organization_name: str) -> Group:
 
 
 def format_group_treatment_summary(
-    treatment_data: Dict[str, Decimal]
+    treatment_data: Dict[str, int]
 ) -> GroupTreatmentSummary:
     return GroupTreatmentSummary(
-        accepted=int(treatment_data["accepted"]),
-        accepted_undefined=int(treatment_data["acceptedUndefined"]),
-        in_progress=int(treatment_data["inProgress"]),
-        new=int(treatment_data["undefined"]),
+        accepted=int(treatment_data.get("accepted", 0)),
+        accepted_undefined=int(treatment_data.get("acceptedUndefined", 0)),
+        in_progress=int(treatment_data.get("inProgress", 0)),
+        new=int(treatment_data.get("undefined", 0)),
     )
 
 
