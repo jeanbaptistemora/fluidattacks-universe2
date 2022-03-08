@@ -165,7 +165,7 @@ async def test_diff_results() -> None:
 async def test_reattacked_store() -> None:
     namespace = "test"
     integrates_store: EphemeralStore = get_ephemeral_store()
-
+    integrates_store2: EphemeralStore = get_ephemeral_store()
     common_finding = core_model.FindingEnum.F009
     common_kind = core_model.VulnerabilityKindEnum.LINES
     common_where = "file"
@@ -238,10 +238,27 @@ async def test_reattacked_store() -> None:
             where=common_where,
         )
     )
+    # Vulnerability with a verified status
+    integrates_store2.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="0",
+            where=common_where,
+        )
+    )
 
     reattacked_store = vulns_with_reattack_requested(integrates_store)
+    reattacked_store2 = vulns_with_reattack_requested(integrates_store2)
 
     assert reattacked_store.length() == 1
+    assert reattacked_store2 is None
 
 
 @pytest.mark.asyncio
@@ -250,6 +267,8 @@ async def test_vulnerability_justification() -> None:
     namespace = "test"
     integrates_store: EphemeralStore = get_ephemeral_store()
     reattacked_store: EphemeralStore = get_ephemeral_store()
+    integrates_store2: EphemeralStore = get_ephemeral_store()
+    reattacked_store2: EphemeralStore = get_ephemeral_store()
     common_finding = core_model.FindingEnum.F009
     common_kind = core_model.VulnerabilityKindEnum.LINES
     common_where = "file"
@@ -288,7 +307,7 @@ async def test_vulnerability_justification() -> None:
             skims_metadata=common_skims_metadata,
         )
     )
-    # On diff_store but not in reattacked store
+    # On integrate_store but not in reattacked store
     integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
@@ -305,7 +324,6 @@ async def test_vulnerability_justification() -> None:
             skims_metadata=common_skims_metadata,
         )
     )
-
     reattacked_store.store(
         core_model.Vulnerability(
             finding=common_finding,
@@ -323,8 +341,45 @@ async def test_vulnerability_justification() -> None:
         )
     )
 
+    integrates_store2.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="0",
+            where=common_where,
+            skims_metadata=common_skims_metadata,
+        )
+    )
+    reattacked_store2.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="1",
+            where=common_where,
+            skims_metadata=None,
+        )
+    )
+
     justification = get_vulnerability_justification(
         reattacked_store, integrates_store
     )
+    justification2 = get_vulnerability_justification(
+        reattacked_store2, integrates_store2
+    )
 
     assert justification != ""
+    assert justification2 == ""
