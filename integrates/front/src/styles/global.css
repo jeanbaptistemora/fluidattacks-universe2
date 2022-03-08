@@ -646,14 +646,6 @@ label {
   margin-left: 40%;
 }
 
-:global .modalh-bb {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-:global .modalf-bt {
-  border-top: 1px solid #e5e5e5;
-}
-
 :global .mt-3-25 {
   margin-top: 3.25rem;
 }

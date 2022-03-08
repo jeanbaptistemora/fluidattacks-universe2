@@ -17,15 +17,13 @@ import { VALIDATE_GIT_ACCESS } from "../../queries";
 import type { IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
+import { ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   Alert,
-  ButtonToolbar,
-  Col100,
   ControlLabel,
   QuestionButton,
   RequiredField,
-  Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
@@ -459,10 +457,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                 </fieldset>
               </Can>
             </React.Fragment>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("confirmmodal.cancel")}
                   </Button>
@@ -474,9 +471,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                   >
                     {t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

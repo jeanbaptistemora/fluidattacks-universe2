@@ -5,7 +5,7 @@ import React, { useCallback } from "react";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import {
   computeConfirmationMessage,
   isDowngrading,
@@ -280,10 +280,9 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             "organization.tabs.groups.newGroup.extraChargesMayApply"
           )}
         </Alert>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
+        <div>
+          <div>
+            <ModalFooter>
               <Button onClick={handleClose} variant={"secondary"}>
                 {translate.t("confirmmodal.cancel")}
               </Button>
@@ -295,9 +294,9 @@ const ServicesForm: React.FC<IServicesFormProps> = (
               >
                 {translate.t("confirmmodal.proceed")}
               </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+            </ModalFooter>
+          </div>
+        </div>
       </Modal>
     </Form>
   );
