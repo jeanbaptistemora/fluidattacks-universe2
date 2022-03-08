@@ -138,6 +138,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}${entity}#open-severity-by-groups`}
                 reportMode={reportMode}
                 subject={subject}
                 title={t("analytics.barChart.exposureByGroups")}
