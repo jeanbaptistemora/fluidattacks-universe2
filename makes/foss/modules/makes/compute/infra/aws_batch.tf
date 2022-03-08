@@ -2,6 +2,10 @@ data "aws_ec2_instance_type" "instance" {
   instance_type = "c5ad.xlarge"
 }
 
+data "aws_ec2_instance_type" "instance_large" {
+  instance_type = "c5ad.2xlarge"
+}
+
 resource "aws_iam_role" "aws_ecs_instance_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -224,10 +228,21 @@ locals {
     },
   ]
 
+
   compute_environment_names = [
     for name, _ in local.compute_environments : name
   ]
-  instance_type = data.aws_ec2_instance_type.instance.instance_type
+  instance_types = {
+    for name, _ in local.compute_environments :
+    "${name}" => {
+      instance_type = name == "skims_all" ? (
+        [
+          data.aws_ec2_instance_type.instance_large.instance_type,
+          data.aws_ec2_instance_type.instance.instance_type
+        ]
+      ) : [data.aws_ec2_instance_type.instance.instance_type]
+    }
+  }
   instance_vcpus = (
     data.aws_ec2_instance_type.instance.default_cores
     * data.aws_ec2_instance_type.instance.default_threads_per_core
@@ -248,7 +263,7 @@ resource "aws_batch_compute_environment" "default" {
     bid_percentage = each.value.bid_percentage
     image_id       = "ami-0c09d65d2051ada93"
     instance_role  = aws_iam_instance_profile.aws_ecs_instance_role.arn
-    instance_type  = [local.instance_type]
+    instance_type  = local.instance_types["${each.key}"].instance_type
     max_vcpus      = each.value.instances * local.instance_vcpus
     min_vcpus      = 0
     security_group_ids = [
@@ -318,7 +333,7 @@ resource "aws_batch_job_definition" "makes" {
   name = "makes"
   type = "container"
   container_properties = jsonencode({
-    image = "ghcr.io/fluidattacks/makes:21.11"
+    image = "ghcr.io/fluidattacks/makes:22.03"
 
     # Will be overridden on job submission
     memory = 1800
@@ -329,26 +344,6 @@ resource "aws_batch_job_definition" "makes" {
     "Name"               = "makes"
     "management:area"    = "cost"
     "management:product" = "makes"
-    "management:type"    = "product"
-  }
-}
-
-resource "aws_batch_job_definition" "skims_process_group" {
-  name = "skims_process_group"
-  type = "container"
-  container_properties = jsonencode({
-    image = "registry.gitlab.com/fluidattacks/product/skims-process-group:latest"
-
-    # Will be overridden on job submission
-    memory = 1800
-    vcpus  = 1
-
-  })
-
-  tags = {
-    "Name"               = "skims_process_group"
-    "management:area"    = "cost"
-    "management:product" = "skims"
     "management:type"    = "product"
   }
 }
