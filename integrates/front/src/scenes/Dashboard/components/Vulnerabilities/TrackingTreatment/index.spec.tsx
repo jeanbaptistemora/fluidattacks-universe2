@@ -117,12 +117,11 @@ describe("TrackingTreatment", (): void => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
-    const onClose: jest.Mock = jest.fn();
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment1]}>
-          <TreatmentTracking onClose={onClose} vulnId={vulnId} />
+          <TreatmentTracking vulnId={vulnId} />
         </MockedProvider>
       </MemoryRouter>
     );
@@ -148,30 +147,17 @@ describe("TrackingTreatment", (): void => {
     expect(wrapper.find("li").first().find("p").first().text()).toBe(
       t("searchFindings.tabDescription.treatment.inProgress")
     );
-
-    const closeButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains(t("searchFindings.tabVuln.close").toString())
-      )
-      .first();
-
-    closeButton.simulate("click");
-    wrapper.update();
-
-    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it("should render in treatment tracking 2", async (): Promise<void> => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
-    const onClose: jest.Mock = jest.fn();
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment2]}>
-          <TreatmentTracking onClose={onClose} vulnId={vulnId} />
+          <TreatmentTracking vulnId={vulnId} />
         </MockedProvider>
       </MemoryRouter>
     );

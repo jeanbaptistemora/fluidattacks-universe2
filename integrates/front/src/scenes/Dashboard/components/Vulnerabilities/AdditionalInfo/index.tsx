@@ -17,27 +17,23 @@ import {
   Row,
 } from "./styles";
 
-import { Button } from "components/Button";
 import { commitFormatter } from "components/DataTableNext/formatters";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
 import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { ButtonToolbar } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 interface IAdditionalInfoProps {
   canRetrieveHacker: boolean;
   vulnerability: IVulnRowAttr;
-  onClose: () => void;
 }
 
 const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   canRetrieveHacker,
   vulnerability,
-  onClose,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -341,20 +337,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           </Col50>
         </OuterRow>
       </div>
-      <hr />
-      <OuterRow>
-        <Col100>
-          <ButtonToolbar>
-            <Button
-              id={"close-vuln-modal"}
-              onClick={onClose}
-              variant={"secondary"}
-            >
-              {t("searchFindings.tabVuln.close")}
-            </Button>
-          </ButtonToolbar>
-        </Col100>
-      </OuterRow>
     </React.StrictMode>
   );
 };

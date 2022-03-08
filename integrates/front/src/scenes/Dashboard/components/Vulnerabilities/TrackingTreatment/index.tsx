@@ -6,19 +6,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
-import { Button } from "components/Button";
 import styles from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index.css";
 import { TrackingTreatment } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/item";
 import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
 import type { IGetVulnTreatmentAttr } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import { ButtonToolbar, Col100 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 interface ITreatmentTrackingAttr {
   vulnId: string;
-  onClose: () => void;
 }
 
 const TrackingContainer = styled.nav.attrs({
@@ -29,7 +26,6 @@ const TrackingContainer = styled.nav.attrs({
 
 export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
   vulnId,
-  onClose,
 }: ITreatmentTrackingAttr): JSX.Element => {
   const { t } = useTranslation();
 
@@ -124,20 +120,6 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
           </ul>
         </div>
       </TrackingContainer>
-      <hr />
-      <div className={"flex flex-wrap pb1"}>
-        <Col100>
-          <ButtonToolbar>
-            <Button
-              id={"close-vuln-modal"}
-              onClick={onClose}
-              variant={"secondary"}
-            >
-              {t("searchFindings.tabVuln.close")}
-            </Button>
-          </ButtonToolbar>
-        </Col100>
-      </div>
     </React.StrictMode>
   );
 };

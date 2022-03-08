@@ -115,7 +115,6 @@ describe("AdditionalInfo", (): void => {
         >
           <AdditionalInfo
             canRetrieveHacker={false}
-            onClose={jest.fn()}
             vulnerability={formatVulnerabilities([mockVuln])[0]}
           />
         </MockedProvider>

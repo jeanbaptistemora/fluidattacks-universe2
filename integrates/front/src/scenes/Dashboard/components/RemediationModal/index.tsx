@@ -4,14 +4,11 @@ import React from "react";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import {
-  ButtonToolbar,
-  Col100,
   ControlLabel,
   FormGroup,
   RequiredField,
-  Row,
 } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -92,11 +89,9 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
                   />
                 </FormGroup>
                 {additionalInfo}
-                <br />
-                <hr />
-                <Row>
-                  <Col100>
-                    <ButtonToolbar>
+                <div>
+                  <div>
+                    <ModalFooter>
                       <Button
                         id={"cancel-remediation"}
                         onClick={onClose}
@@ -112,9 +107,9 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
                       >
                         {translate.t("confirmmodal.proceed")}
                       </Button>
-                    </ButtonToolbar>
-                  </Col100>
-                </Row>
+                    </ModalFooter>
+                  </div>
+                </div>
               </React.Fragment>
             </Form>
           )}
