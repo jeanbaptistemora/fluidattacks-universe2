@@ -58,7 +58,7 @@ async def ssh_ls_remote_root(
             "w",
             encoding="utf-8",
         ) as ssh_file:
-            ssh_file.write(base64.b64decode(cred.state.key).decode())
+            ssh_file.write(base64.b64decode(cred.state.value.key).decode())
 
         proc = await asyncio.create_subprocess_exec(
             "git",
@@ -104,7 +104,7 @@ async def ssh_clone_root(
             "w",
             encoding="utf-8",
         ) as ssh_file:
-            ssh_file.write(base64.b64decode(cred.state.key).decode())
+            ssh_file.write(base64.b64decode(cred.state.value.key).decode())
 
         folder_to_clone_root = f"{temp_dir}/{root_nickname}"
         proc = await asyncio.create_subprocess_exec(

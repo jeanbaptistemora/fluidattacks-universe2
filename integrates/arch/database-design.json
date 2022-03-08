@@ -573,6 +573,10 @@
         {
           "AttributeName": "notifications_preferences",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "value",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -2293,7 +2297,7 @@
             "name",
             "modified_date",
             "modified_by",
-            "key",
+            "value",
             "roots"
           ]
         },

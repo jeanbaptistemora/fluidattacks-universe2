@@ -23,6 +23,9 @@ from db_model.credentials.types import (
     CredentialItem,
     CredentialMetadata,
     CredentialState,
+    HttpsCredential,
+    HttpsCredentialToken,
+    SshCredential,
 )
 from db_model.enums import (
     CredentialType,
@@ -75,6 +78,7 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 from urllib3.exceptions import (
     LocationParseError,
@@ -426,11 +430,20 @@ def _format_root_credential(
 ) -> CredentialItem:
     credential_name = credentials["name"]
     credential_type = CredentialType(credentials["type"])
-    credential_key = _format_credential_key(
-        credential_type, credentials["key"]
-    )
+    credential_value: Optional[
+        Union[SshCredential, HttpsCredential, HttpsCredentialToken]
+    ] = None
+    if credential_type == CredentialType.SSH:
+        credential_value = SshCredential(key=credentials["key"])
+    elif credential_type == CredentialType.HTTPS:
+        if token := credentials.get("token"):
+            credential_value = HttpsCredentialToken(token=token)
+        elif (user := credentials.get("user")) and (
+            password := credentials.get("password")
+        ):
+            credential_value = HttpsCredential(user=user, password=password)
 
-    if not credential_name:
+    if not credential_name or credential_value is None:
         raise InvalidParameter()
 
     return CredentialItem(
@@ -438,7 +451,7 @@ def _format_root_credential(
         id=str(uuid4()),
         metadata=CredentialMetadata(type=credential_type),
         state=CredentialState(
-            key=credential_key,
+            value=credential_value,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             name=credential_name,
@@ -523,7 +536,7 @@ async def update_root_credentials(
                 group_name=group_name,
                 credential_id=existing_credential.id,
                 state=CredentialState(
-                    key=existing_credential.state.key,
+                    value=existing_credential.state.value,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     name=new_credential_name,
