@@ -1,6 +1,12 @@
+interface IGroupFileAttr {
+  description: string;
+  uploader: string;
+  uploadDate: string;
+  fileName: string;
+}
 interface IGetFilesQuery {
   resources: {
-    files: string;
+    files: IGroupFileAttr[] | null;
   };
 }
 
@@ -11,4 +17,4 @@ interface IGetTagsQuery {
   };
 }
 
-export { IGetFilesQuery, IGetTagsQuery };
+export { IGetFilesQuery, IGetTagsQuery, IGroupFileAttr };

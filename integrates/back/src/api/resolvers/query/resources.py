@@ -37,9 +37,9 @@ def _format_group_files(group_files: List[GroupFile]) -> List[Dict[str, str]]:
     return [
         {
             "description": file.description,
-            "fileName": file.filename,
+            "file_name": file.filename,
             "uploader": file.modified_by,
-            "uploadDate": convert_from_iso_str(file.modified_date),
+            "upload_date": convert_from_iso_str(file.modified_date),
         }
         for file in group_files
     ]
@@ -60,6 +60,6 @@ async def resolve(
     group: Group = await loaders.group_typed.load(group_name)
 
     return {
-        "files": _format_group_files(group.files) if group.files else [],
+        "files": _format_group_files(group.files) if group.files else None,
         f"{group_name_key}": group_name,
     }

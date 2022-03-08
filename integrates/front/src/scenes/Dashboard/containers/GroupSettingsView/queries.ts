@@ -104,7 +104,12 @@ const ADD_GROUP_TAGS_MUTATION: DocumentNode = gql`
 const GET_FILES: DocumentNode = gql`
   query GetFilesQuery($groupName: String!) {
     resources(groupName: $groupName) {
-      files
+      files {
+        description
+        fileName
+        uploadDate
+        uploader
+      }
     }
   }
 `;

@@ -23,7 +23,10 @@ import {
   REMOVE_FILE_MUTATION,
   SIGN_POST_URL_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
-import type { IGetFilesQuery } from "scenes/Dashboard/containers/GroupSettingsView/types";
+import type {
+  IGetFilesQuery,
+  IGroupFileAttr,
+} from "scenes/Dashboard/containers/GroupSettingsView/types";
 import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -200,9 +203,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     setSearchTextFilter(event.target.value);
   }
 
-  const filesDataset: IFile[] = (
-    JSON.parse(data.resources.files) as IFile[]
-  ).filter(
+  const resourcesFiles: IGroupFileAttr[] = _.isNull(data.resources.files)
+    ? []
+    : data.resources.files;
+
+  const filesDataset: IFile[] = (resourcesFiles as IFile[]).filter(
     (file: IFile): boolean =>
       file.virusChecked === true || file.virusChecked === undefined
   );

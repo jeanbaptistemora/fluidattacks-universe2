@@ -1,7 +1,6 @@
 from . import (
     get_result,
 )
-import json
 import pytest
 from typing import (
     Any,
@@ -60,4 +59,4 @@ async def test_resources(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["resources"]["groupName"] == "group1"
-    assert json.loads(result["data"]["resources"]["files"]) == files
+    assert result["data"]["resources"]["files"] == files

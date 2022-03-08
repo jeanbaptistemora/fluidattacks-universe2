@@ -37,6 +37,9 @@ from .forces_executions import (
 from .group import (
     GROUP,
 )
+from .group_file import (
+    GROUP_FILE,
+)
 from .internal_name import (
     INTERNAL_NAME,
 )
@@ -124,6 +127,7 @@ TYPES: Tuple[ObjectType, ...] = (
     FORCES_EXECUTIONS,
     GITROOT,
     GROUP,
+    GROUP_FILE,
     INTERNAL_NAME,
     IPROOT,
     ME,

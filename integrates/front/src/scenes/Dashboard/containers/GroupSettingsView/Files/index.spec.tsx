@@ -48,8 +48,7 @@ describe("Files", (): void => {
       result: {
         data: {
           resources: {
-            environments: "",
-            files: JSON.stringify([
+            files: [
               {
                 description: "Test",
                 fileName: "test.zip",
@@ -62,9 +61,8 @@ describe("Files", (): void => {
                 uploadDate: "2019-04-24 14:56",
                 uploader: "unittest@fluidattacks.com",
               },
-            ]),
+            ],
             groupName: "TEST",
-            repositories: "",
           },
         },
       },
@@ -79,17 +77,15 @@ describe("Files", (): void => {
       result: {
         data: {
           resources: {
-            environments: "",
-            files: JSON.stringify([
+            files: [
               {
                 description: "Test",
                 fileName: "test.zip",
                 uploadDate: "2019-03-01 15:21",
                 uploader: "unittest@fluidattacks.com",
               },
-            ]),
+            ],
             groupName: "TEST",
-            repositories: "",
           },
         },
       },

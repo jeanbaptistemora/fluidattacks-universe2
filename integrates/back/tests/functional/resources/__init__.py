@@ -18,7 +18,12 @@ async def get_result(
     query: str = f"""{{
         resources(groupName: "{group}"){{
             groupName
-            files
+            files {{
+                description
+                fileName
+                uploadDate
+                uploader
+            }}
             __typename
         }}
     }}"""

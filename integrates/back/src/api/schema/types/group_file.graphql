@@ -1,0 +1,11 @@
+"Group file type definition"
+type GroupFile {
+  "Description"
+  description: String!
+  "File name"
+  fileName: String!
+  "Date when the file was uploaded"
+  uploadDate: String!
+  "Email of user who uploaded the file"
+  uploader: String!
+}
