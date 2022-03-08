@@ -1,17 +1,18 @@
 /* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import {
   Container,
   CycleContainer,
-  CycleControl,
   CycleImageContainer,
   CycleParagraph,
   CycleTextContainer,
   CycleTitle,
   MainTextContainer,
+  ProgressBar,
+  ProgressContainer,
   ServiceParagraph,
 } from "./styledComponents";
 
@@ -19,17 +20,14 @@ import {
   NewRegularRedButton,
   WhiteBigParagraph,
 } from "../../../styles/styledComponents";
+import { useCarrousel } from "../../../utils/hooks";
 import { CloudImage } from "../../CloudImage";
 
 const ServiceSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const [cycle, setCycle] = useState(0);
+  const timePerProgress = 100;
   const numberOfCycles = 6;
-  const changeCycle = useCallback((index: number): (() => void) => {
-    return (): void => {
-      setCycle(index);
-    };
-  }, []);
+  const { cycle, progress } = useCarrousel(timePerProgress, numberOfCycles);
 
   return (
     <Container>
@@ -53,17 +51,9 @@ const ServiceSection: React.FC = (): JSX.Element => {
         <CycleTextContainer>
           <CycleTitle>{t(`service.cycleTitle${cycle}`)}</CycleTitle>
           <CycleParagraph>{t(`service.cycleParagraph${cycle}`)}</CycleParagraph>
-          {Array(numberOfCycles)
-            .fill(undefined)
-            .map((_, index): JSX.Element => {
-              return (
-                <CycleControl
-                  active={index === cycle}
-                  key={`${t(`service.cycleTitle${index}`)}`}
-                  onClick={changeCycle(index)}
-                />
-              );
-            })}
+          <ProgressContainer>
+            <ProgressBar width={`${progress}%`} />
+          </ProgressContainer>
         </CycleTextContainer>
       </CycleContainer>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Carousel } from "./Carousel";
@@ -6,6 +6,7 @@ import { Grid } from "./Grid";
 import { Container, TitleContainer } from "./styledComponents";
 
 import { WhiteBigParagraph } from "../../../styles/styledComponents";
+import { useCarrousel } from "../../../utils/hooks";
 
 const NumbersSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -70,29 +71,9 @@ const NumbersSection: React.FC = (): JSX.Element => {
       typeIcon: "1",
     },
   ];
+
   const timePerProgress = 100;
-  const progressLimit = 100;
-  const [cardIndex, setCardIndex] = useState(0);
-  const [progressValue, setprogressValue] = useState(0);
-
-  useEffect((): void => {
-    const changeCardIndex = (): void => {
-      setCardIndex((currentIndex): number =>
-        currentIndex === data.length - 1 ? 0 : currentIndex + 1
-      );
-    };
-
-    const changeprogressValue = (): void => {
-      setprogressValue((currentTime): number => {
-        if (currentTime === progressLimit) {
-          changeCardIndex();
-        }
-
-        return currentTime === progressLimit ? 0 : currentTime + 1;
-      });
-    };
-    setInterval(changeprogressValue, timePerProgress);
-  }, [data.length]);
+  const { cycle, progress } = useCarrousel(timePerProgress, data.length);
 
   return (
     <Container>
@@ -100,7 +81,7 @@ const NumbersSection: React.FC = (): JSX.Element => {
         <WhiteBigParagraph>{t("numbersSection.title")}</WhiteBigParagraph>
       </TitleContainer>
       <Grid data={data} />
-      <Carousel data={data[cardIndex]} progressValue={progressValue} />
+      <Carousel data={data[cycle]} progressValue={progress} />
     </Container>
   );
 };
