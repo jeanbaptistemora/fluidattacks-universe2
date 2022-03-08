@@ -41,7 +41,7 @@ import {
   filterSubSelectCount,
   filterWhere,
 } from "components/DataTableNext/utils";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_FINDINGS,
@@ -53,13 +53,7 @@ import type {
   IFindingAttr,
   IGroupFindingsAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikDropdown } from "utils/forms/fields";
@@ -837,10 +831,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 </option>
               </Field>
             </FormGroup>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={closeDeleteModal} variant={"secondary"}>
                     {translate.t("confirmmodal.cancel")}
                   </Button>
@@ -851,9 +844,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                   >
                     {translate.t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         </Formik>
       </Modal>

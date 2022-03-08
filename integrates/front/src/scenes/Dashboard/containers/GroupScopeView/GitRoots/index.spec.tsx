@@ -11,8 +11,6 @@ import { ManagementModal } from "./ManagementModal";
 
 import { GitRoots } from ".";
 import type { IGitRootAttr } from "../types";
-import { Button } from "components/Button";
-import { ButtonToolbar } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("GitRoots", (): void => {
@@ -224,7 +222,7 @@ describe("GitRoots", (): void => {
       expect.anything()
     );
 
-    const cancelButton = wrapper.find(ButtonToolbar).find(Button).at(0);
+    const cancelButton = wrapper.find({ id: "close-modal" }).at(0);
 
     cancelButton.simulate("click");
 

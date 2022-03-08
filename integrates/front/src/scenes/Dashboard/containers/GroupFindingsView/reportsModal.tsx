@@ -17,18 +17,13 @@ import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
 import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import {
-  ButtonToolbar,
-  ButtonToolbarCenter,
-  Col100,
-  Row,
-} from "styles/styledComponents";
+import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -223,16 +218,15 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
             </p>
           </Col100>
         </div>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
+        <div>
+          <div>
+            <ModalFooter>
               <Button onClick={onClose} variant={"secondary"}>
                 {translate.t("group.findings.report.modalClose")}
               </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+            </ModalFooter>
+          </div>
+        </div>
       </Modal>
     </React.StrictMode>
   );

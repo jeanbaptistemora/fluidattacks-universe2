@@ -18,7 +18,7 @@ import {
   filterSelect,
   filterText,
 } from "components/DataTableNext/utils";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
@@ -27,7 +27,6 @@ import type {
   IFoundVulnerabilities,
   IGetExecution,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { formatDate } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -476,19 +475,18 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           strictness={currentRow.strictness}
           vulnerabilities={currentRow.vulnerabilities}
         />
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
+        <div>
+          <div>
+            <ModalFooter>
               <Button
                 onClick={closeSeeExecutionDetailsModal}
                 variant={"secondary"}
               >
                 {translate.t("group.forces.executionDetailsModal.close")}
               </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+            </ModalFooter>
+          </div>
+        </div>
       </Modal>
     </React.StrictMode>
   );

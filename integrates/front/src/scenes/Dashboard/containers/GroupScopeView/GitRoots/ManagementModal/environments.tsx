@@ -5,13 +5,8 @@ import { array, object, string } from "yup";
 
 import type { IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  RequiredField,
-  Row,
-} from "styles/styledComponents";
+import { ModalFooter } from "components/Modal";
+import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikArrayField, FormikText } from "utils/forms/fields";
 
 interface IEnvironmentsProps {
@@ -53,10 +48,9 @@ const Environments: React.FC<IEnvironmentsProps> = ({
                 <Field component={FormikText} name={fieldName} type={"text"} />
               )}
             </FormikArrayField>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("confirmmodal.cancel")}
                   </Button>
@@ -68,9 +62,9 @@ const Environments: React.FC<IEnvironmentsProps> = ({
                   >
                     {t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </React.Fragment>
         </Form>
       )}
