@@ -4,14 +4,13 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.colors import (
     RISK,
 )
 from charts.utils import (
     format_cvssf,
+    format_cvssf_log,
+    get_cvssf,
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
@@ -64,8 +63,7 @@ async def get_data_one_group(
         Tuple[Vulnerability, ...], ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many(finding_ids)
     findings_cvssf = [
-        utils.get_cvssf(get_severity_score(finding.severity))
-        for finding in findings
+        get_cvssf(get_severity_score(finding.severity)) for finding in findings
     ]
 
     vulnerabilities_by_source = [
@@ -113,7 +111,7 @@ def format_data(
             columns=[
                 [
                     legend,
-                    *[format_cvssf(Decimal(value)) for _, value in data],
+                    *[format_cvssf_log(Decimal(value)) for _, value in data],
                 ],
             ],
             colors={
@@ -145,9 +143,14 @@ def format_data(
                 ),
             ),
         ),
+        logarithmic=True,
         maxValue=format_max_value(
             [(key, Decimal(value)) for key, value in data]
         ),
+        maxValueLog=format_max_value(
+            [(key, format_cvssf_log(Decimal(value))) for key, value in data]
+        ),
+        originalValues=[format_cvssf(Decimal(value)) for _, value in data],
     )
 
 
