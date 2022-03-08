@@ -20,7 +20,6 @@ class StateRemovalJustification(str, Enum):
 
 class CredentialType(str, Enum):
     SSH: str = "SSH"
-    HTTPS: str = "HTTPS"
 
 
 class GitCloningStatus(str, Enum):

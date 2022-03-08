@@ -11,7 +11,6 @@ from db_model.credentials.types import (
     CredentialItem,
     CredentialMetadata,
     CredentialState,
-    SshCredential,
 )
 from db_model.enums import (
     CredentialType,
@@ -93,7 +92,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 id="3912827d-2b35-4e08-bd35-1bb24457951d",
                 metadata=CredentialMetadata(type=CredentialType.SSH),
                 state=CredentialState(
-                    value=SshCredential(key="VGVzdCBTU0gK"),
+                    key="VGVzdCBTU0gK",
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",
@@ -105,7 +104,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
                 metadata=CredentialMetadata(type=CredentialType.SSH),
                 state=CredentialState(
-                    value=SshCredential(key="VGVzdCBTU0gK"),
+                    key="VGVzdCBTU0gK",
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",
@@ -117,7 +116,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 id="4a5dacda-1d52-365c-5158-f6fd5dfe0999",
                 metadata=CredentialMetadata(type=CredentialType.SSH),
                 state=CredentialState(
-                    value=SshCredential(key="VGVzdCBTU0gK"),
+                    key="VGVzdCBTU0gK",
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",

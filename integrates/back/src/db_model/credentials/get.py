@@ -12,7 +12,6 @@ from collections import (
 )
 from custom_exceptions import (
     CredentialNotFound,
-    InvalidParameter,
 )
 from db_model import (
     TABLE,
@@ -21,9 +20,6 @@ from db_model.credentials.types import (
     CredentialItem,
     CredentialMetadata,
     CredentialState,
-    HttpsCredential,
-    HttpsCredentialToken,
-    SshCredential,
 )
 from db_model.enums import (
     CredentialType,
@@ -39,9 +35,7 @@ from dynamodb.types import (
 )
 from typing import (
     List,
-    Optional,
     Tuple,
-    Union,
 )
 
 
@@ -61,23 +55,6 @@ def _build_credential(
         historic_suffix="STATE",
         raw_items=raw_items,
     )
-    credential_value: Optional[
-        Union[SshCredential, HttpsCredential, HttpsCredentialToken]
-    ] = None
-    credential_type = CredentialType(metadata["type"])
-
-    if credential_type == CredentialType.SSH:
-        credential_value = SshCredential(key=state["value"]["key"])
-    elif credential_type == CredentialType.HTTPS:
-        if token := state["value"].get("token"):
-            credential_value = HttpsCredentialToken(token=token)
-        elif (user := state["value"].get("user")) and (
-            password := state["value"].get("password")
-        ):
-            credential_value = HttpsCredential(user=user, password=password)
-
-    if credential_value is None:
-        raise InvalidParameter()
 
     return CredentialItem(
         group_name=group_name,
@@ -86,7 +63,7 @@ def _build_credential(
             type=CredentialType(metadata["type"]),
         ),
         state=CredentialState(
-            value=credential_value,
+            key=state["key"],
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
             name=state["name"],
@@ -214,35 +191,16 @@ async def _get_historic_state(
         table=TABLE,
     )
 
-    credentials: Tuple[CredentialState, ...] = ()
-
-    for state in response.items:
-        credential_value: Optional[
-            Union[SshCredential, HttpsCredential, HttpsCredentialToken]
-        ] = None
-        if key := state.get("key"):
-            credential_value = SshCredential(key=key)
-        elif token := state.get("token"):
-            credential_value = HttpsCredentialToken(token=token)
-        elif (user := state.get("user")) and (
-            password := state.get("password")
-        ):
-            credential_value = HttpsCredential(user=user, password=password)
-
-        if credential_value is None:
-            raise InvalidParameter()
-        credentials = (
-            *credentials,
-            CredentialState(
-                value=credential_value,
-                modified_by=state["modified_by"],
-                modified_date=state["modified_date"],
-                name=state["name"],
-                roots=state["roots"],
-            ),
+    return tuple(
+        CredentialState(
+            key=state["key"],
+            modified_by=state["modified_by"],
+            modified_date=state["modified_date"],
+            name=state["name"],
+            roots=state["roots"],
         )
-
-    return credentials
+        for state in response.items
+    )
 
 
 class CredentialStatesLoader(DataLoader):
