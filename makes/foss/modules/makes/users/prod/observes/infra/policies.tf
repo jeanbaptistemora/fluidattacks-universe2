@@ -106,6 +106,8 @@ locals {
           "iam:DeleteRole",
           "iam:DeleteRolePolicy",
           "iam:DetachRolePolicy",
+          "iam:TagRole",
+          "iam:PassRole",
         ]
         Resource = [
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes*",

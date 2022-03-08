@@ -7,7 +7,7 @@ variable "clusterPass" {
 
 data "aws_iam_policy_document" "cluster-policy-data" {
   statement {
-    sid    = "S3_permissions"
+    sid    = "MigrationBucketManagement"
     effect = "Allow"
     actions = [
       "s3:GetObject",
