@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
 import { translate } from "utils/translations/translate";
 
 interface IConfirmFn {
@@ -52,10 +51,9 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
     <React.Fragment>
       <Modal onClose={handleClose} open={isOpen} title={title}>
         {message}
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
+        <div>
+          <div>
+            <ModalFooter>
               <Button
                 id={"confirmmodal-cancel"}
                 onClick={handleClose}
@@ -70,9 +68,9 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
               >
                 {translate.t("confirmmodal.proceed")}
               </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+            </ModalFooter>
+          </div>
+        </div>
       </Modal>
       {children(confirm)}
     </React.Fragment>

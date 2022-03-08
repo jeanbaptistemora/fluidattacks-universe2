@@ -49,7 +49,7 @@ def test_finding_description(
 
     close = utils.wait_for_id(
         driver,
-        "close-columns-modal",
+        "close-modal",
         timeout,
     )
     close.click()

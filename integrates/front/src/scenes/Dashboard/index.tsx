@@ -15,7 +15,7 @@ import {
 } from "./styles";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
@@ -303,13 +303,15 @@ export const Dashboard: React.FC = (): JSX.Element => {
                 <div>
                   <p>{translate.t("validations.inactiveSession")}</p>
                 </div>
-                <Button
-                  id={"inactivity-modal-dismiss"}
-                  onClick={handleClick}
-                  variant={"secondary"}
-                >
-                  {translate.t("validations.inactiveSessionDismiss")}
-                </Button>
+                <ModalFooter>
+                  <Button
+                    id={"inactivity-modal-dismiss"}
+                    onClick={handleClick}
+                    variant={"secondary"}
+                  >
+                    {translate.t("validations.inactiveSessionDismiss")}
+                  </Button>
+                </ModalFooter>
               </Modal>
             </React.Fragment>
           )}

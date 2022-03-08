@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { IAddedFileModalProps } from "scenes/Dashboard/components/AddedFileModal/types";
 import { translate } from "utils/translations/translate";
 
@@ -22,9 +22,15 @@ const addedFileModal: React.FC<IAddedFileModalProps> = (
             {translate.t("searchFindings.tabResources.files.fileIsPending")}
           </p>
         </div>
-        <Button id={"file-added-close"} onClick={onClose} variant={"secondary"}>
-          {translate.t("configuration.close")}
-        </Button>
+        <ModalFooter>
+          <Button
+            id={"file-added-close"}
+            onClick={onClose}
+            variant={"secondary"}
+          >
+            {translate.t("configuration.close")}
+          </Button>
+        </ModalFooter>
       </Modal>
     </React.StrictMode>
   );

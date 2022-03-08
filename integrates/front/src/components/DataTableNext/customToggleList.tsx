@@ -13,13 +13,7 @@ import { Button } from "components/Button";
 import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  Row,
-  RowCenter,
-} from "styles/styledComponents";
+import { ControlLabel, Row, RowCenter } from "styles/styledComponents";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
   props: Readonly<ICustomToggleProps>
@@ -102,20 +96,6 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
               })}
           </div>
         </RowCenter>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button
-                id={"close-columns-modal"}
-                onClick={handleCloseTableSetClick}
-                variant={"primary"}
-              >
-                {t("group.findings.report.modalClose")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
       </Modal>
     </div>
   );

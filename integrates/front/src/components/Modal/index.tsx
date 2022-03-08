@@ -37,7 +37,9 @@ const Modal: React.FC<IModalProps> = ({
             <Header>
               <Title>{title}</Title>
               {onClose === undefined ? undefined : (
-                <CloseButton onClick={onClose}>{"×"}</CloseButton>
+                <CloseButton id={"close-modal"} onClick={onClose}>
+                  {"×"}
+                </CloseButton>
               )}
             </Header>
             {children}

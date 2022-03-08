@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ModalFooter = styled.div.attrs({
-  className: "modalf-bt pa1-5 tr",
+  className: "flex justify-center",
 })``;
 
 export { ModalFooter };

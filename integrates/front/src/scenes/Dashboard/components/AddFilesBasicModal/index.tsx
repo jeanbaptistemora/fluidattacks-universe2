@@ -5,14 +5,9 @@ import React from "react";
 import { mixed, object } from "yup";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { IAddFilesBasicModalProps } from "scenes/Dashboard/components/AddFilesBasicModal/types";
-import {
-  ButtonToolbar,
-  Col100,
-  RequiredField,
-  Row,
-} from "styles/styledComponents";
+import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { isValidFileSize } from "utils/validations";
@@ -84,10 +79,9 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
                   {translate.t("searchFindings.tabResources.uploadingProgress")}
                 </div>
               ) : undefined}
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
+              <div>
+                <div>
+                  <ModalFooter>
                     <Button
                       id={"file-add-cancel"}
                       onClick={onClose}
@@ -103,9 +97,9 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
+                  </ModalFooter>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>
