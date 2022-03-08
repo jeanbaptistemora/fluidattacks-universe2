@@ -44,7 +44,7 @@ def _fill_vuln_info(
     solicited reattack"""
     selected_vulns = [vuln.where for vuln in vulns if vuln.id in vulns_ids]
     selected_vulns = list(set(selected_vulns))
-    wheres = ", ".join(cast(List[str], selected_vulns))
+    wheres = ", ".join(selected_vulns)
     # Avoid needless repetition of the header if the comment is answering more
     # than one reattack
     if not comment.get("content", "").startswith(
