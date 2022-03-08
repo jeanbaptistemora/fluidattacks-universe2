@@ -25,7 +25,6 @@ from integrates.domain import (
 )
 from integrates.graphql import (
     client as graphql_client,
-    create_session,
 )
 from io import (
     BytesIO,
@@ -341,7 +340,6 @@ async def persist(
     *,
     group: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
-    token: str,
 ) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
     """Persist all findings with the data extracted from the store.
 
@@ -349,14 +347,9 @@ async def persist(
     :type group: str
     :param stores: A mapping of findings to results store
     :type stores: Dict[core_model.FindingEnum, EphemeralStore]
-    :param token: Integrates API token
-    :type token: str
     :return: A boolean indicating success
     :rtype: bool
     """
-    create_session(api_token=token)
-
-    await verify_permissions(group=group)
 
     async with graphql_client() as client:
         result = await collect(

@@ -3,6 +3,7 @@ from config import (
 )
 from core.persist import (
     persist,
+    verify_permissions,
 )
 import csv
 from ctx import (
@@ -156,12 +157,10 @@ def notify_findings_as_csv(
 
 
 async def persist_to_integrates(
-    token: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
-    create_session(token)
     log_blocking("info", f"Results will be sync to group: {CTX.config.group}")
-    return await persist(group=CTX.config.group, stores=stores, token=token)
+    return await persist(group=CTX.config.group, stores=stores)
 
 
 async def notify_end(
@@ -200,9 +199,6 @@ async def main(
     token: Optional[str],
 ) -> bool:
     try:
-        persisted_results = {}
-        batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
-
         CTX.config = load(group, config) if isinstance(config, str) else config
 
         configure_logs()
@@ -216,11 +212,19 @@ async def main(
 
         os.chdir(CTX.config.working_dir)
 
+        integrates_access = False
+        if group and token:
+            create_session(token)
+            integrates_access = await verify_permissions(group=group)
+
+        persisted_results = {}
+        batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
+
         start_date = datetime.utcnow()
         stores = await execute_skims()
 
-        if group and token:
-            persisted_results = await persist_to_integrates(token, stores)
+        if integrates_access:
+            persisted_results = await persist_to_integrates(stores)
         else:
             log_blocking(
                 "info",
@@ -233,7 +237,7 @@ async def main(
 
         success = all(persisted_results.values())
 
-        if batch_job_id:
+        if integrates_access and batch_job_id:
             await notify_end(batch_job_id, start_date, persisted_results)
 
         return success
