@@ -7,10 +7,14 @@ function render(dataDocument, height, width) {
     if (value === 0.0) {
       return value;
     }
-    const base = 10.0;
+    const base = 100.0;
     const formattedValue = Math.round(Math.pow(2.0, value) * base) / base;
 
     return formattedValue;
+  }
+
+  if (dataDocument.barChartYTickFormat) {
+    dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
   }
 
   if (dataDocument.maxValue) {
