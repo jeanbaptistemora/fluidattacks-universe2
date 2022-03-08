@@ -599,10 +599,11 @@ async def put_action_to_batch(
     action_name: str,
     action_dynamo_pk: str,
     entity: str,
-    queue: str = "spot_soon",
     product_name: str,
-    vcpus: int = 2,
     attempt_duration_seconds: int = 3600,
+    memory: int = 7200,
+    queue: str = "spot_soon",
+    vcpus: int = 2,
     **kwargs: Any,
 ) -> Optional[str]:
     if FI_ENVIRONMENT == "development":
@@ -634,7 +635,7 @@ async def put_action_to_batch(
                                 "value": PRODUCT_API_TOKEN,
                             },
                         ],
-                        "memory": 7200,
+                        "memory": memory,
                     },
                     retryStrategy={
                         "attempts": 1,
@@ -661,14 +662,14 @@ async def put_action_to_batch(
 async def put_action(  # pylint: disable=too-many-locals
     *,
     action: Action,
-    entity: str,
-    subject: str,
     additional_info: str,
-    queue: str = "spot_soon",
-    vcpus: int = 2,
+    entity: str,
     product_name: Product,
+    subject: str,
     attempt_duration_seconds: int = 3600,
     dynamodb_pk: Optional[str] = None,
+    queue: str = "spot_soon",
+    vcpus: int = 2,
     **kwargs: Any,
 ) -> PutActionResult:
     time: str = str(get_as_epoch(get_now()))

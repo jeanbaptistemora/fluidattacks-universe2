@@ -310,6 +310,7 @@ in
           [ "request_vulnerabilities_hold" ]
           [ "request_vulnerabilities_verification" ]
           [ "request_vulnerabilities_zero_risk" ]
+          [ "requeue_actions" ]
           [ "reset_expired_accepted_findings" ]
           [ "resources" ]
           [ "sign_in" ]

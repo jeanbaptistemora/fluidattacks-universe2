@@ -5,6 +5,8 @@ from batch import (
     dal as batch_dal,
 )
 from batch.enums import (
+    Action,
+    JobStatus,
     Product,
 )
 from batch.types import (
@@ -12,89 +14,146 @@ from batch.types import (
 )
 from typing import (
     List,
+    NamedTuple,
 )
 
 
-def _filter_refresh_toe_inputs_actions(
-    pending_actions: List[BatchProcessing],
-) -> List[BatchProcessing]:
-    refresh_toe_inputs_actions_to_requeue = list(
-        {
-            action.entity: action
-            for action in pending_actions
-            if action.action_name == "refresh_toe_inputs"
-        }.values()
-    )
-    non_refresh_toe_inputs_actions = [
+class CompleteBatchJob(NamedTuple):
+    id: str
+    status: JobStatus
+    vcpus: int
+
+
+async def _get_machine_keys_to_delete(
+    running_actions: List[BatchProcessing],
+    complete_batch_jobs: List[CompleteBatchJob],
+) -> List[str]:
+    # Machine executions may fail due to memory consumption.
+    # If there is a failed job, requeue the execution using more resources.
+    # If it still fails, delete it from the DB or else it will be requeued
+    # indefinitely
+    machine_actions_to_retry: List[BatchProcessing] = [
         action
-        for action in pending_actions
-        if not action.action_name == "refresh_toe_inputs"
+        for action in running_actions
+        if action.action_name == Action.EXECUTE_MACHINE.value
+        for batch_job in complete_batch_jobs
+        if action.batch_job_id == batch_job.id
+        and batch_job.status == JobStatus.FAILED
+        and batch_job.vcpus <= 4
     ]
-    return (
-        non_refresh_toe_inputs_actions + refresh_toe_inputs_actions_to_requeue
+    await collect(
+        batch_dal.put_action(
+            action=Action.EXECUTE_MACHINE,
+            additional_info=action.additional_info,
+            attempt_duration_seconds=86400,
+            entity=action.entity,
+            memory=15400,
+            product_name=Product.SKIMS,
+            queue=action.queue,
+            subject=action.subject,
+            vcpus=8,
+        )
+        for action in machine_actions_to_retry
     )
 
+    machine_keys_to_delete: List[str] = [
+        action.key
+        for action in running_actions
+        if action.action_name == Action.EXECUTE_MACHINE.value
+        for batch_job in complete_batch_jobs
+        if action.batch_job_id == batch_job.id
+        and batch_job.status == JobStatus.FAILED
+    ]
+    return machine_keys_to_delete
 
-def _filter_refresh_toe_lines_actions(
-    pending_actions: List[BatchProcessing],
+
+async def _filter_completed_actions(
+    actions_to_requeue: List[BatchProcessing],
 ) -> List[BatchProcessing]:
-    refresh_toe_lines_actions_to_requeue = list(
-        {
-            action.entity: action
-            for action in pending_actions
-            if action.action_name == "refresh_toe_lines"
-        }.values()
-    )
-    non_refresh_toe_lines_actions = [
+    # Deletes entries from the DB that have a complete Batch execution
+    # with status SUCCEEDED and for whatever reason remain in the DB.
+    running_actions: List[BatchProcessing] = [
         action
-        for action in pending_actions
-        if not action.action_name == "refresh_toe_lines"
+        for action in actions_to_requeue
+        if action.running and action.batch_job_id
     ]
-    return non_refresh_toe_lines_actions + refresh_toe_lines_actions_to_requeue
-
-
-async def requeue_actions() -> None:
-    pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
-    removable_actions = {"execute-machine"}
-
-    pending_actions = _filter_refresh_toe_inputs_actions(pending_actions)
-    pending_actions = _filter_refresh_toe_lines_actions(pending_actions)
-    report_additional_info = dict(
-        vcpus=4,
-        attempt_duration_seconds=7200,
-    )
-    running_actions = [action for action in pending_actions if action.running]
-    # jobs that are running in the db but failed in batch
-    failed_batch_job: List[str] = [
-        job["jobId"]
+    complete_batch_jobs: List[CompleteBatchJob] = [
+        CompleteBatchJob(
+            id=str(job["jobId"]),
+            status=JobStatus(job["status"]),
+            vcpus=int(job["container"]["vcpus"]),
+        )
         for job in await batch_dal.describe_jobs(
             *[
                 action.batch_job_id
                 for action in running_actions
-                if action.batch_job_id
+                if action.batch_job_id is not None  # Check to comply with Mypy
             ]
         )
         if job["status"]
         in [
-            batch_dal.JobStatus.FAILED.value,
-            batch_dal.JobStatus.SUCCEEDED.value,
+            JobStatus.FAILED.value,
+            JobStatus.SUCCEEDED.value,
         ]
     ]
-    # remove actions that in their normal process can fail
-    removed_actions_key = [
+
+    succeeded_keys_to_delete: List[str] = [
         action.key
-        for action in pending_actions
-        if action.action_name in removable_actions
-        and (
-            action.batch_job_id is not None
-            and action.batch_job_id in failed_batch_job
-        )
+        for action in running_actions
+        for batch_job in complete_batch_jobs
+        if action.batch_job_id == batch_job.id
+        and batch_job.status == JobStatus.SUCCEEDED
     ]
+    machine_keys_to_delete: List[str] = await _get_machine_keys_to_delete(
+        running_actions, complete_batch_jobs
+    )
+    keys_to_delete: List[str] = (
+        succeeded_keys_to_delete + machine_keys_to_delete
+    )
     await collect(
-        [
-            batch_dal.delete_action(dynamodb_pk=action_key)
-            for action_key in removed_actions_key
-        ]
+        [batch_dal.delete_action(dynamodb_pk=key) for key in keys_to_delete]
+    )
+
+    return [
+        action
+        for action in actions_to_requeue
+        if action.key not in keys_to_delete
+    ]
+
+
+def _filter_duplicated_actions(
+    actions_to_requeue: List[BatchProcessing], action_to_filter: Action
+) -> List[BatchProcessing]:
+    # Prevents that entries with the same action over the same entity
+    # are requeued at the same time
+    filtered_unique_actions: List[BatchProcessing] = list(
+        {
+            action.entity: action
+            for action in actions_to_requeue
+            if action.action_name == action_to_filter.value
+        }.values()
+    )
+    remaining_actions: List[BatchProcessing] = [
+        action
+        for action in actions_to_requeue
+        if action.action_name != action_to_filter.value
+    ]
+    return filtered_unique_actions + remaining_actions
+
+
+async def requeue_actions() -> None:
+    actions_to_requeue: List[BatchProcessing] = await batch_dal.get_actions()
+    actions_to_requeue = _filter_duplicated_actions(
+        actions_to_requeue, Action.REFRESH_TOE_INPUTS
+    )
+    actions_to_requeue = _filter_duplicated_actions(
+        actions_to_requeue, Action.REFRESH_TOE_LINES
+    )
+    actions_to_requeue = await _filter_completed_actions(actions_to_requeue)
+
+    report_additional_info = dict(
+        vcpus=4,
+        attempt_duration_seconds=7200,
     )
     await collect(
         [
@@ -114,12 +173,7 @@ async def requeue_actions() -> None:
                     else {}
                 ),
             )
-            for action in pending_actions
-            if (
-                action.key not in removed_actions_key
-                and action.batch_job_id is not None
-                and action.batch_job_id in failed_batch_job
-            )
+            for action in actions_to_requeue
         ],
         workers=20,
     )
