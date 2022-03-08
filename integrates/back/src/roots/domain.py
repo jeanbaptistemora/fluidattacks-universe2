@@ -1053,6 +1053,21 @@ async def add_machine_execution(
     return await roots_model.add_machine_execution(root_id, execution)
 
 
+async def finish_machine_execution(
+    root_id: str,
+    job_id: str,
+    **kwargs: Any,
+) -> bool:
+    stop_date = kwargs.pop("stopped_at").astimezone(pytz.timezone(TIME_ZONE))
+
+    return await roots_model.finish_machine_execution(
+        root_id,
+        job_id,
+        stopped_at=datetime_utils.get_as_str(stop_date),
+        findings_executed=kwargs.pop("findings_executed", []),
+    )
+
+
 async def validate_git_access(**kwargs: Any) -> None:
     url: str = _format_git_repo_url(kwargs["url"])
     cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])

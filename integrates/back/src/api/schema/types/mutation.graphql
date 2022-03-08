@@ -247,7 +247,7 @@ type Mutation {
     port: Int!
   ): AddRootPayload!
 
-  "Adds an machine execution to git root"
+  "Adds a machine execution to git root"
   addMachineExecution(
     "Name of the group the root is associated with"
     groupName: String!
@@ -390,6 +390,20 @@ type Mutation {
     "Identifier of the finding associated with the vulnerabilities"
     findingId: String!
   ): DownloadFilePayload!
+
+  "Registers a machine execution finalization"
+  finishMachineExecution(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "Nickname of the root"
+    rootNickname: String!
+    "Id of the job in aws batch"
+    jobId: ID!
+    "when the job was stopped"
+    stoppedAt: DateTime!
+    "Findings executed in the job"
+    findingsExecuted: [MachineFindingResultInput]
+  ): SimplePayload!
 
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(

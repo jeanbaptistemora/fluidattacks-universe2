@@ -1,6 +1,7 @@
 from boto3.dynamodb.conditions import (
     Attr,
 )
+import botocore
 from contextlib import (
     suppress,
 )
@@ -14,6 +15,7 @@ from db_model.roots.types import (
     GitRootCloning,
     GitRootState,
     IPRootState,
+    MachineFindingResult,
     RootItem,
     RootUnreliableIndicatorsToUpdate,
     URLRootState,
@@ -30,6 +32,7 @@ from dynamodb.exceptions import (
 )
 import simplejson as json  # type: ignore
 from typing import (
+    List,
     Union,
 )
 
@@ -181,3 +184,30 @@ async def update_unreliable_indicators(
         )
     except ConditionalCheckFailedException as ex:
         raise IndicatorAlreadyUpdated() from ex
+
+
+async def finish_machine_execution(
+    root_id: str,
+    job_id: str,
+    stopped_at: str,
+    findings_executed: List[MachineFindingResult],
+) -> bool:
+    key_structure = TABLE.primary_key
+    machine_execution_key = keys.build_key(
+        facet=TABLE.facets["machine_git_root_execution_new"],
+        values={"uuid": root_id, "job_id": job_id},
+    )
+
+    with suppress(botocore.exceptions.ClientError):
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item={
+                "stopped_at": stopped_at,
+                "findings_executed": findings_executed,
+            },
+            key=machine_execution_key,
+            table=TABLE,
+        )
+        return True
+
+    return False
