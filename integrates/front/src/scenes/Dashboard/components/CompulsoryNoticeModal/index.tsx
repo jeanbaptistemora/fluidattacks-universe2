@@ -3,8 +3,7 @@ import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Modal } from "components/Modal";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
 import { FormikCheckbox } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
@@ -48,10 +47,9 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
             name={"remember"}
             title={translate.t("legalNotice.rememberCbo.tooltip")}
           />
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
+          <div>
+            <div>
+              <ModalFooter>
                 <Button
                   title={translate.t("legalNotice.acceptBtn.tooltip")}
                   type={"submit"}
@@ -59,9 +57,9 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
                 >
                   {translate.t("legalNotice.acceptBtn.text")}
                 </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
+              </ModalFooter>
+            </div>
+          </div>
         </Form>
       </Formik>
     </Modal>

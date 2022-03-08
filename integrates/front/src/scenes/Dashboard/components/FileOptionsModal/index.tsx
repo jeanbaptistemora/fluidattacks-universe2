@@ -5,9 +5,8 @@ import React from "react";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import {
-  ButtonToolbar,
   ButtonToolbarCenter,
   Col100,
   Col33,
@@ -80,16 +79,15 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                     </Col33>
                   </ButtonToolbarCenter>
                 </Row>
-                <hr />
-                <Row>
-                  <Col100>
-                    <ButtonToolbar>
+                <div>
+                  <div>
+                    <ModalFooter>
                       <Button onClick={onClose} variant={"secondary"}>
                         {translate.t("confirmmodal.cancel")}
                       </Button>
-                    </ButtonToolbar>
-                  </Col100>
-                </Row>
+                    </ModalFooter>
+                  </div>
+                </div>
               </React.Fragment>
             );
           }}

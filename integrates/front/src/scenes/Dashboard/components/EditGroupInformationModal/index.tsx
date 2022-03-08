@@ -3,16 +3,10 @@ import React from "react";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
+import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IEditGroupInformation } from "scenes/Dashboard/components/EditGroupInformationModal/types";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { Col100, ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
@@ -113,10 +107,9 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                   </FormGroup>
                 </Col100>
               </Row>
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
+              <div>
+                <div>
+                  <ModalFooter>
                     <Button
                       id={"edit-group-inf-cancel"}
                       onClick={onClose}
@@ -131,9 +124,9 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
+                  </ModalFooter>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>
