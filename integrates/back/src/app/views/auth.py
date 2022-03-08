@@ -15,6 +15,9 @@ from authlib.integrations.starlette_client import (
 from decorators import (
     retry_on_exceptions,
 )
+from httpx import (
+    ConnectTimeout,
+)
 import logging
 import logging.config
 from newutils import (
@@ -113,6 +116,11 @@ async def do_bitbucket_login(request: Request) -> Response:
     return await bitbucket.authorize_redirect(request, redirect_uri)
 
 
+@retry_on_exceptions(
+    exceptions=(ConnectTimeout,),
+    max_attempts=5,
+    sleep_seconds=float("0.3"),
+)
 async def do_google_login(request: Request) -> Response:
     redirect_uri = utils.get_redirect_url(request, "authz_google")
     google = OAUTH.create_client("google")
