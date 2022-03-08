@@ -8,11 +8,12 @@ import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskTable } from "./ZeroRiskTable";
 
 import { Button } from "components/Button";
+import { ModalFooter } from "components/Modal";
 import type {
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalFormProps,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+import { Col100, Col50, Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
@@ -87,10 +88,9 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
             />
           </Col100>
         </Row>
-        <hr />
-        <Row>
-          <Col100>
-            <ButtonToolbar>
+        <div>
+          <div>
+            <ModalFooter>
               <Button onClick={handleCloseModal} variant={"secondary"}>
                 {translate.t("group.findings.report.modalClose")}
               </Button>
@@ -106,9 +106,9 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
               >
                 {translate.t("confirmmodal.proceed")}
               </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+            </ModalFooter>
+          </div>
+        </div>
       </Form>
     );
   };

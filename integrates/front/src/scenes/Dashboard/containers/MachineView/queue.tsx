@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import type { IQueue } from "./types";
 
 import { Button } from "components/Button";
-import { ButtonToolbar, Col100, FormGroup, Row } from "styles/styledComponents";
+import { ModalFooter } from "components/Modal";
+import { FormGroup } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
@@ -96,9 +97,9 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
                   );
                 })}
               </ul>
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
+              <div>
+                <div>
+                  <ModalFooter>
                     <Button
                       id={"cancel-job"}
                       onClick={handleClose}
@@ -114,9 +115,9 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
                     >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
+                  </ModalFooter>
+                </div>
+              </div>
             </FormGroup>
           </div>
         </Form>

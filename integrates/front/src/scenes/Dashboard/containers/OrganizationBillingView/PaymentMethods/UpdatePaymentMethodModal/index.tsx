@@ -4,14 +4,8 @@ import { useTranslation } from "react-i18next";
 import { boolean, object, string } from "yup";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
-import {
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  RequiredField,
-  Row,
-} from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
+import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikCheckbox, FormikText } from "utils/forms/fields";
 
 interface IUpdatePaymentModalProps {
@@ -89,10 +83,9 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
                 type={"checkbox"}
               />
             </div>
-            <hr />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("confirmmodal.cancel")}
                   </Button>
@@ -103,9 +96,9 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
                   >
                     {t("confirmmodal.proceed")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>
