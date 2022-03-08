@@ -4,6 +4,10 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 import logging
 import logging.config
 from mailer.resources import (
@@ -25,6 +29,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def handle_virus_scan_requester(*, item: BatchProcessing) -> None:
+    loaders: Dataloaders = get_new_context()
     group_name = item.entity
     file_name = item.additional_info
     user_email = item.subject
@@ -40,6 +45,7 @@ async def handle_virus_scan_requester(*, item: BatchProcessing) -> None:
 
     if handled_file:
         await send_mail_handled_file(
+            loaders,
             user_email,
             group_name,
             file_name,
@@ -48,6 +54,7 @@ async def handle_virus_scan_requester(*, item: BatchProcessing) -> None:
     else:
         await resources_utils.remove_file(file_name)
         await send_mail_handled_file(
+            loaders,
             user_email,
             group_name,
             file_name,
