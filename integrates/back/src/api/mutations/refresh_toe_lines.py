@@ -10,6 +10,7 @@ from batch import (
 )
 from batch.enums import (
     Action,
+    JobStatus,
     Product,
 )
 from custom_types import (
@@ -48,10 +49,10 @@ async def mutate(
         job_payloads = await batch_domain.get_job_payloads(
             queues=[queue],
             statuses=[
-                batch_dal.JobStatus.SUBMITTED,
-                batch_dal.JobStatus.PENDING,
-                batch_dal.JobStatus.RUNNABLE,
-                batch_dal.JobStatus.STARTING,
+                JobStatus.SUBMITTED,
+                JobStatus.PENDING,
+                JobStatus.RUNNABLE,
+                JobStatus.STARTING,
             ],
         )
         current_job_payload = next(
