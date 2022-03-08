@@ -40,6 +40,12 @@ input CredentialsInput {
   key: String
   "Name of the credential"
   name: String!
+  "Https password"
+  password: String
+  "Https token"
+  token: String
   "Type of authentication"
   type: CredentialType!
+  "Https user"
+  user: String
 }

@@ -63,7 +63,10 @@ def _build_credential(
             type=CredentialType(metadata["type"]),
         ),
         state=CredentialState(
-            key=state["key"],
+            key=state.get("key"),
+            user=state.get("user"),
+            password=state.get("password"),
+            token=state.get("token"),
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
             name=state["name"],
@@ -193,7 +196,10 @@ async def _get_historic_state(
 
     return tuple(
         CredentialState(
-            key=state["key"],
+            key=state.get("key"),
+            user=state.get("user"),
+            password=state.get("password"),
+            token=state.get("token"),
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
             name=state["name"],

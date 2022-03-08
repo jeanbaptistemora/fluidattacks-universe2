@@ -51,6 +51,10 @@ async def ssh_ls_remote_root(
 ) -> Optional[str]:
     parsed_url = urlparse(root_url)
     raw_root_url = root_url.replace(f"{parsed_url.scheme}://", "")
+
+    if cred.state.key is None:
+        return None
+
     with tempfile.TemporaryDirectory() as temp_dir:
         ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
         with open(
@@ -97,6 +101,10 @@ async def ssh_clone_root(
 ) -> CloneResult:
     success: bool = False
     raw_root_url = root_url.replace(f"{urlparse(root_url).scheme}://", "")
+
+    if cred.state.key is None:
+        return CloneResult(success=False)
+
     with tempfile.TemporaryDirectory() as temp_dir:
         ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
         with open(

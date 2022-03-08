@@ -426,9 +426,6 @@ def _format_root_credential(
 ) -> CredentialItem:
     credential_name = credentials["name"]
     credential_type = CredentialType(credentials["type"])
-    credential_key = _format_credential_key(
-        credential_type, credentials["key"]
-    )
 
     if not credential_name:
         raise InvalidParameter()
@@ -438,7 +435,12 @@ def _format_root_credential(
         id=str(uuid4()),
         metadata=CredentialMetadata(type=credential_type),
         state=CredentialState(
-            key=credential_key,
+            key=_format_credential_key(credential_type, credentials["key"])
+            if "key" in credentials
+            else None,
+            user=credentials.get("user"),
+            password=credentials.get("password"),
+            token=credentials.get("token"),
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             name=credential_name,
@@ -524,6 +526,9 @@ async def update_root_credentials(
                 credential_id=existing_credential.id,
                 state=CredentialState(
                     key=existing_credential.state.key,
+                    user=existing_credential.state.user,
+                    password=existing_credential.state.password,
+                    token=existing_credential.state.token,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     name=new_credential_name,
