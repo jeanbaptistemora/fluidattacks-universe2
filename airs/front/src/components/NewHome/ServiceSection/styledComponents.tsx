@@ -154,14 +154,13 @@ const CycleControl = styled.button.attrs({
 const ProgressContainer = styled.div.attrs({
   className: `
     mb5
-    w-70
     relative
     br3
     bg-black-gray
   `,
 })`
   height: 10px;
-  max-width: 630px;
+  max-width: 315px;
 `;
 
 const ProgressBar = styled.div.attrs({
