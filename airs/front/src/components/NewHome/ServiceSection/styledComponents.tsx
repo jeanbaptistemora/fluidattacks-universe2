@@ -151,6 +151,31 @@ const CycleControl = styled.button.attrs({
   width: 16px;
 `;
 
+const ProgressContainer = styled.div.attrs({
+  className: `
+    mb5
+    w-70
+    relative
+    br3
+    bg-black-gray
+  `,
+})`
+  height: 10px;
+  max-width: 630px;
+`;
+
+const ProgressBar = styled.div.attrs({
+  className: `
+    relative
+    br3
+    bg-fluid-red
+  `,
+})<{ width: string }>`
+  height: 100%;
+  width: ${({ width }): string => width};
+  transition: width 0.25s;
+`;
+
 export {
   Container,
   CycleContainer,
@@ -160,5 +185,7 @@ export {
   CycleTitle,
   CycleImageContainer,
   MainTextContainer,
+  ProgressBar,
+  ProgressContainer,
   ServiceParagraph,
 };
