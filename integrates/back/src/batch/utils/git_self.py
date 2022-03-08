@@ -44,53 +44,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def ssh_ls_remote_root(
-    root_url: str,
-    cred: CredentialItem,
-    branch: str = "HEAD",
-) -> Optional[str]:
-    parsed_url = urlparse(root_url)
-    raw_root_url = root_url.replace(f"{parsed_url.scheme}://", "")
-
-    if cred.state.key is None:
-        return None
-
-    with tempfile.TemporaryDirectory() as temp_dir:
-        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
-        with open(
-            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
-            "w",
-            encoding="utf-8",
-        ) as ssh_file:
-            ssh_file.write(base64.b64decode(cred.state.key).decode())
-
-        proc = await asyncio.create_subprocess_exec(
-            "git",
-            "ls-remote",
-            "-h",
-            raw_root_url,
-            branch,
-            stderr=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE,
-            env={
-                **os.environ.copy(),
-                "GIT_SSH_COMMAND": (
-                    f"ssh -i {ssh_file_name} -o"
-                    "UserKnownHostsFile=/dev/null -o "
-                    "StrictHostKeyChecking=no"
-                ),
-            },
-        )
-        stdout, _ = await proc.communicate()
-
-        os.remove(ssh_file_name)
-
-        if proc.returncode != 0:
-            return None
-
-        return stdout.decode().split("\t")[0]
-
-
 async def ssh_clone_root(
     *,
     group_name: str,

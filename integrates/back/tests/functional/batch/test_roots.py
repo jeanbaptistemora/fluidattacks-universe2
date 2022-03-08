@@ -141,7 +141,7 @@ async def test_queue_sync_git_roots_cloning(
 ) -> None:
     mocker.patch.object(
         batch_roots,
-        "ssh_ls_remote_root",
+        "ssh_ls_remote",
         return_value="904d294729ad03fd2dadbb89b920389458e53a61c",
     )
     loaders: Dataloaders = get_new_context()
@@ -170,7 +170,7 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
 ) -> None:
     mocker.patch.object(
         batch_roots,
-        "ssh_ls_remote_root",
+        "ssh_ls_remote",
         return_value="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
     )
     mocker.patch.object(
@@ -205,7 +205,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
 ) -> None:
     mocker.patch.object(
         batch_roots,
-        "ssh_ls_remote_root",
+        "ssh_ls_remote",
         return_value="6d2059f5d5b3954feb65fcbc5a368e8ef9964b62",
     )
     mocker.patch.object(

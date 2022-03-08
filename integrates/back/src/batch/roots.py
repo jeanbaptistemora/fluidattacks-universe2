@@ -16,7 +16,6 @@ from batch.types import (
 )
 from batch.utils.git_self import (
     ssh_clone_root,
-    ssh_ls_remote_root,
 )
 from batch.utils.s3 import (
     is_in_s3,
@@ -24,6 +23,7 @@ from batch.utils.s3 import (
 from custom_exceptions import (
     CredentialNotFound,
     InactiveRoot,
+    InvalidParameter,
     RepeatedToeInput,
     RepeatedToeLines,
     RootAlreadyCloning,
@@ -42,6 +42,7 @@ from db_model.credentials.types import (
     CredentialItem,
 )
 from db_model.enums import (
+    CredentialType,
     Notification,
     Source,
 )
@@ -100,6 +101,10 @@ from mailer.common import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+import newutils.git
+from newutils.git import (
+    ssh_ls_remote,
 )
 from operator import (
     attrgetter,
@@ -660,15 +665,27 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     )
 
 
-async def _ssh_ls_remote_root(
+async def _ls_remote_root(
     root: RootItem, cred: CredentialItem
 ) -> Tuple[str, Optional[str]]:
-    return (
-        root.id,
-        await ssh_ls_remote_root(
-            root_url=root.state.url, cred=cred, branch=root.state.branch
-        ),
-    )
+    if cred.metadata.type == CredentialType.SSH:
+        return (
+            root.id,
+            await ssh_ls_remote(
+                repo_url=root.state.url, credential_key=cred.state.key
+            ),
+        )
+    if cred.metadata.type == CredentialType.HTTPS:
+        return (
+            root.id,
+            await newutils.git.https_ls_remote(
+                repo_url=root.state.url,
+                user=cred.state.user,
+                password=cred.state.password,
+                token=cred.state.token,
+            ),
+        )
+    raise InvalidParameter()
 
 
 async def queue_sync_git_roots(
@@ -736,7 +753,7 @@ async def queue_sync_git_roots(
 
     last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(
-            _ssh_ls_remote_root(roots_dict[root_id], cred)
+            _ls_remote_root(roots_dict[root_id], cred)
             for root_id, cred in roots_with_creds.items()
         )
     )

@@ -2,9 +2,13 @@ from aioextensions import (
     in_thread,
 )
 import asyncio
+import base64
 from context import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,
+)
+from custom_exceptions import (
+    InvalidParameter,
 )
 from datetime import (
     datetime,
@@ -15,9 +19,16 @@ from git import (
 from newutils import (
     datetime as datetime_utils,
 )
+import os
+import tempfile
 from typing import (
     NamedTuple,
+    Optional,
 )
+from urllib.parse import (
+    urlparse,
+)
+import uuid
 
 
 class CommitInfo(NamedTuple):
@@ -102,3 +113,82 @@ async def get_last_modified_date(repo: Repo, filename: str) -> str:
             )
         )
     )
+
+
+async def ssh_ls_remote(
+    repo_url: str,
+    credential_key: str,
+    branch: str = "HEAD",
+) -> Optional[str]:
+    parsed_url = urlparse(repo_url)
+    raw_root_url = repo_url.replace(f"{parsed_url.scheme}://", "")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
+        with open(
+            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+            "w",
+            encoding="utf-8",
+        ) as ssh_file:
+            ssh_file.write(base64.b64decode(credential_key).decode())
+
+        proc = await asyncio.create_subprocess_exec(
+            "git",
+            "ls-remote",
+            raw_root_url,
+            branch,
+            stderr=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            env={
+                **os.environ.copy(),
+                "GIT_SSH_COMMAND": (
+                    f"ssh -i {ssh_file_name} -o"
+                    "UserKnownHostsFile=/dev/null -o "
+                    "StrictHostKeyChecking=no"
+                ),
+            },
+        )
+        stdout, _ = await proc.communicate()
+
+        os.remove(ssh_file_name)
+
+        if proc.returncode != 0:
+            return None
+
+        return stdout.decode().split("\t")[0]
+
+
+async def https_ls_remote(
+    repo_url: str,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
+    branch: str = "HEAD",
+) -> Optional[str]:
+    parsed_url = urlparse(repo_url)
+    if token is not None:
+        url = repo_url.replace(
+            parsed_url.netloc, f"{token}@{parsed_url.netloc}"
+        )
+    elif user is not None and password is not None:
+        url = repo_url.replace(
+            parsed_url.netloc, f"{user}:{password}@{parsed_url.netloc}"
+        )
+    else:
+        raise InvalidParameter()
+
+    proc = await asyncio.create_subprocess_exec(
+        "git",
+        "ls-remote",
+        url,
+        branch,
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        stdin=asyncio.subprocess.DEVNULL,
+    )
+    stdout, _ = await proc.communicate()
+
+    if proc.returncode != 0:
+        return None
+
+    return stdout.decode().split("\t")[0]

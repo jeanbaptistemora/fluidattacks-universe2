@@ -1,5 +1,3 @@
-import asyncio
-import base64
 from custom_exceptions import (
     InactiveRoot,
     InvalidChar,
@@ -24,9 +22,9 @@ from git import (
 from ipaddress import (
     ip_address,
 )
+import newutils.git
 import os
 import re
-import tempfile
 from typing import (
     Dict,
     List,
@@ -38,7 +36,6 @@ from urllib.parse import (
     unquote_plus,
     urlparse,
 )
-import uuid
 
 
 def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
@@ -180,32 +177,11 @@ def validate_nickname(nickname: str) -> None:
 async def _validate_git_credentials_ssh(
     repo_url: str, credential_key: str
 ) -> None:
-    with tempfile.TemporaryDirectory() as temp_dir:
-        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
-        parsed_url = urlparse(repo_url)
-        url = repo_url.replace(f"{parsed_url.scheme}://", "")
-        with open(
-            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
-            "w",
-            encoding="utf-8",
-        ) as ssh_file:
-            ssh_file.write(base64.b64decode(credential_key).decode())
-
-        proc = await asyncio.create_subprocess_exec(
-            "git",
-            "ls-remote",
-            "-h",
-            url,
-            stderr=asyncio.subprocess.PIPE,
-            stdout=asyncio.subprocess.PIPE,
-            env={
-                **os.environ.copy(),
-                "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
-            },
-        )
-        await proc.communicate()
-        if proc.returncode != 0:
-            raise InvalidGitCredentials()
+    las_commit = await newutils.git.ssh_ls_remote(
+        repo_url=repo_url, credential_key=credential_key
+    )
+    if las_commit is None:
+        raise InvalidGitCredentials()
 
 
 async def _validate_git_credentials_https(
@@ -214,30 +190,13 @@ async def _validate_git_credentials_https(
     password: Optional[str] = None,
     token: Optional[str] = None,
 ) -> None:
-    parsed_url = urlparse(repo_url)
-    if token is not None:
-        url = repo_url.replace(
-            parsed_url.netloc, f"{token}@{parsed_url.netloc}"
-        )
-    elif user is not None and password is not None:
-        url = repo_url.replace(
-            parsed_url.netloc, f"{user}:{password}@{parsed_url.netloc}"
-        )
-    else:
-        raise InvalidGitCredentials()
-
-    proc = await asyncio.create_subprocess_exec(
-        "git",
-        "ls-remote",
-        "-h",
-        url,
-        stderr=asyncio.subprocess.PIPE,
-        stdout=asyncio.subprocess.PIPE,
-        stdin=asyncio.subprocess.DEVNULL,
+    las_commit = await newutils.git.https_ls_remote(
+        repo_url=repo_url,
+        password=password,
+        token=token,
+        user=user,
     )
-    await proc.communicate()
-
-    if proc.returncode != 0:
+    if las_commit is None:
         raise InvalidGitCredentials()
 
 
