@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-component-props */
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Col100, Col33, Col50 } from "./components/ChartCols";
 
@@ -17,13 +18,14 @@ import {
   Row,
   RowCenter,
 } from "styles/styledComponents";
-import { translate } from "utils/translations/translate";
 
-const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
-  props: IChartsGenericViewProps
-): JSX.Element => {
-  const { bgChange, entity, reportMode, subject } = props;
-
+const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
+  bgChange,
+  entity,
+  reportMode,
+  subject,
+}: IChartsGenericViewProps): JSX.Element => {
+  const { t } = useTranslation();
   const graphInfoLink = "https://docs.fluidattacks.com/machine/web/analytics/";
 
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] =
@@ -63,9 +65,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}${entity}#remediation-rate-benchmarking`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t(
-                  "analytics.stackedBarChart.cvssfBenchmarking.title"
-                )}
+                title={t("analytics.stackedBarChart.cvssfBenchmarking.title")}
               />
             </Col100>
           </RowCenter>
@@ -85,9 +85,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#mttr-benchmarking`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.barChart.mttrBenchmarking.title"
-                  )}
+                  title={t("analytics.barChart.mttrBenchmarking.title")}
                 />
               </Col100>
             </RowCenter>
@@ -104,7 +102,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#total-exposure`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
+                  title={t(
                     "analytics.stackedBarChart.exposedOverTimeCvssf.title"
                   )}
                 />
@@ -123,9 +121,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.barChart.topVulnerabilities.title"
-                  )}
+                  title={t("analytics.barChart.topVulnerabilities.title")}
                 />
               </Col100>
             </RowCenter>
@@ -144,7 +140,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 generatorType={"c3"}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("analytics.barChart.exposureByGroups")}
+                title={t("analytics.barChart.exposureByGroups")}
               />
             </Col100>
           </RowCenter>
@@ -164,9 +160,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.stackedBarChart.riskOverTime.title"
-                  )}
+                  title={t("analytics.stackedBarChart.riskOverTime.title")}
                 />
               </Col100>
             </RowCenter>
@@ -182,7 +176,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   generatorType={"stackedBarChart"}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
+                  title={t(
                     "analytics.stackedBarChart.distributionOverTimeCvssf.title"
                   )}
                 />
@@ -201,7 +195,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#vulnerabilities-treatment`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.pieChart.treatment.title")}
+                  title={t("analytics.pieChart.treatment.title")}
                 />
               </Col50>
               <Col50>
@@ -216,7 +210,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#vulnerabilities-by-source`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("tagIndicator.vulnerabilitiesByType")}
+                  title={t("tagIndicator.vulnerabilitiesByType")}
                 />
               </Col50>
             </RowCenter>
@@ -233,7 +227,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}organization#total-types`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.textBox.totalTypes.title")}
+                  title={t("analytics.textBox.totalTypes.title")}
                 />
               </Col33>
               <Col33>
@@ -248,9 +242,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#days-until-zero-exposure`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.textBox.daysUntilZeroExposition.title"
-                  )}
+                  title={t("analytics.textBox.daysUntilZeroExposition.title")}
                 />
               </Col33>
               <Col33>
@@ -265,7 +257,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}groups#vulnerabilities-with-not-defined-treatment`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
+                  title={t(
                     "analytics.textBox.vulnsWithUndefinedTreatment.title"
                   )}
                 />
@@ -284,9 +276,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#vulnerabilities-being-re-attacked`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.textBox.findingsBeingReattacked.title"
-                  )}
+                  title={t("analytics.textBox.findingsBeingReattacked.title")}
                 />
               </Col33>
               <Col33>
@@ -301,9 +291,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#days-since-last-remediation`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.textBox.daysSinceLastRemediation.title"
-                  )}
+                  title={t("analytics.textBox.daysSinceLastRemediation.title")}
                 />
               </Col33>
               <Col33>
@@ -318,9 +306,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#total-vulnerabilities`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.textBox.totalVulnerabilities.title"
-                  )}
+                  title={t("analytics.textBox.totalVulnerabilities.title")}
                 />
               </Col33>
             </RowCenter>
@@ -337,7 +323,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#severity`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.gauge.severity.title")}
+                  title={t("analytics.gauge.severity.title")}
                 />
               </Col50>
               <Col50>
@@ -352,7 +338,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}common#active-resources-distribution`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.pieChart.resources.title")}
+                  title={t("analytics.pieChart.resources.title")}
                 />
               </Col50>
             </RowCenter>
@@ -372,7 +358,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}groups#systems-risk`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t(
+                title={t(
                   "analytics.disjointForceDirectedGraph.whereToFindings.title"
                 )}
               />
@@ -395,7 +381,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#vulnerabilities-by-tag`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByTag")}
+                title={t("tagIndicator.vulnerabilitiesByTag")}
               />
             </Col100>
           </RowCenter>
@@ -412,7 +398,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#vulnerabilities-by-level`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByLevel")}
+                title={t("tagIndicator.vulnerabilitiesByLevel")}
               />
             </Col100>
           </RowCenter>
@@ -429,9 +415,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#accepted-vulnerabilities-by-user`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t(
-                  "tagIndicator.acceptedVulnerabilitiesByUser"
-                )}
+                title={t("tagIndicator.acceptedVulnerabilitiesByUser")}
               />
             </Col100>
           </RowCenter>
@@ -452,7 +436,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#unsolved-events-by-groups`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("analytics.barChart.eventualities")}
+                title={t("analytics.barChart.eventualities")}
               />
             </Col100>
           </RowCenter>
@@ -469,7 +453,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-closed`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.remediatedVuln")}
+                title={t("tagIndicator.remediatedVuln")}
               />
             </Col100>
           </RowCenter>
@@ -486,7 +470,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-and-accepted`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.remediatedAcceptedVuln")}
+                title={t("tagIndicator.remediatedAcceptedVuln")}
               />
             </Col100>
           </RowCenter>
@@ -503,7 +487,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#findings-by-group`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.findingsGroup")}
+                title={t("tagIndicator.findingsGroup")}
               />
             </Col100>
           </RowCenter>
@@ -520,7 +504,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#open-findings-by-group`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.openFindingsGroup")}
+                title={t("tagIndicator.openFindingsGroup")}
               />
             </Col100>
           </RowCenter>
@@ -537,7 +521,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#top-oldest-findings`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.topOldestFindings")}
+                title={t("tagIndicator.topOldestFindings")}
               />
             </Col100>
           </RowCenter>
@@ -554,7 +538,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#treatmentless-by-group`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.undefinedTitle")}
+                title={t("tagIndicator.undefinedTitle")}
               />
             </Col50>
             <Col50>
@@ -569,7 +553,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#vulnerabilities-by-treatments`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
+                title={t("tagIndicator.vulnerabilitiesByTreatments")}
               />
             </Col50>
           </RowCenter>
@@ -586,7 +570,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#vulnerabilities-by-group`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.vulnsGroups")}
+                title={t("tagIndicator.vulnsGroups")}
               />
             </Col50>
             <Col50>
@@ -601,7 +585,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#open-vulnerabilities-by-group`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.openVulnsGroups")}
+                title={t("tagIndicator.openVulnsGroups")}
               />
             </Col50>
           </RowCenter>
@@ -622,7 +606,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#vulnerabilities-by-number-of-changes-in-treatment`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
+                title={t("tagIndicator.vulnerabilitiesByTreatments")}
               />
             </Col50>
           </Row>
@@ -643,9 +627,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#accepted-vulnerabilities-by-severity`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t(
-                  "tagIndicator.acceptedVulnerabilitiesBySeverity"
-                )}
+                title={t("tagIndicator.acceptedVulnerabilitiesBySeverity")}
               />
             </Col100>
           </RowCenter>
@@ -662,7 +644,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}common#mean-average-days-to-remediate`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.meanRemediate")}
+                title={t("tagIndicator.meanRemediate")}
               />
             </Col100>
           </RowCenter>
@@ -683,7 +665,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}portfolio#tags-by-groups`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("analytics.heatMapChart.groupsByTag")}
+                title={t("analytics.heatMapChart.groupsByTag")}
               />
             </Col100>
           </RowCenter>
@@ -704,7 +686,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 infoLink={`${graphInfoLink}groups#findings-by-tags`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("analytics.heatMapChart.findingsByTag")}
+                title={t("analytics.heatMapChart.findingsByTag")}
               />
             </Col100>
           </RowCenter>
@@ -717,29 +699,19 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               >
                 <PanelCollapse aria-expanded={isForcesDescriptionExpanded}>
                   <PanelCollapseHeader>
-                    <h1>{translate.t("analytics.sections.forces.title")}</h1>
+                    <h1>{t("analytics.sections.forces.title")}</h1>
                   </PanelCollapseHeader>
                   <PanelCollapseBody>
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.forcesStatus.footer.intro"
-                      )}
-                    </p>
+                    <p>{t("analytics.textBox.forcesStatus.footer.intro")}</p>
                     <ul>
                       <li>
-                        {translate.t(
-                          "analytics.textBox.forcesStatus.footer.smart"
-                        )}
+                        {t("analytics.textBox.forcesStatus.footer.smart")}
                       </li>
                       <li>
-                        {translate.t(
-                          "analytics.textBox.forcesStatus.footer.breaks"
-                        )}
+                        {t("analytics.textBox.forcesStatus.footer.breaks")}
                       </li>
                       <li>
-                        {translate.t(
-                          "analytics.textBox.forcesStatus.footer.stats"
-                        )}
+                        {t("analytics.textBox.forcesStatus.footer.stats")}
                       </li>
                     </ul>
                   </PanelCollapseBody>
@@ -760,7 +732,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}groups#service-status`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.textBox.forcesStatus.title")}
+                  title={t("analytics.textBox.forcesStatus.title")}
                 />
               </Col33>
               <Col33>
@@ -775,7 +747,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}groups#service-usage`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.textBox.forcesUsage.title")}
+                  title={t("analytics.textBox.forcesUsage.title")}
                 />
               </Col33>
               <Col33>
@@ -790,7 +762,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}groups#repositories-and-branches`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
+                  title={t(
                     "analytics.textBox.forcesRepositoriesAndBranches.title"
                   )}
                 />
@@ -809,9 +781,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}groups#your-commitment-towards-security`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t(
-                    "analytics.gauge.forcesSecurityCommitment.title"
-                  )}
+                  title={t("analytics.gauge.forcesSecurityCommitment.title")}
                 />
               </Col50>
               <Col50>
@@ -826,7 +796,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   infoLink={`${graphInfoLink}groups#builds-risk`}
                   reportMode={reportMode}
                   subject={subject}
-                  title={translate.t("analytics.gauge.forcesBuildsRisk.title")}
+                  title={t("analytics.gauge.forcesBuildsRisk.title")}
                 />
               </Col50>
             </RowCenter>
