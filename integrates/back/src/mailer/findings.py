@@ -72,7 +72,8 @@ async def send_mail_comment(
     )
 
 
-async def send_mail_remove_finding(
+async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
+    loaders: Any,
     finding_id: str,
     finding_name: str,
     group_name: str,
@@ -94,8 +95,15 @@ async def send_mail_remove_finding(
         "justification": justification_dict[justification],
         "group": group_name,
     }
+    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.REMEDIATE_FINDING
+        in user.notifications_preferences.email
+    ]
     await send_mails_async(
-        recipients,
+        users_email,
         mail_context,
         GENERAL_TAG,
         f"Finding removed [{finding_name}] in [{group_name}]",
