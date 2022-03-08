@@ -1071,7 +1071,8 @@ async def finish_machine_execution(
 async def validate_git_access(**kwargs: Any) -> None:
     url: str = _format_git_repo_url(kwargs["url"])
     cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])
-    cred_key: str = _format_credential_key(
-        cred_type, kwargs["credentials"]["key"]
+    if key := kwargs["credentials"].get("key"):
+        kwargs["credentials"]["key"] = _format_credential_key(cred_type, key)
+    await validations.validate_git_credentials(
+        url, cred_type, kwargs["credentials"]
     )
-    await validations.validate_git_credentials(url, cred_type, cred_key)

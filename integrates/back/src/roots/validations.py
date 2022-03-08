@@ -28,7 +28,9 @@ import os
 import re
 import tempfile
 from typing import (
+    Dict,
     List,
+    Optional,
     Tuple,
 )
 from urllib.parse import (
@@ -175,33 +177,81 @@ def validate_nickname(nickname: str) -> None:
         raise InvalidChar()
 
 
-async def validate_git_credentials(
-    repo_url: str, credential_type: CredentialType, credential_key: str
+async def _validate_git_credentials_ssh(
+    repo_url: str, credential_key: str
 ) -> None:
-    if credential_type == "SSH":
-        with tempfile.TemporaryDirectory() as temp_dir:
-            ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
-            parsed_url = urlparse(repo_url)
-            url = repo_url.replace(f"{parsed_url.scheme}://", "")
-            with open(
-                os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
-                "w",
-                encoding="utf-8",
-            ) as ssh_file:
-                ssh_file.write(base64.b64decode(credential_key).decode())
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
+        parsed_url = urlparse(repo_url)
+        url = repo_url.replace(f"{parsed_url.scheme}://", "")
+        with open(
+            os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+            "w",
+            encoding="utf-8",
+        ) as ssh_file:
+            ssh_file.write(base64.b64decode(credential_key).decode())
 
-            proc = await asyncio.create_subprocess_exec(
-                "git",
-                "ls-remote",
-                "-h",
-                url,
-                stderr=asyncio.subprocess.PIPE,
-                stdout=asyncio.subprocess.PIPE,
-                env={
-                    **os.environ.copy(),
-                    "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
-                },
-            )
-            await proc.communicate()
-            if proc.returncode != 0:
-                raise InvalidGitCredentials()
+        proc = await asyncio.create_subprocess_exec(
+            "git",
+            "ls-remote",
+            "-h",
+            url,
+            stderr=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            env={
+                **os.environ.copy(),
+                "GIT_SSH_COMMAND": f"ssh -i {ssh_file_name}",
+            },
+        )
+        await proc.communicate()
+        if proc.returncode != 0:
+            raise InvalidGitCredentials()
+
+
+async def _validate_git_credentials_https(
+    repo_url: str,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
+) -> None:
+    parsed_url = urlparse(repo_url)
+    if token is not None:
+        url = repo_url.replace(
+            parsed_url.netloc, f"{token}@{parsed_url.netloc}"
+        )
+    elif user is not None and password is not None:
+        url = repo_url.replace(
+            parsed_url.netloc, f"{user}:{password}@{parsed_url.netloc}"
+        )
+    else:
+        raise InvalidGitCredentials()
+
+    proc = await asyncio.create_subprocess_exec(
+        "git",
+        "ls-remote",
+        "-h",
+        url,
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        stdin=asyncio.subprocess.DEVNULL,
+    )
+    await proc.communicate()
+
+    if proc.returncode != 0:
+        raise InvalidGitCredentials()
+
+
+async def validate_git_credentials(
+    repo_url: str, credential_type: CredentialType, credentials: Dict[str, str]
+) -> None:
+    if (credential_type.value == "SSH") and (
+        credential_key := credentials.get("key")
+    ):
+        await _validate_git_credentials_ssh(repo_url, credential_key)
+    elif credential_type.value == "HTTPS":
+        await _validate_git_credentials_https(
+            repo_url,
+            token=credentials.get("token"),
+            user=credentials.get("user"),
+            password=credentials.get("password"),
+        )
