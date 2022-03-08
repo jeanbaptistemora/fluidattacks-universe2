@@ -74,6 +74,21 @@ def from_env(prefix: EnvVarPrefix) -> Tuple[DatabaseId, Credentials]:
     return (db, creds)
 
 
+EPHEMERAL_SCHEMAS = frozenset(
+    [
+        "announcekit",
+        "bugsnag",
+        "checkly",
+        "delighted",
+        "formstack",
+        "mailchimp",
+        "mixpanel_integrates",
+        "timedoctor",
+        "zoho_crm",
+    ]
+)
+
+
 @dataclass(frozen=True)
 class Exporter:
     table_client_R: TableClient
@@ -83,14 +98,18 @@ class Exporter:
     role: str
 
     def export_table(self, table: TableId) -> Cmd[ManifestId]:
-        prefix = f"{self.bucket}/{table.schema.name}/{table.name}_"
+        prefix = f"{self.bucket}/{table.schema.name}/{table.name}/"
         return self.table_client_R.unload(table, prefix, self.role)
 
     def target_tables(self) -> Cmd[PureIter[TableId]]:
-        filter_fx: Callable[
-            [SchemaId], bool
-        ] = lambda s: not s.name.startswith("pg_") and not s.name.endswith(
-            "_backup"
+        filter_fx: Callable[[SchemaId], bool] = lambda s: all(
+            [
+                not s.name.startswith("pg_"),
+                not s.name.startswith("dynamodb_"),
+                not s.name.endswith("backup"),
+                not s.name == "information_schema",
+                not s.name in EPHEMERAL_SCHEMAS,
+            ]
         )
         return (
             self.schema_client_R.all_schemas()
@@ -109,12 +128,15 @@ class Exporter:
         )
 
     def export_to_s3(self) -> Cmd[None]:
-        tables = self.target_tables()
-        manifests = tables.map(
-            lambda p: p.map(
-                lambda t: self.export_table(t).map(lambda m: (t, m))
-            ).to_list()
-        ).bind(lambda x: serial_merge(x))
+        manifests = (
+            self.target_tables()
+            .map(
+                lambda p: p.map(
+                    lambda t: self.export_table(t).map(lambda m: (t, m))
+                ).to_list()
+            )
+            .bind(lambda x: serial_merge(x))
+        )
         unload = (
             manifests.map(
                 lambda l: tuple(
@@ -141,7 +163,7 @@ def main(
                 TableClient(w),
                 SchemaClient(r),
                 "s3://observes.migration",
-                "arn:aws:iam::205810638802:role/prod_makes",
+                "arn:aws:iam::205810638802:role/redshift-role",
             )
         )
     )
