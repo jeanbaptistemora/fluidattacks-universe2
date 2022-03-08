@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from back.tests.unit.utils import (
     create_dummy_info,
     create_dummy_session,

@@ -1,11 +1,9 @@
+# pylint: disable=import-error
 from back.tests import (
     db,
 )
 from batch.enums import (
     Action,
-)
-from datetime import (
-    datetime,
 )
 from db_model.credentials.types import (
     CredentialItem,

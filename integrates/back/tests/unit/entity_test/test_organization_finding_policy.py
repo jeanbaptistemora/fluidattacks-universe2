@@ -1,4 +1,5 @@
-# pylint: disable=too-many-statements
+# pylint: disable=too-many-statements, import-error
+
 from api.schema import (
     SCHEMA,
 )

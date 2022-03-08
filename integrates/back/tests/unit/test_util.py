@@ -1,4 +1,4 @@
-# pylint: disable=protected-access
+# pylint: disable=protected-access, import-error
 from api.mutations.sign_in import (
     log_user_in,
 )

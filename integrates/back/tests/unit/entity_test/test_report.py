@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from api.schema import (
     SCHEMA,
 )

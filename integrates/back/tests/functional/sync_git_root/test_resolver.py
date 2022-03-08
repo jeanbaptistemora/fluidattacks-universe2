@@ -1,9 +1,6 @@
 from . import (
     get_result,
 )
-from custom_exceptions import (
-    CredentialNotFound,
-)
 from dataloaders import (
     get_new_context,
 )

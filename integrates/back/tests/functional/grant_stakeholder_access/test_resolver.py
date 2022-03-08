@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from . import (
     get_result,
     get_stakeholders,

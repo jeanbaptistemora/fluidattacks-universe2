@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )

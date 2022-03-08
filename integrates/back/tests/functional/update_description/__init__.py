@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from back.tests.functional.utils import (
     get_graphql_result,
 )

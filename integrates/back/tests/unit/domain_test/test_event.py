@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from aniso8601 import (
     parse_datetime,
 )

@@ -1,4 +1,4 @@
-# pylint: disable=import-outside-toplevel
+# pylint: disable=import-error
 from batch import (
     roots as batch_roots,
 )
@@ -27,9 +27,6 @@ from db_model.roots.types import (
 import pytest
 from pytest_mock import (
     MockerFixture,
-)
-from roots import (
-    domain as roots_domain,
 )
 from typing import (
     Any,

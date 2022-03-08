@@ -1,9 +1,6 @@
 from . import (
     get_result,
 )
-from custom_exceptions import (
-    InvalidGitCredentials,
-)
 import os
 import pytest
 

@@ -1,14 +1,12 @@
+# pylint: disable=import-error
 from batch import (
     roots,
 )
 from batch.dal import (
-    generate_key_to_dynamod,
-    get_action,
     get_actions_by_name,
 )
 from batch.enums import (
     Action,
-    Product,
 )
 from batch.types import (
     BatchProcessing,

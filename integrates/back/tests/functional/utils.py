@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from api.schema import (
     SCHEMA,
 )
@@ -23,9 +24,6 @@ from group_access import (
 )
 from groups import (
     domain as groups_domain,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,

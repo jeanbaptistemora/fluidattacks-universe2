@@ -1,3 +1,4 @@
+# pylint: disable=import-error, useless-suppression
 from base64 import (
     b64encode,
 )
