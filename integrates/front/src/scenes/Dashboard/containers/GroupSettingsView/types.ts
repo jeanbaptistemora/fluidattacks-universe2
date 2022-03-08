@@ -7,7 +7,7 @@ interface IGetFilesQuery {
 interface IGetTagsQuery {
   group: {
     name: string;
-    tags: string[];
+    tags: string[] | null;
   };
 }
 

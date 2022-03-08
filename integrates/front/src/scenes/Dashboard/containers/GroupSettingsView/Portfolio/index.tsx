@@ -109,9 +109,11 @@ const Portfolio: React.FC<IPortfolioProps> = (
     return <div />;
   }
 
+  const groupTags: string[] = _.isNull(data.group.tags) ? [] : data.group.tags;
+
   const tagsDataset: {
     tagName: string;
-  }[] = data.group.tags.map((tag: string): { tagName: string } => ({
+  }[] = groupTags.map((tag: string): { tagName: string } => ({
     tagName: tag,
   }));
 
