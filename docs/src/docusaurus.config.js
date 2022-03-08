@@ -31,8 +31,8 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'machine/web',
-          activeBasePath: 'machine/',
+          to: 'machine/web/asm',
+          activeBasePath: 'machine/web',
           label: 'Machine',
           position: 'left',
         },

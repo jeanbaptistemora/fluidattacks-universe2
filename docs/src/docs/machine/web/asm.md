@@ -2,7 +2,7 @@
 id: asm
 title: Attack Surface Manager
 sidebar_label: Attack Surface Manager
-slug: /machine/web
+slug: /machine/web/asm
 ---
 
 `Fluid Attacks'` Attack Surface Manager (ASM)
@@ -65,7 +65,7 @@ you can go to the Portfolios subsection
 (we employ the same charts and indicators).
 
 Please check the tags
-in [Scope](/machine/web/#scope)
+in [Scope](/machine/web/asm#scope)
 for more information.
 
 ### Stakeholders

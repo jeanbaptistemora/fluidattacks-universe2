@@ -24,7 +24,7 @@ const features = [
         Guides and information about our Machine plan
       </>
     ),
-    link: 'machine/web'
+    link: 'machine/web/asm'
   },
   {
     title: 'Squad',
