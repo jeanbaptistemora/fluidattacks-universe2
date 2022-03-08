@@ -3,15 +3,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
-import {
-  Alert,
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
+import { Alert, ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import { required } from "utils/validations";
 
@@ -76,10 +69,9 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
                   validate={required}
                 />
               </FormGroup>
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
+              <div>
+                <div>
+                  <ModalFooter>
                     <Button onClick={onClose} variant={"secondary"}>
                       {t("confirmmodal.cancel")}
                     </Button>
@@ -91,9 +83,9 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
                     >
                       {t("confirmmodal.proceed")}
                     </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
+                  </ModalFooter>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>

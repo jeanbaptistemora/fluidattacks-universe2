@@ -7,7 +7,8 @@ import { HasRecentAttack } from "./HasRecentAttackField";
 import type { IFormValues, IHandleEditionModalFormProps } from "./types";
 
 import { Button } from "components/Button";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+import { ModalFooter } from "components/Modal";
+import { Col50, Row } from "styles/styledComponents";
 
 const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
   props: IHandleEditionModalFormProps
@@ -28,19 +29,18 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
           <HasRecentAttack />
         </Col50>
       </Row>
-      <hr />
-      <Row>
-        <Col100>
-          <ButtonToolbar>
+      <div>
+        <div>
+          <ModalFooter>
             <Button onClick={handleCloseModal} variant={"secondary"}>
               {t("group.toe.inputs.editModal.close")}
             </Button>
             <Button disabled={false} onClick={submitForm} variant={"primary"}>
               {t("group.toe.inputs.editModal.procced")}
             </Button>
-          </ButtonToolbar>
-        </Col100>
-      </Row>
+          </ModalFooter>
+        </div>
+      </div>
     </Form>
   );
 };

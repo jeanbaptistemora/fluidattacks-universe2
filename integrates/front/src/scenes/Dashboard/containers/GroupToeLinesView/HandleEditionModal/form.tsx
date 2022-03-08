@@ -7,7 +7,8 @@ import { CommentsField } from "./CommentsField";
 import type { IFormValues, IHandleEditionModalFormProps } from "./types";
 
 import { Button } from "components/Button";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+import { ModalFooter } from "components/Modal";
+import { Col100, Col50, Row } from "styles/styledComponents";
 
 const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
   props: IHandleEditionModalFormProps
@@ -30,19 +31,18 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
           <CommentsField />
         </Col100>
       </Row>
-      <hr />
-      <Row>
-        <Col100>
-          <ButtonToolbar>
+      <div>
+        <div>
+          <ModalFooter>
             <Button onClick={handleCloseModal} variant={"secondary"}>
               {t("group.toe.lines.editModal.close")}
             </Button>
             <Button onClick={submitForm} variant={"primary"}>
               {t("group.toe.lines.editModal.procced")}
             </Button>
-          </ButtonToolbar>
-        </Col100>
-      </Row>
+          </ModalFooter>
+        </div>
+      </div>
     </Form>
   );
 };

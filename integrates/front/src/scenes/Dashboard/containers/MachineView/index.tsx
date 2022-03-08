@@ -25,13 +25,8 @@ import type {
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { Modal } from "components/Modal";
-import {
-  ButtonToolbar,
-  ButtonToolbarCenter,
-  Col100,
-  Row,
-} from "styles/styledComponents";
+import { Modal, ModalFooter } from "components/Modal";
+import { ButtonToolbarCenter } from "styles/styledComponents";
 import { formatDate, formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -289,18 +284,18 @@ const MachineView: React.FC = (): JSX.Element => {
               stoppedAt={currentRow.stoppedAt}
               vulnerabilities={currentRow.vulnerabilities}
             />
-            <Row>
-              <Col100>
-                <ButtonToolbar>
+            <div>
+              <div>
+                <ModalFooter>
                   <Button
                     onClick={closeSeeExecutionDetailsModal}
                     variant={"secondary"}
                   >
                     {translate.t("group.forces.executionDetailsModal.close")}
                   </Button>
-                </ButtonToolbar>
-              </Col100>
-            </Row>
+                </ModalFooter>
+              </div>
+            </div>
           </Modal>
         </React.StrictMode>
       )}

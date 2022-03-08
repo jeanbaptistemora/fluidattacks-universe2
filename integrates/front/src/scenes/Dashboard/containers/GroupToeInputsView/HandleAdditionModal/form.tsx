@@ -18,7 +18,8 @@ import {
 } from "./utils";
 
 import { Button } from "components/Button";
-import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
+import { ModalFooter } from "components/Modal";
+import { Col100, Col50, Row } from "styles/styledComponents";
 
 const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   props: IHandleAdditionModalFormProps
@@ -75,19 +76,18 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
           <EntryPointField />
         </Col100>
       </Row>
-      <hr />
-      <Row>
-        <Col100>
-          <ButtonToolbar>
+      <div>
+        <div>
+          <ModalFooter>
             <Button onClick={handleCloseModal} variant={"secondary"}>
               {t("group.toe.inputs.addModal.close")}
             </Button>
             <Button onClick={submitForm} variant={"primary"}>
               {t("group.toe.inputs.addModal.procced")}
             </Button>
-          </ButtonToolbar>
-        </Col100>
-      </Row>
+          </ModalFooter>
+        </div>
+      </div>
     </Form>
   );
 };
