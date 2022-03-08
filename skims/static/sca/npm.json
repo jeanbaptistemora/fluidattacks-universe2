@@ -3515,6 +3515,9 @@
   },
   "pump": {},
   "punycode": {},
+  "pupa": {
+    "SNYK-JS-PUPA-174563": "<2.0.0"
+  },
   "puppeteer": {
     "SNYK-JS-PUPPETEER-174321": "<1.13.0"
   },
