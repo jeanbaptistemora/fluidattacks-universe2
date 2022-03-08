@@ -75,7 +75,7 @@ const NumbersSection: React.FC = (): JSX.Element => {
   const [cardIndex, setCardIndex] = useState(0);
   const [progressValue, setprogressValue] = useState(0);
 
-  useEffect((): void => {
+  useEffect((): (() => void) => {
     const changeCardIndex = (): void => {
       setCardIndex((currentIndex): number =>
         currentIndex === data.length - 1 ? 0 : currentIndex + 1
@@ -91,7 +91,12 @@ const NumbersSection: React.FC = (): JSX.Element => {
         return currentTime === progressLimit ? 0 : currentTime + 1;
       });
     };
-    setInterval(changeprogressValue, timePerProgress);
+
+    const timer = setInterval(changeprogressValue, timePerProgress);
+
+    return (): void => {
+      clearInterval(timer);
+    };
   }, [data.length]);
 
   return (
