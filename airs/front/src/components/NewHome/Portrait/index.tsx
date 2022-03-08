@@ -27,7 +27,7 @@ const Portrait: React.FC = (): JSX.Element => (
           {"Effective Automation + IA + Expert Intelligence"}
         </NewGrayBigParagraph>
         <div className={"cf mt4 mb5"}>
-          <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
+          <Link className={"no-underline"} to={"/contact-us/"}>
             <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
               {"Get a free demo"}
             </NewRegularRedButton>
