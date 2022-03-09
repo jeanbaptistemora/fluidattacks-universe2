@@ -1,7 +1,7 @@
 import type { FieldProps } from "formik";
 import { ErrorMessage, useField } from "formik";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import type { CountryData } from "react-intl-tel-input/dist/types";
 
 import {
@@ -23,6 +23,12 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
   const { autoFocus, disabled, field, placeholder } = props;
   const { name, value } = field;
   const [, , helpers] = useField(name);
+  const [initialCountryIso2] = useState<string | undefined>(
+    _.get(value, "countryIso2", undefined)
+  );
+  const [initialLocalNumber] = useState<string | undefined>(
+    _.get(value, "localNumber", undefined)
+  );
 
   function setPhoneNumber(
     currentNumber: string,
@@ -31,8 +37,10 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
     const dialCode = _.isUndefined(countryData.dialCode)
       ? ""
       : countryData.dialCode;
+    const iso2 = _.isUndefined(countryData.iso2) ? "" : countryData.iso2;
     const info = {
-      countryCode: dialCode,
+      countryDialCode: dialCode,
+      countryIso2: iso2,
       localNumber: currentNumber.replace(/[\s()-]/gu, ""),
     };
     helpers.setValue(info);
@@ -66,8 +74,8 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
       <StyledPhoneNumberInput
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={autoFocus}
-        defaultCountry={_.get(value, "countryCode", undefined)}
-        defaultValue={_.get(value, "localNumber", undefined)}
+        defaultCountry={initialCountryIso2}
+        defaultValue={initialLocalNumber}
         disabled={disabled}
         formatOnInit={true}
         onPhoneNumberChange={onPhoneNumberChange}

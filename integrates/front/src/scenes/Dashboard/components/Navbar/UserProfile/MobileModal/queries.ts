@@ -1,23 +1,27 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const GET_STAKEHOLDER_PHONE_NUMBER: DocumentNode = gql`
-  query GetStakeholderPhoneNumberQuery {
+const GET_STAKEHOLDER_PHONE: DocumentNode = gql`
+  query GetStakeholderPhoneQuery {
     me(callerOrigin: "FRONT") {
-      phoneNumber
+      phone {
+        countryCode
+        localNumber
+      }
       userEmail
       __typename
     }
   }
 `;
 
-const UPDATE_STAKEHOLDER_PHONE_NUMBER_MUTATION: DocumentNode = gql`
-  mutation UpdateStakeholderPhoneNumberMutation(
-    $phoneNumber: string!
-    $verificationCode: string!
+const UPDATE_STAKEHOLDER_PHONE_MUTATION: DocumentNode = gql`
+  mutation UpdateStakeholderPhoneMutation(
+    $localNumber: String!
+    $countryCode: String!
+    $verificationCode: String!
   ) {
-    updateStakeholderPhoneNumber(
-      phoneNumber: $phoneNumber
+    updateStakeholderPhone(
+      phone: { countryCode: $countryCode, localNumber: $localNumber }
       verificationCode: $verificationCode
     ) {
       success
@@ -25,7 +29,4 @@ const UPDATE_STAKEHOLDER_PHONE_NUMBER_MUTATION: DocumentNode = gql`
   }
 `;
 
-export {
-  GET_STAKEHOLDER_PHONE_NUMBER,
-  UPDATE_STAKEHOLDER_PHONE_NUMBER_MUTATION,
-};
+export { GET_STAKEHOLDER_PHONE, UPDATE_STAKEHOLDER_PHONE_MUTATION };
