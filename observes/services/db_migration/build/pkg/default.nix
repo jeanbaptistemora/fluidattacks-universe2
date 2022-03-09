@@ -10,6 +10,9 @@
   ];
   dev_deps = [
     pythonPkgs.mypy
+    pythonPkgs.pytest
+    pythonPkgs.toml
+    pythonPkgs.types-toml
   ];
   build_pkg = propagatedBuildInputs:
     (import ./build.nix) {

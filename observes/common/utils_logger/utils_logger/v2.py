@@ -57,8 +57,8 @@ def set_bugsnag(conf: BugsnagConf) -> None:
 
 def logger_handler(debug: bool, target: IO[str] = sys.stderr) -> Handler:
     prefix = "%(name)s> " if debug else ""
-    format = prefix + "[%(levelname)s] %(message)s"
-    formatter = Formatter(format)
+    _format = prefix + "[%(levelname)s] %(message)s"
+    formatter = Formatter(_format)
     handler = logging.StreamHandler(target)
     handler.setFormatter(formatter)
     return handler

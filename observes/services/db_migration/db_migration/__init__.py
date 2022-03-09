@@ -91,15 +91,15 @@ EPHEMERAL_SCHEMAS = frozenset(
 
 @dataclass(frozen=True)
 class Exporter:
-    table_client_R: TableClient
-    table_client_W: TableClient
-    schema_client_R: SchemaClient
+    table_client_r: TableClient
+    table_client_w: TableClient
+    schema_client_r: SchemaClient
     bucket: str
     role: str
 
     def export_table(self, table: TableId) -> Cmd[ManifestId]:
         prefix = f"{self.bucket}/{table.schema.name}/{table.name}/"
-        return self.table_client_R.unload(table, prefix, self.role)
+        return self.table_client_r.unload(table, prefix, self.role)
 
     def target_tables(self) -> Cmd[PureIter[TableId]]:
         filter_fx: Callable[[SchemaId], bool] = lambda s: all(
@@ -112,11 +112,11 @@ class Exporter:
             ]
         )
         return (
-            self.schema_client_R.all_schemas()
+            self.schema_client_r.all_schemas()
             .bind(
                 lambda schemas: serial_merge(
                     tuple(
-                        self.schema_client_R.table_ids(s).map(
+                        self.schema_client_r.table_ids(s).map(
                             lambda x: from_flist(tuple(x))
                         )
                         for s in filter(filter_fx, schemas)
@@ -140,7 +140,7 @@ class Exporter:
         unload = (
             manifests.map(
                 lambda l: tuple(
-                    self.table_client_W.load(i[0], i[1], self.role) for i in l
+                    self.table_client_w.load(i[0], i[1], self.role) for i in l
                 )
             )
             .bind(lambda x: serial_merge(x))
@@ -152,12 +152,12 @@ class Exporter:
 def main(
     old: Tuple[DatabaseId, Credentials], new: Tuple[DatabaseId, Credentials]
 ) -> Cmd[Exporter]:
-    connection_R = connect(old[0], old[1], True, IsolationLvl.AUTOCOMMIT)
-    connection_W = connect(new[0], new[1], False, IsolationLvl.AUTOCOMMIT)
-    client_R = connection_R.bind(lambda c: new_client(c, LOG))
-    client_W = connection_W.bind(lambda c: new_client(c, LOG))
-    return client_R.bind(
-        lambda r: client_W.map(
+    connection_r = connect(old[0], old[1], True, IsolationLvl.AUTOCOMMIT)
+    connection_w = connect(new[0], new[1], False, IsolationLvl.AUTOCOMMIT)
+    client_r = connection_r.bind(lambda c: new_client(c, LOG))
+    client_w = connection_w.bind(lambda c: new_client(c, LOG))
+    return client_r.bind(
+        lambda r: client_w.map(
             lambda w: Exporter(
                 TableClient(r),
                 TableClient(w),
