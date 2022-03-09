@@ -423,7 +423,8 @@ in {
             gitlabExtra = {
               needs = [
                 "/integrates/back/test/unit"
-                "/integrates/front/test"
+                "/integrates/front/test/enzyme"
+                "/integrates/front/test/rtl"
                 "/integrates/mobile/test"
               ];
               rules = gitlabOnlyDev;
@@ -444,12 +445,27 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/integrates/front/test";
+            output = "/integrates/front/test/enzyme";
             gitlabExtra =
               gitlabTest
               // {
                 after_script = [
-                  "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
+                  "cp ~/.makes/out-integrates-front-test-enzyme/coverage/lcov.info integrates/front/coverage.lcov"
+                ];
+                artifacts = {
+                  expire_in = "1 week";
+                  name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
+                  paths = ["integrates/front/coverage.lcov"];
+                };
+              };
+          }
+          {
+            output = "/integrates/front/test/rtl";
+            gitlabExtra =
+              gitlabTest
+              // {
+                after_script = [
+                  "cp ~/.makes/out-integrates-front-test-rtl/coverage/lcov.info integrates/front/coverage.lcov"
                 ];
                 artifacts = {
                   expire_in = "1 week";
