@@ -30,6 +30,7 @@ import newutils.git
 from settings.logger import (
     LOGGING,
 )
+import tempfile
 
 logging.config.dictConfig(LOGGING)
 
@@ -47,49 +48,54 @@ async def clone_root(
 ) -> CloneResult:
     if cred.state.key is None:
         return CloneResult(success=False)
-    if cred.metadata.type == CredentialType.SSH:
-        folder_to_clone_root = await newutils.git.ssh_clone(
-            branch=branch, repo_url=root_url, credential_key=cred.state.key
-        )
-    elif cred.metadata.type == CredentialType.HTTPS:
-        folder_to_clone_root = await newutils.git.https_clone(
-            branch=branch,
-            repo_url=root_url,
-            user=cred.state.user,
-            password=cred.state.password,
-            token=cred.state.token,
-        )
-    else:
-        raise InvalidParameter()
-
-    if folder_to_clone_root is None:
-        LOGGER.error(
-            "Root cloning failed",
-            extra=dict(
-                extra={
-                    "group_name": group_name,
-                    "root_nickname": root_nickname,
-                }
-            ),
-        )
-        return CloneResult(success=False)
-
-    success = await upload_cloned_repo_to_s3(
-        repo_path=folder_to_clone_root,
-        group_name=group_name,
-        nickname=root_nickname,
-    )
-    if success:
-        with suppress(GitError, AttributeError):
-            commit = Repo(
-                folder_to_clone_root, search_parent_directories=True
-            ).head.object
-        if commit:
-            return CloneResult(
-                success=success,
-                commit=commit.hexsha,
-                commit_date=datetime.fromtimestamp(
-                    commit.authored_date
-                ).isoformat(),
+    with tempfile.TemporaryDirectory() as temp_dir:
+        if cred.metadata.type == CredentialType.SSH:
+            folder_to_clone_root = await newutils.git.ssh_clone(
+                branch=branch,
+                credential_key=cred.state.key,
+                repo_url=root_url,
+                temp_dir=temp_dir,
             )
-    return CloneResult(success=False)
+        elif cred.metadata.type == CredentialType.HTTPS:
+            folder_to_clone_root = await newutils.git.https_clone(
+                branch=branch,
+                password=cred.state.password,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+                token=cred.state.token,
+                user=cred.state.user,
+            )
+        else:
+            raise InvalidParameter()
+
+        if folder_to_clone_root is None:
+            LOGGER.error(
+                "Root cloning failed",
+                extra=dict(
+                    extra={
+                        "group_name": group_name,
+                        "root_nickname": root_nickname,
+                    }
+                ),
+            )
+            return CloneResult(success=False)
+
+        success = await upload_cloned_repo_to_s3(
+            repo_path=folder_to_clone_root,
+            group_name=group_name,
+            nickname=root_nickname,
+        )
+        if success:
+            with suppress(GitError, AttributeError):
+                commit = Repo(
+                    folder_to_clone_root, search_parent_directories=True
+                ).head.object
+            if commit:
+                return CloneResult(
+                    success=success,
+                    commit=commit.hexsha,
+                    commit_date=datetime.fromtimestamp(
+                        commit.authored_date
+                    ).isoformat(),
+                )
+        return CloneResult(success=False)
