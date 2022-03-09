@@ -67,7 +67,7 @@ async def _get_machine_keys_to_delete(
     return machine_keys_to_delete
 
 
-async def _filter_completed_actions(
+async def _filter_active_and_completed_actions(
     actions_to_requeue: List[BatchProcessing],
 ) -> List[BatchProcessing]:
     # Deletes entries from the DB that have a complete Batch execution
@@ -77,7 +77,7 @@ async def _filter_completed_actions(
         for action in actions_to_requeue
         if action.running and action.batch_job_id
     ]
-    complete_batch_jobs: List[CompleteBatchJob] = [
+    batch_jobs: List[CompleteBatchJob] = [
         CompleteBatchJob(
             id=str(job["jobId"]),
             status=JobStatus(job["status"]),
@@ -90,22 +90,17 @@ async def _filter_completed_actions(
                 if action.batch_job_id is not None  # Check to comply with Mypy
             ]
         )
-        if job["status"]
-        in [
-            JobStatus.FAILED.value,
-            JobStatus.SUCCEEDED.value,
-        ]
     ]
 
     succeeded_keys_to_delete: List[str] = [
         action.key
         for action in running_actions
-        for batch_job in complete_batch_jobs
+        for batch_job in batch_jobs
         if action.batch_job_id == batch_job.id
         and batch_job.status == JobStatus.SUCCEEDED
     ]
     machine_keys_to_delete: List[str] = await _get_machine_keys_to_delete(
-        running_actions, complete_batch_jobs
+        running_actions, batch_jobs
     )
     keys_to_delete: List[str] = (
         succeeded_keys_to_delete + machine_keys_to_delete
@@ -114,10 +109,18 @@ async def _filter_completed_actions(
         [batch_dal.delete_action(dynamodb_pk=key) for key in keys_to_delete]
     )
 
+    active_keys: List[str] = [
+        action.key
+        for action in running_actions
+        for batch_job in batch_jobs
+        if action.batch_job_id == batch_job.id
+        and batch_job.status not in {JobStatus.FAILED, JobStatus.SUCCEEDED}
+    ]
+
     return [
         action
         for action in actions_to_requeue
-        if action.key not in keys_to_delete
+        if action.key not in set(active_keys + keys_to_delete)
     ]
 
 
@@ -141,7 +144,7 @@ def _filter_duplicated_actions(
     return filtered_unique_actions + remaining_actions
 
 
-async def requeue_actions() -> None:
+async def requeue_actions() -> bool:
     actions_to_requeue: List[BatchProcessing] = await batch_dal.get_actions()
     actions_to_requeue = _filter_duplicated_actions(
         actions_to_requeue, Action.REFRESH_TOE_INPUTS
@@ -149,14 +152,16 @@ async def requeue_actions() -> None:
     actions_to_requeue = _filter_duplicated_actions(
         actions_to_requeue, Action.REFRESH_TOE_LINES
     )
-    actions_to_requeue = await _filter_completed_actions(actions_to_requeue)
+    actions_to_requeue = await _filter_active_and_completed_actions(
+        actions_to_requeue
+    )
 
     report_additional_info = dict(
         vcpus=4,
         attempt_duration_seconds=7200,
     )
-    await collect(
-        [
+    new_batch_jobs_ids = await collect(
+        (
             batch_dal.put_action_to_batch(
                 action_name=action.action_name,
                 action_dynamo_pk=action.key,
@@ -174,8 +179,21 @@ async def requeue_actions() -> None:
                 ),
             )
             for action in actions_to_requeue
-        ],
+        ),
         workers=20,
+    )
+    return all(
+        await collect(
+            (
+                batch_dal.update_action_to_dynamodb(
+                    key=action.key, batch_job_id=job_id, running=None
+                )
+                for action, job_id in zip(
+                    actions_to_requeue, new_batch_jobs_ids
+                )
+            ),
+            workers=20,
+        )
     )
 
 
