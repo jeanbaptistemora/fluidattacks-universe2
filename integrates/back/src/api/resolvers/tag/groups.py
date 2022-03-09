@@ -24,7 +24,7 @@ from typing import (
 
 async def resolve(
     parent: Tag, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[Group]:
+) -> Tuple[Group, ...]:
     group_names: List[str] = get_key_or_fallback(parent, "groups", "projects")
     loaders: Dataloaders = info.context.loaders
     groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
