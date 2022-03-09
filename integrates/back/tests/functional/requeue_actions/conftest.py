@@ -64,6 +64,16 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "subject": "unittesting@fluidattacks.com",
                 "time": "1646773865",
             },
+            {
+                "action_name": "refresh_toe_inputs",
+                "additional_info": "nickname4",
+                "batch_job_id": "42d5b400-89f3-498c-b7ce-cc29d2e7f254",
+                "entity": "group6",
+                "key": "0d9c88b99f14107958d5a4e68af1c8bf8c30222ad639c0187ff734383bd22641",
+                "queue": "spot_later",
+                "subject": "unittesting@fluidattacks.com",
+                "time": "1646773865",
+            },
         ),
     }
     return await db.populate({**generic_data["db_data"], **data})

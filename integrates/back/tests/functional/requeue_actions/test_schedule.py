@@ -40,8 +40,12 @@ async def test_requeue_actions(populate: bool) -> None:
     )
 
     # An active action that will not have any changes
-    unchanged_action = await batch_dal.get_action(
-        action_dynamo_pk="d594e2851fe5d537742959291fbff448758dfab9b8bee35047f000c6e1fc0402"
+    unchanged_actions = await collect(
+        batch_dal.get_action(action_dynamo_pk=pk)
+        for pk in [
+            "d594e2851fe5d537742959291fbff448758dfab9b8bee35047f000c6e1fc0402",
+            "0d9c88b99f14107958d5a4e68af1c8bf8c30222ad639c0187ff734383bd22641",
+        ]
     )
 
     read_response = (
@@ -65,6 +69,11 @@ async def test_requeue_actions(populate: bool) -> None:
             "jobId": "342cea18-72b5-49c0-badb-f7e38dd0e273",
             "status": "RUNNING",
         },
+        {
+            "container": {"vcpus": 2},
+            "jobId": "42d5b400-89f3-498c-b7ce-cc29d2e7f254",
+            "status": "RUNNABLE",
+        },
     )
     write_response = [
         "6fbe3011-eb29-426a-b52d-396382d32c1c",
@@ -81,7 +90,7 @@ async def test_requeue_actions(populate: bool) -> None:
             await requeue_actions.main()
             actions = await batch_dal.get_actions()
             actions_ids = [action.key for action in actions]
-            assert len(actions) == 3
+            assert len(actions) == 4
             assert not any(
                 action in actions_ids for action in actions_to_delete
             )
@@ -110,4 +119,7 @@ async def test_requeue_actions(populate: bool) -> None:
             )
             assert clone_action.running is False
 
-            assert unchanged_action in actions
+            assert all(
+                unchanged_action in actions
+                for unchanged_action in unchanged_actions
+            )

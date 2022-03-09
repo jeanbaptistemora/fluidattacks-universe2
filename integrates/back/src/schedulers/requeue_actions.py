@@ -67,16 +67,10 @@ async def _get_machine_keys_to_delete(
     return machine_keys_to_delete
 
 
-async def _filter_active_and_completed_actions(
+async def _filter_non_requeueable_actions(
     actions_to_requeue: List[BatchProcessing],
 ) -> List[BatchProcessing]:
-    # Deletes entries from the DB that have a complete Batch execution
-    # with status SUCCEEDED and for whatever reason remain in the DB.
-    running_actions: List[BatchProcessing] = [
-        action
-        for action in actions_to_requeue
-        if action.running and action.batch_job_id
-    ]
+    """Filters actions that should not be sent to Batch"""
     batch_jobs: List[CompleteBatchJob] = [
         CompleteBatchJob(
             id=str(job["jobId"]),
@@ -86,12 +80,17 @@ async def _filter_active_and_completed_actions(
         for job in await batch_dal.describe_jobs(
             *[
                 action.batch_job_id
-                for action in running_actions
+                for action in actions_to_requeue
                 if action.batch_job_id is not None  # Check to comply with Mypy
             ]
         )
     ]
 
+    running_actions: List[BatchProcessing] = [
+        action
+        for action in actions_to_requeue
+        if action.running and action.batch_job_id
+    ]
     succeeded_keys_to_delete: List[str] = [
         action.key
         for action in running_actions
@@ -116,11 +115,19 @@ async def _filter_active_and_completed_actions(
         if action.batch_job_id == batch_job.id
         and batch_job.status not in {JobStatus.FAILED, JobStatus.SUCCEEDED}
     ]
+    pending_keys: List[str] = [
+        action.key
+        for action in actions_to_requeue
+        if not action.running
+        for batch_job in batch_jobs
+        if action.batch_job_id == batch_job.id
+        and batch_job.status in {JobStatus.PENDING, JobStatus.RUNNABLE}
+    ]
 
     return [
         action
         for action in actions_to_requeue
-        if action.key not in set(active_keys + keys_to_delete)
+        if action.key not in set(active_keys + pending_keys + keys_to_delete)
     ]
 
 
@@ -152,7 +159,7 @@ async def requeue_actions() -> bool:
     actions_to_requeue = _filter_duplicated_actions(
         actions_to_requeue, Action.REFRESH_TOE_LINES
     )
-    actions_to_requeue = await _filter_active_and_completed_actions(
+    actions_to_requeue = await _filter_non_requeueable_actions(
         actions_to_requeue
     )
 
