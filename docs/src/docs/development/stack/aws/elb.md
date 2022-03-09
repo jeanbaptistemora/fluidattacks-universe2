@@ -70,7 +70,7 @@ The main reasons why we chose it over other alternatives are the following:
 We use [ELB][ELB] for
 
 - serving our [ASM](https://fluidattacks.com/categories/asm/)
-  [production environment](https://gitlab.com/fluidattacks/product/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/dev/k8s/ingress.yaml#L6),
+  production [environment](https://gitlab.com/fluidattacks/product/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/dev/k8s/ingress.yaml#L6),
   and
 - serving our ASM [ephemeral environments](https://gitlab.com/fluidattacks/product/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/prod/k8s/ingress.yaml#L6).
 
