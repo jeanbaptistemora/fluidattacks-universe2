@@ -80,7 +80,7 @@ class GroupFile(NamedTuple):
     description: str
     filename: str
     modified_by: str
-    modified_date: str
+    modified_date: Optional[str] = None
 
 
 class Group(NamedTuple):

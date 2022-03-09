@@ -72,7 +72,9 @@ def format_group_files(files: List[Dict[str, str]]) -> List[GroupFile]:
                     date_str=file["uploadDate"],
                     date_format="%Y-%m-%d %H:%M",
                 )
-            ),
+            )
+            if "uploadDate" in file
+            else None,
         )
         for file in files
     ]
@@ -99,6 +101,8 @@ def format_group_state(
     state: Dict[str, Any],
     state_status: GroupStateStatus,
     pending_deletion_date: Optional[str],
+    suscription_type: GroupSubscriptionType,
+    tier: GroupTier,
 ) -> GroupState:
     has_machine: bool = get_key_or_fallback(
         state, "has_machine", "has_skims", False
@@ -112,10 +116,8 @@ def format_group_state(
         modified_by=state.get("requester") or state.get("user"),
         modified_date=convert_to_iso_str(state["date"]),
         status=state_status,
-        tier=GroupTier[str(state["tier"]).upper()]
-        if state.get("tier")
-        else GroupTier.OTHER,
-        type=GroupSubscriptionType[str(state["type"]).upper()],
+        tier=tier,
+        type=suscription_type,
         comments=state.get("comments"),
         justification=format_state_justification(state.get("reason")),
         pending_deletion_date=convert_to_iso_str(pending_deletion_date)
@@ -133,22 +135,33 @@ def format_group(item: Item, organization_name: str) -> Group:
         if str(item["project_status"]).upper() == GroupStateStatus.ACTIVE.value
         else GroupStateStatus.DELETED
     )
+    last_configuration: Dict[str, Any] = item["historic_configuration"][-1]
+    suscription_type = GroupSubscriptionType[
+        str(last_configuration["type"]).upper()
+    ]
+    tier = (
+        GroupTier[str(last_configuration["tier"]).upper()]
+        if last_configuration.get("tier")
+        else GroupTier.OTHER
+    )
     if (
         state_status == GroupStateStatus.DELETED
         and "historic_deletion" in item
     ):
-        current_configuration: Dict[str, Any] = item["historic_deletion"][-1]
+        current_state: Dict[str, Any] = item["historic_deletion"][-1]
     else:
-        current_configuration = item["historic_configuration"][-1]
+        current_state = last_configuration
     return Group(
         description=item.get("description", ""),
         language=GroupLanguage[item.get("language", "en").upper()],
         name=str(item["project_name"]).lower(),
         organization_name=organization_name,
         state=format_group_state(
-            state=current_configuration,
+            state=current_state,
             state_status=state_status,
             pending_deletion_date=item.get("pending_deletion_date"),
+            suscription_type=suscription_type,
+            tier=tier,
         ),
         agent_token=item.get("agent_token"),
         context=item.get("group_context"),
