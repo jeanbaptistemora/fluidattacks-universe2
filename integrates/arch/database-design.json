@@ -675,6 +675,55 @@
             },
             {
               "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "sk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "ROOT_MOVED"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
                 "S": "USER#continuoushacking@gmail.com"
               },
               "sk": {
