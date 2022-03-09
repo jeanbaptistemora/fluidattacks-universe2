@@ -16,6 +16,7 @@ locals {
           "kms:TagResource",
           "kms:UntagResource",
           "kms:UpdateAlias",
+          "kms:DeleteAlias",
           "s3:Get*",
           "s3:List*",
         ]
