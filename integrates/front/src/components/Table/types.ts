@@ -16,7 +16,8 @@ interface ISelectRowProps extends Omit<SelectRowProps<any>, "onSelectAll"> {
     isSelect: boolean,
     rows: any[],
     e: React.SyntheticEvent
-  ) => string[];
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  ) => string[] | void;
 }
 
 interface IFilterProps {

@@ -359,13 +359,20 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
       await addEvent({
         variables: {
-          groupName,
-          ...values,
           accessibility: selectedAccessibility,
+          actionAfterBlocking: values.actionAfterBlocking,
+          actionBeforeBlocking: values.actionBeforeBlocking,
           affectedComponents: selectedComponents,
           blockingHours: String(values.blockingHours),
+          context: values.context,
+          detail: values.detail,
+          eventDate: values.eventDate,
+          eventType: values.eventType,
           file: handleFileListUpload(values.file),
+          groupName,
           image: handleFileListUpload(values.image),
+          rootId: values.rootId,
+          rootNickname: values.rootNickname,
         },
       });
     },

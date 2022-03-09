@@ -2,13 +2,12 @@ import { Collapse } from "antd";
 import { ErrorMessage, useFormikContext } from "formik";
 import _ from "lodash";
 import React from "react";
-import type { SelectRowProps } from "react-bootstrap-table-next";
-import BootstrapTable from "react-bootstrap-table-next";
 
 import type { IAffectedAccordionProps, IFinding, IReattackVuln } from "./types";
 
 import type { IFormValues } from "../AddModal";
-import style from "components/Table/index.css";
+import { Table } from "components/Table";
+import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { ValidationError } from "utils/forms/fields/styles";
 
 export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
@@ -19,13 +18,9 @@ export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
   const { values, setFieldValue, setFieldTouched } =
     useFormikContext<IFormValues>();
 
-  const columns = [
-    { align: "center", dataField: "where", text: "Where" },
-    {
-      align: "center",
-      dataField: "specific",
-      text: "Specific",
-    },
+  const columns: IHeaderConfig[] = [
+    { dataField: "where", header: "Where" },
+    { dataField: "specific", header: "Specific" },
   ];
 
   function onSelect(vuln: IReattackVuln, isSelected: boolean): void {
@@ -66,7 +61,7 @@ export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
     }
   }
 
-  const selectRow: SelectRowProps<IReattackVuln> = {
+  const selectionMode: ISelectRowProps = {
     clickToSelect: true,
     mode: "checkbox",
     onSelect,
@@ -78,13 +73,15 @@ export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
       if (vulnerabilitiesToReattack.length > 0) {
         return (
           <Panel header={title} key={id}>
-            <BootstrapTable
-              bootstrap4={true}
-              columns={columns}
-              data={vulnerabilitiesToReattack}
-              keyField={"id"}
-              selectRow={selectRow}
-              wrapperClasses={`f6 mw-100 overflow-auto ${style.tableWrapper}`}
+            <Table
+              bordered={false}
+              dataset={vulnerabilitiesToReattack}
+              exportCsv={false}
+              headers={columns}
+              id={"id"}
+              pageSize={25}
+              search={false}
+              selectionMode={selectionMode}
             />
             <ValidationError>
               <ErrorMessage name={"affectedReattacks"} />
