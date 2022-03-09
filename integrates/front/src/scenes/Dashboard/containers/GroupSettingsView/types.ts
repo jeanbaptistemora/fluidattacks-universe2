@@ -1,7 +1,7 @@
 interface IGroupFileAttr {
   description: string;
   uploader: string;
-  uploadDate: string;
+  uploadDate: string | null;
   fileName: string;
 }
 interface IGetFilesQuery {
