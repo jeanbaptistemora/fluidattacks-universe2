@@ -1,8 +1,9 @@
-{ inputs
-, makeScript
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makeScript,
+  outputs,
+  projectPath,
+  ...
 } @ _:
 makeScript {
   replace = {

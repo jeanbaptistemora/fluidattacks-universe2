@@ -1,9 +1,9 @@
-{ makeDerivation
-, makeNodeJsEnvironment
-, projectPath
-, ...
-}:
-let
+{
+  makeDerivation,
+  makeNodeJsEnvironment,
+  projectPath,
+  ...
+}: let
   name = "integrates-charts-lint";
   nodeJsEnvironment = makeNodeJsEnvironment {
     inherit name;
@@ -12,9 +12,9 @@ let
     packageLockJson = ./npm/package-lock.json;
   };
 in
-makeDerivation {
-  builder = ./builder.sh;
-  env.envSrc = projectPath "/integrates/back/src/app/templates/static/graphics";
-  inherit name;
-  searchPaths.source = [ nodeJsEnvironment ];
-}
+  makeDerivation {
+    builder = ./builder.sh;
+    env.envSrc = projectPath "/integrates/back/src/app/templates/static/graphics";
+    inherit name;
+    searchPaths.source = [nodeJsEnvironment];
+  }

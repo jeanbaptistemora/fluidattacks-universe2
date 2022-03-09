@@ -1,7 +1,4 @@
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       integratesResources = {
@@ -30,11 +27,11 @@
   };
   secretsForEnvFromSops = {
     integratesResourcesDev = {
-      vars = [ "TWILIO_ACCOUNT_SID" "TWILIO_AUTH_TOKEN" ];
+      vars = ["TWILIO_ACCOUNT_SID" "TWILIO_AUTH_TOKEN"];
       manifest = "/integrates/secrets-development.yaml";
     };
     integratesResourcesProd = {
-      vars = [ "TWILIO_ACCOUNT_SID" "TWILIO_AUTH_TOKEN" ];
+      vars = ["TWILIO_ACCOUNT_SID" "TWILIO_AUTH_TOKEN"];
       manifest = "/integrates/secrets-production.yaml";
     };
   };

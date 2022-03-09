@@ -1,7 +1,8 @@
-{ libGit
-, makeScript
-, outputs
-, ...
+{
+  libGit,
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "integrates-front-deploy-dev";

@@ -1,11 +1,12 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "melts";
   searchPaths = {
-    source = [ outputs."/melts/config-runtime" ];
+    source = [outputs."/melts/config-runtime"];
   };
   entrypoint = ./entrypoint.sh;
 }

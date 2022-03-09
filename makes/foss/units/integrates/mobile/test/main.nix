@@ -1,8 +1,9 @@
-{ inputs
-, makeDerivation
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makeDerivation,
+  outputs,
+  projectPath,
+  ...
 }:
 makeDerivation {
   env = {
@@ -17,6 +18,6 @@ makeDerivation {
       inputs.nixpkgs.bash
       inputs.nixpkgs.nodejs-12_x
     ];
-    source = [ outputs."/integrates/mobile/config/dev-runtime-env" ];
+    source = [outputs."/integrates/mobile/config/dev-runtime-env"];
   };
 }

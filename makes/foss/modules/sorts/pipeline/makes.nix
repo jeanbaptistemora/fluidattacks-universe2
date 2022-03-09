@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchMaster = gitlabCi.rules.branch "master";
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
@@ -25,25 +22,24 @@ let
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
     stage = "deploy-infra";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     sorts = {
       gitlabPath = "/makes/foss/modules/sorts/gitlab-ci.yaml";
@@ -83,7 +79,7 @@ in
             interruptible = false;
             parallel = 15;
             stage = "test-code";
-            tags = [ "autoscaling-large" ];
+            tags = ["autoscaling-large"];
           };
         }
         {
@@ -97,14 +93,14 @@ in
               (gitlabCi.rules.always)
             ];
             stage = "pre-build";
-            tags = [ "autoscaling-large" ];
+            tags = ["autoscaling-large"];
           };
         }
         {
           output = "/sorts/merge-features";
           gitlabExtra = {
             interruptible = false;
-            needs = [ "/sorts/extract-features" ];
+            needs = ["/sorts/extract-features"];
             parallel = 15;
             rules = [
               (gitlabCi.rules.schedules)
@@ -112,7 +108,7 @@ in
               (gitlabCi.rules.always)
             ];
             stage = "build";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
@@ -125,21 +121,21 @@ in
               (gitlabCi.rules.always)
             ];
             stage = "deploy-app";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
           output = "/sorts/tune";
           gitlabExtra = {
             interruptible = false;
-            needs = [ "/sorts/train" ];
+            needs = ["/sorts/train"];
             rules = [
               (gitlabCi.rules.schedules)
               (gitlabCi.rules.varIsDefined "sorts_train")
               (gitlabCi.rules.always)
             ];
             stage = "post-deploy";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {

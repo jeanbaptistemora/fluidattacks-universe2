@@ -1,7 +1,8 @@
-{ makeDerivation
-, outputs
-, projectPath
-, ...
+{
+  makeDerivation,
+  outputs,
+  projectPath,
+  ...
 }:
 makeDerivation {
   builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";

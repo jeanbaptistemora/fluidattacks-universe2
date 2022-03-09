@@ -1,6 +1,7 @@
-{ makeNodeJsModules
-, projectPath
-, ...
+{
+  makeNodeJsModules,
+  projectPath,
+  ...
 }:
 makeNodeJsModules {
   name = "docs-runtime";

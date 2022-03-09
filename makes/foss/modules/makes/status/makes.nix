@@ -1,8 +1,5 @@
 # https://github.com/fluidattacks/makes
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       makesStatus = {

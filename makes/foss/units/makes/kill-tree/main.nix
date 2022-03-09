@@ -1,6 +1,7 @@
-{ inputs
-, makeScript
-, ...
+{
+  inputs,
+  makeScript,
+  ...
 }:
 makeScript {
   name = "makes-kill-tree";

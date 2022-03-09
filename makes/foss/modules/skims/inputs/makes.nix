@@ -1,9 +1,9 @@
-{ fetchGithub
-, fromJsonFile
-, projectPath
-, ...
-}:
 {
+  fetchGithub,
+  fromJsonFile,
+  projectPath,
+  ...
+}: {
   inputs = {
     skimsAndroguard = fetchGithub {
       owner = "androguard";
@@ -35,7 +35,8 @@
       rev = "1282fbde196abb5a77235ba4dd5a64f46dac6e52";
       sha256 = "0sc6zx9zf2v5m2a0hfccynyn93mcx97ks6ksdf9larha6l5r977f";
     };
-    skimsTestPythonCategories = fromJsonFile
+    skimsTestPythonCategories =
+      fromJsonFile
       (projectPath "/skims/test/test_groups.json");
     skimsTreeSitterCSharp = fetchGithub {
       owner = "tree-sitter";

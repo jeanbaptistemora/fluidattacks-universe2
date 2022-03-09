@@ -1,15 +1,14 @@
 # https://github.com/fluidattacks/makes
-{ inputs
-, makeSearchPaths
-, outputs
-, ...
-}:
-let
-  searchPaths = makeSearchPaths {
-    bin = [ inputs.nixpkgs.git ];
-  };
-in
 {
+  inputs,
+  makeSearchPaths,
+  outputs,
+  ...
+}: let
+  searchPaths = makeSearchPaths {
+    bin = [inputs.nixpkgs.git];
+  };
+in {
   deployTerraform = {
     modules = {
       makesVpc = {
@@ -42,15 +41,15 @@ in
   };
   secretsForEnvFromSops = {
     makesVpcDev = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
     makesVpcProd = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
     makesVpcVpnData = {
-      vars = [ "VPN_DATA_RAW" ];
+      vars = ["VPN_DATA_RAW"];
       manifest = "/makes/secrets/dev.yaml";
     };
   };

@@ -1,6 +1,7 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "sorts-extract-features";

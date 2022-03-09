@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
   gitlabTitleMatchingMelts = gitlabCi.rules.titleMatching "^(all|melts)";
@@ -17,10 +14,9 @@ let
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     melts = {
       gitlabPath = "/makes/foss/modules/melts/gitlab-ci.yaml";
@@ -38,10 +34,13 @@ in
           gitlabExtra = {
             rules = gitlabOnlyDev;
             services = [
-              { alias = "localstack"; name = "localstack/localstack"; }
+              {
+                alias = "localstack";
+                name = "localstack/localstack";
+              }
             ];
             stage = "test-code";
-            tags = [ "autoscaling-large" ];
+            tags = ["autoscaling-large"];
             variables = {
               SERVICES = "s3";
               HOSTNAME_EXTERNAL = "localstack";

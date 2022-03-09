@@ -1,9 +1,10 @@
-{ inputs
-, makePythonPypiEnvironment
-, makeScript
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makePythonPypiEnvironment,
+  makeScript,
+  outputs,
+  projectPath,
+  ...
 }:
 makeScript {
   replace = {

@@ -1,7 +1,4 @@
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       integratesFront = {
@@ -30,11 +27,11 @@
   };
   secretsForEnvFromSops = {
     integratesFrontDev = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
       manifest = "/integrates/secrets-development.yaml";
     };
     integratesFrontProd = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
       manifest = "/integrates/secrets-production.yaml";
     };
   };

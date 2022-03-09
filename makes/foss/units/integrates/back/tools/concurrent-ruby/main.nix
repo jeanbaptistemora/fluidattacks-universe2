@@ -1,6 +1,4 @@
-{ makeRubyGemsEnvironment
-, ...
-}:
+{makeRubyGemsEnvironment, ...}:
 makeRubyGemsEnvironment {
   name = "integrates-tools-concurrent-ruby";
   ruby = "2.7";

@@ -1,6 +1,4 @@
-{ makeRubyGemsEnvironment
-, ...
-}:
+{makeRubyGemsEnvironment, ...}:
 makeRubyGemsEnvironment {
   name = "integrates-tools-asciidoctor-pdf";
   ruby = "2.7";

@@ -1,8 +1,9 @@
-{ inputs
-, makeDerivation
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makeDerivation,
+  outputs,
+  projectPath,
+  ...
 }:
 makeDerivation {
   env = {
@@ -17,6 +18,6 @@ makeDerivation {
       inputs.nixpkgs.bash
       inputs.nixpkgs.nodejs-14_x
     ];
-    source = [ outputs."/integrates/front/config/dev-runtime-env" ];
+    source = [outputs."/integrates/front/config/dev-runtime-env"];
   };
 }

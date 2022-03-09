@@ -1,9 +1,10 @@
-{ inputs
-, libGit
-, makeScript
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  libGit,
+  makeScript,
+  outputs,
+  projectPath,
+  ...
 } @ _:
 makeScript {
   replace = {

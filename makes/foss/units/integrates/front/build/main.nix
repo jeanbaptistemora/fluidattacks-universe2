@@ -1,8 +1,9 @@
-{ inputs
-, makeDerivation
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makeDerivation,
+  outputs,
+  projectPath,
+  ...
 }:
 makeDerivation {
   env = {
@@ -18,7 +19,7 @@ makeDerivation {
   builder = ./builder.sh;
   name = "integrates-front-build";
   searchPaths = {
-    bin = [ inputs.nixpkgs.patch ];
-    source = [ outputs."/integrates/front/config/dev-runtime-env" ];
+    bin = [inputs.nixpkgs.patch];
+    source = [outputs."/integrates/front/config/dev-runtime-env"];
   };
 }

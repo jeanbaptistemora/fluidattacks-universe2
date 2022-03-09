@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
   gitlabBranchMaster = gitlabCi.rules.branch "master";
 
@@ -23,10 +20,9 @@ let
   gitlabLintJob = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     airs = {
       gitlabPath = "/makes/foss/modules/airs/gitlab-ci.yaml";
@@ -36,7 +32,7 @@ in
           gitlabExtra = {
             rules = gitlabOnlyDev;
             stage = "deploy-app";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
@@ -44,7 +40,7 @@ in
           gitlabExtra = {
             rules = gitlabOnlyMaster;
             stage = "deploy-app";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
@@ -69,7 +65,7 @@ in
             resource_group = "$CI_JOB_NAME";
             rules = gitlabOnlyMaster;
             stage = "deploy-infra";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
@@ -82,7 +78,7 @@ in
             resource_group = "$CI_JOB_NAME";
             rules = gitlabOnlyDev;
             stage = "test-infra";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
       ];

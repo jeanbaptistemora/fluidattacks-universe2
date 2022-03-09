@@ -1,7 +1,8 @@
-{ __nixpkgs__
-, inputs
-, makeTemplate
-, ...
+{
+  __nixpkgs__,
+  inputs,
+  makeTemplate,
+  ...
 }:
 makeTemplate {
   name = "airs-fontawesome";
@@ -22,9 +23,9 @@ makeTemplate {
         name = "vips";
         searchPaths = {
           export = [
-            [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0" ]
-            [ "CPATH" inputs.nixpkgs.glib.out "/lib/glib-2.0/include" ]
-            [ "CPATH" __nixpkgs__.vips.dev "/include" ]
+            ["CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
+            ["CPATH" inputs.nixpkgs.glib.out "/lib/glib-2.0/include"]
+            ["CPATH" __nixpkgs__.vips.dev "/include"]
           ];
         };
       })

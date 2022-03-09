@@ -1,10 +1,10 @@
 # For more information visit:
 # https://github.com/fluidattacks/makes
-{ fetchNixpkgs
-, projectPath
-, ...
-}:
 {
+  fetchNixpkgs,
+  projectPath,
+  ...
+}: {
   cache = {
     readAndWrite = {
       enable = true;
@@ -25,15 +25,17 @@
           # Nginx by default tries to use directories owned by root
           # We have to recompile it pointing to the user-space
           nginxLocal = supper.nginx.overrideAttrs (attrs: {
-            configureFlags = attrs.configureFlags ++ [
-              "--error-log-path=/tmp/error.log"
-              "--http-client-body-temp-path=/tmp/nginx_client_body"
-              "--http-fastcgi-temp-path=/tmp/nginx_fastcgi"
-              "--http-log-path=/tmp/access.log"
-              "--http-proxy-temp-path=/tmp/nginx_proxy"
-              "--http-scgi-temp-path=/tmp/nginx_scgi"
-              "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
-            ];
+            configureFlags =
+              attrs.configureFlags
+              ++ [
+                "--error-log-path=/tmp/error.log"
+                "--http-client-body-temp-path=/tmp/nginx_client_body"
+                "--http-fastcgi-temp-path=/tmp/nginx_fastcgi"
+                "--http-log-path=/tmp/access.log"
+                "--http-proxy-temp-path=/tmp/nginx_proxy"
+                "--http-scgi-temp-path=/tmp/nginx_scgi"
+                "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
+              ];
           });
         })
       ];

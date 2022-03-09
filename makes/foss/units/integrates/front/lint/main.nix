@@ -1,6 +1,7 @@
-{ makeDerivationParallel
-, outputs
-, ...
+{
+  makeDerivationParallel,
+  outputs,
+  ...
 }:
 makeDerivationParallel {
   dependencies = [

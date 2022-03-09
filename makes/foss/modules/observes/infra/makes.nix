@@ -1,7 +1,4 @@
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       observes = {
@@ -18,7 +15,7 @@
   lintTerraform = {
     modules = {
       observes = {
-        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
+        setup = [outputs."/secretsForAwsFromEnv/dev"];
         src = "/makes/foss/modules/observes/infra/infra";
         version = "1.0";
       };
@@ -26,7 +23,7 @@
   };
   secretsForEnvFromSops = {
     observesProd = {
-      vars = [ "REDSHIFT_USER" "REDSHIFT_PASSWORD" ];
+      vars = ["REDSHIFT_USER" "REDSHIFT_PASSWORD"];
       manifest = "/observes/secrets-prod.yaml";
     };
   };
@@ -39,7 +36,7 @@
   testTerraform = {
     modules = {
       observes = {
-        setup = [ outputs."/secretsForAwsFromEnv/dev" ];
+        setup = [outputs."/secretsForAwsFromEnv/dev"];
         src = "/makes/foss/modules/observes/infra/infra";
         version = "1.0";
       };

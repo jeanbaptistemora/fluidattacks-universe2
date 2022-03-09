@@ -1,7 +1,8 @@
-{ makePythonPypiEnvironment
-, makeTemplate
-, projectPath
-, ...
+{
+  makePythonPypiEnvironment,
+  makeTemplate,
+  projectPath,
+  ...
 }:
 makeTemplate {
   name = "integrates-back-charts";

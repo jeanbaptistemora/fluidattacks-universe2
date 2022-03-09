@@ -1,6 +1,7 @@
-{ makeScript
-, managePorts
-, ...
+{
+  makeScript,
+  managePorts,
+  ...
 }:
 makeScript {
   name = "integrates-kill";

@@ -1,11 +1,11 @@
 # https://github.com/fluidattacks/makes
-{ inputs
-, makeSearchPaths
-, outputs
-, projectPath
-, ...
-}:
-let
+{
+  inputs,
+  makeSearchPaths,
+  outputs,
+  projectPath,
+  ...
+}: let
   searchPaths = makeSearchPaths {
     bin = [
       inputs.nixpkgs.awscli
@@ -14,8 +14,7 @@ let
       inputs.nixpkgs.jq
     ];
   };
-in
-{
+in {
   deployTerraform = {
     modules = {
       makesCi = {

@@ -1,9 +1,9 @@
-{ makeSearchPaths
-, makeTemplate
-, outputs
-, ...
-}:
 {
+  makeSearchPaths,
+  makeTemplate,
+  outputs,
+  ...
+}: {
   dev = {
     integratesBack = {
       source = [

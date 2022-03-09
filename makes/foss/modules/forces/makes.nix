@@ -1,9 +1,9 @@
 # https://github.com/fluidattacks/forces
-{ outputs
-, projectPath
-, ...
-}:
 {
+  outputs,
+  projectPath,
+  ...
+}: {
   imports = [
     ./dev/makes.nix
     ./pipeline/makes.nix
@@ -66,11 +66,11 @@
   };
   secretsForEnvFromSops = {
     forcesDev = {
-      vars = [ "DOCKER_HUB_PASS" "DOCKER_HUB_USER" ];
+      vars = ["DOCKER_HUB_PASS" "DOCKER_HUB_USER"];
       manifest = "/forces/secrets-dev.yaml";
     };
     forcesProd = {
-      vars = [ "DOCKER_HUB_PASS" "DOCKER_HUB_USER" ];
+      vars = ["DOCKER_HUB_PASS" "DOCKER_HUB_USER"];
       manifest = "/forces/secrets-prod.yaml";
     };
   };

@@ -1,7 +1,8 @@
-{ lib
-, src
-, propagatedBuildInputs
-, nativeBuildInputs
+{
+  lib,
+  src,
+  propagatedBuildInputs,
+  nativeBuildInputs,
 }:
 lib.buildPythonPackage rec {
   pname = "dynamo_etl_conf";
@@ -11,6 +12,6 @@ lib.buildPythonPackage rec {
     lib.pytestCheckHook
   ];
   doCheck = true;
-  pythonImportsCheck = [ "dynamo_etl_conf" ];
+  pythonImportsCheck = ["dynamo_etl_conf"];
   inherit src propagatedBuildInputs nativeBuildInputs;
 }

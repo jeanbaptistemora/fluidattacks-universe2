@@ -1,10 +1,11 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   searchPaths = {
-    bin = [ outputs."/observes/etl/zoho-crm" ];
+    bin = [outputs."/observes/etl/zoho-crm"];
     source = [
       outputs."/utils/aws"
       outputs."/utils/sops"

@@ -1,7 +1,4 @@
-{ projectPath
-, ...
-}:
-{
+{projectPath, ...}: {
   imports = [
     ./compute-on-aws-batch/makes.nix
     ./dev/makes.nix

@@ -1,6 +1,7 @@
-{ makeSearchPaths
-, outputs
-, ...
+{
+  makeSearchPaths,
+  outputs,
+  ...
 }:
 makeSearchPaths {
   source = [

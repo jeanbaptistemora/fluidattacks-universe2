@@ -1,6 +1,7 @@
-{ makeNodeJsModules
-, projectPath
-, ...
+{
+  makeNodeJsModules,
+  projectPath,
+  ...
 }:
 makeNodeJsModules {
   name = "integrates-front-dev-runtime";

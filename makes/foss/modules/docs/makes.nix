@@ -6,7 +6,7 @@
   lintMarkdown = {
     docs = {
       config = "/makes/foss/modules/docs/config/markdown.rb";
-      targets = [ "/docs/src/docs" ];
+      targets = ["/docs/src/docs"];
     };
   };
   secretsForAwsFromEnv = {

@@ -1,8 +1,9 @@
-{ inputs
-, libGit
-, makeTemplate
-, outputs
-, ...
+{
+  inputs,
+  libGit,
+  makeTemplate,
+  outputs,
+  ...
 }:
 makeTemplate {
   name = "integrates-front-deploy";

@@ -1,8 +1,5 @@
 # https://github.com/fluidattacks/makes
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       makesOkta = {
@@ -33,11 +30,11 @@
   };
   secretsForEnvFromSops = {
     makesOktaData = {
-      vars = [ "OKTA_DATA_RAW" ];
+      vars = ["OKTA_DATA_RAW"];
       manifest = "/makes/foss/modules/makes/okta/src/data.yaml";
     };
     makesOktaApiToken = {
-      vars = [ "OKTA_API_TOKEN" ];
+      vars = ["OKTA_API_TOKEN"];
       manifest = "/makes/foss/modules/makes/okta/src/data.yaml";
     };
   };

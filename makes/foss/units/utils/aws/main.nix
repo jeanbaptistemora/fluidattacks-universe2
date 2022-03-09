@@ -1,7 +1,8 @@
-{ inputs
-, makeTemplate
-, outputs
-, ...
+{
+  inputs,
+  makeTemplate,
+  outputs,
+  ...
 }:
 makeTemplate {
   searchPaths = {

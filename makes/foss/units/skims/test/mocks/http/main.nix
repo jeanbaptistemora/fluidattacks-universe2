@@ -1,6 +1,7 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "skims-test-mocks-http";
@@ -8,5 +9,5 @@ makeScript {
     __argApp__ = ./src;
   };
   entrypoint = ./entrypoint.sh;
-  searchPaths.source = [ outputs."/skims/test/mocks/http/env" ];
+  searchPaths.source = [outputs."/skims/test/mocks/http/env"];
 }

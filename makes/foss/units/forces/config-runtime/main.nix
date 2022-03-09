@@ -1,8 +1,9 @@
-{ inputs
-, makePythonPypiEnvironment
-, makeTemplate
-, projectPath
-, ...
+{
+  inputs,
+  makePythonPypiEnvironment,
+  makeTemplate,
+  projectPath,
+  ...
 }:
 makeTemplate {
   replace = {

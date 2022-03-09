@@ -1,8 +1,5 @@
 # https://github.com/fluidattacks/makes
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       makesFoss = {
@@ -31,11 +28,11 @@
   };
   secretsForEnvFromSops = {
     makesFossDev = {
-      vars = [ "GITHUB_API_TOKEN" ];
+      vars = ["GITHUB_API_TOKEN"];
       manifest = "/makes/secrets/dev.yaml";
     };
     makesFossProd = {
-      vars = [ "GITHUB_API_TOKEN" ];
+      vars = ["GITHUB_API_TOKEN"];
       manifest = "/makes/secrets/prod.yaml";
     };
   };

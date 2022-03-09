@@ -1,6 +1,4 @@
-{ makeRubyGemsEnvironment
-, ...
-}:
+{makeRubyGemsEnvironment, ...}:
 makeRubyGemsEnvironment {
   name = "integrates-mobile-tools-bundler";
   ruby = "2.7";

@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
   gitlabTitleMatchingReviews = gitlabCi.rules.titleMatching "^(all|reviews)";
@@ -17,10 +14,9 @@ let
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     reviews = {
       gitlabPath = "/makes/reviews/gitlab-ci.yaml";

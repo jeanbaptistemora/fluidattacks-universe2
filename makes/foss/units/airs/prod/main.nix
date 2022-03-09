@@ -1,9 +1,10 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   entrypoint = "airs prod";
   name = "airs-prod";
-  searchPaths.bin = [ outputs."/airs" ];
+  searchPaths.bin = [outputs."/airs"];
 }

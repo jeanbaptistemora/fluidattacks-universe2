@@ -1,9 +1,9 @@
-{ makeDerivation
-, makeNodeJsEnvironment
-, projectPath
-, ...
-}:
-let
+{
+  makeDerivation,
+  makeNodeJsEnvironment,
+  projectPath,
+  ...
+}: let
   nodeJsEnvironment = makeNodeJsEnvironment {
     name = "integrates-linters-back-schema";
     nodeJsVersion = "14";
@@ -11,9 +11,9 @@ let
     packageLockJson = ./npm/package-lock.json;
   };
 in
-makeDerivation {
-  builder = ./builder.sh;
-  env.envIntegratesApiSchema = projectPath "/integrates/back/src/api/schema";
-  name = "integrates-linters-back-schema";
-  searchPaths.source = [ nodeJsEnvironment ];
-}
+  makeDerivation {
+    builder = ./builder.sh;
+    env.envIntegratesApiSchema = projectPath "/integrates/back/src/api/schema";
+    name = "integrates-linters-back-schema";
+    searchPaths.source = [nodeJsEnvironment];
+  }

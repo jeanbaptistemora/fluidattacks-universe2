@@ -1,6 +1,7 @@
-{ makeNodeJsModules
-, projectPath
-, ...
+{
+  makeNodeJsModules,
+  projectPath,
+  ...
 }:
 makeNodeJsModules {
   name = "airs-npm";

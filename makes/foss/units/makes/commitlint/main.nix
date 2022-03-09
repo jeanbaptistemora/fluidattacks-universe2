@@ -1,6 +1,4 @@
-{ makeNodeJsEnvironment
-, ...
-}:
+{makeNodeJsEnvironment, ...}:
 makeNodeJsEnvironment {
   name = "commitlint";
   nodeJsVersion = "12";

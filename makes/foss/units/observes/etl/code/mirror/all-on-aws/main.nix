@@ -1,21 +1,21 @@
-{ makeScript
-, outputs
-, ...
-}:
-let
+{
+  makeScript,
+  outputs,
+  ...
+}: let
   mirrorGroup = outputs."/computeOnAwsBatch/observesCodeEtlMirror";
 in
-makeScript {
-  searchPaths = {
-    source = [
-      outputs."/utils/aws"
-      outputs."/utils/git"
-      outputs."/utils/sops"
-    ];
-  };
-  replace = {
-    __argCodeEtlMirror__ = "${mirrorGroup}/bin/${mirrorGroup.name}";
-  };
-  name = "observes-etl-code-mirror-all-on-aws";
-  entrypoint = ./entrypoint.sh;
-}
+  makeScript {
+    searchPaths = {
+      source = [
+        outputs."/utils/aws"
+        outputs."/utils/git"
+        outputs."/utils/sops"
+      ];
+    };
+    replace = {
+      __argCodeEtlMirror__ = "${mirrorGroup}/bin/${mirrorGroup.name}";
+    };
+    name = "observes-etl-code-mirror-all-on-aws";
+    entrypoint = ./entrypoint.sh;
+  }

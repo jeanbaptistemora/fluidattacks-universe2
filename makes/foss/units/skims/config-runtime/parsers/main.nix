@@ -1,7 +1,8 @@
-{ inputs
-, makeDerivation
-, outputs
-, ...
+{
+  inputs,
+  makeDerivation,
+  outputs,
+  ...
 }:
 makeDerivation {
   builder = ./builder.sh;
@@ -11,8 +12,8 @@ makeDerivation {
       inputs.nixpkgs.python38
       inputs.nixpkgs.binutils-unwrapped
     ];
-    rpath = [ inputs.nixpkgs.gcc.cc.lib ];
-    source = [ outputs."/skims/config-runtime/pypi" ];
+    rpath = [inputs.nixpkgs.gcc.cc.lib];
+    source = [outputs."/skims/config-runtime/pypi"];
   };
   env = {
     envBuildPy = ./build.py;

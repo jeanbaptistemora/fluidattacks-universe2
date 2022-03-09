@@ -1,7 +1,8 @@
-{ makeScript
-, outputs
-, managePorts
-, ...
+{
+  makeScript,
+  outputs,
+  managePorts,
+  ...
 }:
 makeScript {
   replace = {

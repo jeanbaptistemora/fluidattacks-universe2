@@ -1,7 +1,4 @@
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       airsInfra = {
@@ -30,11 +27,11 @@
   };
   secretsForEnvFromSops = {
     airsInfraDev = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
       manifest = "/airs/secrets/dev.yaml";
     };
     airsInfraProd = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
+      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
       manifest = "/airs/secrets/prod.yaml";
     };
   };

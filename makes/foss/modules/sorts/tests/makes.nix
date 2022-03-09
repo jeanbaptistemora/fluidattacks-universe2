@@ -1,7 +1,4 @@
-{ outputs
-, ...
-}:
-{
+{outputs, ...}: {
   testPython = {
     sorts = {
       python = "3.8";

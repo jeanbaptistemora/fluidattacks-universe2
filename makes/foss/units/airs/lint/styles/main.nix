@@ -1,8 +1,9 @@
-{ inputs
-, makeDerivation
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makeDerivation,
+  outputs,
+  projectPath,
+  ...
 }:
 makeDerivation {
   env = {
@@ -15,6 +16,6 @@ makeDerivation {
     bin = [
       inputs.nixpkgs.findutils
     ];
-    source = [ outputs."/airs/npm/env" ];
+    source = [outputs."/airs/npm/env"];
   };
 }

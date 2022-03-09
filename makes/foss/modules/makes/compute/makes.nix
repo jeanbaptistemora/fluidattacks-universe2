@@ -1,9 +1,9 @@
 # https://github.com/fluidattacks/makes
-{ outputs
-, projectPath
-, ...
-}:
 {
+  outputs,
+  projectPath,
+  ...
+}: {
   deployTerraform = {
     modules = {
       makesCompute = {

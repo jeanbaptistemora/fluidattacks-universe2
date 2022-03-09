@@ -1,7 +1,8 @@
-{ projectPath
-, makeDerivation
-, inputs
-, ...
+{
+  projectPath,
+  makeDerivation,
+  inputs,
+  ...
 }:
 makeDerivation {
   env = {

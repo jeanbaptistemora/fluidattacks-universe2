@@ -1,16 +1,19 @@
-{ inputs
-, libGit
-, makeScript
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  libGit,
+  makeScript,
+  outputs,
+  projectPath,
+  ...
 }:
 makeScript {
   replace = {
-    __argAndroidSdk__ = (inputs.nixpkgs.androidenv.composeAndroidPackages {
-      buildToolsVersions = [ "30.0.3" ];
-      platformVersions = [ "30" ];
-    }).androidsdk;
+    __argAndroidSdk__ =
+      (inputs.nixpkgs.androidenv.composeAndroidPackages {
+        buildToolsVersions = ["30.0.3"];
+        platformVersions = ["30"];
+      })
+      .androidsdk;
     __argJava__ = inputs.nixpkgs.openjdk8_headless;
     __argSecretsProd__ = projectPath "/integrates/secrets-production.yaml";
     __argSetupIntegratesMobileDevRuntime__ =

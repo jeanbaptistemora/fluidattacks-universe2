@@ -1,9 +1,10 @@
-{ makeScript
-, managePorts
-, ...
+{
+  makeScript,
+  managePorts,
+  ...
 }:
 makeScript {
   name = "makes-wait";
-  searchPaths.source = [ managePorts ];
+  searchPaths.source = [managePorts];
   entrypoint = ./entrypoint.sh;
 }

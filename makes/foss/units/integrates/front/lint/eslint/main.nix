@@ -1,8 +1,9 @@
-{ inputs
-, makeDerivation
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makeDerivation,
+  outputs,
+  projectPath,
+  ...
 }:
 makeDerivation {
   env = {
@@ -13,7 +14,7 @@ makeDerivation {
   builder = ./builder.sh;
   name = "integrates-front-lint-eslint";
   searchPaths = {
-    bin = [ inputs.nixpkgs.nodejs-14_x ];
+    bin = [inputs.nixpkgs.nodejs-14_x];
     source = [
       outputs."/utils/lint-typescript"
       outputs."/integrates/front/config/dev-runtime-env"

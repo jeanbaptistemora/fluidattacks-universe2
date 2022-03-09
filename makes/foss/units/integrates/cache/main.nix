@@ -1,7 +1,8 @@
-{ inputs
-, makeScript
-, managePorts
-, ...
+{
+  inputs,
+  makeScript,
+  managePorts,
+  ...
 }:
 makeScript {
   name = "integrates-cache";

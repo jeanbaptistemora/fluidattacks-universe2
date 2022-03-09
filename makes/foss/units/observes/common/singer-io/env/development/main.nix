@@ -1,7 +1,8 @@
-{ makePythonPypiEnvironment
-, makeTemplate
-, outputs
-, ...
+{
+  makePythonPypiEnvironment,
+  makeTemplate,
+  outputs,
+  ...
 }:
 makeTemplate {
   name = "observes-common-singer-io-env-development";

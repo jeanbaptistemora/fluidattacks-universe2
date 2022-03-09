@@ -1,8 +1,9 @@
-{ inputs
-, makePythonPypiEnvironment
-, makeTemplate
-, outputs
-, ...
+{
+  inputs,
+  makePythonPypiEnvironment,
+  makeTemplate,
+  outputs,
+  ...
 }:
 makeTemplate {
   name = "observes-singer-tap-mixpanel-env-development";

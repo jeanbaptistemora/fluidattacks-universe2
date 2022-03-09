@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchMaster = gitlabCi.rules.branch "master";
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
@@ -25,35 +22,37 @@ let
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
     stage = "deploy-infra";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTestCode = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabScheduled = {
     interruptible = false;
     rules = [
       gitlabCi.rules.schedules
-      { "if" = "$observes_scheduled_job != $CI_JOB_NAME"; "when" = "never"; }
+      {
+        "if" = "$observes_scheduled_job != $CI_JOB_NAME";
+        "when" = "never";
+      }
       gitlabCi.rules.always
     ];
     stage = "analytics";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     observes = {
       gitlabPath = "/makes/foss/modules/observes/gitlab-ci.yaml";
@@ -260,12 +259,12 @@ in
         }
         {
           output = "/observes/service/jobs-scheduler/bin";
-          args = [ "run-schedule" ];
+          args = ["run-schedule"];
           gitlabExtra = gitlabScheduled;
         }
         {
           output = "/observes/service/jobs-scheduler/run";
-          args = [ "run-schedule" ];
+          args = ["run-schedule"];
           gitlabExtra = gitlabScheduled;
         }
         {
@@ -278,10 +277,12 @@ in
         }
         {
           output = "/observes/etl/dynamo/table";
-          args = [ "FI_vulnerabilities" ];
-          gitlabExtra = gitlabScheduled // {
-            tags = [ "autoscaling-large" ];
-          };
+          args = ["FI_vulnerabilities"];
+          gitlabExtra =
+            gitlabScheduled
+            // {
+              tags = ["autoscaling-large"];
+            };
         }
         {
           output = "/observes/etl/mailchimp";

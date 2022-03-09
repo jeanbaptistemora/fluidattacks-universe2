@@ -1,13 +1,12 @@
-{ inputs
-, makeSearchPaths
-, outputs
-, projectPath
-, ...
-}:
-let
-  extract_roots = target: builtins.map (key: (builtins.getAttr key target).root) (builtins.attrNames target);
-in
 {
+  inputs,
+  makeSearchPaths,
+  outputs,
+  projectPath,
+  ...
+}: let
+  extract_roots = target: builtins.map (key: (builtins.getAttr key target).root) (builtins.attrNames target);
+in {
   lintPython = {
     imports = {
       observesArch = {
@@ -29,9 +28,11 @@ in
                 "/observes/services/timedoctor_tokens"
                 "/observes/singer/streamer_dynamodb"
                 "/observes/singer/streamer_zoho_crm"
-              ] ++ (
+              ]
+              ++ (
                 extract_roots inputs.observesIndex.tap
-              ) ++ (
+              )
+              ++ (
                 extract_roots inputs.observesIndex.target
               )
             );

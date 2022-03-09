@@ -1,6 +1,7 @@
-{ makeNodeJsEnvironment
-, projectPath
-, ...
+{
+  makeNodeJsEnvironment,
+  projectPath,
+  ...
 }:
 makeNodeJsEnvironment {
   name = "airs-npm";

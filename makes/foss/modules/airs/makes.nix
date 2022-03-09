@@ -14,7 +14,7 @@
   lintMarkdown = {
     airs = {
       config = "/makes/foss/modules/airs/config/markdown.rb";
-      targets = [ "/airs/front/content" ];
+      targets = ["/airs/front/content"];
     };
   };
 }

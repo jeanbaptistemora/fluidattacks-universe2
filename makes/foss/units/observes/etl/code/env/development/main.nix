@@ -1,7 +1,8 @@
-{ makeTemplate
-, makePythonPypiEnvironment
-, outputs
-, ...
+{
+  makeTemplate,
+  makePythonPypiEnvironment,
+  outputs,
+  ...
 }:
 makeTemplate {
   name = "observes-etl-code-env-development";

@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
   gitlabBranchMaster = gitlabCi.rules.branch "master";
 
@@ -24,25 +21,24 @@ let
   gitlabDeployApp = {
     rules = gitlabOnlyMaster;
     stage = "deploy-app";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;
     stage = "build";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "post-deploy";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     forces = {
       gitlabPath = "/makes/foss/modules/forces/gitlab-ci.yaml";
@@ -58,26 +54,28 @@ in
         {
           output = "/forces/process-groups";
           gitlabExtra = {
-            only.refs = [ "schedules" ];
-            only.variables = [ "$forces_process_groups" ];
+            only.refs = ["schedules"];
+            only.variables = ["$forces_process_groups"];
             stage = "scheduler";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
           output = "/forces/process-groups-break";
           gitlabExtra = {
-            only.refs = [ "schedules" ];
-            only.variables = [ "$forces_process_groups_break" ];
+            only.refs = ["schedules"];
+            only.variables = ["$forces_process_groups_break"];
             stage = "scheduler";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {
           output = "/forces/test";
-          gitlabExtra = gitlabTest // {
-            needs = [ "/integrates/back/deploy/dev" ];
-          };
+          gitlabExtra =
+            gitlabTest
+            // {
+              needs = ["/integrates/back/deploy/dev"];
+            };
         }
         {
           output = "/lintPython/module/forces";

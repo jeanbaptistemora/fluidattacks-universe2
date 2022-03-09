@@ -1,15 +1,14 @@
 # https://github.com/fluidattacks/makes
-{ inputs
-, makeSearchPaths
-, outputs
-, ...
-}:
-let
-  searchPaths = makeSearchPaths {
-    bin = [ inputs.nixpkgs.git ];
-  };
-in
 {
+  inputs,
+  makeSearchPaths,
+  outputs,
+  ...
+}: let
+  searchPaths = makeSearchPaths {
+    bin = [inputs.nixpkgs.git];
+  };
+in {
   deployTerraform = {
     modules = {
       makesKubernetes = {

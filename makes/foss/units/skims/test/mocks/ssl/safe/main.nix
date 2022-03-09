@@ -1,9 +1,10 @@
-{ inputs
-, makeScript
-, makeSslCertificate
-, makeTemplate
-, managePorts
-, ...
+{
+  inputs,
+  makeScript,
+  makeSslCertificate,
+  makeTemplate,
+  managePorts,
+  ...
 }:
 makeScript {
   replace = {
@@ -12,7 +13,7 @@ makeScript {
         __argHttpServerSslCert__ = makeSslCertificate {
           days = 365;
           name = "skims-test-mocks-ssl-safe";
-          options = [ [ "-subj" "/CN=localhost" ] ];
+          options = [["-subj" "/CN=localhost"]];
         };
         __argHttpServerRoot__ = ../http/server/root;
       };
@@ -48,7 +49,7 @@ makeScript {
     source = [
       managePorts
     ];
-    rpath = [ inputs.nixpkgs.openssl.out ];
+    rpath = [inputs.nixpkgs.openssl.out];
   };
   entrypoint = ./entrypoint.sh;
 }

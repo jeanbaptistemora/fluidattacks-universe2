@@ -1,7 +1,8 @@
-{ inputs
-, makeScript
-, outputs
-, ...
+{
+  inputs,
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   replace = {
@@ -15,6 +16,6 @@ makeScript {
       inputs.nixpkgs.bash
       inputs.nixpkgs.nodejs-14_x
     ];
-    source = [ outputs."/integrates/front/config/dev-runtime-env" ];
+    source = [outputs."/integrates/front/config/dev-runtime-env"];
   };
 }

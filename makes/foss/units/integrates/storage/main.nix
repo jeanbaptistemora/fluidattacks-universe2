@@ -1,18 +1,19 @@
-{ inputs
-, libGit
-, makeDerivation
-, makeScript
-, projectPath
-, managePorts
-, outputs
-, ...
-}:
-let
-  chmodX = name: envSrc: makeDerivation {
-    env = { inherit envSrc; };
-    builder = "cp $envSrc $out && chmod +x $out";
-    inherit name;
-  };
+{
+  inputs,
+  libGit,
+  makeDerivation,
+  makeScript,
+  projectPath,
+  managePorts,
+  outputs,
+  ...
+}: let
+  chmodX = name: envSrc:
+    makeDerivation {
+      env = {inherit envSrc;};
+      builder = "cp $envSrc $out && chmod +x $out";
+      inherit name;
+    };
   minioCliSrc = inputs.nixpkgs.fetchurl {
     url = "https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2020-09-18T00-13-21Z";
     sha256 = "D9Y4uY4bt131eu2jxVRHdevsFMV5aMUpBkff4LI1M6Q=";
@@ -22,18 +23,18 @@ let
     sha256 = "OkGh6Rimy0NWWqTru3HP4KDaHhmaP3J/ShGkxzpgJrE=";
   };
 in
-makeScript {
-  replace = {
-    __argDevSecrets__ = projectPath "/integrates/secrets-development.yaml";
-    __argMinioCli__ = chmodX "minio-cli" minioCliSrc;
-    __argMinioLocal__ = chmodX "minio-local" minioLocalSrc;
-  };
-  name = "integrates-storage";
-  searchPaths.source = [
-    libGit
-    managePorts
-    outputs."/utils/aws"
-    outputs."/utils/sops"
-  ];
-  entrypoint = ./entrypoint.sh;
-}
+  makeScript {
+    replace = {
+      __argDevSecrets__ = projectPath "/integrates/secrets-development.yaml";
+      __argMinioCli__ = chmodX "minio-cli" minioCliSrc;
+      __argMinioLocal__ = chmodX "minio-local" minioLocalSrc;
+    };
+    name = "integrates-storage";
+    searchPaths.source = [
+      libGit
+      managePorts
+      outputs."/utils/aws"
+      outputs."/utils/sops"
+    ];
+    entrypoint = ./entrypoint.sh;
+  }

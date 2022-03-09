@@ -1,6 +1,7 @@
-{ makeTemplate
-, projectPath
-, ...
+{
+  makeTemplate,
+  projectPath,
+  ...
 }:
 makeTemplate {
   replace = {

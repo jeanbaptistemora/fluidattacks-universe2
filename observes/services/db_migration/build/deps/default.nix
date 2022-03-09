@@ -1,5 +1,9 @@
-{ system, local_lib, legacy_pkgs, pythonPkgs }:
-let
+{
+  system,
+  local_lib,
+  legacy_pkgs,
+  pythonPkgs,
+}: let
   python_version = "python39";
   purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
@@ -8,7 +12,7 @@ let
   purity = import purity_src {
     inherit system legacy_pkgs python_version;
     self = purity_src;
-    path_filter = { root, ... }: root;
+    path_filter = {root, ...}: root;
   };
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
@@ -17,16 +21,19 @@ let
   redshift = import redshift_src {
     inherit system legacy_pkgs python_version;
     self = redshift_src;
-    path_filter = { root, ... }: root;
+    path_filter = {root, ...}: root;
     others = {
       fa-purity = purity.pkg;
     };
   };
 in
-pythonPkgs // {
-  redshift-client = redshift.pkg;
-  utils-logger = (import local_lib.utils-logger {
-    src = local_lib.utils-logger;
-    inherit python_version legacy_pkgs;
-  }).pkg;
-}
+  pythonPkgs
+  // {
+    redshift-client = redshift.pkg;
+    utils-logger =
+      (import local_lib.utils-logger {
+        src = local_lib.utils-logger;
+        inherit python_version legacy_pkgs;
+      })
+      .pkg;
+  }

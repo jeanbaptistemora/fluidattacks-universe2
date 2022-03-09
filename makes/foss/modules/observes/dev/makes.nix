@@ -1,8 +1,8 @@
-{ inputs
-, outputs
-, ...
-}:
 {
+  inputs,
+  outputs,
+  ...
+}: {
   dev = {
     observesPaginator = {
       source = [

@@ -2,28 +2,28 @@
 {
   formatBash = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   formatMarkdown = {
     enable = true;
-    doctocArgs = [ "--title" "# Contents" ];
-    targets = [ "/skims/LICENSE.md" ];
+    doctocArgs = ["--title" "# Contents"];
+    targets = ["/skims/LICENSE.md"];
   };
   formatNix = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   formatPython = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   formatTerraform = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   lintBash = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   lintGitCommitMsg = {
     branch = "master";
@@ -36,7 +36,7 @@
   };
   lintNix = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   lintTerraform = {
     config = "/makes/foss/modules/all/lint-terraform-config.hcl";

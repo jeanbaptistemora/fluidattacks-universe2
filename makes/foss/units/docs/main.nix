@@ -1,8 +1,9 @@
-{ inputs
-, makeNodeJsVersion
-, makeScript
-, outputs
-, ...
+{
+  inputs,
+  makeNodeJsVersion,
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "docs";
@@ -16,8 +17,8 @@ makeScript {
       outputs."/docs/generate/criteria"
       (makeNodeJsVersion "12")
     ];
-    nodeBin = [ outputs."/docs/runtime" ];
-    nodeModule = [ "./node_modules" ];
+    nodeBin = [outputs."/docs/runtime"];
+    nodeModule = ["./node_modules"];
   };
   entrypoint = ./entrypoint.sh;
 }

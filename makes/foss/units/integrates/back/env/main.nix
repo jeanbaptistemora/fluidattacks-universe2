@@ -1,9 +1,10 @@
-{ inputs
-, libGit
-, makeTemplate
-, projectPath
-, outputs
-, ...
+{
+  inputs,
+  libGit,
+  makeTemplate,
+  projectPath,
+  outputs,
+  ...
 }:
 makeTemplate {
   replace = {

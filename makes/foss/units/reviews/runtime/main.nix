@@ -1,9 +1,10 @@
-{ inputs
-, makePythonPypiEnvironment
-, makeTemplate
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makePythonPypiEnvironment,
+  makeTemplate,
+  outputs,
+  projectPath,
+  ...
 }:
 makeTemplate {
   replace = {
@@ -11,8 +12,8 @@ makeTemplate {
   };
   name = "reviews-runtime";
   searchPaths = {
-    bin = [ inputs.nixpkgs.python38 ];
-    pythonPackage = [ (projectPath "/reviews/src") ];
+    bin = [inputs.nixpkgs.python38];
+    pythonPackage = [(projectPath "/reviews/src")];
     source = [
       (makePythonPypiEnvironment {
         name = "reviews-runtime";

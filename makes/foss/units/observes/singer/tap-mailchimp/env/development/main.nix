@@ -1,8 +1,9 @@
-{ inputs
-, makeTemplate
-, makePythonPypiEnvironment
-, outputs
-, ...
+{
+  inputs,
+  makeTemplate,
+  makePythonPypiEnvironment,
+  outputs,
+  ...
 }:
 makeTemplate {
   name = "observes-singer-tap-mailchimp-env-development";

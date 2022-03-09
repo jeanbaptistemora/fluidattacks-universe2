@@ -1,8 +1,9 @@
-{ lib
-, src
-, metadata
-, propagatedBuildInputs
-, nativeBuildInputs
+{
+  lib,
+  src,
+  metadata,
+  propagatedBuildInputs,
+  nativeBuildInputs,
 }:
 lib.buildPythonPackage rec {
   pname = metadata.name;
@@ -10,6 +11,6 @@ lib.buildPythonPackage rec {
   format = "pyproject";
   installCheckPhase = ./check/types.sh;
   doCheck = true;
-  pythonImportsCheck = [ pname ];
+  pythonImportsCheck = [pname];
   inherit src propagatedBuildInputs nativeBuildInputs;
 }

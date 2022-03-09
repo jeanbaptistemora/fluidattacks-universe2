@@ -1,7 +1,8 @@
-{ inputs
-, makeScript
-, outputs
-, ...
+{
+  inputs,
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "skims-owasp-benchmark";
@@ -13,7 +14,7 @@ makeScript {
       inputs.nixpkgs.python38
       outputs."/skims"
     ];
-    source = [ outputs."/skims/config-runtime" ];
+    source = [outputs."/skims/config-runtime"];
   };
   entrypoint = ./entrypoint.sh;
 }

@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
-, makeTemplate
-, ...
+{
+  makePythonPypiEnvironment,
+  makeTemplate,
+  ...
 }:
 makeTemplate {
   name = "makes-python-safe-pickle";
   searchPaths = {
-    pythonPackage = [ ./src ];
+    pythonPackage = [./src];
     source = [
       (makePythonPypiEnvironment {
         name = "makes-python-safe-pickle";

@@ -1,7 +1,8 @@
-{ makeScript
-, inputs
-, outputs
-, ...
+{
+  makeScript,
+  inputs,
+  outputs,
+  ...
 }:
 makeScript {
   searchPaths = {

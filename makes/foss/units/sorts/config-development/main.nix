@@ -1,10 +1,10 @@
-{ inputs
-, makeTemplate
-, makePythonPypiEnvironment
-, projectPath
-, ...
-}:
-let
+{
+  inputs,
+  makeTemplate,
+  makePythonPypiEnvironment,
+  projectPath,
+  ...
+}: let
   pythonRequirements = makePythonPypiEnvironment {
     name = "sorts-development";
     searchPathsRuntime.bin = [
@@ -18,15 +18,15 @@ let
     sourcesYaml = ./pypi-sources.yaml;
   };
 in
-makeTemplate {
-  name = "sorts-config-development";
-  searchPaths = {
-    rpath = [
-      inputs.nixpkgs.gcc.cc.lib
-    ];
-    pythonPackage = [
-      (projectPath "/sorts/training")
-    ];
-    source = [ pythonRequirements ];
-  };
-}
+  makeTemplate {
+    name = "sorts-config-development";
+    searchPaths = {
+      rpath = [
+        inputs.nixpkgs.gcc.cc.lib
+      ];
+      pythonPackage = [
+        (projectPath "/sorts/training")
+      ];
+      source = [pythonRequirements];
+    };
+  }

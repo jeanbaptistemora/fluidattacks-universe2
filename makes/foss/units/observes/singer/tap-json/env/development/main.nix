@@ -1,7 +1,8 @@
-{ inputs
-, makeTemplate
-, outputs
-, ...
+{
+  inputs,
+  makeTemplate,
+  outputs,
+  ...
 }:
 makeTemplate {
   name = "observes-singer-tap-json-env-development";

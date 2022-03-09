@@ -1,9 +1,10 @@
-{ inputs
-, makePythonPypiEnvironment
-, makeTemplate
-, outputs
-, projectPath
-, ...
+{
+  inputs,
+  makePythonPypiEnvironment,
+  makeTemplate,
+  outputs,
+  projectPath,
+  ...
 }:
 makeTemplate {
   name = "observes-singer-tap-gitlab-env-runtime";

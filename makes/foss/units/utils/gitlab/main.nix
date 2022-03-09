@@ -1,6 +1,7 @@
-{ inputs
-, makeTemplate
-, ...
+{
+  inputs,
+  makeTemplate,
+  ...
 }:
 makeTemplate {
   name = "utils-gitlab";

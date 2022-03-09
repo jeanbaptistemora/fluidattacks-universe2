@@ -1,7 +1,8 @@
-{ inputs
-, makeNodeJsModules
-, projectPath
-, ...
+{
+  inputs,
+  makeNodeJsModules,
+  projectPath,
+  ...
 }:
 makeNodeJsModules {
   name = "integrates-mobile-dev-runtime";

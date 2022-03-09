@@ -1,6 +1,7 @@
-{ makePythonPypiEnvironment
-, inputs
-, ...
+{
+  makePythonPypiEnvironment,
+  inputs,
+  ...
 }:
 makePythonPypiEnvironment {
   name = "observes-singer-target-redshift-env-runtime-python";

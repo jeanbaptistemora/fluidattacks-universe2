@@ -1,8 +1,9 @@
-{ makeScript
-, outputs
-, projectPath
-, inputs
-, ...
+{
+  makeScript,
+  outputs,
+  projectPath,
+  inputs,
+  ...
 }:
 makeScript {
   name = "forces-test";

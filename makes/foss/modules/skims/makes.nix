@@ -1,9 +1,9 @@
 # https://github.com/fluidattacks/makes
-{ outputs
-, projectPath
-, ...
-}:
 {
+  outputs,
+  projectPath,
+  ...
+}: {
   imports = [
     ./compute-on-aws-batch/makes.nix
     ./dev/makes.nix
@@ -42,7 +42,7 @@
         src = "/skims/test";
       };
       skimsTestMocksHttp = {
-        searchPaths.source = [ outputs."/skims/test/mocks/http/env" ];
+        searchPaths.source = [outputs."/skims/test/mocks/http/env"];
         python = "3.8";
         src = "/makes/foss/units/skims/test/mocks/http/src";
       };

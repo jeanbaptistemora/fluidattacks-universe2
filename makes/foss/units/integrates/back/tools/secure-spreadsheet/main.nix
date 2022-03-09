@@ -1,6 +1,4 @@
-{ makeNodeJsEnvironment
-, ...
-}:
+{makeNodeJsEnvironment, ...}:
 makeNodeJsEnvironment {
   name = "integrates-back-tools-secure-spreadsheet";
   nodeJsVersion = "14";

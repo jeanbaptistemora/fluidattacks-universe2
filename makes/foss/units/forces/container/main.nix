@@ -1,8 +1,9 @@
-{ inputs
-, makeContainerImage
-, makeDerivation
-, outputs
-, ...
+{
+  inputs,
+  makeContainerImage,
+  makeDerivation,
+  outputs,
+  ...
 }:
 makeContainerImage {
   config.WorkingDir = "/src";

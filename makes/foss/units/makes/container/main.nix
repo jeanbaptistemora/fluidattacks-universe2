@@ -1,8 +1,9 @@
-{ inputs
-, makeDerivation
-, makeContainerImage
-, projectPath
-, ...
+{
+  inputs,
+  makeDerivation,
+  makeContainerImage,
+  projectPath,
+  ...
 }:
 makeContainerImage {
   config = {
@@ -48,7 +49,7 @@ makeContainerImage {
       };
       builder = ./builder.sh;
       name = "makes-oci-customization-layer";
-      searchPaths.bin = [ inputs.nixpkgs.coreutils ];
+      searchPaths.bin = [inputs.nixpkgs.coreutils];
     })
     inputs.nixpkgs.bash
     inputs.nixpkgs.cacert

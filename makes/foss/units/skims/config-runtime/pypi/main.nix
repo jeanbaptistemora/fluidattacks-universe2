@@ -1,12 +1,13 @@
-{ inputs
-, makePythonPypiEnvironment
-, ...
+{
+  inputs,
+  makePythonPypiEnvironment,
+  ...
 }:
 makePythonPypiEnvironment rec {
   name = "skims-runtime";
   searchPathsBuild = {
-    bin = [ inputs.nixpkgs.gcc ];
-    pythonPackage38 = [ inputs.nixpkgs.python38Packages.pygraphviz ];
+    bin = [inputs.nixpkgs.gcc];
+    pythonPackage38 = [inputs.nixpkgs.python38Packages.pygraphviz];
   };
   searchPathsRuntime = searchPathsBuild;
   sourcesYaml = ./sources.yaml;

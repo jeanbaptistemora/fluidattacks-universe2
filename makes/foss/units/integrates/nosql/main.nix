@@ -1,9 +1,10 @@
-{ inputs
-, makeScript
-, ...
-}:
-let
-  nosql = inputs.nixpkgs.appimageTools.wrapType2
+{
+  inputs,
+  makeScript,
+  ...
+}: let
+  nosql =
+    inputs.nixpkgs.appimageTools.wrapType2
     {
       name = "nosql";
       src = inputs.nixpkgs.fetchurl {
@@ -13,11 +14,11 @@ let
       };
     };
 in
-makeScript {
-  replace = {
-    __argNoSql__ = nosql;
-  };
-  name = "nosql_workbenck";
-  searchPaths = { bin = [ inputs.nixpkgs.bash ]; };
-  entrypoint = "bash __argNoSql__/bin/nosql";
-}
+  makeScript {
+    replace = {
+      __argNoSql__ = nosql;
+    };
+    name = "nosql_workbenck";
+    searchPaths = {bin = [inputs.nixpkgs.bash];};
+    entrypoint = "bash __argNoSql__/bin/nosql";
+  }

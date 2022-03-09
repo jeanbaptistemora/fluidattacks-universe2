@@ -1,10 +1,11 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   searchPaths = {
-    source = [ outputs."/reviews/runtime" ];
+    source = [outputs."/reviews/runtime"];
   };
   name = "makes-review-mr";
   entrypoint = ./entrypoint.sh;

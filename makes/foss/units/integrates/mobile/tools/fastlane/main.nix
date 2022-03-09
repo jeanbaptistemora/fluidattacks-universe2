@@ -1,7 +1,8 @@
-{ __nixpkgs__
-, inputs
-, makeRubyGemsEnvironment
-, ...
+{
+  __nixpkgs__,
+  inputs,
+  makeRubyGemsEnvironment,
+  ...
 }:
 makeRubyGemsEnvironment {
   name = "integrates-mobile-tools-fastlane";
@@ -449,6 +450,6 @@ makeRubyGemsEnvironment {
       inputs.nixpkgs.gnumake
       inputs.nixpkgs.rake
     ];
-    rpath = [ __nixpkgs__.gcc.cc.lib ];
+    rpath = [__nixpkgs__.gcc.cc.lib];
   };
 }

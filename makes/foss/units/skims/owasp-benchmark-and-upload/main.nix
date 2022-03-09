@@ -1,7 +1,8 @@
-{ inputs
-, makeScript
-, outputs
-, ...
+{
+  inputs,
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   name = "skims-owasp-benchmark-and-upload";

@@ -1,7 +1,4 @@
-{ gitlabCi
-, ...
-}:
-let
+{gitlabCi, ...}: let
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
   gitlabBranchMaster = gitlabCi.rules.branch "master";
 
@@ -25,12 +22,12 @@ let
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
     stage = "deploy-infra";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabRotateUsersKeys1 = {
     rules = [
@@ -39,7 +36,7 @@ let
       gitlabCi.rules.always
     ];
     stage = "rotation";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabRotateUsersKeys2 = {
     rules = [
@@ -48,20 +45,19 @@ let
       gitlabCi.rules.always
     ];
     stage = "rotation";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTestCode = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = [ "autoscaling" ];
+    tags = ["autoscaling"];
   };
-in
-{
+in {
   pipelines = {
     makes = {
       gitlabPath = "/makes/foss/modules/makes/gitlab-ci.yaml";
@@ -71,7 +67,7 @@ in
           gitlabExtra = {
             rules = gitlabOnlyDev;
             stage = "build";
-            tags = [ "autoscaling" ];
+            tags = ["autoscaling"];
           };
         }
         {

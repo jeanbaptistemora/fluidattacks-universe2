@@ -1,17 +1,16 @@
-{ inputs
-, libGit
-, makeTemplate
-, outputs
-, projectPath
-, ...
-}:
-let
+{
+  inputs,
+  libGit,
+  makeTemplate,
+  outputs,
+  projectPath,
+  ...
+}: let
   categories = [
     "functional"
     "cli"
   ];
-in
-{
+in {
   testPython = builtins.listToAttrs (builtins.map
     (category: {
       name = "skims@${category}";
@@ -62,7 +61,7 @@ in
             })
           ];
         };
-        extraFlags = [ "--reruns" "1" "--skims-test-group" category ];
+        extraFlags = ["--reruns" "1" "--skims-test-group" category];
       };
     })
     inputs.skimsTestPythonCategories);
