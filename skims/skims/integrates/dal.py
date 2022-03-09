@@ -237,13 +237,14 @@ async def get_group_findings(
         client=client,
     )
 
-    _findings = []
-    _drafts = []
+    with suppress(AttributeError, KeyError, TypeError):
+        opt_findings = result["data"]["group"]["findings"]
+    with suppress(AttributeError, KeyError, TypeError):
+        opt_drafts = result["data"]["group"]["drafts"]
 
-    with suppress(AttributeError, KeyError, TypeError):
-        _findings = result["data"]["group"]["findings"]
-    with suppress(AttributeError, KeyError, TypeError):
-        _drafts = result["data"]["group"]["drafts"]
+    _findings = opt_findings if opt_findings is not None else []
+    _drafts = opt_drafts if opt_drafts is not None else []
+
     findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
             identifier=finding["id"],
@@ -361,7 +362,7 @@ async def get_group_roots(
             )
             for root in result["data"]["group"]["roots"]
         )
-    except AttributeError:
+    except (AttributeError, KeyError, TypeError):
         return None
 
 
