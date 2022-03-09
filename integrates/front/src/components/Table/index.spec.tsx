@@ -7,7 +7,7 @@ import { changeFormatter, deleteFormatter } from "components/Table/formatters";
 import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 
-describe("Data table next", (): void => {
+describe("Table", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof Table).toStrictEqual("function");

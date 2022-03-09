@@ -11,6 +11,8 @@ import type {
 } from "react-bootstrap-table-next";
 import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
 
+import type { ITableContainerProps } from "./styles";
+
 interface ISelectRowProps extends Omit<SelectRowProps<any>, "onSelectAll"> {
   onSelectAll?: (
     isSelect: boolean,
@@ -79,6 +81,7 @@ interface ITableProps {
   onPageChange?: (arg1: number) => void;
   pageSize: number;
   rowEvents?: Record<string, unknown>;
+  rowSize?: ITableContainerProps["rowSize"];
   search: boolean;
   selectionMode?: ISelectRowProps;
   striped?: boolean;

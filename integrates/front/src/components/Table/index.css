@@ -10,28 +10,6 @@
   width: 100%;
 }
 
-:local .tableHeader > th,
-.tableBody > td {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-color: rgba(0, 0, 0, 0.2);
-  padding-bottom: 1rem;
-  padding-right: 1rem;
-}
-
-:local .tableHeader > th {
-  font-weight: 600;
-  text-align: left;
-}
-
-:local .tableBody > td {
-  padding-top: 1rem;
-}
-
-:local .tableHeader {
-  border: none;
-}
-
 :local .tableHeader input,
 .tableHeader select {
   color: #898787;

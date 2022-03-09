@@ -85,6 +85,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     onPageChange,
     search,
     rowEvents,
+    rowSize,
     selectionMode,
     striped,
   } = tableProps;
@@ -520,7 +521,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           )} ${resultSize.total}`}
         </div>
       )}
-      <TableContainer>
+      <TableContainer rowSize={rowSize ?? "bold"}>
         <BootstrapTable
           {...baseProps}
           bootstrap4={true}
