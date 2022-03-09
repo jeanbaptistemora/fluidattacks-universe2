@@ -230,6 +230,37 @@ const MobileModal: React.FC<IMobileModalProps> = (
           </Form>
         </Formik>
       ) : undefined}
+      {_.isNull(phone) ? undefined : (
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            phone: {
+              callingCountryCode: phone.callingCountryCode,
+              countryCode: phone.countryCode.toLowerCase(),
+              nationalNumber: phone.nationalNumber,
+            },
+          }}
+          name={"editPhone"}
+          onSubmit={handleAdd}
+        >
+          <Form id={"editPhone"}>
+            <Row>
+              <Col100>
+                <PhoneField disabled={true} />
+              </Col100>
+            </Row>
+            <div>
+              <div>
+                <ModalFooter>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {t("profile.mobileModal.close")}
+                  </Button>
+                </ModalFooter>
+              </div>
+            </div>
+          </Form>
+        </Formik>
+      )}
     </Modal>
   );
 };
