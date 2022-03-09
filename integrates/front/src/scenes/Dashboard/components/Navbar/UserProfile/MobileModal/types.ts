@@ -1,27 +1,28 @@
+import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
+
 interface IUpdateStakeholderPhoneAttr {
   updateStakeholderPhone: {
     success: boolean;
   };
 }
 
-interface IPhone {
-  countryDialCode: string;
-  countryIso2: string;
-  localNumber: string;
+interface IPhoneAttr {
+  countryCode: string;
+  nationalNumber: string;
 }
 
 interface IGetStakeholderPhoneAttr {
   me: {
-    phone: IPhone | null;
+    phone: IPhoneAttr | null;
   };
 }
 
 interface IAdditionFormValues {
-  phone: IPhone;
+  phone: IPhoneData;
 }
 
 interface IVerificationFormValues {
-  phone: IPhone;
+  phone: IPhoneData;
   verificationCode: string;
 }
 
@@ -39,7 +40,7 @@ interface IMobileModalProps {
 
 export {
   IAdditionFormValues,
-  IPhone,
+  IPhoneAttr,
   IHandleAdditionModalFormProps,
   IPhoneNumberFieldProps,
   IUpdateStakeholderPhoneAttr,

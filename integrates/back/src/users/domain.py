@@ -236,7 +236,7 @@ async def get_by_email(email: str) -> UserType:
                 if user.get("phone", None) is None
                 else Phone(
                     country_code=user["phone"]["country_code"],
-                    local_number=user["phone"]["local_number"],
+                    national_number=user["phone"]["national_number"],
                 ),
                 "push_tokens": user.get("push_tokens", []),
             }

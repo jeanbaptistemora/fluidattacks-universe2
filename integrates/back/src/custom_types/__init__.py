@@ -241,4 +241,4 @@ SignPostUrlsPayload = NamedTuple(
 
 class Phone(NamedTuple):
     country_code: str
-    local_number: str
+    national_number: str

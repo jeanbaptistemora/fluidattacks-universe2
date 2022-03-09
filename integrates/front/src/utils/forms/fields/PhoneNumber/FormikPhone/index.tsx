@@ -1,19 +1,14 @@
-import type { FieldProps } from "formik";
 import { ErrorMessage, useField } from "formik";
 import _ from "lodash";
 import React, { useState } from "react";
 import type { CountryData } from "react-intl-tel-input/dist/types";
 
+import type { IPhoneData, IPhoneNumberProps } from "./types";
+
 import {
   StyledPhoneNumberInput,
   ValidationError,
 } from "utils/forms/fields/styles";
-
-interface IPhoneNumberProps extends FieldProps {
-  autoFocus?: boolean;
-  disabled?: boolean;
-  placeholder?: string;
-}
 
 export const FormikPhone: React.FC<IPhoneNumberProps> = (
   // Readonly utility type does not work on deeply nested types
@@ -21,13 +16,14 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
   props: Readonly<IPhoneNumberProps>
 ): JSX.Element => {
   const { autoFocus, disabled, field, placeholder } = props;
-  const { name, value } = field;
+  const { name, value }: { name: string; value: IPhoneData | undefined } =
+    field;
   const [, , helpers] = useField(name);
   const [initialCountryIso2] = useState<string | undefined>(
     _.get(value, "countryIso2", undefined)
   );
-  const [initialLocalNumber] = useState<string | undefined>(
-    _.get(value, "localNumber", undefined)
+  const [initialNationalNumber] = useState<string | undefined>(
+    _.get(value, "nationalNumber", undefined)
   );
 
   function setPhoneNumber(
@@ -41,7 +37,7 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
     const info = {
       countryDialCode: dialCode,
       countryIso2: iso2,
-      localNumber: currentNumber.replace(/[\s()-]/gu, ""),
+      nationalNumber: currentNumber.replace(/[\s()-]/gu, ""),
     };
     helpers.setValue(info);
   }
@@ -75,7 +71,7 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={autoFocus}
         defaultCountry={initialCountryIso2}
-        defaultValue={initialLocalNumber}
+        defaultValue={initialNationalNumber}
         disabled={disabled}
         formatOnInit={true}
         onPhoneNumberChange={onPhoneNumberChange}

@@ -47,7 +47,7 @@ async def mutate(
         await users_domain.update_mobile(
             user_email,
             Phone(
-                local_number=phone["local_number"],
+                national_number=phone["national_number"],
                 country_code=phone["country_code"],
             ),
             verification_code,

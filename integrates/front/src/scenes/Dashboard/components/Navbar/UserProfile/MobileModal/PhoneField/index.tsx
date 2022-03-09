@@ -6,7 +6,11 @@ import type { IPhoneFieldProps } from "./types";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikPhone } from "utils/forms/fields/PhoneNumber/FormikPhone";
-import { composeValidators, required } from "utils/validations";
+import {
+  composeValidators,
+  isValidPhoneNumber,
+  required,
+} from "utils/validations";
 
 const PhoneField: React.FC<IPhoneFieldProps> = (
   props: IPhoneFieldProps
@@ -17,7 +21,7 @@ const PhoneField: React.FC<IPhoneFieldProps> = (
   return (
     <FormGroup>
       <ControlLabel>
-        <b>{t("profile.mobileModal.fields.number")}</b>
+        <b>{t("profile.mobileModal.fields.phoneNumber")}</b>
       </ControlLabel>
       <Field
         // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -25,7 +29,7 @@ const PhoneField: React.FC<IPhoneFieldProps> = (
         component={FormikPhone}
         disabled={disabled}
         name={"phone"}
-        validate={composeValidators([required])}
+        validate={composeValidators([required, isValidPhoneNumber])}
       />
     </FormGroup>
   );

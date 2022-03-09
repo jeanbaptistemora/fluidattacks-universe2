@@ -32,7 +32,7 @@ async def get_result(
             }}
             phone{{
                 countryCode
-                localNumber
+                nationalNumber
             }}
             permissions
             remember

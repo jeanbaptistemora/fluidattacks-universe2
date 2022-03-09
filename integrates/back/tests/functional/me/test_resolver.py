@@ -22,7 +22,7 @@ from typing import (
             3,
             {
                 "countryCode": "1",
-                "localNumber": "2029182132",
+                "nationalNumber": "2029182132",
             },
             1,
         ),
@@ -34,7 +34,7 @@ from typing import (
             3,
             {
                 "countryCode": "1",
-                "localNumber": "2029182131",
+                "nationalNumber": "2029182131",
             },
             2,
         ),

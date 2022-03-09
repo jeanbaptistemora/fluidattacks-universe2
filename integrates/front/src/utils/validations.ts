@@ -10,6 +10,8 @@ import {
   matchesPattern,
 } from "revalidate";
 
+import type { IPhoneData } from "./forms/fields/PhoneNumber/FormikPhone/types";
+
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
@@ -288,8 +290,13 @@ const isFloatOrInteger: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
-const isValidPhoneNumber: Validator = (value: string): string | undefined => {
-  if (/^\+(?:[0-9] ?){6,14}[0-9]$/u.test(value)) {
+const isValidPhoneNumber: Validator = (
+  value: IPhoneData | undefined
+): string | undefined => {
+  if (
+    !_.isUndefined(value) &&
+    /^(?:[0-9] ?){6,13}[0-9]$/u.test(value.nationalNumber)
+  ) {
     return undefined;
   }
 

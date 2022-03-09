@@ -6,7 +6,7 @@ const GET_STAKEHOLDER_PHONE: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       phone {
         countryCode
-        localNumber
+        nationalNumber
       }
       userEmail
       __typename
@@ -16,12 +16,12 @@ const GET_STAKEHOLDER_PHONE: DocumentNode = gql`
 
 const UPDATE_STAKEHOLDER_PHONE_MUTATION: DocumentNode = gql`
   mutation UpdateStakeholderPhoneMutation(
-    $localNumber: String!
+    $nationalNumber: String!
     $countryCode: String!
     $verificationCode: String!
   ) {
     updateStakeholderPhone(
-      phone: { countryCode: $countryCode, localNumber: $localNumber }
+      phone: { countryCode: $countryCode, nationalNumber: $nationalNumber }
       verificationCode: $verificationCode
     ) {
       success

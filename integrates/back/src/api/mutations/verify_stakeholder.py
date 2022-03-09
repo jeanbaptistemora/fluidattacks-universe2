@@ -45,7 +45,7 @@ async def mutate(
         new_phone = None
         if new_phone_dict:
             new_phone = Phone(
-                local_number=new_phone_dict["local_number"],
+                national_number=new_phone_dict["national_number"],
                 country_code=new_phone_dict["country_code"],
             )
 

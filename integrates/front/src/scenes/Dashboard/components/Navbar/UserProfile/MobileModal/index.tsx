@@ -16,7 +16,6 @@ import type {
   IAdditionFormValues,
   IGetStakeholderPhoneAttr,
   IMobileModalProps,
-  IPhone,
   IUpdateStakeholderPhoneAttr,
   IVerificationFormValues,
 } from "./types";
@@ -25,6 +24,7 @@ import { VerificationCodeField } from "./VerificationCodeField";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
@@ -34,7 +34,9 @@ const MobileModal: React.FC<IMobileModalProps> = (
   const { onClose } = props;
   const { t } = useTranslation();
   const [isAdding, setIsAdding] = useState(false);
-  const [phoneToAdd, setPhoneToAdd] = useState<IPhone | undefined>(undefined);
+  const [phoneToAdd, setPhoneToAdd] = useState<IPhoneData | undefined>(
+    undefined
+  );
 
   // GraphQL operations
   const [handleUpdateStakeholderPhone] =
@@ -49,7 +51,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
     void handleUpdateStakeholderPhone({
       variables: {
         countryCode: phoneToAdd?.countryDialCode,
-        localNumber: phoneToAdd?.localNumber,
+        nationalNumber: phoneToAdd?.nationalNumber,
         verificationCode: values.verificationCode,
       },
     });
@@ -74,7 +76,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
             phone: {
               countryDialCode: "57",
               countryIso2: "co",
-              localNumber: "",
+              nationalNumber: "",
             },
           }}
           name={"addPhone"}

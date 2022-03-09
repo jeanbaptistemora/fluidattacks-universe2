@@ -214,7 +214,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "registered": True,
                     "phone": {
                         "country_code": "1",
-                        "local_number": "2029182132",
+                        "national_number": "2029182132",
                     },
                 },
                 {
@@ -278,7 +278,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "registered": True,
                     "phone": {
                         "country_code": "1",
-                        "local_number": "2029182131",
+                        "national_number": "2029182131",
                     },
                 },
                 {
