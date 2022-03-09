@@ -1,72 +1,27 @@
 :local .dropdownButton {
-  border: solid 1px;
-  border-radius: 0 !important;
-  cursor: pointer;
-  font-size: 16px !important;
-  white-space: normal;
+  background-color: transparent;
+  border-color: #ff3435;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+  color: #ff3435;
+  font-weight: 400;
+  margin-left: 12px;
+  padding: 10px 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-:local .dropdownButton,
-:local .dropdownButton:focus {
-  border-color: #ff3435;
-  color: #ff3435;
-  outline: none;
+:local .dropdownButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 :local .dropdownButton:hover {
   background-color: #ff3435;
   border-color: #ff3435;
-  color: #fff;
-}
-
-:local .dropdownButton:active,
-:local .dropdownButton:active:focus {
-  background-color: #8e1616;
-  border-color: #8e1616;
-  color: #fff;
-  outline: none;
-}
-
-:local .dropdownButton:active:hover {
-  background-color: #ff3435;
-  border-color: #ff3435;
-  color: #fff;
-}
-
-:local .dropdownButton:active svg path {
-  fill: #fff !important;
-  stroke: #fff !important;
-}
-
-:local .dropdownButton[disabled],
-:local .dropdownButton[disabled]:hover {
-  background-color: #fafafa;
-  border-color: #dfdfdf;
-  color: #919191;
-  opacity: 1;
-}
-
-:local .dropdownButton svg {
-  width: 16px !important;
-  height: 16px !important;
-}
-
-:local .dropdownButton[disabled] svg path {
-  fill: #919191 !important;
-  stroke: #919191 !important;
-}
-
-:local .dropdownButton:hover:not([disabled]) svg path {
-  fill: #fff !important;
-  stroke: #fff !important;
-}
-
-:local .dropdownButton[disabled] svg circle {
-  stroke: #919191 !important;
-}
-
-:local .dropdownButton:hover:not([disabled]) svg circle {
-  stroke: #fff !important;
+  color: white;
+  cursor: pointer;
 }
 
 :local .itemsContainer {

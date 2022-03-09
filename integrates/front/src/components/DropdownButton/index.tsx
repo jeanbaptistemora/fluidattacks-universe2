@@ -17,7 +17,7 @@ const StyledDropdownButton: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: `relative dib pa3 tc ${style.dropdownButton}`,
+  className: `relative dib tc ${style.dropdownButton}`,
 })``;
 
 const ItemsContainer: StyledComponent<
