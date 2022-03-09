@@ -52,7 +52,7 @@ async def test_clone_roots(
     assert root_1.cloning.commit is None
     mocker.patch.object(
         roots,
-        "ssh_clone_root",
+        "clone_root",
         return_value=CloneResult(
             success=True,
             commit="6d4519f5d5b97235feb65fcbc8af68e8ef9964b3",
@@ -112,7 +112,7 @@ async def test_clone_roots_failed(
     assert root_1.cloning.commit == "6d4519f5d5b97235feb65fcbc8af68e8ef9964b3"
     mocker.patch.object(
         roots,
-        "ssh_clone_root",
+        "clone_root",
         return_value=CloneResult(success=False),
     )
     action = BatchProcessing(

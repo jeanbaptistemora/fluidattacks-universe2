@@ -16,10 +16,14 @@ from datetime import (
 from git import (
     Repo,
 )
+import logging
 from newutils import (
     datetime as datetime_utils,
 )
 import os
+from settings.logger import (
+    LOGGING,
+)
 import tempfile
 from typing import (
     NamedTuple,
@@ -29,6 +33,11 @@ from urllib.parse import (
     urlparse,
 )
 import uuid
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 class CommitInfo(NamedTuple):
@@ -158,13 +167,12 @@ async def ssh_ls_remote(
         return stdout.decode().split("\t")[0]
 
 
-async def https_ls_remote(
+def _format_https_url(
     repo_url: str,
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
-    branch: str = "HEAD",
-) -> Optional[str]:
+) -> str:
     parsed_url = urlparse(repo_url)
     if token is not None:
         url = repo_url.replace(
@@ -176,6 +184,18 @@ async def https_ls_remote(
         )
     else:
         raise InvalidParameter()
+
+    return url
+
+
+async def https_ls_remote(
+    repo_url: str,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
+    branch: str = "HEAD",
+) -> Optional[str]:
+    url = _format_https_url(repo_url, user, password, token)
 
     proc = await asyncio.create_subprocess_exec(
         "git",
@@ -192,3 +212,79 @@ async def https_ls_remote(
         return None
 
     return stdout.decode().split("\t")[0]
+
+
+async def ssh_clone(
+    *,
+    branch: str,
+    repo_url: str,
+    credential_key: str,
+) -> Optional[str]:
+    temp_dir = (
+        tempfile.TemporaryDirectory()  # pylint: disable = consider-using-with
+    )
+    raw_root_url = repo_url.replace(f"{urlparse(repo_url).scheme}://", "")
+    ssh_file_name: str = os.path.join(temp_dir.name, str(uuid.uuid4()))
+    with open(
+        os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
+        "w",
+        encoding="utf-8",
+    ) as ssh_file:
+        ssh_file.write(base64.b64decode(credential_key).decode())
+
+    folder_to_clone_root = f"{temp_dir.name}/{uuid.uuid4()}"
+    proc = await asyncio.create_subprocess_exec(
+        "git",
+        "clone",
+        "--branch",
+        branch,
+        raw_root_url,
+        folder_to_clone_root,
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        env={
+            **os.environ.copy(),
+            "GIT_SSH_COMMAND": (
+                f"ssh -i {ssh_file_name} -o"
+                "UserKnownHostsFile=/dev/null -o "
+                "StrictHostKeyChecking=no"
+            ),
+        },
+    )
+    await proc.communicate()
+
+    os.remove(ssh_file_name)
+
+    if proc.returncode == 0:
+        return folder_to_clone_root
+
+    return None
+
+
+async def https_clone(
+    *,
+    repo_url: str,
+    branch: str,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
+) -> Optional[str]:
+    temp_dir = tempfile.TemporaryDirectory()
+    url = _format_https_url(repo_url, user, password, token)
+    folder_to_clone_root = f"{temp_dir.name}/{uuid.uuid4()}"
+    proc = await asyncio.create_subprocess_exec(
+        "git",
+        "clone",
+        "--branch",
+        branch,
+        url,
+        folder_to_clone_root,
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+    )
+    await proc.communicate()
+
+    if proc.returncode == 0:
+        return folder_to_clone_root
+
+    return None

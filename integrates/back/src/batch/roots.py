@@ -15,7 +15,7 @@ from batch.types import (
     CloneResult,
 )
 from batch.utils.git_self import (
-    ssh_clone_root,
+    clone_root,
 )
 from batch.utils.s3 import (
     is_in_s3,
@@ -605,40 +605,36 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             continue
         root_cloned: CloneResult = CloneResult(success=False)
 
-        if root_cred.metadata.type.value == "SSH":
-            LOGGER.info(
-                "Cloning %s", root.state.nickname, extra={"extra": None}
+        LOGGER.info("Cloning %s", root.state.nickname, extra={"extra": None})
+        root_cloned = await clone_root(
+            group_name=root.group_name,
+            root_nickname=root.state.nickname,
+            branch=root.state.branch,
+            root_url=root.state.url,
+            cred=root_cred,
+        )
+        if root_cloned.success and root_cloned.commit is not None:
+            await roots_domain.update_root_cloning_status(
+                loaders=dataloaders,
+                group_name=group_name,
+                root_id=root.id,
+                status="OK",
+                message="Cloned successfully",
+                commit=root_cloned.commit,
+                commit_date=root_cloned.commit_date,
             )
-            root_cloned = await ssh_clone_root(
-                group_name=root.group_name,
-                root_nickname=root.state.nickname,
-                branch=root.state.branch,
-                root_url=root.state.url,
-                cred=root_cred,
+            cloned_roots_nicknames = (
+                *cloned_roots_nicknames,
+                root.state.nickname,
             )
-            if root_cloned.success and root_cloned.commit is not None:
-                await roots_domain.update_root_cloning_status(
-                    loaders=dataloaders,
-                    group_name=group_name,
-                    root_id=root.id,
-                    status="OK",
-                    message="Cloned successfully",
-                    commit=root_cloned.commit,
-                    commit_date=root_cloned.commit_date,
-                )
-                cloned_roots_nicknames = (
-                    *cloned_roots_nicknames,
-                    root.state.nickname,
-                )
-            else:
-                await roots_domain.update_root_cloning_status(
-                    loaders=dataloaders,
-                    group_name=group_name,
-                    root_id=root.id,
-                    status="FAILED",
-                    message="Clone failed",
-                )
-
+        else:
+            await roots_domain.update_root_cloning_status(
+                loaders=dataloaders,
+                group_name=group_name,
+                root_id=root.id,
+                status="FAILED",
+                message="Clone failed",
+            )
     await put_action(
         action=Action.REFRESH_TOE_LINES,
         entity=group_name,
