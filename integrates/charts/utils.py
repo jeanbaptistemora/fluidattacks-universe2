@@ -265,10 +265,12 @@ def format_cvssf(cvssf: Decimal) -> Decimal:
 
 
 def format_cvssf_log(cvssf: Decimal) -> Decimal:
-    if cvssf == Decimal("0.0"):
-        return cvssf
+    if cvssf <= Decimal("0.0"):
+        return cvssf.quantize(Decimal("0.1"))
+
     if cvssf >= MAX_WITH_DECIMALS:
         return Decimal(
             math.log2(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
         )
-    return Decimal(math.log2(cvssf.quantize(Decimal("0.1"))))
+
+    return Decimal(math.log2(cvssf))
