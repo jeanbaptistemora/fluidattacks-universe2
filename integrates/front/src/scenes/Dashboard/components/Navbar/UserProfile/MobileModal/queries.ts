@@ -29,4 +29,22 @@ const UPDATE_STAKEHOLDER_PHONE_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { GET_STAKEHOLDER_PHONE, UPDATE_STAKEHOLDER_PHONE_MUTATION };
+const VERIFY_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation VerifyStakeholderMutation(
+    $newPhone: PhoneInput
+    $verificationCode: String
+  ) {
+    verifyStakeholder(
+      newPhone: $newPhone
+      verificationCode: $verificationCode
+    ) {
+      success
+    }
+  }
+`;
+
+export {
+  GET_STAKEHOLDER_PHONE,
+  UPDATE_STAKEHOLDER_PHONE_MUTATION,
+  VERIFY_STAKEHOLDER_MUTATION,
+};

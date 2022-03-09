@@ -435,13 +435,15 @@ async def verify(
     if not phone_to_verify:
         raise RequiredNewPhoneNumber()
 
+    if phone_to_verify is new_phone:
+        await verify_operations.validate_mobile(
+            phone_number=get_international_format_phone_number(new_phone)
+        )
+
     if phone_to_verify is new_phone and user_phone is not None:
         if verification_code is None:
             raise RequiredVerificationCode()
 
-        await verify_operations.validate_mobile(
-            phone_number=get_international_format_phone_number(new_phone)
-        )
         await verify_operations.check_verification(
             phone_number=get_international_format_phone_number(user_phone),
             code=verification_code,

@@ -6,6 +6,12 @@ interface IUpdateStakeholderPhoneResultAttr {
   };
 }
 
+interface IVerifyStakeholderResultAttr {
+  verifyStakeholder: {
+    success: boolean;
+  };
+}
+
 interface IPhoneAttr {
   countryCode: string;
   nationalNumber: string;
@@ -47,4 +53,5 @@ export {
   IGetStakeholderPhoneAttr,
   IMobileModalProps,
   IVerificationFormValues,
+  IVerifyStakeholderResultAttr,
 };

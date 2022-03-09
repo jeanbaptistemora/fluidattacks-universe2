@@ -1503,16 +1503,20 @@ export const enTranslations: ResourceKey = {
       add: "Add",
       alerts: {
         additionSuccess: "Phone has been added.",
+        additionVerificationSuccess:
+          "A verification code has been sent to your new mobile.",
         invalidVerificationCode: "The verification code is invalid",
+        nonSentVerificationCode:
+          "Check your mobile number and retry in a minute",
         nonVerifiedStakeholder: "Stakeholder could not be verified",
         requiredMobile: "A mobile number is required",
+        requiredVerificationCode: "A verification code is required",
       },
       close: "Close",
       fields: {
         phoneNumber: "Phone number",
         verificationCode: "Verification code",
       },
-      procced: "Proceed",
       title: "Mobile",
       verify: "Verify",
     },
