@@ -2,20 +2,6 @@
 
 resource "aws_s3_bucket" "bucket_prod" {
   bucket = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
-  acl    = "private"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
-  website {
-    index_document = "index.html"
-    error_document = "404.html"
-  }
 
   tags = {
     "Name"               = "docs.fluidattacks.com"
@@ -23,9 +9,33 @@ resource "aws_s3_bucket" "bucket_prod" {
     "management:product" = "docs"
     "management:type"    = "product"
   }
+}
 
-  versioning {
-    enabled = false
+resource "aws_s3_bucket_acl" "prod" {
+  bucket = aws_s3_bucket.bucket_prod.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_website_configuration" "prod" {
+  bucket = aws_s3_bucket.bucket_prod.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "404.html"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "prod" {
+  bucket = aws_s3_bucket.bucket_prod.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
   }
 }
 
@@ -62,26 +72,40 @@ resource "aws_s3_bucket_policy" "bucket_prod_policy" {
 
 resource "aws_s3_bucket" "bucket_dev" {
   bucket = "docs-dev.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
-  acl    = "private"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
-  website {
-    index_document = "index.html"
-    error_document = "404.html"
-  }
 
   tags = {
     "Name"               = "docs-dev.fluidattacks.com"
     "management:area"    = "innovation"
     "management:product" = "docs"
     "management:type"    = "product"
+  }
+}
+
+resource "aws_s3_bucket_acl" "dev" {
+  bucket = aws_s3_bucket.bucket_dev.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_website_configuration" "dev" {
+  bucket = aws_s3_bucket.bucket_dev.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "404.html"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "dev" {
+  bucket = aws_s3_bucket.bucket_dev.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
   }
 }
 
