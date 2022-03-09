@@ -153,9 +153,10 @@ const CycleControl = styled.button.attrs({
 
 const ProgressContainer = styled.div.attrs({
   className: `
-    mb5
+    mb1
     relative
     br3
+    center-m
     bg-black-gray
   `,
 })`
@@ -167,7 +168,7 @@ const ProgressBar = styled.div.attrs({
   className: `
     relative
     br3
-    bg-fluid-red
+    bg-gray-244
   `,
 })<{ width: string }>`
   height: 100%;

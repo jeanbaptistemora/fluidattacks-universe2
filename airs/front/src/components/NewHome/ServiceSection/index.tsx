@@ -34,11 +34,6 @@ const ServiceSection: React.FC = (): JSX.Element => {
       <MainTextContainer>
         <WhiteBigParagraph>{t("service.homeTitle")}</WhiteBigParagraph>
         <ServiceParagraph>{t("service.homeParagraph")}</ServiceParagraph>
-        <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
-          <NewRegularRedButton className={"mv4 w-auto-ns w-100"}>
-            {t("service.homeReadMore")}
-          </NewRegularRedButton>
-        </Link>
       </MainTextContainer>
       <CycleContainer>
         <CycleImageContainer>
@@ -54,6 +49,16 @@ const ServiceSection: React.FC = (): JSX.Element => {
           <ProgressContainer>
             <ProgressBar width={`${progress}%`} />
           </ProgressContainer>
+          <div className={"tc-m"}>
+            <Link
+              className={"no-underline"}
+              to={"/services/continuous-hacking/"}
+            >
+              <NewRegularRedButton className={"mv4 w-auto-ns w-100"}>
+                {t("service.homeReadMore")}
+              </NewRegularRedButton>
+            </Link>
+          </div>
         </CycleTextContainer>
       </CycleContainer>
     </Container>

@@ -68,18 +68,23 @@ const pageTexts: ResourceKey = {
     card1Description:
       "Remediation rate for critical vulnerabilities " +
       "in Continuous Hacking projects.",
+    card1Title: "100%",
     card2Description:
       "Continuous Hacking projects with at least " +
       "one high or critical vulnerability.",
+    card2Title: "77%",
     card3Description:
       "Remediation rate for critical vulnerabilities " +
       "in the first seven days.",
+    card3Title: "50%",
     card4Description:
       "Remediation rate for all reported severity " +
       "(CVSSF*) in Continuous  Hacking projects.",
+    card4Title: "61%",
     card5Description:
       "Remediation rate for mature DevSecOps companies " +
       "in Continuous Hacking projects.",
+    card5Title: ">90%",
     card6Description: "Vulnerabilities discovered per year.",
     card6Title: "100K+",
     card7Description:

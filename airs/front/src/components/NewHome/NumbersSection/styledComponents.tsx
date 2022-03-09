@@ -96,7 +96,7 @@ const ProgressBar = styled.div.attrs({
   className: `
     relative
     br3
-    bg-fluid-red
+    bg-gray-244
   `,
 })<{ width: string }>`
   height: 100%;
