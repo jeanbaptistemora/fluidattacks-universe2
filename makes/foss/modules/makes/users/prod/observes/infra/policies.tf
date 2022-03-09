@@ -101,13 +101,16 @@ locals {
         Action = [
           "iam:AttachRolePolicy",
           "iam:CreatePolicy",
+          "iam:CreatePolicyVersion",
           "iam:CreateRole",
           "iam:DeletePolicy",
           "iam:DeleteRole",
           "iam:DeleteRolePolicy",
           "iam:DetachRolePolicy",
-          "iam:TagRole",
           "iam:PassRole",
+          "iam:PutRolePolicy",
+          "iam:TagRole",
+          "iam:UpdateAssumeRolePolicy",
         ]
         Resource = [
           "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes*",
