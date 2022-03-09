@@ -1,6 +1,6 @@
 module "fluidattacks_ci_cache" {
   source  = "npalm/gitlab-runner/aws//modules/cache"
-  version = "4.30.0"
+  version = "4.41.1"
 
   environment             = "fluidattacks-ci-cache"
   cache_bucket_versioning = false
@@ -22,7 +22,7 @@ module "fluidattacks_ci_cache" {
 
 module "fluidattacks_ci" {
   source   = "npalm/gitlab-runner/aws"
-  version  = "4.30.0"
+  version  = "4.41.1"
   for_each = toset(["1", "2", "3"])
 
   # AWS
@@ -47,7 +47,6 @@ module "fluidattacks_ci" {
   instance_type                     = "c5a.large"
   runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
-  enable_gitlab_runner_ssh_access   = false
   subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
@@ -108,7 +107,7 @@ module "fluidattacks_ci" {
 
 module "fluidattacks_ci_large" {
   source   = "npalm/gitlab-runner/aws"
-  version  = "4.30.0"
+  version  = "4.41.1"
   for_each = toset(["1"])
 
   # AWS
@@ -133,7 +132,6 @@ module "fluidattacks_ci_large" {
   instance_type                     = "c5a.large"
   runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
-  enable_gitlab_runner_ssh_access   = false
   subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
