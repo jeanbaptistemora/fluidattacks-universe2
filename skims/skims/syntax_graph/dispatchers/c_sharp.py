@@ -23,6 +23,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
     parenthesized_expression as c_sharp_parenthesized_expression,
+    postfix_unary_expression as c_sharp_postfix_unary_expression,
     prefix_expression as c_sharp_prefix_expression,
     property_declaration as c_sharp_property_declaration,
     return_statement as c_sharp_return_statement,
@@ -226,6 +227,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "parenthesized_expression",
         },
         syntax_reader=c_sharp_parenthesized_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "postfix_unary_expression",
+        },
+        syntax_reader=c_sharp_postfix_unary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
