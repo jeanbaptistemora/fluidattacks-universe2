@@ -4,6 +4,7 @@
   },
   "extends": "./tsconfig.json",
   "exclude": [
-    "*.spec.tsx"
+    "*.spec.tsx",
+    "*.test.tsx"
   ]
 }

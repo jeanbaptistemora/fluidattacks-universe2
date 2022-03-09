@@ -9,6 +9,7 @@ import {
   disable as mixpanelDisable,
   init as mixpanelInit,
 } from "mixpanel-browser";
+import "@testing-library/jest-dom";
 
 // Disable tracking
 mixpanelInit("7a7ceb75ff1eed29f976310933d1cc3e");
