@@ -14,6 +14,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     field_declaration as c_sharp_field_declaration,
     if_statement as c_sharp_if_statement,
     invocation_expression as c_sharp_invocation_expression,
+    lambda_expression as c_sharp_lambda_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
     method_declaration as c_sharp_method_declaration,
@@ -159,6 +160,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "invocation_expression",
         },
         syntax_reader=c_sharp_invocation_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "lambda_expression",
+        },
+        syntax_reader=c_sharp_lambda_expression.reader,
     ),
     Dispatcher(
         applicable_types={
