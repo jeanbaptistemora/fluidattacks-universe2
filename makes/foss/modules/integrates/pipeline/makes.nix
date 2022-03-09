@@ -661,11 +661,10 @@ in {
             output = "/lintPython/module/integratesBackMigrations";
             gitlabExtra = gitlabLint;
           }
-          # TODO: https://gitlab.com/fluidattacks/product/-/issues/5246
-          # {
-          #   output = "/lintPython/module/integratesBackTests";
-          #   gitlabExtra = gitlabLint;
-          # }
+          {
+            output = "/lintPython/module/integratesBackTests";
+            gitlabExtra = gitlabLint;
+          }
           {
             output = "/integrates/back/lintPythonIso";
             gitlabExtra = gitlabLint;
