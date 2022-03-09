@@ -6,27 +6,6 @@ variable "forces_bucket_name" {}
 
 resource "aws_s3_bucket" "fi_resources_bucket" {
   bucket = var.bucket_name
-  acl    = "private"
-
-  versioning {
-    enabled = true
-  }
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST"]
-    allowed_origins = ["https://app.fluidattacks.com", "https://localhost:*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
 
   tags = {
     "Name"               = "fluidintegrates.resources"
@@ -36,21 +15,44 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   }
 }
 
-resource "aws_s3_bucket" "fi_evidences_bucket" {
-  bucket = var.evidences_bucket_name
-  acl    = "private"
+resource "aws_s3_bucket_acl" "fi_resources_bucket" {
+  bucket = aws_s3_bucket.fi_resources_bucket.id
 
-  versioning {
-    enabled = true
-  }
+  acl = "private"
+}
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+resource "aws_s3_bucket_server_side_encryption_configuration" "fi_resources_bucket" {
+  bucket = aws_s3_bucket.fi_resources_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
+}
+
+resource "aws_s3_bucket_versioning" "fi_resources_bucket" {
+  bucket = aws_s3_bucket.fi_resources_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_cors_configuration" "fi_resources_bucket" {
+  bucket = aws_s3_bucket.fi_resources_bucket.id
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST"]
+    allowed_origins = ["https://app.fluidattacks.com", "https://localhost:*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
+  }
+}
+
+resource "aws_s3_bucket" "fi_evidences_bucket" {
+  bucket = var.evidences_bucket_name
 
   tags = {
     "Name"               = "fluidintegrates.evidences"
@@ -60,30 +62,32 @@ resource "aws_s3_bucket" "fi_evidences_bucket" {
   }
 }
 
+resource "aws_s3_bucket_acl" "fi_evidences_bucket" {
+  bucket = aws_s3_bucket.fi_evidences_bucket.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "fi_evidences_bucket" {
+  bucket = aws_s3_bucket.fi_evidences_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "fi_evidences_bucket" {
+  bucket = aws_s3_bucket.fi_evidences_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket" "fi_reports_bucket" {
   bucket = var.reports_bucket_name
-  acl    = "private"
-
-  versioning {
-    enabled = true
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
-  lifecycle_rule {
-    id      = "reports"
-    enabled = true
-    expiration {
-      # 1 month + some timezone skews
-      days = 32
-    }
-  }
 
   tags = {
     "Name"               = "fluidintegrates.reports"
@@ -93,21 +97,45 @@ resource "aws_s3_bucket" "fi_reports_bucket" {
   }
 }
 
-resource "aws_s3_bucket" "fi_build_bucket" {
-  bucket = var.build_bucket_name
-  acl    = "private"
+resource "aws_s3_bucket_acl" "fi_reports_bucket" {
+  bucket = aws_s3_bucket.fi_reports_bucket.id
 
-  versioning {
-    enabled = true
-  }
+  acl = "private"
+}
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+resource "aws_s3_bucket_server_side_encryption_configuration" "fi_reports_bucket" {
+  bucket = aws_s3_bucket.fi_reports_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
+}
+
+resource "aws_s3_bucket_versioning" "fi_reports_bucket" {
+  bucket = aws_s3_bucket.fi_reports_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "fi_reports_bucket" {
+  bucket = aws_s3_bucket.fi_reports_bucket.id
+
+  rule {
+    id     = "reports"
+    status = "Enabled"
+    expiration {
+      # 1 month + some timezone skews
+      days = 32
+    }
+  }
+}
+
+resource "aws_s3_bucket" "fi_build_bucket" {
+  bucket = var.build_bucket_name
 
   tags = {
     "Name"               = "fluidintegrates.build"
@@ -117,27 +145,62 @@ resource "aws_s3_bucket" "fi_build_bucket" {
   }
 }
 
-resource "aws_s3_bucket" "fi_forces_bucket" {
-  bucket = var.forces_bucket_name
-  acl    = "private"
+resource "aws_s3_bucket_acl" "fi_build_bucket" {
+  bucket = aws_s3_bucket.fi_build_bucket.id
 
-  versioning {
-    enabled = true
-  }
+  acl = "private"
+}
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+resource "aws_s3_bucket_server_side_encryption_configuration" "fi_build_bucket" {
+  bucket = aws_s3_bucket.fi_build_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
+}
+
+resource "aws_s3_bucket_versioning" "fi_build_bucket" {
+  bucket = aws_s3_bucket.fi_build_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket" "fi_forces_bucket" {
+  bucket = var.forces_bucket_name
 
   tags = {
     "Name"               = "fluidintegrates.forces"
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+  }
+}
+
+resource "aws_s3_bucket_acl" "fi_forces_bucket" {
+  bucket = aws_s3_bucket.fi_forces_bucket.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "fi_forces_bucket" {
+  bucket = aws_s3_bucket.fi_forces_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "fi_forces_bucket" {
+  bucket = aws_s3_bucket.fi_forces_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 

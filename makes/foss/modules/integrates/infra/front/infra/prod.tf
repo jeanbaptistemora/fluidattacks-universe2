@@ -2,15 +2,33 @@
 
 resource "aws_s3_bucket" "production" {
   bucket = "integrates.front.production.fluidattacks.com"
-  acl    = "private"
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+  tags = {
+    "Name"               = "integrates.front.production.fluidattacks.com"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
+  }
+}
+
+resource "aws_s3_bucket_acl" "prod" {
+  bucket = aws_s3_bucket.production.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "prod" {
+  bucket = aws_s3_bucket.production.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
+}
+
+resource "aws_s3_bucket_cors_configuration" "prod" {
+  bucket = aws_s3_bucket.production.id
 
   cors_rule {
     allowed_headers = ["*"]
@@ -18,17 +36,6 @@ resource "aws_s3_bucket" "production" {
     allowed_origins = ["*"]
     expose_headers  = ["GET", "HEAD"]
     max_age_seconds = 3000
-  }
-
-  versioning {
-    enabled = false
-  }
-
-  tags = {
-    "Name"               = "integrates.front.production.fluidattacks.com"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
   }
 }
 

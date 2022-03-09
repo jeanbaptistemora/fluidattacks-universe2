@@ -4,11 +4,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.23.0"
+      version = "~> 4.4.0"
     }
     twilio = {
       source  = "twilio/twilio"
-      version = ">=0.4.0"
+      version = "~> 0.13.2"
     }
   }
 
