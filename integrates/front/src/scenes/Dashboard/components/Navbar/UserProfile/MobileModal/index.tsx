@@ -16,7 +16,7 @@ import type {
   IAdditionFormValues,
   IGetStakeholderPhoneAttr,
   IMobileModalProps,
-  IUpdateStakeholderPhoneAttr,
+  IUpdateStakeholderPhoneResultAttr,
   IVerificationFormValues,
 } from "./types";
 import { VerificationCodeField } from "./VerificationCodeField";
@@ -26,6 +26,7 @@ import { Modal, ModalFooter } from "components/Modal";
 import { Col100, Row } from "styles/styledComponents";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const MobileModal: React.FC<IMobileModalProps> = (
@@ -40,7 +41,46 @@ const MobileModal: React.FC<IMobileModalProps> = (
 
   // GraphQL operations
   const [handleUpdateStakeholderPhone] =
-    useMutation<IUpdateStakeholderPhoneAttr>(UPDATE_STAKEHOLDER_PHONE_MUTATION);
+    useMutation<IUpdateStakeholderPhoneResultAttr>(
+      UPDATE_STAKEHOLDER_PHONE_MUTATION,
+      {
+        onCompleted: (data: IUpdateStakeholderPhoneResultAttr): void => {
+          if (data.updateStakeholderPhone.success && isAdding) {
+            msgSuccess(
+              t("profile.mobileModal.alerts.additionSuccess"),
+              t("groupAlerts.titleSuccess")
+            );
+            setIsAdding(false);
+          }
+        },
+        onError: (errors: ApolloError): void => {
+          errors.graphQLErrors.forEach((error: GraphQLError): void => {
+            switch (error.message) {
+              case "Exception - A mobile number is required with the international format":
+                msgError(t("profile.mobileModal.alerts.requiredMobile"));
+                break;
+              case "Exception - Stakeholder could not be verified":
+                msgError(
+                  t("profile.mobileModal.alerts.nonVerifiedStakeholder")
+                );
+                break;
+              case "Exception - The verification code is invalid":
+                msgError(
+                  t("profile.mobileModal.alerts.invalidVerificationCode")
+                );
+                break;
+              default:
+                msgError(t("groupAlerts.errorTextsad"));
+                Logger.warning(
+                  "An error occurred updating stakeholder phone",
+                  error
+                );
+            }
+          });
+        },
+        refetchQueries: [GET_STAKEHOLDER_PHONE],
+      }
+    );
 
   function handleAdd(values: IAdditionFormValues): void {
     setIsAdding(true);

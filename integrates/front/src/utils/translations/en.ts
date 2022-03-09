@@ -1498,6 +1498,25 @@ export const enTranslations: ResourceKey = {
       },
     },
   },
+  profile: {
+    mobileModal: {
+      add: "Add",
+      alerts: {
+        additionSuccess: "Phone has been added.",
+        invalidVerificationCode: "The verification code is invalid",
+        nonVerifiedStakeholder: "Stakeholder could not be verified",
+        requiredMobile: "A mobile number is required",
+      },
+      close: "Close",
+      fields: {
+        phoneNumber: "Phone number",
+        verificationCode: "Verification code",
+      },
+      procced: "Proceed",
+      title: "Mobile",
+      verify: "Verify",
+    },
+  },
   registration: {
     concurrentSessionMessage:
       "You already have an active session. If you proceed, that session will " +

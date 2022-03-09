@@ -1,6 +1,6 @@
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 
-interface IUpdateStakeholderPhoneAttr {
+interface IUpdateStakeholderPhoneResultAttr {
   updateStakeholderPhone: {
     success: boolean;
   };
@@ -43,7 +43,7 @@ export {
   IPhoneAttr,
   IHandleAdditionModalFormProps,
   IPhoneNumberFieldProps,
-  IUpdateStakeholderPhoneAttr,
+  IUpdateStakeholderPhoneResultAttr,
   IGetStakeholderPhoneAttr,
   IMobileModalProps,
   IVerificationFormValues,
