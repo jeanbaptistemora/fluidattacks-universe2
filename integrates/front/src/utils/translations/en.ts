@@ -1383,17 +1383,18 @@ export const enTranslations: ResourceKey = {
               "Remember that the application of the policy requires the approval of a user with manager role",
           },
           deactivatePolicies: {
-            modalTitle: "Disable organization finding policy",
+            modalTitle: "Disable organization vulnerability policy",
             success:
-              "The finding policy was disabled successfully, changes will be apply it within next minutes",
+              "The vulnerability policy was disabled successfully, changes will be apply it within next minutes",
           },
           errors: {
-            alreadyReviewd: "The finding policy has already been reviewed",
-            duplicateFinding: "The finding policy already exists",
+            alreadyReviewd:
+              "The vulnerability policy has already been reviewed",
+            duplicateFinding: "The vulnerability policy already exists",
             notFound: "Finding policy not found",
           },
           form: {
-            finding: "Finding",
+            finding: "Vulnerability",
             tags: "Tags",
           },
           handlePolicies: {
@@ -1403,18 +1404,18 @@ export const enTranslations: ResourceKey = {
             },
           },
           submitPolicies: {
-            modalTitle: "Re-submit organization finding policy",
+            modalTitle: "Re-submit organization vulnerability policy",
           },
-          title: "Organization Findings Policies",
+          title: "Organization Vulnerabilities Policies",
           tooltip: {
             addButton: "Add organization policy pending to approve",
-            approveButton: "Approve organization finding policy",
-            deactivateButton: "Disable organization finding policy",
+            approveButton: "Approve organization vulnerability policy",
+            deactivateButton: "Disable organization vulnerability policy",
             nameInput:
-              "Add the type of finding to which vulnerabilities in organization " +
+              "Add the type of vulnerability to which locations in organization " +
               "groups will apply the accepted permanently treatment",
-            rejectButton: "Reject organization finding policy",
-            resubmitButton: "Re-submit organization finding policy",
+            rejectButton: "Reject organization vulnerability policy",
+            resubmitButton: "Re-submit organization vulnerability policy",
             tagsInput: "Tags associated to the policy",
           },
         },
