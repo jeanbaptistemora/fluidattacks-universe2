@@ -363,7 +363,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
             <div>
               <Row>
                 <Table
-                  bordered={true}
                   clearFiltersButton={clearFilters}
                   customFilters={{
                     customFiltersProps,

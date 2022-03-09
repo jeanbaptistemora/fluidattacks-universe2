@@ -511,7 +511,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   return (
     <React.StrictMode>
       <Table
-        bordered={true}
         clearFiltersButton={clearFilters}
         columnToggle={true}
         customFilters={{

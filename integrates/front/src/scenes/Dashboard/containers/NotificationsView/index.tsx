@@ -141,7 +141,6 @@ const NotificationsView: React.FC = (): JSX.Element => {
         <RowCenter>
           <Col40>
             <Table
-              bordered={true}
               dataset={subscriptionsFiltered}
               exportCsv={false}
               headers={tableHeaders}

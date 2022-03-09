@@ -705,7 +705,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Table
-        bordered={true}
         clearFiltersButton={clearFilters}
         columnToggle={true}
         csvFilename={`${groupName}-findings-${currentDate}.csv`}

@@ -319,7 +319,6 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
             <div>
               <div>
                 <Table
-                  bordered={true}
                   customSearch={{
                     customSearchDefault: searchTextFilter,
                     isCustomSearchEnabled: true,

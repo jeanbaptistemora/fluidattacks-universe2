@@ -673,7 +673,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         message={translate.t("searchFindings.tabEvents.tableAdvice")}
       >
         <Table
-          bordered={true}
           clearFiltersButton={clearFilters}
           columnToggle={true}
           customFilters={{

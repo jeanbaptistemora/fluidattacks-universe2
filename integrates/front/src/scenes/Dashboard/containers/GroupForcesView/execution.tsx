@@ -328,7 +328,6 @@ const Execution: React.FC<IExecution> = (
           <Switch>
             <Route path={"/summary"}>
               <Table
-                bordered={true}
                 columnToggle={true}
                 customSearch={{
                   customSearchDefault: searchTextFilter,

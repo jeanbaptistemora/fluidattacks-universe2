@@ -364,7 +364,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         </Formik>
       </Modal>
       <Table
-        bordered={true}
         customSearch={{
           customSearchDefault: searchTextFilter,
           isCustomSearchEnabled: true,

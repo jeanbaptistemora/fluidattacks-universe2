@@ -448,7 +448,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           <Row>
             <h2>{t("organization.tabs.billing.groups.title")}</h2>
             <Table
-              bordered={true}
               clearFiltersButton={clearFilters}
               customFilters={{
                 customFiltersProps,

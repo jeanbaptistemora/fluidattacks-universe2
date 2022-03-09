@@ -211,7 +211,6 @@ const RecordsView: React.FC = (): JSX.Element => {
             </div>
           ) : (
             <Table
-              bordered={true}
               dataset={JSON.parse(data.finding.records)}
               exportCsv={false}
               headers={[]}

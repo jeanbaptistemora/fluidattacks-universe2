@@ -423,7 +423,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <p>{translate.t("group.forces.tableAdvice")}</p>
       <Table
-        bordered={true}
         clearFiltersButton={clearFilters}
         customFilters={{
           customFiltersProps,

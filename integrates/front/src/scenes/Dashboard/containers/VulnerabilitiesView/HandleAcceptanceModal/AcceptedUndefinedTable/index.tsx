@@ -55,7 +55,6 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
     <React.StrictMode>
       {isAcceptedUndefinedSelected ? (
         <Table
-          bordered={false}
           dataset={acceptanceVulns}
           exportCsv={false}
           headers={vulnsHeader}

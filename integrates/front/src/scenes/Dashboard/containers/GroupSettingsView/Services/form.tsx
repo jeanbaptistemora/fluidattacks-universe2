@@ -179,7 +179,6 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   return (
     <Form id={"editGroup"}>
       <Table
-        bordered={true}
         dataset={servicesDataSet}
         exportCsv={false}
         headers={tableHeaders}

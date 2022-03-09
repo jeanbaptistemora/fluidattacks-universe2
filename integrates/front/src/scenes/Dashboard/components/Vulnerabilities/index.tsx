@@ -269,7 +269,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   return (
     <React.StrictMode>
       <Table
-        bordered={true}
         clearFiltersButton={clearFiltersButton}
         customFilters={customFilters}
         customSearch={customSearch}

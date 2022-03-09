@@ -113,7 +113,6 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
             <div>
               <Row>
                 <Table
-                  bordered={true}
                   customSearch={{
                     customSearchDefault: searchTextFilter,
                     isCustomSearchEnabled: true,

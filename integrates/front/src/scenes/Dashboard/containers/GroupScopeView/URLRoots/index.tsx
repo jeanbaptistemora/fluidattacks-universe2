@@ -148,7 +148,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
           return (
             <Container>
               <Table
-                bordered={true}
                 columnToggle={false}
                 customSearch={{
                   customSearchDefault: searchTextFilter,

@@ -214,7 +214,6 @@ const Portfolio: React.FC<IPortfolioProps> = (
       <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
           <Table
-            bordered={true}
             dataset={tagsDataset}
             defaultSorted={JSON.parse(
               _.get(sessionStorage, "portfolioSort", "{}")

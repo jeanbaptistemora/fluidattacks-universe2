@@ -638,7 +638,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   return (
     <React.StrictMode>
       <Table
-        bordered={true}
         clearFiltersButton={clearFilters}
         columnToggle={true}
         customFilters={{

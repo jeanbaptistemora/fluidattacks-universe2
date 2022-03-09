@@ -418,7 +418,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               )}
             >
               <Table
-                bordered={true}
                 dataset={policiesDataSet}
                 exportCsv={false}
                 headers={tableHeaders}

@@ -456,7 +456,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           return (
             <Container>
               <Table
-                bordered={true}
                 clearFiltersButton={clearFilters}
                 columnToggle={true}
                 customFilters={{
@@ -560,7 +559,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           <h2 className={"mb0 pb0"}>{t("group.scope.git.envUrls")}</h2>
           <div className={"flex flex-wrap nt2"}>
             <Table
-              bordered={true}
               customSearch={{
                 customSearchDefault: searchEnvsTextFilter,
                 isCustomSearchEnabled: true,

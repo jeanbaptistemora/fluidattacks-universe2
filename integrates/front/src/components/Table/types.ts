@@ -62,7 +62,6 @@ interface ICustomFiltersProps {
 
 interface ITableProps {
   bodyContainer?: string;
-  bordered: boolean;
   clearFiltersButton?: () => void;
   columnToggle?: boolean;
   csvFilename?: string;

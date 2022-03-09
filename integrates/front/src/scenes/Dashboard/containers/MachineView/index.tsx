@@ -255,7 +255,6 @@ const MachineView: React.FC = (): JSX.Element => {
       ) : (
         <React.StrictMode>
           <Table
-            bordered={false}
             dataset={tableDataset}
             defaultSorted={undefined}
             exportCsv={false}

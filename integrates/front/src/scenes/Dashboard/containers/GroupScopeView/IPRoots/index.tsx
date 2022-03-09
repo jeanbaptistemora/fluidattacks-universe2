@@ -151,7 +151,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
           return (
             <Container>
               <Table
-                bordered={true}
                 columnToggle={false}
                 customSearch={{
                   customSearchDefault: searchTextFilter,

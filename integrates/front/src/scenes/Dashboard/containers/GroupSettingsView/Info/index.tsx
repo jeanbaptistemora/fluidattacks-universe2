@@ -175,7 +175,6 @@ const GroupInformation: React.FC = (): JSX.Element => {
         </Col40>
       </Row>
       <Table
-        bordered={true}
         dataset={attributesDataset}
         exportCsv={false}
         headers={tableHeaders}

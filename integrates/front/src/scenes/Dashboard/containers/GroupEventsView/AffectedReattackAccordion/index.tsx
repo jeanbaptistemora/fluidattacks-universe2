@@ -74,7 +74,6 @@ export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
         return (
           <Panel header={title} key={id}>
             <Table
-              bordered={false}
               dataset={vulnerabilitiesToReattack}
               exportCsv={false}
               headers={columns}

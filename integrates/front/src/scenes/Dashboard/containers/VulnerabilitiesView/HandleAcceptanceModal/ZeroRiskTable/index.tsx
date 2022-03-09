@@ -81,7 +81,6 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
     <React.StrictMode>
       {isConfirmRejectZeroRiskSelected ? (
         <Table
-          bordered={false}
           dataset={acceptanceVulns}
           exportCsv={false}
           headers={vulnsHeader}

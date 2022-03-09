@@ -343,7 +343,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       </Row>
       <div className={"flex flex-wrap nt1"}>
         <Table
-          bordered={true}
           customSearch={{
             customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,

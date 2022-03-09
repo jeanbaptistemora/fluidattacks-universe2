@@ -68,7 +68,6 @@ const TagsGroup: React.FC = (): JSX.Element => {
     <div>
       <Row>
         <Table
-          bordered={true}
           customSearch={{
             customSearchDefault: searchTextFilter,
             isCustomSearchEnabled: true,

@@ -461,7 +461,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         </Col100>
       </Row>
       <Table
-        bordered={true}
         clearFiltersButton={clearFilters}
         customFilters={{
           customFiltersProps,

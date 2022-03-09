@@ -200,7 +200,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
 
     return (
       <Table
-        bordered={false}
         dataset={vulnerabilitiesList}
         exportCsv={false}
         headers={vulnsHeader}

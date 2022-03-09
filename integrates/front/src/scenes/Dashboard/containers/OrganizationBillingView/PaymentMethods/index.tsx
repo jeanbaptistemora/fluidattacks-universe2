@@ -280,7 +280,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             <Row>
               <h2>{t("organization.tabs.billing.paymentMethods.title")}</h2>
               <Table
-                bordered={true}
                 columnToggle={false}
                 customSearch={{
                   customSearchDefault: searchTextFilter,

@@ -418,7 +418,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             <div>
               <div>
                 <Table
-                  bordered={true}
                   clearFiltersButton={clearFilters}
                   customFilters={{
                     customFiltersProps: customFilters,

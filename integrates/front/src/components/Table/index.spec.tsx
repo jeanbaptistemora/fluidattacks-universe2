@@ -24,7 +24,6 @@ describe("Table", (): void => {
     const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
       <Table
-        bordered={false}
         dataset={data}
         exportCsv={false}
         headers={testHeaders}
@@ -54,7 +53,6 @@ describe("Table", (): void => {
     const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
       <Table
-        bordered={false}
         dataset={data}
         exportCsv={false}
         headers={testHeaders}
@@ -93,7 +91,6 @@ describe("Table", (): void => {
     ];
     const wrapper: ShallowWrapper = shallow(
       <Table
-        bordered={false}
         dataset={data}
         exportCsv={false}
         headers={testHeaders}
@@ -165,7 +162,6 @@ describe("Table", (): void => {
     };
     const wrapper: ReactWrapper = mount(
       <Table
-        bordered={false}
         dataset={data}
         exportCsv={true}
         headers={testHeaders}

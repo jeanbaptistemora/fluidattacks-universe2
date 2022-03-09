@@ -20,7 +20,6 @@ describe("Table hooks", (): void => {
 
       return (
         <Table
-          bordered={false}
           dataset={rows}
           expandRow={{
             expanded: expandedRows,

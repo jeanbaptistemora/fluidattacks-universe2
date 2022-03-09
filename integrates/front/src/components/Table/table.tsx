@@ -69,7 +69,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const {
-    bordered,
     clearFiltersButton,
     customFilters,
     customSearch,
@@ -525,7 +524,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         <BootstrapTable
           {...baseProps}
           bootstrap4={true}
-          bordered={bordered}
           defaultSorted={
             _.isUndefined(defaultSorted) ? undefined : [defaultSorted]
           }
