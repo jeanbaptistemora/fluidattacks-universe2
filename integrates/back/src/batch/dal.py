@@ -567,20 +567,27 @@ async def update_action_to_dynamodb(*, key: str, **kwargs: Any) -> bool:
         raise AttributesNoOverridden(*has_bad)
 
     success = False
+    remove_expression = ""
     set_expression = ""
     expression_names = {}
     expression_values = {}
 
     for attr, value in kwargs.items():
-        set_expression += f"#{attr} = :{attr}, "
-        expression_names.update({f"#{attr}": attr})
-        expression_values.update({f":{attr}": value})
+        if value is None:
+            remove_expression += f"#{attr}, "
+            expression_names.update({f"#{attr}": attr})
+        else:
+            set_expression += f"#{attr} = :{attr}, "
+            expression_names.update({f"#{attr}": attr})
+            expression_values.update({f":{attr}": value})
 
     if set_expression:
         set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
     update_attrs = {
         "Key": {"pk": key},
-        "UpdateExpression": set_expression.strip(),
+        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
 
     if expression_values:

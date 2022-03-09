@@ -108,6 +108,6 @@ async def test_requeue_actions(populate: bool) -> None:
                 clone_action.batch_job_id
                 == "2507485d-4a2e-4c14-a68b-fbe0c34d5f01"
             )
-            assert not clone_action.running
+            assert clone_action.running is False
 
             assert unchanged_action in actions
