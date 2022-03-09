@@ -3010,28 +3010,28 @@
   definitions:
     "APP-01":
       title: ABAP command injection
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-02":
       title: OS command injection
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-03":
       title: Native SQL injection
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-04":
       title: Improper authorization (missing, broken, propietary, generic)
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-05":
       title: Directory traversal
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-06":
       title: Direct database modifications
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-07":
       title: Cross-client database access
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
     "APP-08":
       title: Open SQL injection
-      link: https://bizec.org
+      link: https://pdfslide.net/documents/sap-security-bizec-app11-version-20-bizec-security-sap-security-is-a-complex.html?page=1
   metadata: {}
 "ccpa":
   title: CCPA
