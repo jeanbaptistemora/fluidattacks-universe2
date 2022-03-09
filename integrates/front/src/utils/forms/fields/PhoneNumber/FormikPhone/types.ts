@@ -7,8 +7,8 @@ interface IPhoneNumberProps extends FieldProps {
 }
 
 interface IPhoneData {
-  countryDialCode: string;
-  countryIso2: string;
+  callingCountryCode: string;
+  countryCode: string;
   nationalNumber: string;
 }
 

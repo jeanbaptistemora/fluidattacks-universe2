@@ -19,8 +19,8 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
   const { name, value }: { name: string; value: IPhoneData | undefined } =
     field;
   const [, , helpers] = useField(name);
-  const [initialCountryIso2] = useState<string | undefined>(
-    _.get(value, "countryIso2", undefined)
+  const [initialCountryCode] = useState<string | undefined>(
+    _.get(value, "countryCode", undefined)
   );
   const [initialNationalNumber] = useState<string | undefined>(
     _.get(value, "nationalNumber", undefined)
@@ -35,8 +35,8 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
       : countryData.dialCode;
     const iso2 = _.isUndefined(countryData.iso2) ? "" : countryData.iso2;
     const info = {
-      countryDialCode: dialCode,
-      countryIso2: iso2,
+      callingCountryCode: dialCode,
+      countryCode: iso2,
       nationalNumber: currentNumber.replace(/[\s()-]/gu, ""),
     };
     helpers.setValue(info);
@@ -70,14 +70,14 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
       <StyledPhoneNumberInput
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={autoFocus}
-        defaultCountry={initialCountryIso2}
+        defaultCountry={initialCountryCode}
         defaultValue={initialNationalNumber}
         disabled={disabled}
         formatOnInit={true}
         onPhoneNumberChange={onPhoneNumberChange}
         onSelectFlag={onSelectFlag}
         placeholder={placeholder}
-        preferredCountries={["co", "us"]}
+        preferredCountries={["us", "co"]}
       />
       <ValidationError>
         <ErrorMessage name={name} />

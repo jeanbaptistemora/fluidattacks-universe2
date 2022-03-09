@@ -21,7 +21,8 @@ from typing import (
             "user",
             3,
             {
-                "countryCode": "1",
+                "callingCountryCode": "1",
+                "countryCode": "US",
                 "nationalNumber": "2029182132",
             },
             1,
@@ -33,7 +34,8 @@ from typing import (
             "hacker",
             3,
             {
-                "countryCode": "1",
+                "callingCountryCode": "1",
+                "countryCode": "US",
                 "nationalNumber": "2029182131",
             },
             2,

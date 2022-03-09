@@ -13,6 +13,7 @@ interface IVerifyStakeholderResultAttr {
 }
 
 interface IPhoneAttr {
+  callingCountryCode: string;
   countryCode: string;
   nationalNumber: string;
 }

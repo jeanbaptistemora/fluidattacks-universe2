@@ -52,8 +52,8 @@ input CredentialsInput {
 
 "Phone definition"
 input PhoneInput {
-  "International country code"
-  countryCode: String!
-  "Phone number without the country code"
+  "International dialing prefix"
+  callingCountryCode: String!
+  "Phone number without the calling country code"
   nationalNumber: String!
 }

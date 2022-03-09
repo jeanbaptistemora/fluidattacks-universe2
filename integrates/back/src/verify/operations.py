@@ -30,6 +30,19 @@ from typing import (
 client = Client(FI_TWILIO_ACCOUNT_SID, FI_TWILIO_AUTH_TOKEN)
 
 
+async def get_contry_code(phone_number: str) -> str:
+    if FI_ENVIRONMENT == "development":
+        return ""
+    try:
+        phone_info = await in_thread(
+            client.lookups.v1.phone_numbers(phone_number=phone_number).fetch,
+        )
+    except TwilioRestException as exc:
+        raise InvalidMobileNumber() from exc
+
+    return phone_info.country_code
+
+
 async def start_verification(
     *, phone_number: str, channel: Channel = Channel.SMS
 ) -> None:

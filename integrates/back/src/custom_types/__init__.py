@@ -240,5 +240,11 @@ SignPostUrlsPayload = NamedTuple(
 
 
 class Phone(NamedTuple):
+    calling_country_code: str
+    national_number: str
+
+
+class StakeholderPhone(NamedTuple):
     country_code: str
+    calling_country_code: str
     national_number: str

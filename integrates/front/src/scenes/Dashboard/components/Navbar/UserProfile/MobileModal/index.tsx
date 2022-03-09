@@ -133,7 +133,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
     void handleVerifyStakeholder({
       variables: {
         newPhone: {
-          countryCode: values.phone.countryDialCode,
+          callingCountryCode: values.phone.callingCountryCode,
           nationalNumber: values.phone.nationalNumber,
         },
       },
@@ -143,7 +143,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
   function handleVerifyAdditionCode(values: IVerificationFormValues): void {
     void handleUpdateStakeholderPhone({
       variables: {
-        countryCode: phoneToAdd?.countryDialCode,
+        callingCountryCode: phoneToAdd?.callingCountryCode,
         nationalNumber: phoneToAdd?.nationalNumber,
         verificationCode: values.verificationCode,
       },
@@ -167,8 +167,8 @@ const MobileModal: React.FC<IMobileModalProps> = (
           enableReinitialize={true}
           initialValues={{
             phone: {
-              countryDialCode: "57",
-              countryIso2: "co",
+              callingCountryCode: "57",
+              countryCode: "co",
               nationalNumber: "",
             },
           }}

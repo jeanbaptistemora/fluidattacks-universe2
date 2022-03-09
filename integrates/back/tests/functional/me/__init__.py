@@ -31,6 +31,7 @@ async def get_result(
                 }}
             }}
             phone{{
+                callingCountryCode
                 countryCode
                 nationalNumber
             }}

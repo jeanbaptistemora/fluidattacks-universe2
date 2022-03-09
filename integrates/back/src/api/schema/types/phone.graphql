@@ -1,7 +1,9 @@
 "Phone type definition"
 type Phone {
-  "International country code"
+  "International dialing prefix"
+  callingCountryCode: String!
+  "International iso country code"
   countryCode: String!
-  "Phone number without the country code"
+  "Phone number without the calling country code"
   nationalNumber: String!
 }

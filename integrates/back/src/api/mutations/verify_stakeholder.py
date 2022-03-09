@@ -45,8 +45,8 @@ async def mutate(
         new_phone = None
         if new_phone_dict:
             new_phone = Phone(
+                calling_country_code=new_phone_dict["calling_country_code"],
                 national_number=new_phone_dict["national_number"],
-                country_code=new_phone_dict["country_code"],
             )
 
         await users_domain.verify(

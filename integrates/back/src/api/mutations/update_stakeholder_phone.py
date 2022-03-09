@@ -48,7 +48,7 @@ async def mutate(
             user_email,
             Phone(
                 national_number=phone["national_number"],
-                country_code=phone["country_code"],
+                calling_country_code=phone["calling_country_code"],
             ),
             verification_code,
         )

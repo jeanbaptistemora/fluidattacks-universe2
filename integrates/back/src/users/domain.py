@@ -17,6 +17,7 @@ from custom_types import (
     Invitation as InvitationType,
     Phone,
     Stakeholder as StakeholderType,
+    StakeholderPhone,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
     User as UserType,
 )
@@ -234,7 +235,8 @@ async def get_by_email(email: str) -> UserType:
                 "legal_remember": user.get("legal_remember", False),
                 "phone": None
                 if user.get("phone", None) is None
-                else Phone(
+                else StakeholderPhone(
+                    calling_country_code=user["phone"]["calling_country_code"],
                     country_code=user["phone"]["country_code"],
                     national_number=user["phone"]["national_number"],
                 ),
@@ -415,11 +417,19 @@ async def update_mobile(
     await verify_operations.validate_mobile(
         phone_number=get_international_format_phone_number(new_phone)
     )
+    country_code = await verify_operations.get_contry_code(
+        get_international_format_phone_number(new_phone)
+    )
     await verify_operations.check_verification(
         phone_number=get_international_format_phone_number(new_phone),
         code=verification_code,
     )
-    await users_dal.update(email, {"phone": new_phone._asdict()})
+    stakeholder_phone = StakeholderPhone(
+        calling_country_code=new_phone.calling_country_code,
+        country_code=country_code,
+        national_number=new_phone.national_number,
+    )
+    await users_dal.update(email, {"phone": stakeholder_phone._asdict()})
 
 
 async def verify(
@@ -429,7 +439,7 @@ async def verify(
 ) -> None:
     """Start a verification process using OTP"""
     user = await get_by_email(email)
-    user_phone = cast(Optional[Phone], user["phone"])
+    user_phone = cast(Optional[StakeholderPhone], user["phone"])
     phone_to_verify = user_phone if new_phone is None else new_phone
 
     if not phone_to_verify:
