@@ -45,8 +45,6 @@ in {
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
         "NEW_RELIC_LICENSE_KEY"
-        "NEW_RELIC_PIXIE_API_KEY"
-        "NEW_RELIC_PIXIE_DEPLOY_KEY"
       ];
       manifest = "/makes/secrets/dev.yaml";
     };
@@ -56,8 +54,6 @@ in {
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
         "NEW_RELIC_LICENSE_KEY"
-        "NEW_RELIC_PIXIE_API_KEY"
-        "NEW_RELIC_PIXIE_DEPLOY_KEY"
       ];
       manifest = "/makes/secrets/prod.yaml";
     };
@@ -73,8 +69,6 @@ in {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
-      newRelicPixieApiKey = "NEW_RELIC_PIXIE_API_KEY";
-      newRelicPixieDeployKey = "NEW_RELIC_PIXIE_DEPLOY_KEY";
       kubeConfig = "KUBECONFIG";
     };
   };
