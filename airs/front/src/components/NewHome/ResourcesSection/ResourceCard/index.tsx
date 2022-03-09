@@ -17,7 +17,7 @@ const ResourceCard: React.FC<IProps> = ({
     <CloudImage
       alt={image}
       src={`/airs/home/${image}`}
-      styles={"ma3 resources-card-animation t-all-3-eio"}
+      styles={"ma3 mw-300 resources-card-animation t-all-3-eio"}
     />
   </Link>
 );
