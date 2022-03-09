@@ -1,4 +1,4 @@
-# pylint: disable=import-error
+# pylint: disable=import-error, too-many-locals
 from api.schema import (
     SCHEMA,
 )

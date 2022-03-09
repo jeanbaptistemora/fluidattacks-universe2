@@ -197,7 +197,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="060. Insecure service configuration - Host verification",
+                    title="060. Insecure service configuration - "
+                    "Host verification",
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email=generic_data["global_vars"]["admin_email"],
@@ -227,7 +228,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Autenticated attacker from the Internet.",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack "
+                    "vector",
                 ),
                 "historic_state": [
                     FindingState(
@@ -271,9 +273,16 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_closed_vulnerabilities=3,
                     unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date="2020-12-26T"
+                    "05:45:00"
+                    "+00:00",
+                    unreliable_oldest_open_vulnerability_report_date="2020-0"
+                    "2-24T0"
+                    "5:45:0"
+                    "0+00:00",
+                    unreliable_oldest_vulnerability_report_date="2018-04-01T"
+                    "05:45:00"
+                    "+00:00",
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
@@ -319,7 +328,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack "
+                    "vector",
                 ),
                 "historic_state": [
                     FindingState(
@@ -352,9 +362,16 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_closed_vulnerabilities=3,
                     unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date="2020-12-26T"
+                    "05:45:00"
+                    "+00:00",
+                    unreliable_oldest_open_vulnerability_report_date="2020-0"
+                    "2-24T0"
+                    "5:45:0"
+                    "0+00:00",
+                    unreliable_oldest_vulnerability_report_date="2018-04-01T"
+                    "05:45:00"
+                    "+00:00",
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
@@ -366,37 +383,44 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence2=FindingEvidence(
                             description="evidence2",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence2",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence2",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence3=FindingEvidence(
                             description="evidence3",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence3",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence3",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence4=FindingEvidence(
                             description="evidence4",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence4",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence4",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence5",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-evidence5",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         exploitation=FindingEvidence(
                             description="exploitation",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-exploitation",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-exploitation",
                             modified_date="2010-11-19T13:37:10+00:00",
                         ),
                         animation=FindingEvidence(
                             description="animation",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-animation",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c"
+                            "-animation",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                     ),
@@ -437,7 +461,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack "
+                    "vector",
                 ),
                 "historic_state": [],
                 "historic_verification": [
@@ -456,9 +481,16 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_closed_vulnerabilities=3,
                     unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date="2020-12-26T"
+                    "05:45:00"
+                    "+00:00",
+                    unreliable_oldest_open_vulnerability_report_date="2020-0"
+                    "2-24T0"
+                    "5:45:0"
+                    "0+00:00",
+                    unreliable_oldest_vulnerability_report_date="2018-04-01T"
+                    "05:45:00"
+                    "+00:00",
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),

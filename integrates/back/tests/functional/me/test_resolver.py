@@ -1,4 +1,4 @@
-# pylint: disable=import-error
+# pylint: disable=import-error, useless-suppression, too-many-arguments
 from . import (
     get_result,
     get_vulnerabilities,

@@ -46,7 +46,9 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
+                "AjRklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
             },
             {
                 "node": {
@@ -69,7 +71,9 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDEvdGVzdC5zaCJ9",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
+                "EjRklMRU5BTUUjdGVzdDEvdGVzdC5zaCJ9",
             },
             {
                 "node": {
@@ -92,12 +96,16 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
+                "EjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
             },
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+            "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
+            "EjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
         },
     }
 

@@ -8,7 +8,6 @@ from dataloaders import (
 from typing import (
     Any,
     Dict,
-    List,
     Optional,
 )
 
@@ -30,24 +29,24 @@ async def get_result(
     }
     if attacked_lines:
         variables["attackedLines"] = attacked_lines
-    query: str = f"""
+    query: str = """
         mutation UpdateToeLinesAttackedLinesMutation(
             $attackedLines: Int,
             $comments: String!,
             $filename: String!,
             $groupName: String!,
             $rootId: String!
-        ) {{
+        ) {
             updateToeLinesAttackedLines(
                 attackedLines:  $attackedLines,
                 groupName: $groupName,
                 rootId:  $rootId,
                 filename: $filename,
                 comments: $comments
-            ) {{
+            ) {
                 success
-            }}
-        }}
+            }
+        }
     """
     data: Dict[str, Any] = {
         "query": query,

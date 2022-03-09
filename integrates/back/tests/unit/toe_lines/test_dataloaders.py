@@ -117,7 +117,9 @@ async def test_get_by_group() -> None:
                     ),
                     sorts_risk_level=80,
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUyNST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUxOSNGSUxFTkFNRSN0ZXN0L3Rlc3QjLmNvbmZpZyJ9",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
+                "NST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUx"
+                "OSNGSUxFTkFNRSN0ZXN0L3Rlc3QjLmNvbmZpZyJ9",
             ),
             ToeLinesEdge(
                 node=ToeLines(
@@ -149,7 +151,9 @@ async def test_get_by_group() -> None:
                     ),
                     sorts_risk_level=0,
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUyNST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIxYSNGSUxFTkFNRSN0ZXN0Mi90ZXN0LnNoIn0=",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
+                "NST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIx"
+                "YSNGSUxFTkFNRSN0ZXN0Mi90ZXN0LnNoIn0=",
             ),
         ),
         page_info=PageInfo(has_next_page=False, end_cursor="bnVsbA=="),
@@ -193,7 +197,9 @@ async def test_get_by_root() -> None:
                     ),
                     sorts_risk_level=80,
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUyNST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUxOSNGSUxFTkFNRSN0ZXN0L3Rlc3QjLmNvbmZpZyJ9",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
+                "NST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUx"
+                "OSNGSUxFTkFNRSN0ZXN0L3Rlc3QjLmNvbmZpZyJ9",
             ),
         ),
         page_info=PageInfo(has_next_page=False, end_cursor="bnVsbA=="),
@@ -235,7 +241,9 @@ async def test_get_by_root() -> None:
                     ),
                     sorts_risk_level=0,
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUyNST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIxYSNGSUxFTkFNRSN0ZXN0Mi90ZXN0LnNoIn0=",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
+                "NST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIx"
+                "YSNGSUxFTkFNRSN0ZXN0Mi90ZXN0LnNoIn0=",
             ),
         ),
         page_info=PageInfo(has_next_page=False, end_cursor="bnVsbA=="),

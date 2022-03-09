@@ -31,7 +31,8 @@ async def test_requeue_actions(populate: bool) -> None:
 
     # An action with the same parameters with more resources should be created
     action_to_clone = await batch_dal.get_action(
-        action_dynamo_pk="75d0d7e2f4d87093f1084535790ef9d4923e474cd2f431cda3f6b4c34e385a10"
+        action_dynamo_pk="75d0d7e2f4d87093f1084535790ef9d4923e474cd2f431cda3f6"
+        "b4c34e385a10"
     )
 
     await collect(

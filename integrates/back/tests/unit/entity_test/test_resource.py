@@ -61,7 +61,7 @@ async def test_get_resources() -> None:
     assert "resources" in result["data"]
     assert result["data"]["resources"]["groupName"] == "unittesting"
 
-    expectedOutput: List[Dict[str, str]] = [
+    expected_output: List[Dict[str, str]] = [
         {
             "description": "Test",
             "fileName": "test.zip",
@@ -87,7 +87,7 @@ async def test_get_resources() -> None:
             "uploader": "unittest@fluidattacks.com",
         },
     ]
-    assert result["data"]["resources"]["files"] == expectedOutput
+    assert result["data"]["resources"]["files"] == expected_output
 
 
 @pytest.mark.changes_db

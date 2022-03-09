@@ -50,7 +50,10 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="test2@test.com",
                     unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjUk9PVCM0MDM5ZDA5OC1mZmM1LTQ5ODQtOGVkMy1lYjE3YmNhOThlMTkjQ09NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vdGVzdDIvdGVzdC5hc3B4I0VOVFJZUE9JTlQjLSJ9",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
+                "MjUk9PVCM0MDM5ZDA5OC1mZmM1LTQ5ODQtOGVkMy1lYjE3YmNhOThl"
+                "MTkjQ09NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vdGVzdDIvdGVzdC"
+                "5hc3B4I0VOVFJZUE9JTlQjLSJ9",
             ),
             ToeInputEdge(
                 node=ToeInput(
@@ -73,7 +76,9 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="",
                     unreliable_root_id="",
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS9hcGkvVGVzdCNFTlRSWVBPSU5UI2lkVGVzdCJ9",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
+                "MjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS9hcGkvVGVz"
+                "dCNFTlRSWVBPSU5UI2lkVGVzdCJ9",
             ),
             ToeInputEdge(
                 node=ToeInput(
@@ -98,7 +103,9 @@ async def test_get_by_group() -> None:
                     seen_first_time_by="test@test.com",
                     unreliable_root_id="",
                 ),
-                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVFMjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS90ZXN0L3Rlc3QuYXNweCNFTlRSWVBPSU5UI2J0blRlc3QifQ==",
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
+                "MjUk9PVCNDT01QT05FTlQjaHR0cHM6Ly90ZXN0LmNvbS90ZXN0L3Rl"
+                "c3QuYXNweCNFTlRSWVBPSU5UI2J0blRlc3QifQ==",
             ),
         ),
         page_info=PageInfo(has_next_page=False, end_cursor="bnVsbA=="),

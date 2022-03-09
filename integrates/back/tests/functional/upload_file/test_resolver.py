@@ -201,44 +201,56 @@ async def test_upload_file(populate: bool, email: str) -> None:
     vuln_open_verified: Vulnerability = await vuln_loader.load(
         open_verified_id
     )
-    assert vuln_open_verified.unreliable_indicators == VulnerabilityUnreliableIndicators(
-        unreliable_efficacy=Decimal("0"),
-        unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
-        unreliable_last_reattack_requester="requester@gmail.com",
-        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
-        unreliable_reattack_cycles=None,
-        unreliable_report_date="2018-04-08T00:43:11+00:00",
-        unreliable_source=Source.ASM,
-        unreliable_treatment_changes=0,
+    assert (
+        vuln_open_verified.unreliable_indicators
+        == VulnerabilityUnreliableIndicators(
+            unreliable_efficacy=Decimal("0"),
+            unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
+            unreliable_last_reattack_requester="requester@gmail.com",
+            unreliable_last_requested_reattack_date="2018-04-08T01:45:11"
+            "+00:00",
+            unreliable_reattack_cycles=None,
+            unreliable_report_date="2018-04-08T00:43:11+00:00",
+            unreliable_source=Source.ASM,
+            unreliable_treatment_changes=0,
+        )
     )
     closed_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce9"
     vuln_closed_verified: Vulnerability = await vuln_loader.load(
         closed_verified_id
     )
-    assert vuln_closed_verified.unreliable_indicators == VulnerabilityUnreliableIndicators(
-        unreliable_efficacy=Decimal("100"),
-        unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
-        unreliable_last_reattack_requester="requester@gmail.com",
-        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
-        unreliable_reattack_cycles=None,
-        unreliable_report_date="2018-04-08T00:44:11+00:00",
-        unreliable_source=Source.ASM,
-        unreliable_treatment_changes=0,
+    assert (
+        vuln_closed_verified.unreliable_indicators
+        == VulnerabilityUnreliableIndicators(
+            unreliable_efficacy=Decimal("100"),
+            unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
+            unreliable_last_reattack_requester="requester@gmail.com",
+            unreliable_last_requested_reattack_date="2018-04-08T01:45:11"
+            "+00:00",
+            unreliable_reattack_cycles=None,
+            unreliable_report_date="2018-04-08T00:44:11+00:00",
+            unreliable_source=Source.ASM,
+            unreliable_treatment_changes=0,
+        )
     )
 
     finding: Finding = await loaders.finding.load(finding_id)
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=2,
         unreliable_is_verified=True,
-        unreliable_newest_vulnerability_report_date="2022-02-09T00:00:00+00:00",
-        unreliable_oldest_open_vulnerability_report_date="2018-04-08T00:43:11+00:00",
-        unreliable_oldest_vulnerability_report_date="2018-04-08T00:43:11+00:00",
+        unreliable_newest_vulnerability_report_date="2022-02-09T00:00:00"
+        "+00:00",
+        unreliable_oldest_open_vulnerability_report_date="2018-04-08T"
+        "00:43:11+00:00",
+        unreliable_oldest_vulnerability_report_date="2018-04-08T00:43:11"
+        "+00:00",
         unreliable_open_vulnerabilities=6,
         unreliable_status=FindingStatus.OPEN,
         unreliable_treatment_summary=FindingTreatmentSummary(
             accepted=0, accepted_undefined=0, in_progress=0, new=6
         ),
-        unreliable_where="192.168.1.44, 192.168.1.46, https://example.com, product/path/to/file1.ext, product/test/1",
+        unreliable_where="192.168.1.44, 192.168.1.46, https://example.com, "
+        "product/path/to/file1.ext, product/test/1",
     )
 
 

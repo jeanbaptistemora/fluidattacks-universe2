@@ -158,7 +158,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
             "user_fluid_email": user_fluid_email,
             "user_manager_email": user_manager_email,
             "user_manager_fluid_email": user_manager_fluid_email,
-            "FIN.H.060": "060. Insecure service configuration - Host verification",
+            "FIN.H.060": "060. Insecure service configuration - "
+            "Host verification",
             "R359": "R359. Avoid using generic exceptions.",
         },
         "db_data": {

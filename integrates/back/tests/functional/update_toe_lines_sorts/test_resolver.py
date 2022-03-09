@@ -46,7 +46,9 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
+                "AjRklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
             },
             {
                 "node": {
@@ -66,7 +68,9 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 10,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
+                "EjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
             },
             {
                 "node": {
@@ -86,12 +90,16 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
                 },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
+                "EjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
             },
         ],
         "pageInfo": {
             "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
+            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9P"
+            "VCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEj"
+            "RklMRU5BTUUjdGVzdDMvdGVzdC5jb25maWcifQ==",
         },
     }
 

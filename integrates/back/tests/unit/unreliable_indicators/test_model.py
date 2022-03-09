@@ -19,7 +19,7 @@ pytestmark = [
 
 
 def test_model_entity_names_integrity() -> None:
-    entity_names = list(key.value for key in model.ENTITIES.keys())
+    entity_names = list(key.value for key in model.ENTITIES)
     assert entity_names == sorted(entity_names)
 
 
