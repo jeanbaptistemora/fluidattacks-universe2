@@ -16,7 +16,7 @@ from db_model.enums import (
     Notification,
     StateRemovalJustification,
 )
-from db_model.users.types import (
+from db_model.users.get import (
     User,
 )
 from group_access import (
@@ -60,8 +60,14 @@ async def send_mail_comment(
         "user_email": user_mail,
     }
 
+    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.NEW_COMMENT in user.notifications_preferences.email
+    ]
     await send_mails_async(
-        recipients,
+        users_email,
         email_context,
         COMMENTS_TAG,
         (

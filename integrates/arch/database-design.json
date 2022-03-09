@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 04, 2022, 01:47 PM",
+    "DateLastModified": "Mar 09, 2022, 07:52 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1093,6 +1093,55 @@
                       },
                       {
                         "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#customer.success.mail@integrates.test"
+              },
+              "sk": {
+                "S": "USER#customer.success.mail@integrates.test"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "FILE_UPLOADED"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "ROOT_MOVED"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -14687,34 +14736,6 @@
               },
               "modified_date": {
                 "S": "2020-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
-              },
-              "sk": {
-                "S": "VERIFICATION#2021-02-19T15:41:04+00:00"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
-              },
-              "sk": {
-                "S": "VERIFICATION#2021-02-19T15:41:04+00:00"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-19T15:41:04+00:00"
               }
             }
           ],
