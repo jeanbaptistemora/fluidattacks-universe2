@@ -25,7 +25,6 @@ from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
 )
-import datetime
 from dateutil.parser import (  # type: ignore
     parse as date_parse,
 )
@@ -54,6 +53,9 @@ from newutils import (
     datetime as datetime_utils,
 )
 import os
+from roots.types import (
+    GitRoot,
+)
 from settings.logger import (
     LOGGING,
 )
@@ -334,13 +336,7 @@ async def queue_job_new(
     )
 
 
-def _get_seconds_ago(timestamp: int) -> float:
-    date = datetime.datetime.fromtimestamp(int(timestamp / 1000))
-    now = datetime.datetime.utcnow()
-    return (now - date).seconds
-
-
-async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
+async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
     group: str = root.group_name
     queued_jobs_dict = {
         job.batch_job_id: job
@@ -383,7 +379,7 @@ async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
         for root_nickname in json.loads(
             queued_jobs_dict[entry_execution["jobId"]].additional_info
         )["roots"]
-        if root_nickname == root.state.nickname
+        if root_nickname == root.nickname
     )
 
     active_urgent_jobs = tuple(
