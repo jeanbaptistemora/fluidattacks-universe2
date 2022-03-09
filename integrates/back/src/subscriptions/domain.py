@@ -27,6 +27,12 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.enums import (
+    Notification,
+)
+from db_model.users.get import (
+    User,
+)
 from group_access.domain import (
     get_users_to_notify,
 )
@@ -197,6 +203,7 @@ async def _send_analytics_report(
     report_subject: str,
     user_email: str,
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     try:
         if await _should_not_send_report(
             report_entity=report_entity,
@@ -237,18 +244,22 @@ async def _send_analytics_report(
 
     report_subject = report_subject.lower()
 
-    await analytics_mail.send_mail_analytics(
-        user_email,
-        date=datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d"),
-        frequency_title=event_frequency.title(),
-        frequency_lower=event_frequency.lower(),
-        image_src=image_url,
-        report_entity=report_entity,
-        report_subject=report_subject,
-        report_subject_title=report_subject.title(),
-        report_entity_percent=quote_plus(_translate_entity(report_entity)),
-        report_subject_percent=quote_plus(report_subject),
-    )
+    user: User = await loaders.user.load(user_email)
+    if Notification.CHARTS_REPORT in user.notifications_preferences.email:
+        await analytics_mail.send_mail_analytics(
+            user_email,
+            date=datetime_utils.get_as_str(
+                datetime_utils.get_now(), "%Y/%m/%d"
+            ),
+            frequency_title=event_frequency.title(),
+            frequency_lower=event_frequency.lower(),
+            image_src=image_url,
+            report_entity=report_entity,
+            report_subject=report_subject,
+            report_subject_title=report_subject.title(),
+            report_entity_percent=quote_plus(_translate_entity(report_entity)),
+            report_subject_percent=quote_plus(report_subject),
+        )
 
     LOGGER_CONSOLE.info(
         "- analytics email sent to user",
