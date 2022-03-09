@@ -25,10 +25,17 @@
 }
 
 :local .itemsContainer {
+  background-color: #f4f4f6;
+  border: solid 1px;
+  border-color: #ddd;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   color: #333;
+  display: none;
   margin-left: -17px;
-  margin-top: 17px;
+  margin-top: 5px;
+  max-width: 1172px;
+  max-height: 827px;
+  overflow: auto;
   width: 101%;
   word-break: normal;
 }

@@ -23,7 +23,7 @@ const StyledMenuItem: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `ba br0 pa3 outline-0 justify-center ${className ?? ""}`,
+    className: `ba br0 pa3 outline-0 justify-center w-100 ${className ?? ""}`,
     type: type ?? "button",
   })
 )`
