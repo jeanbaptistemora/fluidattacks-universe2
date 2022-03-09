@@ -5,9 +5,9 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
 import { Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -67,7 +67,7 @@ const TagsGroup: React.FC = (): JSX.Element => {
   return (
     <div>
       <Row>
-        <DataTableNext
+        <Table
           bordered={true}
           customSearch={{
             customSearchDefault: searchTextFilter,

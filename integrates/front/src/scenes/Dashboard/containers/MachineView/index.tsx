@@ -23,9 +23,9 @@ import type {
 } from "./types";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal, ModalFooter } from "components/Modal";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
 import { ButtonToolbarCenter } from "styles/styledComponents";
 import { formatDate, formatDuration } from "utils/formatHelpers";
 import { Logger } from "utils/logger";
@@ -254,7 +254,7 @@ const MachineView: React.FC = (): JSX.Element => {
         <div />
       ) : (
         <React.StrictMode>
-          <DataTableNext
+          <Table
             bordered={false}
             dataset={tableDataset}
             defaultSorted={undefined}

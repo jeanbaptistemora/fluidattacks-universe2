@@ -626,7 +626,7 @@ describe("Organization users view", (): void => {
 
         expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
         expect(wrapper.find("tr").at(1).find("td").at(0).text()).toBe(
-          "dataTableNext.noDataIndication"
+          "table.noDataIndication"
         );
       });
     });

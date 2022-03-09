@@ -10,9 +10,9 @@ import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
-import { DataTableNext } from "components/DataTableNext";
-import { timeFromNow } from "components/DataTableNext/formatters";
-import type { ITableProps } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { timeFromNow } from "components/Table/formatters";
+import type { ITableProps } from "components/Table/types";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -153,7 +153,7 @@ describe("Group stakeholders view", (): void => {
     });
 
     const stakeholderTable: ReactWrapper<ITableProps> = wrapper
-      .find(DataTableNext)
+      .find(Table)
       .filter({ id: "tblUsers" });
 
     const tableHeader: ReactWrapper = stakeholderTable.find("Header");

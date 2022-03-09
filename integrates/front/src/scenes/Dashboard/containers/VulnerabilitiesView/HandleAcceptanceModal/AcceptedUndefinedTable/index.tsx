@@ -3,9 +3,9 @@ import React from "react";
 import type { IAcceptedUndefinedTableProps } from "./types";
 
 import type { IVulnDataAttr } from "../types";
-import { DataTableNext } from "components/DataTableNext";
-import { changeVulnTreatmentFormatter } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { changeVulnTreatmentFormatter } from "components/Table/formatters";
+import type { IHeaderConfig } from "components/Table/types";
 
 const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   props: IAcceptedUndefinedTableProps
@@ -54,7 +54,7 @@ const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   return (
     <React.StrictMode>
       {isAcceptedUndefinedSelected ? (
-        <DataTableNext
+        <Table
           bordered={false}
           dataset={acceptanceVulns}
           exportCsv={false}

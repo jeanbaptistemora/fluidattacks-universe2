@@ -10,8 +10,8 @@ import type { ColumnDescription } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import type { ICustomToggleProps } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
+import type { ICustomToggleProps } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ControlLabel, Row, RowCenter } from "styles/styledComponents";
 

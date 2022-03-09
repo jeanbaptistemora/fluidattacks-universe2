@@ -14,8 +14,8 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
 import { FluidIcon } from "components/FluidIcon";
+import { Table } from "components/Table";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   REMOVE_EVIDENCE_MUTATION,
@@ -210,7 +210,7 @@ const RecordsView: React.FC = (): JSX.Element => {
               <p>{translate.t("group.findings.records.noData")}</p>
             </div>
           ) : (
-            <DataTableNext
+            <Table
               bordered={true}
               dataset={JSON.parse(data.finding.records)}
               exportCsv={false}

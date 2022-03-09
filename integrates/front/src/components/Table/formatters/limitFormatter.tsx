@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "components/DataTableNext/index.css";
+import styles from "components/Table/index.css";
 import { translate } from "utils/translations/translate";
 
 export const limitFormatter: (value: string) => JSX.Element = (
@@ -24,7 +24,7 @@ export const limitFormatter: (value: string) => JSX.Element = (
         )
       )}
       {valueArray.length > linesLimit && (
-        <p className={"mb0 nt1"}>{translate.t("dataTableNext.more")}</p>
+        <p className={"mb0 nt1"}>{translate.t("table.more")}</p>
       )}
     </div>
   );

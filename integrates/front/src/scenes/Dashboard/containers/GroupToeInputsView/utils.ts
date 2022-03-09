@@ -6,7 +6,7 @@ import {
   filterDateRange,
   filterSearchText,
   filterSelect,
-} from "components/DataTableNext/utils/filters";
+} from "components/Table/utils/filters";
 
 const getToeInputId: (toeInputData: IToeInputData) => string = (
   toeInputData: IToeInputData

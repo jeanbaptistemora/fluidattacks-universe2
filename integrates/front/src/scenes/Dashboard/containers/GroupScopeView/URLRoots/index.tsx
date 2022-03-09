@@ -14,9 +14,9 @@ import { ACTIVATE_ROOT, ADD_URL_ROOT } from "../queries";
 import type { IURLRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { DataTableNext } from "components/DataTableNext";
-import { changeFormatter } from "components/DataTableNext/formatters";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table";
+import { changeFormatter } from "components/Table/formatters";
+import { filterSearchText } from "components/Table/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -147,7 +147,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 
           return (
             <Container>
-              <DataTableNext
+              <Table
                 bordered={true}
                 columnToggle={false}
                 customSearch={{

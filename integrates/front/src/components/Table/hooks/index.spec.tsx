@@ -3,9 +3,9 @@ import React from "react";
 
 import { useRowExpand } from "./useRowExpand";
 
-import { DataTableNext } from "..";
+import { Table } from "..";
 
-describe("DataTable hooks", (): void => {
+describe("Table hooks", (): void => {
   describe("useRowExpand", (): void => {
     const TestComponent: React.FC = (): JSX.Element => {
       const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
@@ -19,7 +19,7 @@ describe("DataTable hooks", (): void => {
       const renderer = (): JSX.Element => <div id={"expanded"} />;
 
       return (
-        <DataTableNext
+        <Table
           bordered={false}
           dataset={rows}
           expandRow={{

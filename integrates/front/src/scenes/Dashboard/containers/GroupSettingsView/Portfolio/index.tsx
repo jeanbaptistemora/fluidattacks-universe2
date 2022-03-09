@@ -9,8 +9,8 @@ import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {
@@ -213,7 +213,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
       </Row>
       <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
-          <DataTableNext
+          <Table
             bordered={true}
             dataset={tagsDataset}
             defaultSorted={JSON.parse(

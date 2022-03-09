@@ -26,16 +26,13 @@ import {
 } from "./selectOptions";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import {
   filterDateRange,
   filterSearchText,
   filterSelect,
-} from "components/DataTableNext/utils";
+} from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
@@ -668,7 +665,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         id={"group.events.help"}
         message={translate.t("searchFindings.tabEvents.tableAdvice")}
       >
-        <DataTableNext
+        <Table
           bordered={true}
           clearFiltersButton={clearFilters}
           columnToggle={true}

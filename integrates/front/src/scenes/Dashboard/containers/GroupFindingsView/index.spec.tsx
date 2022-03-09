@@ -10,9 +10,9 @@ import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { CustomToggleList } from "components/DataTableNext/customToggleList";
-import type { ITableProps } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { CustomToggleList } from "components/Table/customToggleList";
+import type { ITableProps } from "components/Table/types";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import {
   GET_FINDINGS,
@@ -295,7 +295,7 @@ describe("GroupFindingsView", (): void => {
     whereCheckbox.simulate("change");
 
     const findingTable: ReactWrapper<ITableProps> = wrapper
-      .find(DataTableNext)
+      .find(Table)
       .filter({ id: "tblFindings" });
 
     const tableHeader: ReactWrapper = findingTable.find("Header");

@@ -1,7 +1,7 @@
 import type {
   ICustomFiltersProps,
   ICustomSearchProps,
-} from "components/DataTableNext/types";
+} from "components/Table/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 interface IVulnRowAttr {

@@ -17,7 +17,7 @@ import {
   Row,
 } from "./styles";
 
-import { commitFormatter } from "components/DataTableNext/formatters";
+import { commitFormatter } from "components/Table/formatters";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";

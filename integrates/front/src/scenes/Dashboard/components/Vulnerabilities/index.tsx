@@ -20,13 +20,10 @@ import {
 import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
-import { DataTableNext } from "components/DataTableNext";
-import { deleteFormatter } from "components/DataTableNext/formatters";
-import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
-import type {
-  IHeaderConfig,
-  ISelectRowProps,
-} from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { deleteFormatter } from "components/Table/formatters";
+import { filterFormatter } from "components/Table/headerFormatters/filterFormatter";
+import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
 import type {
   IVulnComponentProps,
@@ -271,7 +268,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 
   return (
     <React.StrictMode>
-      <DataTableNext
+      <Table
         bordered={true}
         clearFiltersButton={clearFiltersButton}
         customFilters={customFilters}

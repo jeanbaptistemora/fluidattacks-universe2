@@ -22,13 +22,13 @@ import {
   onSelectSeveralToeLinesHelper,
 } from "./utils";
 
-import { DataTableNext } from "components/DataTableNext";
-import { commitFormatter } from "components/DataTableNext/formatters";
+import { Table } from "components/Table";
+import { commitFormatter } from "components/Table/formatters";
 import type {
   IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
-} from "components/DataTableNext/types";
+} from "components/Table/types";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
   IFilterSet,
@@ -637,7 +637,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
 
   return (
     <React.StrictMode>
-      <DataTableNext
+      <Table
         bordered={true}
         clearFiltersButton={clearFilters}
         columnToggle={true}

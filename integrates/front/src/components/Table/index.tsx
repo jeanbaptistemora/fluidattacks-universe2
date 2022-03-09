@@ -3,18 +3,15 @@ import React, { useCallback } from "react";
 import type { SearchMatchProps } from "react-bootstrap-table2-toolkit";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 
-import style from "components/DataTableNext/index.css";
-import { TableWrapper } from "components/DataTableNext/table";
-import type { ITableProps } from "components/DataTableNext/types";
-import {
-  addUniqueKeys,
-  customizeColumns,
-} from "components/DataTableNext/utils";
+import style from "components/Table/index.css";
+import { TableWrapper } from "components/Table/table";
+import type { ITableProps } from "components/Table/types";
+import { addUniqueKeys, customizeColumns } from "components/Table/utils";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import { useStoredState } from "utils/hooks";
 
-export const DataTableNext: React.FC<ITableProps> = (
+export const Table: React.FC<ITableProps> = (
   props: ITableProps
 ): JSX.Element => {
   const {

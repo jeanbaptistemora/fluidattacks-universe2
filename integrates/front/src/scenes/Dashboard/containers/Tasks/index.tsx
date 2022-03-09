@@ -14,14 +14,14 @@ import { useTranslation } from "react-i18next";
 
 import { EditButton } from "../VulnerabilitiesView/ActionButtons/EditButton";
 import { Button } from "components/Button";
-import type { IFilterProps } from "components/DataTableNext/types";
+import { Modal } from "components/Modal";
+import type { IFilterProps } from "components/Table/types";
 import {
   filterDateRange,
   filterSearchText,
   filterSelect,
   filterText,
-} from "components/DataTableNext/utils";
-import { Modal } from "components/Modal";
+} from "components/Table/utils";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";

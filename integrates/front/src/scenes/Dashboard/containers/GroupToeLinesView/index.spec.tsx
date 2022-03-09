@@ -11,8 +11,8 @@ import wait from "waait";
 import { GET_TOE_LINES } from "./queries";
 
 import { GroupToeLinesView } from ".";
-import { DataTableNext } from "components/DataTableNext";
-import type { ITableProps } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import type { ITableProps } from "components/Table/types";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupToeLinesView", (): void => {
@@ -128,7 +128,7 @@ describe("GroupToeLinesView", (): void => {
     });
 
     const toeLinesTable: ReactWrapper<ITableProps> = wrapper
-      .find(DataTableNext)
+      .find(Table)
       .filter({ id: "tblToeLines" });
     const tableHeader: ReactWrapper = toeLinesTable.find("Header");
     const simpleRows: ReactWrapper = toeLinesTable.find("RowPureContent");

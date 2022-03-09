@@ -4,7 +4,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type { IHeaderConfig } from "components/Table/types";
 
 const DeleteFormatter: StyledComponent<
   "button",

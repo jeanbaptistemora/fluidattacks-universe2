@@ -9,9 +9,9 @@ import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddedFileModal } from "scenes/Dashboard/components/AddedFileModal";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
@@ -342,7 +342,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         </h2>
       </Row>
       <div className={"flex flex-wrap nt1"}>
-        <DataTableNext
+        <Table
           bordered={true}
           customSearch={{
             customSearchDefault: searchTextFilter,

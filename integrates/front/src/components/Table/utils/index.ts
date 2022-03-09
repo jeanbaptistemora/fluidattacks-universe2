@@ -1,5 +1,5 @@
-export { addUniqueKeys } from "components/DataTableNext/utils/addUniqueKeys";
-export { customizeColumns } from "components/DataTableNext/utils/customizeColumns";
+export { addUniqueKeys } from "components/Table/utils/addUniqueKeys";
+export { customizeColumns } from "components/Table/utils/customizeColumns";
 
 export {
   filterDate,

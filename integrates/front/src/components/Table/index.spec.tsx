@@ -2,21 +2,15 @@ import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import React from "react";
 
-import { DataTableNext } from "components/DataTableNext";
-import {
-  changeFormatter,
-  deleteFormatter,
-} from "components/DataTableNext/formatters";
-import type {
-  IHeaderConfig,
-  ISelectRowProps,
-} from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { changeFormatter, deleteFormatter } from "components/Table/formatters";
+import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 
 describe("Data table next", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof DataTableNext).toStrictEqual("function");
+    expect(typeof Table).toStrictEqual("function");
   });
 
   it("should render an empty table", (): void => {
@@ -29,7 +23,7 @@ describe("Data table next", (): void => {
     const data: Record<string, unknown>[] = [];
     const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
-      <DataTableNext
+      <Table
         bordered={false}
         dataset={data}
         exportCsv={false}
@@ -59,7 +53,7 @@ describe("Data table next", (): void => {
     };
     const testHeaders: IHeaderConfig[] = [];
     const wrapper: ShallowWrapper = shallow(
-      <DataTableNext
+      <Table
         bordered={false}
         dataset={data}
         exportCsv={false}
@@ -98,7 +92,7 @@ describe("Data table next", (): void => {
       },
     ];
     const wrapper: ShallowWrapper = shallow(
-      <DataTableNext
+      <Table
         bordered={false}
         dataset={data}
         exportCsv={false}
@@ -170,7 +164,7 @@ describe("Data table next", (): void => {
       onSelectAll: jest.fn(),
     };
     const wrapper: ReactWrapper = mount(
-      <DataTableNext
+      <Table
         bordered={false}
         dataset={data}
         exportCsv={true}

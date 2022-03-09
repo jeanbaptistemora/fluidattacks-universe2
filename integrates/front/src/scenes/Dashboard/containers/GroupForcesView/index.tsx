@@ -7,18 +7,15 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
+import { Modal, ModalFooter } from "components/Modal";
+import { Table } from "components/Table";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import {
   filterDateRange,
   filterSearchText,
   filterSelect,
   filterText,
-} from "components/DataTableNext/utils";
-import { Modal, ModalFooter } from "components/Modal";
+} from "components/Table/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
@@ -425,7 +422,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <p>{translate.t("group.forces.tableAdvice")}</p>
-      <DataTableNext
+      <Table
         bordered={true}
         clearFiltersButton={clearFilters}
         customFilters={{

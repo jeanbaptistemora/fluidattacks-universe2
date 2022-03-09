@@ -9,9 +9,9 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditGroupInformationModal } from "scenes/Dashboard/components/EditGroupInformationModal";
 import { UPDATE_GROUP_INFO } from "scenes/Dashboard/components/EditGroupInformationModal/queries";
@@ -174,7 +174,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           </ButtonToolbar>
         </Col40>
       </Row>
-      <DataTableNext
+      <Table
         bordered={true}
         dataset={attributesDataset}
         exportCsv={false}

@@ -27,15 +27,15 @@ import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
 import { TableContainer } from "./styles";
 
 import { Button } from "components/Button";
-import { CustomToggleList } from "components/DataTableNext/customToggleList";
-import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
-import style from "components/DataTableNext/index.css";
-import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
+import { CustomToggleList } from "components/Table/customToggleList";
+import { ExportCSVButtonWrapper } from "components/Table/exportCSVButton";
+import style from "components/Table/index.css";
+import { SizePerPageRenderer } from "components/Table/sizePerPageRenderer";
 import type {
   ICustomSearchProps,
   IFilterProps,
   ITableWrapperProps,
-} from "components/DataTableNext/types";
+} from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ButtonGroup,
@@ -119,7 +119,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   }
 
   function handleNoData(): string {
-    return t("dataTableNext.noDataIndication");
+    return t("table.noDataIndication");
   }
   function handleClearFiltersButton(): void {
     if (!_.isUndefined(clearFiltersButton)) {
@@ -218,7 +218,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               {t(placeholder)}
             </option>
           ) : (
-            <option value={""}>{t("dataTableNext.allOptions")}</option>
+            <option value={""}>{t("table.allOptions")}</option>
           )}
           {Object.entries(selectOptions ?? {}).map(
             ([key, value]): JSX.Element => (
@@ -356,7 +356,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   <ButtonGroup>
                     <TooltipWrapper
                       id={"filterTooltip"}
-                      message={t("dataTableNext.tooltip")}
+                      message={t("table.tooltip")}
                     >
                       <Button
                         onClick={handleUpdateEnableFilter}
@@ -368,7 +368,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                           <FontAwesomeIcon icon={faSearchPlus} />
                         )}
                         &nbsp;
-                        {t("dataTableNext.filters")}
+                        {t("table.filters")}
                       </Button>
                     </TooltipWrapper>
                   </ButtonGroup>
@@ -378,7 +378,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   <ButtonGroup>
                     <TooltipWrapper
                       id={"CustomFilterTooltip"}
-                      message={t("dataTableNext.tooltip")}
+                      message={t("table.tooltip")}
                     >
                       <Button
                         id={"filter-config"}
@@ -391,7 +391,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                           <FontAwesomeIcon icon={faSearchPlus} />
                         )}
                         &nbsp;
-                        {t("dataTableNext.filters")}
+                        {t("table.filters")}
                       </Button>
                     </TooltipWrapper>
                   </ButtonGroup>
@@ -399,9 +399,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 {resultSize && oneRowMessage && (
                   <ButtonGroup>
                     <div className={"flex items-end justify-end ma0 ml2 pa0"}>
-                      {`${t("dataTableNext.filterRes1")}: ${
-                        resultSize.current
-                      } ${t("dataTableNext.filterRes2")} ${resultSize.total}`}
+                      {`${t("table.filterRes1")}: ${resultSize.current} ${t(
+                        "table.filterRes2"
+                      )} ${resultSize.total}`}
                     </div>
                   </ButtonGroup>
                 )}
@@ -412,7 +412,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                       <div className={"pb1 ph1-5 w-100"}>
                         <SearchText
                           onChange={onUpdateCustomSearch}
-                          placeholder={t("dataTableNext.search")}
+                          placeholder={t("table.search")}
                           style={
                             customSearchDefault === ""
                               ? {}
@@ -438,7 +438,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                         <SearchText
                           defaultValue={customSearchDefault ?? ""}
                           onChange={onUpdateCustomSearch}
-                          placeholder={t("dataTableNext.search")}
+                          placeholder={t("table.search")}
                           style={
                             customSearchDefault === ""
                               ? {}
@@ -493,7 +493,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 >
                   <FontAwesomeIcon icon={faEraser} />
                   &nbsp;
-                  {t("dataTableNext.clearFilters")}
+                  {t("table.clearFilters")}
                 </Button>
               </FlexAutoContainer>
             </Filters>
@@ -508,15 +508,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         )}
       </div>
       {resultSize && shoulShowResults && (
-        <p>{`${t("dataTableNext.results", {
+        <p>{`${t("table.results", {
           matches: resultSize.current,
           total: resultSize.total,
         })}`}</p>
       )}
       {resultSize && !oneRowMessage && (
         <div className={"fw4 mb0 nt1"}>
-          {`${t("dataTableNext.filterRes1")}: ${resultSize.current} ${t(
-            "dataTableNext.filterRes2"
+          {`${t("table.filterRes1")}: ${resultSize.current} ${t(
+            "table.filterRes2"
           )} ${resultSize.total}`}
         </div>
       )}

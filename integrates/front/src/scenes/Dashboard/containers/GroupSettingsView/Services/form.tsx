@@ -3,9 +3,9 @@ import _ from "lodash";
 import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal, ModalFooter } from "components/Modal";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
 import {
   computeConfirmationMessage,
   isDowngrading,
@@ -178,7 +178,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
 
   return (
     <Form id={"editGroup"}>
-      <DataTableNext
+      <Table
         bordered={true}
         dataset={servicesDataSet}
         exportCsv={false}

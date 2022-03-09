@@ -31,7 +31,7 @@ export const FiltersButton: React.FC<IFilterButtonProps> = (
   }
 
   return (
-    <TooltipWrapper id={"filterTooltip"} message={t("dataTableNext.tooltip")}>
+    <TooltipWrapper id={"filterTooltip"} message={t("table.tooltip")}>
       <Button onClick={handleUpdateEnableFilter} variant={"secondary"}>
         {isFilterEnabled ? (
           <FontAwesomeIcon icon={faMinus} />
@@ -39,7 +39,7 @@ export const FiltersButton: React.FC<IFilterButtonProps> = (
           <FontAwesomeIcon icon={faPlus} />
         )}
         &nbsp;
-        {t("dataTableNext.filters")}
+        {t("table.filters")}
       </Button>
     </TooltipWrapper>
   );

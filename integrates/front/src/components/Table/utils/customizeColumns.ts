@@ -3,7 +3,7 @@ import _ from "lodash";
 import type { CSSProperties } from "react";
 import type { ColumnDescription, SortOrder } from "react-bootstrap-table-next";
 
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type { IHeaderConfig } from "components/Table/types";
 
 interface IColumn extends ColumnDescription {
   onSort: (dataField: string, order: SortOrder) => void;

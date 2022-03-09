@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { MixedCheckBoxButton } from "components/MixedCheckBoxButton";
+import type { IHeaderConfig } from "components/Table/types";
 
 export const changeZeroRiskFormatter: (
   value: string,

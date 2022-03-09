@@ -8,7 +8,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import type { IAffectedAccordionProps, IFinding, IReattackVuln } from "./types";
 
 import type { IFormValues } from "../AddModal";
-import style from "components/DataTableNext/index.css";
+import style from "components/Table/index.css";
 import { ValidationError } from "utils/forms/fields/styles";
 
 export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (

@@ -8,12 +8,9 @@ import React, { useCallback, useState } from "react";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext/index";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
-import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import { Table } from "components/Table/index";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
+import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -365,7 +362,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           <div>
             <div>
               <Row>
-                <DataTableNext
+                <Table
                   bordered={true}
                   clearFiltersButton={clearFilters}
                   customFilters={{

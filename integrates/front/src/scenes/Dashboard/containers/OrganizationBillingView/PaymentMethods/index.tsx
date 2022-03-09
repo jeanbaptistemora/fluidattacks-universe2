@@ -22,9 +22,9 @@ import {
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext/index";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table/index";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -279,7 +279,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           <Col100>
             <Row>
               <h2>{t("organization.tabs.billing.paymentMethods.title")}</h2>
-              <DataTableNext
+              <Table
                 bordered={true}
                 columnToggle={false}
                 customSearch={{

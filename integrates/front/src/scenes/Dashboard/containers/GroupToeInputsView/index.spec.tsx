@@ -11,8 +11,8 @@ import wait from "waait";
 import { GET_TOE_INPUTS } from "./queries";
 
 import { GroupToeInputsView } from ".";
-import { DataTableNext } from "components/DataTableNext";
-import type { ITableProps } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import type { ITableProps } from "components/Table/types";
 import { authzPermissionsContext } from "utils/authz/config";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
@@ -136,7 +136,7 @@ describe("GroupToeInputsView", (): void => {
     });
 
     const toeInputsTable: ReactWrapper<ITableProps> = wrapper
-      .find(DataTableNext)
+      .find(Table)
       .filter({ id: "tblToeInputs" });
     const tableHeader: ReactWrapper = toeInputsTable.find("Header");
     const simpleRows: ReactWrapper = toeInputsTable.find("RowPureContent");

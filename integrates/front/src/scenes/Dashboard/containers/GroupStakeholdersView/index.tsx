@@ -20,14 +20,11 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { timeFromNow } from "components/DataTableNext/formatters";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
-import { filterSearchText, filterSelect } from "components/DataTableNext/utils";
 import { ExternalLink } from "components/ExternalLink";
+import { Table } from "components/Table";
+import { timeFromNow } from "components/Table/formatters";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
+import { filterSearchText, filterSelect } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -420,7 +417,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           <div>
             <div>
               <div>
-                <DataTableNext
+                <Table
                   bordered={true}
                   clearFiltersButton={clearFilters}
                   customFilters={{

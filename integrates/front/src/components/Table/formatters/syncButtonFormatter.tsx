@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 import { Button } from "components/Button";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type { IHeaderConfig } from "components/Table/types";
 import type { IGitRootAttr } from "scenes/Dashboard/containers/GroupScopeView/types";
 
 export const syncButtonFormatter: (

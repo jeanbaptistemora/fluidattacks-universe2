@@ -11,13 +11,10 @@ import { UpdateSubscriptionModal } from "./UpdateSubscriptionModal";
 import { UPDATE_SUBSCRIPTION } from "../queries";
 import type { IGroupAttr } from "../types";
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext/index";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
-import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { ExternalLink } from "components/ExternalLink";
+import { Table } from "components/Table/index";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
+import { filterSearchText, filterText } from "components/Table/utils";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -450,7 +447,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
         <Col100>
           <Row>
             <h2>{t("organization.tabs.billing.groups.title")}</h2>
-            <DataTableNext
+            <Table
               bordered={true}
               clearFiltersButton={clearFilters}
               customFilters={{

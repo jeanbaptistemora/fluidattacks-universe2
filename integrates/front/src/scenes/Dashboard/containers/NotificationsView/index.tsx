@@ -5,8 +5,8 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
 
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
 import {
   GET_SUBSCRIPTIONS,
   SUBSCRIBE_TO_ENTITY_REPORT,
@@ -140,7 +140,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
       <div>
         <RowCenter>
           <Col40>
-            <DataTableNext
+            <Table
               bordered={true}
               dataset={subscriptionsFiltered}
               exportCsv={false}

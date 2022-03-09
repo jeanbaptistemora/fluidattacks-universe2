@@ -24,14 +24,12 @@ import {
 
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { limitFormatter } from "components/DataTableNext/formatters";
-import { tooltipFormatter } from "components/DataTableNext/headerFormatters/tooltipFormatter";
-import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
+import { Modal, ModalFooter } from "components/Modal";
+import { Table } from "components/Table";
+import { limitFormatter } from "components/Table/formatters";
+import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
+import { useRowExpand } from "components/Table/hooks/useRowExpand";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import {
   filterDateRange,
   filterLastNumber,
@@ -40,8 +38,7 @@ import {
   filterSelect,
   filterSubSelectCount,
   filterWhere,
-} from "components/DataTableNext/utils";
-import { Modal, ModalFooter } from "components/Modal";
+} from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_FINDINGS,
@@ -707,7 +704,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <DataTableNext
+      <Table
         bordered={true}
         clearFiltersButton={clearFilters}
         columnToggle={true}

@@ -17,10 +17,10 @@ import {
   handleGrantError,
 } from "../GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { timeFromNow } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table";
+import { timeFromNow } from "components/Table/formatters";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -318,7 +318,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
           <div>
             <div>
               <div>
-                <DataTableNext
+                <Table
                   bordered={true}
                   customSearch={{
                     customSearchDefault: searchTextFilter,

@@ -3,9 +3,9 @@ import React from "react";
 import type { IZeroRiskTableProps } from "./types";
 
 import type { IVulnDataAttr } from "../types";
-import { DataTableNext } from "components/DataTableNext";
-import { changeZeroRiskFormatter } from "components/DataTableNext/formatters/changeZeroRiskFormatter";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { changeZeroRiskFormatter } from "components/Table/formatters/changeZeroRiskFormatter";
+import type { IHeaderConfig } from "components/Table/types";
 
 const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   props: IZeroRiskTableProps
@@ -80,7 +80,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   return (
     <React.StrictMode>
       {isConfirmRejectZeroRiskSelected ? (
-        <DataTableNext
+        <Table
           bordered={false}
           dataset={acceptanceVulns}
           exportCsv={false}

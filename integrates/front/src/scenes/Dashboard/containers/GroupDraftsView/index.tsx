@@ -12,10 +12,10 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
 import { Modal, ModalFooter } from "components/Modal";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
@@ -363,7 +363,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           )}
         </Formik>
       </Modal>
-      <DataTableNext
+      <Table
         bordered={true}
         customSearch={{
           customSearchDefault: searchTextFilter,

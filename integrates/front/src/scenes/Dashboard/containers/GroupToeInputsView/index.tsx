@@ -22,12 +22,12 @@ import {
   onSelectSeveralToeInputHelper,
 } from "./utils";
 
-import { DataTableNext } from "components/DataTableNext";
+import { Table } from "components/Table";
 import type {
   IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
-} from "components/DataTableNext/types";
+} from "components/Table/types";
 import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
   IFilterSet,
@@ -510,7 +510,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
 
   return (
     <React.StrictMode>
-      <DataTableNext
+      <Table
         bordered={true}
         clearFiltersButton={clearFilters}
         columnToggle={true}

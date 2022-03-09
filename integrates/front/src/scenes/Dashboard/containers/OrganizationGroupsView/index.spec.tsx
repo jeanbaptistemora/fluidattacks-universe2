@@ -351,7 +351,7 @@ describe("Organization groups view", (): void => {
     });
 
     const newGroupButton = (): ReactWrapper =>
-      wrapper.find("DataTableNext").find("button").first();
+      wrapper.find("Table").find("button").first();
     newGroupButton().simulate("click");
 
     await act(async (): Promise<void> => {

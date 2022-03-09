@@ -8,8 +8,8 @@ import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
@@ -417,7 +417,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                 "organization.tabs.policies.permissionTooltip"
               )}
             >
-              <DataTableNext
+              <Table
                 bordered={true}
                 dataset={policiesDataSet}
                 exportCsv={false}

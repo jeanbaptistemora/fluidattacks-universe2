@@ -35,18 +35,18 @@ import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
-import { DataTableNext } from "components/DataTableNext";
+import { Table } from "components/Table";
 import {
   changeFormatter,
   syncButtonFormatter,
-} from "components/DataTableNext/formatters";
-import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
-import type { IFilterProps } from "components/DataTableNext/types";
+} from "components/Table/formatters";
+import { useRowExpand } from "components/Table/hooks/useRowExpand";
+import type { IFilterProps } from "components/Table/types";
 import {
   filterSearchText,
   filterSelect,
   filterText,
-} from "components/DataTableNext/utils";
+} from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
@@ -455,7 +455,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
           return (
             <Container>
-              <DataTableNext
+              <Table
                 bordered={true}
                 clearFiltersButton={clearFilters}
                 columnToggle={true}
@@ -559,7 +559,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         <React.Fragment>
           <h2 className={"mb0 pb0"}>{t("group.scope.git.envUrls")}</h2>
           <div className={"flex flex-wrap nt2"}>
-            <DataTableNext
+            <Table
               bordered={true}
               customSearch={{
                 customSearchDefault: searchEnvsTextFilter,

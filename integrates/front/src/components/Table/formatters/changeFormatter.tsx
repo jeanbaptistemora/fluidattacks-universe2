@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { SwitchButton } from "components/SwitchButton";
+import type { IHeaderConfig } from "components/Table/types";
 
 export const changeFormatter: (
   value: string,

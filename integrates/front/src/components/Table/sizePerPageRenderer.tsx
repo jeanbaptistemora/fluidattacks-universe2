@@ -1,6 +1,6 @@
 import React from "react";
 
-import style from "components/DataTableNext/index.css";
+import style from "components/Table/index.css";
 
 export interface ISizePerPageProps {
   currSizePerPage: number;

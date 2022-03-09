@@ -12,9 +12,9 @@ import {
   handleVerifyRequestError,
 } from "./helpers";
 
-import { DataTableNext } from "components/DataTableNext";
-import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import { Table } from "components/Table";
+import { changeVulnStateFormatter } from "components/Table/formatters";
+import type { IHeaderConfig } from "components/Table/types";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
   REQUEST_VULNERABILITIES_VERIFICATION,
@@ -199,7 +199,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     ];
 
     return (
-      <DataTableNext
+      <Table
         bordered={false}
         dataset={vulnerabilitiesList}
         exportCsv={false}

@@ -1,9 +1,9 @@
 import React from "react";
 
-import type { IHeaderConfig } from "components/DataTableNext/types";
 import { SwitchButton } from "components/SwitchButton";
+import type { IHeaderConfig } from "components/Table/types";
 
-export const changeVulnTreatmentFormatter: (
+export const changeVulnStateFormatter: (
   value: string,
   row: Readonly<Record<string, string>>,
   rowIndex: number,
@@ -22,11 +22,11 @@ export const changeVulnTreatmentFormatter: (
 
   return (
     <SwitchButton
-      checked={!("acceptance" in row) || row.acceptance !== "REJECTED"}
-      id={"vulnTreatmentSwitch"}
-      offlabel={"REJECTED"}
+      checked={!("currentState" in row) || row.currentState !== "closed"}
+      id={"vulnStateSwitch"}
+      offlabel={"closed"}
       onChange={handleOnChange}
-      onlabel={"APPROVED"}
+      onlabel={"open"}
     />
   );
 };

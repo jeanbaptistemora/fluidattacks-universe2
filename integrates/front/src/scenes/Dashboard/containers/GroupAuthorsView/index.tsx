@@ -19,13 +19,10 @@ import type {
   IGetStakeholdersAttrs,
 } from "../GroupStakeholdersView/types";
 import { Button } from "components/Button";
-import { DataTableNext } from "components/DataTableNext";
-import { commitFormatter } from "components/DataTableNext/formatters";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-} from "components/DataTableNext/types";
-import { filterSearchText, filterText } from "components/DataTableNext/utils";
+import { Table } from "components/Table";
+import { commitFormatter } from "components/Table/formatters";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
+import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
@@ -463,7 +460,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           </select>
         </Col100>
       </Row>
-      <DataTableNext
+      <Table
         bordered={true}
         clearFiltersButton={clearFilters}
         customFilters={{

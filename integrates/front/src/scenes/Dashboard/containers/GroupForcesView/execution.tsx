@@ -7,9 +7,9 @@ import { MemoryRouter, Route, Switch } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 
-import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
@@ -327,7 +327,7 @@ const Execution: React.FC<IExecution> = (
         <TabContent>
           <Switch>
             <Route path={"/summary"}>
-              <DataTableNext
+              <Table
                 bordered={true}
                 columnToggle={true}
                 customSearch={{

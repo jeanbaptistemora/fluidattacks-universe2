@@ -2,9 +2,9 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
-import { DataTableNext } from "components/DataTableNext/index";
-import type { IHeaderConfig } from "components/DataTableNext/types";
-import { filterSearchText } from "components/DataTableNext/utils";
+import { Table } from "components/Table/index";
+import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import type {
   IOrganizationPortfoliosProps,
   IPortfolios,
@@ -112,7 +112,7 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
           <div>
             <div>
               <Row>
-                <DataTableNext
+                <Table
                   bordered={true}
                   customSearch={{
                     customSearchDefault: searchTextFilter,
