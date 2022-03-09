@@ -13,6 +13,7 @@ from typing import (
     Dict,
     Iterator,
     Pattern,
+    Tuple,
 )
 
 # Constants
@@ -21,6 +22,7 @@ TEXT = r'[^"\']+'
 WS = r"\s*"
 
 # Regexes
+RE_LINE_COMMENT: Pattern[str] = re.compile(r"^.*" fr"{WS}//" r".*$")
 RE_GRADLE_A: Pattern[str] = re.compile(
     r"^.*"
     fr"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
@@ -59,38 +61,61 @@ def _interpolate(properties: Dict[str, str], value: str) -> str:
     return value
 
 
-def maven_gradle(content: str, path: str) -> Vulnerabilities:
-    def resolve_dependencies() -> Iterator[DependencyType]:
-        for line_no, line in enumerate(content.splitlines(), start=1):
-            if match := RE_GRADLE_A.match(line):
-                column: int = match.start("group")
-                product: str = match.group("group") + ":" + match.group("name")
-                version = match.group("version") or ""
-            elif match := RE_GRADLE_B.match(line):
-                column = match.start("statement")
-                statement = match.group("statement")
-                product, version = (
-                    statement.rsplit(":", maxsplit=1)
-                    if statement.count(":") >= 2
-                    else (statement, "")
-                )
-            else:
-                continue
+def avoid_cmt(line: str, is_block_cmt: bool) -> Tuple[str, bool]:
+    if RE_LINE_COMMENT.match(line):
+        line = line.split("//", 1)[0]
+    if is_block_cmt:
+        if "*/" in line:
+            is_block_cmt = False
+            line = line.split("*/", 1).pop()
+        else:
+            return "", is_block_cmt
+    if "/*" in line:
+        line_cmt_open = line.split("/*", 1)[0]
+        if "*/" in line:
+            line = line_cmt_open + line.split("*/", 1).pop()
+        else:
+            line = line_cmt_open
+            is_block_cmt = True
+    return line, is_block_cmt
 
-            # Assuming a wildcard in Maven if the version is not found can
-            # result in issues.
-            # https://gitlab.com/fluidattacks/product/-/issues/5635
-            if version == "":
-                continue
 
-            yield (
-                {"column": column, "line": line_no, "item": product},
-                {"column": column, "line": line_no, "item": version},
+def resolve_dependencies_helper(content: str) -> Iterator[DependencyType]:
+    is_block_cmt = False
+    for line_no, line in enumerate(content.splitlines(), start=1):
+        line, is_block_cmt = avoid_cmt(line, is_block_cmt)
+        if match := RE_GRADLE_A.match(line):
+            column: int = match.start("group")
+            product: str = match.group("group") + ":" + match.group("name")
+            version = match.group("version") or ""
+        elif match := RE_GRADLE_B.match(line):
+            column = match.start("statement")
+            statement = match.group("statement")
+            product, version = (
+                statement.rsplit(":", maxsplit=1)
+                if statement.count(":") >= 2
+                else (statement, "")
             )
+        else:
+            continue
+
+        # Assuming a wildcard in Maven if the version is not found can
+        # result in issues.
+        # https://gitlab.com/fluidattacks/product/-/issues/5635
+        if version == "":
+            continue
+
+        yield (
+            {"column": column, "line": line_no, "item": product},
+            {"column": column, "line": line_no, "item": version},
+        )
+
+
+def maven_gradle(content: str, path: str) -> Vulnerabilities:
 
     return translate_dependencies_to_vulnerabilities(
         content=content,
-        dependencies=resolve_dependencies(),
+        dependencies=resolve_dependencies_helper(content),
         path=path,
         platform=Platform.MAVEN,
         method=MethodsEnum.MAVEN_GRADLE,
