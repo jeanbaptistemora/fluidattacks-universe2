@@ -175,6 +175,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                   entity={entity}
                   generatorName={"generic"}
                   generatorType={"stackedBarChart"}
+                  infoLink={`${graphInfoLink}common#distribution-over-time`}
                   reportMode={reportMode}
                   subject={subject}
                   title={t(
