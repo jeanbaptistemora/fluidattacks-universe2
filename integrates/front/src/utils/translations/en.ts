@@ -1504,7 +1504,9 @@ export const enTranslations: ResourceKey = {
         requiredVerificationCode: "A verification code is required",
       },
       close: "Close",
+      edit: "Edit",
       fields: {
+        newPhoneNumber: "New phone number",
         phoneNumber: "Phone number",
         verificationCode: "Verification code",
       },

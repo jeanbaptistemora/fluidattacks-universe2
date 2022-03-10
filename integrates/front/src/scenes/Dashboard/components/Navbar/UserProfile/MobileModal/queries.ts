@@ -17,15 +17,11 @@ const GET_STAKEHOLDER_PHONE: DocumentNode = gql`
 
 const UPDATE_STAKEHOLDER_PHONE_MUTATION: DocumentNode = gql`
   mutation UpdateStakeholderPhoneMutation(
-    $nationalNumber: String!
-    $callingCountryCode: String!
+    $newPhone: PhoneInput!
     $verificationCode: String!
   ) {
     updateStakeholderPhone(
-      phone: {
-        callingCountryCode: $callingCountryCode
-        nationalNumber: $nationalNumber
-      }
+      phone: $newPhone
       verificationCode: $verificationCode
     ) {
       success

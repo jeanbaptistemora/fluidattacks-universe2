@@ -15,10 +15,12 @@ import {
 } from "./queries";
 import type {
   IAdditionFormValues,
+  IEditionFormValues,
   IGetStakeholderPhoneAttr,
   IMobileModalProps,
   IUpdateStakeholderPhoneResultAttr,
-  IVerificationFormValues,
+  IVerifyAdditionCodeFormValues,
+  IVerifyEditionFormValues,
   IVerifyStakeholderResultAttr,
 } from "./types";
 import { VerificationCodeField } from "./VerificationCodeField";
@@ -37,7 +39,16 @@ const MobileModal: React.FC<IMobileModalProps> = (
   const { onClose } = props;
   const { t } = useTranslation();
   const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isCodeInCurrentMobile, setIsCodeInCurrentMobile] = useState(false);
+  const [isCodeInNewMobile, setIsCodeInNewMobile] = useState(false);
+  const [currentMobileVerificationCode, setCurrentMobileVerificationCode] =
+    useState("");
   const [phoneToAdd, setPhoneToAdd] = useState<IPhoneData | undefined>(
+    undefined
+  );
+  const [phoneToEdit, setPhoneToEdit] = useState<IPhoneData | undefined>(
     undefined
   );
 
@@ -53,6 +64,15 @@ const MobileModal: React.FC<IMobileModalProps> = (
               t("groupAlerts.titleSuccess")
             );
             setIsAdding(false);
+            setIsCodeInNewMobile(false);
+            setPhoneToAdd(undefined);
+          }
+          if (data.updateStakeholderPhone.success && isEditing) {
+            setIsOpenEdit(false);
+            setIsEditing(false);
+            setIsCodeInCurrentMobile(false);
+            setIsCodeInNewMobile(false);
+            setPhoneToEdit(undefined);
           }
         },
         onError: (errors: ApolloError): void => {
@@ -87,12 +107,18 @@ const MobileModal: React.FC<IMobileModalProps> = (
     VERIFY_STAKEHOLDER_MUTATION,
     {
       onCompleted: (data: IVerifyStakeholderResultAttr): void => {
-        if (data.verifyStakeholder.success) {
+        if (data.verifyStakeholder.success && isAdding) {
           msgSuccess(
             t("profile.mobileModal.alerts.additionVerificationSuccess"),
             t("groupAlerts.titleSuccess")
           );
-          setIsAdding(true);
+          setIsCodeInNewMobile(true);
+        }
+        if (data.verifyStakeholder.success && isOpenEdit && !isEditing) {
+          setIsCodeInCurrentMobile(true);
+        }
+        if (data.verifyStakeholder.success && isEditing) {
+          setIsCodeInNewMobile(true);
         }
       },
       onError: (errors: ApolloError): void => {
@@ -130,6 +156,8 @@ const MobileModal: React.FC<IMobileModalProps> = (
 
   function handleAdd(values: IAdditionFormValues): void {
     setPhoneToAdd(values.phone);
+    setIsAdding(true);
+    setIsCodeInNewMobile(false);
     void handleVerifyStakeholder({
       variables: {
         newPhone: {
@@ -139,13 +167,47 @@ const MobileModal: React.FC<IMobileModalProps> = (
       },
     });
   }
-
-  function handleVerifyAdditionCode(values: IVerificationFormValues): void {
+  function handleVerifyAdditionCode(
+    values: IVerifyAdditionCodeFormValues
+  ): void {
     void handleUpdateStakeholderPhone({
       variables: {
-        callingCountryCode: phoneToAdd?.callingCountryCode,
-        nationalNumber: phoneToAdd?.nationalNumber,
+        newPhone: {
+          callingCountryCode: phoneToAdd?.callingCountryCode,
+          nationalNumber: phoneToAdd?.nationalNumber,
+        },
+        verificationCode: values.newVerificationCode,
+      },
+    });
+  }
+  function handleOpenEdit(): void {
+    setIsOpenEdit(true);
+    setIsCodeInCurrentMobile(false);
+    void handleVerifyStakeholder();
+  }
+  function handleEdit(values: IEditionFormValues): void {
+    setPhoneToEdit(values.newPhone);
+    setCurrentMobileVerificationCode(values.verificationCode);
+    setIsEditing(true);
+    setIsCodeInNewMobile(false);
+    void handleVerifyStakeholder({
+      variables: {
+        newPhone: {
+          callingCountryCode: values.newPhone.callingCountryCode,
+          nationalNumber: values.newPhone.nationalNumber,
+        },
         verificationCode: values.verificationCode,
+      },
+    });
+  }
+  function handleVerifyEditionCode(values: IVerifyEditionFormValues): void {
+    void handleUpdateStakeholderPhone({
+      variables: {
+        newPhone: {
+          callingCountryCode: phoneToEdit?.callingCountryCode,
+          nationalNumber: phoneToEdit?.nationalNumber,
+        },
+        verificationCode: values.newVerificationCode,
       },
     });
   }
@@ -157,12 +219,11 @@ const MobileModal: React.FC<IMobileModalProps> = (
       });
     },
   });
-
   const phone = _.isUndefined(data) ? null : data.me.phone;
 
   return (
     <Modal open={true} title={translate.t("profile.mobileModal.title")}>
-      {isAdding || !_.isNull(phone) ? undefined : (
+      {(isAdding && !isCodeInCurrentMobile) || !_.isNull(phone) ? undefined : (
         <Formik
           enableReinitialize={true}
           initialValues={{
@@ -196,24 +257,24 @@ const MobileModal: React.FC<IMobileModalProps> = (
           </Form>
         </Formik>
       )}
-      {isAdding && !_.isUndefined(phoneToAdd) ? (
+      {isAdding && isCodeInNewMobile && !_.isUndefined(phoneToAdd) ? (
         <Formik
           enableReinitialize={true}
           initialValues={{
+            newVerificationCode: "",
             phone: phoneToAdd,
-            verificationCode: "",
           }}
-          name={"addPhoneVerification"}
+          name={"verifyAdditionCode"}
           onSubmit={handleVerifyAdditionCode}
         >
-          <Form id={"addPhoneVerification"}>
+          <Form id={"verifyAdditionCode"}>
             <Row>
               <Col100>
                 <PhoneField disabled={true} />
               </Col100>
             </Row>
             <Col100>
-              <VerificationCodeField />
+              <VerificationCodeField name={"newVerificationCode"} />
             </Col100>
             <div>
               <div>
@@ -230,23 +291,115 @@ const MobileModal: React.FC<IMobileModalProps> = (
           </Form>
         </Formik>
       ) : undefined}
-      {_.isNull(phone) ? undefined : (
+      {!_.isNull(phone) && !isCodeInNewMobile ? (
         <Formik
           enableReinitialize={true}
           initialValues={{
+            newPhone: {
+              callingCountryCode: phone.callingCountryCode,
+              countryCode: phone.countryCode.toLowerCase(),
+              nationalNumber: "",
+            },
             phone: {
               callingCountryCode: phone.callingCountryCode,
               countryCode: phone.countryCode.toLowerCase(),
               nationalNumber: phone.nationalNumber,
             },
+            verificationCode: "",
           }}
           name={"editPhone"}
-          onSubmit={handleAdd}
+          onSubmit={handleEdit}
         >
           <Form id={"editPhone"}>
             <Row>
               <Col100>
                 <PhoneField disabled={true} />
+              </Col100>
+            </Row>
+            {isOpenEdit && isCodeInCurrentMobile ? (
+              <React.Fragment>
+                <Row>
+                  <Col100>
+                    <VerificationCodeField />
+                  </Col100>
+                </Row>
+                <Row>
+                  <Col100>
+                    <PhoneField
+                      label={"profile.mobileModal.fields.newPhoneNumber"}
+                      name={"newPhone"}
+                    />
+                  </Col100>
+                </Row>
+              </React.Fragment>
+            ) : undefined}
+            <div>
+              <div>
+                <ModalFooter>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {t("profile.mobileModal.close")}
+                  </Button>
+                  {isOpenEdit && isCodeInCurrentMobile ? (
+                    <Button type={"submit"} variant={"primary"}>
+                      {t("profile.mobileModal.edit")}
+                    </Button>
+                  ) : (
+                    <Button onClick={handleOpenEdit} variant={"primary"}>
+                      {t("profile.mobileModal.edit")}
+                    </Button>
+                  )}
+                </ModalFooter>
+              </div>
+            </div>
+          </Form>
+        </Formik>
+      ) : undefined}
+      {isEditing &&
+      !_.isNull(phone) &&
+      isCodeInNewMobile &&
+      !_.isUndefined(phoneToEdit) ? (
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            newPhone: {
+              callingCountryCode: phoneToEdit.callingCountryCode,
+              countryCode: phoneToEdit.countryCode.toLowerCase(),
+              nationalNumber: phoneToEdit.nationalNumber,
+            },
+            newVerificationCode: "",
+            phone: {
+              callingCountryCode: phone.callingCountryCode,
+              countryCode: phone.countryCode.toLowerCase(),
+              nationalNumber: phone.nationalNumber,
+            },
+            verificationCode: currentMobileVerificationCode,
+          }}
+          name={"verifyEditionCode"}
+          onSubmit={handleVerifyEditionCode}
+        >
+          <Form id={"verifyEditionCode"}>
+            <Row>
+              <Col100>
+                <PhoneField disabled={true} />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <VerificationCodeField disabled={true} />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <PhoneField
+                  disabled={true}
+                  label={"profile.mobileModal.fields.newPhoneNumber"}
+                  name={"newPhone"}
+                />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <VerificationCodeField name={"newVerificationCode"} />
               </Col100>
             </Row>
             <div>
@@ -255,12 +408,15 @@ const MobileModal: React.FC<IMobileModalProps> = (
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("profile.mobileModal.close")}
                   </Button>
+                  <Button type={"submit"} variant={"primary"}>
+                    {t("profile.mobileModal.verify")}
+                  </Button>
                 </ModalFooter>
               </div>
             </div>
           </Form>
         </Formik>
-      )}
+      ) : undefined}
     </Modal>
   );
 };

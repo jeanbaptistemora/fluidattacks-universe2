@@ -1,6 +1,6 @@
 import { ErrorMessage, useField } from "formik";
 import _ from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import type { CountryData } from "react-intl-tel-input/dist/types";
 
 import type { IPhoneData, IPhoneNumberProps } from "./types";
@@ -19,12 +19,6 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
   const { name, value }: { name: string; value: IPhoneData | undefined } =
     field;
   const [, , helpers] = useField(name);
-  const [initialCountryCode] = useState<string | undefined>(
-    _.get(value, "countryCode", undefined)
-  );
-  const [initialNationalNumber] = useState<string | undefined>(
-    _.get(value, "nationalNumber", undefined)
-  );
 
   function setPhoneNumber(
     currentNumber: string,
@@ -70,14 +64,14 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
       <StyledPhoneNumberInput
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={autoFocus}
-        defaultCountry={initialCountryCode}
-        defaultValue={initialNationalNumber}
+        defaultCountry={_.get(value, "countryCode", "")}
         disabled={disabled}
         formatOnInit={true}
         onPhoneNumberChange={onPhoneNumberChange}
         onSelectFlag={onSelectFlag}
         placeholder={placeholder}
         preferredCountries={["co", "us"]}
+        value={_.get(value, "nationalNumber", "")}
       />
       <ValidationError>
         <ErrorMessage name={name} />

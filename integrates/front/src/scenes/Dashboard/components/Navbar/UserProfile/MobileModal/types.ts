@@ -28,8 +28,21 @@ interface IAdditionFormValues {
   phone: IPhoneData;
 }
 
-interface IVerificationFormValues {
+interface IVerifyAdditionCodeFormValues {
   phone: IPhoneData;
+  newVerificationCode: string;
+}
+
+interface IEditionFormValues {
+  phone: IPhoneData;
+  newPhone: IPhoneData;
+  verificationCode: string;
+}
+
+interface IVerifyEditionFormValues {
+  phone: IPhoneData;
+  newPhone: IPhoneData;
+  newVerificationCode: string;
   verificationCode: string;
 }
 
@@ -53,6 +66,8 @@ export {
   IUpdateStakeholderPhoneResultAttr,
   IGetStakeholderPhoneAttr,
   IMobileModalProps,
-  IVerificationFormValues,
+  IVerifyAdditionCodeFormValues,
   IVerifyStakeholderResultAttr,
+  IEditionFormValues,
+  IVerifyEditionFormValues,
 };
