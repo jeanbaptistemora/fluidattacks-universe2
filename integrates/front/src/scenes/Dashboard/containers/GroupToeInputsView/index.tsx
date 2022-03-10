@@ -517,7 +517,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
           customFiltersProps,
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          oneRowMessage: true,
         }}
         customSearch={{
           customSearchDefault: searchTextFilter,

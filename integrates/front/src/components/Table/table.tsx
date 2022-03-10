@@ -90,7 +90,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     customFiltersProps,
     hideResults,
     isCustomFilterEnabled,
-    oneRowMessage = false,
     onUpdateEnableCustomFilter,
     resultSize,
   } = customFilters ?? {};
@@ -393,15 +392,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     </TooltipWrapper>
                   </ButtonGroup>
                 )}
-                {resultSize && oneRowMessage && (
-                  <ButtonGroup>
-                    <div className={"flex items-end justify-end ma0 ml2 pa0"}>
-                      {`${t("table.filterRes1")}: ${resultSize.current} ${t(
-                        "table.filterRes2"
-                      )} ${resultSize.total}`}
-                    </div>
-                  </ButtonGroup>
-                )}
                 {!_.isUndefined(isCustomSearchEnabled) &&
                   isCustomSearchEnabled &&
                   searchPosition === "left" && (
@@ -509,13 +499,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           matches: resultSize.current,
           total: resultSize.total,
         })}`}</p>
-      )}
-      {resultSize && !oneRowMessage && (
-        <div className={"fw4 mb0 nt1"}>
-          {`${t("table.filterRes1")}: ${resultSize.current} ${t(
-            "table.filterRes2"
-          )} ${resultSize.total}`}
-        </div>
       )}
       <TableContainer rowSize={rowSize ?? "bold"}>
         <BootstrapTable

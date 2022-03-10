@@ -462,7 +462,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   customFiltersProps,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                  oneRowMessage: true,
                   resultSize: {
                     current: resultExecutions.length,
                     total: roots.length,

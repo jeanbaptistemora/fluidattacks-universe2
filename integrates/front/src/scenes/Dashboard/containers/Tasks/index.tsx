@@ -598,7 +598,6 @@ export const TasksContent: React.FC<ITasksContent> = ({
               hideResults: true,
               isCustomFilterEnabled,
               onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-              oneRowMessage: true,
               resultSize: {
                 current: resultVulnerabilities.length,
                 total: vulnerabilities.length,

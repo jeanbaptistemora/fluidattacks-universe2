@@ -679,7 +679,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             customFiltersProps,
             isCustomFilterEnabled,
             onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-            oneRowMessage: true,
             resultSize: {
               current: resultDataset.length,
               total: dataset.length,

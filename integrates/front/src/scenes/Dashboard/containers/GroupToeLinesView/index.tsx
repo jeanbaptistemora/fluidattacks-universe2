@@ -644,7 +644,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
           customFiltersProps,
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          oneRowMessage: true,
         }}
         customSearch={{
           customSearchDefault: searchTextFilter,

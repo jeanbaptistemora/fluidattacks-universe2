@@ -368,7 +368,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                     customFiltersProps,
                     isCustomFilterEnabled,
                     onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                    oneRowMessage: true,
                     resultSize: {
                       current: resultDataset.length,
                       total: dataset.length,

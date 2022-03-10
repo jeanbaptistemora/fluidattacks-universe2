@@ -423,7 +423,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     customFiltersProps: customFilters,
                     isCustomFilterEnabled,
                     onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                    oneRowMessage: true,
                     resultSize: {
                       current: resultStakeHolders.length,
                       total: stakeholdersList.length,

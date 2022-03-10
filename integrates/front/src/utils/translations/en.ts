@@ -2751,12 +2751,10 @@ export const enTranslations: ResourceKey = {
   table: {
     allOptions: "--All options--",
     clearFilters: "Clear Filters",
-    filterRes1: "Filtered",
-    filterRes2: "of",
     filters: "Filters",
     more: "--View More--",
     noDataIndication: "There is no data to display",
-    results: "Showing {{matches}} matching results out of {{total}} total",
+    results: "Showing {{matches}} matching results out of {{total}}",
     search: "Search",
     tooltip: "Search filters for the table",
   },

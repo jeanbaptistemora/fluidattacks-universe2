@@ -498,7 +498,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   customFiltersProps,
                   isCustomFilterEnabled,
                   onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                  oneRowMessage: true,
                   resultSize: {
                     current: filterZeroRisk(resultVulnerabilities).length,
                     total: filterZeroRisk(vulnerabilities).length,

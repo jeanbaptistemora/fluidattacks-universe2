@@ -712,7 +712,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           customFiltersProps: customFilters,
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          oneRowMessage: true,
           resultSize: {
             current: resultFindings.length,
             total: findings.length,

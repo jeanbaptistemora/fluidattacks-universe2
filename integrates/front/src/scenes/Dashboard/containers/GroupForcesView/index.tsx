@@ -428,7 +428,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           customFiltersProps,
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-          oneRowMessage: true,
           resultSize: {
             current: resultExecutions.length,
             total: executions.length,

@@ -53,7 +53,6 @@ interface ICustomFiltersProps {
   hideResults?: boolean;
   isCustomFilterEnabled: boolean;
   onUpdateEnableCustomFilter: () => void;
-  oneRowMessage?: boolean;
   resultSize?: {
     current: number;
     total: number;
