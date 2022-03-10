@@ -1,10 +1,9 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { PureAbility } from "@casl/ability";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import waitForExpect from "wait-for-expect";
+import { useTranslation } from "react-i18next";
 
 import { UPDATE_TOE_INPUT } from "./queries";
 
@@ -17,7 +16,6 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
   );
-  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
@@ -26,6 +24,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("handle toe input edition modal", (): void => {
   it("should handle input edition", async (): Promise<void> => {
     expect.hasAssertions();
+
+    const { t } = useTranslation();
 
     jest.clearAllMocks();
 
@@ -69,35 +69,32 @@ describe("handle toe input edition modal", (): void => {
       },
     ];
 
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={[...mocksMutation]}>
-        <HandleEditionModal
-          groupName={"groupname"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          selectedToeInputDatas={mokedToeInputs}
-          setSelectedToeInputDatas={jest.fn()}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-      }
+    render(
+      <authzPermissionsContext.Provider value={new PureAbility([])}>
+        <MockedProvider addTypename={false} mocks={[...mocksMutation]}>
+          <HandleEditionModal
+            groupName={"groupname"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            selectedToeInputDatas={mokedToeInputs}
+            setSelectedToeInputDatas={jest.fn()}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
 
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
+    fireEvent.click(
+      screen.getByText(t("group.toe.inputs.editModal.procced").toString())
+    );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(handleCloseModal).toHaveBeenCalledTimes(1);
-        expect(handleRefetchData).toHaveBeenCalledTimes(1);
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "group.toe.inputs.editModal.alerts.success",
-          "groupAlerts.updatedTitle"
-        );
-      });
+    await waitFor((): void => {
+      expect(handleCloseModal).toHaveBeenCalledTimes(1);
     });
+
+    expect(handleRefetchData).toHaveBeenCalledTimes(1);
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "group.toe.inputs.editModal.alerts.success",
+      "groupAlerts.updatedTitle"
+    );
   });
 });
