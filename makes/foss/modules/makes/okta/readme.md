@@ -42,8 +42,6 @@ We use several technologies for accomplishing this:
   https://github.com/okta/terraform-provider-okta/issues/186.
 - RADIUS applications are not supported, they are being managed manually:
   https://github.com/okta/terraform-provider-okta/issues/475
-- Three Field apps do not support shared passwords yet, they are being managed manually:
-  https://github.com/okta/terraform-provider-okta/issues/458.
 - Auto Login apps do not support app link configurations, they are being managed manually:
   https://github.com/okta/terraform-provider-okta/issues/608.
 - AWS apps need some manual configuration after creation:
