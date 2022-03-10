@@ -168,6 +168,13 @@ resource "okta_app_shared_credentials" "apps" {
   shared_password     = each.value.shared_password
   url                 = each.value.url
   auto_submit_toolbar = true
+
+  lifecycle {
+    ignore_changes = [
+      groups,
+      users,
+    ]
+  }
 }
 
 resource "okta_app_group_assignment" "apps_shared_credentials" {
@@ -209,6 +216,9 @@ resource "okta_app_three_field" "apps" {
   label                = each.value.label
   status               = each.value.status
   button_selector      = each.value.button_selector
+  credentials_scheme   = each.value.credentials_scheme
+  shared_username      = each.value.shared_username
+  shared_password      = each.value.shared_password
   username_selector    = each.value.username_selector
   password_selector    = each.value.password_selector
   extra_field_selector = each.value.extra_field_selector
