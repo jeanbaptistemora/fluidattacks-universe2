@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import React from "react";
+import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   getSubscriptionFrequency,
@@ -42,15 +43,14 @@ import {
 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const frequencies: string[] = ["daily", "weekly", "monthly", "never"];
 
-const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
-  props: IChartsGenericViewProps
-): JSX.Element => {
-  const { entity, subject } = props;
-
+const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
+  entity,
+  subject,
+}: IChartsGenericViewProps): JSX.Element => {
+  const { t } = useTranslation();
   const entityName: EntityType = entity;
   const downloadPngUrl: URL = new URL(
     "/graphics-report",
@@ -63,7 +63,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
     useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred loading subscriptions info", error);
         });
       },
@@ -74,11 +74,51 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
     {
       onError: (updateError: ApolloError): void => {
         updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred subscribing to charts", message);
         });
       },
     }
+  );
+
+  const subscribeDropdownOnSelect = useCallback(
+    (key: string): void => {
+      track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
+      void subscribe({
+        variables: {
+          frequency: key.toUpperCase(),
+          reportEntity: entity.toUpperCase(),
+          reportSubject: subject,
+        },
+      }).then(
+        async (
+          value: ExecutionResult<{
+            subscribeToEntityReport: { success: boolean };
+          }>
+        ): Promise<void> => {
+          if (
+            // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+            value.data !== null &&
+            value.data !== undefined &&
+            value.data.subscribeToEntityReport.success
+          ) {
+            if (key.toLowerCase() === "never") {
+              msgSuccess(
+                t("analytics.sections.extras.unsubscribedSuccessfully.msg"),
+                t("analytics.sections.extras.unsubscribedSuccessfully.title")
+              );
+            } else {
+              msgSuccess(
+                t("analytics.sections.extras.subscribedSuccessfully.msg"),
+                t("analytics.sections.extras.subscribedSuccessfully.title")
+              );
+            }
+            await refetchSubscriptions();
+          }
+        }
+      );
+    },
+    [entity, refetchSubscriptions, subject, subscribe, t]
   );
 
   if (_.isUndefined(dataSubscriptions) || _.isEmpty(dataSubscriptions)) {
@@ -92,53 +132,6 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
         value.subject.toLocaleLowerCase() === subject.toLowerCase()
     );
 
-  const subscribeDropdownOnSelect: (key: string) => void = (
-    key: string
-  ): void => {
-    track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
-    void subscribe({
-      variables: {
-        frequency: key.toUpperCase(),
-        reportEntity: entity.toUpperCase(),
-        reportSubject: subject,
-      },
-    }).then(
-      async (
-        value: ExecutionResult<{
-          subscribeToEntityReport: { success: boolean };
-        }>
-      ): Promise<void> => {
-        if (
-          // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
-          value.data !== null &&
-          value.data !== undefined &&
-          value.data.subscribeToEntityReport.success
-        ) {
-          if (key.toLowerCase() === "never") {
-            msgSuccess(
-              translate.t(
-                "analytics.sections.extras.unsubscribedSuccessfully.msg"
-              ),
-              translate.t(
-                "analytics.sections.extras.unsubscribedSuccessfully.title"
-              )
-            );
-          } else {
-            msgSuccess(
-              translate.t(
-                "analytics.sections.extras.subscribedSuccessfully.msg"
-              ),
-              translate.t(
-                "analytics.sections.extras.subscribedSuccessfully.title"
-              )
-            );
-          }
-          await refetchSubscriptions();
-        }
-      }
-    );
-  };
-
   const subscriptionFrequency = getSubscriptionFrequency(subscriptions);
 
   return (
@@ -151,18 +144,18 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                 <div className={styles.toolbarWrapper}>
                   <div className={styles.toolbarCentered}>
                     <ButtonToolbarCenter>
-                      <ExternalLink
-                        // eslint-disable-next-line react/forbid-component-props
-                        className={"mr2"}
-                        download={`charts-${entity}-${subject}.png`}
-                        href={downloadPngUrl.toString()}
-                      >
-                        <Button variant={"secondary"}>
-                          <FontAwesomeIcon icon={faDownload} />
-                          &nbsp;
-                          {translate.t("analytics.sections.extras.download")}
-                        </Button>
-                      </ExternalLink>
+                      <div className={"mr2"}>
+                        <ExternalLink
+                          download={`charts-${entity}-${subject}.png`}
+                          href={downloadPngUrl.toString()}
+                        >
+                          <Button variant={"secondary"}>
+                            <FontAwesomeIcon icon={faDownload} />
+                            &nbsp;
+                            {t("analytics.sections.extras.download")}
+                          </Button>
+                        </ExternalLink>
+                      </div>
                       <DropdownButton
                         content={
                           <div className={"tc"}>
@@ -194,7 +187,6 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                                   </span>
                                 }
                                 key={freq}
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onClick={subscribeDropdownOnSelect}
                               />
                             </TooltipWrapper>
