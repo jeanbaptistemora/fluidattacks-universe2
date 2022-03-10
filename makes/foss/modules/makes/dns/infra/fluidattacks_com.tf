@@ -261,7 +261,7 @@ resource "cloudflare_record" "stripe_bounce" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "bounce.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = "custom-email-domain.stripe.com."
+  value   = "custom-email-domain.stripe.com"
   proxied = false
   ttl     = 1
 }
@@ -279,7 +279,7 @@ resource "cloudflare_record" "stripe_dkim" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "${each.key}._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = "${each.key}.dkim.custom-email-domain.stripe.com."
+  value   = "${each.key}.dkim.custom-email-domain.stripe.com"
   proxied = false
   ttl     = 1
 }

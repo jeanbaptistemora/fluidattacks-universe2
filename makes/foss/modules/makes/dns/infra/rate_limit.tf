@@ -14,6 +14,14 @@ resource "cloudflare_rate_limit" "integrates_production" {
     }
     response {
       origin_traffic = true
+
+      headers = [
+        {
+          "name"  = "Cf-Cache-Status"
+          "op"    = "ne"
+          "value" = "HIT"
+        },
+      ]
     }
   }
 
