@@ -241,8 +241,8 @@ async def test_upload_file(populate: bool, email: str) -> None:
         unreliable_newest_vulnerability_report_date="2022-02-09T00:00:00"
         "+00:00",
         unreliable_oldest_open_vulnerability_report_date="2018-04-08T"
-        "00:43:11+00:00",
-        unreliable_oldest_vulnerability_report_date="2018-04-08T00:43:11"
+        "00:45:11+00:00",
+        unreliable_oldest_vulnerability_report_date="2018-04-08T00:45:11"
         "+00:00",
         unreliable_open_vulnerabilities=6,
         unreliable_status=FindingStatus.OPEN,

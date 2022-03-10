@@ -55,6 +55,7 @@ ENTITIES = {
             ),
             EntityAttr.oldest_open_vulnerability_report_date: dict(
                 dependencies={
+                    EntityDependency.approve_draft,
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
@@ -66,6 +67,7 @@ ENTITIES = {
             ),
             EntityAttr.oldest_vulnerability_report_date: dict(
                 dependencies={
+                    EntityDependency.approve_draft,
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
