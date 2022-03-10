@@ -16,7 +16,7 @@ import {
   filterSelect,
   filterText,
 } from "components/Table/utils";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
@@ -119,7 +119,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "status",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: translate.t("group.forces.status.title"),
       onSort: onSortState,
       width: "105px",

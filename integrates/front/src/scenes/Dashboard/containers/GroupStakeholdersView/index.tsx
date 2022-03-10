@@ -27,7 +27,7 @@ import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterSelect } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
@@ -150,7 +150,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "invitationState",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: translate.t("searchFindings.usersTable.invitation"),
       width: "80px",
     },

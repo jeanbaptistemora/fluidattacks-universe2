@@ -15,7 +15,7 @@ import { ExternalLink } from "components/ExternalLink";
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
@@ -135,31 +135,31 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     },
     {
       dataField: "machine",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Machine",
       width: "90px",
     },
     {
       dataField: "squad",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Squad",
       width: "90px",
     },
     {
       dataField: "forces",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Forces",
       width: "90px",
     },
     {
       dataField: "authors.total",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Authors",
       width: "80px",
     },
     {
       dataField: "authors.currentSpend",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Month-to-date spend ($)",
       width: "80px",
     },

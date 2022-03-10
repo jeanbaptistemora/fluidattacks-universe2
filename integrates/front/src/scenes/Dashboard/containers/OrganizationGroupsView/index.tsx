@@ -13,7 +13,7 @@ import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
@@ -161,13 +161,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       dataField: "machine",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Machine",
       width: "90px",
     },
     {
       dataField: "squad",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "Squad",
       width: "90px",
     },

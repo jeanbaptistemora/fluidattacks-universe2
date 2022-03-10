@@ -1,3 +1,5 @@
+import type { IBadgeProps } from "components/Badge";
+
 const statusGrayColor: string[] = ["Requested", "Unknown"];
 const statusGreenColor: string[] = [
   "Active",
@@ -32,18 +34,18 @@ const statusRedColor: string[] = [
   "Vulnerable",
 ];
 
-const getBgColor: (value: string) => string = (value: string): string => {
+const getBgColor = (value: string): IBadgeProps["variant"] => {
   if (statusGrayColor.includes(value)) {
-    return "bg-lbl-gray";
+    return "gray";
   } else if (statusGreenColor.includes(value)) {
-    return "bg-lbl-green";
+    return "green";
   } else if (statusOrangeColor.includes(value)) {
-    return "bg-lbl-orange";
+    return "orange";
   } else if (statusRedColor.includes(value)) {
-    return "bg-lbl-red";
+    return "red";
   }
 
-  return "";
+  return "gray";
 };
 
 export { getBgColor };

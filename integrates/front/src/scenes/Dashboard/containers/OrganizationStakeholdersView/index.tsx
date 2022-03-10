@@ -23,7 +23,7 @@ import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
@@ -72,7 +72,7 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "invitationState",
-    formatter: pointStatusFormatter,
+    formatter: statusFormatter,
     header: translate.t("searchFindings.usersTable.invitation"),
     width: "80px",
   },

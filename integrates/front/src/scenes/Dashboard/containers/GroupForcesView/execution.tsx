@@ -11,7 +11,7 @@ import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
@@ -164,7 +164,7 @@ const Execution: React.FC<IExecution> = (
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: translate.t("group.forces.compromisedToe.status"),
       width: "105px",
       wrapped: true,

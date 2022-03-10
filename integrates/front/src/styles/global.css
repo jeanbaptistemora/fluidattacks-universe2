@@ -474,18 +474,8 @@ label {
   color: #009245;
 }
 
-:global .bg-lbl-red {
-  background-color: #ffd6d6;
-  color: #ff3435;
-}
-
 :global .bg-lbl-yellow {
   background-color: #ffbf00;
-}
-
-:global .bg-lbl-orange {
-  background-color: #ffebd6;
-  color: #ff961e;
 }
 
 :global .bg-ns {

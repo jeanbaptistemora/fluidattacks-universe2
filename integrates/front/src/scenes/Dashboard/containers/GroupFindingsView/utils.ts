@@ -2,7 +2,7 @@ import type { ExecutionResult } from "graphql";
 import _ from "lodash";
 
 import type { IRemoveFindingResultAttr } from "../FindingContent/types";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type {
   IFindingAttr,
   ITreatmentSummaryAttr,
@@ -31,7 +31,7 @@ const formatState: (state: string) => JSX.Element = (
     open: "searchFindings.header.status.stateLabel.open",
   };
 
-  return pointStatusFormatter(translate.t(stateParameters[state]));
+  return statusFormatter(translate.t(stateParameters[state]));
 };
 
 const formatTreatmentSummary: (

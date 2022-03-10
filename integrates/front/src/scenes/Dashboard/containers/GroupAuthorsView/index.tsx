@@ -24,7 +24,7 @@ import { commitFormatter } from "components/Table/formatters";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
 import { GET_BILLING } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
@@ -249,9 +249,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                 ...value,
                 invitation: (
                   <React.StrictMode>
-                    {pointStatusFormatter(
-                      formatInviation(actorEmail.toLowerCase())
-                    )}
+                    {statusFormatter(formatInviation(actorEmail.toLowerCase()))}
                   </React.StrictMode>
                 ),
               };

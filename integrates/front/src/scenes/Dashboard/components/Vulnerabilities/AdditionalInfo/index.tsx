@@ -21,7 +21,7 @@ import { commitFormatter } from "components/Table/formatters";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
-import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { Status } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -318,7 +318,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 ) : (
                   <div className={"tr-l tl-m tl-ns"}>
                     <p className={"dib f5 ma0 mid-gray pr1-l"}>
-                      <PointStatus status={vulnerability.zeroRisk as string} />
+                      <Status status={vulnerability.zeroRisk as string} />
                     </p>
                   </div>
                 )}

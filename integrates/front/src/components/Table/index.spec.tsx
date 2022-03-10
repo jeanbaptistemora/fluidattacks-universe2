@@ -5,7 +5,7 @@ import React from "react";
 import { Table } from "components/Table";
 import { changeFormatter, deleteFormatter } from "components/Table/formatters";
 import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 
 describe("Table", (): void => {
   it("should return a function", (): void => {
@@ -120,7 +120,7 @@ describe("Table", (): void => {
     const testHeaders: IHeaderConfig[] = [
       {
         dataField: "statusHeader",
-        formatter: pointStatusFormatter,
+        formatter: statusFormatter,
         header: "Prueba 1",
         width: "25%",
       },

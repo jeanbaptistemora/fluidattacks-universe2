@@ -34,7 +34,7 @@ import {
   filterSelect,
 } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_EVENT_MUTATION,
   GET_EVENTS,
@@ -228,7 +228,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "eventStatus",
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: translate.t("searchFindings.tabEvents.status"),
       onSort: onSortState,
       visible: columnItems.eventStatus,

@@ -17,7 +17,7 @@ import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
 import { changeFormatter } from "components/Table/formatters";
 import { filterSearchText } from "components/Table/utils";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -189,7 +189,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                     dataField: "state",
                     formatter: canUpdateRootState
                       ? changeFormatter
-                      : pointStatusFormatter,
+                      : statusFormatter,
                     header: t("group.scope.common.state"),
                     width: canUpdateRootState ? "10%" : "100px",
                   },

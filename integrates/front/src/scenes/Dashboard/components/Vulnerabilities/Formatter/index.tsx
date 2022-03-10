@@ -5,39 +5,31 @@
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
 
+import { Badge } from "components/Badge";
 import { getBgColor } from "utils/colors";
 
-const Point = styled.span`
-  border-radius: 50px;
-  font-weight: 400;
-  padding: 4px 12px;
-`;
-
-interface IPointStatus {
+interface IStatus {
   status: string;
 }
 
-const PointStatus: React.FC<IPointStatus> = ({
-  status,
-}: IPointStatus): JSX.Element => {
+const Status: React.FC<IStatus> = ({ status }: IStatus): JSX.Element => {
   const { t } = useTranslation();
   const formatedStatus: string =
     _.upperCase(status) === "OK" ? _.upperCase(status) : _.capitalize(status);
-  const currentStateBgColor: string = getBgColor(_.capitalize(status));
+  const currentStateBgColor = getBgColor(_.capitalize(status));
 
   return (
-    <Point className={`v-mid ${currentStateBgColor}`}>
+    <Badge variant={currentStateBgColor}>
       {formatedStatus === "On_hold"
         ? t("searchFindings.tabVuln.onHold")
         : formatedStatus.split(" ")[0]}
-    </Point>
+    </Badge>
   );
 };
 
-const pointStatusFormatter = (value: string): JSX.Element => (
-  <PointStatus status={value} />
+const statusFormatter = (value: string): JSX.Element => (
+  <Status status={value} />
 );
 
-export { pointStatusFormatter, Point, PointStatus };
+export { statusFormatter, Status };

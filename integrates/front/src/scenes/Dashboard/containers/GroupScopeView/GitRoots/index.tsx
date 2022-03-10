@@ -48,7 +48,7 @@ import {
   filterText,
 } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -521,14 +521,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     dataField: "state",
                     formatter: canUpdateRootState
                       ? changeFormatter
-                      : pointStatusFormatter,
+                      : statusFormatter,
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
                     width: canUpdateRootState ? "10%" : "100px",
                   },
                   {
                     dataField: "cloningStatus.status",
-                    formatter: pointStatusFormatter,
+                    formatter: statusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
                     width: "105px",

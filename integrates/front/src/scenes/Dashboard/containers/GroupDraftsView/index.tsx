@@ -17,7 +17,7 @@ import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
   ADD_DRAFT_MUTATION,
@@ -135,7 +135,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: pointStatusFormatter,
+      formatter: statusFormatter,
       header: "State",
       onSort: onSortState,
       width: "95px",

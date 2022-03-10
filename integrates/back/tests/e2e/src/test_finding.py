@@ -277,27 +277,27 @@ def test_finding_reattack(
         timeout,
     )
     status_filter.select_by_visible_text("--All options--")
-    assert utils.wait_for_class_name(
+    assert utils.wait_for_text(
         driver,
-        "bg-lbl-red",
+        "192.168.1.19",
         timeout,
     )
-    assert utils.wait_for_class_name(
+    assert utils.wait_for_text(
         driver,
-        "bg-lbl-green",
+        "192.168.1.20",
         timeout,
     )
     start_reattack.click()
 
     # hide closed vulnerabilities
-    assert utils.wait_for_hide_class_name(
+    assert utils.wait_for_hide_text(
         driver,
-        "bg-lbl-green",
+        "192.168.1.20",
         timeout,
     )
-    assert utils.wait_for_class_name(
+    assert utils.wait_for_text(
         driver,
-        "bg-lbl-red",
+        "192.168.1.19",
         timeout,
     )
 
@@ -336,14 +336,14 @@ def test_finding_reattack(
         timeout,
     )
     start_reattack.click()
-    assert utils.wait_for_class_name(
+    assert utils.wait_for_text(
         driver,
-        "bg-lbl-green",
+        "192.168.1.20",
         timeout,
     )
-    assert utils.wait_for_class_name(
+    assert utils.wait_for_text(
         driver,
-        "bg-lbl-red",
+        "192.168.1.19",
         timeout,
     )
 
