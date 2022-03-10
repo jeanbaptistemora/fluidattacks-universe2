@@ -249,7 +249,7 @@ const pageTexts: ResourceKey = {
       "the entire Software Development Lifecycle. This means we combine automation, " +
       "AI and our ethical hackers’ expertise to continuously detect " +
       "and report your system’s security issues as it evolves.",
-    homeReadMore: "Read More",
+    homeReadMore: "Read more",
     homeTitle: "Continuous Hacking Cycle",
     oneShotParagraph:
       "If you want to achieve higher vulnerability remediation rates, we " +
