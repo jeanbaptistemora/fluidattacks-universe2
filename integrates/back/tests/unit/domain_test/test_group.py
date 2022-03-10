@@ -656,13 +656,13 @@ async def test_get_mean_remediate_severity_low_cvssf(
 
 @pytest.mark.changes_db
 async def test_create_group_not_user_admin() -> None:
-    await names_domain.create("NEWAVAILABLENAME", "group")
+    await names_domain.create("newavailablename", "group")
     user_email = "integratesuser@gmail.com"
     user_role = "user_manager"
     test_data = await add_group(
         user_email=user_email,
         user_role=user_role,
-        group_name="NEWAVAILABLENAME",
+        group_name="newavailablename",
         organization="okada",
         description="This is a new group",
         has_machine=True,

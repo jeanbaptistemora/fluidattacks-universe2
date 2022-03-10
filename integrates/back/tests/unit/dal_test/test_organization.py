@@ -70,6 +70,10 @@ async def test_add_group() -> None:
     assert len(updated_groups) == len(groups) + 1
     assert sorted(updated_groups) == sorted(groups + [group_name])
 
+    await orgs_dal.remove_group(org_id, group_name)
+    groups_after_removal = await orgs_dal.get_groups(org_id)
+    assert len(groups_after_removal) == len(groups)
+
 
 @pytest.mark.changes_db
 async def test_add_user() -> None:

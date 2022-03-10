@@ -5,11 +5,12 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
-from custom_types import (
-    Group,
-)
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    Group,
 )
 from groups import (
     domain as groups_domain,
@@ -29,6 +30,7 @@ from settings import (
 )
 from typing import (
     List,
+    Tuple,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -68,14 +70,15 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
 
+    organization_name: str = item.additional_info
     organization_id: str = await organizations_domain.get_id_by_name(
-        item.additional_info
+        organization_name
     )
     organization_groups: List[str] = await organizations_domain.get_groups(
         organization_id
     )
     finding_policy = await get_finding_policy(
-        org_name=item.additional_info, finding_policy_id=item.entity
+        org_name=organization_name, finding_policy_id=item.entity
     )
 
     if finding_policy.state.status in {
@@ -86,19 +89,20 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         status=finding_policy.state.status,
         user_email=item.subject,
     ):
-        loader = get_new_context()
-        groups: List[Group] = await loader.group.load_many(
-            [(group, organization_id) for group in organization_groups]
+        loaders: Dataloaders = get_new_context()
+        groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
+            tuple((group, organization_name) for group in organization_groups)
         )
-        groups_filtered = groups_domain.filter_active_groups(groups)
+        groups_filtered = groups_domain.filter_active_groups_new(groups)
+        group_names: List[str] = [group.name for group in groups_filtered]
         finding_name: str = finding_policy.metadata.name.lower()
         (
             updated_finding_ids,
             updated_vuln_ids,
         ) = await update_finding_policy_in_groups(
             finding_name=finding_name,
-            loaders=loader,
-            groups=[group["name"] for group in groups_filtered],
+            loaders=loaders,
+            groups=group_names,
             status=finding_policy.state.status,
             user_email=item.subject,
             tags=finding_policy.metadata.tags,
