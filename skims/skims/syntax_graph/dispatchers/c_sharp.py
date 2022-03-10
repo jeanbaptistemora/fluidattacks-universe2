@@ -9,6 +9,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     comment as c_sharp_comment,
     compilation_unit as c_sharp_compilation_unit,
     constructor_declaration as c_sharp_constructor_declaration,
+    do_statement as c_sharp_do_statement,
     element_access_expression as c_sharp_element_access_expression,
     expression_statement as c_sharp_expression_statement,
     field_declaration as c_sharp_field_declaration,
@@ -126,6 +127,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "declaration_list",
         },
         syntax_reader=common_declaration_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "do_statement",
+        },
+        syntax_reader=c_sharp_do_statement.reader,
     ),
     Dispatcher(
         applicable_types={
