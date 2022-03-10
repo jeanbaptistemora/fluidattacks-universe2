@@ -67,6 +67,9 @@ from users import (
 from users.utils import (
     get_international_format_phone_number,
 )
+from users.validations import (
+    validate_phone,
+)
 from verify import (
     operations as verify_operations,
 )
@@ -414,6 +417,7 @@ async def update_mobile(
     email: str, new_phone: Phone, verification_code: str
 ) -> None:
     """Update the user's phone number"""
+    validate_phone(new_phone)
     await verify_operations.validate_mobile(
         phone_number=get_international_format_phone_number(new_phone)
     )
@@ -441,6 +445,8 @@ async def verify(
     user = await get_by_email(email)
     user_phone = cast(Optional[StakeholderPhone], user["phone"])
     phone_to_verify = user_phone if new_phone is None else new_phone
+    if new_phone:
+        validate_phone(new_phone)
 
     if not phone_to_verify:
         raise RequiredNewPhoneNumber()
