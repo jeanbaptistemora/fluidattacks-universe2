@@ -417,12 +417,16 @@ enum StakeholderRole {
 
 "notifications name enum definition"
 enum NotificationsName {
+  "access_granted"
+  ACCESS_GRANTED
   "charts_report"
   CHARTS_REPORT
   "daily_digest"
   DAILY_DIGEST
   "file_uploaded"
   FILE_UPLOADED
+  "group_report"
+  GROUP_REPORT
   "new_comment"
   NEW_COMMENT
   "new_draft"

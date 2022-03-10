@@ -32,6 +32,12 @@ input MachineFindingResultInput {
   open: Int!
 }
 
+"Notifications preferences input definition"
+input NotificationPreferences {
+  "Email chanel to notifications preferences"
+  email: [NotificationsName!]!
+}
+
 "Credentials definition"
 input CredentialsInput {
   "ID of an existing credential"

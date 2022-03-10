@@ -891,7 +891,7 @@ type Mutation {
   "Update users notifications preferences"
   updateNotificationsPreferences(
     "Email chanel to notifications preferences"
-    email: [NotificationsName!]!
+    notificationsPreferences: NotificationPreferences!
   ): SimplePayload!
 
   "Updates the Organization's common policies"
