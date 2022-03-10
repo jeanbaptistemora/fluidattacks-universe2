@@ -77,7 +77,7 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
         onPhoneNumberChange={onPhoneNumberChange}
         onSelectFlag={onSelectFlag}
         placeholder={placeholder}
-        preferredCountries={["us", "co"]}
+        preferredCountries={["co", "us"]}
       />
       <ValidationError>
         <ErrorMessage name={name} />

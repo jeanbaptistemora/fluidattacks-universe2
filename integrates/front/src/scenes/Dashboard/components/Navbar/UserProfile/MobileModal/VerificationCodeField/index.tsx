@@ -1,4 +1,5 @@
 import { Field } from "formik";
+import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +12,7 @@ import { composeValidators, required } from "utils/validations";
 const VerificationCodeField: React.FC<IVerificationCodeFieldProps> = (
   props: IVerificationCodeFieldProps
 ): JSX.Element => {
-  const { disabled } = props;
+  const { disabled, name } = props;
   const { t } = useTranslation();
 
   return (
@@ -22,7 +23,7 @@ const VerificationCodeField: React.FC<IVerificationCodeFieldProps> = (
       <Field
         component={FormikText}
         disabled={disabled}
-        name={"verificationCode"}
+        name={_.isUndefined(name) ? "verificationCode" : name}
         type={"text"}
         validate={composeValidators([required])}
       />
