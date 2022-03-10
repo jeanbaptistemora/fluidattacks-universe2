@@ -382,7 +382,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
           pageSize={10}
           rowEvents={{ onClick: handleRowClick }}
           search={false}
-          striped={true}
         />
       </div>
       <label>

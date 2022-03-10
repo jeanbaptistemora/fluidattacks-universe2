@@ -286,7 +286,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         rowEvents={{ onClick: openAdditionalInfoModal }}
         search={false}
         selectionMode={isFindingReleased ? selectionMode : undefined}
-        striped={true}
       />
       <DeleteVulnerabilityModal
         findingId={findingId}

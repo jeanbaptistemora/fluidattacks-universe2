@@ -417,7 +417,6 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                       filterSearchtextResult
                     ),
                   }}
-                  striped={true}
                 />
               </div>
             </div>

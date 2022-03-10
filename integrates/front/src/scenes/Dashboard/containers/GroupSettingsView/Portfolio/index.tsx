@@ -232,7 +232,6 @@ const Portfolio: React.FC<IPortfolioProps> = (
                   ? undefined
                   : setCurrentRow,
             }}
-            striped={true}
           />
         )}
       </Can>

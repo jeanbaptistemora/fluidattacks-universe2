@@ -424,7 +424,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                 id={"policiesTbl"}
                 pageSize={10}
                 search={false}
-                striped={true}
               />
             </TooltipWrapper>
             <Can do={"api_mutations_update_organization_policies_mutate"}>

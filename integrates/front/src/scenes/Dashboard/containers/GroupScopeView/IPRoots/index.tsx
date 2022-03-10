@@ -197,7 +197,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                 id={"tblIPRoots"}
                 pageSize={10}
                 search={false}
-                striped={true}
               />
             </Container>
           );

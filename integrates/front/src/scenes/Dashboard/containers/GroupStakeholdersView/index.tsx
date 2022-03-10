@@ -546,7 +546,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                       resultStakeHolders as unknown as IGenericStakeholderAttrs[]
                     ),
                   }}
-                  striped={true}
                 />
               </div>
             </div>

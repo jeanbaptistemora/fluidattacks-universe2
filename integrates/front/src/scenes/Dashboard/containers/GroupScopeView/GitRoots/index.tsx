@@ -547,7 +547,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 pageSize={10}
                 rowEvents={{ onClick: handleRowClick }}
                 search={false}
-                striped={true}
               />
             </Container>
           );
@@ -581,7 +580,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               id={"tblGitRootEnvs"}
               pageSize={10}
               search={false}
-              striped={true}
             />
           </div>
         </React.Fragment>

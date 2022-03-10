@@ -185,7 +185,6 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         id={"tblServices"}
         pageSize={10}
         search={false}
-        striped={true}
       />
       {/* Intentionally hidden while loading/submitting to offer a better UX
        *   this way the button does not twinkle and is visually stable

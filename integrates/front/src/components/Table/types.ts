@@ -61,7 +61,6 @@ interface ICustomFiltersProps {
 }
 
 interface ITableProps {
-  bodyContainer?: string;
   clearFiltersButton?: () => void;
   columnToggle?: boolean;
   csvFilename?: string;
@@ -73,17 +72,14 @@ interface ITableProps {
   extraButtons?: JSX.Element;
   extraButtonsRight?: JSX.Element;
   customFilters?: ICustomFiltersProps;
-  headerContainer?: string;
   headers: IHeaderConfig[];
   id: string;
   isFilterEnabled?: boolean;
-  onPageChange?: (arg1: number) => void;
   pageSize: number;
   rowEvents?: Record<string, unknown>;
   rowSize?: ITableContainerProps["rowSize"];
   search: boolean;
   selectionMode?: ISelectRowProps;
-  striped?: boolean;
   onColumnToggle?: (arg1: string) => void;
   onUpdateEnableFilter?: () => void;
 }

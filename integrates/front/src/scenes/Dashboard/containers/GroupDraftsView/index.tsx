@@ -393,7 +393,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         pageSize={10}
         rowEvents={{ onClick: goToFinding }}
         search={false}
-        striped={true}
       />
     </React.StrictMode>
   );

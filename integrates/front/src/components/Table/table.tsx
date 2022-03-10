@@ -81,12 +81,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     pageSize,
     columnToggle = false,
     exportCsv,
-    onPageChange,
     search,
     rowEvents,
     rowSize,
     selectionMode,
-    striped,
   } = tableProps;
   const {
     customFiltersProps,
@@ -133,7 +131,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const listSizePerPage: number[] = [10, 20, 30, 50, 100, 200, 500, 1000];
 
   const paginationOptions: PaginationOptions = {
-    onPageChange,
     onSizePerPageChange,
     paginationSize: 10,
     sizePerPage: preferredPageSize,
@@ -546,7 +543,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           rowClasses={style.tableBody}
           rowEvents={rowEvents}
           selectRow={selectionMode as SelectRowProps<unknown>}
-          striped={striped}
           wrapperClasses={`f6 mw-100 overflow-auto ${style.tableWrapper}`}
         />
       </TableContainer>

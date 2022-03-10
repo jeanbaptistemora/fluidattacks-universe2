@@ -345,7 +345,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                   mode: "radio",
                   onSelect: setCurrentRow,
                 }}
-                striped={true}
               />
             </Row>
           </Col100>

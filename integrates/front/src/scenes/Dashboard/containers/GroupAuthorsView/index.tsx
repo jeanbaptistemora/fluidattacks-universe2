@@ -483,7 +483,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         id={"tblAuthorsList"}
         pageSize={100}
         search={false}
-        striped={true}
       />
     </React.StrictMode>
   );

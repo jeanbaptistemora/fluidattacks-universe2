@@ -181,7 +181,6 @@ const GroupInformation: React.FC = (): JSX.Element => {
         id={"tblGroupInfo"}
         pageSize={10}
         search={false}
-        striped={true}
       />
       <EditGroupInformationModal
         initialValues={formatDataSet(attributesDataset)}

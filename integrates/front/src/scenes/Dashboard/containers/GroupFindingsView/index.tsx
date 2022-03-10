@@ -787,7 +787,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           onSelectAll: onSelectVariousFindings,
           selected: getFindingsIndex(selectedFindings, resultFindings),
         }}
-        striped={true}
       />
       <ReportsModal
         hasMobileApp={hasMobileApp}
