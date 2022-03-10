@@ -22,7 +22,11 @@ import { Button } from "components/Button";
 import { Table } from "components/Table";
 import { commitFormatter } from "components/Table/formatters";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import { filterSearchText, filterText } from "components/Table/utils";
+import {
+  filterSearchText,
+  filterSelect,
+  filterText,
+} from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
@@ -44,6 +48,7 @@ import { translate } from "utils/translations/translate";
 interface IFilterSet {
   author: string;
   groupsContributed: string;
+  invitationState?: string;
   repository: string;
 }
 
@@ -71,6 +76,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       {
         author: "",
         groupsContributed: "",
+        invitationState: "",
         repository: "",
       },
       localStorage
@@ -191,7 +197,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     },
   });
 
-  const formatInviation = useCallback(
+  const formatInvitation = useCallback(
     (actorEmail: string): string => {
       const invitationState: string =
         stackHolderData === undefined
@@ -249,7 +255,9 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                 ...value,
                 invitation: (
                   <React.StrictMode>
-                    {statusFormatter(formatInviation(actorEmail.toLowerCase()))}
+                    {statusFormatter(
+                      formatInvitation(actorEmail.toLowerCase())
+                    )}
                   </React.StrictMode>
                 ),
               };
@@ -299,7 +307,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           }),
     [
       data,
-      formatInviation,
+      formatInvitation,
       grantAccess,
       groupName,
       loading,
@@ -319,10 +327,18 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
         return {
           ...value,
-          invitationState: formatInviation(actorEmail.toLowerCase()),
+          invitationState: formatInvitation(actorEmail.toLowerCase()),
         };
       }),
-    [dataset, formatInviation]
+    [dataset, formatInvitation]
+  );
+
+  const hasInvitationPermissions: boolean = useMemo(
+    (): boolean =>
+      stackHolderData !== undefined &&
+      permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
+      permissions.can("api_mutations_grant_stakeholder_access_mutate"),
+    [permissions, stackHolderData]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -386,24 +402,59 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     "repository"
   );
 
+  const onFilterAuthorsTableChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    event.persist();
+    setFilterAuthorsTable(
+      (value): IFilterSet => ({
+        ...value,
+        invitationState: event.target.value,
+      })
+    );
+  };
+
   function clearFilters(): void {
     setFilterAuthorsTable(
       (): IFilterSet => ({
         author: "",
         groupsContributed: "",
+        invitationState: "",
         repository: "",
       })
     );
     setSearchTextFilter("");
   }
+  const filterInvitationDataset: IAuthors[] = filterSelect(
+    datasetText,
+    filterAuthorsTable.invitationState ?? "",
+    "invitationState"
+  ).map((value: IAuthors): IAuthors => _.omit(value, "invitationState"));
 
   const resultDataset: IAuthors[] = _.intersectionWith(
     filterSearchtextDataset,
     filterAuthorDataset,
     filterRepositoryDataset,
     filterGroupsContributedDataset,
+    filterInvitationDataset,
     _.isEqual
   );
+
+  const additionalFilter: IFilterProps[] = [
+    {
+      defaultValue: filterAuthorsTable.invitationState ?? "",
+      onChangeSelect: onFilterAuthorsTableChange,
+      placeholder: "Invitation",
+      selectOptions: {
+        "Non-registered": "Non-registered",
+        Pending: "Pending",
+        Registered: "Registered",
+      },
+      tooltipId: "group.authors.filtersTooltips.invitation.id",
+      tooltipMessage: "group.authors.filtersTooltips.invitation",
+      type: "select",
+    },
+  ];
 
   const customFiltersProps: IFilterProps[] = [
     {
@@ -461,7 +512,10 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       <Table
         clearFiltersButton={clearFilters}
         customFilters={{
-          customFiltersProps,
+          customFiltersProps: [
+            ...customFiltersProps,
+            ...(hasInvitationPermissions ? additionalFilter : []),
+          ],
           isCustomFilterEnabled,
           onUpdateEnableCustomFilter: handleUpdateCustomFilter,
           resultSize: {

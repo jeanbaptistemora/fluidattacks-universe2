@@ -261,6 +261,7 @@ export const enTranslations: ResourceKey = {
       filtersTooltips: {
         actor: "Filter by author",
         groupsContributed: "Filter by groups contributed",
+        invitation: "Filter by invitation",
         repository: "Filter by repository",
       },
       groupsContributed: "Groups Contributed",
