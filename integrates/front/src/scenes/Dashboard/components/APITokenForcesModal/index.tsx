@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
@@ -11,7 +12,6 @@ import {
 import { Col100, ControlLabel, Row } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IAPITokenForcesModalProps {
   groupName: string;
@@ -19,11 +19,12 @@ interface IAPITokenForcesModalProps {
   onClose: () => void;
 }
 
-const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
-  props: IAPITokenForcesModalProps
-): JSX.Element => {
-  const { open, onClose, groupName } = props;
-
+const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
+  open,
+  onClose,
+  groupName,
+}: IAPITokenForcesModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] =
     useGetAPIToken(groupName);
   const [updateApiToken] = useUpdateAPIToken();
@@ -34,36 +35,36 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
     void updateApiToken({ variables: { groupName } });
   }, [groupName, updateApiToken]);
   const handleReveal: () => void = useCallback((): void => {
-    void getApiToken(); // eslint-disable-line @typescript-eslint/no-confusing-void-expression
+    getApiToken();
   }, [getApiToken]);
   const handleCopy: () => Promise<void> =
     useCallback(async (): Promise<void> => {
       const { clipboard } = navigator;
 
       if (_.isUndefined(clipboard)) {
-        msgError(translate.t("updateForcesToken.copy.failed"));
+        msgError(t("updateForcesToken.copy.failed"));
       } else {
         await clipboard.writeText(currentToken ?? "");
         document.execCommand("copy");
         msgSuccess(
-          translate.t("updateForcesToken.copy.successfully"),
-          translate.t("updateForcesToken.copy.success")
+          t("updateForcesToken.copy.successfully"),
+          t("updateForcesToken.copy.success")
         );
       }
-    }, [currentToken]);
+    }, [currentToken, t]);
   if (
     !getTokenData?.group.forcesToken && // eslint-disable-line @typescript-eslint/strict-boolean-expressions
     getTokenCalled &&
     !getTokenLoading
   ) {
-    msgError(translate.t("updateForcesToken.tokenNoExists"));
+    msgError(t("updateForcesToken.tokenNoExists"));
   }
 
   return (
-    <Modal open={open} title={translate.t("updateForcesToken.title")}>
+    <Modal open={open} title={t("updateForcesToken.title")}>
       <Formik
         enableReinitialize={true}
-        initialValues={{ sessionJwt: currentToken }}
+        initialValues={{ sessionJwt: currentToken ?? "" }}
         name={"updateForcesToken"}
         onSubmit={handleUpdateAPIToken}
       >
@@ -71,7 +72,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
           <Row>
             <Col100>
               <ControlLabel>
-                <b>{translate.t("updateForcesToken.accessToken")}</b>
+                <b>{t("updateForcesToken.accessToken")}</b>
               </ControlLabel>
               <Field
                 className={"noresize"} // eslint-disable-line react/forbid-component-props
@@ -82,19 +83,18 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
                 type={"text"}
               />
               <Button
-                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                disabled={!currentToken}
+                disabled={_.isEmpty(currentToken)}
                 onClick={handleCopy}
                 variant={"secondary"}
               >
-                {translate.t("updateForcesToken.copy.copy")}
+                {t("updateForcesToken.copy.copy")}
               </Button>
               <Button
                 disabled={getTokenCalled}
                 onClick={handleReveal}
                 variant={"secondary"}
               >
-                {translate.t("updateForcesToken.revealToken")}
+                {t("updateForcesToken.revealToken")}
               </Button>
             </Col100>
           </Row>
@@ -102,17 +102,16 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
             <div>
               <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
-                  {translate.t("updateForcesToken.close")}
+                  {t("updateForcesToken.close")}
                 </Button>
                 <Button
                   disabled={!getTokenCalled || getTokenLoading}
                   type={"submit"}
                   variant={"primary"}
                 >
-                  {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                  {currentToken
-                    ? translate.t("updateForcesToken.reset")
-                    : translate.t("updateForcesToken.generate")}
+                  {_.isEmpty(currentToken)
+                    ? t("updateForcesToken.generate")
+                    : t("updateForcesToken.reset")}
                 </Button>
               </ModalFooter>
             </div>
