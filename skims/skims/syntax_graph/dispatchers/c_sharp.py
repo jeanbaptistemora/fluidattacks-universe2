@@ -9,7 +9,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     comment as c_sharp_comment,
     compilation_unit as c_sharp_compilation_unit,
     constructor_declaration as c_sharp_constructor_declaration,
-    do_statement as c_sharp_do_statement,
     element_access_expression as c_sharp_element_access_expression,
     expression_statement as c_sharp_expression_statement,
     field_declaration as c_sharp_field_declaration,
@@ -38,6 +37,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
     declaration_block as common_declaration_block,
+    do_statement as common_do_statement,
     execution_block as common_execution_block,
     identifier as common_identifier,
     null_literal as common_null_literal,
@@ -133,7 +133,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "do_statement",
         },
-        syntax_reader=c_sharp_do_statement.reader,
+        syntax_reader=common_do_statement.reader,
     ),
     Dispatcher(
         applicable_types={
