@@ -21,27 +21,6 @@ terraform {
   }
 }
 
-module "aws" {
-  source = "../../../modules/aws"
-  name   = "prod_makes"
-  policy = local.aws
-
-  tags = {
-    "Name"               = "prod_makes"
-    "management:area"    = "cost"
-    "management:product" = "makes"
-    "management:type"    = "product"
-  }
-}
-
 provider "gitlab" {
   token = var.gitlab_token
-}
-
-module "publish_credentials" {
-  source    = "../../../modules/publish_credentials"
-  key_1     = module.aws.keys.1
-  key_2     = module.aws.keys.2
-  prefix    = "PROD_MAKES"
-  protected = true
 }
