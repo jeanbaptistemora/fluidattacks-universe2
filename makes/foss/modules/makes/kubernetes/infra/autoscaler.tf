@@ -51,7 +51,7 @@ resource "aws_iam_policy" "autoscaler" {
 
 module "autoscaler_oidc_role" {
   source       = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version      = "3.8.0"
+  version      = "4.14.0"
   create_role  = true
   role_name    = "makes-k8s-autoscaler"
   provider_url = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
@@ -80,7 +80,7 @@ resource "kubernetes_service_account" "autoscaler" {
     }
 
     annotations = {
-      "eks.amazonaws.com/role-arn" = module.autoscaler_oidc_role.this_iam_role_arn
+      "eks.amazonaws.com/role-arn" = module.autoscaler_oidc_role.iam_role_arn
     }
   }
 }
@@ -109,7 +109,7 @@ resource "helm_release" "autoscaler" {
 
   set {
     name  = "rbac.serviceAccount.annotations.\"eks.amazonaws.com/role-arn\""
-    value = module.autoscaler_oidc_role.this_iam_role_arn
+    value = module.autoscaler_oidc_role.iam_role_arn
   }
 
   set {

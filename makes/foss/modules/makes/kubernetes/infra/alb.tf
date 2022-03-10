@@ -10,7 +10,7 @@ resource "aws_iam_policy" "alb" {
 
 module "alb_oidc_role" {
   source       = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version      = "3.8.0"
+  version      = "4.14.0"
   create_role  = true
   role_name    = "makes-k8s-alb"
   provider_url = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
@@ -39,7 +39,7 @@ resource "kubernetes_service_account" "alb" {
     }
 
     annotations = {
-      "eks.amazonaws.com/role-arn" = module.alb_oidc_role.this_iam_role_arn
+      "eks.amazonaws.com/role-arn" = module.alb_oidc_role.iam_role_arn
     }
   }
 }
@@ -68,6 +68,6 @@ resource "helm_release" "alb" {
 
   set {
     name  = "serviceAccount.annotations.\"eks.amazonaws.com/role-arn\""
-    value = module.alb_oidc_role.this_iam_role_arn
+    value = module.alb_oidc_role.iam_role_arn
   }
 }

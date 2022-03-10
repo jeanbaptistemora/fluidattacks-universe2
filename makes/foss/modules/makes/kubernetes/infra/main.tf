@@ -4,11 +4,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.49.0"
+      version = "~> 4.4.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 2.20.0"
+      version = "~> 3.10.0"
     }
     cloudinit = {
       source  = "hashicorp/cloudinit"
@@ -24,7 +24,7 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.2.0"
+      version = "~> 2.4.1"
     }
     http = {
       source  = "hashicorp/http"
