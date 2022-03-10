@@ -11,7 +11,6 @@ import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import {
   GET_ORGANIZATION_POLICIES,
@@ -22,6 +21,7 @@ import type {
   IOrganizationPoliciesData,
   IPoliciesFormData,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+import { VulnerabilityPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/VulnerabilityPolicies/index";
 import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { FormikText } from "utils/forms/fields";
@@ -447,13 +447,13 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         <b>{translate.t("organization.tabs.policies.findings.title")}</b>
       </p>
       <hr className={"b--light-gray bw2 mt0"} />
-      <FindingPolicies
-        findingPolicies={_.orderBy(
+      <VulnerabilityPolicies
+        organizationId={organizationId}
+        vulnerabilityPolicies={_.orderBy(
           data.organization.findingPolicies,
           "lastStatusUpdate",
           "desc"
         )}
-        organizationId={organizationId}
       />
     </React.StrictMode>
   );
