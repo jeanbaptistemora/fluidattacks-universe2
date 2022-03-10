@@ -358,6 +358,7 @@ in {
             ["update_vulnerability_treatment"]
             ["upload_file"]
             ["validate_git_access"]
+            ["verify_stakeholder"]
             ["verify_vulnerabilities_request"]
             ["vulnerability"]
           ])

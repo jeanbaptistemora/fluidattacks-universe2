@@ -2368,6 +2368,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__verify_stakeholder:
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'verify_stakeholder'
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__verify_vulnerabilities_request:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
