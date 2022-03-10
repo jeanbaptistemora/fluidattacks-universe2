@@ -363,14 +363,25 @@ async def get_max_open_severity(
 async def get_newest_vulnerability_report_date(
     loaders: Any, finding_id: str
 ) -> str:
+    finding: Finding = await loaders.finding.load(finding_id)
     finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
     )
     report_dates = vulns_utils.get_report_dates(vulns)
+    newest_report_date: str = ""
     if report_dates:
-        return datetime_utils.get_as_utc_iso_format(max(report_dates))
-    return ""
+        newest_report_date = datetime_utils.get_as_utc_iso_format(
+            max(report_dates)
+        )
+    if (
+        newest_report_date
+        and finding.approval
+        and datetime.fromisoformat(newest_report_date)
+        < datetime.fromisoformat(finding.approval.modified_date)
+    ):
+        return finding.approval.modified_date
+    return newest_report_date
 
 
 @newrelic.agent.function_trace()
