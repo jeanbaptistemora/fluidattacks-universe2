@@ -888,6 +888,12 @@ type Mutation {
     role: StakeholderRole!
   ): UpdateStakeholderPayload!
 
+  "Update users notifications preferences"
+  updateNotificationsPreferences(
+    "Email chanel to notifications preferences"
+    email: [NotificationsName!]!
+  ): SimplePayload!
+
   "Updates the Organization's common policies"
   updateOrganizationPolicies(
     "Maximum number of calendar days a finding can be temporally accepted"

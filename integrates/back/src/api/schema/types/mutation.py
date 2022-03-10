@@ -82,6 +82,7 @@ from api.mutations import (
     update_group_disambiguation,
     update_group_info,
     update_group_stakeholder,
+    update_notifications_preferences,
     update_organization_policies,
     update_organization_stakeholder,
     update_payment_method,
@@ -232,6 +233,9 @@ MUTATION.set_field(
 )
 MUTATION.set_field("updateGroupInfo", update_group_info.mutate)
 MUTATION.set_field("updateGroupStakeholder", update_group_stakeholder.mutate)
+MUTATION.set_field(
+    "updateNotificationsPreferences", update_notifications_preferences.mutate
+)
 MUTATION.set_field(
     "updateOrganizationPolicies", update_organization_policies.mutate
 )
