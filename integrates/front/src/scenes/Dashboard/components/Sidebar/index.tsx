@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Logo, Preloader, SidebarContainer, SidebarMenu } from "./styles";
+import { Preloader, SidebarContainer, SidebarMenu } from "./styles";
 
+import { Logo } from "components/Logo";
 import { useApolloNetworkStatus } from "utils/apollo";
 
 const Sidebar: React.FC = (): JSX.Element => {
@@ -15,7 +16,7 @@ const Sidebar: React.FC = (): JSX.Element => {
       <SidebarMenu>
         <li>
           <Link to={"/home"}>
-            <Logo />
+            <Logo height={45} width={45} />
           </Link>
         </li>
       </SidebarMenu>

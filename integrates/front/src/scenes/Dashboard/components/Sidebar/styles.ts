@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import logo from "resources/asm_sidebar.svg";
 import preloader from "resources/loading.gif";
 
 const SidebarContainer = styled.aside.attrs({
@@ -17,15 +16,6 @@ const SidebarMenu = styled.ul.attrs({
   className: "flex-auto list mt2 pl0",
 })``;
 
-const Logo = styled.img.attrs({
-  alt: "App logo",
-  className: "center flex pointer",
-  src: logo,
-})`
-  margin-top: 5px;
-  width: 42px;
-`;
-
 const Preloader = styled.img.attrs({
   alt: "Loading animation",
   className: "ml-auto",
@@ -34,4 +24,4 @@ const Preloader = styled.img.attrs({
   width: 100px;
 `;
 
-export { Logo, Preloader, SidebarContainer, SidebarMenu };
+export { Preloader, SidebarContainer, SidebarMenu };
