@@ -16,7 +16,7 @@ import { reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { APITokenModal } from "./APITokenModal";
 import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
@@ -144,7 +144,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             ) : undefined}
           </li>
           <li>
-            <a href={"/user/config"}>
+            <Link onClick={toggleDropdown} to={"/user/config"}>
               <TooltipWrapper
                 id={"globalConfig"}
                 message={t("navbar.config.tooltip")}
@@ -154,7 +154,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   &nbsp;{t("navbar.config.text")}
                 </DropdownButton>
               </TooltipWrapper>
-            </a>
+            </Link>
           </li>
           <Can do={"api_mutations_add_stakeholder_mutate"}>
             <li>
