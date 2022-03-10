@@ -33,8 +33,9 @@ const userLevelRoles: string[] = ["user", "hacker", "admin"];
 const groupLevelRoles: string[] = [
   "user",
   "user_manager",
-  "architect",
   "customer_manager",
+  "vulnerability_manager",
+  "architect",
   "executive",
   "hacker",
   "reattacker",

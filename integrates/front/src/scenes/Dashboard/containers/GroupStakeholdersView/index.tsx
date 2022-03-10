@@ -390,6 +390,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         user: "User",
         // eslint-disable-next-line camelcase
         user_manager: "User Manager",
+        // eslint-disable-next-line camelcase
+        vulnerability_manager: "Vulnerability Manager",
       },
       tooltipId: "group.stakeHolders.filtersTooltips.role.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.role",
