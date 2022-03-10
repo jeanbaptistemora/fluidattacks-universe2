@@ -1,5 +1,6 @@
 import "tachyons";
 import { Parameters } from "@storybook/api";
+import { DocsPage } from "./DocsPage";
 
 const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -10,6 +11,7 @@ const parameters: Parameters = {
     },
   },
   docs: {
+    page: DocsPage,
     source: {
       state: "open",
       type: "dynamic",
