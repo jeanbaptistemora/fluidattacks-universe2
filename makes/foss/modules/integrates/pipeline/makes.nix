@@ -261,7 +261,15 @@ in {
           (args: {
             inherit args;
             output = "/integrates/back/test/functional";
-            gitlabExtra = gitlabTest;
+            gitlabExtra =
+              gitlabTest
+              // {
+                artifacts = {
+                  paths = ["integrates/back/tests/functional/build"];
+                  expire_in = "1 day";
+                  when = "on_success";
+                };
+              };
           })
           [
             ["accept_legal"]

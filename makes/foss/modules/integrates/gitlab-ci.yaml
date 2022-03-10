@@ -323,6 +323,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__accept_legal:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -345,6 +350,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__acknowledge_concurrent_session:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -367,6 +377,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__activate_root:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -389,6 +404,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_draft:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -411,6 +431,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_event:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -433,6 +458,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_event_consult:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -455,6 +485,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_files_to_db:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -477,6 +512,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_finding_consult:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -499,6 +539,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_forces_execution:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -521,6 +566,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_git_root:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -543,6 +593,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -565,6 +620,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group_consult:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -587,6 +647,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_group_tags:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -609,6 +674,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_organization:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -631,6 +701,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_push_token:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -653,6 +728,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__add_toe_input:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -675,6 +755,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__approve_draft:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -697,6 +782,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__batch:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -719,6 +809,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__confirm_vulnerabilities_zero_risk:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -741,6 +836,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__deactivate_root:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -763,6 +863,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__delete_obsolete_groups:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -785,6 +890,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_event_file:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -807,6 +917,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_file:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -829,6 +944,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__download_vulnerability_file:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -851,6 +971,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__event:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -873,6 +998,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__events:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -895,6 +1025,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__finding:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -917,6 +1052,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__forces_executions:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -939,6 +1079,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__grant_stakeholder_access:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -961,6 +1106,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__grant_stakeholder_organization_access:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -983,6 +1133,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__group:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1005,6 +1160,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__groups_with_forces:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1027,6 +1187,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__handle_vulnerabilities_acceptance:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1049,6 +1214,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__internal_names:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1071,6 +1241,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__invalidate_access_token:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1093,6 +1268,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__me:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1115,6 +1295,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__organization:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1137,6 +1322,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__organization_id:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1159,6 +1349,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__refresh_toe_inputs:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1181,6 +1376,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__refresh_toe_lines:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1203,6 +1403,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reject_draft:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1225,6 +1430,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reject_vulnerabilities_zero_risk:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1247,6 +1457,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_event_evidence:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1269,6 +1484,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_evidence:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1291,6 +1511,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_files:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1313,6 +1538,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_finding:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1335,6 +1565,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_group:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1357,6 +1592,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_group_tag:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1379,6 +1619,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1401,6 +1646,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder_access:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1423,6 +1673,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_stakeholder_organization_access:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1445,6 +1700,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_tags:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1467,6 +1727,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_vulnerability:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1489,6 +1754,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__report:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1511,6 +1781,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_hold:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1533,6 +1808,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_verification:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1555,6 +1835,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__request_vulnerabilities_zero_risk:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1577,6 +1862,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__requeue_actions:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1599,6 +1889,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__reset_expired_accepted_findings:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1621,6 +1916,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__resources:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1643,6 +1943,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__sign_in:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1665,6 +1970,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__solve_event:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1687,6 +1997,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__stakeholder:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1709,6 +2024,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__submit_draft:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1731,6 +2051,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__submit_organization_finding_policy:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1753,6 +2078,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__subscribe_to_entity_report:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1775,6 +2105,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__sync_git_root:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1797,6 +2132,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__toe_inputs:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1819,6 +2159,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__toe_lines:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1841,6 +2186,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__unsubscribe_from_group:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1863,6 +2213,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_access_token:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1885,6 +2240,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_event_evidence:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1907,6 +2267,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_evidence:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1929,6 +2294,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_evidence_description:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1951,6 +2321,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_finding_description:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1973,6 +2348,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_forces_access_token:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -1995,6 +2375,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_git_root:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2017,6 +2402,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2039,6 +2429,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_access_info:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2061,6 +2456,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_disambiguation:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2083,6 +2483,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_info:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2105,6 +2510,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_group_stakeholder:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2127,6 +2537,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_organization_policies:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2149,6 +2564,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_organization_stakeholder:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2171,6 +2591,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_severity:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2193,6 +2618,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_stakeholder_phone:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2215,6 +2645,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_input:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2237,6 +2672,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_lines_attacked_lines:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2259,6 +2699,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_toe_lines_sorts:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2281,6 +2726,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerabilities_treatment:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2303,6 +2753,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_commit:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2325,6 +2780,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_vulnerability_treatment:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2347,6 +2807,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__upload_file:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2369,6 +2834,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__validate_git_access:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2391,6 +2861,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__verify_stakeholder:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2413,6 +2888,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__verify_vulnerabilities_request:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -2435,6 +2915,11 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__vulnerability:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/back/tests/functional/build
+    when: on_success
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
