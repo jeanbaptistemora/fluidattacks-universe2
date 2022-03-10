@@ -82,10 +82,16 @@ async def mutate(
             f"Security: Approved draft {finding_id} in {finding.group_name} "
             "group successfully",
         )
+        # Update indicators in two steps as new vulns report dates are needed
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.approve_draft,
+            finding_ids=[],
+            vulnerability_ids=[vuln.id for vuln in vulnerabilities],
+        )
         await update_unreliable_indicators_by_deps(
             EntityDependency.approve_draft,
             finding_ids=[finding_id],
-            vulnerability_ids=[vuln.id for vuln in vulnerabilities],
+            vulnerability_ids=[],
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
