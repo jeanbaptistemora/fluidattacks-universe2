@@ -55,23 +55,19 @@ def _update(
 
 
 def amend_users(
-    client: Client,
+    fetch_client: Client,
+    update_client: Client,
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    start_msg = Cmd.from_cmd(lambda: LOG.info("Getting data stream..."))
     mutation_msg = Cmd.from_cmd(lambda: LOG.info("Mutation started"))
-    data = client.namespace_data(namespace)
+    data = fetch_client.namespace_data(namespace)
     result = data.bind(
         lambda s: s.map(lambda r: r.unwrap())
-        .map(lambda c: _update(client, mailmap, c))
+        .map(lambda c: _update(update_client, mailmap, c))
         .transform(consume)
     )
-    return (
-        start_msg.bind(lambda _: data)
-        .bind(lambda _: mutation_msg)
-        .bind(lambda _: result)
-    )
+    return mutation_msg.bind(lambda _: result)
 
 
 def start(
@@ -82,4 +78,5 @@ def start(
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
     client = Client(ClientFactory().from_creds(db_id, creds), table)
-    return amend_users(client, namespace, mailmap)
+    client2 = Client(ClientFactory().from_creds(db_id, creds), table)
+    return amend_users(client, client2, namespace, mailmap)
