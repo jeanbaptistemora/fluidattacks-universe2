@@ -221,30 +221,23 @@ const pageTexts: ResourceKey = {
   },
   service: {
     cycleParagraph0:
-      "Our automated analyses include SAST, DAST and SCA. " +
-      "We scan your system and report the common vulnerabilities, " +
-      "showing low False Positive (FP) rates.",
+      "Our automated analyses include SAST, DAST and SCA. Our tools scan your system " +
+      "and report common vulnerabilities, showing low false positive rates.",
     cycleParagraph1:
       "Our AI is specially trained with thousands of snippets of vulnerable code. " +
-      "One of our AI modules (Sorts) helps our team prioritize " +
-      "the review of potentially vulnerable files.",
+      "One module helps us prioritize potentially vulnerable files for review.",
     cycleParagraph2:
-      "The highly trained and certified professionals on our Red Team " +
-      "continuously examine your source code, infrastructure and applications " +
-      "for security vulnerabilities. They do Manual Penetration Testing and " +
-      "enrich their findings by performing manual SAST, DAST and SCA.",
+      "Our highly certified red team continuously examines code, infrastructure " +
+      "and applications for security vulnerabilities using manual pentesting.",
     cycleParagraph3:
-      "These experts review the findings manually, looking for inconsistencies " +
-      "and typos and discarding potential False Positives. They assess the validity " +
-      "and reliability of the results before showing them to you.",
+      "Our experts review the findings manually, discard potential false positives " +
+      "and assess the validity of results before showing them to you.",
     cycleParagraph4:
-      "The Escapes Team seeks to mitigate the presence of False Negatives " +
-      "by performing gray box testing, playing the role of an external attacker while looking " +
-      "for vulnerabilities that may go unnoticed by the Attack Team.",
+      "Our experts seek to reduce false negatives by performing gray-box testing, " +
+      "looking for vulnerabilities that went unnoticed by the Attack Team.",
     cycleParagraph5:
-      "Once we discover a vulnerability in your software, you can fix it to avoid " +
-      "or mitigate possible consequences. The Reattack Team evaluates the implemented solution's " +
-      "effectiveness and whether new vulnerabilities were created in the process of remediation.",
+      "Our experts evaluate the effectiveness of your solution to a vulnerability " +
+      "and whether more vulnerabilities emerged due to the implementation.",
     cycleTitle0: "Automated Deterministic Attack",
     cycleTitle1: "Triage",
     cycleTitle2: "Attack",

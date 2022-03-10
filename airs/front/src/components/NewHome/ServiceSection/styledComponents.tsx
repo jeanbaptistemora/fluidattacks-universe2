@@ -92,55 +92,11 @@ const CycleParagraph = styled.p.attrs({
     roboto
     lh-15
     mt3
+    mb5
     h-cycle-paragraph
   `,
 })`
   max-width: 630px;
-  min-height: 120px;
-
-  @media (max-width: 1274px) {
-    min-height: 150px;
-  }
-
-  @media (max-width: 1061px) {
-    min-height: 170px;
-  }
-
-  @media (max-width: 1018px) {
-    min-height: 200px;
-  }
-
-  @media (max-width: 959px) {
-    min-height: 120px;
-  }
-
-  @media (max-width: 637px) {
-    min-height: 150px;
-  }
-
-  @media (max-width: 530px) {
-    min-height: 170px;
-  }
-
-  @media (max-width: 509px) {
-    min-height: 200px;
-  }
-
-  @media (max-width: 479px) {
-    min-height: 150px;
-  }
-
-  @media (max-width: 450px) {
-    min-height: 170px;
-  }
-
-  @media (max-width: 432px) {
-    min-height: 200px;
-  }
-
-  @media (max-width: 387px) {
-    min-height: 240px;
-  }
 `;
 
 const CycleControl = styled.button.attrs({
