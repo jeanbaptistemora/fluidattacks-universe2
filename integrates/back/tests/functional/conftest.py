@@ -96,6 +96,7 @@ TEST_GROUPS: Set[str] = {
     "update_organization_policies",
     "update_organization_stakeholder",
     "update_severity",
+    "update_stakeholder_phone",
     "update_toe_input",
     "update_toe_lines_attacked_lines",
     "update_toe_lines_sorts",
