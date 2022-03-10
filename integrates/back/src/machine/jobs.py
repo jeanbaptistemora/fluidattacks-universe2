@@ -197,7 +197,9 @@ async def list_(  # pylint: disable=too-many-locals
                 ),
                 stopped_at=int(
                     date_parse(job_execution.stopped_at).timestamp() * 1000
-                ),
+                )
+                if job_execution.stopped_at is not None
+                else None,
                 status="SUCCESS" if job_execution.success else "FAILED",
                 vulnerabilities=VulnerabilitiesSummary(
                     modified=_vulns[0].modified, open=_vulns[0].open
