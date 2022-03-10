@@ -202,6 +202,9 @@ export const enTranslations: ResourceKey = {
       },
     },
   },
+  app: {
+    minimumWidth: "ASM is only available on desktops",
+  },
   comments: {
     editorPlaceholder: "Add your comment here",
     noComments: "No comments",

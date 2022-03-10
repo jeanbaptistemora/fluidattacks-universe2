@@ -5,9 +5,11 @@ import {
 } from "mixpanel-browser";
 import React, { createElement, useState } from "react";
 import { render } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import { Announce } from "components/Announce";
 import { MatomoWrapper } from "components/MatomoWrapper";
 import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
@@ -19,18 +21,27 @@ import {
 } from "utils/authz/config";
 import { BugsnagErrorBoundary } from "utils/bugsnagErrorBoundary";
 import { getEnvironment } from "utils/environment";
+import { useWindowSize } from "utils/hooks";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
 import "tachyons/css/tachyons.min.css";
 import "tachyons-word-break/css/tachyons-word-break.min.css";
 
 const App: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const [user, setUser] = useState({ userEmail: "", userName: "" });
   const matomoInstance = createInstance({
     siteId: 3,
     urlBase: "https://fluidattacks.matomo.cloud",
   });
   const isProduction = getEnvironment() === "production";
+
+  // Restrict small screens while we improve the responsive layout
+  const { width } = useWindowSize();
+  const minimumWidthAllowed = 768;
+  if (width < minimumWidthAllowed) {
+    return <Announce message={t("app.minimumWidth")} />;
+  }
 
   return (
     <React.StrictMode>
