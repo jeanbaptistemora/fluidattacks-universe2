@@ -495,15 +495,18 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         )}
       </div>
       {resultSize && shoulShowResults && (
-        <p>{`${t("table.results", {
-          matches: resultSize.current,
-          total: resultSize.total,
-        })}`}</p>
+        <p>
+          {t("table.results", {
+            matches: resultSize.current,
+            total: resultSize.total,
+          })}
+        </p>
       )}
       <TableContainer rowSize={rowSize ?? "bold"}>
         <BootstrapTable
           {...baseProps}
           bootstrap4={true}
+          bordered={false}
           defaultSorted={
             _.isUndefined(defaultSorted) ? undefined : [defaultSorted]
           }
@@ -517,16 +520,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 }
           }
           filter={filterFactory()}
-          headerClasses={style.tableHeader}
-          hover={true}
+          hover={false}
           noDataIndication={handleNoData}
           pagination={
             enablePagination ? paginationFactory(paginationOptions) : undefined
           }
-          rowClasses={style.tableBody}
           rowEvents={rowEvents}
           selectRow={selectionMode as SelectRowProps<unknown>}
-          wrapperClasses={`f6 mw-100 overflow-auto ${style.tableWrapper}`}
         />
       </TableContainer>
     </div>

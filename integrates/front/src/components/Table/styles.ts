@@ -24,12 +24,12 @@ const rowSizes: Record<ITableContainerProps["rowSize"], IRowSize> = {
 };
 
 const TableContainer = styled.div.attrs({
-  className: "pa3 w-100",
+  className: "f6 overflow-auto pa3",
 })<ITableContainerProps>`
   background-color: #f4f4f6;
 
-  th,
-  td {
+  td,
+  th {
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-color: rgba(0, 0, 0, 0.2);
@@ -37,13 +37,23 @@ const TableContainer = styled.div.attrs({
     padding-right: ${(props): string => rowSizes[props.rowSize].paddingRight};
   }
 
+  td {
+    padding-top: ${(props): string => rowSizes[props.rowSize].paddingTop};
+  }
+
   th {
     font-weight: 600;
     text-align: left;
   }
 
-  td {
-    padding-top: ${(props): string => rowSizes[props.rowSize].paddingTop};
+  tr {
+    cursor: pointer;
+  }
+
+  table {
+    border-spacing: 0;
+    table-layout: auto;
+    width: 100%;
   }
 `;
 

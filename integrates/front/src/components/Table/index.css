@@ -2,43 +2,9 @@
   width: 100%;
 }
 
-:local .tableWrapper table {
-  border-spacing: 0;
-  border: none;
-  height: 100%;
-  table-layout: auto !important;
-  width: 100%;
-}
-
-:local .tableHeader input,
-.tableHeader select {
-  color: #898787;
-  background-color: white;
-  border: none;
-}
-
-:local .tableBody {
-  cursor: pointer;
-}
-
-:local .label {
-  border-radius: 0;
-  font-size: 90%;
-  font-weight: bold;
-  padding: 4px 7px;
-}
-
 :local .searchBar {
   composes: form-control from "../../utils/forms/index.css";
   height: 30px;
-}
-
-:local .tableModalContainer {
-  text-align: left;
-}
-
-:local .buttonWrapper {
-  display: inline-block;
 }
 
 :local .tableOptions {
