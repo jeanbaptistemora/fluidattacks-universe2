@@ -5029,127 +5029,127 @@
   definitions:
     "IAC-1_1":
       title: Human user identification and authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_2":
       title: Software process and device identification and authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_3":
       title: Account Management
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_5":
       title: Authenticator management
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_6":
       title: Wireless access management
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_7":
       title: Strength of password-based authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_8":
       title: Public key infraestructure (PKI) certificates
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_9":
       title: Strength of public key authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_11":
       title: Unsuccessful login attempts
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_12":
       title: System use notification
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "IAC-1_13":
       title: Access via untrusted networks
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_1":
       title: Authorization enforcement
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_2":
       title: Wireless use control
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_3":
       title: Use control for portable and mobile devices
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_4":
       title: Mobile code
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_6":
       title: Remote session termination
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_7":
       title: Concurrent session control
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_8":
       title: Auditable events
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_9":
       title: Audit storage capacity
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "UC-2_11":
       title: Timestamps
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "SI-3_1":
       title: Communication integrity
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "SI-3_2":
       title: Malicious code protection
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "SI-3_5":
       title: Input validation
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "SI-3_7":
       title: Error handling
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "SI-3_8":
       title: Session integrity
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "SI-3_9":
       title: Protection of audit information
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "DC-4_1":
       title: Information confidentiality
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "DC-4_3":
       title: Use of cryptography
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "RDF-5_1":
       title: Network segmentation
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "RDF-5_2":
       title: Zone boundary protection
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "RDF-5_3":
       title: User content filtering
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "TRE-6_1":
       title: Audit log accesibility
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "RA-7_1":
       title: Denial of service protection
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "RA-7_6":
       title: Network and security configuration settings
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "RA-7_7":
       title: Least Functionality
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "CR-1_1-RE_1":
       title: Unique identification and authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "CR-1_1-RE_2":
       title: Multifactor authentication for all interfaces
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "CR-1_7":
       title: Strength of password-based authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "CR-1_7-RE_2":
       title: Password Lifetime Restrictions for all Users
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "CR-2_1-RE_3":
       title: Permission mapping to roles
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
     "CR-3_1-RE_1":
       title: Communication authentication
-      link: https://webstore.iec.ch/publication/7031&preview=1
+      link: https://webstore.iec.ch/publication/7033
   metadata: {}
 "wassec":
   title: WASSEC
