@@ -9,6 +9,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -26,6 +27,7 @@ import {
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { statusFormatter } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/formatter";
 import {
@@ -171,6 +173,8 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       variables: { findingPolicyId: id, organizationName },
     });
   }
+  const baseUrl = "https://docs.fluidattacks.com/criteria/vulnerabilities/";
+  const criteria = _.first(name.split(".")) as string;
 
   return (
     <React.StrictMode>
@@ -180,7 +184,13 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
         }
       >
         <div className={"w-40-l w-100-m w-100"}>
-          <p className={"f5 ma1 truncate"}>{name}</p>
+          <ExternalLink
+            // eslint-disable-next-line react/forbid-component-props
+            className={"f5 ma1 truncate"}
+            href={`${baseUrl}${criteria}`}
+          >
+            {name}
+          </ExternalLink>
         </div>
         <div className={"w-20-l w-30-m w-100"}>
           <StyledText
