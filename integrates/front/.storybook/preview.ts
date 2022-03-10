@@ -1,4 +1,5 @@
 import "tachyons";
+import "../src/utils/translations/translate";
 import { Parameters } from "@storybook/api";
 import { DocsPage } from "./DocsPage";
 

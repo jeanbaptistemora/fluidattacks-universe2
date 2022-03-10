@@ -3,7 +3,7 @@ import {
   disable as mixpanelDisable,
   init as mixpanelInit,
 } from "mixpanel-browser";
-import React, { createElement, useState } from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -75,13 +75,12 @@ const App: React.FC = (): JSX.Element => {
   );
 };
 
-const extendedModule: NodeModule & {
-  hot?: { accept: () => void };
-} = module as NodeModule & {
-  hot?: { accept: () => void };
-};
-if (extendedModule.hot !== undefined) {
-  extendedModule.hot.accept();
+/**
+ * Enable Hot Module Replacement for local development
+ * @link https://webpack.js.org/concepts/hot-module-replacement/
+ */
+if (module.hot) {
+  module.hot.accept();
 }
 
 mixpanelInit("7a7ceb75ff1eed29f976310933d1cc3e");
@@ -89,4 +88,4 @@ if (getEnvironment() !== "production") {
   mixpanelDisable();
 }
 
-render(createElement(App), document.getElementById("root"));
+render(<App />, document.getElementById("root"));
