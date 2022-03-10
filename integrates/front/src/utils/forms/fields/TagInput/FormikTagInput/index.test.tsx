@@ -31,8 +31,11 @@ describe("FormikTagInput Field", (): void => {
       </Formik>
     );
 
-    expect(screen.getByRole("textbox")).toHaveAttribute("name", "tagInputTest");
-    expect(screen.getByRole("textbox")).toHaveAttribute(
+    expect(screen.getByPlaceholderText("Tag Input Test")).toHaveAttribute(
+      "name",
+      "tagInputTest"
+    );
+    expect(screen.getByPlaceholderText("Tag Input Test")).toHaveAttribute(
       "maxLength",
       MAX_LENGTH_VALUE
     );
