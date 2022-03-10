@@ -22,7 +22,6 @@ import { AdditionalInformation } from "./VulnerabilityModal";
 import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
 import { Table } from "components/Table";
 import { deleteFormatter } from "components/Table/formatters";
-import { filterFormatter } from "components/Table/headerFormatters/filterFormatter";
 import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
 import type {
@@ -250,7 +249,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       dataField: "where",
       formatter: vulnerabilityInfo,
       header: t("searchFindings.tabVuln.vulnTable.where"),
-      headerFormatter: filterFormatter,
       onSort: onSortVulns,
     },
   ];
