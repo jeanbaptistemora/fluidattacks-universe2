@@ -4,7 +4,7 @@ title: Cyberwar From Conflict in Ukraine?
 date: 2022-02-08
 subtitle: The emergence of WhisperGate as the first worrying sign
 category: attacks
-tags: cybersecurity, malware, hacking, web, vulnerability, discovery
+tags: cybersecurity, hacking, web, vulnerability, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1644364849/blog/cyberwar-ukraine/cover_cyberwar.webp
 alt: Photo by Rostislav Artov on Unsplash
 description: Although Russia has not invaded Ukraine so far, cyberattacks attributed to that world power have again been reported and could escalate into a cyberwar.
