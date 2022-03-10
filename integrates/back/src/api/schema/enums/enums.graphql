@@ -413,6 +413,8 @@ enum StakeholderRole {
   USER
   "User Manager"
   USER_MANAGER
+  "Vulnerability Manager"
+  VULNERABILITY_MANAGER
 }
 
 "notifications name enum definition"

@@ -29,6 +29,7 @@ pytestmark = [
                 "service_forces",
                 "user",
                 "user_manager",
+                "vulnerability_manager",
             ],
         ),
         (
@@ -45,6 +46,7 @@ pytestmark = [
                 "service_forces",
                 "user",
                 "user_manager",
+                "vulnerability_manager",
             ],
         ),
         (

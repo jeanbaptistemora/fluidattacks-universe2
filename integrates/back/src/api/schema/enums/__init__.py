@@ -214,6 +214,7 @@ ENUMS: Tuple[EnumType, ...] = (
             "SERVICE_FORCES": "service_forces",
             "USER": "user",
             "USER_MANAGER": "user_manager",
+            "VULNERABILITY_MANAGER": "vulnerability_manager",
         },
     ),
     EnumType(
