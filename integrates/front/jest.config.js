@@ -42,6 +42,7 @@ module.exports = {
   coverageReporters: ["text", "lcov"],
   globals: {
     "ts-jest": {
+      isolatedModules: true,
       tsconfig: {
         allowJs: true,
       },

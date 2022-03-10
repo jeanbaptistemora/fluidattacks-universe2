@@ -164,7 +164,7 @@
     "plot": "ts-node src/graphics/cli.ts",
     "start": "webpack-cli serve --config webpack.dev.config.ts",
     "test:enzyme": "npm run css && isEnzyme=true jest",
-    "test:rtl": "npm run css && isEnzyme=false jest",
+    "test:rtl": "npm run css && isEnzyme=false jest --maxWorkers=1",
     "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
     "lint:stylelint": "stylelint '**/*.css' --output-file",
     "storybook": "start-storybook -p 6006",
