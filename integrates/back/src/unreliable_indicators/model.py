@@ -43,6 +43,7 @@ ENTITIES = {
             ),
             EntityAttr.newest_vulnerability_report_date: dict(
                 dependencies={
+                    EntityDependency.approve_draft,
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
@@ -177,6 +178,11 @@ ENTITIES = {
                     EntityDependency.deactivate_root,
                     EntityDependency.move_root,
                     EntityDependency.request_vulnerabilities_verification,
+                }
+            ),
+            EntityAttr.report_date: dict(
+                dependencies={
+                    EntityDependency.approve_draft,
                 }
             ),
             EntityAttr.treatment_changes: dict(

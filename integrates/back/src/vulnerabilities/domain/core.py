@@ -961,3 +961,14 @@ async def get_last_reattack_date(
         ),
         None,
     )
+
+
+@newrelic.agent.function_trace()
+async def get_report_date(
+    loaders: Any,
+    vuln: Vulnerability,
+) -> str:
+    historic: Tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load(vuln.id)
+    return historic[0].modified_date

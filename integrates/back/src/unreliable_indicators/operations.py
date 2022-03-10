@@ -319,6 +319,11 @@ async def update_vulnerability_unreliable_indicators(
             EntityAttr.reattack_cycles
         ] = vulns_domain.get_reattack_cycles(loaders, vulnerability)
 
+    if EntityAttr.report_date in attrs_to_update:
+        indicators[EntityAttr.report_date] = vulns_domain.get_report_date(
+            loaders, vulnerability
+        )
+
     if EntityAttr.treatment_changes in attrs_to_update:
         indicators[
             EntityAttr.treatment_changes
@@ -337,6 +342,7 @@ async def update_vulnerability_unreliable_indicators(
             EntityAttr.last_requested_reattack_date
         ),
         unreliable_reattack_cycles=result.get(EntityAttr.reattack_cycles),
+        unreliable_report_date=result.get(EntityAttr.report_date),
         unreliable_treatment_changes=result.get(EntityAttr.treatment_changes),
     )
     await vulns_model.update_unreliable_indicators(
