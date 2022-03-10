@@ -43,6 +43,7 @@ from syntax_graph.syntax_readers.common import (
     null_literal as common_null_literal,
     number_literal as common_number_literal,
     string_literal as common_string_literal,
+    while_statement as common_while_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -303,5 +304,11 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "variable_declaration",
         },
         syntax_reader=c_sharp_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "while_statement",
+        },
+        syntax_reader=common_while_statement.reader,
     ),
 )
