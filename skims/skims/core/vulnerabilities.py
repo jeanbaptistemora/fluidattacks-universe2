@@ -1,9 +1,18 @@
+from ctx import (
+    CTX,
+)
 from model import (
     core_model,
 )
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
+)
+from typing import (
+    List,
+)
+from utils.repositories import (
+    get_repo_head_hash,
 )
 from utils.time import (
     format_justification_date,
@@ -38,52 +47,65 @@ def vulns_with_reattack_requested(
 def get_vulnerability_justification(
     reattacked_store: EphemeralStore,
     store: EphemeralStore,
-) -> str:
+) -> List[str]:
 
     today = get_iso_date()
-    commits = []
-    commit_hash: str = ""
+    open_vulns: List[str] = []
+    closed_vulns: List[str] = []
+    commit_hash: str = get_repo_head_hash(CTX.config.working_dir)
     line_content: str
-    justification: str = ""
-
+    open_justification: str = ""
+    closed_justification: str = ""
     if reattacked_store:
-        for reattacked_vuln in reattacked_store.iterate():
-            commit_hash = reattacked_vuln.integrates_metadata.commit_hash
-            line_content = ""
-            for vuln in store.iterate():
-                if (
-                    vuln.where == reattacked_vuln.where
-                    and vuln.what == reattacked_vuln.what
-                    and vuln.skims_metadata is not None
-                ):
-                    line_content = list(
-                        filter(
-                            lambda line: line.startswith(">"),
-                            vuln.skims_metadata.snippet.splitlines(),
-                        )
-                    )[0]
+        for vuln in store.iterate():
+            if vuln.state == core_model.VulnerabilityStateEnum.OPEN:
+                line_content = ""
+                for reattacked_vuln in reattacked_store.iterate():
+                    if (
+                        vuln.where == reattacked_vuln.where
+                        and vuln.what == reattacked_vuln.what
+                        and vuln.skims_metadata is not None
+                    ):
+                        line_content = list(
+                            filter(
+                                lambda line: line.startswith(">"),
+                                vuln.skims_metadata.snippet.splitlines(),
+                            )
+                        )[0]
 
-            if commit_hash and line_content:
-                commits.append(
-                    f"- Non-compliant code, Line {reattacked_vuln.where} \
-                    with content: {line_content}"
-                    if reattacked_vuln.where is not None
-                    else commit_hash
-                )
+                if line_content:
+                    open_vulns.append(
+                        f"- Non-compliant code, Line {vuln.where} \
+                        with content: {line_content}"
+                    )
+            else:
+                closed_vulns.append(f"- {vuln.what}")
 
-        str_commits = "\n ".join(commits)
+        str_open_vulns = "\n ".join(open_vulns) if open_vulns else ""
 
-        justification = (
+        open_justification = (
             f"Reported vulnerability is still open in commit: \
-            {commit_hash} \n {str_commits}"
-            if commits
+            {commit_hash} \n {str_open_vulns}"
+            if open_vulns
             else ""
         )
-        if justification != "":
-            justification = (
+        if open_justification:
+            open_justification = (
                 f"A reattack request was executed on \
             {format_justification_date(today).replace(' ', ' at ')}. "
-                + justification
+                + open_justification
             )
 
-    return justification
+        str_closed_vulns = "\n".join(closed_vulns)
+
+        closed_justification = (
+            f"Reattack request was executed on \
+            {format_justification_date(today).replace(' ', ' at ')}. \n \
+            Reported vulnerability on files: \n \
+            {str_closed_vulns} \n \
+            were solved in commit {commit_hash}."
+            if closed_vulns
+            else ""
+        )
+
+    return [open_justification, closed_justification]

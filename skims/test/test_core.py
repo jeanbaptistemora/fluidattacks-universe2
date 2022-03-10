@@ -390,4 +390,4 @@ async def test_vulnerability_justification() -> None:
     )
 
     assert justification
-    assert not justification_2
+    assert justification_2 == ["", ""]
