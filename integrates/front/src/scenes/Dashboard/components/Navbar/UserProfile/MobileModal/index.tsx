@@ -68,6 +68,10 @@ const MobileModal: React.FC<IMobileModalProps> = (
             setPhoneToAdd(undefined);
           }
           if (data.updateStakeholderPhone.success && isEditing) {
+            msgSuccess(
+              t("profile.mobileModal.alerts.editionSuccess"),
+              t("groupAlerts.titleSuccess")
+            );
             setIsOpenEdit(false);
             setIsEditing(false);
             setIsCodeInCurrentMobile(false);
@@ -109,15 +113,25 @@ const MobileModal: React.FC<IMobileModalProps> = (
       onCompleted: (data: IVerifyStakeholderResultAttr): void => {
         if (data.verifyStakeholder.success && isAdding) {
           msgSuccess(
-            t("profile.mobileModal.alerts.additionVerificationSuccess"),
+            t("profile.mobileModal.alerts.sendNewMobileVerificationSuccess"),
             t("groupAlerts.titleSuccess")
           );
           setIsCodeInNewMobile(true);
         }
         if (data.verifyStakeholder.success && isOpenEdit && !isEditing) {
+          msgSuccess(
+            t(
+              "profile.mobileModal.alerts.sendCurrentMobileVerificationSuccess"
+            ),
+            t("groupAlerts.titleSuccess")
+          );
           setIsCodeInCurrentMobile(true);
         }
         if (data.verifyStakeholder.success && isEditing) {
+          msgSuccess(
+            t("profile.mobileModal.alerts.sendNewMobileVerificationSuccess"),
+            t("groupAlerts.titleSuccess")
+          );
           setIsCodeInNewMobile(true);
         }
       },

@@ -1494,15 +1494,20 @@ export const enTranslations: ResourceKey = {
     mobileModal: {
       add: "Add",
       alerts: {
-        additionSuccess: "Phone has been added.",
-        additionVerificationSuccess:
-          "A verification code has been sent to your new mobile.",
+        additionSuccess: "Mobile has been added.",
+
+        editionSuccess: "Mobile has been updated.",
+
         invalidVerificationCode: "The verification code is invalid",
         nonSentVerificationCode:
           "Check your mobile number and retry in a minute",
         nonVerifiedStakeholder: "Stakeholder could not be verified",
         requiredMobile: "A mobile number is required",
         requiredVerificationCode: "A verification code is required",
+        sendCurrentMobileVerificationSuccess:
+          "A verification code has been sent to your mobile.",
+        sendNewMobileVerificationSuccess:
+          "A verification code has been sent to your new mobile.",
       },
       close: "Close",
       edit: "Edit",
