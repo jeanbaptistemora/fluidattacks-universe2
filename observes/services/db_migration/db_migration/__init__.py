@@ -89,28 +89,51 @@ EPHEMERAL_SCHEMAS = frozenset(
 )
 
 
+def _schema_filter(schema: SchemaId) -> bool:
+    return all(
+        [
+            not schema.name.startswith("pg_"),
+            not schema.name.startswith("dynamodb_"),
+            not schema.name.endswith("backup"),
+            not schema.name == "information_schema",
+            not schema.name in EPHEMERAL_SCHEMAS,
+        ]
+    )
+
+
 @dataclass(frozen=True)
 class Exporter:
     table_client_r: TableClient
     table_client_w: TableClient
     schema_client_r: SchemaClient
+    schema_client_w: SchemaClient
     bucket: str
     role: str
 
     def export_table(self, table: TableId) -> Cmd[ManifestId]:
+        msg = Cmd.from_cmd(lambda: LOG.info("Exporting %s...", table))
+
+        def msg_done(m: ManifestId) -> Cmd[ManifestId]:
+            _msg = Cmd.from_cmd(
+                lambda: LOG.info("[EXPORTED] %s -> %s", table, m.uri)
+            )
+            return _msg.map(lambda _: m)
+
+        create_schema = self.schema_client_w.create(table.schema, True)
+        create_table = self.table_client_r.get(table).bind(
+            lambda t: self.table_client_w.new(table, t)
+        )
         prefix = f"{self.bucket}/{table.schema.name}/{table.name}/"
-        return self.table_client_r.unload(table, prefix, self.role)
+        return (
+            msg
+            + create_schema
+            + create_table
+            + self.table_client_r.unload(table, prefix, self.role).bind(
+                msg_done
+            )
+        )
 
     def target_tables(self) -> Cmd[PureIter[TableId]]:
-        filter_fx: Callable[[SchemaId], bool] = lambda s: all(
-            [
-                not s.name.startswith("pg_"),
-                not s.name.startswith("dynamodb_"),
-                not s.name.endswith("backup"),
-                not s.name == "information_schema",
-                not s.name in EPHEMERAL_SCHEMAS,
-            ]
-        )
         return (
             self.schema_client_r.all_schemas()
             .bind(
@@ -119,12 +142,23 @@ class Exporter:
                         self.schema_client_r.table_ids(s).map(
                             lambda x: from_flist(tuple(x))
                         )
-                        for s in filter(filter_fx, schemas)
+                        for s in filter(_schema_filter, schemas)
                     )
                 )
             )
             .map(lambda x: from_flist(x))
             .map(lambda x: chain(x))
+        )
+
+    def import_table(self, table: TableId, manifest: ManifestId) -> Cmd[None]:
+        msg = Cmd.from_cmd(
+            lambda: LOG.info("Importing %s from %s...", table, manifest.uri)
+        )
+        msg_done = Cmd.from_cmd(lambda: LOG.info("[IMPORTED] %s", table))
+        return (
+            msg
+            + self.table_client_w.load(table, manifest, self.role)
+            + msg_done
         )
 
     def export_to_s3(self) -> Cmd[None]:
@@ -137,14 +171,10 @@ class Exporter:
             )
             .bind(lambda x: serial_merge(x))
         )
-        unload = (
-            manifests.map(
-                lambda l: tuple(
-                    self.table_client_w.load(i[0], i[1], self.role) for i in l
-                )
-            )
-            .bind(lambda x: serial_merge(x))
-            .map(lambda _: None)
+        unload = manifests.bind(
+            lambda l: from_flist(l)
+            .map(lambda i: self.import_table(i[0], i[1]))
+            .transform(consume)
         )
         return unload
 
@@ -162,6 +192,7 @@ def main(
                 TableClient(r),
                 TableClient(w),
                 SchemaClient(r),
+                SchemaClient(w),
                 "s3://observes.migration",
                 "arn:aws:iam::205810638802:role/redshift-role",
             )

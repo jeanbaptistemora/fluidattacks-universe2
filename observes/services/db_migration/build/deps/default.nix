@@ -16,12 +16,11 @@
   };
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "refs/tags/v0.2.2";
+    ref = "refs/tags/v0.4.1";
   };
   redshift = import redshift_src {
     inherit system legacy_pkgs python_version;
-    self = redshift_src;
-    path_filter = {root, ...}: root;
+    src = redshift_src;
     others = {
       fa-purity = purity.pkg;
     };
