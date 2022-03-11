@@ -607,6 +607,14 @@
       "title": "259. Lack of protection against deletion - DynamoDB"
     }
   },
+  "F266": {
+    "EN": {
+      "title": "266. Excessive Privileges - Docker"
+    },
+    "ES": {
+      "title": "266. Excessive Privileges - Docker"
+    }
+  },
   "F267": {
     "EN": {
       "title": "267. Excessive Privileges - Kubernetes"
