@@ -7,7 +7,7 @@ import { FluidIcon } from ".";
 
 const config: Meta = {
   component: FluidIcon,
-  title: "Components/FluidIcon",
+  title: "components/FluidIcon",
 };
 
 const Template: Story<IFluidIconProps> = (props): JSX.Element => (

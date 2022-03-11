@@ -6,7 +6,7 @@ import { LoadingAnimation } from ".";
 
 const config: Meta = {
   component: LoadingAnimation,
-  title: "Components/LoadingAnimation",
+  title: "components/LoadingAnimation",
 };
 
 const Template: Story = (props): JSX.Element => <LoadingAnimation {...props} />;

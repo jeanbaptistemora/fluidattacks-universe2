@@ -9,10 +9,10 @@ import { Indicators } from ".";
 
 const config: Meta = {
   component: Indicators,
-  title: "Components/Indicators",
+  title: "components/Indicators",
 };
 
-const Template: Story = (): JSX.Element => (
+const Default: Story = (): JSX.Element => (
   <Indicators>
     <Indicator icon={faDesktop} title={"Total types of vulnerabilities"}>
       {"92"}
@@ -22,8 +22,6 @@ const Template: Story = (): JSX.Element => (
     </Indicator>
   </Indicators>
 );
-
-const Default = Template.bind({});
 
 export { Default };
 export default config;

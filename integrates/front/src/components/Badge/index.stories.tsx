@@ -7,7 +7,7 @@ import { Badge } from ".";
 
 const config: Meta = {
   component: Badge,
-  title: "Components/Badge",
+  title: "components/Badge",
 };
 
 const Template: Story<React.PropsWithChildren<IBadgeProps>> = (

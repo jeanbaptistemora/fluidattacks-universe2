@@ -8,7 +8,7 @@ import { Button } from ".";
 
 const config: Meta = {
   component: Button,
-  title: "Components/Button",
+  title: "components/Button",
 };
 
 const Template: Story<PropsWithChildren<IButtonProps>> = (

@@ -2,6 +2,7 @@ import {
   ArgsTable,
   Description,
   DocsContext,
+  DocsContextProps,
   PRIMARY_STORY,
   Primary,
   Source,
@@ -9,15 +10,23 @@ import {
   Subtitle,
   Title,
 } from "@storybook/addon-docs";
-import React, { useContext } from "react";
+import { ReactFramework } from "@storybook/react";
+import React, { Context, useContext } from "react";
 
 const ImportPath = (): JSX.Element => {
-  const context = useContext(DocsContext);
-  const titleParts = context.title.split("/");
-  const componentName = titleParts[titleParts.length - 1];
-  const path = `import { ${componentName} } from "components/${componentName}"`;
+  const context = useContext(
+    DocsContext as Context<DocsContextProps<ReactFramework>>
+  );
+  const defaultStory = context.componentStories()[0];
+  const component = defaultStory.component.displayName;
+  const subcomponents = Object.keys(defaultStory.subcomponents ?? {});
+  const components = [component, ...subcomponents]
+    .sort((a, b) => a.localeCompare(b))
+    .join(", ");
+  const path = context.title;
+  const statement = `import { ${components} } from "${path}"`;
 
-  return <Source dark={true} language={"js"} code={path} />;
+  return <Source dark={true} language={"js"} code={statement} />;
 };
 
 const DocsPage = (): JSX.Element => (

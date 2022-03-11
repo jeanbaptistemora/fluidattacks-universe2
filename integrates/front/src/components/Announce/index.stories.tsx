@@ -7,7 +7,7 @@ import { Announce } from ".";
 
 const config: Meta = {
   component: Announce,
-  title: "Components/Announce",
+  title: "components/Announce",
 };
 
 const Template: Story<IAnnounceProps> = (props): JSX.Element => (

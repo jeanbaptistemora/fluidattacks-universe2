@@ -10,7 +10,7 @@ import { Button } from "components/Button";
 
 const config: Meta = {
   component: Modal,
-  title: "Components/Modal",
+  title: "components/Modal",
 };
 
 const Template: Story<PropsWithChildren<IModalProps>> = (

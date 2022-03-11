@@ -6,7 +6,7 @@ import { Logo } from ".";
 
 const config: Meta = {
   component: Logo,
-  title: "Components/Logo",
+  title: "components/Logo",
 };
 
 const Template: Story = (props): JSX.Element => <Logo {...props} />;

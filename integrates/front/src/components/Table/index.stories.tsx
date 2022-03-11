@@ -8,7 +8,7 @@ import { Table } from ".";
 
 const config: Meta = {
   component: Table,
-  title: "Components/Table",
+  title: "components/Table",
 };
 
 const Template: Story<ITableProps> = (props): JSX.Element => {
