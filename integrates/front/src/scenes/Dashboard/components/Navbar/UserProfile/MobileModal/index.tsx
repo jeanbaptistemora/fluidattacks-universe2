@@ -29,6 +29,7 @@ import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { GET_USER } from "scenes/Dashboard/queries";
 import { Col100, Row } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -238,7 +239,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
 
   return (
     <Modal open={true} title={translate.t("profile.mobileModal.title")}>
-      {(isAdding && !isCodeInCurrentMobile) || !_.isNull(phone) ? undefined : (
+      {!(isAdding && isCodeInNewMobile) && _.isNull(phone) ? (
         <Formik
           enableReinitialize={true}
           initialValues={{
@@ -263,15 +264,17 @@ const MobileModal: React.FC<IMobileModalProps> = (
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("profile.mobileModal.close")}
                   </Button>
-                  <Button type={"submit"} variant={"primary"}>
-                    {t("profile.mobileModal.add")}
-                  </Button>
+                  <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
+                    <Button type={"submit"} variant={"primary"}>
+                      {t("profile.mobileModal.add")}
+                    </Button>
+                  </Can>
                 </ModalFooter>
               </div>
             </div>
           </Form>
         </Formik>
-      )}
+      ) : undefined}
       {isAdding && isCodeInNewMobile && !_.isUndefined(phoneToAdd) ? (
         <Formik
           enableReinitialize={true}
@@ -354,15 +357,17 @@ const MobileModal: React.FC<IMobileModalProps> = (
                   <Button onClick={onClose} variant={"secondary"}>
                     {t("profile.mobileModal.close")}
                   </Button>
-                  {isOpenEdit && isCodeInCurrentMobile ? (
-                    <Button type={"submit"} variant={"primary"}>
-                      {t("profile.mobileModal.edit")}
-                    </Button>
-                  ) : (
-                    <Button onClick={handleOpenEdit} variant={"primary"}>
-                      {t("profile.mobileModal.edit")}
-                    </Button>
-                  )}
+                  <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
+                    {isOpenEdit && isCodeInCurrentMobile ? (
+                      <Button type={"submit"} variant={"primary"}>
+                        {t("profile.mobileModal.edit")}
+                      </Button>
+                    ) : (
+                      <Button onClick={handleOpenEdit} variant={"primary"}>
+                        {t("profile.mobileModal.edit")}
+                      </Button>
+                    )}
+                  </Can>
                 </ModalFooter>
               </div>
             </div>

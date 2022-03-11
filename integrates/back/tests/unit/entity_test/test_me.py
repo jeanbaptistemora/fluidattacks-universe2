@@ -49,6 +49,8 @@ async def test_me() -> None:
     assert result["data"]["me"]["role"] == "user"
     assert sorted(result["data"]["me"]["permissions"]) == [
         "api_mutations_sign_post_url_requester_mutate",
+        "api_mutations_update_stakeholder_phone_mutate",
+        "api_mutations_verify_stakeholder_mutate",
         "api_mutations_virus_scan_file_mutate",
         "api_resolvers_query_internal_names_resolve",
     ]

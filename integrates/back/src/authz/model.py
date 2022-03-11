@@ -1112,6 +1112,8 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_query_internal_names_resolve",
             "api_mutations_sign_post_url_requester_mutate",
+            "api_mutations_update_stakeholder_phone_mutate",
+            "api_mutations_verify_stakeholder_mutate",
             "api_mutations_virus_scan_file_mutate",
         },
         tags={
@@ -1122,6 +1124,8 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_query_internal_names_resolve",
             "api_mutations_sign_post_url_requester_mutate",
+            "api_mutations_update_stakeholder_phone_mutate",
+            "api_mutations_verify_stakeholder_mutate",
             "api_mutations_virus_scan_file_mutate",
         },
         tags=set(),
