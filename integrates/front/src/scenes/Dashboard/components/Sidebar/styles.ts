@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import preloader from "resources/loading.gif";
-
 const SidebarContainer = styled.aside.attrs({
   className: "flex flex-column overflow-x-hidden",
 })`
@@ -16,12 +14,4 @@ const SidebarMenu = styled.ul.attrs({
   className: "flex-auto list mt2 pl0",
 })``;
 
-const Preloader = styled.img.attrs({
-  alt: "Loading animation",
-  className: "ml-auto",
-  src: preloader,
-})`
-  width: 100px;
-`;
-
-export { Preloader, SidebarContainer, SidebarMenu };
+export { SidebarContainer, SidebarMenu };

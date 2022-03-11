@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Preloader, SidebarContainer, SidebarMenu } from "./styles";
+import { SidebarContainer, SidebarMenu } from "./styles";
 
+import { LoadingAnimation } from "components/LoadingAnimation";
 import { Logo } from "components/Logo";
 import { useApolloNetworkStatus } from "utils/apollo";
 
@@ -20,7 +21,7 @@ const Sidebar: React.FC = (): JSX.Element => {
           </Link>
         </li>
       </SidebarMenu>
-      {isLoading ? <Preloader /> : undefined}
+      {isLoading ? <LoadingAnimation /> : undefined}
     </SidebarContainer>
   );
 };
