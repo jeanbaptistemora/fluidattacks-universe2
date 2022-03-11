@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import { identify, people, register } from "mixpanel-browser";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
@@ -90,7 +91,13 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const { data } = useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
-      user.setUser({ userEmail: me.userEmail, userName: me.userName });
+      user.setUser({
+        userEmail: me.userEmail,
+        userIntPhone: _.isNil(me.phone)
+          ? undefined
+          : `+${me.phone.callingCountryCode}${me.phone.nationalNumber}`,
+        userName: me.userName,
+      });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
       identify(me.userEmail);
       register({

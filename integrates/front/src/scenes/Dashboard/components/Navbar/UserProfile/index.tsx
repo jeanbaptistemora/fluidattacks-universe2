@@ -46,7 +46,7 @@ interface IUserProfileProps {
 export const UserProfile: React.FC<IUserProfileProps> = ({
   userRole,
 }: IUserProfileProps): JSX.Element => {
-  const { userEmail, userName } = useContext(authContext);
+  const { userEmail, userName, userIntPhone } = useContext(authContext);
   const { t } = useTranslation();
   const { push } = useHistory();
 
@@ -118,6 +118,14 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               <b>{userName}</b>
               <br />
               {userEmail}
+              {_.isUndefined(userIntPhone) ? undefined : (
+                <React.Fragment>
+                  <br />
+                  {t("navbar.mobile")}
+                  {":"}&nbsp;
+                  {userIntPhone}
+                </React.Fragment>
+              )}
               {userRole === undefined ? undefined : (
                 <React.Fragment>
                   <br />

@@ -11,6 +11,10 @@ interface IUser {
   me: {
     isConcurrentSession: boolean;
     permissions: string[];
+    phone: {
+      callingCountryCode: string;
+      nationalNumber: string;
+    } | null;
     remember: boolean;
     sessionExpiration: string;
     userEmail: string;

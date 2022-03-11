@@ -27,6 +27,7 @@ import { VerificationCodeField } from "./VerificationCodeField";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
+import { GET_USER } from "scenes/Dashboard/queries";
 import { Col100, Row } from "styles/styledComponents";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
@@ -104,7 +105,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
             }
           });
         },
-        refetchQueries: [GET_STAKEHOLDER_PHONE],
+        refetchQueries: [GET_STAKEHOLDER_PHONE, GET_USER],
       }
     );
   const [handleVerifyStakeholder] = useMutation<IVerifyStakeholderResultAttr>(

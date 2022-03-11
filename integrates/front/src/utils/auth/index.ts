@@ -6,6 +6,7 @@ import { translate } from "utils/translations/translate";
 
 interface IUser {
   userEmail: string;
+  userIntPhone?: string;
   userName: string;
 }
 

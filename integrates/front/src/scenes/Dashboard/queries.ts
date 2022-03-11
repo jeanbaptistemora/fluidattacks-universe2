@@ -80,6 +80,10 @@ const GET_USER: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       isConcurrentSession
       permissions
+      phone {
+        callingCountryCode
+        nationalNumber
+      }
       remember
       role
       sessionExpiration

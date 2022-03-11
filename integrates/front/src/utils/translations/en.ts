@@ -1180,6 +1180,7 @@ export const enTranslations: ResourceKey = {
       text: "Log out",
       tooltip: "Log out of ASM",
     },
+    mobile: "Mobile",
     newsTooltip: "Latest updates about ASM",
     role: "Role:",
     searchPlaceholder: "Search group",
