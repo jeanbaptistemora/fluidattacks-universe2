@@ -139,7 +139,7 @@
       unauthorized actions
       in name of the user (impersonation)
       and a loss of traceability
-      of the impersonated user's actions
+      of the impersonated users actions
       <<r1, ^[1]^>> <<r2, ^[2]^>>.
   es:
     title: Gestionar sesiones concurrentes
@@ -2337,7 +2337,7 @@
   metadata: {}
 "096":
   en:
-    title: Set users' required privileges
+    title: Set users required privileges
     summary: >
       The privileges required
       by the users who will access
@@ -2747,7 +2747,7 @@
     summary: >
       The system must provide
       a secure mechanism
-      to regenerate a user's password.
+      to regenerate a users password.
     description: >
       Passwords are identity
       assertion elements
@@ -2755,7 +2755,7 @@
       or forgotten.
       Additionally,
       they can be leaked
-      as a result of a user's actions
+      as a result of a users actions
       or a breach in the system.
       Thus,
       systems should have
@@ -3601,12 +3601,12 @@
   en:
     title: Protect system cryptographic keys
     summary: >
-      The system's private asymmetric
+      The systems private asymmetric
       or symmetric keys
       must be protected
       and should not be exposed.
     description: >
-      The system's cryptographic keys
+      The systems cryptographic keys
       are essential for maintaining
       the confidentiality
       and integrity of transactions
@@ -3735,12 +3735,12 @@
   en:
     title: Use pre-existent mechanisms
     summary: >
-      The system's cryptographic functions
+      The systems cryptographic functions
       must be implemented
       with pre-existing
       and up-to-date cryptographic mechanisms.
     description: >
-      The system's cryptographic functions
+      The systems cryptographic functions
       are essential for maintaining
       the confidentiality
       and integrity of transactions
@@ -4518,7 +4518,7 @@
       which can cause unexpected
       behaviors in the system.
 
-      The system's source code
+      The systems source code
       is safer when good programming practices
       are implemented
       from the development stage,
@@ -4800,10 +4800,10 @@
       are very sensitive information
       because they contain credentials
       that often have high privileges
-      over the system's database.
+      over the systems database.
       Thus,
       these strings should not be part
-      of the system's source code
+      of the systems source code
       and should not be stored in plain text.
       They should be encrypted
       using a secure cryptographic algorithm
@@ -5912,7 +5912,7 @@
       the purpose of personal data collection
       (OECD.9, ISACA.G31.3.),
       and it must do so before
-      requesting the user's consent
+      requesting the users consent
       for the collection.
     description: >
       Applications usually request
@@ -6030,7 +6030,7 @@
     title: Configure communication protocols
     summary: >
       The system must keep
-      mobile devices' communication
+      mobile devices communication
       protocols hidden,
       protected with credentials
       or turned off.
@@ -7016,7 +7016,7 @@
       If the user wants to recover
       a lost or forgotten password,
       the system must ascertain
-      the user's ownership
+      the users ownership
       of the corresponding account.
   es:
     title: Establecer recuperación segura
@@ -7431,7 +7431,7 @@
       The organization must filter
       the content of websites accessed
       from a location belonging
-      to the same entity (Output 'Proxy').
+      to the same entity (Output Proxy).
     description: __empty__
   es:
     title: Filtrar contenido de página web
@@ -7441,7 +7441,7 @@
       a los que se accede
       desde una ubicación
       que pertenece a la misma entidad
-      (Output 'Proxy').
+      (Output Proxy).
     description: __empty__
   category: Networks
   supported_in:
@@ -7537,7 +7537,7 @@
       an initiated session to be accessed.
       These sections should contain
       neither sensitive corporate information
-      nor users' or employees' personal data.
+      nor users or employees personal data.
       Furthermore,
       corporate sensitive information
       should not be exposed
@@ -8340,7 +8340,7 @@
     title: Request user consent
     summary: >
       The system must request
-      the user's consent
+      the users consent
       whenever it will collect
       any information about them
       or their actions.
@@ -8357,7 +8357,7 @@
       interactions with the application.
       Regulations demand
       that none of these collections
-      occur without the user's consent,
+      occur without the users consent,
       that this consent be demonstrable
       afterwards and that it only be
       requested after having informed
@@ -8445,7 +8445,7 @@
       with the application.
       Regulations demand
       that none of these collections
-      occur without the user's consent
+      occur without the users consent
       and that this consent
       be demonstrable afterwards.
       Therefore,
@@ -8505,7 +8505,7 @@
       with the application.
       Regulations demand
       that none of these collections
-      occur without the user's consent
+      occur without the users consent
       and that this consent
       be demonstrable afterwards.
       Regulations also demand
@@ -9024,7 +9024,7 @@
   en:
     title: Make authentication options equally secure
     summary: >
-      All of the system's authentication pathways
+      All of the systems authentication pathways
       and identity management APIs
       must be equally secure.
     description: >
@@ -9319,7 +9319,7 @@
       a file size greater than
       their source counterpart,
       which can eventually affect
-      a repository's performance.
+      a repositorys performance.
       Changes done to them are often
       hard to track for versioning tools
       or make no sense for a reviewer.
@@ -9989,7 +9989,7 @@
       Password hints often
       offer enough information
       for an attacker to guess
-      a user's password.
+      a users password.
       Answers to secret questions
       are sometimes information
       that is publicly available
@@ -10575,7 +10575,7 @@
       prevents a vast majority
       of injection attacks.
       Its implementation includes
-      validations of request parameters' content,
+      validations of request parameters content,
       length and amount.
       This increases the defenses
       against HTTP parameter pollution attacks
@@ -10641,7 +10641,7 @@
     title: Respect the Do Not Track header
     summary: >
       The system must respect
-      the user's chosen value
+      the users chosen value
       for the Do Not Track (DNT) header.
     description: >
       Systems usually request
@@ -10650,10 +10650,10 @@
       or collect it based on their
       interactions with the application.
       The DNT header holds information
-      about a user's preference regarding
+      about a users preference regarding
       being tracked by the websites they visit.
       Websites often ignore this header
-      and proceed to track the user's activities,
+      and proceed to track the users activities,
       which could represent a privacy violation
       if no consent is requested.
   es:
@@ -11531,7 +11531,7 @@
       with the application.
       Regulations demand that none
       of these collections occur
-      without the user's consent,
+      without the users consent,
       and that it not be stored
       for more time than strictly necessary.
       Therefore,
@@ -12132,7 +12132,7 @@
       Access codes, tokens or credentials
       should be removed from client-side
       applications.
-      If it's needed,
+      If its needed,
       the associated service should
       support Access Control Lists
       based on the expected origin.
