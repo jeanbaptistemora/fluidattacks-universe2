@@ -1,10 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import waitForExpect from "wait-for-expect";
+import { useTranslation } from "react-i18next";
 
 import { AddOrganizationModal } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal";
 import {
@@ -36,6 +34,8 @@ describe("Add organization modal", (): void => {
   it("should render component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
+
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -50,41 +50,30 @@ describe("Add organization modal", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+
+    render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <AddOrganizationModal onClose={handleCloseModal} open={true} />
       </MockedProvider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("Formik").find("input").prop("value")).toBe(
-          "ESDEATH"
-        );
-      });
+    await waitFor((): void => {
+      expect(screen.getByRole("textbox")).toHaveAttribute("value", "ESDEATH");
     });
 
-    expect(wrapper.find({ name: "name" }).find("input").prop("disabled")).toBe(
-      true
-    );
+    expect(screen.getByRole("textbox")).toBeDisabled();
 
-    const cancelButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Cancel")
-      )
-      .first();
+    fireEvent.click(screen.getByText(t("confirmmodal.cancel").toString()));
 
-    cancelButton.simulate("click");
-
-    expect(handleCloseModal).toHaveBeenCalledWith(expect.anything());
+    await waitFor((): void => {
+      expect(handleCloseModal).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("should create an organization", async (): Promise<void> => {
     expect.hasAssertions();
+
+    const { t } = useTranslation();
 
     const mocks: MockedResponse[] = [
       {
@@ -119,32 +108,25 @@ describe("Add organization modal", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <AddOrganizationModal onClose={handleCloseModal} open={true} />
       </MockedProvider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find({ name: "name" }).find("input").prop("value")).toBe(
-          "ESDEATH"
-        );
-      });
+    await waitFor((): void => {
+      expect(screen.getByRole("textbox")).toHaveAttribute("value", "ESDEATH");
     });
 
-    wrapper.find("Formik").simulate("submit");
+    expect(screen.getByRole("textbox")).toBeDisabled();
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+    fireEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
 
-        expect(handleCloseModal).toHaveBeenCalledWith(expect.anything());
-        expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/esdeath/");
-      });
+    await waitFor((): void => {
+      expect(handleCloseModal).toHaveBeenCalledTimes(1);
+    });
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/esdeath/");
     });
   });
 });
