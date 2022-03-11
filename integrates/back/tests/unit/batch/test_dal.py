@@ -112,23 +112,9 @@ async def test_put_action_to_dynamodb() -> None:
         additional_info="XLS",
     )
     key_1 = await batch_dal.put_action_to_dynamodb(**item_1)
-    item_2 = dict(
-        action_name="handle_virus_scan",
-        entity="file_name",
-        subject="integratesmanager@gmail.com",
-        additional_info="oneshottest",
-        time=time,
-        queue="dedicated_soon",
-    )
-    key_2 = await batch_dal.put_action_to_dynamodb(**item_2)
-
     action_1 = await batch_dal.get_action(action_dynamo_pk=key_1)
-
-    action_2 = await batch_dal.get_action(action_dynamo_pk=key_2)
     assert action_1.queue == "spot_soon"
-    assert action_2.queue == "dedicated_soon"
     assert await batch_dal.is_action_by_key(key=action_1.key)
-    assert await batch_dal.is_action_by_key(key=action_2.key)
     assert await batch_dal.delete_action(
         action_name="report",
         additional_info="XLS",
@@ -136,12 +122,4 @@ async def test_put_action_to_dynamodb() -> None:
         subject="integratesmanager@gmail.com",
         time=time,
     )
-    assert await batch_dal.delete_action(
-        action_name="handle_virus_scan",
-        entity="file_name",
-        subject="integratesmanager@gmail.com",
-        additional_info="oneshottest",
-        time=time,
-    )
     assert not await batch_dal.is_action_by_key(key=action_1.key)
-    assert not await batch_dal.is_action_by_key(key=action_2.key)
