@@ -14,7 +14,7 @@ from custom_types import (
 from db_model.enums import (
     Notification,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from mailer.utils import (
@@ -45,14 +45,20 @@ async def send_mail_access_granted(
 
 
 async def send_mail_daily_digest(
-    email_to: List[str], context: MailContentType
+    loaders: Any, email_to: List[str], context: MailContentType
 ) -> None:
     date = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d")
     # Unique number needed to avoid the email client generating unwanted html
     # code in the template
     context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
+    users: Tuple[User, ...] = await loaders.user.load_many(email_to)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.DAILY_DIGEST in user.notifications_preferences.email
+    ]
     await send_mails_async(
-        email_to,
+        users_email,
         context,
         DIGEST_TAG,
         f"Daily Digest ({date})",

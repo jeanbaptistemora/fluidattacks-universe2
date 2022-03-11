@@ -11,6 +11,7 @@ from custom_types import (
     SimplePayload,
 )
 from db_model.enums import (
+    Notification,
     Source,
 )
 from db_model.findings.types import (
@@ -69,7 +70,7 @@ async def mutate(
         user: User = await info.context.loaders.user.load(user_email)
         if (
             requests_utils.get_source_new(info.context) != Source.MACHINE
-            and "NEW_DRAFT" in user.notifications_preferences.email
+            and Notification.NEW_DRAFT in user.notifications_preferences.email
         ):
             finding: Finding = await finding_loader.load(finding_id)
             schedule(

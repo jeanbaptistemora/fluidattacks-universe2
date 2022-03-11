@@ -316,7 +316,12 @@ async def _send_digest_report(
         )
         return
 
-    await groups_mail.send_mail_daily_digest([user_email], user_stats)
+    user_loaders = loaders if loaders else get_new_context()
+    await groups_mail.send_mail_daily_digest(
+        user_loaders,
+        [user_email],
+        user_stats,
+    )
 
 
 async def _send_user_to_entity_report(
