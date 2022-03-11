@@ -19,20 +19,21 @@ def get_var_type(args: SyntaxReaderArgs, var_type: str = "") -> str:
             args.graph, args.n_id, "package_identifier", "type_identifier"
         )
         package_id = match["package_identifier"]
-        var_type = get_var_type(
-            args.fork_n_id(match["type_identifier"]),
-            f"{var_type}{args.graph.nodes[package_id]['label_text']}.",
-        )
+        if nid := match["type_identifier"]:
+            var_type = get_var_type(
+                args.fork_n_id(nid),
+                f"{var_type}{args.graph.nodes[package_id]['label_text']}.",
+            )
     elif label_type == "pointer_type":
         # Pointer type, e.g. *int, *http.ResponseWriter
         match = g.match_ast(args.graph, args.n_id, "*", "__0__")
-        var_type = get_var_type(args.fork_n_id(match["__0__"]), "*")
+        if nid := match["__0__"]:
+            var_type = get_var_type(args.fork_n_id(nid), "*")
     elif label_type == "slice_type":
         # Array type, e.g. []int, []string
         match = g.match_ast(args.graph, args.n_id, "[", "]", "__0__")
-        var_type = get_var_type(
-            args.fork_n_id(match["__0__"]), f"{var_type}[]"
-        )
+        if nid := match["__0__"]:
+            var_type = get_var_type(args.fork_n_id(nid), f"{var_type}[]")
     elif label_type == "map_type":
         # Map types, e.g. map[string]int, map[int]http.Request
         match = g.match_ast(
