@@ -4,12 +4,7 @@
   spreading is the technique used by react-bootstrap-table2 creators to pass
   down props
   */
-import {
-  faEraser,
-  faMinus,
-  faSearchMinus,
-  faSearchPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearchMinus, faSearchPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
@@ -24,6 +19,7 @@ import { Search } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
 import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
+import { Filters } from "./Filters";
 import { TableContainer } from "./styles";
 
 import { Button } from "components/Button";
@@ -33,25 +29,13 @@ import style from "components/Table/index.css";
 import { SizePerPageRenderer } from "components/Table/sizePerPageRenderer";
 import type {
   ICustomSearchProps,
-  IFilterProps,
   ITableWrapperProps,
 } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ButtonGroup,
   ButtonToolbarRow,
-  Filters,
-  FlexAutoContainer,
-  InputDateRange,
-  InputNumber,
-  InputRange,
-  InputText,
-  RangeContainer,
   SearchText,
-  Select,
-  SelectContainer,
-  SelectDate,
-  Small,
   TableOptionsColBar,
 } from "styles/styledComponents";
 
@@ -118,11 +102,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   function handleNoData(): string {
     return t("table.noDataIndication");
   }
-  function handleClearFiltersButton(): void {
-    if (!_.isUndefined(clearFiltersButton)) {
-      clearFiltersButton();
-    }
-  }
 
   const enablePagination = dataset.length > pageSize;
 
@@ -141,183 +120,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     ),
     sizePerPageRenderer:
       SizePerPageRenderer as unknown as PaginationOptions["sizePerPageRenderer"],
-  };
-
-  const filterOption = (filter: IFilterProps): JSX.Element => {
-    const {
-      defaultValue,
-      onChangeSelect,
-      onChangeInput,
-      rangeProps,
-      selectOptions,
-      placeholder = "",
-      tooltipId,
-      translateSelectOptions = true,
-      type,
-    } = filter;
-
-    function handleChangeSelect(
-      event: React.ChangeEvent<HTMLSelectElement>
-    ): void {
-      event.stopPropagation();
-      if (onChangeSelect) {
-        onChangeSelect(event);
-      }
-    }
-    function handleChangeInput(
-      event: React.ChangeEvent<HTMLInputElement>
-    ): void {
-      event.stopPropagation();
-      if (onChangeInput) {
-        onChangeInput(event);
-      }
-    }
-    function handleChangeMax(event: React.ChangeEvent<HTMLInputElement>): void {
-      event.stopPropagation();
-      if (rangeProps?.onChangeMax) {
-        rangeProps.onChangeMax(event);
-      }
-    }
-    function handleChangeMin(event: React.ChangeEvent<HTMLInputElement>): void {
-      event.stopPropagation();
-      if (rangeProps?.onChangeMin) {
-        rangeProps.onChangeMin(event);
-      }
-    }
-
-    if (type === "date")
-      return (
-        <SelectDate
-          onChange={handleChangeInput}
-          style={
-            defaultValue === ""
-              ? {}
-              : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
-          }
-          value={defaultValue}
-        />
-      );
-    if (type === "select")
-      return (
-        <Select
-          id={`select.${tooltipId}`}
-          onChange={handleChangeSelect}
-          style={
-            defaultValue === ""
-              ? {}
-              : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
-          }
-          value={defaultValue === "" ? "__placeholder__" : defaultValue}
-        >
-          {defaultValue === "" ? (
-            <option disabled={true} hidden={true} value={"__placeholder__"}>
-              {t(placeholder)}
-            </option>
-          ) : (
-            <option value={""}>{t("table.allOptions")}</option>
-          )}
-          {Object.entries(selectOptions ?? {}).map(
-            ([key, value]): JSX.Element => (
-              <option key={value} value={key}>
-                {translateSelectOptions
-                  ? t(value.toString())
-                  : value.toString()}
-              </option>
-            )
-          )}
-        </Select>
-      );
-    if (type === "number")
-      return (
-        <InputNumber
-          min={0}
-          onChange={handleChangeInput}
-          placeholder={t(`${placeholder}`)}
-          style={
-            defaultValue === ""
-              ? {}
-              : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
-          }
-          type={"number"}
-          value={defaultValue}
-        />
-      );
-    if (type === "dateRange")
-      return (
-        <RangeContainer>
-          <InputDateRange
-            onChange={handleChangeMin}
-            style={
-              rangeProps?.defaultValue.min === ""
-                ? { maxWidth: "11rem" }
-                : {
-                    boxShadow: "0 3px 5px #2e2e38",
-                    color: "#2e2e38",
-                    maxWidth: "11rem",
-                  }
-            }
-            type={"date"}
-            value={rangeProps?.defaultValue.min}
-          />
-          <div>
-            <FontAwesomeIcon color={"gray"} icon={faMinus} />
-          </div>
-          <InputDateRange
-            onChange={handleChangeMax}
-            style={
-              rangeProps?.defaultValue.max === ""
-                ? { maxWidth: "11rem" }
-                : {
-                    boxShadow: "0 3px 5px #2e2e38",
-                    color: "#2e2e38",
-                    maxWidth: "11rem",
-                  }
-            }
-            type={"date"}
-            value={rangeProps?.defaultValue.max}
-          />
-        </RangeContainer>
-      );
-    if (type === "range")
-      return (
-        <RangeContainer>
-          <InputRange
-            onChange={handleChangeMin}
-            placeholder={"Min"}
-            step={rangeProps?.step}
-            style={
-              rangeProps?.defaultValue.min === ""
-                ? {}
-                : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
-            }
-            type={"number"}
-            value={rangeProps?.defaultValue.min}
-          />
-          <div>
-            <FontAwesomeIcon color={"gray"} icon={faMinus} />
-          </div>
-          <InputRange
-            onChange={handleChangeMax}
-            placeholder={"Max"}
-            step={rangeProps?.step}
-            style={
-              rangeProps?.defaultValue.max === ""
-                ? {}
-                : { boxShadow: "0 3px 5px #2e2e38", color: "#2e2e38" }
-            }
-            type={"number"}
-            value={rangeProps?.defaultValue.max}
-          />
-        </RangeContainer>
-      );
-
-    return (
-      <InputText
-        onChange={handleChangeInput}
-        placeholder={t(`${placeholder}`)}
-        value={defaultValue}
-      />
-    );
   };
 
   return (
@@ -444,47 +246,12 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               )}
             </div>
           ) : undefined}
-          {!_.isUndefined(isCustomFilterEnabled) && isCustomFilterEnabled && (
-            <Filters>
-              {customFiltersProps?.map(
-                (filter: IFilterProps): JSX.Element | undefined => {
-                  const {
-                    tooltipId,
-                    tooltipMessage,
-                    placeholder = "",
-                  } = filter;
-
-                  return _.isUndefined(filter.omit) || !filter.omit ? (
-                    <SelectContainer key={`container.${filter.tooltipId}`}>
-                      <TooltipWrapper
-                        id={tooltipId}
-                        message={t(tooltipMessage)}
-                        placement={"top"}
-                      >
-                        {filterOption(filter)}
-                      </TooltipWrapper>
-                      {filter.type === "dateRange" ||
-                      filter.type === "range" ? (
-                        <Small>{t(placeholder)}</Small>
-                      ) : undefined}
-                    </SelectContainer>
-                  ) : undefined;
-                }
-              )}
-
-              <FlexAutoContainer>
-                <Button
-                  className={"lh-copy fr"}
-                  onClick={handleClearFiltersButton}
-                  variant={"secondary"}
-                >
-                  <FontAwesomeIcon icon={faEraser} />
-                  &nbsp;
-                  {t("table.clearFilters")}
-                </Button>
-              </FlexAutoContainer>
-            </Filters>
-          )}
+          {isCustomFilterEnabled === true && customFiltersProps ? (
+            <Filters
+              clearFiltersButton={clearFiltersButton}
+              customFiltersProps={customFiltersProps}
+            />
+          ) : undefined}
         </div>
         {search && (
           <TableOptionsColBar>
