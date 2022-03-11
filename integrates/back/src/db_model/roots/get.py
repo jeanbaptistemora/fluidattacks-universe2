@@ -364,7 +364,7 @@ async def get_machine_executions_by_job_id(
             job_id=item["sk"].split("#")[-1],
             created_at=item["created_at"],
             started_at=item["started_at"],
-            stopped_at=item["stopped_at"],
+            stopped_at=item.get("stopped_at"),
             name=item["name"],
             queue=item["queue"],
             root_id=item["pk"].split("#")[-1],
