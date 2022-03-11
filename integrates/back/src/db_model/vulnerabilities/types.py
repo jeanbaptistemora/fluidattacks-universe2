@@ -54,7 +54,7 @@ class VulnerabilityUnreliableIndicators(NamedTuple):
 class VulnerabilityVerification(NamedTuple):
     modified_date: str
     status: VulnerabilityVerificationStatus
-    event_id: Optional[str] = None
+    event_id: str = " "
 
 
 class VulnerabilityZeroRisk(NamedTuple):
