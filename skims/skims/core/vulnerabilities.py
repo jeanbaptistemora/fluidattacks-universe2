@@ -92,7 +92,7 @@ def get_vulnerability_justification(
         if open_justification:
             open_justification = (
                 f"A reattack request was executed on \
-            {format_justification_date(today).replace(' ', ' at ')}. "
+                {format_justification_date(today).replace(' ', ' at ')}. \n"
                 + open_justification
             )
 
@@ -108,4 +108,6 @@ def get_vulnerability_justification(
             else ""
         )
 
-    return [open_justification, closed_justification]
+    justification = [open_justification, closed_justification]
+    justification = [item for item in justification if item]
+    return justification
