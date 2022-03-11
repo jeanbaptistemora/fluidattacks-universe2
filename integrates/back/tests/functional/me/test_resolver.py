@@ -15,11 +15,11 @@ from typing import (
 @pytest.mark.parametrize(
     ("email", "role", "permissions", "phone", "groups_length"),
     (
-        ("admin@gmail.com", "admin", 19, None, 0),
+        ("admin@gmail.com", "admin", 18, None, 0),
         (
             "user@gmail.com",
             "user",
-            5,
+            4,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",
@@ -31,7 +31,7 @@ from typing import (
         (
             "vulnerability_manager@gmail.com",
             "user",
-            5,
+            4,
             None,
             1,
         ),
@@ -39,7 +39,7 @@ from typing import (
         (
             "hacker@gmail.com",
             "hacker",
-            5,
+            4,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",
