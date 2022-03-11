@@ -9,15 +9,12 @@ import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import {
   GET_SUBSCRIPTIONS,
-  SUBSCRIBE_TO_ENTITY_REPORT,
-  SUBSCRIPTIONS_TO_ENTITY_REPORT,
+  UPDATE_NOTIFICATIONS_PREFERENCES,
 } from "scenes/Dashboard/containers/NotificationsView/queries";
 import type {
   ISubscriptionName,
   ISubscriptionNameDataSet,
-  ISubscriptionToEntityReport,
   ISubscriptionsNames,
-  ISubscriptionsToEntityReport,
 } from "scenes/Dashboard/containers/NotificationsView/types";
 import { Col40, RowCenter } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -38,20 +35,9 @@ const NotificationsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { data: dataEnum } = useQuery<ISubscriptionsNames>(GET_SUBSCRIPTIONS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("configuration.errorText"));
-        Logger.warning(
-          "An error occurred loading the subscriptions info",
-          error
-        );
-      });
-    },
-  });
-
-  const { data: dataSubscriptions, refetch } =
-    useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
+  const { data: dataEnum, refetch } = useQuery<ISubscriptionsNames>(
+    GET_SUBSCRIPTIONS,
+    {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(translate.t("configuration.errorText"));
@@ -61,9 +47,10 @@ const NotificationsView: React.FC = (): JSX.Element => {
           );
         });
       },
-    });
+    }
+  );
 
-  const [subscribe] = useMutation(SUBSCRIBE_TO_ENTITY_REPORT, {
+  const [updateSubscription] = useMutation(UPDATE_NOTIFICATIONS_PREFERENCES, {
     onCompleted: (): void => {
       void refetch();
     },
@@ -79,36 +66,31 @@ const NotificationsView: React.FC = (): JSX.Element => {
   });
 
   const handleSubmit = useCallback(
-    (entityName: string, isSubscribe: boolean): void => {
-      void subscribe({
+    (notificationsPreferences: string[]): void => {
+      void updateSubscription({
         variables: {
-          frequency: isSubscribe ? "DAILY" : "NEVER",
-          reportEntity: entityName,
-          reportSubject: "ALL_GROUPS",
+          notificationsPreferences,
         },
       });
     },
-    [subscribe]
+    [updateSubscription]
   );
-
-  const subscriptionsToEntity: ISubscriptionToEntityReport[] =
-    _.isUndefined(dataSubscriptions) || _.isEmpty(dataSubscriptions)
-      ? []
-      : dataSubscriptions.me.subscriptionsToEntityReport;
 
   const subscriptions: ISubscriptionName[] =
     _.isUndefined(dataEnum) || _.isEmpty(dataEnum)
       ? []
-      : dataEnum.__type.enumValues.map(
+      : dataEnum.Notifications.enumValues.map(
           (subscription: ISubscriptionName): ISubscriptionNameDataSet => {
-            const isSubscribe =
-              _.size(
-                _.filter(subscriptionsToEntity, {
-                  entity: subscription.name,
-                })
-              ) > 0;
+            const listSubscription = dataEnum.me.notificationsPreferences.email;
+            const isSubscribe = listSubscription.includes(subscription.name);
+
             function onChange(): void {
-              handleSubmit(subscription.name, !isSubscribe);
+              const newListSubs = isSubscribe
+                ? listSubscription.filter(
+                    (sub: string): boolean => !sub.includes(subscription.name)
+                  )
+                : [subscription.name, ...listSubscription];
+              handleSubmit(newListSubs);
             }
 
             return {
@@ -128,7 +110,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
           }
         );
 
-  const exceptions = ["GROUP", "ORGANIZATION", "PORTFOLIO"];
+  const exceptions = ["ACCESS_GRANTED", "GROUP_REPORT"];
 
   const filterByName = (subscription: ISubscriptionName): boolean =>
     !exceptions.includes(subscription.name);

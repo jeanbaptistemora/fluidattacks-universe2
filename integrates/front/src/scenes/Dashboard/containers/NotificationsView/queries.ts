@@ -3,45 +3,30 @@ import type { DocumentNode } from "graphql";
 
 const GET_SUBSCRIPTIONS: DocumentNode = gql`
   query GetSubscriptions {
-    __type(name: "SubscriptionReportEntity") {
+    Notifications: __type(name: "NotificationsName") {
       enumValues {
         name
       }
     }
-  }
-`;
-
-const SUBSCRIPTIONS_TO_ENTITY_REPORT: DocumentNode = gql`
-  query SubscriptionsToEntityReport {
     me {
-      subscriptionsToEntityReport {
-        entity
-        frequency
-        subject
+      notificationsPreferences {
+        email
       }
       userEmail
     }
   }
 `;
 
-const SUBSCRIBE_TO_ENTITY_REPORT: DocumentNode = gql`
-  mutation SubscribeToEntityReport(
-    $frequency: Frequency!
-    $reportEntity: SubscriptionReportEntity!
-    $reportSubject: String!
+const UPDATE_NOTIFICATIONS_PREFERENCES: DocumentNode = gql`
+  mutation UpdateNotificationsPreferences(
+    $notificationsPreferences: [NotificationsName!]!
   ) {
-    subscribeToEntityReport(
-      frequency: $frequency
-      reportEntity: $reportEntity
-      reportSubject: $reportSubject
+    updateNotificationsPreferences(
+      notificationsPreferences: { email: $notificationsPreferences }
     ) {
       success
     }
   }
 `;
 
-export {
-  GET_SUBSCRIPTIONS,
-  SUBSCRIPTIONS_TO_ENTITY_REPORT,
-  SUBSCRIBE_TO_ENTITY_REPORT,
-};
+export { GET_SUBSCRIPTIONS, UPDATE_NOTIFICATIONS_PREFERENCES };

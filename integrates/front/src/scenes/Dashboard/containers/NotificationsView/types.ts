@@ -1,15 +1,6 @@
-declare type EntityType = "digest";
-declare type FrequencyType = "daily" | "never";
-
 interface ISubscriptionNameDataSet {
   name: string;
   subscribeEmail: JSX.Element;
-}
-
-interface ISubscriptionToEntityReport {
-  entity: ISubscriptionName;
-  frequency: FrequencyType;
-  subject: string;
 }
 
 interface ISubscriptionName {
@@ -17,22 +8,14 @@ interface ISubscriptionName {
 }
 
 interface ISubscriptionsNames {
-  __type: {
+  Notifications: {
     enumValues: ISubscriptionName[];
   };
-}
-interface ISubscriptionsToEntityReport {
   me: {
-    subscriptionsToEntityReport: ISubscriptionToEntityReport[];
+    notificationsPreferences: {
+      email: string[];
+    };
   };
 }
 
-export {
-  EntityType,
-  FrequencyType,
-  ISubscriptionName,
-  ISubscriptionNameDataSet,
-  ISubscriptionsNames,
-  ISubscriptionToEntityReport,
-  ISubscriptionsToEntityReport,
-};
+export { ISubscriptionName, ISubscriptionNameDataSet, ISubscriptionsNames };
