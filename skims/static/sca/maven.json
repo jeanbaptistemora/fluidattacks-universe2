@@ -400,6 +400,9 @@
   "com.hoiio.jenkins:sms": {
     "CVE-2020-2297": ">=0 <=1.2"
   },
+  "com.hotels.styx:styx-api": {
+    "GHSA-6v7p-v754-j89v": "<=1.0.0.beta8"
+  },
   "com.hubspot.jinjava:jinjava": {
     "CVE-2018-18893": ">=0 <2.4.6",
     "CVE-2020-12668": ">=0 <2.5.4"
@@ -412,6 +415,13 @@
   "com.inflectra.spiratest.plugins:inflectra-spira-integration": {
     "CVE-2019-16543": ">=0 <=3.2.2",
     "CVE-2019-16558": ">=0 <=3.2.3"
+  },
+  "com.itextpdf:itext7-core": {
+    "GHSA-gv87-q66h-4277": "<7.1.17",
+    "GHSA-hhh6-cm2m-3fhc": "<=7.1.17"
+  },
+  "com.jason-goodwin:authentikat-jwt_2.12": {
+    "GHSA-3rhm-67j6-42jq": "<=0.4.5"
   },
   "com.jayway.jsonpath:json-path": {},
   "com.jcraft:jsch": {
@@ -426,6 +436,16 @@
   "com.jsoniter:jsoniter": {
     "CVE-2021-23441": ">=0"
   },
+  "com.kitfox.svg:svg-salamander": {
+    "GHSA-h3wv-47xm-4mg6": "<1.1.2"
+  },
+  "com.liferay.portal:release.portal.bom": {
+    "GHSA-mg53-xr8m-86hw": "<7.3.3"
+  },
+  "com.linecorp.armeria:armeria": {
+    "CVE-2021-43795": "<1.13.4",
+    "GHSA-24r8-fm9r-cpj2": "<0.97.0"
+  },
   "com.liulishuo.filedownloader:library": {
     "CVE-2018-11248": "1.7.3"
   },
@@ -433,10 +453,17 @@
     "CVE-2021-29451": ">=5.0.0 <5.2.1",
     "GHSA-6g3c-2mh5-7q6x": ">=5.0.0 <5.2.1"
   },
+  "com.mchange:c3p0": {
+    "GHSA-84p2-vf58-xhxv": "<=0.9.5.3",
+    "GHSA-q485-j897-qc27": "<=0.9.5.2"
+  },
   "com.mikesamuel:json-sanitizer": {
     "CVE-2020-13973": ">=0 <1.2.1",
     "CVE-2021-23899": ">=0 <1.2.2",
     "CVE-2021-23900": ">=0 <1.2.2"
+  },
+  "com.mintegral.msdk:alphab": {
+    "GHSA-c6p9-24rc-jr5h": "<=14.6.01"
   },
   "com.mobileenerlytics.eagle.tester:eagle-tester": {
     "CVE-2020-2129": ">=0 <=1.0.9"
@@ -452,6 +479,12 @@
   },
   "com.netflix.hollow:hollow": {
     "CVE-2021-28099": ">=0"
+  },
+  "com.netflix.priam:priam": {
+    "GHSA-f4jh-ww96-9h9j": "<=3.1.104"
+  },
+  "com.netflix.spinnaker.orca:orca-core": {
+    "CVE-2020-9298": "<8.7.0"
   },
   "com.netflix.spinnaker.orca:orca-web": {
     "CVE-2020-9298": ">=0 <8.7.0"
