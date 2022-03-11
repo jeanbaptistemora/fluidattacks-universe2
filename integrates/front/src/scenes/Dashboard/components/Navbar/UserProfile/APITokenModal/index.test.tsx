@@ -1,14 +1,10 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
+import { useTranslation } from "react-i18next";
 
-import { Title } from "components/Modal/styles";
 import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
 import {
   GET_ACCESS_TOKEN,
@@ -18,6 +14,17 @@ import type {
   IGetAccessTokenDictAttr,
   IUpdateAccessTokenAttr,
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
+import { msgError, msgSuccess } from "utils/notifications";
+
+jest.mock("../../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();
@@ -30,8 +37,10 @@ describe("Update access token modal", (): void => {
     expect(typeof APITokenModal).toStrictEqual("function");
   });
 
-  it("should render an add access token modal", async (): Promise<void> => {
+  it("should render an add access token modal", (): void => {
     expect.hasAssertions();
+
+    const { t } = useTranslation();
 
     const noAccessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: false,
@@ -53,48 +62,31 @@ describe("Update access token modal", (): void => {
       },
     ];
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mockQueryFalse}>
         <APITokenModal onClose={handleOnClose} open={true} />
       </MockedProvider>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
+    expect(
+      screen.getByText(t("updateAccessToken.title").toString())
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(t("confirmmodal.proceed").toString())
+    ).not.toBeDisabled();
+    expect(
+      screen.getByText(t("updateAccessToken.expirationTime").toString())
+    ).toBeInTheDocument();
 
-    const componentTitle: ReactWrapper = wrapper.find(Title);
+    fireEvent.click(screen.getByText(t("updateAccessToken.close").toString()));
 
-    const dateField: ReactWrapper = wrapper
-      .find({ type: "date" })
-      .find("input");
-
-    const submitButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere(
-        (element: ReactWrapper): boolean =>
-          element.contains("Proceed") && element.prop("disabled") === false
-      )
-      .first();
-
-    const closeButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Close")
-      )
-      .first();
-    closeButton.simulate("click");
-
-    expect(wrapper).toHaveLength(1);
-    expect(componentTitle.text()).toBe("Update access token");
-    expect(dateField).toHaveLength(1);
-    expect(submitButton).toHaveLength(1);
-    expect(handleOnClose).toHaveBeenCalledWith(expect.anything());
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
 
   it("should render a token creation date", async (): Promise<void> => {
     expect.hasAssertions();
+
+    const { t } = useTranslation();
 
     const accessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: true,
@@ -116,45 +108,36 @@ describe("Update access token modal", (): void => {
       },
     ];
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mockQueryTrue}>
         <APITokenModal onClose={handleOnClose} open={true} />
       </MockedProvider>
     );
 
-    expect(wrapper).toHaveLength(1);
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const tokenCreationLabel: ReactWrapper = wrapper.find("label");
-
-        const submitButton: ReactWrapper = wrapper
-          .find("button")
-          .filterWhere(
-            (element: ReactWrapper): boolean =>
-              element.contains("Proceed") && element.prop("disabled") === true
-          )
-          .first();
-
-        const revokeButton: ReactWrapper = wrapper
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.contains("Revoke current token")
-          )
-          .first();
-
-        expect(wrapper).toHaveLength(1);
-        expect(tokenCreationLabel.text()).toMatch(/Token created at:/u);
-        expect(submitButton).toHaveLength(1);
-        expect(revokeButton).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText(t("updateAccessToken.tokenCreated").toString())
+      ).toBeInTheDocument();
     });
+
+    expect(
+      screen.getByText(t("confirmmodal.proceed").toString())
+    ).toBeDisabled();
+    expect(
+      screen.queryAllByText(t("updateAccessToken.expirationTime").toString())
+    ).toHaveLength(0);
+
+    fireEvent.click(
+      screen.getByText(t("updateAccessToken.invalidate").toString())
+    );
+
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
 
   it("should render a new access token", async (): Promise<void> => {
     expect.hasAssertions();
+
+    const { t } = useTranslation();
 
     const expirationTime: string = moment()
       .add(1, "month")
@@ -218,42 +201,32 @@ describe("Update access token modal", (): void => {
       },
     ];
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mockMutation}>
         <APITokenModal onClose={handleOnClose} open={true} />
       </MockedProvider>
     );
 
-    const dateField: ReactWrapper = wrapper
-      .find({ name: "expirationTime" })
-      .find("input");
-    dateField.simulate("change", {
-      target: { name: "expirationTime", value: expirationTime },
+    fireEvent.change(screen.getByTestId("expiration-time-input"), {
+      target: { value: expirationTime },
+    });
+    fireEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+
+    await waitFor((): void => {
+      expect(
+        screen.getByText(t("updateAccessToken.accessToken").toString())
+      ).toBeInTheDocument();
     });
 
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.simulate("submit");
+    expect(msgSuccess).toHaveBeenCalledWith(
+      t("updateAccessToken.successfully"),
+      t("updateAccessToken.success")
+    );
 
-    await act(async (): Promise<void> => {
-      const delay = 200;
-      await wait(delay);
-      wrapper.update();
-    });
+    fireEvent.click(
+      screen.getByText(t("updateAccessToken.copy.copy").toString())
+    );
 
-    const newTokenLabel: ReactWrapper = wrapper
-      .find("label")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Personal Access Token")
-      );
-
-    const copyTokenButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean => element.contains("Copy"))
-      .first();
-    copyTokenButton.simulate("click");
-
-    expect(wrapper).toHaveLength(1);
-    expect(newTokenLabel).toHaveLength(1);
-    expect(copyTokenButton).toHaveLength(1);
+    expect(msgError).toHaveBeenCalledWith(t("updateAccessToken.copy.failed"));
   });
 });
