@@ -13,7 +13,6 @@ import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { AddedFileModal } from "scenes/Dashboard/components/AddedFileModal";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 import {
@@ -71,14 +70,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
   const enableButton: () => void = useCallback((): void => {
     setButtonEnabled(false);
-  }, []);
-
-  const [isFileAddedModalOpen, setFileAddedModalOpen] = useState(false);
-  const openFileAddedModal: () => void = useCallback((): void => {
-    setFileAddedModalOpen(true);
-  }, []);
-  const closeFileAddedModal: () => void = useCallback((): void => {
-    setFileAddedModalOpen(false);
   }, []);
 
   // GraphQL operations
@@ -174,7 +165,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     description: string;
     fileName: string;
     uploadDate: string;
-    virusChecked?: boolean;
   }
 
   interface IAddFiles {
@@ -206,11 +196,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const resourcesFiles: IGroupFileAttr[] = _.isNull(data.resources.files)
     ? []
     : data.resources.files;
-
-  const filesDataset: IFile[] = (resourcesFiles as IFile[]).filter(
-    (file: IFile): boolean =>
-      file.virusChecked === true || file.virusChecked === undefined
-  );
+  const filesDataset: IFile[] = resourcesFiles as IFile[];
 
   const handleUpload: (values: {
     description: string;
@@ -258,6 +244,25 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
 
       if (response.ok) {
         const resultData = await addFilesToDb({
+          onCompleted: (): void => {
+            const { addFilesToDb: mutationResults }: IAddFilesToDbResults =
+              resultData.data;
+
+            const { success } = mutationResults;
+            if (success) {
+              msgSuccess(
+                translate.t("searchFindings.tabResources.success"),
+                translate.t("searchFindings.tabUsers.titleSuccess")
+              );
+            } else {
+              msgError(translate.t("groupAlerts.errorTextsad"));
+              Logger.warning(
+                "An error occurred adding group files to the db",
+                response.json
+              );
+              enableButton();
+            }
+          },
           variables: {
             filesData: JSON.stringify([
               {
@@ -268,21 +273,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
             groupName: props.groupName,
           },
         });
-
-        const addFilesToDbResults: IAddFilesToDbResults = resultData.data;
-        if (addFilesToDbResults.addFilesToDb.success) {
-          msgSuccess(
-            translate.t("searchFindings.tabResources.success"),
-            translate.t("searchFindings.tabUsers.titleSuccess")
-          );
-        } else {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred adding group files to the db",
-            response.json
-          );
-          enableButton();
-        }
       } else {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(
@@ -293,7 +283,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       }
       enableButton();
       closeAddModal();
-      openFileAddedModal();
     }
   };
 
@@ -406,10 +395,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
           />
         )}
       </Can>
-      <AddedFileModal
-        isOpen={isFileAddedModalOpen}
-        onClose={closeFileAddedModal}
-      />
     </React.StrictMode>
   );
 };
