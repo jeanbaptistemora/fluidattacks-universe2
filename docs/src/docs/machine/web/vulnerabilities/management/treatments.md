@@ -150,14 +150,17 @@ In progress and Zero
 risk treatments.
 They can also suggest treating
 a vulnerability as **Permanently accepted**,
-but the only role that can
-approve it is the **user manager**.
+but the only roles that can
+approve it are either the **user manager**
+or the **vulnerability manager**.
 
 ![Confirmation](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_confirmation.png)
 
-The user manager can either approve
-or reject a **Permanently accepted**
-treatment request.
+Both the user manager or the
+vulnerability manager can
+either approve or reject a
+**Permanently accepted** treatment
+request.
 To do this,
 they need to select a
 vulnerability and click on the
@@ -168,9 +171,9 @@ which is only available to them.
 
 A pop-up **Observations**
 window will appear,
-where the user manager must
-provide their observation
-concerning the requested
+where the user manager or the vulnerability
+manager must provide their
+observation concerning the requested
 treatment and decide whether
 they approve or reject it.
 

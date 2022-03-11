@@ -113,7 +113,8 @@ breaking the build.
 Any team member can make the
 approval request.
 On the other hand, you can approve or
-reject only if you are a user manager.
+reject only if you are either an user
+manager or a vulnerability manager.
 You can accept a type of vulnerability
 by clicking the check mark button, which
 will change its status from **submitted**

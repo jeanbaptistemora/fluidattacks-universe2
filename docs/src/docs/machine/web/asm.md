@@ -159,10 +159,11 @@ where anyone can post and reply.
 You have group access control here
 to define who and what they can do.
 When you give access to the group,
-there are three role options available:
+there are four role options available:
 
-- User manager
 - User
+- User manager
+- Vulnerability Manager
 - Executive
 
 To get more information about it,
@@ -302,4 +303,3 @@ Some vulnerabilities
 can expose customer information;
 for context,
 we share the disclosed information in this section.
-
