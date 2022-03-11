@@ -48,6 +48,7 @@ async def test_grant_stakeholder_organization_access(
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
     ],
 )
 async def test_grant_stakeholder_organization_access_fail(

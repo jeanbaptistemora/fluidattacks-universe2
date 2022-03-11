@@ -378,6 +378,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     treatment=VulnerabilityTreatment(
                         modified_date="2018-04-08T00:45:14+00:00",
                         status=VulnerabilityTreatmentStatus.NEW,
+                        assigned=generic_data["global_vars"][
+                            "vulnerability_manager_email"
+                        ],
+                        modified_by=generic_data["global_vars"][
+                            "user_manager_email"
+                        ],
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(

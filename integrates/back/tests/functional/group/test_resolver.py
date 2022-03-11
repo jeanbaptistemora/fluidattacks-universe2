@@ -19,6 +19,7 @@ from typing import (
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
@@ -107,6 +108,7 @@ async def test_get_group(populate: bool, email: str) -> None:
         ["admin@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
 )
@@ -126,6 +128,7 @@ async def test_get_group_forces_token(populate: bool, email: str) -> None:
     [
         ["user@gmail.com", 1],
         ["user_manager@gmail.com", 1],
+        ["vulnerability_manager@gmail.com", 1],
     ],
 )
 async def test_get_assigned(populate: bool, email: str, length: int) -> None:

@@ -18,6 +18,11 @@ from typing import (
             "be09edb7-cd5c-47ed-bee4-97c645acdce8",
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
         ),
+        (
+            "vulnerability_manager@gmail.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdc10",
+            "be09edb7-cd5c-47ed-bee4-97c645acdc11",
+        ),
     ),
 )
 async def test_handle_vulnerabilities_acceptance(
