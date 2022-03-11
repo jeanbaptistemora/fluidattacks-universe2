@@ -12,6 +12,7 @@ import style from "utils/forms/index.css";
 interface IDateProps extends FieldProps {
   className?: string;
   disabled?: boolean;
+  dataTestId?: string;
   id?: string;
   input: Omit<FieldInputProps<string>, "value"> & { value: string };
 }
@@ -21,7 +22,7 @@ export const FormikDate: React.FC<IDateProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<IDateProps>
 ): JSX.Element => {
-  const { disabled, id, field } = props;
+  const { dataTestId, disabled, id, field } = props;
   const { name, onBlur, onChange } = field;
   const { value }: { value: string | undefined } = field;
 
@@ -29,6 +30,7 @@ export const FormikDate: React.FC<IDateProps> = (
     <React.Fragment>
       <input
         className={style["form-control"]}
+        data-testid={dataTestId}
         disabled={disabled}
         id={id}
         name={name}

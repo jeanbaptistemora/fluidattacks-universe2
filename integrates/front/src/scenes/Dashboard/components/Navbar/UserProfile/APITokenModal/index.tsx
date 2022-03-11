@@ -3,6 +3,7 @@ import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
@@ -24,7 +25,6 @@ import {
 } from "styles/styledComponents";
 import { FormikDate, FormikTextArea } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   isLowerDate,
@@ -37,11 +37,11 @@ interface IAPITokenModalProps {
   onClose: () => void;
 }
 
-const APITokenModal: React.FC<IAPITokenModalProps> = (
-  props: IAPITokenModalProps
-): JSX.Element => {
-  const { open, onClose } = props;
-
+const APITokenModal: React.FC<IAPITokenModalProps> = ({
+  open,
+  onClose,
+}: IAPITokenModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const msToSec: number = 1000;
   const yyyymmdd: number = 10;
 
@@ -53,12 +53,12 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
   const issuedAt: string = accessToken?.issuedAt ?? "0";
 
   const [updateAPIToken, mtResponse] = useUpdateAPIToken(refetch);
-  function handleUpdateAPIToken(values: IAccessTokenAttr): void {
+  async function handleUpdateAPIToken(values: IAccessTokenAttr): Promise<void> {
     const expTimeStamp: number = Math.floor(
       new Date(values.expirationTime).getTime() / msToSec
     );
     track("GenerateAPIToken");
-    void updateAPIToken({
+    await updateAPIToken({
       variables: { expirationTime: expTimeStamp },
     });
   }
@@ -67,33 +67,29 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
     refetch,
     onClose
   );
-  function handleInvalidateAPIToken(): void {
-    void invalidateAPIToken();
+  async function handleInvalidateAPIToken(): Promise<void> {
+    await invalidateAPIToken();
   }
 
   async function handleCopy(): Promise<void> {
     const { clipboard } = navigator;
 
     if (_.isUndefined(clipboard)) {
-      msgError(translate.t("updateAccessToken.copy.failed"));
+      msgError(t("updateAccessToken.copy.failed"));
     } else {
       await clipboard.writeText(
         mtResponse.data?.updateAccessToken.sessionJwt ?? ""
       );
       document.execCommand("copy");
       msgSuccess(
-        translate.t("updateAccessToken.copy.successfully"),
-        translate.t("updateAccessToken.copy.success")
+        t("updateAccessToken.copy.successfully"),
+        t("updateAccessToken.copy.success")
       );
     }
   }
 
   return (
-    <Modal
-      onClose={onClose}
-      open={open}
-      title={translate.t("updateAccessToken.title")}
-    >
+    <Modal onClose={onClose} open={open} title={t("updateAccessToken.title")}>
       <Formik
         enableReinitialize={true}
         initialValues={{
@@ -109,10 +105,11 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
               {!hasAPIToken && (
                 <FormGroup>
                   <ControlLabel>
-                    <b>{translate.t("updateAccessToken.expirationTime")}</b>
+                    <b>{t("updateAccessToken.expirationTime")}</b>
                   </ControlLabel>
                   <Field
                     component={FormikDate}
+                    dataTestId={"expiration-time-input"}
                     name={"expirationTime"}
                     type={"date"}
                     validate={composeValidators([
@@ -129,10 +126,10 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
             <Row>
               <Col100>
                 <ControlLabel>
-                  <b>{translate.t("updateAccessToken.message")}</b>
+                  <b>{t("updateAccessToken.message")}</b>
                 </ControlLabel>
                 <ControlLabel>
-                  <b>{translate.t("updateAccessToken.accessToken")}</b>
+                  <b>{t("updateAccessToken.accessToken")}</b>
                 </ControlLabel>
                 <Field
                   // Allow to block resizing the TextArea
@@ -145,7 +142,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                   type={"text"}
                 />
                 <Button onClick={handleCopy} variant={"secondary"}>
-                  {translate.t("updateAccessToken.copy.copy")}
+                  {t("updateAccessToken.copy.copy")}
                 </Button>
               </Col100>
             </Row>
@@ -154,7 +151,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
             {_.isUndefined(mtResponse.data) && hasAPIToken && (
               <Col100>
                 <ControlLabel>
-                  <b>{translate.t("updateAccessToken.tokenCreated")}</b>
+                  <b>{t("updateAccessToken.tokenCreated")}</b>
                   &nbsp;
                   {new Date(Number.parseInt(issuedAt, 10) * msToSec)
                     .toISOString()
@@ -169,7 +166,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
                     onClick={handleInvalidateAPIToken}
                     variant={"secondary"}
                   >
-                    {translate.t("updateAccessToken.invalidate")}
+                    {t("updateAccessToken.invalidate")}
                   </Button>
                 )}
               </ButtonToolbarLeft>
@@ -179,14 +176,14 @@ const APITokenModal: React.FC<IAPITokenModalProps> = (
             <div>
               <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
-                  {translate.t("updateAccessToken.close")}
+                  {t("updateAccessToken.close")}
                 </Button>
                 <Button
                   disabled={hasAPIToken}
                   type={"submit"}
                   variant={"primary"}
                 >
-                  {translate.t("confirmmodal.proceed")}
+                  {t("confirmmodal.proceed")}
                 </Button>
               </ModalFooter>
             </div>
