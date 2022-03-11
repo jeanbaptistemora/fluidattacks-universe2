@@ -1,11 +1,10 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
-import { Field } from "formik";
+import { PureAbility } from "@casl/ability";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import waitForExpect from "wait-for-expect";
+import { useTranslation } from "react-i18next";
 
 import { UPDATE_TOE_LINES_ATTACKED_LINES } from "./queries";
 
@@ -27,6 +26,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("handle toe lines edition modal", (): void => {
   it("should handle attacked lines edition", async (): Promise<void> => {
     expect.hasAssertions();
+
+    const { t } = useTranslation();
 
     jest.clearAllMocks();
 
@@ -75,59 +76,42 @@ describe("handle toe lines edition modal", (): void => {
         sortsRiskLevel: 80,
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...mocksMutation, ...mocksMutation, ...mocksMutation]}
-      >
-        <HandleEditionModal
-          groupName={"groupname"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          selectedToeLinesDatas={mokedToeLines}
-          setSelectedToeLinesDatas={jest.fn()}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-      }
+    render(
+      <authzPermissionsContext.Provider value={new PureAbility([])}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mocksMutation, ...mocksMutation, ...mocksMutation]}
+        >
+          <HandleEditionModal
+            groupName={"groupname"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            selectedToeLinesDatas={mokedToeLines}
+            setSelectedToeLinesDatas={jest.fn()}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
 
-    const attackedLinesFieldInput: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "attackedLines" })
-      .find("input");
-    attackedLinesFieldInput.simulate("change", {
-      target: {
-        name: "attackedLines",
-        value: 5,
-      },
-    });
-    const commentsFieldTextArea: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "comments" })
-      .find("textarea");
-    commentsFieldTextArea.simulate("change", {
-      target: {
-        name: "comments",
-        value: "This is a test of updating toe lines",
-      },
+    userEvent.clear(screen.getByRole("spinbutton"));
+    userEvent.type(screen.getByRole("spinbutton"), "5");
+    userEvent.type(
+      screen.getByRole("textbox"),
+      "This is a test of updating toe lines"
+    );
+
+    userEvent.click(
+      screen.getByText(t("group.toe.lines.editModal.procced").toString())
+    );
+
+    await waitFor((): void => {
+      expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
 
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(handleCloseModal).toHaveBeenCalledTimes(1);
-        expect(handleRefetchData).toHaveBeenCalledTimes(1);
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "group.toe.lines.editModal.alerts.success",
-          "groupAlerts.updatedTitle"
-        );
-      });
-    });
+    expect(handleCloseModal).toHaveBeenCalledTimes(1);
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "group.toe.lines.editModal.alerts.success",
+      "groupAlerts.updatedTitle"
+    );
   });
 });
