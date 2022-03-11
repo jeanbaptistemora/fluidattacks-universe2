@@ -112,6 +112,7 @@ async def test_remove_stakeholder_organization_access(
     [
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
     ],
 )
 async def test_remove_stakeholder_organization_access_fail(

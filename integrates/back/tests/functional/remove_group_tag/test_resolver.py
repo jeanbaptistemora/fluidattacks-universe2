@@ -18,6 +18,7 @@ from typing import (
         ("user_manager@gmail.com", "test3"),
         ("executive@gmail.com", "test4"),
         ("customer_manager@fluidattacks.com", "test5"),
+        ("vulnerability_manager@gmail.com", "test6"),
     ),
 )
 async def test_remove_group_tag(

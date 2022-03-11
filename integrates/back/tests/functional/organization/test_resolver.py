@@ -31,6 +31,7 @@ async def test_get_organization_ver_1(
         "reviewer@gmail.com",
         "user@gmail.com",
         "user_manager@gmail.com",
+        "vulnerability_manager@gmail.com",
     ]
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
@@ -63,6 +64,7 @@ async def test_get_organization_ver_1(
     (
         ("user@gmail.com", "user", 0),
         ("user_manager@gmail.com", "user_manager", 0),
+        ("vulnerability_manager@gmail.com", "vulnerability_manager", 0),
         ("executive@gmail.com", "executive", 0),
         ("hacker@gmail.com", "hacker", 0),
         ("reattacker@gmail.com", "reattacker", 0),

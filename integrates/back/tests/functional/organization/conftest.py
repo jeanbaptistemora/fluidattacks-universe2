@@ -24,6 +24,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "reattacker@gmail.com",
                     "user@gmail.com",
                     "user_manager@gmail.com",
+                    "vulnerability_manager@gmail.com",
                     "executive@gmail.com",
                     "customer_manager@fluidattacks.com",
                     "resourcer@gmail.com",

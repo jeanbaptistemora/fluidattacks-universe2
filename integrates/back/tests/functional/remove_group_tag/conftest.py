@@ -36,6 +36,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "test3",
                     "test4",
                     "test5",
+                    "test6",
                 ],
             },
         ],

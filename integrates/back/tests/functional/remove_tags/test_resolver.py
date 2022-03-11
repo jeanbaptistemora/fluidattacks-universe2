@@ -51,6 +51,7 @@ async def test_remove_single_tag(populate: bool) -> None:
         ["hacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["executive@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],

@@ -28,6 +28,13 @@ from typing import (
             1,
         ),
         ("user_manager@gmail.com", "user_manager", 0, None, 1),
+        (
+            "vulnerability_manager@gmail.com",
+            "user",
+            5,
+            None,
+            1,
+        ),
         ("executive@gmail.com", "executive", 0, None, 1),
         (
             "hacker@gmail.com",
@@ -88,6 +95,7 @@ async def test_get_me(
     [
         ["user@gmail.com", 1],
         ["user_manager@gmail.com", 1],
+        ["vulnerability_manager@gmail.com", 1],
     ],
 )
 async def test_get_me_assigned(
