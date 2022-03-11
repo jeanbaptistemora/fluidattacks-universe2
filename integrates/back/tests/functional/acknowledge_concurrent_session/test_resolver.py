@@ -23,6 +23,7 @@ from typing import (
         ["customer_manager@fluidattacks.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
     ],
 )
 async def test_acknowledge_concurrent_session(

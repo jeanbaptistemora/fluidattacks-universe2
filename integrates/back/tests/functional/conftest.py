@@ -136,6 +136,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     user_fluid_email: str = "user@fluidattacks.com"
     user_manager_email: str = "user_manager@gmail.com"
     user_manager_fluid_email: str = "user_manager@fluidattacks.com"
+    vuln_manager_email: str = "vulnerability_manager@gmail.com"
+    vuln_manager_fluid_email: str = "vulnerability_manager@fluidattacks.com"
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     return {
         "global_vars": {
@@ -160,6 +162,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
             "user_fluid_email": user_fluid_email,
             "user_manager_email": user_manager_email,
             "user_manager_fluid_email": user_manager_fluid_email,
+            "vulnerability_manager_email": vuln_manager_email,
+            "vulnerability_manager_fluid_email": vuln_manager_fluid_email,
             "FIN.H.060": "060. Insecure service configuration - "
             "Host verification",
             "R359": "R359. Avoid using generic exceptions.",
@@ -386,6 +390,26 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "push_tokens": [],
                     "registered": True,
                 },
+                {
+                    "email": vuln_manager_email,
+                    "first_login": "",
+                    "first_name": "",
+                    "last_login": "",
+                    "last_name": "",
+                    "legal_remember": False,
+                    "push_tokens": [],
+                    "registered": True,
+                },
+                {
+                    "email": vuln_manager_fluid_email,
+                    "first_login": "",
+                    "first_name": "",
+                    "last_login": "",
+                    "last_name": "",
+                    "legal_remember": False,
+                    "push_tokens": [],
+                    "registered": True,
+                },
             ],
             "orgs": [
                 {
@@ -413,6 +437,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                         service_forces_email,
                         service_forces_fluid_email,
                         customer_manager_fluid_email,
+                        vuln_manager_email,
+                        vuln_manager_fluid_email,
                     ],
                     "groups": [
                         "group1",
@@ -601,6 +627,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "role": "customer_manager",
                 },
                 {
+                    "level": "user",
+                    "subject": vuln_manager_email,
+                    "object": "self",
+                    "role": "user",
+                },
+                {
+                    "level": "user",
+                    "subject": vuln_manager_fluid_email,
+                    "object": "self",
+                    "role": "user",
+                },
+                {
                     "level": "group",
                     "subject": architect_email,
                     "object": "group1",
@@ -671,6 +709,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": user_manager_fluid_email,
                     "object": "group1",
                     "role": "user_manager",
+                },
+                {
+                    "level": "group",
+                    "subject": vuln_manager_email,
+                    "object": "group1",
+                    "role": "vulnerability_manager",
+                },
+                {
+                    "level": "group",
+                    "subject": vuln_manager_fluid_email,
+                    "object": "group1",
+                    "role": "vulnerability_manager",
                 },
                 {
                     "level": "group",
@@ -797,6 +847,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": user_manager_fluid_email,
                     "object": org_id,
                     "role": "user_manager",
+                },
+                {
+                    "level": "organization",
+                    "subject": vuln_manager_email,
+                    "object": org_id,
+                    "role": "user",
+                },
+                {
+                    "level": "organization",
+                    "subject": vuln_manager_fluid_email,
+                    "object": org_id,
+                    "role": "user",
                 },
                 {
                     "level": "organization",

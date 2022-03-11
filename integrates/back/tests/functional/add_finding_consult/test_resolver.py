@@ -18,6 +18,7 @@ from typing import (
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["executive@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
@@ -65,6 +66,7 @@ async def test_add_finding_consultant_fail(populate: bool, email: str) -> None:
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["executive@gmail.com"],
     ],
 )
