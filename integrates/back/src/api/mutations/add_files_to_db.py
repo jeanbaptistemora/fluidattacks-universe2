@@ -1,13 +1,6 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
-from batch.dal import (
-    put_action,
-)
-from batch.enums import (
-    Action,
-    Product,
-)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -52,20 +45,11 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
-    await put_action(
-        action=Action.HANDLE_VIRUS_SCAN,
-        entity=group_name,
-        subject=user_email,
-        additional_info=files_data[0]["file_name"],
-        queue="dedicated_soon",
-        product_name=Product.INTEGRATES,
-    )
-
     success = await add_file_to_db(new_files_data, group_name, user_email)
 
     if success:
         msg = (
-            f'Security: Added file {parameters["files_data"]}'
+            f'Security: Added file {parameters["files_data"]} '
             f"to db in group {group_name} successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)

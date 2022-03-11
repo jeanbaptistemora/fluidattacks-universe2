@@ -129,7 +129,6 @@ async def add_file_to_db(
             {
                 "fileName": file_info.get("fileName", file_info["fileName"]),
                 "description": description,
-                "virusChecked": False,
                 "uploadDate": datetime_utils.get_as_str(
                     datetime_utils.get_now(), date_format="%Y-%m-%d %H:%M"
                 ),
