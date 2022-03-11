@@ -303,6 +303,9 @@
     "CVE-2018-20318": "3.2.0",
     "CVE-2019-5312": "3.3.0"
   },
+  "com.github.blynkkk:blynk-server": {
+    "CVE-2018-17785": "<0.39.7"
+  },
   "com.github.facebook:buck": {
     "CVE-2018-6331": ">=0 <2018.06.25.01"
   },
@@ -317,6 +320,9 @@
   },
   "com.github.penggle:kaptcha": {
     "CVE-2018-18531": "2.3.2"
+  },
+  "com.github.shyiko.ktlint:ktlint-core": {
+    "CVE-2019-1010260": "<0.30.0"
   },
   "com.github.shyiko:ktlint": {
     "CVE-2019-1010260": ">=0 <0.30.0"
@@ -338,9 +344,28 @@
   "com.google.oauth-client:google-oauth-client": {
     "CVE-2020-7692": ">=0 <1.31.0"
   },
+  "com.google.protobuf:protobuf-java": {
+    "CVE-2021-22569": "<3.16.1 || >=3.18.0 <3.18.2 || >=3.19.0 <3.19.2",
+    "GHSA-wrvw-hg22-4m67": "<3.19.2"
+  },
+  "com.google.protobuf:protobuf-kotlin": {
+    "CVE-2021-22569": "<3.18.2 || >=3.19.0 <3.19.2"
+  },
+  "com.google.protobuf:protobuf-parent": {
+    "GHSA-77rm-9x9h-xj3g": "<3.15.0"
+  },
+  "com.googlecode.aviator:aviator": {
+    "GHSA-xpv2-8ppj-79hh": "<=5.2.7"
+  },
+  "com.googlecode.gwtupload:gwtupload": {
+    "GHSA-5chj-xprr-7qqx": "<=1.0.3"
+  },
   "com.googlecode.gwtupload:gwtupload-project": {
     "CVE-2020-13128": "1.0.3",
     "CVE-2020-9447": "1.0.3"
+  },
+  "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer": {
+    "CVE-2021-42575": "<20211018.2"
   },
   "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-parent": {
     "CVE-2017-15719": ">=6.0.0 <=6.28.0 || >=7.0.0 <=7.0.2 || >=7.1.0 <=7.2.1 || >=7.3.0 <=7.3.1 || >=7.4.0 <=7.9.1 || >=8.0.0-m0 <8.0.0",
@@ -354,6 +379,9 @@
     "CVE-2021-29506": ">=2.0 <2.4",
     "GHSA-hf44-3mx6-vhhw": ">=2.0 <2.4"
   },
+  "com.graphhopper:graphhopper-nav": {
+    "GHSA-hf44-3mx6-vhhw": "<2.4"
+  },
   "com.graphhopper:graphhopper-web-bundle": {
     "CVE-2021-23408": "4.0 || >=0 <3.2",
     "CVE-2021-29506": ">=2.0 <2.4",
@@ -362,6 +390,9 @@
   "com.h2database:h2": {
     "SNYK-JAVA-COMH2DATABASE-1769238": ">=0",
     "SNYK-JAVA-COMH2DATABASE-31685": "<1.4.197"
+  },
+  "com.hazelcast.jet:hazelcast-jet": {
+    "GHSA-v57x-gxfj-484q": ">=4.1 <4.5.3"
   },
   "com.hazelcast:hazelcast": {
     "CVE-2020-26168": ">=4.0 <4.0.3"
