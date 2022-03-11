@@ -5,6 +5,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -23,12 +24,12 @@ import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields/";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
-const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
-  props: IAddOrganizationModalProps
-): JSX.Element => {
-  const { open, onClose } = props;
+const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
+  open,
+  onClose,
+}: IAddOrganizationModalProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const { push } = useHistory();
 
@@ -43,11 +44,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
             message ===
             "Exception - There are no organization names available at the moment"
           ) {
-            msgError(
-              translate.t("sidebar.newOrganization.modal.namesUnavailable")
-            );
+            msgError(t("sidebar.newOrganization.modal.namesUnavailable"));
           } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
+            msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred creating an organization",
               message
@@ -69,10 +68,10 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
             OrganizationName: result.addOrganization.organization.name,
           });
           msgSuccess(
-            translate.t("sidebar.newOrganization.modal.success", {
+            t("sidebar.newOrganization.modal.success", {
               name: result.addOrganization.organization.name,
             }),
-            translate.t("sidebar.newOrganization.modal.successTitle")
+            t("sidebar.newOrganization.modal.successTitle")
           );
           push(
             `/orgs/${result.addOrganization.organization.name.toLowerCase()}/`
@@ -83,9 +82,9 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
         onClose();
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           if (message === "Access denied") {
-            msgError(translate.t("sidebar.newOrganization.modal.invalidName"));
+            msgError(t("sidebar.newOrganization.modal.invalidName"));
           } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
+            msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred creating new organization",
               message
@@ -110,7 +109,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
       <Modal
         onClose={onClose}
         open={open}
-        title={translate.t("sidebar.newOrganization.modal.title")}
+        title={t("sidebar.newOrganization.modal.title")}
       >
         <Formik
           enableReinitialize={true}
@@ -122,13 +121,11 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
             <Row>
               <FormGroup>
                 <ControlLabel>
-                  {translate.t("sidebar.newOrganization.modal.name")}
+                  {t("sidebar.newOrganization.modal.name")}
                 </ControlLabel>
                 <TooltipWrapper
                   id={"addOrgTooltip"}
-                  message={translate.t(
-                    "sidebar.newOrganization.modal.nameTooltip"
-                  )}
+                  message={t("sidebar.newOrganization.modal.nameTooltip")}
                   placement={"top"}
                 >
                   <Field
@@ -144,14 +141,14 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
               <div>
                 <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
-                    {translate.t("confirmmodal.cancel")}
+                    {t("confirmmodal.cancel")}
                   </Button>
                   <Button
                     disabled={loading || submitting}
                     type={"submit"}
                     variant={"primary"}
                   >
-                    {translate.t("confirmmodal.proceed")}
+                    {t("confirmmodal.proceed")}
                   </Button>
                 </ModalFooter>
               </div>
