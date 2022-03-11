@@ -309,141 +309,141 @@
   en:
     description: >
       The Center for Internet Security Controls
-      are a prioritized set of Safeguards
-      to mitigate the most prevalent
-      cyber-attacks against systems and networks.
-      They are mapped to and referenced
-      by multiple legal, regulatory,
-      and policy frameworks.
+      are a prioritized set of safeguards
+      to mitigate the most prevalent cyberattacks
+      against systems and networks.
+      They are mapped to
+      and referenced by multiple legal,
+      regulatory and policy frameworks.
       The version used in this section is CIS Controls v8.
   es:
     description: __empty__
   definitions:
     "2_1":
-      title: Establish and Maintain a Software Inventory
+      title: Establish and maintain a software inventory
       link: https://www.cisecurity.org/controls/
     "2_5":
-      title: Allowlist Authorized Software
+      title: Allowlist authorized software
       link: https://www.cisecurity.org/controls/
     "2_7":
-      title: Allowlist Authorized Scripts
+      title: Allowlist authorized scripts
       link: https://www.cisecurity.org/controls/
     "3_3":
-      title: Configure Data Access Control Lists
+      title: Configure data access control lists
       link: https://www.cisecurity.org/controls/
     "3_6":
-      title: Encrypt Data on End-User Devices
+      title: Encrypt data on end-user devices
       link: https://www.cisecurity.org/controls/
     "3_10":
-      title: Encrypt Sensitive Data in Transit
+      title: Encrypt sensitive data in transit
       link: https://www.cisecurity.org/controls/
     "3_11":
-      title: Encrypt Sensitive Data at Rest
+      title: Encrypt sensitive data at rest
       link: https://www.cisecurity.org/controls/
     "3_12":
-      title: Segment Data Processing and Storage Based on Sensitivity
+      title: Segment data processing and storage based on sensitivity
       link: https://www.cisecurity.org/controls/
     "4_1":
-      title: Establish and Maintain a Secure Configuration Process
+      title: Establish and maintain a secure configuration process
       link: https://www.cisecurity.org/controls/
     "4_2":
-      title: Establish and Maintain a Secure Configuration Process for Network Infrastructure
+      title: Establish and maintain a secure configuration process for network infrastructure
       link: https://www.cisecurity.org/controls/
     "4_3":
-      title: Configure Automatic Session Locking on Enterprise Assets
+      title: Configure automatic session locking on enterprise assets
       link: https://www.cisecurity.org/controls/
     "4_4":
-      title: Implement and Manage a Firewall on Servers
+      title: Implement and manage a firewall on servers
       link: https://www.cisecurity.org/controls/
     "4_5":
-      title: Implement and Manage a Firewall on End-User Devices
+      title: Implement and manage a firewall on end-user devices
       link: https://www.cisecurity.org/controls/
     "4_7":
-      title: Manage Default Accounts on Enterprise Assets and Software
+      title: Manage default accounts on enterprise assets and software
       link: https://www.cisecurity.org/controls/
     "4_8":
-      title: Uninstall or Disable Unnecessary Services on Enterprise Assets and Software
+      title: Uninstall or disable unnecessary services on enterprise assets and software
       link: https://www.cisecurity.org/controls/
     "5_1":
-      title: Establish and Maintain an Inventory of Accounts
+      title: Establish and maintain an inventory of accounts
       link: https://www.cisecurity.org/controls/
     "5_2":
-      title: Use Unique Passwords
+      title: Use unique passwords
       link: https://www.cisecurity.org/controls/
     "5_3":
-      title: Disable Dormant Accounts
+      title: Disable dormant accounts
       link: https://www.cisecurity.org/controls/
     "5_5":
-      title: Establish and Maintain an Inventory of Service Accounts
+      title: Establish and maintain an inventory of service accounts
       link: https://www.cisecurity.org/controls/
     "6_2":
-      title: Establish an Access Revoking Process
+      title: Establish an access revoking process
       link: https://www.cisecurity.org/controls/
     "6_4":
-      title: Require MFA for Remote Network Access
+      title: Require MFA for remote network access
       link: https://www.cisecurity.org/controls/
     "6_5":
-      title: Require MFA for Administrative Access
+      title: Require MFA for administrative access
       link: https://www.cisecurity.org/controls/
     "7_3":
-      title: Perform Automated Operating System Patch Management
+      title: Perform automated operating system patch management
       link: https://www.cisecurity.org/controls/
     "7_4":
-      title: Perform Automated Application Patch Management
+      title: Perform automated application patch management
       link: https://www.cisecurity.org/controls/
     "8_2":
-      title: Collect Audit Logs
+      title: Collect audit logs
       link: https://www.cisecurity.org/controls/
     "8_4":
-      title: Standardize Time Synchronization
+      title: Standardize time synchronization
       link: https://www.cisecurity.org/controls/
     "8_5":
-      title: Collect Detailed Audit Logs
+      title: Collect detailed audit logs
       link: https://www.cisecurity.org/controls/
     "9_2":
-      title: Use DNS Filtering Services
+      title: Use DNS filtering services
       link: https://www.cisecurity.org/controls/
     "9_4":
-      title: Restrict Unnecessary or Unauthorized Browser and Email Client Extensions
+      title: Restrict unnecessary or unauthorized browser and email client extensions
       link: https://www.cisecurity.org/controls/
     "9_6":
-      title: Block Unnecessary File Types
+      title: Block unnecessary file types
       link: https://www.cisecurity.org/controls/
     "9_7":
-      title: Deploy and Maintain Email Server Anti-Malware Protections
+      title: Deploy and maintain email server anti-malware protections
       link: https://www.cisecurity.org/controls/
     "10_6":
-      title: Centrally Manage Anti-Malware Software
+      title: Centrally manage anti-malware software
       link: https://www.cisecurity.org/controls/
     "12_2":
-      title: Establish and Maintain a Secure Network Architecture
+      title: Establish and maintain a secure network architecture
       link: https://www.cisecurity.org/controls/
     "12_6":
-      title: Use of Secure Network Management and Communication Protocols 
+      title: Use of secure network management and communication protocols 
       link: https://www.cisecurity.org/controls/
     "13_4":
-      title: Perform Traffic Filtering Between Network Segments
+      title: Perform traffic filtering between network segments
       link: https://www.cisecurity.org/controls/
     "13_9":
-      title: Deploy Port-Level Access Control
+      title: Deploy port-level access control
       link: https://www.cisecurity.org/controls/
     "13_10":
-      title: Perform Application Layer Filtering
+      title: Perform application layer filtering
       link: https://www.cisecurity.org/controls/
     "16_1":
-      title: Establish and Maintain a Secure Application Development Process
+      title: Establish and maintain a secure application development process
       link: https://www.cisecurity.org/controls/
     "16_4":
-      title: Establish and Manage an Inventory of Third-Party Software Components
+      title: Establish and manage an inventory of third-Party software components
       link: https://www.cisecurity.org/controls/
     "16_5":
-      title: Use Up-to-Date and Trusted Third-Party Software Components
+      title: Use up-to-date and trusted third-party software components
       link: https://www.cisecurity.org/controls/
     "16_10":
-      title: Apply Secure Design Principles in Application Architectures
+      title: Apply secure design principles in application architectures
       link: https://www.cisecurity.org/controls/
     "16_11":
-      title: Leverage Vetted Modules or Services for Application Security Components
+      title: Leverage vetted modules or services for application security components
       link: https://www.cisecurity.org/controls/
   metadata: {}
 "cwe":
@@ -3143,11 +3143,11 @@
     description: >
       The SEI CERT® Oracle® Secure Coding
       Standard for Java™ provides rules
-      designed to eliminate insecure coding
-      practices that can lead to exploitable
-      vulnerabilities.
-      This standard covers security issues.
-      Published in 2011.
+      designed to eliminate insecure coding practices
+      that can lead to exploitable vulnerabilities.
+      This standard,
+      published in 2011,
+      covers security issues.
   es:
     description: __empty__
   definitions:
@@ -3170,7 +3170,7 @@
       title: Prevent XML Injection
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
     "IDS17-J":
-      title: Prevent XML External Entity Attacks
+      title: Prevent XML External Entity attacks
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
     "NUM00-J":
       title: Detect or prevent integer overflow
