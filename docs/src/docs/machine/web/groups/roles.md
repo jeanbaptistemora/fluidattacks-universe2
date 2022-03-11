@@ -45,6 +45,27 @@ needed for solving them
 and also request reattacks
 when they deem them solved.
 
+## Vulnerability manager role
+
+The role of vulnerability
+manager was designed for
+people with a position as
+technical leaders in their
+company.
+This role has access to the
+basic privileges on the ASM
+and is also enabled to
+generate reports;
+get notifications;
+define,
+change and approve treatments;
+request reattacks,
+and add tags.
+The vulnerability manager
+**does not** have permissions
+to manage roots nor add,
+edit or remove users.
+
 ## Functions
 
 - **View vulnerabilities:**
@@ -113,17 +134,17 @@ we specify
 what functions are enabled
 for each role.
 
-|                     |User|Executive|User manager|
-|:-------------------:|:--:|:-------:|:----------:|
-|View vulnerabilities |X   |X        |X           |
-|Change treatments    |X   |X        |X           |
-|Approve treatments   |    |         |X           |
-|Request reattack     |X   |X        |X           |
-|Add tags             |X   |X        |X           |
-|Add roots            |X   |X        |X           |
-|Edit roots           |X   |X        |X           |
-|Delete group         |    |         |X           |
-|Add users            |    |         |X           |
-|Edit users           |    |         |X           |
-|Receive notifications|X   |         |X           |
-|Generate a report    |    |         |X           |
+|                     |User|Executive|Vulnerability manager|User manager|
+|:-------------------:|:--:|:-------:|:-------------------:|:----------:|
+|View vulnerabilities |X   |X        |X                    |X           |
+|Change treatments    |X   |X        |X                    |X           |
+|Approve treatments   |    |         |X                    |X           |
+|Request reattack     |X   |X        |X                    |X           |
+|Add tags             |X   |X        |X                    |X           |
+|Add roots            |X   |X        |                     |X           |
+|Edit roots           |X   |X        |                     |X           |
+|Delete group         |    |         |                     |X           |
+|Add users            |    |         |                     |X           |
+|Edit users           |    |         |                     |X           |
+|Receive notifications|X   |         |X                    |X           |
+|Generate a report    |    |         |X                    |X           |
