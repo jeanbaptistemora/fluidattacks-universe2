@@ -132,7 +132,10 @@ def format_group_state(
 def format_group(item: Item, organization_name: str) -> Group:
     state_status = (
         GroupStateStatus.ACTIVE
-        if str(item["project_status"]).upper() == GroupStateStatus.ACTIVE.value
+        if str(
+            get_key_or_fallback(item, "group_status", "project_status")
+        ).upper()
+        == GroupStateStatus.ACTIVE.value
         else GroupStateStatus.DELETED
     )
     last_configuration: Dict[str, Any] = item["historic_configuration"][-1]
@@ -154,7 +157,9 @@ def format_group(item: Item, organization_name: str) -> Group:
     return Group(
         description=item.get("description", ""),
         language=GroupLanguage[item.get("language", "en").upper()],
-        name=str(item["project_name"]).lower(),
+        name=str(
+            get_key_or_fallback(item, "group_name", "project_name")
+        ).lower(),
         organization_name=organization_name,
         state=format_group_state(
             state=current_state,
