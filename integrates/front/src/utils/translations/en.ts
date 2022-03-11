@@ -1571,11 +1571,22 @@ export const enTranslations: ResourceKey = {
       submitted: "Submitted",
     },
     enumValues: {
+      ACCESS_GRANTED: "ACCESS_GRANTED",
+      CHARTS_REPORT: "Analytics report",
       COMMENTS: "Consulting",
+      DAILY_DIGEST: "Daily digest",
       DIGEST: "Daily digest",
+      FILE_UPLOADED: "Files updates",
       GROUP: "GROUP",
+      GROUP_REPORT: "GROUP_REPORT",
+      NEW_COMMENT: "Consulting",
+      NEW_DRAFT: "Draft updates",
       ORGANIZATION: "ORGANIZATION",
       PORTFOLIO: "PORTFOLIO",
+      REMEDIATE_FINDING: "Vulnerabilities updates",
+      ROOT_MOVED: "Roots updates",
+      UPDATED_TREATMENT: "Treatment updates",
+      VULNERABILITY_ASSIGNED: "Vulnerabilities assignment",
     },
     environmentTable: {
       environment: "Environment",
@@ -1643,7 +1654,7 @@ export const enTranslations: ResourceKey = {
             "Exploitation requires user privileges, and sometimes " +
             "that the attackers reside on the same local network as their victim. It only provides minimal access.",
           none:
-            "The <strong>none</strong> rating " +
+            "<The <strong>none</strong> rating " +
             "is for vulnerabilities that cannot lead to an impact on an organization.",
         },
         tooltip: "The severity level is based on the CVSS. ",
