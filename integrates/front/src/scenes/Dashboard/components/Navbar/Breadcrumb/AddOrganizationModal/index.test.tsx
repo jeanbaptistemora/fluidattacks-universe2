@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -63,7 +64,7 @@ describe("Add organization modal", (): void => {
 
     expect(screen.getByRole("textbox")).toBeDisabled();
 
-    fireEvent.click(screen.getByText(t("confirmmodal.cancel").toString()));
+    userEvent.click(screen.getByText(t("confirmmodal.cancel").toString()));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);
@@ -120,7 +121,7 @@ describe("Add organization modal", (): void => {
 
     expect(screen.getByRole("textbox")).toBeDisabled();
 
-    fireEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

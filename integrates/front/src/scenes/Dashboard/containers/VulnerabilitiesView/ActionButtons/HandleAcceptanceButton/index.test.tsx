@@ -1,5 +1,6 @@
 import { PureAbility } from "@casl/ability";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -65,7 +66,7 @@ describe("HandleAcceptanceButtons", (): void => {
 
     expect(screen.getByText(handleAcceptanceButtonText)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText(handleAcceptanceButtonText));
+    userEvent.click(screen.getByText(handleAcceptanceButtonText));
 
     expect(openHandleAcceptance).toHaveBeenCalledTimes(1);
   });

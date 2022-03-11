@@ -1,6 +1,7 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import moment from "moment";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -78,7 +79,7 @@ describe("Update access token modal", (): void => {
       screen.getByText(t("updateAccessToken.expirationTime").toString())
     ).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText(t("updateAccessToken.close").toString()));
+    userEvent.click(screen.getByText(t("updateAccessToken.close").toString()));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
@@ -127,7 +128,7 @@ describe("Update access token modal", (): void => {
       screen.queryAllByText(t("updateAccessToken.expirationTime").toString())
     ).toHaveLength(0);
 
-    fireEvent.click(
+    userEvent.click(
       screen.getByText(t("updateAccessToken.invalidate").toString())
     );
 
@@ -207,10 +208,8 @@ describe("Update access token modal", (): void => {
       </MockedProvider>
     );
 
-    fireEvent.change(screen.getByTestId("expiration-time-input"), {
-      target: { value: expirationTime },
-    });
-    fireEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.type(screen.getByTestId("expiration-time-input"), expirationTime);
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
 
     await waitFor((): void => {
       expect(
@@ -223,7 +222,7 @@ describe("Update access token modal", (): void => {
       t("updateAccessToken.success")
     );
 
-    fireEvent.click(
+    userEvent.click(
       screen.getByText(t("updateAccessToken.copy.copy").toString())
     );
 

@@ -1,6 +1,7 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -91,7 +92,7 @@ describe("Update access token modal", (): void => {
 
     expect(screen.getByText(generateButtonText)).toBeDisabled();
 
-    fireEvent.click(screen.getByText(revealButtonText));
+    userEvent.click(screen.getByText(revealButtonText));
     await waitFor((): void => {
       expect(screen.getByText(beforeValue)).toBeInTheDocument();
     });
@@ -99,7 +100,7 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(revealButtonText)).toBeDisabled();
     expect(screen.getByText(resetButtonText)).not.toHaveAttribute("disabled");
 
-    fireEvent.click(screen.getByText(resetButtonText));
+    userEvent.click(screen.getByText(resetButtonText));
     await waitFor((): void => {
       expect(screen.getByText(afterValue)).toBeInTheDocument();
     });
@@ -140,7 +141,7 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(revealButtonText)).not.toBeDisabled();
     expect(screen.getByText(copyButtonText)).toBeDisabled();
 
-    fireEvent.click(screen.getByText(revealButtonText));
+    userEvent.click(screen.getByText(revealButtonText));
     await waitFor((): void => {
       expect(screen.getByText(revealButtonText)).toBeDisabled();
     });
@@ -189,7 +190,7 @@ describe("Update access token modal", (): void => {
     expect(screen.getByText(title)).toBeInTheDocument();
 
     // When the token is revealed and does not exist, it cannot be copied
-    fireEvent.click(screen.getByText(revealButtonText));
+    userEvent.click(screen.getByText(revealButtonText));
     await waitFor((): void => {
       expect(screen.getByText(generateButtonText)).not.toBeDisabled();
     });
@@ -198,7 +199,7 @@ describe("Update access token modal", (): void => {
 
     expect(screen.getByText(revealButtonText)).toBeDisabled();
 
-    fireEvent.click(screen.getByText(closeButtonText));
+    userEvent.click(screen.getByText(closeButtonText));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });

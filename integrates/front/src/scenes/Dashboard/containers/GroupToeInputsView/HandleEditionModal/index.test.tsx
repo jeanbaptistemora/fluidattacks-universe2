@@ -1,7 +1,8 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -83,7 +84,7 @@ describe("handle toe input edition modal", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    fireEvent.click(
+    userEvent.click(
       screen.getByText(t("group.toe.inputs.editModal.procced").toString())
     );
 
