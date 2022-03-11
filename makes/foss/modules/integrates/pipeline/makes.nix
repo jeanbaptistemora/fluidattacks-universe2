@@ -118,7 +118,6 @@ in {
               };
           })
           [
-            "0200_update_unreliable_indicators.py"
           ])
         ++ (builtins.map
           (name: {
