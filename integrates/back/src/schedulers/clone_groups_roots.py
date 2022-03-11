@@ -35,7 +35,6 @@ async def _queue_sync_git_roots(
     user_email: str,
     queue: str = "spot_soon",
     group_name: str,
-    check_existing_jobs: bool = True,
 ) -> QuequeResult:
     success = False
     message: Optional[str] = None
@@ -44,7 +43,6 @@ async def _queue_sync_git_roots(
             batch_roots.queue_sync_git_roots(
                 loaders=loaders,
                 user_email=user_email,
-                check_existing_jobs=check_existing_jobs,
                 queue=queue,
                 group_name=group_name,
             )
@@ -70,7 +68,6 @@ async def clone_groups_roots() -> None:
         result = await _queue_sync_git_roots(
             loaders=loaders,
             user_email="integrates@fluidattacks.com",
-            check_existing_jobs=False,
             queue="spot_later",
             group_name=group,
         )
