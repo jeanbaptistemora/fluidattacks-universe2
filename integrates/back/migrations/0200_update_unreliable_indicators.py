@@ -3,8 +3,8 @@
 Update unreliable indicators for findings and vulns related to report_date.
 An inconsistency is present due to a bug in the mutation approve_draft.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-03-11 at 03:45:14 UTC
+Finalization Time:  2022-03-11 at 06:46:08 UTC
 """
 
 from aioextensions import (
