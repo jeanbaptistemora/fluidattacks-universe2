@@ -111,6 +111,8 @@ async def test_get_toe_inputs(populate: bool, email: str) -> None:
         ["user@gmail.com"],
         ["user_manager@fluidattacks.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@fluidattacks.com"],
+        ["vulnerability_manager@gmail.com"],
         ["executive@fluidattacks.com"],
         ["executive@gmail.com"],
         ["customer_manager@gmail.com"],

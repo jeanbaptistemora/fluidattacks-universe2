@@ -367,6 +367,30 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     where="192.168.1.20",
                 ),
             },
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce17",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="test1@gmail.com",
+                        modified_date="2018-04-08T00:45:15+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:15+00:00",
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                    where="192.168.1.20",
+                ),
+            },
         ],
     }
     return await db.populate({**generic_data["db_data"], **data})

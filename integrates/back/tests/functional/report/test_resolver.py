@@ -20,6 +20,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["hacker@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
@@ -66,6 +67,7 @@ async def test_get_report_fail(populate: bool, email: str) -> None:
     [
         ["admin@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["hacker@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
@@ -88,6 +90,7 @@ async def test_get_report_second_time_fail(populate: bool, email: str) -> None:
     [
         ["admin@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
         ["user_manager@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
+        ["vulnerability_manager@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
         ["hacker@gmail.com", ["ACCEPTED", "IN_PROGRESS"]],
         ["customer_manager@fluidattacks.com", ["ACCEPTED", "IN_PROGRESS"]],
     ],
@@ -125,6 +128,8 @@ async def test_get_report_treatments(
         ["admin@gmail.com", ["ACCEPTED"], False],
         ["user_manager@gmail.com", ["ACCEPTED", "IN_PROGRESS"], True],
         ["user_manager@gmail.com", ["ACCEPTED"], False],
+        ["vulnerability_manager@gmail.com", ["ACCEPTED", "IN_PROGRESS"], True],
+        ["vulnerability_manager@gmail.com", ["ACCEPTED"], False],
         ["hacker@gmail.com", ["ACCEPTED", "IN_PROGRESS"], True],
         ["hacker@gmail.com", ["IN_PROGRESS"], False],
         [

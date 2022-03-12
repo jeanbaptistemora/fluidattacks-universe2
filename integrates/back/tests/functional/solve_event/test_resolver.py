@@ -34,6 +34,7 @@ async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
     [
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],
     ],

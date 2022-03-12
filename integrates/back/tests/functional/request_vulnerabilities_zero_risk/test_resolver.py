@@ -31,6 +31,10 @@ from typing import (
             "customer_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce13",
         ),
+        (
+            "vulnerability_manager@fluidattacks.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdce14",
+        ),
     ),
 )
 async def test_request_vulnerabilities_zero_risk(
