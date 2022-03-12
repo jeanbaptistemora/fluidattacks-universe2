@@ -119,6 +119,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           user: roleToUrl(value, "#user-role"),
           // eslint-disable-next-line camelcase
           user_manager: roleToUrl(value, "#user-manager-role"),
+          // eslint-disable-next-line camelcase
+          vulnerability_manager: roleToUrl(
+            value,
+            "#vulnerability-manager-role"
+          ),
         }[value];
 
         if (!_.isUndefined(mappedRole)) {
