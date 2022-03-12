@@ -155,19 +155,3 @@ async def add_file_to_db(
         )
 
     return success
-
-
-async def update_group_files(
-    file_name: str,
-    group_name: str,
-) -> bool:
-    success = False
-    files = await groups_domain.get_attributes(group_name, ["files"])
-    for current_file in files["files"]:
-        if current_file["fileName"] == file_name:
-            current_file["virusChecked"] = True
-
-    group_files = cast(List[ResourceType], files.get("files", []))
-    success = await groups_domain.update(group_name, {"files": group_files})
-
-    return success
