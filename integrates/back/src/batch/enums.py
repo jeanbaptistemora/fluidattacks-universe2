@@ -22,7 +22,6 @@ class Action(Enum):
     REPORT = "report"
     MOVE_ROOT = "move_root"
     HANDLE_FINDING_POLICY = "handle_finding_policy"
-    HANDLE_VIRUS_SCAN = "handle_virus_scan"
     REFRESH_TOE_INPUTS = "refresh_toe_inputs"
     REFRESH_TOE_LINES = "refresh_toe_lines"
     CLONE_ROOTS = "clone_roots"

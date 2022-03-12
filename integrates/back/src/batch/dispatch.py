@@ -9,9 +9,6 @@ from batch.dal import (
 from batch.handle_finding_policy import (
     handle_finding_policy,
 )
-from batch.handle_virus_scan import (
-    handle_virus_scan,
-)
 from batch.remove_group_resources import (
     remove_group_resources,
 )
@@ -66,8 +63,6 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
             await move_root(item=item)
         elif action == "handle_finding_policy":
             await handle_finding_policy(item=item)
-        elif action == "handle_virus_scan":
-            await handle_virus_scan(item=item)
         elif action == "refresh_toe_inputs":
             await refresh_toe_inputs(item=item)
         elif action == "refresh_toe_lines":
