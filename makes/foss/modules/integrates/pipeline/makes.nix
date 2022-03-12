@@ -265,7 +265,7 @@ in {
               gitlabTest
               // {
                 artifacts = {
-                  paths = ["integrates/back/tests/functional/build"];
+                  paths = ["integrates/back/tests/functional/.coverage*"];
                   expire_in = "1 day";
                   when = "on_success";
                 };

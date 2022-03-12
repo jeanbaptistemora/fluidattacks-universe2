@@ -3,13 +3,13 @@
 function main {
   export BATCH_BIN
   local resolver_test_group="${1}"
+  export COVERAGE_FILE=.coverage."${resolver_test_group}"
   local populate_db="${2:-false}"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
     --cov-report 'term'
-    --cov-report 'annotate:build/functional/annotate'
-    --cov-report 'html:build/functional/html'
+    --cov=myproj
     --disable-warnings
     --exitfirst
     --no-cov-on-fail
