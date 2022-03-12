@@ -1,5 +1,5 @@
 "Notifications preferences type definition"
 type NotificationsPreferences {
-  "Email chanel to notifications preferences"
+  "Email channel to notifications preferences"
   email: [NotificationsName!]!
 }
