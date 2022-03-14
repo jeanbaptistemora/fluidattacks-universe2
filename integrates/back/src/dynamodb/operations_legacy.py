@@ -86,7 +86,7 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
             response_items = response.get("Items", [])
             while response.get("LastEvaluatedKey") and (
                 not query_attrs.get("Limit")
-                or len(response_items) < query_attrs["Limit"]
+                or len(response_items) < int(query_attrs["Limit"])
             ):
                 query_attrs.update(
                     {"ExclusiveStartKey": response.get("LastEvaluatedKey")}

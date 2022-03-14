@@ -134,23 +134,24 @@ async def update_event_index(
             Attr(key_structure.partition_key).exists()
             & Attr("verification").exists()
         )
-        gsi_4_key = keys.build_key(
-            facet=EVENT_INDEX_METADATA,
-            values={
-                "event_id": entry.event_id,
-                "vuln_id": vulnerability_id,
-            },
-        )
-        vulnerability_item = {
-            gsi_4_index.primary_key.partition_key: gsi_4_key.partition_key,
-            gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
-        }
-        await operations.update_item(
-            condition_expression=(base_condition),
-            item=vulnerability_item,
-            key=vulnerability_key,
-            table=TABLE,
-        )
+        if isinstance(entry.event_id, str):
+            gsi_4_key = keys.build_key(
+                facet=EVENT_INDEX_METADATA,
+                values={
+                    "event_id": entry.event_id,
+                    "vuln_id": vulnerability_id,
+                },
+            )
+            vulnerability_item = {
+                gsi_4_index.primary_key.partition_key: gsi_4_key.partition_key,
+                gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
+            }
+            await operations.update_item(
+                condition_expression=(base_condition),
+                item=vulnerability_item,
+                key=vulnerability_key,
+                table=TABLE,
+            )
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
 
