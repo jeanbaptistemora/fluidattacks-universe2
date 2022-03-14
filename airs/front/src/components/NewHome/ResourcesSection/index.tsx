@@ -21,7 +21,7 @@ const ResourcesSection: React.FC = (): JSX.Element => {
     },
     {
       image: "resource-2",
-      url: "https://fluidattacks.docsend.com/view/g7zbsrdi8fbnd85m",
+      url: "https://try.fluidattacks.com/report/owasp-benchmark/",
     },
     {
       image: "resource-3",
@@ -29,7 +29,7 @@ const ResourcesSection: React.FC = (): JSX.Element => {
     },
     {
       image: "resource-4",
-      url: "https://fluidattacks.docsend.com/view/4k524b3gviwqubri",
+      url: "https://try.fluidattacks.com/report/owasp-samm/",
     },
   ];
 
