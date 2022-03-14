@@ -3047,6 +3047,46 @@
     - /integrates/front/test/enzyme
     - /integrates/front/test/rtl
     - /integrates/mobile/test
+    - /integrates/back/test/functional__accept_legal
+    - /integrates/back/test/functional__acknowledge_concurrent_session
+    - /integrates/back/test/functional__activate_root
+    - /integrates/back/test/functional__add_draft
+    - /integrates/back/test/functional__add_event
+    - /integrates/back/test/functional__add_event_consult
+    - /integrates/back/test/functional__add_files_to_db
+    - /integrates/back/test/functional__add_finding_consult
+    - /integrates/back/test/functional__add_forces_execution
+    - /integrates/back/test/functional__add_git_root
+    - /integrates/back/test/functional__add_group
+    - /integrates/back/test/functional__add_group_consult
+    - /integrates/back/test/functional__add_group_tags
+    - /integrates/back/test/functional__add_organization
+    - /integrates/back/test/functional__add_push_token
+    - /integrates/back/test/functional__add_toe_input
+    - /integrates/back/test/functional__approve_draft
+    - /integrates/back/test/functional__batch
+    - /integrates/back/test/functional__confirm_vulnerabilities_zero_risk
+    - /integrates/back/test/functional__deactivate_root
+    - /integrates/back/test/functional__delete_obsolete_groups
+    - /integrates/back/test/functional__download_event_file
+    - /integrates/back/test/functional__download_file
+    - /integrates/back/test/functional__download_vulnerability_file
+    - /integrates/back/test/functional__event
+    - /integrates/back/test/functional__events
+    - /integrates/back/test/functional__finding
+    - /integrates/back/test/functional__forces_executions
+    - /integrates/back/test/functional__grant_stakeholder_access
+    - /integrates/back/test/functional__grant_stakeholder_organization_access
+    - /integrates/back/test/functional__group
+    - /integrates/back/test/functional__groups_with_forces
+    - /integrates/back/test/functional__handle_vulnerabilities_acceptance
+    - /integrates/back/test/functional__internal_names
+    - /integrates/back/test/functional__invalidate_access_token
+    - /integrates/back/test/functional__me
+    - /integrates/back/test/functional__organization
+    - /integrates/back/test/functional__organization_id
+    - /integrates/back/test/functional__refresh_toe_inputs
+    - /integrates/back/test/functional__refresh_toe_lines
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never

@@ -12,6 +12,7 @@ makeScript {
       inputs.nixpkgs.findutils
       inputs.nixpkgs.git
       inputs.nixpkgs.python39Packages.codecov
+      inputs.nixpkgs.python39Packages.coverage
     ];
     source = [
       outputs."/utils/aws"

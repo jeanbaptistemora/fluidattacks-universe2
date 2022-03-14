@@ -1,9 +1,119 @@
-{gitlabCi, ...}: let
+{
+  gitlabCi,
+  inputs,
+  ...
+}: let
+  chartsTemplate = {
+    artifacts = {
+      expire_in = "1 week";
+      paths = ["integrates/charts"];
+      when = "on_success";
+    };
+    stage = "analytics";
+    tags = ["autoscaling"];
+  };
+  functionalTests = [
+    ["accept_legal"]
+    ["acknowledge_concurrent_session"]
+    ["activate_root"]
+    ["add_draft"]
+    ["add_event"]
+    ["add_event_consult"]
+    ["add_files_to_db"]
+    ["add_finding_consult"]
+    ["add_forces_execution"]
+    ["add_git_root"]
+    ["add_group"]
+    ["add_group_consult"]
+    ["add_group_tags"]
+    ["add_organization"]
+    ["add_push_token"]
+    ["add_toe_input"]
+    ["approve_draft"]
+    ["batch"]
+    ["confirm_vulnerabilities_zero_risk"]
+    ["deactivate_root"]
+    ["delete_obsolete_groups"]
+    ["download_event_file"]
+    ["download_file"]
+    ["download_vulnerability_file"]
+    ["event"]
+    ["events"]
+    ["finding"]
+    ["forces_executions"]
+    ["grant_stakeholder_access"]
+    ["grant_stakeholder_organization_access"]
+    ["group"]
+    ["groups_with_forces"]
+    ["handle_vulnerabilities_acceptance"]
+    ["internal_names"]
+    ["invalidate_access_token"]
+    ["me"]
+    ["organization"]
+    ["organization_id"]
+    ["refresh_toe_inputs"]
+    ["refresh_toe_lines"]
+    ["reject_draft"]
+    ["reject_vulnerabilities_zero_risk"]
+    ["remove_event_evidence"]
+    ["remove_evidence"]
+    ["remove_files"]
+    ["remove_finding"]
+    ["remove_group"]
+    ["remove_group_tag"]
+    ["remove_stakeholder"]
+    ["remove_stakeholder_access"]
+    ["remove_stakeholder_organization_access"]
+    ["remove_tags"]
+    ["remove_vulnerability"]
+    ["report"]
+    ["request_vulnerabilities_hold"]
+    ["request_vulnerabilities_verification"]
+    ["request_vulnerabilities_zero_risk"]
+    ["requeue_actions"]
+    ["reset_expired_accepted_findings"]
+    ["resources"]
+    ["sign_in"]
+    ["solve_event"]
+    ["stakeholder"]
+    ["submit_draft"]
+    ["submit_organization_finding_policy"]
+    ["subscribe_to_entity_report"]
+    ["sync_git_root"]
+    ["toe_inputs"]
+    ["toe_lines"]
+    ["unsubscribe_from_group"]
+    ["update_access_token"]
+    ["update_event_evidence"]
+    ["update_evidence_description"]
+    ["update_evidence"]
+    ["update_finding_description"]
+    ["update_forces_access_token"]
+    ["update_git_root"]
+    ["update_group"]
+    ["update_group_access_info"]
+    ["update_group_disambiguation"]
+    ["update_group_info"]
+    ["update_group_stakeholder"]
+    ["update_organization_policies"]
+    ["update_organization_stakeholder"]
+    ["update_severity"]
+    ["update_stakeholder_phone"]
+    ["update_toe_input"]
+    ["update_toe_lines_attacked_lines"]
+    ["update_toe_lines_sorts"]
+    ["update_vulnerabilities_treatment"]
+    ["update_vulnerability_commit"]
+    ["update_vulnerability_treatment"]
+    ["upload_file"]
+    ["validate_git_access"]
+    ["verify_stakeholder"]
+    ["verify_vulnerabilities_request"]
+    ["vulnerability"]
+  ];
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
   gitlabBranchMaster = gitlabCi.rules.branch "master";
-
   gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|integrates)";
-
   gitlabOnlyMaster = [
     gitlabBranchMaster
     gitlabCi.rules.notSchedules
@@ -24,7 +134,6 @@
     gitlabCi.rules.notTriggers
     (gitlabCi.rules.titleMatching "^(all|integrates|skims|forces)")
   ];
-
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;
     stage = "deploy-app";
@@ -82,16 +191,7 @@
     stage = "test-infra";
     tags = ["autoscaling"];
   };
-
-  chartsTemplate = {
-    artifacts = {
-      expire_in = "1 week";
-      paths = ["integrates/charts"];
-      when = "on_success";
-    };
-    stage = "analytics";
-    tags = ["autoscaling"];
-  };
+  lib = inputs.nixpkgs.lib;
   schedulerTemplate = {
     interruptible = false;
     stage = "scheduler";
@@ -271,106 +371,7 @@ in {
                 };
               };
           })
-          [
-            ["accept_legal"]
-            ["acknowledge_concurrent_session"]
-            ["activate_root"]
-            ["add_draft"]
-            ["add_event"]
-            ["add_event_consult"]
-            ["add_files_to_db"]
-            ["add_finding_consult"]
-            ["add_forces_execution"]
-            ["add_git_root"]
-            ["add_group"]
-            ["add_group_consult"]
-            ["add_group_tags"]
-            ["add_organization"]
-            ["add_push_token"]
-            ["add_toe_input"]
-            ["approve_draft"]
-            ["batch"]
-            ["confirm_vulnerabilities_zero_risk"]
-            ["deactivate_root"]
-            ["delete_obsolete_groups"]
-            ["download_event_file"]
-            ["download_file"]
-            ["download_vulnerability_file"]
-            ["event"]
-            ["events"]
-            ["finding"]
-            ["forces_executions"]
-            ["grant_stakeholder_access"]
-            ["grant_stakeholder_organization_access"]
-            ["group"]
-            ["groups_with_forces"]
-            ["handle_vulnerabilities_acceptance"]
-            ["internal_names"]
-            ["invalidate_access_token"]
-            ["me"]
-            ["organization"]
-            ["organization_id"]
-            ["refresh_toe_inputs"]
-            ["refresh_toe_lines"]
-            ["reject_draft"]
-            ["reject_vulnerabilities_zero_risk"]
-            ["remove_event_evidence"]
-            ["remove_evidence"]
-            ["remove_files"]
-            ["remove_finding"]
-            ["remove_group"]
-            ["remove_group_tag"]
-            ["remove_stakeholder"]
-            ["remove_stakeholder_access"]
-            ["remove_stakeholder_organization_access"]
-            ["remove_tags"]
-            ["remove_vulnerability"]
-            ["report"]
-            ["request_vulnerabilities_hold"]
-            ["request_vulnerabilities_verification"]
-            ["request_vulnerabilities_zero_risk"]
-            ["requeue_actions"]
-            ["reset_expired_accepted_findings"]
-            ["resources"]
-            ["sign_in"]
-            ["solve_event"]
-            ["stakeholder"]
-            ["submit_draft"]
-            ["submit_organization_finding_policy"]
-            ["subscribe_to_entity_report"]
-            ["sync_git_root"]
-            ["toe_inputs"]
-            ["toe_lines"]
-            ["unsubscribe_from_group"]
-            ["update_access_token"]
-            ["update_event_evidence"]
-            ["update_evidence_description"]
-            ["update_evidence"]
-            ["update_finding_description"]
-            ["update_finding_description"]
-            ["update_forces_access_token"]
-            ["update_git_root"]
-            ["update_group"]
-            ["update_group_access_info"]
-            ["update_group_disambiguation"]
-            ["update_group_info"]
-            ["update_group_stakeholder"]
-            ["update_organization_policies"]
-            ["update_organization_stakeholder"]
-            ["update_severity"]
-            ["update_stakeholder_phone"]
-            ["update_toe_input"]
-            ["update_toe_lines_attacked_lines"]
-            ["update_toe_lines_sorts"]
-            ["update_vulnerabilities_treatment"]
-            ["update_vulnerability_commit"]
-            ["update_vulnerability_treatment"]
-            ["upload_file"]
-            ["validate_git_access"]
-            ["verify_stakeholder"]
-            ["verify_vulnerabilities_request"]
-            ["vulnerability"]
-          ])
+          functionalTests)
         ++ [
           {
             output = "/integrates/back/test/unit";
@@ -431,12 +432,18 @@ in {
           {
             output = "/integrates/coverage";
             gitlabExtra = {
-              needs = [
-                "/integrates/back/test/unit"
-                "/integrates/front/test/enzyme"
-                "/integrates/front/test/rtl"
-                "/integrates/mobile/test"
-              ];
+              needs =
+                [
+                  "/integrates/back/test/unit"
+                  "/integrates/front/test/enzyme"
+                  "/integrates/front/test/rtl"
+                  "/integrates/mobile/test"
+                ]
+                ++ (
+                  builtins.map
+                  (test: "/integrates/back/test/functional__${builtins.elemAt test 0}")
+                  (lib.lists.sublist 0 40 functionalTests)
+                );
               rules = gitlabOnlyDev;
               stage = "external";
               tags = ["autoscaling"];
