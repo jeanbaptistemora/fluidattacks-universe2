@@ -21,17 +21,13 @@ import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const HandleEditionModal: React.FC<IHandleEditionModalProps> = (
-  props: IHandleEditionModalProps
-): JSX.Element => {
-  const {
-    groupName,
-    selectedToeLinesDatas,
-    handleCloseModal,
-    refetchData,
-    setSelectedToeLinesDatas,
-  } = props;
-
+const HandleEditionModal: React.FC<IHandleEditionModalProps> = ({
+  groupName,
+  selectedToeLinesDatas,
+  handleCloseModal,
+  refetchData,
+  setSelectedToeLinesDatas,
+}: IHandleEditionModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   const isOneSelected = selectedToeLinesDatas.length === 1;

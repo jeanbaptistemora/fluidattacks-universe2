@@ -20,10 +20,11 @@ import { Modal } from "components/Modal";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = (
-  props: IHandleAdditionModalProps
-): JSX.Element => {
-  const { groupName, handleCloseModal, refetchData } = props;
+const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
+  groupName,
+  handleCloseModal,
+  refetchData,
+}: IHandleAdditionModalProps): JSX.Element => {
   const [host, setHost] = useState<string | undefined>();
 
   const { t } = useTranslation();

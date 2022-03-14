@@ -14,22 +14,22 @@ interface ISplitButtonProps {
   title: React.ReactNode;
 }
 
-const SplitButton: React.FC<ISplitButtonProps> = (
-  props: Readonly<ISplitButtonProps>
-): JSX.Element => {
-  const { content, id, onClick, onClickIcon, title } = props;
-
-  return (
-    <ButtonGroup>
-      <LastOrg id={id} onClick={onClick}>
-        {title}
-      </LastOrg>
-      <IconButton onClick={onClickIcon}>
-        <FontAwesomeIcon icon={faCaretDown} />
-      </IconButton>
-      {content}
-    </ButtonGroup>
-  );
-};
+const SplitButton: React.FC<ISplitButtonProps> = ({
+  content,
+  id,
+  onClick,
+  onClickIcon,
+  title,
+}: Readonly<ISplitButtonProps>): JSX.Element => (
+  <ButtonGroup>
+    <LastOrg id={id} onClick={onClick}>
+      {title}
+    </LastOrg>
+    <IconButton onClick={onClickIcon}>
+      <FontAwesomeIcon icon={faCaretDown} />
+    </IconButton>
+    {content}
+  </ButtonGroup>
+);
 
 export { SplitButton };

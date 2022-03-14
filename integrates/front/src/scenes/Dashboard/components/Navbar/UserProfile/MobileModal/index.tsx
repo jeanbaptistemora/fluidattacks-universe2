@@ -33,7 +33,6 @@ import { Can } from "utils/authz/Can";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const MobileModal: React.FC<IMobileModalProps> = (
   props: IMobileModalProps
@@ -238,7 +237,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
   const phone = _.isUndefined(data) ? null : data.me.phone;
 
   return (
-    <Modal open={true} title={translate.t("profile.mobileModal.title")}>
+    <Modal open={true} title={t("profile.mobileModal.title")}>
       {!(isAdding && isCodeInNewMobile) && _.isNull(phone) ? (
         <Formik
           enableReinitialize={true}

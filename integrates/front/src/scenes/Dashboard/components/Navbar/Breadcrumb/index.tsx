@@ -24,7 +24,6 @@ import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 export const Breadcrumb: React.FC = (): JSX.Element => {
   const { pathname } = useLocation();
@@ -136,7 +135,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   const { data: findingData } = useQuery<IFindingTitle>(GET_FINDING_TITLE, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading finding title", error);
       });
     },
