@@ -2315,12 +2315,13 @@
   title: PCI DSS
   en:
     description: >
-      The PCI Security Standards Council's
-      mission is to enhance global payment
-      account data security by developing
-      standards and supporting services
-      that drive education, awareness,
-      and effective implementation by stakeholders.
+      PCI DSS is the global data security
+      standard adopted by the payment
+      card brands for all entities that process,
+      store or transmit cardholder data
+      and/or sensitive authentication data.
+      It consists of steps that mirror
+      security best practices.
       The version used in this section
       is PCI DSS v3.2.1.
   es:
