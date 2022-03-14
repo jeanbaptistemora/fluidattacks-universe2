@@ -40,6 +40,7 @@ async def test_update_group_info(
     ["email"],
     [
         ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
         ["user@gmail.com"],
         ["reattacker@gmail.com"],
         ["reviewer@gmail.com"],

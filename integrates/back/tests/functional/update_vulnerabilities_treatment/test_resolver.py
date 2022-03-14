@@ -44,6 +44,13 @@ from typing import (
             "customer1@gmail.com",
             "2021-03-31 19:45:11",
         ),
+        (
+            "vulnerability_manager@gmail.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdc11",
+            "ACCEPTED",
+            "customer1@gmail.com",
+            "2021-03-31 19:45:11",
+        ),
     ),
 )
 @freeze_time("2021-03-31")

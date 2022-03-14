@@ -45,6 +45,7 @@ async def test_update_group_stakeholder(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
     ],
 )
 async def test_update_group_stakeholder_fail(
