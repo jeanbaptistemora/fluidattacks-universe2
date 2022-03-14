@@ -253,6 +253,43 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "responsibility": {
+            "S": "Test vulnerability manager"
+          },
+          "user_email": {
+            "S": "vulnmanager@gmail.com"
+          },
+          "invitation": {
+            "M": {
+              "is_used": {
+                "BOOL": true
+              },
+              "phone_number": {
+                "S": "2222222222"
+              },
+              "responsibility": {
+                "S": "Test vulnerability manager"
+              },
+              "role": {
+                "S": "vulnerability_manager"
+              },
+              "url_token": {
+                "S": "unknown"
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }

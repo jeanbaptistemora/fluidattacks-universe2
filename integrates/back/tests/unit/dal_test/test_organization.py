@@ -229,8 +229,9 @@ async def test_get_users() -> None:
         "integratesserviceforces@gmail.com",
         "integratesuser@gmail.com",
         "unittest2@fluidattacks.com",
+        "vulnmanager@gmail.com",
     ]
-    assert len(users) == 17
+    assert len(users) == 18
     for user in expected:
         assert user in users
 

@@ -786,6 +786,39 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "unittest"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
+            "S": "Manager"
+          },
+          "first_name": {
+            "S": "Vooln"
+          },
+          "date_joined": {
+            "S": "2022-02-15 23:54:55"
+          },
+          "last_login": {
+            "S": "2022-03-13 13:40:37"
+          },
+          "email": {
+            "S": "vulnmanager@gmail.com"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "registered": {
+            "BOOL": false
+          }
+        }
+      }
     }
   ]
 }

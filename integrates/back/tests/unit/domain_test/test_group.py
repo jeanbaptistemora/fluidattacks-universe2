@@ -443,6 +443,7 @@ async def test_get_managers() -> None:
     group_name = "unittesting"
     expected_output = [
         "integratesuser@gmail.com",
+        "vulnmanager@gmail.com",
         "continuoushacking@gmail.com",
         "continuoushack2@gmail.com",
     ]
@@ -476,6 +477,7 @@ async def test_get_users() -> None:
         "forces.unittesting@fluidattacks.com",
         "continuoushack2@gmail.com",
         "integratesreviewer@fluidattacks.com",
+        "vulnmanager@gmail.com",
     ]
     for user in expected:
         assert user in users
