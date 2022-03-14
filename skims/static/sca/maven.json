@@ -495,6 +495,9 @@
   "com.newrelic.agent.java:newrelic-java": {
     "NR21-03": ">=4.12.0 <6.5.2 || >=7.0.0 <7.4.2"
   },
+  "com.nexblocks.authguard:authguard": {
+    "CVE-2021-45890": "<0.9.0"
+  },
   "com.nimbusds:nimbus-jose-jwt": {
     "CVE-2017-12972": ">=0 <4.39",
     "CVE-2017-12973": ">=0 <4.39",
@@ -516,6 +519,13 @@
   "com.oracle:ojdbc8": {
     "SNYK-JAVA-COMORACLE-572379": ">=12.1.0 <12.2.0.1"
   },
+  "com.orientechnologies:orientdb-core": {
+    "GHSA-xm6r-4466-mr74": "<2.2.23"
+  },
+  "com.orientechnologies:orientdb-studio": {
+    "GHSA-g4gg-9f62-jfph": "2.1.0 || <2.0.15",
+    "GHSA-v6wr-fch2-vm5w": "2.1.0 || <2.0.15"
+  },
   "com.parasoft:environment-manager": {
     "CVE-2020-2132": ">=0 <=2.14"
   },
@@ -525,8 +535,15 @@
   "com.paul8620.jenkins.plugins:pipeline-aggregator-view": {
     "CVE-2019-16564": ">=0 <=1.8"
   },
+  "com.puppycrawl.tools:checkstyle": {
+    "CVE-2019-10782": "<8.29",
+    "CVE-2019-9658": "<8.18"
+  },
   "com.rabbitmq.jms:rabbitmq-jms": {
     "CVE-2020-36282": ">=1.0.0 <1.15.2 || >=2.0.0 <2.2.0"
+  },
+  "com.rabbitmq:amqp-client": {
+    "GHSA-w4g2-9hj6-5472": "<4.8.0 || >=5.0.0 <5.4.0"
   },
   "com.redgate.plugins.redgatesqlci:redgate-sql-ci": {
     "CVE-2019-16557": ">=0 <=2.0.3",
@@ -543,6 +560,9 @@
     "CVE-2021-33562": ">=0 <2.17.0",
     "GHSA-8pc4-gvfw-634p": ">=0 <2.11.0",
     "GHSA-w8rc-pgxq-x2cj": ">=0 <2.11.0"
+  },
+  "com.shopizer:sm-core-model": {
+    "GHSA-w8rc-pgxq-x2cj": "<2.11.0"
   },
   "com.smartbear.soapui:soapui-project": {
     "CVE-2014-1202": ">=2.5.1 <=4.6.3"
@@ -578,6 +598,9 @@
   "com.sparkjava:spark-core": {
     "CVE-2018-9159": ">=0 <2.7.2"
   },
+  "com.splunk.logging:splunk-library-javalogging": {
+    "GHSA-94g7-hpv8-h9qm": "<1.11.1"
+  },
   "com.squareup.okhttp3:okhttp": {
     "CVE-2016-2402": ">=0 <3.1.2",
     "CVE-2018-20200": ">=3.0.0 <=3.12.0"
@@ -591,6 +614,15 @@
   },
   "com.squareup:connect": {
     "CVE-2021-23331": ">0"
+  },
+  "com.starkbank.ellipticcurve:starkbank-ecdsa": {
+    "SNYK-JAVA-COMSTARKBANKELLIPTICCURVE-1913039": "<1.0.1"
+  },
+  "com.starkbank:ecdsa-java": {
+    "GHSA-9wx7-jrvc-28mm": "1.0.0"
+  },
+  "com.starkbank:starkbank-ecdsa": {
+    "GHSA-r28h-x6hv-2fq3": "<1.0.1"
   },
   "com.sun.faces:jsf-impl": {
     "CVE-2013-3827": ">=2-alpha0 <=2.1.18",
