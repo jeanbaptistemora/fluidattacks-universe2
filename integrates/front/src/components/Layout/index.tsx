@@ -42,7 +42,7 @@ const getWidth = (width?: Width): string => {
   return `${width}%`;
 };
 
-const Col = styled.div.attrs({ className: "ph2" })<IColProps>`
+const Col = styled.div.attrs({ className: "pa2" })<IColProps>`
   @media (max-width: 768px) {
     flex-grow: ${(props): string => getFlexGrow(props.small)};
     width: ${(props): string => getWidth(props.small)};
@@ -69,7 +69,7 @@ interface IRowProps {
     | "space-evenly";
 }
 
-const getJustifyContent = (align?: string): string => {
+const getJustifyContent = (align: IRowProps["align"]): string => {
   if (align === undefined) {
     return "flex-start";
   }
@@ -77,10 +77,23 @@ const getJustifyContent = (align?: string): string => {
   return align;
 };
 
+const getTextAlign = (align: IRowProps["align"]): string => {
+  if (align === "center") {
+    return "center";
+  } else if (align === "flex-end") {
+    return "end";
+  } else if (align === "flex-start") {
+    return "start";
+  }
+
+  return "unset";
+};
+
 const Row = styled.div.attrs({
-  className: "flex flex-row flex-wrap pv2",
+  className: "flex flex-row flex-wrap",
 })<IRowProps>`
   justify-content: ${(props): string => getJustifyContent(props.align)};
+  text-align: ${(props): string => getTextAlign(props.align)};
 `;
 
 export { Col, Row };
