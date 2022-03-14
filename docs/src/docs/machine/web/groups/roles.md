@@ -5,6 +5,23 @@ sidebar_label: Roles
 slug: /machine/web/groups/roles
 ---
 
+Users on the ASM have different
+roles with associated permissions
+relevant to work on the platform.
+Depending on your role,
+you are granted access to certain
+functions for your daily use
+of the ASM.
+You can see your role on the ASM in the
+[drop-down menu](/machine/web/user-information)
+that appears when you click the
+user icon on the upper-right
+part of your screen.
+
+The following are the different
+roles that are available on the ASM,
+along with their descriptions.
+
 ## User manager role
 
 This is the role
