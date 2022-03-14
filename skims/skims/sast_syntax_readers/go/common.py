@@ -39,10 +39,11 @@ def get_var_type(args: SyntaxReaderArgs, var_type: str = "") -> str:
         match = g.match_ast(
             args.graph, args.n_id, "map", "[", "]", "__0__", "__1__"
         )
-        var_type += (
-            f"map[{get_var_type(args.fork_n_id(match['__0__']))}]"
-            f"{get_var_type(args.fork_n_id(match['__1__']))}"
-        )
+        if (nid_0 := match["__0__"]) and (nid_1 := match["__1__"]):
+            var_type += (
+                f"map[{get_var_type(args.fork_n_id(nid_0))}]"
+                f"{get_var_type(args.fork_n_id(nid_1))}"
+            )
     else:
         raise MissingCaseHandling(args)
     return var_type
