@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   getAreAllChunckedMutationValid,
@@ -27,7 +28,6 @@ import {
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
-import { translate } from "utils/translations/translate";
 
 interface IVulnData {
   currentState: string;
@@ -47,23 +47,21 @@ interface IUpdateVerificationModal {
   setVerifyState: () => void;
 }
 
-const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
-  props: IUpdateVerificationModal
-): JSX.Element => {
-  const {
-    isReattacking,
-    isVerifying,
-    vulns,
-    clearSelected,
-    handleCloseModal,
-    setRequestState,
-    setVerifyState,
-  } = props;
+const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
+  isReattacking,
+  isVerifying,
+  vulns,
+  clearSelected,
+  handleCloseModal,
+  setRequestState,
+  setVerifyState,
+}: IUpdateVerificationModal): JSX.Element => {
   const MAX_JUSTIFICATION_LENGTH = 10000;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDisplayHacker: boolean = permissions.can(
     "api_resolvers_finding_hacker_resolve"
   );
+  const { t } = useTranslation();
 
   // State management
   const [vulnerabilitiesList, setVulnerabilities] = useState(vulns);
@@ -91,7 +89,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
             findingId: vulnerabilitiesList[0].findingId,
           },
         },
-        GET_ME_VULNERABILITIES_ASSIGNED,
+        { query: GET_ME_VULNERABILITIES_ASSIGNED },
       ],
     }
   );
@@ -215,10 +213,9 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
       <RemediationModal
         additionalInfo={
           isReattacking
-            ? translate.t(
-                "searchFindings.tabDescription.remediationModal.message",
-                { vulns: vulns.length }
-              )
+            ? t("searchFindings.tabDescription.remediationModal.message", {
+                vulns: vulns.length,
+              })
             : undefined
         }
         isLoading={submittingRequest || submittingVerify}
@@ -226,21 +223,15 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
         maxJustificationLength={MAX_JUSTIFICATION_LENGTH}
         message={
           isReattacking
-            ? translate.t(
-                "searchFindings.tabDescription.remediationModal.justification"
-              )
-            : translate.t(
-                "searchFindings.tabDescription.remediationModal.observations"
-              )
+            ? t("searchFindings.tabDescription.remediationModal.justification")
+            : t("searchFindings.tabDescription.remediationModal.observations")
         }
         onClose={closeRemediationModal}
         onSubmit={handleSubmit}
         title={
           isReattacking
-            ? translate.t(
-                "searchFindings.tabDescription.remediationModal.titleRequest"
-              )
-            : translate.t(
+            ? t("searchFindings.tabDescription.remediationModal.titleRequest")
+            : t(
                 "searchFindings.tabDescription.remediationModal.titleObservations"
               )
         }

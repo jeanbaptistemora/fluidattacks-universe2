@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
@@ -11,7 +12,6 @@ import {
   RequiredField,
 } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   maxLength,
@@ -35,19 +35,18 @@ interface IAddRemediationProps {
 
 const MIN_LENGTH: number = 10;
 const minJustificationLength: ConfigurableValidator = minLength(MIN_LENGTH);
-const RemediationModal: React.FC<IAddRemediationProps> = (
-  props: IAddRemediationProps
-): JSX.Element => {
-  const {
-    additionalInfo,
-    children,
-    isOpen,
-    maxJustificationLength,
-    message,
-    title,
-    onClose,
-    onSubmit,
-  } = props;
+const RemediationModal: React.FC<IAddRemediationProps> = ({
+  additionalInfo,
+  children,
+  isLoading,
+  isOpen,
+  maxJustificationLength,
+  message,
+  title,
+  onClose,
+  onSubmit,
+}: IAddRemediationProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const justificationValidations: ConfigurableValidator[] = [
     required,
@@ -97,15 +96,15 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
                         onClick={onClose}
                         variant={"secondary"}
                       >
-                        {translate.t("confirmmodal.cancel")}
+                        {t("confirmmodal.cancel")}
                       </Button>
                       <Button
-                        disabled={!dirty || props.isLoading}
+                        disabled={!dirty || isLoading}
                         id={"proceed-remediation"}
                         type={"submit"}
                         variant={"primary"}
                       >
-                        {translate.t("confirmmodal.proceed")}
+                        {t("confirmmodal.proceed")}
                       </Button>
                     </ModalFooter>
                   </div>
