@@ -1,14 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import { Link, MemoryRouter } from "react-router-dom";
-import waitForExpect from "wait-for-expect";
-
-import { SplitButton } from "./Breadcrumb/SplitButton";
+import { useTranslation } from "react-i18next";
+import { MemoryRouter } from "react-router-dom";
 
 import { Navbar } from "scenes/Dashboard/components/Navbar";
 import {
@@ -27,6 +23,10 @@ describe("Navbar", (): void => {
 
   it("should render", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const { t } = useTranslation();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "front_can_use_groups_searchbar" },
@@ -94,58 +94,55 @@ describe("Navbar", (): void => {
       },
     };
 
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <MockedProvider
-          addTypename={true}
-          mocks={[organizationsQuery, mocksQueryGroupVulns]}
-        >
-          <authContext.Provider
-            value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MemoryRouter initialEntries={["/orgs/okada"]}>
+          <MockedProvider
+            addTypename={true}
+            mocks={[organizationsQuery, mocksQueryGroupVulns]}
           >
-            <Navbar
-              meVulnerabilitiesAssigned={{
-                me: {
-                  userEmail: "",
-                  vulnerabilitiesAssigned: [],
-                },
-              }}
-              userData={{
-                me: {
-                  organizations: [
-                    {
-                      groups: [
-                        {
-                          name: "testgroup",
-                          permissions: ["valid_assigned"],
-                          serviceAttributes: [],
-                        },
-                      ],
-                      name: "okada",
-                    },
-                  ],
-                  userEmail: "",
-                },
-              }}
-              userRole={"user"}
-            />
-          </authContext.Provider>
-        </MockedProvider>
-      </MemoryRouter>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+            <authContext.Provider
+              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+            >
+              <Navbar
+                meVulnerabilitiesAssigned={{
+                  me: {
+                    userEmail: "",
+                    vulnerabilitiesAssigned: [],
+                  },
+                }}
+                userData={{
+                  me: {
+                    organizations: [
+                      {
+                        groups: [
+                          {
+                            name: "testgroup",
+                            permissions: ["valid_assigned"],
+                            serviceAttributes: [],
+                          },
+                        ],
+                        name: "okada",
+                      },
+                    ],
+                    userEmail: "",
+                  },
+                }}
+                userRole={"user"}
+              />
+            </authContext.Provider>
+          </MockedProvider>
+        </MemoryRouter>
+      </authzPermissionsContext.Provider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find(SplitButton).props().title).toBe("okada");
-        expect(wrapper.find("Formik").props().name).toBe("searchBar");
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByPlaceholderText(t("navbar.searchPlaceholder").toString())
+      ).toBeInTheDocument();
     });
+
+    expect(screen.getAllByRole("button")[0].textContent).toBe("okada");
   });
 
   it("should display draft title", async (): Promise<void> => {
@@ -188,46 +185,37 @@ describe("Navbar", (): void => {
         },
       },
     };
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter
-        initialEntries={[
-          "/orgs/okada/groups/unittesting/drafts/F3F42d73-c1bf-47c5-954e-FFFFFFFFFFFF/locations",
-        ]}
-      >
-        <MockedProvider
-          addTypename={true}
-          mocks={[findingTitleQuery, organizationsQuery]}
+
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MemoryRouter
+          initialEntries={[
+            "/orgs/okada/groups/unittesting/drafts/F3F42d73-c1bf-47c5-954e-FFFFFFFFFFFF/locations",
+          ]}
         >
-          <authContext.Provider
-            value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+          <MockedProvider
+            addTypename={true}
+            mocks={[findingTitleQuery, organizationsQuery]}
           >
-            <Navbar
-              meVulnerabilitiesAssigned={undefined}
-              userData={undefined}
-              userRole={"user"}
-            />
-          </authContext.Provider>
-        </MockedProvider>
-      </MemoryRouter>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+            <authContext.Provider
+              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+            >
+              <Navbar
+                meVulnerabilitiesAssigned={undefined}
+                userData={undefined}
+                userRole={"user"}
+              />
+            </authContext.Provider>
+          </MockedProvider>
+        </MemoryRouter>
+      </authzPermissionsContext.Provider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(
-          wrapper
-            .find(Link)
-            .filter({
-              to: "/orgs/okada/groups/unittesting/drafts/F3F42d73-c1bf-47c5-954e-FFFFFFFFFFFF",
-            })
-            .text()
-        ).toStrictEqual("001. Test draft title");
-      });
+    await waitFor((): void => {
+      expect(screen.getByText("001. Test draft title")).toHaveAttribute(
+        "href",
+        "/orgs/okada/groups/unittesting/drafts/F3F42d73-c1bf-47c5-954e-FFFFFFFFFFFF"
+      );
     });
   });
 
@@ -271,46 +259,36 @@ describe("Navbar", (): void => {
         },
       },
     };
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter
-        initialEntries={[
-          "/orgs/okada/groups/unittesting/vulns/436992569/description",
-        ]}
-      >
-        <MockedProvider
-          addTypename={true}
-          mocks={[findingTitleQuery, organizationsQuery]}
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MemoryRouter
+          initialEntries={[
+            "/orgs/okada/groups/unittesting/vulns/436992569/description",
+          ]}
         >
-          <authContext.Provider
-            value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+          <MockedProvider
+            addTypename={true}
+            mocks={[findingTitleQuery, organizationsQuery]}
           >
-            <Navbar
-              meVulnerabilitiesAssigned={undefined}
-              userData={undefined}
-              userRole={"user"}
-            />
-          </authContext.Provider>
-        </MockedProvider>
-      </MemoryRouter>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+            <authContext.Provider
+              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+            >
+              <Navbar
+                meVulnerabilitiesAssigned={undefined}
+                userData={undefined}
+                userRole={"user"}
+              />
+            </authContext.Provider>
+          </MockedProvider>
+        </MemoryRouter>
+      </authzPermissionsContext.Provider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(
-          wrapper
-            .find(Link)
-            .filter({
-              to: "/orgs/okada/groups/unittesting/vulns/436992569",
-            })
-            .text()
-        ).toStrictEqual("001. Test finding title");
-      });
+    await waitFor((): void => {
+      expect(screen.getByText("001. Test finding title")).toHaveAttribute(
+        "href",
+        "/orgs/okada/groups/unittesting/vulns/436992569"
+      );
     });
   });
 });
