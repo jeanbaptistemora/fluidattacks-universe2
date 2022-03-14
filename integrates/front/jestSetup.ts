@@ -29,6 +29,9 @@ jest.mock(
   })
 );
 
+// Mock bugsnag
+jest.mock("@bugsnag/js");
+
 // Configure enzyme
 configure({ adapter: new ReactSixteenAdapter() });
 
