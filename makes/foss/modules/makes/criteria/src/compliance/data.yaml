@@ -3078,25 +3078,24 @@
       The California Privacy Rights Act CPRA
       is a data privacy law
       that takes effect on January 1, 2023.
-      It makes a variety of amendments to
-      the requirements in the California
-      Consumer Privacy Act (CCPA).
-      The version used in this section is
-      CPRA of 2018 v2.
+      It makes a variety of amendments
+      to the requirements in the California Consumer Privacy Act
+      (CCPA).
+      The version used in this section is CPRA of 2018 v2.
   es:
     description: __empty__
   definitions:
     "1798-100":
-      title: Right to Know What Personal Information is Being Collected
+      title: Right to know what personal information is being collected
       link: https://www.itgovernanceusa.com/california-consumer-privacy
     "1798_101":
-      title: Consumer's Right to Know What Personal Information is Sold or Shared and to Whom
+      title: Consumer's right to know what personal information is sold or shared and to whom
       link: https://www.itgovernanceusa.com/california-consumer-privacy
     "1798_102":
-      title: Right to Say No to Sale of Personal Information
+      title: Right to say no to sale of personal information
       link: https://www.itgovernanceusa.com/california-consumer-privacy
     "1798_104":
-      title: Compliance with Right to Know and Disclosure Requirements
+      title: Compliance with right to know and disclosure requirements
       link: https://www.itgovernanceusa.com/california-consumer-privacy
   metadata: {}
 "certc":
@@ -3168,7 +3167,7 @@
       title: Do not trust the contents of hidden form fields
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
     "IDS16-J":
-      title: Prevent XML Injection
+      title: Prevent XML injection
       link: https://wiki.sei.cmu.edu/confluence/display/java/SEI+CERT+Oracle+Coding+Standard+for+Java
     "IDS17-J":
       title: Prevent XML External Entity attacks
@@ -4049,244 +4048,244 @@
     description: __empty__
   definitions:
     "AC_L1-3_1_1":
-      title: Authorized Access Control
+      title: Authorized access control
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L1-3_1_2":
-      title: Transaction & Function Control
+      title: Transaction & function control
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L1-3_1_20":
-      title: External Connections
+      title: External connections
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L1-3_1_22":
-      title: Control Public Information
+      title: Control public information
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_3":
-      title: Control CUI Flow
+      title: Control CUI flow
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_4":
-      title: Separation of Duties
+      title: Separation of duties
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_5":
-      title: Least Privilege
+      title: Least privilege
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_6":
-      title: Non-Privileged Account Use
+      title: Non-privileged account use
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_7":
-      title: Privileged Functions
+      title: Privileged functions
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_8":
-      title: Unsuccessful Logon Attempts
+      title: Unsuccessful logon attempts
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_9":
-      title: Privacy & Security Notices
+      title: Privacy & security notices
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_10":
-      title: Session Lock
+      title: Session lock
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_11":
-      title: Session Termination
+      title: Session termination
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_12":
-      title: Control Remote Access
+      title: Control remote access
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_13":
-      title: Remote Access Confidentiality
+      title: Remote access confidentiality
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_14":
-      title: Remote Access Routing
+      title: Remote access routing
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_15":
-      title: Privileged Remote Access
+      title: Privileged remote access
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_16":
-      title: Wireless Access Authorization
+      title: Wireless access authorization
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_17":
-      title: Wireless Access Protection
+      title: Wireless access protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_18":
-      title: Mobile Device Connection
+      title: Mobile device connection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_19":
-      title: Encrypt CUI on Mobile
+      title: Encrypt CUI on mobile
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AC_L2-3_1_21":
-      title: Portable Storage Use
+      title: Portable storage use
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AT_L2-3_2_1":
-      title: Role-Based Risk Awareness
+      title: Role-based risk awareness
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_1":
-      title: System Audit
+      title: System audit
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_2":
-      title: User Accountability
+      title: User accountability
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_3":
-      title: Event Review
+      title: Event review
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_4":
-      title: Audit Failure Alerting
+      title: Audit failure alerting
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_7":
-      title: Authoritative Time Source
+      title: Authoritative time source
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_8":
-      title: Audit Protection
+      title: Audit protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "AU_L2-3_3_9":
-      title: Audit Management
+      title: Audit management
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_2":
-      title: Security Configuration Enforcement
+      title: Security configuration enforcement
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_3":
-      title: System Change Management
+      title: System change management
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_5":
-      title: Access Restrictions for Change
+      title: Access restrictions for change
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_6":
-      title: Least Functionality
+      title: Least functionality
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_7":
-      title: Nonessential Functionality
+      title: Nonessential functionality
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_8":
-      title: Application Execution Policy
+      title: Application execution policy
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CM_L2-3_4_9":
-      title: User-Installed Software
+      title: User-installed software
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L1-3_5_2":
       title: Authentication
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_3":
-      title: Multifactor Authentication
+      title: Multifactor authentication
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_4":
-      title: Replay-Resistant Authentication
+      title: Replay-resistant authentication
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_5":
-      title: Identifier Reuse
+      title: Identifier reuse
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_6":
-      title: Identifier Handling
+      title: Identifier handling
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_7":
-      title: Password Complexity
+      title: Password complexity
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_8":
-      title: Password Reuse
+      title: Password reuse
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_9":
-      title: Temporary Passwords
+      title: Temporary passwords
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "IA_L2-3_5_10":
-      title: Cryptographically-Protected Passwords
+      title: Cryptographically-protected passwords
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MA_L2-3_7_3":
-      title: Equipment Sanitization
+      title: Equipment sanitization
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MA_L2-3_7_4":
-      title: Media Inspection
+      title: Media inspection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MA_L2-3_7_5":
-      title: Nonlocal Maintenance
+      title: Nonlocal maintenance
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L1-3_8_3":
-      title: Media Disposal
+      title: Media disposal
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L2-3_8_1":
-      title: Media Protection
+      title: Media protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L2-3_8_2":
-      title: Media Access
+      title: Media access
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L2-3_8_5":
-      title: Media Accountability
+      title: Media accountability
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L2-3_8_6":
-      title: Portable Storage Encryption
+      title: Portable storage encryption
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L2-3_8_7":
-      title: Removable Media
+      title: Removable media
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "MP_L2-3_8_8":
-      title: Shared Media
+      title: Shared media
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "PE_L1-3_10_1":
-      title: Limit Physical Access
+      title: Limit physical access
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "PE_L1-3_10_4":
-      title: Physical Access Logs
+      title: Physical access logs
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "PE_L1-3_10_5":
-      title: Manage Physical Access
+      title: Manage physical access
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "PE_L2-3_10_6":
-      title: Alternative Work Sites
+      title: Alternative work sites
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "RA_L2-3_11_2":
-      title: Vulnerability Scan
+      title: Vulnerability scan
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CA_L2-3_12_2":
-      title: Plan of Action
+      title: Plan of action
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "CA_L2-3_12_3":
-      title: Security Control Monitoring
+      title: Security control monitoring
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L1-3_13_1":
-      title: Boundary Protection
+      title: Boundary protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L1-3_13_5":
-      title: Public-Access System Separation
+      title: Public-access system separation
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_3":
-      title: Role Separation
+      title: Role separation
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_4":
-      title: Shared Resource Control
+      title: Shared resource control
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_6":
-      title: Network Communication by Exception
+      title: Network communication by exception
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_7":
-      title: Split Tunneling
+      title: Split tunneling
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_8":
-      title: Data in Transit
+      title: Data in transit
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_9":
-      title: Connections Termination
+      title: Connections termination
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_10":
-      title: Key Management
+      title: Key management
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_13":
-      title: Mobile Code
+      title: Mobile code
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_15":
-      title: Communications Authenticity
+      title: Communications authenticity
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SC_L2-3_13_16":
-      title: Data at Rest
+      title: Data at rest
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SI_L1-3_14_2":
-      title: Malicious Code Protection
+      title: Malicious code protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SI_L1-3_14_4":
-      title: Update Malicious Code Protection
+      title: Update malicious code protection
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SI_L1-3_14_5":
-      title: System & File Scanning
+      title: System & file scanning
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SI_L2-3_14_3":
-      title: Security Alerts & Advisories
+      title: Security alerts & advisories
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
     "SI_L2-3_14_7":
-      title: Identify Unauthorized Use
+      title: Identify unauthorized use
       link: https://www.acq.osd.mil/cmmc/docs/ModelOverview_V2.0_FINAL2_20211202_508.pdf
   metadata: {}
 "hitrust":
