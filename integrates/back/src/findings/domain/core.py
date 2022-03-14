@@ -774,9 +774,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     open_vulns_ids: List[str],
     closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[Vulnerability],
-    is_reattack_open: Optional[  # pylint: disable=unused-argument
-        bool
-    ] = False,
+    is_reattack_open: Optional[bool] = None,
 ) -> bool:
     # All vulns must be open before verifying them
     # we will just keep them open or close them
@@ -829,8 +827,8 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         "parent": "0",
         "comment_id": comment_id,
     }
-
-    await comments_domain.add(finding_id, comment_data, user_info)
+    if is_reattack_open is None:
+        await comments_domain.add(finding_id, comment_data, user_info)
 
     # Modify the verification state to mark all passed vulns as verified
     success = all(
