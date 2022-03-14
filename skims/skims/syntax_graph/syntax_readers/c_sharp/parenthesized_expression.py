@@ -11,4 +11,4 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     match_expression = match_ast(args.ast_graph, args.n_id)
-    return args.generic(args.fork_n_id(match_expression["__1__"]))
+    return args.generic(args.fork_n_id(str(match_expression["__1__"])))

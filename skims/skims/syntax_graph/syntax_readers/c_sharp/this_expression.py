@@ -7,9 +7,6 @@ from syntax_graph.syntax_nodes.this_expression import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    cast,
-)
 from utils import (
     graph as g,
 )
@@ -18,5 +15,5 @@ from utils import (
 def reader(args: SyntaxGraphArgs) -> NId:
     pred = g.pred_ast(args.ast_graph, args.n_id)
     match = g.match_ast(args.ast_graph, pred[0], "identifier")
-    expression = cast(str, match["identifier"])
+    expression = str(match["identifier"])
     return build_this_expression_node(args, expression)
