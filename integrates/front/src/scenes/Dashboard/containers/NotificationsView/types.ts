@@ -1,10 +1,6 @@
-interface ISubscriptionNameDataSet {
-  name: string;
-  subscribeEmail: JSX.Element;
-}
-
 interface ISubscriptionName {
   name: string;
+  subscribeEmail: JSX.Element;
 }
 
 interface ISubscriptionsNames {
@@ -18,4 +14,4 @@ interface ISubscriptionsNames {
   };
 }
 
-export { ISubscriptionName, ISubscriptionNameDataSet, ISubscriptionsNames };
+export { ISubscriptionName, ISubscriptionsNames };

@@ -5,36 +5,22 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
 
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
+import { Card, CardBody, CardHeader } from "components/Card";
+import { Col, Row } from "components/Layout";
+import { SwitchButton } from "components/SwitchButton";
 import {
   GET_SUBSCRIPTIONS,
   UPDATE_NOTIFICATIONS_PREFERENCES,
 } from "scenes/Dashboard/containers/NotificationsView/queries";
 import type {
   ISubscriptionName,
-  ISubscriptionNameDataSet,
   ISubscriptionsNames,
 } from "scenes/Dashboard/containers/NotificationsView/types";
-import { Col40, RowCenter } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const NotificationsView: React.FC = (): JSX.Element => {
-  const tableHeaders: IHeaderConfig[] = [
-    {
-      dataField: "name",
-      header: translate.t("searchFindings.notificationTable.notification"),
-      width: "99%",
-    },
-    {
-      dataField: "subscribeEmail",
-      header: translate.t("searchFindings.notificationTable.email"),
-      width: "1%",
-    },
-  ];
-
   const { data: dataEnum, refetch } = useQuery<ISubscriptionsNames>(
     GET_SUBSCRIPTIONS,
     {
@@ -80,7 +66,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
     _.isUndefined(dataEnum) || _.isEmpty(dataEnum)
       ? []
       : dataEnum.Notifications.enumValues.map(
-          (subscription: ISubscriptionName): ISubscriptionNameDataSet => {
+          (subscription: ISubscriptionName): ISubscriptionName => {
             const listSubscription = dataEnum.me.notificationsPreferences.email;
             const isSubscribe = listSubscription.includes(subscription.name);
 
@@ -98,13 +84,13 @@ const NotificationsView: React.FC = (): JSX.Element => {
                 `searchFindings.enumValues.${subscription.name}`
               ),
               subscribeEmail: (
-                <Col40>
-                  <input
-                    checked={isSubscribe}
-                    onChange={onChange}
-                    type={"checkbox"}
-                  />
-                </Col40>
+                <SwitchButton
+                  checked={isSubscribe}
+                  id={"emailSwitch"}
+                  offlabel={"Off"}
+                  onChange={onChange}
+                  onlabel={"On"}
+                />
               ),
             };
           }
@@ -120,18 +106,27 @@ const NotificationsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <RowCenter>
-          <Col40>
-            <Table
-              dataset={subscriptionsFiltered}
-              exportCsv={false}
-              headers={tableHeaders}
-              id={"tblNotifications"}
-              pageSize={10}
-              search={false}
-            />
-          </Col40>
-        </RowCenter>
+        <Row>
+          {subscriptionsFiltered.map((item: ISubscriptionName): JSX.Element => {
+            return (
+              <Col key={item.name} large={"25"} medium={"50"} small={"50"}>
+                <Card>
+                  <CardHeader>{item.name}</CardHeader>
+                  <CardBody>
+                    <Row>
+                      <Col large={"70"} medium={"70"} small={"70"}>
+                        {translate.t("searchFindings.notificationTable.email")}
+                      </Col>
+                      <Col large={"30"} medium={"30"} small={"30"}>
+                        {item.subscribeEmail}
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
       </div>
     </React.StrictMode>
   );
