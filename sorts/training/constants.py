@@ -19,6 +19,10 @@ from sklearn.ensemble import (
 )
 from sklearn.linear_model import (
     LogisticRegression,
+    SGDClassifier,
+)
+from sklearn.naive_bayes import (
+    BernoulliNB,
 )
 from sklearn.neighbors import (
     KNeighborsClassifier,
@@ -87,6 +91,11 @@ MODELS: Dict[str, ModelType] = {
     "logisticregression": LogisticRegression,
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
+}
+INC_TRAINING_MODELS: Dict[str, ModelType] = {
+    "bernoullinb": BernoulliNB,
+    "mlpclassifier": MLPClassifier,
+    "sgdclassifier": SGDClassifier,
 }
 MODELS_DEFAULTS: Dict[ModelType, Dict[str, Union[str, int, float]]] = {
     LGBMClassifier: {

@@ -13,6 +13,7 @@ from sagemaker.sklearn.estimator import (
 import time
 from training.constants import (
     DATASET_PATH,
+    INC_TRAINING_MODELS,
     MODELS,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
@@ -33,20 +34,40 @@ ON_DEMAND_NEEDED: List[str] = [
     "mlpclassifier",
 ]
 
+INCMODELS_S3PATH: str = (
+    "s3://sorts/training-output/results/incremental-training/"
+)
+
 
 def get_estimator(
     model: str,
     training_script: str = "training/training_script/train.py",
 ) -> SKLearnEstimator:
-    kwargs = (
-        dict(
-            instance_type="ml.m5.2xlarge",
-            use_spot_instances=True,
-            max_wait=86400,
+    model_uri = f"{INCMODELS_S3PATH}{model.split(':')[0]}-inc-training.joblib"
+    if ":inctraining" not in model:
+        kwargs = (
+            dict(
+                instance_type="ml.m5.2xlarge",
+                use_spot_instances=True,
+                max_wait=86400,
+            )
+            if model not in ON_DEMAND_NEEDED
+            else dict(instance_type="ml.m5.4xlarge")
         )
-        if model not in ON_DEMAND_NEEDED
-        else dict(instance_type="ml.m5.4xlarge")
-    )
+    else:
+        kwargs = (
+            dict(
+                instance_type="ml.m5.2xlarge",
+                use_spot_instances=True,
+                max_wait=86400,
+                model_uri=model_uri,
+            )
+            if model.split(":")[0] not in ON_DEMAND_NEEDED
+            else dict(
+                instance_type="ml.m5.4xlarge",
+                model_uri=model_uri,
+            )
+        )
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,
         dependencies=["sorts", "training", "training/requirements.txt"],
@@ -54,8 +75,8 @@ def get_estimator(
         instance_count=1,
         role="arn:aws:iam::205810638802:role/prod_sorts",
         output_path="s3://sorts/training-output",
-        base_job_name=f"sorts-training-test-{model.lower()}",
-        hyperparameters={"model": model},
+        base_job_name=f"sorts-training-test-{model.split(':')[0].lower()}",
+        hyperparameters={"model": model.split(":")[0]},
         metric_definitions=SAGEMAKER_METRIC_DEFINITIONS,
         debugger_hook_config=False,
         tags=[
@@ -97,8 +118,12 @@ def deploy_training_job(model: str, delay: int) -> None:
 
 if __name__ == "__main__":
     models_to_train: List[str] = list(MODELS.keys())
-    with ThreadPoolExecutor(max_workers=len(models_to_train)) as executor:
+    models_to_retrain: List[str] = [
+        s + ":inctraining" for s in list(INC_TRAINING_MODELS.keys())
+    ]
+    model_list_len = len(models_to_train + models_to_retrain)
+    with ThreadPoolExecutor(max_workers=model_list_len) as executor:
         executor.map(
             lambda x: deploy_training_job(*x),
-            zip(models_to_train, range(len(models_to_train))),
+            zip(models_to_train + models_to_retrain, range(model_list_len)),
         )

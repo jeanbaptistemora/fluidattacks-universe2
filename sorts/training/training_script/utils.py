@@ -171,9 +171,15 @@ def save_model_to_s3(model: ModelType, model_name: str) -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         local_file: str = os.path.join(tmp_dir, f"{model_name}.joblib")
         dump(model, local_file)
-        S3_BUCKET.Object(f"training-output/{model_name}.joblib").upload_file(
-            local_file
-        )
+        if "SM_CHANNEL_MODEL" in os.environ:
+            inctraining_path = "training-output/results/incremental-training/"
+            S3_BUCKET.Object(
+                f"{inctraining_path}{model_name}.joblib"
+            ).upload_file(local_file)
+        else:
+            S3_BUCKET.Object(
+                f"training-output/{model_name}_test.joblib"
+            ).upload_file(local_file)
 
 
 def train_combination(

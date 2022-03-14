@@ -5,9 +5,16 @@ import argparse
 from itertools import (
     combinations,
 )
+from joblib import (
+    load,
+)
+import numpy as np
 import os
 from pandas import (
     DataFrame,
+)
+from sklearn.naive_bayes import (
+    BernoulliNB,
 )
 from sklearn.neighbors import (
     KNeighborsClassifier,
@@ -17,6 +24,7 @@ from sorts.typings import (
 )
 from training.constants import (
     FEATURES_DICTS,
+    INC_TRAINING_MODELS,
     MODELS,
     MODELS_DEFAULTS,
     RESULT_HEADERS,
@@ -36,6 +44,29 @@ from typing import (
     Tuple,
 )
 
+INC_TRAINING_BEST_COMBINATIONS: Dict[str, Tuple[str, ...]] = {
+    "bernoullinb": (
+        "num_commits",
+        "num_unique_authors",
+        "file_age",
+        "risky_commits",
+        "busy_file",
+        "commit_frequency",
+    ),
+    "mlpclassifier": (
+        "num_commits",
+        "seldom_contributors",
+        "num_lines",
+        "commit_frequency",
+    ),
+    "sgdclassifier": (
+        "seldom_contributors",
+        "num_lines",
+        "busy_file",
+        "commit_frequency",
+    ),
+}
+
 
 def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
     feature_combinations: List[Tuple[str, ...]] = []
@@ -46,7 +77,7 @@ def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
 
 def get_model_instance(model_class: ModelType) -> ModelType:
     default_args: Dict[str, Any] = {}
-    if model_class != KNeighborsClassifier:
+    if model_class not in (BernoulliNB, KNeighborsClassifier):
         default_args = {"random_state": 42}
         model_defaults = MODELS_DEFAULTS.get(model_class, {})
         default_args.update(model_defaults)
@@ -87,16 +118,28 @@ def save_model(
     if best_features:
         training_data: DataFrame = load_training_data(training_dir)
         train_x, train_y = split_training_data(training_data, best_features)
-        model = get_model_instance(model_class)
-        model.fit(train_x, train_y)
+        model_name = type(get_model_instance(model_class)).__name__.lower()
+        if "SM_CHANNEL_MODEL" in os.environ:
+            local_path = os.environ["SM_CHANNEL_MODEL"]
+            model = load(f"{local_path}/{model_name}-inc-training.joblib")
+            model.partial_fit(train_x, train_y, classes=np.unique(train_y))
+        else:
+            model = get_model_instance(model_class)
+            model.fit(train_x, train_y)
+        model_file_name: str = (
+            f"{model_name}-inc-training"
+            if "SM_CHANNEL_MODEL" in os.environ
+            else "-".join(
+                [type(model).__name__.lower(), best_f1]
+                + [
+                    FEATURES_DICTS[feature].lower()
+                    for feature in best_features
+                ]
+            )
+        )
         model.feature_names = list(best_features)
         model.precision = training_results[-1][2]
         model.recall = training_results[-1][3]
-
-        model_file_name: str = "-".join(
-            [type(model).__name__.lower(), best_f1]
-            + [FEATURES_DICTS[feature].lower() for feature in best_features]
-        )
         save_model_to_s3(model, model_file_name)
 
 
@@ -115,6 +158,26 @@ def train_model(
             model, training_data, combination
         )
         training_output.append(training_combination_output)
+
+    return training_output
+
+
+def inc_train_model(
+    model_class: ModelType,
+    training_dir: str,
+) -> List[List[str]]:
+    training_data: DataFrame = load_training_data(training_dir)
+    training_output: List[List[str]] = [RESULT_HEADERS]
+
+    # Incremental training with the best feature combination
+    model_name = type(get_model_instance(model_class)).__name__.lower()
+    model = load(
+        f"{os.environ['SM_CHANNEL_MODEL']}/{model_name}-inc-training.joblib"
+    )
+    training_combination_output: List[str] = train_combination(
+        model, training_data, INC_TRAINING_BEST_COMBINATIONS[model_name]
+    )
+    training_output.append(training_combination_output)
 
     return training_output
 
@@ -143,12 +206,20 @@ def main() -> None:
     args = cli()
 
     model_name: str = args.model
-    model_class: ModelType = MODELS[model_name]
+    model_class: ModelType = (
+        MODELS[model_name]
+        if model_name in MODELS
+        else INC_TRAINING_MODELS[model_name]
+    )
 
     # Start training process
     if model_class:
         results_filename: str = f"{model_name}_train_results.csv"
-        training_output = train_model(model_class, args.train)
+        training_output = (
+            inc_train_model(model_class, args.train)
+            if "SM_CHANNEL_MODEL" in os.environ
+            else train_model(model_class, args.train)
+        )
         update_results_csv(results_filename, training_output)
         save_model(model_class, args.train, training_output)
 
