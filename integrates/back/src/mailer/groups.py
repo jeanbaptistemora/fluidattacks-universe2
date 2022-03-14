@@ -119,6 +119,7 @@ async def send_mail_deactivated_root(
     group_name: str,
     other: str,
     reason: str,
+    root_age: int,
     root_nickname: str,
     **kwargs: Dict[str, str],
 ) -> None:
@@ -129,6 +130,7 @@ async def send_mail_deactivated_root(
             "reason": other
             if other
             else reason.replace("_", " ").capitalize(),
+            "root_age": root_age,
             "root_nickname": root_nickname,
             "sast_vulns": kwargs["sast_vulns"],
             "dast_vulns": kwargs["dast_vulns"],

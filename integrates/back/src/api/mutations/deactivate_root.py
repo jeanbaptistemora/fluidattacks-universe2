@@ -21,6 +21,9 @@ from custom_types import (
 from db_model.enums import (
     Notification,
 )
+from db_model.roots.get import (
+    RootStatesLoader,
+)
 from db_model.roots.types import (
     GitRootItem,
     RootItem,
@@ -52,6 +55,7 @@ from mailer import (
     groups as groups_mail,
 )
 from newutils import (
+    datetime as datetime_utils,
     requests as requests_utils,
     token as token_utils,
 )
@@ -158,6 +162,11 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root_ids=[(root.group_name, root.id)],
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
+    historic_state: RootStatesLoader = await loaders.root_states.load(root.id)
+    historic_state_date = datetime_utils.get_datetime_from_iso_str(
+        historic_state[0].modified_date
+    )
+    root_age = (datetime_utils.get_now() - historic_state_date).days
     user: Tuple[User, ...] = await loaders.user.load_many(email_list)
     users_email = [
         user.email
@@ -169,6 +178,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         group_name=group_name,
         other=other,
         reason=reason,
+        root_age=root_age,
         root_nickname=root.state.nickname,
         sast_vulns=len(sast_vulns),
         dast_vulns=len(dast_vulns),
