@@ -16,7 +16,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
     download={download}
     href={href}
     // https://owasp.org/www-community/attacks/Reverse_Tabnabbing
-    rel={"noopener noreferrer"}
+    rel={"nofollow noopener noreferrer"}
     target={"_blank"}
   >
     {children}
