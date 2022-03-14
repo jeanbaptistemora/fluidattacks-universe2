@@ -7,6 +7,7 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Table } from "components/Table";
@@ -23,16 +24,15 @@ import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IPortfolioProps {
   groupName: string;
 }
 
-const Portfolio: React.FC<IPortfolioProps> = (
-  props: IPortfolioProps
-): JSX.Element => {
-  const { groupName } = props;
+const Portfolio: React.FC<IPortfolioProps> = ({
+  groupName,
+}: IPortfolioProps): JSX.Element => {
+  const { t } = useTranslation();
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = useState(false);
@@ -48,7 +48,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery<IGetTagsQuery>(GET_TAGS, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group tags", error);
     },
     variables: { groupName },
@@ -59,16 +59,16 @@ const Portfolio: React.FC<IPortfolioProps> = (
       void refetch();
       track("AddGroupTags");
       msgSuccess(
-        translate.t("searchFindings.tabResources.success"),
-        translate.t("searchFindings.tabUsers.titleSuccess")
+        t("searchFindings.tabResources.success"),
+        t("searchFindings.tabUsers.titleSuccess")
       );
     },
     onError: (error: ApolloError): void => {
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         if (message === "Exception - One or more values already exist") {
-          msgError(translate.t("searchFindings.tabResources.repeatedItem"));
+          msgError(t("searchFindings.tabResources.repeatedItem"));
         } else {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred adding tags", error);
         }
       });
@@ -82,21 +82,21 @@ const Portfolio: React.FC<IPortfolioProps> = (
         void refetch();
         track("RemoveTag");
         msgSuccess(
-          translate.t("searchFindings.tabResources.successRemove"),
-          translate.t("searchFindings.tabUsers.titleSuccess")
+          t("searchFindings.tabResources.successRemove"),
+          t("searchFindings.tabUsers.titleSuccess")
         );
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred removing tags", error);
         });
       },
     }
   );
 
-  const handleRemoveTag: () => void = useCallback((): void => {
-    void removeGroupTag({
+  const handleRemoveTag = useCallback(async (): Promise<void> => {
+    await removeGroupTag({
       variables: {
         groupName,
         tagToRemove: currentRow.tagName,
@@ -117,9 +117,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
     tagName: tag,
   }));
 
-  const handleTagsAdd: (values: { tags: string[] }) => void = (values: {
-    tags: string[];
-  }): void => {
+  async function handleTagsAdd(values: { tags: string[] }): Promise<void> {
     const repeatedInputs: string[] = values.tags.filter(
       (tag: string): boolean => values.tags.filter(_.matches(tag)).length > 1
     );
@@ -129,19 +127,19 @@ const Portfolio: React.FC<IPortfolioProps> = (
     );
 
     if (repeatedInputs.length > 0) {
-      msgError(translate.t("searchFindings.tabResources.repeatedInput"));
+      msgError(t("searchFindings.tabResources.repeatedInput"));
     } else if (repeatedTags.length > 0) {
-      msgError(translate.t("searchFindings.tabResources.repeatedItem"));
+      msgError(t("searchFindings.tabResources.repeatedItem"));
     } else {
       closeAddModal();
-      void addGroupTags({
+      await addGroupTags({
         variables: {
-          groupName: props.groupName,
+          groupName,
           tagsData: JSON.stringify(values.tags),
         },
       });
     }
-  };
+  }
 
   const sortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
@@ -154,7 +152,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "tagName",
-      header: translate.t("searchFindings.tabResources.tags.title"),
+      header: t("searchFindings.tabResources.tags.title"),
       onSort: sortState,
     },
   ];
@@ -163,7 +161,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
     <React.StrictMode>
       <Row>
         <div className={"ph1-5 pa0 w-60-ns"}>
-          <h2>{translate.t("searchFindings.tabResources.tags.title")}</h2>
+          <h2>{t("searchFindings.tabResources.tags.title")}</h2>
         </div>
         <div className={"ph1-5 pa0 w-40-ns"}>
           <ButtonToolbar>
@@ -171,9 +169,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabResources.tags.addTooltip.id"}
-                message={translate.t(
-                  "searchFindings.tabResources.tags.addTooltip"
-                )}
+                message={t("searchFindings.tabResources.tags.addTooltip")}
                 placement={"top"}
               >
                 <Button
@@ -183,7 +179,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
                 >
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;
-                  {translate.t("searchFindings.tabResources.addRepository")}
+                  {t("searchFindings.tabResources.addRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>
@@ -191,9 +187,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabResources.tags.removeTooltip.id"}
-                message={translate.t(
-                  "searchFindings.tabResources.tags.removeTooltip"
-                )}
+                message={t("searchFindings.tabResources.tags.removeTooltip")}
                 placement={"top"}
               >
                 <Button
@@ -204,7 +198,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
                 >
                   <FontAwesomeIcon icon={faMinus} />
                   &nbsp;
-                  {translate.t("searchFindings.tabResources.removeRepository")}
+                  {t("searchFindings.tabResources.removeRepository")}
                 </Button>
               </TooltipWrapper>
             </Can>
@@ -238,7 +232,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
       <AddTagsModal
         isOpen={isAddModalOpen}
         onClose={closeAddModal}
-        onSubmit={handleTagsAdd} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
+        onSubmit={handleTagsAdd}
       />
     </React.StrictMode>
   );

@@ -1,11 +1,11 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikArrayField, FormikText } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import { composeValidators, required, validTag } from "utils/validations";
 
 interface IAddTagsModalProps {
@@ -31,17 +31,19 @@ function renderTagsFields(fieldName: string): JSX.Element {
   );
 }
 
-const AddTagsModal: React.FC<IAddTagsModalProps> = (
-  props: IAddTagsModalProps
-): JSX.Element => {
-  const { isOpen, onClose, onSubmit } = props;
+const AddTagsModal: React.FC<IAddTagsModalProps> = ({
+  isOpen,
+  onClose,
+  onSubmit,
+}: IAddTagsModalProps): JSX.Element => {
+  const { t } = useTranslation();
 
   return (
     <React.StrictMode>
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t("searchFindings.tabIndicators.tags.modalTitle")}
+        title={t("searchFindings.tabIndicators.tags.modalTitle")}
       >
         <Formik
           initialValues={{
@@ -67,7 +69,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
                       onClick={onClose}
                       variant={"secondary"}
                     >
-                      {translate.t("confirmmodal.cancel")}
+                      {t("confirmmodal.cancel")}
                     </Button>
                     <Button
                       disabled={!dirty}
@@ -75,7 +77,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
                       type={"submit"}
                       variant={"primary"}
                     >
-                      {translate.t("confirmmodal.proceed")}
+                      {t("confirmmodal.proceed")}
                     </Button>
                   </ModalFooter>
                 </div>
