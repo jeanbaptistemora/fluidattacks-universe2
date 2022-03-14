@@ -78,7 +78,8 @@ export const AffectedReattackAccordion: React.FC<IAffectedAccordionProps> = (
               exportCsv={false}
               headers={columns}
               id={"id"}
-              pageSize={25}
+              pageSize={10}
+              rowSize={"thin"}
               search={false}
               selectionMode={selectionMode}
             />

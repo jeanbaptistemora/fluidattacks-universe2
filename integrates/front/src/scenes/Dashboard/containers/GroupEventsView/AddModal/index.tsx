@@ -551,6 +551,9 @@ const AddModal: React.FC<IAddModalProps> = ({
                 {values.affectsReattacks ? (
                   <React.Fragment>
                     <br />
+                    {t("group.events.form.affectedReattacks.selection")}
+                    <br />
+                    <br />
                     <Row>
                       <AffectedReattackAccordion findings={findings} />
                     </Row>

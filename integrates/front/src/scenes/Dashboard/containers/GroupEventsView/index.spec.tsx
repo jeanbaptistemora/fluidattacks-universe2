@@ -64,7 +64,7 @@ describe("EventsView", (): void => {
     },
   ];
 
-  it("should return a fuction", (): void => {
+  it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof GroupEventsView).toStrictEqual("function");
   });
