@@ -26,7 +26,6 @@ closure:
   chardet: 4.0.0
   charset-normalizer: 2.0.12
   click: 8.0.4
-  cloudmersive-virus-api-client: 3.0.5
   colorama: 0.4.4
   convertdate: 2.4.0
   cryptography: 3.3.2
@@ -114,11 +113,11 @@ closure:
   urllib3: 1.25.11
   uvicorn: 0.17.4
   uvloop: 0.16.0
-  watchgod: "0.7"
+  watchgod: "0.8"
   watchtower: 0.7.3
   webencodings: 0.5.1
   websockets: "10.2"
-  wrapt: 1.13.3
+  wrapt: 1.14.0
   yarl: 1.7.2
   zenpy: 2.0.24
 links:
@@ -329,9 +328,6 @@ links:
   - name: click-8.0.4.tar.gz
     sha256: 1nqa17zdd16fhiizziznx95ygkcxz4f3h8qfr4lb2pvw52qxfn44
     url: https://files.pythonhosted.org/packages/dd/cf/706c1ad49ab26abed0b77a2f867984c1341ed7387b8030a6aa914e2942a0/click-8.0.4.tar.gz
-  - name: cloudmersive_virus_api_client-3.0.5.tar.gz
-    sha256: 0lbzl1dn97yazn6gl0h7634v5sdv1gndfdj46qj0rjq6gnmm9s9r
-    url: https://files.pythonhosted.org/packages/4e/ce/59eb2af5920c5d642e39241b05770431faa8284180d330df39c584b7f3f8/cloudmersive_virus_api_client-3.0.5.tar.gz
   - name: colorama-0.4.4-py2.py3-none-any.whl
     sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
     url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
@@ -1046,12 +1042,12 @@ links:
   - name: uvloop-0.16.0.tar.gz
     sha256: 0a0jzwrhkszknh14alflrp1db6dyjp7ph730f9yc5lb7gc6c4jzp
     url: https://files.pythonhosted.org/packages/ab/d9/22bbffa8f8d7e075ccdb29e8134107adfb4710feb10039f9d357db8b589c/uvloop-0.16.0.tar.gz
-  - name: watchgod-0.7-py3-none-any.whl
-    sha256: 1dq76ibhbkxv7awppxwm5rb17xfdyk1dd83wag07m11pvwhymhfn
-    url: https://files.pythonhosted.org/packages/57/35/9a8da3fb6681e6eba662b2d249eea58cebf575e392271efac3344c172c5f/watchgod-0.7-py3-none-any.whl
-  - name: watchgod-0.7.tar.gz
-    sha256: 0aagm0n5fkpzdsfgl0r21gkz5qaicgq3f4rqz2fdvsgbn1i0s528
-    url: https://files.pythonhosted.org/packages/fc/95/ae723eb1450763e1b2b9e70488054099c661f3b65f0c41d86b868cd6eb16/watchgod-0.7.tar.gz
+  - name: watchgod-0.8-py3-none-any.whl
+    sha256: 1sxm310iqinr22mla7xh044ciww653j84pmzgckixk0wvvz2r71k
+    url: https://files.pythonhosted.org/packages/37/94/3e91ef2983d8f8116249077b5336ac2718b6b49b10bb29006d7e2abb11f8/watchgod-0.8-py3-none-any.whl
+  - name: watchgod-0.8.tar.gz
+    sha256: 1c9k01a037bvvlfigi1fn7zqfwy432ijqrc176vxs88pbvrdi899
+    url: https://files.pythonhosted.org/packages/43/d9/13e9bb6ddb472f5617453fc1671aaee736f11f190459aae97e295f6aab97/watchgod-0.8.tar.gz
   - name: watchtower-0.7.3-py2.py3-none-any.whl
     sha256: 1lpqci9yjldihkn572l4di54sc43lh358c7wpf25r0lr14syivl2
     url: https://files.pythonhosted.org/packages/e1/ad/a891df8edb54720c981b1f696611292ce24c8e02a20898f32efcb9d1f5ff/watchtower-0.7.3-py2.py3-none-any.whl
@@ -1094,24 +1090,33 @@ links:
   - name: websockets-10.2.tar.gz
     sha256: 163086ckr8ijd2cm12afs7y02gpcqpiy1v74n0vn6588dg4c6lc3
     url: https://files.pythonhosted.org/packages/b4/7b/0960d02701f783bb052ec69ea32789d878d2cce05a03950adbd75f164758/websockets-10.2.tar.gz
-  - name: wrapt-1.13.3-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1jzjwqni04rk0qnqb77802kbg2yzrqi2j7k0l13r5fxy49ks47cq
-    url: https://files.pythonhosted.org/packages/d6/4a/0a9b71f13be3b5c7616365913a89e601f1d152c1b60b268358685ea94f09/wrapt-1.13.3-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: wrapt-1.13.3-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 0chyk9s8qjdivfspi4mya870jc91szw574gdkkj0fixyyzqjlpkh
-    url: https://files.pythonhosted.org/packages/cb/cb/b7dcb5d338d4ce9e4111863baab0ab2b816d18de2f69dd92ce2b4257e9c3/wrapt-1.13.3-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: wrapt-1.13.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 1xyzm95r2g5n3fj2sph8725cmrbwix0asbwx3jz84pa9vzav3c95
-    url: https://files.pythonhosted.org/packages/98/ce/79956b7bda2601e6258c4111710c0771a539901fee6e78980c18a7092be7/wrapt-1.13.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: wrapt-1.13.3-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 0piv0gbhcqjpxvq2m4ng7vv5v56m32vkqsk6bhxravcj2xmnwhbp
-    url: https://files.pythonhosted.org/packages/04/8d/23decce7494645e6326c5f5314dda45fc9682cf4b0e6c3a7df36215fccf4/wrapt-1.13.3-cp39-cp39-musllinux_1_1_i686.whl
-  - name: wrapt-1.13.3-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 0h36ywjn3y85ar4s37rmcy7a69zw1z2788djb1cg05in0180np46
-    url: https://files.pythonhosted.org/packages/64/77/fdc225faf6b6846b7d573113e9fd77df112ac7243bb789435c2ed4698fd6/wrapt-1.13.3-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: wrapt-1.13.3.tar.gz
-    sha256: 11f13zqgbql26g5bkfkqalckcdlz394g6dhx4y16cvk873a9rshz
-    url: https://files.pythonhosted.org/packages/eb/f6/d81ccf43ac2a3c80ddb6647653ac8b53ce2d65796029369923be06b815b8/wrapt-1.13.3.tar.gz
+  - name: wrapt-1.14.0-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 18f8gmh7vq9qy57bp0f1sx9sjpr3zkkprrb64n3lqwqrzdqydxxk
+    url: https://files.pythonhosted.org/packages/ec/6d/9fe8b81da26c70366ed7ab0429fa2a52c101918a85c1d1dfd56fab55a233/wrapt-1.14.0-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: wrapt-1.14.0-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 1m6kbfcg3cmws5gca5qjk7lpbgzgdwd9g1j0pb0whh5yicz99yl7
+    url: https://files.pythonhosted.org/packages/2c/99/ccf1bfa36ceac9f81576a95f88dd29c5d2e2de8b92f33e41020152343309/wrapt-1.14.0-cp39-cp39-macosx_11_0_arm64.whl
+  - name: wrapt-1.14.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 0n5pna5s8qhm96q9n00j7vhl56h4rv58d25iyl904knqx5saaxa7
+    url: https://files.pythonhosted.org/packages/68/96/64d8b71699d1b09c71a6890c7e9ddaf29a4f93c453c44f5ec58f72587836/wrapt-1.14.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: wrapt-1.14.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 0kcy2xx549qpn3q90k418nw2xc7bpn9qnyq9fqf43id071r6fmwx
+    url: https://files.pythonhosted.org/packages/80/81/66e0b5061856f64f64f901d3dde3464a520714d4e3fc64326b67403b5bba/wrapt-1.14.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: wrapt-1.14.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0jrpjgpf4jz9s68p9k1j95wgf7api8q1s7zq2v754k7kw08q8400
+    url: https://files.pythonhosted.org/packages/ed/03/45e3f6b6e6385c119177cd6bac1291bf86ab77ed321df16b98a0440b5f9f/wrapt-1.14.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: wrapt-1.14.0-cp39-cp39-musllinux_1_1_aarch64.whl
+    sha256: 1xlznf3gjpglhbd35v5lm1djvqrdhykkagxn08nqbjkz637ywcnk
+    url: https://files.pythonhosted.org/packages/65/b1/f8425a64bf465d83569bd679936bf398d32ba680586eaf6b39174e4f5806/wrapt-1.14.0-cp39-cp39-musllinux_1_1_aarch64.whl
+  - name: wrapt-1.14.0-cp39-cp39-musllinux_1_1_i686.whl
+    sha256: 1873s09ymykq9b6bxvs5fnw5kj5vyax1p73bxz0qwsmrz7g9kxq1
+    url: https://files.pythonhosted.org/packages/d1/2e/8b7daa90d91c89861a58c3ab224b0e3cc1c48461fa1c7b0008342ae23dcc/wrapt-1.14.0-cp39-cp39-musllinux_1_1_i686.whl
+  - name: wrapt-1.14.0-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 0v1k161nc0k3wrw5gj92gwcis35c3y4m92z7ia8mgs41ak9mw127
+    url: https://files.pythonhosted.org/packages/c4/5b/9b9d222a4a0d0acc4757dfa1e9a825b3de179baf1dfdad8b446811eee95e/wrapt-1.14.0-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: wrapt-1.14.0.tar.gz
+    sha256: 048k4rl7xi8mi3z7pqi0z1z0w28hzz4lrrsbgnxn47y9v4xs88w3
+    url: https://files.pythonhosted.org/packages/c7/b4/3a937c7f8ee4751b38274c8542e02f42ebf3e080f1344c4a2aff6416630e/wrapt-1.14.0.tar.gz
   - name: yarl-1.7.2-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 18735xf501s6jiczl0a72564v52qc2zlqgh56y67l4qfa0aiy32q
     url: https://files.pythonhosted.org/packages/24/17/9f96daedc72165e93b93688d103d55cab6c13dd1af4913e56184c612dcaa/yarl-1.7.2-cp39-cp39-macosx_10_9_universal2.whl
