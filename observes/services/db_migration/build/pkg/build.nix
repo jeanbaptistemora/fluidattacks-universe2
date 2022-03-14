@@ -18,6 +18,6 @@ lib.buildPythonPackage rec {
     ''
   ];
   doCheck = true;
-  pythonImportsCheck = [pname];
+  pythonImportsCheck = [pname "${pname}.exporter" "${pname}.creds"];
   inherit src propagatedBuildInputs nativeBuildInputs;
 }
