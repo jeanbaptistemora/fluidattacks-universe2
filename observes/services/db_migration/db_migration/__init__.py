@@ -9,7 +9,6 @@ from fa_purity.cmd import (
 )
 from redshift_client.id_objs import (
     SchemaId,
-    TableId,
 )
 from redshift_client.schema.client import (
     SchemaClient,
@@ -24,7 +23,6 @@ from redshift_client.sql_client.core import (
     new_client,
 )
 from redshift_client.table.client import (
-    ManifestId,
     TableClient,
 )
 from typing import (
@@ -60,122 +58,6 @@ TARGETS = frozenset(
         "code",
         "gitlab-ci",
     ]
-)
-
-
-PENDING_IMPORT = (
-    (
-        TableId(SchemaId("zoho_crm"), "price_books"),
-        ManifestId("s3://observes.migration/zoho_crm/price_books/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "products"),
-        ManifestId("s3://observes.migration/zoho_crm/products/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "leads"),
-        ManifestId("s3://observes.migration/zoho_crm/leads/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "sales_orders"),
-        ManifestId("s3://observes.migration/zoho_crm/sales_orders/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "contacts"),
-        ManifestId("s3://observes.migration/zoho_crm/contacts/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "tasks"),
-        ManifestId("s3://observes.migration/zoho_crm/tasks/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "calls"),
-        ManifestId("s3://observes.migration/zoho_crm/calls/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "users"),
-        ManifestId("s3://observes.migration/zoho_crm/users/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "quotes"),
-        ManifestId("s3://observes.migration/zoho_crm/quotes/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "campaigns"),
-        ManifestId("s3://observes.migration/zoho_crm/campaigns/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "accounts"),
-        ManifestId("s3://observes.migration/zoho_crm/accounts/manifest"),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "users____territories"),
-        ManifestId(
-            "s3://observes.migration/zoho_crm/users____territories/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("zoho_crm"), "deals"),
-        ManifestId("s3://observes.migration/zoho_crm/deals/manifest"),
-    ),
-    (
-        TableId(SchemaId("code"), "commits_bkp"),
-        ManifestId("s3://observes.migration/code/commits_bkp/manifest"),
-    ),
-    (
-        TableId(SchemaId("code"), "commits"),
-        ManifestId("s3://observes.migration/code/commits/manifest"),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "upload_state"),
-        ManifestId("s3://observes.migration/gitlab-ci/upload_state/manifest"),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "merge_requests"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/merge_requests/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "merge_requests____labels"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/merge_requests____labels/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "merge_requests____assignees"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/merge_requests____assignees/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "jobs____commit__parent_ids"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/jobs____commit__parent_ids/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "merge_requests____reviewers"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/merge_requests____reviewers/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "jobs"),
-        ManifestId("s3://observes.migration/gitlab-ci/jobs/manifest"),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "jobs____artifacts"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/jobs____artifacts/manifest"
-        ),
-    ),
-    (
-        TableId(SchemaId("gitlab-ci"), "jobs____tag_list"),
-        ManifestId(
-            "s3://observes.migration/gitlab-ci/jobs____tag_list/manifest"
-        ),
-    ),
 )
 
 

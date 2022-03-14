@@ -16,7 +16,7 @@
   };
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "refs/tags/v0.4.1";
+    ref = "refs/tags/v0.5.0";
   };
   redshift = import redshift_src {
     inherit system legacy_pkgs python_version;
