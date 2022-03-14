@@ -21,7 +21,7 @@ function start_etl {
       echo "\"dc\":\"${mailchimp_dc}\""
       echo '}'
     } > "${mailchimp_creds}" \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-mailchimp stream \
       --creds-file "${mailchimp_creds}" \

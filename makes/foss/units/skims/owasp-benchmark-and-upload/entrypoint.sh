@@ -3,7 +3,7 @@
 function upload {
   aws_login_prod 'observes' \
     && db_creds="$(mktemp)" \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
     && observes-singer-tap-json-bin \
       < 'benchmark.json' \

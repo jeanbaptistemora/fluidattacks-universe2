@@ -13,7 +13,7 @@ function main {
       zoho_crm_bulk_creator_creds \
     && echo '[INFO] Generating secret files' \
     && echo "${zoho_crm_bulk_creator_creds}" > "${zoho_creds}" \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && zoho-crm-prepare \
       "${db_creds}" \
       "${zoho_creds}" \

@@ -8,7 +8,7 @@ function dynamodb_centralize {
   db_creds="$(mktemp)" \
     && aws_login_prod 'observes' \
     && echo '[INFO] Generating secret files' \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running centralizer' \
     && migrate-tables centralize-dynamo-schemas \
       --db-auth "${db_creds}" \

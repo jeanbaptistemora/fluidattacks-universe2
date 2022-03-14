@@ -26,7 +26,7 @@ function prod_user {
       > "${target}"
 }
 
-function db_creds_legacy {
+function json_db_creds {
   local target="${1}"
   sops_export_vars 'observes/secrets-prod.yaml' \
     REDSHIFT_DATABASE \

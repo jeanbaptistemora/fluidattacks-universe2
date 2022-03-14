@@ -23,7 +23,7 @@ function job_timedoctor {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
     && echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Downloading backups from S3' \
     && bucket="$(jq < s3_files.json -r '.bucket_name')" \
     && cont_folder=$(jq < s3_files.json -r '.folder_name') \

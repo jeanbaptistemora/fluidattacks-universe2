@@ -9,7 +9,7 @@ function refresh_token {
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && echo '[INFO] Generating secret files' \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && analytics_auth_timedoctor=$(
       get_project_variable \
         "${PRODUCT_API_TOKEN}" \

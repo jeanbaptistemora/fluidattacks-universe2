@@ -23,7 +23,7 @@ function job_mixpanel_integrates {
       echo '}'
     } > "${mixpanel_creds}" \
     && echo '[INFO] Starting mixpanel ETL' \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-mixpanel -a "${mixpanel_creds}" -c "${conf}" \
     | tap-json \

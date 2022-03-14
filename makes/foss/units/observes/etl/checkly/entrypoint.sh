@@ -14,7 +14,7 @@ function start_etl {
       checkly_api_user \
       checkly_api_key \
     && echo '[INFO] Generating secret files' \
-    && db_creds_legacy > "${db_creds}" \
+    && json_db_creds > "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-checkly stream \
       --api-user "${checkly_api_user}" \

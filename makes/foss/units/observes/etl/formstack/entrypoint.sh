@@ -15,7 +15,7 @@ function start_etl {
       analytics_auth_formstack \
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_formstack}" > "${formstack_creds}" \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
     && mkdir ./logs \
     && tap-formstack \

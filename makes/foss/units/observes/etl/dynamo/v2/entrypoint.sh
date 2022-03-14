@@ -14,7 +14,7 @@ function dynamodb_etl {
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && echo '[INFO] Generating secret files' \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running streamer' \
     && tap-dynamo stream \
       --tables "${tables}" \

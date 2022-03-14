@@ -2,16 +2,12 @@
 
 function job_code_mirror {
   local group="${1}"
-  local db_creds
 
   true \
     && if test -z "${group}"; then
       abort '[INFO] Please set the first argument to the group name'
     fi \
-    && db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && echo '[INFO] Generating secret files' \
-    && db_creds_legacy "${db_creds}" \
     && use_git_repo_services \
     && echo "[INFO] Working on ${group}" \
     && echo "[INFO] Cloning ${group} from source Git repository" \

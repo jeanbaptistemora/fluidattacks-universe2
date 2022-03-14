@@ -13,7 +13,7 @@ function start_etl {
     && sops_export_vars 'observes/secrets-prod.yaml' \
       delighted_api_key \
     && echo '[INFO] Generating secret files' \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-delighted stream \
       --api-key "${delighted_api_key}" \

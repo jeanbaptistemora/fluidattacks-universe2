@@ -22,7 +22,7 @@ function dynamodb_etl {
       echo "\"AWS_DEFAULT_REGION\":\"${AWS_DEFAULT_REGION}\""
       echo '}'
     } > "${dynamo_creds}" \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running streamer' \
     && mkdir ./logs \
     && tap-dynamo \

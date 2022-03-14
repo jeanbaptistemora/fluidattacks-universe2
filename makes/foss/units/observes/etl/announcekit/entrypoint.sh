@@ -17,7 +17,7 @@ function start_etl {
     && export ANNOUNCEKIT_USER="${announcekit_user}" \
     && export ANNOUNCEKIT_PASSWD="${announcekit_passwd}" \
     && echo '[INFO] Generating secret files' \
-    && db_creds_legacy "${db_creds}" \
+    && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-announcekit stream 'ALL' \
       --project "${announcekit_fluid_proj}" \
