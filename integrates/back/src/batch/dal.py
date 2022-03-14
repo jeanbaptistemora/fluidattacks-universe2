@@ -399,14 +399,11 @@ async def delete_action(
                     " or any other arguments to build pk"
                 )
             )
-        key = dynamodb_pk or mapping_to_key(
-            [
-                action_name,  # type: ignore
-                additional_info,  # type: ignore
-                entity,  # type: ignore
-                subject,  # type: ignore
-                time,  # type: ignore
-            ]
+        key = dynamodb_pk or generate_key_to_dynamod(
+            action_name=action_name,  # type: ignore
+            additional_info=additional_info,  # type: ignore
+            entity=entity,  # type: ignore
+            subject=subject,  # type: ignore
         )
         return await dynamodb_ops.delete_item(
             delete_attrs=DynamoDelete(Key=dict(pk=key)), table=TABLE_NAME
@@ -501,7 +498,6 @@ def generate_key_to_dynamod(
     additional_info: str,
     entity: str,
     subject: str,
-    time: str,
 ) -> str:
     return mapping_to_key(
         [
@@ -509,7 +505,6 @@ def generate_key_to_dynamod(
             additional_info,
             entity,
             subject,
-            time,
         ]
     )
 
@@ -531,7 +526,6 @@ async def put_action_to_dynamodb(
             additional_info=additional_info,
             entity=entity,
             subject=subject,
-            time=time,
         )
         success = await dynamodb_ops.put_item(
             item=dict(
@@ -713,8 +707,16 @@ async def put_action(  # pylint: disable=too-many-locals
         additional_info=additional_info,
         entity=entity,
         subject=subject,
-        time=time,
     )
+    if (
+        current_action := await get_action(action_dynamo_pk=possible_key)
+    ) and (not current_action.running):
+        return PutActionResult(
+            success=True,
+            batch_job_id=current_action.batch_job_id,
+            dynamo_pk=dynamodb_pk,
+        )
+
     job_id = await put_action_to_batch(
         action_name=action.value,
         vcpus=vcpus,
