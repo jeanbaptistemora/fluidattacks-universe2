@@ -60,6 +60,7 @@ from roots import (
     validations,
 )
 from roots.types import (
+    GitEnvironmentUrl as GitEnvironmentUrlOld,
     GitRoot,
     GitRootCloningStatus,
     IPRoot,
@@ -104,7 +105,10 @@ def format_root(root: RootItem) -> Root:
             ),
             environment=root.state.environment,
             environment_urls=root.state.environment_urls,
-            git_environment_urls=root.state.git_environment_urls,
+            git_environment_urls=[
+                GitEnvironmentUrlOld(url=env.url)
+                for env in root.state.git_environment_urls
+            ],
             gitignore=root.state.gitignore,
             group_name=root.group_name,
             id=root.id,
@@ -124,7 +128,7 @@ def format_root(root: RootItem) -> Root:
             group_name=root.group_name,
             id=root.id,
             nickname=root.state.nickname,
-            port=root.state.port,
+            port=int(root.state.port),
             state=root.state.status,
         )
 
@@ -134,7 +138,7 @@ def format_root(root: RootItem) -> Root:
         id=root.id,
         nickname=root.state.nickname,
         path=root.state.path,
-        port=root.state.port,
+        port=int(root.state.port),
         protocol=root.state.protocol,
         state=root.state.status,
     )
@@ -971,7 +975,7 @@ async def move_root(
         new_root_id = new_root.id
     elif isinstance(root, IPRootItem):
         if not validations.is_ip_unique(
-            root.state.url, root.state.branch, target_group_roots
+            root.state.address, root.state.port, target_group_roots
         ):
             raise RepeatedRoot()
 
