@@ -7,10 +7,15 @@ from aiogqlc.client import (
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
+from core.vulnerabilities import (
+    get_vulnerability_justification,
+    vulns_with_reattack_requested,
+)
 from ctx import (
     CTX,
 )
 from integrates.dal import (
+    do_add_finding_consult,
     do_update_evidence,
     do_update_evidence_description,
     get_finding_vulnerabilities,
@@ -149,6 +154,7 @@ async def diff_results(
         result: core_model.Vulnerability,
         state: core_model.VulnerabilityStateEnum,
     ) -> core_model.Vulnerability:
+
         return core_model.Vulnerability(
             finding=result.finding,
             integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
@@ -224,7 +230,7 @@ async def diff_results(
     return store
 
 
-async def persist_finding(
+async def persist_finding(  # pylint: disable=too-many-locals
     *,
     finding: core_model.FindingEnum,
     group: str,
@@ -243,6 +249,7 @@ async def persist_finding(
     :rtype: bool
     """
     success: bool = False
+    success_comment: bool = True
     store_length: int = store.length()
     has_results: bool = store_length > 0
     diff_store: Optional[EphemeralStore] = None
@@ -265,7 +272,6 @@ async def persist_finding(
         integrates_store = await get_finding_vulnerabilities(
             finding=finding, finding_id=finding_id, client=client
         )
-        # Get vulnerabilities with a reattack requested before verification
 
         diff_store = await diff_results(
             integrates_store=integrates_store,
@@ -273,9 +279,27 @@ async def persist_finding(
             namespace=CTX.config.namespace,
         )
 
+        # Get vulnerabilities with a reattack requested
+        reattacked_store = vulns_with_reattack_requested(integrates_store)
+
+        justification = get_vulnerability_justification(
+            reattacked_store=reattacked_store,
+            store=diff_store,
+        )
+
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id, store=diff_store, client=client
         )
+
+        if justification and reattacked_store:
+            for item in justification:
+                success_comment = await do_add_finding_consult(
+                    content=item,
+                    finding_id=finding_id,
+                    parent="0",
+                    comment_type="CONSULT",
+                    client=client,
+                )
 
         # Evidences and draft submit only make sense if there are results
         if has_results:
@@ -287,7 +311,12 @@ async def persist_finding(
             success_upload_evidence = await upload_evidences(
                 finding_id=finding_id, store=store, client=client
             )
-            success = success and success_release and success_upload_evidence
+            success = (
+                success
+                and success_release
+                and success_upload_evidence
+                and success_comment
+            )
 
         await log(
             "info",

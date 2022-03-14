@@ -77,9 +77,8 @@ def get_vulnerability_justification(
 
                 if line_content:
                     open_vulns.append(
-                        f"{vuln.what}:\n \
-                        - Non-compliant code, Line {vuln.where} \
-                        with content: {line_content}"
+                        f"  - {vuln.what}:\n "
+                        + f"    Non-compliant code: {line_content}"
                     )
             else:
                 for reattacked_vuln in reattacked_store.iterate():
@@ -88,31 +87,31 @@ def get_vulnerability_justification(
                         and vuln.what == reattacked_vuln.what
                         and vuln.kind == reattacked_vuln.kind
                     ):
-                        closed_vulns.append(f"- {vuln.what}")
+                        closed_vulns.append(f"  - {vuln.what}")
 
         str_open_vulns = "\n ".join(open_vulns) if open_vulns else ""
 
         open_justification = (
-            f"Reported vulnerability is still open in commit: \
-            {commit_hash} \n {str_open_vulns}"
+            "Reported vulnerabilities are still open in commit "
+            + f"{commit_hash}: \n {str_open_vulns}"
             if open_vulns
             else ""
         )
         if open_justification:
             open_justification = (
-                f"A reattack request was executed on \
-                {format_justification_date(today).replace(' ', ' at ')}. \n"
+                "A reattack request was executed on "
+                + f"{format_justification_date(today).replace(' ', ' at ')}.\n"
                 + open_justification
             )
 
         str_closed_vulns = "\n".join(closed_vulns)
 
         closed_justification = (
-            f"Reattack request was executed on \
-            {format_justification_date(today).replace(' ', ' at ')}. \n \
-            Reported vulnerability on files: \n \
-            {str_closed_vulns} \n \
-            were solved in commit {commit_hash}."
+            "Reattack request was executed on "
+            + f"{format_justification_date(today).replace(' ', ' at ')}. \n"
+            + "Reported vulnerabilities were solved "
+            + f"in commit {commit_hash}: \n"
+            + f"{str_closed_vulns} \n"
             if closed_vulns
             else ""
         )
