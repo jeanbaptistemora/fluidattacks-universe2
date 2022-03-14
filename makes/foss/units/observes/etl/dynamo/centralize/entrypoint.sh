@@ -7,10 +7,8 @@ function dynamodb_centralize {
 
   db_creds="$(mktemp)" \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
     && echo '[INFO] Generating secret files' \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running centralizer' \
     && migrate-tables centralize-dynamo-schemas \
       --db-auth "${db_creds}" \

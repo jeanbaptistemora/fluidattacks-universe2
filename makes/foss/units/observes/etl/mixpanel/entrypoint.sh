@@ -16,7 +16,6 @@ function job_mixpanel_integrates {
     && sops_export_vars 'observes/secrets-prod.yaml' \
       mixpanel_integrates_api_secret \
       mixpanel_integrates_api_token \
-      analytics_auth_redshift \
     && {
       echo '{'
       echo "\"API_secret\":\"${mixpanel_integrates_api_secret}\","
@@ -24,7 +23,7 @@ function job_mixpanel_integrates {
       echo '}'
     } > "${mixpanel_creds}" \
     && echo '[INFO] Starting mixpanel ETL' \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-mixpanel -a "${mixpanel_creds}" -c "${conf}" \
     | tap-json \

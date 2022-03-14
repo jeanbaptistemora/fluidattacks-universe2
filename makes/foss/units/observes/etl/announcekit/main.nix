@@ -13,8 +13,9 @@ makeScript {
       outputs."/observes/service/job-last-success/bin"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      outputs."/utils/aws"
+      outputs."/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   name = "observes-etl-announcekit";

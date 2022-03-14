@@ -22,7 +22,6 @@ function job_timedoctor_backup {
     && mkdir ./logs \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
       analytics_s3_cache_timedoctor \
     && analytics_auth_timedoctor=$(
       get_project_variable \
@@ -33,7 +32,7 @@ function job_timedoctor_backup {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
     && echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running tap for worklogs' \
     && tap-timedoctor \
       --auth "${timedoctor_creds}" \

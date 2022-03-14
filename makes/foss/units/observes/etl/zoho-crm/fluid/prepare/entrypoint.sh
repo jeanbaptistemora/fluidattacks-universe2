@@ -10,11 +10,10 @@ function main {
     && zoho_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
       zoho_crm_bulk_creator_creds \
     && echo '[INFO] Generating secret files' \
     && echo "${zoho_crm_bulk_creator_creds}" > "${zoho_creds}" \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && zoho-crm-prepare \
       "${db_creds}" \
       "${zoho_creds}" \

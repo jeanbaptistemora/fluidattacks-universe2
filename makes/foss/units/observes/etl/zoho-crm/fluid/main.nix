@@ -9,6 +9,7 @@ makeScript {
     source = [
       outputs."/utils/aws"
       outputs."/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   name = "observes-etl-zoho-crm-fluid";

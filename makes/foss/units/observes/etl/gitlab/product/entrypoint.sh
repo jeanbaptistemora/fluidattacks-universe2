@@ -7,9 +7,7 @@ function start_etl {
 
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && gitlab-etl \
       'gitlab-ci' \
       'fluidattacks/product' \

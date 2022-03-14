@@ -10,10 +10,8 @@ function job_code_mirror {
     fi \
     && db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
     && echo '[INFO] Generating secret files' \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && use_git_repo_services \
     && echo "[INFO] Working on ${group}" \
     && echo "[INFO] Cloning ${group} from source Git repository" \

@@ -17,6 +17,7 @@ makeScript {
       outputs."/utils/aws"
       outputs."/utils/gitlab"
       outputs."/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   name = "observes-etl-timedoctor-backup";

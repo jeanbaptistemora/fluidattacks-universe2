@@ -2,17 +2,15 @@
 
 function upload {
   aws_login_prod 'observes' \
-    && analytics_auth_redshift_file="$(mktemp)" \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
-    && echo "${analytics_auth_redshift}" > "${analytics_auth_redshift_file}" \
+    && db_creds="$(mktemp)" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running tap' \
     && observes-singer-tap-json-bin \
       < 'benchmark.json' \
       > '.singer' \
     && echo '[INFO] Running target' \
     && observes-target-redshift \
-      --auth "${analytics_auth_redshift_file}" \
+      --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'skims_benchmark' \
       < '.singer'

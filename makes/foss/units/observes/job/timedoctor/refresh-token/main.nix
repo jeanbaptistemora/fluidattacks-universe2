@@ -12,7 +12,7 @@ makeScript {
     source = [
       outputs."/utils/aws"
       outputs."/utils/gitlab"
-      outputs."/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   name = "observes-job-timedoctor-refresh-token";

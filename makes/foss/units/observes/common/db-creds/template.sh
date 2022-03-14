@@ -25,3 +25,21 @@ function prod_user {
       '{user: $u, password: $p}' \
       > "${target}"
 }
+
+function db_creds_legacy {
+  local target="${1}"
+  sops_export_vars 'observes/secrets-prod.yaml' \
+    REDSHIFT_DATABASE \
+    REDSHIFT_HOST \
+    REDSHIFT_PORT \
+    REDSHIFT_USER \
+    REDSHIFT_PASSWORD \
+    && jq -n \
+      --arg n "${REDSHIFT_DATABASE}" \
+      --arg h "${REDSHIFT_HOST}" \
+      --arg p "${REDSHIFT_PORT}" \
+      --arg u "${REDSHIFT_USER}" \
+      --arg pw "${REDSHIFT_PASSWORD}" \
+      '{dbname: $n, host: $h, port: $p, user: $u, password: $pw}' \
+      > "${target}"
+}

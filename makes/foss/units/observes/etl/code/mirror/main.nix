@@ -13,7 +13,7 @@ makeScript {
     source = [
       outputs."/utils/aws"
       outputs."/utils/git"
-      outputs."/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   name = "observes-etl-code-mirror";

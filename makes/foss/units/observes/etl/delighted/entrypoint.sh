@@ -11,10 +11,9 @@ function start_etl {
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
       delighted_api_key \
     && echo '[INFO] Generating secret files' \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-delighted stream \
       --api-key "${delighted_api_key}" \

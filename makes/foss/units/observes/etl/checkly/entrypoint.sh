@@ -11,11 +11,10 @@ function start_etl {
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
       checkly_api_user \
       checkly_api_key \
     && echo '[INFO] Generating secret files' \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy > "${db_creds}" \
     && echo '[INFO] Running tap' \
     && tap-checkly stream \
       --api-user "${checkly_api_user}" \

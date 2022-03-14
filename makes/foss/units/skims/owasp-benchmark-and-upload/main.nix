@@ -14,7 +14,7 @@ makeScript {
     ];
     source = [
       outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   entrypoint = ./entrypoint.sh;

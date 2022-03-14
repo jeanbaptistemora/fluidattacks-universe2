@@ -12,11 +12,10 @@ function start_etl {
     && formstack_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
       analytics_auth_formstack \
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_formstack}" > "${formstack_creds}" \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running tap' \
     && mkdir ./logs \
     && tap-formstack \

@@ -14,8 +14,6 @@ function dynamodb_etl {
   db_creds=$(mktemp) \
     && dynamo_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
     && echo '[INFO] Generating secret files' \
     && {
       echo '{'
@@ -24,7 +22,7 @@ function dynamodb_etl {
       echo "\"AWS_DEFAULT_REGION\":\"${AWS_DEFAULT_REGION}\""
       echo '}'
     } > "${dynamo_creds}" \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Running streamer' \
     && mkdir ./logs \
     && tap-dynamo \

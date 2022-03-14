@@ -13,7 +13,6 @@ function job_timedoctor {
     && mkdir ./logs \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_auth_redshift \
       analytics_s3_cache_timedoctor \
     && analytics_auth_timedoctor=$(
       get_project_variable \
@@ -24,7 +23,7 @@ function job_timedoctor {
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
     && echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
-    && echo "${analytics_auth_redshift}" > "${db_creds}" \
+    && db_creds_legacy "${db_creds}" \
     && echo '[INFO] Downloading backups from S3' \
     && bucket="$(jq < s3_files.json -r '.bucket_name')" \
     && cont_folder=$(jq < s3_files.json -r '.folder_name') \
