@@ -162,5 +162,16 @@ in {
         command = ["m" "f" "/observes/etl/dynamo/v2"];
         queue = "observes_soon";
       };
+    observesDbMigration =
+      sharedConfiguration
+      // {
+        queue = "dedicated_later";
+        attempts = 1;
+        attemptDurationSeconds = 172800;
+        command = ["m" "f" "/observes/job/migration"];
+        environment = [
+          "PRODUCT_API_TOKEN"
+        ];
+      };
   };
 }

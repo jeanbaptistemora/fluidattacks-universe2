@@ -84,7 +84,14 @@ EPHEMERAL_SCHEMAS = frozenset(
         "mailchimp",
         "mixpanel_integrates",
         "timedoctor",
+    ]
+)
+
+TARGETS = frozenset(
+    [
         "zoho_crm",
+        "code",
+        "gitlab-ci",
     ]
 )
 
@@ -97,6 +104,7 @@ def _schema_filter(schema: SchemaId) -> bool:
             not schema.name.endswith("backup"),
             not schema.name == "information_schema",
             not schema.name in EPHEMERAL_SCHEMAS,
+            schema.name in TARGETS,
         ]
     )
 
