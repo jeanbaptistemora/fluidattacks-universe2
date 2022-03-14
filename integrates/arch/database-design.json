@@ -645,9 +645,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -692,9 +689,6 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "FILE_UPLOADED"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -743,9 +737,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -792,9 +783,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -836,9 +824,6 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "FILE_UPLOADED"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -887,9 +872,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -934,9 +916,6 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "FILE_UPLOADED"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -985,9 +964,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -1034,9 +1010,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -1080,9 +1053,6 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
-                        "S": "FILE_UPLOADED"
-                      },
-                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -1124,9 +1094,6 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "FILE_UPLOADED"
                       },
                       {
                         "S": "GROUP_REPORT"
