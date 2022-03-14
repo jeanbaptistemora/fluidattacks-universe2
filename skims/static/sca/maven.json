@@ -912,8 +912,20 @@
     "CVE-2019-16575": ">=0 <=2.3.0",
     "CVE-2019-16576": ">=0 <=2.3.0"
   },
+  "io.arrow-kt:arrow-ank-gradle": {
+    "GHSA-rcj2-vvjx-87pm": "<0.9.0"
+  },
+  "io.atomix:atomix": {
+    "GHSA-6vvh-5794-vpmj": "<=3.1.5"
+  },
+  "io.dropwizard:dropwizard-validation": {
+    "CVE-2020-11002": "<1.3.21 || >=2.0.0 <2.0.3"
+  },
   "io.fabric8:kubernetes-client": {
     "CVE-2021-20218": ">=4.12.0 <4.13.2 || >=4.2.0 <4.7.2 || >=4.8.0 <4.11.2 || >=5.0.0 <5.0.2"
+  },
+  "io.github.skylot:jadx-core": {
+    "GHSA-r8j4-96mx-rjcc": "<1.3.2"
   },
   "io.hawt:hawtio-core": {
     "CVE-2019-9827": ">=0 <=2.5.0"
@@ -1001,6 +1013,9 @@
   "io.jenkins.plugins:sofy-ai": {
     "CVE-2019-10447": ">=0 <=1.0.3"
   },
+  "io.jenkins.plugins:warnings-ng": {
+    "CVE-2022-23107": "<9.10.3"
+  },
   "io.jenkins.plugins:whitesource": {
     "CVE-2020-2213": ">=0 <=19.1.1"
   },
@@ -1020,9 +1035,24 @@
     "CVE-2020-7647": ">=0 <1.6.7 || >=2.0.0 <2.8.2",
     "GHSA-gv3v-92v6-m48j": ">=0 <1.6.9 || >=2.0.0 <2.2.1"
   },
+  "io.jooby:jooby-netty": {
+    "GHSA-gv3v-92v6-m48j": "<2.2.1"
+  },
+  "io.ktor:ktor-client-cio": {
+    "GHSA-xrr9-rh8p-433v": "<1.3.0"
+  },
+  "io.ktor:ktor-client-core": {
+    "GHSA-xwgq-pcqx-hpmv": "<=1.2.6"
+  },
+  "io.ktor:ktor-server-cio": {
+    "GHSA-xrr9-rh8p-433v": "<1.3.0"
+  },
   "io.kubernetes:client-java": {
     "CVE-2020-8570": ">=0 <9.0.2 || >=10.0.0 <10.0.1",
     "CVE-2021-25738": ">=0 <=9.0.2 || >=10.0.0 <=10.0.1 || >=11.0.0 <11.0.2"
+  },
+  "io.micronaut:micronaut-http": {
+    "GHSA-2457-2263-mm9f": "<3.2.7"
   },
   "io.micronaut:micronaut-http-client": {
     "CVE-2020-7611": ">=0 <1.2.11 || >=1.3.0 <1.3.2",
