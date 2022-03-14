@@ -56,6 +56,7 @@ def get_vulnerability_justification(
     line_content: str
     open_justification: str = ""
     closed_justification: str = ""
+
     if reattacked_store:
         for vuln in store.iterate():
             if vuln.state == core_model.VulnerabilityStateEnum.OPEN:
@@ -65,6 +66,7 @@ def get_vulnerability_justification(
                         vuln.where == reattacked_vuln.where
                         and vuln.what == reattacked_vuln.what
                         and vuln.skims_metadata is not None
+                        and vuln.kind == reattacked_vuln.kind
                     ):
                         line_content = list(
                             filter(
@@ -75,11 +77,18 @@ def get_vulnerability_justification(
 
                 if line_content:
                     open_vulns.append(
-                        f"- Non-compliant code, Line {vuln.where} \
+                        f"{vuln.what}:\n \
+                        - Non-compliant code, Line {vuln.where} \
                         with content: {line_content}"
                     )
             else:
-                closed_vulns.append(f"- {vuln.what}")
+                for reattacked_vuln in reattacked_store.iterate():
+                    if (
+                        vuln.where == reattacked_vuln.where
+                        and vuln.what == reattacked_vuln.what
+                        and vuln.kind == reattacked_vuln.kind
+                    ):
+                        closed_vulns.append(f"- {vuln.what}")
 
         str_open_vulns = "\n ".join(open_vulns) if open_vulns else ""
 
