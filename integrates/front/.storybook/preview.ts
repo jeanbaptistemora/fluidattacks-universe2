@@ -5,6 +5,13 @@ import { DocsPage } from "./DocsPage";
 
 const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  backgrounds: {
+    default: "light",
+    values: [
+      { name: "light", value: "#e9e9ed" },
+      { name: "dark", value: "#333333" },
+    ],
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,
