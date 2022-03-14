@@ -624,6 +624,9 @@
   "com.starkbank:starkbank-ecdsa": {
     "GHSA-r28h-x6hv-2fq3": "<1.0.1"
   },
+  "com.sun.el:el-ri": {
+    "GHSA-v6w3-2prq-h95f": "<3.0.4"
+  },
   "com.sun.faces:jsf-impl": {
     "CVE-2013-3827": ">=2-alpha0 <=2.1.18",
     "CVE-2013-5855": ">=2-alpha0 <=2.2.5"
@@ -711,8 +714,24 @@
   "com.typesafe.akka:akka-actor": {
     "CVE-2017-1000034": "2.5 || >=0 <=2.4.16"
   },
+  "com.typesafe.akka:akka-actor_2.11": {
+    "GHSA-mm57-9j6q-rxm2": "<2.4.17",
+    "GHSA-mr95-9rr4-668f": ">=2.5.0 <2.5.16"
+  },
+  "com.typesafe.akka:akka-actor_2.12": {
+    "GHSA-mm57-9j6q-rxm2": "<2.4.17",
+    "GHSA-mr95-9rr4-668f": ">=2.5.0 <2.5.16"
+  },
   "com.typesafe.akka:akka-http-core": {
     "CVE-2017-1000118": ">=0 <=10.0.5"
+  },
+  "com.typesafe.akka:akka-http-core_2.11": {
+    "GHSA-9qgc-p27w-3hjg": ">=10.1.0 <10.1.4",
+    "GHSA-gfx6-ph4q-q54q": "<10.0.6"
+  },
+  "com.typesafe.akka:akka-http-core_2.12": {
+    "GHSA-9qgc-p27w-3hjg": ">=10.1.0 <10.1.4",
+    "GHSA-gfx6-ph4q-q54q": "<10.0.6"
   },
   "com.typesafe.play:play-ws_2.12": {
     "CVE-2018-13864": ">=2.6.12 <=2.6.15",
@@ -728,6 +747,13 @@
     "CVE-2020-26883": ">=0 <=2.6.25 || >=2.7.0 <=2.7.5 || >=2.8.0 <=2.8.2",
     "CVE-2020-27196": ">=0 <=2.6.25 || >=2.7.0 <=2.7.5 || >=2.8.0 <=2.8.2",
     "CVE-2020-28923": ">=2.8.0 <=2.8.4"
+  },
+  "com.typesafe.play:play_2.12": {
+    "GHSA-cf8j-64h9-6q58": "<2.7.5 || >=2.8.0 <2.8.2"
+  },
+  "com.upokecenter:cbor": {
+    "GHSA-fj2w-wfgv-mwq6": ">=4.0.0 <4.5.1",
+    "GHSA-mm44-wc5p-wqhq": "<4.0.0"
   },
   "com.vaadin:flow": {
     "CVE-2021-31404": ">=1.0.0 <1.0.14 || >=1.1.0 <5.0.0",
