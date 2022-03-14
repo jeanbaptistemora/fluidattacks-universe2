@@ -59,6 +59,28 @@ const Col = styled.div.attrs({ className: "ph2" })<IColProps>`
   }
 `;
 
-const Row = styled.div.attrs({ className: "flex flex-row flex-wrap" })``;
+interface IRowProps {
+  align?:
+    | "center"
+    | "flex-end"
+    | "flex-start"
+    | "space-around"
+    | "space-between"
+    | "space-evenly";
+}
+
+const getJustifyContent = (align?: string): string => {
+  if (align === undefined) {
+    return "flex-start";
+  }
+
+  return align;
+};
+
+const Row = styled.div.attrs({
+  className: "flex flex-row flex-wrap pv2",
+})<IRowProps>`
+  justify-content: ${(props): string => getJustifyContent(props.align)};
+`;
 
 export { Col, Row };

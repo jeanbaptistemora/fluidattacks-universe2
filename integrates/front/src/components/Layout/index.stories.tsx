@@ -11,7 +11,33 @@ const config: Meta = {
   title: "components/Layout",
 };
 
-const Box = styled.div.attrs({ className: "bg-gray mb3 pa3" })``;
+const Box = styled.div.attrs({ className: "bg-gray pa3" })``;
+
+const Alignment: Story = (): JSX.Element => {
+  return (
+    <React.Fragment>
+      <h1>{"Alignment"}</h1>
+      <p>{"flex-start (default)"}</p>
+      <Row>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Box />
+        </Col>
+      </Row>
+      <p>{"center"}</p>
+      <Row align={"center"}>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Box />
+        </Col>
+      </Row>
+      <p>{"flex-end"}</p>
+      <Row align={"flex-end"}>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Box />
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
+};
 
 const AutoWidth: Story = (): JSX.Element => {
   return (
@@ -29,6 +55,49 @@ const AutoWidth: Story = (): JSX.Element => {
           <Box />
         </Col>
         <Col>
+          <Box />
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
+};
+
+const Distribution: Story = (): JSX.Element => {
+  return (
+    <React.Fragment>
+      <p>{"space-around"}</p>
+      <Row align={"space-around"}>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+      </Row>
+      <p>{"space-between"}</p>
+      <Row align={"space-between"}>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+      </Row>
+      <p>{"space-evenly"}</p>
+      <Row align={"space-evenly"}>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+        <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+        <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
       </Row>
@@ -70,5 +139,5 @@ const Responsive: Story = (): JSX.Element => {
   );
 };
 
-export { AutoWidth, Responsive };
+export { Alignment, AutoWidth, Distribution, Responsive };
 export default config;
