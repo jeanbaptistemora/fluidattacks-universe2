@@ -282,9 +282,13 @@ async def https_clone(
         stderr=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
     )
-    await proc.communicate()
+    _, stderr = await proc.communicate()
 
     if proc.returncode == 0:
         return folder_to_clone_root
+
+    LOGGER.error(
+        "Repo cloning failed, \n%s", stderr.decode(), extra=dict(extra={})
+    )
 
     return None

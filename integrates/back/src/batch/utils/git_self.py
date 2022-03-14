@@ -46,17 +46,23 @@ async def clone_root(
     root_url: str,
     cred: CredentialItem,
 ) -> CloneResult:
-    if cred.state.key is None:
-        return CloneResult(success=False)
     with tempfile.TemporaryDirectory() as temp_dir:
-        if cred.metadata.type == CredentialType.SSH:
+        if (
+            cred.metadata.type == CredentialType.SSH
+            and cred.state.key is not None
+        ):
             folder_to_clone_root = await newutils.git.ssh_clone(
                 branch=branch,
                 credential_key=cred.state.key,
                 repo_url=root_url,
                 temp_dir=temp_dir,
             )
-        elif cred.metadata.type == CredentialType.HTTPS:
+        elif cred.metadata.type == CredentialType.HTTPS and (
+            cred.state.token is not None
+            or (
+                cred.state.user is not None and cred.state.password is not None
+            )
+        ):
             folder_to_clone_root = await newutils.git.https_clone(
                 branch=branch,
                 password=cred.state.password,

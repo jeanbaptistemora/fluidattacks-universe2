@@ -508,7 +508,11 @@ async def update_root_credentials(
         existing_credential = await loaders.credential.load(
             (group_name, credential_id)
         )
-    if credentials.get("key"):
+    if (
+        credentials.get("key")
+        or credentials.get("token")
+        or (credentials.get("user") and credentials.get("password"))
+    ):
         credential = _format_root_credential(
             credentials, group_name, user_email, root_id
         )
