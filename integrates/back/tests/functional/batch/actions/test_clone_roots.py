@@ -134,3 +134,29 @@ async def test_clone_roots_failed(
     )
     assert root_1.cloning.status == GitCloningStatus.FAILED
     assert root_1.cloning.commit is None
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
+async def test_clone_roots_real_ssh(
+    generic_data: Dict[str, Any],
+) -> None:
+    loaders: Dataloaders = get_new_context()
+    action = BatchProcessing(
+        action_name=Action.CLONE_ROOTS.value,
+        entity="group1",
+        subject=generic_data["global_vars"]["admin_email"],
+        time=str(get_as_epoch(get_now())),
+        additional_info="nickname6",
+        batch_job_id=None,
+        queue="spot_soon",
+        key="2",
+    )
+
+    await roots.clone_roots(item=action)
+    loaders.root.clear_all()
+    root_1 = await loaders.root.load(
+        ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
+    )
+    assert root_1.cloning.status == GitCloningStatus.OK
+    assert root_1.cloning.commit == "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b"

@@ -2,6 +2,7 @@ import aioboto3
 import asyncio
 from context import (
     FI_AWS_S3_MIRRORS_BUCKET,
+    FI_ENVIRONMENT,
 )
 import json
 import logging
@@ -9,6 +10,9 @@ from newutils import (
     datetime as datetime_utils,
 )
 import os
+from s3.operations import (
+    OPTIONS,
+)
 from settings.logger import (
     LOGGING,
 )
@@ -19,7 +23,7 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 
 
 async def upload_cloned_repo_to_s3(
@@ -60,9 +64,13 @@ async def upload_cloned_repo_to_s3(
         "aws",
         "s3",
         "sync",
+        *(
+            ("--endpoint-url", OPTIONS["endpoint_url"])
+            if "endpoint_url" in OPTIONS
+            else ()
+        ),
         "--delete",
-        "--sse",
-        "AES256",
+        *(() if FI_ENVIRONMENT == "development" else ("--sse", "AES256")),
         "--exclude",
         f"{repo_path}/*",
         "--include",

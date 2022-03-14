@@ -35,7 +35,7 @@ import tempfile
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 
 
 async def clone_root(

@@ -37,7 +37,7 @@ import uuid
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 
 
 class CommitInfo(NamedTuple):
@@ -206,7 +206,10 @@ async def https_ls_remote(
         stdout=asyncio.subprocess.PIPE,
         stdin=asyncio.subprocess.DEVNULL,
     )
-    stdout, _ = await proc.communicate()
+    try:
+        stdout, _ = await asyncio.wait_for(proc.communicate(), 4)
+    except TimeoutError:
+        return None
 
     if proc.returncode != 0:
         return None
@@ -245,7 +248,10 @@ async def ssh_clone(
             ),
         },
     )
-    await proc.communicate()
+    _, stderr = await proc.communicate()
+    LOGGER.error(
+        "Repo cloning failed, \n%s", stderr.decode(), extra=dict(extra={})
+    )
 
     os.remove(ssh_file_name)
 
