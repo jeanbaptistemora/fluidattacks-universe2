@@ -1577,7 +1577,6 @@ export const enTranslations: ResourceKey = {
       COMMENTS: "Consulting",
       DAILY_DIGEST: "Daily digest",
       DIGEST: "Daily digest",
-      FILE_UPLOADED: "Files updates",
       GROUP: "GROUP",
       GROUP_REPORT: "GROUP_REPORT",
       NEW_COMMENT: "Consulting",

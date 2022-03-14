@@ -146,7 +146,6 @@ async def test_solve_event() -> None:
             "email": [
                 "CHARTS_REPORT",
                 "DAILY_DIGEST",
-                "FILE_UPLOADED",
                 "NEW_COMMENT",
                 "NEW_DRAFT",
                 "REMEDIATE_FINDING",

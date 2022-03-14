@@ -34,7 +34,6 @@ class Notification(str, Enum):
     ACCESS_GRANTED: str = "ACCESS_GRANTED"
     CHARTS_REPORT: str = "CHARTS_REPORT"
     DAILY_DIGEST: str = "DAILY_DIGEST"
-    FILE_UPLOADED: str = "FILE_UPLOADED"
     GROUP_REPORT: str = "GROUP_REPORT"
     NEW_COMMENT: str = "NEW_COMMENT"
     NEW_DRAFT: str = "NEW_DRAFT"

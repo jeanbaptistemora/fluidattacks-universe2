@@ -106,7 +106,6 @@ async def populate_users(data: List[Any]) -> bool:
                         "ACCESS_GRANTED",
                         "CHARTS_REPORT",
                         "DAILY_DIGEST",
-                        "FILE_UPLOADED",
                         "GROUP_REPORT",
                         "NEW_COMMENT",
                         "NEW_DRAFT",
