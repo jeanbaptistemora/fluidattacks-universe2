@@ -451,507 +451,507 @@
   en:
     description: >
       Common Weakness Enumeration
-      is a community-developed list
-      of software and hardware weakness types.
+      is a community-developed list of software
+      and hardware weakness types.
       It serves as a common language,
       a measuring stick for security tools,
       and as a baseline for weakness identification,
-      mitigation, and prevention efforts.
+      mitigation and prevention efforts.
       The version used in this section is CWE List v4.5.
   es:
     description: __empty__
   definitions:
     "20":
-      title: Improper Input Validation
+      title: Improper input validation
       link: https://cwe.mitre.org/data/definitions/20.html
     "22":
-      title: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+      title: Improper limitation of a pathname to a restricted directory ('path traversal')
       link: https://cwe.mitre.org/data/definitions/22.html
     "23":
-      title: Relative Path Traversal
+      title: Relative path traversal
       link: https://cwe.mitre.org/data/definitions/23.html
     "36":
-      title: Absolute Path Traversal
+      title: Absolute path traversal
       link: https://cwe.mitre.org/data/definitions/36.html
     "73":
-      title: External Control of File Name or Path
+      title: External control of file name or path
       link: https://cwe.mitre.org/data/definitions/73.html
     "74":
-      title: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')
+      title: Improper neutralization of special elements in output used by a downstream component ('injection')
       link: https://cwe.mitre.org/data/definitions/74.html
     "78":
-      title: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+      title: Improper neutralization of special elements used in an OS command ('OS command injection')
       link: https://cwe.mitre.org/data/definitions/78.html
     "79":
-      title: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+      title: Improper neutralization of input during web page generation ('cross-site scripting')
       link: https://cwe.mitre.org/data/definitions/79.html
     "80":
-      title: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)
+      title: Improper neutralization of script-related HTML tags in a web page (basic XSS)
       link: https://cwe.mitre.org/data/definitions/80.html
     "89":
-      title: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+      title: Improper neutralization of special elements used in an SQL command ('SQL injection')
       link: https://cwe.mitre.org/data/definitions/89.html
     "94":
-      title: Improper Control of Generation of Code ('Code Injection')
+      title: Improper control of generation of code ('code injection')
       link: https://cwe.mitre.org/data/definitions/94.html
     "95":
-      title: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')
+      title: Improper neutralization of directives in dynamically evaluated code ('eval injection')
       link: https://cwe.mitre.org/data/definitions/95.html
     "98":
-      title: Improper Control of Filename for Include/Require Statement in PHP Program ('PHP Remote File Inclusion')
+      title: Improper control of filename for include/require statement in PHP program ('PHP remote file inclusion')
       link: https://cwe.mitre.org/data/definitions/98.html
     "116":
-      title: Improper Encoding or Escaping of Output
+      title: Improper encoding or escaping of output
       link: https://cwe.mitre.org/data/definitions/116.html
     "117":
-      title: Improper Output Neutralization for Logs
+      title: Improper output neutralization for logs
       link: https://cwe.mitre.org/data/definitions/117.html
     "120":
-      title: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')
+      title: Buffer copy without checking size of input ('classic buffer overflow')
       link: https://cwe.mitre.org/data/definitions/120.html
     "134":
-      title: Use of Externally-Controlled Format String
+      title: Use of externally-controlled format string
       link: https://cwe.mitre.org/data/definitions/134.html
     "138":
-      title: Improper Neutralization of Special Elements
+      title: Improper neutralization of special elements
       link: https://cwe.mitre.org/data/definitions/138.html
     "147":
-      title: Improper Neutralization of Input Terminators
+      title: Improper neutralization of input terminators
       link: https://cwe.mitre.org/data/definitions/147.html
     "159":
-      title: Improper Handling of Invalid Use of Special Elements
+      title: Improper handling of invalid use of special elements
       link: https://cwe.mitre.org/data/definitions/159.html
     "173":
-      title: Improper Handling of Alternate Encoding
+      title: Improper handling of alternate encoding
       link: https://cwe.mitre.org/data/definitions/173.html
     "176":
-      title: Improper Handling of Unicode Encoding
+      title: Improper handling of unicode encoding
       link: https://cwe.mitre.org/data/definitions/176.html
     "190":
-      title: Integer Overflow or Wraparound
+      title: Integer overflow or wraparound
       link: https://cwe.mitre.org/data/definitions/190.html
     "200":
-      title: Exposure of Sensitive Information to an Unauthorized Actor
+      title: Exposure of sensitive information to an unauthorized actor
       link: https://cwe.mitre.org/data/definitions/200.html
     "203":
-      title: Observable Discrepancy
+      title: Observable discrepancy
       link: https://cwe.mitre.org/data/definitions/203.html
     "204":
-      title: Observable Response Discrepancy
+      title: Observable response discrepancy
       link: https://cwe.mitre.org/data/definitions/204.html
     "208":
-      title: Observable Timing Discrepancy
+      title: Observable timing discrepancy
       link: https://cwe.mitre.org/data/definitions/208.html
     "209":
-      title: Generation of Error Message Containing Sensitive Information
+      title: Generation of error message containing sensitive information
       link: https://cwe.mitre.org/data/definitions/209.html
     "210":
-      title: Self-generated Error Message Containing Sensitive Information
+      title: Self-generated error message containing sensitive information
       link: https://cwe.mitre.org/data/definitions/210.html
     "212":
-      title: Improper Removal of Sensitive Information Before Storage or Transfer
+      title: Improper removal of sensitive information before storage or transfer
       link: https://cwe.mitre.org/data/definitions/212.html
     "213":
-      title: Exposure of Sensitive Information Due to Incompatible Policies
+      title: Exposure of sensitive information due to incompatible policies
       link: https://cwe.mitre.org/data/definitions/213.html
     "219":
-      title: Storage of File with Sensitive Data Under Web Root
+      title: Storage of file with sensitive data under web root
       link: https://cwe.mitre.org/data/definitions/219.html
     "223":
-      title: Omission of Security-relevant Information
+      title: Omission of security-relevant information
       link: https://cwe.mitre.org/data/definitions/223.html
     "226":
-      title: Sensitive Information in Resource Not Removed Before Reuse
+      title: Sensitive information in resource not removed before reuse
       link: https://cwe.mitre.org/data/definitions/226.html
     "233":
-      title: Improper Handling of Parameters
+      title: Improper handling of parameters
       link: https://cwe.mitre.org/data/definitions/233.html
     "235":
-      title: Improper Handling of Extra Parameters
+      title: Improper handling of extra parameters
       link: https://cwe.mitre.org/data/definitions/235.html
     "250":
-      title: Execution with Unnecessary Privileges
+      title: Execution with unnecessary privileges
       link: https://cwe.mitre.org/data/definitions/250.html
     "256":
-      title: Plaintext Storage of a Password
+      title: Plaintext storage of a password
       link: https://cwe.mitre.org/data/definitions/256.html
     "259":
-      title: Use of Hard-coded Password
+      title: Use of hard-coded password
       link: https://cwe.mitre.org/data/definitions/259.html
     "263":
-      title: Password Aging with Long Expiration
+      title: Password aging with long expiration
       link: https://cwe.mitre.org/data/definitions/263.html
     "267":
-      title: Privilege Defined With Unsafe Actions
+      title: Privilege defined with unsafe actions
       link: https://cwe.mitre.org/data/definitions/267.html
     "269":
-      title: Improper Privilege Management
+      title: Improper privilege management
       link: https://cwe.mitre.org/data/definitions/269.html
     "272":
-      title: Least Privilege Violation
+      title: Least privilege violation
       link: https://cwe.mitre.org/data/definitions/272.html
     "276":
-      title: Incorrect Default Permissions
+      title: Incorrect default permissions
       link: https://cwe.mitre.org/data/definitions/276.html
     "284":
-      title: Improper Access Control
+      title: Improper access control
       link: https://cwe.mitre.org/data/definitions/284.html
     "285":
-      title: Improper Authorization
+      title: Improper authorization
       link: https://cwe.mitre.org/data/definitions/285.html
     "287":
-      title: Improper Authentication
+      title: Improper authentication
       link: https://cwe.mitre.org/data/definitions/287.html
     "290":
-      title: Authentication Bypass by Spoofing
+      title: Authentication bypass by spoofing
       link: https://cwe.mitre.org/data/definitions/290.html
     "294":
-      title: Authentication Bypass by Capture-replay
+      title: Authentication bypass by capture-replay
       link: https://cwe.mitre.org/data/definitions/294.html
     "295":
-      title: Improper Certificate Validation
+      title: Improper certificate validation
       link: https://cwe.mitre.org/data/definitions/295.html
     "297":
-      title: Improper Validation of Certificate with Host Mismatch
+      title: Improper validation of certificate with host mismatch
       link: https://cwe.mitre.org/data/definitions/297.html
     "298":
-      title: Improper Validation of Certificate Expiration
+      title: Improper validation of certificate expiration
       link: https://cwe.mitre.org/data/definitions/298.html
     "299":
-      title: Improper Check for Certificate Revocation
+      title: Improper check for certificate revocation
       link: https://cwe.mitre.org/data/definitions/299.html
     "300":
-      title: Channel Accessible by Non-Endpoint
+      title: Channel accessible by non-endpoint
       link: https://cwe.mitre.org/data/definitions/300.html
     "306":
-      title: Missing Authentication for Critical Function
+      title: Missing authentication for critical function
       link: https://cwe.mitre.org/data/definitions/306.html
     "307":
-      title: Improper Restriction of Excessive Authentication Attempts
+      title: Improper restriction of excessive authentication attempts
       link: https://cwe.mitre.org/data/definitions/307.html
     "308":
-      title: Use of Single-factor Authentication
+      title: Use of single-factor authentication
       link: https://cwe.mitre.org/data/definitions/308.html
     "311":
-      title: Missing Encryption of Sensitive Data
+      title: Missing encryption of sensitive data
       link: https://cwe.mitre.org/data/definitions/311.html
     "319":
-      title: Cleartext Transmission of Sensitive Information
+      title: Cleartext transmission of sensitive information
       link: https://cwe.mitre.org/data/definitions/319.html
     "321":
-      title: Use of Hard-coded Cryptographic Key
+      title: Use of hard-coded cryptographic key
       link: https://cwe.mitre.org/data/definitions/321.html
     "322":
-      title: Key Exchange without Entity Authentication
+      title: Key exchange without entity authentication
       link: https://cwe.mitre.org/data/definitions/322.html
     "323":
-      title: Reusing a Nonce, Key Pair in Encryption
+      title: Reusing a nonce, key Pair in encryption
       link: https://cwe.mitre.org/data/definitions/323.html
     "324":
-      title: Use of a Key Past its Expiration Date
+      title: Use of a key past its expiration date
       link: https://cwe.mitre.org/data/definitions/324.html
     "326":
-      title: Inadequate Encryption Strength
+      title: Inadequate encryption strength
       link: https://cwe.mitre.org/data/definitions/326.html
     "327":
-      title: Use of a Broken or Risky Cryptographic Algorithm
+      title: Use of a broken or risky cryptographic algorithm
       link: https://cwe.mitre.org/data/definitions/327.html
     "330":
-      title: Use of Insufficiently Random Values
+      title: Use of insufficiently random values
       link: https://cwe.mitre.org/data/definitions/330.html
     "331":
-      title: Insufficient Entropy
+      title: Insufficient entropy
       link: https://cwe.mitre.org/data/definitions/331.html
     "332":
-      title: Insufficient Entropy in PRNG
+      title: Insufficient entropy in PRNG
       link: https://cwe.mitre.org/data/definitions/332.html
     "333":
-      title: Improper Handling of Insufficient Entropy in TRNG
+      title: Improper handling of insufficient entropy in TRNG
       link: https://cwe.mitre.org/data/definitions/333.html
     "334":
-      title: Small Space of Random Values
+      title: Small space of random values
       link: https://cwe.mitre.org/data/definitions/334.html
     "335":
-      title: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)
+      title: Incorrect usage of seeds in pseudo-random number generator (PRNG)
       link: https://cwe.mitre.org/data/definitions/335.html
     "338":
-      title: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)
+      title: Use of cryptographically weak pseudo-random number generator (PRNG)
       link: https://cwe.mitre.org/data/definitions/338.html
     "340":
-      title: Generation of Predictable Numbers or Identifiers
+      title: Generation of predictable numbers or identifiers
       link: https://cwe.mitre.org/data/definitions/340.html
     "345":
-      title: Insufficient Verification of Data Authenticity
+      title: Insufficient verification of data authenticity
       link: https://cwe.mitre.org/data/definitions/345.html
     "346":
-      title: Origin Validation Error
+      title: Origin validation error
       link: https://cwe.mitre.org/data/definitions/346.html
     "347":
-      title: Improper Verification of Cryptographic Signature
+      title: Improper verification of cryptographic signature
       link: https://cwe.mitre.org/data/definitions/347.html
     "350":
-      title: Reliance on Reverse DNS Resolution for a Security-Critical Action
+      title: Reliance on reverse DNS resolution for a security-critical action
       link: https://cwe.mitre.org/data/definitions/350.html
     "352":
-      title: Cross-Site Request Forgery (CSRF)
+      title: Cross-site request forgery (CSRF)
       link: https://cwe.mitre.org/data/definitions/352.html
     "353":
-      title: Missing Support for Integrity Check
+      title: Missing support for integrity check
       link: https://cwe.mitre.org/data/definitions/353.html
     "359":
-      title: Exposure of Private Personal Information to an Unauthorized Actor
+      title: Exposure of private personal information to an unauthorized actor
       link: https://cwe.mitre.org/data/definitions/359.html
     "362":
-      title: Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')
+      title: Concurrent execution using shared resource with improper synchronization ('race condition')
       link: https://cwe.mitre.org/data/definitions/362.html
     "367":
-      title: Time-of-check Time-of-use (TOCTOU) Race Condition
+      title: Time-of-check time-of-use (TOCTOU) race condition
       link: https://cwe.mitre.org/data/definitions/367.html
     "384":
-      title: Session Fixation
+      title: Session fixation
       link: https://cwe.mitre.org/data/definitions/384.html
     "390":
-      title: Detection of Error Condition Without Action
+      title: Detection of error condition without action
       link: https://cwe.mitre.org/data/definitions/390.html
     "396":
-      title: Declaration of Catch for Generic Exception
+      title: Declaration of catch for generic exception
       link: https://cwe.mitre.org/data/definitions/396.html
     "397":
-      title: Declaration of Throws for Generic Exception
+      title: Declaration of throws for generic exception
       link: https://cwe.mitre.org/data/definitions/397.html
     "400":
-      title: Uncontrolled Resource Consumption
+      title: Uncontrolled resource consumption
       link: https://cwe.mitre.org/data/definitions/400.html
     "404":
-      title: Improper Resource Shutdown or Release
+      title: Improper resource shutdown or release
       link: https://cwe.mitre.org/data/definitions/404.html
     "409":
-      title: Improper Handling of Highly Compressed Data (Data Amplification)
+      title: Improper handling of highly compressed data (data amplification)
       link: https://cwe.mitre.org/data/definitions/409.html
     "419":
-      title: Unprotected Primary Channel
+      title: Unprotected primary channel
       link: https://cwe.mitre.org/data/definitions/419.html
     "434":
-      title: Unrestricted Upload of File with Dangerous Type
+      title: Unrestricted upload of file with dangerous type
       link: https://cwe.mitre.org/data/definitions/434.html
     "444":
-      title: Inconsistent Interpretation of HTTP Requests ('HTTP Request Smuggling')
+      title: Inconsistent interpretation of HTTP requests ('HTTP request smuggling')
       link: https://cwe.mitre.org/data/definitions/444.html
     "451":
-      title: User Interface (UI) Misrepresentation of Critical Information
+      title: User interface (UI) misrepresentation of critical information
       link: https://cwe.mitre.org/data/definitions/451.html
     "456":
-      title: Missing Initialization of a Variable
+      title: Missing initialization of a variable
       link: https://cwe.mitre.org/data/definitions/456.html
     "457":
-      title: Use of Uninitialized Variable
+      title: Use of uninitialized variable
       link: https://cwe.mitre.org/data/definitions/457.html
     "459":
-      title: Incomplete Cleanup
+      title: Incomplete cleanup
       link: https://cwe.mitre.org/data/definitions/459.html
     "474":
-      title: Use of Function with Inconsistent Implementations
+      title: Use of function with inconsistent implementations
       link: https://cwe.mitre.org/data/definitions/474.html
     "478":
-      title: Missing Default Case in Switch Statement
+      title: Missing default case in switch statement
       link: https://cwe.mitre.org/data/definitions/478.html
     "494":
-      title: Download of Code Without Integrity Check
+      title: Download of code without integrity check
       link: https://cwe.mitre.org/data/definitions/494.html
     "497":
-      title: Exposure of Sensitive System Information to an Unauthorized Control Sphere
+      title: Exposure of sensitive system information to an unauthorized control sphere
       link: https://cwe.mitre.org/data/definitions/497.html
     "502":
-      title: Deserialization of Untrusted Data
+      title: Deserialization of untrusted data
       link: https://cwe.mitre.org/data/definitions/502.html
     "507":
-      title: Trojan Horse
+      title: Trojan horse
       link: https://cwe.mitre.org/data/definitions/507.html
     "509":
-      title: Replicating Malicious Code (Virus or Worm)
+      title: Replicating malicious code (virus or worm)
       link: https://cwe.mitre.org/data/definitions/509.html
     "510":
       title: Trapdoor
       link: https://cwe.mitre.org/data/definitions/510.html
     "511":
-      title: Logic/Time Bomb
+      title: Logic/Time bomb
       link: https://cwe.mitre.org/data/definitions/511.html
     "521":
-      title: Weak Password Requirements
+      title: Weak password requirements
       link: https://cwe.mitre.org/data/definitions/521.html
     "522":
-      title: Insufficiently Protected Credentials
+      title: Insufficiently protected credentials
       link: https://cwe.mitre.org/data/definitions/522.html
     "523":
-      title: Unprotected Transport of Credentials
+      title: Unprotected transport of credentials
       link: https://cwe.mitre.org/data/definitions/523.html
     "524":
-      title: Use of Cache Containing Sensitive Information
+      title: Use of cache containing sensitive information
       link: https://cwe.mitre.org/data/definitions/524.html
     "525":
-      title: Use of Web Browser Cache Containing Sensitive Information
+      title: Use of web browser cache containing sensitive information
       link: https://cwe.mitre.org/data/definitions/525.html
     "532":
-      title: Insertion of Sensitive Information into Log File
+      title: Insertion of sensitive information into log file
       link: https://cwe.mitre.org/data/definitions/532.html
     "540":
-      title: Inclusion of Sensitive Information in Source Code
+      title: Inclusion of sensitive information in source code
       link: https://cwe.mitre.org/data/definitions/540.html
     "544":
-      title: Missing Standardized Error Handling Mechanism
+      title: Missing standardized error handling mechanism
       link: https://cwe.mitre.org/data/definitions/544.html
     "548":
-      title: Exposure of Information Through Directory Listing
+      title: Exposure of information through directory listing
       link: https://cwe.mitre.org/data/definitions/548.html
     "552":
-      title: Files or Directories Accessible to External Parties
+      title: Files or directories accessible to external parties
       link: https://cwe.mitre.org/data/definitions/552.html
     "561":
-      title: Dead Code
+      title: Dead code
       link: https://cwe.mitre.org/data/definitions/561.html
     "598":
-      title: Use of GET Request Method With Sensitive Query Strings
+      title: Use of GET request method with sensitive query strings
       link: https://cwe.mitre.org/data/definitions/598.html
     "601":
-      title: URL Redirection to Untrusted Site ('Open Redirect')
+      title: URL redirection to untrusted site ('open redirect')
       link: https://cwe.mitre.org/data/definitions/601.html
     "602":
-      title: Client-Side Enforcement of Server-Side Security
+      title: Client-side enforcement of server-side security
       link: https://cwe.mitre.org/data/definitions/602.html
     "611":
-      title: Improper Restriction of XML External Entity Reference
+      title: Improper restriction of XML External Entity reference
       link: https://cwe.mitre.org/data/definitions/611.html
     "613":
-      title: Insufficient Session Expiration
+      title: Insufficient session expiration
       link: https://cwe.mitre.org/data/definitions/613.html
     "614":
-      title: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+      title: Sensitive cookie in HTTPS session without 'secure' attribute
       link: https://cwe.mitre.org/data/definitions/614.html
     "615":
-      title: Inclusion of Sensitive Information in Source Code Comments
+      title: Inclusion of sensitive information in source code comments
       link: https://cwe.mitre.org/data/definitions/615.html
     "620":
-      title: Unverified Password Change
+      title: Unverified password change
       link: https://cwe.mitre.org/data/definitions/620.html
     "639":
-      title: Authorization Bypass Through User-Controlled Key
+      title: Authorization bypass through user-controlled key
       link: https://cwe.mitre.org/data/definitions/639.html
     "640":
-      title: Weak Password Recovery Mechanism for Forgotten Password
+      title: Weak password recovery mechanism for forgotten password
       link: https://cwe.mitre.org/data/definitions/640.html
     "641":
-      title: Improper Restriction of Names for Files and Other Resources
+      title: Improper restriction of names for files and other resources
       link: https://cwe.mitre.org/data/definitions/641.html
     "642":
-      title: External Control of Critical State Data
+      title: External control of critical state data
       link: https://cwe.mitre.org/data/definitions/642.html
     "643":
-      title: Improper Neutralization of Data within XPath Expressions ('XPath Injection')
+      title: Improper neutralization of data within XPath expressions ('XPath injection')
       link: https://cwe.mitre.org/data/definitions/643.html
     "644":
-      title: Improper Neutralization of HTTP Headers for Scripting Syntax
+      title: Improper neutralization of HTTP headers for scripting syntax
       link: https://cwe.mitre.org/data/definitions/644.html
     "645":
-      title: Overly Restrictive Account Lockout Mechanism
+      title: Overly restrictive account lockout mechanism
       link: https://cwe.mitre.org/data/definitions/645.html
     "646":
-      title: Reliance on File Name or Extension of Externally-Supplied File
+      title: Reliance on file name or extension of externally-supplied file
       link: https://cwe.mitre.org/data/definitions/646.html
     "651":
-      title: Exposure of WSDL File Containing Sensitive Information
+      title: Exposure of WSDL file containing sensitive information
       link: https://cwe.mitre.org/data/definitions/651.html
     "693":
-      title: Protection Mechanism Failure
+      title: Protection mechanism failure
       link: https://cwe.mitre.org/data/definitions/693.html
     "710":
-      title: Improper Adherence to Coding Standards
+      title: Improper adherence to coding standards
       link: https://cwe.mitre.org/data/definitions/710.html
     "732":
-      title: Incorrect Permission Assignment for Critical Resource
+      title: Incorrect permission assignment for critical resource
       link: https://cwe.mitre.org/data/definitions/732.html
     "749":
-      title: Exposed Dangerous Method or Function
+      title: Exposed dangerous method or function
       link: https://cwe.mitre.org/data/definitions/749.html
     "757":
-      title: Selection of Less-Secure Algorithm During Negotiation ('Algorithm Downgrade')
+      title: Selection of less-secure algorithm during negotiation ('algorithm downgrade')
       link: https://cwe.mitre.org/data/definitions/757.html
     "759":
-      title: Use of a One-Way Hash without a Salt
+      title: Use of a one-way hash without a salt
       link: https://cwe.mitre.org/data/definitions/759.html
     "760":
-      title: Use of a One-Way Hash with a Predictable Salt
+      title: Use of a one-way hash with a predictable salt
       link: https://cwe.mitre.org/data/definitions/760.html
     "770":
-      title: Allocation of Resources Without Limits or Throttling
+      title: Allocation of resources without limits or throttling
       link: https://cwe.mitre.org/data/definitions/770.html
     "778":
-      title: Insufficient Logging
+      title: Insufficient logging
       link: https://cwe.mitre.org/data/definitions/778.html
     "779":
-      title: Logging of Excessive Data
+      title: Logging of excessive data
       link: https://cwe.mitre.org/data/definitions/779.html
     "798":
-      title: Use of Hard-coded Credentials
+      title: Use of hard-coded credentials
       link: https://cwe.mitre.org/data/definitions/798.html
     "799":
-      title: Improper Control of Interaction Frequency
+      title: Improper control of interaction frequency
       link: https://cwe.mitre.org/data/definitions/799.html
     "804":
       title: Guessable CAPTCHA
       link: https://cwe.mitre.org/data/definitions/804.html
     "829":
-      title: Inclusion of Functionality from Untrusted Control Sphere
+      title: Inclusion of functionality from untrusted control sphere
       link: https://cwe.mitre.org/data/definitions/829.html
     "830":
-      title: Inclusion of Web Functionality from an Untrusted Source
+      title: Inclusion of web functionality from an untrusted source
       link: https://cwe.mitre.org/data/definitions/830.html
     "915":
-      title: Improperly Controlled Modification of Dynamically-Determined Object Attributes
+      title: Improperly controlled modification of dynamically-determined object attributes
       link: https://cwe.mitre.org/data/definitions/915.html
     "916":
-      title: Use of Password Hash With Insufficient Computational Effort
+      title: Use of password hash with insufficient computational effort
       link: https://cwe.mitre.org/data/definitions/916.html
     "918":
-      title: Server-Side Request Forgery (SSRF)
+      title: Server-side request forgery (SSRF)
       link: https://cwe.mitre.org/data/definitions/918.html
     "922":
-      title: Insecure Storage of Sensitive Information
+      title: Insecure storage of sensitive information
       link: https://cwe.mitre.org/data/definitions/922.html
     "923":
-      title: Improper Restriction of Communication Channel to Intended Endpoints
+      title: Improper restriction of communication channel to intended endpoints
       link: https://cwe.mitre.org/data/definitions/923.html
     "943":
-      title: Improper Neutralization of Special Elements in Data Query Logic
+      title: Improper neutralization of special elements in data query logic
       link: https://cwe.mitre.org/data/definitions/943.html
     "1004":
-      title: Sensitive Cookie Without 'HttpOnly' Flag
+      title: Sensitive cookie without 'HttpOnly' flag
       link: https://cwe.mitre.org/data/definitions/1004.html
     "1021":
-      title: Improper Restriction of Rendered UI Layers or Frames
+      title: Improper restriction of rendered UI layers or frames
       link: https://cwe.mitre.org/data/definitions/1021.html
     "1022":
-      title: Use of Web Link to Untrusted Target with window.opener Access
+      title: Use of web link to untrusted target with window.opener access
       link: https://cwe.mitre.org/data/definitions/1022.html
     "1085":
-      title: Invokable Control Element with Excessive Volume of Commented-out Code
+      title: Invokable control element with excessive volume of commented-out code
       link: https://cwe.mitre.org/data/definitions/1085.html
     "1120":
-      title: Excessive Code Complexity
+      title: Excessive code complexity
       link: https://cwe.mitre.org/data/definitions/1120.html
     "1121":
-      title: Excessive McCabe Cyclomatic Complexity
+      title: Excessive McCabe cyclomatic complexity
       link: https://cwe.mitre.org/data/definitions/1121.html
     "1204":
-      title: Generation of Weak Initialization Vector (IV)
+      title: Generation of weak initialization vector (IV)
       link: https://cwe.mitre.org/data/definitions/1204.html
     "1230":
-      title: Exposure of Sensitive Information Through Metadata
+      title: Exposure of sensitive information through metadata
       link: https://cwe.mitre.org/data/definitions/1230.html
     "1233":
-      title: Improper Hardware Lock Protection for Security Sensitive Controls
+      title: Improper hardware lock protection for security sensitive controls
       link: https://cwe.mitre.org/data/definitions/1233.html
     "1269":
-      title: Product Released in Non-Release Configuration
+      title: Product released in non-release configuration
       link: https://cwe.mitre.org/data/definitions/1269.html
   metadata: {}
 "eprivacy":
