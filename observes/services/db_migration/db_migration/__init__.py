@@ -54,9 +54,7 @@ EPHEMERAL_SCHEMAS = frozenset(
 
 TARGETS = frozenset(
     [
-        "zoho_crm",
-        "code",
-        "gitlab-ci",
+        "integrates",
     ]
 )
 
