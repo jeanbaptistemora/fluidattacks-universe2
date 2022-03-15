@@ -1,5 +1,6 @@
 {
   inputs,
+  makePythonPypiEnvironment,
   makeScript,
   outputs,
   projectPath,
@@ -12,9 +13,12 @@ makeScript {
       inputs.nixpkgs.findutils
       inputs.nixpkgs.git
       inputs.nixpkgs.python39Packages.codecov
-      inputs.nixpkgs.python39Packages.coverage
     ];
     source = [
+      (makePythonPypiEnvironment {
+        name = "integrates-coverage";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
       outputs."/utils/aws"
       outputs."/utils/sops"
     ];

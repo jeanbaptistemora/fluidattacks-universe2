@@ -25,8 +25,8 @@ function main {
     && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \
-    && pushd integrates/back/tests/functional \
-    && pytest "${pytest_args[@]}" \
+    && pushd integrates \
+    && pytest back/tests/functional "${pytest_args[@]}" \
     && popd \
     || return 1
 }

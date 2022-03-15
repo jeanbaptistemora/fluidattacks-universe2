@@ -2,6 +2,7 @@
 
 function main {
   export BATCH_BIN
+  export COVERAGE_FILE=.coverage.unit
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
@@ -9,6 +10,7 @@ function main {
     --cov-report 'html:build/coverage/html'
     --cov-report 'xml:coverage.xml'
     --cov-report 'annotate:build/coverage/annotate'
+    --cov=myproj
     --disable-warnings
     --exitfirst
     --no-cov-on-fail

@@ -365,7 +365,7 @@ in {
               gitlabTest
               // {
                 artifacts = {
-                  paths = ["integrates/back/tests/functional/.coverage*"];
+                  paths = ["integrates/.coverage*"];
                   expire_in = "1 day";
                   when = "on_success";
                 };
@@ -380,7 +380,10 @@ in {
               // {
                 artifacts = {
                   name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
-                  paths = ["integrates/coverage.xml"];
+                  paths = [
+                    "integrates/.coverage*"
+                    "integrates/coverage.xml"
+                  ];
                   expire_in = "1 week";
                 };
               };
@@ -432,6 +435,11 @@ in {
           {
             output = "/integrates/coverage";
             gitlabExtra = {
+              artifacts = {
+                paths = ["integrates/build"];
+                expire_in = "1 day";
+                when = "on_success";
+              };
               needs =
                 [
                   "/integrates/back/test/unit"
