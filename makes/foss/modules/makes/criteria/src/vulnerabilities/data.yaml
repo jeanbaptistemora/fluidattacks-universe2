@@ -24475,3 +24475,59 @@
     en:
       details: >
         https://docs.bridgecrew.io/docs/ensure-that-dynamodb-tables-are-encrypted
+"410":
+  en:
+    title: Dependency Confusion
+    description: >
+      The application uses third-party components
+      that can be replaced by malicious components,
+      thus executing potentially harmful code
+      and increasing possible attack vectors.
+    impact: >
+      Execute malicious code in the application
+    recommendation: >
+      - Set the name of the organization
+      that owns the private dependency
+      in the package manager file.
+
+       - Set the organization in both the private and public registry
+       of the package manager.
+    threat: >
+      Anonymous attacker from the Internet
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: Dependency Confusion
+    description: >
+      La aplicación utiliza componentes de terceros
+      que pueden ser sustituidos por componentes maliciosos
+      logrando así ejecutar código potencialmente dañino
+      e incrementar los posibles vectores de ataque
+    impact: >
+      Ejecutar código malicioso en la aplicación
+    recommendation: >
+      - Establecer el nombre de la organización propietaria
+      de la dependencia privada en el archivo del gestor de paquetes.
+
+      - Establecer la organización tanto en el registro privado
+      como público del gestor de paquetes.
+    threat: >
+      Atacante anónimo desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "H"
+      availability: "L"
+    temporal:
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["048", "262", "302"]
+  metadata:
+    en:
+      details: __empty__
