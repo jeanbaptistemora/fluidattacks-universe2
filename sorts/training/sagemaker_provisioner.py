@@ -30,13 +30,12 @@ from typing import (
 JOB_CREATION_DELAY_MULTIPLIER: int = 30
 
 ON_DEMAND_NEEDED: List[str] = [
+    "gradientboostingclassifier",
     "kneighborsclassifier",
     "mlpclassifier",
 ]
 
-INCMODELS_S3PATH: str = (
-    "s3://sorts/training-output/results/incremental-training/"
-)
+INCMODELS_S3PATH: str = "s3://sorts/incremental-training-output/"
 
 
 def get_estimator(

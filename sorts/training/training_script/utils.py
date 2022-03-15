@@ -33,6 +33,8 @@ from typing import (
     Tuple,
 )
 
+INCTRAINING_PATH: str = "incremental-training-output/"
+
 
 def is_overfit(train_results: ndarray, test_results: ndarray) -> float:
     """Calculate how much the model got biased by the training data"""
@@ -172,13 +174,12 @@ def save_model_to_s3(model: ModelType, model_name: str) -> None:
         local_file: str = os.path.join(tmp_dir, f"{model_name}.joblib")
         dump(model, local_file)
         if "SM_CHANNEL_MODEL" in os.environ:
-            inctraining_path = "training-output/results/incremental-training/"
             S3_BUCKET.Object(
-                f"{inctraining_path}{model_name}.joblib"
+                f"{INCTRAINING_PATH}{model_name}.joblib"
             ).upload_file(local_file)
         else:
             S3_BUCKET.Object(
-                f"training-output/{model_name}_test.joblib"
+                f"training-output/{model_name}.joblib"
             ).upload_file(local_file)
 
 
