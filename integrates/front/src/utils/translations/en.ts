@@ -729,15 +729,19 @@ export const enTranslations: ResourceKey = {
               successTitle: "Success",
               text: "Check Access",
             },
+            https: "HTTPS",
             name: "Credential Name",
             nameHint: "Repository SSH Key",
+            password: "Repository password",
             ssh: "SSH",
             sshHint:
               "-----BEGIN OPENSSH PRIVATE KEY-----\n" +
               "SSH PRIVATE KEY...\n" +
               "-----END OPENSSH PRIVATE KEY-----",
             sshKey: "Private SSH Key",
+            token: "Repository access token",
             type: "Credential Type",
+            user: "Repository user",
           },
           environment: "Environment kind",
           environmentHint: "(Production, QA or other)",

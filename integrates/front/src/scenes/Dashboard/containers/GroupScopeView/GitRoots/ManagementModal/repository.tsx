@@ -106,6 +106,8 @@ const Repository: React.FC<IRepositoryProps> = ({
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     isEditing ? initialValues.includesHealthCheck : null
   );
+  const [isHttpsCredentialsTypeUser, setHttpsCredentialsTypeUser] =
+    useState(false);
 
   const [isCheckedHealthCheck, setIsCheckedHealthCheck] = useState(isEditing);
   const [isRootChange, setIsRootChange] = useState(
@@ -149,11 +151,16 @@ const Repository: React.FC<IRepositoryProps> = ({
       void validateGitAccess({
         variables: {
           credentials: {
-            key: Buffer.from(formRef.current.values.credentials.key).toString(
-              "base64"
-            ),
+            key: formRef.current.values.credentials.key
+              ? Buffer.from(formRef.current.values.credentials.key).toString(
+                  "base64"
+                )
+              : undefined,
             name: formRef.current.values.credentials.name,
+            password: formRef.current.values.credentials.password,
+            token: formRef.current.values.credentials.token,
             type: formRef.current.values.credentials.type,
+            user: formRef.current.values.credentials.user,
           },
           groupName,
           url: formRef.current.values.url,
@@ -174,6 +181,17 @@ const Repository: React.FC<IRepositoryProps> = ({
 
     return null;
   }
+
+  const submittableCredentials = (values: IGitRootAttr): boolean => {
+    return values.credentials.type === "SSH"
+      ? !values.credentials.name ||
+          !values.credentials.key ||
+          hasSshFormat(values.credentials.key) !== undefined
+      : !values.credentials.name ||
+          (isHttpsCredentialsTypeUser
+            ? !values.credentials.user || !values.credentials.password
+            : !values.credentials.token);
+  };
 
   return (
     <div>
@@ -253,6 +271,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                         name={"credentials.type"}
                       >
                         <option value={""}>{""}</option>
+                        <option value={"HTTPS"}>
+                          {t("group.scope.git.repo.credentials.https")}
+                        </option>
                         <option value={"SSH"}>
                           {t("group.scope.git.repo.credentials.ssh")}
                         </option>
@@ -286,44 +307,89 @@ const Repository: React.FC<IRepositoryProps> = ({
                 </div>
                 <br />
                 {values.credentials.type === "SSH" && !credExists ? (
+                  <div className={"flex"}>
+                    <div className={"w-100"}>
+                      <ControlLabel>
+                        {t("group.scope.git.repo.credentials.sshKey")}
+                      </ControlLabel>
+                      <Field
+                        component={FormikTextArea}
+                        name={"credentials.key"}
+                        placeholder={t(
+                          "group.scope.git.repo.credentials.sshHint"
+                        )}
+                        type={"text"}
+                        validate={composeValidators([
+                          hasSshFormat,
+                          required,
+                          requireGitAccessibility,
+                        ])}
+                      />
+                    </div>
+                  </div>
+                ) : values.credentials.type === "HTTPS" && !credExists ? (
                   <React.Fragment>
-                    <div className={"flex"}>
-                      <div className={"w-100"}>
-                        <ControlLabel>
-                          {t("group.scope.git.repo.credentials.sshKey")}
-                        </ControlLabel>
-                        <Field
-                          component={FormikTextArea}
-                          name={"credentials.key"}
-                          placeholder={t(
-                            "group.scope.git.repo.credentials.sshHint"
-                          )}
-                          type={"text"}
-                          validate={composeValidators([
-                            hasSshFormat,
-                            required,
-                            requireGitAccessibility,
-                          ])}
-                        />
+                    <Field
+                      component={FormikRadioGroup}
+                      initialState={"Access Token"}
+                      labels={["User and Password", "Access Token"]}
+                      name={"httpsCredentialsType"}
+                      onSelect={setHttpsCredentialsTypeUser}
+                      type={"Radio"}
+                      validate={selected}
+                    />
+                    {isHttpsCredentialsTypeUser ? (
+                      <div className={"flex"}>
+                        <div className={"w-30 mr3"}>
+                          <ControlLabel>
+                            {t("group.scope.git.repo.credentials.user")}
+                          </ControlLabel>
+                          <Field
+                            component={FormikText}
+                            name={"credentials.user"}
+                            type={"text"}
+                          />
+                        </div>
+                        <div className={"w-70"}>
+                          <ControlLabel>
+                            {t("group.scope.git.repo.credentials.password")}
+                          </ControlLabel>
+                          <Field
+                            component={FormikText}
+                            name={"credentials.password"}
+                            type={"text"}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className={"mt2 tr"}>
-                      <Button
-                        disabled={
-                          !values.credentials.name ||
-                          !values.credentials.key ||
-                          hasSshFormat(values.credentials.key) !== undefined
-                        }
-                        id={"checkAccessBtn"}
-                        onClick={handleCheckAccessClick}
-                        variant={"secondary"}
-                      >
-                        {t("group.scope.git.repo.credentials.checkAccess.text")}
-                      </Button>
-                    </div>
+                    ) : (
+                      <div className={"flex"}>
+                        <div className={"w-30 mr3"}>
+                          <ControlLabel>
+                            {t("group.scope.git.repo.credentials.token")}
+                          </ControlLabel>
+                          <Field
+                            component={FormikText}
+                            name={"credentials.token"}
+                            type={"text"}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </React.Fragment>
                 ) : undefined}
-                <div className={"flex"}>
+                {
+                  <div className={"mt2 tr"}>
+                    <Button
+                      disabled={submittableCredentials(values)}
+                      id={"checkAccessBtn"}
+                      onClick={handleCheckAccessClick}
+                      variant={"secondary"}
+                    >
+                      {t("group.scope.git.repo.credentials.checkAccess.text")}
+                    </Button>
+                  </div>
+                }
+                <div className={"flex mt3"}>
                   <div className={"w-100"}>
                     <ControlLabel>
                       <RequiredField>{"*"}&nbsp;</RequiredField>

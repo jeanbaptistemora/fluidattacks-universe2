@@ -9,7 +9,10 @@ interface IGitRootAttr {
     id: string;
     key: string;
     name: string;
-    type: "" | "SSH";
+    password: string;
+    token: string;
+    type: "" | "HTTPS" | "SSH";
+    user: string;
   };
   environment: string;
   environmentUrls: string[];
