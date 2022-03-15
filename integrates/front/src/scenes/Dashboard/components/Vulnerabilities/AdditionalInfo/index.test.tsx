@@ -1,18 +1,10 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
-import waitForExpect from "wait-for-expect";
-
-import { ClosingDateField } from "./components/ClosingDateField";
-import type { IClosingDateFieldProps } from "./components/ClosingDateField/types";
-import { Label } from "./styles";
-import { Value } from "./value";
 
 import type { IVulnRowAttr } from "../types";
 import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
@@ -107,7 +99,7 @@ describe("AdditionalInfo", (): void => {
 
     const { t } = useTranslation();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider
           addTypename={false}
@@ -121,26 +113,22 @@ describe("AdditionalInfo", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          t(
+            "searchFindings.tabVuln.vulnTable.vulnerabilityType.lines"
+          ).toString()
+        )
+      ).toBeInTheDocument();
     });
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.getByText(
+        t("searchFindings.tabVuln.vulnTable.closingDate").toString()
+      )
+    ).toBeInTheDocument();
 
-    expect(wrapper.find(Label).first().find("span").text()).toContain(
-      t("searchFindings.tabVuln.vulnTable.vulnerabilityType.lines")
-    );
-
-    const closingDateField: ReactWrapper<IClosingDateFieldProps> =
-      wrapper.find(ClosingDateField);
-    const closingDateFieldLabel = closingDateField.find(Label);
-    const closingDateFieldValue = closingDateField.find(Value);
-
-    expect(closingDateFieldLabel.text()).toStrictEqual(
-      t("searchFindings.tabVuln.vulnTable.closingDate")
-    );
-    expect(closingDateFieldValue.text()).toStrictEqual("2020-09-05");
+    expect(screen.getByText("2020-09-05")).toBeInTheDocument();
   });
 });
