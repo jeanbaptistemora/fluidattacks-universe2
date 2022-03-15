@@ -1,17 +1,15 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
+import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
-import waitForExpect from "wait-for-expect";
 
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
 import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/TagGroup/queries";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 jest.mock("react-router", (): Dictionary => {
@@ -27,11 +25,10 @@ jest.mock("react-router", (): Dictionary => {
   };
 });
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual(
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
   );
-  // eslint-disable-next-line jest/prefer-spy-on, fp/no-mutation
-  mockedNotifications.msgError = jest.fn();
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
 
   return mockedNotifications;
 });
@@ -86,7 +83,7 @@ describe("Portfolio Groups", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter
         initialEntries={["/orgs/okada/portfolios/test-projects/groups"]}
       >
@@ -99,22 +96,11 @@ describe("Portfolio Groups", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("table")).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("table")).toHaveLength(1);
     });
 
-    const table: ReactWrapper = wrapper.find("table");
-    const tableBody: ReactWrapper = table.find("tbody");
-    const rows: ReactWrapper = tableBody.find("tr");
-
-    expect(rows).toHaveLength(mockedResult.length);
-
-    rows.at(0).simulate("click");
+    userEvent.click(screen.getByRole("cell", { name: "test1" }));
 
     expect(mockHistoryPush).toHaveBeenCalledWith("/groups/test1/analytics");
   });
@@ -122,7 +108,9 @@ describe("Portfolio Groups", (): void => {
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    const { t } = useTranslation();
+
+    render(
       <MemoryRouter
         initialEntries={["/orgs/okada/portfolios/another-tag/groups"]}
       >
@@ -135,17 +123,8 @@ describe("Portfolio Groups", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("groupAlerts.errorTextsad")
-        );
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(t("groupAlerts.errorTextsad"));
     });
   });
 });
