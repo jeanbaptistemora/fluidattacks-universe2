@@ -5,6 +5,7 @@
       makesUsersProdMakes = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/makes/infra";
@@ -28,9 +29,13 @@
       makesUsersProdMakesKeys1 = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = ["module.aws.aws_iam_access_key._1"];
+        resources = [
+          "module.prod_airs_aws.aws_iam_access_key._1"
+          "module.prod_makes_aws.aws_iam_access_key._1"
+        ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/makes/infra";
         version = "1.0";
@@ -38,9 +43,13 @@
       makesUsersProdMakesKeys2 = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForEnvFromSops/makesUsersProd"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
-        resources = ["module.aws.aws_iam_access_key._2"];
+        resources = [
+          "module.prod_airs_aws.aws_iam_access_key._2"
+          "module.prod_makes_aws.aws_iam_access_key._2"
+        ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/makes/infra";
         version = "1.0";
@@ -52,6 +61,7 @@
       makesUsersProdMakes = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/makesUsersDev"
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         src = "/makes/foss/modules/makes/users/prod/makes/infra";

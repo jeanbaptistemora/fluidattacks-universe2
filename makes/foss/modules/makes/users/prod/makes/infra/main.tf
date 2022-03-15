@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.4.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.10.0"
+    }
     gitlab = {
       source  = "gitlabhq/gitlab"
       version = "3.12.0"

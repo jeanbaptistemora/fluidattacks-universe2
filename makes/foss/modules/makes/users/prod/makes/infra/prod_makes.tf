@@ -80,6 +80,7 @@ locals {
 
 module "prod_makes_aws" {
   source = "../../../modules/aws"
+
   name   = "prod_makes"
   policy = local.prod_makes.policies.aws
 
@@ -91,14 +92,6 @@ module "prod_makes_aws" {
   }
 }
 
-module "prod_makes_publish_credentials" {
-  source    = "../../../modules/publish_credentials"
-  key_1     = module.prod_makes_aws.keys.1
-  key_2     = module.prod_makes_aws.keys.2
-  prefix    = "PROD_MAKES"
-  protected = true
-}
-
 module "prod_makes_keys" {
   source   = "../../../modules/key"
   for_each = local.prod_makes.keys
@@ -107,4 +100,13 @@ module "prod_makes_keys" {
   admins = each.value.admins
   users  = each.value.users
   tags   = each.value.tags
+}
+
+module "prod_makes_publish_credentials" {
+  source = "../../../modules/publish_credentials"
+
+  key_1     = module.prod_makes_aws.keys.1
+  key_2     = module.prod_makes_aws.keys.2
+  prefix    = "PROD_MAKES"
+  protected = true
 }
