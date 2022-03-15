@@ -143,6 +143,13 @@ edit or remove users.
   receive notifications
   that the ASM can send
   related to your group.
+- **Generate a report:**
+  This feature allows you
+  to generate and download
+  a complete report with
+  detailed information about
+  the vulnerabilities of
+  a specific group.
 
 ## Roles table
 
