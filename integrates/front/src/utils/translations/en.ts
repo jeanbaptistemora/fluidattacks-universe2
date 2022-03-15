@@ -271,7 +271,7 @@ export const enTranslations: ResourceKey = {
         unregistered: "Non-registered",
       },
       repository: "Repository",
-      sendInvitation: "Send",
+      sendInvitation: "Invite",
       tableAdvice:
         "Below you'll find the authors that have contributed " +
         "to your group in the selected month, and one example commit",
