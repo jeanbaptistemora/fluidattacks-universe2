@@ -31,6 +31,9 @@ import pytest
 from pytest_mock import (
     MockerFixture,
 )
+from roots.domain import (
+    update_root_cloning_status,
+)
 from typing import (
     Any,
     Dict,
@@ -82,6 +85,68 @@ async def test_queue_sync_git_roots_real_https_ok(
     # restore db state
     if result.dynamo_pk:
         await delete_action(dynamodb_pk=result.dynamo_pk)
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
+async def test_queue_sync_git_roots_real_https_same_commit(
+    generic_data: Dict[str, Any], mocker: MockerFixture
+) -> None:
+    mocker.patch.object(
+        batch_roots, "is_in_s3", return_value=("nickname8", True)
+    )
+    loaders: Dataloaders = get_new_context()
+    await update_root_cloning_status(
+        loaders,
+        "group1",
+        "7271f1cb-5b77-626b-5fc7-849393f646az",
+        "OK",
+        "Success",
+        "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
+    )
+    loaders.root.clear_all()
+    root_1: RootItem = await loaders.root.load(
+        ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
+    )
+
+    result = await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        user_email=generic_data["global_vars"]["admin_email"],
+        roots=(root_1,),
+        group_name="group1",
+    )
+    assert result is None
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
+async def test_queue_sync_git_roots_real_ssh_same_commit(
+    generic_data: Dict[str, Any], mocker: MockerFixture
+) -> None:
+    mocker.patch.object(
+        batch_roots, "is_in_s3", return_value=("nickname6", True)
+    )
+    loaders: Dataloaders = get_new_context()
+    await update_root_cloning_status(
+        loaders,
+        "group1",
+        "6160f0cb-4b66-515b-4fc6-738282f535af",
+        "OK",
+        "Success",
+        "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
+    )
+    loaders.root.clear_all()
+    root_1: RootItem = await loaders.root.load(
+        ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
+    )
+
+    result = await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        user_email=generic_data["global_vars"]["admin_email"],
+        roots=(root_1,),
+        group_name="group1",
+    )
+    assert result is None
 
 
 @pytest.mark.asyncio
