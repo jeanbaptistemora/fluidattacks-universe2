@@ -2768,7 +2768,6 @@ export const enTranslations: ResourceKey = {
     allOptions: "--All options--",
     clearFilters: "Clear Filters",
     filters: "Filters",
-    more: "--View More--",
     noDataIndication: "There is no data to display",
     results: "Showing {{matches}} matching results out of {{total}}",
     search: "Search",

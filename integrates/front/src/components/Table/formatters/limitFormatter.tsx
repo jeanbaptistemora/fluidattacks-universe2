@@ -1,31 +1,21 @@
 import React from "react";
 
 import styles from "components/Table/index.css";
-import { translate } from "utils/translations/translate";
 
 export const limitFormatter: (value: string) => JSX.Element = (
   value: string
 ): JSX.Element => {
-  const linesLimit: number = 20;
   const valueArray: string[] = Array.from(
     new Set(value.split(",").map((element: string): string => element.trim()))
   );
+  const additional = valueArray.length - 1;
 
   return (
     <div>
-      {valueArray.slice(0, linesLimit).map(
-        (formatValue: string, index: number): JSX.Element => (
-          <p
-            className={`mb0 ${styles.textMesure} tl truncate`}
-            key={index.toString()}
-          >
-            {formatValue}
-          </p>
-        )
-      )}
-      {valueArray.length > linesLimit && (
-        <p className={"mb0 nt1"}>{translate.t("table.more")}</p>
-      )}
+      <p className={`mb0 ${styles.textMesure} tl truncate`}>
+        {valueArray[0]}&nbsp;
+        {additional > 0 ? <b>{`+${additional}`}</b> : undefined}
+      </p>
     </div>
   );
 };

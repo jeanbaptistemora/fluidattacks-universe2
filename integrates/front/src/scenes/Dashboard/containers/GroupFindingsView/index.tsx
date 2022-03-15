@@ -213,6 +213,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const tableHeaders: IHeaderConfig[] = [
     {
+      dataField: "title",
+      header: "Type",
+      headerFormatter: tooltipFormatter,
+      onSort: onSortState,
+      tooltipDataField: translate.t("group.findings.headersTooltips.type"),
+      visible: checkedItems.title,
+      wrapped: true,
+    },
+    {
       dataField: "lastVulnerability",
       header: "Last report",
       headerFormatter: tooltipFormatter,
@@ -221,15 +230,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         "group.findings.headersTooltips.lastReport"
       ),
       visible: checkedItems.lastVulnerability,
-      wrapped: true,
-    },
-    {
-      dataField: "title",
-      header: "Type",
-      headerFormatter: tooltipFormatter,
-      onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.type"),
-      visible: checkedItems.title,
       wrapped: true,
     },
     {

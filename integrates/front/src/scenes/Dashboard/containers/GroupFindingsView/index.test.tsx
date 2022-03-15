@@ -333,8 +333,8 @@ describe("GroupFindingsView", (): void => {
 
     const tableHeader: HTMLElement[] = screen.getAllByRole("columnheader");
 
-    expect(tableHeader[1].textContent).toContain("Last report");
-    expect(tableHeader[2].textContent).toContain("Type");
+    expect(tableHeader[1].textContent).toContain("Type");
+    expect(tableHeader[2].textContent).toContain("Last report");
     expect(tableHeader[3].textContent).toContain("Status");
     expect(tableHeader[4].textContent).toContain("Severity");
     expect(tableHeader[5].textContent).toContain("Locations");
@@ -343,8 +343,8 @@ describe("GroupFindingsView", (): void => {
 
     const firstRow: HTMLElement[] = screen.getAllByRole("cell");
 
-    expect(firstRow[1].textContent).toContain("33");
-    expect(firstRow[2].textContent).toContain("038. Business information leak");
+    expect(firstRow[1].textContent).toContain("038. Business information leak");
+    expect(firstRow[2].textContent).toContain("33");
     expect(firstRow[3].textContent).toContain("Open");
     expect(firstRow[4].textContent).toContain("2.9");
     expect(firstRow[5].textContent).toContain("6");
