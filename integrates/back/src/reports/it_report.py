@@ -4,6 +4,9 @@ from .typing import (
 from aioextensions import (
     collect,
 )
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
 )
@@ -14,6 +17,9 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingVerification,
+)
+from db_model.roots.types import (
+    RootItem,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -169,7 +175,7 @@ class ITReport:
         for vulnerability, historics in zip(
             vulnerabilities_filtered, vulnerabilities_historics
         ):
-            self.set_vuln_row(
+            await self.set_vuln_row(
                 vulnerability,
                 finding_data[vulnerability.finding_id],
                 historics[1],
@@ -251,7 +257,8 @@ class ITReport:
 
     @classmethod
     def get_row_range(cls, row: int) -> List[str]:
-        return [f"A{row}", f"AW{row}"]
+        # AX is the 50th column
+        return [f"A{row}", f"AX{row}"]
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
@@ -495,7 +502,7 @@ class ITReport:
                 return verification.modified_by
         return None
 
-    def set_vuln_row(  # pylint: disable=too-many-arguments
+    async def set_vuln_row(  # pylint: disable=too-many-arguments
         self,
         row: Vulnerability,
         finding: Finding,
@@ -520,12 +527,21 @@ class ITReport:
         if row.stream:
             stream = " > ".join(row.stream)
 
+        nickname = EMPTY
+        if row.root_id:
+            loaders = get_new_context()
+            root: RootItem = await loaders.root.load(
+                (finding.group_name, row.root_id)
+            )
+            nickname = root.state.nickname
+
         self.row_values[vuln["#"]] = self.row - 1
         self.row_values[vuln["Related Finding"]] = finding.title
         self.row_values[vuln["Finding Id"]] = finding.id
         self.row_values[vuln["Vulnerability Id"]] = row.id
         self.row_values[vuln["Where"]] = row.where
         self.row_values[vuln["Specific"]] = specific
+        self.row_values[vuln["Root Nickname"]] = nickname
         self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags
         self.row_values[vuln["Stream"]] = stream
