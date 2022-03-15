@@ -1302,6 +1302,12 @@
   "org.alfresco:alfresco-transform-services": {
     "CVE-2021-41792": "<=1.3"
   },
+  "org.alfresco:community-share": {
+    "CVE-2021-41791": "<=7.0"
+  },
+  "org.alfresco:share": {
+    "CVE-2021-41791": "7.0.1 || >=5.0.0.0 <=5.2.7.11 || >=6.0.1.0 <=6.0.1.2 || >=6.0.2.0 <=6.2.2.4 || >=7.0 <=7.0.0.2"
+  },
   "org.apache-extras.beanshell:bsh": {
     "CVE-2016-2510": ">=2.0b5 <2.0b6"
   },
@@ -1358,6 +1364,9 @@
   "org.apache.activemq:activemq-openwire-generator": {
     "CVE-2017-15709": ">=5.14.0 <=5.15.2"
   },
+  "org.apache.activemq:activemq-parent": {
+    "GHSA-9mgm-gcq8-86wq": "<5.15.14 || >=5.16.0 <5.16.1"
+  },
   "org.apache.activemq:activemq-web-console": {
     "CVE-2014-8110": ">=5.0.0 <=5.10.0",
     "CVE-2016-0734": "5.13.0 || >=5.0.0 <=5.11.2 || >=5.12.0 <=5.12.2",
@@ -1366,9 +1375,18 @@
     "CVE-2020-13947": ">=0 <5.15.14 || >=5.16.0 <5.16.1",
     "CVE-2020-1941": ">=5.0.0 <=5.15.11"
   },
+  "org.apache.activemq:apache-artemis": {
+    "GHSA-q7fr-vqhq-v5xr": "<2.16.0"
+  },
+  "org.apache.activemq:artemis-commons": {
+    "GHSA-pr38-qpxm-g88x": "<2.19.1"
+  },
   "org.apache.activemq:artemis-server": {
     "CVE-2020-13947": ">=0 <5.15.14 || >=5.16.0 <5.16.1",
     "CVE-2021-26117": ">=5.15.0 <5.15.14 || >=5.16.0 <5.16.1"
+  },
+  "org.apache.ambari:ambari": {
+    "CVE-2020-1936": "<2.7.4"
   },
   "org.apache.ambari:ambari-agent": {
     "CVE-2018-8042": ">=1.4.0 <=2.6.2"
@@ -1391,6 +1409,9 @@
     "CVE-2021-36374": ">=1.10.0 <1.10.11 || >=1.9.0 <1.9.16",
     "GHSA-j45w-qrgf-25vm": "1.10.8"
   },
+  "org.apache.any23:apache-any23": {
+    "CVE-2021-40146": "<2.5"
+  },
   "org.apache.archiva:archiva": {
     "CVE-2016-5005": ">=0 <=1.3.9",
     "CVE-2017-5657": ">=0 <=2.2.1",
@@ -1403,6 +1424,9 @@
     "CVE-2019-0213": ">=0 <2.2.4",
     "CVE-2019-0214": ">=1.2 <=1.3.9 || >=2.0.0 <=2.2.3",
     "CVE-2020-9495": ">=0 <2.2.5"
+  },
+  "org.apache.atlas:apache-atlas": {
+    "GHSA-v62j-fcxq-j239": "<0.8.4 || >=1.0.0 <1.2.0"
   },
   "org.apache.atlas:atlas": {
     "CVE-2016-8752": ">=0.6.0 <=0.7.1",
@@ -1432,6 +1456,12 @@
   },
   "org.apache.calcite:calcite-core": {
     "CVE-2020-13955": ">=0 <1.26"
+  },
+  "org.apache.calcite:calcite-druid": {
+    "GHSA-hxp5-8pgq-mgv9": "<1.26.0"
+  },
+  "org.apache.calcite:calcite-splunk": {
+    "GHSA-hxp5-8pgq-mgv9": "<1.26.0"
   },
   "org.apache.camel:camel-castor": {
     "CVE-2017-12634": "2.20.0 || >=2.0.0 <2.19.4"
