@@ -1496,6 +1496,9 @@
   "org.apache.camel:camel-jacksonxml": {
     "CVE-2016-9571": ">=2.16-alpha0 <=2.16.4 || >=2.17-alpha0 <=2.17.4 || >=2.18-alpha0 <=2.18.1"
   },
+  "org.apache.camel:camel-jetty": {
+    "GHSA-26v6-w6fw-rh94": "2.16.0 || <2.15.5"
+  },
   "org.apache.camel:camel-jmx": {
     "CVE-2020-11971": ">=2.22.0 <=2.25.0 || >=3.0.0 <=3.1.0"
   },
@@ -1582,6 +1585,21 @@
     "CVE-2017-7662": "1.4.0 || >=0 <=1.3.2",
     "CVE-2018-8038": ">=0 <1.4.4"
   },
+  "org.apache.cxf.fediz:fediz-jetty8": {
+    "GHSA-w3gh-g32m-cvhr": "<1.4.4"
+  },
+  "org.apache.cxf.fediz:fediz-jetty9": {
+    "GHSA-w3gh-g32m-cvhr": "<1.4.4"
+  },
+  "org.apache.cxf.fediz:fediz-spring": {
+    "GHSA-w3gh-g32m-cvhr": "<1.4.4"
+  },
+  "org.apache.cxf.fediz:fediz-spring2": {
+    "GHSA-w3gh-g32m-cvhr": "<1.4.4"
+  },
+  "org.apache.cxf.fediz:fediz-spring3": {
+    "GHSA-w3gh-g32m-cvhr": "<1.4.4"
+  },
   "org.apache.cxf.services:cxf-services": {
     "CVE-2017-12624": ">=0 <3.1.14 || >=3.2.0 <3.2.1"
   },
@@ -1662,13 +1680,22 @@
     "CVE-2015-1832": ">=0 <=10.11.1.1",
     "CVE-2018-1313": ">=10.3.1.4 <=10.14.1.0"
   },
+  "org.apache.directory.api:apache-ldap-api": {
+    "CVE-2018-1337": "<1.0.2"
+  },
   "org.apache.directory.mina:mina": {
     "CVE-2019-0231": "2.0.20 || 2.1.1",
     "CVE-2021-30129": ">=2.0.0 <2.7.0"
   },
+  "org.apache.directory.studio:org.apache.directory.studio.parent": {
+    "GHSA-4x25-f45x-grv5": "<=2.0.0.v20210213-m16"
+  },
   "org.apache.dolphinscheduler:dolphinscheduler": {
     "CVE-2020-11974": ">=1.2.0 <=1.2.1",
     "CVE-2020-13922": ">=1.2.0 <=1.3.1"
+  },
+  "org.apache.dolphinscheduler:dolphinscheduler-server": {
+    "GHSA-93g4-3phc-g4xw": "<1.3.6"
   },
   "org.apache.drill:drill-common": {
     "CVE-2017-12630": ">=0 <=1.11.0",
@@ -1695,6 +1722,9 @@
     "CVE-2021-36162": ">=2.7.0 <=2.7.12 || >=3.0.0 <=3.0.1",
     "CVE-2021-36163": ">=2.7.0 <=2.7.12 || >=3.0.0 <=3.0.1",
     "CVE-2021-37579": ">=2.7.0 <2.7.13 || >=3.0.0 <3.0.2"
+  },
+  "org.apache.flink:flink-core": {
+    "GHSA-6g88-99wj-8mgg": "1.10.0 || <1.9.2"
   },
   "org.apache.flink:flink-metrics-core": {
     "CVE-2020-17518": ">=1.5.1 <1.11.3",
