@@ -38,15 +38,6 @@ in {
         command = ["m" "f" "/observes/etl/delighted"];
       };
 
-    observesDynamoDbForcesEtl =
-      sharedConfiguration
-      // rec {
-        attemptDurationSeconds = 18000;
-        command = ["m" "f" "/observes/etl/dynamo/forces"];
-        memory = 1800 * vcpus;
-        vcpus = 2;
-      };
-
     observesFormstackEtl =
       sharedConfiguration
       // rec {
@@ -129,22 +120,6 @@ in {
           "PRODUCT_API_TOKEN"
           "SERVICES_API_TOKEN"
         ];
-      };
-
-    observesDynamoTableEtl =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/dynamo/table"];
-        queue = "observes_soon";
-      };
-
-    observesDynamoTableEtlBig =
-      sharedConfiguration
-      // {
-        attemptDurationSeconds = 86400;
-        command = ["m" "f" "/observes/etl/dynamo/table"];
-        queue = "observes_soon";
       };
 
     observesDynamoV2Etl =

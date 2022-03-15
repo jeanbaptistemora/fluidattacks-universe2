@@ -276,15 +276,6 @@ in {
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/etl/dynamo/table";
-          args = ["FI_vulnerabilities"];
-          gitlabExtra =
-            gitlabScheduled
-            // {
-              tags = ["autoscaling-large"];
-            };
-        }
-        {
           output = "/observes/etl/mailchimp";
           gitlabExtra = gitlabScheduled;
         }

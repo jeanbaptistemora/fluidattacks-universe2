@@ -18,7 +18,6 @@ in
           bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
           checklyEtl = outputs."/computeOnAwsBatch/observesChecklyEtl";
           delightedEtl = outputs."/computeOnAwsBatch/observesDelightedEtl";
-          dynamoDbForcesEtl = outputs."/computeOnAwsBatch/observesDynamoDbForcesEtl";
           formstackEtl = outputs."/computeOnAwsBatch/observesFormstackEtl";
           gitlabEtlChallenges = outputs."/computeOnAwsBatch/observesGitlabEtlChallenges";
           gitlabEtlDefault = outputs."/computeOnAwsBatch/observesGitlabEtlDefault";
