@@ -1428,39 +1428,47 @@ async def remove_resources(
 
 
 async def remove_user(
-    loaders: Any, group_name: str, email: str, check_org_access: bool = True
+    loaders: Any,
+    group_name: str,
+    email: str,
 ) -> bool:
-    """Remove user access to group"""
+    """Remove user access to group."""
     success: bool = await group_access_domain.remove_access(
         loaders, email, group_name
     )
-    if success and check_org_access:
-        group = await loaders.group.load(group_name)
-        org_id = group["organization"]
+    if not success:
+        return False
 
-        has_org_access, user_groups = await collect(
-            (
-                orgs_domain.has_user_access(org_id, email),
-                get_groups_by_user(email),
-            )
+    group: Group = await loaders.group_typed.load(group_name)
+    org_id: str = await orgs_domain.get_id_by_name(group.organization_name)
+
+    has_org_access, user_groups_names = await collect(
+        (
+            orgs_domain.has_user_access(org_id, email),
+            get_groups_by_user(email),
         )
-        org_groups: Set[str] = set(await orgs_domain.get_groups(org_id))
-        user_org_groups = [
-            group for group in user_groups if group in org_groups
-        ]
-        groups = await loaders.group.load_many(user_org_groups)
-        groups_filtered = filter_active_groups(groups)
-        has_groups_in_org = bool(groups_filtered)
-        if has_org_access and not has_groups_in_org:
-            success = success and await orgs_domain.remove_user(
-                loaders, org_id, email
-            )
+    )
+    org_groups_names: set[str] = set(await orgs_domain.get_groups(org_id))
+    user_org_groups_names: tuple[str, ...] = tuple(
+        group_name
+        for group_name in user_groups_names
+        if group_name in org_groups_names
+    )
+    user_org_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        user_org_groups_names
+    )
+    has_groups_in_org = bool(filter_active_groups_new(user_org_groups))
+    if has_org_access and not has_groups_in_org:
+        success = await orgs_domain.remove_user(loaders, org_id, email)
 
-        groups = await loaders.group.load_many(user_groups)
-        groups_filtered = filter_active_groups(groups)
-        has_groups = bool(groups_filtered)
-        if not has_groups:
-            success = success and await users_domain.delete(email)
+    if not success:
+        return False
+
+    all_groups_by_user = await loaders.group_typed.load_many(user_groups_names)
+    all_active_groups_by_user = filter_active_groups_new(all_groups_by_user)
+    has_groups_in_asm = bool(all_active_groups_by_user)
+    if not has_groups_in_asm:
+        success = await users_domain.delete(email)
     return success
 
 

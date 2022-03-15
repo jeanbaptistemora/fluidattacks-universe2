@@ -78,6 +78,22 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ],
                 "project_status": "ACTIVE",
             },
+            {
+                "project_name": "group3",
+                "description": "-",
+                "language": "en",
+                "historic_configuration": [
+                    {
+                        "date": "2020-05-20 17:00:00",
+                        "has_drills": False,
+                        "has_forces": False,
+                        "requester": "unknown",
+                        "service": "WHITE",
+                        "type": "continuous",
+                    }
+                ],
+                "project_status": "ACTIVE",
+            },
         ],
         "findings": [
             {
