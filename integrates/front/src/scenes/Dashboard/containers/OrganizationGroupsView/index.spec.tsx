@@ -145,12 +145,12 @@ describe("Organization groups view", (): void => {
     expect(oneshottestRow.text()).toContain("User Manager");
 
     expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
-    expect(pendingGroupRow.text()).toContain("Continuous");
+    expect(pendingGroupRow.text()).toContain("Machine");
     expect(pendingGroupRow.text()).toContain("Customer Manager");
 
     expect(unittestingRow.text()).toContain("UNITTESTING");
+    expect(unittestingRow.text()).toContain("Squad");
     expect(unittestingRow.text()).toContain("User");
-    expect(unittestingRow.text()).toContain("Continuous");
 
     unittestingRow.simulate("click");
 

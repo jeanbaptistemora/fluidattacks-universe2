@@ -28,10 +28,7 @@ import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
   groupName: string;
-  machine: string;
-  service: string;
-  squad: string;
-  subscription: string;
+  plan: string;
 }
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   props: IOrganizationGroupsProps
@@ -123,10 +120,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       "filterOrganizationGroupset",
       {
         groupName: "",
-        machine: "",
-        service: "",
-        squad: "",
-        subscription: "",
+        plan: "",
       },
       localStorage
     );
@@ -184,76 +178,26 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     "name"
   );
 
-  function onSubscriptionChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
+  function onPlanChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     event.persist();
     setFilterOrganizationGroupsTable(
       (value): IFilterSet => ({
         ...value,
-        subscription: event.target.value,
+        plan: event.target.value,
       })
     );
   }
-  const filterSubscriptionDataset: IGroupData[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.subscription,
-    "subscription"
-  );
 
-  function onServiceChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        service: event.target.value,
-      })
-    );
-  }
-  const filterServiceDataset: IGroupData[] = filterText(
+  const filterPlanDataset: IGroupData[] = filterText(
     dataset,
-    filterOrganizationGroupsTable.service,
-    "service"
+    filterOrganizationGroupsTable.plan,
+    "plan"
   );
-
-  function onMachineChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        machine: event.target.value,
-      })
-    );
-  }
-  const filterMachineDataset: IGroupData[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.machine,
-    "machine"
-  );
-
-  function onSquadChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        squad: event.target.value,
-      })
-    );
-  }
-  const filterSquadDataset: IGroupData[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.squad,
-    "squad"
-  );
-
   function clearFilters(): void {
     setFilterOrganizationGroupsTable(
       (): IFilterSet => ({
         groupName: "",
-        machine: "",
-        service: "",
-        squad: "",
-        subscription: "",
+        plan: "",
       })
     );
     setSearchTextFilter("");
@@ -262,10 +206,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const resultDataset: IGroupData[] = _.intersection(
     filterSearchTextDataset,
     filterGroupNameDataset,
-    filterSubscriptionDataset,
-    filterServiceDataset,
-    filterMachineDataset,
-    filterSquadDataset
+    filterPlanDataset
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -278,51 +219,16 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       type: "text",
     },
     {
-      defaultValue: filterOrganizationGroupsTable.subscription,
-      onChangeSelect: onSubscriptionChange,
-      placeholder: "Subscription",
+      defaultValue: filterOrganizationGroupsTable.plan,
+      onChangeSelect: onPlanChange,
+      placeholder: translate.t("organization.tabs.groups.plan"),
       selectOptions: {
-        Continuous: "Continuous",
+        Machine: "Machine",
         Oneshot: "Oneshot",
+        Squad: "Squad",
       },
-      tooltipId: "organization.tabs.groups.filtersTooltips.subscription.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.subscription",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.service,
-      onChangeSelect: onServiceChange,
-      placeholder: "Service",
-      selectOptions: {
-        Black: "Black",
-        White: "White",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.service.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.service",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.machine,
-      onChangeSelect: onMachineChange,
-      placeholder: "Machine",
-      selectOptions: {
-        Disabled: "Disabled",
-        Enabled: "Enabled",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.machine.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.machine",
-      type: "select",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.squad,
-      onChangeSelect: onSquadChange,
-      placeholder: "Squad",
-      selectOptions: {
-        Disabled: "Disabled",
-        Enabled: "Enabled",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.squad.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.squad",
+      tooltipId: "organization.tabs.groups.filtersTooltips.plan.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.plan",
       type: "select",
     },
   ];
