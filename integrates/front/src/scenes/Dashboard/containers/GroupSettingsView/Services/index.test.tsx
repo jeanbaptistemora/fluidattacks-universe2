@@ -1,16 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
- -- Annotations added due to extended usage of "any" type in enzyme lib
- */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
 import { GET_GROUP_DATA as GET_GROUP_SERVICES } from "scenes/Dashboard/containers/GroupRoute/queries";
 import {
@@ -20,12 +14,12 @@ import {
 import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
   );
-  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
@@ -43,6 +37,7 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            description: "Integrates unit test project",
             hasMachine: true,
             hasSquad: true,
             language: "EN",
@@ -63,6 +58,7 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            description: "Integrates unit test project",
             hasMachine: true,
             hasSquad: true,
             language: "EN",
@@ -83,6 +79,7 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            description: "Integrates unit test project",
             hasMachine: true,
             hasSquad: true,
             language: "EN",
@@ -104,6 +101,7 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            description: "",
             hasMachine: false,
             hasSquad: false,
             language: "EN",
@@ -124,12 +122,10 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasMachine: false,
-            hasSquad: false,
-            language: "EN",
+            deletionDate: null,
             name: "unittesting",
-            service: "WHITE",
-            subscription: "CONTINUOUS",
+            organization: "org1",
+            serviceAttributes: [],
           },
         },
       },
@@ -144,12 +140,10 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasMachine: true,
-            hasSquad: true,
-            language: "EN",
+            deletionDate: null,
             name: "unittesting",
-            service: "WHITE",
-            subscription: "CONTINUOUS",
+            organization: "org1",
+            serviceAttributes: [],
           },
         },
       },
@@ -164,12 +158,10 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasMachine: true,
-            hasSquad: false,
-            language: "EN",
+            deletionDate: null,
             name: "unittesting",
-            service: "WHITE",
-            subscription: "CONTINUOUS",
+            organization: "org1",
+            serviceAttributes: [],
           },
         },
       },
@@ -186,14 +178,14 @@ describe("Services", (): void => {
   });
 
   [
-    { group: "unittesting", rows: 4 },
-    { group: "oneshottest", rows: 4 },
+    { group: "unittesting", rows: 5 },
+    { group: "oneshottest", rows: 5 },
     { group: "not-exists", rows: 0 },
   ].forEach((test: { group: string; rows: number }): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {
       expect.hasAssertions();
 
-      const wrapper: ReactWrapper = mount(
+      render(
         <MockedProvider addTypename={false} mocks={mockResponses}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <MemoryRouter initialEntries={["/home"]}>
@@ -202,21 +194,10 @@ describe("Services", (): void => {
           </authzPermissionsContext.Provider>
         </MockedProvider>
       );
-      await act(async (): Promise<void> => {
-        const delay = 150;
-        await wait(delay);
-        await waitForExpect((): void => {
-          wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-        });
+      await waitFor((): void => {
+        expect(screen.queryAllByRole("row")).toHaveLength(test.rows);
       });
-
-      const table: ReactWrapper = wrapper.find("table");
-      const tableBody: ReactWrapper = table.find("tbody");
-      const rows: ReactWrapper = tableBody.find("tr");
-
-      expect(rows).toHaveLength(test.rows);
 
       jest.clearAllMocks();
     });
@@ -244,7 +225,7 @@ describe("Services", (): void => {
         },
         result: {
           data: {
-            editGroup: {
+            updateGroup: {
               success: true,
             },
           },
@@ -268,7 +249,7 @@ describe("Services", (): void => {
         },
         result: {
           data: {
-            editGroup: {
+            updateGroup: {
               success: true,
             },
           },
@@ -292,7 +273,7 @@ describe("Services", (): void => {
         },
         result: {
           data: {
-            editGroup: {
+            updateGroup: {
               success: true,
             },
           },
@@ -300,7 +281,7 @@ describe("Services", (): void => {
       },
     ];
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider
         addTypename={false}
         mocks={[...mockResponses, ...mockMutations]}
@@ -313,109 +294,130 @@ describe("Services", (): void => {
       </MockedProvider>
     );
 
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-      });
+    const totalRows = 5;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(totalRows);
     });
 
-    // Wrappers are functions because references get rapidly changed
-    const table: () => ReactWrapper = (): ReactWrapper => wrapper.find("table");
-    const tableBody: () => ReactWrapper = (): ReactWrapper =>
-      table().find("tbody");
-    const rows: () => ReactWrapper = (): ReactWrapper => tableBody().find("tr");
+    expect(
+      screen.getByRole("cell", { name: "Subscription type" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Service" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Machine" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Squad" })).toBeInTheDocument();
 
-    const typeRow: () => ReactWrapper = (): ReactWrapper => rows().at(0);
-    const serviceRow = rows().at(1);
-    const machineRow = (): ReactWrapper => rows().at(2);
-    const squadRowIndex = 3;
-    const squadRow = (): ReactWrapper => rows().at(squadRowIndex);
+    userEvent.click(
+      screen
+        .getAllByRole("cell", { name: "Active Inactive" })[0]
+        .querySelectorAll("#machineSwitch")[0]
+    );
 
-    const serviceRowLeft = serviceRow.find("td").first();
-    const typeRowLeft: () => ReactWrapper = (): ReactWrapper =>
-      typeRow().find("td").first();
-    const machineRowLeft = (): ReactWrapper => machineRow().find("td").first();
-    const squadRowLeft: () => ReactWrapper = (): ReactWrapper =>
-      squadRow().find("td").first();
-
-    const totalRows = 4;
-
-    expect(rows()).toHaveLength(totalRows);
-    expect(typeRowLeft().text()).toStrictEqual("Subscription type");
-    expect(serviceRowLeft.text()).toStrictEqual("Service");
-    expect(machineRowLeft().text()).toStrictEqual("Machine");
-    expect(squadRowLeft().text()).toStrictEqual("Squad");
-
-    const machineSwitch = (): ReactWrapper =>
-      machineRow().find("#machineSwitch").at(0);
-    const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
-      squadRow().find("#squadSwitch").at(0);
-    const formik: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("Formik").first();
-    const proceedButton: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("button").first();
-
-    machineSwitch().simulate("click");
-
-    expect(proceedButton().exists()).toStrictEqual(true);
-
-    proceedButton().simulate("click");
-    const confirmation: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find({ name: "confirmation" }).find("input");
-    confirmation().simulate("change", {
-      target: { name: "confirmation", value: "unittesting" },
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          translate.t("searchFindings.servicesTable.modal.continue")
+        )
+      ).toBeInTheDocument();
     });
-    formik().simulate("submit");
+    userEvent.click(
+      screen.getByText(
+        translate.t("searchFindings.servicesTable.modal.continue")
+      )
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).toBeInTheDocument();
+    });
+    userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
 
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
-
-      expect(wrapper).toHaveLength(1);
-      expect(msgSuccess).toHaveBeenCalledTimes(0);
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        translate.t("searchFindings.servicesTable.success"),
+        translate.t("searchFindings.servicesTable.successTitle")
+      );
     });
 
-    squadSwitch().simulate("click");
-
-    expect(proceedButton().exists()).toStrictEqual(true);
-
-    proceedButton().simulate("click");
-    confirmation().simulate("change", {
-      target: { name: "confirmation", value: "unittesting" },
+    userEvent.click(
+      screen
+        .getAllByRole("cell", { name: "Active Inactive" })[1]
+        .querySelectorAll("#squadSwitch")[0]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          translate.t("searchFindings.servicesTable.modal.continue")
+        )
+      ).toBeInTheDocument();
     });
-    formik().simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
+    userEvent.click(
+      screen.getByText(
+        translate.t("searchFindings.servicesTable.modal.continue")
+      )
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).toBeInTheDocument();
+    });
+    userEvent.clear(screen.getByPlaceholderText("unittesting"));
+    userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
 
-      expect(wrapper).toHaveLength(1);
-      expect(msgSuccess).toHaveBeenCalledTimes(0);
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        translate.t("searchFindings.servicesTable.success"),
+        translate.t("searchFindings.servicesTable.successTitle")
+      );
     });
 
-    squadSwitch().simulate("click");
-
-    expect(proceedButton().exists()).toStrictEqual(true);
-
-    proceedButton().simulate("click");
-    confirmation().simulate("change", {
-      target: { name: "confirmation", value: "unittesting" },
+    userEvent.click(
+      screen
+        .getAllByRole("cell", { name: "Active Inactive" })[1]
+        .querySelectorAll("#squadSwitch")[0]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          translate.t("searchFindings.servicesTable.modal.continue")
+        )
+      ).toBeInTheDocument();
     });
-    formik().simulate("submit");
+    userEvent.click(
+      screen.getByText(
+        translate.t("searchFindings.servicesTable.modal.continue")
+      )
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).toBeInTheDocument();
+    });
+    userEvent.clear(screen.getByPlaceholderText("unittesting"));
+    userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
 
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
-      const calls = 0;
-
-      expect(wrapper).toHaveLength(1);
-      expect(msgSuccess).toHaveBeenCalledTimes(calls);
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        translate.t("searchFindings.servicesTable.success"),
+        translate.t("searchFindings.servicesTable.successTitle")
+      );
     });
 
     jest.clearAllMocks();
