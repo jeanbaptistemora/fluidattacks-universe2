@@ -85,6 +85,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
                 return (
                   <Row key={column.dataField}>
                     <input
+                      aria-label={column.dataField}
                       checked={column.toggle}
                       name={column.dataField}
                       onChange={handleClick}

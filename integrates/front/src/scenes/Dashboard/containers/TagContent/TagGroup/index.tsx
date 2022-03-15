@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 
 import { Table } from "components/Table";
@@ -12,7 +13,6 @@ import { PORTFOLIO_GROUP_QUERY } from "scenes/Dashboard/containers/TagContent/Ta
 import { Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IPortfolio {
   tag: {
@@ -22,11 +22,12 @@ interface IPortfolio {
 }
 
 const TagsGroup: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { tagName } = useParams<{ tagName: string }>();
   const { data } = useQuery<IPortfolio>(PORTFOLIO_GROUP_QUERY, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.error("An error occurred loading tag groups", error);
       });
     },
