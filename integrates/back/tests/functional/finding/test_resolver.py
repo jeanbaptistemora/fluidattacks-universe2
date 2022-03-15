@@ -165,7 +165,8 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["consulting"] == [
         {
             "content": (
-                "Regarding vulnerabilities 192.168.1.20:\n\n"
+                "Regarding vulnerabilities: \n"
+                "  - 192.168.1.20\n\n"
                 "This is a test observations"
             )
         },
@@ -360,7 +361,8 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["consulting"] == [
         {
             "content": (
-                "Regarding vulnerabilities 192.168.1.20:\n\n"
+                "Regarding vulnerabilities: \n"
+                "  - 192.168.1.20\n\n"
                 "This is a test observations"
             )
         },

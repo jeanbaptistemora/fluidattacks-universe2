@@ -42,17 +42,19 @@ def _fill_vuln_info(
 ) -> CommentType:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack"""
-    selected_vulns = [vuln.where for vuln in vulns if vuln.id in vulns_ids]
+    selected_vulns = [
+        f"  - {vuln.where}" for vuln in vulns if vuln.id in vulns_ids
+    ]
     selected_vulns = list(set(selected_vulns))
-    wheres = ", ".join(selected_vulns)
+    wheres = "\n".join(selected_vulns)
     # Avoid needless repetition of the header if the comment is answering more
     # than one reattack
     if not comment.get("content", "").startswith(
-        f"Regarding vulnerabilities {wheres}:"
+        f"Regarding vulnerabilities: \n{wheres}"
     ):
         comment[
             "content"
-        ] = f"Regarding vulnerabilities {wheres}:\n\n" + comment.get(
+        ] = f"Regarding vulnerabilities: \n{wheres}\n\n" + comment.get(
             "content", ""
         )
     return cast(CommentType, comment)
