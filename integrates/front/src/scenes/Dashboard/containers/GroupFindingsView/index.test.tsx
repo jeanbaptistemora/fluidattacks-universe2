@@ -1,21 +1,18 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
+import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
-import { Button } from "components/Button";
-import { Table } from "components/Table";
-import { CustomToggleList } from "components/Table/customToggleList";
-import type { ITableProps } from "components/Table/types";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import {
   GET_FINDINGS,
+  GET_GROUP_VULNS,
+  GET_HAS_MOBILE_APP,
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
@@ -53,7 +50,9 @@ describe("GroupFindingsView", (): void => {
                 isExploitable: true,
                 lastVulnerability: 33,
                 minTimeToRemediate: 60,
+                openAge: 60,
                 openVulnerabilities: 6,
+                releaseDate: null,
                 remediated: false,
                 severityScore: 2.9,
                 state: "open",
@@ -79,6 +78,19 @@ describe("GroupFindingsView", (): void => {
       },
     },
   ];
+
+  const mockMobile: MockedResponse = {
+    request: {
+      query: GET_HAS_MOBILE_APP,
+    },
+    result: {
+      data: {
+        me: {
+          hasMobileApp: true,
+        },
+      },
+    },
+  };
 
   const mockError: readonly MockedResponse[] = [
     {
@@ -115,7 +127,9 @@ describe("GroupFindingsView", (): void => {
                 isExploitable: true,
                 lastVulnerability: 33,
                 minTimeToRemediate: 60,
+                openAge: 60,
                 openVulnerabilities: 6,
+                releaseDate: null,
                 remediated: false,
                 severityScore: 2.9,
                 state: "open",
@@ -128,8 +142,32 @@ describe("GroupFindingsView", (): void => {
                   new: 1,
                 },
                 verified: false,
+              },
+            ],
+            name: "TEST",
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_GROUP_VULNS,
+        variables: {
+          groupName: "TEST",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            __typename: "Group",
+            findings: [
+              {
+                __typename: "Finding",
+                id: "438679960",
                 vulnerabilities: [
                   {
+                    __typename: "Vulnerability",
+                    id: "",
                     where: "This is a test where",
                   },
                 ],
@@ -167,7 +205,7 @@ describe("GroupFindingsView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <MockedProvider addTypename={true} mocks={apolloDataMock}>
           <Route
@@ -177,9 +215,10 @@ describe("GroupFindingsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await wait(0);
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("table")).toHaveLength(1);
+    });
   });
 
   it("should render report modal and mock request error", async (): Promise<void> => {
@@ -188,9 +227,12 @@ describe("GroupFindingsView", (): void => {
     jest.clearAllMocks();
 
     const handleClose: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["orgs/testorg/groups/testgroup/vulns"]}>
-        <MockedProvider addTypename={true} mocks={[mockReportError]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mockMobile, mockReportError]}
+        >
           <Route path={"orgs/:organizationName/groups/:groupName/vulns"}>
             <ReportsModal
               hasMobileApp={true}
@@ -202,47 +244,49 @@ describe("GroupFindingsView", (): void => {
       </MemoryRouter>
     );
 
-    expect(wrapper).toHaveLength(1);
-
     // Find buttons
-    const reportPdf: ReactWrapper = wrapper
-      .find("button#report-pdf")
-      .find("svg")
-      .prop("data-icon");
+    const buttons: HTMLElement[] = screen.getAllByRole("button", {
+      hidden: true,
+    });
 
-    const reportXls: ReactWrapper = wrapper
-      .find("button#report-excel")
-      .find("svg")
-      .prop("data-icon");
+    expect(buttons[0].querySelector(".svg-inline--fa")).toHaveAttribute(
+      "data-icon",
+      "file-pdf"
+    );
+    expect(buttons[1].querySelector(".svg-inline--fa")).toHaveAttribute(
+      "data-icon",
+      "file-excel"
+    );
+    expect(buttons[2].querySelector(".svg-inline--fa")).toHaveAttribute(
+      "data-icon",
+      "sliders"
+    );
+    expect(buttons[3].querySelector(".svg-inline--fa")).toHaveAttribute(
+      "data-icon",
+      "file-zipper"
+    );
 
-    const reportZip: ReactWrapper = wrapper
-      .find("button#report-zip")
-      .find("svg")
-      .prop("data-icon");
+    userEvent.click(
+      screen.getByText(translate.t("group.findings.report.btn.text"))
+    );
 
-    expect(reportPdf).toStrictEqual("file-pdf");
-    expect(reportXls).toStrictEqual("file-excel");
-    expect(reportZip).toStrictEqual("file-zipper");
-
-    const reporButtontPdf: ReactWrapper = wrapper.find("button#report-pdf");
-
-    reporButtontPdf.simulate("click");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("groupAlerts.reportAlreadyRequested")
-        );
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("group.findings.report.modalTitle"))
+      ).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("Executive"));
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("groupAlerts.reportAlreadyRequested")
+      );
     });
   });
 
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <MockedProvider addTypename={true} mocks={mockError}>
           <Route
@@ -252,15 +296,19 @@ describe("GroupFindingsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await wait(0);
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("should display all finding columns", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    jest.clearAllMocks();
+
+    const { t } = useTranslation();
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <MockedProvider addTypename={true} mocks={mocksFindings}>
           <Route
@@ -271,49 +319,36 @@ describe("GroupFindingsView", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.getByText("038. Business information leak")
+      ).toBeInTheDocument();
     });
+    userEvent.click(
+      screen.getByText(t("group.findings.tableSet.btn.text").toString())
+    );
 
-    const customToggleListButton = wrapper.find(CustomToggleList).find(Button);
+    userEvent.click(screen.getAllByRole("checkbox")[6]);
+    userEvent.click(screen.getAllByRole("checkbox")[5]);
 
-    customToggleListButton.simulate("click");
+    const tableHeader: HTMLElement[] = screen.getAllByRole("columnheader");
 
-    const columnFilterInputs: ReactWrapper = wrapper
-      .find(CustomToggleList)
-      .find("input");
+    expect(tableHeader[1].textContent).toContain("Last report");
+    expect(tableHeader[2].textContent).toContain("Type");
+    expect(tableHeader[3].textContent).toContain("Status");
+    expect(tableHeader[4].textContent).toContain("Severity");
+    expect(tableHeader[5].textContent).toContain("Locations");
+    expect(tableHeader[6].textContent).toContain("Where");
+    expect(tableHeader[7].textContent).toContain("Reattack");
 
-    const remediatedCheckbox: ReactWrapper = columnFilterInputs.find({
-      name: "remediated",
-    });
-    const whereCheckbox: ReactWrapper = columnFilterInputs.find({
-      name: "where",
-    });
+    const firstRow: HTMLElement[] = screen.getAllByRole("cell");
 
-    remediatedCheckbox.simulate("change");
-    whereCheckbox.simulate("change");
-
-    const findingTable: ReactWrapper<ITableProps> = wrapper
-      .find(Table)
-      .filter({ id: "tblFindings" });
-
-    const tableHeader: ReactWrapper = findingTable.find("Header");
-
-    expect(tableHeader.text()).toContain("Last report");
-    expect(tableHeader.text()).toContain("Type");
-    expect(tableHeader.text()).toContain("Severity");
-    expect(tableHeader.text()).toContain("Status");
-    expect(tableHeader.text()).toContain("Reattack");
-    expect(tableHeader.text()).toContain("Where");
-
-    const firstRow: ReactWrapper = findingTable.find("Body").find("tr");
-
-    expect(firstRow.text()).toContain("33");
-    expect(firstRow.text()).toContain("038. Business information leak");
-    expect(firstRow.text()).toContain("2.9");
-    expect(firstRow.text()).toContain("Open");
-    expect(firstRow.text()).toContain("Pending");
-    expect(firstRow.text()).toContain("This is a test where");
+    expect(firstRow[1].textContent).toContain("33");
+    expect(firstRow[2].textContent).toContain("038. Business information leak");
+    expect(firstRow[3].textContent).toContain("Open");
+    expect(firstRow[4].textContent).toContain("2.9");
+    expect(firstRow[5].textContent).toContain("6");
+    expect(firstRow[6].textContent).toContain("This is a test where");
+    expect(firstRow[7].textContent).toContain("Pending");
   });
 });
