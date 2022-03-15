@@ -7,17 +7,17 @@ from batch.dal import (
     describe_jobs,
     get_action,
     get_actions_by_name,
-    Job,
-    JobStatus,
     list_jobs_by_status,
     list_log_streams,
     put_action,
 )
 from batch.enums import (
     Action,
+    JobStatus,
     Product,
 )
 from batch.types import (
+    Job,
     PutActionResult,
     VulnerabilitiesSummary,
 )
@@ -185,7 +185,7 @@ async def list_(  # pylint: disable=too-many-locals
         ]
         job_items.append(
             Job(
-                created_at=job_execution.created_at,
+                created_at=int(job_execution.created_at),
                 exit_code=0,
                 exit_reason="",
                 id=job_execution.job_id,
@@ -213,11 +213,13 @@ async def list_(  # pylint: disable=too-many-locals
     )
 
     for job_item in job_logs_description:
-        group, job_id, git_root_nickname = job_item["logStreamName"].split("/")
+        group, job_id, git_root_nickname = str(
+            job_item["logStreamName"]
+        ).split("/")
         if job_id not in jobs_details_from_batch:
             continue
 
-        vulns_summary: Optional[RootMachineExecutionItem] = None
+        vulns_summary: Optional[VulnerabilitiesSummary] = None
 
         if git_root_nickname in group_roots.values():
             job_items.append(
@@ -233,12 +235,14 @@ async def list_(  # pylint: disable=too-many-locals
                     .get("reason"),
                     id=jobs_details_from_batch[job_id]["jobId"],
                     name=f"skims-process-{group}-{git_root_nickname}",
-                    root_nickname=job_item["logStreamName"].split("/")[-1],
+                    root_nickname=str(job_item["logStreamName"]).rsplit(
+                        "/", maxsplit=1
+                    )[-1],
                     queue=jobs_details_from_batch[job_id]["jobQueue"].split(
                         "/"
                     )[-1],
-                    started_at=job_item.get("firstEventTimestamp", 0),
-                    stopped_at=job_item.get("lastEventTimestamp", 0),
+                    started_at=int(job_item.get("firstEventTimestamp", 0)),
+                    stopped_at=int(job_item.get("lastEventTimestamp", 0)),
                     status=jobs_details_from_batch[job_id]["status"],
                     vulnerabilities=vulns_summary,
                 )
@@ -356,9 +360,7 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
                 datetime_utils.get_datetime_from_batch(
                     entry_execution["createdAt"]
                 )
-            )
-            if "createdAt" in entry_execution
-            else None,
+            ),
             started_at=datetime_utils.get_as_str(
                 datetime_utils.get_datetime_from_batch(
                     entry_execution["startedAt"]
@@ -376,6 +378,7 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
             name=f"skims-process-{group}-{root_nickname}",
             queue=queued_jobs_dict[entry_execution["jobId"]].queue,
             root_id=root.id,
+            findings_executed=[],
         )
         for entry_execution in jobs_from_batch
         for root_nickname in json.loads(
