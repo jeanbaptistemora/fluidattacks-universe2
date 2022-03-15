@@ -54,7 +54,7 @@ EPHEMERAL_SCHEMAS = frozenset(
 
 TARGETS = frozenset(
     [
-        "integrates",
+        "sorts",
     ]
 )
 
