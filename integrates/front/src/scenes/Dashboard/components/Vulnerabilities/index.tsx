@@ -11,6 +11,7 @@ import React, {
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
+import { statusFormatter } from "./Formatter";
 import {
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
@@ -35,7 +36,6 @@ import {
   getNonSelectableVulnerabilitiesOnVerifyIds,
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
-import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
 import { authzPermissionsContext } from "utils/authz/config";
 
 function usePreviousProps(value: boolean): boolean {
@@ -247,8 +247,34 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const headers: IHeaderConfig[] = [
     {
       dataField: "where",
-      formatter: vulnerabilityInfo,
       header: t("searchFindings.tabVuln.vulnTable.where"),
+      onSort: onSortVulns,
+    },
+    {
+      dataField: "specific",
+      header: t("searchFindings.tabVuln.vulnTable.specific"),
+      onSort: onSortVulns,
+    },
+    {
+      dataField: "currentState",
+      formatter: statusFormatter,
+      header: t("searchFindings.tabVuln.vulnTable.status"),
+      onSort: onSortVulns,
+    },
+    {
+      dataField: "reportDate",
+      header: t("searchFindings.tabVuln.vulnTable.reportDate"),
+      onSort: onSortVulns,
+    },
+    {
+      dataField: "verification",
+      formatter: statusFormatter,
+      header: t("searchFindings.tabVuln.vulnTable.reattack"),
+      onSort: onSortVulns,
+    },
+    {
+      dataField: "treatment",
+      header: t("searchFindings.tabVuln.vulnTable.treatment"),
       onSort: onSortVulns,
     },
   ];
