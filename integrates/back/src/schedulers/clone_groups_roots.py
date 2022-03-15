@@ -39,7 +39,7 @@ async def _queue_sync_git_roots(
     success = False
     message: Optional[str] = None
     try:
-        success = await (
+        result = await (
             batch_roots.queue_sync_git_roots(
                 loaders=loaders,
                 user_email=user_email,
@@ -47,6 +47,7 @@ async def _queue_sync_git_roots(
                 group_name=group_name,
             )
         )
+        success = result.success
     except (
         InactiveRoot,
         CredentialNotFound,

@@ -13,6 +13,7 @@ from batch.enums import (
 from batch.types import (
     BatchProcessing,
     CloneResult,
+    PutActionResult,
 )
 from batch.utils.git_self import (
     clone_root,
@@ -693,7 +694,7 @@ async def queue_sync_git_roots(
     roots: Optional[Tuple[GitRootItem, ...]] = None,
     check_existing_jobs: bool = True,
     force: bool = False,
-) -> bool:
+) -> Optional[PutActionResult]:
     current_jobs = await get_actions_by_name("clone_roots", group_name)
     roots = roots or await loaders.group_roots.load(group_name)
     roots = tuple(root for root in roots if root.state.status == "ACTIVE")
@@ -717,7 +718,7 @@ async def queue_sync_git_roots(
     roots_with_creds = {
         root_id: creds[0]
         for root_id, creds in roots_with_creds.items()
-        if creds and creds[0].metadata.type.value == "SSH"
+        if creds
     }
 
     if not roots_with_creds:
@@ -798,9 +799,8 @@ async def queue_sync_git_roots(
         )
     )
 
-    success: bool = False
     if roots_to_clone:
-        await put_action(
+        result = await put_action(
             action=Action.CLONE_ROOTS,
             entity=group_name,
             subject=user_email,
@@ -821,5 +821,5 @@ async def queue_sync_git_roots(
             )
             for root_id in roots_to_clone
         )
-        success = True
-    return success
+        return result
+    return None

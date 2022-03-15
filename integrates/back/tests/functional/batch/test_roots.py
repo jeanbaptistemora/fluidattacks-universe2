@@ -2,6 +2,9 @@
 from batch import (
     roots as batch_roots,
 )
+from batch.dal import (
+    delete_action,
+)
 from batch.enums import (
     Action,
 )
@@ -33,6 +36,52 @@ from typing import (
     Dict,
     Tuple,
 )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
+async def test_queue_sync_git_roots_real_ssh_ok(
+    generic_data: Dict[str, Any]
+) -> None:
+
+    loaders: Dataloaders = get_new_context()
+    root_1: RootItem = await loaders.root.load(
+        ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
+    )
+
+    result = await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        user_email=generic_data["global_vars"]["admin_email"],
+        roots=(root_1,),
+        group_name="group1",
+    )
+    assert result.success
+    # restore db state
+    if result.dynamo_pk:
+        await delete_action(dynamodb_pk=result.dynamo_pk)
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("batch")
+async def test_queue_sync_git_roots_real_https_ok(
+    generic_data: Dict[str, Any]
+) -> None:
+
+    loaders: Dataloaders = get_new_context()
+    root_1: RootItem = await loaders.root.load(
+        ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
+    )
+
+    result = await batch_roots.queue_sync_git_roots(
+        loaders=loaders,
+        user_email=generic_data["global_vars"]["admin_email"],
+        roots=(root_1,),
+        group_name="group1",
+    )
+    assert result.success
+    # restore db state
+    if result.dynamo_pk:
+        await delete_action(dynamodb_pk=result.dynamo_pk)
 
 
 @pytest.mark.asyncio
@@ -259,7 +308,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 entity="group1",
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
-                additional_info="nickname1,nickname2,nickname3,nickname6",
+                additional_info=(
+                    "nickname1,nickname2,nickname3,nickname6,nickname8"
+                ),
                 queue="spot_soon",
                 batch_job_id="1",
                 running=False,
@@ -290,7 +341,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1,nickname2,nickname3,nickname6",
+                    additional_info=(
+                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                    ),
                     queue="spot_soon",
                     batch_job_id="1",
                     running=False,
@@ -306,7 +359,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1,nickname2,nickname3,nickname6",
+                    additional_info=(
+                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                    ),
                     queue="spot_soon",
                     batch_job_id="1",
                     running=False,
@@ -333,7 +388,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1,nickname2,nickname3,nickname6",
+                    additional_info=(
+                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                    ),
                     queue="spot_soon",
                     batch_job_id="1",
                     running=False,
