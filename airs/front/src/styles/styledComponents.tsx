@@ -444,7 +444,7 @@ const NewMainCoverHome: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    flex-ns
+    flex
     items-center
     cover-m
     cover-s

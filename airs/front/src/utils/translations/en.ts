@@ -67,10 +67,10 @@ const pageTexts: ResourceKey = {
   numbersSection: {
     card1Description:
       "Remediation rate for critical vulnerabilities " +
-      "in Continuous Hacking projects.",
+      "in Continuous Hacking subscriptions.",
     card1Title: "100%",
     card2Description:
-      "Continuous Hacking projects with at least " +
+      "Continuous Hacking subscriptions with at least " +
       "one high or critical vulnerability.",
     card2Title: "77%",
     card3Description:
@@ -79,11 +79,11 @@ const pageTexts: ResourceKey = {
     card3Title: "50%",
     card4Description:
       "Remediation rate for all reported severity " +
-      "(CVSSF*) in Continuous  Hacking projects.",
+      "(CVSSF*) in Continuous Hacking subscriptions.",
     card4Title: "61%",
     card5Description:
       "Remediation rate for mature DevSecOps companies " +
-      "in Continuous Hacking projects.",
+      "in Continuous Hacking subscriptions.",
     card5Title: ">90%",
     card6Description: "Vulnerabilities discovered per year.",
     card6Title: "100K+",
@@ -233,8 +233,8 @@ const pageTexts: ResourceKey = {
       "Our experts review the findings manually, discard potential false positives " +
       "and assess the validity of results before showing them to you.",
     cycleParagraph4:
-      "Our experts seek to reduce false negatives by performing gray-box testing, " +
-      "looking for vulnerabilities that went unnoticed by the Attack Team.",
+      "Our experts seek to reduce false negatives and detect vulnerabilities " +
+      "that went unnoticed by the Attack Team.",
     cycleParagraph5:
       "Our experts evaluate the effectiveness of your solution to a vulnerability " +
       "and whether more vulnerabilities emerged due to the implementation.",

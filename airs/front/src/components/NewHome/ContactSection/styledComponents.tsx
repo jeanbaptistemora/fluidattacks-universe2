@@ -26,7 +26,7 @@ const WhiteTitle = styled.p.attrs({
 const InnerSection = styled.div.attrs({
   className: `
   w5-l
-  mv5
+  mv4
   mh3
   tc
 `,

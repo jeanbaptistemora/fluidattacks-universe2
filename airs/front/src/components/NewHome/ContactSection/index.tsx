@@ -43,7 +43,7 @@ const ContactSection: React.FC = (): JSX.Element => {
         <CloudImage
           alt={"Logo OWASP"}
           src={"owasp-logo"}
-          styles={"tc w4 ba bg-white br3 bc-gray-64 mt3"}
+          styles={"tc w-144 h-46 ba bg-white br3 bc-gray-64 mt3"}
         />
       </InnerSection>
       <InnerSection>
