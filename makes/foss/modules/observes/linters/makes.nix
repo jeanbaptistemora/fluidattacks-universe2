@@ -26,7 +26,6 @@ in {
                 "/observes/services/jobs_scheduler"
                 "/observes/services/migrate_tables"
                 "/observes/services/timedoctor_tokens"
-                "/observes/singer/streamer_dynamodb"
                 "/observes/singer/streamer_zoho_crm"
               ]
               ++ (
