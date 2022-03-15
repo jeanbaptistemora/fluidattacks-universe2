@@ -11,6 +11,7 @@ interface ISubscriptionsNames {
     notificationsPreferences: {
       email: string[];
     };
+    userEmail: string;
   };
 }
 

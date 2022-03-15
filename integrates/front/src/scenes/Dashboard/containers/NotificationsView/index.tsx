@@ -96,7 +96,17 @@ const NotificationsView: React.FC = (): JSX.Element => {
           }
         );
 
-  const exceptions = ["ACCESS_GRANTED", "GROUP_REPORT"];
+  const defaultExceptions = ["ACCESS_GRANTED", "GROUP_REPORT"];
+
+  const exceptions =
+    _.isUndefined(dataEnum) || _.isEmpty(dataEnum)
+      ? defaultExceptions
+      : [
+          ...defaultExceptions,
+          dataEnum.me.userEmail.endsWith("@fluidattacks.com")
+            ? undefined
+            : "Draft updates",
+        ];
 
   const filterByName = (subscription: ISubscriptionName): boolean =>
     !exceptions.includes(subscription.name);
