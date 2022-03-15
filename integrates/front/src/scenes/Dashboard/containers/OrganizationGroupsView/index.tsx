@@ -13,7 +13,6 @@ import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
-import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
@@ -97,29 +96,21 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     groupData: IGroupData[]
   ): IGroupData[] =>
     groupData.map((group: IGroupData): IGroupData => {
-      const servicesParameters: Record<string, string> = {
-        false: "organization.tabs.groups.disabled",
-        true: "organization.tabs.groups.enabled",
-      };
       const name: string = group.name.toUpperCase();
       const description: string = _.capitalize(group.description);
-      const service: string = _.capitalize(group.service);
       const subscription: string = _.capitalize(group.subscription);
-      const machine: string = translate.t(
-        servicesParameters[group.hasMachine.toString()]
-      );
-      const squad: string = translate.t(
-        servicesParameters[group.hasSquad.toString()]
-      );
+      const plan =
+        subscription === "Oneshot"
+          ? subscription
+          : group.hasSquad
+          ? "Squad"
+          : "Machine";
 
       return {
         ...group,
         description,
-        machine,
         name,
-        service,
-        squad,
-        subscription,
+        plan,
       };
     });
 
@@ -144,40 +135,23 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
-  // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "name",
-      header: "Group Name",
-    },
-    { dataField: "description", header: "Description" },
-    {
-      dataField: "subscription",
-      header: "Subscription",
+      header: translate.t("organization.tabs.groups.newGroup.name"),
     },
     {
-      dataField: "service",
-      header: "Service",
+      dataField: "description",
+      header: translate.t("organization.tabs.groups.newGroup.description.text"),
     },
-    {
-      dataField: "machine",
-      formatter: statusFormatter,
-      header: "Machine",
-      width: "90px",
-    },
-    {
-      dataField: "squad",
-      formatter: statusFormatter,
-      header: "Squad",
-      width: "90px",
-    },
+    { dataField: "plan", header: translate.t("organization.tabs.groups.plan") },
     {
       dataField: "userRole",
       formatter: (value: string): string =>
         translate.t(`userModal.roles.${_.camelCase(value)}`, {
           defaultValue: "-",
         }),
-      header: "Role",
+      header: translate.t("organization.tabs.groups.role"),
     },
   ];
 

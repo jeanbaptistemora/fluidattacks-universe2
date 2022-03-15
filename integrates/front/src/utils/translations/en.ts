@@ -1318,7 +1318,7 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Vulnerability detection tool that scans and reports security issues in your source code",
           },
-          name: "Group Name",
+          name: "Group name",
           new: {
             group: "New Group",
             text: "New Group",
@@ -1353,6 +1353,8 @@ export const enTranslations: ResourceKey = {
             tooltip: "Type of subscription",
           },
         },
+        plan: "Plan",
+        role: "Role",
         text: "Groups",
         tooltip: "Groups that belong to the organization",
       },

@@ -6,6 +6,7 @@ interface IGroupData {
   hasMachine: boolean;
   hasSquad: boolean;
   name: string;
+  plan: string;
   subscription: string;
   userRole: string;
 }

@@ -143,30 +143,14 @@ describe("Organization groups view", (): void => {
     expect(oneshottestRow.text()).toContain("ONESHOTTEST");
     expect(oneshottestRow.text()).toContain("Oneshot");
     expect(oneshottestRow.text()).toContain("User Manager");
-    expect(
-      oneshottestRow.find("span").find({ children: "Enabled" })
-    ).toHaveLength(2);
-    expect(
-      oneshottestRow.find("span").find({ children: "Disabled" })
-    ).toHaveLength(0);
-
-    const PENDING_GROUP_ROW_LENGTH = 1;
 
     expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
     expect(pendingGroupRow.text()).toContain("Continuous");
     expect(pendingGroupRow.text()).toContain("Customer Manager");
-    expect(
-      pendingGroupRow.find("span").find({ children: "Disabled" })
-    ).toHaveLength(PENDING_GROUP_ROW_LENGTH);
-
-    const UNIT_TESTING_ROW_LENGTH = 2;
 
     expect(unittestingRow.text()).toContain("UNITTESTING");
     expect(unittestingRow.text()).toContain("User");
     expect(unittestingRow.text()).toContain("Continuous");
-    expect(
-      unittestingRow.find("span").find({ children: "Enabled" })
-    ).toHaveLength(UNIT_TESTING_ROW_LENGTH);
 
     unittestingRow.simulate("click");
 
