@@ -4,9 +4,6 @@ from .typing import (
 from aioextensions import (
     collect,
 )
-from dataloaders import (
-    get_new_context,
-)
 from datetime import (
     datetime,
 )
@@ -529,8 +526,7 @@ class ITReport:
 
         nickname = EMPTY
         if row.root_id:
-            loaders = get_new_context()
-            root: RootItem = await loaders.root.load(
+            root: RootItem = await self.loaders.root.load(
                 (finding.group_name, row.root_id)
             )
             nickname = root.state.nickname
@@ -541,10 +537,10 @@ class ITReport:
         self.row_values[vuln["Vulnerability Id"]] = row.id
         self.row_values[vuln["Where"]] = row.where
         self.row_values[vuln["Specific"]] = specific
-        self.row_values[vuln["Root Nickname"]] = nickname
         self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags
         self.row_values[vuln["Stream"]] = stream
+        self.row_values[vuln["Root Nickname"]] = nickname
 
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)

@@ -42,7 +42,6 @@ class GroupVulnsReportHeader(GenericHeader):
     WHERE: ColumnConfig = ColumnConfig(label="Where", width=45)
     STREAM: ColumnConfig = ColumnConfig(label="Stream", width=45)
     SPECIFIC: ColumnConfig = ColumnConfig(label="Specific", width=38)
-    ROOT_NICKNAME: ColumnConfig = ColumnConfig(label="Root Nickname", width=25)
     DESCRIPTION: ColumnConfig = ColumnConfig(label="Description", width=95)
     STATUS: ColumnConfig = ColumnConfig(label="Status", width=13)
     SEVERITY: ColumnConfig = ColumnConfig("Severity", width=13)
@@ -143,6 +142,7 @@ class GroupVulnsReportHeader(GenericHeader):
         label="Report Confidence", width=25
     )
     COMMIT_HASH: ColumnConfig = ColumnConfig(label="Commit Hash", width=25)
+    ROOT_NICKNAME: ColumnConfig = ColumnConfig(label="Root Nickname", width=25)
 
 
 # PDF report types definitions
