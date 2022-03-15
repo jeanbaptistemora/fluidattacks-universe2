@@ -18,13 +18,13 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     parameter = match["catch_formal_parameter"]
     match = g.match_ast(
         args.graph,
-        parameter,
+        str(parameter),
         "catch_type",
         "identifier",
     )
     catch_types = (
         n_id
-        for n_id in g.adj(args.graph, match["catch_type"])
+        for n_id in g.adj(args.graph, str(match["catch_type"]))
         if args.graph.nodes[n_id]["label_type"] != "|"
     )
     for type_id in catch_types:

@@ -27,7 +27,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
                 meta=SyntaxStepMeta.default(
                     args.n_id,
                     dependencies=[
-                        args.generic(args.fork_n_id(match["__0__"])),
+                        args.generic(args.fork_n_id(str(match["__0__"]))),
                     ],
                 ),
                 var=args.graph.nodes[identifier_id]["label_text"],

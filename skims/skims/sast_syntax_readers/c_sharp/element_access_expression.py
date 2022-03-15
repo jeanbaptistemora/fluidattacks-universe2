@@ -19,7 +19,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             args.n_id,
             [
                 args.generic(args.fork_n_id(expression_id)),
-                args.generic(args.fork_n_id(argument_id)),
+                args.generic(args.fork_n_id(str(argument_id))),
             ],
         ),
     )

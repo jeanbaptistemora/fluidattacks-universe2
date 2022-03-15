@@ -22,7 +22,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         meta=graph_model.SyntaxStepMeta.default(
             n_id=args.n_id,
             dependencies=[
-                args.generic(args.fork_n_id(match["__0__"])),
+                args.generic(args.fork_n_id(str(match["__0__"]))),
             ],
         ),
     )
