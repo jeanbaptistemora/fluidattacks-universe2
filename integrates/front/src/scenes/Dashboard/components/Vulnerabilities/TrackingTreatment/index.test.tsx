@@ -1,12 +1,9 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
-import waitForExpect from "wait-for-expect";
 
 import { TreatmentTracking } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index";
 import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
@@ -20,11 +17,16 @@ describe("TrackingTreatment", (): void => {
   const permanentlyNumberOfFields: number = 5;
   const historicTreatment: IHistoricTreatment[] = [
     {
+      acceptanceDate: "",
+      acceptanceStatus: "",
+      assigned: "",
       date: "2019-01-17 10:06:04",
+      justification: "",
       treatment: "NEW",
       user: "",
     },
     {
+      acceptanceDate: "",
       acceptanceStatus: "SUBMITTED",
       assigned: "usermanager1@test.test",
       date: "2020-02-17 18:36:24",
@@ -33,6 +35,7 @@ describe("TrackingTreatment", (): void => {
       user: "usertreatment1@test.test",
     },
     {
+      acceptanceDate: "",
       acceptanceStatus: "APPROVED",
       assigned: "usermanager2@test.test",
       date: "2020-02-18 18:36:24",
@@ -42,6 +45,7 @@ describe("TrackingTreatment", (): void => {
     },
     {
       acceptanceDate: "2020-10-09 15:29:48",
+      acceptanceStatus: "",
       assigned: "usermanager3@test.test",
       date: "2020-10-02 15:29:48",
       justification: "The headers must be",
@@ -49,6 +53,8 @@ describe("TrackingTreatment", (): void => {
       user: "usertreatment3@test.test",
     },
     {
+      acceptanceDate: "",
+      acceptanceStatus: "",
       assigned: "usermanager4@test.test",
       date: "2020-10-08 15:29:48",
       justification: "The headers must be",
@@ -89,6 +95,7 @@ describe("TrackingTreatment", (): void => {
           historicTreatment: [
             ...historicTreatment.slice(0, 2),
             {
+              acceptanceDate: "",
               acceptanceStatus: "REJECTED",
               assigned: "usermanager2@test.test",
               date: "2020-02-18 18:36:24",
@@ -97,7 +104,11 @@ describe("TrackingTreatment", (): void => {
               user: "usertreatment2@test.test",
             },
             {
+              acceptanceDate: "",
+              acceptanceStatus: "",
+              assigned: "",
               date: "2020-02-18 18:36:25",
+              justification: "",
               treatment: "NEW",
               user: "",
             },
@@ -118,7 +129,7 @@ describe("TrackingTreatment", (): void => {
 
     const { t } = useTranslation();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment1]}>
           <TreatmentTracking vulnId={vulnId} />
@@ -126,27 +137,23 @@ describe("TrackingTreatment", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          t("searchFindings.tabDescription.treatment.inProgress").toString()
+        )
+      ).toBeInTheDocument();
     });
 
-    expect(wrapper).toHaveLength(1);
-
-    expect(wrapper.find("li").first().find("p")).toHaveLength(
-      normalNumberOfFields
-    );
-    expect(wrapper.find("li").at(1).find("p")).toHaveLength(
-      normalNumberOfFields
-    );
-    expect(wrapper.find("li").at(2).find("p")).toHaveLength(
-      permanentlyNumberOfFields
-    );
-    expect(wrapper.find("li").last().find("p")).toHaveLength(newNumberOfFields);
-    expect(wrapper.find("li").first().find("p").first().text()).toBe(
-      t("searchFindings.tabDescription.treatment.inProgress")
-    );
+    expect(
+      screen.getAllByRole("listitem")[0].querySelectorAll("p.ww-break-word")
+    ).toHaveLength(normalNumberOfFields);
+    expect(
+      screen.getAllByRole("listitem")[1].querySelectorAll("p.ww-break-word")
+    ).toHaveLength(normalNumberOfFields);
+    expect(
+      screen.getAllByRole("listitem")[2].querySelectorAll("p.ww-break-word")
+    ).toHaveLength(permanentlyNumberOfFields);
   });
 
   it("should render in treatment tracking 2", async (): Promise<void> => {
@@ -154,7 +161,7 @@ describe("TrackingTreatment", (): void => {
 
     const { t } = useTranslation();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment2]}>
           <TreatmentTracking vulnId={vulnId} />
@@ -162,28 +169,40 @@ describe("TrackingTreatment", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByText(
+          t("searchFindings.tabDescription.treatment.new").toString()
+        )
+      ).toHaveLength(2);
     });
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.getAllByRole("listitem")[0].querySelectorAll("p.ww-break-word")
+    ).toHaveLength(newNumberOfFields);
+    expect(
+      screen.getAllByRole("listitem")[1].querySelectorAll("p.ww-break-word")
+    ).toHaveLength(normalNumberOfFields);
 
-    expect(wrapper.find("li").first().find("p")).toHaveLength(
-      newNumberOfFields
-    );
-    expect(wrapper.find("li").at(1).find("p")).toHaveLength(
-      normalNumberOfFields
-    );
-    expect(wrapper.find("li").at(1).find("p").first().text()).toBe(
-      t(formatDropdownField(historicTreatment[2].treatment)) +
-        t("searchFindings.tabDescription.treatment.pendingApproval")
-    );
-    expect(wrapper.find("li").at(1).find("p").last().text()).toBe(
-      `${t(
-        "searchFindings.tabTracking.justification"
-      )}\u00a0${rejectedObservation}`
-    );
+    expect(
+      screen.getAllByRole("listitem")[1].querySelectorAll("p.ww-break-word")
+    ).toHaveLength(normalNumberOfFields);
+    expect(
+      screen.getByText(
+        t(formatDropdownField(historicTreatment[2].treatment)) +
+          t("searchFindings.tabDescription.treatment.pendingApproval")
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(
+        new RegExp(
+          `${t(
+            "searchFindings.tabTracking.justification"
+          ).toString()} ${rejectedObservation}`,
+          "u"
+        )
+      )
+    ).toBeInTheDocument();
   });
 });

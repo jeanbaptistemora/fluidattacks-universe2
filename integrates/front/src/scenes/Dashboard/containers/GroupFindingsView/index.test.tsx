@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
@@ -261,6 +260,7 @@ describe("GroupFindingsView", (): void => {
       "data-icon",
       "sliders"
     );
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     expect(buttons[3].querySelector(".svg-inline--fa")).toHaveAttribute(
       "data-icon",
       "file-zipper"
@@ -324,31 +324,47 @@ describe("GroupFindingsView", (): void => {
         screen.getByText("038. Business information leak")
       ).toBeInTheDocument();
     });
+
+    expect(screen.queryByText("Where")).not.toBeInTheDocument();
+    expect(screen.queryByText("Reattack")).not.toBeInTheDocument();
+
     userEvent.click(
       screen.getByText(t("group.findings.tableSet.btn.text").toString())
     );
 
-    userEvent.click(screen.getAllByRole("checkbox")[6]);
-    userEvent.click(screen.getAllByRole("checkbox")[5]);
+    userEvent.click(
+      screen.getByRole("checkbox", { checked: false, name: "where" })
+    );
+    userEvent.click(
+      screen.getByRole("checkbox", { checked: false, name: "remediated" })
+    );
+    userEvent.type(
+      screen.getByText(t("group.findings.tableSet.modalTitle").toString()),
+      "{esc}"
+    );
 
-    const tableHeader: HTMLElement[] = screen.getAllByRole("columnheader");
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("group.findings.tableSet.modalTitle").toString())
+      ).not.toBeInTheDocument();
+    });
 
-    expect(tableHeader[1].textContent).toContain("Type");
-    expect(tableHeader[2].textContent).toContain("Last report");
-    expect(tableHeader[3].textContent).toContain("Status");
-    expect(tableHeader[4].textContent).toContain("Severity");
-    expect(tableHeader[5].textContent).toContain("Locations");
-    expect(tableHeader[6].textContent).toContain("Where");
-    expect(tableHeader[7].textContent).toContain("Reattack");
+    expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Last report")).toBeInTheDocument();
+    expect(screen.getByText("Status")).toBeInTheDocument();
+    expect(screen.getByText("Severity")).toBeInTheDocument();
+    expect(screen.getByText("Locations")).toBeInTheDocument();
+    expect(screen.getByText("Where")).toBeInTheDocument();
+    expect(screen.getByText("Reattack")).toBeInTheDocument();
 
-    const firstRow: HTMLElement[] = screen.getAllByRole("cell");
-
-    expect(firstRow[1].textContent).toContain("038. Business information leak");
-    expect(firstRow[2].textContent).toContain("33");
-    expect(firstRow[3].textContent).toContain("Open");
-    expect(firstRow[4].textContent).toContain("2.9");
-    expect(firstRow[5].textContent).toContain("6");
-    expect(firstRow[6].textContent).toContain("This is a test where");
-    expect(firstRow[7].textContent).toContain("Pending");
+    expect(
+      screen.getByText("038. Business information leak")
+    ).toBeInTheDocument();
+    expect(screen.getByText("33 days ago")).toBeInTheDocument();
+    expect(screen.getByText("Open")).toBeInTheDocument();
+    expect(screen.getByText("2.9")).toBeInTheDocument();
+    expect(screen.getByText("6")).toBeInTheDocument();
+    expect(screen.getByText("This is a test where")).toBeInTheDocument();
+    expect(screen.getByText("Pending")).toBeInTheDocument();
   });
 });
