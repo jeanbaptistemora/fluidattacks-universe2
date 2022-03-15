@@ -31,9 +31,6 @@ import pytest
 from pytest_mock import (
     MockerFixture,
 )
-from roots.domain import (
-    update_root_credentials,
-)
 from typing import (
     Any,
     Dict,
