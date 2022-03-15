@@ -19,7 +19,6 @@ from decorators import (
     enforce_group_level_auth_async,
     require_asm,
     require_login,
-    require_squad,
 )
 from findings import (
     domain as findings_domain,
@@ -141,7 +140,6 @@ async def _add_finding_consult(
     return success, comment_id
 
 
-@require_squad
 async def add_finding_consult(
     info: GraphQLResolveInfo, **parameters: Any
 ) -> Tuple[bool, str]:
