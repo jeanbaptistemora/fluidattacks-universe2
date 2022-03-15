@@ -15,6 +15,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     if len(match) == 2 and match[";"]:
         expression_id = match["__0__"]
-        return args.generic(args.fork_n_id(expression_id))
+        return args.generic(args.fork_n_id(str(expression_id)))
 
     raise MissingCaseHandling(f"Bad expression handling in {args.n_id}")

@@ -14,4 +14,4 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = adj_ast(args.ast_graph, args.n_id)
-    return build_file_node(args, c_ids)
+    return build_file_node(args, iter(c_ids))

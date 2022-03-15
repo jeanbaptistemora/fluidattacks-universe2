@@ -12,4 +12,4 @@ from utils import (
 def reader(args: SyntaxGraphArgs) -> NId:
     match_var = g.match_ast(args.ast_graph, args.n_id, "variable_declaration")
     var = match_var["variable_declaration"]
-    return args.generic(args.fork_n_id(var))
+    return args.generic(args.fork_n_id(str(var)))
