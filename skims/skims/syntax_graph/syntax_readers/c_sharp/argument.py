@@ -24,6 +24,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, "name_colon")
     if name_colon := match["name_colon"]:
         var_id = match_ast_d(args.ast_graph, name_colon, "identifier")
-        return build_named_argument_node(args, var_id, val_id=match["__0__"])
+        return build_named_argument_node(
+            args, str(var_id), val_id=str(match["__0__"])
+        )
 
     raise MissingCaseHandling(f"Bad argument handling in {args.n_id}")
