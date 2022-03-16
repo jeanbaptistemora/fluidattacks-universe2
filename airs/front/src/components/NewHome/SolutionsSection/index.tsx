@@ -28,16 +28,10 @@ const SolutionsSection: React.FC = (): JSX.Element => {
       urlCard: "/solutions/devsecops/",
     },
     {
-      description: t("solutions.homeCards.ethicalHacking.paragraph"),
-      image: "ethical-hacking-card",
-      title: t("solutions.homeCards.ethicalHacking.title"),
-      urlCard: "/solutions/ethical-hacking/",
-    },
-    {
-      description: t("solutions.homeCards.securityTesting.paragraph"),
-      image: "security-testing-card",
-      title: t("solutions.homeCards.securityTesting.title"),
-      urlCard: "/solutions/security-testing/",
+      description: t("solutions.homeCards.secureCode.paragraph"),
+      image: "secure-code-card",
+      title: t("solutions.homeCards.secureCode.title"),
+      urlCard: "/solutions/secure-code-review/",
     },
     {
       description: t("solutions.homeCards.redTeaming.paragraph"),
@@ -52,22 +46,28 @@ const SolutionsSection: React.FC = (): JSX.Element => {
       urlCard: "/solutions/attack-simulation/",
     },
     {
-      description: t("solutions.homeCards.secureCode.paragraph"),
-      image: "secure-code-card",
-      title: t("solutions.homeCards.secureCode.title"),
-      urlCard: "/solutions/secure-code-review/",
-    },
-    {
-      description: t("solutions.homeCards.vulnerabilityManagement.paragraph"),
-      image: "vulnerability-management-card",
-      title: t("solutions.homeCards.vulnerabilityManagement.title"),
-      urlCard: "/solutions/vulnerability-management/",
+      description: t("solutions.homeCards.securityTesting.paragraph"),
+      image: "security-testing-card",
+      title: t("solutions.homeCards.securityTesting.title"),
+      urlCard: "/solutions/security-testing/",
     },
     {
       description: t("solutions.homeCards.penetrationTesting.paragraph"),
       image: "penetration-testing-card",
       title: t("solutions.homeCards.penetrationTesting.title"),
       urlCard: "/solutions/penetration-testing/",
+    },
+    {
+      description: t("solutions.homeCards.ethicalHacking.paragraph"),
+      image: "ethical-hacking-card",
+      title: t("solutions.homeCards.ethicalHacking.title"),
+      urlCard: "/solutions/ethical-hacking/",
+    },
+    {
+      description: t("solutions.homeCards.vulnerabilityManagement.paragraph"),
+      image: "vulnerability-management-card",
+      title: t("solutions.homeCards.vulnerabilityManagement.title"),
+      urlCard: "/solutions/vulnerability-management/",
     },
   ];
 
