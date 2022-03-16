@@ -232,3 +232,37 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         f"New remediation for [{finding_name}] in [{group_name}]",
         "remediate_finding",
     )
+
+
+async def send_mail_vulnerability_report(
+    *,
+    loaders: Any,
+    email_to: List[str],
+    group_name: str = "",
+    finding_title: str,
+    finding_id: str,
+    responsible: str,
+    severity: str,
+) -> None:
+    org_name = await get_organization_name(loaders, group_name)
+
+    email_context: MailContentType = {
+        "finding": finding_title,
+        "group": group_name,
+        "finding_url": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
+            f"{finding_id}/locations"
+        ),
+        "responsible": responsible,
+        "severity": severity,
+    }
+    await send_mails_async(
+        email_to=email_to,
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=(
+            "Vulnerability reported in "
+            f"[{finding_title}] for [{group_name}]"
+        ),
+        template_name="vulnerability_report",
+    )
