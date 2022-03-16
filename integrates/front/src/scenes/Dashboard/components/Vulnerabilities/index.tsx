@@ -268,7 +268,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     },
     {
       dataField: "verification",
-      formatter: statusFormatter,
       header: t("searchFindings.tabVuln.vulnTable.reattack"),
       onSort: onSortVulns,
     },

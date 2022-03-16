@@ -52,16 +52,13 @@ const Col50: StyledComponent<
   className: "w-50-l w-50-m w-100-ns",
 })``;
 
-const Field: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs({
-  className: "lh-title ma0 mid-gray w-fit-content ws-pre-wrap ww-break-word",
-})``;
+const Field = styled.p.attrs({ className: "ma0 pv1" })``;
 
-const Label: StyledComponent<
-  "span",
-  Record<string, unknown>
-> = styled.span.attrs({
-  className: "black f5 lh-title fw5",
-})``;
+const Label = styled.span`
+  :after {
+    content: ": ";
+  }
+`;
 
 const Status: StyledComponent<
   "span",

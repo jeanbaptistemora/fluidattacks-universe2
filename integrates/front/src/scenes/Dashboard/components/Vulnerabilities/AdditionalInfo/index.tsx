@@ -5,18 +5,9 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { ClosingDateField } from "./components/ClosingDateField";
-import {
-  Col100,
-  Col50,
-  Field,
-  InfoField,
-  Label,
-  LabelField,
-  OuterRow,
-  Row,
-} from "./styles";
+import { Field, Label } from "./styles";
 
+import { Col, Row } from "components/Layout";
 import { commitFormatter } from "components/Table/formatters";
 import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/queries";
 import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
@@ -90,44 +81,33 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
 
   return (
     <React.StrictMode>
-      <div className={"pb1 pt2 w-100"}>
-        <Col100>
-          <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
-        </Col100>
-        <div className={"flex flex-wrap pb0"}>
-          <div className={"pl1 pr0 pb0 w-100"}>
-            <Field>{_.unescape(vulnerability.where)}</Field>
-            {_.isEmpty(data.vulnerability.stream) ? undefined : (
-              <Field>{data.vulnerability.stream}</Field>
-            )}
-          </div>
-        </div>
-        <OuterRow>
-          <div className={"pl1 pr0 w-10-l w-100-m w-100-ns"}>
-            <Label>
-              {t(
-                `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
+      <Row>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Row>
+            <Col>
+              <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
+              <Field>{_.unescape(vulnerability.where)}</Field>
+              {_.isEmpty(data.vulnerability.stream) ? undefined : (
+                <Field>{data.vulnerability.stream}</Field>
               )}
-            </Label>
-          </div>
-          <div className={"pl1 pr0 w-90-l w-100-m w-100-ns"}>
-            <Field>{vulnerability.specific}</Field>
-          </div>
-        </OuterRow>
-        <OuterRow>
-          <Col50>
-            <Col100>
-              <b>{t("searchFindings.tabVuln.vulnTable.reattacks")}</b>
-            </Col100>
-            <Row>
-              <LabelField>
+              <Field>
+                {t(
+                  `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
+                )}
+                &nbsp;
+                <Value value={vulnerability.specific} />
+              </Field>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h4>{t("searchFindings.tabVuln.vulnTable.reattacks")}</h4>
+              <Field>
                 <Label>
                   {t(
                     "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
                   )}
                 </Label>
-              </LabelField>
-              <InfoField>
                 <Value
                   value={
                     data.vulnerability.lastRequestedReattackDate?.split(
@@ -135,155 +115,60 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                     )[0] ?? ""
                   }
                 />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
+              </Field>
+              <Field>
                 <Label>{t("searchFindings.tabVuln.vulnTable.requester")}</Label>
-              </LabelField>
-              <InfoField>
                 <Value value={data.vulnerability.lastReattackRequester} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
+              </Field>
+              <Field>
                 <Label>{t("searchFindings.tabVuln.vulnTable.cycles")}</Label>
-              </LabelField>
-              <InfoField>
                 <Value value={data.vulnerability.cycles} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
+              </Field>
+              <Field>
                 <Label>{t("searchFindings.tabVuln.vulnTable.efficacy")}</Label>
-              </LabelField>
-              <InfoField>
                 <Value value={data.vulnerability.efficacy} />
-              </InfoField>
-            </Row>
-          </Col50>
-          <Col50>
-            <Col100>
-              <b>{t("searchFindings.tabVuln.vulnTable.treatments")}</b>
-            </Col100>
-            <Row>
-              <LabelField>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.currentTreatment")}
-                </Label>
-              </LabelField>
-              <InfoField>
-                <Value value={vulnerability.treatment} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
-                <Label>{t("searchFindings.tabVuln.vulnTable.assigned")}</Label>
-              </LabelField>
-              <InfoField>
-                <p
-                  className={
-                    "f5 lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns truncate"
-                  }
-                >
-                  {_.isEmpty(currentAssigned)
-                    ? t("searchFindings.tabVuln.notApplicable")
-                    : currentAssigned}
-                </p>
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentDate")}
-                </Label>
-              </LabelField>
-              <InfoField>
-                <Value value={treatmentDate} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentExpiration")}
-                </Label>
-              </LabelField>
-              <InfoField>
-                <Value value={currentExpiration} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentJustification")}
-                </Label>
-              </LabelField>
-              <InfoField>
-                <Value value={currentJustification} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
-                <Label>
-                  {t("searchFindings.tabVuln.vulnTable.treatmentChanges")}
-                </Label>
-              </LabelField>
-              <InfoField>
-                <Value value={treatmentChanges} />
-              </InfoField>
-            </Row>
-          </Col50>
-        </OuterRow>
-        <OuterRow>
-          <Col100>
-            <b>{t("searchFindings.tabVuln.vulnTable.info")}</b>
-          </Col100>
-          <Col50>
-            <Row>
-              <LabelField>
+              </Field>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h4>{t("searchFindings.tabVuln.vulnTable.info")}</h4>
+              <Field>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.reportDate")}
                 </Label>
-              </LabelField>
-              <InfoField>
                 <Value value={data.vulnerability.reportDate.split(" ")[0]} />
-              </InfoField>
-            </Row>
-            <ClosingDateField
-              vulnerability={vulnerability}
-              vulnerabilityAdditionalInfo={data.vulnerability}
-            />
-            {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
-              <Row>
-                <LabelField>
+              </Field>
+              <Field>
+                <Label>
+                  {t("searchFindings.tabVuln.vulnTable.closingDate")}
+                </Label>
+                <Value
+                  value={
+                    vulnerability.currentState === "closed"
+                      ? data.vulnerability.lastStateDate.split(" ")[0]
+                      : ""
+                  }
+                />
+              </Field>
+              {_.isEmpty(data.vulnerability.commitHash) ? undefined : (
+                <Field>
                   <Label>{t("searchFindings.tabVuln.commitHash")}</Label>
-                </LabelField>
-                <InfoField>
-                  <p
-                    className={
-                      "lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns ws-pre-wrap ww-break-word"
-                    }
-                  >
-                    {commitFormatter(data.vulnerability.commitHash as string)}
-                  </p>
-                </InfoField>
-              </Row>
-            )}
-            <Row>
-              <LabelField>
+                  <Value
+                    value={commitFormatter(
+                      data.vulnerability.commitHash as string
+                    )}
+                  />
+                </Field>
+              )}
+              <Field>
                 <Label>{t("searchFindings.tabDescription.tag")}</Label>
-              </LabelField>
-              <InfoField>
                 <Value value={vulnerability.tag} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
+              </Field>
+              <Field>
                 <Label>
                   {t("searchFindings.tabDescription.businessCriticality")}
                 </Label>
-              </LabelField>
-              <InfoField>
                 <Value
                   value={
                     data.vulnerability.severity === null ||
@@ -292,51 +177,74 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       : data.vulnerability.severity
                   }
                 />
-              </InfoField>
-            </Row>
-          </Col50>
-          <Col50>
-            <Row>
-              <LabelField>
+              </Field>
+              <Field>
                 <Label>
                   {t(
                     "searchFindings.tabVuln.vulnTable.vulnerabilityType.title"
                   )}
                 </Label>
-              </LabelField>
-              <InfoField>
                 <Value value={vulnerabilityType} />
-              </InfoField>
-            </Row>
-            <Row>
-              <LabelField>
+              </Field>
+              <Field>
                 <Label>{t("searchFindings.tabDescription.zeroRisk")}</Label>
-              </LabelField>
-              <div className={"pl1 pr0 w-70-l w-100-m w-100-ns mr"}>
                 {_.isEmpty(vulnerability.zeroRisk) ? (
-                  <Value value={vulnerability.zeroRisk ?? ""} />
+                  <Value value={undefined} />
                 ) : (
-                  <div className={"tr-l tl-m tl-ns"}>
-                    <p className={"dib f5 ma0 mid-gray pr1-l"}>
-                      <Status status={vulnerability.zeroRisk as string} />
-                    </p>
-                  </div>
+                  <Status status={vulnerability.zeroRisk as string} />
                 )}
-              </div>
-            </Row>
-            {canRetrieveHacker ? (
-              <Row>
-                <LabelField>
+              </Field>
+              {canRetrieveHacker ? (
+                <Field>
                   <Label>{t("searchFindings.tabDescription.hacker")}</Label>
-                </LabelField>
-                <InfoField>
                   <Value value={data.vulnerability.hacker} />
-                </InfoField>
-              </Row>
-            ) : undefined}
-          </Col50>
-        </OuterRow>
-      </div>
+                </Field>
+              ) : undefined}
+            </Col>
+          </Row>
+        </Col>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Row>
+            <Col>
+              <h4>{t("searchFindings.tabVuln.vulnTable.treatments")}</h4>
+              <Field>
+                <Label>
+                  {t("searchFindings.tabVuln.vulnTable.currentTreatment")}
+                </Label>
+                <Value value={vulnerability.treatment} />
+              </Field>
+              <Field>
+                <Label>{t("searchFindings.tabVuln.vulnTable.assigned")}</Label>
+                <Value value={currentAssigned} />
+              </Field>
+              <Field>
+                <Label>
+                  {t("searchFindings.tabVuln.vulnTable.treatmentDate")}
+                </Label>
+                <Value value={treatmentDate} />
+              </Field>
+              <Field>
+                <Label>
+                  {t("searchFindings.tabVuln.vulnTable.treatmentExpiration")}
+                </Label>
+                <Value value={currentExpiration} />
+              </Field>
+              <Field>
+                <Label>
+                  {t("searchFindings.tabVuln.vulnTable.treatmentJustification")}
+                </Label>
+                <Value value={currentJustification} />
+              </Field>
+              <Field>
+                <Label>
+                  {t("searchFindings.tabVuln.vulnTable.treatmentChanges")}
+                </Label>
+                <Value value={treatmentChanges} />
+              </Field>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </React.StrictMode>
   );
 };

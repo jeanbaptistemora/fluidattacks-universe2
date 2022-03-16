@@ -14,11 +14,12 @@ export const Value: React.FC<{ value: number | string | undefined }> = ({
 
   return (
     <React.StrictMode>
-      <p
-        className={"f5 lh-title ma0 mid-gray pr1-l tr-l tl-m tl-ns ws-pre-wrap"}
+      <span
+        className={"f5 lh-title ma0 pr1-l ws-pre-wrap"}
+        style={{ color: "#8f8fa3" }}
       >
         {isEmpty ? t("searchFindings.tabVuln.notApplicable") : value}
-      </p>
+      </span>
     </React.StrictMode>
   );
 };
