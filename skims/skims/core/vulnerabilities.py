@@ -44,7 +44,7 @@ def vulns_with_reattack_requested(
     return None
 
 
-def get_vulnerability_justification(
+def get_vulnerability_justification(  # noqa: MC0001
     reattacked_store: EphemeralStore,
     store: EphemeralStore,
 ) -> List[str]:
@@ -76,10 +76,16 @@ def get_vulnerability_justification(
                         )[0]
 
                 if line_content:
-                    open_vulns.append(
-                        f"  - {vuln.what}:\n "
-                        + f"    Non-compliant code: {line_content}"
-                    )
+                    if (
+                        vuln.skims_metadata.technique
+                        != core_model.TechniqueEnum.DAST
+                    ):
+                        open_vulns.append(
+                            f"  - {vuln.what}:\n "
+                            + f"    Non-compliant code: {line_content}"
+                        )
+                    else:
+                        open_vulns.append(f"  - {vuln.what} ")
             else:
                 for reattacked_vuln in reattacked_store.iterate():
                     if (
