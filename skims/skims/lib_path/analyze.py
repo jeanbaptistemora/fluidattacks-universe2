@@ -86,7 +86,6 @@ from typing import (
 from utils.fs import (
     generate_file_raw_content_blocking,
     get_file_content_block,
-    resolve_paths,
 )
 from utils.logs import (
     log_blocking,
@@ -220,22 +219,19 @@ def _execute_partial_analyze_one_path(
 
 def analyze(
     *,
+    paths: core_model.Paths,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in CHECKS):
         # No findings will be executed, early abort
         return
 
-    unique_paths, unique_nu_paths, unique_nv_paths = resolve_paths(
-        exclude=CTX.config.path.exclude,
-        include=CTX.config.path.include,
-    )
-    paths = unique_paths | unique_nu_paths | unique_nv_paths
-    unique_paths_count: int = len(paths)
+    all_paths = paths.get_all()
+    unique_paths_count: int = len(all_paths)
 
     with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-        files_content = list(
-            worker.map(lambda x: (x, get_file_content_block(x)), paths)
+        contents = list(
+            worker.map(lambda x: (x, get_file_content_block(x)), all_paths)
         )
 
     with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
@@ -249,13 +245,13 @@ def analyze(
                     partial(
                         analyze_one_path,
                         index=index,
-                        path=content[0],
-                        file_content=content[1],
-                        unique_nu_paths=unique_nu_paths,
-                        unique_nv_paths=unique_nv_paths,
+                        path=path,
+                        file_content=content,
+                        unique_nu_paths=paths.nu_paths,
+                        unique_nv_paths=paths.nv_paths,
                         unique_paths_count=unique_paths_count,
                     )
-                    for index, content in enumerate(files_content, start=1)
+                    for index, (path, content) in enumerate(contents, start=1)
                 ],
             )
         )

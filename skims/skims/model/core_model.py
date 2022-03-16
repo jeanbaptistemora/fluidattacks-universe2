@@ -21,6 +21,15 @@ from typing import (
 )
 
 
+class Paths(NamedTuple):
+    ok_paths: Tuple[str, ...]
+    nu_paths: Tuple[str, ...]
+    nv_paths: Tuple[str, ...]
+
+    def get_all(self) -> Tuple[str, ...]:
+        return self.ok_paths + self.nu_paths + self.nv_paths
+
+
 class Platform(Enum):
     NPM: str = "NPM"
     MAVEN: str = "MAVEN"

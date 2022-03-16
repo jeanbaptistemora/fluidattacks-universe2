@@ -11,6 +11,9 @@ from glob import (
 from itertools import (
     chain,
 )
+from model.core_model import (
+    Paths,
+)
 from model.graph_model import (
     GraphShardMetadataLanguage,
 )
@@ -333,7 +336,7 @@ def resolve_paths(
     *,
     exclude: Tuple[str, ...],
     include: Tuple[str, ...],
-) -> Tuple[Set[str], Set[str], Set[str]]:
+) -> Paths:
     def normpath(path: str) -> str:
         return os.path.normpath(path)
 
@@ -377,7 +380,11 @@ def resolve_paths(
     else:
         log_blocking("info", "Files to be tested: %s", len(unique_paths))
 
-    return unique_paths, unique_nu_paths, unique_nv_paths
+    return Paths(
+        ok_paths=tuple(unique_paths),
+        nu_paths=tuple(unique_nu_paths),
+        nv_paths=tuple(unique_nv_paths),
+    )
 
 
 def _iter_full_paths(path: str) -> Iterator[str]:

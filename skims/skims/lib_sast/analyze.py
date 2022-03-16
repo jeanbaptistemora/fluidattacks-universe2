@@ -16,10 +16,19 @@ from state.ephemeral import (
 from typing import (
     Dict,
 )
+from utils.fs import (
+    resolve_paths,
+)
 
 
 def analyze(stores: Dict[FindingEnum, EphemeralStore]) -> None:
+    paths = resolve_paths(
+        exclude=CTX.config.path.exclude,
+        include=CTX.config.path.include,
+    )
+
     if CTX.config.path.lib_path:
-        analyze_paths(stores=stores)
+        analyze_paths(paths=paths, stores=stores)
+
     if CTX.config.path.lib_root:
-        analyze_root(stores=stores)
+        analyze_root(paths=paths, stores=stores)

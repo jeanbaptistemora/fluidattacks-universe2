@@ -67,13 +67,12 @@ def analyze_one(
 
 
 def get_apk_contexts() -> Iterable[APKContext]:
-    unique_paths, unique_nu_paths, unique_nv_paths = resolve_paths(
+    paths = resolve_paths(
         exclude=CTX.config.apk.exclude,
         include=CTX.config.apk.include,
     )
 
-    paths = list(unique_paths | unique_nu_paths | unique_nv_paths)
-    for result in (get_apk_context(path) for path in paths):
+    for result in (get_apk_context(path) for path in paths.get_all()):
         if result:
             yield result
 

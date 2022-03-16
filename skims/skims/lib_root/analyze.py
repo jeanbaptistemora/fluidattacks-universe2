@@ -47,9 +47,6 @@ from typing import (
     Dict,
     Optional,
 )
-from utils.fs import (
-    resolve_paths,
-)
 from utils.logs import (
     log_blocking,
 )
@@ -81,18 +78,14 @@ QUERIES: graph_model.Queries = (
 
 def analyze(
     *,
+    paths: core_model.Paths,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in QUERIES):
         # No findings will be executed, early abort
         return
 
-    unique_paths, _, _ = resolve_paths(
-        exclude=CTX.config.path.exclude,
-        include=CTX.config.path.include,
-    )
-
-    graph_db = parse.get_graph_db(tuple(unique_paths))
+    graph_db = parse.get_graph_db(paths.ok_paths)
     queries: graph_model.Queries = tuple(
         (finding, query)
         for finding, query in QUERIES
