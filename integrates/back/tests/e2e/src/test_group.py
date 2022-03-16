@@ -112,7 +112,7 @@ def test_group_analytics(
             "Vulnerabilities by tag",
             "Vulnerabilities by level",
             "Accepted vulnerabilities by user",
-            "Vulnerabilities by treatments",
+            "Vulnerabilities by Number of Treatment Changes",
             "Accepted vulnerabilities by severity",
             "Mean (average) days to remediate",
             "Finding by tags",
