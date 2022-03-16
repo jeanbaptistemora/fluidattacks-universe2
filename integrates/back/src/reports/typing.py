@@ -167,6 +167,17 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     where: str
 
 
+class CertFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
+    closed_vulnerabilities: int
+    grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_ports_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    open_vulnerabilities: int
+    severity_score: Decimal
+    state: str
+    title: str
+
+
 class WordlistItem(NamedTuple):  # pylint: disable=too-few-public-methods
     key: str
     label: Union[str, List[str]]
