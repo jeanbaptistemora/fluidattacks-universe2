@@ -62,7 +62,6 @@ const formatFindings = (findings: IFindingAttr[]): IFindingAttr[] =>
   findings.map(
     (finding): IFindingAttr => ({
       ...finding,
-      lastVulnerability: `${finding.lastVulnerability} days ago`,
       remediated: formatRemediated(finding.remediated, finding.verified),
       treatment: formatTreatmentSummary(
         finding.state,

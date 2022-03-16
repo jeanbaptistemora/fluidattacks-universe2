@@ -224,6 +224,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "lastVulnerability",
+      formatter: (value: number): string =>
+        t("group.findings.description.value", { count: value }),
       header: "Last report",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
