@@ -30,6 +30,9 @@ from dataloaders import (
 from db_model.enums import (
     Notification,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.users.get import (
     User,
 )
@@ -273,31 +276,33 @@ async def _send_digest_report(
     digest_stats: Optional[Tuple[MailContent, ...]] = None,
     loaders: Dataloaders = None,
 ) -> None:
-    groups = await groups_domain.get_groups_by_user(
+    groups_names: list[str] = await groups_domain.get_groups_by_user(
         user_email, with_cache=False
     )
 
     if FI_ENVIRONMENT == "production":
-        context = loaders if loaders else get_new_context()
-        user_groups = await context.group.load_many(groups)
-        groups_filtered = groups_domain.filter_active_groups(user_groups)
-        groups = [
-            str(group["name"])
+        loaders = loaders if loaders else get_new_context()
+        user_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+            groups_names
+        )
+        groups_filtered = groups_domain.filter_active_groups_new(user_groups)
+        groups_names = [
+            group.name
             for group in groups_filtered
-            if group["name"] not in FI_TEST_PROJECTS.split(",")
+            if group.name not in FI_TEST_PROJECTS.split(",")
         ]
 
     if digest_stats:
         mail_contents = tuple(
             group_stats
             for group_stats in digest_stats
-            if group_stats["group"] in groups
+            if group_stats["group"] in groups_names
         )
     elif loaders:
         mail_contents = await collect(
             tuple(
                 groups_domain.get_group_digest_stats(loaders, group)
-                for group in groups
+                for group in groups_names
             ),
             workers=2,
         )
