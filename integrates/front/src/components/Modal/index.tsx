@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import { ModalFooter } from "./Footer";
+import type { IDialogProps } from "./styles";
 import { CloseButton, Container, Dialog, Header, Title } from "./styles";
 
 interface IModalProps {
@@ -9,6 +10,7 @@ interface IModalProps {
   title: React.ReactNode | string;
   onClose?: () => void;
   open: boolean;
+  size?: IDialogProps["size"];
 }
 
 const Modal: React.FC<IModalProps> = ({
@@ -16,6 +18,7 @@ const Modal: React.FC<IModalProps> = ({
   title,
   onClose,
   open,
+  size = "medium",
 }: IModalProps): JSX.Element | null => {
   useEffect((): (() => void) => {
     const handleKeydown = (event: KeyboardEvent): void => {
@@ -33,7 +36,7 @@ const Modal: React.FC<IModalProps> = ({
   return open
     ? createPortal(
         <Container>
-          <Dialog>
+          <Dialog size={size}>
             <Header>
               <Title>{title}</Title>
               {onClose === undefined ? undefined : (

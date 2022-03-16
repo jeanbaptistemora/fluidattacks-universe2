@@ -4,23 +4,9 @@ interface ITableContainerProps {
   rowSize: "bold" | "thin";
 }
 
-interface IRowSize {
-  paddingBottom: string;
-  paddingRight: string;
-  paddingTop: string;
-}
-
-const rowSizes: Record<ITableContainerProps["rowSize"], IRowSize> = {
-  bold: {
-    paddingBottom: "1rem",
-    paddingRight: "1rem",
-    paddingTop: "1rem",
-  },
-  thin: {
-    paddingBottom: "0",
-    paddingRight: "0",
-    paddingTop: "0",
-  },
+const rowSizes: Record<ITableContainerProps["rowSize"], string> = {
+  bold: "1rem",
+  thin: "0",
 };
 
 const TableContainer = styled.div.attrs({
@@ -33,12 +19,12 @@ const TableContainer = styled.div.attrs({
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-color: rgba(0, 0, 0, 0.2);
-    padding-bottom: ${(props): string => rowSizes[props.rowSize].paddingBottom};
-    padding-right: ${(props): string => rowSizes[props.rowSize].paddingRight};
+    padding-bottom: ${(props): string => rowSizes[props.rowSize]};
+    padding-right: ${(props): string => rowSizes[props.rowSize]};
   }
 
   td {
-    padding-top: ${(props): string => rowSizes[props.rowSize].paddingTop};
+    padding-top: ${(props): string => rowSizes[props.rowSize]};
   }
 
   th {

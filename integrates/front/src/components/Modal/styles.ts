@@ -20,7 +20,17 @@ const Container = styled.div.attrs({
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const Dialog = styled.div`
+interface IDialogProps {
+  size: "large" | "medium" | "small";
+}
+
+const dialogSizes: Record<IDialogProps["size"], string> = {
+  large: "70%",
+  medium: "50%",
+  small: "25%",
+};
+
+const Dialog = styled.div<IDialogProps>`
   background-color: #f4f4f6;
   border: 1px solid #b0b0bf;
   color: #2e2e38;
@@ -28,7 +38,7 @@ const Dialog = styled.div`
   font-size: 16px;
   margin: 10% auto;
   padding: 24px;
-  width: 70%;
+  width: ${(props): string => dialogSizes[props.size]};
 `;
 
 const Header = styled.div.attrs({
@@ -39,4 +49,4 @@ const Title = styled.p.attrs({
   className: "ma0 pa0",
 })``;
 
-export { CloseButton, Container, Dialog, Header, Title };
+export { CloseButton, Container, Dialog, Header, IDialogProps, Title };
