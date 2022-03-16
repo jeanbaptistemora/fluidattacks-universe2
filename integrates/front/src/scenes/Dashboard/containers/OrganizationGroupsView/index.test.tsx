@@ -1,18 +1,12 @@
-// Needed to test Formik components
-/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
-import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import {
   ADD_GROUP_MUTATION,
   GROUPS_NAME_QUERY,
@@ -21,7 +15,8 @@ import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGrou
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 
@@ -43,6 +38,7 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
     "../../../../utils/notifications"
   );
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
@@ -109,7 +105,7 @@ describe("Organization groups view", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_add_group_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/groups"}>
@@ -121,42 +117,44 @@ describe("Organization groups view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(4);
-      });
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("table")).toHaveLength(1);
     });
 
-    const newGroupButton: ReactWrapper = wrapper.find("button").first();
-    const oneshottestRow: ReactWrapper = wrapper.find("tr").at(1);
-    const pendingGroupRow: ReactWrapper = wrapper.find("tr").at(2);
+    expect(screen.getAllByRole("row")).toHaveLength(4);
+
     const UNIT_TESTING_ROW_AT = 3;
-    const unittestingRow: ReactWrapper = wrapper
-      .find("tr")
-      .at(UNIT_TESTING_ROW_AT);
 
-    expect(newGroupButton.text()).toMatch(/New/u);
-
-    expect(oneshottestRow.text()).toContain("ONESHOTTEST");
-    expect(oneshottestRow.text()).toContain("Oneshot");
-    expect(oneshottestRow.text()).toContain("User Manager");
-
-    expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
-    expect(pendingGroupRow.text()).toContain("Machine");
-    expect(pendingGroupRow.text()).toContain("Customer Manager");
-
-    expect(unittestingRow.text()).toContain("UNITTESTING");
-    expect(unittestingRow.text()).toContain("Squad");
-    expect(unittestingRow.text()).toContain("User");
-
-    unittestingRow.simulate("click");
-
-    expect(mockHistoryPush).toHaveBeenCalledWith(
-      "/orgs/okada/groups/unittesting/vulns"
+    expect(screen.getAllByRole("button")[0].textContent).toMatch(
+      new RegExp(translate.t("organization.tabs.groups.newGroup.new.text"), "u")
     );
+    expect(screen.getAllByRole("row")[1].textContent).toContain("ONESHOTTEST");
+    expect(screen.getAllByRole("row")[1].textContent).toContain("Oneshot");
+    expect(screen.getAllByRole("row")[1].textContent).toContain("User Manager");
+
+    expect(screen.getAllByRole("row")[2].textContent).toContain("PENDINGGROUP");
+    expect(screen.getAllByRole("row")[2].textContent).toContain("Machine");
+    expect(screen.getAllByRole("row")[2].textContent).toContain(
+      "Customer Manager"
+    );
+
+    expect(
+      screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
+    ).toContain("UNITTESTING");
+    expect(
+      screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
+    ).toContain("Squad");
+    expect(
+      screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
+    ).toContain("User");
+
+    userEvent.click(screen.getByRole("cell", { name: "UNITTESTING" }));
+
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        "/orgs/okada/groups/unittesting/vulns"
+      );
+    });
   });
 
   it("should show an error", async (): Promise<void> => {
@@ -175,7 +173,7 @@ describe("Organization groups view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
         <MockedProvider addTypename={false} mocks={mockErrors}>
           <Route path={"/orgs/:organizationName/groups"}>
@@ -185,15 +183,13 @@ describe("Organization groups view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        // eslint-disable-next-line jest/prefer-called-with
-        expect(msgError).toHaveBeenCalled();
-        expect(wrapper.find("table")).toHaveLength(0);
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("groupAlerts.errorTextsad")
+      );
     });
+
+    expect(screen.queryAllByRole("table")).toHaveLength(0);
   });
 
   it("should add a new group", async (): Promise<void> => {
@@ -253,9 +249,11 @@ describe("Organization groups view", (): void => {
           variables: {
             description: "Test group",
             groupName: "AKAME",
-            hasForces: true,
+            hasMachine: true,
             hasSquad: true,
+            language: "EN",
             organization: "OKADA",
+            service: "WHITE",
             subscription: "CONTINUOUS",
           },
         },
@@ -282,8 +280,10 @@ describe("Organization groups view", (): void => {
                   description: "Continuous type test group",
                   hasAsm: true,
                   hasForces: true,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "unittesting",
+                  service: "WHITE",
                   subscription: "continuous",
                   userRole: "user",
                 },
@@ -291,8 +291,10 @@ describe("Organization groups view", (): void => {
                   description: "One-shot type test group",
                   hasAsm: true,
                   hasForces: false,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "oneshottest",
+                  service: "WHITE",
                   subscription: "oneshot",
                   userRole: "user_manager",
                 },
@@ -300,8 +302,10 @@ describe("Organization groups view", (): void => {
                   description: "Test group",
                   hasAsm: true,
                   hasForces: true,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "akame",
+                  service: "WHITE",
                   subscription: "continuous",
                   userRole: "user_manager",
                 },
@@ -315,7 +319,8 @@ describe("Organization groups view", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_add_group_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/groups"}>
@@ -326,54 +331,58 @@ describe("Organization groups view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
 
-        expect(wrapper).toHaveLength(1);
-      });
+    const numberOfRows = 3;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("table")).toHaveLength(1);
     });
 
-    const newGroupButton = (): ReactWrapper =>
-      wrapper.find("Table").find("button").first();
-    newGroupButton().simulate("click");
+    expect(screen.getAllByRole("row")).toHaveLength(numberOfRows);
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+    userEvent.click(
+      screen.getByText(
+        translate.t("organization.tabs.groups.newGroup.new.text")
+      )
+    );
 
-        expect(
-          wrapper
-            .find(AddGroupModal)
-            .find({ name: "name" })
-            .find("input")
-            .prop("value")
-        ).toBe("AKAME");
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText(
+          translate.t("organization.tabs.groups.newGroup.new.group")
+        )
+      ).toBeInTheDocument();
     });
 
-    const form = (): ReactWrapper => wrapper.find(AddGroupModal).find("Formik");
-    const descriptionField = (): ReactWrapper =>
-      wrapper.find(AddGroupModal).find({ name: "description" }).find("input");
-    const typeField = (): ReactWrapper =>
-      wrapper.find(AddGroupModal).find({ name: "type" }).find("select");
+    expect(
+      screen.getByText(translate.t("confirmmodal.proceed"))
+    ).toBeDisabled();
 
-    descriptionField().simulate("change", {
-      target: { name: "description", value: "Test group" },
+    userEvent.type(
+      screen.getByRole("textbox", { name: "description" }),
+      "Test group"
+    );
+    await waitFor((): void => {
+      expect(screen.getByDisplayValue("AKAME")).toBeInTheDocument();
     });
-    typeField().simulate("change", {
-      target: { name: "type", value: "CONTINUOUS" },
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "type" }), [
+      "CONTINUOUS",
+    ]);
+
+    await waitFor((): void => {
+      expect(
+        screen.getByText(translate.t("confirmmodal.proceed"))
+      ).not.toBeDisabled();
     });
-    form().simulate("submit");
 
-    await act(async (): Promise<void> => {
-      wrapper.update();
-      const delay = 50;
-      await wait(delay);
+    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
+
+    await waitFor((): void => {
+      expect(screen.getAllByRole("row")).toHaveLength(4);
     });
 
-    const finalGroupQuantity = 3;
-
-    expect(wrapper.find("tr")).toHaveLength(finalGroupQuantity);
+    expect(msgSuccess).toHaveBeenCalledWith(
+      translate.t("organization.tabs.groups.newGroup.success"),
+      translate.t("organization.tabs.groups.newGroup.titleSuccess")
+    );
   });
 });

@@ -16,7 +16,6 @@ import {
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
@@ -225,6 +224,7 @@ describe("GroupFindingsView", (): void => {
 
     jest.clearAllMocks();
 
+    const { t } = useTranslation();
     const handleClose: jest.Mock = jest.fn();
     render(
       <MemoryRouter initialEntries={["orgs/testorg/groups/testgroup/vulns"]}>
@@ -266,19 +266,17 @@ describe("GroupFindingsView", (): void => {
       "file-zipper"
     );
 
-    userEvent.click(
-      screen.getByText(translate.t("group.findings.report.btn.text"))
-    );
-
     await waitFor((): void => {
       expect(
-        screen.getByText(translate.t("group.findings.report.modalTitle"))
+        screen.getByText(t("group.findings.report.modalTitle").toString())
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Executive"));
+    userEvent.click(
+      screen.getByText(t("group.findings.report.pdf").toString())
+    );
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        translate.t("groupAlerts.reportAlreadyRequested")
+        t("groupAlerts.reportAlreadyRequested").toString()
       );
     });
   });
