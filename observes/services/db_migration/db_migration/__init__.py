@@ -54,7 +54,8 @@ EPHEMERAL_SCHEMAS = frozenset(
 
 TARGETS = frozenset(
     [
-        "sorts",
+        "checkly_old",
+        "moodle",
     ]
 )
 
