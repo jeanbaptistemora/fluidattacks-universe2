@@ -9,6 +9,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
@@ -57,7 +58,6 @@ import { FormikDropdown } from "utils/forms/fields";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
 interface IDataResult {
@@ -91,6 +91,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push, replace } = useHistory();
   const { url } = useRouteMatch();
+  const { t } = useTranslation();
 
   // State management
   const [isReportsModalOpen, setReportsModalOpen] = useState(false);
@@ -164,7 +165,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         checkedItems[columnName]
       ) {
         // eslint-disable-next-line no-alert
-        alert(translate.t("validations.columns"));
+        alert(t("validations.columns"));
         setCheckedItems({
           ...checkedItems,
           [columnName]: true,
@@ -176,7 +177,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         });
       }
     },
-    [checkedItems, setCheckedItems]
+    [checkedItems, setCheckedItems, t]
   );
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
@@ -196,11 +197,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const handleQryErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading group data", error);
       });
     },
-    []
+    [t]
   );
 
   const onSortState: (dataField: string, order: SortOrder) => void = (
@@ -217,7 +218,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Type",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.type"),
+      tooltipDataField: t("group.findings.headersTooltips.type"),
       visible: checkedItems.title,
       wrapped: true,
     },
@@ -226,9 +227,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Last report",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t(
-        "group.findings.headersTooltips.lastReport"
-      ),
+      tooltipDataField: t("group.findings.headersTooltips.lastReport"),
       visible: checkedItems.lastVulnerability,
       wrapped: true,
     },
@@ -238,7 +237,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Status",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.status"),
+      tooltipDataField: t("group.findings.headersTooltips.status"),
       visible: checkedItems.state,
       width: "80px",
       wrapped: true,
@@ -248,7 +247,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Severity",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.severity"),
+      tooltipDataField: t("group.findings.headersTooltips.severity"),
       visible: checkedItems.severityScore,
       wrapped: true,
     },
@@ -257,7 +256,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Vulnerabilities",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.locations"),
+      tooltipDataField: t("group.findings.headersTooltips.locations"),
       visible: checkedItems.openVulnerabilities,
       wrapped: true,
     },
@@ -267,7 +266,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Locations",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.where"),
+      tooltipDataField: t("group.findings.headersTooltips.where"),
       visible: checkedItems.where,
       wrapped: true,
     },
@@ -276,7 +275,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       header: "Reattack",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
-      tooltipDataField: translate.t("group.findings.headersTooltips.reattack"),
+      tooltipDataField: t("group.findings.headersTooltips.reattack"),
       visible: checkedItems.remediated,
       wrapped: true,
     },
@@ -302,7 +301,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       }
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred getting user info", error);
     },
   });
@@ -537,7 +536,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred deleting finding", error);
         });
       },
@@ -550,8 +549,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   ): void => {
     if (areAllMutationValid.every(Boolean)) {
       msgSuccess(
-        translate.t("searchFindings.findingsDeleted"),
-        translate.t("group.drafts.titleSuccess")
+        t("searchFindings.findingsDeleted"),
+        t("group.drafts.titleSuccess")
       );
       replace(`groups/${groupName}/vulns`);
       handleCloseModal();
@@ -560,7 +559,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const handleRemoveFinding = async (justification: unknown): Promise<void> => {
     if (selectedFindings.length === 0) {
-      msgError(translate.t("searchFindings.tabResources.noSelection"));
+      msgError(t("searchFindings.tabResources.noSelection"));
     } else {
       try {
         const results = await getResults(
@@ -741,14 +740,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             <Can I={"api_resolvers_query_report__get_url_group_report"}>
               <TooltipWrapper
                 id={"group.findings.report.btn.tooltip.id"}
-                message={translate.t("group.findings.report.btn.tooltip")}
+                message={t("group.findings.report.btn.tooltip")}
               >
                 <Button
                   id={"reports"}
                   onClick={openReportsModal}
                   variant={"secondary"}
                 >
-                  {translate.t("group.findings.report.btn.text")}
+                  {t("group.findings.report.btn.text")}
                 </Button>
               </TooltipWrapper>
             </Can>
@@ -756,7 +755,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.delete.btn.tooltip"}
-                message={translate.t("searchFindings.delete.btn.tooltip")}
+                message={t("searchFindings.delete.btn.tooltip")}
               >
                 <Button
                   disabled={selectedFindings.length === 0 || deleting}
@@ -764,7 +763,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                   variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
-                  &nbsp;{translate.t("searchFindings.delete.btn.text")}
+                  &nbsp;{t("searchFindings.delete.btn.text")}
                 </Button>
               </TooltipWrapper>
             </Can>
@@ -795,7 +794,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       <Modal
         onClose={closeDeleteModal}
         open={isDeleteModalOpen}
-        title={translate.t("searchFindings.delete.title")}
+        title={t("searchFindings.delete.title")}
       >
         <Formik
           enableReinitialize={true}
@@ -806,7 +805,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           <Form id={"removeFinding"}>
             <FormGroup>
               <ControlLabel>
-                {translate.t("searchFindings.delete.justif.label")}
+                {t("searchFindings.delete.justif.label")}
               </ControlLabel>
               <Field
                 component={FormikDropdown}
@@ -815,13 +814,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               >
                 <option value={""} />
                 <option value={"DUPLICATED"}>
-                  {translate.t("searchFindings.delete.justif.duplicated")}
+                  {t("searchFindings.delete.justif.duplicated")}
                 </option>
                 <option value={"FALSE_POSITIVE"}>
-                  {translate.t("searchFindings.delete.justif.falsePositive")}
+                  {t("searchFindings.delete.justif.falsePositive")}
                 </option>
                 <option value={"NOT_REQUIRED"}>
-                  {translate.t("searchFindings.delete.justif.notRequired")}
+                  {t("searchFindings.delete.justif.notRequired")}
                 </option>
               </Field>
             </FormGroup>
@@ -829,14 +828,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               <div>
                 <ModalFooter>
                   <Button onClick={closeDeleteModal} variant={"secondary"}>
-                    {translate.t("confirmmodal.cancel")}
+                    {t("confirmmodal.cancel")}
                   </Button>
                   <Button
                     disabled={isRunning}
                     type={"submit"}
                     variant={"primary"}
                   >
-                    {translate.t("confirmmodal.proceed")}
+                    {t("confirmmodal.proceed")}
                   </Button>
                 </ModalFooter>
               </div>

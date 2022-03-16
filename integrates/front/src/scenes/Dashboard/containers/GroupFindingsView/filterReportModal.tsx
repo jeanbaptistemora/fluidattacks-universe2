@@ -7,7 +7,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
@@ -21,7 +21,6 @@ import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IDeactivationModalProps {
   hasMobileApp: boolean;
@@ -37,13 +36,14 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   closeReportsModal,
 }: IDeactivationModalProps): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const { t } = useTranslation();
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
       closeReportsModal();
       msgSuccess(
-        translate.t("groupAlerts.reportRequested"),
-        translate.t("groupAlerts.titleSuccess")
+        t("groupAlerts.reportRequested"),
+        t("groupAlerts.titleSuccess")
       );
     },
     onError: (errors: ApolloError): void => {
@@ -52,9 +52,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           error.message ===
           "Exception - The user already has a requested report for the same group"
         ) {
-          msgError(translate.t("groupAlerts.reportAlreadyRequested"));
+          msgError(t("groupAlerts.reportAlreadyRequested"));
         } else {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred requesting group report", error);
         }
       });
@@ -77,7 +77,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   }
 
   const validations = object().shape({
-    treatments: array().min(1, translate.t("validations.someRequired")),
+    treatments: array().min(1, t("validations.someRequired")),
   });
 
   return (
@@ -85,7 +85,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t("group.findings.report.modalTitle")}
+        title={t("group.findings.report.modalTitle")}
       >
         <div className={"flex flex-wrap"}>
           <Col100>
@@ -98,24 +98,18 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
               >
                 <Form>
                   <Trans>
-                    <p>
-                      {translate.t("group.findings.report.techDescription")}
-                    </p>
+                    <p>{t("group.findings.report.techDescription")}</p>
                   </Trans>
-                  <p>
-                    {translate.t(
-                      "group.findings.report.filterReportDescription"
-                    )}
-                  </p>
+                  <p>{t("group.findings.report.filterReportDescription")}</p>
                   <p className={"tl fw8"}>
-                    {translate.t("group.findings.report.treatment")}
+                    {t("group.findings.report.treatment")}
                   </p>
                   {["NEW", "IN_PROGRESS", "ACCEPTED", "ACCEPTED_UNDEFINED"].map(
                     (treatment): JSX.Element => (
                       <Field
                         component={FormikCheckbox}
                         key={treatment}
-                        label={translate.t(
+                        label={t(
                           `searchFindings.tabDescription.treatment.${_.camelCase(
                             treatment
                           )}`
@@ -135,7 +129,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                         variant={"primary"}
                       >
                         <FontAwesomeIcon icon={faFileExcel} />
-                        &nbsp;{translate.t("group.findings.report.generateXls")}
+                        &nbsp;{t("group.findings.report.generateXls")}
                       </Button>
                     </ButtonToolbar>
                   </Row>
@@ -143,7 +137,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
               </Formik>
             ) : (
               <React.Fragment>
-                <p>{translate.t("group.findings.report.noMobileAppWarning")}</p>
+                <p>{t("group.findings.report.noMobileAppWarning")}</p>
                 <p>
                   <ExternalLink
                     href={
@@ -178,7 +172,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           <div>
             <ModalFooter>
               <Button onClick={onClose} variant={"secondary"}>
-                {translate.t("group.findings.report.modalClose")}
+                {t("group.findings.report.modalClose")}
               </Button>
             </ModalFooter>
           </div>

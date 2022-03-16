@@ -46,6 +46,7 @@ export const FormikText: React.FC<ITextProps> = (
   return (
     <React.Fragment>
       <StyledInput
+        aria-label={name}
         autoComplete={"off"}
         // eslint-disable-next-line react/forbid-component-props
         className={className}

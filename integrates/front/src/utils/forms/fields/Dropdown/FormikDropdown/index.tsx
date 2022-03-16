@@ -32,6 +32,7 @@ const FormikDropdown: React.FC<IDropdownProps> = ({
   return (
     <React.Fragment>
       <StyledSelect
+        aria-label={name}
         name={name}
         onBlur={handleBlur}
         onChange={handleChange}

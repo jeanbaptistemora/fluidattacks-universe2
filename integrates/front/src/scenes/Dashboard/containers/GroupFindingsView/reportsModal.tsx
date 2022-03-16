@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { setReportType } from "./helpers";
@@ -26,7 +26,6 @@ import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsV
 import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const DOCS_URL = "https://docs.fluidattacks.com/machine/web/groups/reports";
 
@@ -42,6 +41,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   onClose,
 }: IDeactivationModalProps): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const { t } = useTranslation();
 
   const [isFilterReportModalOpen, setFilterReportModalOpen] = useState(false);
   const openFilterReportModal: () => void = useCallback((): void => {
@@ -54,8 +54,8 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
-        translate.t("groupAlerts.reportRequested"),
-        translate.t("groupAlerts.titleSuccess")
+        t("groupAlerts.reportRequested"),
+        t("groupAlerts.titleSuccess")
       );
     },
     onError: (errors: ApolloError): void => {
@@ -64,9 +64,9 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
           error.message ===
           "Exception - The user already has a requested report for the same group"
         ) {
-          msgError(translate.t("groupAlerts.reportAlreadyRequested"));
+          msgError(t("groupAlerts.reportAlreadyRequested"));
         } else {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred requesting group report", error);
         }
       });
@@ -98,14 +98,14 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t("group.findings.report.modalTitle")}
+        title={t("group.findings.report.modalTitle")}
       >
         <div className={"flex flex-wrap tc"}>
           <Col100>
             {hasMobileApp ? (
               <React.Fragment>
                 <Trans>
-                  <p>{translate.t("group.findings.report.techDescription")}</p>
+                  <p>{t("group.findings.report.techDescription")}</p>
                 </Trans>
                 <br />
                 <Row>
@@ -113,9 +113,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                     <ButtonToolbarCenter>
                       <TooltipWrapper
                         id={"group.findings.report.pdfTooltip.id"}
-                        message={translate.t(
-                          "group.findings.report.pdfTooltip"
-                        )}
+                        message={t("group.findings.report.pdfTooltip")}
                       >
                         <Button
                           id={"report-pdf"}
@@ -123,14 +121,12 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFilePdf} />
-                          {translate.t("group.findings.report.pdf")}
+                          {t("group.findings.report.pdf")}
                         </Button>
                       </TooltipWrapper>
                       <TooltipWrapper
                         id={"group.findings.report.xlsTooltip.id"}
-                        message={translate.t(
-                          "group.findings.report.xlsTooltip"
-                        )}
+                        message={t("group.findings.report.xlsTooltip")}
                       >
                         <Button
                           id={"report-excel"}
@@ -138,7 +134,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileExcel} />
-                          {translate.t("group.findings.report.xls")}
+                          {t("group.findings.report.xls")}
                         </Button>
                         <Button
                           id={"customize-report"}
@@ -158,9 +154,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       </TooltipWrapper>
                       <TooltipWrapper
                         id={"group.findings.report.dataTooltip.id"}
-                        message={translate.t(
-                          "group.findings.report.dataTooltip"
-                        )}
+                        message={t("group.findings.report.dataTooltip")}
                       >
                         <Button
                           id={"report-zip"}
@@ -168,7 +162,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileArchive} />
-                          {translate.t("group.findings.report.data")}
+                          {t("group.findings.report.data")}
                         </Button>
                       </TooltipWrapper>
                     </ButtonToolbarCenter>
@@ -178,9 +172,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
             ) : (
               <React.Fragment>
                 <Trans>
-                  <p>
-                    {translate.t("group.findings.report.noMobileAppWarning")}
-                  </p>
+                  <p>{t("group.findings.report.noMobileAppWarning")}</p>
                 </Trans>
                 <p>
                   <ExternalLink
@@ -211,7 +203,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
               </React.Fragment>
             )}
             <p>
-              {translate.t("group.findings.report.passphraseOptOut")}&nbsp;
+              {t("group.findings.report.passphraseOptOut")}&nbsp;
               <ExternalLink href={`${DOCS_URL}#remove-passphrase`}>
                 {`${DOCS_URL}#remove-passphrase`}
               </ExternalLink>
@@ -222,7 +214,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
           <div>
             <ModalFooter>
               <Button onClick={onClose} variant={"secondary"}>
-                {translate.t("group.findings.report.modalClose")}
+                {t("group.findings.report.modalClose")}
               </Button>
             </ModalFooter>
           </div>
