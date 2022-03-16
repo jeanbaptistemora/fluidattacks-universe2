@@ -30,6 +30,17 @@ const LinksSection: React.FC = (): JSX.Element => (
       <HeadLink link={"/solutions/"} name={"Solutions"} /> <br />
       <BodyLink link={"/solutions/devsecops/"} name={"DevSecOps"} /> <br />
       <BodyLink
+        link={"/solutions/secure-code-review/"}
+        name={"Secure Code Review"}
+      />{" "}
+      <br />
+      <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} /> <br />
+      <BodyLink
+        link={"/solutions/attack-simulation/"}
+        name={"Breach and Attack Simulation"}
+      />{" "}
+      <br />
+      <BodyLink
         link={"/solutions/security-testing/"}
         name={"Security Testing"}
       />{" "}
@@ -42,17 +53,6 @@ const LinksSection: React.FC = (): JSX.Element => (
       <BodyLink
         link={"/solutions/ethical-hacking/"}
         name={"Ethical Hacking"}
-      />{" "}
-      <br />
-      <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} /> <br />
-      <BodyLink
-        link={"/solutions/attack-simulation/"}
-        name={"Breach and Attack Simulation"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"/solutions/secure-code-review/"}
-        name={"Secure Code Review"}
       />{" "}
       <br />
       <BodyLink

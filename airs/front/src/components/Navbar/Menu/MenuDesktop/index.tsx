@@ -66,6 +66,15 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <HeadLink link={"/solutions/"} margin={"mb4"} name={"Solutions"} />
             <BodyLink link={"/solutions/devsecops/"} name={"DevSecOps"} />
             <BodyLink
+              link={"/solutions/secure-code-review/"}
+              name={"Secure Code Review"}
+            />
+            <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} />
+            <BodyLink
+              link={"/solutions/attack-simulation/"}
+              name={"Breach and Attack Simulation"}
+            />
+            <BodyLink
               link={"/solutions/security-testing/"}
               name={"Security Testing"}
             />
@@ -76,15 +85,6 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             <BodyLink
               link={"/solutions/ethical-hacking/"}
               name={"Ethical Hacking"}
-            />
-            <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} />
-            <BodyLink
-              link={"/solutions/attack-simulation/"}
-              name={"Breach and Attack Simulation"}
-            />
-            <BodyLink
-              link={"/solutions/secure-code-review/"}
-              name={"Secure Code Review"}
             />
             <BodyLink
               link={"/solutions/vulnerability-management/"}

@@ -38,6 +38,21 @@ const SolutionsList: React.FC = (): JSX.Element => {
             </InnerListItem>
             <InnerListItem>
               <BodyLink
+                link={"/solutions/secure-code-review/"}
+                name={"Secure Code Review"}
+              />
+            </InnerListItem>
+            <InnerListItem>
+              <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} />
+            </InnerListItem>
+            <InnerListItem>
+              <BodyLink
+                link={"/solutions/attack-simulation/"}
+                name={"Breach and Attack Simulation"}
+              />
+            </InnerListItem>
+            <InnerListItem>
+              <BodyLink
                 link={"/solutions/security-testing/"}
                 name={"Security Testing"}
               />
@@ -52,21 +67,6 @@ const SolutionsList: React.FC = (): JSX.Element => {
               <BodyLink
                 link={"/solutions/ethical-hacking/"}
                 name={"Ethical Hacking"}
-              />
-            </InnerListItem>
-            <InnerListItem>
-              <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} />
-            </InnerListItem>
-            <InnerListItem>
-              <BodyLink
-                link={"/solutions/attack-simulation/"}
-                name={"Breach and Attack Simulation"}
-              />
-            </InnerListItem>
-            <InnerListItem>
-              <BodyLink
-                link={"/solutions/secure-code-review/"}
-                name={"Secure Code Review"}
               />
             </InnerListItem>
             <InnerListItem>
