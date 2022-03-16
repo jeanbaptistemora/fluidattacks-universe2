@@ -6,8 +6,7 @@ import styled from "styled-components";
 import { Col, Row } from ".";
 
 const config: Meta = {
-  component: Row,
-  subcomponents: { Col },
+  subcomponents: { Col, Row },
   title: "components/Layout",
 };
 

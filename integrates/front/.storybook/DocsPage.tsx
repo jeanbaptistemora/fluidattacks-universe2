@@ -13,14 +13,15 @@ import {
 import { ReactFramework } from "@storybook/react";
 import React, { Context, useContext } from "react";
 
-const ImportPath = (): JSX.Element => {
+const ImportStatement = (): JSX.Element => {
   const context = useContext(
     DocsContext as Context<DocsContextProps<ReactFramework>>
   );
   const defaultStory = context.componentStories()[0];
-  const component = defaultStory.component.displayName;
+  const component = defaultStory.component?.displayName;
   const subcomponents = Object.keys(defaultStory.subcomponents ?? {});
   const components = [component, ...subcomponents]
+    .filter(Boolean)
     .sort((a, b) => a.localeCompare(b))
     .join(", ");
   const path = context.title;
@@ -34,7 +35,7 @@ const DocsPage = (): JSX.Element => (
     <Title />
     <Subtitle />
     <Description />
-    <ImportPath />
+    <ImportStatement />
     <Primary />
     <ArgsTable story={PRIMARY_STORY} />
     <Stories />
