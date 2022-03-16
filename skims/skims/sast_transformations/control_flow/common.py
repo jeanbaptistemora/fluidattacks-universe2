@@ -13,7 +13,9 @@ from sast_transformations.control_flow.types import (
 )
 from typing import (
     Dict,
+    List,
     Optional,
+    Union,
 )
 from utils import (
     graph as g,
@@ -145,7 +147,7 @@ def try_statement(
     last_node: Optional[str] = None,
     language: Optional[GraphShardMetadataLanguage] = None,
 ) -> None:
-    block_name = BLOCK_NAME.get(language) or "block"
+    block_name = BLOCK_NAME.get(language) or "block" if language else "block"
     match = g.match_ast_group(
         args.graph, args.n_id, block_name, "catch_clause", "finally_clause"
     )
@@ -158,7 +160,8 @@ def try_statement(
         propagate_next_id_from_parent(stack)
         args.generic(args.fork_n_id(block_id), stack)
 
-    if _catch_ids := match.get("catch_clause", set()):
+    _catch_ids: Union[List[str], set] = match.get("catch_clause", set())
+    if _catch_ids:
         for catch_id in _catch_ids:
             args.graph.add_edge(last_node, catch_id, **g.MAYBE)
             propagate_next_id_from_parent(stack)
@@ -191,7 +194,7 @@ def loop_statement(
         args.graph.add_edge(args.n_id, next_id, **g.FALSE)
 
     # If the predicate holds as `g.TRUE` then enter into the block
-    block_name = BLOCK_NAME.get(language) or "block"
+    block_name = BLOCK_NAME.get(language) or "block" if language else "block"
     c_id = g.adj_ast(args.graph, args.n_id, label_type=block_name)[-1]
     args.graph.add_edge(args.n_id, c_id, **g.TRUE)
 

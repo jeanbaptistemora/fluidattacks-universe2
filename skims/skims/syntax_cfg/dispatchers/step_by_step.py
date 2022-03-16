@@ -17,7 +17,7 @@ def build(args: SyntaxCfgArgs) -> NId:
         first_child, *_ = c_ids
         args.graph.add_edge(args.n_id, first_child, label_cfg="CFG")
 
-        for c_id, nxt_id in iter_with_next(c_ids, args.nxt_id):
+        for c_id, nxt_id in iter_with_next(list(c_ids), args.nxt_id):
             args.generic(args.fork(c_id, nxt_id))
 
     return args.n_id

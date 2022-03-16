@@ -145,7 +145,9 @@ def _get_metadata_class_fields(
                 "variable_declarator",
                 ";",
             )
-            match_static = g.match_ast(graph, match["modifiers"], "static")
+            match_static = g.match_ast(
+                graph, str(match["modifiers"]), "static"
+            )
             if (
                 (type_id := match["__0__"])
                 and (dcl_id := match["variable_declarator"])
@@ -212,7 +214,7 @@ def _get_metadata_class_methods(
                 if match["modifiers"]:
                     match_static = g.match_ast(
                         graph,
-                        match["modifiers"],
+                        str(match["modifiers"]),
                         "static",
                     )
                     static = bool(match_static["static"])
@@ -227,7 +229,7 @@ def _get_metadata_class_methods(
                         param.name: param
                         for param in _get_metadata_method_parameters(
                             graph,
-                            match["formal_parameters"],
+                            str(match["formal_parameters"]),
                         )
                     },
                 )

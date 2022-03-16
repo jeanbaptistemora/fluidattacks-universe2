@@ -26,5 +26,5 @@ def reader(args: SyntaxGraphArgs) -> NId:
     )
 
     return build_property_declaration_node(
-        args, var_type, identifier, accessors
+        args, var_type, identifier, list(accessors)
     )
