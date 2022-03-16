@@ -41,7 +41,7 @@ from users import (
 
 
 async def _get_recipient_first_name_async(email: str) -> str:
-    first_name = await users_domain.get_data(email, "first_name")
+    first_name = str(await users_domain.get_data(email, "first_name"))
     if not first_name:
         first_name = email.split("@")[0]
     else:

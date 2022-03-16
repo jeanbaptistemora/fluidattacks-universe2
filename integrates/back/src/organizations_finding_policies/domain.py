@@ -291,6 +291,7 @@ async def _add_accepted_treatment(
     vulns_to_update = [
         vuln
         for vuln in vulns
+        if vuln.treatment is not None
         if vuln.treatment.status
         != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         and vuln.state.status == VulnerabilityStateStatus.OPEN
@@ -352,6 +353,7 @@ async def _add_new_treatment(
     vulns_to_update = [
         vuln
         for vuln in vulns
+        if vuln.treatment is not None
         if vuln.treatment.status != VulnerabilityTreatmentStatus.NEW
     ]
     await collect(

@@ -25,6 +25,7 @@ from newutils import (
 )
 import re
 from typing import (
+    Iterable,
     List,
     Optional,
     Set,
@@ -45,7 +46,7 @@ def validate_email_address(email: str) -> bool:
         raise InvalidField("email address") from ex
 
 
-def validate_fields(fields: List[str]) -> None:
+def validate_fields(fields: Iterable[str]) -> None:
     allowed_chars = r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s(),./’~:;%@_$#*=\?-"
     regex = fr'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
     for field in map(str, fields):

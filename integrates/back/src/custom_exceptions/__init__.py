@@ -4,6 +4,9 @@ from __future__ import (
     annotations,
 )
 
+from decimal import (
+    Decimal,
+)
 from typing import (
     Sequence,
 )
@@ -707,7 +710,7 @@ class InvalidSchema(CustomBaseException):
 class InvalidSeverity(CustomBaseException):
     """Exception to control severity value"""
 
-    def __init__(self, fields: Sequence[int]) -> None:
+    def __init__(self, fields: Sequence[Decimal]) -> None:
         """Constructor"""
         msg = (
             "Exception - Severity value must be between "

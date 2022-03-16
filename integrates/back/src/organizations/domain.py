@@ -35,6 +35,9 @@ from graphql import (
 from group_access import (
     domain as group_access_domain,
 )
+from jose import (
+    JWTError,
+)
 import logging
 import logging.config
 from mailer import (
@@ -267,7 +270,7 @@ async def get_access_by_url_token(
         access = await orgs_dal.get_access_by_url_token(
             organization_id, user_email
         )
-    except token.JWTError:
+    except JWTError:
         InvalidAuthorization()
     return access
 
