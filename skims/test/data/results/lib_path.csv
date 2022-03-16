@@ -8786,6 +8786,43 @@ F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_us
   34 |           {
      ^ Col 0
 ",kubernetes.k8s_sys_admin_linux_cap_used
+F266,lines,namespace/skims/test/data/lib_path/f266/Dockerfile,3,250,skims,266. Excessive Privileges - Docker,"Ensure a user for the container has been created
+ in namespace/skims/test/data/lib_path/f266/Dockerfile","
+  1 | # Insecure
+  2 | # Must have RUN adduser or USER command
+> 3 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+  4 | ARG DEBIAN_FRONTEND=noninteractive
+  5 | RUN apt update
+  6 | RUN apt install -y nginx php-fpm supervisor && \
+  7 |     rm -rf /var/lib/apt/lists/* && \
+  8 |     apt clean
+    ^ Col 0
+",docker.container_whitout_user
+F266,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,2,250,skims,266. Excessive Privileges - Docker,"Ensure a user for the container has been created
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+   1 | # Insecure
+>  2 | FROM node
+   3 | RUN apk add --no-cache python g++ make
+   4 | WORKDIR /app
+   5 | COPY . .
+   6 | RUN yarn install --production
+   7 | CMD [""node"", ""src/index.js""]
+   8 |
+   9 | # Insecure
+  10 | FROM node AS node_image
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+     ^ Col 0
+",docker.container_whitout_user
 F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,10,250,skims,267. Excessive Privileges - Kubernetes,"Ensure containers do not run with AllowPrivilegeEscalation
  in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
    1 | apiVersion: v1
