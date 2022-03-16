@@ -15,7 +15,7 @@
   };
   formatPython = {
     enable = true;
-    targets = ["/"];
+    targets = ["/observes"];
   };
   formatTerraform = {
     enable = true;

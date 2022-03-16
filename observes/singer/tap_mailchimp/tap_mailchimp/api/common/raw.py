@@ -264,7 +264,9 @@ def _get_feedback(client: Client, feedback_id: FeedbackId) -> JsonObj:
 
 @RateLimiter(max_calls=5, period=1)
 def _get_checklist(client: Client, campaign_id: CampaignId) -> JsonObj:
+    LOG.info("getting %s", campaign_id)
     raw = client.campaigns.get_send_checklist(campaign_id.item_id)
+    LOG.info("done %s", campaign_id)
     return JsonFactory.from_any(raw)
 
 

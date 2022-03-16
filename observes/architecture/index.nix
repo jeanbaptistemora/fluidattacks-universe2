@@ -35,7 +35,11 @@ in {
     paginator = "${commonPath}/paginator";
     postgresClient = "${commonPath}/postgres_client";
     purity = "${commonPath}/purity";
-    singerIO = "${commonPath}/singer_io";
+    singer_io =
+      std_data "${commonPath}/singer_io"
+      // {
+        env2.dev = builtins.replaceStrings ["_"] ["-"] "${commonPath}/singer_io/env2/dev";
+      };
     utils_logger =
       std_data "${commonPath}/utils_logger"
       // {

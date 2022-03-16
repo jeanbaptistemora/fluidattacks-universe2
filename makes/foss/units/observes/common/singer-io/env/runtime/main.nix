@@ -6,7 +6,7 @@
   projectPath,
   ...
 }: let
-  self = projectPath inputs.observesIndex.common.singerIO;
+  self = projectPath inputs.observesIndex.common.singer_io.root;
 in
   makeTemplate {
     name = "observes-common-singer-io-env-runtime";

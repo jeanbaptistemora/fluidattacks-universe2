@@ -8,7 +8,7 @@
 makeDerivation {
   name = "observes-common-singer-io-test";
   env = {
-    envSrc = projectPath inputs.observesIndex.common.singerIO;
+    envSrc = projectPath inputs.observesIndex.common.singer_io.root;
     envTestDir = "tests";
   };
   searchPaths = {

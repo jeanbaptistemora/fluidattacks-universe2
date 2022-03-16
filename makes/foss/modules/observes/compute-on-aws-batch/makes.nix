@@ -84,6 +84,15 @@ in {
         environment = ["PRODUCT_API_TOKEN" "SERVICES_API_TOKEN"];
       };
 
+    observesMailchimpEtl =
+      sharedConfiguration
+      // {
+        attempts = 1;
+        attemptDurationSeconds = 864000;
+        command = ["m" "f" "/observes/etl/mailchimp"];
+        queue = "observes_soon";
+      };
+
     observesCodeEtlMirror =
       sharedConfiguration
       // {
@@ -137,6 +146,7 @@ in {
         command = ["m" "f" "/observes/etl/dynamo/v2"];
         queue = "observes_soon";
       };
+
     observesDbMigration =
       sharedConfiguration
       // {

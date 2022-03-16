@@ -276,10 +276,6 @@ in {
           gitlabExtra = gitlabScheduled;
         }
         {
-          output = "/observes/etl/mailchimp";
-          gitlabExtra = gitlabScheduled;
-        }
-        {
           output = "/observes/etl/mixpanel";
           gitlabExtra = gitlabScheduled;
         }

@@ -6,8 +6,10 @@ from enum import (
 from jobs_scheduler.cron_2.core import (
     AnyTime,
     Cron,
+    CronDraft,
 )
 from jobs_scheduler.cron_2.factory import (
+    new as new_cron,
     week_days,
     weekly,
     work_days,
@@ -29,24 +31,25 @@ class InvalidJob(Exception):
 
 
 class Jobs(Enum):
-    REPORT_FAILS = os.environ["batchStability"] + " report-failures observes"
-    REPORT_CANCELLED = (
-        os.environ["batchStability"] + " report-cancelled observes"
-    )
-    UPLOAD = os.environ["codeEtlUpload"]
-    MIRROR = os.environ["codeEtlMirror"]
     ANNOUNCEKIT = os.environ["announceKitEtl"]
     BUGSNAG = os.environ["bugsnagEtl"]
     CHECKLY = os.environ["checklyEtl"]
     DELIGHTED = os.environ["delightedEtl"]
+    DYNAMO_FORCES = f'{os.environ["dynamoDbEtls"]} FORCES'
+    DYNAMO_INTEGRATES = f'{os.environ["dynamoDbEtls"]} GROUP'
+    DYNAMO_INTEGRATES_MAIN = f'{os.environ["dynamoDbEtls"]} CORE'
     FORMSTACK = os.environ["formstackEtl"]
     GITLAB_PRODUCT = os.environ["gitlabEtlProduct"]
     GITLAB_CHALLENGES = os.environ["gitlabEtlChallenges"]
     GITLAB_DEFAULT = os.environ["gitlabEtlDefault"]
     GITLAB_SERVICES = os.environ["gitlabEtlServices"]
-    DYNAMO_FORCES = f'{os.environ["dynamoDbEtls"]} FORCES'
-    DYNAMO_INTEGRATES = f'{os.environ["dynamoDbEtls"]} GROUP'
-    DYNAMO_INTEGRATES_MAIN = f'{os.environ["dynamoDbEtls"]} CORE'
+    MAILCHIMP_ETL = os.environ["mailchimpEtl"]
+    MIRROR = os.environ["codeEtlMirror"]
+    REPORT_FAILS = os.environ["batchStability"] + " report-failures observes"
+    REPORT_CANCELLED = (
+        os.environ["batchStability"] + " report-cancelled observes"
+    )
+    UPLOAD = os.environ["codeEtlUpload"]
 
 
 def new_job(raw: str) -> Result[Jobs, InvalidJob]:
@@ -59,6 +62,9 @@ def new_job(raw: str) -> Result[Jobs, InvalidJob]:
 ANY = AnyTime()
 SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
     {
+        new_cron(CronDraft(ANY, 18, 16, 3, ANY)).unwrap(): (
+            Jobs.MAILCHIMP_ETL,
+        ),
         work_days(ANY, ANY).unwrap(): (Jobs.REPORT_FAILS,),
         week_days(ANY, 22, range(0, 5)).unwrap(): (
             Jobs.DYNAMO_INTEGRATES_MAIN,
