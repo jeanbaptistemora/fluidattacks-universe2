@@ -28,7 +28,7 @@ def test_finding_description(
     )
 
     # Configure columns filter
-    assert "Where" not in driver.page_source
+    assert "Locations" not in driver.page_source
     columns_button = utils.wait_for_id(
         driver,
         "columns-filter",
@@ -60,7 +60,7 @@ def test_finding_description(
         "Columns Filter",
         timeout,
     )
-    assert "Where" in driver.page_source
+    assert "Locations" in driver.page_source
 
     # Enter finding
     finding.click()

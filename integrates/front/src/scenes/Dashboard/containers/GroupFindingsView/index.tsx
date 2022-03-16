@@ -254,7 +254,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "openVulnerabilities",
-      header: "Locations",
+      header: "Vulnerabilities",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
       tooltipDataField: translate.t("group.findings.headersTooltips.locations"),
@@ -264,7 +264,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       dataField: "where",
       formatter: limitFormatter,
-      header: "Where",
+      header: "Locations",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
       tooltipDataField: translate.t("group.findings.headersTooltips.where"),

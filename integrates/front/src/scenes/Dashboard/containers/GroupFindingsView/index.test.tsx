@@ -353,8 +353,8 @@ describe("GroupFindingsView", (): void => {
     expect(screen.getByText("Last report")).toBeInTheDocument();
     expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
+    expect(screen.getByText("Vulnerabilities")).toBeInTheDocument();
     expect(screen.getByText("Locations")).toBeInTheDocument();
-    expect(screen.getByText("Where")).toBeInTheDocument();
     expect(screen.getByText("Reattack")).toBeInTheDocument();
 
     expect(

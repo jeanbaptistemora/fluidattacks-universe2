@@ -91,42 +91,12 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Field>{data.vulnerability.stream}</Field>
               )}
               <Field>
-                {t(
-                  `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
-                )}
-                &nbsp;
-                <Value value={vulnerability.specific} />
-              </Field>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <h4>{t("searchFindings.tabVuln.vulnTable.reattacks")}</h4>
-              <Field>
                 <Label>
                   {t(
-                    "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
+                    `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
                   )}
                 </Label>
-                <Value
-                  value={
-                    data.vulnerability.lastRequestedReattackDate?.split(
-                      " "
-                    )[0] ?? ""
-                  }
-                />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.requester")}</Label>
-                <Value value={data.vulnerability.lastReattackRequester} />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.cycles")}</Label>
-                <Value value={data.vulnerability.cycles} />
-              </Field>
-              <Field>
-                <Label>{t("searchFindings.tabVuln.vulnTable.efficacy")}</Label>
-                <Value value={data.vulnerability.efficacy} />
+                <Value value={vulnerability.specific} />
               </Field>
             </Col>
           </Row>
@@ -200,6 +170,37 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   <Value value={data.vulnerability.hacker} />
                 </Field>
               ) : undefined}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h4>{t("searchFindings.tabVuln.vulnTable.reattacks")}</h4>
+              <Field>
+                <Label>
+                  {t(
+                    "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
+                  )}
+                </Label>
+                <Value
+                  value={
+                    data.vulnerability.lastRequestedReattackDate?.split(
+                      " "
+                    )[0] ?? ""
+                  }
+                />
+              </Field>
+              <Field>
+                <Label>{t("searchFindings.tabVuln.vulnTable.requester")}</Label>
+                <Value value={data.vulnerability.lastReattackRequester} />
+              </Field>
+              <Field>
+                <Label>{t("searchFindings.tabVuln.vulnTable.cycles")}</Label>
+                <Value value={data.vulnerability.cycles} />
+              </Field>
+              <Field>
+                <Label>{t("searchFindings.tabVuln.vulnTable.efficacy")}</Label>
+                <Value value={data.vulnerability.efficacy} />
+              </Field>
             </Col>
           </Row>
         </Col>

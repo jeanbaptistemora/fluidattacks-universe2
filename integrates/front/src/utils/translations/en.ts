@@ -2703,7 +2703,7 @@ export const enTranslations: ResourceKey = {
         cycles: "Cycles",
         dateTooltip: "Filter vulnerabilities based on the report date",
         efficacy: "Efficiency",
-        info: "Info",
+        info: "General details",
         lastReattackDate: "Last reattack date",
         lastRequestedReattackDate: "Last request",
         location: "Location",
