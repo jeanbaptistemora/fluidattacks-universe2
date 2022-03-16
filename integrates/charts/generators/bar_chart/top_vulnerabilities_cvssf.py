@@ -113,7 +113,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
     ):
         merged_data.append([axis, sum([value for _, value in columns])])
 
-    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:10]
+    merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:20]
 
     return dict(
         data=dict(
