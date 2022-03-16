@@ -40,14 +40,14 @@ template: advisory
 ## Description
 
 Money Transfer Management System **Version 1.0** allows an attacker
-an attacker to inject JavaScript code in the url and then trick a user
-into visits the link in order to execute JavaScript code.
+to inject JavaScript code in the URL and then trick a user
+into visit the link in order to execute JavaScript code.
 
 ## Proof of Concept
 
 Steps to reproduce
 
-1. Send the following url to a victim `http://127.0.0.1/mtms/admin/?page=xss';alert('XSS');//`
+1. Send the following URL to a victim `http://127.0.0.1/mtms/admin/?page=xss';alert('XSS');//`
 
 2. If a victim visits the link the JavaScript code will be triggered.
 

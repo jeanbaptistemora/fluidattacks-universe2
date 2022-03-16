@@ -41,7 +41,7 @@ template: advisory
 
 Money Transfer Management System **Version 1.0** allows an unauthenticated
 user to inject SQL queries in `admin/maintenance/manage_branch.php`
-and `admin/maintenance/manage_fee.php` via the id parameter.
+and `admin/maintenance/manage_fee.php` via the `id` parameter.
 
 ## Proof of Concept
 
@@ -49,7 +49,7 @@ Steps to reproduce
 
 1. Go to `http://127.0.0.1/mtms/admin/maintenance/manage_branch.php`
 
-2. Insert the following query inside the id parameter.
+2. Insert the following query inside the `id` parameter.
 
 ```sql
 ?id=1' and 1=1 -- -

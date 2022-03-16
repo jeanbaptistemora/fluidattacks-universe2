@@ -41,7 +41,7 @@ template: advisory
 
 Money Transfer Management System **Version 1.0** allows an
 authenticated user to inject SQL queries
-in `mtms/admin/?page=transaction/view_details` via the id parameter.
+in `mtms/admin/?page=transaction/view_details` via the `id` parameter.
 
 ## Proof of Concept
 
@@ -49,7 +49,7 @@ Steps to reproduce
 
 1. Log in to the application as a normal user.
 2. Go to `http://127.0.0.1/mtms/admin/?page=transaction/view_details&id=1`
-3. Insert the following query inside the id parameter.
+3. Insert the following query inside the `id` parameter.
 
 ```sql
 id=a' union select 1,user(),2,4,5,6,7,8,9,10-- -
