@@ -36,14 +36,14 @@ portfolios.
 
 ## Types of Vulnerabilities by Group
 
-![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/findings_by_group_f4a10c.png)
+![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
 
 Number of vulnerabilities
 categorized by group.
 
 ## Open Types of Vulnerabilities by Group
 
-![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/open_findings_by_group_hnmmm9.png)
+![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_open_types_vuln_by_group.png)
 
 Number of open vulnerabilities
 categorized by group.
