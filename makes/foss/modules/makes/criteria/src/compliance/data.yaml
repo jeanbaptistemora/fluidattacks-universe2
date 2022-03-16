@@ -5297,7 +5297,64 @@
   es:
     description: __empty__
   definitions:
-    "7_15_2":
-      title: Transport support
+    "8_5_2":
+      title: Physical security (Access verification) - Authentication
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "8_7_2":
+      title: Physical security (Controls verification) - Confidentiality
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "8_7_4":
+      title: Physical security (Controls verification) - Integrity
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_1_1":
+      title: Wireless security (Posture review) - Policy
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_2_2":
+      title: Wireless security (Logistics) - Communications
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_3_1":
+      title: Wireless security (Active detection verification) - Channel monitoring
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_4_1":
+      title: Wireless security (Visibility audit) - Interception
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_5_3":
+      title: Evaluate configuration, authentication, and encryption of wireless networks
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_5_4":
+      title: Wireless security (Access verification) - Authentication
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_5_5":
+      title: Wireless security (Access verification) - Access control
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_7_3":
+      title: Wireless security (Controls verification) - Privacy
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_7_4":
+      title: Wireless security (Controls verification) - Integrity
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_9_1":
+      title: Wireless security (Configuration verification) - Common errors
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_9_2":
+      title: Wireless security (Configuration verification) - Configuration controls
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_15_2":
+      title: Wireless security (Privileges audit) - Authorization
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_15_3":
+      title: Wireless security (Privileges audit) - Escalation
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "9_17_2":
+      title: Wireless security (Alert and log review) - Storage and retrieval
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_2_1":
+      title: Telecommunications security (Logistics) - Framework
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_3_1":
+      title: Telecommunications security (Active detection verification) - Monitoring
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_5_2":
+      title: Telecommunications security (Access verification) - Services
       link: https://www.isecom.org/OSSTMM.3.pdf
   metadata: {}
