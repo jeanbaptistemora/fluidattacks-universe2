@@ -2,6 +2,7 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { BlogAuthorList } from "../components/BlogAuthorList";
+import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -17,18 +18,24 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { authorName } = pageContext;
+  const blogImage: string =
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png";
 
   return (
     <React.Fragment>
       <Seo
         description={translate.t("blog.description")}
-        image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png"
-        }
+        image={blogImage}
         keywords={translate.t("blog.keywords")}
         title={`Blogs by ${capitalizeDashedString(
           authorName
         )} | A Pentesting Company | Fluid Attacks`}
+        url={"https://fluidattacks.com/blog"}
+      />
+      <BlogSeo
+        description={translate.t("blog.description")}
+        image={blogImage}
+        title={"Blog | A Pentesting Company | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
       />
 

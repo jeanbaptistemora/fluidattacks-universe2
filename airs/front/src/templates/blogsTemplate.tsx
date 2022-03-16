@@ -16,6 +16,7 @@ import { utc } from "moment";
 import React from "react";
 
 import { BlogFooter } from "../components/BlogFooter";
+import { BlogSeo } from "../components/BlogSeo";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -68,6 +69,14 @@ const BlogsIndex: React.FC<IQueryData> = ({
         keywords={keywords}
         title={`${decode(title)} | Fluid Attacks`}
         url={slug}
+      />
+      <BlogSeo
+        author={author}
+        date={fDate}
+        description={description}
+        image={image.replace(".webp", ".png")}
+        title={`${decode(title)} | Fluid Attacks`}
+        url={`https://fluidattacks.com/blog/${slug}`}
       />
 
       <Layout>

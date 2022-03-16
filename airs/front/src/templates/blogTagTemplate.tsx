@@ -1,6 +1,7 @@
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { BlogSeo } from "../components/BlogSeo";
 import { BlogTagList } from "../components/BlogTagList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
@@ -17,16 +18,22 @@ const blogTagTemplate: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { tagName } = pageContext;
+  const blogImage: string =
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png";
 
   return (
     <React.Fragment>
       <Seo
         description={translate.t("blog.description")}
-        image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png"
-        }
+        image={blogImage}
         keywords={translate.t("blog.keywords")}
         title={`Blogs about ${tagName} | A Pentesting Company | Fluid Attacks`}
+        url={"https://fluidattacks.com/blog"}
+      />
+      <BlogSeo
+        description={translate.t("blog.description")}
+        image={blogImage}
+        title={"Blog | A Pentesting Company | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
       />
 
