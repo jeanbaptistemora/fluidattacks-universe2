@@ -45,6 +45,15 @@ const NavbarItems: React.FC = (): JSX.Element => (
           <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
             {"DevSecOps"}
           </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>
+            {"Secure Code Review"}
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/red-teaming/"}>
+            {"Red Teaming"}
+          </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
+            {"Breach and Attack Simulation"}
+          </Link>
           <Link className={"f-18 fw4"} to={"/solutions/security-testing/"}>
             {"Security Testing"}
           </Link>
@@ -53,15 +62,6 @@ const NavbarItems: React.FC = (): JSX.Element => (
           </Link>
           <Link className={"f-18 fw4"} to={"/solutions/ethical-hacking/"}>
             {"Ethical Hacking"}
-          </Link>
-          <Link className={"f-18 fw4"} to={"/solutions/red-teaming/"}>
-            {"Red Teaming"}
-          </Link>
-          <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
-            {"Breach and Attack Simulation"}
-          </Link>
-          <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>
-            {"Secure Code Review"}
           </Link>
           <Link
             className={"f-18 fw4"}
