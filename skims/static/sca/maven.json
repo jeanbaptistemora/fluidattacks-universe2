@@ -2126,18 +2126,45 @@
     "CVE-2018-1306": "3.0.0",
     "CVE-2019-0186": ">=3.0.0 <=3.0.1"
   },
+  "org.apache.portals.pluto:pluto-portal": {
+    "GHSA-3qp6-m7hp-jrwf": "<3.1.1"
+  },
+  "org.apache.pulsar:pulsar": {
+    "CVE-2021-41571": "2.8.0 || >=2.6.0 <2.6.4 || >=2.7.0 <2.7.3",
+    "GHSA-3cv4-xxv7-934q": "<2.7.2"
+  },
   "org.apache.pulsar:pulsar-broker-common": {
     "CVE-2021-22160": ">=0 <2.7.1"
+  },
+  "org.apache.qpid:apache-qpid-broker-j": {
+    "GHSA-c9h6-xhg9-xxrv": "7.1.0 || <7.0.7"
   },
   "org.apache.qpid:proton-j": {
     "CVE-2018-17187": ">=0.3 <=0.29.0",
     "CVE-2019-0223": ">=0.9 <=0.27.0"
+  },
+  "org.apache.qpid:qpid-broker": {
+    "GHSA-4r7g-7cpj-5jr7": ">=6.1.0 <6.1.5",
+    "GHSA-jj9h-mwhq-8vhm": "<6.0.3"
+  },
+  "org.apache.qpid:qpid-broker-plugins-amqp-0-8-protocol": {
+    "GHSA-q66c-h853-gqw2": "<6.0.3"
+  },
+  "org.apache.qpid:qpid-broker-plugins-amqp-1-0-protocol": {
+    "GHSA-q66c-h853-gqw2": "<6.0.3"
+  },
+  "org.apache.ranger:ranger": {
+    "CVE-2018-11778": "<1.2.0",
+    "CVE-2019-12397": "[0.7.0,1.2.0]"
   },
   "org.apache.rocketmq:rocketmq-broker": {
     "CVE-2019-17572": ">=4.2.0 <=4.6.0"
   },
   "org.apache.rocketmq:rocketmq-client": {
     "CVE-2019-17572": ">=4.2.0 <=4.6.0"
+  },
+  "org.apache.sanselan:sanselan": {
+    "GHSA-g99m-3m46-4gm9": "<=0.97-incubator"
   },
   "org.apache.santuario:xmlsec": {
     "CVE-2009-0217": ">=1.4-alpha0 <=1.4.2",
@@ -2153,6 +2180,12 @@
   },
   "org.apache.shardingsphere:shardingsphere": {
     "CVE-2020-1947": "4.0.0"
+  },
+  "org.apache.shenyu:shenyu": {
+    "CVE-2021-45029": "2.4.0 || 2.4.1"
+  },
+  "org.apache.shenyu:shenyu-admin": {
+    "CVE-2021-37580": "2.3.0 || 2.4.0"
   },
   "org.apache.shiro:shiro-all": {
     "CVE-2016-6802": ">=0 <=1.3.1",
