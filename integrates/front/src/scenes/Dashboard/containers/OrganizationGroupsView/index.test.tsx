@@ -5,6 +5,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import {
@@ -16,7 +17,6 @@ import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/Organizatio
 import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 
@@ -56,6 +56,7 @@ describe("Organization groups view", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const mocks: readonly MockedResponse[] = [
       {
         request: {
@@ -126,16 +127,18 @@ describe("Organization groups view", (): void => {
     const UNIT_TESTING_ROW_AT = 3;
 
     expect(screen.getAllByRole("button")[0].textContent).toMatch(
-      new RegExp(translate.t("organization.tabs.groups.newGroup.new.text"), "u")
+      new RegExp(t("organization.tabs.groups.newGroup.new.text"), "u")
     );
     expect(screen.getAllByRole("row")[1].textContent).toContain("ONESHOTTEST");
     expect(screen.getAllByRole("row")[1].textContent).toContain("Oneshot");
-    expect(screen.getAllByRole("row")[1].textContent).toContain("User Manager");
+    expect(screen.getAllByRole("row")[1].textContent).toContain(
+      t("userModal.roles.userManager").toString()
+    );
 
     expect(screen.getAllByRole("row")[2].textContent).toContain("PENDINGGROUP");
     expect(screen.getAllByRole("row")[2].textContent).toContain("Machine");
     expect(screen.getAllByRole("row")[2].textContent).toContain(
-      "Customer Manager"
+      t("userModal.roles.customerManager").toString()
     );
 
     expect(
@@ -146,7 +149,7 @@ describe("Organization groups view", (): void => {
     ).toContain("Squad");
     expect(
       screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
-    ).toContain("User");
+    ).toContain(t("userModal.roles.user").toString());
 
     userEvent.click(screen.getByRole("cell", { name: "UNITTESTING" }));
 
@@ -160,6 +163,7 @@ describe("Organization groups view", (): void => {
   it("should show an error", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const mockErrors: readonly MockedResponse[] = [
       {
         request: {
@@ -184,9 +188,7 @@ describe("Organization groups view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledWith(
-        translate.t("groupAlerts.errorTextsad")
-      );
+      expect(msgError).toHaveBeenCalledWith(t("groupAlerts.errorTextsad"));
     });
 
     expect(screen.queryAllByRole("table")).toHaveLength(0);
@@ -195,6 +197,7 @@ describe("Organization groups view", (): void => {
   it("should add a new group", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const mocks: readonly MockedResponse[] = [
       {
         request: {
@@ -341,20 +344,20 @@ describe("Organization groups view", (): void => {
 
     userEvent.click(
       screen.getByText(
-        translate.t("organization.tabs.groups.newGroup.new.text")
+        t("organization.tabs.groups.newGroup.new.text").toString()
       )
     );
 
     await waitFor((): void => {
       expect(
         screen.getByText(
-          translate.t("organization.tabs.groups.newGroup.new.group")
+          t("organization.tabs.groups.newGroup.new.group").toString()
         )
       ).toBeInTheDocument();
     });
 
     expect(
-      screen.getByText(translate.t("confirmmodal.proceed"))
+      screen.getByText(t("confirmmodal.proceed").toString())
     ).toBeDisabled();
 
     userEvent.type(
@@ -370,19 +373,19 @@ describe("Organization groups view", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
+        screen.getByText(t("confirmmodal.proceed").toString())
       ).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
 
     await waitFor((): void => {
       expect(screen.getAllByRole("row")).toHaveLength(4);
     });
 
     expect(msgSuccess).toHaveBeenCalledWith(
-      translate.t("organization.tabs.groups.newGroup.success"),
-      translate.t("organization.tabs.groups.newGroup.titleSuccess")
+      t("organization.tabs.groups.newGroup.success"),
+      t("organization.tabs.groups.newGroup.titleSuccess")
     );
   });
 });

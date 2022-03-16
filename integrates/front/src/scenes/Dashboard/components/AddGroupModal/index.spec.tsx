@@ -3,6 +3,7 @@ import type { MockedResponse } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GROUPS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
@@ -27,6 +28,7 @@ describe("AddGroupModal component", (): void => {
   it("should render add group modal", (): void => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <AddGroupModal
@@ -40,7 +42,7 @@ describe("AddGroupModal component", (): void => {
     const cancelButton: ReactWrapper = wrapper
       .find("button")
       .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Cancel")
+        element.contains(t("confirmmodal.cancel").toString())
       );
     cancelButton.simulate("click");
 
@@ -51,6 +53,7 @@ describe("AddGroupModal component", (): void => {
   it("should render form fields", (): void => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <AddGroupModal
@@ -85,7 +88,7 @@ describe("AddGroupModal component", (): void => {
 
     const submitButton: ReactWrapper = wrapper
       .findWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed")
+        element.contains(t("confirmmodal.proceed").toString())
       )
       .at(0);
 
