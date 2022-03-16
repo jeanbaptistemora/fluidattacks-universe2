@@ -26,11 +26,8 @@ from lib_apk.analyze import (
 from lib_http.analyze import (
     analyze as analyze_http,
 )
-from lib_path.analyze import (
-    analyze as analyze_paths,
-)
-from lib_root.analyze import (
-    analyze as analyze_root,
+from lib_sast.analyze import (
+    analyze as analyze_sast,
 )
 from lib_ssl.analyze import (
     analyze as analyze_ssl,
@@ -83,10 +80,7 @@ async def execute_skims() -> Dict[core_model.FindingEnum, EphemeralStore]:
     if CTX.config.http.include:
         await analyze_http(stores=stores)
     if CTX.config.path.include:
-        if CTX.config.path.lib_path:
-            analyze_paths(stores=stores)
-        if CTX.config.path.lib_root:
-            analyze_root(stores=stores)
+        analyze_sast(stores=stores)
     if CTX.config.ssl.include:
         await analyze_ssl(stores=stores)
 
