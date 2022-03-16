@@ -6,7 +6,6 @@ from custom_exceptions import (
     RequestedInvitationTooSoon,
 )
 from custom_types import (
-    Group as GroupType,
     GroupAccess as GroupAccessType,
 )
 from datetime import (
@@ -36,7 +35,6 @@ from newutils.datetime import (
 from typing import (
     Any,
     cast,
-    Dict,
     List,
     Set,
     Tuple,
@@ -51,7 +49,7 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
 
 async def get_access_by_url_token(url_token: str) -> GroupAccessType:
     access: List[
-        Dict[str, GroupType]
+        GroupAccessType
     ] = await group_access_dal.get_access_by_url_token(url_token)
     return cast(GroupAccessType, access[0]) if access else {}
 
@@ -85,9 +83,9 @@ async def get_managers(group_name: str) -> List[str]:
 
 
 async def get_user_access(user_email: str, group_name: str) -> GroupAccessType:
-    access: List[
-        Dict[str, GroupType]
-    ] = await group_access_dal.get_user_access(user_email, group_name)
+    access: List[GroupAccessType] = await group_access_dal.get_user_access(
+        user_email, group_name
+    )
     return cast(GroupAccessType, access[0]) if access else {}
 
 
