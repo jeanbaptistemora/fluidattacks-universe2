@@ -56,10 +56,10 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["Open Findings"] + [group.value for group in data],
+                ["Open Vulnerabilities"] + [group.value for group in data],
             ],
             colors={
-                "Open Findings": RISK.neutral,
+                "Open Vulnerabilities": RISK.neutral,
             },
             labels=None,
             type="bar",
