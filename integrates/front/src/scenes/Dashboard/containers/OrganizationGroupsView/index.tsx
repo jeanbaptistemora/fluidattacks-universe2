@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -24,7 +25,6 @@ import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
   groupName: string;
@@ -37,6 +37,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const { organizationName } = useParams<{ organizationName: string }>();
   const { url } = useRouteMatch();
   const { push } = useHistory();
+  const { t } = useTranslation();
 
   // State management
   const [isGroupModalOpen, setGroupModalOpen] = useState(false);
@@ -56,7 +57,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred loading organization groups",
             error
@@ -132,20 +133,20 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "name",
-      header: translate.t("organization.tabs.groups.newGroup.name"),
+      header: t("organization.tabs.groups.newGroup.name"),
     },
     {
       dataField: "description",
-      header: translate.t("organization.tabs.groups.newGroup.description.text"),
+      header: t("organization.tabs.groups.newGroup.description.text"),
     },
-    { dataField: "plan", header: translate.t("organization.tabs.groups.plan") },
+    { dataField: "plan", header: t("organization.tabs.groups.plan") },
     {
       dataField: "userRole",
       formatter: (value: string): string =>
-        translate.t(`userModal.roles.${_.camelCase(value)}`, {
+        t(`userModal.roles.${_.camelCase(value)}`, {
           defaultValue: "-",
         }),
-      header: translate.t("organization.tabs.groups.role"),
+      header: t("organization.tabs.groups.role"),
     },
   ];
 
@@ -221,7 +222,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     {
       defaultValue: filterOrganizationGroupsTable.plan,
       onChangeSelect: onPlanChange,
-      placeholder: translate.t("organization.tabs.groups.plan"),
+      placeholder: t("organization.tabs.groups.plan"),
       selectOptions: {
         Machine: "Machine",
         Oneshot: "Oneshot",
@@ -270,7 +271,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                             id={
                               "organization.tabs.groups.newGroup.new.tooltip.btn"
                             }
-                            message={translate.t(
+                            message={t(
                               "organization.tabs.groups.newGroup.new.tooltip"
                             )}
                           >
@@ -281,9 +282,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                             >
                               <FontAwesomeIcon icon={faPlus} />
                               &nbsp;
-                              {translate.t(
-                                "organization.tabs.groups.newGroup.new.text"
-                              )}
+                              {t("organization.tabs.groups.newGroup.new.text")}
                             </Button>
                           </TooltipWrapper>
                         </ButtonToolbar>

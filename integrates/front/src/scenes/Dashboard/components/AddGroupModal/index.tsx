@@ -34,7 +34,6 @@ import {
 } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   alphaNumeric,
   composeValidators,
@@ -77,8 +76,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     if (result.addGroup.success) {
       onClose();
       msgSuccess(
-        translate.t("organization.tabs.groups.newGroup.success"),
-        translate.t("organization.tabs.groups.newGroup.titleSuccess")
+        t("organization.tabs.groups.newGroup.success"),
+        t("organization.tabs.groups.newGroup.titleSuccess")
       );
     }
   };
@@ -134,7 +133,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       <Modal
         onClose={onClose}
         open={true}
-        title={translate.t("organization.tabs.groups.newGroup.new.group")}
+        title={t("organization.tabs.groups.newGroup.new.group")}
       >
         <Formik
           enableReinitialize={true}
@@ -170,7 +169,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                   <Col100>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t(
+                        {t(
                           "organization.tabs.groups.newGroup.organization.text"
                         )}
                       </ControlLabel>
@@ -178,7 +177,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         id={
                           "organization.tabs.groups.newGroup.organization.tooltip"
                         }
-                        message={translate.t(
+                        message={t(
                           "organization.tabs.groups.newGroup.organization.tooltip"
                         )}
                         placement={"top"}
@@ -200,7 +199,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t("organization.tabs.groups.newGroup.name")}
+                        {t("organization.tabs.groups.newGroup.name")}
                       </ControlLabel>
                       <Field
                         component={FormikText}
@@ -217,7 +216,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t(
+                        {t(
                           "organization.tabs.groups.newGroup.description.text"
                         )}
                       </ControlLabel>
@@ -225,7 +224,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         id={
                           "organization.tabs.groups.newGroup.description.tooltip"
                         }
-                        message={translate.t(
+                        message={t(
                           "organization.tabs.groups.newGroup.description.tooltip"
                         )}
                         placement={"top"}
@@ -247,13 +246,11 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t(
-                          "organization.tabs.groups.newGroup.type.title"
-                        )}
+                        {t("organization.tabs.groups.newGroup.type.title")}
                       </ControlLabel>
                       <TooltipWrapper
                         id={"organization.tabs.groups.newGroup.type.tooltip"}
-                        message={translate.t(
+                        message={t(
                           "organization.tabs.groups.newGroup.type.tooltip"
                         )}
                         placement={"top"}
@@ -261,12 +258,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         <FormGroup>
                           <Field component={FormikDropdown} name={"type"}>
                             <option value={"CONTINUOUS"}>
-                              {translate.t(
+                              {t(
                                 "organization.tabs.groups.newGroup.type.continuous"
                               )}
                             </option>
                             <option value={"ONESHOT"}>
-                              {translate.t(
+                              {t(
                                 "organization.tabs.groups.newGroup.type.oneShot"
                               )}
                             </option>
@@ -276,15 +273,13 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t(
-                          "organization.tabs.groups.newGroup.language.text"
-                        )}
+                        {t("organization.tabs.groups.newGroup.language.text")}
                       </ControlLabel>
                       <TooltipWrapper
                         id={
                           "organization.tabs.groups.newGroup.language.tooltip"
                         }
-                        message={translate.t(
+                        message={t(
                           "organization.tabs.groups.newGroup.language.tooltip"
                         )}
                         placement={"top"}
@@ -292,12 +287,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         <FormGroup>
                           <Field component={FormikDropdown} name={"language"}>
                             <option value={"EN"}>
-                              {translate.t(
+                              {t(
                                 "organization.tabs.groups.newGroup.language.EN"
                               )}
                             </option>
                             <option value={"ES"}>
-                              {translate.t(
+                              {t(
                                 "organization.tabs.groups.newGroup.language.ES"
                               )}
                             </option>
@@ -325,14 +320,14 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     <Col40>
                       <TooltipWrapper
                         id={"organization.tabs.groups.newGroup.machine.tooltip"}
-                        message={translate.t(
+                        message={t(
                           "organization.tabs.groups.newGroup.machine.tooltip"
                         )}
                         placement={"top"}
                       >
                         <FormGroup>
                           <ControlLabel>
-                            {translate.t(
+                            {t(
                               "organization.tabs.groups.newGroup.machine.text"
                             )}
                             {" *"}
@@ -340,11 +335,11 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           <SwitchButton
                             checked={values.machine}
                             name={"machine"}
-                            offlabel={translate.t(
+                            offlabel={t(
                               "organization.tabs.groups.newGroup.switch.no"
                             )}
                             onChange={handleMachineBtnChange}
-                            onlabel={translate.t(
+                            onlabel={t(
                               "organization.tabs.groups.newGroup.switch.yes"
                             )}
                           />
@@ -357,26 +352,24 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                   <Col40>
                     <TooltipWrapper
                       id={"organization.tabs.groups.newGroup.squad.tooltip"}
-                      message={translate.t(
+                      message={t(
                         "organization.tabs.groups.newGroup.squad.tooltip"
                       )}
                       placement={"top"}
                     >
                       <FormGroup>
                         <ControlLabel>
-                          {translate.t(
-                            "organization.tabs.groups.newGroup.squad.text"
-                          )}
+                          {t("organization.tabs.groups.newGroup.squad.text")}
                           {" *"}
                         </ControlLabel>
                         <SwitchButton
                           checked={values.squad}
                           name={"squad"}
-                          offlabel={translate.t(
+                          offlabel={t(
                             "organization.tabs.groups.newGroup.switch.no"
                           )}
                           onChange={handleSquadBtnChange}
-                          onlabel={translate.t(
+                          onlabel={t(
                             "organization.tabs.groups.newGroup.switch.yes"
                           )}
                         />
@@ -385,9 +378,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                   </Col40>
                 </Row>
                 {" *"}
-                {translate.t(
-                  "organization.tabs.groups.newGroup.extraChargesMayApply"
-                )}
+                {t("organization.tabs.groups.newGroup.extraChargesMayApply")}
                 <div>
                   <div>
                     <ModalFooter>
@@ -396,7 +387,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         onClick={onClose}
                         variant={"secondary"}
                       >
-                        {translate.t("confirmmodal.cancel")}
+                        {t("confirmmodal.cancel")}
                       </Button>
                       <Button
                         disabled={!dirty || submitting}
@@ -404,7 +395,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         type={"submit"}
                         variant={"primary"}
                       >
-                        {translate.t("confirmmodal.proceed")}
+                        {t("confirmmodal.proceed")}
                       </Button>
                     </ModalFooter>
                   </div>
