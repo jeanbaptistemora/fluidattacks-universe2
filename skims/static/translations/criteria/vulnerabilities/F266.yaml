@@ -1,0 +1,5 @@
+lib_path.f266.container_whitout_user:
+  en: >
+    Ensure a user for the container has been created
+  es: >
+    Asegúrese de que se haya creado un usuario para el contenedor

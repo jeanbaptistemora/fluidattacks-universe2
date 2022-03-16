@@ -2638,6 +2638,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CONTAINER_WHITOUR_USER = MethodInfo(
+        file_name="docker",
+        name="container_whitout_user",
+        module="lib_path",
+        finding=FindingEnum.F266,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     K8S_SYS_ADMIN_LINUX_CAP_USED = MethodInfo(
         file_name="kubernetes",
         name="k8s_sys_admin_linux_cap_used",
