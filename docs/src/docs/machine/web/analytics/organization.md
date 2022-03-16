@@ -57,14 +57,14 @@ by group.
 
 ## Types of vulnerabilities by group​
 
-![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_finding_by_group.png)
+![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_types_vuln_by_group.png)
 
 Number of vulnerabilities
 categorized by group.
 
 ## Open types of vulnerabilities by group
 
-![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_finding_by_group.png)
+![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_open_types_vuln_by_group.png)
 
 Number of open vulnerabilities
 categorized by group.
