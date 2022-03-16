@@ -23,6 +23,7 @@ const Container = styled.div.attrs({
 const Dialog = styled.div`
   background-color: #f4f4f6;
   border: 1px solid #b0b0bf;
+  color: #2e2e38;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   margin: 10% auto;

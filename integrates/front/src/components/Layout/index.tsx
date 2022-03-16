@@ -42,7 +42,7 @@ const getWidth = (width?: Width): string => {
   return `${width}%`;
 };
 
-const Col = styled.div.attrs({ className: "pa2" })<IColProps>`
+const Col = styled.div.attrs({ className: "pr2 pv2" })<IColProps>`
   @media (max-width: 768px) {
     flex-grow: ${(props): string => getFlexGrow(props.small)};
     width: ${(props): string => getWidth(props.small)};
