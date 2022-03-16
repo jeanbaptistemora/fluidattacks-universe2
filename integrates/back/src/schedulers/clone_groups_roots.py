@@ -47,7 +47,8 @@ async def _queue_sync_git_roots(
                 group_name=group_name,
             )
         )
-        success = result.success
+        if result is not None:
+            success = result.success
     except (
         InactiveRoot,
         CredentialNotFound,
