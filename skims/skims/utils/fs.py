@@ -52,26 +52,25 @@ class FileTooLarge(Exception):
     pass
 
 
+language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
+    GraphShardMetadataLanguage.CSHARP: [".cs"],
+    GraphShardMetadataLanguage.GO: [".go"],
+    GraphShardMetadataLanguage.JAVA: [".java"],
+    GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
+    GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
+    GraphShardMetadataLanguage.PHP: [".php"],
+    GraphShardMetadataLanguage.RUBY: [".rb"],
+    GraphShardMetadataLanguage.SCALA: [".sc", ".scala"],
+    GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
+}
+
+
 def decide_language(path: str) -> GraphShardMetadataLanguage:
-    language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
-        GraphShardMetadataLanguage.CSHARP: [".cs"],
-        GraphShardMetadataLanguage.GO: [".go"],
-        GraphShardMetadataLanguage.JAVA: [".java"],
-        GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
-        GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
-        GraphShardMetadataLanguage.PHP: [".php"],
-        GraphShardMetadataLanguage.RUBY: [".rb"],
-        GraphShardMetadataLanguage.SCALA: [".sc", ".scala"],
-        GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
-    }
-    language = GraphShardMetadataLanguage.NOT_SUPPORTED
-
-    for lang, extensions in language_extensions_map.items():
-        if any(path.endswith(ext) for ext in extensions):
-            language = lang
-            break
-
-    return language
+    for language, extensions in language_extensions_map.items():
+        for extension in extensions:
+            if path.endswith(extension):
+                return language
+    return GraphShardMetadataLanguage.NOT_SUPPORTED
 
 
 def generate_file_content(
@@ -337,53 +336,42 @@ def resolve_paths(
     exclude: Tuple[str, ...],
     include: Tuple[str, ...],
 ) -> Paths:
-    def normpath(path: str) -> str:
-        return os.path.normpath(path)
-
-    def evaluate(path: str) -> Iterable[str]:
+    def evaluate_glob(path: str) -> Iterable[str]:
         if path.startswith("glob(") and path.endswith(")"):
             yield from glob(path[5:-1], recursive=True)
         else:
             yield path
 
+    def evaluate(wkr: ThreadPoolExecutor, paths: Tuple[str, ...]) -> Set[str]:
+        return {
+            os.path.normpath(path)
+            for path in collapse(
+                wkr.map(
+                    recurse,
+                    chain.from_iterable(map(evaluate_glob, paths)),
+                ),
+                base_type=str,
+            )
+        }
+
     try:
         with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
-            unique_paths: Set[str] = {
-                normpath(x)
-                for x in collapse(
-                    worker.map(
-                        recurse,
-                        chain.from_iterable((evaluate(y) for y in include)),
-                    ),
-                    base_type=str,
-                )
-            } - {
-                normpath(x)
-                for x in collapse(
-                    worker.map(
-                        recurse,
-                        chain.from_iterable(map(evaluate, exclude)),
-                    ),
-                    base_type=str,
-                )
-            }
+            all_paths = evaluate(worker, include) - evaluate(worker, exclude)
 
-        # Exclude non-upgradable paths
-        unique_nu_paths: Set[str] = get_non_upgradable_paths(unique_paths)
-        unique_paths.symmetric_difference_update(unique_nu_paths)
+        nu_paths: Set[str] = get_non_upgradable_paths(all_paths)
+        interm_paths: Set[str] = all_paths - nu_paths
+        nv_paths: Set[str] = get_non_verifiable_paths(interm_paths)
+        ok_paths: Set[str] = interm_paths - nv_paths
 
-        # Exclude non-verifiable paths
-        unique_nv_paths: Set[str] = get_non_verifiable_paths(unique_paths)
-        unique_paths.symmetric_difference_update(unique_nv_paths)
     except FileNotFoundError as exc:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
     else:
-        log_blocking("info", "Files to be tested: %s", len(unique_paths))
+        log_blocking("info", "Files to be tested: %s", len(ok_paths))
 
     return Paths(
-        ok_paths=tuple(unique_paths),
-        nu_paths=tuple(unique_nu_paths),
-        nv_paths=tuple(unique_nv_paths),
+        ok_paths=tuple(ok_paths),
+        nu_paths=tuple(nu_paths),
+        nv_paths=tuple(nv_paths),
     )
 
 
