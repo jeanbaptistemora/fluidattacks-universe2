@@ -10,7 +10,7 @@ function main {
     --cov-report 'html:build/coverage/html'
     --cov-report 'xml:coverage.xml'
     --cov-report 'annotate:build/coverage/annotate'
-    --cov=myproj
+    --cov myproj
     --disable-warnings
     --exitfirst
     --no-cov-on-fail

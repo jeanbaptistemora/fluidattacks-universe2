@@ -9,7 +9,7 @@ function main {
     --cov 'back'
     --cov 'backend'
     --cov-report 'term'
-    --cov=myproj
+    --cov myproj
     --disable-warnings
     --exitfirst
     --no-cov-on-fail

@@ -25,6 +25,8 @@ function main {
       pytest "${args_pytest[@]}" \
       --disable-pytest-warnings \
       --exitfirst \
+      --cov . \
+      --cov-report 'term' \
       --reruns 10 \
       --test-group "${CI_NODE_INDEX:-1}" \
       --test-group-count "${CI_NODE_TOTAL:-1}" \
