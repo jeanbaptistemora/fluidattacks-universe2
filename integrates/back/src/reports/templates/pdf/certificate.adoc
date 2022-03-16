@@ -1,0 +1,37 @@
+= {{full_group}}
+:lang:		{{lang}}
+:author:	{{team}}
+:email:		{{team_mail}}
+:date: 	    {{report_date}}
+:language:	python
+:revnumber:	{{version}}
+:revdate:	{{revdate}}
+:revmark:	Versión inicial
+
+== Certificación de servicio de pruebas
+
+Fluidsignal Group S.A. identificada con *NIT 8110285148* certifica que
+mantiene en la actualidad relaciones comerciales con la empresa {{business}}
+identificada con *NIT {{nit}}*.
+
+Desde el {{start_date}}se han desarrollado pruebas de seguridad en modalidad
+Hacking Continuo sobre la solución {{solution}}.
+
+Ver anexo *Hacking_Continuo_Fluidattacks* para encontrar toda la información
+del proceso y tipo de pruebas.
+
+El resultado actual de las pruebas realizadas es el siguiente:
+
+//Table goes here
+
+Las vulnerabilidades encontradas son notificadas a {{client}} quien
+continuamente ejecuta las acciones correctivas para darles solución y
+*Fluid Attacks* realiza la verificación de estas correcciones para garantizar
+la calidad de la solución.
+
+La presente certificación se expide por solicitud del cliente a los
+{{report_date}}.
+
+// Signature and logo here
+Representante legal
+Fluidsignal Group S.A.
