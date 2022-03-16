@@ -55,25 +55,25 @@ temporarily accepted and permanently
 accepted vulnerabilities categorized
 by group.
 
-## Findings by group​
+## Types of vulnerabilities by group​
 
-![Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_finding_by_group.png)
+![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_finding_by_group.png)
 
-Number of findings
+Number of vulnerabilities
 categorized by group.
 
-## Open findings by group
+## Open types of vulnerabilities by group
 
-![Open Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_finding_by_group.png)
+![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_finding_by_group.png)
 
-Number of open findings
+Number of open vulnerabilities
 categorized by group.
 
-## Top oldest findings
+## Top oldest types of vulnerabilities
 
-![Oldest Findings](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_top_oldest_finding.png)
+![Top Oldest Types of Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_top_oldest_finding.png)
 
-These graph shows the findings
+These graph shows the vulnerabilities
 that have been open for the
 highest amount of days.
 
@@ -91,13 +91,13 @@ The above chart shows you how
 many of these are in each of
 your groups.
 
-## Treatmentless by group
+## Undefined treatment by group
 
-![Treatmentless By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)
+![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)
 
 The percentage of treatmentless
 vulnerabilities that each group
-has compared with the whole portfolio.
+has compared with the whole organization.
 
 ## Vulnerabilities by group
 
@@ -105,7 +105,7 @@ has compared with the whole portfolio.
 
 The percentage of vulnerabilities
 that each group has compared with
-the whole portfolio.
+the whole organization.
 
 ## Open vulnerabilities by group
 
@@ -113,4 +113,4 @@ the whole portfolio.
 
 The percentage of open vulnerabilities
 that each group has compared with
-the whole portfolio.
+the whole organization.

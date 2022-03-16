@@ -34,18 +34,18 @@ numbers compare to those of the
 best, the average and the worst
 portfolios.
 
-## Findings by group
+## Types of Vulnerabilities by Group
 
-![Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/findings_by_group_f4a10c.png)
+![Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/findings_by_group_f4a10c.png)
 
-Number of findings
+Number of vulnerabilities
 categorized by group.
 
-## Open findings by group
+## Open Types of Vulnerabilities by Group
 
-![Open Findings By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/open_findings_by_group_hnmmm9.png)
+![Open Types of Vulnerabilities by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/open_findings_by_group_hnmmm9.png)
 
-Number of open findings
+Number of open vulnerabilities
 categorized by group.
 
 ## Vulnerabilities by group
@@ -64,19 +64,19 @@ The percentage of open vulnerabilities
 that each group has
 compared with the whole portfolio.
 
-## Top oldest findings
+## Top oldest types of vulnerabilities
 
-![Top Oldest Findings](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
+![Top Oldest Types of Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
 
 These graph shows
-the findings
+the vulnerabilities
 that have been open
 for the highest
 amount of days.
 
-## Treatmentless by group
+## Undefined treatment by group
 
-![Treatmentless By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/treatmentless_by_group_neyank.png)
+![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/treatmentless_by_group_neyank.png)
 
 The percentage of treatmentless vulnerabilities
 that each group has

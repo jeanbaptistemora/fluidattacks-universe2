@@ -277,9 +277,9 @@ to their assigned treatment:
 
 ![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
 
-## Vulnerabilities by treatments
+## Vulnerabilities by number of treatment changes
 
-![Vulner Numb Of Changes](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932187/docs/web/analytics/common/common_vulner_nchanges_treatm.png)
+![Vulnerabilities by Number of Treatment Changes](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932187/docs/web/analytics/common/common_vulner_nchanges_treatm.png)
 
 This section shows your vulnerabilities
 categorized by the number of times they
