@@ -155,11 +155,11 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             <Link onClick={toggleDropdown} to={"/user/config"}>
               <TooltipWrapper
                 id={"globalConfig"}
-                message={t("navbar.config.tooltip")}
+                message={t("navbar.notification.tooltip")}
               >
                 <DropdownButton>
                   <FontAwesomeIcon icon={faUserCog} />
-                  &nbsp;{t("navbar.config.text")}
+                  &nbsp;{t("navbar.notification.text")}
                 </DropdownButton>
               </TooltipWrapper>
             </Link>

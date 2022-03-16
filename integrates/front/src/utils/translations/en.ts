@@ -1182,6 +1182,10 @@ export const enTranslations: ResourceKey = {
     },
     mobile: "Mobile",
     newsTooltip: "Latest updates about ASM",
+    notification: {
+      text: "Notifications",
+      tooltip: "Some settings to the notifications here",
+    },
     role: "Role:",
     searchPlaceholder: "Search group",
     task: {
