@@ -5,13 +5,17 @@ from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
 )
+from typing import (
+    Any,
+    Dict,
+)
 from utils import (
     graph as g,
 )
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    match = g.match_ast_group(
+    match: Dict[str, Any] = g.match_ast_group(
         args.graph,
         args.n_id,
         "__0__",

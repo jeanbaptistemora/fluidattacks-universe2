@@ -43,7 +43,7 @@ def get_composite_name(graph: Graph, n_id: NId) -> str:
             "this_expression",
         )
         composite_name = _join_name(
-            graph, composite_name, match["navigation_suffix"]
+            graph, composite_name, str(match["navigation_suffix"])
         )
         if this_expr := match["this_expression"]:
             composite_name = _join_name(graph, composite_name, this_expr)

@@ -8,6 +8,10 @@ from model.graph_model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
+from typing import (
+    List,
+    Union,
+)
 from utils import (
     graph as g,
 )
@@ -18,7 +22,9 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     switch_condition_id = node_attrs["label_field_condition"]
     switch_groups = g.adj_ast(args.graph, node_attrs["label_field_body"])[1:-1]
 
-    label_syntax = []
+    label_syntax: List[
+        Union[SyntaxStepSwitchLabelDefault, SyntaxStepSwitchLabelCase]
+    ] = []
     for switch_group in switch_groups:
         switch_label_id = g.adj_ast(args.graph, switch_group)[0]
         case_statements = g.adj_ast(args.graph, switch_label_id)
