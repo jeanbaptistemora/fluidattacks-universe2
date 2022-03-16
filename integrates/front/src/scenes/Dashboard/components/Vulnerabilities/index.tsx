@@ -276,6 +276,11 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       header: t("searchFindings.tabVuln.vulnTable.treatment"),
       onSort: onSortVulns,
     },
+    {
+      dataField: "tag",
+      header: t("searchFindings.tabVuln.vulnTable.tags"),
+      onSort: onSortVulns,
+    },
   ];
   const deleteHeader: IHeaderConfig[] = [
     {

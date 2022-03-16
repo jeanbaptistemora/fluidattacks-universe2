@@ -2721,6 +2721,7 @@ export const enTranslations: ResourceKey = {
           infra: "Port",
         },
         status: "Status: ",
+        tags: "Tags",
         treatment: "Treatment",
         treatmentChanges: "Changes",
         treatmentDate: "Date",
