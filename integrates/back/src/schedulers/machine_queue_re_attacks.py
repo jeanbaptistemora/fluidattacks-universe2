@@ -1,4 +1,5 @@
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.enums import (
@@ -9,9 +10,6 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from groups.domain import (
     get_active_groups,
@@ -24,6 +22,8 @@ from schedulers.common import (
     info,
 )
 from typing import (
+    List,
+    Set,
     Tuple,
 )
 from vulnerabilities.domain.utils import (
@@ -32,22 +32,21 @@ from vulnerabilities.domain.utils import (
 
 
 async def main() -> None:
-    groups = await get_active_groups()
-    dataloaders = get_new_context()
+    dataloaders: Dataloaders = get_new_context()
 
-    for group in sorted(groups):
-        findings: Tuple[Finding, ...] = await dataloaders.group_findings.load(
-            group
+    groups: List[str] = await get_active_groups()
+    groups_findings: Tuple[
+        Tuple[Finding, ...], ...
+    ] = await dataloaders.group_findings.load_many(groups)
+
+    for group, findings in zip(groups, groups_findings):
+        info(f"Processing group {group}...")
+        findings_vulns = await dataloaders.finding_vulnerabilities.load_many(
+            [finding.id for finding in findings]
         )
-        for finding in findings:
-            finding_id: str = finding.id
-            finding_title: str = finding.title
-
-            info(f"{group}-{finding_id}")
-
-            vulns: Tuple[
-                Vulnerability, ...
-            ] = await dataloaders.finding_vulnerabilities.load(finding_id)
+        findings_to_reattack: Set[str] = set()
+        roots_to_reattack: Set[str] = set()
+        for finding, vulns in zip(findings, findings_vulns):
             vulns_to_reattack = tuple(
                 vuln
                 for vuln in vulns
@@ -57,16 +56,29 @@ async def main() -> None:
                 == VulnerabilityVerificationStatus.REQUESTED
             )
 
-            finding_code = get_finding_code_from_title(finding_title)
-            if vulns_to_reattack and finding_code is not None:
-                await queue_job_new(
-                    finding_codes=[finding_code],
-                    group_name=group,
-                    roots=list(
-                        await get_root_nicknames_for_skims(
-                            dataloaders=dataloaders,
-                            group=group,
-                            vulnerabilities=vulns_to_reattack,
-                        )
-                    ),
+            if vulns_to_reattack:
+                findings_to_reattack.add(finding.title)
+                roots_to_reattack.update(
+                    await get_root_nicknames_for_skims(
+                        dataloaders=dataloaders,
+                        group=group,
+                        vulnerabilities=vulns_to_reattack,
+                    )
                 )
+
+        finding_codes: Tuple[str, ...] = tuple(
+            filter(
+                None,
+                [
+                    get_finding_code_from_title(title)
+                    for title in findings_to_reattack
+                ],
+            )
+        )
+        if finding_codes:
+            info("\t" + f"Queueing reattacks for group {group}...")
+            await queue_job_new(
+                finding_codes=finding_codes,
+                group_name=group,
+                roots=list(roots_to_reattack),
+            )
