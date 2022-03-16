@@ -185,7 +185,9 @@ async def list_(  # pylint: disable=too-many-locals
         ]
         job_items.append(
             Job(
-                created_at=int(job_execution.created_at),
+                created_at=int(
+                    date_parse(job_execution.created_at).timestamp() * 1000
+                ),
                 exit_code=0,
                 exit_reason="",
                 id=job_execution.job_id,
