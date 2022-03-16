@@ -5289,3 +5289,15 @@
       title: Compliance Report
       link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
   metadata: {}
+"osstmm3":
+  title: OSSTMM3
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "7_15_2":
+      title: Transport support
+      link: https://www.isecom.org/OSSTMM.3.pdf
+  metadata: {}
