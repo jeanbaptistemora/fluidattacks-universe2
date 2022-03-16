@@ -111,6 +111,16 @@
     ["verify_vulnerabilities_request"]
     ["vulnerability"]
   ];
+  gitlabJobDependencies = 40;
+  functionalCoverageCombine = (
+    builtins.genList
+    (x: [(builtins.toString (x + 1))])
+    ((
+        builtins.floor
+        ((builtins.length functionalTests) / gitlabJobDependencies)
+      )
+      + 1)
+  );
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
   gitlabBranchMaster = gitlabCi.rules.branch "master";
   gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|integrates)";
@@ -159,6 +169,11 @@
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyMaster;
     stage = "deploy-infra";
+    tags = ["autoscaling"];
+  };
+  gitlabExternal = {
+    rules = gitlabOnlyDev;
+    stage = "external";
     tags = ["autoscaling"];
   };
   gitlabLint = {
@@ -211,7 +226,15 @@ in {
               // {
                 rules = [
                   (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined (builtins.replaceStrings [".py"] [""] "integrates_migration_${name}"))
+                  (
+                    gitlabCi.rules.varIsDefined
+                    (
+                      builtins.replaceStrings
+                      [".py"]
+                      [""]
+                      "integrates_migration_${name}"
+                    )
+                  )
                   (gitlabCi.rules.always)
                 ];
                 tags = ["autoscaling"];
@@ -412,7 +435,10 @@ in {
                 parallel = 22;
                 rules = [
                   (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "integrates_charts_make_documents_prod_schedule")
+                  (
+                    gitlabCi.rules.varIsDefined
+                    "integrates_charts_make_documents_prod_schedule"
+                  )
                   (gitlabCi.rules.always)
                 ];
               };
@@ -434,29 +460,72 @@ in {
           }
           {
             output = "/integrates/coverage";
-            gitlabExtra = {
-              artifacts = {
-                paths = ["integrates/build"];
-                expire_in = "1 day";
-                when = "on_success";
+            gitlabExtra =
+              gitlabExternal
+              // {
+                artifacts = {
+                  paths = ["integrates/build"];
+                  expire_in = "1 day";
+                  when = "on_success";
+                };
+                needs =
+                  [
+                    "/integrates/back/test/unit"
+                    "/integrates/front/test/enzyme"
+                    "/integrates/front/test/rtl"
+                    "/integrates/mobile/test"
+                  ]
+                  ++ (
+                    builtins.map
+                    (test: "/integrates/coverage/combine__${
+                      builtins.elemAt
+                      test
+                      0
+                    }")
+                    functionalCoverageCombine
+                  );
               };
-              needs =
-                [
-                  "/integrates/back/test/unit"
-                  "/integrates/front/test/enzyme"
-                  "/integrates/front/test/rtl"
-                  "/integrates/mobile/test"
-                ]
-                ++ (
-                  builtins.map
-                  (test: "/integrates/back/test/functional__${builtins.elemAt test 0}")
-                  (lib.lists.sublist 0 40 functionalTests)
-                );
-              rules = gitlabOnlyDev;
-              stage = "external";
-              tags = ["autoscaling"];
-            };
           }
+        ]
+        ++ (builtins.map
+          (args: {
+            inherit args;
+            output = "/integrates/coverage/combine";
+            gitlabExtra =
+              gitlabExternal
+              // {
+                artifacts = {
+                  paths = ["integrates/.coverage*"];
+                  expire_in = "1 day";
+                  when = "on_success";
+                };
+                needs = (
+                  builtins.map
+                  (test: "/integrates/back/test/functional__${
+                    builtins.elemAt
+                    test
+                    0
+                  }")
+                  (
+                    lib.lists.sublist
+                    (
+                      (
+                        (
+                          lib.strings.toInt
+                          (builtins.elemAt args 0)
+                        )
+                        - 1
+                      )
+                      * gitlabJobDependencies
+                    )
+                    gitlabJobDependencies
+                    functionalTests
+                  )
+                );
+              };
+          })
+          functionalCoverageCombine)
+        ++ [
           {
             output = "/integrates/front/deploy/dev";
             gitlabExtra = gitlabDeployAppDev;
@@ -605,7 +674,10 @@ in {
               // {
                 rules = [
                   (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "integrates_subscriptions_analytics_${frequency}_prod_schedule")
+                  (
+                    gitlabCi.rules.varIsDefined
+                    "integrates_subscriptions_analytics_${frequency}_prod_schedule"
+                  )
                   (gitlabCi.rules.always)
                 ];
                 tags = ["autoscaling-large"];

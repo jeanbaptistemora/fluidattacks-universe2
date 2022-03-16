@@ -3053,6 +3053,36 @@
     - /integrates/front/test/enzyme
     - /integrates/front/test/rtl
     - /integrates/mobile/test
+    - /integrates/coverage/combine__1
+    - /integrates/coverage/combine__2
+    - /integrates/coverage/combine__3
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/coverage
+  stage: external
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/coverage/combine__1:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: true
+  needs:
     - /integrates/back/test/functional__accept_legal
     - /integrates/back/test/functional__acknowledge_concurrent_session
     - /integrates/back/test/functional__activate_root
@@ -3104,7 +3134,118 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/coverage
+    - m . /integrates/coverage/combine '1'
+  stage: external
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/coverage/combine__2:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: true
+  needs:
+    - /integrates/back/test/functional__reject_draft
+    - /integrates/back/test/functional__reject_vulnerabilities_zero_risk
+    - /integrates/back/test/functional__remove_event_evidence
+    - /integrates/back/test/functional__remove_evidence
+    - /integrates/back/test/functional__remove_files
+    - /integrates/back/test/functional__remove_finding
+    - /integrates/back/test/functional__remove_group
+    - /integrates/back/test/functional__remove_group_tag
+    - /integrates/back/test/functional__remove_stakeholder
+    - /integrates/back/test/functional__remove_stakeholder_access
+    - /integrates/back/test/functional__remove_stakeholder_organization_access
+    - /integrates/back/test/functional__remove_tags
+    - /integrates/back/test/functional__remove_vulnerability
+    - /integrates/back/test/functional__report
+    - /integrates/back/test/functional__request_vulnerabilities_hold
+    - /integrates/back/test/functional__request_vulnerabilities_verification
+    - /integrates/back/test/functional__request_vulnerabilities_zero_risk
+    - /integrates/back/test/functional__requeue_actions
+    - /integrates/back/test/functional__reset_expired_accepted_findings
+    - /integrates/back/test/functional__resources
+    - /integrates/back/test/functional__sign_in
+    - /integrates/back/test/functional__solve_event
+    - /integrates/back/test/functional__stakeholder
+    - /integrates/back/test/functional__submit_draft
+    - /integrates/back/test/functional__submit_organization_finding_policy
+    - /integrates/back/test/functional__subscribe_to_entity_report
+    - /integrates/back/test/functional__sync_git_root
+    - /integrates/back/test/functional__toe_inputs
+    - /integrates/back/test/functional__toe_lines
+    - /integrates/back/test/functional__unsubscribe_from_group
+    - /integrates/back/test/functional__update_access_token
+    - /integrates/back/test/functional__update_event_evidence
+    - /integrates/back/test/functional__update_evidence_description
+    - /integrates/back/test/functional__update_evidence
+    - /integrates/back/test/functional__update_finding_description
+    - /integrates/back/test/functional__update_forces_access_token
+    - /integrates/back/test/functional__update_git_root
+    - /integrates/back/test/functional__update_group
+    - /integrates/back/test/functional__update_group_access_info
+    - /integrates/back/test/functional__update_group_disambiguation
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/coverage/combine '2'
+  stage: external
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/coverage/combine__3:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: true
+  needs:
+    - /integrates/back/test/functional__update_group_info
+    - /integrates/back/test/functional__update_group_stakeholder
+    - /integrates/back/test/functional__update_organization_policies
+    - /integrates/back/test/functional__update_organization_stakeholder
+    - /integrates/back/test/functional__update_severity
+    - /integrates/back/test/functional__update_stakeholder_phone
+    - /integrates/back/test/functional__update_toe_input
+    - /integrates/back/test/functional__update_toe_lines_attacked_lines
+    - /integrates/back/test/functional__update_toe_lines_sorts
+    - /integrates/back/test/functional__update_vulnerabilities_treatment
+    - /integrates/back/test/functional__update_vulnerability_commit
+    - /integrates/back/test/functional__update_vulnerability_treatment
+    - /integrates/back/test/functional__upload_file
+    - /integrates/back/test/functional__validate_git_access
+    - /integrates/back/test/functional__verify_stakeholder
+    - /integrates/back/test/functional__verify_vulnerabilities_request
+    - /integrates/back/test/functional__vulnerability
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/coverage/combine '3'
   stage: external
   tags:
     - autoscaling
