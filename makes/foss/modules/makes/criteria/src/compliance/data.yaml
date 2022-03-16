@@ -5357,4 +5357,64 @@
     "10_5_2":
       title: Telecommunications security (Access verification) - Services
       link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_5_3":
+      title: Telecommunications security (Access verification) - Authentication
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_7_2":
+      title: Telecommunications security (Controls verification) - Confidentiality
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_7_3":
+      title: Telecommunications security (Controls verification) - Privacy
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_7_4":
+      title: Telecommunications security (Controls verification) - Integrity
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_9_3":
+      title: Telecommunications security (Configurations verification) - Configuration errors
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "10_15_2":
+      title: Telecommunications security (Privileges audit) - Authorization
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_3_1":
+      title: Data networks security (Active detection verification) - Filtering
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_5_3":
+      title: Data networks security (Access verification) - Authentication
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_6_2":
+      title: Data networks security (Trust verification) - Pishing
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_7_2":
+      title: Data networks security (Controls verification) - Confidentiality
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_7_3":
+      title: Data networks security (Controls verification) - Privacy
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_7_4":
+      title: Data networks security (Controls verification) - Integrity
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_9_1":
+      title: Data networks security - Configuration controls
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_9_2":
+      title: Data networks security - Common configuration errors
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_9_3":
+      title: Data networks security - Limitations mapping
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_11_1":
+      title: Data networks security - Privacy containment mapping
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_11_2":
+      title: Data networks security (Segregation review) - Disclosure
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_13_1":
+      title: Data networks security - Business grinding
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_15_3":
+      title: Data networks security (Privileges audit) - Escalation
+      link: https://www.isecom.org/OSSTMM.3.pdf
+    "11_17_2":
+      title: Data networks security (Alert and log review) - Storage and retrieval
+      link: https://www.isecom.org/OSSTMM.3.pdf
   metadata: {}
