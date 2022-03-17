@@ -3,12 +3,16 @@
 const defaultPaddingRatio = 0.05;
 
 function render(dataDocument, height, width) {
-  function getTooltipValue(id, index, maxPercentageValues) {
+  function getTooltipPercentage(id, index, maxPercentageValues) {
     if (maxPercentageValues[id][index] === '') {
       return '';
     }
 
     return `${ parseFloat(maxPercentageValues[id][index]) } %`;
+  }
+
+  function getTooltipValue(id, index, maxValues) {
+    return maxValues[id][index];
   }
 
   if (dataDocument.percentageValues && dataDocument.maxPercentageValues) {
@@ -17,12 +21,25 @@ function render(dataDocument, height, width) {
       `${ parseFloat(percentageValues[id][index]) } %`;
 
     dataDocument.data.labels.format = {
-      Accepted: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
-      Closed: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
-      Open: (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
-      'Permanently accepted': (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
-      'Temporarily accepted': (_datum, id, index) => getTooltipValue(id, index, maxPercentageValues),
+      Accepted: (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
+      Closed: (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
+      Open: (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
+      'Permanently accepted': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
+      'Temporarily accepted': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
     };
+  }
+
+  if (dataDocument.maxValues) {
+    const { maxValues } = dataDocument;
+
+    dataDocument.data.labels.format = {
+      'Permanently accepted': (_datum, id, index) => getTooltipValue(id, index, maxValues),
+      'Temporarily accepted': (_datum, id, index) => getTooltipValue(id, index, maxValues),
+    };
+  }
+
+  if (dataDocument.stackedBarChartYTickFormat) {
+    dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
   }
 
   c3.generate({
