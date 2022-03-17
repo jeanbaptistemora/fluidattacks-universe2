@@ -1,7 +1,11 @@
-import utils_logger
-
-utils_logger.configure(
-    app_type="tap",
-    asynchronous=False,
+from utils_logger.v2 import (
+    BugsnagConf,
+    set_bugsnag,
+    set_main_log,
+    start_session,
 )
-LOG = utils_logger.main_log(__name__)
+
+__version__ = "1.0.0"
+set_bugsnag(BugsnagConf("service", __version__, __file__, False))
+start_session()
+LOG = set_main_log(__name__)

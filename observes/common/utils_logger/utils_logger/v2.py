@@ -83,3 +83,7 @@ def set_main_log(
         logger.addHandler(bug_handler)
     logger.info("%s@%s", name, ENV.value)
     return logger
+
+
+def start_session() -> None:
+    bugsnag.start_session()  # type: ignore[no-untyped-call]
