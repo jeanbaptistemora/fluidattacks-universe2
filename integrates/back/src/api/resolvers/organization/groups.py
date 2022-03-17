@@ -14,8 +14,8 @@ from groups import (
     domain as groups_domain,
 )
 from newutils import (
-    token as token_utils,
     groups as groups_utils,
+    token as token_utils,
 )
 from typing import (
     Dict,

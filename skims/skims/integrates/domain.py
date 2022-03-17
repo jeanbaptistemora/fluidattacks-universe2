@@ -163,11 +163,13 @@ async def get_closest_finding_id(
     if (
         not finding_id
         and create_if_missing
-        and (result := await do_create_draft(
-            finding=finding,
-            group=group,
-            client=client,
-        ))
+        and (
+            result := await do_create_draft(
+                finding=finding,
+                group=group,
+                client=client,
+            )
+        )
     ):
         if result.success:
             finding_created = True

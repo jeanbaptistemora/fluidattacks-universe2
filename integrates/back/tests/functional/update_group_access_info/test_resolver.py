@@ -1,12 +1,12 @@
 from . import (
     get_result,
 )
-from db_model.groups.types import (
-    Group,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    Group,
 )
 import pytest
 from typing import (

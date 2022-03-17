@@ -26,9 +26,9 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         yield graph_model.SyntaxStepLambdaExpression(
             meta=graph_model.SyntaxStepMeta.default(
                 args.n_id,
-                dependencies_from_arguments(args.fork_n_id(
-                    str(match["__1__"])
-                )),
+                dependencies_from_arguments(
+                    args.fork_n_id(str(match["__1__"]))
+                ),
             ),
         )
     else:

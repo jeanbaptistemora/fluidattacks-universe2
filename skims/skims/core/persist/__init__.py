@@ -381,9 +381,9 @@ async def persist(
 
     async with graphql_client() as client:
         initial_severity = await get_group_open_severity(group, client=client)
-        existing_findings: Tuple[ResultGetGroupFindings, ...] = (
-            await get_group_findings(group=group, client=client)
-        )
+        existing_findings: Tuple[
+            ResultGetGroupFindings, ...
+        ] = await get_group_findings(group=group, client=client)
         result = await collect(
             tuple(
                 _persist_finding(

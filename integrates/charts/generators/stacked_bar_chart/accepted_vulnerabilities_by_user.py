@@ -13,15 +13,12 @@ from charts.generators.stacked_bar_chart.utils import (
 )
 from charts.utils import (
     get_portfolios_groups,
-    json_dump,
     iterate_groups,
     iterate_organizations_and_groups,
+    json_dump,
 )
 from dataloaders import (
     get_new_context,
-)
-from decimal import (
-    Decimal,
 )
 from db_model.findings.types import (
     Finding,
@@ -33,6 +30,9 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+)
+from decimal import (
+    Decimal,
 )
 from typing import (
     Any,
@@ -89,13 +89,9 @@ def format_vulnerabilities_by_data(
         "ACCEPTED": "Temporarily accepted",
     }
     data: List[Tuple[str, int]] = Counter(
-        [
-            key.split("/")[0] for key in counters
-        ]
+        [key.split("/")[0] for key in counters]
     ).most_common(12)
-    accepted: List[int] = [
-        counters[f"{user}/ACCEPTED"] for user, _ in data
-    ]
+    accepted: List[int] = [counters[f"{user}/ACCEPTED"] for user, _ in data]
     accepted_undefined: List[int] = [
         counters[f"{user}/ACCEPTED_UNDEFINED"] for user, _ in data
     ]
@@ -112,9 +108,8 @@ def format_vulnerabilities_by_data(
     ]
     max_accepted_undefined: List[str] = [
         str(value)
-        if (
-            Decimal(value / max_acc_undefined_value) * Decimal("100.0")
-        ) >= MIN_PERCENTAGE
+        if (Decimal(value / max_acc_undefined_value) * Decimal("100.0"))
+        >= MIN_PERCENTAGE
         else ""
         for value in accepted_undefined
     ]
@@ -129,13 +124,9 @@ def format_vulnerabilities_by_data(
                 [value, *[counters[f"{user}/{key}"] for user, _ in data]]
                 for key, value in translations.items()
             ],
-            groups=[
-                list(translations.values())
-            ],
+            groups=[list(translations.values())],
             labels=dict(
-                format={
-                    "Permanently accepted": None
-                },
+                format={"Permanently accepted": None},
             ),
             order=None,
             stack=dict(

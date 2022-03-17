@@ -1,4 +1,3 @@
-from typing import Any
 from .common import (
     get_var_type,
 )
@@ -9,6 +8,9 @@ from model.graph_model import (
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
+)
+from typing import (
+    Any,
 )
 from utils import (
     graph as g,

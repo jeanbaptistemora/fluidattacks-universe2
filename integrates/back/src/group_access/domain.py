@@ -21,7 +21,6 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
-
 from group_access import (
     dal as group_access_dal,
 )
