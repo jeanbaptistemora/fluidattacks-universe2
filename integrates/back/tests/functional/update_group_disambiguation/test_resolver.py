@@ -11,7 +11,6 @@ from db_model.groups.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -32,7 +31,7 @@ async def test_update_group_info(
     assert populate
     group_name: str = "group1"
     disambiguation = f"disambiguation text modified by {email}"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         disambiguation=disambiguation,
         group=group_name,
@@ -64,7 +63,7 @@ async def test_update_group_info_clear_field(
     group: Group = await loaders.group_typed.load(group_name)
     assert group.disambiguation is not None
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         disambiguation="",
         group=group_name,
@@ -97,7 +96,7 @@ async def test_update_group_info_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         disambiguation="Disambiguation test",
         group=group_name,

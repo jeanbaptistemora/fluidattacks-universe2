@@ -1,39 +1,41 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.groups.enums import (
+    GroupLanguage,
+)
+from db_model.groups.types import (
+    Group,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_group_info")
 @pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-        ["user_manager@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
-    ],
-)
-@pytest.mark.parametrize(
-    ("description", "language"),
+    ("email", "language"),
     (
-        ("Description test", "EN"),
-        ("Description test", "ES"),
+        ("admin@gmail.com", "EN"),
+        ("user_manager@gmail.com", "ES"),
+        ("customer_manager@fluidattacks.com", "ES"),
     ),
 )
 async def test_update_group_info(
     populate: bool,
-    description: str,
     email: str,
     language: str,
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    description: str = f"Description test modified by {email}"
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         description=description,
@@ -42,6 +44,11 @@ async def test_update_group_info(
     assert "errors" not in result
     assert "success" in result["data"]["updateGroupInfo"]
     assert result["data"]["updateGroupInfo"]["success"]
+
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group_typed.load(group_name)
+    assert group.description == description
+    assert group.language == GroupLanguage[language]
 
 
 @pytest.mark.asyncio
@@ -73,7 +80,7 @@ async def test_update_group_info_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         description=description,
