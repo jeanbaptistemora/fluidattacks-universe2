@@ -30,7 +30,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
 def function_declaration_parameter(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     match = g.match_ast(args.graph, args.n_id, "identifier", "__0__")
     var_name_id = match["identifier"]
-    var_type = get_var_type(args.fork_n_id(match["__0__"]))
+    var_type = get_var_type(args.fork_n_id(str(match["__0__"])))
     yield SyntaxStepDeclaration(
         meta=SyntaxStepMeta.default(args.n_id),
         var=args.graph.nodes[var_name_id]["label_text"],

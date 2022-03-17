@@ -29,7 +29,9 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             dependencies=[
                 [
                     graph_model.SyntaxStepDeclaration(
-                        meta=graph_model.SyntaxStepMeta.default(identifier),
+                        meta=graph_model.SyntaxStepMeta.default(
+                            str(identifier)
+                        ),
                         var=args.graph.nodes[identifier]["label_text"],
                         var_type=None,
                     )

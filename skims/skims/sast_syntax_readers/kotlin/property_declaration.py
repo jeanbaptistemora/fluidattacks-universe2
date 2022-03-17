@@ -32,7 +32,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         var_name, var_type = get_var_id_type(args, var_id_parent)
         modifiers: Set = set()
         deps = (
-            [args.generic(args.fork_n_id(match["__0__"]))]
+            [args.generic(args.fork_n_id(str(match["__0__"])))]
             if match["="]
             else []
         )

@@ -50,7 +50,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
             yield SyntaxStepMethodInvocation(
                 meta=SyntaxStepMeta.default(
                     args.n_id,
-                    dependencies_from_arguments(args.fork_n_id(args_id)),
+                    dependencies_from_arguments(args.fork_n_id(str(args_id))),
                 ),
                 method=g.concatenate_label_text(
                     args.graph, (func_id, field_id), "."
@@ -63,7 +63,9 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
                     args.n_id,
                     [
                         args.generic(args.fork_n_id(call_id)),
-                        *dependencies_from_arguments(args.fork_n_id(args_id)),
+                        *dependencies_from_arguments(args.fork_n_id(
+                            str(args_id)
+                        )),
                     ],
                 ),
                 method=args.graph.nodes[field_id]["label_text"],

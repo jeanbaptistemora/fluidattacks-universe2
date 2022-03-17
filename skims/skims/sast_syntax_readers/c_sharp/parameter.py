@@ -43,11 +43,11 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
                 meta=SyntaxStepMeta.default(
                     args.n_id,
                     dependencies=[
-                        args.generic(args.fork_n_id(match["__0__"])),
+                        args.generic(args.fork_n_id(str(match["__0__"]))),
                     ],
                 ),
                 var=var,
-                var_type=var_type,
+                var_type=str(var_type),
             )
         else:
             raise MissingCaseHandling(args)

@@ -1,3 +1,4 @@
+from typing import Any
 from .common import (
     get_var_type,
 )
@@ -28,8 +29,8 @@ def get_var_type_if_present(args: SyntaxReaderArgs) -> str:
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     declaration_label = args.graph.nodes[args.n_id]["label_type"]
 
-    vars_n_id: str = ""
-    vals_n_id: str = ""
+    vars_n_id: Any = ""
+    vals_n_id: Any = ""
     if declaration_label == "short_var_declaration":
         match = g.match_ast(args.graph, args.n_id, ":=", "__0__", "__1__")
         vars_n_id = match["__0__"]
