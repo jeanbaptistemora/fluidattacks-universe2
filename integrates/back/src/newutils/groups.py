@@ -12,6 +12,7 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
     GroupFile,
+    GroupMetadataToUpdate,
     GroupState,
     GroupStateRemovalJustification,
     GroupStateUpdationJustification,
@@ -246,3 +247,14 @@ def format_group_unreliable_indicators(
         if item.get("total_treatment")
         else None,
     )
+
+
+def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
+    item = {
+        "group_context": metadata.context,
+    }
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }

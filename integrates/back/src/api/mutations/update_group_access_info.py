@@ -5,8 +5,10 @@ from custom_exceptions import (
     PermissionDenied,
 )
 from custom_types import (
-    Group as GroupType,
     SimplePayload as SimplePayloadType,
+)
+from db_model.groups.types import (
+    GroupMetadataToUpdate,
 )
 from decorators import (
     concurrent_decorators,
@@ -42,21 +44,21 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayloadType:
     group_name = group_name.lower()
-    success = False
-
     try:
         group_context = validations_utils.validate_markdown(
             kwargs.get("group_context", "")
         )
         validations_utils.validate_field_length(group_context, 20000)
-        new_data: GroupType = {
-            "group_context": group_context,
-        }
-        success = await groups_domain.update(group_name, new_data)
+        await groups_domain.update_metadata_typed(
+            group_name=group_name,
+            metadata=GroupMetadataToUpdate(
+                context=group_context,
+            ),
+        )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
             "Security: Unauthorized role attempted to update group",
         )
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

@@ -11,11 +11,8 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    Dict,
-    List,
     NamedTuple,
     Optional,
-    Set,
     Union,
 )
 
@@ -23,7 +20,7 @@ GroupStatusJustification = Union[
     GroupStateRemovalJustification,
     GroupStateUpdationJustification,
 ]
-RegisterByTime = List[List[Dict[str, Union[str, Decimal]]]]
+RegisterByTime = list[list[dict[str, Union[str, Decimal]]]]
 
 
 class GroupState(NamedTuple):
@@ -92,5 +89,9 @@ class Group(NamedTuple):
     agent_token: Optional[str] = None
     context: Optional[str] = None
     disambiguation: Optional[str] = None
-    files: Optional[List[GroupFile]] = None
-    tags: Optional[Set[str]] = None
+    files: Optional[list[GroupFile]] = None
+    tags: Optional[set[str]] = None
+
+
+class GroupMetadataToUpdate(NamedTuple):
+    context: Optional[str] = None

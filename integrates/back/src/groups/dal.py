@@ -6,14 +6,23 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import (
     ClientError,
 )
+from custom_exceptions import (
+    ErrorUpdatingGroup,
+)
 from custom_types import (
     Group as GroupType,
+)
+from db_model.groups.types import (
+    GroupMetadataToUpdate,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config
+from newutils import (
+    groups as groups_utils,
+)
 from newutils.utils import (
     duplicate_dict_keys,
     get_key_or_fallback,
@@ -229,3 +238,14 @@ async def update(group_name: str, data: GroupType) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def update_metadata_typed(
+    *,
+    group_name: str,
+    metadata: GroupMetadataToUpdate,
+) -> None:
+    group_item = groups_utils.format_group_metadata_item(metadata)
+    if group_item:
+        if not await update(group_name=group_name, data=group_item):
+            raise ErrorUpdatingGroup.new()

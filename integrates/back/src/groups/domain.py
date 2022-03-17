@@ -52,6 +52,7 @@ from db_model.findings.types import (
 )
 from db_model.groups.types import (
     Group,
+    GroupMetadataToUpdate,
 )
 from db_model.roots.types import (
     RootItem,
@@ -1476,6 +1477,16 @@ async def remove_user(
 
 async def update(group_name: str, data: GroupType) -> bool:
     return await groups_dal.update(group_name, data)
+
+
+async def update_metadata_typed(
+    *,
+    group_name: str,
+    metadata: GroupMetadataToUpdate,
+) -> None:
+    await groups_dal.update_metadata_typed(
+        group_name=group_name, metadata=metadata
+    )
 
 
 async def update_pending_deletion_date(

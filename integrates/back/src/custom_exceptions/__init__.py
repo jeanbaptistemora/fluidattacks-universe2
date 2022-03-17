@@ -24,6 +24,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class ErrorUpdatingGroup(_SingleMessageException):
+    msg: str = "Unable to update group"
+
+
 class ErrorUploadingFileS3(_SingleMessageException):
     msg: str = "Unable to upload file to S3 service"
 
