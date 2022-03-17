@@ -171,6 +171,6 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
                 is_access_granted=is_access_granted,
             )
             for email in email_to
-            if context.get("group", "").lower() not in test_group_list
+            if str(context.get("group", "")).lower() not in test_group_list
         )
     )

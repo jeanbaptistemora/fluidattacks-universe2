@@ -21,9 +21,7 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
-from decimal import (
-    Decimal,
-)
+
 from group_access import (
     dal as group_access_dal,
 )
@@ -34,7 +32,6 @@ from newutils.datetime import (
 )
 from typing import (
     Any,
-    cast,
     List,
     Set,
     Tuple,
@@ -51,7 +48,7 @@ async def get_access_by_url_token(url_token: str) -> GroupAccessType:
     access: List[
         GroupAccessType
     ] = await group_access_dal.get_access_by_url_token(url_token)
-    return cast(GroupAccessType, access[0]) if access else {}
+    return access[0] if access else {}
 
 
 async def get_reattackers(group_name: str, active: bool = True) -> List[str]:
@@ -86,7 +83,7 @@ async def get_user_access(user_email: str, group_name: str) -> GroupAccessType:
     access: List[GroupAccessType] = await group_access_dal.get_user_access(
         user_email, group_name
     )
-    return cast(GroupAccessType, access[0]) if access else {}
+    return access[0] if access else {}
 
 
 async def get_user_groups(user_email: str, active: bool) -> List[str]:
@@ -157,7 +154,7 @@ async def update_has_access(
     return await update(user_email, group_name, {"has_access": access})
 
 
-def validate_new_invitation_time_limit(inv_expiration_time: Decimal) -> bool:
+def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
     """Validates that new invitations to the same user in the same group/org
     are spaced out by at least one minute to avoid email flooding"""
     expiration_date: datetime = get_from_epoch(inv_expiration_time)

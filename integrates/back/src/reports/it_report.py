@@ -142,7 +142,7 @@ class ITReport:
                 self._get_findings_historics_verifications(findings_ids),
             )
         )
-        finding_data: Dict[str, Tuple[Finding]] = {
+        finding_data: Dict[str, Finding] = {
             finding.id: finding for finding in data
         }
         finding_verification: Dict[str, Tuple[FindingVerification]] = {
@@ -405,21 +405,28 @@ class ITReport:
 
         first_treatment = get_first_treatment(historic_treatment)
         current_treatment_exp_date: Union[str, datetime] = EMPTY
-        if vuln.treatment.accepted_until:
-            current_treatment_exp_date = datetime_utils.convert_from_iso_str(
-                vuln.treatment.accepted_until
-            )
-        current_treatment_data = {
-            "Current Treatment": format_treatment(vuln.treatment.status),
-            "Current Treatment Moment": datetime_utils.convert_from_iso_str(
-                vuln.treatment.modified_date
-            ),
-            "Current Treatment Justification": (
-                vuln.treatment.justification or EMPTY
-            ),
-            "Current Treatment expiration Moment": current_treatment_exp_date,
-            "Current Assigned": vuln.treatment.assigned or EMPTY,
-        }
+        if vuln.treatment:
+            if vuln.treatment.accepted_until:
+                current_treatment_exp_date = (
+                    datetime_utils.convert_from_iso_str(
+                        vuln.treatment.accepted_until
+                    )
+                )
+            current_treatment_data = {
+                "Current Treatment": format_treatment(vuln.treatment.status),
+                "Current Treatment Moment": (
+                    datetime_utils.convert_from_iso_str(
+                        vuln.treatment.modified_date
+                    )
+                ),
+                "Current Treatment Justification": (
+                    vuln.treatment.justification or EMPTY
+                ),
+                "Current Treatment expiration Moment": (
+                    current_treatment_exp_date
+                ),
+                "Current Assigned": vuln.treatment.assigned or EMPTY,
+            }
         first_treatment_data = {
             "First Treatment": EMPTY,
             "First Treatment Moment": EMPTY,

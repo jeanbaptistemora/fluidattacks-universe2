@@ -95,7 +95,7 @@ async def download_evidences_for_pdf(
         evidence_set = [
             {
                 "id": f'{folder_name}/{value["url"]}',
-                "explanation": value["description"].capitalize(),
+                "explanation": str(value["description"]).capitalize(),
             }
             for _, value in evidences.items()
             if (

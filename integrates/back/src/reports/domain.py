@@ -9,7 +9,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
 )
 from findings import (
     domain as findings_domain,
@@ -30,7 +30,7 @@ async def get_group_report_url(
     group_name: str,
     passphrase: str,
     user_email: str,
-    treatments: Set[VulnerabilityStateStatus],
+    treatments: Set[VulnerabilityTreatmentStatus],
 ) -> Optional[str]:
     loaders = get_new_context()
     group_findings_loader = loaders.group_findings
