@@ -15,7 +15,6 @@ from settings import (
     JWT_COOKIE_NAME,
     LOGGING,
     NEW_RELIC_CONF_FILE,
-    queue,
     TEMPLATES_DIR,
 )
 
@@ -314,20 +313,6 @@ async def logout(request: Request) -> HTMLResponse:
     return response
 
 
-async def queue_daemon() -> None:
-    queue.init_queue()
-    while True:
-        func = await queue.get_task()
-        if asyncio.iscoroutinefunction(func):
-            await func()
-        else:
-            await in_thread(func)
-
-
-def start_queue_daemon() -> None:
-    asyncio.create_task(queue_daemon())
-
-
 async def not_found(request: Request, ex: Exception) -> HTMLResponse:
     LOGGER.exception(ex, extra=dict(extra=locals()))
     return templates.error401(request)
@@ -406,7 +391,6 @@ STARLETTE_APP = Starlette(
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
         Middleware(CustomRequestMiddleware),
     ],
-    on_startup=[start_queue_daemon],
     exception_handlers=exception_handlers,
 )
 
