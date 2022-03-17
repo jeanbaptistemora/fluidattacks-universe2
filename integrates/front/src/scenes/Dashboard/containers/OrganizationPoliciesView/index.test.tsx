@@ -1,13 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import waitForExpect from "wait-for-expect";
 
 import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
 import {
@@ -69,7 +67,7 @@ describe("Organization policies view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/policies"}>
@@ -79,49 +77,28 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
-      });
+    await waitFor((): void => {
+      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
     });
 
     expect(
-      wrapper.find({ name: "maxAcceptanceDays" }).find("input").prop("value")
-    ).toBe("");
-
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" })
+    ).toHaveValue("");
     expect(
-      wrapper
-        .find({ name: "maxAcceptanceSeverity" })
-        .find("input")
-        .prop("value")
-    ).toBe("10.0");
-
+      screen.getByRole("textbox", { name: "maxAcceptanceSeverity" })
+    ).toHaveValue("10.0");
     expect(
-      wrapper.find({ name: "maxNumberAcceptances" }).find("input").prop("value")
-    ).toBe("");
-
+      screen.getByRole("textbox", { name: "maxNumberAcceptances" })
+    ).toHaveValue("");
     expect(
-      wrapper
-        .find({ name: "minAcceptanceSeverity" })
-        .find("input")
-        .prop("value")
-    ).toBe("0.0");
-
+      screen.getByRole("textbox", { name: "minAcceptanceSeverity" })
+    ).toHaveValue("0.0");
     expect(
-      wrapper.find({ name: "minBreakingSeverity" }).find("input").prop("value")
-    ).toBe("0.0");
-
+      screen.getByRole("textbox", { name: "minBreakingSeverity" })
+    ).toHaveValue("0.0");
     expect(
-      wrapper
-        .find({ name: "vulnerabilityGracePeriod" })
-        .find("input")
-        .prop("value")
-    ).toBe("1");
+      screen.getByRole("textbox", { name: "vulnerabilityGracePeriod" })
+    ).toHaveValue("1");
   });
 
   it("should render an error message", async (): Promise<void> => {
@@ -140,7 +117,7 @@ describe("Organization policies view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/policies"}>
@@ -150,16 +127,11 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledTimes(1);
-        expect(wrapper.find("table")).toHaveLength(0);
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(1);
     });
+
+    expect(screen.queryAllByRole("table")).toHaveLength(0);
   });
 
   it("should update the policies", async (): Promise<void> => {
@@ -236,7 +208,7 @@ describe("Organization policies view", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_organization_policies_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/policies"}>
@@ -248,97 +220,56 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
-      });
+    await waitFor((): void => {
+      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
     });
 
-    const maxAcceptanceDays: ReactWrapper = wrapper
-      .find({ name: "maxAcceptanceDays" })
-      .find("input");
-    const maxAcceptanceSeverity: ReactWrapper = wrapper
-      .find({ name: "maxAcceptanceSeverity" })
-      .find("input");
-    const maxNumberAcceptances: ReactWrapper = wrapper
-      .find({ name: "maxNumberAcceptances" })
-      .find("input");
-    const minAcceptanceSeverity: ReactWrapper = wrapper
-      .find({ name: "minAcceptanceSeverity" })
-      .find("input");
-    const minBreakingSeverity: ReactWrapper = wrapper
-      .find({ name: "minBreakingSeverity" })
-      .find("input");
-    const vulnerabilityGracePeriod: ReactWrapper = wrapper
-      .find({ name: "vulnerabilityGracePeriod" })
-      .find("input");
-    const saveButton1: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean => element.contains("Save"))
-      .first();
+    expect(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" })
+    ).toHaveValue("5");
+    expect(screen.queryByText("Save")).not.toBeInTheDocument();
 
-    expect(saveButton1).toHaveLength(0);
+    screen.getAllByRole("textbox").forEach((textbox: Element): void => {
+      userEvent.clear(textbox);
+    });
+    userEvent.type(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" }),
+      "2"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "maxAcceptanceSeverity" }),
+      "8.9"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "maxNumberAcceptances" }),
+      "1"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "minAcceptanceSeverity" }),
+      "0"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "minBreakingSeverity" }),
+      "4"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "vulnerabilityGracePeriod" }),
+      "2"
+    );
 
-    maxAcceptanceDays.simulate("change", {
-      target: { name: "maxAcceptanceDays", value: "2" },
-    });
-    maxAcceptanceSeverity.simulate("change", {
-      target: { name: "maxAcceptanceSeverity", value: "8.9" },
-    });
-    maxNumberAcceptances.simulate("change", {
-      target: { name: "maxNumberAcceptances", value: "1" },
-    });
-    minAcceptanceSeverity.simulate("change", {
-      target: { name: "minAcceptanceSeverity", value: "0" },
-    });
-    minBreakingSeverity.simulate("change", {
-      target: { name: "minBreakingSeverity", value: "4" },
-    });
-    vulnerabilityGracePeriod.simulate("change", {
-      target: { name: "vulnerabilityGracePeriod", value: "2" },
+    await waitFor((): void => {
+      expect(screen.queryByText("Save")).toBeInTheDocument();
     });
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
+    userEvent.click(screen.getByText("Save"));
 
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const saveButton2: ReactWrapper = wrapper
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.contains("Save")
-          )
-          .first();
-
-        expect(saveButton2).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
 
-    const form: ReactWrapper = wrapper.find({ name: "orgPolicies" });
-
-    form.simulate("submit");
-
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-        expect(
-          wrapper
-            .find({ name: "maxAcceptanceDays" })
-            .find("input")
-            .prop("value")
-        ).toBe("2");
-      });
-    });
+    expect(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" })
+    ).toHaveValue("2");
   });
 
   it("should not show save button", async (): Promise<void> => {
@@ -368,7 +299,7 @@ describe("Organization policies view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/policies"}>
@@ -378,44 +309,19 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
-      });
+    await waitFor((): void => {
+      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
     });
 
-    const maxAcceptanceDays: ReactWrapper = wrapper
-      .find({ name: "maxAcceptanceDays" })
-      .find("input");
-    const saveButton1: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean => element.contains("Save"))
-      .first();
+    expect(screen.queryByText("Save")).not.toBeInTheDocument();
 
-    expect(saveButton1).toHaveLength(0);
-
-    maxAcceptanceDays.simulate("change", { target: { value: "2" } });
-
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const saveButton2: ReactWrapper = wrapper
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.contains("Save")
-          )
-          .first();
-
-        expect(saveButton2).toHaveLength(0);
-      });
+    userEvent.clear(screen.getByRole("textbox", { name: "maxAcceptanceDays" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" }),
+      "2"
+    );
+    await waitFor((): void => {
+      expect(screen.queryByText("Save")).not.toBeInTheDocument();
     });
   });
 
@@ -599,7 +505,7 @@ describe("Organization policies view", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_organization_policies_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/policies"}>
@@ -611,111 +517,66 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(orgPolicyTableRows);
-      });
+    await waitFor((): void => {
+      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
     });
 
-    const form: ReactWrapper = wrapper.find({ name: "orgPolicies" });
-    const maxAcceptanceDays: ReactWrapper = wrapper
-      .find({ name: "maxAcceptanceDays" })
-      .find("input");
-
-    maxAcceptanceDays.simulate("change", {
-      target: { name: "maxAcceptanceDays", value: "1" },
-    });
-    form.simulate("submit");
-
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("organization.tabs.policies.errors.maxAcceptanceDays")
-        );
-      });
+    userEvent.clear(screen.getByRole("textbox", { name: "maxAcceptanceDays" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "maxAcceptanceDays" }),
+      "1"
+    );
+    await waitFor((): void => {
+      expect(screen.queryByText("Save")).toBeInTheDocument();
     });
 
-    form.simulate("submit");
+    userEvent.click(screen.getByText("Save"));
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("organization.tabs.policies.errors.acceptanceSeverity")
-        );
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("organization.tabs.policies.errors.maxAcceptanceDays")
+      );
     });
 
-    form.simulate("submit");
+    userEvent.click(screen.getByText("Save"));
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t(
-            "organization.tabs.policies.errors.acceptanceSeverityRange"
-          )
-        );
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("organization.tabs.policies.errors.acceptanceSeverity")
+      );
     });
 
-    form.simulate("submit");
-
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("organization.tabs.policies.errors.maxNumberAcceptances")
-        );
-      });
+    userEvent.click(screen.getByText("Save"));
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("organization.tabs.policies.errors.acceptanceSeverityRange")
+      );
     });
 
-    form.simulate("submit");
+    userEvent.click(screen.getByText("Save"));
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
-
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t(
-            "organization.tabs.policies.errors.invalidBreakableSeverity"
-          )
-        );
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("organization.tabs.policies.errors.maxNumberAcceptances")
+      );
     });
 
-    form.simulate("submit");
+    userEvent.click(screen.getByText("Save"));
 
-    await act(async (): Promise<void> => {
-      expect.hasAssertions();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t(
+          "organization.tabs.policies.errors.invalidBreakableSeverity"
+        )
+      );
+    });
 
-      await waitForExpect((): void => {
-        wrapper.update();
+    userEvent.click(screen.getByText("Save"));
 
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("groupAlerts.errorTextsad")
-        );
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("groupAlerts.errorTextsad")
+      );
     });
   });
 });
