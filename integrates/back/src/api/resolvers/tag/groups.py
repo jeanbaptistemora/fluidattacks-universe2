@@ -10,8 +10,8 @@ from db_model.groups.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups import (
-    domain as groups_domain,
+from newutils import (
+    groups as groups_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -30,4 +30,4 @@ async def resolve(
     groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
         tuple(group_names)
     )
-    return groups_domain.filter_active_groups_new(groups)
+    return groups_utils.filter_active_groups(groups)

@@ -12,11 +12,11 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from groups import (
-    domain as groups_domain,
-)
 import logging
 import logging.config
+from newutils import (
+    groups as groups_utils,
+)
 from organizations import (
     domain as organizations_domain,
 )
@@ -93,7 +93,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
             tuple((group, organization_name) for group in organization_groups)
         )
-        groups_filtered = groups_domain.filter_active_groups_new(groups)
+        groups_filtered = groups_utils.filter_active_groups(groups)
         group_names: List[str] = [group.name for group in groups_filtered]
         finding_name: str = finding_policy.metadata.name.lower()
         (

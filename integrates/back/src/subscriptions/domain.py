@@ -53,6 +53,7 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
+    groups as groups_utils,
     reports,
 )
 from organizations import (
@@ -285,7 +286,7 @@ async def _send_digest_report(
         user_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
             groups_names
         )
-        groups_filtered = groups_domain.filter_active_groups_new(user_groups)
+        groups_filtered = groups_utils.filter_active_groups(user_groups)
         groups_names = [
             group.name
             for group in groups_filtered
@@ -452,7 +453,7 @@ async def _get_digest_stats(
         all_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
             digest_groups_names
         )
-        groups_filtered = groups_domain.filter_active_groups_new(all_groups)
+        groups_filtered = groups_utils.filter_active_groups(all_groups)
         digest_groups_names = [
             group.name
             for group in groups_filtered

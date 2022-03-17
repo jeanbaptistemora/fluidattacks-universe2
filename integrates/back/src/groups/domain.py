@@ -50,9 +50,6 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.groups.enums import (
-    GroupStateStatus,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -104,6 +101,7 @@ import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
+    groups as groups_utils,
     resources as resources_utils,
     vulnerabilities as vulns_utils,
 )
@@ -1457,7 +1455,9 @@ async def remove_user(
     user_org_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
         user_org_groups_names
     )
-    has_groups_in_org = bool(filter_active_groups_new(user_org_groups))
+    has_groups_in_org = bool(
+        groups_utils.filter_active_groups(user_org_groups)
+    )
     if has_org_access and not has_groups_in_org:
         success = await orgs_domain.remove_user(loaders, org_id, email)
 
@@ -1465,7 +1465,9 @@ async def remove_user(
         return False
 
     all_groups_by_user = await loaders.group_typed.load_many(user_groups_names)
-    all_active_groups_by_user = filter_active_groups_new(all_groups_by_user)
+    all_active_groups_by_user = groups_utils.filter_active_groups(
+        all_groups_by_user
+    )
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
         success = await users_domain.delete(email)
@@ -1539,23 +1541,6 @@ async def after_complete_register(
         and await orgs_domain.has_user_access(default_org_id, user_email)
     ):
         await orgs_domain.remove_user(loaders, default_org_id, user_email)
-
-
-def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:
-    return [
-        group
-        for group in groups
-        if get_key_or_fallback(group, "group_status", "project_status")
-        == "ACTIVE"
-    ]
-
-
-def filter_active_groups_new(groups: Tuple[Group, ...]) -> Tuple[Group, ...]:
-    return tuple(
-        group
-        for group in groups
-        if group.state.status == GroupStateStatus.ACTIVE
-    )
 
 
 async def get_remediation_rate(

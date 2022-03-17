@@ -16,6 +16,9 @@ from graphql.type.definition import (
 from groups import (
     domain as groups_domain,
 )
+from newutils import (
+    groups as groups_utils,
+)
 from typing import (
     List,
     Tuple,
@@ -38,4 +41,4 @@ async def resolve(
     groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
         user_groups
     )
-    return groups_domain.filter_active_groups_new(groups)
+    return groups_utils.filter_active_groups(groups)

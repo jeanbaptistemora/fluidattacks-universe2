@@ -21,6 +21,9 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -58,7 +61,6 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_group,
-    filter_active_groups,
     get_active_groups,
     get_closed_vulnerabilities,
     get_description,
@@ -81,6 +83,9 @@ from names import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from newutils.groups import (
+    filter_active_groups,
 )
 from newutils.vulnerabilities import (
     get_closing_date,
@@ -828,7 +833,7 @@ async def test_get_group_digest_stats() -> None:
 
 
 async def test_get_groups_by_user() -> None:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     expected_groups = [
         "asgard",
         "barranquilla",
@@ -838,20 +843,22 @@ async def test_get_groups_by_user() -> None:
         "monteria",
         "unittesting",
     ]
-    user_groups = await get_groups_by_user("integratesmanager@gmail.com")
-    groups = await loaders.group.load_many(user_groups)
+    user_groups_names = await get_groups_by_user("integratesmanager@gmail.com")
+    groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        user_groups_names
+    )
     groups_filtered = filter_active_groups(groups)
-    assert sorted([group["name"] for group in groups_filtered]) == sorted(
+    assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_groups
     )
 
     expected_org_groups = ["oneshottest", "unittesting"]
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    user_org_groups = await get_groups_by_user(
+    user_org_groups_names = await get_groups_by_user(
         "integratesmanager@gmail.com", organization_id=org_id
     )
-    groups = await loaders.group.load_many(user_org_groups)
+    groups = await loaders.group_typed.load_many(user_org_groups_names)
     groups_filtered = filter_active_groups(groups)
-    assert sorted([group["name"] for group in groups_filtered]) == sorted(
+    assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_org_groups
     )

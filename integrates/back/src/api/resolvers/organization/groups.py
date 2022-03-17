@@ -15,6 +15,7 @@ from groups import (
 )
 from newutils import (
     token as token_utils,
+    groups as groups_utils,
 )
 from typing import (
     Dict,
@@ -38,4 +39,4 @@ async def resolve(
     groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
         tuple((group, org_id) for group in user_groups)
     )
-    return groups_domain.filter_active_groups_new(groups)
+    return groups_utils.filter_active_groups(groups)

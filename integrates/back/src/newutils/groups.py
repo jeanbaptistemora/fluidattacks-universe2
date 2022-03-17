@@ -61,6 +61,14 @@ def has_asm_services(group: GroupType) -> bool:
     return group_has_asm_services
 
 
+def filter_active_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
+    return tuple(
+        group
+        for group in groups
+        if group.state.status == GroupStateStatus.ACTIVE
+    )
+
+
 def format_group_files(files: List[Dict[str, str]]) -> List[GroupFile]:
     return [
         GroupFile(
