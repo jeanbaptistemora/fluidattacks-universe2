@@ -3785,79 +3785,79 @@
     description: __empty__
   definitions:
     "119":
-      title: Improper Restriction of Operations within the Bounds of a Memory Buffer
+      title: Improper restriction of operations within the bounds of a memory buffer
       link: https://www.sans.org/top25-software-errors/
     "79":
-      title: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+      title: Improper neutralization of input during web page generation (Cross-Site Scripting)
       link: https://www.sans.org/top25-software-errors/
     "20":
-      title: Improper Input Validation
+      title: Improper input validation
       link: https://www.sans.org/top25-software-errors/
     "200":
-      title: Information Exposure
+      title: Information exposure
       link: https://www.sans.org/top25-software-errors/
     "125":
-      title: Out-of-bounds Read
+      title: Out-of-bounds read
       link: https://www.sans.org/top25-software-errors/
     "89":
-      title: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+      title: Improper neutralization of special elements used in an SQL command (SQL injection)
       link: https://www.sans.org/top25-software-errors/
     "416":
-      title: Use After Free
+      title: Use after free
       link: https://www.sans.org/top25-software-errors/
     "190":
-      title: Integer Overflow or Wraparound
+      title: Integer overflow or wraparound
       link: https://www.sans.org/top25-software-errors/
     "352":
       title: Cross-Site Request Forgery (CSRF)
       link: https://www.sans.org/top25-software-errors/
     "22":
-      title: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+      title: Improper limitation of a pathname to a restricted directory (Path traversal)
       link: https://www.sans.org/top25-software-errors/
     "78":
-      title: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+      title: Improper neutralization of special elements used in an OS command (OS command injection)
       link: https://www.sans.org/top25-software-errors/
     "787":
-      title: Out-of-bounds Write
+      title: Out-of-bounds write
       link: https://www.sans.org/top25-software-errors/
     "287":
-      title: Improper Authentication
+      title: Improper authentication
       link: https://www.sans.org/top25-software-errors/
     "476":
-      title: NULL Pointer Dereference
+      title: NULL pointer dereference
       link: https://www.sans.org/top25-software-errors/
     "732":
-      title: Incorrect Permission Assignment for Critical Resource
+      title: Incorrect permission assignment for critical resource
       link: https://www.sans.org/top25-software-errors/
     "434":
-      title: Unrestricted Upload of File with Dangerous Type
+      title: Unrestricted upload of file with dangerous type
       link: https://www.sans.org/top25-software-errors/
     "611":
-      title: Improper Restriction of XML External Entity Reference
+      title: Improper restriction of XML external entity reference
       link: https://www.sans.org/top25-software-errors/
     "94":
-      title: Improper Control of Generation of Code ('Code Injection')
+      title: Improper control of generation of code (Code injection)
       link: https://www.sans.org/top25-software-errors/
     "798":
-      title: Use of Hard-coded Credentials
+      title: Use of hard-coded credentials
       link: https://www.sans.org/top25-software-errors/
     "400":
-      title: Uncontrolled Resource Consumption
+      title: Uncontrolled resource consumption
       link: https://www.sans.org/top25-software-errors/
     "772":
-      title: Missing Release of Resource after Effective Lifetime
+      title: Missing release of resource after effective lifetime
       link: https://www.sans.org/top25-software-errors/
     "426":
-      title: Untrusted Search Path
+      title: Untrusted search path
       link: https://www.sans.org/top25-software-errors/
     "502":
-      title: Deserialization of Untrusted Data
+      title: Deserialization of untrusted data
       link: https://www.sans.org/top25-software-errors/
     "269":
-      title: Improper Privilege Management
+      title: Improper privilege management
       link: https://www.sans.org/top25-software-errors/
     "295":
-      title: Improper Certificate Validation
+      title: Improper certificate validation
       link: https://www.sans.org/top25-software-errors/
   metadata: {}
 "pdpa":
