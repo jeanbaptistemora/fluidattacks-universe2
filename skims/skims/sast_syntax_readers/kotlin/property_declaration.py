@@ -48,7 +48,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
             )
         yield SyntaxStepDeclaration(
             meta=SyntaxStepMeta.default(n_id=var_id_parent, dependencies=deps),
-            var=var_name,
+            var=str(var_name),
             var_type=var_type,
             modifiers=modifiers,
         )

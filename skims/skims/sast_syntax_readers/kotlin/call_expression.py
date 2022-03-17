@@ -33,7 +33,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
 
     dependencies = []
     if arguments := g.get_ast_childs(
-        args.graph, match["call_suffix"], "value_argument", depth=2
+        args.graph, str(match["call_suffix"]), "value_argument", depth=2
     ):
         dependencies = [
             args.generic(args.fork_n_id(argument))

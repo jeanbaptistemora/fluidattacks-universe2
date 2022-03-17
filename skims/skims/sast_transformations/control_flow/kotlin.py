@@ -14,6 +14,8 @@ from sast_transformations.control_flow.types import (
     Stack,
 )
 from typing import (
+    Any,
+    Dict,
     Optional,
 )
 from utils import (
@@ -128,7 +130,9 @@ def try_catch_statement(args: CfgArgs, stack: Stack) -> None:
 
 
 def when_statement(args: CfgArgs, stack: Stack) -> None:
-    match = g.match_ast_group(args.graph, args.n_id, "when_entry")
+    match: Dict[str, Any] = g.match_ast_group(
+        args.graph, args.n_id, "when_entry"
+    )
     if when_options := match["when_entry"]:
         for option in when_options:
             match = g.match_ast(args.graph, option, "control_structure_body")

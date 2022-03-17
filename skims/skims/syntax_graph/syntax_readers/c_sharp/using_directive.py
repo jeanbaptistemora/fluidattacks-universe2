@@ -21,7 +21,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     if len(match) == 3 and match["using"] and match[";"]:
         expression_id = match["__0__"]
-        expression = node_to_str(args.ast_graph, expression_id)
+        expression = node_to_str(args.ast_graph, str(expression_id))
         return build_import_statement_node(args, expression)
 
     raise MissingCaseHandling(f"Bad using handling in {args.n_id}")

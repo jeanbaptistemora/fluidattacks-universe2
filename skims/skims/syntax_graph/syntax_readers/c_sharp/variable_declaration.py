@@ -29,10 +29,12 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     value_id = None
     var_type = node_to_str(args.ast_graph, var_type_id)
-    var = node_to_str(args.ast_graph, match["identifier"])
+    var = node_to_str(args.ast_graph, str(match["identifier"]))
 
     if match["equals_value_clause"]:
-        match_eq = match_ast(args.ast_graph, match["equals_value_clause"], "=")
+        match_eq = match_ast(
+            args.ast_graph, str(match["equals_value_clause"]), "="
+        )
 
         if len(match_eq) != 2 or not match_eq["="]:
             raise MissingCaseHandling(f"Bad equal value in {args.n_id}")

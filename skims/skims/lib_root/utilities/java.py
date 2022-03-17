@@ -62,7 +62,7 @@ def yield_method_invocation(
                 "field_access",
             )
             method_name = concatenate_label_text(
-                shard.graph, match["identifier"], separator="."
+                shard.graph, tuple(match["identifier"]), separator="."
             )
             if match["field_access"]:
                 base_name = shard.graph.nodes[match["field_access"][0]][

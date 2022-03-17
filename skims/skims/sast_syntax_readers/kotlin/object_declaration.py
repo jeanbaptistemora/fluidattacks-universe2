@@ -32,7 +32,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         var_name, var_type = get_var_id_type(args, param_id)
         yield SyntaxStepDeclaration(
             meta=SyntaxStepMeta.default(param_id),
-            var=var_name,
+            var=str(var_name),
             var_type=var_type,
             modifiers=set(),
         )
