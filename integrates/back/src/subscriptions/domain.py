@@ -430,41 +430,43 @@ async def unsubscribe_user_to_entity_report(
 
 async def _get_digest_stats(
     loaders: Dataloaders,
-    subscriptions: List[Dict[Any, Any]],
-) -> Tuple[MailContent, ...]:
+    subscriptions: list[dict[Any, Any]],
+) -> tuple[MailContent, ...]:
     """Process the digest stats for each group with a subscriber."""
-    digest_suscribers = [
+    digest_suscribers: list[str] = [
         subscription["pk"]["email"]
         for subscription in subscriptions
         if subscription["sk"]["entity"].lower() == "digest"
     ]
 
-    digest_groups = await collect(
+    digest_groups_names = await collect(
         [
             groups_domain.get_groups_by_user(user_email, with_cache=False)
             for user_email in digest_suscribers
         ],
         workers=1024,
     )
-    digest_groups = set(chain.from_iterable(digest_groups))
+    digest_groups_names = list(set(chain.from_iterable(digest_groups_names)))
 
     if FI_ENVIRONMENT == "production":
-        all_groups = await loaders.group.load_many(digest_groups)
-        groups_filtered = groups_domain.filter_active_groups(all_groups)
-        digest_groups = {
-            str(group["name"])
+        all_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+            digest_groups_names
+        )
+        groups_filtered = groups_domain.filter_active_groups_new(all_groups)
+        digest_groups_names = [
+            group.name
             for group in groups_filtered
-            if group["name"] not in FI_TEST_PROJECTS.split(",")
-        }
+            if group.name not in FI_TEST_PROJECTS.split(",")
+        ]
 
     LOGGER_CONSOLE.info(
         "Digest: get stats for groups",
-        extra={"extra": dict(digest_groups=str(digest_groups))},
+        extra={"extra": dict(digest_groups=str(digest_groups_names))},
     )
     return await collect(
         [
             groups_domain.get_group_digest_stats(loaders, group)
-            for group in digest_groups
+            for group in digest_groups_names
         ],
         workers=2,
     )
