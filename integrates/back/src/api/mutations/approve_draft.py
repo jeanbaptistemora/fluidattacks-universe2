@@ -1,3 +1,6 @@
+from aioextensions import (
+    schedule,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -27,6 +30,9 @@ from findings import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from mailer import (
+    findings as findings_mail,
+)
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -38,6 +44,8 @@ from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -60,26 +68,41 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str
 ) -> ApproveDraftPayload:
     try:
-        finding_loader = info.context.loaders.finding
-        finding: Finding = await finding_loader.load(finding_id)
+        loaders = info.context.loaders
+        finding: Finding = await loaders.finding.load(finding_id)
         vulnerabilities: Tuple[
             Vulnerability, ...
-        ] = await info.context.loaders.finding_vulnerabilities_all.load(
-            finding_id
-        )
+        ] = await loaders.finding_vulnerabilities_all.load(finding_id)
+        severity_score = findings_domain.get_severity_score(finding.severity)
+        group_name = finding.group_name
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
+        stakeholders: Tuple[
+            Dict[str, Any], ...
+        ] = await loaders.group_stakeholders.load(group_name)
+        users_email = [stakeholder["email"] for stakeholder in stakeholders]
         approval_date = await findings_domain.approve_draft(
             info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(
             "approve_draft",
             finding_id=finding_id,
-            group_name=finding.group_name,
+            group_name=group_name,
         )
+        if severity_score >= 7.0:
+            schedule(
+                findings_mail.send_mail_vulnerability_report(
+                    loaders=loaders,
+                    email_to=users_email,
+                    group_name=group_name,
+                    finding_title=finding.title,
+                    finding_id=finding_id,
+                    severity=severity_score,
+                )
+            )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Approved draft {finding_id} in {finding.group_name} "
+            f"Security: Approved draft {finding_id} in {group_name} "
             "group successfully",
         )
         # Update indicators in two steps as new vulns report dates are needed
