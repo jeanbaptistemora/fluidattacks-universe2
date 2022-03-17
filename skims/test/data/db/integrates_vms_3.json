@@ -1,0 +1,190 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "description": {
+            "S": "local skims test group"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "name": {
+            "S": "jessup"
+          },
+          "language": {
+            "S": "en"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "requirements": {
+            "S": "099\n"
+          },
+          "compromised_attributes": {
+            "S": ""
+          },
+          "sorts": {
+            "S": "NO"
+          },
+          "cvss_version": {
+            "S": "3.1"
+          },
+          "recommendation": {
+            "S": "- Remove the files that should not be versioned from the repository.\n- Include the affected extensions in the .gitignore file.\n"
+          },
+          "analyst_email": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "evidences": {
+            "M": {
+              "evidence5": {
+                "M": {
+                  "description": {
+                    "S": "Unverifiable file in skims/test/data/lib_path/f117/.project"
+                  },
+                  "modified_date": {
+                    "S": "2021-10-19T15:28:07.070648+00:00"
+                  },
+                  "url": {
+                    "S": "jessup-23f7e5c1-5e1e-4167-976a-06b86ac501c2-evidence_route_5.png"
+                  }
+                }
+              }
+            }
+          },
+          "compromised_records": {
+            "N": "0"
+          },
+          "attack_vector_description": {
+            "S": "- Difficult the versioning and security auditing process.\n- Introduce vulnerabilities of previous versions in the repository.\n"
+          },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "description": {
+            "S": "The repository is storing files that either can not be verified nor should be versioned, such as binary files, logs or temporary files. information.\n"
+          },
+          "id": {
+            "S": "23f7e5c1-5e1e-4167-976a-06b86ac501c2"
+          },
+          "threat": {
+            "S": "Autenticated attacker from the Internet.\n"
+          },
+          "pk": {
+            "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2"
+          },
+          "severity": {
+            "M": {
+              "attack_complexity": {
+                "N": "0.77"
+              },
+              "integrity_impact": {
+                "N": "0.22"
+              },
+              "integrity_requirement": {
+                "N": "0"
+              },
+              "modified_confidentiality_impact": {
+                "N": "0"
+              },
+              "modified_user_interaction": {
+                "N": "0.85"
+              },
+              "modified_severity_scope": {
+                "N": "0"
+              },
+              "modified_availability_impact": {
+                "N": "0"
+              },
+              "report_confidence": {
+                "N": "1"
+              },
+              "modified_integrity_impact": {
+                "N": "0.22"
+              },
+              "attack_vector": {
+                "N": "0.85"
+              },
+              "modified_attack_complexity": {
+                "N": "0.77"
+              },
+              "privileges_required": {
+                "N": "0.62"
+              },
+              "availability_impact": {
+                "N": "0"
+              },
+              "modified_privileges_required": {
+                "N": "0.62"
+              },
+              "confidentiality_requirement": {
+                "N": "0"
+              },
+              "modified_attack_vector": {
+                "N": "0.85"
+              },
+              "user_interaction": {
+                "N": "0.85"
+              },
+              "confidentiality_impact": {
+                "N": "0"
+              },
+              "exploitability": {
+                "N": "0.91"
+              },
+              "remediation_level": {
+                "N": "1"
+              },
+              "severity_scope": {
+                "N": "0"
+              },
+              "availability_requirement": {
+                "N": "0"
+              }
+            }
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "title": {
+            "S": "117. Unverifiable files"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "justification": {
+            "S": "NO_JUSTIFICATION"
+          },
+          "status": {
+            "S": "APPROVED"
+          },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "source": {
+            "S": "MACHINE"
+          },
+          "modified_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2#APPROVAL"
+          }
+        }
+      }
+    }
+  ]
+}
