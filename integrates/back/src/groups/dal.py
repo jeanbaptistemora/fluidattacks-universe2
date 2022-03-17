@@ -246,6 +246,5 @@ async def update_metadata_typed(
     metadata: GroupMetadataToUpdate,
 ) -> None:
     group_item = groups_utils.format_group_metadata_item(metadata)
-    if group_item:
-        if not await update(group_name=group_name, data=group_item):
-            raise ErrorUpdatingGroup.new()
+    if group_item and not await update(group_name=group_name, data=group_item):
+        raise ErrorUpdatingGroup.new()

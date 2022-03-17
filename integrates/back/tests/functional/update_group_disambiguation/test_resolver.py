@@ -1,6 +1,13 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.groups.types import (
+    Group,
+)
 import pytest
 from typing import (
     Any,
@@ -24,14 +31,51 @@ async def test_update_group_info(
 ) -> None:
     assert populate
     group_name: str = "group1"
+    disambiguation = f"disambiguation text modified by {email}"
     result: Dict[str, Any] = await get_result(
         user=email,
-        disambiguation="disambiguation test",
+        disambiguation=disambiguation,
         group=group_name,
     )
     assert "errors" not in result
     assert "success" in result["data"]["updateGroupDisambiguation"]
     assert result["data"]["updateGroupDisambiguation"]["success"]
+
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group_typed.load(group_name)
+    assert group.disambiguation == disambiguation
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_group_disambiguation")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_update_group_info_clear_field(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    loaders: Dataloaders = get_new_context()
+    group_name: str = "group1"
+    group: Group = await loaders.group_typed.load(group_name)
+    assert group.disambiguation is not None
+
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        disambiguation="",
+        group=group_name,
+    )
+    assert "errors" not in result
+    assert "success" in result["data"]["updateGroupDisambiguation"]
+    assert result["data"]["updateGroupDisambiguation"]["success"]
+
+    loaders.group_typed.clear(group_name)
+    group = await loaders.group_typed.load(group_name)
+    assert group.disambiguation is None
 
 
 @pytest.mark.asyncio
