@@ -6865,6 +6865,7 @@
     - "hitrust.01_k"
     - "hitrust.08_b"
     - "iso27002.5_37"
+    - "osstmm3.8_7_4"
   metadata: {}
 "235":
   en:
@@ -7423,6 +7424,7 @@
     - "fedramp.SC-8_1"
     - "iso27002.7_3"
     - "iso27002.8_21"
+    - "osstmm3.8_5_2"
   metadata: {}
 "258":
   en:
@@ -10112,6 +10114,7 @@
     - "fedramp.SC-10"
     - "iec62443.CR-1_1-RE_1"
     - "wassec.3_4"
+    - "osstmm3.8_7_2"
   metadata: {}
 "336":
   en:

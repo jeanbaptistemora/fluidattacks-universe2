@@ -5293,7 +5293,22 @@
   title: OSSTMM3
   en:
     description: >
-      ...
+      The Open Source Security Testing
+      Methodology Manual (OSSTMM)
+      provides a methodology for the
+      accurate characterization of
+      operational security (OpSec)
+      through examination and correlation
+      of test results in a consistent way.
+      It is one of the most complete
+      and commonly used professional
+      standards in Security Audits to
+      review the Security of Systems
+      from the Internet.
+      The version used in this
+      section is OSSTMM 3.0,
+      published on December 14,
+      2010.
   es:
     description: __empty__
   definitions:
