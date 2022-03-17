@@ -19,6 +19,9 @@ from typing import (
 from utils.fs import (
     resolve_paths,
 )
+from utils.logs import (
+    log_blocking,
+)
 
 
 def analyze(stores: Dict[FindingEnum, EphemeralStore]) -> None:
@@ -26,6 +29,8 @@ def analyze(stores: Dict[FindingEnum, EphemeralStore]) -> None:
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
     )
+
+    log_blocking("info", "Files to be tested: %s", len(paths.ok_paths))
 
     if CTX.config.path.lib_path:
         analyze_paths(paths=paths, stores=stores)

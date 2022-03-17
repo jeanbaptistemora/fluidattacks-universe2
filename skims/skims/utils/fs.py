@@ -41,9 +41,6 @@ from typing import (
     Set,
     Tuple,
 )
-from utils.logs import (
-    log_blocking,
-)
 
 MAX_FILE_SIZE: int = 102400  # 100KiB
 
@@ -327,52 +324,70 @@ def recurse_dir(path: str) -> Tuple[str, ...]:
     return tree
 
 
-def recurse(path: str) -> Tuple[str, ...]:
+def recurse_path(path: str) -> Tuple[str, ...]:
     return (path,) if os.path.isfile(path) else recurse_dir(path)
 
 
-def resolve_paths(
-    *,
-    exclude: Tuple[str, ...],
-    include: Tuple[str, ...],
-) -> Paths:
-    def evaluate_glob(path: str) -> Iterable[str]:
-        if path.startswith("glob(") and path.endswith(")"):
-            yield from glob(path[5:-1], recursive=True)
-        else:
-            yield path
+def iter_glob_path(path: str) -> Iterable[str]:
+    if path.startswith("glob(") and path.endswith(")"):
+        yield from glob(path[5:-1], recursive=True)
+    else:
+        yield path
 
+
+def list_paths(include: Tuple[str, ...], exclude: Tuple[str, ...]) -> Set[str]:
     def evaluate(wkr: ThreadPoolExecutor, paths: Tuple[str, ...]) -> Set[str]:
         return {
             os.path.normpath(path)
             for path in collapse(
                 wkr.map(
-                    recurse,
-                    chain.from_iterable(map(evaluate_glob, paths)),
+                    recurse_path,
+                    chain.from_iterable(map(iter_glob_path, paths)),
                 ),
                 base_type=str,
             )
         }
 
     try:
+
         with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
             all_paths = evaluate(worker, include) - evaluate(worker, exclude)
-
-        nu_paths: Set[str] = get_non_upgradable_paths(all_paths)
-        interm_paths: Set[str] = all_paths - nu_paths
-        nv_paths: Set[str] = get_non_verifiable_paths(interm_paths)
-        ok_paths: Set[str] = interm_paths - nv_paths
+        return all_paths
 
     except FileNotFoundError as exc:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
-    else:
-        log_blocking("info", "Files to be tested: %s", len(ok_paths))
 
+
+def split_by_upgradable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
+    try:
+        nu_paths = get_non_upgradable_paths(paths)
+    except FileNotFoundError as exc:
+        raise SystemExit(f"File does not exist: {exc.filename}") from exc
+
+    return nu_paths, paths - nu_paths
+
+
+def split_by_verifiable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
+    try:
+        nv_paths = get_non_verifiable_paths(paths)
+    except FileNotFoundError as exc:
+        raise SystemExit(f"File does not exist: {exc.filename}") from exc
+
+    return nv_paths, paths - nv_paths
+
+
+def split_by_upgradable_and_veriable(paths: Set[str]) -> Paths:
+    nu_paths, up_paths = split_by_upgradable(paths)
+    nv_paths, ok_paths = split_by_verifiable(up_paths)
     return Paths(
         ok_paths=tuple(ok_paths),
         nu_paths=tuple(nu_paths),
         nv_paths=tuple(nv_paths),
     )
+
+
+def resolve_paths(include: Tuple[str, ...], exclude: Tuple[str]) -> Paths:
+    return split_by_upgradable_and_veriable(list_paths(include, exclude))
 
 
 def _iter_full_paths(path: str) -> Iterator[str]:

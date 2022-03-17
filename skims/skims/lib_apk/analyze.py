@@ -40,6 +40,9 @@ from utils.fs import (
 from utils.function import (
     shield_blocking,
 )
+from utils.logs import (
+    log_blocking,
+)
 
 CHECKS: Tuple[
     Tuple[
@@ -71,6 +74,8 @@ def get_apk_contexts() -> Iterable[APKContext]:
         exclude=CTX.config.apk.exclude,
         include=CTX.config.apk.include,
     )
+
+    log_blocking("info", "Files to be tested: %s", len(paths.ok_paths))
 
     for result in (get_apk_context(path) for path in paths.get_all()):
         if result:
