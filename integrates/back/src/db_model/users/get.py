@@ -1,4 +1,5 @@
 from .types import (
+    NotificationsPreferences,
     User,
 )
 from .utils import (
@@ -9,9 +10,6 @@ from aiodataloader import (
 )
 from aioextensions import (
     collect,
-)
-from custom_exceptions import (
-    UserNotFound,
 )
 from db_model import (
     TABLE,
@@ -40,7 +38,10 @@ async def _get_user(*, user_email: str) -> User:
     if item:
         return format_user(item)
 
-    raise UserNotFound()
+    return User(
+        email="",
+        notifications_preferences=NotificationsPreferences(email=[]),
+    )
 
 
 class UserLoader(DataLoader):
