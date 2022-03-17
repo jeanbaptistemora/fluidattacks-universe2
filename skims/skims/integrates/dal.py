@@ -538,13 +538,18 @@ async def do_add_git_root(
     return False
 
 
+class ResultCreateDraft(NamedTuple):
+    success: bool
+    id: str = ""
+
+
 @SHIELD
 async def do_create_draft(
     *,
     finding: core_model.FindingEnum,
     group: str,
     client: Optional[GraphQLClient] = None,
-) -> bool:
+) -> ResultCreateDraft:
     try:
         result = await _execute(
             query="""
@@ -566,6 +571,7 @@ async def do_create_draft(
                     threat: $threat
                     title: $title
                 ) {
+                    draftId
                     success
                 }
             }
@@ -586,12 +592,15 @@ async def do_create_draft(
             client=client,
         )
         with suppress(AttributeError, KeyError, TypeError):
-            return result["data"]["addDraft"]["success"]
+            return ResultCreateDraft(
+                id=result["data"]["addDraft"]["draftId"],
+                success=result["data"]["addDraft"]["success"],
+            )
 
     except SkimsCanNotOperate:
-        return False
+        return ResultCreateDraft(success=False)
 
-    return False
+    return ResultCreateDraft(success=False)
 
 
 @SHIELD

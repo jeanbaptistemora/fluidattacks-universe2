@@ -22,6 +22,7 @@ from integrates.dal import (
     get_group_findings,
     get_group_level_role,
     get_group_open_severity,
+    ResultGetGroupFindings,
 )
 from integrates.domain import (
     do_build_and_upload_vulnerabilities,
@@ -232,6 +233,7 @@ async def diff_results(
 
 async def persist_finding(  # pylint: disable=too-many-locals
     *,
+    existing_findings: Tuple[ResultGetGroupFindings, ...],
     finding: core_model.FindingEnum,
     group: str,
     store: EphemeralStore,
@@ -254,24 +256,27 @@ async def persist_finding(  # pylint: disable=too-many-locals
     has_results: bool = store_length > 0
     diff_store: Optional[EphemeralStore] = None
 
-    await log("info", "persisting: %s, %s vulns", finding.name, store_length)
-
-    finding_id: str = await get_closest_finding_id(
-        create_if_missing=has_results,
+    finding_id, new_finding = await get_closest_finding_id(
+        existing_findings=existing_findings,
         finding=finding,
         group=group,
-        recreate_if_draft=has_results,
         client=client,
+        create_if_missing=has_results,
+        recreate_if_draft=has_results,
     )
 
     # Even if there are no results to persist we must give Skims the
     #   opportunity to close
     if finding_id:
-        await log("info", "finding for: %s = %s", finding.name, finding_id)
+        await log("info", "Finding for: %s = %s", finding.name, finding_id)
 
-        integrates_store = await get_finding_vulnerabilities(
-            finding=finding, finding_id=finding_id, client=client
-        )
+        integrates_store: EphemeralStore
+        if new_finding:
+            integrates_store = get_ephemeral_store()
+        else:
+            integrates_store = await get_finding_vulnerabilities(
+                finding=finding, finding_id=finding_id, client=client
+            )
 
         diff_store = await diff_results(
             integrates_store=integrates_store,
@@ -292,17 +297,24 @@ async def persist_finding(  # pylint: disable=too-many-locals
         )
 
         if justification and reattacked_store:
-            for item in justification:
-                success_comment = await do_add_finding_consult(
-                    content=item,
-                    finding_id=finding_id,
-                    parent="0",
-                    comment_type="CONSULT",
-                    client=client,
+            success_comment = all(
+                await collect(
+                    do_add_finding_consult(
+                        content=item,
+                        finding_id=finding_id,
+                        parent="0",
+                        comment_type="CONSULT",
+                        client=client,
+                    )
+                    for item in justification
                 )
+            )
 
         # Evidences and draft submit only make sense if there are results
         if has_results:
+            await log(
+                "info", "Persisting: %s, %s vulns", finding.name, store_length
+            )
             success_release = await do_release_finding(
                 auto_approve=finding.value.auto_approve,
                 finding_id=finding_id,
@@ -318,45 +330,32 @@ async def persist_finding(  # pylint: disable=too-many-locals
                 and success_comment
             )
 
-        await log(
-            "info",
-            "persisted: %s, modified vulns: %s, success: %s",
-            finding.name,
-            diff_store.length(),
-            success,
-        )
+            await log(
+                "info",
+                "Persisted: %s, modified vulns: %s, success: %s",
+                finding.name,
+                diff_store.length(),
+                success,
+            )
     elif not has_results:
         success = True
-
-        await log(
-            "info",
-            "persisted: %s, vulns: %s, success: %s",
-            finding.name,
-            store_length,
-            success,
-        )
     else:
-        await log("critical", "could not find or create finding: %s", finding)
+        await log("critical", "Could not find or create finding: %s", finding)
         success = False
-
-    await log(
-        "info",
-        "Current %s's CVSSF: %s",
-        group,
-        await get_group_open_severity(group, client=client),
-    )
 
     return core_model.PersistResult(success=success, diff_result=diff_store)
 
 
 async def _persist_finding(
     *,
+    existing_findings: Tuple[ResultGetGroupFindings, ...],
     finding: core_model.FindingEnum,
     group: str,
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
 ) -> Tuple[core_model.FindingEnum, core_model.PersistResult]:
     result = await persist_finding(
+        existing_findings=existing_findings,
         finding=finding,
         group=group,
         store=store,
@@ -381,9 +380,14 @@ async def persist(
     """
 
     async with graphql_client() as client:
+        initial_severity = await get_group_open_severity(group, client=client)
+        existing_findings: Tuple[ResultGetGroupFindings, ...] = (
+            await get_group_findings(group=group, client=client)
+        )
         result = await collect(
             tuple(
                 _persist_finding(
+                    existing_findings=existing_findings,
                     finding=finding,
                     group=group,
                     store=stores[finding],
@@ -394,6 +398,9 @@ async def persist(
                 and not stores[finding].has_errors
             )
         )
+        final_severity = await get_group_open_severity(group, client=client)
+        await log("info", "Initial %s's CVSSF: %s", group, initial_severity)
+        await log("info", "Current %s's CVSSF: %s", group, final_severity)
         return dict(result)
 
 

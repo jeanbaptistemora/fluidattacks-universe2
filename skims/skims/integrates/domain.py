@@ -138,16 +138,18 @@ async def get_closest_finding_ids(
 
 async def get_closest_finding_id(
     *,
-    create_if_missing: bool = False,
+    existing_findings: Tuple[ResultGetGroupFindings, ...],
     finding: core_model.FindingEnum,
     group: str,
-    recreate_if_draft: bool = False,
     client: Optional[GraphQLClient] = None,
-) -> str:
-    finding_ids: Tuple[str, ...] = await get_closest_finding_ids(
-        finding=finding,
-        group=group,
-        client=client,
+    create_if_missing: bool = False,
+    recreate_if_draft: bool = False,
+) -> Tuple[str, bool]:
+    finding_created: bool = False
+    finding_ids: Tuple[str, ...] = tuple(
+        existing_finding.identifier
+        for existing_finding in existing_findings
+        if t(finding.value.title) == existing_finding.title
     )
     finding_id: str = finding_ids[0] if finding_ids else ""
 
@@ -161,18 +163,15 @@ async def get_closest_finding_id(
     if (
         not finding_id
         and create_if_missing
-        and await do_create_draft(
+        and (result := await do_create_draft(
             finding=finding,
             group=group,
             client=client,
-        )
+        ))
     ):
-        finding_id = await get_closest_finding_id(
-            create_if_missing=False,
-            finding=finding,
-            group=group,
-            client=client,
-        )
+        if result.success:
+            finding_created = True
+            finding_id = result.id
 
         if finding_id:
             await do_update_finding_severity(
@@ -185,31 +184,7 @@ async def get_closest_finding_id(
         else:
             finding_id = ""
 
-    return finding_id
-
-
-async def delete_closest_findings(
-    *,
-    group: str,
-    finding: core_model.FindingEnum,
-) -> bool:
-    success: bool = True
-
-    while True:
-        finding_id: str = await get_closest_finding_id(
-            finding=finding,
-            group=group,
-        )
-
-        if finding_id:
-            success = success and await do_delete_finding(
-                finding_id=finding_id,
-            )
-        else:
-            # All findings have been deleted
-            break
-
-    return success
+    return finding_id, finding_created
 
 
 async def do_build_and_upload_vulnerabilities(
