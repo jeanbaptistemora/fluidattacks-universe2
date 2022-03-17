@@ -51,3 +51,35 @@ async def test_update_group_info(
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group_typed.load(group_name)
     assert group.context == group_context
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_group_access_info")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_update_group_info_clear_field(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    loaders: Dataloaders = get_new_context()
+    group_name: str = "group1"
+    group: Group = await loaders.group_typed.load(group_name)
+    assert group.context is not None
+
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        group_context="",
+        group=group_name,
+    )
+    assert "errors" not in result
+    assert "success" in result["data"]["updateGroupAccessInfo"]
+    assert result["data"]["updateGroupAccessInfo"]["success"]
+
+    loaders.group_typed.clear(group_name)
+    group = await loaders.group_typed.load(group_name)
+    assert group.context is None
