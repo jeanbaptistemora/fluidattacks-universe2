@@ -189,7 +189,7 @@ async def get_closest_finding_id(
 
 async def do_build_and_upload_vulnerabilities(
     *,
-    batch_size: int = 50,
+    batch_size: int = 100,
     finding_id: str,
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
