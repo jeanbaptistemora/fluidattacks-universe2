@@ -24,6 +24,7 @@ from typing import (
     Optional,
     Set,
     Tuple,
+    Union,
 )
 
 NAttrs = Dict[str, str]
@@ -173,7 +174,7 @@ class SyntaxStepLoop(NamedTuple):
 
 class SyntaxStepLiteral(NamedTuple):
     meta: SyntaxStepMeta
-    value: str
+    value: Union[str, Dict]
     value_type: str
 
     type: str = "SyntaxStepLiteral"

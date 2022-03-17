@@ -65,7 +65,7 @@ def if_statement(args: CfgArgs, stack: Stack) -> None:
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        args.generic(args.fork_n_id(other_id), stack)
+        args.generic(args.fork_n_id(str(other_id)), stack)
 
     # Link whatever is inside the `then` to the next statement in chain
     elif (next_id := get_next_id(stack)) and next_id != args.n_id:
@@ -82,7 +82,7 @@ def switch_statement(args: CfgArgs, stack: Stack) -> None:
 
     switch_cases = g.match_ast_group(
         args.graph,
-        switch_body,
+        str(switch_body),
         "switch_case",
         "switch_default",
     )

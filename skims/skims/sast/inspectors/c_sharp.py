@@ -54,7 +54,7 @@ def _get_metadata_package(graph: graph_model.Graph) -> str:
         if namespace_identifier_type == "identifier":
             namespace = graph.nodes[match["__1__"]]["label_text"]
         elif namespace_identifier_type == "qualified_name":
-            namespace = node_to_str(graph, match["__1__"])
+            namespace = node_to_str(graph, str(match["__1__"]))
     return namespace
 
 
@@ -77,7 +77,7 @@ def _get_metadata_classes(
             base_type_name = None
             if _base_list := match["base_list"]:
                 _match_base = g.match_ast(graph, _base_list, "__0__", "__1__")
-                base_type_name = node_to_str(graph, _match_base["__1__"])
+                base_type_name = node_to_str(graph, str(_match_base["__1__"]))
 
             name = graph.nodes[class_identifier_id]["label_text"]
             qualified = namespace + "." + name
@@ -164,7 +164,7 @@ def _get_metadata_class_fields(
 
         match_declaration = g.match_ast_group(
             graph,
-            match_field["variable_declaration"],
+            str(match_field["variable_declaration"]),
             "variable_declarator",
             "__0__",
         )
@@ -251,7 +251,7 @@ def _get_metadata_attributes(
         match_attribute = g.match_ast_group(graph, attribute_list, "attribute")
         for attribute in match_attribute["attribute"]:
             match = g.match_ast(graph, attribute, "__0__")
-            name = node_to_str(graph, match["__0__"])
+            name = node_to_str(graph, str(match["__0__"]))
             attributes.append(name)
     return attributes
 
@@ -351,7 +351,7 @@ def _get_metadata_class_attributes(
         match_attribute = g.match_ast_group(graph, attribute_list, "attribute")
         for attribute in match_attribute["attribute"]:
             match = g.match_ast(graph, attribute, "__0__")
-            name = node_to_str(graph, match["__0__"])
+            name = node_to_str(graph, str(match["__0__"]))
             attributes.append(name)  #
     return attributes
 

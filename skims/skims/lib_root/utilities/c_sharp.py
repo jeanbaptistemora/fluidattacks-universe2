@@ -24,7 +24,7 @@ from utils.graph.text_nodes import (
 def get_variable_attribute(
     shard: graph_model.GraphShard, name_var: str, attribute: str
 ) -> str:
-    node_var = ""
+    node_var: str = ""
     for syntax_steps in shard.syntax.values():
         for syntax_step in syntax_steps:
             if (
@@ -33,12 +33,14 @@ def get_variable_attribute(
                 and shard.graph.nodes[syntax_step.meta.n_id].get("label_type")
                 != "parameter"
             ):
-                node_var = g.match_ast(
-                    shard.graph,
-                    syntax_step.meta.n_id,
-                    "equals_value_clause",
-                    depth=2,
-                )["equals_value_clause"]
+                node_var = str(
+                    g.match_ast(
+                        shard.graph,
+                        syntax_step.meta.n_id,
+                        "equals_value_clause",
+                        depth=2,
+                    )["equals_value_clause"]
+                )
                 node_index = 1
             elif (
                 isinstance(syntax_step, graph_model.SyntaxStepAssignment)
