@@ -2728,8 +2728,28 @@
     "GHSA-6xx3-rg99-gc3p": "<1.66",
     "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
   },
+  "org.bouncycastle:bcprov-ext-jdk16": {
+    "GHSA-6xx3-rg99-gc3p": "<1.66",
+    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+  },
+  "org.bouncycastle:bcprov-jdk14": {
+    "GHSA-6xx3-rg99-gc3p": "<1.66",
+    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+  },
+  "org.bouncycastle:bcprov-jdk15": {
+    "GHSA-6xx3-rg99-gc3p": "<1.66",
+    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+  },
   "org.bouncycastle:bcprov-jdk15on": {
     "CVE-2020-28052": ">=1.65 <=1.66"
+  },
+  "org.bouncycastle:bcprov-jdk15to18": {
+    "GHSA-6xx3-rg99-gc3p": "<1.66",
+    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+  },
+  "org.bouncycastle:bcprov-jdk16": {
+    "GHSA-6xx3-rg99-gc3p": "<1.66",
+    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
   },
   "org.bytedeco:mxnet": {
     "CVE-2018-1281": ">=0 <1.0.0"
@@ -2825,9 +2845,21 @@
   "org.eclipse.hawkbit:hawkbit-boot-starter-mgmt-api": {
     "GHSA-jwqm-c9f2-2cq3": "<=0.3.0m1"
   },
+  "org.eclipse.hawkbit:hawkbit-boot-starter-mgmt-ui": {
+    "GHSA-jwqm-c9f2-2cq3": "<=0.3.0m1"
+  },
   "org.eclipse.hawkbit:hawkbit-parent": {
     "CVE-2019-10240": ">=0 <=0.3.0m1",
     "CVE-2020-27219": "0.3.0 || >=0 <=0.2.5"
+  },
+  "org.eclipse.hawkbit:hawkbit-starters": {
+    "GHSA-jwqm-c9f2-2cq3": "<=0.3.0m1"
+  },
+  "org.eclipse.hawkbit:hawkbit-ui": {
+    "GHSA-jwqm-c9f2-2cq3": "<=0.3.0m1"
+  },
+  "org.eclipse.hawkbit:hawkbit-update-server": {
+    "GHSA-jwqm-c9f2-2cq3": "<=0.3.0m1"
   },
   "org.eclipse.jetty:jetty-client": {
     "CVE-2017-7657": ">=0 <=9.2.26 || >=9.3.0 <9.3.24 || >=9.4.0 <9.4.11",
@@ -2921,6 +2953,9 @@
     "CVE-2019-10242": ">=0 <=4.0.0",
     "CVE-2019-10243": ">=0 <=4.0.0",
     "CVE-2019-10244": ">=0 <=4.0.0"
+  },
+  "org.eclipse.milo:sdk-client": {
+    "GHSA-pq4w-qm9g-qx68": "<=0.3.4"
   },
   "org.eclipse.paho:java-parent": {
     "CVE-2019-11777": "1.2.0"
