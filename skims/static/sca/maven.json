@@ -2960,12 +2960,18 @@
   "org.eclipse.paho:java-parent": {
     "CVE-2019-11777": "1.2.0"
   },
+  "org.eclipse.paho:org.eclipse.paho.client.mqttv3": {
+    "GHSA-63qc-p2x4-9fgf": "<1.2.1"
+  },
   "org.eclipse.platform:org.eclipse.help.base": {
     "CVE-2020-27225": ">=0 <=4.18"
   },
   "org.eclipse.rdf4j:rdf4j": {
     "CVE-2018-1000644": ">=0 <2.4.0",
     "CVE-2018-20227": "2.4.2"
+  },
+  "org.eclipse.rdf4j:rdf4j-runtime": {
+    "GHSA-6xq8-pvg4-3mf3": "<2.4.0"
   },
   "org.eclipse.vorto:hono": {
     "CVE-2020-27217": ">=0 <12.0.0",
@@ -2992,8 +2998,17 @@
   "org.esigate:esigate": {
     "CVE-2018-1000854": ">=0 <=5.2"
   },
+  "org.esigate:esigate-core": {
+    "GHSA-hjm9-576q-399p": "<5.3"
+  },
+  "org.ethereum:ethereumj-core": {
+    "GHSA-hf4p-jm7r-vjjj": "<=1.12.0"
+  },
   "org.exist-db:exist": {
     "CVE-2018-1000823": ">=0 <5.0.0"
+  },
+  "org.exist-db:exist-core": {
+    "GHSA-jxm5-5xcw-h57q": "<5.0.0"
   },
   "org.fedoraproject.jenkins.plugins:copr": {
     "CVE-2020-2177": ">=0 <=0.3"
@@ -3007,6 +3022,9 @@
   "org.fusesource.jansi:jansi": {
     "CVE-2013-2035": ">=1 <=1.10"
   },
+  "org.geysermc:connector": {
+    "GHSA-h77f-xxx7-4858": "<=1.4.1-snapshot"
+  },
   "org.glassfish.jersey.core:jersey-common": {
     "CVE-2021-28168": ">=2.28 <2.34 || >=3.0.0 <3.0.2",
     "GHSA-c43q-5hpj-4crv": ">=2.28 <2.34 || >=3.0.0 <3.0.2"
@@ -3019,6 +3037,9 @@
   },
   "org.glassfish:javax.faces": {
     "CVE-2013-5855": ">=2-alpha0 <=2.2.5"
+  },
+  "org.glassfish:mojarra-parent": {
+    "GHSA-rpq8-mmwh-q9hm": "<2.3.14"
   },
   "org.gradle:gradle-core": {
     "CVE-2019-11065": ">=1.4 <=5.3.1",
@@ -3035,6 +3056,9 @@
     "GHSA-fp8h-qmr5-j4c8": ">=0 <7.0",
     "GHSA-j45w-qrgf-25vm": ">=0 <6.8.0",
     "GHSA-jvmj-rh6q-x395": ">=5.1 <7.0"
+  },
+  "org.grails.plugins:fields": {
+    "GHSA-q25j-gcmv-5qpp": "<2.2.8"
   },
   "org.grails:grails-core": {
     "CVE-2014-0053": ">=2-alpha0 <=2.3.6",
@@ -3056,6 +3080,10 @@
   "org.hammerlab.guacamole:guacamole": {
     "CVE-2018-1340": ">=0 <=0.9.14"
   },
+  "org.hibernate.validator:hibernate-validator": {
+    "GHSA-m8p2-495h-ccmh": "<6.0.18",
+    "GHSA-rmrm-75hp-phr2": "<=6.0.19.final || >=6.1.0.final <=6.1.4.final"
+  },
   "org.hibernate:hibernate-core": {
     "CVE-2020-25638": ">=0 <5.3.20 || >=5.4.0 <5.4.24"
   },
@@ -3066,6 +3094,9 @@
   },
   "org.hornetq.rest:hornetq-rest": {
     "CVE-2014-3599": ">=0 <=2.4.5.final"
+  },
+  "org.hswebframework.web:hsweb-commons": {
+    "GHSA-4rm3-4mq4-mfwr": "<=3.0.4"
   },
   "org.http4s:blaze-core": {
     "CVE-2021-21293": ">=0 <0.14.15",
