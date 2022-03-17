@@ -21,7 +21,7 @@ const Portrait: React.FC = (): JSX.Element => (
       </HomeImageContainer>
       <NewInnerMainContentHome>
         <WhiteBigParagraph className={"f-home-title"}>
-          {"Secure your application with our Continuous Hacking Solution."}
+          {"Secure your application with our Continuous Hacking Solution"}
         </WhiteBigParagraph>
         <NewGrayBigParagraph>
           {"Effective Automation + IA + Expert Intelligence"}
