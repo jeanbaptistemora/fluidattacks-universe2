@@ -38,13 +38,14 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
   } = props;
   const { errors } = form;
   const error = errors[field.name];
-  const { value }: { value: string } = field;
+  const { name, value }: { name: string; value: string } = field;
 
   return (
     <React.Fragment>
       <textarea
         {...field}
         {...input}
+        aria-label={name}
         autoComplete={"off"}
         className={`${style["form-control"]} ${style["text-area"]} ${
           className === undefined ? "" : className
