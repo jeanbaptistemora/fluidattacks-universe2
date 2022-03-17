@@ -205,24 +205,6 @@
             "S": "group"
           },
           "subject": {
-            "S": "continuoushacking@gmail.com"
-          },
-          "object": {
-            "S": "pendinggroup"
-          },
-          "role": {
-            "S": "user_manager"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "level": {
-            "S": "group"
-          },
-          "subject": {
             "S": "integratesuser@gmail.com"
           },
           "object": {
