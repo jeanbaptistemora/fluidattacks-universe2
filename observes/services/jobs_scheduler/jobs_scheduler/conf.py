@@ -6,10 +6,9 @@ from enum import (
 from jobs_scheduler.cron_2.core import (
     AnyTime,
     Cron,
-    CronDraft,
+    CronItem,
 )
 from jobs_scheduler.cron_2.factory import (
-    new as new_cron,
     week_days,
     weekly,
     work_days,
@@ -59,16 +58,16 @@ def new_job(raw: str) -> Result[Jobs, InvalidJob]:
         return Failure(InvalidJob())
 
 
+def behind_work_days(minute: CronItem, hour: CronItem) -> Cron:
+    return week_days(minute, hour, range(0, 5)).unwrap()  # Sun - Thu
+
+
 ANY = AnyTime()
 SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
     {
-        new_cron(CronDraft(ANY, 18, 16, 3, ANY)).unwrap(): (
-            Jobs.MAILCHIMP_ETL,
-        ),
         work_days(ANY, ANY).unwrap(): (Jobs.REPORT_FAILS,),
-        week_days(ANY, 22, range(0, 5)).unwrap(): (
-            Jobs.DYNAMO_INTEGRATES_MAIN,
-        ),
+        behind_work_days(ANY, 22): (Jobs.DYNAMO_INTEGRATES_MAIN,),
+        behind_work_days(ANY, 23): (Jobs.MAILCHIMP_ETL,),
         work_days(ANY, 0).unwrap(): (
             Jobs.MIRROR,
             Jobs.REPORT_CANCELLED,
