@@ -14,6 +14,7 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -25,13 +26,7 @@ import type {
   IAddGroupModalProps,
   IGroupNameProps,
 } from "scenes/Dashboard/components/AddGroupModal/types";
-import {
-  Col100,
-  Col40,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { msgSuccess } from "utils/notifications";
 import {
@@ -133,6 +128,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       <Modal
         onClose={onClose}
         open={true}
+        size={"large"}
         title={t("organization.tabs.groups.newGroup.new.group")}
       >
         <Formik
@@ -165,8 +161,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
 
             return (
               <Form>
-                <Row>
-                  <Col100>
+                <Row align={"space-between"}>
+                  <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
                         {t(
@@ -197,6 +193,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </FormGroup>
                       </TooltipWrapper>
                     </FormGroup>
+                  </Col>
+                  <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
                         {t("organization.tabs.groups.newGroup.name")}
@@ -214,6 +212,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         ])}
                       />
                     </FormGroup>
+                  </Col>
+                  <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
                         {t(
@@ -244,6 +244,10 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </FormGroup>
                       </TooltipWrapper>
                     </FormGroup>
+                  </Col>
+                </Row>
+                <Row align={"space-between"}>
+                  <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
                         {t("organization.tabs.groups.newGroup.type.title")}
@@ -271,6 +275,23 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </FormGroup>
                       </TooltipWrapper>
                     </FormGroup>
+                  </Col>
+                  <Col large={"33"} medium={"33"} small={"33"}>
+                    <FormGroup>
+                      <ControlLabel>
+                        {t("organization.tabs.groups.newGroup.service.title")}
+                      </ControlLabel>
+                      <Field component={FormikDropdown} name={"service"}>
+                        <option value={"BLACK"}>
+                          {t("organization.tabs.groups.newGroup.service.black")}
+                        </option>
+                        <option value={"WHITE"}>
+                          {t("organization.tabs.groups.newGroup.service.white")}
+                        </option>
+                      </Field>
+                    </FormGroup>
+                  </Col>
+                  <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
                         {t("organization.tabs.groups.newGroup.language.text")}
@@ -300,56 +321,37 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </FormGroup>
                       </TooltipWrapper>
                     </FormGroup>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("organization.tabs.groups.newGroup.service.title")}
-                      </ControlLabel>
-                      <Field component={FormikDropdown} name={"service"}>
-                        <option value={"BLACK"}>
-                          {t("organization.tabs.groups.newGroup.service.black")}
-                        </option>
-                        <option value={"WHITE"}>
-                          {t("organization.tabs.groups.newGroup.service.white")}
-                        </option>
-                      </Field>
-                    </FormGroup>
-                  </Col100>
+                  </Col>
                 </Row>
-                <div>
-                  <Row>
-                    <Col40>
-                      <TooltipWrapper
-                        id={"organization.tabs.groups.newGroup.machine.tooltip"}
-                        message={t(
-                          "organization.tabs.groups.newGroup.machine.tooltip"
-                        )}
-                        placement={"top"}
-                      >
-                        <FormGroup>
-                          <ControlLabel>
-                            {t(
-                              "organization.tabs.groups.newGroup.machine.text"
-                            )}
-                            {" *"}
-                          </ControlLabel>
-                          <SwitchButton
-                            checked={values.machine}
-                            name={"machine"}
-                            offlabel={t(
-                              "organization.tabs.groups.newGroup.switch.no"
-                            )}
-                            onChange={handleMachineBtnChange}
-                            onlabel={t(
-                              "organization.tabs.groups.newGroup.switch.yes"
-                            )}
-                          />
-                        </FormGroup>
-                      </TooltipWrapper>
-                    </Col40>
-                  </Row>
-                </div>
-                <Row>
-                  <Col40>
+                <Row align={"space-between"}>
+                  <Col large={"50"} medium={"50"} small={"50"}>
+                    <TooltipWrapper
+                      id={"organization.tabs.groups.newGroup.machine.tooltip"}
+                      message={t(
+                        "organization.tabs.groups.newGroup.machine.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <ControlLabel>
+                          {t("organization.tabs.groups.newGroup.machine.text")}
+                          {" *"}
+                        </ControlLabel>
+                        <SwitchButton
+                          checked={values.machine}
+                          name={"machine"}
+                          offlabel={t(
+                            "organization.tabs.groups.newGroup.switch.no"
+                          )}
+                          onChange={handleMachineBtnChange}
+                          onlabel={t(
+                            "organization.tabs.groups.newGroup.switch.yes"
+                          )}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </Col>
+                  <Col large={"50"} medium={"50"} small={"50"}>
                     <TooltipWrapper
                       id={"organization.tabs.groups.newGroup.squad.tooltip"}
                       message={t(
@@ -375,31 +377,27 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         />
                       </FormGroup>
                     </TooltipWrapper>
-                  </Col40>
+                  </Col>
                 </Row>
                 {" *"}
                 {t("organization.tabs.groups.newGroup.extraChargesMayApply")}
-                <div>
-                  <div>
-                    <ModalFooter>
-                      <Button
-                        id={"add-group-cancel"}
-                        onClick={onClose}
-                        variant={"secondary"}
-                      >
-                        {t("confirmmodal.cancel")}
-                      </Button>
-                      <Button
-                        disabled={!dirty || submitting}
-                        id={"add-group-proceed"}
-                        type={"submit"}
-                        variant={"primary"}
-                      >
-                        {t("confirmmodal.proceed")}
-                      </Button>
-                    </ModalFooter>
-                  </div>
-                </div>
+                <ModalFooter>
+                  <Button
+                    id={"add-group-cancel"}
+                    onClick={onClose}
+                    variant={"secondary"}
+                  >
+                    {t("confirmmodal.cancel")}
+                  </Button>
+                  <Button
+                    disabled={!dirty || submitting}
+                    id={"add-group-proceed"}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
+                    {t("confirmmodal.proceed")}
+                  </Button>
+                </ModalFooter>
               </Form>
             );
           }}
