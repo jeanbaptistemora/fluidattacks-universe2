@@ -1,5 +1,5 @@
 resource "aws_iam_role" "roles-secret-management" {
-  for_each             = {for name in var.projects: name => name}
+  for_each             = { for name in var.projects : name => name }
   name                 = "continuous-${each.value}"
   assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
   max_session_duration = "32400"
@@ -12,7 +12,7 @@ resource "aws_iam_role" "roles-secret-management" {
 }
 
 resource "aws_iam_policy" "policies-secret-management" {
-  for_each    = {for name in var.projects: name => name}
+  for_each    = { for name in var.projects : name => name }
   description = "continuous-${each.value} policy"
   name        = "continuous-${each.value}"
   path        = "/user-provision/"
@@ -60,7 +60,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "continuous-prod-attach-policy" {
-  for_each   = {for name in var.projects: name => name}
+  for_each   = { for name in var.projects : name => name }
   role       = "continuous-${each.value}"
   policy_arn = aws_iam_policy.policies-secret-management[each.value].arn
 }

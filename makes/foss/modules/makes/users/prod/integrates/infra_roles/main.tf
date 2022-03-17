@@ -1,10 +1,10 @@
 terraform {
   required_version = "~> 1.0"
   backend "s3" {
-    bucket  = "fluidattacks-terraform-states-prod"
-    key     = "makes-roles-for-users.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+    bucket         = "fluidattacks-terraform-states-prod"
+    key            = "makes-roles-for-users.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
     dynamodb_table = "terraform_state_lock"
   }
 }
