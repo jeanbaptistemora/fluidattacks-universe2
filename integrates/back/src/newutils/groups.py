@@ -251,6 +251,7 @@ def format_group_unreliable_indicators(
 
 def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     item = {
+        "disambiguation": metadata.disambiguation,
         "group_context": metadata.context,
     }
     return {

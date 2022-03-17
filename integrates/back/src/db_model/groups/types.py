@@ -95,3 +95,4 @@ class Group(NamedTuple):
 
 class GroupMetadataToUpdate(NamedTuple):
     context: Optional[str] = None
+    disambiguation: Optional[str] = None
