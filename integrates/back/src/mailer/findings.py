@@ -241,7 +241,6 @@ async def send_mail_vulnerability_report(
     group_name: str = "",
     finding_title: str,
     finding_id: str,
-    responsible: str,
     severity: str,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
@@ -253,7 +252,6 @@ async def send_mail_vulnerability_report(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
             f"{finding_id}/locations"
         ),
-        "responsible": responsible,
         "severity": severity,
     }
     await send_mails_async(
