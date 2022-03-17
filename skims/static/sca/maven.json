@@ -3102,6 +3102,33 @@
     "CVE-2021-21293": ">=0 <0.14.15",
     "GHSA-xmw9-q7x9-j5qc": ">=0 <0.14.15"
   },
+  "org.http4s:blaze-core_2.11": {
+    "GHSA-xmw9-q7x9-j5qc": "<0.14.15"
+  },
+  "org.http4s:blaze-core_2.12": {
+    "GHSA-xmw9-q7x9-j5qc": "<0.14.15"
+  },
+  "org.http4s:blaze-core_2.13": {
+    "GHSA-xmw9-q7x9-j5qc": "<0.14.15"
+  },
+  "org.http4s:http4s-async-http-client_2.12": {
+    "GHSA-8hxh-r6f7-jf45": "<=0.21.7"
+  },
+  "org.http4s:http4s-async-http-client_2.13": {
+    "GHSA-8hxh-r6f7-jf45": "<=0.21.7"
+  },
+  "org.http4s:http4s-blaze-server_2.12": {
+    "GHSA-xhv5-w9c5-2r2w": "<0.21.17"
+  },
+  "org.http4s:http4s-blaze-server_2.13": {
+    "GHSA-xhv5-w9c5-2r2w": "<0.21.17"
+  },
+  "org.http4s:http4s-client": {
+    "GHSA-5vcm-3xc3-w7x3": "<=0.21.28 || >=0.22.0 <=0.22.4 || >=0.23.0 <=0.23.3"
+  },
+  "org.http4s:http4s-core": {
+    "GHSA-6h7w-fc84-x7p6": "0.23.0-m1 || >=0.21.7 <0.21.24 || >=0.22.0-m1 <=0.22.0-m8 || >=1.0.0-m1 <=1.0.0-m22"
+  },
   "org.http4s:http4s-core_2.12": {
     "CVE-2020-5280": ">=0 <0.18.26 || >=0.19.0 <0.20.20 || >=0.21.0 <0.21.2",
     "CVE-2021-21294": ">=0 <0.21.17",
@@ -3113,6 +3140,9 @@
     "GHSA-66q9-f7ff-mmx6": ">=0 <0.18.26 || >=0.19.0 <0.20.20 || >=0.21.0 <0.21.2",
     "GHSA-6h7w-fc84-x7p6": "1.0.0 || >=0.21.7 <0.21.24 || >=0.22.0 <=0.23.0",
     "GHSA-xhv5-w9c5-2r2w": ">=0 <0.21.17"
+  },
+  "org.http4s:http4s-server": {
+    "GHSA-5vcm-3xc3-w7x3": "<=0.21.28 || >=0.22.0 <=0.22.4 || >=0.23.0 <=0.23.3"
   },
   "org.igniterealtime.openfire:distribution": {
     "CVE-2017-15911": ">=0 <=4.1.6",
