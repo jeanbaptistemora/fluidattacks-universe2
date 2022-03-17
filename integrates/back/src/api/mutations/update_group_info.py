@@ -2,10 +2,17 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    InvalidParameter,
     PermissionDenied,
 )
 from custom_types import (
     SimplePayload as SimplePayloadType,
+)
+from db_model.groups.enums import (
+    GroupLanguage,
+)
+from db_model.groups.types import (
+    GroupMetadataToUpdate,
 )
 from decorators import (
     concurrent_decorators,
@@ -42,20 +49,24 @@ async def mutate(
     language: str,
 ) -> SimplePayloadType:
     group_name = group_name.lower()
-    success = False
-
     try:
+        description = description.strip()
+        if not description:
+            raise InvalidParameter()
         validations_utils.validate_field_length(description, 200)
         validations_utils.validate_group_language(language)
-        success = await groups_domain.update_group_info(
-            description,
-            group_name,
-            language,
+        await groups_domain.update_metadata_typed(
+            group_name=group_name,
+            metadata=GroupMetadataToUpdate(
+                description=description,
+                language=GroupLanguage[language.upper()],
+            ),
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Unauthorized role attempted to update group",
+            f"Security: Unauthorized role attempted to update group "
+            f"{group_name}",
         )
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

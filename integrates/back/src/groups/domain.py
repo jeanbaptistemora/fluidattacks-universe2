@@ -899,21 +899,6 @@ async def update_group_attrs(
     return success
 
 
-async def update_group_info(
-    description: str,
-    group_name: str,
-    language: str,
-) -> bool:
-    success: bool = False
-    new_data: GroupType = {
-        "description": description,
-        "language": language,
-    }
-    success = await update(group_name, new_data)
-
-    return success
-
-
 async def update_group_tier(
     *,
     loaders: Any,

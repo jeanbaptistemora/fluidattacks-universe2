@@ -95,4 +95,6 @@ class Group(NamedTuple):
 
 class GroupMetadataToUpdate(NamedTuple):
     context: Optional[str] = None
+    description: Optional[str] = None
     disambiguation: Optional[str] = None
+    language: Optional[GroupLanguage] = None

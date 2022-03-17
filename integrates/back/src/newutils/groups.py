@@ -251,8 +251,12 @@ def format_group_unreliable_indicators(
 
 def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     item = {
+        "description": metadata.description,
         "disambiguation": metadata.disambiguation,
         "group_context": metadata.context,
+        "language": str(metadata.language.value).lower()
+        if metadata.language
+        else None,
     }
     return {
         key: None if not value else value
