@@ -107,7 +107,7 @@ async def add_draft(
     group_name: str,
     user_email: str,
     draft_info: FindingDraftToAdd,
-) -> None:
+) -> Finding:
     findings_utils.is_valid_finding_title(draft_info.title)
     if not operation_can_be_executed(context, draft_info.title):
         raise MachineCanNotOperate()
@@ -134,6 +134,7 @@ async def add_draft(
         threat=draft_info.threat,
     )
     await findings_model.add(finding=draft)
+    return draft
 
 
 async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:

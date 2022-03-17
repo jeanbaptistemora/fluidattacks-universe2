@@ -8,7 +8,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    SimplePayload,
+    AddDraftPayload,
 )
 from db_model.findings.types import (
     Finding,
@@ -57,7 +57,7 @@ async def mutate(
     group_name: str,
     title: str,
     **kwargs: Any,
-) -> SimplePayload:
+) -> AddDraftPayload:
     try:
         # Duplicate check
         group_findings_loader: DataLoader = info.context.loaders.group_findings
@@ -124,7 +124,7 @@ async def mutate(
             threat=kwargs.get("threat", ""),
             title=title,
         )
-        await findings_domain.add_draft(
+        draft = await findings_domain.add_draft(
             info.context, group_name, user_email, draft_info
         )
         logs_utils.cloudwatch_log(
@@ -137,4 +137,4 @@ async def mutate(
             f"Security: Attempted to create draft in {group_name} group",
         )
         raise
-    return SimplePayload(success=True)
+    return AddDraftPayload(draft_id=draft.id, success=True)

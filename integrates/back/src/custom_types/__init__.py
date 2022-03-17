@@ -135,6 +135,11 @@ AddStakeholderPayload = NamedTuple(
 )
 
 
+class AddDraftPayload(NamedTuple):
+    draft_id: str
+    success: bool
+
+
 class AddRootPayload(NamedTuple):
     root_id: str
     success: bool
