@@ -273,7 +273,7 @@ label {
 :global .split-button > div > button {
   background: transparent !important;
   border: none;
-  color: #2e2e38;
+  color: #ff3435;
   font-size: 1rem;
   text-transform: capitalize;
 }

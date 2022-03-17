@@ -1,4 +1,4 @@
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
@@ -26,7 +26,7 @@ const SplitButton: React.FC<ISplitButtonProps> = ({
       {title}
     </LastOrg>
     <IconButton onClick={onClickIcon}>
-      <FontAwesomeIcon icon={faCaretDown} />
+      <FontAwesomeIcon icon={faAngleDown} />
     </IconButton>
     {content}
   </ButtonGroup>
