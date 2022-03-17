@@ -3,14 +3,14 @@
 import { graphql } from "gatsby";
 import React from "react";
 
-import { Home } from "../components/Home";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
+import { Home } from "../components/NewHome";
 import { Seo } from "../components/Seo";
 
-import "modal-video-custom/scss/modal-video.scss";
-
-const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
+const NewHomeIndex: React.FC<IQueryData> = ({
+  data,
+}: IQueryData): JSX.Element => {
   const { author, description, keywords, siteUrl, title } =
     data.site.siteMetadata;
 
@@ -39,7 +39,7 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default Index;
+export default NewHomeIndex;
 
 export const query: void = graphql`
   query {
