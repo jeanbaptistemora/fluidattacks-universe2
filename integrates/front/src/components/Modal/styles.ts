@@ -27,7 +27,7 @@ interface IDialogProps {
 const dialogSizes: Record<IDialogProps["size"], string> = {
   large: "70%",
   medium: "50%",
-  small: "25%",
+  small: "20%",
 };
 
 const Dialog = styled.div<IDialogProps>`

@@ -1,26 +1,22 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need className to override default styles from react-boostrap.
-*/
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useState } from "react";
-import type { ColumnDescription } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
+import { ToggleContainer, ToggleLabel } from "./styles";
+
 import { Button } from "components/Button";
+import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import type { ICustomToggleProps } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { ControlLabel, Row, RowCenter } from "styles/styledComponents";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
   props: Readonly<ICustomToggleProps>
 ): JSX.Element => {
   const { t } = useTranslation();
   const {
-    onUpdate,
     propsTable: { onColumnToggle: sideEffects },
     propsToggle: { columns, toggles, onColumnToggle },
   } = props;
@@ -30,9 +26,6 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
   }
   function handleCloseTableSetClick(): void {
     setHidden(false);
-    if (!_.isUndefined(onUpdate)) {
-      onUpdate();
-    }
   }
 
   return (
@@ -54,49 +47,37 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
       <Modal
         onClose={handleCloseTableSetClick}
         open={hidden}
+        size={"small"}
         title={t("group.findings.tableSet.modalTitle")}
       >
-        <RowCenter>
-          <div
-            className={"btn-group btn-group-toggle btn-group-vertical"}
-            data-toggle={"buttons"}
-            id={"columns-buttons"}
-          >
-            {columns
-              .map(
-                (
-                  column: ColumnDescription
-                ): ColumnDescription & {
-                  toggle: boolean;
-                } => ({
-                  ...column,
-                  toggle: toggles[column.dataField as number],
-                })
-              )
-              .map((column): JSX.Element => {
-                function handleClick(): void {
-                  onColumnToggle(column.dataField as string);
+        <ToggleContainer id={"columns-buttons"}>
+          {columns.map((column): JSX.Element => {
+            function handleClick(): void {
+              onColumnToggle(column.dataField as string);
 
-                  if (!_.isUndefined(sideEffects)) {
-                    sideEffects(column.dataField as string);
-                  }
-                }
+              if (!_.isUndefined(sideEffects)) {
+                sideEffects(column.dataField as string);
+              }
+            }
 
-                return (
-                  <Row key={column.dataField}>
-                    <input
-                      aria-label={column.dataField}
-                      checked={column.toggle}
-                      name={column.dataField}
-                      onChange={handleClick}
-                      type={"checkbox"}
-                    />
-                    <ControlLabel className={"ml1"}>{column.text}</ControlLabel>
-                  </Row>
-                );
-              })}
-          </div>
-        </RowCenter>
+            return (
+              <Row key={column.dataField}>
+                <Col>
+                  <ToggleLabel>{column.text}</ToggleLabel>
+                </Col>
+                <Col large={"25"} medium={"25"} small={"25"}>
+                  <input
+                    aria-label={column.dataField}
+                    checked={toggles[column.dataField as number]}
+                    name={column.dataField}
+                    onChange={handleClick}
+                    type={"checkbox"}
+                  />
+                </Col>
+              </Row>
+            );
+          })}
+        </ToggleContainer>
       </Modal>
     </div>
   );

@@ -98,7 +98,6 @@ interface IHeaderConfig extends Omit<ColumnDescription, "text" | "width"> {
 }
 
 interface ICustomToggleProps {
-  onUpdate?: () => void;
   propsTable: ITableProps;
   propsToggle: ToolkitContextType["columnToggleProps"];
 }

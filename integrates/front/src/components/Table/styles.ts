@@ -43,4 +43,10 @@ const TableContainer = styled.div.attrs({
   }
 `;
 
-export { ITableContainerProps, TableContainer };
+const ToggleContainer = styled.div.attrs({ className: "mh3" })``;
+
+const ToggleLabel = styled.h4.attrs({ className: "mv2" })`
+  font-size: 20px;
+`;
+
+export { ITableContainerProps, TableContainer, ToggleContainer, ToggleLabel };
