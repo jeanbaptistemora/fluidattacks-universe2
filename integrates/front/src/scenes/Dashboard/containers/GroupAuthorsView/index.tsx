@@ -529,7 +529,12 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           onUpdateCustomSearch: onSearchTextChange,
           position: "right",
         }}
-        dataset={resultDataset}
+        dataset={
+          /* eslint-disable-next-line fp/no-mutating-methods */
+          resultDataset.sort((itemA, itemB): number =>
+            itemA.actor > itemB.actor ? 1 : -1
+          )
+        }
         defaultSorted={{ dataField: "actor", order: "asc" }}
         exportCsv={true}
         headers={headersAuthorsTable}
