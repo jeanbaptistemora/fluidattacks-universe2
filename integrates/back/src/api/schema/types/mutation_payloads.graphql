@@ -17,6 +17,14 @@ type SimplePayloadMessage implements Payload {
   success: Boolean!
 }
 
+"Response payload when creating a draft"
+type AddDraftPayload implements Payload {
+  "ID of the created draft"
+  draftId: String!
+  "Did the query succeed?"
+  success: Boolean!
+}
+
 "Simple Payload type definition"
 type AddOrganizationPayload implements Payload {
   "Newly added Organization"

@@ -78,7 +78,7 @@ type Mutation {
     title: String!
     "User involvement needed for a successful attack"
     userInteraction: String
-  ): SimplePayload!
+  ): AddDraftPayload!
 
   "Reports a blocking event"
   addEvent(
