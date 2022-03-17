@@ -4,7 +4,6 @@ import React from "react";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IConfirmFn } from "components/ConfirmDialog";
 import { Modal, ModalFooter } from "components/Modal";
 import {
   ButtonToolbarCenter,
@@ -38,7 +37,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
         <ConfirmDialog
           title={translate.t("searchFindings.tabResources.files.confirm.title")}
         >
-          {(confirm: IConfirmFn): JSX.Element => {
+          {(confirm): JSX.Element => {
             function onConfirmDelete(): void {
               confirm((): void => {
                 onDelete();

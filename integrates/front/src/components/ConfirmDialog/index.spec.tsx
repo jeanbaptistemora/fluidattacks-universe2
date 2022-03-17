@@ -4,7 +4,6 @@ import React from "react";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IConfirmFn } from "components/ConfirmDialog";
 
 describe("ConfirmDialog", (): void => {
   it("should return a fuction", (): void => {
@@ -19,7 +18,7 @@ describe("ConfirmDialog", (): void => {
     const cancelCallback: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <ConfirmDialog title={"Title test"}>
-        {(confirm: IConfirmFn): React.ReactNode => {
+        {(confirm): React.ReactNode => {
           function handleClick(): void {
             confirm(confirmCallback, cancelCallback);
           }

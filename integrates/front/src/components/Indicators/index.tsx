@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Indicator } from "./Indicator";
+
 const Indicators = styled.div.attrs({
   className: "flex justify-center pa4",
 })`
@@ -10,4 +12,4 @@ const Indicators = styled.div.attrs({
   }
 `;
 
-export { Indicators };
+export { Indicator, Indicators };

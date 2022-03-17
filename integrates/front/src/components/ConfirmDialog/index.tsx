@@ -77,4 +77,4 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
   );
 };
 
-export { IConfirmFn, ConfirmDialog };
+export { ConfirmDialog, IConfirmDialogProps, IConfirmFn };

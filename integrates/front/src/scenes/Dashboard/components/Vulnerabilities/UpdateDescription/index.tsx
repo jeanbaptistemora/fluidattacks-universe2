@@ -19,7 +19,6 @@ import type {
   IVulnDataTypeAttr,
 } from "../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IConfirmFn } from "components/ConfirmDialog";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
@@ -104,7 +103,7 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
         message={t("searchFindings.tabDescription.approvalMessage")}
         title={t("searchFindings.tabDescription.approvalTitle")}
       >
-        {(confirm: IConfirmFn): JSX.Element => {
+        {(confirm): JSX.Element => {
           async function handleSubmit(
             values: IUpdateTreatmentVulnerabilityForm
           ): Promise<void> {

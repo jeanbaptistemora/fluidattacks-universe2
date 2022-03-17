@@ -34,7 +34,6 @@ import {
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IConfirmFn } from "components/ConfirmDialog";
 import { Table } from "components/Table";
 import {
   changeFormatter,
@@ -440,7 +439,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
-        {(confirm: IConfirmFn): React.ReactNode => {
+        {(confirm): React.ReactNode => {
           const handleStateUpdate: (row: Record<string, string>) => void = (
             row
           ): void => {

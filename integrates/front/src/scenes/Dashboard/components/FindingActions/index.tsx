@@ -4,7 +4,6 @@ import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IConfirmFn } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -60,7 +59,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
           </Can>
           <Can do={"api_mutations_approve_draft_mutate"}>
             <ConfirmDialog title={translate.t("group.drafts.approve.title")}>
-              {(confirm: IConfirmFn): React.ReactNode => {
+              {(confirm): React.ReactNode => {
                 const handleClick: () => void = useCallback((): void => {
                   confirm((): void => {
                     onApprove();
@@ -88,7 +87,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
           </Can>
           <Can do={"api_mutations_reject_draft_mutate"}>
             <ConfirmDialog title={translate.t("group.drafts.reject.title")}>
-              {(confirm: IConfirmFn): React.ReactNode => {
+              {(confirm): React.ReactNode => {
                 const handleClick: () => void = useCallback((): void => {
                   confirm((): void => {
                     onReject();

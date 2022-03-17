@@ -3,9 +3,7 @@ import { faDesktop, faSkull } from "@fortawesome/free-solid-svg-icons";
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
 
-import { Indicator } from "./Indicator";
-
-import { Indicators } from ".";
+import { Indicator, Indicators } from ".";
 
 const config: Meta = {
   component: Indicators,

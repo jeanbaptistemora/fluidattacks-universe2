@@ -9,8 +9,7 @@ import React from "react";
 
 import type { IBadgeProps } from "components/Badge";
 import { Badge } from "components/Badge";
-import { Indicators } from "components/Indicators";
-import { Indicator } from "components/Indicators/Indicator";
+import { Indicator, Indicators } from "components/Indicators";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
