@@ -19,7 +19,7 @@ interface ITreatmentTrackingAttr {
 }
 
 const TrackingContainer = styled.nav.attrs({
-  className: "flex flex-wrap mt3 overflow-y-auto",
+  className: "flex flex-wrap justify-around mt3 overflow-y-auto",
 })`
   max-height: 50vh;
 `;

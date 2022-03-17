@@ -20,7 +20,7 @@
 
 :local .date {
   composes: date from '../../TrackingItem/index.css';
-  width: 80px;
+  width: auto;
 }
 
 :local .container {
