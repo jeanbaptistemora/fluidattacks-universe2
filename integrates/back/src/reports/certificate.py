@@ -2,12 +2,23 @@
 from back.src.settings.logger import (
     LOGGING,
 )
+from db_model.findings.types import (
+    Finding,
+)
+from findings import (
+    domain as findings_domain,
+)
 import logging
 import matplotlib
+from reports.pdf import (
+    CreatorPdf,
+)
 from reports.typing import (
     CertFindingInfo,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Optional,
     Tuple,
@@ -54,3 +65,39 @@ Context = TypedDict(
         "link": str,
     },
 )
+
+
+async def format_finding(
+    loaders: Any,
+    finding: Finding,
+    words: Dict[str, str],
+) -> CertFindingInfo:
+    closed_vulnerabilities = await findings_domain.get_closed_vulnerabilities(
+        loaders, finding.id
+    )
+    open_vulnerabilities = await findings_domain.get_open_vulnerabilities(
+        loaders, finding.id
+    )
+    severity_score = findings_domain.get_severity_score(finding.severity)
+
+    if open_vulnerabilities > 0:
+        state = words["fin_status_open"]
+    else:
+        state = words["fin_status_closed"]
+
+    return CertFindingInfo(
+        closed_vulnerabilities=closed_vulnerabilities,
+        open_vulnerabilities=open_vulnerabilities,
+        severity_score=severity_score,
+        state=state,
+        title=finding.title,
+    )
+
+
+class CertificateCreator(CreatorPdf):
+    """Class to generate certificates in PDF."""
+
+    def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
+        "Class constructor"
+        super().__init__(lang, doctype, tempdir)
+        self.proj_tpl = "templates/pdf/certificate.adoc"
