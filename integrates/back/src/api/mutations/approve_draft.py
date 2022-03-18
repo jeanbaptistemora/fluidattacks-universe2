@@ -10,8 +10,14 @@ from ariadne.utils import (
 from custom_types import (
     ApproveDraftPayload,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.users.get import (
+    User,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -80,7 +86,14 @@ async def mutate(
         stakeholders: Tuple[
             Dict[str, Any], ...
         ] = await loaders.group_stakeholders.load(group_name)
-        users_email = [stakeholder["email"] for stakeholder in stakeholders]
+        recipients = [stakeholder["email"] for stakeholder in stakeholders]
+        users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+        users_email = [
+            user.email
+            for user in users
+            if Notification.VULNERABILITY_REPORT
+            in user.notifications_preferences.email
+        ]
         approval_date = await findings_domain.approve_draft(
             info.context, finding_id, user_email
         )
