@@ -2,24 +2,22 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { Field } from "formik";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import type { ITagFieldProps } from "./types";
 
 import { ControlLabel } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikTagInput } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 
-const TagField: React.FC<ITagFieldProps> = (
-  props: ITagFieldProps
-): JSX.Element => {
-  const {
-    handleDeletion,
-    hasNewVulnSelected,
-    isAcceptedSelected,
-    isAcceptedUndefinedSelected,
-    isInProgressSelected,
-  } = props;
+const TagField: React.FC<ITagFieldProps> = ({
+  handleDeletion,
+  hasNewVulnSelected,
+  isAcceptedSelected,
+  isAcceptedUndefinedSelected,
+  isInProgressSelected,
+}: ITagFieldProps): JSX.Element => {
+  const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
@@ -36,7 +34,7 @@ const TagField: React.FC<ITagFieldProps> = (
       !hasNewVulnSelected ? (
         <div className={"mb4 nt2 w-100"}>
           <ControlLabel>
-            <b>{translate.t("searchFindings.tabDescription.tag")}</b>
+            <b>{t("searchFindings.tabDescription.tag")}</b>
           </ControlLabel>
           <Field
             component={FormikTagInput}

@@ -7,6 +7,7 @@ import { Form, useFormikContext } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import { AcceptanceUserField } from "./AcceptanceUserField";
@@ -75,7 +76,6 @@ import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 function usePreviousPristine(value: boolean): boolean {
   const ref = useRef(false);
@@ -94,6 +94,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   handleCloseModal,
   setConfigFn,
 }: IUpdateTreatmentModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveZeroRisk: boolean = permissions.can(
@@ -167,7 +168,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             findingId: vulnerabilitiesList[0].findingId,
           },
         },
-        GET_ME_VULNERABILITIES_ASSIGNED,
+        { query: GET_ME_VULNERABILITIES_ASSIGNED },
       ],
     });
 
@@ -177,7 +178,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       onError: (updateError: ApolloError): void => {
         updateError.graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(
-            translate.t(
+            t(
               "searchFindings.tabDescription.notification.emailNotificationError"
             )
           );
@@ -213,7 +214,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred deleting vulnerabilities tags",
           error
@@ -228,7 +229,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           findingId: vulnerabilitiesList[0].findingId,
         },
       },
-      GET_ME_VULNERABILITIES_ASSIGNED,
+      { query: GET_ME_VULNERABILITIES_ASSIGNED },
     ],
   });
 
@@ -238,7 +239,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     isTreatmentPristineP: boolean
   ): Promise<void> => {
     if (vulnerabilities.length === 0) {
-      msgError(translate.t("searchFindings.tabResources.noSelection"));
+      msgError(t("searchFindings.tabResources.noSelection"));
     } else {
       dataTreatmentTrackHelper(dataTreatment);
       try {
@@ -270,10 +271,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             getAreAllNotificationValid(notificationsResults);
           if (areAllNotificationValid.every(Boolean)) {
             msgSuccess(
-              translate.t(
+              t(
                 "searchFindings.tabDescription.notification.emailNotificationText"
               ),
-              translate.t(
+              t(
                 "searchFindings.tabDescription.notification.emailNotificationTitle"
               )
             );
@@ -337,7 +338,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             findingId: vulnerabilitiesList[0].findingId,
           },
         },
-        GET_ME_VULNERABILITIES_ASSIGNED,
+        { query: GET_ME_VULNERABILITIES_ASSIGNED },
       ],
     }
   );
@@ -537,7 +538,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         <div>
           <ModalFooter>
             <Button onClick={handleCloseModal} variant={"secondary"}>
-              {translate.t("group.findings.report.modalClose")}
+              {t("group.findings.report.modalClose")}
             </Button>
             {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
               <Button
@@ -551,7 +552,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 onClick={submitForm}
                 variant={"primary"}
               >
-                {translate.t("confirmmodal.proceed")}
+                {t("confirmmodal.proceed")}
               </Button>
             ) : undefined}
           </ModalFooter>
