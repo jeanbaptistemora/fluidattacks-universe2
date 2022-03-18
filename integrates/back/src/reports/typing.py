@@ -283,3 +283,38 @@ class PDFWordlistEn(Wordlist):
     FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
         "fin_status_closed", "Closed"
     )
+
+
+class CertInfoEs(Wordlist):
+    CERT_TITLE: WordlistItem = WordlistItem(
+        "cert_title", "Certificación de servicio de pruebas"
+    )
+    CERT_BODY_PART_1: WordlistItem = WordlistItem(
+        "cert_body_part_1",
+        """Fluidsignal Group S.A. identificada con *NIT 8110285148* certifica
+        que mantiene en la actualidad relaciones comerciales con la empresa
+        {{business}} identificada con *NIT {{business_number}}*.
+
+        Desde el {{start_date}}se han desarrollado pruebas de seguridad en
+        modalidad Hacking Continuo sobre la solución {{solution}}.
+
+        Ver anexo *Hacking_Continuo_Fluidattacks* para encontrar toda la
+        información del proceso y tipo de pruebas.
+
+        El resultado actual de las pruebas realizadas es el siguiente:""",
+    )
+    CERT_BODY_PART_2: WordlistItem = WordlistItem(
+        "cert_body_part_2",
+        """Las vulnerabilidades encontradas son notificadas a {{customer}}
+        quien continuamente ejecuta las acciones correctivas para darles
+        solución y *Fluid Attacks* realiza la verificación de estas
+        correcciones para garantizar la calidad de la solución.
+
+        La presente certificación se expide por solicitud del cliente a los
+        {{days}} del mes {{month}} de {{year}}.""",
+    )
+    CERT_SIGNATURE: WordlistItem = WordlistItem(
+        "cert_signature",
+        """Representante legal
+        Fluidsignal Group S.A.""",
+    )
