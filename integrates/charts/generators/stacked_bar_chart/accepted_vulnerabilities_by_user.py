@@ -95,9 +95,9 @@ def format_vulnerabilities_by_data(
     accepted_undefined: List[int] = [
         counters[f"{user}/ACCEPTED_UNDEFINED"] for user, _ in data
     ]
-    max_acc_value: int = max(accepted) if accepted else 1
+    max_acc_value: int = max(accepted) if accepted else 1 or 1
     max_acc_undefined_value: int = (
-        max(accepted_undefined) if accepted_undefined else 1
+        max(accepted_undefined) if accepted_undefined else 1 or 1
     )
 
     max_accepted: List[str] = [
