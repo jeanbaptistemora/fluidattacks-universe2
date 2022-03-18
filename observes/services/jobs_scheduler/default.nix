@@ -16,12 +16,14 @@
   self_pkgs = import ./build/pkg {
     inherit src lib metadata pythonPkgs;
   };
+  checks = import ./ci/check.nix {self_pkg = self_pkgs.runtime;};
   build_env = pkg:
     legacy_pkgs.python39.buildEnv.override {
       extraLibs = [pkg];
       ignoreCollisions = false;
     };
 in {
+  check = checks;
   env.runtime = build_env self_pkgs.runtime;
   env.dev = build_env self_pkgs.dev;
   pkg = self_pkgs.runtime;

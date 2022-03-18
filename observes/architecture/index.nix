@@ -10,7 +10,9 @@ let
     };
     bin = builtins.replaceStrings ["_"] ["-"] "${root}/bin";
     src = "${root}/${baseNameOf root}";
-    tests = "${root}/tests";
+    tests = "${root}/tests"; # path of tests
+    lint = builtins.replaceStrings ["_"] ["-"] "${root}/lint"; # lint job
+    test = builtins.replaceStrings ["_"] ["-"] "${root}/test"; # test job
   };
   streamer_zoho_crm = std_data "${singerPath}/streamer_zoho_crm";
 in {

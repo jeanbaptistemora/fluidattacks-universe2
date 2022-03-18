@@ -1,4 +1,8 @@
-{gitlabCi, ...}: let
+{
+  gitlabCi,
+  inputs,
+  ...
+}: let
   gitlabBranchMaster = gitlabCi.rules.branch "master";
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
@@ -63,6 +67,10 @@ in {
         }
         {
           output = "/lintPython/imports/observesArch";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = inputs.observesIndex.service.scheduler.lint;
           gitlabExtra = gitlabLint;
         }
         {
