@@ -566,6 +566,7 @@ const Machine = [
         label: 'Analytics',
         items: [
           'machine/web/analytics/introduction',
+          'machine/web/analytics/reports',
           'machine/web/analytics/common',
           'machine/web/analytics/organization',
           'machine/web/analytics/portfolio',
