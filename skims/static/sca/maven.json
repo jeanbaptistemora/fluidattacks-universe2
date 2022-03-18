@@ -4378,11 +4378,20 @@
     "CVE-2021-21266": ">=0 <2.5.12 || >=3.0.0 <3.0.1",
     "GHSA-r2hc-pmr7-4c9r": ">=0 <2.5.12 || >=3.0.0 <3.0.1"
   },
+  "org.openmrs.module.htmlformentry": {
+    "CVE-2020-24621": "<3.11.0"
+  },
+  "org.opennms:opennms": {
+    "GHSA-jjhw-5mxp-2g2q": ">=1.0.0 <27.1.1"
+  },
   "org.opensaml:opensaml": {
     "CVE-2014-3603": ">=2 <=2.6.1"
   },
   "org.opensaml:xmltooling": {
     "CVE-2013-6440": ">=0 <=1.4.0"
+  },
+  "org.ops4j.pax.logging:pax-logging-log4j2": {
+    "GHSA-xxfh-x98p-j8fr": "<1.11.10 || >=2.0.0 <2.0.11"
   },
   "org.owasp.antisamy:antisamy": {
     "CVE-2017-14735": ">=0 <1.5.7",
@@ -4398,6 +4407,9 @@
   "org.owasp:dependency-check-maven": {
     "CVE-2018-12036": ">=0 <3.2.0"
   },
+  "org.pac4j:pac4j-core": {
+    "GHSA-xhw6-hjc9-679m": "<5.2.0"
+  },
   "org.pac4j:pac4j-saml": {
     "CVE-2019-10755": ">=3.0.0 <=3.8.2"
   },
@@ -4410,10 +4422,16 @@
   "org.picketlink:picketlink-federation": {
     "CVE-2014-7827": ">=2-alpha0 <=2.5.3.sp13 || >=2.6-alpha0 <=2.6.1 || >=2.7-alpha0 <=2.7.1.beta2"
   },
+  "org.postgresql:pgjdbc-aggregate": {
+    "GHSA-568q-9fw5-28wf": "<42.2.5"
+  },
   "org.postgresql:postgresql": {
     "CVE-2018-10936": "<42.2.5",
     "CVE-2020-13692": "<42.2.13",
     "CVE-2022-21724": ">=42.3.0 <42.3.2 || >=9.4.1208 <42.2.25"
+  },
+  "org.powernukkit:powernukkit": {
+    "GHSA-3qpm-h9ch-px3c": "<=1.5.2.0"
   },
   "org.primefaces:primefaces": {
     "CVE-2017-1000486": ">=4.0 <=4.0.24 || >=5.0 <5.2.21 || >=5.3 <5.3.8",
@@ -4433,6 +4451,9 @@
     "CVE-2017-14868": ">=0 <2.3.11",
     "CVE-2017-14949": ">=0 <2.3.12"
   },
+  "org.restlet.jse:org.restlet": {
+    "GHSA-cvj4-g3gx-8vqq": "<2.3.12"
+  },
   "org.rhq:rhq-enterprise-comm": {
     "CVE-2016-3737": ">=4 <=4.13"
   },
@@ -4447,6 +4468,9 @@
     "CVE-2018-12533": ">=3.1.0 <=3.3.4",
     "CVE-2018-14667": ">=3.1.0 <=3.3.4"
   },
+  "org.rundeck:rundeck": {
+    "GHSA-5679-7qrc-5m7j": "<3.2.6"
+  },
   "org.rundeck:rundeck-core": {
     "CVE-2019-6804": ">=0 <3.0.13",
     "CVE-2020-11009": ">=0 <3.2.6",
@@ -4455,12 +4479,18 @@
   "org.sakaiproject:chat-base": {
     "CVE-2019-16148": ">=0 <=12.6"
   },
+  "org.scala-lang:scala-compiler": {
+    "GHSA-qvxv-pmq9-4q7g": "<2.10.7 || >=2.11.0 <2.11.12 || >=2.12.0 <2.12.4"
+  },
   "org.scala-lang:scala-library": {},
   "org.simpleframework:simple-xml": {
     "CVE-2017-1000190": "2.7.1"
   },
   "org.sonatype.nexus.plugins:nexus-yum-repository-plugin": {
     "CVE-2019-5475": ">=2.0 <=2.14.9-01"
+  },
+  "org.sonatype.nexus:nexus-core": {
+    "GHSA-8h56-v53h-5hhj": "<3.21.2"
   },
   "org.springblade:blade-core-log": {
     "CVE-2020-16165": ">=0 <=2.7.1"
