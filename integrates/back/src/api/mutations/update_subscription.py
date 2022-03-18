@@ -5,7 +5,14 @@ from billing import (
     domain as billing_domain,
 )
 from custom_types import (
+    Organization,
     SimplePayload,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     concurrent_decorators,
@@ -30,15 +37,16 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    group = await info.context.loaders.group.load(kwargs["group_name"])
-    org = await info.context.loaders.organization.load(group["organization"])
+    loaders: Dataloaders = info.context.loaders
+    group: Group = await loaders.group_typed.load(kwargs["group_name"])
+    org: Organization = await loaders.organization.load(group["organization"])
 
     # Update subscription
     result: bool = await billing_domain.update_subscription(
         subscription=kwargs["subscription"],
         org_billing_customer=org["billing_customer"],
         org_name=org["name"],
-        group_name=group["name"],
+        group_name=group.name,
     )
 
     return SimplePayload(success=result)
