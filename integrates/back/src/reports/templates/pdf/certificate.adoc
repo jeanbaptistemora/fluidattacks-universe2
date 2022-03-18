@@ -1,20 +1,17 @@
-= {{full_group}}
-:lang:		{{lang}}
-:author:	{{team}}
-:email:		{{team_mail}}
-:date: 	    {{report_date}}
-:language:	python
-:revnumber:	{{version}}
-:revdate:	{{revdate}}
-:revmark:	Versión inicial
-
 == {{cert_title}}
 
 {{cert_body_part_1}}
 
-//Table goes here
+|===
+|{{severity_title}}|{{finding_quantity_title}}s|{{total_vulns_title}}|{{closed_vulns_title}}|{{resume_perc_title}}
+{% for row in remediation_table %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+{%- endfor %}
+|===
 
 {{cert_body_part_2}}
 
-// Signature and logo here
-{{cert_signature}}
+{{signature_img}}
+{{signature_footer}}

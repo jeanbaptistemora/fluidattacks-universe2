@@ -285,6 +285,24 @@ class PDFWordlistEn(Wordlist):
     )
 
 
+class PDFWordlistEs(Wordlist):
+    FINDING_QUANTITY_TITLE: WordlistItem = WordlistItem(
+        "finding_quantity_title", "Cantidad de Tipologías"
+    )
+    OPEN_VULNS_TITLE: WordlistItem = WordlistItem(
+        "open_vulns_title", "Vulnerabilidades Remediadas"
+    )
+    RESUME_PERC_TITLE: WordlistItem = WordlistItem(
+        "resume_perc_title", "Porcentaje de Remediación"
+    )
+    SEVERITY_TITLE: WordlistItem = WordlistItem(
+        "severity_title", "Severidad del Hallazgo"
+    )
+    TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
+        "total_vulns_title", "Vulnerabilidades Reportadas"
+    )
+
+
 class CertInfoEs(Wordlist):
     CERT_TITLE: WordlistItem = WordlistItem(
         "cert_title", "Certificación de servicio de pruebas"
@@ -295,8 +313,9 @@ class CertInfoEs(Wordlist):
         que mantiene en la actualidad relaciones comerciales con la empresa
         {{business}} identificada con *NIT {{business_number}}*.
 
-        Desde el {{start_date}}se han desarrollado pruebas de seguridad en
-        modalidad Hacking Continuo sobre la solución {{solution}}.
+        Desde el {{start_day}} de {{start_month}} de {{start_year}} se han
+        desarrollado pruebas de seguridad en modalidad Hacking Continuo sobre
+        la solución {{solution}}.
 
         Ver anexo *Hacking_Continuo_Fluidattacks* para encontrar toda la
         información del proceso y tipo de pruebas.
@@ -311,10 +330,10 @@ class CertInfoEs(Wordlist):
         correcciones para garantizar la calidad de la solución.
 
         La presente certificación se expide por solicitud del cliente a los
-        {{days}} del mes {{month}} de {{year}}.""",
+        {{report_day}} del mes {{report_month}} de {{report_year}}.""",
     )
-    CERT_SIGNATURE: WordlistItem = WordlistItem(
-        "cert_signature",
+    SIGNATURE_FOOTER: WordlistItem = WordlistItem(
+        "signature_footer",
         """Representante legal
         Fluidsignal Group S.A.""",
     )

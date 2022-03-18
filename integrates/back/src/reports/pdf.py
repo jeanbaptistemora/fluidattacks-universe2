@@ -1,6 +1,7 @@
 from .typing import (
     PdfFindingInfo,
     PDFWordlistEn,
+    PDFWordlistEs,
 )
 from aioextensions import (
     collect,
@@ -489,11 +490,18 @@ class CreatorPdf:
         """Define the dictionaries of accepted languages."""
         self.wordlist = {}
         self.lang_support_en()
+        self.lang_support_es()
 
     def lang_support_en(self) -> None:
-        """Add the English dictionary."""
+        """Adds the English dictionary."""
         self.wordlist["en"] = dict(
             zip(PDFWordlistEn.keys(), PDFWordlistEn.labels())
+        )
+
+    def lang_support_es(self) -> None:
+        """Adds the Spanish dictionary."""
+        self.wordlist["es"] = dict(
+            zip(PDFWordlistEs.keys(), PDFWordlistEs.labels())
         )
 
     def make_content(self, words: Dict[str, str]) -> Dict[str, str]:
