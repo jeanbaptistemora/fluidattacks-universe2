@@ -53,7 +53,7 @@ class Jobs(Enum):
 
 def new_job(raw: str) -> Result[Jobs, InvalidJob]:
     try:
-        return Success(Jobs[raw])
+        return Success(Jobs[raw.upper()])
     except KeyError:
         return Failure(InvalidJob())
 

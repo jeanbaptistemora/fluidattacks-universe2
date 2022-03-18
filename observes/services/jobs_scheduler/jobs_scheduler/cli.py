@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from jobs_scheduler.conf import (
+    Jobs,
     new_job,
     SCHEDULE,
 )
@@ -44,14 +45,15 @@ def run_schedule(
 ) -> IO[None]:
     _now = datetime(
         NOW.year,
-        month if month else NOW.month,
-        day if day else NOW.day,
-        hour if hour else NOW.hour,
+        month if month is not None else NOW.month,
+        day if day is not None else NOW.day,
+        hour if hour is not None else NOW.hour,
         NOW.minute,
         NOW.second,
         NOW.microsecond,
         NOW.tzinfo,
     )
+    LOG.info("hour: %s", hour)
     LOG.info("Now: %s", _now)
     for cron, jobs in SCHEDULE.items():
         LOG.debug("Evaluating %s.", cron)
@@ -62,7 +64,9 @@ def run_schedule(
 
 
 @click.command()
-@click.argument("job", type=str)
+@click.argument(
+    "job", type=click.Choice([i.name for i in Jobs], case_sensitive=False)
+)
 @click.option("--dry-run", is_flag=True)
 def run_job(job: str, dry_run: bool) -> IO[None]:
     execute_job(new_job(job).alt(raise_exception).unwrap(), dry_run)
