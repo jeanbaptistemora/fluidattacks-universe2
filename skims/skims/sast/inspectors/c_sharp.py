@@ -259,8 +259,8 @@ def _get_metadata_attributes(
 def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, graph_model.GraphShardMetadataClassField]:
-    methods: Dict[str, graph_model.GraphShardMetadataCSharpMethod] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClassMethod]:
+    methods: Dict[str, graph_model.GraphShardMetadataClassMethod] = {}
 
     class_body_id = g.match_ast(graph, n_id, "declaration_list")[
         "declaration_list"
@@ -297,7 +297,7 @@ def _get_metadata_class_methods(
                 for modifier in match_method["modifier"] or []
             )
 
-            methods["." + _name] = graph_model.GraphShardMetadataCSharpMethod(
+            methods["." + _name] = graph_model.GraphShardMetadataClassMethod(
                 method_id,
                 class_name,
                 name=_name,
@@ -359,7 +359,7 @@ def _get_metadata_class_attributes(
 def _get_metadata_method_parameters(
     graph: graph_model.Graph,
     n_id: str,
-) -> List[graph_model.GraphShardMetadataCSharpParameter]:
+) -> List[graph_model.GraphShardMetadataParameter]:
     parameters = []
     match = g.match_ast_group(
         graph,
@@ -382,7 +382,7 @@ def _get_metadata_method_parameters(
             _param_type = node_to_str(graph, _param_type_id)
             _param_name = graph.nodes[_param_name_id]["label_text"]
             parameters.append(
-                graph_model.GraphShardMetadataCSharpParameter(
+                graph_model.GraphShardMetadataParameter(
                     param_id,
                     name=_param_name,
                     type_name=_param_type,

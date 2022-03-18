@@ -10391,6 +10391,7 @@
                   "name": "main",
                   "parameters": {
                     "args": {
+                      "attributes": null,
                       "n_id": "68",
                       "name": "args",
                       "type_name": "String[]"
@@ -15501,6 +15502,7 @@
                   "name": null,
                   "parameters": {
                     "name": {
+                      "attributes": null,
                       "n_id": "36",
                       "name": "name",
                       "type_name": "String"
@@ -15516,11 +15518,13 @@
                   "name": null,
                   "parameters": {
                     "lastName": {
+                      "attributes": null,
                       "n_id": "64",
                       "name": "lastName",
                       "type_name": "String"
                     },
                     "name": {
+                      "attributes": null,
                       "n_id": "60",
                       "name": "name",
                       "type_name": "String"
@@ -15536,16 +15540,19 @@
                   "name": null,
                   "parameters": {
                     "Id": {
+                      "attributes": null,
                       "n_id": "100",
                       "name": "Id",
                       "type_name": "String"
                     },
                     "lastName": {
+                      "attributes": null,
                       "n_id": "96",
                       "name": "lastName",
                       "type_name": "String"
                     },
                     "name": {
+                      "attributes": null,
                       "n_id": "92",
                       "name": "name",
                       "type_name": "String"
@@ -15579,6 +15586,7 @@
                   "name": "setLastName",
                   "parameters": {
                     "lastName": {
+                      "attributes": null,
                       "n_id": "220",
                       "name": "lastName",
                       "type_name": "String"
@@ -15594,6 +15602,7 @@
                   "name": "setName",
                   "parameters": {
                     "name": {
+                      "attributes": null,
                       "n_id": "150",
                       "name": "name",
                       "type_name": "String"
@@ -15609,6 +15618,7 @@
                   "name": "setUserId",
                   "parameters": {
                     "userId": {
+                      "attributes": null,
                       "n_id": "200",
                       "name": "userId",
                       "type_name": "String"

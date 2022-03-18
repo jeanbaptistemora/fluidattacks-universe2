@@ -1286,11 +1286,13 @@
                   "name": "doPost",
                   "parameters": {
                     "request": {
+                      "attributes": null,
                       "n_id": "23",
                       "name": "request",
                       "type_name": "HttpServletRequest"
                     },
                     "response": {
+                      "attributes": null,
                       "n_id": "27",
                       "name": "response",
                       "type_name": "HttpServletResponse"
@@ -2281,6 +2283,7 @@
                   "name": "main",
                   "parameters": {
                     "args": {
+                      "attributes": null,
                       "n_id": "21",
                       "name": "args",
                       "type_name": "String[]"

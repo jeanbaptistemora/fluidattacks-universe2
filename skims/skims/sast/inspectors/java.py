@@ -189,7 +189,7 @@ def _get_metadata_method_parameters(
 def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, graph_model.GraphShardMetadataClassField]:
+) -> Dict[str, graph_model.GraphShardMetadataClassMethod]:
     methods: Dict[str, graph_model.GraphShardMetadataClassMethod] = {}
 
     match = g.match_ast(graph, n_id, "class_body")

@@ -8,6 +8,9 @@ from sast_symbolic_evaluation.types import (
 from sast_syntax_readers.utils_generic import (
     get_dependencies,
 )
+from typing import (
+    cast,
+)
 
 
 def check_go_float_sanitization(args: EvaluatorArgs) -> bool:
@@ -58,7 +61,7 @@ def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
                 # Add a sink label to the method's node so the report is made
                 # on the line the danger is inserted instead of the line where
                 # the dangerous value is used
-                shard_idx = dep.meta.value.shard_idx
+                shard_idx = cast(int, dep.meta.value.shard_idx)
                 n_id = dep.meta.value.method_n_id
                 graph = args.graph_db.shards[shard_idx].graph
                 if "label_sink_type" in graph.nodes[n_id]:

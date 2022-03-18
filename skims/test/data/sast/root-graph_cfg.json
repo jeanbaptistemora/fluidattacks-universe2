@@ -19288,6 +19288,7 @@
                   "name": "main",
                   "parameters": {
                     "args": {
+                      "attributes": null,
                       "n_id": "25",
                       "name": "args",
                       "type_name": "String[ ]"

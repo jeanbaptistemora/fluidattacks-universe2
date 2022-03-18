@@ -330,12 +330,6 @@ class GraphShardMetadataParameter(NamedTuple):
     n_id: NId
     name: str
     type_name: str
-
-
-class GraphShardMetadataCSharpParameter(NamedTuple):
-    n_id: NId
-    name: str
-    type_name: str
     attributes: Optional[List[str]] = None
 
 
@@ -349,22 +343,12 @@ class GraphShardMetadataClassMethod(NamedTuple):
     attributes: Optional[List[str]] = None
 
 
-class GraphShardMetadataCSharpMethod(NamedTuple):
-    n_id: NId
-    class_name: Optional[str] = None
-    parameters: Optional[Dict[str, GraphShardMetadataCSharpParameter]] = None
-    name: Optional[str] = None
-    return_type: Optional[str] = None
-    static: bool = False
-    attributes: Optional[List[str]] = None
-
-
 class GraphShardMetadataClass(NamedTuple):
     fields: Dict[str, GraphShardMetadataClassField]
     methods: Dict[str, GraphShardMetadataClassMethod]
     n_id: NId
     attributes: Optional[List[str]] = None
-    inherit: Optional[Set[str]] = None
+    inherit: Optional[Union[Set[str], str]] = None
 
 
 class SinkFunctions(NamedTuple):
