@@ -97,7 +97,7 @@ def format_vulnerabilities_by_data(
         "ACCEPTED": "Temporarily accepted",
     }
     data: List[Tuple[str, int]] = Counter(
-        [key.split("/")[0] for key in counters]
+        {key.split("/")[0]: value for key, value in counters.most_common()}
     ).most_common(12)
     accepted: List[int] = [counters[f"{user}/ACCEPTED"] for user, _ in data]
     accepted_undefined: List[int] = [
