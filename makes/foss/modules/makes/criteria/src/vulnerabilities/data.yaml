@@ -4063,45 +4063,35 @@
   en:
     title: Technical information leak - Console functions
     description: >
-      It is possible to obtain technical information such as:
-
-      - System component versions
-      (HTTP headers, service banner, etc.).
-
-      - Specific information
-      about the configuration
-      of server components (php.ini, web.config).
-    impact: Gather technical information to craft new attack vectors.
+      The application uses console functions: log, info, warning.
+      The usage of these functions in productions environments
+      may lead to information leakages
+      and reveal vulnerable methods, technologies, or logic.
+    impact: >
+      Gather technical information to craft
+      more complex attack vectors.
     recommendation: >
-      Delete the services banner
-      information leakage.
-      Verify that HTTP headers
-      do not expose any name or version.
+      Avoid the use of console functions
+      in production environments.
+      Instead, encourage the use of logs
+      to register errors and exceptional events
     threat: >
       Authenticated attacker from the Internet.
   es:
     title: Technical information leak - Console functions
     description: >
-      Se obtiene información técnica del sistema, como:
-
-      - Versión de los componentes
-      que el sistema utiliza
-      (encabezados HTTP, banner del servicio, etc).
-
-      - Información específica sobre la configuración
-      de componentes a nivel del servidor
-      (php.ini, web.config)
-
-      - Funcionalidades que arrojan
-      información del servidor.
+      La aplicación hace uso de funciones console: log, info, warning.
+      El uso de estas funciones en ambientes productivos
+      puede conducir a fugas de información
+      y revelar métodos, tecnologías, o lógica vulnerable
     impact: >
       Recopilar información técnica
       para elaborar vectores de ataque más complejos.
     recommendation: >
-      Eliminar el banner de los servicios
-      con fuga de información.
-      Verificar que los encabezados HTTP
-      no expongan ningún nombre o versión.
+      Evitar el uso de funciones console
+      en ambientes productivos.
+      En su lugar registrar los errores y eventos
+      en logs debidamente protegidos
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
@@ -14640,7 +14630,7 @@
       they could exploit it to extend the
       knowledge of the attack surface.
     threat: >
-      Authenticated attacker on local network
+      Authenticated local attacker
       with access to the server console.
   es:
     title: Technical information leak - Print Functions
@@ -14667,7 +14657,7 @@
       podrían aprovecharla para ampliar el conocimiento
       de la superficie de ataque.
     threat: >
-      Atacante autenticado en red local con
+      Atacante local autenticado con
       acceso a la consola del servidor.
   category: Collect Information
   remediation_time: "15"
