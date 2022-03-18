@@ -130,7 +130,9 @@ async def ssh_ls_remote(
     branch: str = "HEAD",
 ) -> Optional[str]:
     parsed_url = urlparse(repo_url)
-    raw_root_url = repo_url.replace(f"{parsed_url.scheme}://", "")
+    raw_root_url = repo_url
+    if "source.developers.google" not in raw_root_url:
+        raw_root_url = repo_url.replace(f"{parsed_url.scheme}://", "")
 
     with tempfile.TemporaryDirectory() as temp_dir:
         ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
