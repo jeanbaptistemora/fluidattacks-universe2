@@ -26913,6 +26913,30 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,0
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 ",java.java_properties_sensitive_data
+F009,lines,namespace/skims/test/data/lib_path/f009/settings.json,18,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/settings.json,"
+   3 |         ""Authority"": ""https://azrawdv-webapp-tst122312.azurewebsites.net""
+   4 |     },
+   5 |     ""ApplicationInsights"": {
+   6 |         ""InstrumentationKey"": ""7777777777-5555555-888888-9999999-000""
+   7 |     },
+   8 |     ""ESB"": {
+   9 |         ""CrewProfileEndpoint"": ""https://azrav-webapp-tst122312.azurewebsites.net/api/Profile/"",
+  10 |         ""EmailEndpoint"": ""http://azrav-webapp-tst122312.azurewebsites.net/api/Mail"",
+  11 |         ""CrewMonthlyAssignementsEndpoint"": ""https://az-am-exp-use-qa.azure-api.net/example/example""
+  12 |     },
+  13 |     ""AzureAD"": {
+  14 |         ""TenantId"": ""n73nd728-8397-4579-ba30-j83h63g6a"",
+  15 |         ""ClientId"": ""h7893jd9-e1ec-4a72-9d49-nv738bvm7"",
+  16 |         ""Resource"": ""https://outlook.office365.com""
+  17 |     },
+> 18 |     ""OutlookServices"": {
+  19 |         ""SaveToSentItems"": true,
+  20 |         ""Email"": ""example@fluidattacks.com"",
+  21 |         ""Password"": ""84HCH6daj7""
+  22 |     }
+  23 | }
+     ^ Col 0
+",conf_files.sensitive_info_in_dotnet_json
 F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,"A field is interpreted on the server-side, although it indicates that it only accepts numbers, it allows values in the form 0xff.
  in namespace/skims/test/data/lib_root/f127/test.go","
    1 | package f127

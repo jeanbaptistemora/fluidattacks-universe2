@@ -1,0 +1,23 @@
+{
+    "IdentityServerAuthentication": {
+        "Authority": "https://azrawdv-webapp-tst122312.azurewebsites.net"
+    },
+    "ApplicationInsights": {
+        "InstrumentationKey": "7777777777-5555555-888888-9999999-000"
+    },
+    "ESB": {
+        "CrewProfileEndpoint": "https://azrav-webapp-tst122312.azurewebsites.net/api/Profile/",
+        "EmailEndpoint": "http://azrav-webapp-tst122312.azurewebsites.net/api/Mail",
+        "CrewMonthlyAssignementsEndpoint": "https://az-am-exp-use-qa.azure-api.net/example/example"
+    },
+    "AzureAD": {
+        "TenantId": "n73nd728-8397-4579-ba30-j83h63g6a",
+        "ClientId": "h7893jd9-e1ec-4a72-9d49-nv738bvm7",
+        "Resource": "https://outlook.office365.com"
+    },
+    "OutlookServices": {
+        "SaveToSentItems": true,
+        "Email": "example@fluidattacks.com",
+        "Password": "84HCH6daj7"
+    }
+}
