@@ -28,12 +28,13 @@ describe("TrackingView", (): void => {
               closed: 0,
               cycle: 0,
               date: "2018-09-28",
+              justification: null,
               open: 1,
             },
             {
               accepted: 1,
               acceptedUndefined: 0,
-              assgined: "test@test.test",
+              assigned: "test@test.test",
               closed: 0,
               cycle: 1,
               date: "2019-01-08",
@@ -96,8 +97,8 @@ describe("TrackingView", (): void => {
 
     const numberOfCycles: number = 2;
 
-    expect(wrapper.find("li").last().text()).not.toContain("Justification");
-    expect(wrapper.find("li").first().text()).toContain("Justification");
+    expect(wrapper.find("li").last().text()).not.toContain("justification");
+    expect(wrapper.find("li").first().text()).toContain("justification");
     expect(wrapper.find("li")).toHaveLength(numberOfCycles);
   });
 });

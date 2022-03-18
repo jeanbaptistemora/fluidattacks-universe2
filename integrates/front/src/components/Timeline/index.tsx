@@ -7,7 +7,6 @@ const Timeline = styled.ol.attrs({
 })`
   li:nth-child(odd) {
     align-self: flex-start;
-    justify-content: flex-end;
   }
 
   li:nth-child(odd)::after {
@@ -22,7 +21,6 @@ const Timeline = styled.ol.attrs({
 
   li:nth-child(even) {
     align-self: flex-end;
-    justify-content: flex-start;
   }
 
   li:nth-child(even)::after {
@@ -47,7 +45,6 @@ const Timeline = styled.ol.attrs({
   @media (max-width: 768px) {
     li:nth-child(odd) {
       align-self: flex-end;
-      justify-content: flex-start;
     }
 
     li:nth-child(odd)::after,
