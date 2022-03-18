@@ -1,20 +1,11 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
-import { Field } from "formik";
+import { render, screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
-import type { PropsWithChildren } from "react";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import waitForExpect from "wait-for-expect";
-
-import { JustificationField } from "./JustificationField";
-import type { IJustificationFieldProps } from "./JustificationField/types";
-import { TreatmentField } from "./TreatmentField";
-import { ZeroRiskTable } from "./ZeroRiskTable";
-import type { IZeroRiskTableProps } from "./ZeroRiskTable/types";
+import { useTranslation } from "react-i18next";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import type { IVulnerabilitiesAttr } from "../types";
@@ -42,6 +33,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("handle vulns acceptance modal", (): void => {
+  const { t } = useTranslation();
+
   it("should handle vulns acceptance", async (): Promise<void> => {
     expect.hasAssertions();
 
@@ -81,6 +74,7 @@ describe("handle vulns acceptance modal", (): void => {
           data: {
             finding: {
               id: "1",
+              releaseDate: "",
               remediated: false,
               state: "false",
               verified: false,
@@ -128,51 +122,51 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={mocksMutation}>
-        <HandleAcceptanceModal
-          findingId={"1"}
-          groupName={""}
-          handleCloseModal={handleOnClose}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
+          <HandleAcceptanceModal
+            findingId={"1"}
+            groupName={""}
+            handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
 
-        expect(wrapper).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "justification" })
+      ).toBeInTheDocument();
     });
-    const justification: ReactWrapper = wrapper.find("textarea");
-    justification.simulate("change", {
-      target: { name: "justification", value: "This is a justification test" },
-    });
-    const switchButton: ReactWrapper = wrapper
-      .find("#vulnTreatmentSwitch")
-      .at(0);
-    switchButton.simulate("click");
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a justification test"
+    );
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "APPROVED REJECTED" })
+        .querySelectorAll("#vulnTreatmentSwitch")[0]
+    );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "Indefinite acceptance has been handled",
-          "Correct!"
-        );
-        expect(handleRefetchData).toHaveBeenCalledTimes(1);
-        expect(handleOnClose).toHaveBeenCalledTimes(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("confirmmodal.proceed").toString())
+      ).toBeInTheDocument();
     });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "Indefinite acceptance has been handled",
+        "Correct!"
+      );
+    });
+
+    expect(handleRefetchData).toHaveBeenCalledTimes(1);
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
 
   it("should handle vulns acceptance errors", async (): Promise<void> => {
@@ -227,46 +221,42 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false} mocks={mocksMutation}>
-        <HandleAcceptanceModal
-          findingId={"1"}
-          groupName={""}
-          handleCloseModal={jest.fn()}
-          refetchData={jest.fn()}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
+          <HandleAcceptanceModal
+            findingId={"1"}
+            groupName={""}
+            handleCloseModal={jest.fn()}
+            refetchData={jest.fn()}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "justification" })
+      ).toBeInTheDocument();
+    });
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a justification test error"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("confirmmodal.proceed").toString())
+      ).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
 
-        expect(wrapper).toHaveLength(1);
-      });
+    const expectedErrorMsgs: number = 3;
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(expectedErrorMsgs);
     });
-    const justification: ReactWrapper = wrapper.find("textarea");
-    justification.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a justification test error",
-      },
-    });
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-        const expectedErrorMsgs: number = 3;
 
-        expect(handleRefetchData).not.toHaveBeenCalled();
-        expect(msgError).toHaveBeenCalledTimes(expectedErrorMsgs);
-      });
-    });
+    expect(handleRefetchData).not.toHaveBeenCalled();
   });
 
   it("should handle confirm zero risk", async (): Promise<void> => {
@@ -307,6 +297,7 @@ describe("handle vulns acceptance modal", (): void => {
           finding: {
             closedVulns: 0,
             id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+            minTimeToRemediate: 60,
             openVulns: 0,
             releaseDate: null,
             reportDate: null,
@@ -378,63 +369,56 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
-      >
-        <HandleAcceptanceModal
-          findingId={"422286126"}
-          groupName={"group name"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            ...mocksMutation,
+            mocksFindingHeader,
+            ...mocksFindingVulnInfo,
+          ]}
+        >
+          <HandleAcceptanceModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    const treatmentFieldSelect: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "treatment" })
-      .find("select");
-    treatmentFieldSelect.simulate("change", {
-      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("row", { name: "CONFIRM REJECT" })
+      ).toBeInTheDocument();
     });
-    const justificationFieldTextArea: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "justification" })
-      .find("textarea");
-    justificationFieldTextArea.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a test of confirming zero risk vulns",
-      },
+
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a test of confirming zero risk vulns"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("confirmmodal.proceed").toString())
+      ).not.toBeDisabled();
     });
-    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
-      wrapper.find(ZeroRiskTable);
-    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
-      .find("#zeroRiskCheckBox_yes")
-      .at(0);
-    requestedZeroRiskCheckBox.simulate("click");
-
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(handleRefetchData).toHaveBeenCalledTimes(1);
-        expect(handleCloseModal).toHaveBeenCalledTimes(1);
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "Zero risk vulnerability has been confirmed",
-          "Correct!"
-        );
-      });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    await waitFor((): void => {
+      expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
+
+    expect(handleCloseModal).toHaveBeenCalledTimes(1);
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "Zero risk vulnerability has been confirmed",
+      "Correct!"
+    );
   });
 
   it("should handle confirm zero risk error", async (): Promise<void> => {
@@ -447,6 +431,12 @@ describe("handle vulns acceptance modal", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_reject_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
@@ -505,6 +495,7 @@ describe("handle vulns acceptance modal", (): void => {
           data: {
             finding: {
               findingId: "422286126",
+              releaseDate: "",
               remediated: false,
               state: "false",
               verified: false,
@@ -552,62 +543,62 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
-      >
-        <HandleAcceptanceModal
-          findingId={"422286126"}
-          groupName={"group name"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            ...mocksMutation,
+            mocksFindingHeader,
+            ...mocksFindingVulnInfo,
+          ]}
+        >
+          <HandleAcceptanceModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    const treatmentFieldSelect: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "treatment" })
-      .find("select");
-    treatmentFieldSelect.simulate("change", {
-      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
-    });
-    const justificationFieldTextArea: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "justification" })
-      .find("textarea");
-    justificationFieldTextArea.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a test of confirming zero risk vulns",
-      },
-    });
-    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
-      wrapper.find(ZeroRiskTable);
-    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
-      .find("#zeroRiskCheckBox_yes")
-      .at(0);
-    requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(handleRefetchData).not.toHaveBeenCalledTimes(1);
-        expect(handleCloseModal).not.toHaveBeenCalledTimes(1);
-        expect(msgError).toHaveBeenCalledWith(
-          "Zero risk vulnerability is not requested"
-        );
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "treatment" })
+      ).toBeInTheDocument();
     });
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["CONFIRM_REJECT_ZERO_RISK"]
+    );
+
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+    );
+    userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a test of confirming zero risk vulns"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("confirmmodal.proceed").toString())
+      ).toBeInTheDocument();
+    });
+
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        "Zero risk vulnerability is not requested"
+      );
+    });
+
+    expect(handleRefetchData).not.toHaveBeenCalledTimes(1);
+    expect(handleCloseModal).not.toHaveBeenCalledTimes(1);
   });
 
   it("should handle reject zero risk", async (): Promise<void> => {
@@ -619,7 +610,13 @@ describe("handle vulns acceptance modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
+        action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
+      },
+      {
         action: "api_mutations_reject_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
@@ -648,6 +645,7 @@ describe("handle vulns acceptance modal", (): void => {
           finding: {
             closedVulns: 0,
             id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+            minTimeToRemediate: 60,
             openVulns: 0,
             releaseDate: null,
             reportDate: null,
@@ -719,63 +717,62 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
-      >
-        <HandleAcceptanceModal
-          findingId={"422286126"}
-          groupName={"group name"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            ...mocksMutation,
+            mocksFindingHeader,
+            ...mocksFindingVulnInfo,
+          ]}
+        >
+          <HandleAcceptanceModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    const treatmentFieldSelect: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "treatment" })
-      .find("select");
-    treatmentFieldSelect.simulate("change", {
-      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "treatment" })
+      ).toBeInTheDocument();
     });
-    const justificationFieldTextArea: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "justification" })
-      .find("textarea");
-    justificationFieldTextArea.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a test of rejecting zero risk vulns",
-      },
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["CONFIRM_REJECT_ZERO_RISK"]
+    );
+
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+    );
+    userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a test of rejecting zero risk vulns"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("confirmmodal.proceed").toString())
+      ).toBeInTheDocument();
     });
-    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
-      wrapper.find(ZeroRiskTable);
-    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
-      .find("#zeroRiskCheckBox_no")
-      .at(0);
-    requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(handleRefetchData).toHaveBeenCalledTimes(1);
-        expect(handleCloseModal).toHaveBeenCalledTimes(1);
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "Zero risk vulnerability has been rejected",
-          "Correct!"
-        );
-      });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    await waitFor((): void => {
+      expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
+
+    expect(handleCloseModal).toHaveBeenCalledTimes(1);
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "Zero risk vulnerability has been rejected",
+      "Correct!"
+    );
   });
 
   it("should handle reject zero risk error", async (): Promise<void> => {
@@ -787,7 +784,13 @@ describe("handle vulns acceptance modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
+        action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
+      },
+      {
         action: "api_mutations_reject_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
@@ -893,65 +896,64 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...mocksMutation, mocksFindingHeader, ...mocksFindingVulnInfo]}
-      >
-        <HandleAcceptanceModal
-          findingId={"422286126"}
-          groupName={"group name"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            ...mocksMutation,
+            mocksFindingHeader,
+            ...mocksFindingVulnInfo,
+          ]}
+        >
+          <HandleAcceptanceModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    const treatmentFieldSelect: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "treatment" })
-      .find("select");
-    treatmentFieldSelect.simulate("change", {
-      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "treatment" })
+      ).toBeInTheDocument();
     });
-    const justificationFieldTextArea: ReactWrapper = wrapper
-      .find(Field)
-      .filter({ name: "justification" })
-      .find("textarea");
-    justificationFieldTextArea.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a test of rejecting zero risk vulns",
-      },
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["CONFIRM_REJECT_ZERO_RISK"]
+    );
+
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+    );
+    userEvent.clear(screen.getByRole("textbox", { name: "justification" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a test of rejecting zero risk vulns"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(t("confirmmodal.proceed").toString())
+      ).toBeInTheDocument();
     });
-    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
-      wrapper.find(ZeroRiskTable);
-    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
-      .find("#zeroRiskCheckBox_no")
-      .at(0);
-    requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("Formik");
-    form.at(0).simulate("submit");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(handleRefetchData).not.toHaveBeenCalledTimes(1);
-        expect(handleCloseModal).not.toHaveBeenCalledTimes(1);
-        expect(msgError).toHaveBeenCalledWith(
-          "Zero risk vulnerability is not requested"
-        );
-      });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        "Zero risk vulnerability is not requested"
+      );
     });
+
+    expect(handleRefetchData).not.toHaveBeenCalledTimes(1);
+    expect(handleCloseModal).not.toHaveBeenCalledTimes(1);
   });
 
-  it("should display dropdown to confirm zero risk", (): void => {
+  it("should display dropdown to confirm zero risk", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -961,6 +963,12 @@ describe("handle vulns acceptance modal", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
         action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_reject_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
       {
         action: "see_dropdown_to_confirm_zero_risk",
@@ -985,65 +993,59 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false}>
-        <HandleAcceptanceModal
-          findingId={"422286126"}
-          groupName={"group name"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider addTypename={false}>
+          <HandleAcceptanceModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    const treatmentFieldDropdown: ReactWrapper = wrapper
-      .find(TreatmentField)
-      .find("select");
-    treatmentFieldDropdown.simulate("change", {
-      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "treatment" })
+      ).toBeInTheDocument();
     });
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["CONFIRM_REJECT_ZERO_RISK"]
+    );
 
-    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
-      wrapper.find(ZeroRiskTable);
-    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
-      .find("#zeroRiskCheckBox_yes")
-      .at(0);
-    requestedZeroRiskCheckBox.simulate("click");
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+    );
 
-    const justificationField: ReactWrapper<IJustificationFieldProps> =
-      wrapper.find(JustificationField);
-    const expectedJustificationFieldLength: number = 1;
-
-    expect(justificationField).toHaveLength(expectedJustificationFieldLength);
-
-    const dropdown: ReactWrapper = justificationField.find("select");
-    const expectedDropdownLength: number = 1;
-
-    expect(dropdown).toHaveLength(expectedDropdownLength);
-
-    const dropdownOptions: ReactWrapper = dropdown.find("option");
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "justification" })
+      ).toBeInTheDocument();
+    });
     const expectedDropdownOptionLength: number = 3;
 
-    expect(dropdownOptions).toHaveLength(expectedDropdownOptionLength);
+    expect(
+      within(
+        screen.getByRole("combobox", { name: "justification" })
+      ).getAllByRole("option")
+    ).toHaveLength(expectedDropdownOptionLength);
 
-    const fpOption: ReactWrapper = dropdownOptions.filter({ value: "FP" });
     const expectedFpOptionLength: number = 1;
-
-    expect(fpOption).toHaveLength(expectedFpOptionLength);
-
-    const outOfTheScopeOption: ReactWrapper = dropdownOptions.filter({
-      value: "Out of the scope",
-    });
     const expectedOutOfTheScopeOptionLength: number = 1;
 
-    expect(outOfTheScopeOption).toHaveLength(expectedOutOfTheScopeOptionLength);
+    expect(screen.queryByText("FN")).not.toBeInTheDocument();
+    expect(screen.getAllByText("FP")).toHaveLength(expectedFpOptionLength);
+    expect(screen.getAllByText("Out of the scope")).toHaveLength(
+      expectedOutOfTheScopeOptionLength
+    );
   });
 
-  it("should display dropdown to reject zero risk", (): void => {
+  it("should display dropdown to reject zero risk", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -1052,7 +1054,13 @@ describe("handle vulns acceptance modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
+        action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
+      },
+      {
         action: "api_mutations_reject_vulnerabilities_zero_risk_mutate",
+      },
+      {
+        action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
       {
         action: "see_dropdown_to_reject_zero_risk",
@@ -1077,62 +1085,54 @@ describe("handle vulns acceptance modal", (): void => {
         zeroRisk: "Requested",
       },
     ];
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={false}>
-        <HandleAcceptanceModal
-          findingId={"422286126"}
-          groupName={"group name"}
-          handleCloseModal={handleCloseModal}
-          refetchData={handleRefetchData}
-          vulns={mokedVulns}
-        />
-      </MockedProvider>,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider addTypename={false}>
+          <HandleAcceptanceModal
+            findingId={"422286126"}
+            groupName={"group name"}
+            handleCloseModal={handleCloseModal}
+            refetchData={handleRefetchData}
+            vulns={mokedVulns}
+          />
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
     );
-    const treatmentFieldDropdown: ReactWrapper = wrapper
-      .find(TreatmentField)
-      .find("select");
-    treatmentFieldDropdown.simulate("change", {
-      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "treatment" })
+      ).toBeInTheDocument();
     });
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["CONFIRM_REJECT_ZERO_RISK"]
+    );
 
-    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
-      wrapper.find(ZeroRiskTable);
-    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
-      .find("#zeroRiskCheckBox_no")
-      .at(0);
-    requestedZeroRiskCheckBox.simulate("click");
+    userEvent.click(
+      screen
+        .getByRole("row", { name: "CONFIRM REJECT" })
+        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+    );
 
-    const justificationField: ReactWrapper<IJustificationFieldProps> =
-      wrapper.find(JustificationField);
-    const expectedJustificationFieldLength: number = 1;
-
-    expect(justificationField).toHaveLength(expectedJustificationFieldLength);
-
-    const dropdown: ReactWrapper = justificationField.find("select");
-    const expectedDropdownLength: number = 1;
-
-    expect(dropdown).toHaveLength(expectedDropdownLength);
-
-    const dropdownOptions: ReactWrapper = dropdown.find("option");
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "justification" })
+      ).toBeInTheDocument();
+    });
     const expectedDropdownOptionLength: number = 3;
 
-    expect(dropdownOptions).toHaveLength(expectedDropdownOptionLength);
+    expect(
+      within(
+        screen.getByRole("combobox", { name: "justification" })
+      ).getAllByRole("option")
+    ).toHaveLength(expectedDropdownOptionLength);
 
-    const fnOption: ReactWrapper = dropdownOptions.filter({ value: "FN" });
     const expectedFnOptionLength: number = 1;
-
-    expect(fnOption).toHaveLength(expectedFnOptionLength);
-
-    const complementaryControlOption: ReactWrapper = dropdownOptions.filter({
-      value: "Complementary control",
-    });
     const expectedComplementaryControlLength: number = 1;
 
-    expect(complementaryControlOption).toHaveLength(
+    expect(screen.queryByText("FP")).not.toBeInTheDocument();
+    expect(screen.getAllByText("FN")).toHaveLength(expectedFnOptionLength);
+    expect(screen.getAllByText("Complementary control")).toHaveLength(
       expectedComplementaryControlLength
     );
   });
