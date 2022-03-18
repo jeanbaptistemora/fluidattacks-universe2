@@ -14,7 +14,6 @@ from freezegun.api import (  # type: ignore
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -64,7 +63,7 @@ async def test_update_vulnerabilities_treatment(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await put_mutation(
+    result: dict[str, Any] = await put_mutation(
         user=email,
         finding=finding_id,
         vulnerability=vulnerability,
@@ -74,7 +73,7 @@ async def test_update_vulnerabilities_treatment(
     )
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
-    vulnerability_response: Dict[str, Any] = await get_vulnerability(
+    vulnerability_response: dict[str, Any] = await get_vulnerability(
         user=email, vulnerability_id=vulnerability
     )
     assert (
@@ -133,7 +132,7 @@ async def test_update_vulnerabilities_treatment_fail(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await put_mutation(
+    result: dict[str, Any] = await put_mutation(
         user=email,
         finding=finding_id,
         vulnerability=vulnerability,
@@ -168,7 +167,7 @@ async def test_update_vulnerabilities_treatment_non_confirmed(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     group_name: str = "group1"
-    result_grant: Dict[str, Any] = await grant_stakeholder(
+    result_grant: dict[str, Any] = await grant_stakeholder(
         user=email,
         stakeholder=assigned,
         group=group_name,
@@ -176,14 +175,14 @@ async def test_update_vulnerabilities_treatment_non_confirmed(
     assert "errors" not in result_grant
     assert result_grant["data"]["grantStakeholderAccess"]["success"]
 
-    stakeholders: Dict[str, Any] = await get_stakeholders(
+    stakeholders: dict[str, Any] = await get_stakeholders(
         user=email, group=group_name
     )
     for stakeholder in stakeholders["data"]["group"]["stakeholders"]:
         if stakeholder["email"] == assigned:
             assert stakeholder["invitationState"] == "PENDING"
 
-    result: Dict[str, Any] = await put_mutation(
+    result: dict[str, Any] = await put_mutation(
         user=email,
         finding=finding_id,
         vulnerability=vulnerability,

@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -19,7 +18,7 @@ async def put_mutation(
     treatment: str,
     assigned: str,
     acceptance_date: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query = """
         mutation UpdateTreatment(
             $findingId: String!,
@@ -40,7 +39,7 @@ async def put_mutation(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "acceptanceDate": acceptance_date,
@@ -61,7 +60,7 @@ async def get_vulnerability(
     *,
     user: str,
     vulnerability_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query GetVulnerability ($vulnerabilityId: String!) {
             vulnerability(uuid: $vulnerabilityId) {
@@ -80,7 +79,7 @@ async def get_vulnerability(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {"vulnerabilityId": vulnerability_id},
     }
@@ -97,7 +96,7 @@ async def grant_stakeholder(
     stakeholder: str,
     group: str,
     role: str = "USER",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         mutation GrantStakeholderGroupAccess(
             $stakeholder: String!
@@ -113,7 +112,7 @@ async def grant_stakeholder(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "stakeholder": stakeholder,
@@ -132,7 +131,7 @@ async def get_stakeholders(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query GetStakeholders($groupName: String!) {
             group (groupName: $groupName) {
@@ -143,7 +142,7 @@ async def get_stakeholders(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "groupName": group,

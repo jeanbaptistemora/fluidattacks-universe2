@@ -42,16 +42,15 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     user_email: str = "customer1@gmail.com"
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "findings": [
             {
                 "finding": Finding(

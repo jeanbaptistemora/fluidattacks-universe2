@@ -18,6 +18,9 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -36,6 +39,9 @@ from newutils import (
 )
 from newutils.utils import (
     duplicate_dict_keys,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -67,14 +73,14 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
-        finding_loader = info.context.loaders.finding
-        finding: Finding = await finding_loader.load(finding_id)
-        group_name: str = finding.group_name
-        group_loader = info.context.loaders.group
-        group = await group_loader.load(group_name)
-        severity_score = findings_domain.get_severity_score(finding.severity)
         loaders: Dataloaders = info.context.loaders
-        title = finding.title
+        finding: Finding = await loaders.finding.load(finding_id)
+        group_name: str = finding.group_name
+        group: Group = await loaders.group_typed.load(group_name)
+        organization_id: str = await orgs_domain.get_id_by_name(
+            group.organization_name
+        )
+        severity_score = findings_domain.get_severity_score(finding.severity)
         if parameters.get("treatment_manager"):
             parameters = duplicate_dict_keys(
                 parameters, "treatment_manager", "assigned"
@@ -84,7 +90,7 @@ async def mutate(
             loaders=loaders,
             finding_id=finding_id,
             updated_values=parameters,
-            organization_id=group["organization"],
+            organization_id=organization_id,
             finding_severity=float(severity_score),
             user_email=user_email,
             vulnerability_id=vulnerability_id,
@@ -109,7 +115,7 @@ async def mutate(
         await vulns_domain.send_treatment_change_mail(
             loaders,
             finding_id,
-            title,
+            finding.title,
             group_name,
             datetime.now(timezone.utc) - timedelta(days=1),
             user_email,
