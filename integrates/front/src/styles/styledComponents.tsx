@@ -611,13 +611,6 @@ const TabsContainer = styled.ul.attrs({
   padding: 12px 0;
 `;
 
-const TrackingLabel: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: "f5 mv0 w-fit-content ws-pre-wrap ww-break-word",
-})``;
-
 const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
@@ -701,6 +694,5 @@ export {
   TabContent,
   TableOptionsColBar,
   TabsContainer,
-  TrackingLabel,
   Well,
 };
