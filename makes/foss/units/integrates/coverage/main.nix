@@ -12,7 +12,6 @@ makeScript {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.git
-      inputs.nixpkgs.python39Packages.codecov
     ];
     source = [
       (makePythonPypiEnvironment {

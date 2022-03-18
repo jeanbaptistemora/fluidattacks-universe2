@@ -12,7 +12,9 @@ function main {
     && coverage report "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \
     && sops_export_vars secrets-development.yaml CODECOV_TOKEN \
-    && codecov -b "${CI_COMMIT_REF_NAME}" \
+    && curl -Os https://uploader.codecov.io/latest/linux/codecov \
+    && chmod +x codecov \
+    && ./codecov -b "${CI_COMMIT_REF_NAME}" \
     && popd \
     || return 1
 }
