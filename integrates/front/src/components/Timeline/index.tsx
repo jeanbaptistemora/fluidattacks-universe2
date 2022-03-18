@@ -10,14 +10,14 @@ const Timeline = styled.ol.attrs({
     justify-content: flex-end;
   }
 
-  li:nth-child(odd) article::after {
+  li:nth-child(odd)::after {
     right: -16px;
   }
 
-  li:nth-child(odd) article::before {
+  li:nth-child(odd)::before {
     border-color: transparent transparent transparent white;
     border-width: 10px 0 10px 10px;
-    right: 30px;
+    right: 31px;
   }
 
   li:nth-child(even) {
@@ -25,14 +25,14 @@ const Timeline = styled.ol.attrs({
     justify-content: flex-start;
   }
 
-  li:nth-child(even) article::after {
+  li:nth-child(even)::after {
     left: -16px;
   }
 
-  li:nth-child(even) article::before {
+  li:nth-child(even)::before {
     border-color: transparent white transparent transparent;
     border-width: 10px 10px 10px 0;
-    left: 30px;
+    left: 31px;
   }
 
   ::after {
@@ -42,6 +42,30 @@ const Timeline = styled.ol.attrs({
     left: calc(50% - 3px);
     position: absolute;
     width: 6px;
+  }
+
+  @media (max-width: 768px) {
+    li:nth-child(odd) {
+      align-self: flex-end;
+      justify-content: flex-start;
+    }
+
+    li:nth-child(odd)::after,
+    li:nth-child(even)::after {
+      left: 18px;
+    }
+
+    li:nth-child(odd)::before,
+    li:nth-child(even)::before {
+      border-color: transparent white transparent transparent;
+      border-width: 10px 10px 10px 0;
+      left: 60px;
+      right: unset;
+    }
+
+    ::after {
+      left: 31px;
+    }
   }
 `;
 

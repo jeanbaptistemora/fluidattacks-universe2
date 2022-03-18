@@ -4,16 +4,6 @@ import styled from "styled-components";
 const ItemContainer = styled.li.attrs({ className: "flex relative" })`
   padding: 10px 40px;
   width: 50%;
-`;
-
-const ItemContent = styled.article.attrs({ className: "bg-white" })`
-  border-radius: 6px;
-  box-shadow: 0px 8px 16px 0px rgb(92 92 112 / 20%);
-  padding: 20px 30px;
-
-  p {
-    color: #5c5c70;
-  }
 
   ::after {
     background-color: white;
@@ -32,6 +22,22 @@ const ItemContent = styled.article.attrs({ className: "bg-white" })`
     content: " ";
     position: absolute;
     top: 22px;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 70px;
+    padding-right: 25px;
+    width: 100%;
+  }
+`;
+
+const ItemContent = styled.article.attrs({ className: "bg-white" })`
+  border-radius: 6px;
+  box-shadow: 0px 8px 16px 0px rgb(92 92 112 / 20%);
+  padding: 20px 30px;
+
+  p {
+    color: #5c5c70;
   }
 `;
 
