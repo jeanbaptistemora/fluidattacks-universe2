@@ -42,9 +42,7 @@ def _run_command_action(cmd: List[str], dry_run: bool) -> None:
     LOG.info("`%s` will be executed", " ".join(cmd))
 
 
-def run_job(job: Enum, dry_run: bool) -> Cmd[None]:
+def run_job(job_bin: str, dry_run: bool) -> Cmd[None]:
     return Cmd.from_cmd(
-        lambda: _run_command_action(
-            job.value.replace(".", "-").split(), dry_run
-        )
+        lambda: _run_command_action(job_bin.replace(".", "-").split(), dry_run)
     )
