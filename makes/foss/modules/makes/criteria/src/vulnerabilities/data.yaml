@@ -14679,7 +14679,7 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "L"
-      integrity: "H"
+      integrity: "N"
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
@@ -15777,12 +15777,12 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "L"
-      availability: "L"
+      integrity: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "P"
-      remediation_level: "X"
-      report_confidence: "X"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["186","265"]
   metadata:
     en:
@@ -15833,16 +15833,16 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
-      integrity: "L"
-      availability: "N"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "H"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["186","265"]
   metadata:
     en:
