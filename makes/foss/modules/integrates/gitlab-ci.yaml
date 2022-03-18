@@ -2947,7 +2947,6 @@
     name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
     paths:
       - integrates/.coverage*
-      - integrates/coverage.xml
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
