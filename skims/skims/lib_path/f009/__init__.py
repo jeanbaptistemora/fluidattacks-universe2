@@ -9,6 +9,7 @@ from lib_path.f009.aws import (
 )
 from lib_path.f009.conf_files import (
     jwt_token,
+    sensitive_info_in_dotnet_json,
     sensitive_key_in_json,
     web_config_db_connection,
     web_config_user_pass,
@@ -24,6 +25,7 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
+    load_as_json,
     load_templates_blocking,
 )
 from state.cache import (
@@ -70,6 +72,16 @@ def run_java_properties_sensitive_data(
 @SHIELD_BLOCKING
 def run_sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
     return sensitive_key_in_json(content=content, path=path)
+
+
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_sensitive_info_in_json(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return sensitive_info_in_dotnet_json(
+        content=content, path=path, template=template
+    )
 
 
 @CACHE_ETERNALLY
@@ -136,7 +148,12 @@ def analyze(
         results = (*results, run_java_properties_sensitive_data(content, path))
 
     elif file_extension in {"json"}:
-        results = (*results, run_sensitive_key_in_json(content, path))
+        template = load_as_json(content)
+        results = (
+            *results,
+            run_sensitive_key_in_json(content, path),
+            run_sensitive_info_in_json(content, path, template),
+        )
 
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
         results = (
