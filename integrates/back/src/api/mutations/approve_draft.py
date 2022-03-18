@@ -10,6 +10,9 @@ from ariadne.utils import (
 from custom_types import (
     ApproveDraftPayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.enums import (
     Notification,
 )
@@ -74,7 +77,7 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str
 ) -> ApproveDraftPayload:
     try:
-        loaders = info.context.loaders
+        loaders: Dataloaders = info.context.loaders
         finding: Finding = await loaders.finding.load(finding_id)
         vulnerabilities: Tuple[
             Vulnerability, ...

@@ -18,6 +18,9 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -52,7 +55,7 @@ async def mutate(
     _: Any, info: GraphQLResolveInfo, group_name: str, reason: str
 ) -> SimplePayload:
     try:
-        loaders = info.context.loaders
+        loaders: Dataloaders = info.context.loaders
         group_name = group_name.lower()
         user_info = await token_utils.get_jwt_content(info.context)
         group = await loaders.group.load(group_name)

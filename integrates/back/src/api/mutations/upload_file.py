@@ -10,8 +10,14 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     concurrent_decorators,
@@ -58,17 +64,14 @@ async def mutate(
     try:
         finding_id = kwargs["finding_id"]
         file_input = kwargs["file"]
-        finding_loader = info.context.loaders.finding
-        finding: Finding = await finding_loader.load(finding_id)
+        loaders: Dataloaders = info.context.loaders
+        finding: Finding = await loaders.finding.load(finding_id)
         allowed_mime_type = await files_utils.assert_uploaded_file_mime(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )
-        group = await info.context.loaders.group.load(finding.group_name)
-        organization = await info.context.loaders.organization.load(
-            group["organization"]
-        )
+        group: Group = await loaders.group_typed.load(finding.group_name)
         finding_policy = await policies_domain.get_finding_policy_by_name(
-            org_name=organization["name"],
+            org_name=group.organization_name,
             finding_name=finding.title.lower(),
         )
         if file_input and allowed_mime_type:

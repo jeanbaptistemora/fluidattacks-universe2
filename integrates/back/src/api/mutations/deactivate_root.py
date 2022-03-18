@@ -18,6 +18,9 @@ from batch.enums import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.enums import (
     Notification,
 )
@@ -90,7 +93,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> None:
     group_name: str = kwargs["group_name"]
-    loaders = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
     reason: str = kwargs["reason"]
     other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
     source = requests_utils.get_source_new(info.context)

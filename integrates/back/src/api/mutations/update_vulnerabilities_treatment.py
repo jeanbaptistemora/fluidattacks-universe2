@@ -7,6 +7,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -70,7 +73,7 @@ async def mutate(
         group_loader = info.context.loaders.group
         group = await group_loader.load(group_name)
         severity_score = findings_domain.get_severity_score(finding.severity)
-        loaders = info.context.loaders
+        loaders: Dataloaders = info.context.loaders
         title = finding.title
         if parameters.get("treatment_manager"):
             parameters = duplicate_dict_keys(

@@ -15,6 +15,9 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -56,7 +59,7 @@ async def mutate(
     subscription: str,
     **parameters: Any,
 ) -> SimplePayloadType:
-    loaders = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     requester_email = user_info["user_email"]

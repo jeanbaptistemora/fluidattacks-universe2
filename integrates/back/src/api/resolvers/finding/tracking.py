@@ -47,7 +47,7 @@ async def resolve(
     if not parent.approval:
         return []
 
-    loaders = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
     finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulns = await finding_vulns_loader.load(parent.id)
     vulnerabilities_id = tuple(vuln.id for vuln in vulns)
