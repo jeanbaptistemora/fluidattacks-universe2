@@ -4492,8 +4492,18 @@
   "org.sonatype.nexus:nexus-core": {
     "GHSA-8h56-v53h-5hhj": "<3.21.2"
   },
+  "org.sonatype.nexus:nexus-extdirect": {
+    "GHSA-g2f6-v5qh-h2mq": "<3.21.2"
+  },
+  "org.sonatype.nexus:nexus-repository": {
+    "GHSA-f34x-8pf6-qc9c": ">=3.0.0 <=3.33.1-01"
+  },
   "org.springblade:blade-core-log": {
     "CVE-2020-16165": ">=0 <=2.7.1"
+  },
+  "org.springframework.amqp:spring-amqp": {
+    "CVE-2021-22097": ">=2.2.0 <=2.2.18 || >=2.3.0 <=2.3.10",
+    "GHSA-w4g2-9hj6-5472": "<1.7.10 || >=2.0.0 <2.0.6"
   },
   "org.springframework.batch:spring-batch-core": {
     "SNYK-JAVA-ORGSPRINGFRAMEWORKBATCH-572008": ">=4.0.0.release <4.2.3.release",
@@ -4517,6 +4527,24 @@
     "CVE-2020-5405": ">=2.1.0 <2.1.7 || >=2.2.0 <2.2.2",
     "CVE-2020-5410": ">=2.1.0 <2.1.9 || >=2.2.0 <2.2.3"
   },
+  "org.springframework.cloud:spring-cloud-gateway": {
+    "GHSA-2r2v-q399-qq93": ">=2.2.0 <=2.2.10.release || >=3.0.0 <3.0.5"
+  },
+  "org.springframework.cloud:spring-cloud-netflix": {
+    "GHSA-qgcg-p3v2-9h4p": ">=2.1.0 <2.1.6 || >=2.2.0 <2.2.4"
+  },
+  "org.springframework.cloud:spring-cloud-netflix-hystrix-dashboard": {
+    "GHSA-gx3f-hq7p-8fxv": "<=2.2.9.release"
+  },
+  "org.springframework.cloud:spring-cloud-netflix-zuul": {
+    "GHSA-vwpg-f6gw-rjvf": "<2.2.7"
+  },
+  "org.springframework.cloud:spring-cloud-openfeign-core": {
+    "CVE-2021-22044": ">=2.2.0 <=2.2.9 || >=3.0.0 <=3.0.4"
+  },
+  "org.springframework.credhub:spring-credhub-core": {
+    "GHSA-q3jg-4c82-j4xh": "<1.1.0"
+  },
   "org.springframework.data:spring-data-commons": {
     "CVE-2018-1259": ">=1.13.0.release <=1.13.11.release || >=2.0.0.release <=2.0.6.release",
     "CVE-2018-1273": ">=0 <=1.12.10.release || >=1.13.release <=1.13.10.release || >=2.0.release <=2.0.5.release",
@@ -4530,6 +4558,9 @@
   "org.springframework.data:spring-data-rest-core": {
     "CVE-2017-8046": ">=0 <2.6.9 || >=3.0.0-snapshot <3.0.1",
     "CVE-2018-1259": ">2.6.0 <=2.6.11 || >=3.0.0-snapshot <3.0.6"
+  },
+  "org.springframework.integration:spring-integration-core": {
+    "GHSA-86qr-9vqc-pgc6": ">=4.3.0 <4.3.23 || >=5.1.0 <5.1.12 || >=5.2.0 <5.2.8 || >=5.3.0 <5.3.2"
   },
   "org.springframework.integration:spring-integration-zip": {
     "CVE-2018-1261": ">=0 <1.0.1.release"
