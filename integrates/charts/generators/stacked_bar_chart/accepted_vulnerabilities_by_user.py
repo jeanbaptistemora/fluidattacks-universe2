@@ -38,6 +38,7 @@ from typing import (
     Any,
     Counter,
     Dict,
+    Iterable,
     List,
     Tuple,
 )
@@ -81,6 +82,13 @@ async def get_data_one_group(group: str) -> Counter[str]:
     return temporarily + permanently
 
 
+def get_max_value(counter_values: Iterable[int]) -> int:
+    if counter_values and max(list(counter_values)):
+        return max(list(counter_values))
+
+    return 1
+
+
 def format_vulnerabilities_by_data(
     *, counters: Counter[str]
 ) -> Dict[str, Any]:
@@ -95,10 +103,8 @@ def format_vulnerabilities_by_data(
     accepted_undefined: List[int] = [
         counters[f"{user}/ACCEPTED_UNDEFINED"] for user, _ in data
     ]
-    max_acc_value: int = max(accepted) if accepted else 1 or 1
-    max_acc_undefined_value: int = (
-        max(accepted_undefined) if accepted_undefined else 1 or 1
-    )
+    max_acc_value: int = get_max_value(accepted)
+    max_acc_undefined_value: int = get_max_value(accepted_undefined)
 
     max_accepted: List[str] = [
         str(value)
