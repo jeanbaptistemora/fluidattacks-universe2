@@ -23,6 +23,16 @@ const Default: Story = (): JSX.Element => {
         <h3>{"Lorem ipsum"}</h3>
         <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
       </TimelineItem>
+      <TimelineItem>
+        <h2>{"2020-06-19"}</h2>
+        <h3>{"Lorem ipsum"}</h3>
+        <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
+      </TimelineItem>
+      <TimelineItem>
+        <h2>{"2020-06-20"}</h2>
+        <h3>{"Lorem ipsum"}</h3>
+        <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
+      </TimelineItem>
     </Timeline>
   );
 };

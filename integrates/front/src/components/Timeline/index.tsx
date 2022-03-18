@@ -10,9 +10,29 @@ const Timeline = styled.ol.attrs({
     justify-content: flex-end;
   }
 
+  li:nth-child(odd) article::after {
+    right: -16px;
+  }
+
+  li:nth-child(odd) article::before {
+    border-color: transparent transparent transparent white;
+    border-width: 10px 0 10px 10px;
+    right: 30px;
+  }
+
   li:nth-child(even) {
     align-self: flex-end;
     justify-content: flex-start;
+  }
+
+  li:nth-child(even) article::after {
+    left: -16px;
+  }
+
+  li:nth-child(even) article::before {
+    border-color: transparent white transparent transparent;
+    border-width: 10px 10px 10px 0;
+    left: 30px;
   }
 
   ::after {

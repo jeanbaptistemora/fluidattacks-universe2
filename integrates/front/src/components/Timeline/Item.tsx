@@ -14,6 +14,25 @@ const ItemContent = styled.article.attrs({ className: "bg-white" })`
   p {
     color: #5c5c70;
   }
+
+  ::after {
+    background-color: white;
+    border-radius: 50%;
+    border: 4px solid #ff3435;
+    content: "";
+    height: 24px;
+    position: absolute;
+    top: 15px;
+    width: 24px;
+    z-index: 1;
+  }
+
+  ::before {
+    border-style: solid;
+    content: " ";
+    position: absolute;
+    top: 22px;
+  }
 `;
 
 interface ITimelineItemProps {
