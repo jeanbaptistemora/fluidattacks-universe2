@@ -1,10 +1,16 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.groups.types import (
+    Group,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -26,12 +32,21 @@ async def test_remove_group_tag(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group_typed.load(group_name)
+    assert tag_name in group.tags
+
+    result: dict[str, Any] = await get_result(
         user=email, group=group_name, tag=tag_name
     )
     assert "errors" not in result
     assert "success" in result["data"]["removeGroupTag"]
     assert result["data"]["removeGroupTag"]["success"]
+
+    loaders.group_typed.clear(group_name)
+    group = await loaders.group_typed.load(group_name)
+    if group.tags:
+        assert tag_name not in group.tags
 
 
 @pytest.mark.asyncio
@@ -49,7 +64,7 @@ async def test_remove_group_tag_fail(populate: bool, email: str) -> None:
     assert populate
     tag_name: str = "test2"
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, group=group_name, tag=tag_name
     )
     assert "errors" in result
