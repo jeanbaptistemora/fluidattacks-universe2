@@ -29,6 +29,9 @@ from lib_root import (
     f338,
     f366,
 )
+from lib_sast.types import (
+    Paths,
+)
 from model import (
     core_model,
     graph_model,
@@ -78,7 +81,7 @@ QUERIES: graph_model.Queries = (
 
 def analyze(
     *,
-    paths: core_model.Paths,
+    paths: Paths,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in QUERIES):

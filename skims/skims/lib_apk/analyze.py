@@ -70,14 +70,15 @@ def analyze_one(
 
 
 def get_apk_contexts() -> Iterable[APKContext]:
-    paths = resolve_paths(
-        exclude=CTX.config.apk.exclude,
+    ok_paths, nu_paths, nv_paths = resolve_paths(
         include=CTX.config.apk.include,
+        exclude=CTX.config.apk.exclude,
     )
 
-    log_blocking("info", "Files to be tested: %s", len(paths.ok_paths))
+    log_blocking("info", "Files to be tested: %s", len(ok_paths))
 
-    for result in (get_apk_context(path) for path in paths.get_all()):
+    all_paths = ok_paths + nu_paths + nv_paths
+    for result in (get_apk_context(path) for path in all_paths):
         if result:
             yield result
 

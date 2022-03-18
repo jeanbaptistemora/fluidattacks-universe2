@@ -11,9 +11,6 @@ from glob import (
 from itertools import (
     chain,
 )
-from model.core_model import (
-    Paths,
-)
 from model.graph_model import (
     GraphShardMetadataLanguage,
 )
@@ -360,33 +357,36 @@ def list_paths(include: Tuple[str, ...], exclude: Tuple[str, ...]) -> Set[str]:
 
 def split_by_upgradable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
     try:
+
         nu_paths = get_non_upgradable_paths(paths)
+        return nu_paths, paths - nu_paths
+
     except FileNotFoundError as exc:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
-
-    return nu_paths, paths - nu_paths
 
 
 def split_by_verifiable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
     try:
+
         nv_paths = get_non_verifiable_paths(paths)
+        return nv_paths, paths - nv_paths
+
     except FileNotFoundError as exc:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
 
-    return nv_paths, paths - nv_paths
 
-
-def split_by_upgradable_and_veriable(paths: Set[str]) -> Paths:
+def split_by_upgradable_and_veriable(
+    paths: Set[str],
+) -> Tuple[Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]:
     nu_paths, up_paths = split_by_upgradable(paths)
     nv_paths, ok_paths = split_by_verifiable(up_paths)
-    return Paths(
-        ok_paths=tuple(ok_paths),
-        nu_paths=tuple(nu_paths),
-        nv_paths=tuple(nv_paths),
-    )
+    return tuple(ok_paths), tuple(nu_paths), tuple(nv_paths)
 
 
-def resolve_paths(include: Tuple[str, ...], exclude: Tuple[str]) -> Paths:
+def resolve_paths(
+    include: Tuple[str, ...],
+    exclude: Tuple[str, ...],
+) -> Tuple[Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]:
     return split_by_upgradable_and_veriable(list_paths(include, exclude))
 
 

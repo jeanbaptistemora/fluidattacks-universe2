@@ -62,6 +62,9 @@ from lib_path import (
     f408,
     f409,
 )
+from lib_sast.types import (
+    Paths,
+)
 from model import (
     core_model,
 )
@@ -219,7 +222,7 @@ def _execute_partial_analyze_one_path(
 
 def analyze(
     *,
-    paths: core_model.Paths,
+    paths: Paths,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in CHECKS):
