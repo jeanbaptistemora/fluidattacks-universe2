@@ -1,5 +1,6 @@
 import { Form, useFormikContext } from "formik";
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
 import { onTreatmentChangeHelper } from "./helpers";
@@ -14,24 +15,22 @@ import type {
   IHandleVulnerabilitiesAcceptanceModalFormProps,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { Col100, Col50, Row } from "styles/styledComponents";
-import { translate } from "utils/translations/translate";
 
 const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
-  (props: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
-    const {
-      acceptanceVulnerabilities,
-      acceptedVulnerabilities,
-      confirmingZeroRisk,
-      handleCloseModal,
-      handlingAcceptance,
-      hasAcceptedVulns,
-      hasRejectedVulns,
-      rejectedVulnerabilities,
-      rejectingZeroRisk,
-      setAcceptanceVulns,
-      vulns,
-    } = props;
-
+  ({
+    acceptanceVulnerabilities,
+    acceptedVulnerabilities,
+    confirmingZeroRisk,
+    handleCloseModal,
+    handlingAcceptance,
+    hasAcceptedVulns,
+    hasRejectedVulns,
+    rejectedVulnerabilities,
+    rejectingZeroRisk,
+    setAcceptanceVulns,
+    vulns,
+  }: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
+    const { t } = useTranslation();
     const { values, submitForm } = useFormikContext<IFormValues>();
 
     const isAcceptedUndefinedSelected: boolean =
@@ -92,7 +91,7 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
           <div>
             <ModalFooter>
               <Button onClick={handleCloseModal} variant={"secondary"}>
-                {translate.t("group.findings.report.modalClose")}
+                {t("group.findings.report.modalClose")}
               </Button>
               <Button
                 disabled={
@@ -104,7 +103,7 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
                 onClick={submitForm}
                 variant={"primary"}
               >
-                {translate.t("confirmmodal.proceed")}
+                {t("confirmmodal.proceed")}
               </Button>
             </ModalFooter>
           </div>

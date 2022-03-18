@@ -3,6 +3,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { HandleAcceptanceModalForm } from "./form";
 import {
@@ -26,13 +27,16 @@ import type {
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { authzPermissionsContext } from "utils/authz/config";
-import { translate } from "utils/translations/translate";
 
 const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
-  (props: IHandleVulnerabilitiesAcceptanceModalProps): JSX.Element => {
-    const { findingId, groupName, vulns, handleCloseModal, refetchData } =
-      props;
-
+  ({
+    findingId,
+    groupName,
+    vulns,
+    handleCloseModal,
+    refetchData,
+  }: IHandleVulnerabilitiesAcceptanceModalProps): JSX.Element => {
+    const { t } = useTranslation();
     const permissions: PureAbility<string> = useAbility(
       authzPermissionsContext
     );
@@ -169,9 +173,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       <React.StrictMode>
         <Modal
           open={true}
-          title={translate.t(
-            "searchFindings.tabDescription.handleAcceptanceModal.title"
-          )}
+          title={t("searchFindings.tabDescription.handleAcceptanceModal.title")}
         >
           <Formik
             enableReinitialize={true}
