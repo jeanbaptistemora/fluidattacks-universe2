@@ -18,8 +18,8 @@
 in
   pythonPkgs
   // {
-    returns = import ./returns.nix {inherit lib pythonPkgs;};
     purity = purity.pkg;
+    types-click = import ./click/stubs.nix lib;
     utils-logger =
       (import local_lib.utils-logger {
         src = local_lib.utils-logger;

@@ -8,8 +8,8 @@
     pythonPkgs.click
     pythonPkgs.purity
     pythonPkgs.pytz
-    pythonPkgs.returns
     pythonPkgs.utils-logger
+    pythonPkgs.types-click
     pythonPkgs.types-pytz
   ];
   dev_deps = [
