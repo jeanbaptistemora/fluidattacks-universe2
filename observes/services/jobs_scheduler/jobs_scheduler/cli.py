@@ -2,6 +2,15 @@ import click
 from datetime import (
     datetime,
 )
+from fa_purity.cmd import (
+    Cmd,
+)
+from fa_purity.cmd.transform import (
+    serial_merge,
+)
+from fa_purity.utils import (
+    raise_exception,
+)
 from jobs_scheduler.conf import (
     Jobs,
     new_job,
@@ -15,13 +24,9 @@ from jobs_scheduler.run import (
 )
 import logging
 import pytz
-from returns.functions import (
-    raise_exception,
-)
-from returns.io import (
-    IO,
-)
 from typing import (
+    List,
+    NoReturn,
     Optional,
 )
 
@@ -40,7 +45,7 @@ def run_schedule(
     day: Optional[int],
     hour: Optional[int],
     dry_run: bool,
-) -> IO[None]:
+) -> NoReturn:
     _now = datetime(
         NOW.year,
         month if month is not None else NOW.month,
@@ -53,12 +58,12 @@ def run_schedule(
     )
     LOG.info("hour: %s", hour)
     LOG.info("Now: %s", _now)
+    exe_jobs: List[Cmd[None]] = []
     for cron, jobs in SCHEDULE.items():
         LOG.debug("Evaluating %s.", cron)
         if match.match_cron(cron, _now):
-            for job in jobs:
-                execute_job(job, dry_run)
-    return IO(None)
+            exe_jobs.extend(execute_job(job, dry_run) for job in jobs)
+    serial_merge(tuple(exe_jobs)).compute()
 
 
 @click.command()
@@ -66,9 +71,8 @@ def run_schedule(
     "job", type=click.Choice([i.name for i in Jobs], case_sensitive=False)
 )
 @click.option("--dry-run", is_flag=True)
-def run_job(job: str, dry_run: bool) -> IO[None]:
-    execute_job(new_job(job).alt(raise_exception).unwrap(), dry_run)
-    return IO(None)
+def run_job(job: str, dry_run: bool) -> NoReturn:
+    execute_job(new_job(job).alt(raise_exception).unwrap(), dry_run).compute()
 
 
 @click.group()

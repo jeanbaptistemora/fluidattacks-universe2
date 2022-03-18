@@ -1,3 +1,6 @@
+from fa_purity.result import (
+    Result,
+)
 from jobs_scheduler.cron.core import (
     _Cron,
     AnyTime,
@@ -5,11 +8,6 @@ from jobs_scheduler.cron.core import (
     CronDraft,
     CronItem,
     InvalidCron,
-)
-from returns.result import (
-    Failure,
-    Result,
-    Success,
 )
 
 
@@ -34,8 +32,8 @@ def new(draft: CronDraft) -> Result[Cron, InvalidCron]:
             _valid_cron(draft.week_day, range(0, 7)),
         )
     ):
-        return Success(Cron(_Cron(draft)))
-    return Failure(InvalidCron())
+        return Result.success(Cron(_Cron(draft)))
+    return Result.failure(InvalidCron())
 
 
 def weekly(

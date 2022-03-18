@@ -5,6 +5,9 @@ from fa_purity.frozen import (
     FrozenDict,
     FrozenList,
 )
+from fa_purity.result import (
+    Result,
+)
 from jobs_scheduler.cron.core import (
     AnyTime,
     Cron,
@@ -16,11 +19,6 @@ from jobs_scheduler.cron.factory import (
     work_days,
 )
 import os
-from returns.result import (
-    Failure,
-    Result,
-    Success,
-)
 
 
 class InvalidJob(Exception):
@@ -51,9 +49,9 @@ class Jobs(Enum):
 
 def new_job(raw: str) -> Result[Jobs, InvalidJob]:
     try:
-        return Success(Jobs[raw.upper()])
+        return Result.success(Jobs[raw.upper()])
     except KeyError:
-        return Failure(InvalidJob())
+        return Result.failure(InvalidJob())
 
 
 def behind_work_days(minute: CronItem, hour: CronItem) -> Cron:

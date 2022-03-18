@@ -1,13 +1,13 @@
 from enum import (
     Enum,
 )
-import logging
-from returns.io import (
-    IO,
+from fa_purity.cmd import (
+    Cmd,
 )
-from returns.maybe import (
+from fa_purity.maybe import (
     Maybe,
 )
+import logging
 import subprocess
 from typing import (
     List,
@@ -20,7 +20,7 @@ class CmdFailed(Exception):
     pass
 
 
-def _run_command(cmd: List[str], dry_run: bool) -> IO[None]:
+def _run_command_action(cmd: List[str], dry_run: bool) -> None:
     if not dry_run:
         LOG.info("Executing: %s", " ".join(cmd))
         proc = subprocess.Popen(
@@ -38,10 +38,13 @@ def _run_command(cmd: List[str], dry_run: bool) -> IO[None]:
         if proc.returncode:
             error = CmdFailed(cmd)
             LOG.error("%s: %s", cmd, error)
-        return IO(None)
+        return None
     LOG.info("`%s` will be executed", " ".join(cmd))
-    return IO(None)
 
 
-def run_job(job: Enum, dry_run: bool) -> IO[None]:
-    return _run_command(job.value.replace(".", "-").split(), dry_run)
+def run_job(job: Enum, dry_run: bool) -> Cmd[None]:
+    return Cmd.from_cmd(
+        lambda: _run_command_action(
+            job.value.replace(".", "-").split(), dry_run
+        )
+    )
