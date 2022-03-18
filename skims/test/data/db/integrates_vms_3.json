@@ -25,7 +25,7 @@
       "PutRequest": {
         "Item": {
           "requirements": {
-            "S": "099\n"
+            "S": "134. The system must store passwords with different key derivations (Salt).\n135. Salt values in passwords must be random and have a minimum length of 48 bits.\n185. All stored sensitive information must be encrypted.\n227. The system must notify, upon any access attempt, that access to the system is only available for authorized users.\n229. The system must request at least one username and password from every actor that tries to authenticate.\n264. The system must require authentication for all resources, except for the consultation or visualization of those specifically classified as public\n300. Business sensitive data (passwords, credit card numbers, CVV, etc.) must be masked."
           },
           "compromised_attributes": {
             "S": ""
@@ -37,7 +37,7 @@
             "S": "3.1"
           },
           "recommendation": {
-            "S": "- Remove the files that should not be versioned from the repository.\n- Include the affected extensions in the .gitignore file.\n"
+            "S": "Encrypt each object with a unique key. As an additional safeguard, it encrypts the key itself with a root key that regularly rotates. Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256-bit Advanced Encryption Standard (AES-256), to encrypt the data."
           },
           "analyst_email": {
             "S": "unittest@fluidattacks.com"
@@ -47,13 +47,13 @@
               "evidence5": {
                 "M": {
                   "description": {
-                    "S": "Unverifiable file in skims/test/data/lib_path/f117/.project"
+                    "S": "Unverifiable file in skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
                   },
                   "modified_date": {
-                    "S": "2021-10-19T15:28:07.070648+00:00"
+                    "S": "2022-03-17T15:28:07.070648+00:00"
                   },
                   "url": {
-                    "S": "jessup-23f7e5c1-5e1e-4167-976a-06b86ac501c2-evidence_route_5.png"
+                    "S": ""
                   }
                 }
               }
@@ -63,19 +63,19 @@
             "N": "0"
           },
           "attack_vector_description": {
-            "S": "- Difficult the versioning and security auditing process.\n- Introduce vulnerabilities of previous versions in the repository.\n"
+            "S": "Compromise sensitive data stored in\nthe bucket in plaintext\n"
           },
           "sk": {
             "S": "GROUP#jessup"
           },
           "description": {
-            "S": "The repository is storing files that either can not be verified nor should be versioned, such as binary files, logs or temporary files. information.\n"
+            "S": "When dealing with sensitive data that is crucial to your business, it is required by regulations to implement encryption in order to protect it from attackers or unauthorized personnel. Using S3 Server-Side Encryption (SSE) will enable Amazon to encrypt your data at rest. Data protected by Server-Side Encryption is encrypted with 256-bit Advanced Encryption Standard (AES-256).\n"
           },
           "id": {
             "S": "23f7e5c1-5e1e-4167-976a-06b86ac501c2"
           },
           "threat": {
-            "S": "Autenticated attacker from the Internet.\n"
+            "S": "Authenticated  attacker from Internet with access to the bucket.\n"
           },
           "pk": {
             "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2"
@@ -86,13 +86,13 @@
                 "N": "0.77"
               },
               "integrity_impact": {
-                "N": "0.22"
+                "N": "0.56"
               },
               "integrity_requirement": {
                 "N": "0"
               },
               "modified_confidentiality_impact": {
-                "N": "0"
+                "N": "0.56"
               },
               "modified_user_interaction": {
                 "N": "0.85"
@@ -107,7 +107,7 @@
                 "N": "1"
               },
               "modified_integrity_impact": {
-                "N": "0.22"
+                "N": "0.56"
               },
               "attack_vector": {
                 "N": "0.85"
@@ -116,13 +116,13 @@
                 "N": "0.77"
               },
               "privileges_required": {
-                "N": "0.62"
+                "N": "0.85"
               },
               "availability_impact": {
                 "N": "0"
               },
               "modified_privileges_required": {
-                "N": "0.62"
+                "N": "0.85"
               },
               "confidentiality_requirement": {
                 "N": "0"
@@ -134,10 +134,10 @@
                 "N": "0.85"
               },
               "confidentiality_impact": {
-                "N": "0"
+                "N": "0.56"
               },
               "exploitability": {
-                "N": "0.91"
+                "N": "0.94"
               },
               "remediation_level": {
                 "N": "1"
@@ -154,7 +154,7 @@
             "S": "jessup"
           },
           "title": {
-            "S": "117. Unverifiable files"
+            "S": "099. Non-encrypted confidential information - S3 Server Side Encryption"
           }
         }
       }
@@ -163,7 +163,7 @@
       "PutRequest": {
         "Item": {
           "modified_date": {
-            "S": "2021-10-19T15:27:57.995656+00:00"
+            "S": "2022-03-17T15:28:07.070648+00:00"
           },
           "justification": {
             "S": "NO_JUSTIFICATION"
@@ -182,6 +182,125 @@
           },
           "pk": {
             "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2#APPROVAL"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "treatment": {
+            "M": {
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "assigned": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "justification": {
+                "S": "test justification"
+              },
+              "modified_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "status": {
+                "S": "IN_PROGRESS"
+              }
+            }
+          },
+          "commit": {
+            "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+          },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_reattack_cycles": {
+                "N": "0"
+              },
+              "unreliable_source": {
+                "S": "MACHINE"
+              },
+              "unreliable_efficacy": {
+                "N": "0"
+              },
+              "unreliable_report_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "unreliable_treatment_changes": {
+                "N": "1"
+              }
+            }
+          },
+          "specific": {
+            "S": "5"
+          },
+          "type": {
+            "S": "LINES"
+          },
+          "sk": {
+            "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2"
+          },
+          "sk_3": {
+            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+          },
+          "pk_2": {
+            "S": "ROOT"
+          },
+          "where": {
+            "S": "test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "pk": {
+            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+          },
+          "pk_3": {
+            "S": "USER#unittest@fluidattacks.com"
+          },
+          "state": {
+            "M": {
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "MACHINE"
+              },
+              "modified_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              }
+            }
+          },
+          "sk_2": {
+            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "modified_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "pk": {
+            "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2#VERIFICATION"
+          },
+          "modified_date": {
+            "S": "2022-03-18T15:28:07.070648+00:00"
+          },
+          "comment_id": {
+            "S": "1558048727999"
+          },
+          "status": {
+            "S": "REQUESTED"
+          },
+          "vulnerability_ids": {
+            "SS": [
+              "0a848781-b6a4-422e-95fa-692151e6a98z"
+            ]
           }
         }
       }
