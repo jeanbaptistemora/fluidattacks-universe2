@@ -1,5 +1,3 @@
-# pylint: skip-file
-
 import click
 from datetime import (
     datetime,
@@ -9,14 +7,14 @@ from jobs_scheduler.conf import (
     new_job,
     SCHEDULE,
 )
-from jobs_scheduler.cron_2 import (
+from jobs_scheduler.cron import (
     match,
 )
 from jobs_scheduler.run import (
     run_job as execute_job,
 )
 import logging
-import pytz  # type: ignore
+import pytz
 from returns.functions import (
     raise_exception,
 )

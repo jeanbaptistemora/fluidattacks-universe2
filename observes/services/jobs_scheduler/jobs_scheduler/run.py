@@ -1,4 +1,3 @@
-# pylint: skip-file
 from enum import (
     Enum,
 )

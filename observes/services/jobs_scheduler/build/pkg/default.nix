@@ -6,9 +6,11 @@
 }: let
   runtime_deps = [
     pythonPkgs.click
+    pythonPkgs.purity
     pythonPkgs.pytz
     pythonPkgs.returns
     pythonPkgs.utils-logger
+    pythonPkgs.types-pytz
   ];
   dev_deps = [
     pythonPkgs.mypy

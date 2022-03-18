@@ -7,7 +7,9 @@ authors = ["Product Team <development@fluidattacks.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "^8.0.3"
+fa_purity = "^1.5.1"
 pytz = "^2021.1"
+types-pytz = "^2021.3.5"
 returns = "^0.19.0"
 utils-logger = "^1.0.0"
 

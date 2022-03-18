@@ -1,23 +1,21 @@
-# pylint: skip-file
-
 from enum import (
     Enum,
 )
-from jobs_scheduler.cron_2.core import (
+from fa_purity.frozen import (
+    FrozenDict,
+    FrozenList,
+)
+from jobs_scheduler.cron.core import (
     AnyTime,
     Cron,
     CronItem,
 )
-from jobs_scheduler.cron_2.factory import (
+from jobs_scheduler.cron.factory import (
     week_days,
     weekly,
     work_days,
 )
 import os
-from purity.v2.frozen import (
-    FrozenDict,
-    FrozenList,
-)
 from returns.result import (
     Failure,
     Result,

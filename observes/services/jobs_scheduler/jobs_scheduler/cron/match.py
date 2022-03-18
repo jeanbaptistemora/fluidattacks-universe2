@@ -1,7 +1,7 @@
 from datetime import (
     datetime,
 )
-from jobs_scheduler.cron_2.core import (
+from jobs_scheduler.cron.core import (
     AnyTime,
     Cron,
     CronItem,
