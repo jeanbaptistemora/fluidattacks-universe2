@@ -3144,6 +3144,9 @@
   "org.http4s:http4s-server": {
     "GHSA-5vcm-3xc3-w7x3": "<=0.21.28 || >=0.22.0 <=0.22.4 || >=0.23.0 <=0.23.3"
   },
+  "org.http4s:http4s-server_2.12": {
+    "GHSA-66q9-f7ff-mmx6": "<0.18.26 || >=0.19.0 <0.20.20 || >=0.21.0 <0.21.2"
+  },
   "org.igniterealtime.openfire:distribution": {
     "CVE-2017-15911": ">=0 <=4.1.6",
     "CVE-2018-11688": "3.7.1",
@@ -3162,6 +3165,16 @@
     "CVE-2020-35200": "4.6.0",
     "CVE-2020-35201": "4.6.0",
     "CVE-2020-35202": "4.6.0"
+  },
+  "org.igniterealtime.openfire:xmppserver": {
+    "GHSA-5qfv-rr79-chx5": "<4.4.1"
+  },
+  "org.infinispan:infinispan-core": {
+    "GHSA-6x3v-rw2q-9gx7": "<10.0.0"
+  },
+  "org.jamesframework:james": {
+    "CVE-2021-40525": "<3.6.1",
+    "CVE-2022-22931": "3.6.1"
   },
   "org.jasig.cas:cas-client-core": {
     "CVE-2014-4172": ">=3 <=3.3.1"
@@ -3229,9 +3242,16 @@
     "CVE-2021-20218": "7.0.0",
     "CVE-2021-3642": "7.0.0"
   },
+  "org.jboss.resteasy:resteasy-bom": {
+    "GHSA-29qj-rvv6-qrmv": "<=3.11.0.final || >=4.0.0 <=4.5.2.final",
+    "GHSA-5h26-c766-g93v": "<=4.6.0.final"
+  },
   "org.jboss.resteasy:resteasy-client": {
     "CVE-2020-25633": ">=0 <3.14.0 || >=4.5.0 <=4.5.6",
     "CVE-2021-20289": ">=0 <3.11.5 || >=3.15.0 <3.15.2 || >=4.5.0 <4.5.10 || >=4.6.0 <4.7.0"
+  },
+  "org.jboss.resteasy:resteasy-client-microprofile": {
+    "GHSA-hr32-mgpm-qf2f": "<=3.13.2.final || >=4.0.0 <=4.5.6.final"
   },
   "org.jboss.resteasy:resteasy-core": {
     "CVE-2020-14326": ">=4.2.0 <4.5.6",
@@ -3272,11 +3292,17 @@
   "org.jboss.weld:weld-core": {
     "CVE-2014-8122": ">=1 <=1.2.0.beta1 || >=2 <=2.2.7.final || >=3.alpha0 <=3.0.0.alpha1"
   },
+  "org.jboss.weld:weld-core-bom": {
+    "GHSA-338v-3958-8v8r": "<2.2.8"
+  },
   "org.jboss.weld:weld-core-impl": {
     "CVE-2014-8122": ">=2-alpha0 <=2.2.7.final || >=3-alpha0 <=3.0.0.alpha1"
   },
   "org.jboss.ws:jbossws-common": {
     "CVE-2011-1483": "1.1.0.sp7"
+  },
+  "org.jboss.xnio:xnio-nio": {
+    "GHSA-c738-77x8-wmq5": ">=3.6.0 <=3.7.8.final || >=3.8.0.final <=3.8.1.final"
   },
   "org.jboss:jboss-ejb-client": {
     "CVE-2021-20250": ">=0 <4.0.39"
@@ -3294,6 +3320,9 @@
   },
   "org.jdom:jdom2": {
     "CVE-2021-33813": ">=0 <=2.0.6"
+  },
+  "org.jeecgframework.boot:jeecg-boot-base": {
+    "GHSA-26hm-r6mg-963c": "<=3.0"
   },
   "org.jenkins-ci.main:jenkins-core": {
     "CVE-2016-0790": ">=0 <=1.649",
