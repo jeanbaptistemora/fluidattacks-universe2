@@ -68,7 +68,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
 
   return (
     <React.StrictMode>
-      <div className={"comment-nested comment-no-bullets"}>
+      <div className={"comment-nested comment-no-bullets pa3"}>
         <Comment
           actions={[
             <button
