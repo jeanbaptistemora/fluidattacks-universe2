@@ -45,15 +45,22 @@ You can find out more about
 this under
 [this link](/machine/api/#using-the-asm-api-token).
 
-Next is the **Configuration**
-option, which allows you to
-select what notifications you
-would like to receive via email.
-After clicking on it, you can
-use the check box next to each
-type of notification to allow
-or disallow it according to
-your preferences.
+Next is the
+**Notifications** option,
+which allows you to select
+which notifications you
+want to receive.
+When you click on it,
+you will see the
+**Notifications** matrix
+that shows you all the
+reports that our ASM
+generates.
+There you can press the
+On/Off button to accept
+or reject the sending of
+each notification to your
+registered email.
 
 ![Select Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
 
