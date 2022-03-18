@@ -158,7 +158,7 @@ async def confirm_vulnerabilities_zero_risk(
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    user_email: str = user_info["user_email"]
+    user_email = str(user_info["user_email"])
     comment_data = {
         "comment_type": "zero_risk",
         "content": justification,
@@ -455,7 +455,7 @@ def group_vulnerabilities(
         VulnerabilityStateStatus.CLOSED,
     )
     total_vulnerabilities: Dict[str, Dict[str, List[Vulnerability]]] = {}
-    result_vulns = []
+    result_vulns: List[Vulnerability] = []
     for vuln_type in vuln_types:
         total_vulnerabilities[vuln_type] = {}
         for vuln_state in vuln_states:
@@ -517,7 +517,7 @@ async def reject_vulnerabilities_zero_risk(
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    user_email: str = user_info["user_email"]
+    user_email = str(user_info["user_email"])
     comment_data = {
         "comment_type": "zero_risk",
         "content": justification,
@@ -617,7 +617,7 @@ async def request_vulnerabilities_zero_risk(
             vulnerability_id=vuln.id,
             entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
-                modified_by=user_email,
+                modified_by=str(user_email),
                 modified_date=datetime_utils.get_iso_date(),
                 status=VulnerabilityZeroRiskStatus.REQUESTED,
             ),
@@ -631,7 +631,7 @@ async def request_vulnerabilities_zero_risk(
         loaders=loaders,
         finding_id=finding_id,
         justification=justification,
-        requester_email=user_email,
+        requester_email=str(user_email),
     )
     return True
 
@@ -780,6 +780,7 @@ async def update_metadata_and_state(
             finding_policy
             and new_state.status == VulnerabilityStateStatus.OPEN
             and finding_policy.state.status == "APPROVED"
+            and vulnerability.treatment
             and vulnerability.treatment.status
             != VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         ):
@@ -826,7 +827,7 @@ async def verify(
         key=attrgetter("id"),
     )
     source: Source = requests_utils.get_source_new(context)
-    user_data: UserType = await token_utils.get_jwt_content(context)
+    user_data = await token_utils.get_jwt_content(context)
     modified_by = str(user_data["user_email"])
     return all(
         await collect(

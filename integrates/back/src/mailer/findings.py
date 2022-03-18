@@ -44,9 +44,9 @@ async def send_mail_comment(
     is_finding_released: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    type_: str = comment_data["comment_type"]
+    type_ = str(comment_data["comment_type"])
     email_context: MailContentType = {
-        "comment": comment_data["content"].splitlines(),
+        "comment": str(comment_data["content"]).splitlines(),
         "comment_type": type_,
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/"

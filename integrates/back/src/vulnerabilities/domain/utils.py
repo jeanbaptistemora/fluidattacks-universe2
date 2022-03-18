@@ -78,7 +78,7 @@ def compare_historic_treatments(
         and datetime.fromisoformat(last_state.accepted_until)
         != datetime_utils.get_from_str(new_state["acceptance_date"])
     )
-    return treatment_changed or date_changed
+    return treatment_changed or bool(date_changed)
 
 
 def validate_acceptance(vuln: Vulnerability) -> None:
