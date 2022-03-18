@@ -439,6 +439,8 @@ enum NotificationsName {
   UPDATED_TREATMENT
   "vulnerability_assigned"
   VULNERABILITY_ASSIGNED
+  "vulnerability_report"
+  VULNERABILITY_REPORT
 }
 
 "Subscription report entity enum definition"

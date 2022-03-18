@@ -113,6 +113,7 @@ async def populate_users(data: List[Any]) -> bool:
                         "ROOT_MOVED",
                         "UPDATED_TREATMENT",
                         "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
                     ]
                 },
             )

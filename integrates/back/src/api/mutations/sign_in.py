@@ -87,6 +87,7 @@ async def autoenroll_user(email: str) -> None:
                 "ROOT_MOVED",
                 "UPDATED_TREATMENT",
                 "VULNERABILITY_ASSIGNED",
+                "VULNERABILITY_REPORT",
             ]
         },
     )

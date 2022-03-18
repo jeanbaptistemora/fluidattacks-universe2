@@ -676,6 +676,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -722,6 +725,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -768,6 +774,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -811,6 +820,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -857,6 +869,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -903,6 +918,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -949,6 +967,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -995,6 +1016,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -1038,6 +1062,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -1081,6 +1108,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
@@ -1127,6 +1157,9 @@
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
                       }
                     ]
                   }
