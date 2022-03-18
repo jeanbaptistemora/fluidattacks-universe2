@@ -1497,6 +1497,19 @@ async def update_tags(
     return success
 
 
+async def remove_tag(
+    group: Group,
+    tag_to_remove: str,
+) -> None:
+    group.tags.remove(tag_to_remove)
+    await update_metadata_typed(
+        group_name=group.name,
+        metadata=GroupMetadataToUpdate(
+            tags=group.tags,
+        ),
+    )
+
+
 def validate_group_services_config(
     has_machine: bool,
     has_squad: bool,

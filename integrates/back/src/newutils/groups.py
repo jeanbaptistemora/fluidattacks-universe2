@@ -257,6 +257,7 @@ def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         "language": str(metadata.language.value).lower()
         if metadata.language
         else None,
+        "tag": metadata.tags if metadata.tags else set(),
     }
     return {
         key: None if not value else value

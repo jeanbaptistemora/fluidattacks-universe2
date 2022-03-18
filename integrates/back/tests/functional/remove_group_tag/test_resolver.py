@@ -47,6 +47,8 @@ async def test_remove_group_tag(
     group = await loaders.group_typed.load(group_name)
     if group.tags:
         assert tag_name not in group.tags
+    else:
+        assert group.tags is None
 
 
 @pytest.mark.asyncio

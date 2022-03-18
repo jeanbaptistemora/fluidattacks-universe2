@@ -98,3 +98,4 @@ class GroupMetadataToUpdate(NamedTuple):
     description: Optional[str] = None
     disambiguation: Optional[str] = None
     language: Optional[GroupLanguage] = None
+    tags: Optional[set[str]] = None

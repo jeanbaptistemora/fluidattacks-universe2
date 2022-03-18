@@ -1,8 +1,17 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ErrorUpdatingGroup,
+)
 from custom_types import (
-    SimpleGroupPayload as SimpleGroupPayloadType,
+    SimpleGroupPayload,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     concurrent_decorators,
@@ -29,8 +38,6 @@ from settings import (
 )
 from typing import (
     Any,
-    cast,
-    Set,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -48,24 +55,14 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str,
     tag: str,
-) -> SimpleGroupPayloadType:
-    success = False
+) -> SimpleGroupPayload:
     group_name = group_name.lower()
-    group_loader = info.context.loaders.group
-    if await groups_domain.is_valid(group_name):
-        group_attrs = await group_loader.load(group_name)
-        group_tags = {"tag": group_attrs["tags"]}
-        cast(Set[str], group_tags.get("tag")).remove(tag)
-        if group_tags.get("tag") == set():
-            group_tags["tag"] = None
-        tag_deleted = await groups_domain.update(group_name, group_tags)
-        if tag_deleted:
-            success = True
-        else:
-            LOGGER.error("Couldn't remove a tag", extra={"extra": locals()})
-    if success:
+    loaders: Dataloaders = info.context.loaders
+    group: Group = await loaders.group_typed.load(group_name)
+
+    if await groups_domain.is_valid(group_name) and group.tags:
+        await groups_domain.remove_tag(group=group, tag_to_remove=tag)
         redis_del_by_deps_soon("remove_group_tag", group_name=group_name)
-        group_loader.clear(group_name)
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Removed tag from {group_name} group successfully",
@@ -75,6 +72,8 @@ async def mutate(
             info.context,
             f"Security: Attempted to remove tag in {group_name} group",
         )
+        raise ErrorUpdatingGroup.new()
 
-    group = await group_loader.load(group_name)
-    return SimpleGroupPayloadType(success=success, group=group)
+    loaders.group_typed.clear(group_name)
+    group = await loaders.group_typed.load(group_name)
+    return SimpleGroupPayload(success=True, group=group)
