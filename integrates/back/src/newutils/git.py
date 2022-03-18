@@ -220,7 +220,9 @@ async def https_ls_remote(
 async def ssh_clone(
     *, branch: str, credential_key: str, repo_url: str, temp_dir: str
 ) -> Optional[str]:
-    raw_root_url = repo_url.replace(f"{urlparse(repo_url).scheme}://", "")
+    raw_root_url = repo_url
+    if "source.developers.google" not in raw_root_url:
+        raw_root_url = repo_url.replace(f"{urlparse(repo_url).scheme}://", "")
     ssh_file_name: str = os.path.join(temp_dir, str(uuid.uuid4()))
     with open(
         os.open(ssh_file_name, os.O_CREAT | os.O_WRONLY, 0o400),
