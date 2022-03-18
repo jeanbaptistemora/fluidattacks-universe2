@@ -1,13 +1,11 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
+import { useTranslation } from "react-i18next";
 
 import {
   REQUEST_VULNS_ZERO_RISK,
@@ -15,6 +13,7 @@ import {
 } from "./queries";
 import type { IUpdateVulnDescriptionResultAttr } from "./types";
 
+import { GET_GROUP_USERS } from "../queries";
 import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
@@ -29,7 +28,6 @@ import {
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
-import { EditableField } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -44,6 +42,7 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Update Description component", (): void => {
+  const { t } = useTranslation();
   const vulns: IVulnDataTypeAttr[] = [
     {
       assigned: "",
@@ -162,6 +161,7 @@ describe("Update Description component", (): void => {
     { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_update_vulnerability_treatment_mutate" },
     { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
+    { action: "api_resolvers_group_stakeholders_resolve" },
   ]);
 
   it("should group last treatment", (): void => {
@@ -216,7 +216,7 @@ describe("Update Description component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={[]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
@@ -230,35 +230,29 @@ describe("Update Description component", (): void => {
       </MockedProvider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find({ renderAsEditable: true })).toHaveLength(2);
-
-        const treatment: ReactWrapper = wrapper
-          .find({ name: "treatment" })
-          .find("select")
-          .at(0);
-        treatment.simulate("change", {
-          target: { name: "treatment", value: "IN_PROGRESS" },
-        });
-        wrapper.update();
-
-        const severityInput: ReactWrapper = wrapper
-          .find({ name: "severity" })
-          .at(0)
-          .find("input");
-
-        const numberOfEditableFields: number = 5;
-
-        expect(wrapper.find({ renderAsEditable: true })).toHaveLength(
-          numberOfEditableFields
-        );
-        expect(severityInput.prop("value")).toStrictEqual(vulns[0].severity);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("combobox", { name: "treatment" })
+      ).toHaveLength(1);
     });
+
+    expect(screen.queryAllByRole("textbox")).toHaveLength(1);
+
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["IN_PROGRESS"]
+    );
+    const numberOfEditableFields: number = 3;
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("textbox")).toHaveLength(
+        numberOfEditableFields
+      );
+    });
+
+    expect(screen.getByRole("spinbutton", { name: "severity" })).toHaveValue(
+      Number(vulns[0].severity)
+    );
   });
 
   it("should handle request zero risk", async (): Promise<void> => {
@@ -285,7 +279,7 @@ describe("Update Description component", (): void => {
       mocksFindingHeader,
       mocksVulnGroups,
     ];
-    const wrapperRequest: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <UpdateDescription
@@ -299,49 +293,41 @@ describe("Update Description component", (): void => {
       </MockedProvider>
     );
 
-    const treatmentFieldSelect: ReactWrapper = wrapperRequest
-      .find(EditableField)
-      .filter({ name: "treatment" })
-      .find("select");
-    treatmentFieldSelect.simulate("change", {
-      target: { name: "treatment", value: "REQUEST_ZERO_RISK" },
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("combobox", { name: "treatment" })
+      ).toHaveLength(1);
     });
 
-    const justificationFieldTextArea: ReactWrapper = wrapperRequest
-      .find(EditableField)
-      .filter({ name: "justification" })
-      .find("textarea");
-    justificationFieldTextArea.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a commenting test of a request zero risk in vulns",
-      },
-    });
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapperRequest.update();
+    expect(
+      screen.getByText(t("confirmmodal.proceed").toString())
+    ).toBeDisabled();
+
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["REQUEST_ZERO_RISK"]
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a commenting test of a request zero risk in vulns"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(t("confirmmodal.proceed").toString())
+      ).not.toBeDisabled();
     });
 
-    const proceedButton: ReactWrapper = wrapperRequest
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed")
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "Zero risk vulnerability has been requested",
+        "Correct!"
       );
-    proceedButton.first().simulate("click");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapperRequest.update();
-
-        expect(wrapperRequest).toHaveLength(1);
-        expect(handleClearSelected).toHaveBeenCalledWith();
-        expect(handleOnClose).toHaveBeenCalledWith();
-        expect(msgSuccess).toHaveBeenCalledWith(
-          "Zero risk vulnerability has been requested",
-          "Correct!"
-        );
-      });
     });
+
+    expect(handleClearSelected).toHaveBeenCalledWith();
+    expect(handleOnClose).toHaveBeenCalledWith();
   });
 
   it("should handle request zero risk error", async (): Promise<void> => {
@@ -374,7 +360,7 @@ describe("Update Description component", (): void => {
         },
       },
     ];
-    const wrapperRequest: ReactWrapper = mount(
+    render(
       <MockedProvider
         addTypename={false}
         mocks={[...mocksMutation, mocksVulnGroups]}
@@ -391,56 +377,45 @@ describe("Update Description component", (): void => {
       </MockedProvider>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapperRequest.update();
-
-        expect(wrapperRequest).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("combobox", { name: "treatment" })
+      ).toHaveLength(1);
     });
 
-    const treatmentFieldSelect: ReactWrapper = wrapperRequest
-      .find(EditableField)
-      .filter({ name: "treatment" })
-      .find("select");
-    treatmentFieldSelect.simulate("change", {
-      target: { name: "treatment", value: "REQUEST_ZERO_RISK" },
+    expect(
+      screen.getByText(t("confirmmodal.proceed").toString())
+    ).toBeDisabled();
+
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["REQUEST_ZERO_RISK"]
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "This is a commenting test of a request zero risk in vulns"
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText(t("confirmmodal.proceed").toString())
+      ).not.toBeDisabled();
     });
 
-    const justificationFieldTextArea: ReactWrapper = wrapperRequest
-      .find(EditableField)
-      .filter({ name: "justification" })
-      .find("textarea");
-    justificationFieldTextArea.simulate("change", {
-      target: {
-        name: "justification",
-        value: "This is a commenting test of a request zero risk in vulns",
-      },
-    });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
 
-    const proceedButton: ReactWrapper = wrapperRequest
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed")
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenNthCalledWith(
+        1,
+        translate.t("groupAlerts.zeroRiskAlreadyRequested")
       );
-    proceedButton.first().simulate("click");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapperRequest.update();
-
-        expect(handleClearSelected).not.toHaveBeenCalled();
-        expect(handleOnClose).not.toHaveBeenCalled();
-        expect(msgError).toHaveBeenNthCalledWith(
-          1,
-          translate.t("groupAlerts.zeroRiskAlreadyRequested")
-        );
-        expect(msgError).toHaveBeenNthCalledWith(
-          2,
-          translate.t("validations.invalidFieldLength")
-        );
-      });
     });
+
+    expect(handleClearSelected).not.toHaveBeenCalled();
+    expect(handleOnClose).not.toHaveBeenCalled();
+    expect(msgError).toHaveBeenNthCalledWith(
+      2,
+      translate.t("validations.invalidFieldLength")
+    );
   });
 
   it("should render update treatment", async (): Promise<void> => {
@@ -481,6 +456,27 @@ describe("Update Description component", (): void => {
         },
         result: { data: updateTreatment },
       },
+      {
+        request: {
+          query: GET_GROUP_USERS,
+          variables: {
+            groupName: "testgroupname",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              name: "testgroupname",
+              stakeholders: [
+                {
+                  email: "manager_test@test.test",
+                  invitationState: "CONFIRMED",
+                },
+              ],
+            },
+          },
+        },
+      },
     ];
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
@@ -510,7 +506,7 @@ describe("Update Description component", (): void => {
         where: "",
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider
         addTypename={false}
         mocks={[...mocksMutation, ...mocksVulns, mocksVulnGroups]}
@@ -526,73 +522,48 @@ describe("Update Description component", (): void => {
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("combobox", { name: "treatment" })
+      ).toHaveLength(1);
     });
 
-    const treatment: ReactWrapper = wrapper
-      .find({ name: "treatment" })
-      .find("select")
-      .at(0);
-    treatment.simulate("change", {
-      target: { name: "treatment", value: "IN_PROGRESS" },
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["IN_PROGRESS"]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "assigned" })
+      ).toBeInTheDocument();
     });
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const treatmentJustification: ReactWrapper = wrapper
-      .find({ name: "justification" })
-      .find("textarea")
-      .at(0);
-    treatmentJustification.simulate("change", {
-      target: {
-        name: "justification",
-        value: "test justification to treatment",
-      },
-    });
-    const externalBugTrackingSystem: ReactWrapper = wrapper
-      .find({ name: "externalBugTrackingSystem" })
-      .find("input");
-    externalBugTrackingSystem.at(0).simulate("change", {
-      // FP: local testing
-      // eslint-disable-next-line
-      target: { name: "externalBugTrackingSystem", value: "http://test.t" }, // NOSONAR
-    });
-    const vulnLevel: ReactWrapper = wrapper
-      .find({ name: "severity" })
-      .find("input");
-    vulnLevel
-      .at(0)
-      .simulate("change", { target: { name: "severity", value: "2" } });
-    const assigned: ReactWrapper = wrapper
-      .find({ name: "assigned" })
-      .find("select");
-    assigned.at(0).simulate("change", {
-      target: { name: "assigned", value: "manager_test@test.test" },
-    });
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "test justification to treatment"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "externalBugTrackingSystem" }),
+      "http://test.t"
+    );
+    userEvent.type(screen.getByRole("spinbutton", { name: "severity" }), "2");
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "assigned" }),
+      ["manager_test@test.test"]
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.getByText(t("confirmmodal.proceed").toString())
+      ).not.toBeDisabled();
     });
 
-    const proceedButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed")
-      );
-    proceedButton.first().simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-        expect(handleOnClose).toHaveBeenCalledTimes(1);
-      });
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
+
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
 
   it("should render error update treatment", async (): Promise<void> => {
@@ -641,7 +612,7 @@ describe("Update Description component", (): void => {
         where: "",
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider
         addTypename={false}
         mocks={[mocksError, ...mocksVulns, mocksVulnGroups]}
@@ -657,65 +628,54 @@ describe("Update Description component", (): void => {
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("combobox", { name: "treatment" })
+      ).toHaveLength(1);
     });
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText(
+        t("searchFindings.tabDescription.approvalTitle").toString()
+      )
+    ).not.toBeInTheDocument();
 
-    const treatment: ReactWrapper = wrapper
-      .find({ name: "treatment" })
-      .find("select")
-      .at(0);
-    const treatmentJustification: ReactWrapper = wrapper
-      .find({ name: "justification" })
-      .find("textarea")
-      .at(0);
-    treatment.simulate("change", {
-      target: { name: "treatment", value: "ACCEPTED_UNDEFINED" },
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "treatment" }),
+      ["ACCEPTED_UNDEFINED"]
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "justification" }),
+      "test justification to treatment"
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.getByText(t("confirmmodal.proceed").toString())
+      ).not.toBeDisabled();
     });
-    treatmentJustification.simulate("change", {
-      target: {
-        name: "justification",
-        value: "test justification to treatment",
-      },
+
+    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(
+          t("searchFindings.tabDescription.approvalTitle").toString()
+        )
+      ).toBeInTheDocument();
     });
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const proceedButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed")
+    userEvent.click(
+      within(
+        screen.getByText("searchFindings.tabDescription.approvalMessage")
+      ).getByRole("button", { name: "Proceed" })
+    );
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptances")
       );
-    proceedButton.first().simulate("click");
-
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
     });
 
-    const confirmProceedButton: ReactWrapper = wrapper
-      .find("ConfirmDialog")
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Proceed")
-      );
-    confirmProceedButton.first().simulate("click");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t(
-            "searchFindings.tabVuln.alerts.maximumNumberOfAcceptances"
-          )
-        );
-        expect(handleOnClose).not.toHaveBeenCalled();
-      });
-    });
+    expect(handleOnClose).not.toHaveBeenCalled();
   });
 });

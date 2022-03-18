@@ -18,7 +18,6 @@ import type {
 } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
@@ -281,7 +280,7 @@ describe("VulnerabilitiesView", (): void => {
     );
 
     userEvent.click(
-      screen.getByText(translate.t("group.findings.report.modalClose"))
+      screen.getByText(t("group.findings.report.modalClose").toString())
     );
 
     await waitFor((): void => {
@@ -291,7 +290,7 @@ describe("VulnerabilitiesView", (): void => {
     });
 
     userEvent.click(
-      screen.getByText(translate.t("group.findings.report.modalClose"))
+      screen.getByText(t("group.findings.report.modalClose").toString())
     );
 
     await waitFor((): void => {
