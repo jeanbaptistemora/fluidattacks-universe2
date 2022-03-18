@@ -1239,6 +1239,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    SENSITIVE_INFO_DOTNET_JSON = MethodInfo(
+        file_name="conf_files",
+        name="sensitive_info_in_dotnet_json",
+        module="lib_path",
+        finding=FindingEnum.F009,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     WEB_USER_PASS = MethodInfo(
         file_name="conf_files",
         name="web_config_user_pass",
