@@ -591,28 +591,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintPython/module/observesServiceJobsScheduler:
-  image: ghcr.io/fluidattacks/makes:22.04
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
-  script:
-    - m . /lintPython/module/observesServiceJobsScheduler
-  stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /lintPython/module/observesServiceMigrateTables:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
@@ -1281,7 +1259,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/observes/service/jobs-scheduler/run__run-schedule:
+/observes/service/jobs-scheduler/run:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
@@ -1292,7 +1270,7 @@
       when: never
     - when: always
   script:
-    - m . /observes/service/jobs-scheduler/run 'run-schedule'
+    - m . /observes/service/jobs-scheduler/run
   stage: analytics
   tags:
     - autoscaling

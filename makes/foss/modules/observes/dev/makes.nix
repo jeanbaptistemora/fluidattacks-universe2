@@ -26,7 +26,7 @@
     };
     observesScheduler = {
       source = [
-        outputs."/observes/service/jobs-scheduler/env/runtime"
+        outputs."/observes/service/jobs-scheduler/env/development"
       ];
     };
     observesCodeEtl = {

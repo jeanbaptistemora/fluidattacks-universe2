@@ -18,6 +18,6 @@ lib.buildPythonPackage rec {
     ''
   ];
   doCheck = true;
-  pythonImportsCheck = [pname];
+  pythonImportsCheck = [pname "utils_logger.v2"];
   inherit src propagatedBuildInputs nativeBuildInputs;
 }

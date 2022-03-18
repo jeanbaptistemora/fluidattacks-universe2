@@ -1,4 +1,5 @@
 {
+  inputs,
   makeScript,
   outputs,
   ...
@@ -6,7 +7,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/service/jobs-scheduler/bin"
+      outputs."${inputs.observesIndex.service.scheduler.bin}"
     ];
     source = [
       outputs."/utils/aws"

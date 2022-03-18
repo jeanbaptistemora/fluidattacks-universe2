@@ -20,6 +20,11 @@ in {
       // {
         root = "/observes/services/db_migration";
       };
+    scheduler =
+      (std_data "/observes/service/jobs_scheduler")
+      // {
+        root = "/observes/services/jobs_scheduler";
+      };
   };
   etl = {
     dynamo =

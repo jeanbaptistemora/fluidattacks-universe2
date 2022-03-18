@@ -8,7 +8,7 @@
 }: let
   root = projectPath inputs.observesIndex.service.scheduler.root;
   pkg = import "${root}/main.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  env = pkg.env.runtime;
+  env = pkg.env.dev;
 in
   makeTemplate {
     name = "observes-service-jobs-scheduler-env-runtime";
