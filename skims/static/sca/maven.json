@@ -3324,6 +3324,9 @@
   "org.jeecgframework.boot:jeecg-boot-base": {
     "GHSA-26hm-r6mg-963c": "<=3.0"
   },
+  "org.jeecgframework.boot:jeecg-boot-base-core": {
+    "GHSA-26hm-r6mg-963c": "<=3.0"
+  },
   "org.jenkins-ci.main:jenkins-core": {
     "CVE-2016-0790": ">=0 <=1.649",
     "CVE-2016-0791": ">=0 <=1.649",
@@ -3510,6 +3513,9 @@
   "org.jenkins-ci.plugins:chosen-views-tabbar": {
     "CVE-2020-2269": ">=0 <=1.2"
   },
+  "org.jenkins-ci.plugins:claim": {
+    "CVE-2021-21620": "<=2.18.1"
+  },
   "org.jenkins-ci.plugins:cloudbees-jenkins-advisor": {
     "CVE-2020-2093": ">=0 <=3.0",
     "CVE-2020-2094": ">=0 <=3.0",
@@ -3561,6 +3567,9 @@
   "org.jenkins-ci.plugins:cvs": {
     "CVE-2020-2184": ">=0 <=2.15",
     "CVE-2020-2324": ">=0 <=2.16"
+  },
+  "org.jenkins-ci.plugins:dashboard-view": {
+    "CVE-2021-21649": "<=2.15"
   },
   "org.jenkins-ci.plugins:database": {
     "CVE-2020-2240": ">=0 <=1.6",
@@ -3722,6 +3731,9 @@
     "CVE-2019-10470": ">=0 <=1.3",
     "CVE-2020-2211": ">=0 <=1.3"
   },
+  "org.jenkins-ci.plugins:kubernetes-cli": {
+    "GHSA-xrg9-wwrq-xmx9": "< 1.10.1"
+  },
   "org.jenkins-ci.plugins:libvirt-slave": {
     "CVE-2019-10471": ">=0 <=1.8.5",
     "CVE-2019-10472": ">=0 <=1.8.5",
@@ -3788,6 +3800,9 @@
   "org.jenkins-ci.plugins:parameterized-remote-trigger": {
     "CVE-2020-2239": ">=0 <=3.1.3"
   },
+  "org.jenkins-ci.plugins:performance": {
+    "CVE-2021-21701": "<=3.20"
+  },
   "org.jenkins-ci.plugins:periodic_backup": {
     "CVE-2017-1000086": ">=1.0 <=1.4"
   },
@@ -3807,6 +3822,9 @@
   },
   "org.jenkins-ci.plugins:pollscm": {
     "CVE-2017-1000093": ">=0 <=1.3.1"
+  },
+  "org.jenkins-ci.plugins:pom2config": {
+    "CVE-2021-43576": "<=1.2"
   },
   "org.jenkins-ci.plugins:promoted-builds": {
     "CVE-2018-1000114": ">=0 <=2.31.1",
@@ -3898,6 +3916,9 @@
     "CVE-2021-21667": ">=0 <=3.2",
     "CVE-2021-21668": ">=0 <=3.1"
   },
+  "org.jenkins-ci.plugins:seleniumhtmlreport": {
+    "CVE-2021-21672": "<=1.0"
+  },
   "org.jenkins-ci.plugins:shared-objects": {
     "CVE-2020-2296": ">=0 <=0.44"
   },
@@ -3923,6 +3944,9 @@
   },
   "org.jenkins-ci.plugins:sonargraph-integration": {
     "CVE-2020-2201": ">=0 <=3.0.0"
+  },
+  "org.jenkins-ci.plugins:squashtm-publisher": {
+    "CVE-2021-43578": "<=1.0.0"
   },
   "org.jenkins-ci.plugins:ssh-agent": {
     "CVE-2018-1999036": ">=0 <=1.15"
@@ -4004,6 +4028,9 @@
   "org.jenkins-ci.plugins:workflow-cps-global-lib": {
     "CVE-2019-10357": ">=0 <=2.14"
   },
+  "org.jenkins-ci.plugins:xray-connector": {
+    "GHSA-5557-j87h-cvf4": "<2.4.1"
+  },
   "org.jenkins-ci.plugins:yaml-axis": {
     "CVE-2020-2179": ">=0 <=0.2.0"
   },
@@ -4030,6 +4057,9 @@
   },
   "org.jolokia:jolokia-parent": {
     "CVE-2018-10899": ">=1.2.0 <1.6.1"
+  },
+  "org.jooby:jooby": {
+    "GHSA-px9h-x66r-8mpc": "<2.8.2"
   },
   "org.jruby.ext.posix:jna-posix": {
     "CVE-2010-1330": "0.7"
