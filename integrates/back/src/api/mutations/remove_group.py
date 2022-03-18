@@ -21,6 +21,12 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.groups.enums import (
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -58,10 +64,9 @@ async def mutate(
         loaders: Dataloaders = info.context.loaders
         group_name = group_name.lower()
         user_info = await token_utils.get_jwt_content(info.context)
-        group = await loaders.group.load(group_name)
+        group: Group = await loaders.group_typed.load(group_name)
         requester_email = user_info["user_email"]
-        success = False
-        success = await groups_domain.update_group_attrs(
+        success: bool = await groups_domain.update_group_attrs(
             loaders=loaders,
             comments="",
             group_name=group_name,
@@ -70,9 +75,9 @@ async def mutate(
             has_asm=False,
             reason=reason,
             requester_email=requester_email,
-            service=group["service"],
-            subscription=group["subscription"],
-            tier="free",
+            service=group.state.service.value,
+            subscription=str(group.state.type.value).lower(),
+            tier=str(GroupTier.FREE.value).lower(),
         )
         if success:
             await batch_dal.put_action(
