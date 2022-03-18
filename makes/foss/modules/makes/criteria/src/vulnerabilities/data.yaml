@@ -11718,69 +11718,53 @@
   en:
     title: Lack of data validation - Modify DOM Elements
     description: >
-      Adding a DOM (Document Object Model) element
-      is an expensive operation.
-      Code that adds multiple DOM elements consecutively
-      without correct validation of each one, is
-      inefficient and likely not to work well.
+      The application allows the creation of dynamic DOM
+      (Document Object Model) elements
+      from user controlled inputs.
+      In addition to being functionally expensive, this operation
+      can lead to the creation and exploitation of other vulnerabilities
+      such as buffer overflow or memory corruption.
     impact: >
-      - Lack of data validation in program leads to
-      buffer overflows, integer overflows, array
-      index errors, and memory corruption.
-
-      - Provide unexpected
-      values and cause a program crash.
+      Cause unexpected behaviours in the application
+      which can lead to system unavailability.
     recommendation: >
-      - Manipulate the DOM (i.e., add, modify, and
-      remove elements) efficiently and effectively.
-
-      - Create and modify DOM elements while detached
-      and then attaching them yields much better
-      performance than only create them.
+      Avoid generating dynamic DOM
+      from user controlled inputs
     threat: >
-      Unauthorized attacker reading confidential data.
+      Authenticated attacker from the Internet
   es:
     title: Lack of data validation - Modify DOM Elements
     description: >
-      Añadir un elemento DOM (Document Object Model)
-      es una operación costosa.
-      El código que añade múltiples elementos DOM
-      consecutivamente sin una validación correcta
-      de cada uno, es ineficiente y probablemente.
-      no funcione bien.
+      La aplicación permite generar elementos DOM
+      (Document Object Model) de forma dinámica a partir
+      de una o más entradas controladas por un usuario.
+      Este operación además de ser funcionalmente costosa,
+      puede conducir a la creación y explotación de otras vulnerabilidades
+      como buffer overflow o corrupción de memoria.
     impact: >
-      - La falta de validación de datos en el
-      programa conduce a desbordamientos de búfer,
-      desbordamientos de enteros, errores de índice
-      de matriz y corrupción de memoria.
-
-      - Proporcionar valores inesperados y
-      causar una caída del programa.
+      Generar comportamientos inesperados en la aplicación
+      que pueden conducir a una indisponibilidad del sistema.
     recommendation: >
-      - Manipular el DOM (es decir, añadir, modificar
-      y eliminar elementos) de forma eficiente y eficaz.
-
-      - Crear y modificar elementos del DOM mientras se
-      separan y luego se adjuntan produce un rendimiento
-      mucho mejor que sólo crearlos
+      Evitar generar DOM dinámico
+      a partir de entradas manipuladas por el usuario.
     threat: >
-      Atacante no autorizado leyendo datos confidenciales.
+      Atacante autenticado desde Internet
   category: Inject Unexpected
   remediation_time: "120"
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
+      confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["173","320","342"]
   metadata:
     en:
