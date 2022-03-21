@@ -1171,67 +1171,67 @@
     description: __empty__
   definitions:
     "9_1_2":
-      title: Access to Networks and Network Services
+      title: Access to networks and network services
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_2_1":
-      title: User Registration and De-registration
+      title: User registration and de-registration
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_2_2":
-      title: User Access Provisioning
+      title: User access provisioning
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-x2:v1:en
     "9_2_3":
-      title: Management of Privileged Access Rights
+      title: Management of privileged access rights
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_4_2":
-      title: Secure Log-on Procedures
+      title: Secure log-on procedures
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_4_5":
-      title: Access Control to Program Source Code
+      title: Access control to program source code
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "12_2_1":
-      title: Controls Against Malware
+      title: Controls against malware
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "12_4_1":
-      title: Event Logging
+      title: Event logging
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "12_4_2":
-      title: Protection of Log Information
+      title: Protection of log information
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "12_4_3":
-      title: Administrator and Operator Logs
+      title: Administrator and operator logs
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "12_4_4":
-      title: Clock Synchronization
+      title: Clock synchronization
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "12_6_1":
-      title: Management of Technical Vulnerabilities
+      title: Management of technical vulnerabilities
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "13_1_3":
-      title: Segregation in Networks
+      title: Segregation in networks
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "13_2_3":
-      title: Electronic Messaging
+      title: Electronic messaging
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "14_1_3":
-      title: Protecting Application Services Transactions
+      title: Protecting application services transactions
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "14_2_2":
-      title: System Change Control Procedures
+      title: System change control procedures
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "14_3_1":
-      title: Protection of Test Data
+      title: Protection of test data
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "18_1_2":
-      title: Intellectual Property Rights
+      title: Intellectual property rights
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "18_1_3":
-      title: Protection of Records
+      title: Protection of records
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "18_1_4":
-      title: Privacy and Protection of Personally Identifiable Information
+      title: Privacy and protection of personally identifiable information
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "18_1_5":
-      title: Regulation of Cryptographic Controls
+      title: Regulation of cryptographic controls
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
   metadata: {}
 "nerccip":
@@ -3465,118 +3465,118 @@
     description: __empty__
   definitions:
     "M1036":
-      title: Account Use Policies
+      title: Account use policies
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1049":
-      title: Antivirus/Antimalware
+      title: Antivirus/antimalware
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1048":
-      title: Application Isolation and Sandboxing
+      title: Application isolation and sandboxing
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1047":
       title: Audit
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1040":
-      title: Behavior Prevention on Endpoint
+      title: Behavior prevention on endpoint
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1046":
-      title: Boot Integrity
+      title: Boot integrity
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1045":
-      title: Code Signing
+      title: Code signing
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1043":
-      title: Credential Access Protection
+      title: Credential access protection
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1057":
-      title: Data Loss Prevention
+      title: Data loss prevention
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1041":
-      title: Encrypt Sensitive Information
+      title: Encrypt sensitive information
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1039":
-      title: Environment Variable Permissions
+      title: Environment variable permissions
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1038":
-      title: Execution Prevention
+      title: Execution prevention
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1037":
-      title: Filter Network Traffic
+      title: Filter network traffic
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1035":
-      title: Limit Access to Resource Over Network
+      title: Limit access to resource over network
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1034":
-      title: Limit Hardware Installation
+      title: Limit hardware installation
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1033":
-      title: Limit Software Installation
+      title: Limit software installation
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1032":
-      title: Multi-factor Authentication
+      title: Multi-factor authentication
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1031":
-      title: Network Intrusion Prevention
+      title: Network intrusion prevention
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1030":
-      title: Network Segmentation
+      title: Network segmentation
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1027":
-      title: Password Policies
+      title: Password policies
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1026":
-      title: Privileged Account Management
+      title: Privileged account management
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1025":
-      title: Privileged Process Integrity
+      title: Privileged process integrity
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1029":
-      title: Remote Data Storage and Log
+      title: Remote data storage and log
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1022":
-      title: Restrict File and Directory Permissions
+      title: Restrict file and directory permissions
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1021":
-      title: Restrict Web-Based Content
+      title: Restrict web-based content
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1020":
-      title: SSL/TLS Inspection
+      title: SSL/TLS inspection
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1051":
-      title: Update Software
+      title: Update software
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1018":
-      title: User Account Management
+      title: User account management
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1016":
-      title: Vulnerability Scanning
+      title: Vulnerability scanning
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1015":
-      title: Active Directory Configuration
+      title: Active directory configuration
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1013":
-      title: Application Developer Guidance
+      title: Application developer guidance
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1042":
-      title: Disable or Remove Feature or Program
+      title: Disable or remove feature or program
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1028":
-      title: Operating System Configuration
+      title: Operating system configuration
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1056":
       title: Pre-compromise
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1044":
-      title: Restrict Library Loading
+      title: Restrict library loading
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1024":
-      title: Restrict Registry Permissions
+      title: Restrict registry permissions
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1054":
-      title: Software Configuration
+      title: Software configuration
       link: https://attack.mitre.org/mitigations/enterprise/
     "M1052":
-      title: User Account Control
+      title: User account control
       link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
 "padss":
@@ -4313,229 +4313,229 @@
     description: __empty__
   definitions:
     "01_a":
-      title: Access Control Policy
+      title: Access control policy
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_c":
-      title: Privilege Management
+      title: Privilege management
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_d":
-      title: User Password Management
+      title: User password management
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_e":
-      title: Review of User Access Rights
+      title: Review of user access rights
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_h":
-      title: Clear Desk and Clear Screen Policy
+      title: Clear desk and clear screen policy
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_i":
-      title: Policy on the Use of Network Services
+      title: Policy on the use of network services
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_j":
-      title: User Authentication for External Connections
+      title: User authentication for external connections
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_k":
-      title: Equipment Identification in Networks
+      title: Equipment identification in networks
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_l":
-      title: Remote Diagnostic and Configuration Port Protection
+      title: Remote diagnostic and configuration port protection
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_m":
-      title: Segregation in Networks
+      title: Segregation in networks
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_n":
-      title: Network Connection Control
+      title: Network connection control
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_o":
-      title: Network Routing Control
+      title: Network routing control
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_p":
-      title: Secure Log-on Procedures
+      title: Secure log-on procedures
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_q":
-      title: User Identification and Authentication
+      title: User identification and authentication
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_r":
-      title: Password Management System
+      title: Password management system
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_t":
-      title: Session Time-out
+      title: Session time-out
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_u":
-      title: Limitation of Connection Time
+      title: Limitation of connection time
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_v":
-      title: Information Access Restriction
+      title: Information access restriction
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_w":
-      title: Sensitive System Isolation
+      title: Sensitive system isolation
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_x":
-      title: Mobile Computing and Communications
+      title: Mobile computing and communications
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "01_y":
       title: Teleworking
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "02_d":
-      title: Management Responsibilities
+      title: Management responsibilities
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "03_a":
-      title: Risk Management Program Development
+      title: Risk management program development
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "04_a":
-      title: Information Security Policy Document
+      title: Information security policy document
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "05_c":
-      title: Allocation of Information Security Responsibilities
+      title: Allocation of information security responsibilities
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "05_d":
-      title: Authorization Process for Information Assets and Facilities
+      title: Authorization process for information assets and facilities
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "05_i":
-      title: Identification of Risks Related to External Parties
+      title: Identification of risks related to external parties
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "05_k":
-      title: Addressing Security in Third Party Agreements
+      title: Addressing security in third party agreements
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "06_a":
-      title: Identification of Applicable Legislation
+      title: Identification of applicable legislation
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "06_b":
-      title: Intellectual Property Rights
+      title: Intellectual property rights
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "06_c":
-      title: Protection of Organizational Records
+      title: Protection of organizational records
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "06_d":
-      title: Data Protection and Privacy of Covered Information
+      title: Data protection and privacy of covered information
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "06_f":
-      title: Regulation of Cryptographic Controls
+      title: Regulation of cryptographic controls
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "06_g":
-      title: Compliance with Security Policies and Standards
+      title: Compliance with security policies and standards
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "07_b":
-      title: Ownership of Assets
+      title: Ownership of assets
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_b":
-      title: Physical Entry Controls
+      title: Physical entry controls
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_c":
-      title: Securing Offices, Rooms, and Facilities
+      title: Securing offices, rooms, and facilities
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_f":
-      title: Public Access, Delivery, and Loading Areas
+      title: Public access, delivery, and loading areas
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_g":
-      title: Equipment Siting and Protection
+      title: Equipment siting and protection
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_c":
-      title: Segregation of Duties
+      title: Segregation of duties
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_d":
-      title: Separation of Development, Test, and Operational Environments
+      title: Separation of development, test, and operational environments
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_e":
-      title: Service Delivery
+      title: Service delivery
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_f":
-      title: Monitoring and Review of Third-Party Services
+      title: Monitoring and review of third-party services
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_g":
-      title: Managing Changes to Third Party Services
+      title: Managing changes to third party services
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_h":
-      title: Capacity Management
+      title: Capacity management
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_i":
-      title: System Acceptance
+      title: System acceptance
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_j":
-      title: Controls Against Malicious Code
+      title: Controls against malicious code
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_k":
-      title: Controls Against Mobile Code
+      title: Controls against mobile code
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_m":
-      title: Network Controls
+      title: Network controls
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_p":
-      title: Disposal of Media
+      title: Disposal of media
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_q":
-      title: Information Handling Procedures
+      title: Information handling procedures
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_r":
-      title: Security of System Documentation
+      title: Security of system documentation
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_s":
-      title: Information Exchange Policies and Procedures
+      title: Information exchange policies and procedures
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_v":
-      title: Electronic Messaging
+      title: Electronic messaging
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_x":
-      title: Electronic Commerce Services
+      title: Electronic commerce services
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_y":
-      title: On-line Transactions
+      title: On-line transactions
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_z":
-      title: Publicly Available Information
+      title: Publicly available information
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_aa":
-      title: Audit Logging
+      title: Audit logging
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_ab":
-      title: Monitoring System Use
+      title: Monitoring system use
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_ac":
-      title: Protection of Log Information
+      title: Protection of log information
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_ad":
-      title: Administrator and Operator Logs
+      title: Administrator and operator logs
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_af":
-      title: Clock Synchronization
+      title: Clock synchronization
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_b":
-      title: Input Data Validation
+      title: Input data validation
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_c":
-      title: Control of Internal Processing
+      title: Control of internal processing
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_d":
-      title: Message Integrity
+      title: Message integrity
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_e":
-      title: Output Data Validation
+      title: Output data validation
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_f":
-      title: Policy on the Use of Cryptographic Controls
+      title: Policy on the use of cryptographic controls
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_g":
-      title: Key Management
+      title: Key management
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_i":
-      title: Protection of System Test Data
+      title: Protection of system test data
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_j":
-      title: Access Control to Program Source Code
+      title: Access control to program source code
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "10_l":
-      title: Outsourced Software Development
+      title: Outsourced software development
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "11_a":
-      title: Reporting Information Security Events
+      title: Reporting information security events
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_a":
-      title: Privacy Notice
+      title: Privacy notice
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_b":
-      title: Openness and Transparency
+      title: Openness and transparency
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_c":
-      title: Accounting of Disclosures
+      title: Accounting of disclosures
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_d":
       title: Consent required
@@ -4544,31 +4544,31 @@
       title: Choice
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_f":
-      title: Principle Access
+      title: Principle access
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_g":
-      title: Purpose Legitimacy
+      title: Purpose legitimacy
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_h":
       title: Purpose specification
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_j":
-      title: Data Minimization
+      title: Data minimization
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_k":
-      title: Use and Disclosure
+      title: Use and disclosure
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_l":
-      title: Retention and Disposal
+      title: Retention and disposal
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_m":
-      title: Accuracy and Quality
+      title: Accuracy and quality
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_n":
-      title: Participation and Redress
+      title: Participation and redress
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "13_s":
-      title: Privacy Monitoring and Auditing
+      title: Privacy monitoring and auditing
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
   metadata: {}
 "fedramp":
@@ -4910,106 +4910,106 @@
     description: __empty__
   definitions:
     "7_I":
-      title: Chances of Carrying Out Personal Data Processing (1)
+      title: Chances of carrying out personal data processing (1)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_II":
-      title: Chances of Carrying Out Personal Data Processing (2)
+      title: Chances of carrying out personal data processing (2)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_III":
-      title: Chances of Carrying Out Personal Data Processing (3)
+      title: Chances of carrying out personal data processing (3)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_VI":
-      title: Chances of Carrying Out Personal Data Processing (6)
+      title: Chances of carrying out personal data processing (6)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_X-3":
-      title: Chances of Carrying Out Personal Data Processing (10-3)
+      title: Chances of carrying out personal data processing (10-3)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_X-5":
-      title: Chances of Carrying Out Personal Data Processing (10-5)
+      title: Chances of carrying out personal data processing (10-5)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_X-7":
-      title: Chances of Carrying Out Personal Data Processing (10-7)
+      title: Chances of carrying out personal data processing (10-7)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-2":
-      title: Consent of the Personal Data Holder (2)
+      title: Consent of the personal data holder (2)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-4":
-      title: Consent of the Personal Data Holder (4)
+      title: Consent of the personal data holder (4)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-5":
-      title: Consent of the Personal Data Holder (5)
+      title: Consent of the personal data holder (5)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-6":
-      title: Consent of the Personal Data Holder (6)
+      title: Consent of the personal data holder (6)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "9":
-      title: Personal Data Subject's Right of Access
+      title: Personal data subject's right of access
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "9_VII-2":
-      title: Personal Data Subject's Right of Access (2)
+      title: Personal data subject's right of access (2)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "11_I":
-      title: Processing of Sensitive Personal Data
+      title: Processing of sensitive personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "14-1":
-      title: Personal Data of Children and Adolescents (1)
+      title: Personal data of children and adolescents (1)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "14-2":
-      title: Personal Data of Children and Adolescents (2)
+      title: Personal data of children and adolescents (2)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "15_I":
-      title: Termination of Processing of Personal Data (1)
+      title: Termination of processing of personal data (1)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "15_III":
-      title: Termination of Processing of Personal Data (3)
+      title: Termination of processing of personal data (3)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "16":
-      title: Deletion of Personal Data
+      title: Deletion of personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_I":
-      title: Personal Data Subject's Rights in Relation to the Controller (1)
+      title: Personal data subject's rights in relation to the controller (1)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_II":
-      title: Personal Data Subject's Rights in Relation to the Controller (2)
+      title: Personal data subject's rights in relation to the controller (2)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_III":
-      title: Personal Data Subject's Rights in Relation to the Controller (3)
+      title: Personal data subject's rights in relation to the controller (3)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_IV":
-      title: Personal Data Subject's Rights in Relation to the Controller (4)
+      title: Personal data subject's rights in relation to the controller (4)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_VI":
-      title: Personal Data Subject's Rights in Relation to the Controller (6)
+      title: Personal data subject's rights in relation to the controller (6)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_IX":
-      title: Personal Data Subject's Rights in Relation to the Controller (9)
+      title: Personal data subject's rights in relation to the controller (9)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "19":
-      title: Personal Data Subject's Requests
+      title: Personal data subject's requests
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "19_II-1":
-      title: Personal Data Subject's Requests (1)
+      title: Personal data subject's requests (1)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "20":
-      title: Right to Review Decisions Based on Automated Processing of Personal Data
+      title: Right to review decisions based on automated processing of personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "23_I":
-      title: Specific Rules for the Processing of Personal Data by the Government (1)
+      title: Specific rules for the processing of personal data by the government (1)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "23_III":
-      title: Specific Rules for the Processing of Personal Data by the Government (3)
+      title: Specific rules for the processing of personal data by the government (3)
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "26":
-      title: Sharing Personal Data by the Government
+      title: Sharing personal data by the government
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "46":
-      title: Technical and Organizational Measures
+      title: Technical and organizational measures
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "51":
-      title: Encouraging to Adopt Technical Standards
+      title: Encouraging to adopt technical standards
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "60":
-      title: Changes in Marco Civil Internet
+      title: Changes in marco civil internet
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
   metadata: {}
 "iec62443":
