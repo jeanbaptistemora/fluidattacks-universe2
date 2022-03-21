@@ -1252,58 +1252,58 @@
     description: __empty__
   definitions:
     "003-8_3_1":
-      title: Electronic Access Controls
+      title: Electronic access controls
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "003-8_3_2":
-      title: Electronic Access Controls
+      title: Electronic access controls
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "003-8_5_1":
-      title: Transient Cyber Asset and Removable Media Malicious Code Risk Mitigation
+      title: Transient cyber asset and removable media malicious code risk mitigation
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "004-6_R5":
       title: Access revocation
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-004-6.pdf
     "005-5_R1_3":
-      title: Electronic Security Perimeter
+      title: Electronic security perimeter
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "005-5_R1_4":
-      title: Electronic Security Perimeter
+      title: Electronic security perimeter
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "005-5_R1_5":
-      title: Electronic Security Perimeter
+      title: Electronic security perimeter
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "005-5_R2_2":
-      title: Interactive Remote Access Management
+      title: Interactive remote access management
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "007-6_R1_1":
-      title: Ports and Services
+      title: Ports and services
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R3_1":
-      title:  Malicious Code Prevention
+      title:  Malicious code prevention
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R4_1":
-      title: Security Event Monitoring
+      title: Security event monitoring
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5_1":
-      title: System Access Control
+      title: System access control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5_4":
-      title: System Access Control
+      title: System access control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5_5":
-      title: System Access Control
+      title: System access control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5_6":
-      title: System Access Control
+      title: System access control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5_7":
-      title: System Access Control
+      title: System access control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "011-2_R1_2":
-      title: Information Protection
+      title: Information protection
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
     "011-2_R2_1":
-      title: BES Cyber Asset Reuse and Disposal
+      title: BES cyber asset reuse and disposal
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
   metadata: {}
 "nist80053":
@@ -1318,16 +1318,16 @@
     description: __empty__
   definitions:
     "AC-2_2":
-      title: Removal of Temporary or Emergency Accounts
+      title: Removal of temporary or emergency accounts
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-2_3":
-      title: Disable Accounts
+      title: Disable accounts
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-2_4":
-      title: Automated Audit Actions
+      title: Automated audit actions
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-2_6":
-      title: Dynamic Privilege Management
+      title: Dynamic privilege management
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-2_7a":
       title: Establish and administer privileged user accounts
@@ -1339,34 +1339,34 @@
       title: Monitor changes to roles or attributes
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-2_10":
-      title: Shared and Group Account Credential Change
+      title: Shared and group account credential change
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-2_13":
-      title: Disable Accounts for High-Risk Individuals
+      title: Disable accounts for high-risk individuals
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-6":
-      title: Least Privilege
+      title: Least privilege
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-12":
-      title: Session Termination
+      title: Session termination
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "AC-18_5":
-      title: Antennas and Transmission Power Levels
+      title: Antennas and transmission power levels
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "IA-1":
-      title: Policy and Procedures
+      title: Policy and procedures
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "IA-2":
-      title: Identification and Authentication (Organizational Users)
+      title: Identification and authentication (Organizational Users)
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "IA-7":
-      title: Cryptographic Module Authentication
+      title: Cryptographic module authentication
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "PL-4_1":
-      title: Social Media and External Site/Applications Usage Restrictions
+      title: Social media and external site/applications usage restrictions
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "SC-3":
-      title: Security Function Isolation
+      title: Security function isolation
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
   metadata: {}
 "nist80063":
@@ -1381,31 +1381,31 @@
     description: __empty__
   definitions:
     "5_1_1_2":
-      title: Memorized Secret Verifiers
+      title: Memorized secret verifiers
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "5_1_3_2":
-      title: Out-of-Band Verifiers
+      title: Out-of-band verifiers
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "5_1_4_2":
-      title: Single-Factor OTP Verifiers
+      title: Single-factor OTP verifiers
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "5_2_3":
-      title: Use of Biometrics
+      title: Use of biometrics
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "5_2_5":
-      title: Verifier Impersonation Resistance
+      title: Verifier impersonation resistance
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "5_2_8":
-      title: Replay Resistance
+      title: Replay resistance
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "6_1_1":
-      title: Binding at Enrollment
+      title: Binding at enrollment
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "7_1":
-      title: Session Bindings
+      title: Session bindings
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
     "7_1_1":
-      title: Browser Cookies
+      title: Browser cookies
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
   metadata: {}
 "asvs":
@@ -2281,34 +2281,34 @@
     description: __empty__
   definitions:
     "A1":
-      title: Broken Access Control
+      title: Broken access control
       link: https://owasp.org/Top10/A01_2021-Broken_Access_Control/
     "A2":
-      title: Cryptographic Failures
+      title: Cryptographic failures
       link: https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
     "A3":
       title: Injection
       link: https://owasp.org/Top10/A03_2021-Injection/
     "A4":
-      title: Insecure Design
+      title: Insecure design
       link: https://owasp.org/Top10/A04_2021-Insecure_Design/
     "A5":
-      title: Security Misconfiguration
+      title: Security misconfiguration
       link: https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
     "A6":
-      title: Vulnerable and Outdated Components
+      title: Vulnerable and outdated components
       link: https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
     "A7":
-      title: Identification and Authentication Failures
+      title: Identification and authentication failures
       link: https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/
     "A8":
-      title: Software and Data Integrity Failures
+      title: Software and data integrity failures
       link: https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
     "A9":
-      title: Security Logging and Monitoring Failures
+      title: Security logging and monitoring failures
       link: https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
     "A10":
-      title: Server-Side Request Forgery
+      title: Server-side request forgery
       link: https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
   metadata: {}
 "pci":
@@ -2825,34 +2825,34 @@
     description: __empty__
   definitions:
     "M1":
-      title: Improper Platform Usage
+      title: Improper platform usage
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m1-improper-platform-usage
     "M2":
-      title: Insecure Data Storage
+      title: Insecure data storage
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m2-insecure-data-storage
     "M3":
-      title: Insecure Communication Threat Agents
+      title: Insecure communication threat agents
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m3-insecure-communication
     "M4":
-      title: Insecure Authentication
+      title: Insecure authentication
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m4-insecure-authentication
     "M5":
-      title: Insufficient Cryptography
+      title: Insufficient cryptography
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m5-insufficient-cryptography
     "M6":
-      title: Insecure Authorization
+      title: Insecure authorization
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m6-insecure-authorization
     "M7":
-      title: Poor Code Quality
+      title: Poor code quality
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m7-client-code-quality
     "M8":
-      title: Code Tampering
+      title: Code tampering
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m8-code-tampering
     "M9":
-      title: Reverse Engineering
+      title: Reverse engineering
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m9-reverse-engineering
     "M10":
-      title: Extraneous Functionality Threat Agents
+      title: Extraneous functionality threat agents
       link: https://owasp.org/www-project-mobile-top-10/2016-risks/m10-extraneous-functionality
   metadata: {}
 "nist":
@@ -3375,7 +3375,8 @@
       Financial Services (NYDFS) that places
       cybersecurity requirements on all
       Covered Entities.
-      Released on February 2017.
+      The version used in this section is
+      NYDFS, February 2017.
   es:
     description: __empty__
   definitions:
@@ -3389,19 +3390,19 @@
       title: Penetration testing and vulnerability assessments
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_6":
-      title: Audit Trail
+      title: Audit trail
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_7":
-      title: Access Privileges
+      title: Access privileges
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_10":
-      title: Cybersecurity Personnel and Intelligence
+      title: Cybersecurity personnel and intelligence
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_11":
       title: Third party service provider security policy
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_12":
-      title:  Multi-factor Authentication
+      title:  Multi-factor authentication
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_13":
       title: Limitations on data retention
@@ -3410,10 +3411,10 @@
       title: Training and monitoring
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_15":
-      title: Encryption of Nonpublic Information
+      title: Encryption of nonpublic information
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
     "500_16":
-      title: Incident Response Plan
+      title: Incident response plan
       link: https://www.dfs.ny.gov/industry_guidance/cybersecurity
   metadata: {}
 "nyshield":
