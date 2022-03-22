@@ -274,7 +274,6 @@ def _parse_one_cached(
     *,
     content: bytes,
     language: GraphShardMetadataLanguage,
-    _: int,
     syntax_graph_enabled: bool = False,
 ) -> Optional[GraphShardCacheable]:
     raw_tree: Tree = parse_content(content, language)
@@ -352,7 +351,6 @@ def parse_one(
     path: str,
     language: GraphShardMetadataLanguage,
     content: Optional[bytes] = None,
-    version: int = 20,
 ) -> Optional[GraphShard]:
     if not content:
         return None
@@ -362,7 +360,6 @@ def parse_one(
         graph = _parse_one_cached(
             content=content,
             language=language,
-            _=version,
         )
     except (
         ArithmeticError,
