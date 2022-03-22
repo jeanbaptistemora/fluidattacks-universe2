@@ -1622,7 +1622,7 @@ export const enTranslations: ResourceKey = {
     },
     header: {
       discoveryDate: {
-        label: "Discovery date",
+        label: "First reported",
         tooltip:
           "The year, month, and day we first identified " +
           "and reported this type of vulnerability for this group.",

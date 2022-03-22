@@ -1,5 +1,5 @@
 import {
-  faCalendar,
+  faCalendarTimes,
   faClock,
   faSkullCrossbones,
   faTriangleExclamation,
@@ -145,7 +145,7 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
         </TooltipWrapper>
       </Indicator>
       <Indicator
-        icon={faCalendar}
+        icon={faCalendarTimes}
         title={translate.t("searchFindings.header.discoveryDate.label")}
       >
         <TooltipWrapper
