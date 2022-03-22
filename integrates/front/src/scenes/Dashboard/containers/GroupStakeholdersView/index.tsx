@@ -186,7 +186,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
-          `${email} ${t("searchFindings.tabUsers.success")}`,
+          `${email}${t("searchFindings.tabUsers.success")}`,
           t("searchFindings.tabUsers.titleSuccess")
         );
       }

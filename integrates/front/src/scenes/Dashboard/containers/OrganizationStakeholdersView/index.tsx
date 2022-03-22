@@ -10,6 +10,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import {
@@ -113,10 +114,10 @@ const handleMtError: (mtError: ApolloError) => void = (
   });
 };
 
-const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
-  props: IOrganizationStakeholders
-): JSX.Element => {
-  const { organizationId } = props;
+const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
+  organizationId,
+}: IOrganizationStakeholders): JSX.Element => {
+  const { t } = useTranslation();
   const { organizationName } = useParams<{ organizationName: string }>();
 
   // State management
@@ -148,7 +149,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     notifyOnNetworkStatusChange: true,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred fetching organization stakeholders",
           error
@@ -168,8 +169,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         const { email } =
           mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
-          `${email}${translate.t("searchFindings.tabUsers.success")}`,
-          translate.t("organization.tabs.users.successTitle")
+          `${email}${t("searchFindings.tabUsers.success")}`,
+          t("organization.tabs.users.successTitle")
         );
       }
     },
@@ -190,10 +191,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
           Organization: organizationName,
         });
         msgSuccess(
-          `${email} ${translate.t(
-            "organization.tabs.users.editButton.success"
-          )}`,
-          translate.t("organization.tabs.users.successTitle")
+          `${email} ${t("organization.tabs.users.editButton.success")}`,
+          t("organization.tabs.users.successTitle")
         );
         setCurrentRow({});
       }
@@ -212,16 +211,16 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
             Organization: organizationName,
           });
           msgSuccess(
-            `${currentRow.email} ${translate.t(
+            `${currentRow.email} ${t(
               "organization.tabs.users.removeButton.success"
             )}`,
-            translate.t("organization.tabs.users.successTitle")
+            t("organization.tabs.users.successTitle")
           );
           setCurrentRow({});
         }
       },
       onError: (removeError: ApolloError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing stakeholder", removeError);
       },
     }
@@ -299,7 +298,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                   onClick={handleResendEmail}
                   variant={"secondary"}
                 >
-                  {translate.t("searchFindings.usersTable.resendEmail")}
+                  {t("searchFindings.usersTable.resendEmail")}
                 </Button>
               ),
             };
@@ -333,7 +332,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                         <TooltipWrapper
                           displayClass={"dib"}
                           id={"organization.tabs.users.addButton.tooltip.btn"}
-                          message={translate.t(
+                          message={t(
                             "organization.tabs.users.addButton.tooltip"
                           )}
                         >
@@ -344,15 +343,13 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           >
                             <FontAwesomeIcon icon={faPlus} />
                             &nbsp;
-                            {translate.t(
-                              "organization.tabs.users.addButton.text"
-                            )}
+                            {t("organization.tabs.users.addButton.text")}
                           </Button>
                         </TooltipWrapper>
                         <TooltipWrapper
                           displayClass={"dib"}
                           id={"organization.tabs.users.editButton.tooltip.btn"}
-                          message={translate.t(
+                          message={t(
                             "organization.tabs.users.editButton.tooltip"
                           )}
                         >
@@ -368,9 +365,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           >
                             <FontAwesomeIcon icon={faUserEdit} />
                             &nbsp;
-                            {translate.t(
-                              "organization.tabs.users.editButton.text"
-                            )}
+                            {t("organization.tabs.users.editButton.text")}
                           </Button>
                         </TooltipWrapper>
                         <TooltipWrapper
@@ -378,7 +373,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           id={
                             "organization.tabs.users.removeButton.tooltip.btn"
                           }
-                          message={translate.t(
+                          message={t(
                             "organization.tabs.users.removeButton.tooltip"
                           )}
                         >
@@ -394,9 +389,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
                           >
                             <FontAwesomeIcon icon={faTrashAlt} />
                             &nbsp;
-                            {translate.t(
-                              "organization.tabs.users.removeButton.text"
-                            )}
+                            {t("organization.tabs.users.removeButton.text")}
                           </Button>
                         </TooltipWrapper>
                       </ButtonToolbar>
@@ -424,13 +417,13 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         </div>
         <AddUserModal
           action={stakeholderModalAction}
-          editTitle={translate.t("organization.tabs.users.modalEditTitle")}
+          editTitle={t("organization.tabs.users.modalEditTitle")}
           initialValues={stakeholderModalAction === "edit" ? currentRow : {}}
           onClose={closeStakeholderModal}
           onSubmit={handleSubmit}
           open={isStakeholderModalOpen}
           organizationId={organizationId}
-          title={translate.t("organization.tabs.users.modalAddTitle")}
+          title={t("organization.tabs.users.modalAddTitle")}
           type={"organization"}
         />
       </div>
