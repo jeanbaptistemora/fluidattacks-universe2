@@ -1,18 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
-import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters";
-import type { ITableProps } from "components/Table/types";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -117,7 +112,7 @@ describe("Group stakeholders view", (): void => {
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mockError}>
           <Route
@@ -127,9 +122,10 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await wait(0);
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(1);
+    });
 
     jest.clearAllMocks();
   });
@@ -137,7 +133,7 @@ describe("Group stakeholders view", (): void => {
   it("should display all group stakeholder columns", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -147,32 +143,36 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    const stakeholderTable: ReactWrapper<ITableProps> = wrapper
-      .find(Table)
-      .filter({ id: "tblUsers" });
-
-    const tableHeader: ReactWrapper = stakeholderTable.find("Header");
-
-    expect(tableHeader.text()).toContain("Stakeholder email");
-    expect(tableHeader.text()).toContain("Role");
-    expect(tableHeader.text()).toContain("Responsibility");
-    expect(tableHeader.text()).toContain("First login");
-    expect(tableHeader.text()).toContain("Last login");
-    expect(tableHeader.text()).toContain("Invitation");
-
-    const firstRow: ReactWrapper = stakeholderTable.find("RowAggregator");
-
-    expect(firstRow.text()).toContain("user@gmail.com");
-    expect(firstRow.text()).toContain("User");
-    expect(firstRow.text()).toContain("Test responsibility");
-    expect(firstRow.text()).toContain("2017-09-05 15:00:00");
-    expect(firstRow.text()).toContain(timeFromNow("2017-10-29 13:40:37"));
-    expect(firstRow.text()).toContain("Confirmed");
+    expect(
+      screen.getByText("searchFindings.usersTable.usermail")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("searchFindings.usersTable.userRole")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("searchFindings.usersTable.userResponsibility")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("searchFindings.usersTable.firstlogin")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("searchFindings.usersTable.lastlogin")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("searchFindings.usersTable.invitation")
+    ).toBeInTheDocument();
+    expect(screen.getByText("user@gmail.com")).toBeInTheDocument();
+    expect(screen.getByText("userModal.roles.user")).toBeInTheDocument();
+    expect(screen.getByText("Test responsibility")).toBeInTheDocument();
+    expect(screen.getByText("2017-09-05 15:00:00")).toBeInTheDocument();
+    expect(
+      screen.getByText(timeFromNow("2017-10-29 13:40:37"))
+    ).toBeInTheDocument();
+    expect(screen.getByText("Confirmed")).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -180,7 +180,7 @@ describe("Group stakeholders view", (): void => {
   it("should render an add stakeholder component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -190,9 +190,10 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await wait(0);
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
 
     jest.clearAllMocks();
   });
@@ -200,19 +201,28 @@ describe("Group stakeholders view", (): void => {
   it("should render an edit stakeholder component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_grant_stakeholder_access_mutate" },
+    ]);
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route
-            component={GroupStakeholdersView}
-            path={"/groups/:groupName/stakeholders"}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={GroupStakeholdersView}
+              path={"/groups/:groupName/stakeholders"}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
-    await wait(0);
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.getByText("searchFindings.tabUsers.addButton.text")
+    ).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -223,7 +233,7 @@ describe("Group stakeholders view", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -235,31 +245,20 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    const addUserModal: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Add stakeholder to this group" });
 
-    expect(addUserModal).toHaveLength(0);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
-    await act(async (): Promise<void> => {
-      const addButton: ReactWrapper = wrapper
-        .find("button")
-        .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-        .at(0);
-      addButton.simulate("click");
-
-      await wait(0);
-      wrapper.update();
+    userEvent.click(screen.getByText("searchFindings.tabUsers.addButton.text"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.title")
+      ).toBeInTheDocument();
     });
-    const addUserModal2: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Add stakeholder to this group" });
-
-    expect(addUserModal2).toHaveLength(1);
 
     jest.clearAllMocks();
   });
@@ -270,7 +269,7 @@ describe("Group stakeholders view", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -282,37 +281,33 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    const editUserModal: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Edit stakeholder information" });
 
-    expect(editUserModal).toHaveLength(0);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.editButton.text")
+    ).toBeDisabled();
 
-    const userInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("user@gmail.com")
-      )
-      .at(0);
-    userInfo.simulate("click");
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-    addButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.editButton.text")
+      ).not.toBeDisabled();
     });
-    const editUserModal2: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Edit stakeholder information" });
 
-    expect(editUserModal2).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
+    ).not.toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByText("searchFindings.tabUsers.editButton.text")
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
+      ).toBeInTheDocument();
+    });
 
     jest.clearAllMocks();
   });
@@ -336,6 +331,10 @@ describe("Group stakeholders view", (): void => {
             grantStakeholderAccess: {
               grantedStakeholder: {
                 email: "unittest@test.com",
+                firstLogin: "",
+                lastLogin: "",
+                responsibility: "Project Manager",
+                role: "HACKER",
               },
               success: true,
             },
@@ -347,7 +346,7 @@ describe("Group stakeholders view", (): void => {
       { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -359,54 +358,43 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-      .at(0);
-    addButton.simulate("click");
-    const addUserModal: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Add stakeholder to this group" });
 
-    expect(addUserModal).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
-    const emailInput: ReactWrapper = addUserModal
-      .find({ name: "email", type: "text" })
-      .at(0)
-      .find("input");
-    emailInput.simulate("change", {
-      target: { name: "email", value: "unittest@test.com" },
+    userEvent.click(screen.getByText("searchFindings.tabUsers.addButton.text"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.title")
+      ).toBeInTheDocument();
     });
-    const responsibilityInput: ReactWrapper = addUserModal
-      .find({ name: "responsibility", type: "text" })
-      .at(0)
-      .find("input");
-    responsibilityInput.simulate("change", {
-      target: { name: "responsibility", value: "Project Manager" },
-    });
-    const select: ReactWrapper = addUserModal
-      .find("select")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
-      .at(0);
-    select.simulate("change", { target: { name: "role", value: "HACKER" } });
-    const form: ReactWrapper = addUserModal.find("Formik").at(0);
-    form.simulate("submit");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
 
-        const addUserModal2: ReactWrapper = wrapper
-          .find("Modal")
-          .find({ open: true, title: "Add stakeholder to this group" });
-
-        expect(addUserModal2).toHaveLength(0);
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-      });
+    userEvent.type(
+      screen.getByRole("textbox", { name: "email" }),
+      "unittest@test.com"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "responsibility" }),
+      "Project Manager"
+    );
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+      "HACKER",
+    ]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Proceed")).not.toBeDisabled();
     });
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
+    });
+
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -464,7 +452,7 @@ describe("Group stakeholders view", (): void => {
       { action: "api_mutations_remove_stakeholder_access_mutate" },
       { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider
           addTypename={false}
@@ -479,63 +467,35 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
-        expect(
-          wrapper.find("SelectionCell").find("input").first().prop("checked")
-        ).toBe(false);
-        expect(
-          wrapper.find("SelectionCell").find("input").last().prop("checked")
-        ).toBe(false);
-      });
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    const userInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("user@gmail.com")
-      )
-      .at(0);
-    userInfo.simulate("click");
+    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(2);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
+    ).toBeDisabled();
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
-        expect(
-          wrapper.find("SelectionCell").find("input").first().prop("checked")
-        ).toBe(true);
-        expect(
-          wrapper.find("SelectionCell").find("input").last().prop("checked")
-        ).toBe(false);
-      });
+    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
+      ).not.toBeDisabled();
     });
 
-    const removeButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
-      .at(0);
-    removeButton.simulate("click");
+    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
+    expect(screen.getAllByRole("radio", { checked: true })).toHaveLength(1);
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+    userEvent.click(
+      screen.getByText("searchFindings.tabUsers.removeUserButton.text")
+    );
 
-        expect(wrapper).toHaveLength(1);
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-
-        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(1);
-        expect(
-          wrapper.find("SelectionCell").find("input").first().prop("checked")
-        ).toBe(false);
-      });
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
+
+    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
+    expect(screen.queryAllByRole("radio", { checked: true })).toHaveLength(0);
 
     jest.clearAllMocks();
   });
@@ -557,9 +517,6 @@ describe("Group stakeholders view", (): void => {
         result: {
           data: {
             updateGroupStakeholder: {
-              modifiedStakeholder: {
-                email: "user@gmail.com",
-              },
               success: true,
             },
           },
@@ -570,7 +527,7 @@ describe("Group stakeholders view", (): void => {
       { action: "api_mutations_update_group_stakeholder_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -582,54 +539,52 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    const userInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("user@gmail.com")
-      )
-      .at(0);
-    userInfo.simulate("click");
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-    editButton.simulate("click");
-    const editUserModal: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Edit stakeholder information" });
 
-    expect(editUserModal).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.editButton.text")
+    ).toBeDisabled();
 
-    const responsibilityInput: ReactWrapper = editUserModal
-      .find({ name: "responsibility", type: "text" })
-      .at(0)
-      .find("input");
-    responsibilityInput.simulate("change", {
-      target: { name: "responsibility", value: "Project Manager" },
+    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.editButton.text")
+      ).not.toBeDisabled();
     });
-    const select: ReactWrapper = editUserModal
-      .find("select")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
-      .at(0);
-    select.simulate("change", { target: { name: "role", value: "HACKER" } });
-    const form: ReactWrapper = editUserModal.find("Formik").at(0);
-    form.simulate("submit");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
 
-        const editUserModal2: ReactWrapper = wrapper
-          .find("Modal")
-          .find({ open: true, title: "Edit stakeholder information" });
+    expect(
+      screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
+    ).not.toBeInTheDocument();
 
-        expect(editUserModal2).toHaveLength(0);
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-      });
+    userEvent.click(
+      screen.getByText("searchFindings.tabUsers.editButton.text")
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
+      ).toBeInTheDocument();
     });
+    userEvent.clear(screen.getByRole("textbox", { name: "responsibility" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "responsibility" }),
+      "Project Manager"
+    );
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+      "HACKER",
+    ]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Proceed")).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
+    });
+
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -671,7 +626,7 @@ describe("Group stakeholders view", (): void => {
       { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -683,58 +638,45 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-      .at(0);
-    addButton.simulate("click");
-    const addUserModal: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Add stakeholder to this group" });
 
-    expect(addUserModal).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
-    const emailInput: ReactWrapper = addUserModal
-      .find({ name: "email", type: "text" })
-      .at(0)
-      .find("input");
-    emailInput.simulate("change", {
-      target: { name: "email", value: "unittest@test.com" },
+    userEvent.click(screen.getByText("searchFindings.tabUsers.addButton.text"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.title")
+      ).toBeInTheDocument();
     });
-    const responsibilityInput: ReactWrapper = addUserModal
-      .find({ name: "responsibility", type: "text" })
-      .at(0)
-      .find("input");
-    responsibilityInput.simulate("change", {
-      target: { name: "responsibility", value: "Project Manager" },
-    });
-    const select: ReactWrapper = addUserModal
-      .find("select")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
-      .at(0);
-    select.simulate("change", { target: { name: "role", value: "HACKER" } });
-    const form: ReactWrapper = addUserModal.find("Formik").at(0);
-    await act(async (): Promise<void> => {
-      form.simulate("submit");
 
-      await wait(0);
-      wrapper.update();
+    userEvent.type(
+      screen.getByRole("textbox", { name: "email" }),
+      "unittest@test.com"
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "responsibility" }),
+      "Project Manager"
+    );
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+      "HACKER",
+    ]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Proceed")).not.toBeDisabled();
     });
-    const addUserModal2: ReactWrapper = wrapper
-      .find("Modal")
-      .find({ open: true, title: "Add stakeholder to this group" });
+    userEvent.click(screen.getByText("Proceed"));
 
     const TEST_TIMES_CALLED = 7;
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
+    });
 
-    expect(addUserModal2).toHaveLength(0);
-
-    await wait(0);
-
-    expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -756,8 +698,9 @@ describe("Group stakeholders view", (): void => {
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_remove_stakeholder_access_mutate" },
+      { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -769,29 +712,36 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    const userInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("user@gmail.com")
-      )
-      .at(0);
-    userInfo.simulate("click");
-    const removeButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
-      .at(0);
-    removeButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
 
-        expect(msgError).toHaveBeenCalledTimes(1);
-      });
+    expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
+    ).toBeDisabled();
+
+    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.removeUserButton.text")
+      ).not.toBeDisabled();
     });
+
+    expect(screen.queryAllByRole("radio", { checked: false })).toHaveLength(0);
+    expect(screen.getAllByRole("radio", { checked: true })).toHaveLength(1);
+
+    userEvent.click(
+      screen.getByText("searchFindings.tabUsers.removeUserButton.text")
+    );
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(1);
+    });
+
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -831,7 +781,7 @@ describe("Group stakeholders view", (): void => {
       { action: "api_mutations_update_group_stakeholder_mutate" },
       { action: "grant_group_level_role:hacker" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks.concat(mocksMutation)}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -843,60 +793,54 @@ describe("Group stakeholders view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const userInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("user@gmail.com")
-      )
-      .at(0);
-    userInfo.simulate("click");
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-    editButton.simulate("click");
-    const editUserModal: ReactWrapper = wrapper.find("Modal").find({
-      open: true,
-      title: "Edit stakeholder information",
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(editUserModal).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.editButton.text")
+    ).toBeDisabled();
 
-    const responsibilityInput: ReactWrapper = editUserModal
-      .find({ name: "responsibility", type: "text" })
-      .at(0)
-      .find("input");
-    responsibilityInput.simulate("change", {
-      target: { name: "responsibility", value: "Project Manager" },
-    });
-    const select: ReactWrapper = editUserModal
-      .find("select")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
-      .at(0);
-    select.simulate("change", { target: { name: "role", value: "HACKER" } });
-    const form: ReactWrapper = editUserModal.find("Formik").at(0);
-    await act(async (): Promise<void> => {
-      form.simulate("submit");
-
-      await wait(0);
-      wrapper.update();
-    });
-    const editUserModal2: ReactWrapper = wrapper.find("Modal").find({
-      open: true,
-      title: "Edit stakeholder information",
+    userEvent.click(screen.getByRole("cell", { name: "user@gmail.com" }));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.editButton.text")
+      ).not.toBeDisabled();
     });
 
+    expect(
+      screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
+    ).not.toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByText("searchFindings.tabUsers.editButton.text")
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabUsers.editStakeholderTitle")
+      ).toBeInTheDocument();
+    });
+    userEvent.clear(screen.getByRole("textbox", { name: "responsibility" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "responsibility" }),
+      "Project Manager"
+    );
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+      "HACKER",
+    ]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Proceed")).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText("Proceed"));
     const TEST_TIMES_CALLED = 5;
 
-    expect(editUserModal2).toHaveLength(0);
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
+    });
 
-    await wait(0);
-
-    expect(msgError).toHaveBeenCalledTimes(TEST_TIMES_CALLED);
+    expect(
+      screen.queryByText("searchFindings.tabUsers.title")
+    ).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });

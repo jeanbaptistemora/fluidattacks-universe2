@@ -4,7 +4,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import {
@@ -75,8 +74,6 @@ describe("update verification component", (): void => {
 
     jest.clearAllMocks();
 
-    const { t } = useTranslation();
-
     const handleOnClose: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -123,7 +120,7 @@ describe("update verification component", (): void => {
       "This is a commenting test of a request verification in vulns"
     );
 
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(handleOnClose).toHaveBeenCalledTimes(1);
     });

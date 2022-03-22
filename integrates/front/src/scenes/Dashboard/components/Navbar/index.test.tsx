@@ -3,7 +3,6 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
 
 import { Navbar } from "scenes/Dashboard/components/Navbar";
@@ -25,8 +24,6 @@ describe("Navbar", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-
-    const { t } = useTranslation();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "front_can_use_groups_searchbar" },
@@ -138,7 +135,7 @@ describe("Navbar", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.getByPlaceholderText(t("navbar.searchPlaceholder").toString())
+        screen.getByPlaceholderText("navbar.searchPlaceholder")
       ).toBeInTheDocument();
     });
 

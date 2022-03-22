@@ -124,9 +124,7 @@ describe("AdditionalInfo", (): void => {
     });
 
     expect(
-      screen.getByText(
-        t("searchFindings.tabVuln.vulnTable.closingDate").toString()
-      )
+      screen.getByText("searchFindings.tabVuln.vulnTable.closingDate")
     ).toBeInTheDocument();
 
     expect(screen.getByText("2020-09-05")).toBeInTheDocument();

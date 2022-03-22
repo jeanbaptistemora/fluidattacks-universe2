@@ -3,7 +3,6 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { AddOrganizationModal } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal";
 import {
@@ -35,8 +34,6 @@ describe("Add organization modal", (): void => {
   it("should render component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -64,7 +61,7 @@ describe("Add organization modal", (): void => {
 
     expect(screen.getByRole("textbox")).toBeDisabled();
 
-    userEvent.click(screen.getByText(t("confirmmodal.cancel").toString()));
+    userEvent.click(screen.getByText("confirmmodal.cancel"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);
@@ -73,8 +70,6 @@ describe("Add organization modal", (): void => {
 
   it("should create an organization", async (): Promise<void> => {
     expect.hasAssertions();
-
-    const { t } = useTranslation();
 
     const mocks: MockedResponse[] = [
       {
@@ -121,7 +116,7 @@ describe("Add organization modal", (): void => {
 
     expect(screen.getByRole("textbox")).toBeDisabled();
 
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

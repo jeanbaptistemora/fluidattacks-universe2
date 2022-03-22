@@ -3,7 +3,6 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import {
@@ -13,12 +12,12 @@ import {
 
 describe("Update access token modal", (): void => {
   const handleOnClose: jest.Mock = jest.fn();
-  const { t } = useTranslation();
-  const revealButtonText: string = t("updateForcesToken.revealToken");
-  const generateButtonText: string = t("updateForcesToken.generate");
-  const resetButtonText: string = t("updateForcesToken.reset");
-  const copyButtonText: string = t("updateForcesToken.copy.copy");
-  const closeButtonText: string = t("updateForcesToken.close");
+
+  const revealButtonText: string = "updateForcesToken.revealToken";
+  const generateButtonText: string = "updateForcesToken.generate";
+  const resetButtonText: string = "updateForcesToken.reset";
+  const copyButtonText: string = "updateForcesToken.copy.copy";
+  const closeButtonText: string = "updateForcesToken.close";
 
   it("should return a function", (): void => {
     expect.hasAssertions();
@@ -185,7 +184,7 @@ describe("Update access token modal", (): void => {
       </MockedProvider>
     );
 
-    const title: string = t("updateForcesToken.title");
+    const title: string = "updateForcesToken.title";
 
     expect(screen.getByText(title)).toBeInTheDocument();
 
