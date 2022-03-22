@@ -6,7 +6,6 @@ from lib_path.common import (
 from lib_path.f031.cloudformation import (
     cfn_admin_policy_attached,
     cfn_bucket_policy_allows_public_access,
-    cfn_ec2_has_not_an_iam_instance_profile,
     cfn_iam_has_full_access_to_ssm,
     cfn_iam_user_missing_role_based_security,
     cfn_negative_statement,
@@ -18,7 +17,6 @@ from lib_path.f031.terraform import (
     terraform_negative_statement,
     terraform_open_passrole,
     terraform_permissive_policy,
-    tfm_ec2_has_not_an_iam_instance_profile,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -120,16 +118,6 @@ def run_cfn_permissive_policy(
 
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
-def run_cfn_ec2_has_not_an_iam_instance_profile(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_ec2_has_not_an_iam_instance_profile(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD_BLOCKING
 def run_cfn_iam_has_full_access_to_ssm(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -197,16 +185,6 @@ def run_terraform_permissive_policy(
     return terraform_permissive_policy(content=content, path=path, model=model)
 
 
-@CACHE_ETERNALLY
-@SHIELD_BLOCKING
-def run_tfm_ec2_has_not_an_iam_instance_profile(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_ec2_has_not_an_iam_instance_profile(
-        content=content, path=path, model=model
-    )
-
-
 @SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
@@ -234,12 +212,6 @@ def analyze(
                     )
                 ),
             )
-            results = (
-                *results,
-                run_cfn_ec2_has_not_an_iam_instance_profile(
-                    content, file_extension, path, template
-                ),
-            )
 
     elif file_extension in EXTENSIONS_TERRAFORM:
         model = load_terraform(stream=content, default=[])
@@ -253,7 +225,6 @@ def analyze(
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,
                     run_terraform_permissive_policy,
-                    run_tfm_ec2_has_not_an_iam_instance_profile,
                 )
             ),
         )
