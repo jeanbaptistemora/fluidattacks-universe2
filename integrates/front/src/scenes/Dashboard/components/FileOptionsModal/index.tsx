@@ -78,15 +78,11 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                     </Col33>
                   </ButtonToolbarCenter>
                 </Row>
-                <div>
-                  <div>
-                    <ModalFooter>
-                      <Button onClick={onClose} variant={"secondary"}>
-                        {translate.t("confirmmodal.cancel")}
-                      </Button>
-                    </ModalFooter>
-                  </div>
-                </div>
+                <ModalFooter>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {translate.t("confirmmodal.cancel")}
+                  </Button>
+                </ModalFooter>
               </React.Fragment>
             );
           }}

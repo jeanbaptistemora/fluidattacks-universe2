@@ -79,27 +79,23 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
                   {translate.t("searchFindings.tabResources.uploadingProgress")}
                 </div>
               ) : undefined}
-              <div>
-                <div>
-                  <ModalFooter>
-                    <Button
-                      id={"file-add-cancel"}
-                      onClick={onClose}
-                      variant={"secondary"}
-                    >
-                      {translate.t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={!dirty || isUploading}
-                      id={"file-add-proceed"}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ModalFooter>
-                </div>
-              </div>
+              <ModalFooter>
+                <Button
+                  id={"file-add-cancel"}
+                  onClick={onClose}
+                  variant={"secondary"}
+                >
+                  {translate.t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={!dirty || isUploading}
+                  id={"file-add-proceed"}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
             </Form>
           )}
         </Formik>

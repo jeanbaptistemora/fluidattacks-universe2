@@ -36,7 +36,6 @@ import type {
 import {
   ButtonToolbarCenter,
   Col100,
-  Container,
   Panel,
   PanelBody,
   Row,
@@ -136,7 +135,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
 
   return (
     <React.StrictMode>
-      <Container>
+      <div>
         <Row>
           <Col100>
             <Panel>
@@ -202,7 +201,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
           </Col100>
         </Row>
         <div className={styles.separatorTitleFromCharts} />
-      </Container>
+      </div>
     </React.StrictMode>
   );
 };

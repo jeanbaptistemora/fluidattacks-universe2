@@ -122,23 +122,19 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   </FormGroup>
                 </TooltipWrapper>
               </FormGroup>
-              <div>
-                <div>
-                  <ModalFooter>
-                    <Button onClick={onClose} variant={"secondary"}>
-                      {translate.t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={!dirty || !isValid}
-                      onClick={submitForm}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ModalFooter>
-                </div>
-              </div>
+              <ModalFooter>
+                <Button onClick={onClose} variant={"secondary"}>
+                  {translate.t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={!dirty || !isValid}
+                  onClick={submitForm}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
             </React.Fragment>
           )}
         </Formik>

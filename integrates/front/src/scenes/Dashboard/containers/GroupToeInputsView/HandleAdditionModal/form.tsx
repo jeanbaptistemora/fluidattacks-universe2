@@ -76,18 +76,14 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
           <EntryPointField />
         </Col100>
       </Row>
-      <div>
-        <div>
-          <ModalFooter>
-            <Button onClick={handleCloseModal} variant={"secondary"}>
-              {t("group.toe.inputs.addModal.close")}
-            </Button>
-            <Button onClick={submitForm} variant={"primary"}>
-              {t("group.toe.inputs.addModal.procced")}
-            </Button>
-          </ModalFooter>
-        </div>
-      </div>
+      <ModalFooter>
+        <Button onClick={handleCloseModal} variant={"secondary"}>
+          {t("group.toe.inputs.addModal.close")}
+        </Button>
+        <Button onClick={submitForm} variant={"primary"}>
+          {t("group.toe.inputs.addModal.procced")}
+        </Button>
+      </ModalFooter>
     </Form>
   );
 };

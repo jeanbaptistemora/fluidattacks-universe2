@@ -137,22 +137,18 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
                 </TooltipWrapper>
               </FormGroup>
             </Row>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={loading || submitting}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("confirmmodal.cancel")}
+              </Button>
+              <Button
+                disabled={loading || submitting}
+                type={"submit"}
+                variant={"primary"}
+              >
+                {t("confirmmodal.proceed")}
+              </Button>
+            </ModalFooter>
           </Form>
         </Formik>
       </Modal>

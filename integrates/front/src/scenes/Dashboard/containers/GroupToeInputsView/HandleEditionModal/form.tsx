@@ -29,18 +29,14 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
           <HasRecentAttack />
         </Col50>
       </Row>
-      <div>
-        <div>
-          <ModalFooter>
-            <Button onClick={handleCloseModal} variant={"secondary"}>
-              {t("group.toe.inputs.editModal.close")}
-            </Button>
-            <Button disabled={false} onClick={submitForm} variant={"primary"}>
-              {t("group.toe.inputs.editModal.procced")}
-            </Button>
-          </ModalFooter>
-        </div>
-      </div>
+      <ModalFooter>
+        <Button onClick={handleCloseModal} variant={"secondary"}>
+          {t("group.toe.inputs.editModal.close")}
+        </Button>
+        <Button disabled={false} onClick={submitForm} variant={"primary"}>
+          {t("group.toe.inputs.editModal.procced")}
+        </Button>
+      </ModalFooter>
     </Form>
   );
 };

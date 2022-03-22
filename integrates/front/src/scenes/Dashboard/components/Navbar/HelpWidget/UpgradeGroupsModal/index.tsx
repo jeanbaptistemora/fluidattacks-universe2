@@ -99,20 +99,16 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
               <p>{t("upgrade.unauthorized")}</p>
             )}
           </FormGroup>
-          <div>
-            <div>
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("upgrade.close")}
-                </Button>
-                {canUpgrade ? (
-                  <Button type={"submit"} variant={"primary"}>
-                    {t("upgrade.upgrade")}
-                  </Button>
-                ) : undefined}
-              </ModalFooter>
-            </div>
-          </div>
+          <ModalFooter>
+            <Button onClick={onClose} variant={"secondary"}>
+              {t("upgrade.close")}
+            </Button>
+            {canUpgrade ? (
+              <Button type={"submit"} variant={"primary"}>
+                {t("upgrade.upgrade")}
+              </Button>
+            ) : undefined}
+          </ModalFooter>
         </Form>
       </Formik>
     </Modal>

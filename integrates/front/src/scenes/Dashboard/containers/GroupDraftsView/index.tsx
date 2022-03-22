@@ -343,22 +343,18 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                   </HintFieldText>
                 </React.Fragment>
               ) : undefined}
-              <div>
-                <div>
-                  <ModalFooter>
-                    <Button onClick={closeNewDraftModal} variant={"secondary"}>
-                      {translate.t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={!dirty || !isValid || submitting}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ModalFooter>
-                </div>
-              </div>
+              <ModalFooter>
+                <Button onClick={closeNewDraftModal} variant={"secondary"}>
+                  {translate.t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={!dirty || !isValid || submitting}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
             </Form>
           )}
         </Formik>

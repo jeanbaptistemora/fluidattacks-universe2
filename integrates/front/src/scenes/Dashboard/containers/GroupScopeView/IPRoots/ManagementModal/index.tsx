@@ -64,22 +64,18 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
               </ControlLabel>
               <Field component={FormikText} name={"nickname"} type={"text"} />
             </div>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={!dirty || isSubmitting}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("confirmmodal.cancel")}
+              </Button>
+              <Button
+                disabled={!dirty || isSubmitting}
+                type={"submit"}
+                variant={"primary"}
+              >
+                {t("confirmmodal.proceed")}
+              </Button>
+            </ModalFooter>
           </Form>
         )}
       </Formik>

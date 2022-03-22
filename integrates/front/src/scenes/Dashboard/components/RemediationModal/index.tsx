@@ -88,27 +88,23 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
                   />
                 </FormGroup>
                 {additionalInfo}
-                <div>
-                  <div>
-                    <ModalFooter>
-                      <Button
-                        id={"cancel-remediation"}
-                        onClick={onClose}
-                        variant={"secondary"}
-                      >
-                        {t("confirmmodal.cancel")}
-                      </Button>
-                      <Button
-                        disabled={!dirty || isLoading}
-                        id={"proceed-remediation"}
-                        type={"submit"}
-                        variant={"primary"}
-                      >
-                        {t("confirmmodal.proceed")}
-                      </Button>
-                    </ModalFooter>
-                  </div>
-                </div>
+                <ModalFooter>
+                  <Button
+                    id={"cancel-remediation"}
+                    onClick={onClose}
+                    variant={"secondary"}
+                  >
+                    {t("confirmmodal.cancel")}
+                  </Button>
+                  <Button
+                    disabled={!dirty || isLoading}
+                    id={"proceed-remediation"}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
+                    {t("confirmmodal.proceed")}
+                  </Button>
+                </ModalFooter>
               </React.Fragment>
             </Form>
           )}

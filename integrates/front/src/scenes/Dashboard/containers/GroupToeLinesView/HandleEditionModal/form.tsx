@@ -31,18 +31,14 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
           <CommentsField />
         </Col100>
       </Row>
-      <div>
-        <div>
-          <ModalFooter>
-            <Button onClick={handleCloseModal} variant={"secondary"}>
-              {t("group.toe.lines.editModal.close")}
-            </Button>
-            <Button onClick={submitForm} variant={"primary"}>
-              {t("group.toe.lines.editModal.procced")}
-            </Button>
-          </ModalFooter>
-        </div>
-      </div>
+      <ModalFooter>
+        <Button onClick={handleCloseModal} variant={"secondary"}>
+          {t("group.toe.lines.editModal.close")}
+        </Button>
+        <Button onClick={submitForm} variant={"primary"}>
+          {t("group.toe.lines.editModal.procced")}
+        </Button>
+      </ModalFooter>
     </Form>
   );
 };

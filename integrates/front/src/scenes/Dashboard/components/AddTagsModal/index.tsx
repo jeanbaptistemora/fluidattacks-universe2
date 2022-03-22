@@ -61,27 +61,23 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = ({
               >
                 {renderTagsFields}
               </FormikArrayField>
-              <div>
-                <div>
-                  <ModalFooter>
-                    <Button
-                      id={"portfolio-add-cancel"}
-                      onClick={onClose}
-                      variant={"secondary"}
-                    >
-                      {t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={!dirty}
-                      id={"portfolio-add-proceed"}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {t("confirmmodal.proceed")}
-                    </Button>
-                  </ModalFooter>
-                </div>
-              </div>
+              <ModalFooter>
+                <Button
+                  id={"portfolio-add-cancel"}
+                  onClick={onClose}
+                  variant={"secondary"}
+                >
+                  {t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={!dirty}
+                  id={"portfolio-add-proceed"}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
             </Form>
           )}
         </Formik>

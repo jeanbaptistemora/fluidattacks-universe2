@@ -172,22 +172,14 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               </ButtonToolbarLeft>
             </Col100>
           </Row>
-          <div>
-            <div>
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("updateAccessToken.close")}
-                </Button>
-                <Button
-                  disabled={hasAPIToken}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
-            </div>
-          </div>
+          <ModalFooter>
+            <Button onClick={onClose} variant={"secondary"}>
+              {t("updateAccessToken.close")}
+            </Button>
+            <Button disabled={hasAPIToken} type={"submit"} variant={"primary"}>
+              {t("confirmmodal.proceed")}
+            </Button>
+          </ModalFooter>
         </Form>
       </Formik>
     </Modal>

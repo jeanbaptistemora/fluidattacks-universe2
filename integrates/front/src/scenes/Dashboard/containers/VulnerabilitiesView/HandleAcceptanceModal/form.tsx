@@ -87,27 +87,23 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
             />
           </Col100>
         </Row>
-        <div>
-          <div>
-            <ModalFooter>
-              <Button onClick={handleCloseModal} variant={"secondary"}>
-                {t("group.findings.report.modalClose")}
-              </Button>
-              <Button
-                disabled={
-                  !(hasAcceptedVulns || hasRejectedVulns) ||
-                  handlingAcceptance ||
-                  confirmingZeroRisk ||
-                  rejectingZeroRisk
-                }
-                onClick={submitForm}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
-          </div>
-        </div>
+        <ModalFooter>
+          <Button onClick={handleCloseModal} variant={"secondary"}>
+            {t("group.findings.report.modalClose")}
+          </Button>
+          <Button
+            disabled={
+              !(hasAcceptedVulns || hasRejectedVulns) ||
+              handlingAcceptance ||
+              confirmingZeroRisk ||
+              rejectingZeroRisk
+            }
+            onClick={submitForm}
+            variant={"primary"}
+          >
+            {t("confirmmodal.proceed")}
+          </Button>
+        </ModalFooter>
       </Form>
     );
   };

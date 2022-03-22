@@ -419,18 +419,14 @@ const findingContent: React.FC = (): JSX.Element => {
                 </option>
               </Field>
             </FormGroup>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={closeDeleteModal} variant={"secondary"}>
-                    {translate.t("confirmmodal.cancel")}
-                  </Button>
-                  <Button type={"submit"} variant={"primary"}>
-                    {translate.t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={closeDeleteModal} variant={"secondary"}>
+                {translate.t("confirmmodal.cancel")}
+              </Button>
+              <Button type={"submit"} variant={"primary"}>
+                {translate.t("confirmmodal.proceed")}
+              </Button>
+            </ModalFooter>
           </Form>
         </Formik>
       </Modal>

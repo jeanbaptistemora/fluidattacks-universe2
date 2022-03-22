@@ -98,24 +98,20 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
               </Button>
             </Col100>
           </Row>
-          <div>
-            <div>
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("updateForcesToken.close")}
-                </Button>
-                <Button
-                  disabled={!getTokenCalled || getTokenLoading}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {_.isEmpty(currentToken)
-                    ? t("updateForcesToken.generate")
-                    : t("updateForcesToken.reset")}
-                </Button>
-              </ModalFooter>
-            </div>
-          </div>
+          <ModalFooter>
+            <Button onClick={onClose} variant={"secondary"}>
+              {t("updateForcesToken.close")}
+            </Button>
+            <Button
+              disabled={!getTokenCalled || getTokenLoading}
+              type={"submit"}
+              variant={"primary"}
+            >
+              {_.isEmpty(currentToken)
+                ? t("updateForcesToken.generate")
+                : t("updateForcesToken.reset")}
+            </Button>
+          </ModalFooter>
         </Form>
       </Formik>
     </Modal>

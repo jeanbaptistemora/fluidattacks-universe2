@@ -210,15 +210,11 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
             </p>
           </Col100>
         </div>
-        <div>
-          <div>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("group.findings.report.modalClose")}
-              </Button>
-            </ModalFooter>
-          </div>
-        </div>
+        <ModalFooter>
+          <Button onClick={onClose} variant={"secondary"}>
+            {t("group.findings.report.modalClose")}
+          </Button>
+        </ModalFooter>
       </Modal>
     </React.StrictMode>
   );

@@ -278,23 +278,19 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             "organization.tabs.groups.newGroup.extraChargesMayApply"
           )}
         </Alert>
-        <div>
-          <div>
-            <ModalFooter>
-              <Button onClick={handleClose} variant={"secondary"}>
-                {translate.t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                disabled={!isValid}
-                onClick={submitForm}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {translate.t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
-          </div>
-        </div>
+        <ModalFooter>
+          <Button onClick={handleClose} variant={"secondary"}>
+            {translate.t("confirmmodal.cancel")}
+          </Button>
+          <Button
+            disabled={!isValid}
+            onClick={submitForm}
+            type={"submit"}
+            variant={"primary"}
+          >
+            {translate.t("confirmmodal.proceed")}
+          </Button>
+        </ModalFooter>
       </Modal>
     </Form>
   );

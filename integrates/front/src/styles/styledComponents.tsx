@@ -127,15 +127,6 @@ const Col50: StyledComponent<
   className: "ph1-5 w-50-ns",
 })``;
 
-const Col50Ph: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "w-50-ns",
-})``;
-
 const Col60: StyledComponent<
   "div",
   Record<string, unknown>
@@ -161,15 +152,6 @@ const Col33L: StyledComponent<
   className: string;
 }>({
   className: "w-33-l",
-})``;
-
-const Container: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "center ph1-5",
 })``;
 
 const ControlLabel: StyledComponent<
@@ -228,13 +210,6 @@ const EventHeaderLabel: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: "ph3 tc",
-})``;
-
-const ExpandableLabel: StyledComponent<
-  "label",
-  Record<string, unknown>
-> = styled.label.attrs({
-  className: "b pointer",
 })``;
 
 const Filters = styled.div.attrs({
@@ -323,12 +298,6 @@ const LastGroupSetting: StyledComponent<
 }>({
   className: "mb10",
 })``;
-
-const Meter: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
-  {
-    className: "bg-light-gray br3 h2 meter-shadow relative",
-  }
-)``;
 
 const MenuItem: StyledComponent<
   "li",
@@ -438,15 +407,6 @@ const RangeContainer: StyledComponent<
   className: string;
 }>({
   className: "flex items-center",
-})``;
-
-const RemoveItem: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "mt5 ml40",
 })``;
 
 const RemoveTag: StyledComponent<
@@ -632,11 +592,9 @@ export {
   Col40,
   Col45,
   Col50,
-  Col50Ph,
   Col60,
   Col80,
   Col33L,
-  Container,
   ControlLabel,
   EditableFieldContent,
   EditableFieldNotUrl,
@@ -645,7 +603,6 @@ export {
   EventHeaderGrid,
   EventHeaderLabel,
   EvidenceDescription,
-  ExpandableLabel,
   Filters,
   Flex,
   FlexAutoContainer,
@@ -663,7 +620,6 @@ export {
   Label,
   LastGroupSetting,
   MenuItem,
-  Meter,
   Panel,
   PanelBody,
   PanelCollapse,
@@ -675,7 +631,6 @@ export {
   Radio,
   RadioLabel,
   RangeContainer,
-  RemoveItem,
   RemoveTag,
   RequiredField,
   Row,

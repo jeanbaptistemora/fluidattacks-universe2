@@ -257,20 +257,16 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 <PhoneField autoFocus={true} />
               </Col100>
             </Row>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("profile.mobileModal.close")}
-                  </Button>
-                  <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
-                    <Button type={"submit"} variant={"primary"}>
-                      {t("profile.mobileModal.add")}
-                    </Button>
-                  </Can>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("profile.mobileModal.close")}
+              </Button>
+              <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
+                <Button type={"submit"} variant={"primary"}>
+                  {t("profile.mobileModal.add")}
+                </Button>
+              </Can>
+            </ModalFooter>
           </Form>
         </Formik>
       ) : undefined}
@@ -293,18 +289,14 @@ const MobileModal: React.FC<IMobileModalProps> = (
             <Col100>
               <VerificationCodeField name={"newVerificationCode"} />
             </Col100>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("profile.mobileModal.close")}
-                  </Button>
-                  <Button type={"submit"} variant={"primary"}>
-                    {t("profile.mobileModal.verify")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("profile.mobileModal.close")}
+              </Button>
+              <Button type={"submit"} variant={"primary"}>
+                {t("profile.mobileModal.verify")}
+              </Button>
+            </ModalFooter>
           </Form>
         </Formik>
       ) : undefined}
@@ -350,26 +342,22 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 </Row>
               </React.Fragment>
             ) : undefined}
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("profile.mobileModal.close")}
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("profile.mobileModal.close")}
+              </Button>
+              <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
+                {isOpenEdit && isCodeInCurrentMobile ? (
+                  <Button type={"submit"} variant={"primary"}>
+                    {t("profile.mobileModal.edit")}
                   </Button>
-                  <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
-                    {isOpenEdit && isCodeInCurrentMobile ? (
-                      <Button type={"submit"} variant={"primary"}>
-                        {t("profile.mobileModal.edit")}
-                      </Button>
-                    ) : (
-                      <Button onClick={handleOpenEdit} variant={"primary"}>
-                        {t("profile.mobileModal.edit")}
-                      </Button>
-                    )}
-                  </Can>
-                </ModalFooter>
-              </div>
-            </div>
+                ) : (
+                  <Button onClick={handleOpenEdit} variant={"primary"}>
+                    {t("profile.mobileModal.edit")}
+                  </Button>
+                )}
+              </Can>
+            </ModalFooter>
           </Form>
         </Formik>
       ) : undefined}
@@ -421,18 +409,14 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 <VerificationCodeField name={"newVerificationCode"} />
               </Col100>
             </Row>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("profile.mobileModal.close")}
-                  </Button>
-                  <Button type={"submit"} variant={"primary"}>
-                    {t("profile.mobileModal.verify")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("profile.mobileModal.close")}
+              </Button>
+              <Button type={"submit"} variant={"primary"}>
+                {t("profile.mobileModal.verify")}
+              </Button>
+            </ModalFooter>
           </Form>
         </Formik>
       ) : undefined}

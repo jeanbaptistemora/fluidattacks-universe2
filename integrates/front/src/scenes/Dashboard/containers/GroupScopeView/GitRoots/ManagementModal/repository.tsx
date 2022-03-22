@@ -523,23 +523,19 @@ const Repository: React.FC<IRepositoryProps> = ({
                 </fieldset>
               </Can>
             </React.Fragment>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={!dirty || isSubmitting}
-                    id={"git-root-add-proceed"}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("confirmmodal.cancel")}
+              </Button>
+              <Button
+                disabled={!dirty || isSubmitting}
+                id={"git-root-add-proceed"}
+                type={"submit"}
+                variant={"primary"}
+              >
+                {t("confirmmodal.proceed")}
+              </Button>
+            </ModalFooter>
           </Form>
         )}
       </Formik>

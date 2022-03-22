@@ -283,18 +283,14 @@ const MachineView: React.FC = (): JSX.Element => {
               stoppedAt={currentRow.stoppedAt}
               vulnerabilities={currentRow.vulnerabilities}
             />
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button
-                    onClick={closeSeeExecutionDetailsModal}
-                    variant={"secondary"}
-                  >
-                    {translate.t("group.forces.executionDetailsModal.close")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button
+                onClick={closeSeeExecutionDetailsModal}
+                variant={"secondary"}
+              >
+                {translate.t("group.forces.executionDetailsModal.close")}
+              </Button>
+            </ModalFooter>
           </Modal>
         </React.StrictMode>
       )}

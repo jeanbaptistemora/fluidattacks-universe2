@@ -534,30 +534,26 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         isAcceptedUndefinedSelected,
         isInProgressSelected
       )}
-      <div>
-        <div>
-          <ModalFooter>
-            <Button onClick={handleCloseModal} variant={"secondary"}>
-              {t("group.findings.report.modalClose")}
-            </Button>
-            {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
-              <Button
-                disabled={
-                  requestingZeroRisk ||
-                  updatingVuln ||
-                  deletingTag ||
-                  isRunning ||
-                  (isEditPristine && isTreatmentPristine)
-                }
-                onClick={submitForm}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            ) : undefined}
-          </ModalFooter>
-        </div>
-      </div>
+      <ModalFooter>
+        <Button onClick={handleCloseModal} variant={"secondary"}>
+          {t("group.findings.report.modalClose")}
+        </Button>
+        {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
+          <Button
+            disabled={
+              requestingZeroRisk ||
+              updatingVuln ||
+              deletingTag ||
+              isRunning ||
+              (isEditPristine && isTreatmentPristine)
+            }
+            onClick={submitForm}
+            variant={"primary"}
+          >
+            {t("confirmmodal.proceed")}
+          </Button>
+        ) : undefined}
+      </ModalFooter>
     </React.StrictMode>
   );
 };

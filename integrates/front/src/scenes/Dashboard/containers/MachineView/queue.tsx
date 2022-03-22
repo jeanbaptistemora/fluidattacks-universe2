@@ -97,27 +97,23 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
                   );
                 })}
               </ul>
-              <div>
-                <div>
-                  <ModalFooter>
-                    <Button
-                      id={"cancel-job"}
-                      onClick={handleClose}
-                      variant={"secondary"}
-                    >
-                      {translate.t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={isJobSubmitted}
-                      id={"submit-job"}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ModalFooter>
-                </div>
-              </div>
+              <ModalFooter>
+                <Button
+                  id={"cancel-job"}
+                  onClick={handleClose}
+                  variant={"secondary"}
+                >
+                  {translate.t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={isJobSubmitted}
+                  id={"submit-job"}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {translate.t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
             </FormGroup>
           </div>
         </Form>

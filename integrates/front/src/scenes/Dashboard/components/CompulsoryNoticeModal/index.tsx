@@ -47,19 +47,15 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
             name={"remember"}
             title={translate.t("legalNotice.rememberCbo.tooltip")}
           />
-          <div>
-            <div>
-              <ModalFooter>
-                <Button
-                  title={translate.t("legalNotice.acceptBtn.tooltip")}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {translate.t("legalNotice.acceptBtn.text")}
-                </Button>
-              </ModalFooter>
-            </div>
-          </div>
+          <ModalFooter>
+            <Button
+              title={translate.t("legalNotice.acceptBtn.tooltip")}
+              type={"submit"}
+              variant={"primary"}
+            >
+              {translate.t("legalNotice.acceptBtn.text")}
+            </Button>
+          </ModalFooter>
         </Form>
       </Formik>
     </Modal>

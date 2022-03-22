@@ -470,18 +470,11 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           strictness={currentRow.strictness}
           vulnerabilities={currentRow.vulnerabilities}
         />
-        <div>
-          <div>
-            <ModalFooter>
-              <Button
-                onClick={closeSeeExecutionDetailsModal}
-                variant={"secondary"}
-              >
-                {translate.t("group.forces.executionDetailsModal.close")}
-              </Button>
-            </ModalFooter>
-          </div>
-        </div>
+        <ModalFooter>
+          <Button onClick={closeSeeExecutionDetailsModal} variant={"secondary"}>
+            {translate.t("group.forces.executionDetailsModal.close")}
+          </Button>
+        </ModalFooter>
       </Modal>
     </React.StrictMode>
   );

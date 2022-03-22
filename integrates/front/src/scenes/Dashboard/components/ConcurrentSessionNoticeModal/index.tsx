@@ -18,15 +18,11 @@ export const ConcurrentSessionNotice: React.FC<IConcurrentSessionNoticeProps> =
       <Modal open={open} title={t("registration.concurrentSessionTitle")}>
         <React.Fragment>
           <p>{t("registration.concurrentSessionMessage")}</p>
-          <div>
-            <div>
-              <ModalFooter>
-                <Button onClick={onClick} variant={"primary"}>
-                  {t("registration.continueBtn")}
-                </Button>
-              </ModalFooter>
-            </div>
-          </div>
+          <ModalFooter>
+            <Button onClick={onClick} variant={"primary"}>
+              {t("registration.continueBtn")}
+            </Button>
+          </ModalFooter>
         </React.Fragment>
       </Modal>
     );

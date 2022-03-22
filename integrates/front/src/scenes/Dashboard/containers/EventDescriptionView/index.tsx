@@ -191,22 +191,18 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </Col100>
                   </Row>
                 )}
-                <div>
-                  <div>
-                    <ModalFooter>
-                      <Button onClick={closeSolvingModal} variant={"secondary"}>
-                        {translate.t("confirmmodal.cancel")}
-                      </Button>
-                      <Button
-                        disabled={!dirty || submitting}
-                        type={"submit"}
-                        variant={"primary"}
-                      >
-                        {translate.t("confirmmodal.proceed")}
-                      </Button>
-                    </ModalFooter>
-                  </div>
-                </div>
+                <ModalFooter>
+                  <Button onClick={closeSolvingModal} variant={"secondary"}>
+                    {translate.t("confirmmodal.cancel")}
+                  </Button>
+                  <Button
+                    disabled={!dirty || submitting}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ModalFooter>
               </Form>
             )}
           </Formik>

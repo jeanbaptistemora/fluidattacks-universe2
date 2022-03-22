@@ -48,23 +48,19 @@ const Environments: React.FC<IEnvironmentsProps> = ({
                 <Field component={FormikText} name={fieldName} type={"text"} />
               )}
             </FormikArrayField>
-            <div>
-              <div>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={!dirty || isSubmitting}
-                    id={"envs-manage-proceed"}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
-              </div>
-            </div>
+            <ModalFooter>
+              <Button onClick={onClose} variant={"secondary"}>
+                {t("confirmmodal.cancel")}
+              </Button>
+              <Button
+                disabled={!dirty || isSubmitting}
+                id={"envs-manage-proceed"}
+                type={"submit"}
+                variant={"primary"}
+              >
+                {t("confirmmodal.proceed")}
+              </Button>
+            </ModalFooter>
           </React.Fragment>
         </Form>
       )}
