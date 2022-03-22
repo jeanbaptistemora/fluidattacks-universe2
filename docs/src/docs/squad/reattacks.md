@@ -93,9 +93,9 @@ follow these steps:
   the status of the reattacked
   vulnerability is reiterated.
 
-   ![Verified Open](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/evidence_tab.png)
+   ![Verified Open](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974013/docs/squad/reattack/reattack_status_verified_open.png)
 
-   ![Verified Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/evidence_tab.png)
+   ![Verified Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974013/docs/squad/reattack/reattack_status_verified_closed.png)
 
 1. If the vulnerability is still
   open and you cannot close
@@ -132,3 +132,5 @@ automatically reactivated
 without having to be repeated.
 This use of automation provides
 agility to the reattack process.
+
+![Verified Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974013/docs/squad/reattack/reattack_on_hold.png)
