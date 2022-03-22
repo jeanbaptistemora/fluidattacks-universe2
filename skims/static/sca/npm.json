@@ -91,9 +91,15 @@
   "@backstage/plugin-scaffolder-backend": {
     "GHSA-2g8g-63j4-9w3r": "<0.15.14"
   },
+  "@backstage/plugin-techdocs": {
+    "GHSA-gg96-f8wr-p89f": "<0.9.5"
+  },
   "@backstage/techdocs-common": {
     "CVE-2021-32662": "<0.6.3",
     "GHSA-pgf8-28gg-vpr6": "<0.6.3"
+  },
+  "@berslucas/liljs": {
+    "GHSA-c53x-wwx2-pg96": "<1.0.2"
   },
   "@ckeditor/ckeditor5-engine": {
     "CVE-2021-21391": "<27.0.0",
@@ -106,6 +112,9 @@
   "@ckeditor/ckeditor5-image": {
     "CVE-2021-21391": "<27.0.0",
     "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-link": {
+    "GHSA-gvpx-9459-w3mj": ">=0.3.0 <10.0.1"
   },
   "@ckeditor/ckeditor5-list": {
     "CVE-2021-21391": "<27.0.0",
@@ -127,14 +136,35 @@
     "CVE-2021-21391": "<27.0.0",
     "GHSA-3rh3-wfr4-76mj": "<27.0.0"
   },
+  "@commercial/ammo": {
+    "GHSA-rhc3-76jw-4f2x": "<2.1.1"
+  },
+  "@commercial/hapi": {
+    "GHSA-66mv-xh68-h6v2": "<16.8.2 || >=17.0.0 <17.9.2 || >=18.0.0 <18.4.1 || >=19.0.0 <19.1.1"
+  },
+  "@commercial/subtext": {
+    "GHSA-36c4-4r89-6whg": "<5.1.2"
+  },
   "@cookiex/deep": {
     "CVE-2021-23442": "<0.0.6"
+  },
+  "@cubejs-backend/api-gateway": {
+    "GHSA-4j6x-w426-6rc6": ">=0.11.0 <=0.11.16"
+  },
+  "@curveball/a12n-server": {
+    "GHSA-8hw9-22v6-9jr9": ">=0.18.0 <0.18.2"
+  },
+  "@cyyynthia/tokenize": {
+    "GHSA-jcjx-c3j3-44pr": ">=1.1.0 <1.1.3"
   },
   "@diez/generation": {
     "CVE-2021-32830": ">=0"
   },
   "@eivifj/dot": {
     "CVE-2020-7639": "<=1.0.3"
+  },
+  "@ensdomains/ens": {
+    "GHSA-8f9f-pc5v-9r5h": "<0.4.0"
   },
   "@firebase/util": {
     "CVE-2020-7765": "<0.3.4"
