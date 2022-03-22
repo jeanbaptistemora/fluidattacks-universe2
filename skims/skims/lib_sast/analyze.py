@@ -13,6 +13,9 @@ from lib_sast.types import (
 from model.core_model import (
     FindingEnum,
 )
+from sast.parse import (
+    get_graph_db,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -34,4 +37,5 @@ def analyze(stores: Dict[FindingEnum, EphemeralStore]) -> None:
 
     if CTX.config.path.lib_root:
         paths.set_paths_by_lang()
-        analyze_root(paths=paths, stores=stores)
+        graph_db = get_graph_db(paths.ok_paths)
+        analyze_root(paths=paths, graph_db=graph_db, stores=stores)

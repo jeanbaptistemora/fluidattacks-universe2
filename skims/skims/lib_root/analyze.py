@@ -40,7 +40,6 @@ from os import (
     cpu_count,
 )
 from sast import (
-    parse,
     query as sast_query,
 )
 from state.ephemeral import (
@@ -81,14 +80,14 @@ QUERIES: graph_model.Queries = (
 
 def analyze(
     *,
-    paths: Paths,
+    paths: Paths,  # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in QUERIES):
         # No findings will be executed, early abort
         return
 
-    graph_db = parse.get_graph_db(paths.ok_paths)
     queries: graph_model.Queries = tuple(
         (finding, query)
         for finding, query in QUERIES
