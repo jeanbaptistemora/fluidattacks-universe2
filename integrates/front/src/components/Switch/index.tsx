@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Container, Slider } from "./styles";
 
 interface ISwitchProps {
   checked: boolean;
+  disabled?: boolean;
+  name?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const Switch: React.FC<ISwitchProps> = ({
   checked,
+  disabled,
+  name,
   onChange,
-}: ISwitchProps): JSX.Element => {
+}: Readonly<ISwitchProps>): JSX.Element => {
+  // Disable click propagation in favor of the input onChange event
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLLabelElement>): void => {
+      event.stopPropagation();
+    },
+    []
+  );
+
   return (
-    <Container>
-      <input checked={checked} onChange={onChange} type={"checkbox"} />
+    <Container onClick={handleClick}>
+      <input
+        aria-label={name}
+        checked={checked}
+        disabled={disabled}
+        name={name}
+        onChange={onChange}
+        type={"checkbox"}
+      />
       <Slider />
     </Container>
   );

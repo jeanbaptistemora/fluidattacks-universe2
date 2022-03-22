@@ -22,7 +22,8 @@ const Template: Story<ISwitchProps> = (props: ISwitchProps): JSX.Element => {
 
 const Default = Template.bind({});
 Default.args = {
-  checked: false,
+  checked: true,
+  disabled: false,
 };
 
 export { Default };

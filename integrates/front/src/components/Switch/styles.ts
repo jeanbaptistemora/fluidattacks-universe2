@@ -37,6 +37,11 @@ const Container = styled.label.attrs({ className: "dib mh2 relative" })`
   input:checked + ${Slider}:before {
     transform: translateX(24px);
   }
+
+  input:disabled + ${Slider} {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }
 `;
 
