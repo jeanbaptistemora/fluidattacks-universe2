@@ -1698,7 +1698,7 @@ class MethodsEnum(Enum):
         file_name="cloudformation",
         name="cfn_ec2_has_not_an_iam_instance_profile",
         module="lib_path",
-        finding=FindingEnum.F031,
+        finding=FindingEnum.F333,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -1746,7 +1746,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_ec2_has_not_an_iam_instance_profile",
         module="lib_path",
-        finding=FindingEnum.F031,
+        finding=FindingEnum.F333,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

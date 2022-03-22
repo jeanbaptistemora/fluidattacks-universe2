@@ -4,3 +4,6 @@ lib_path.f333.ec2_allows_shutdown_command:
 lib_path.f333.ec2_public_ip_addresses:
   en: EC2 instances should not be launched with public IP addresses.
   es: Las instancias EC2 no deben ser lanzadas con direcciones IP públicas.
+src.lib_path.f333.ec2_has_not_an_iam_instance_profile:
+  en: EC2 instance have not an IamInstanceProfile
+  es: La instancia EC2 no tiene un IamInstanceProfile
