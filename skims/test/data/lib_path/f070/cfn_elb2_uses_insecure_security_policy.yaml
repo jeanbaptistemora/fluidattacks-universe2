@@ -13,7 +13,7 @@ Resources:
            StatusCode: "HTTP_301"
      LoadBalancerArn: myLoadBalancer
      Port: 80
-     Protocol: "HTTP"
+     Protocol: "HTTPS"
      SslPolicy: ELBSecurityPolicy-2016-08
   listener2:
    Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -45,4 +45,20 @@ Resources:
            StatusCode: "HTTP_301"
      LoadBalancerArn: myLoadBalancer
      Port: 80
-     Protocol: "HTTP"
+     Protocol: "TLS"
+     SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+  listener3:
+   Type: "AWS::ElasticLoadBalancingV2::Listener"
+   Properties:
+     DefaultActions:
+       - Type: "redirect"
+         RedirectConfig:
+           Protocol: "HTTPS"
+           Port: 443
+           Host: "#{host}"
+           Path: "/#{path}"
+           Query: "#{query}"
+           StatusCode: "HTTP_301"
+     LoadBalancerArn: myLoadBalancer
+     Port: 80
+     Protocol: "HTTPS"

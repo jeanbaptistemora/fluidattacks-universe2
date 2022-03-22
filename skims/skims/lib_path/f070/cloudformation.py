@@ -37,8 +37,10 @@ def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
             "ELBSecurityPolicy-FS-2018-06",
             "ELBSecurityPolicy-TLS-1-2-Ext-2018-06",
         )
+        vuln_protocols = ("HTTPS", "TLS")
+        protocol = listener.raw.get("Protocol", "")
         ssl_policy = listener.raw.get("SslPolicy", "")
-        if ssl_policy not in acceptable:
+        if protocol in vuln_protocols and ssl_policy not in acceptable:
             ssl_pol_node = get_node_by_keys(listener, ["SslPolicy"])
             if isinstance(ssl_pol_node, Node):
                 yield ssl_pol_node

@@ -15268,44 +15268,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   111 |               ""Effect"": ""Allow"",
       ^ Col 0
 ",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,33,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
-  23 |          RedirectConfig:
-  24 |            Protocol: ""HTTPS""
-  25 |            Port: 443
-  26 |            Host: ""#{host}""
-  27 |            Path: ""/#{path}""
-  28 |            Query: ""#{query}""
-  29 |            StatusCode: ""HTTP_301""
-  30 |      LoadBalancerArn: myLoadBalancer
-  31 |      Port: 80
-  32 |      Protocol: ""HTTP""
-> 33 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
-  34 |   listener3:
-  35 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
-  36 |    Properties:
-  37 |      DefaultActions:
-  38 |        - Type: ""redirect""
-  39 |          RedirectConfig:
-  40 |            Protocol: ""HTTPS""
-  41 |            Port: 443
-  42 |            Host: ""#{host}""
-  43 |            Path: ""/#{path}""
-     ^ Col 0
-",cloudformation.cfn_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,36,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
-  26 |            Host: ""#{host}""
-  27 |            Path: ""/#{path}""
-  28 |            Query: ""#{query}""
-  29 |            StatusCode: ""HTTP_301""
-  30 |      LoadBalancerArn: myLoadBalancer
-  31 |      Port: 80
-  32 |      Protocol: ""HTTP""
-  33 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
-  34 |   listener3:
-  35 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
-> 36 |    Properties:
-  37 |      DefaultActions:
-  38 |        - Type: ""redirect""
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,49,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   39 |          RedirectConfig:
   40 |            Protocol: ""HTTPS""
   41 |            Port: 443
@@ -15314,30 +15277,43 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   44 |            Query: ""#{query}""
   45 |            StatusCode: ""HTTP_301""
   46 |      LoadBalancerArn: myLoadBalancer
+  47 |      Port: 80
+  48 |      Protocol: ""TLS""
+> 49 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+  50 |   listener3:
+  51 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
+  52 |    Properties:
+  53 |      DefaultActions:
+  54 |        - Type: ""redirect""
+  55 |          RedirectConfig:
+  56 |            Protocol: ""HTTPS""
+  57 |            Port: 443
+  58 |            Host: ""#{host}""
+  59 |            Path: ""/#{path}""
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,44,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
-  34 |               ""Host"": ""#{host}"",
-  35 |               ""Path"": ""/#{path}"",
-  36 |               ""Query"": ""#{query}"",
-  37 |               ""StatusCode"": ""HTTP_301""
-  38 |             }
-  39 |           }
-  40 |         ],
-  41 |         ""LoadBalancerArn"": ""myLoadBalancer"",
-  42 |         ""Port"": 80,
-  43 |         ""Protocol"": ""HTTP"",
-> 44 |         ""SslPolicy"": ""ELBSecurityPolicy-TLS-1-2-2017-01""
-  45 |       }
-  46 |     },
-  47 |     ""listener3"": {
-  48 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
-  49 |       ""Properties"": {
-  50 |         ""DefaultActions"": [
-  51 |           {
-  52 |             ""Type"": ""redirect"",
-  53 |             ""RedirectConfig"": {
-  54 |               ""Protocol"": ""HTTPS"",
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,52,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+  42 |            Host: ""#{host}""
+  43 |            Path: ""/#{path}""
+  44 |            Query: ""#{query}""
+  45 |            StatusCode: ""HTTP_301""
+  46 |      LoadBalancerArn: myLoadBalancer
+  47 |      Port: 80
+  48 |      Protocol: ""TLS""
+  49 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+  50 |   listener3:
+  51 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
+> 52 |    Properties:
+  53 |      DefaultActions:
+  54 |        - Type: ""redirect""
+  55 |          RedirectConfig:
+  56 |            Protocol: ""HTTPS""
+  57 |            Port: 443
+  58 |            Host: ""#{host}""
+  59 |            Path: ""/#{path}""
+  60 |            Query: ""#{query}""
+  61 |            StatusCode: ""HTTP_301""
+  62 |      LoadBalancerArn: myLoadBalancer
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,49,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
