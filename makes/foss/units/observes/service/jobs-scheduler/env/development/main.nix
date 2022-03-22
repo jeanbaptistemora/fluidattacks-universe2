@@ -12,10 +12,8 @@
 in
   makeTemplate {
     name = "observes-service-jobs-scheduler-env-runtime";
-    template = ''
-      export PATH=${env}/bin:''${PATH}
-    '';
     searchPaths = {
+      bin = [env];
       export = builtins.attrValues (builtins.mapAttrs
         (name: output: [name output "/bin/${output.name}"])
         {
@@ -34,8 +32,5 @@ in
           gitlabEtlServices = outputs."/computeOnAwsBatch/observesGitlabEtlServices";
           mailchimpEtl = outputs."/computeOnAwsBatch/observesMailchimpEtl";
         });
-      source = [
-        outputs."/observes/common/purity/env/runtime"
-      ];
     };
   }

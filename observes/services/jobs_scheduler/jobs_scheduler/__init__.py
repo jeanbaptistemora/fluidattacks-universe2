@@ -5,7 +5,7 @@ from utils_logger.v2 import (
     start_session,
 )
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 set_bugsnag(BugsnagConf("service", __version__, __file__, False))
 start_session()
 LOG = set_main_log(__name__)

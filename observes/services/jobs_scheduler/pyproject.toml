@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jobs_scheduler"
-version = "1.0.0"
+version = "1.0.1"
 description = "Observes jobs schedule"
 authors = ["Product Team <development@fluidattacks.com>"]
 
