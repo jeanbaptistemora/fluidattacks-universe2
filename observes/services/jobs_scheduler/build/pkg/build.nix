@@ -11,13 +11,15 @@ lib.buildPythonPackage rec {
   format = "pyproject";
   type_check = ./check/types.sh;
   test_check = ./check/tests.sh;
+  arch_check = ./check/arch.sh;
   installCheckPhase = [
     ''
       source ${type_check} \
-      && source ${test_check}
+      && source ${test_check} \
+      && source ${arch_check}
     ''
   ];
   doCheck = true;
-  pythonImportsCheck = [pname "utils_logger.v2"];
+  pythonImportsCheck = [pname];
   inherit src propagatedBuildInputs nativeBuildInputs;
 }

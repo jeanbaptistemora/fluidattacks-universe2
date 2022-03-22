@@ -13,6 +13,7 @@
     pythonPkgs.types-pytz
   ];
   dev_deps = [
+    pythonPkgs.import-linter
     pythonPkgs.mypy
     pythonPkgs.pytest
     pythonPkgs.toml

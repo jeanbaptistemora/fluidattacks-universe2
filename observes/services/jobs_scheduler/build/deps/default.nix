@@ -18,6 +18,11 @@
 in
   pythonPkgs
   // {
+    import-linter = import ./import-linter {
+      inherit lib;
+      click = pythonPkgs.click;
+      networkx = pythonPkgs.networkx;
+    };
     purity = purity.pkg;
     types-click = import ./click/stubs.nix lib;
     utils-logger =
