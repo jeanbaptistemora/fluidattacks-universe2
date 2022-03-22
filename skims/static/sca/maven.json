@@ -4870,14 +4870,41 @@
   "org.xwiki.platform:xwiki-platform-oldcore": {
     "GHSA-5c66-v29h-xjh8": "<12.6.3 || >=12.6.4 <12.8"
   },
+  "org.xwiki.platform:xwiki-platform-ratings-api": {
+    "GHSA-79rg-7mv3-jrr5": "<12.9"
+  },
+  "org.xwiki.platform:xwiki-platform-rendering-wikimacro-store": {
+    "GHSA-v662-xpcc-9xf6": ">=11.4 <11.10.11 || >=12.0 <12.6.3 || >=12.7 <=12.7.1"
+  },
+  "org.xwiki.platform:xwiki-platform-security-authentication-script": {
+    "GHSA-m738-3rc4-5xv3": ">=11.6 <12.6.8 || >=12.7 <12.10.4"
+  },
+  "org.xwiki.platform:xwiki-platform-web": {
+    "GHSA-5c66-v29h-xjh8": "<12.6.3 || >=12.6.4 <12.8"
+  },
   "org.yaml:snakeyaml": {
     "CVE-2017-18640": "1.18"
   },
   "org.zeroturnaround:zt-zip": {
     "CVE-2018-1002201": ">=0 <1.13"
   },
+  "rg.apache.parquet:parquet": {
+    "GHSA-gc67-crq6-hgh5": "<1.11.2 || >=1.12.0 <1.12.2"
+  },
+  "ro.pippo:pippo-core": {
+    "GHSA-rmm5-g63h-m6g9": "<1.12.0"
+  },
+  "ro.pippo:pippo-jaxb": {
+    "GHSA-hwcx-9p4j-7hwj": "<=1.12.0"
+  },
+  "ru.yandex.clickhouse:clickhouse-jdbc-bridge": {
+    "GHSA-3w6p-8f82-gw8r": "<2.0.7"
+  },
   "ru.yandex.jenkins.plugins.debuilder:debian-package-builder": {
     "CVE-2020-2125": ">=0 <=1.6.11"
+  },
+  "software.amazon.awssdk.iotdevicesdk:aws-iot-device-sdk": {
+    "GHSA-j3f7-7rmc-6wqj": "<1.5.0"
   },
   "struts:struts": {
     "CVE-2012-1007": ">=0 <=1.3.10",
@@ -4894,6 +4921,9 @@
   },
   "tech.andrey.jenkins:mission-control-view": {
     "CVE-2019-16563": ">=0 <=0.9.16"
+  },
+  "tech.pegasys.discovery:discovery": {
+    "GHSA-w3hj-wr2q-x83g": "<0.4.5"
   },
   "tomcat:catalina": {
     "CVE-2016-0762": ">=6.0.0 <=6.0.45",
