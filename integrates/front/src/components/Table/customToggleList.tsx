@@ -9,6 +9,7 @@ import { ToggleContainer, ToggleLabel } from "./styles";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
+import { Switch } from "components/Switch";
 import type { ICustomToggleProps } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 
@@ -52,7 +53,7 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
       >
         <ToggleContainer id={"columns-buttons"}>
           {columns.map((column): JSX.Element => {
-            function handleClick(): void {
+            function handleChange(): void {
               onColumnToggle(column.dataField as string);
 
               if (!_.isUndefined(sideEffects)) {
@@ -66,12 +67,10 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
                   <ToggleLabel>{column.text}</ToggleLabel>
                 </Col>
                 <Col large={"25"} medium={"25"} small={"25"}>
-                  <input
-                    aria-label={column.dataField}
+                  <Switch
                     checked={toggles[column.dataField as number]}
                     name={column.dataField}
-                    onChange={handleClick}
-                    type={"checkbox"}
+                    onChange={handleChange}
                   />
                 </Col>
               </Row>

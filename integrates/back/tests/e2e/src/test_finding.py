@@ -46,7 +46,8 @@ def test_finding_description(
 
     for checkbox in checkboxes:
         if not checkbox.is_selected():
-            checkbox.click()
+            # Needed as switches overlap the input element
+            driver.execute_script("arguments[0].click();", checkbox)
 
     close = utils.wait_for_id(
         driver,
