@@ -9,6 +9,7 @@ from lib_root.analyze import (
 )
 from lib_sast.types import (
     Paths,
+    ShardDb,
 )
 from model.core_model import (
     FindingEnum,
@@ -36,6 +37,6 @@ def analyze(stores: Dict[FindingEnum, EphemeralStore]) -> None:
         analyze_paths(paths=paths, stores=stores)
 
     if CTX.config.path.lib_root:
-        paths.set_paths_by_lang()
+        paths.set_lang()
         graph_db = get_graph_db(paths.ok_paths)
-        analyze_root(paths=paths, graph_db=graph_db, stores=stores)
+        analyze_root(shard_db=ShardDb(paths), graph_db=graph_db, stores=stores)

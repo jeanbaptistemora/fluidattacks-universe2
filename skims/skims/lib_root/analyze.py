@@ -30,7 +30,7 @@ from lib_root import (
     f366,
 )
 from lib_sast.types import (
-    Paths,
+    ShardDb,
 )
 from model import (
     core_model,
@@ -80,7 +80,7 @@ QUERIES: graph_model.Queries = (
 
 def analyze(
     *,
-    paths: Paths,  # pylint: disable=unused-argument
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
