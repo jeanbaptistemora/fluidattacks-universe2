@@ -51,7 +51,84 @@ follow these steps:
 1. You may then click on **Proceed** to finish the request
   or **Cancel** to dismiss it.
 
+1. After requesting the reattack,
+  you will see the word **Requested**
+  in the **Reattack** column corresponding
+  to that vulnerability.
+  From then on,
+  you will have to wait for the
+  response from the `Fluid Attacks` team.
+  The latter’s response time will
+  comply with the conditions set forth in the service-level agreements.
+
+   ![Reattack Requested](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/requested_tab.png)
+
+1. In the **Consulting** tab,
+  you will see a new comment related
+  to the justification you gave when
+  requesting the reattack.
+  In this same tab,
+  our hackers can generate other
+  comments and notify the decision
+  taken on your request.
+
+   ![Consulting Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/consulting_tab.png)
+
+1. If the vulnerability you
+  requested to reattack is
+  still open,
+  in the **Evidence** tab,
+  our hackers will give you
+  evidence of how it was exploited.
+  The reattack status will
+  be Verified (open).
+
+   ![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/evidence_tab.png)
+
+1. The two possible reattack statuses,
+  after they have been carried out,
+  are **Verified (open)** and
+  **Verified (closed)**.
+  In the parenthesis,
+  the status of the reattacked
+  vulnerability is reiterated.
+
+   ![Verified Open](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/evidence_tab.png)
+
+   ![Verified Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/evidence_tab.png)
+
+1. If the vulnerability is still
+  open and you cannot close
+  it for the moment,
+  you can consider defining other
+  [treatments](/machine/web/vulnerabilities/management/treatments).
+  One of them is
+  **Permanently accepted vulnerability**.
+  However,
+  you can later try to remediate
+  this vulnerability and
+  [request a reattack](/machine/web/vulnerabilities/management/treatments/#reattacking-a-permanently-accepted-vulnerability)
+  to verify its remediation.
+
 When you finish requesting the reattack,
 our analysts will verify
 that the vulnerability was indeed solved
 and close it or keep it open depending on the result.
+
+## Reattacks on hold
+
+Sometimes reattacks are delayed
+due to [events](/machine/web/groups/events)
+in your environment,
+and having to send another
+reattack request can be tedious.
+That is why the ASM has the
+**On_hold** status for reattacks.
+This status denotes when
+reattack requests are put on hold.
+When the events are solved,
+the reattack request is
+automatically reactivated
+without having to be repeated.
+This use of automation provides
+agility to the reattack process.
