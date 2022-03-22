@@ -3,7 +3,6 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
 
 import type { IVulnRowAttr } from "../types";
@@ -97,8 +96,6 @@ describe("AdditionalInfo", (): void => {
   it("should render in vulnerabilities", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider
@@ -116,9 +113,7 @@ describe("AdditionalInfo", (): void => {
     await waitFor((): void => {
       expect(
         screen.getByText(
-          t(
-            "searchFindings.tabVuln.vulnTable.vulnerabilityType.lines"
-          ).toString()
+          "searchFindings.tabVuln.vulnTable.vulnerabilityType.lines"
         )
       ).toBeInTheDocument();
     });

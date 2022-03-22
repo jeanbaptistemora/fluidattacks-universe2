@@ -88,8 +88,8 @@ describe("FindingActions", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(2);
-    expect(buttons.at(0).text()).toContain("Submit");
-    expect(buttons.at(1).text()).toContain("Delete");
+    expect(buttons.at(0).text()).toContain("group.drafts.submit.text");
+    expect(buttons.at(1).text()).toContain("searchFindings.delete.btn.text");
   });
 
   it("should render approver draft actions", (): void => {
@@ -121,9 +121,9 @@ describe("FindingActions", (): void => {
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(BUTTONS_LENGTH);
-    expect(buttons.at(0).text()).toContain("Approve");
-    expect(buttons.at(1).text()).toContain("Reject");
-    expect(buttons.at(2).text()).toContain("Delete");
+    expect(buttons.at(0).text()).toContain("group.drafts.approve.text");
+    expect(buttons.at(1).text()).toContain("group.drafts.reject.text");
+    expect(buttons.at(2).text()).toContain("searchFindings.delete.btn.text");
   });
 
   it("should disable approve button", (): void => {
@@ -152,7 +152,7 @@ describe("FindingActions", (): void => {
     const approveButton: ReactWrapper = buttons.at(0);
 
     expect(wrapper).toHaveLength(1);
-    expect(approveButton.text()).toContain("Approve");
+    expect(approveButton.text()).toContain("group.drafts.approve.text");
     expect(approveButton.prop("disabled")).toStrictEqual(true);
   });
 });

@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import { reset } from "mixpanel-browser";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
 
 import { UserProfile } from "scenes/Dashboard/components/Navbar/UserProfile/index";
@@ -53,7 +52,6 @@ describe("User Profile", (): void => {
   it("should render an delete account modal", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
     const mockQueryFalse: MockedResponse[] = [
       {
         request: {
@@ -89,15 +87,13 @@ describe("User Profile", (): void => {
     });
 
     expect(
-      screen.queryByText(t("navbar.deleteAccount.modal.warning").toString())
+      screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
-      screen.getByText(t("navbar.deleteAccount.text").toString())
-    );
+    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
 
     expect(
-      screen.queryByText(t("navbar.deleteAccount.modal.warning").toString())
+      screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
     userEvent.click(screen.getByText("Proceed"));
@@ -117,7 +113,6 @@ describe("User Profile", (): void => {
   it("should delete account error", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
     const mockQueryFalse: MockedResponse[] = [
       {
         request: {
@@ -149,20 +144,18 @@ describe("User Profile", (): void => {
     });
 
     expect(
-      screen.queryByText(t("navbar.deleteAccount.modal.warning").toString())
+      screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(
-      screen.getByText(t("navbar.deleteAccount.text").toString())
-    );
+    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
 
     expect(
-      screen.queryByText(t("navbar.deleteAccount.modal.warning").toString())
+      screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
     userEvent.click(screen.getByText("Proceed"));
     await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledWith(t("groupAlerts.errorTextsad"));
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
 
     expect(mockHistoryPush).toHaveBeenCalledWith("/home");

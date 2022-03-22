@@ -1,14 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import {
@@ -69,6 +66,7 @@ describe("FindingContent", (): void => {
             },
           ],
           id: "438679960",
+          minTimeToRemediate: 60,
           openVulns: 3,
           releaseDate: "2018-12-04 09:04:13",
           reportDate: "2017-12-04 09:04:13",
@@ -109,6 +107,7 @@ describe("FindingContent", (): void => {
             },
           ],
           id: "438679960",
+          minTimeToRemediate: 60,
           openVulns: 3,
           releaseDate: null,
           reportDate: "2017-12-04 09:04:13",
@@ -149,6 +148,7 @@ describe("FindingContent", (): void => {
             },
           ],
           id: "438679960",
+          minTimeToRemediate: 60,
           openVulns: 3,
           releaseDate: null,
           reportDate: "2017-12-04 09:04:13",
@@ -203,32 +203,10 @@ describe("FindingContent", (): void => {
 
     jest.clearAllMocks();
 
-    const wrapper: ShallowWrapper = shallow(
-      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
-        <MockedProvider addTypename={false} mocks={[findingMock]}>
-          <Route
-            component={FindingContent}
-            path={"/:groupName/vulns/:findingId/description"}
-          />
-        </MockedProvider>
-      </MemoryRouter>
-    );
-    await act(async (): Promise<void> => {
-      await wait(0);
-    });
-
-    expect(wrapper).toHaveLength(1);
-  });
-
-  it("should render header", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    jest.clearAllMocks();
-
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[findingMock]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -240,13 +218,41 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
 
-        expect(wrapper.text()).toContain("050. Guessed weak credentials");
-      });
+    // Including heading inside `ContentTab`
+    const numberOfHeading: number = 6;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("heading")).toHaveLength(numberOfHeading);
     });
+  });
+
+  it("should render header", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_finding_historic_state_resolve" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
+        <MockedProvider addTypename={false} mocks={[findingMock]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={FindingContent}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("heading", { level: 1 })).toBeInTheDocument();
+    });
+
+    expect(screen.getAllByRole("heading")[0].textContent).toContain(
+      "050. Guessed weak credentials"
+    );
   });
 
   it("should render unsubmitted draft actions", async (): Promise<void> => {
@@ -258,7 +264,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[draftMock]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -270,19 +276,13 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.submit.text")
+      ).toBeInTheDocument();
     });
-    const submitButton: ReactWrapper = wrapper
-      .find("findingContent")
-      .at(0)
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.text().includes("Submit")
-      );
 
-    expect(submitButton).toHaveLength(1);
+    expect(screen.queryAllByRole("button")).toHaveLength(1);
   });
 
   it("should prompt delete justification", async (): Promise<void> => {
@@ -294,7 +294,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_remove_finding_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider addTypename={false} mocks={[removeFindingMock]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -306,36 +306,26 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("button").at(0)).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.btn.text")
+      ).toBeInTheDocument();
     });
 
-    const deleteButton: ReactWrapper = wrapper.find("button").at(0);
-    deleteButton.simulate("click");
+    expect(screen.queryAllByRole("button")).toHaveLength(1);
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("Modal").find("button").at(0)).toHaveLength(1);
-      });
+    userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.title")
+      ).toBeInTheDocument();
     });
-    const cancelButton: ReactWrapper = wrapper
-      .find("Modal")
-      .find("button")
-      .at(0);
 
-    cancelButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("Modal").find("button").at(0)).toHaveLength(0);
-      });
+    userEvent.click(screen.getByText("confirmmodal.cancel"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.title")
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -364,7 +354,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -379,31 +369,15 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-        const submitButton: ReactWrapper = wrapper
-          .find("findingContent")
-          .at(0)
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.text().includes("Submit")
-          );
-        submitButton.simulate("click");
-      });
+    await waitFor((): void => {
+      expect(screen.queryByText("group.drafts.submit.text")).not.toBeDisabled();
     });
-    await act(async (): Promise<void> => {
-      await wait(0);
-    });
-    const submitButtonAfterSubmit: ReactWrapper = wrapper
-      .find("findingContent")
-      .at(0)
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.text().includes("Submit")
-      );
 
-    expect(submitButtonAfterSubmit.prop("disabled")).toStrictEqual(true);
+    userEvent.click(screen.getByText("group.drafts.submit.text"));
+
+    await waitFor((): void => {
+      expect(screen.queryByText("group.drafts.submit.text")).toBeDisabled();
+    });
   });
 
   it("should handle submit errors", async (): Promise<void> => {
@@ -432,7 +406,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -447,23 +421,15 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const submitButton: ReactWrapper = wrapper
-      .find("findingContent")
-      .at(0)
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.text().includes("Submit")
-      );
-    submitButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
+    await waitFor((): void => {
+      expect(screen.queryByText("group.drafts.submit.text")).not.toBeDisabled();
     });
 
-    expect(msgError).toHaveBeenCalledTimes(4);
+    userEvent.click(screen.getByText("group.drafts.submit.text"));
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(4);
+    });
   });
 
   it("should approve draft", async (): Promise<void> => {
@@ -491,7 +457,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_approve_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -506,45 +472,25 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-        const approveButton: ReactWrapper = wrapper
-          .find("findingContent")
-          .at(0)
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.text().includes("Approve")
-          );
-        approveButton.simulate("click");
-      });
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.approve.text")
+      ).not.toBeDisabled();
     });
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+
+    userEvent.click(screen.getByText("group.drafts.approve.text"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.approve.title")
+      ).toBeInTheDocument();
     });
-    const confirmDialog: ReactWrapper = wrapper
-      .find("findingActions")
-      .find("Modal")
-      .at(0);
-
-    expect(confirmDialog).toHaveLength(1);
-
-    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
-    proceedButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-        const approveButtonAfterProceed: ReactWrapper = wrapper
-          .find("findingContent")
-          .at(0)
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.text().includes("Approve")
-          );
-
-        expect(approveButtonAfterProceed).toHaveLength(0);
-      });
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.approve.text")
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -574,7 +520,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_approve_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -589,36 +535,25 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const approveButton: ReactWrapper = wrapper
-      .find("findingContent")
-      .at(0)
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.text().includes("Approve")
-      );
-    approveButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const confirmDialog: ReactWrapper = wrapper
-      .find("findingActions")
-      .find("Modal")
-      .at(0);
-
-    expect(confirmDialog).toHaveLength(1);
-
-    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
-    proceedButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.approve.text")
+      ).not.toBeDisabled();
     });
 
-    expect(msgError).toHaveBeenCalledTimes(4);
+    userEvent.click(screen.getByText("group.drafts.approve.text"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.approve.title")
+      ).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(4);
+    });
+
+    expect(screen.queryByText("group.drafts.approve.text")).toBeInTheDocument();
   });
 
   it("should reject draft", async (): Promise<void> => {
@@ -646,7 +581,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_reject_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -661,45 +596,22 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-        const rejectButton: ReactWrapper = wrapper
-          .find("findingContent")
-          .at(0)
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.text().includes("Reject")
-          );
-        rejectButton.simulate("click");
-      });
+    await waitFor((): void => {
+      expect(screen.queryByText("group.drafts.reject.text")).not.toBeDisabled();
     });
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+
+    userEvent.click(screen.getByText("group.drafts.reject.text"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.reject.title")
+      ).toBeInTheDocument();
     });
-    const confirmDialog: ReactWrapper = wrapper
-      .find("findingActions")
-      .find("Modal")
-      .at(0);
-
-    expect(confirmDialog).toHaveLength(1);
-
-    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
-    proceedButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-        const rejectButtonAfterProceed: ReactWrapper = wrapper
-          .find("findingContent")
-          .at(0)
-          .find("button")
-          .filterWhere((element: ReactWrapper): boolean =>
-            element.text().includes("Reject")
-          );
-
-        expect(rejectButtonAfterProceed).toHaveLength(0);
-      });
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.reject.title")
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -728,7 +640,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_reject_draft_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -744,52 +656,21 @@ describe("FindingContent", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(
-          wrapper
-            .find("findingContent")
-            .at(0)
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.text().includes("Reject")
-            )
-        ).toHaveLength(1);
-      });
-    });
-    const rejectButton: ReactWrapper = wrapper
-      .find("findingContent")
-      .at(0)
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.text().includes("Reject")
-      );
-    rejectButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(
-          wrapper.find("findingActions").find("Modal").first()
-        ).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(screen.queryByText("group.drafts.reject.text")).not.toBeDisabled();
     });
 
-    const confirmDialog: ReactWrapper = wrapper
-      .find("findingActions")
-      .find("Modal")
-      .first();
-    const proceedButton: ReactWrapper = confirmDialog.find("button").at(1);
+    userEvent.click(screen.getByText("group.drafts.reject.text"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.reject.title")
+      ).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("Proceed"));
     const numberOfErrors: number = 3;
-    proceedButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledTimes(numberOfErrors);
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(numberOfErrors);
     });
   });
 
@@ -819,7 +700,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_remove_finding_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -834,38 +715,28 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("button").at(0)).toHaveLength(1);
-      });
-    });
-    const deleteButton: ReactWrapper = wrapper.find("button").at(0);
-    deleteButton.simulate("click");
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("Modal").first()).toHaveLength(1);
-      });
-    });
-    wrapper.find("select").simulate("change", {
-      target: { name: "justification", value: "DUPLICATED" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.btn.text")
+      ).not.toBeDisabled();
     });
 
-    const justificationForm: ReactWrapper = wrapper
-      .find("Formik")
-      .find({ name: "removeFinding" });
-    justificationForm.simulate("submit");
+    userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.title")
+      ).toBeInTheDocument();
+    });
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "justification" }),
+      ["DUPLICATED"]
+    );
 
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-      });
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -891,7 +762,7 @@ describe("FindingContent", (): void => {
       { action: "api_resolvers_finding_historic_state_resolve" },
       { action: "api_mutations_remove_finding_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
         <MockedProvider
           addTypename={false}
@@ -906,39 +777,28 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("button").at(0)).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.btn.text")
+      ).not.toBeDisabled();
     });
 
-    const deleteButton: ReactWrapper = wrapper.find("button").at(0);
-    deleteButton.simulate("click");
+    userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("Modal").first()).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.delete.title")
+      ).toBeInTheDocument();
     });
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "justification" }),
+      ["DUPLICATED"]
+    );
 
-    wrapper.find("select").simulate("change", {
-      target: { name: "justification", value: "DUPLICATED" },
-    });
-    const justificationForm: ReactWrapper = wrapper
-      .find("Formik")
-      .find({ name: "removeFinding" });
-    justificationForm.simulate("submit");
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledTimes(1);
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledTimes(1);
     });
   });
 });
