@@ -1023,11 +1023,21 @@ describe("handle vulns acceptance modal", (): void => {
     const expectedFpOptionLength: number = 1;
     const expectedOutOfTheScopeOptionLength: number = 1;
 
-    expect(screen.queryByText("FN")).not.toBeInTheDocument();
-    expect(screen.getAllByText("FP")).toHaveLength(expectedFpOptionLength);
-    expect(screen.getAllByText("Out of the scope")).toHaveLength(
-      expectedOutOfTheScopeOptionLength
-    );
+    expect(
+      screen.queryByText(
+        "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.fn"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getAllByText(
+        "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.fp"
+      )
+    ).toHaveLength(expectedFpOptionLength);
+    expect(
+      screen.getAllByText(
+        "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.outOfTheScope"
+      )
+    ).toHaveLength(expectedOutOfTheScopeOptionLength);
   });
 
   it("should display dropdown to reject zero risk", async (): Promise<void> => {
@@ -1115,10 +1125,20 @@ describe("handle vulns acceptance modal", (): void => {
     const expectedFnOptionLength: number = 1;
     const expectedComplementaryControlLength: number = 1;
 
-    expect(screen.queryByText("FP")).not.toBeInTheDocument();
-    expect(screen.getAllByText("FN")).toHaveLength(expectedFnOptionLength);
-    expect(screen.getAllByText("Complementary control")).toHaveLength(
-      expectedComplementaryControlLength
-    );
+    expect(
+      screen.queryByText(
+        "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.fp"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getAllByText(
+        "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.fn"
+      )
+    ).toHaveLength(expectedFnOptionLength);
+    expect(
+      screen.getAllByText(
+        "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.complementaryControl"
+      )
+    ).toHaveLength(expectedComplementaryControlLength);
   });
 });
