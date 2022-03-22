@@ -4,7 +4,6 @@ import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { TasksContent } from "scenes/Dashboard/containers/Tasks";
@@ -141,8 +140,6 @@ describe("VulnerabilitiesView", (): void => {
   it("should handle reattack button basic", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     const refreshClick: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_vulnerability_hacker_resolve" },
@@ -190,34 +187,28 @@ describe("VulnerabilitiesView", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.getByText(
-          t("searchFindings.tabDescription.requestVerify.text").toString()
-        )
+        screen.getByText("searchFindings.tabDescription.requestVerify.text")
       ).not.toBeDisabled();
     });
 
     userEvent.click(
-      screen.getByText(
-        t("searchFindings.tabDescription.requestVerify.text").toString()
-      )
+      screen.getByText("searchFindings.tabDescription.requestVerify.text")
     );
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        t("searchFindings.tabVuln.info.text"),
-        t("searchFindings.tabVuln.info.title")
+        "searchFindings.tabVuln.info.text",
+        "searchFindings.tabVuln.info.title"
       );
     });
 
     expect(msgError).toHaveBeenCalledWith(
-      t("searchFindings.tabVuln.errors.selectedVulnerabilities")
+      "searchFindings.tabVuln.errors.selectedVulnerabilities"
     );
   });
 
   it("should handle edit button basic", async (): Promise<void> => {
     expect.hasAssertions();
-
-    const { t } = useTranslation();
 
     const refreshClick: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -264,14 +255,10 @@ describe("VulnerabilitiesView", (): void => {
       expect(screen.getAllByRole("checkbox")[2]).toBeChecked();
     });
 
-    userEvent.click(
-      screen.getByText(t("searchFindings.tabVuln.buttons.edit").toString())
-    );
+    userEvent.click(screen.getByText("searchFindings.tabVuln.buttons.edit"));
     await waitFor((): void => {
       expect(
-        screen.queryByText(
-          t("searchFindings.tabDescription.editVuln").toString()
-        )
+        screen.queryByText("searchFindings.tabDescription.editVuln")
       ).toBeInTheDocument();
     });
 
@@ -279,9 +266,7 @@ describe("VulnerabilitiesView", (): void => {
       "ACCEPTED"
     );
 
-    userEvent.click(
-      screen.getByText(t("group.findings.report.modalClose").toString())
-    );
+    userEvent.click(screen.getByText("group.findings.report.modalClose"));
 
     await waitFor((): void => {
       expect(screen.getByRole("combobox", { name: "treatment" })).toHaveValue(
@@ -289,15 +274,11 @@ describe("VulnerabilitiesView", (): void => {
       );
     });
 
-    userEvent.click(
-      screen.getByText(t("group.findings.report.modalClose").toString())
-    );
+    userEvent.click(screen.getByText("group.findings.report.modalClose"));
 
     await waitFor((): void => {
       expect(
-        screen.queryByText(
-          t("searchFindings.tabDescription.editVuln").toString()
-        )
+        screen.queryByText("searchFindings.tabDescription.editVuln")
       ).not.toBeInTheDocument();
     });
   });

@@ -1,18 +1,12 @@
-// Needed to lazy test formik components
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import moment from "moment";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
-import { AddUserModal } from "scenes/Dashboard/components/AddUserModal/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -82,7 +76,7 @@ describe("Organization users view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/stakeholders"}>
@@ -94,54 +88,46 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-
-        const RENDER_TEST_LENGTH = 3;
-
-        expect(wrapper.find("tr")).toHaveLength(RENDER_TEST_LENGTH);
-      });
+    const RENDER_TEST_LENGTH = 3;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(RENDER_TEST_LENGTH);
     });
 
-    const addButton: ReactWrapper = wrapper.find("button#addUser").first();
-    const editButton: ReactWrapper = wrapper.find("button#editUser").first();
-    const removeButton: ReactWrapper = wrapper
-      .find("button#removeUser")
-      .first();
+    expect(
+      screen.getByText("organization.tabs.users.addButton.text")
+    ).not.toBeDisabled();
+    expect(
+      screen.getByText("organization.tabs.users.editButton.text")
+    ).toBeDisabled();
+    expect(
+      screen.getByText("organization.tabs.users.removeButton.text")
+    ).toBeDisabled();
 
-    expect(addButton.prop("disabled")).toBeUndefined();
-    expect(editButton.prop("disabled")).toBe(true);
-    expect(removeButton.prop("disabled")).toBe(true);
+    expect(screen.getByText("testuser1@gmail.com")).toBeInTheDocument();
+    expect(screen.getByText("Customer Manager")).toBeInTheDocument();
+    expect(screen.getByText("2020-06-01")).toBeInTheDocument();
+    expect(
+      screen.getByText(moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow())
+    ).toBeInTheDocument();
 
-    const user1Cells: ReactWrapper = wrapper.find("tr").at(1).find("td");
-    const user2Cells: ReactWrapper = wrapper.find("tr").at(2).find("td");
+    expect(screen.getByText("testuser2@gmail.com")).toBeInTheDocument();
+    expect(screen.getByText("User Manager")).toBeInTheDocument();
+    expect(screen.getByText("2020-08-01")).toBeInTheDocument();
+    expect(
+      within(screen.queryAllByRole("row")[2]).getByRole("cell", { name: "-" })
+    ).toBeInTheDocument();
 
-    const RENDER_TEST_AT3 = 3;
-    const RENDER_TEST_AT4 = 4;
+    userEvent.click(screen.queryAllByRole("row")[1]);
 
-    expect(user1Cells.at(1).text()).toBe("testuser1@gmail.com");
-    expect(user1Cells.at(2).text()).toBe("Customer Manager");
-    expect(user1Cells.at(RENDER_TEST_AT3).text()).toBe("2020-06-01");
-    expect(user1Cells.at(RENDER_TEST_AT4).text()).toBe(
-      moment("2020-09-01", "YYYY-MM-DD hh:mm:ss").fromNow()
-    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText("organization.tabs.users.editButton.text")
+      ).not.toBeDisabled();
+    });
 
-    expect(user2Cells.at(1).text()).toBe("testuser2@gmail.com");
-    expect(user2Cells.at(2).text()).toBe("User Manager");
-    expect(user2Cells.at(RENDER_TEST_AT3).text()).toBe("2020-08-01");
-    expect(user2Cells.at(RENDER_TEST_AT4).text()).toBe("-");
-
-    wrapper.find("tr").at(1).simulate("click");
-
-    expect(wrapper.find("button#editUser").first().prop("disabled")).toBe(
-      false
-    );
-    expect(wrapper.find("button#removeUser").first().prop("disabled")).toBe(
-      false
-    );
+    expect(
+      screen.getByText("organization.tabs.users.removeButton.text")
+    ).not.toBeDisabled();
   });
 
   it("should add a user", async (): Promise<void> => {
@@ -226,7 +212,7 @@ describe("Organization users view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <MockedProvider
           addTypename={false}
@@ -241,61 +227,44 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper).toHaveLength(1);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText("organization.tabs.users.addButton.text")
+      ).not.toBeDisabled();
     });
 
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("tr")).toHaveLength(2);
-    expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+    expect(
+      screen.queryByText("organization.tabs.users.modalAddTitle")
+    ).not.toBeInTheDocument();
 
-    const addUserButton = (): ReactWrapper =>
-      wrapper.find("button#addUser").first();
-
-    addUserButton().simulate("click");
-
-    expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
-
-    const form = (): ReactWrapper => wrapper.find(AddUserModal).find("Formik");
-    const emailField = (): ReactWrapper =>
-      wrapper.find(AddUserModal).find({ name: "email" }).find("input");
-    const roleField = (): ReactWrapper =>
-      wrapper.find(AddUserModal).find({ name: "role" }).find("select");
-
-    emailField().simulate("change", {
-      target: { name: "email", value: "testuser2@gmail.com" },
+    userEvent.click(screen.getByText("organization.tabs.users.addButton.text"));
+    await waitFor((): void => {
+      expect(screen.getByText("Proceed")).toBeInTheDocument();
     });
-    wrapper.update();
-    emailField().simulate("blur", {
-      target: { name: "email", value: "testuser2@gmail.com" },
+    userEvent.type(
+      screen.getByRole("textbox", { name: "email" }),
+      "testuser2@gmail.com"
+    );
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+      "USER",
+    ]);
+    await waitFor((): void => {
+      expect(screen.getByText("Proceed")).not.toBeDisabled();
     });
-    wrapper.update();
-    roleField().simulate("change", {
-      target: { name: "role", value: "USER" },
+
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "testuser2@gmail.comsearchFindings.tabUsers.success",
+        "organization.tabs.users.successTitle"
+      );
     });
-    wrapper.update();
-    form().simulate("submit");
+    const TEST_LENGTH = 3;
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const TEST_LENGTH = 3;
-
-        expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
-        expect(msgSuccess).toHaveBeenCalledWith(
-          `testuser2@gmail.com${translate.t(
-            "searchFindings.tabUsers.success"
-          )}`,
-          translate.t("organization.tabs.users.successTitle")
-        );
-        expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
-      });
-    });
+    expect(screen.getAllByRole("row")).toHaveLength(TEST_LENGTH);
+    expect(
+      screen.queryByText("organization.tabs.users.modalAddTitle")
+    ).not.toBeInTheDocument();
   });
 
   it("should edit a user", async (): Promise<void> => {
@@ -374,7 +343,7 @@ describe("Organization users view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/stakeholders"}>
@@ -385,64 +354,46 @@ describe("Organization users view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
+    await waitFor((): void => {
+      expect(
+        screen.getByText("organization.tabs.users.editButton.text")
+      ).toBeDisabled();
+    });
+    userEvent.click(screen.queryAllByRole("row")[1]);
+    await waitFor((): void => {
+      expect(
+        screen.getByText("organization.tabs.users.editButton.text")
+      ).not.toBeDisabled();
+    });
+    userEvent.click(
+      screen.getByText("organization.tabs.users.editButton.text")
+    );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.getByRole("textbox", { name: "email" })).toHaveValue(
+        "testuser1@gmail.com"
+      );
     });
 
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("tr")).toHaveLength(2);
+    expect(screen.getByRole("textbox", { name: "email" })).toBeDisabled();
+    expect(screen.getByRole("combobox", { name: "role" })).toHaveValue("USER");
 
-    expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+      "USER_MANAGER",
+    ]);
 
-    wrapper.find("tr").at(1).simulate("click");
-
-    wrapper.find("button#editUser").first().simulate("click");
-
-    expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .find({ name: "email" })
-        .find("input")
-        .prop("value")
-    ).toBe("testuser1@gmail.com");
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .find({ name: "email" })
-        .find("input")
-        .prop("disabled")
-    ).toBe(true);
-    expect(
-      wrapper
-        .find(AddUserModal)
-        .find({ name: "role" })
-        .find("select")
-        .prop("value")
-    ).toBe("USER");
-
-    const form: ReactWrapper = wrapper.find(AddUserModal).find("Formik");
-    const roleField: ReactWrapper = wrapper
-      .find(AddUserModal)
-      .find({ name: "role" })
-      .find("select");
-
-    roleField.simulate("change", {
-      target: { name: "role", value: "USER_MANAGER" },
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("organization.tabs.users.modalEditTitle")
+      ).not.toBeInTheDocument();
     });
-    form.simulate("submit");
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
-        expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-        expect(wrapper.find("tr")).toHaveLength(2);
-      });
-    });
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "testuser1@gmail.com organization.tabs.users.editButton.success",
+      "organization.tabs.users.successTitle"
+    );
+    expect(screen.getAllByRole("row")).toHaveLength(2);
   });
 
   it("should remove a user", async (): Promise<void> => {
@@ -523,7 +474,7 @@ describe("Organization users view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/stakeholders"}>
@@ -534,58 +485,36 @@ describe("Organization users view", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const TEST_LENGTH = 3;
-
-        expect(wrapper).toHaveLength(1);
-        expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
-        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
-        expect(
-          wrapper.find("SelectionCell").find("input").first().prop("checked")
-        ).toBe(false);
-        expect(
-          wrapper.find("SelectionCell").find("input").last().prop("checked")
-        ).toBe(false);
-      });
+    const TEST_LENGTH = 3;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(TEST_LENGTH);
     });
 
-    wrapper.find("tr").at(2).simulate("click");
+    expect(screen.queryAllByRole("radio")[0]).not.toBeChecked();
+    expect(screen.queryAllByRole("radio")[1]).not.toBeChecked();
+    expect(
+      screen.getByText("organization.tabs.users.removeButton.text")
+    ).toBeDisabled();
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+    userEvent.click(screen.queryAllByRole("radio")[1]);
 
-        expect(wrapper.find("button#removeUser").first().prop("disabled")).toBe(
-          false
-        );
-        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(2);
-        expect(
-          wrapper.find("SelectionCell").find("input").first().prop("checked")
-        ).toBe(false);
-        expect(
-          wrapper.find("SelectionCell").find("input").last().prop("checked")
-        ).toBe(true);
-      });
+    await waitFor((): void => {
+      expect(
+        screen.getByText("organization.tabs.users.removeButton.text")
+      ).not.toBeDisabled();
     });
 
-    wrapper.find("button#removeUser").first().simulate("click");
+    expect(screen.queryAllByRole("radio")[1]).toBeChecked();
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgSuccess).toHaveBeenCalledTimes(1);
-        expect(wrapper.find("tr")).toHaveLength(2);
-        expect(wrapper.find("SelectionCell").find("input")).toHaveLength(1);
-        expect(
-          wrapper.find("SelectionCell").find("input").last().prop("checked")
-        ).toBe(false);
-      });
+    userEvent.click(
+      screen.getByText("organization.tabs.users.removeButton.text")
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
+
+    expect(screen.queryAllByRole("row")).toHaveLength(2);
+    expect(screen.queryAllByRole("radio")[0]).not.toBeChecked();
   });
 
   it("should handle query errors", async (): Promise<void> => {
@@ -608,7 +537,7 @@ describe("Organization users view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/stakeholders"}>
@@ -620,16 +549,11 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-        expect(wrapper.find("tr").at(1).find("td").at(0).text()).toBe(
-          "table.noDataIndication"
-        );
-      });
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
+
+    expect(screen.queryByText("table.noDataIndication")).toBeInTheDocument();
   });
 
   it("should handle mutation errors", async (): Promise<void> => {
@@ -733,7 +657,7 @@ describe("Organization users view", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada/stakeholders"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/stakeholders"}>
@@ -745,91 +669,72 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
 
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("tr")).toHaveLength(2);
+    expect(
+      screen.getByText("organization.tabs.users.editButton.text")
+    ).toBeDisabled();
 
-    wrapper.find("tr").at(1).simulate("click");
+    userEvent.click(screen.queryAllByRole("row")[1]);
+    await waitFor((): void => {
+      expect(
+        screen.getByText("organization.tabs.users.editButton.text")
+      ).not.toBeDisabled();
+    });
 
-    const openModal: () => void = (): void => {
-      wrapper.find("button#editUser").first().simulate("click");
+    expect(
+      screen.queryByText("organization.tabs.users.modalEditTitle")
+    ).not.toBeInTheDocument();
+
+    const openModal = async (): Promise<void> => {
+      userEvent.click(
+        screen.getByText("organization.tabs.users.editButton.text")
+      );
+      await waitFor((): void => {
+        expect(
+          screen.queryByText("organization.tabs.users.modalEditTitle")
+        ).toBeInTheDocument();
+      });
     };
-
-    const getForm: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find(AddUserModal).find("Formik");
-    const getRoleField: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find(AddUserModal).find({ name: "role" }).find("select");
-    const submit: () => void = (): void => {
-      openModal();
-
-      expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
-
-      getRoleField().simulate("change", {
-        target: { name: "role", value: "USER_MANAGER" },
-      });
-      getForm().simulate("submit");
+    const editStakeholder = async (): Promise<void> => {
+      await openModal();
+      userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
+        "USER_MANAGER",
+      ]);
+      userEvent.click(screen.getByText("Proceed"));
     };
-
-    submit();
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(translate.t("validations.email"));
-      });
+    await editStakeholder();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(translate.t("validations.email"));
     });
 
-    submit();
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("validations.invalidValueInField")
-        );
-      });
+    await editStakeholder();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("validations.invalidValueInField")
+      );
     });
 
-    submit();
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("validations.invalidChar")
-        );
-      });
+    await editStakeholder();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("validations.invalidChar")
+      );
     });
 
-    submit();
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("validations.invalidEmailInField")
-        );
-      });
+    await editStakeholder();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("validations.invalidEmailInField")
+      );
     });
-
-    submit();
-
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(msgError).toHaveBeenCalledWith(
-          translate.t("groupAlerts.errorTextsad")
-        );
-      });
+    await editStakeholder();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        translate.t("groupAlerts.errorTextsad")
+      );
     });
   });
 });
