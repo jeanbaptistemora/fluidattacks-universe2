@@ -8,6 +8,7 @@ from sast.parse import (
 )
 from typing import (
     Dict,
+    Iterator,
     List,
     Optional,
     Tuple,
@@ -72,3 +73,8 @@ class ShardDb:
     def get_shard(self, path: str) -> Optional[GraphShard]:
         self.store_shard(path)
         return self.shards.get(path)
+
+    def iter_lang_shards(self, lang: LanguagesEnum) -> Iterator[GraphShard]:
+        for path in self.paths.paths_by_lang[lang]:
+            if shard := self.get_shard(path):
+                yield shard
