@@ -35,8 +35,12 @@ from typing import (
     Iterable,
     Iterator,
     List,
+    Optional,
     Set,
     Tuple,
+)
+from utils.logs import (
+    log_blocking,
 )
 
 MAX_FILE_SIZE: int = 102400  # 100KiB
@@ -178,6 +182,16 @@ def sync_get_file_raw_content(path: str, size: int = MAX_FILE_SIZE) -> bytes:
         content = handle.read(size)
 
     return content
+
+
+def safe_sync_get_file_raw_content(
+    path: str, size: int = MAX_FILE_SIZE
+) -> Optional[bytes]:
+    try:
+        return sync_get_file_raw_content(path, size)
+    except FileTooLarge:
+        log_blocking("warning", "File too large: %s, ignoring", path)
+        return None
 
 
 def check_dependency_code(path: str) -> bool:
