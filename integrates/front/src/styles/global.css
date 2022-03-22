@@ -60,37 +60,8 @@ label {
   display: inline;
 }
 
-:global .a-relative a {
-  position: relative;
-}
-
-:global .a-pv a {
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-:global .a-ph a {
-  padding-left: 0.15rem;
-  padding-right: 0.15rem;
-}
-
-:global .a-gray a {
-  color: #666;
-}
-
-:global .a-db a {
-  display: block;
-}
-
 :global .badge-size {
   font-size: 7px;
-}
-
-:local .tab > a {
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  color: #666;
 }
 
 :local .no-data span {
@@ -360,22 +331,6 @@ label {
   color: lightgray;
   font-size: 40px;
   text-align: center;
-}
-
-:local .tab {
-  font-size: 16px;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  :local .tab {
-    display: table-cell;
-    width: 1%;
-  }
-
-  :local .tab > a {
-    margin-bottom: 0;
-  }
 }
 
 :local .tabsContainer {
