@@ -31,6 +31,7 @@ const BlogSeo: React.FC<ISeoProps> = ({
   return (
     <Helmet>
       <script type={"application/ld+json"}>{`
+        {
           "@context": "https://schema.org/",
           "@type": "Article",
           "author": "${siteAuthor}",
@@ -50,6 +51,7 @@ const BlogSeo: React.FC<ISeoProps> = ({
           "dateModified": "${siteDate}",
           "mainEntityOfPage": "${siteUrl}",
           "description": "${siteDescription}"
+        }
     `}</script>
     </Helmet>
   );
