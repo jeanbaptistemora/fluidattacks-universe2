@@ -1,13 +1,13 @@
 import { faCheck, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback } from "react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { translate } from "utils/translations/translate";
 
 interface IFindingActionsProps {
   hasSubmission: boolean;
@@ -20,20 +20,17 @@ interface IFindingActionsProps {
   onSubmit: () => void;
 }
 
-const findingActions: React.FC<IFindingActionsProps> = (
-  props: IFindingActionsProps
-): JSX.Element => {
-  const {
-    hasSubmission,
-    hasVulns,
-    isDraft,
-    loading,
-    onApprove,
-    onDelete,
-    onReject,
-    onSubmit,
-  } = props;
-
+const FindingActions: React.FC<IFindingActionsProps> = ({
+  hasSubmission,
+  hasVulns,
+  isDraft,
+  loading,
+  onApprove,
+  onDelete,
+  onReject,
+  onSubmit,
+}: IFindingActionsProps): JSX.Element => {
+  const { t } = useTranslation();
   const canApprove: boolean = hasVulns && hasSubmission;
 
   return (
@@ -45,32 +42,32 @@ const findingActions: React.FC<IFindingActionsProps> = (
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"group.drafts.submit.text"}
-                message={translate.t("group.drafts.submit.tooltip")}
+                message={t("group.drafts.submit.tooltip")}
               >
                 <Button
                   disabled={loading}
                   onClick={onSubmit}
                   variant={"secondary"}
                 >
-                  {translate.t("group.drafts.submit.text")}
+                  {t("group.drafts.submit.text")}
                 </Button>
               </TooltipWrapper>
             )}
           </Can>
           <Can do={"api_mutations_approve_draft_mutate"}>
-            <ConfirmDialog title={translate.t("group.drafts.approve.title")}>
+            <ConfirmDialog title={t("group.drafts.approve.title")}>
               {(confirm): React.ReactNode => {
-                const handleClick: () => void = useCallback((): void => {
+                function handleClick(): void {
                   confirm((): void => {
                     onApprove();
                   });
-                }, [confirm]);
+                }
 
                 return (
                   <TooltipWrapper
                     displayClass={"dib"}
                     id={"group.drafts.approve.text"}
-                    message={translate.t("group.drafts.approve.tooltip")}
+                    message={t("group.drafts.approve.tooltip")}
                   >
                     <Button
                       disabled={!canApprove || loading}
@@ -78,7 +75,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
                       variant={"secondary"}
                     >
                       <FontAwesomeIcon icon={faCheck} />
-                      &nbsp;{translate.t("group.drafts.approve.text")}
+                      &nbsp;{t("group.drafts.approve.text")}
                     </Button>
                   </TooltipWrapper>
                 );
@@ -86,26 +83,26 @@ const findingActions: React.FC<IFindingActionsProps> = (
             </ConfirmDialog>
           </Can>
           <Can do={"api_mutations_reject_draft_mutate"}>
-            <ConfirmDialog title={translate.t("group.drafts.reject.title")}>
+            <ConfirmDialog title={t("group.drafts.reject.title")}>
               {(confirm): React.ReactNode => {
-                const handleClick: () => void = useCallback((): void => {
+                function handleClick(): void {
                   confirm((): void => {
                     onReject();
                   });
-                }, [confirm]);
+                }
 
                 return (
                   <TooltipWrapper
                     displayClass={"dib"}
                     id={"group.drafts.reject.tooltip"}
-                    message={translate.t("group.drafts.reject.tooltip")}
+                    message={t("group.drafts.reject.tooltip")}
                   >
                     <Button
                       disabled={!hasSubmission || loading}
                       onClick={handleClick}
                       variant={"secondary"}
                     >
-                      {translate.t("group.drafts.reject.text")}
+                      {t("group.drafts.reject.text")}
                     </Button>
                   </TooltipWrapper>
                 );
@@ -116,11 +113,11 @@ const findingActions: React.FC<IFindingActionsProps> = (
             <TooltipWrapper
               displayClass={"dib"}
               id={"searchFindings.delete.btn.tooltip"}
-              message={translate.t("searchFindings.delete.btn.tooltip")}
+              message={t("searchFindings.delete.btn.tooltip")}
             >
               <Button onClick={onDelete} variant={"secondary"}>
                 <FontAwesomeIcon icon={faTrashAlt} />
-                &nbsp;{translate.t("searchFindings.delete.btn.text")}
+                &nbsp;{t("searchFindings.delete.btn.text")}
               </Button>
             </TooltipWrapper>
           </Can>
@@ -130,4 +127,4 @@ const findingActions: React.FC<IFindingActionsProps> = (
   );
 };
 
-export { findingActions as FindingActions };
+export { FindingActions };

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import type { ApolloError, QueryResult } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
@@ -7,6 +6,7 @@ import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
@@ -58,15 +58,15 @@ import { FormikDropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
-const findingContent: React.FC = (): JSX.Element => {
+const FindingContent: React.FC = (): JSX.Element => {
   const { findingId, groupName, organizationName } = useParams<{
     findingId: string;
     groupName: string;
     organizationName: string;
   }>();
+  const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { replace } = useHistory();
@@ -90,7 +90,7 @@ const findingContent: React.FC = (): JSX.Element => {
   }: QueryResult<IHeaderQueryResult> = useQuery(GET_FINDING_HEADER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading finding header", error);
       });
     },
@@ -131,34 +131,34 @@ const findingContent: React.FC = (): JSX.Element => {
   const [rejectDraft, { loading: rejecting }] = useMutation(
     REJECT_DRAFT_MUTATION,
     {
-      onCompleted: (result: { rejectDraft: { success: boolean } }): void => {
+      onCompleted: async (result: {
+        rejectDraft: { success: boolean };
+      }): Promise<void> => {
         if (result.rejectDraft.success) {
           msgSuccess(
-            translate.t("searchFindings.findingRejected", { findingId }),
-            translate.t("group.drafts.titleSuccess")
+            t("searchFindings.findingRejected", { findingId }),
+            t("group.drafts.titleSuccess")
           );
-          // Exception: FP(void operator is necessary)
-          // eslint-disable-next-line
-          void headerRefetch(); //NOSONAR
+          await headerRefetch();
         }
       },
       onError: (rejectError: ApolloError): void => {
         rejectError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
             case "Exception - This draft has already been approved":
-              msgError(translate.t("groupAlerts.draftAlreadyApproved"));
+              msgError(t("groupAlerts.draftAlreadyApproved"));
               // Exception: FP(void operator is necessary)
               // eslint-disable-next-line
               void headerRefetch(); //NOSONAR
               break;
             case "Exception - The draft has not been submitted yet":
-              msgError(translate.t("groupAlerts.draftNotSubmitted"));
+              msgError(t("groupAlerts.draftNotSubmitted"));
               // Exception: FP(void operator is necessary)
               // eslint-disable-next-line
               void headerRefetch(); //NOSONAR
               break;
             default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
+              msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred rejecting draft", rejectError);
           }
         });
@@ -173,26 +173,24 @@ const findingContent: React.FC = (): JSX.Element => {
       onCompleted: (result: { removeFinding: { success: boolean } }): void => {
         if (result.removeFinding.success) {
           msgSuccess(
-            translate.t("searchFindings.findingDeleted", { findingId }),
-            translate.t("group.drafts.titleSuccess")
+            t("searchFindings.findingDeleted", { findingId }),
+            t("group.drafts.titleSuccess")
           );
           replace(`/orgs/${organizationName}/groups/${groupName}/vulns`);
         }
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred deleting finding", error);
         });
       },
     }
   );
 
-  const handleDelete: (values: Record<string, unknown>) => void = useCallback(
-    (values: Record<string, unknown>): void => {
-      // Exception: FP(void operator is necessary)
-      // eslint-disable-next-line
-      void removeFinding({ //NOSONAR
+  const handleDelete = useCallback(
+    async (values: Record<string, unknown>): Promise<void> => {
+      await removeFinding({
         variables: { findingId, justification: values.justification },
       });
     },
@@ -264,49 +262,45 @@ const findingContent: React.FC = (): JSX.Element => {
                   <ContentTab
                     id={"vulnItem"}
                     link={`${url}/locations`}
-                    title={translate.t("searchFindings.tabVuln.tabTitle")}
-                    tooltip={translate.t("searchFindings.tabVuln.tooltip")}
+                    title={t("searchFindings.tabVuln.tabTitle")}
+                    tooltip={t("searchFindings.tabVuln.tooltip")}
                   />
                   <ContentTab
                     id={"infoItem"}
                     link={`${url}/description`}
-                    title={translate.t(
-                      "searchFindings.tabDescription.tabTitle"
-                    )}
-                    tooltip={translate.t(
-                      "searchFindings.tabDescription.tooltip"
-                    )}
+                    title={t("searchFindings.tabDescription.tabTitle")}
+                    tooltip={t("searchFindings.tabDescription.tooltip")}
                   />
                   <ContentTab
                     id={"cssv2Item"}
                     link={`${url}/severity`}
-                    title={translate.t("searchFindings.tabSeverity.tabTitle")}
-                    tooltip={translate.t("searchFindings.tabSeverity.tooltip")}
+                    title={t("searchFindings.tabSeverity.tabTitle")}
+                    tooltip={t("searchFindings.tabSeverity.tooltip")}
                   />
                   <ContentTab
                     id={"evidenceItem"}
                     link={`${url}/evidence`}
-                    title={translate.t("searchFindings.tabEvidence.tabTitle")}
-                    tooltip={translate.t("searchFindings.tabEvidence.tooltip")}
+                    title={t("searchFindings.tabEvidence.tabTitle")}
+                    tooltip={t("searchFindings.tabEvidence.tooltip")}
                   />
                   <ContentTab
                     id={"trackingItem"}
                     link={`${url}/tracking`}
-                    title={translate.t("searchFindings.tabTracking.tabTitle")}
-                    tooltip={translate.t("searchFindings.tabTracking.tooltip")}
+                    title={t("searchFindings.tabTracking.tabTitle")}
+                    tooltip={t("searchFindings.tabTracking.tooltip")}
                   />
                   <ContentTab
                     id={"recordsItem"}
                     link={`${url}/records`}
-                    title={translate.t("searchFindings.tabRecords.tabTitle")}
-                    tooltip={translate.t("searchFindings.tabRecords.tooltip")}
+                    title={t("searchFindings.tabRecords.tabTitle")}
+                    tooltip={t("searchFindings.tabRecords.tooltip")}
                   />
                   <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
                     <ContentTab
                       id={"machineItem"}
                       link={`${url}/machine`}
-                      title={translate.t("searchFindings.tabMachine.tabTitle")}
-                      tooltip={translate.t("searchFindings.tabMachine.tooltip")}
+                      title={t("searchFindings.tabMachine.tabTitle")}
+                      tooltip={t("searchFindings.tabMachine.tooltip")}
                     />
                   </Can>
                   <Have I={"has_squad"}>
@@ -314,12 +308,8 @@ const findingContent: React.FC = (): JSX.Element => {
                       <ContentTab
                         id={"commentItem"}
                         link={`${url}/consulting`}
-                        title={translate.t(
-                          "searchFindings.tabComments.tabTitle"
-                        )}
-                        tooltip={translate.t(
-                          "searchFindings.tabComments.tooltip"
-                        )}
+                        title={t("searchFindings.tabComments.tabTitle")}
+                        tooltip={t("searchFindings.tabComments.tooltip")}
                       />
                     </Can>
                   </Have>
@@ -327,12 +317,8 @@ const findingContent: React.FC = (): JSX.Element => {
                     <ContentTab
                       id={"observationsItem"}
                       link={`${url}/observations`}
-                      title={translate.t(
-                        "searchFindings.tabObservations.tabTitle"
-                      )}
-                      tooltip={translate.t(
-                        "searchFindings.tabObservations.tooltip"
-                      )}
+                      title={t("searchFindings.tabObservations.tabTitle")}
+                      tooltip={t("searchFindings.tabObservations.tooltip")}
                     />
                   </Can>
                 </TabsContainer>
@@ -389,7 +375,7 @@ const findingContent: React.FC = (): JSX.Element => {
       <Modal
         onClose={closeDeleteModal}
         open={isDeleteModalOpen}
-        title={translate.t("searchFindings.delete.title")}
+        title={t("searchFindings.delete.title")}
       >
         <Formik
           enableReinitialize={true}
@@ -400,7 +386,7 @@ const findingContent: React.FC = (): JSX.Element => {
           <Form id={"removeFinding"}>
             <FormGroup>
               <ControlLabel>
-                {translate.t("searchFindings.delete.justif.label")}
+                {t("searchFindings.delete.justif.label")}
               </ControlLabel>
               <Field
                 component={FormikDropdown}
@@ -409,22 +395,22 @@ const findingContent: React.FC = (): JSX.Element => {
               >
                 <option value={""} />
                 <option value={"DUPLICATED"}>
-                  {translate.t("searchFindings.delete.justif.duplicated")}
+                  {t("searchFindings.delete.justif.duplicated")}
                 </option>
                 <option value={"FALSE_POSITIVE"}>
-                  {translate.t("searchFindings.delete.justif.falsePositive")}
+                  {t("searchFindings.delete.justif.falsePositive")}
                 </option>
                 <option value={"NOT_REQUIRED"}>
-                  {translate.t("searchFindings.delete.justif.notRequired")}
+                  {t("searchFindings.delete.justif.notRequired")}
                 </option>
               </Field>
             </FormGroup>
             <ModalFooter>
               <Button onClick={closeDeleteModal} variant={"secondary"}>
-                {translate.t("confirmmodal.cancel")}
+                {t("confirmmodal.cancel")}
               </Button>
               <Button type={"submit"} variant={"primary"}>
-                {translate.t("confirmmodal.proceed")}
+                {t("confirmmodal.proceed")}
               </Button>
             </ModalFooter>
           </Form>
@@ -434,4 +420,4 @@ const findingContent: React.FC = (): JSX.Element => {
   );
 };
 
-export { findingContent as FindingContent };
+export { FindingContent };
