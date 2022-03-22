@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import {
@@ -49,13 +50,13 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
   invitation: string;
   role: string;
 }
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const baseRolesUrl =
@@ -98,7 +99,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const roleToUrl = (role: string, anchor: string): JSX.Element => {
     return (
       <ExternalLink href={`${baseRolesUrl}${anchor}`}>
-        {translate.t(`userModal.roles.${_.camelCase(role)}`, {
+        {t(`userModal.roles.${_.camelCase(role)}`, {
           defaultValue: "-",
         })}
       </ExternalLink>
@@ -108,7 +109,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "email",
-      header: translate.t("searchFindings.usersTable.usermail"),
+      header: t("searchFindings.usersTable.usermail"),
       width: "33%",
     },
     {
@@ -130,33 +131,33 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           return mappedRole;
         }
 
-        return translate.t(`userModal.roles.${_.camelCase(value)}`, {
+        return t(`userModal.roles.${_.camelCase(value)}`, {
           defaultValue: "-",
         });
       },
-      header: translate.t("searchFindings.usersTable.userRole"),
+      header: t("searchFindings.usersTable.userRole"),
       width: "15%",
     },
     {
       dataField: "responsibility",
-      header: translate.t("searchFindings.usersTable.userResponsibility"),
+      header: t("searchFindings.usersTable.userResponsibility"),
       width: "15%",
     },
     {
       dataField: "firstLogin",
-      header: translate.t("searchFindings.usersTable.firstlogin"),
+      header: t("searchFindings.usersTable.firstlogin"),
       width: "15%",
     },
     {
       dataField: "lastLogin",
       formatter: timeFromNow,
-      header: translate.t("searchFindings.usersTable.lastlogin"),
+      header: t("searchFindings.usersTable.lastlogin"),
       width: "15%",
     },
     {
       dataField: "invitationState",
       formatter: statusFormatter,
-      header: translate.t("searchFindings.usersTable.invitation"),
+      header: t("searchFindings.usersTable.invitation"),
       width: "80px",
     },
     {
@@ -173,7 +174,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     loading: loadingStakeholders,
   } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group stakeholders", error);
     },
     variables: { groupName },
@@ -185,8 +186,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
-          `${email} ${translate.t("searchFindings.tabUsers.success")}`,
-          translate.t("searchFindings.tabUsers.titleSuccess")
+          `${email} ${t("searchFindings.tabUsers.success")}`,
+          t("searchFindings.tabUsers.titleSuccess")
         );
       }
     },
@@ -207,8 +208,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
           track("EditUserAccess");
           msgSuccess(
-            translate.t("searchFindings.tabUsers.successAdmin"),
-            translate.t("searchFindings.tabUsers.titleSuccess")
+            t("searchFindings.tabUsers.successAdmin"),
+            t("searchFindings.tabUsers.titleSuccess")
           );
           setCurrentRow({});
         }
@@ -229,16 +230,14 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           track("RemoveUserAccess");
           const { removedEmail } = mtResult.removeStakeholderAccess;
           msgSuccess(
-            `${removedEmail} ${translate.t(
-              "searchFindings.tabUsers.successDelete"
-            )}`,
-            translate.t("searchFindings.tabUsers.titleSuccess")
+            `${removedEmail} ${t("searchFindings.tabUsers.successDelete")}`,
+            t("searchFindings.tabUsers.titleSuccess")
           );
           setCurrentRow({});
         }
       },
       onError: (removeError: ApolloError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing user", removeError);
       },
     }
@@ -307,7 +306,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             onClick={handleResendEmail}
             variant={"secondary"}
           >
-            {translate.t("searchFindings.usersTable.resendEmail")}
+            {t("searchFindings.usersTable.resendEmail")}
           </Button>
         ),
         /*
@@ -452,7 +451,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                           <TooltipWrapper
                             displayClass={"dib"}
                             id={"searchFindings.tabUsers.addButton.tooltip.id"}
-                            message={translate.t(
+                            message={t(
                               "searchFindings.tabUsers.addButton.tooltip"
                             )}
                           >
@@ -463,9 +462,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             >
                               <FontAwesomeIcon icon={faPlus} />
                               &nbsp;
-                              {translate.t(
-                                "searchFindings.tabUsers.addButton.text"
-                              )}
+                              {t("searchFindings.tabUsers.addButton.text")}
                             </Button>
                           </TooltipWrapper>
                         </Can>
@@ -475,7 +472,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                           <TooltipWrapper
                             displayClass={"dib"}
                             id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                            message={translate.t(
+                            message={t(
                               "searchFindings.tabUsers.editButton.tooltip"
                             )}
                           >
@@ -491,9 +488,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             >
                               <FontAwesomeIcon icon={faUserEdit} />
                               &nbsp;
-                              {translate.t(
-                                "searchFindings.tabUsers.editButton.text"
-                              )}
+                              {t("searchFindings.tabUsers.editButton.text")}
                             </Button>
                           </TooltipWrapper>
                         </Can>
@@ -505,7 +500,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             id={
                               "searchFindings.tabUsers.removeUserButton.tooltip.id"
                             }
-                            message={translate.t(
+                            message={t(
                               "searchFindings.tabUsers.removeUserButton.tooltip"
                             )}
                           >
@@ -521,7 +516,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             >
                               <FontAwesomeIcon icon={faTrashAlt} />
                               &nbsp;
-                              {translate.t(
+                              {t(
                                 "searchFindings.tabUsers.removeUserButton.text"
                               )}
                             </Button>
@@ -559,15 +554,13 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         </div>
         <AddUserModal
           action={userModalAction}
-          editTitle={translate.t(
-            "searchFindings.tabUsers.editStakeholderTitle"
-          )}
+          editTitle={t("searchFindings.tabUsers.editStakeholderTitle")}
           groupName={groupName}
           initialValues={userModalAction === "edit" ? currentRow : {}}
           onClose={closeUserModal}
           onSubmit={handleSubmit}
           open={isUserModalOpen}
-          title={translate.t("searchFindings.tabUsers.title")}
+          title={t("searchFindings.tabUsers.title")}
           type={"user"}
         />
       </div>
