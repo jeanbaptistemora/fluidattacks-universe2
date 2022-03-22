@@ -77,6 +77,7 @@ async def _batch_load_fn(
         organization_id = organization_ids[index]
 
         groups[group_name] = dict(
+            created_date=historic_configuration[0].get("date"),
             closed_vulnerabilities=group.get("closed_vulnerabilities", 0),
             deletion_date=(
                 historic_deletion[-1].get("deletion_date")
