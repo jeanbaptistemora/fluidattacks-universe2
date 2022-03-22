@@ -16,6 +16,7 @@ from s3.operations import (
 from settings.logger import (
     LOGGING,
 )
+import tempfile
 from typing import (
     Tuple,
 )
@@ -90,6 +91,61 @@ async def upload_cloned_repo_to_s3(
         )
     else:
         success = True
+    return success
+
+
+async def upload_cloned_repo_to_s3_tar(
+    *, repo_path: str, group_name: str, nickname: str
+) -> bool:
+    success: bool = False
+
+    _, zip_output_path = tempfile.mkstemp()
+    proc = await asyncio.create_subprocess_exec(
+        "tar",
+        "czf",
+        zip_output_path,
+        "--transform",
+        f"flags=r;s/./{nickname}/",
+        ".",
+        cwd=repo_path,
+    )
+    stdout, stderr = await proc.communicate()
+    if proc.returncode != 0:
+        LOGGER.error(
+            "Failed to compress root \n stdout: %s\n stderr: %s",
+            stdout.decode() if stdout else "",
+            stderr.decode() if stderr else "",
+            extra=dict(extra=locals()),
+        )
+        os.remove(zip_output_path)
+        return False
+
+    proc = await asyncio.create_subprocess_exec(
+        "aws",
+        "s3",
+        "cp",
+        *(
+            ("--endpoint-url", OPTIONS["endpoint_url"])
+            if "endpoint_url" in OPTIONS
+            else ()
+        ),
+        *(() if FI_ENVIRONMENT == "development" else ("--sse", "AES256")),
+        zip_output_path,
+        f"s3://{FI_AWS_S3_MIRRORS_BUCKET}/{group_name}/{nickname}.tar.gz",
+        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        env={**os.environ.copy()},
+    )
+    _, stderr = await proc.communicate()
+    if proc.returncode != 0:
+        LOGGER.error(
+            "Uploading root to S3 failed with error: %s",
+            stderr.decode(),
+            extra=dict(extra=locals()),
+        )
+    else:
+        success = True
+    os.remove(zip_output_path)
     return success
 
 

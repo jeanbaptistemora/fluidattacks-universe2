@@ -253,14 +253,15 @@ async def ssh_clone(
         },
     )
     _, stderr = await proc.communicate()
-    LOGGER.error(
-        "Repo cloning failed, \n%s", stderr.decode(), extra=dict(extra={})
-    )
 
     os.remove(ssh_file_name)
 
     if proc.returncode == 0:
         return folder_to_clone_root
+
+    LOGGER.error(
+        "Repo cloning failed, \n%s", stderr.decode(), extra=dict(extra={})
+    )
 
     return None
 

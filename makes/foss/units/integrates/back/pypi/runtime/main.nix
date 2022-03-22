@@ -23,7 +23,12 @@
       bin = [inputs.nixpkgs.gcc inputs.nixpkgs.postgresql];
     };
     searchPathsRuntime = {
-      bin = [inputs.nixpkgs.gcc inputs.nixpkgs.postgresql];
+      bin = [
+        inputs.nixpkgs.gcc
+        inputs.nixpkgs.postgresql
+        inputs.nixpkgs.gnutar
+        inputs.nixpkgs.gzip
+      ];
     };
     withSetuptools_57_4_0 = true;
     withWheel_0_37_0 = true;
