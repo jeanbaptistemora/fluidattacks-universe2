@@ -1,3 +1,6 @@
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
 from git import (
     Repo,
 )
@@ -9,6 +12,7 @@ import pathspec
 from pathspec.patterns.gitwildmatch import (
     GitWildMatchPattern,
 )
+import requests  # type: ignore
 import shutil
 from toolbox import (
     utils,
@@ -24,6 +28,7 @@ from toolbox.utils.function import (
 )
 from toolbox.utils.integrates import (
     get_filter_rules,
+    get_git_roots,
 )
 from typing import (
     List,
@@ -114,8 +119,37 @@ def delete_out_of_scope_files(group: str) -> bool:
         LOGGER.error("This is very likely a bug, please notify the manager")
         for repository in bad_repositories:
             LOGGER.warning("  Deleting, out of scope: %s", repository)
-            shutil.rmtree(os.path.join(path_to_fusion, repository))
+            path_to_delete = os.path.join(path_to_fusion, repository)
+            if os.path.isfile(path_to_delete):
+                os.remove(path_to_delete)
+            else:
+                shutil.rmtree(path_to_delete)
 
+    return True
+
+
+def download_repo_from_s3(
+    group_name: str, nickname: str, presigned_url: str
+) -> bool:
+    os.makedirs(f"groups/{group_name}/fusion/", exist_ok=True)
+    file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
+    with requests.get(presigned_url, stream=True) as handler:
+        handler.raise_for_status()
+        with open(file_path, "wb") as file:
+            for chunk in handler.iter_content(8192):
+                file.write(chunk)
+
+    code, _, stderr = utils.generic.run_command(
+        cmd=["tar", "-xf", f"{nickname}.tar.gz"],
+        cwd=f"groups/{group_name}/fusion/",
+        env={},
+    )
+    if code != 0:
+        LOGGER.error(stderr)
+        os.remove(file_path)
+        return False
+
+    os.remove(file_path)
     return True
 
 
@@ -128,11 +162,11 @@ def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
     """
 
     if repository_name == "*":
-        bucket: str = f"s3://continuous-repositories/{subs}"
-        local_path: str = f"groups/{subs}/fusion"
+        bucket: str = f"s3://continuous-repositories/{subs}/"
+        local_path: str = f"groups/{subs}/fusion/"
     else:
-        bucket = f"s3://continuous-repositories/{subs}/{repository_name}"
-        local_path = f"groups/{subs}/fusion/{repository_name}"
+        bucket = f"s3://continuous-repositories/{subs}/{repository_name}/"
+        local_path = f"groups/{subs}/fusion/{repository_name}/"
 
     os.makedirs(local_path, exist_ok=True)
 
@@ -177,8 +211,10 @@ def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
         return False
 
     failed = False
-    for folder in os.listdir(f"groups/{subs}/fusion"):
-        repo_path = f"groups/{subs}/fusion/{folder}"
+    for folder in os.listdir(f"groups/{subs}/fusion/"):
+        repo_path = f"groups/{subs}/fusion/{folder}/"
+        if os.path.isfile(repo_path):
+            continue
         try:
             repo = Repo(repo_path)
             repo.git.reset("--hard", "HEAD")
@@ -202,6 +238,35 @@ def main(subs: str, repository_name: str) -> bool:
     passed: bool = True
 
     utils.generic.aws_login(f"continuous-{subs}")
+    roots = [
+        root for root in get_git_roots(group=subs) if root["state"] == "ACTIVE"
+    ]
+    if not roots:
+        return False
+
+    zip_roots = [root for root in roots if root.get("downloadUrl") is not None]
+    pull_roots = (
+        [root for root in roots if root.get("downloadUrl") is None]
+        if repository_name == "*"
+        else [{"nickname": repository_name}]
+    )
+
+    with ThreadPoolExecutor() as executor:
+        passed = passed and all(
+            executor.map(
+                download_repo_from_s3,
+                [subs for _ in range(len(zip_roots))],
+                [root["nickname"] for root in zip_roots],
+                [root["downloadUrl"] for root in zip_roots],
+            )
+        )
+        passed = passed and all(
+            executor.map(
+                pull_repos_s3_to_fusion,
+                [subs for _ in range(len(pull_roots))],
+                [root["nickname"] for root in pull_roots],
+            )
+        )
 
     if not drills_generic.s3_path_exists(bucket, f"{subs}/"):
         LOGGER.info("group %s does not have repos uploaded to s3", subs)
@@ -211,11 +276,7 @@ def main(subs: str, repository_name: str) -> bool:
             drills_generic.get_last_upload(bucket, f"{subs}/")
         )
 
-        passed = (
-            passed
-            and pull_repos_s3_to_fusion(subs, repository_name)
-            and delete_out_of_scope_files(subs)
-        )
+        passed = passed and delete_out_of_scope_files(subs)
 
         LOGGER.info("Data for %s was uploaded to S3 %i days ago", subs, days)
 

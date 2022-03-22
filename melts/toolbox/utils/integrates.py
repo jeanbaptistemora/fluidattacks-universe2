@@ -59,6 +59,15 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
     return filter_request.data["group"]["roots"]
 
 
+def get_git_roots(group: str) -> List[Dict[str, Any]]:
+    roots = api.integrates.Queries.git_roots(API_TOKEN, group)
+    if not roots.ok:
+        LOGGER.error("An error has occurred querying the %s group", group)
+        LOGGER.error(roots.errors)
+        return []
+    return roots.data["group"]["roots"]
+
+
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)

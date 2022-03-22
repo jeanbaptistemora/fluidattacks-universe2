@@ -14,7 +14,6 @@ LOCAL_PATH = "continuoustest"
 
 def test_drills_pull_repos() -> None:
     assert pull_repos.pull_repos_s3_to_fusion(EXISTING_REPO, "*")
-    assert not pull_repos.main(EXISTING_REPO_NO_PERMISSIONS, "*")
     assert not pull_repos.main(NON_EXISTING_REPO, "*")
 
 

@@ -344,6 +344,8 @@ class Queries:
                     nickname
                     url
                     state
+                    downloadUrl
+                    uploadUrl
                     cloningStatus {
                         commit
                     }

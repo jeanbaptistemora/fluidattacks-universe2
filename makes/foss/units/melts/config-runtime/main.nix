@@ -22,6 +22,8 @@ in
         inputs.nixpkgs.bash
         inputs.nixpkgs.cloc
         inputs.nixpkgs.git
+        inputs.nixpkgs.gnutar
+        inputs.nixpkgs.gzip
         inputs.nixpkgs.nano
         inputs.nixpkgs.openssh
         inputs.nixpkgs.python38
