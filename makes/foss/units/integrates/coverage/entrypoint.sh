@@ -11,11 +11,11 @@ function main {
     && coverage combine \
     && coverage report "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \
-    && coverage html "${coverage_args[@]}" \
+    && coverage xml "${coverage_args[@]}" \
     && sops_export_vars secrets-development.yaml CODECOV_TOKEN \
     && curl -Os https://uploader.codecov.io/latest/linux/codecov \
     && chmod +x codecov \
-    && ./codecov -B "master" \
+    && ./codecov -C "${CI_COMMIT_SHA}" -B "master" \
     && popd \
     || return 1
 }
