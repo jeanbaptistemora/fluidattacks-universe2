@@ -1592,7 +1592,7 @@ export const enTranslations: ResourceKey = {
       ROOT_MOVED: "Roots updates",
       UPDATED_TREATMENT: "Treatment updates",
       VULNERABILITY_ASSIGNED: "Vulnerabilities assignment",
-      VULNERABILITY_REPORT: "Vulnerabilities report",
+      VULNERABILITY_REPORT: "Vulnerabilities alert",
     },
     environmentTable: {
       environment: "Environment",

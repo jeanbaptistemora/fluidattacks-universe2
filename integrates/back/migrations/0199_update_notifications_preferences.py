@@ -14,6 +14,11 @@ Removed preferences
 
 Execution Time: 2022-03-03 at 15:33:06 UTC
 Finalization Time: 2022-03-03 at 15:34:31 UTC
+
+Added Vulnerability report
+
+Execution Time: 2022-03-18 at 14:26:17 UTC
+Finalization Time: 2022-03-18 at 14:27:50 UTC
 """
 
 
