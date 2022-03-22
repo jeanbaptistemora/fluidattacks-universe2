@@ -13,6 +13,10 @@ from db_model.findings.types import (
 from findings import (
     domain as findings_domain,
 )
+import jinja2
+from jinja2.utils import (
+    select_autoescape,
+)
 import logging
 import matplotlib
 from newutils.datetime import (
@@ -24,8 +28,8 @@ from reports.pdf import (
 )
 from reports.typing import (
     CertFindingInfo,
-    CertInfoEs,
 )
+import subprocess  # nosec
 from typing import (
     Any,
     Dict,
@@ -36,6 +40,7 @@ from typing import (
     Union,
     ValuesView,
 )
+import uuid
 
 logging.config.dictConfig(LOGGING)  # NOSONAR
 matplotlib.use("Agg")
@@ -52,10 +57,6 @@ CertContext = TypedDict(
         "solution": str,
         "remediation_table": ValuesView[List[Union[float, int, str]]],
         "fluid_tpl": Dict[str, str],
-        "cert_title": str,
-        "cert_body_part_1": str,
-        "cert_body_part_2": str,
-        "signature_footer": str,
         "start_day": str,
         "start_month": str,
         "start_year": str,
@@ -95,7 +96,7 @@ async def format_finding(
 
 
 def _set_percentage(total_vulns: int, closed_vulns: int) -> str:
-    if total_vulns == 0:
+    if total_vulns != 0:
         return f"{closed_vulns * 100.0 / total_vulns:.1f}%"
     return "N/A"
 
@@ -155,31 +156,11 @@ class CertificateCreator(CreatorPdf):
     """Class to generate certificates in PDF."""
 
     cert_context: Optional[CertContext] = None
-    cert_body: Dict[str, Dict[str, str]] = {}
 
     def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
         "Class constructor"
         super().__init__(lang, doctype, tempdir)
-        self.proj_tpl = "templates/pdf/certificate.adoc"
-        self.cert_support()
-
-    def cert_support(self) -> None:
-        """Define the dictionaries of accepted languages. For
-        the certificate body"""
-        self.cert_body = {}
-        self.cert_support_es()
-
-    def cert_support_es(self) -> None:
-        """Adds the English dictionary."""
-        self.wordlist["en"] = dict(zip(CertInfoEs.keys(), CertInfoEs.labels()))
-
-    def make_content(self, words: Dict[str, str]) -> Dict[str, str]:
-        """Gather Fluid-related content needed for the cert"""
-        base_adoc = "include::../templates/pdf/footer_{lang}.adoc[]"
-        return {
-            "signature_img": "image::../templates/pdf/signature.png[]",
-            "footer_adoc": base_adoc.format(lang=self.lang),
-        }
+        self.proj_tpl = f"templates/pdf/certificate_{lang}.adoc"
 
     async def fill_context(  # noqa pylint: disable=too-many-arguments,too-many-locals
         self,
@@ -191,27 +172,25 @@ class CertificateCreator(CreatorPdf):
     ) -> None:
         """Fetch information and fill out the context"""
         words = self.wordlist[self.lang]
-        cert_body_loc = self.cert_body[self.lang]
-        fluid_tpl_content = self.make_content(words)
+        fluid_tpl_content: Dict[str, str] = {
+            "signature_img": "image::../templates/pdf/signature.png[]",
+            "footer_adoc": (
+                f"include::../templates/pdf/footer_{self.lang}.adoc[]"
+            ),
+        }
         context_findings = await collect(
             [format_finding(loaders, finding, words) for finding in findings]
         )
         remediation_table = make_remediation_table(context_findings, words)
-        group_data: Dict[str, Any] = loaders.group.load((group))
-        start_date: datetime = get_from_str(
-            group_data["historic_configuration"][0]["date"]
-        )
+        group_data: Dict[str, Any] = await loaders.group.load((group))
+        start_date: datetime = get_from_str(group_data["created_date"])
         current_date: datetime = get_now()
         self.cert_context = {
-            "business": "",
-            "business_number": "",
+            "business": "Serious Business",
+            "business_number": "676767",
             "customer": user,
             "fluid_tpl": fluid_tpl_content,
             "remediation_table": remediation_table,
-            "cert_title": words["cert_title"],
-            "cert_body_part_1": cert_body_loc["cert_body_part_1"],
-            "cert_body_part_2": cert_body_loc["cert_body_part_2"],
-            "signature_footer": cert_body_loc["signature_footer"],
             "start_day": str(start_date.day),
             "start_month": start_date.strftime("%B"),
             "start_year": str(start_date.year),
@@ -221,3 +200,28 @@ class CertificateCreator(CreatorPdf):
             "solution": description,
             "words": words,
         }
+
+    async def cert(  # noqa pylint: disable=too-many-arguments
+        self,
+        findings: Tuple[Finding, ...],
+        group: str,
+        description: str,
+        user: str,
+        loaders: Any,
+    ) -> None:
+        """Create the template to render and apply the context."""
+        await self.fill_context(findings, group, description, user, loaders)
+        self.out_name = f"{str(uuid.uuid4())}.pdf"
+        searchpath = self.path
+        template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
+        template_env = jinja2.Environment(
+            loader=template_loader,
+            autoescape=select_autoescape(["html", "xml"], default=True),
+        )
+        template = template_env.get_template(self.proj_tpl)
+        tpl_name = f"{self.tpl_dir}{group}_IT.tpl"
+        render_text = template.render(self.cert_context)
+        with open(tpl_name, "wb") as tplfile:
+            tplfile.write(render_text.encode("utf-8"))
+        self.create_command(tpl_name)
+        subprocess.call(self.command, shell=True)  # nosec
