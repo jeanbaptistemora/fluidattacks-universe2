@@ -40,6 +40,8 @@ class GitRoot(NamedTuple):
     nickname: str
     state: str
     url: str
+    download_url: Optional[str] = None
+    upload_url: Optional[str] = None
 
 
 class IPRoot(NamedTuple):

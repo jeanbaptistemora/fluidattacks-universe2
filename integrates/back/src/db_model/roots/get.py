@@ -8,6 +8,9 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
+from context import (
+    FI_AWS_S3_MIRRORS_BUCKET,
+)
 from custom_exceptions import (
     RootNotFound,
 )
@@ -41,6 +44,10 @@ from dynamodb import (
 )
 from dynamodb.types import (
     Item,
+)
+from s3.operations import (
+    aio_client,
+    list_files,
 )
 from typing import (
     List,
@@ -393,4 +400,34 @@ class RootMachineExecutionsLoader(DataLoader):
         return tuple(
             tuple(sorted(execution, key=lambda x: x.created_at, reverse=True))
             for execution in machine_executions
+        )
+
+
+async def get_download_url(
+    group_name: str, root_nickname: str
+) -> Optional[str]:
+    object_name = f"{group_name}/{root_nickname}.tar.gz"
+    file_exits = bool(
+        await list_files(
+            bucket=FI_AWS_S3_MIRRORS_BUCKET,
+            name=f"{group_name}/{root_nickname}.tar.gz",
+        )
+    )
+    if not file_exits:
+        return None
+    async with aio_client() as client:
+        return await client.generate_presigned_url(
+            ClientMethod="get_object",
+            Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+            ExpiresIn=1800,
+        )
+
+
+async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
+    object_name = f"{group_name}/{root_nickname}.tar.gz"
+    async with aio_client() as client:
+        return await client.generate_presigned_url(
+            ClientMethod="put_object",
+            Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+            ExpiresIn=1800,
         )

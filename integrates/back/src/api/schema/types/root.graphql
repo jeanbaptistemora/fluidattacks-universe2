@@ -42,6 +42,8 @@ type GitRoot implements IRoot {
   cloningStatus: GitRootCloningStatus!
   "Credentials used to clone the repository"
   credentials: Credentials!
+  "AWS s3 presigned url to download the git root"
+  downloadUrl: String
   "Kind of environment to test. E.g. production, QA, etc."
   environment: String!
   "URLs to access the environment"
@@ -72,6 +74,8 @@ type GitRoot implements IRoot {
   nickname: String!
   "Whether the root is active or not"
   state: ResourceState!
+  "AWS s3 presigned url to upload the git root"
+  uploadUrl: String
   "Repository URL"
   url: String!
   "Vulnerabilities associated to the root"
