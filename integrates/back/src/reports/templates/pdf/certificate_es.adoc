@@ -1,0 +1,35 @@
+=== Certificación de servicio de pruebas
+
+Fluidsignal Group S.A. identificada con *NIT 8110285148* certifica
+que mantiene en la actualidad relaciones comerciales con la empresa
+{{business}} identificada con *NIT {{business_number}}*.
+
+Desde el {{start_day}} de {{start_month}} de {{start_year}} se han
+desarrollado pruebas de seguridad en modalidad Hacking Continuo sobre
+la solución {{solution}}.
+
+Ver anexo *Hacking_Continuo_Fluidattacks* para encontrar toda la
+información del proceso y tipo de pruebas.
+
+El resultado actual de las pruebas realizadas es el siguiente:
+
+|===
+|{{words['severity_title']}}|{{words['finding_quantity_title']}}|{{words['total_vulns_title']}}|{{words['closed_vulns_title']}}|{{words['resume_perc_title']}}
+{% for row in remediation_table %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+{%- endfor %}
+|===
+
+Las vulnerabilidades encontradas son notificadas a {{customer}}
+quien continuamente ejecuta las acciones correctivas para darles
+solución y *Fluid Attacks* realiza la verificación de estas
+correcciones para garantizar la calidad de la solución.
+
+La presente certificación se expide por solicitud del cliente a los
+{{report_day}} del mes de {{report_month}} de {{report_year}}.
+
+{{fluid_tpl['signature_img']}}
+Representante legal
+Fluidsignal Group S.A.
