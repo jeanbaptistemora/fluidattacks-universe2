@@ -1,6 +1,9 @@
 from lib_root.utilities.common import (
     get_method_param_by_obj,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -61,6 +64,7 @@ def insecure_attribute(
 
 
 def insecure_logging(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
 

@@ -4,6 +4,9 @@ from itertools import (
 from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -129,7 +132,10 @@ def _test_crypto_js(
         )
 
 
-def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
+def javascript_insecure_hash(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
         for (
             shard,
@@ -169,6 +175,7 @@ def javascript_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
 
 
 def javascript_insecure_cipher(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
@@ -190,7 +197,10 @@ def javascript_insecure_cipher(
     return tuple(chain.from_iterable(find_vulns()))
 
 
-def javascript_insecure_key(graph_db: GraphDB) -> Vulnerabilities:
+def javascript_insecure_key(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_KEY
     finding = method.value.finding
 

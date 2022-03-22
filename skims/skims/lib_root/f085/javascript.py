@@ -1,6 +1,9 @@
 from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -31,6 +34,7 @@ def _could_be_boolean(key: str) -> bool:
 
 
 def client_storage(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     conditions: Tuple[Set[str], ...] = (

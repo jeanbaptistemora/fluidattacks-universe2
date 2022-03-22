@@ -80,7 +80,7 @@ QUERIES: graph_model.Queries = (
 
 def analyze(
     *,
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
@@ -120,7 +120,7 @@ def analyze(
         # for now
         vulnerabilities: Optional[core_model.Vulnerabilities] = None
         with suppress(Exception):
-            vulnerabilities = query(graph_db)
+            vulnerabilities = query(shard_db, graph_db)
 
         if vulnerabilities is None:
             log_blocking(

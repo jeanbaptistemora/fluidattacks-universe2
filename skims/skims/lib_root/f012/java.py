@@ -1,3 +1,6 @@
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -51,6 +54,7 @@ def _has_like_injection(statement: str) -> bool:
 
 
 def jpa_like(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:

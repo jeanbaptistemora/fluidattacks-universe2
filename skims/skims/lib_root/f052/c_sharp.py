@@ -3,6 +3,9 @@ from lib_root.utilities.c_sharp import (
     yield_object_creation,
     yield_shard_object_creation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -76,7 +79,10 @@ def _old_insecure_keys_check(
                 yield shard, member
 
 
-def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
+def c_sharp_insecure_keys(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     ciphers = {
         "RSACryptoServiceProvider",
         "DSACng",
@@ -101,6 +107,7 @@ def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
 
 
 def c_sharp_rsa_secure_mode(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     name_vars = []
@@ -161,6 +168,7 @@ def c_sharp_rsa_secure_mode(
 
 
 def c_sharp_aesmanaged_secure_mode(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     unsafe_modes = {
@@ -215,6 +223,7 @@ def c_sharp_aesmanaged_secure_mode(
 
 
 def c_sharp_insecure_cipher(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {
@@ -243,6 +252,7 @@ def c_sharp_insecure_cipher(
 
 
 def c_sharp_insecure_hash(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {

@@ -5,6 +5,9 @@ from lib_root.utilities.c_sharp import (
     get_variable_attribute,
     yield_object_creation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -24,6 +27,7 @@ from utils.string import (
 
 
 def check_hashes_salt(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     directory_object = {

@@ -1,3 +1,6 @@
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -39,6 +42,7 @@ def insecure_props(shard: graph_model.GraphShard, name_var: str) -> bool:
 
 
 def insecurely_generated_cookies(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:

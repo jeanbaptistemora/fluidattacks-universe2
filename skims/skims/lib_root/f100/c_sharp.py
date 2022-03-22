@@ -1,6 +1,9 @@
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -21,7 +24,10 @@ from symbolic_eval.utils import (
 )
 
 
-def insec_create(graph_db: GraphDB) -> Vulnerabilities:
+def insec_create(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     method = MethodsEnum.SYMB_INSEC_CREATE
     finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP

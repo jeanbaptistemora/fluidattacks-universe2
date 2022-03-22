@@ -1,6 +1,9 @@
 from itertools import (
     chain,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -21,6 +24,7 @@ from typing import (
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
 def weak_credential_policy(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_WEAK_CREDENTIAL
@@ -114,6 +118,7 @@ def _check_no_password_argument(arg: graph_model.SyntaxStepLiteral) -> bool:
 
 
 def no_password(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:

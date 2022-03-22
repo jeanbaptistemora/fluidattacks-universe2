@@ -2,6 +2,9 @@ from lib_root.utilities.c_sharp import (
     get_object_argument_list,
     get_variable_attribute,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -16,6 +19,7 @@ from sast_syntax_readers.utils_generic import (
 
 
 def sql_injection(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:

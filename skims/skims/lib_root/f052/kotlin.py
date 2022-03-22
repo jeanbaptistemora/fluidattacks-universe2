@@ -6,6 +6,9 @@ from lib_root.f052.java import (
 from lib_root.utilities.kotlin import (
     yield_method_invocation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -103,6 +106,7 @@ def _yield_insecure_ciphers(
 
 
 def kotlin_insecure_hash(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -114,6 +118,7 @@ def kotlin_insecure_hash(
 
 
 def kotlin_insecure_cipher(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -125,6 +130,7 @@ def kotlin_insecure_cipher(
 
 
 def kotlin_insecure_key(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(

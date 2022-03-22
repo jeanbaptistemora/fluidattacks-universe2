@@ -1,3 +1,6 @@
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -16,6 +19,7 @@ def java_method_invoc_to_str(graph: graph_model.Graph, method_inv: str) -> str:
 
 
 def info_leak_stacktrace(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:

@@ -2,6 +2,9 @@ from lib_root.utilities.go import (
     yield_member_access,
     yield_object_creation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -16,6 +19,7 @@ from sast.query import (
 
 
 def go_insecure_hash(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
 
@@ -33,6 +37,7 @@ def go_insecure_hash(
 
 
 def go_insecure_cipher(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_ciphers = {

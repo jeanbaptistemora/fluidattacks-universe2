@@ -5,6 +5,9 @@ from lib_root.utilities.java import (
     yield_method_invocation,
     yield_object_creation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -227,6 +230,7 @@ def _yield_insecure_ciphers(
 
 
 def java_insecure_pass(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -238,6 +242,7 @@ def java_insecure_pass(
 
 
 def java_insecure_key(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -249,6 +254,7 @@ def java_insecure_key(
 
 
 def java_insecure_hash(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -260,6 +266,7 @@ def java_insecure_hash(
 
 
 def java_insecure_cipher(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(

@@ -1,3 +1,6 @@
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
 )
@@ -29,6 +32,7 @@ def _insecure_arg(dependencies: SyntaxSteps) -> bool:
 
 
 def ldap_connections_authenticated(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> GraphShardNodes:

@@ -1,6 +1,9 @@
 from lib_root.utilities.c_sharp import (
     yield_invocation_expression,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -14,6 +17,7 @@ from utils.string import (
 
 
 def c_sharp_file_create_temp_file(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:

@@ -1,6 +1,9 @@
 from lib_root.utilities.kotlin import (
     yield_method_invocation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -26,7 +29,9 @@ from utils.string import (
 )
 
 
-def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
+def _kotlin_yield_unencrypted_channels(
+    graph_db: GraphDB,
+) -> GraphShardNodes:
     unencrypted_methods = complete_attrs_on_set(
         {
             "org.apache.commons.net.ftp.FTPClient",
@@ -57,7 +62,10 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
                     yield shard, param_id
 
 
-def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
+def unencrypted_channel(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f022.unencrypted_channel",
         desc_params={},

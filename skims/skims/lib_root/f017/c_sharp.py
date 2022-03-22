@@ -3,6 +3,9 @@ from lib_root.utilities.c_sharp import (
     yield_member_access,
     yield_object_creation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -23,6 +26,7 @@ from utils.graph.text_nodes import (
 
 
 def verify_decoder(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -78,6 +82,7 @@ def verify_decoder(
 
 
 def jwt_signed(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     object_name = {"JwtBuilder"}

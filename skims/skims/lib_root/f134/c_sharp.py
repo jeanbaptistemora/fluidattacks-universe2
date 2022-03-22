@@ -1,3 +1,6 @@
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
 )
@@ -30,6 +33,7 @@ from utils.string import (
 
 
 def insecure_cors(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> GraphShardNodes:

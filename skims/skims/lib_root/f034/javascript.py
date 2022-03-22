@@ -4,6 +4,9 @@ from itertools import (
 from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -27,7 +30,10 @@ from utils.string import (
 )
 
 
-def weak_random(graph_db: GraphDB) -> Vulnerabilities:
+def weak_random(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
     method = MethodsEnum.JS_WEAK_RANDOM
     finding = method.value.finding
 
