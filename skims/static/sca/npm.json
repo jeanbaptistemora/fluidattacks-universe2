@@ -6,6 +6,9 @@
     "CVE-2017-16160": "=1.1.0",
     "GMS-2017-251": ">=0.0.0-alpha"
   },
+  "1337qq-js": {
+    "GHSA-7wgh-5q4q-6wx5": ">=0"
+  },
   "22lixian": {
     "CVE-2017-16162": "=1.0.0",
     "GMS-2017-269": ">=0.0.0-alpha"
@@ -14,9 +17,15 @@
     "CVE-2017-16186": "=0.1.1",
     "GMS-2017-285": ">=0.0.0-alpha"
   },
+  "4equest": {
+    "GHSA-p33q-w45h-2hcj": ">=0"
+  },
   "626": {
     "CVE-2018-3727": "=1.1.1",
     "GMS-2018-21": ">=1.0.0"
+  },
+  "8.9.4": {
+    "GHSA-725f-3pw7-rq6x": ">= 0.0.0"
   },
   "@absolunet/kafe": {
     "CVE-2020-7761": "<3.2.10"
@@ -40,13 +49,28 @@
   "@angular/core": {
     "SNYK-JS-ANGULARCORE-1070902": "<11.0.5 || >=11.1.0-next.0 <11.1.0-next.3"
   },
+  "@apollo/gateway": {
+    "GHSA-74cr-77xc-8g6r": "<0.6.2"
+  },
   "@apollosproject/data-connector-rock": {
     "CVE-2021-32691": "<2.20.0",
     "GHSA-r578-pj6f-r4ff": "<2.20.0"
   },
+  "@asyncapi/java-spring-cloud-stream-template": {
+    "GHSA-xj6r-2jpm-qvxp": "<=0.6.9"
+  },
+  "@asyncapi/modelina": {
+    "GHSA-4jg2-84c2-pj95": "<=0.30.1"
+  },
   "@auth0/nextjs-auth0": {
     "CVE-2021-32702": "<1.4.2",
     "GHSA-954c-jjx6-cxv7": "<1.4.2"
+  },
+  "@aws-crypto/client-browser": {
+    "GHSA-h45p-w933-jxh3": "<1.9.0 || >=2.0.0 <2.2.0"
+  },
+  "@aws-crypto/client-node": {
+    "GHSA-h45p-w933-jxh3": "<1.9.0 || >=2.0.0 <2.2.0"
   },
   "@aws-sdk/shared-ini-file-loader": {
     "CVE-2020-28472": "<1.0.0-rc.9"
@@ -61,6 +85,12 @@
   "@babel/template": {},
   "@babel/traverse": {},
   "@babel/types": {},
+  "@backstage/plugin-auth-backend": {
+    "GHSA-w7fj-336r-vw49": "<0.4.9"
+  },
+  "@backstage/plugin-scaffolder-backend": {
+    "GHSA-2g8g-63j4-9w3r": "<0.15.14"
+  },
   "@backstage/techdocs-common": {
     "CVE-2021-32662": "<0.6.3",
     "GHSA-pgf8-28gg-vpr6": "<0.6.3"
