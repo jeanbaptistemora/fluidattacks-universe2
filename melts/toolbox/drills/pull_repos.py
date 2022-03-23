@@ -4,6 +4,9 @@ from alive_progress import (
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
+from contextlib import (
+    suppress,
+)
 from git import (
     Repo,
 )
@@ -139,21 +142,37 @@ def download_repo_from_s3(
     nickname: str,
     presigned_url: str,
     progress_bar: Optional[Any] = None,
+    commit: Optional[str] = None,
 ) -> bool:
+    repo_path = f"groups/{group_name}/fusion/{nickname}"
+    with suppress(GitError):
+        if commit and os.path.isdir(repo_path):
+            git_repo = Repo(repo_path)
+            hashr = git_repo.head.commit.hexsha
+            if hashr == commit:
+                LOGGER.info("%s  repository already exists", nickname)
+                if progress_bar:
+                    progress_bar()
+                return True
+
     os.makedirs(f"groups/{group_name}/fusion/", exist_ok=True)
     file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
+
     with requests.get(presigned_url, stream=True) as handler:
         handler.raise_for_status()
         with open(file_path, "wb") as file:
             for chunk in handler.iter_content(8192):
                 file.write(chunk)
+
     if progress_bar:
         progress_bar()
+
     code, _, stderr = utils.generic.run_command(
         cmd=["tar", "-xf", f"{nickname}.tar.gz"],
         cwd=f"groups/{group_name}/fusion/",
         env={},
     )
+
     if code != 0:
         LOGGER.error(stderr)
         os.remove(file_path)
@@ -176,11 +195,10 @@ def pull_repos_s3_to_fusion(
     """
 
     if repository_name == "*":
-        bucket: str = f"s3://continuous-repositories/{subs}/"
-        local_path: str = f"groups/{subs}/fusion/"
-    else:
-        bucket = f"s3://continuous-repositories/{subs}/{repository_name}/"
-        local_path = f"groups/{subs}/fusion/{repository_name}/"
+        raise Exception("A valid repository name is required")
+
+    bucket = f"s3://continuous-repositories/{subs}/{repository_name}/"
+    local_path = f"groups/{subs}/fusion/{repository_name}/"
 
     os.makedirs(local_path, exist_ok=True)
 
@@ -229,34 +247,17 @@ def pull_repos_s3_to_fusion(
 
     failed = False
 
-    if repository_name != "*":
-        try:
-            repo = Repo(local_path)
-            repo.git.reset("--hard", "HEAD")
-        except GitError as exc:
-            if not os.listdir(local_path):
-                return True
-
-            LOGGER.error("Expand repositories has failed:")
-            LOGGER.info("Repository: %s", local_path)
-            LOGGER.info(exc)
-            LOGGER.info("\n")
-            failed = True
-        return not failed
-
-    for folder in os.listdir(f"groups/{subs}/fusion/"):
-        repo_path = f"groups/{subs}/fusion/{folder}/"
-        if os.path.isfile(repo_path):
-            continue
-        try:
-            repo = Repo(repo_path)
-            repo.git.reset("--hard", "HEAD")
-        except GitError as exc:
-            LOGGER.error("Expand repositories has failed:")
-            LOGGER.info("Repository: %s", folder)
-            LOGGER.info(exc)
-            LOGGER.info("\n")
-            failed = True
+    try:
+        repo = Repo(local_path)
+        repo.git.reset("--hard", "HEAD")
+    except GitError as exc:
+        if not os.listdir(local_path):
+            return True
+        LOGGER.error("Expand repositories has failed:")
+        LOGGER.info("Repository: %s", local_path)
+        LOGGER.info(exc)
+        LOGGER.info("\n")
+        failed = True
     return not failed
 
 
@@ -297,6 +298,10 @@ def main(subs: str, repository_name: str) -> bool:
                         [root["nickname"] for root in zip_roots],
                         [root["downloadUrl"] for root in zip_roots],
                         [progress_bar for _ in range(len(zip_roots))],
+                        [
+                            root["cloningStatus"]["commit"]
+                            for root in zip_roots
+                        ],
                     )
                 )
                 if zip_roots
