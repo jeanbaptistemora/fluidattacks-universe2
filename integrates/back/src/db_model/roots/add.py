@@ -12,6 +12,7 @@ from db_model.roots.types import (
     GitRootItem,
     RootItem,
     RootMachineExecutionItem,
+    Secret,
 )
 from dynamodb import (
     keys,
@@ -86,6 +87,31 @@ async def add_machine_execution(
         "queue": execution.queue,
         "name": execution.name,
         "commit": execution.commit,
+    }
+    with suppress(botocore.exceptions.ClientError):
+        await operations.batch_put_item(
+            items=(machine_exectution,), table=TABLE
+        )
+        return True
+
+    return False
+
+
+async def add_secret(
+    root_id: str,
+    secret: Secret,
+) -> bool:
+    key_structure = TABLE.primary_key
+    machine_execution_key = keys.build_key(
+        facet=TABLE.facets["git_root_secret"],
+        values={"uuid": root_id, "id": secret.id},
+    )
+    machine_exectution = {
+        key_structure.partition_key: machine_execution_key.partition_key,
+        key_structure.sort_key: machine_execution_key.sort_key,
+        "key": secret.key,
+        "value": secret.value,
+        "id": secret.id,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(

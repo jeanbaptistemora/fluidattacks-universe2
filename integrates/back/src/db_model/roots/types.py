@@ -29,20 +29,29 @@ class GitEnvironmentUrl(NamedTuple):
     url: str
 
 
+class Secret(NamedTuple):
+    key: str
+    value: str
+    id: str
+
+
 class GitRootState(NamedTuple):
     branch: str
-    environment_urls: List[str]
     environment: str
-    git_environment_urls: List[GitEnvironmentUrl]
-    gitignore: List[str]
     includes_health_check: bool
     modified_by: str
     modified_date: str
     nickname: str
-    other: Optional[str]
-    reason: Optional[str]
     status: str
     url: str
+    environment_urls: List[str] = []
+    download_url: Optional[str] = None
+    git_environment_urls: List[GitEnvironmentUrl] = []
+    gitignore: List[str] = []
+    other: Optional[str] = None
+    reason: Optional[str] = None
+    secrets: List[Secret] = []
+    upload_url: Optional[str] = None
 
 
 class GitRootItem(NamedTuple):

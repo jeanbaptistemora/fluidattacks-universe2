@@ -25,6 +25,12 @@ class GitEnvironmentUrl(NamedTuple):
     url: str
 
 
+class Secret(NamedTuple):
+    id: str
+    key: str
+    value: str
+
+
 class GitRoot(NamedTuple):
     branch: str
     cloning_status: GitRootCloningStatus
@@ -42,6 +48,7 @@ class GitRoot(NamedTuple):
     url: str
     download_url: Optional[str] = None
     upload_url: Optional[str] = None
+    secrets: List[Secret] = []
 
 
 class IPRoot(NamedTuple):
