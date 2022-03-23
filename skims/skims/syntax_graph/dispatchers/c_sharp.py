@@ -37,6 +37,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 )
 from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
+    conditional_expression as common_conditional_expression,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
     execution_block as common_execution_block,
@@ -117,6 +118,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "compilation_unit",
         },
         syntax_reader=c_sharp_compilation_unit.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "conditional_expression",
+        },
+        syntax_reader=common_conditional_expression.reader,
     ),
     Dispatcher(
         applicable_types={
