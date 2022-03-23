@@ -1,9 +1,6 @@
 from ctx import (
     CTX,
 )
-from functools import (
-    partial,
-)
 from itertools import (
     chain,
 )
@@ -144,6 +141,7 @@ def shard_n_id_query_lazy(
 
 
 def shard_query_lazy(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     method: core_model.MethodsEnum,
@@ -152,7 +150,7 @@ def shard_query_lazy(
 
     if possible_steps_finding is None:
         possible_steps_finding = get_possible_syntax_steps_for_finding(
-            graph_db, method.value.finding, shard
+            shard_db, graph_db, method.value.finding, shard
         )
 
     for steps_n_id in possible_steps_finding.values():
@@ -160,12 +158,14 @@ def shard_query_lazy(
 
 
 def shard_n_id_query(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     n_id: str,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     steps = get_possible_syntax_steps_for_n_id(
+        shard_db,
         graph_db,
         finding=method.value.finding,
         n_id=n_id,
@@ -178,26 +178,31 @@ def shard_n_id_query(
 
 
 def shard_query(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
-        chain.from_iterable(shard_query_lazy(graph_db, shard, method))
+        chain.from_iterable(
+            shard_query_lazy(shard_db, graph_db, shard, method)
+        )
     )
 
 
 def query_lazy(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     method: core_model.MethodsEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
     if CTX.debug:
         all_possible_steps = get_all_possible_syntax_steps(
-            graph_db, method.value.finding
+            shard_db, graph_db, method.value.finding
         )
 
     for shard in graph_db.shards:
         yield from shard_query_lazy(
+            shard_db,
             graph_db,
             shard,
             method,
@@ -205,114 +210,110 @@ def query_lazy(
         )
 
 
-def _partial_symbolic_analyze(function: partial) -> core_model.Vulnerabilities:
-    return function()
-
-
 def query(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
-    return tuple(chain.from_iterable(query_lazy(graph_db, method)))
+    return tuple(chain.from_iterable(query_lazy(shard_db, graph_db, method)))
 
 
 def query_f001(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F001)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F001)
 
 
 def query_f004(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F004)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F004)
 
 
 def query_f008(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F008)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F008)
 
 
 def query_f021(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F021)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F021)
 
 
 def query_f034(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F034)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F034)
 
 
 def query_f042(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F042)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F042)
 
 
 def query_f052(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F052)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F052)
 
 
 def query_f063(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F063)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F063)
 
 
 def query_f089(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F089)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F089)
 
 
 def query_f100(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F100)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F100)
 
 
 def query_f107(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F107)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F107)
 
 
 def query_f112(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F112)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F112)
 
 
 def query_f127(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F127)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F127)
 
 
 def query_f320(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, method=core_model.MethodsEnum.QUERY_F320)
+    return query(shard_db, graph_db, method=core_model.MethodsEnum.QUERY_F320)
 
 
 QUERIES: graph_model.Queries = (

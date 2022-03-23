@@ -31,7 +31,7 @@ from utils.string import (
 
 
 def weak_random(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_WEAK_RANDOM
@@ -60,6 +60,7 @@ def weak_random(
                     {"cookie"},
                 )
                 yield shard_n_id_query(
+                    shard_db,
                     graph_db,
                     shard,
                     n_id="1",

@@ -1,3 +1,7 @@
+from lib_sast.types import (
+    Paths,
+    ShardDb,
+)
 from model import (
     core_model,
 )
@@ -72,6 +76,10 @@ async def test_graph_generation(
     suffix_out: str,
 ) -> None:
     # Test the GraphDB
+    paths = Paths(include=files_to_test, exclude=[])
+    paths.set_lang()
+    shard_db = ShardDb(paths)
+
     graph_db = get_graph_db(files_to_test)
     graph_db_as_json_str = json_dumps(graph_db, indent=2, sort_keys=True)
 
@@ -85,7 +93,11 @@ async def test_graph_generation(
 
     # Test SymEval
     syntax_steps = {
-        finding.name: get_all_possible_syntax_steps(graph_db, finding)
+        finding.name: get_all_possible_syntax_steps(
+            shard_db,
+            graph_db,
+            finding,
+        )
         for finding in core_model.FindingEnum
     }
     syntax_steps_as_json_str = json_dumps(

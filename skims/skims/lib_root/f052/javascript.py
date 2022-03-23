@@ -47,6 +47,8 @@ from utils.string import (
 
 
 def _test_native_cipher(
+    # pylint: disable=too-many-arguments
+    shard_db: ShardDb,
     graph_db: GraphDB,
     shard: GraphShard,
     syntax_steps: SyntaxSteps,
@@ -81,6 +83,7 @@ def _test_native_cipher(
             {"createCipheriv", "createDecipheriv"},
         )
         yield shard_n_id_query(
+            shard_db,
             graph_db,
             shard,
             n_id="1",
@@ -91,6 +94,7 @@ def _test_native_cipher(
 
 
 def _test_crypto_js(
+    shard_db: ShardDb,
     graph_db: GraphDB,
     shard: GraphShard,
     invocation_step: SyntaxStepMethodInvocation,
@@ -125,6 +129,7 @@ def _test_crypto_js(
             {"encrypt"},
         )
         yield shard_n_id_query(
+            shard_db,
             graph_db,
             shard,
             n_id="1",
@@ -175,7 +180,7 @@ def javascript_insecure_hash(
 
 
 def javascript_insecure_cipher(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def find_vulns() -> Iterator[Vulnerability]:
@@ -186,19 +191,25 @@ def javascript_insecure_cipher(
             index,
         ) in yield_method_invocation(graph_db):
             yield from _test_native_cipher(
+                shard_db,
                 graph_db,
                 shard,
                 syntax_steps,
                 index,
                 invocation_step,
             )
-            yield from _test_crypto_js(graph_db, shard, invocation_step)
+            yield from _test_crypto_js(
+                shard_db,
+                graph_db,
+                shard,
+                invocation_step,
+            )
 
     return tuple(chain.from_iterable(find_vulns()))
 
 
 def javascript_insecure_key(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_KEY
@@ -235,6 +246,7 @@ def javascript_insecure_key(
                     {"generateKeyPair"},
                 )
                 yield shard_n_id_query(
+                    shard_db,
                     graph_db,
                     shard,
                     n_id="1",

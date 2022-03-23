@@ -24,7 +24,7 @@ from typing import (
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
 def weak_credential_policy(
-    shard_db: ShardDb,  # pylint: disable=unused-argument
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_WEAK_CREDENTIAL
@@ -71,6 +71,7 @@ def weak_credential_policy(
                 )
 
                 yield shard_n_id_query(
+                    shard_db,
                     graph_db,
                     shard,
                     param_id,

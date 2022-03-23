@@ -7,6 +7,9 @@ from ctx import (
 from itertools import (
     chain,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -89,6 +92,7 @@ def eval_constructor(
 ) -> JavaClassInstance:
     current_instance = JavaClassInstance(fields={}, class_name=class_name)
     possible_syntax_steps = get_possible_syntax_steps_for_n_id(
+        args.shard_db,
         args.graph_db,
         finding=args.finding,
         n_id=method_n_id,
@@ -121,6 +125,7 @@ def eval_method(
     current_instance: Optional[JavaClassInstance] = None,
 ) -> Optional[graph_model.SyntaxStep]:
     possible_syntax_steps = get_possible_syntax_steps_for_n_id(
+        args.shard_db,
         args.graph_db,
         finding=args.finding,
         n_id=method_n_id,
@@ -200,6 +205,7 @@ EVALUATORS: Dict[object, Evaluator] = {
 
 
 def eval_syntax_steps(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
@@ -242,6 +248,7 @@ def eval_syntax_steps(
                         syntax_step_index, syntax_steps
                     ),
                     finding=finding,
+                    shard_db=shard_db,
                     graph_db=graph_db,
                     shard=shard,
                     n_id_next=n_id_next,
@@ -271,6 +278,7 @@ def _has_already_evaluated(
 
 
 def get_possible_syntax_steps_from_path(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
@@ -291,6 +299,7 @@ def get_possible_syntax_steps_from_path(
             if syntax_steps and _has_already_evaluated(syntax_steps, n_id):
                 continue
             eval_syntax_steps(
+                shard_db=shard_db,
                 graph_db=graph_db,
                 finding=finding,
                 overriden_syntax_steps=overriden_syntax_steps if first else [],
@@ -310,6 +319,7 @@ def get_possible_syntax_steps_from_path(
 
 
 def get_possible_syntax_steps_from_path_str_multiple_files(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
@@ -346,6 +356,7 @@ def get_possible_syntax_steps_from_path_str_multiple_files(
             shard = graph_db.shards[shard_idx]
         try:
             eval_syntax_steps(
+                shard_db=shard_db,
                 graph_db=graph_db,
                 finding=finding,
                 overriden_syntax_steps=[],
@@ -370,6 +381,7 @@ PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
 
 
 def get_possible_syntax_steps_from_multiple_go_files(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     shard: graph_model.GraphShard,
     n_id: graph_model.NId,
@@ -443,6 +455,7 @@ def get_possible_syntax_steps_from_multiple_go_files(
     )
     return {
         path: get_possible_syntax_steps_from_path_str_multiple_files(
+            shard_db,
             graph_db,
             finding=finding,
             shard=shard,
@@ -453,6 +466,7 @@ def get_possible_syntax_steps_from_multiple_go_files(
 
 
 def get_possible_syntax_steps_for_n_id(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     *,
     finding: core_model.FindingEnum,
@@ -473,6 +487,7 @@ def get_possible_syntax_steps_for_n_id(
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
         "-".join(path): get_possible_syntax_steps_from_path(
+            shard_db,
             graph_db,
             finding=finding,
             overriden_syntax_steps=overriden_syntax_steps or [],
@@ -491,7 +506,11 @@ def get_possible_syntax_steps_for_n_id(
     if shard.metadata.language == graph_model.GraphShardMetadataLanguage.GO:
         syntax_steps_map.update(
             get_possible_syntax_steps_from_multiple_go_files(
-                graph_db=graph_db, shard=shard, n_id=n_id, finding=finding
+                shard_db=shard_db,
+                graph_db=graph_db,
+                shard=shard,
+                n_id=n_id,
+                finding=finding,
             )
         )
 
@@ -499,6 +518,7 @@ def get_possible_syntax_steps_for_n_id(
 
 
 def get_possible_syntax_steps_for_finding(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
@@ -519,6 +539,7 @@ def get_possible_syntax_steps_for_finding(
     ) and inputs:
         syntax_steps_map = {
             "1": get_possible_syntax_steps_for_n_id(
+                shard_db,
                 graph_db,
                 finding=finding,
                 n_id="1",
@@ -529,6 +550,7 @@ def get_possible_syntax_steps_for_finding(
     else:
         syntax_steps_map = {
             untrusted_n_id: get_possible_syntax_steps_for_n_id(
+                shard_db,
                 graph_db,
                 finding=finding,
                 n_id=untrusted_n_id,
@@ -542,11 +564,13 @@ def get_possible_syntax_steps_for_finding(
 
 
 def get_all_possible_syntax_steps(
+    shard_db: ShardDb,
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxSteps:
     syntax_steps_map: PossibleSyntaxSteps = {
         shard.path: get_possible_syntax_steps_for_finding(
+            shard_db=shard_db,
             graph_db=graph_db,
             finding=finding,
             shard=shard,

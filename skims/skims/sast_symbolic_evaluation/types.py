@@ -5,6 +5,9 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from lib_sast.types import (
+    ShardDb,
+)
 from model import (
     core_model,
     graph_model,
@@ -56,6 +59,7 @@ class EvaluatorArgs(NamedTuple):
         graph_model.CurrentInstance,
     ]
     finding: core_model.FindingEnum
+    shard_db: ShardDb
     graph_db: graph_model.GraphDB
     shard: graph_model.GraphShard
     n_id_next: graph_model.NId
