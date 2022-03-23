@@ -14,6 +14,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             "api_mutations_activate_root_mutate",
+            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_draft_mutate",
             "api_mutations_add_event_mutate",
@@ -242,6 +243,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
+            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_files_to_db_mutate",
@@ -295,6 +297,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     user_manager=dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
+            "api_mutations_add_secret_mutate",
             "api_mutations_update_forces_access_token_mutate",
             "api_mutations_activate_root_mutate",
             "api_mutations_deactivate_root_mutate",
@@ -420,6 +423,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
+            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_files_to_db_mutate",
@@ -501,6 +505,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_event_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_git_root_mutate",
+            "api_mutations_add_secret_mutate",
             "api_mutations_download_event_file_mutate",
             "api_mutations_download_file_mutate",
             "api_mutations_request_vulnerabilities_hold_mutate",
@@ -592,6 +597,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_add_draft_mutate",
             "api_mutations_add_event_mutate",
+            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_group_consult_mutate",
@@ -1081,6 +1087,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             "api_mutations_add_machine_execution_mutate",
+            "api_mutations_add_secret_mutate",
             "api_mutations_finish_machine_execution_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_mutate",

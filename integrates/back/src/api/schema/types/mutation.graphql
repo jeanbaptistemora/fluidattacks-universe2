@@ -301,6 +301,18 @@ type Mutation {
   "Authenticates an user from the mobile ASM app"
   addPushToken("Expo login token to be added" token: String!): SimplePayload
 
+  "Adds a machine execution to git root"
+  addSecret(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "Secret key"
+    key: String!
+    "Id of the root to put secret"
+    rootId: ID!
+    "Secret value"
+    value: String!
+  ): SimplePayload!
+
   "Adds a new Stakeholder to the default ASM organization"
   addStakeholder(
     "Email address of the new stakeholder"

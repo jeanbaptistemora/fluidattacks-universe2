@@ -72,6 +72,8 @@ type GitRoot implements IRoot {
     )
   "Nickname for the repository"
   nickname: String!
+  "Secrets for the environment"
+  secrets: [Secret!]!
   "Whether the root is active or not"
   state: ResourceState!
   "AWS s3 presigned url to upload the git root"
@@ -96,6 +98,16 @@ type IPRoot implements IRoot {
   state: ResourceState!
   "Vulnerabilities associated to the root"
   vulnerabilities: [Vulnerability!]
+}
+
+"Git root secret"
+type Secret {
+  "Id of secret"
+  id: String!
+  "Secret key"
+  key: String!
+  "Secret value"
+  value: String!
 }
 
 "URL Root type definition"

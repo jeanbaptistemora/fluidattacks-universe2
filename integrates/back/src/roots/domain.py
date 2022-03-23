@@ -39,6 +39,7 @@ from db_model.roots.types import (
     RootMachineExecutionItem,
     RootState,
     RootUnreliableIndicators,
+    Secret,
     URLRootItem,
     URLRootState,
 )
@@ -88,6 +89,7 @@ from urllib.parse import (
     unquote,
     urlparse,
 )
+import uuid
 from uuid import (
     uuid4,
 )
@@ -1058,6 +1060,18 @@ async def add_machine_execution(
         commit=kwargs.pop("git_commit", ""),
     )
     return await roots_model.add_machine_execution(root_id, execution)
+
+
+async def add_secret(
+    loaders: Any,
+    group_name: str,
+    root_id: str,
+    key: str,
+    value: str,
+) -> bool:
+    await loaders.root.load((group_name, root_id))
+    secret = Secret(key=key, value=value, id=str(uuid.uuid4()))
+    return await roots_model.add_secret(root_id, secret)
 
 
 async def finish_machine_execution(
