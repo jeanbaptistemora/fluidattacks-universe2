@@ -44,6 +44,7 @@ in {
         "CLOUDFLARE_ACCOUNT_ID"
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
+        "KUBECOST_TOKEN"
         "NEW_RELIC_LICENSE_KEY"
       ];
       manifest = "/makes/secrets/dev.yaml";
@@ -53,6 +54,7 @@ in {
         "CLOUDFLARE_ACCOUNT_ID"
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
+        "KUBECOST_TOKEN"
         "NEW_RELIC_LICENSE_KEY"
       ];
       manifest = "/makes/secrets/prod.yaml";
@@ -70,6 +72,7 @@ in {
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
       kubeConfig = "KUBECONFIG";
+      kubecostToken = "KUBECOST_TOKEN";
     };
   };
   testTerraform = {
