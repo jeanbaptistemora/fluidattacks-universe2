@@ -15,7 +15,6 @@ import {
 import type { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
@@ -227,7 +226,9 @@ describe("Organization policies view", (): void => {
     expect(
       screen.getByRole("textbox", { name: "maxAcceptanceDays" })
     ).toHaveValue("5");
-    expect(screen.queryByText("Save")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.policies.save")
+    ).not.toBeInTheDocument();
 
     screen.getAllByRole("textbox").forEach((textbox: Element): void => {
       userEvent.clear(textbox);
@@ -258,10 +259,12 @@ describe("Organization policies view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryByText("Save")).toBeInTheDocument();
+      expect(
+        screen.queryByText("organization.tabs.policies.save")
+      ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -313,7 +316,9 @@ describe("Organization policies view", (): void => {
       expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
     });
 
-    expect(screen.queryByText("Save")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("organization.tabs.policies.save")
+    ).not.toBeInTheDocument();
 
     userEvent.clear(screen.getByRole("textbox", { name: "maxAcceptanceDays" }));
     userEvent.type(
@@ -321,7 +326,9 @@ describe("Organization policies view", (): void => {
       "2"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("Save")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("organization.tabs.policies.save")
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -527,56 +534,54 @@ describe("Organization policies view", (): void => {
       "1"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("Save")).toBeInTheDocument();
+      expect(
+        screen.queryByText("organization.tabs.policies.save")
+      ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        translate.t("organization.tabs.policies.errors.maxAcceptanceDays")
+        "organization.tabs.policies.errors.maxAcceptanceDays"
       );
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        translate.t("organization.tabs.policies.errors.acceptanceSeverity")
+        "organization.tabs.policies.errors.acceptanceSeverity"
       );
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        translate.t("organization.tabs.policies.errors.acceptanceSeverityRange")
+        "organization.tabs.policies.errors.acceptanceSeverityRange"
       );
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        translate.t("organization.tabs.policies.errors.maxNumberAcceptances")
+        "organization.tabs.policies.errors.maxNumberAcceptances"
       );
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        translate.t(
-          "organization.tabs.policies.errors.invalidBreakableSeverity"
-        )
+        "organization.tabs.policies.errors.invalidBreakableSeverity"
       );
     });
 
-    userEvent.click(screen.getByText("Save"));
+    userEvent.click(screen.getByText("organization.tabs.policies.save"));
 
     await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledWith(
-        translate.t("groupAlerts.errorTextsad")
-      );
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
   });
 });
