@@ -16085,6 +16085,20 @@ F203,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   22 | }
      ^ Col 0
 ",cloudformation.cfn_public_buckets
+F056,lines,namespace/skims/test/data/lib_path/f056/json_anon_connection_config.json,5,284,skims,056. Anonymous connection,Anonymous connection is allowed in the app settings in namespace/skims/test/data/lib_path/f056/json_anon_connection_config.json,"
+   1 |
+   2 | $schema"": ""http://json.schemastore.org/launchsettings.json"",
+   3 | iisSettings"": {
+   4 |    ""windowsAuthentication"": false,
+>  5 |    ""anonymousAuthentication"": true,
+   6 |    ""iisExpress"": {
+   7 |        ""applicationUrl"": ""http://localhost:63958"",
+   8 |        ""sslPort"": 44378
+   9 |    }
+  10 |
+  11 |
+     ^ Col 5
+",conf_files.json_anon_connection_config
 F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
  in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
    1 | resource ""azurerm_app_service"" ""vulnerable"" {
