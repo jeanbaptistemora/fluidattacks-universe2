@@ -6,6 +6,7 @@ from aioextensions import (
     run,
 )
 from batch.repositories import (
+    delete_out_of_scope_files,
     get_namespace,
 )
 import boto3
@@ -26,6 +27,7 @@ from dateutil.parser import (  # type: ignore
 )
 from integrates.dal import (
     get_group_language,
+    get_group_roots,
 )
 from integrates.graphql import (
     create_session,
@@ -177,9 +179,14 @@ async def _gererate_configs(
 
 
 async def _get_namespace(
-    group_name: str, root_nickname: str
+    group_name: str, root_nickname: str, signed_url: Optional[str] = None
 ) -> Tuple[str, Optional[str]]:
-    return (root_nickname, await get_namespace(group_name, root_nickname))
+    return (
+        root_nickname,
+        await get_namespace(
+            group_name, root_nickname, presigned_ulr=signed_url, delete=False
+        ),
+    )
 
 
 async def main(action_dynamo_pk: Optional[str] = None) -> None:
@@ -204,14 +211,25 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:
     roots_nicknames: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
 
+    roots_dict = {
+        item.nickname: item for item in await get_group_roots(group=group_name)
+    }
+
     namespaces_path_dict = dict(
         await collect(
             [
-                _get_namespace(group_name, root_nickname)
+                _get_namespace(
+                    group_name,
+                    root_nickname,
+                    roots_dict[root_nickname].download_url
+                    if root_nickname in roots_dict
+                    else None,
+                )
                 for root_nickname in roots_nicknames
             ]
         )
     )
+    await delete_out_of_scope_files(group_name, *roots_nicknames)
     group_language = await get_group_language(group_name)
     configs = await collect(
         generate_config(

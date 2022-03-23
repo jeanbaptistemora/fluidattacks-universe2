@@ -320,6 +320,7 @@ class ResultGetGroupRoots(NamedTuple):
     environment_urls: List[str]
     nickname: str
     gitignore: List[str]
+    download_url: Optional[str] = None
 
 
 @SHIELD
@@ -340,6 +341,7 @@ async def get_group_roots(
                             nickname
                             url
                             gitignore
+                            downloadUrl
                         }
                     }
                 }
@@ -358,6 +360,7 @@ async def get_group_roots(
                 environment_urls=root["environmentUrls"],
                 nickname=root["nickname"],
                 gitignore=root["gitignore"],
+                download_url=root["downloadUrl"],
             )
             for root in result["data"]["group"]["roots"]
         )
