@@ -199,6 +199,14 @@
       "title": "055. Insecure service configuration - ADB Backups"
     }
   },
+  "F056": {
+    "EN": {
+      "title": "056. Anonymous connection"
+    },
+    "ES": {
+      "title": "056. Anonymous connection"
+    }
+  },
   "F058": {
     "EN": {
       "title": "058. Debugging enabled in production - APK"
