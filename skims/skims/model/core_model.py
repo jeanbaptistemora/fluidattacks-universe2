@@ -1890,7 +1890,7 @@ class MethodsEnum(Enum):
         name="c_sharp_aesmanaged_secure_mode",
         module="lib_root",
         finding=FindingEnum.F052,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CS_RSA_SECURE_MODE = MethodInfo(
@@ -1898,7 +1898,7 @@ class MethodsEnum(Enum):
         name="c_sharp_rsa_secure_mode",
         module="lib_root",
         finding=FindingEnum.F052,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSECURE_KEYS = MethodInfo(
@@ -1906,7 +1906,7 @@ class MethodsEnum(Enum):
         name="c_sharp_insecure_keys",
         module="lib_root",
         finding=FindingEnum.F052,
-        developer=DeveloperEnum.DIEGO_RESTREPO,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
     GO_INSECURE_CIPHER = MethodInfo(
