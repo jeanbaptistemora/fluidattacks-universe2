@@ -9,4 +9,6 @@ resource "helm_release" "kubecost" {
     name  = "kubecostToken"
     value = var.kubecostToken
   }
+
+  depends_on = [kubernetes_namespace.kubecost]
 }
