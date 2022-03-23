@@ -26,13 +26,16 @@ categorized by group.
 
 ![Remediated Rate Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1646411325/docs/web/analytics/portfolios/remediation_rate_benchmarking.png)
 
-This section shows the percentages
-of closed, accepted and open
-vulnerabilities by their severity
-for your portfolios and how your
-numbers compare to those of the
-best, the average and the worst
-portfolios.
+This section shows the
+percentages of closed,
+accepted and open
+vulnerabilities by their
+severity for your portfolios
+and how your numbers compare
+to those of the best,
+the average and the worst
+portfolios of all our other
+client organizations.
 
 ## Types of Vulnerabilities by Group
 
