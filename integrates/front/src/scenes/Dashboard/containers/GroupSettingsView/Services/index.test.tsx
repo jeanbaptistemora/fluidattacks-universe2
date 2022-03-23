@@ -339,8 +339,8 @@ describe("Services", (): void => {
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        translate.t("searchFindings.servicesTable.success"),
-        translate.t("searchFindings.servicesTable.successTitle")
+        "searchFindings.servicesTable.success",
+        "searchFindings.servicesTable.successTitle"
       );
     });
 
@@ -377,8 +377,8 @@ describe("Services", (): void => {
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        translate.t("searchFindings.servicesTable.success"),
-        translate.t("searchFindings.servicesTable.successTitle")
+        "searchFindings.servicesTable.success",
+        "searchFindings.servicesTable.successTitle"
       );
     });
 
@@ -415,8 +415,8 @@ describe("Services", (): void => {
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        translate.t("searchFindings.servicesTable.success"),
-        translate.t("searchFindings.servicesTable.successTitle")
+        "searchFindings.servicesTable.success",
+        "searchFindings.servicesTable.successTitle"
       );
     });
 

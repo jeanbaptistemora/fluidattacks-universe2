@@ -4,7 +4,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import moment from "moment";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
 import {
@@ -41,8 +40,6 @@ describe("Update access token modal", (): void => {
   it("should render an add access token modal", (): void => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     const noAccessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: false,
       issuedAt: "",
@@ -69,25 +66,19 @@ describe("Update access token modal", (): void => {
       </MockedProvider>
     );
 
+    expect(screen.getByText("updateAccessToken.title")).toBeInTheDocument();
+    expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     expect(
-      screen.getByText(t("updateAccessToken.title").toString())
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(t("confirmmodal.proceed").toString())
-    ).not.toBeDisabled();
-    expect(
-      screen.getByText(t("updateAccessToken.expirationTime").toString())
+      screen.getByText("updateAccessToken.expirationTime")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText(t("updateAccessToken.close").toString()));
+    userEvent.click(screen.getByText("updateAccessToken.close"));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
 
   it("should render a token creation date", async (): Promise<void> => {
     expect.hasAssertions();
-
-    const { t } = useTranslation();
 
     const accessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: true,
@@ -117,28 +108,22 @@ describe("Update access token modal", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.getByText(t("updateAccessToken.tokenCreated").toString())
+        screen.getByText("updateAccessToken.tokenCreated")
       ).toBeInTheDocument();
     });
 
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
     expect(
-      screen.getByText(t("confirmmodal.proceed").toString())
-    ).toBeDisabled();
-    expect(
-      screen.queryAllByText(t("updateAccessToken.expirationTime").toString())
+      screen.queryAllByText("updateAccessToken.expirationTime")
     ).toHaveLength(0);
 
-    userEvent.click(
-      screen.getByText(t("updateAccessToken.invalidate").toString())
-    );
+    userEvent.click(screen.getByText("updateAccessToken.invalidate"));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
 
   it("should render a new access token", async (): Promise<void> => {
     expect.hasAssertions();
-
-    const { t } = useTranslation();
 
     const expirationTime: string = moment()
       .add(1, "month")
@@ -209,23 +194,21 @@ describe("Update access token modal", (): void => {
     );
 
     userEvent.type(screen.getByTestId("expiration-time-input"), expirationTime);
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(
-        screen.getByText(t("updateAccessToken.accessToken").toString())
+        screen.getByText("updateAccessToken.accessToken")
       ).toBeInTheDocument();
     });
 
     expect(msgSuccess).toHaveBeenCalledWith(
-      t("updateAccessToken.successfully"),
-      t("updateAccessToken.success")
+      "updateAccessToken.successfully",
+      "updateAccessToken.success"
     );
 
-    userEvent.click(
-      screen.getByText(t("updateAccessToken.copy.copy").toString())
-    );
+    userEvent.click(screen.getByText("updateAccessToken.copy.copy"));
 
-    expect(msgError).toHaveBeenCalledWith(t("updateAccessToken.copy.failed"));
+    expect(msgError).toHaveBeenCalledWith("updateAccessToken.copy.failed");
   });
 });

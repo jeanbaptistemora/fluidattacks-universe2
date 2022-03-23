@@ -1,16 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
-import waitForExpect from "wait-for-expect";
 
-import { DeactivationModal } from "./deactivationModal";
 import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
@@ -20,8 +15,6 @@ import {
 } from "./queries";
 
 import { GroupScopeView } from ".";
-import { Button } from "components/Button";
-import { ConfirmDialog } from "components/ConfirmDialog";
 import { getCache } from "utils/apollo";
 import { authContext } from "utils/auth";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
@@ -54,6 +47,12 @@ describe("GroupScopeView", (): void => {
                   message: "root created",
                   status: "UNKNOWN",
                 },
+                credentials: {
+                  __typename: "Credentials",
+                  id: "",
+                  name: "",
+                  type: "",
+                },
                 environment: "production",
                 environmentUrls: [],
                 gitignore: ["bower_components/*", "node_modules/*"],
@@ -69,7 +68,7 @@ describe("GroupScopeView", (): void => {
       },
     };
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <authContext.Provider value={{ userEmail: "", userName: "" }}>
         <authzGroupContext.Provider
           value={new PureAbility([{ action: "has_service_white" }])}
@@ -88,25 +87,28 @@ describe("GroupScopeView", (): void => {
       </authContext.Provider>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("table.noDataIndication")
+      ).not.toBeInTheDocument();
     });
 
-    const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
+    expect(screen.queryAllByRole("row")).toHaveLength(2);
 
-    expect(firstTableRow.text()).toStrictEqual(
-      [
-        // Url
-        "https://gitlab.com/fluidattacks/product",
-        // Branch
-        "master",
-        // State
-        "Active",
-        // Cloning status
-        "Unknown",
-      ].join("")
-    );
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
+        [
+          // Url
+          "https://gitlab.com/fluidattacks/product",
+          // Branch
+          "master",
+          // State
+          "Active",
+          // Cloning status
+          "Unknown",
+        ].join("")
+      );
+    });
   });
 
   it("should add git roots", async (): Promise<void> => {
@@ -160,6 +162,12 @@ describe("GroupScopeView", (): void => {
                   message: "root created",
                   status: "UNKNOWN",
                 },
+                credentials: {
+                  __typename: "Credentials",
+                  id: "",
+                  name: "",
+                  type: "",
+                },
                 environment: "production",
                 environmentUrls: [],
                 gitignore: [],
@@ -175,7 +183,7 @@ describe("GroupScopeView", (): void => {
       },
     };
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <authContext.Provider value={{ userEmail: "", userName: "" }}>
         <authzGroupContext.Provider
           value={
@@ -208,71 +216,64 @@ describe("GroupScopeView", (): void => {
       </authContext.Provider>
     );
 
-    await act(async (): Promise<void> => {
-      const delay = 100;
-      await wait(delay);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("group.scope.common.add")).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("group.scope.common.add"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "url" })
+      ).toBeInTheDocument();
     });
 
-    const addButton: ReactWrapper = wrapper.find({ id: "git-root-add" }).at(0);
-    addButton.simulate("click");
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
-    const url: ReactWrapper = wrapper.find({ name: "url" }).find("input");
-    url.simulate("change", {
-      target: { name: "url", value: "https://gitlab.com/fluidattacks/product" },
+    userEvent.type(
+      screen.getByRole("textbox", { name: "url" }),
+      "https://gitlab.com/fluidattacks/product"
+    );
+    userEvent.type(screen.getByRole("textbox", { name: "branch" }), "master");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "environment" }),
+      "production"
+    );
+    userEvent.click(screen.getByRole("radio", { name: "No" }));
+    const numberOfRejectionCheckbox: number = 3;
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("checkbox", { checked: false })
+      ).toHaveLength(numberOfRejectionCheckbox);
     });
-
-    const branch: ReactWrapper = wrapper.find({ name: "branch" }).find("input");
-    branch.simulate("change", { target: { name: "branch", value: "master" } });
-
-    const environment: ReactWrapper = wrapper
-      .find({ name: "environment" })
-      .find("input");
-    environment.simulate("change", {
-      target: { name: "environment", value: "production" },
+    userEvent.click(
+      screen.getByRole("checkbox", { name: "rejectHealthCheckA" })
+    );
+    userEvent.click(
+      screen.getByRole("checkbox", { name: "rejectHealthCheckB" })
+    );
+    userEvent.click(
+      screen.getByRole("checkbox", { name: "rejectHealthCheckC" })
+    );
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        numberOfRejectionCheckbox
+      );
     });
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
-    wrapper.find({ id: "No" }).find("div").at(0).simulate("click");
-    wrapper.update();
-
-    const rejectHealthCheckA = (): ReactWrapper =>
-      wrapper.find({ name: "rejectHealthCheckA" }).find("input");
-    rejectHealthCheckA().simulate("change", {
-      target: { checked: true },
-    });
-
-    const rejectHealthCheckB = (): ReactWrapper =>
-      wrapper.find({ name: "rejectHealthCheckB" }).find("input");
-    rejectHealthCheckB().simulate("change", {
-      target: { checked: true },
-    });
-
-    const rejectHealthCheckC = (): ReactWrapper =>
-      wrapper.find({ name: "rejectHealthCheckC" }).find("input");
-    rejectHealthCheckC().simulate("change", {
-      target: { checked: true },
-    });
-
-    wrapper.find("form").simulate("submit");
-    await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
-
-        expect(firstTableRow.text()).toStrictEqual(
-          [
-            // Url
-            "https://gitlab.com/fluidattacks/product",
-            // Branch
-            "master",
-            // State
-            "Active",
-            // Cloning status
-            "Unknown",
-          ].join("")
-        );
-      });
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
+        [
+          // Url
+          "https://gitlab.com/fluidattacks/product",
+          // Branch
+          "master",
+          // State
+          "Active",
+          // Cloning status
+          "Unknown",
+        ].join("")
+      );
     });
   });
 
@@ -299,6 +300,7 @@ describe("GroupScopeView", (): void => {
                   status: "UNKNOWN",
                 },
                 credentials: {
+                  __typename: "Credentials",
                   id: "",
                   name: "",
                   type: "",
@@ -353,6 +355,12 @@ describe("GroupScopeView", (): void => {
                   message: "root created",
                   status: "UNKNOWN",
                 },
+                credentials: {
+                  __typename: "Credentials",
+                  id: "",
+                  name: "",
+                  type: "",
+                },
                 environment: "staging",
                 environmentUrls: [],
                 gitignore: ["node_modules/*"],
@@ -368,7 +376,7 @@ describe("GroupScopeView", (): void => {
       },
     };
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <authContext.Provider value={{ userEmail: "", userName: "" }}>
         <authzGroupContext.Provider
           value={
@@ -405,61 +413,63 @@ describe("GroupScopeView", (): void => {
       </authContext.Provider>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const getFirstTableRow: () => ReactWrapper = (): ReactWrapper =>
-      // Exception: WF(Avoid unsafe return of an any typed value)
-      // eslint-disable-next-line
-      wrapper.find("tr").at(1) as ReactWrapper; // NOSONAR
-
-    getFirstTableRow().simulate("click");
-
-    const environment: ReactWrapper = wrapper
-      .find({ name: "environment" })
-      .find("input");
-    environment.simulate("change", {
-      target: { name: "environment", value: "staging" },
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("table.noDataIndication")
+      ).not.toBeInTheDocument();
     });
 
-    wrapper.find({ id: "Yes" }).find("div").at(0).simulate("click");
+    expect(screen.queryAllByRole("row")).toHaveLength(2);
 
-    wrapper.update();
-
-    const includesHealthCheckA = (): ReactWrapper =>
-      wrapper.find({ name: "includesHealthCheckA" }).find("input");
-
-    includesHealthCheckA().simulate("change", {
-      target: { checked: true },
+    userEvent.click(screen.queryAllByRole("row")[1]);
+    await waitFor((): void => {
+      expect(screen.getByText("group.scope.common.edit")).toBeInTheDocument();
     });
 
-    const path1 = (): ReactWrapper =>
-      wrapper.find({ name: "gitignore[0]" }).find("input");
-    path1().simulate("change", {
-      target: { name: "gitignore[0]", value: "node_modules/*" },
-    });
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
-    await act(async (): Promise<void> => {
-      wrapper.find("form").simulate("submit");
-      await wait(0);
-      wrapper.update();
-    });
-    const delay = 150;
-    await wait(delay);
-
-    expect(getFirstTableRow().text()).toStrictEqual(
-      [
-        // Url
-        "https://gitlab.com/fluidattacks/product",
-        // Branch
-        "master",
-        // State
-        "Active",
-        // Cloning status
-        "Unknown",
-      ].join("")
+    userEvent.clear(screen.getByRole("textbox", { name: "environment" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "environment" }),
+      "staging"
     );
+    userEvent.click(screen.getByRole("radio", { name: "Yes" }));
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("checkbox", { checked: false })
+      ).toHaveLength(1);
+    });
+    userEvent.click(
+      screen.getByRole("checkbox", { name: "includesHealthCheckA" })
+    );
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
+        1
+      );
+    });
+    userEvent.clear(screen.getByRole("textbox", { name: "gitignore[0]" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "gitignore[0]" }),
+      "node_modules/*"
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
+        [
+          // Url
+          "https://gitlab.com/fluidattacks/product",
+          // Branch
+          "master",
+          // State
+          "Active",
+          // Cloning status
+          "Unknown",
+        ].join("")
+      );
+    });
   });
 
   it("should activate root", async (): Promise<void> => {
@@ -483,6 +493,12 @@ describe("GroupScopeView", (): void => {
                   __typename: "GitRootCloningStatus",
                   message: "root created",
                   status: "UNKNOWN",
+                },
+                credentials: {
+                  __typename: "Credentials",
+                  id: "",
+                  name: "",
+                  type: "",
                 },
                 environment: "production",
                 environmentUrls: [],
@@ -531,6 +547,12 @@ describe("GroupScopeView", (): void => {
                   message: "root created",
                   status: "UNKNOWN",
                 },
+                credentials: {
+                  __typename: "Credentials",
+                  id: "",
+                  name: "",
+                  type: "",
+                },
                 environment: "production",
                 environmentUrls: [],
                 gitignore: [],
@@ -546,7 +568,7 @@ describe("GroupScopeView", (): void => {
       },
     };
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <authContext.Provider value={{ userEmail: "", userName: "" }}>
         <authzGroupContext.Provider
           value={new PureAbility([{ action: "has_service_white" }])}
@@ -575,33 +597,51 @@ describe("GroupScopeView", (): void => {
         </authzGroupContext.Provider>
       </authContext.Provider>
     );
-
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("table.noDataIndication")
+      ).not.toBeInTheDocument();
     });
 
-    const getStateSwitch: () => ReactWrapper = (): ReactWrapper => {
-      const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
-      // Exception: WF(Avoid unsafe return of an any typed value)
-      // eslint-disable-next-line
-      return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper; // NOSONAR
-    };
+    expect(screen.queryAllByRole("row")).toHaveLength(2);
+    expect(
+      screen.queryByText("group.scope.common.confirm")
+    ).not.toBeInTheDocument();
+    expect(
+      screen
+        .getByRole("cell", { name: "Active Inactive" })
+        .querySelectorAll("#rootSwitch")[0]
+    ).toHaveClass("b--moon-gray");
+    expect(
+      screen
+        .getByRole("cell", { name: "Active Inactive" })
+        .querySelectorAll("#rootSwitch")[0]
+    ).not.toHaveClass("b--switch");
 
-    expect(getStateSwitch().prop("checked")).toStrictEqual(false);
-
-    getStateSwitch().simulate("click");
-
-    const proceedButton = wrapper.find(ConfirmDialog).find(Button).at(1);
-    proceedButton.simulate("click");
-
-    await act(async (): Promise<void> => {
-      const delay: number = 50;
-      await wait(delay);
-      wrapper.update();
+    userEvent.click(
+      screen
+        .getByRole("cell", { name: "Active Inactive" })
+        .querySelectorAll("#rootSwitch")[0]
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.scope.common.confirm")
+      ).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("Proceed"));
+    await waitFor((): void => {
+      expect(
+        screen
+          .getByRole("cell", { name: "Active Inactive" })
+          .querySelectorAll("#rootSwitch")[0]
+      ).toHaveClass("b--switch");
     });
 
-    expect(getStateSwitch().prop("checked")).toStrictEqual(true);
+    expect(
+      screen
+        .getByRole("cell", { name: "Active Inactive" })
+        .querySelectorAll("#rootSwitch")[0]
+    ).not.toHaveClass("b--moon-gray");
   });
 
   it.each(["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"])(
@@ -627,6 +667,12 @@ describe("GroupScopeView", (): void => {
                     __typename: "GitRootCloningStatus",
                     message: "root created",
                     status: "UNKNOWN",
+                  },
+                  credentials: {
+                    __typename: "Credentials",
+                    id: "",
+                    name: "",
+                    type: "",
                   },
                   environment: "production",
                   environmentUrls: [],
@@ -677,6 +723,12 @@ describe("GroupScopeView", (): void => {
                     message: "root created",
                     status: "UNKNOWN",
                   },
+                  credentials: {
+                    __typename: "Credentials",
+                    id: "",
+                    name: "",
+                    type: "",
+                  },
                   environment: "production",
                   environmentUrls: [],
                   gitignore: [],
@@ -692,7 +744,7 @@ describe("GroupScopeView", (): void => {
         },
       };
 
-      const wrapper = mount(
+      render(
         <authContext.Provider value={{ userEmail: "", userName: "" }}>
           <authzGroupContext.Provider
             value={
@@ -727,50 +779,72 @@ describe("GroupScopeView", (): void => {
         </authContext.Provider>
       );
 
-      await act(async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
+      await waitFor((): void => {
+        expect(
+          screen.queryByText("table.noDataIndication")
+        ).not.toBeInTheDocument();
       });
 
-      const getStateSwitch = (): ReactWrapper => {
-        const firstTableRow = wrapper.find("tr").at(1);
-        // Exception: WF(Avoid unsafe return of an any typed value)
-        // eslint-disable-next-line
-        return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper; // NOSONAR
-      };
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+      expect(
+        screen.queryByText("group.scope.common.confirm")
+      ).not.toBeInTheDocument();
+      expect(
+        screen
+          .getByRole("cell", { name: "Active Inactive" })
+          .querySelectorAll("#rootSwitch")[0]
+      ).not.toHaveClass("b--moon-gray");
+      expect(
+        screen
+          .getByRole("cell", { name: "Active Inactive" })
+          .querySelectorAll("#rootSwitch")[0]
+      ).toHaveClass("b--switch");
 
-      expect(getStateSwitch().prop("checked")).toStrictEqual(true);
-
-      getStateSwitch().simulate("click");
-
-      const form = wrapper.find(DeactivationModal).find("form");
-
-      form.find("select").simulate("change", {
-        target: { name: "reason", value: reason },
+      userEvent.click(
+        screen
+          .getByRole("cell", { name: "Active Inactive" })
+          .querySelectorAll("#rootSwitch")[0]
+      );
+      await waitFor((): void => {
+        expect(
+          screen.queryByText("group.scope.common.deactivation.title")
+        ).toBeInTheDocument();
       });
 
-      form.simulate("submit");
+      expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
-      await act(async (): Promise<void> => {
-        const delay: number = 100;
-        await wait(delay);
-        wrapper.update();
+      userEvent.selectOptions(
+        screen.getByRole("combobox", { name: "reason" }),
+        [reason]
+      );
+      await waitFor((): void => {
+        expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
       });
 
-      const proceedButton = wrapper
-        .find("ConfirmDialog")
-        .find("Modal")
-        .find("button")
-        .at(1);
-      proceedButton.simulate("click");
+      expect(
+        screen.queryByText("group.scope.common.confirm")
+      ).not.toBeInTheDocument();
 
-      await act(async (): Promise<void> => {
-        const delay: number = 100;
-        await wait(delay);
-        wrapper.update();
+      userEvent.click(screen.getByText("confirmmodal.proceed"));
+      await waitFor((): void => {
+        expect(
+          screen.queryByText("group.scope.common.confirm")
+        ).toBeInTheDocument();
+      });
+      userEvent.click(screen.getByText("Proceed"));
+      await waitFor((): void => {
+        expect(
+          screen
+            .getByRole("cell", { name: "Active Inactive" })
+            .querySelectorAll("#rootSwitch")[0]
+        ).toHaveClass("b--moon-gray");
       });
 
-      expect(getStateSwitch().prop("checked")).toStrictEqual(false);
+      expect(
+        screen
+          .getByRole("cell", { name: "Active Inactive" })
+          .querySelectorAll("#rootSwitch")[0]
+      ).not.toHaveClass("b--switch");
     }
   );
 });
