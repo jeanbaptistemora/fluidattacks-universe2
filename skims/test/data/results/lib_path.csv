@@ -26889,6 +26889,26 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,0
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 ",java.java_properties_sensitive_data
+F009,lines,namespace/skims/test/data/lib_path/f009/appsettings.json,9,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/appsettings.json,"
+   1 | {
+   2 |     ""Logging"": {
+   3 |         ""LogLevel"": {
+   4 |             ""Default"": ""Information"",
+   5 |             ""Microsoft"": ""Warning"",
+   6 |             ""Microsoft.Hosting.Lifetime"": ""Information""
+   7 |         }
+   8 |     },
+>  9 |     ""ConnectionStrings"": {
+  10 |         ""Claims"": ""Server=CO-PF27VZ7E;Initial Catalog=db-test-apps_3;User ID=adminuser;Password=7hgy7JIT57c""
+  11 |     },
+  12 |     ""AsureKeyVault"": {
+  13 |         ""KeyVaultConnection"": ""test-apps-connection"",
+  14 |         ""ClientId"": ""0846738-97dh37-848508-9972663-a2e43e8419ed"",
+  15 |         ""ClientSecret"": ""m0n~74hd7JD7isn358da3~S6a-zu4_MCdl5l""
+  16 |     }
+  17 | }
+     ^ Col 0
+",conf_files.sensitive_info_in_json
 F009,lines,namespace/skims/test/data/lib_path/f009/settings.json,18,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/settings.json,"
    3 |         ""Authority"": ""https://azrawdv-webapp-tst122312.azurewebsites.net""
    4 |     },
