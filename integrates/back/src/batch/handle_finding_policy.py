@@ -91,7 +91,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     ):
         loaders: Dataloaders = get_new_context()
         groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
-            tuple((group, organization_name) for group in organization_groups)
+            tuple((group, organization_id) for group in organization_groups)
         )
         groups_filtered = groups_utils.filter_active_groups(groups)
         group_names: List[str] = [group.name for group in groups_filtered]

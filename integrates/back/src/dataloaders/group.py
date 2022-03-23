@@ -201,10 +201,11 @@ class GroupTypedLoader(DataLoader):
                 for group_name in groups_info
             )
         else:
-            # Given info is Tuple[Tuple[group_name, organization_name], ...]
+            # Given info is Tuple[Tuple[group_name, organization_id], ...]
             groups_names = tuple(group_info[0] for group_info in groups_info)
-            organizations_names = tuple(
-                group_info[1] for group_info in groups_info
+            organizations_names = await collect(
+                orgs_domain.get_name_by_id(group_info[1])
+                for group_info in groups_info
             )
 
         groups_items: List[Item] = await groups_domain.get_many_groups(
