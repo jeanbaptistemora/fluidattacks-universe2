@@ -7,6 +7,15 @@ const Slider = styled.span.attrs({
   border-radius: 34px;
   transition: 0.4s;
 
+  span {
+    bottom: 5px;
+    color: #5c5c70;
+    height: 16px;
+    left: 21px;
+    position: absolute;
+    transition: 0.4s;
+  }
+
   :before {
     background-color: #f4f4f6;
     border-radius: 50%;
@@ -17,11 +26,13 @@ const Slider = styled.span.attrs({
     position: absolute;
     transition: 0.4s;
     width: 16px;
+    z-index: 1;
   }
 `;
 
 const Container = styled.label.attrs({ className: "dib mh2 relative" })`
   height: 24px;
+  vertical-align: text-top;
   width: 48px;
 
   input {
@@ -32,6 +43,11 @@ const Container = styled.label.attrs({ className: "dib mh2 relative" })`
 
   input:checked + ${Slider} {
     background-color: #5c5c70;
+  }
+
+  input:checked + ${Slider} span {
+    color: #d2d2da;
+    transform: translateX(-19px);
   }
 
   input:checked + ${Slider}:before {

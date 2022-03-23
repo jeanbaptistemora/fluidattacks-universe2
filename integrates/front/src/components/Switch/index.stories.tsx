@@ -26,5 +26,17 @@ Default.args = {
   disabled: false,
 };
 
-export { Default };
+const WithShortLabel = Template.bind({});
+WithShortLabel.args = {
+  checked: true,
+  label: { off: "No", on: "Yes" },
+};
+
+const WithLongLabel = Template.bind({});
+WithLongLabel.args = {
+  checked: true,
+  label: { off: "Inactive", on: "Active" },
+};
+
+export { Default, WithLongLabel, WithShortLabel };
 export default config;
