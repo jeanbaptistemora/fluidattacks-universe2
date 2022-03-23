@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 09, 2022, 07:52 AM",
+    "DateLastModified": "Mar 23, 2022, 10:15 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -524,6 +524,10 @@
         },
         {
           "AttributeName": "key",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "value",
           "AttributeType": "S"
         },
         {
@@ -1693,6 +1697,34 @@
             "modified_by",
             "parent_id",
             "content"
+          ]
+        },
+        {
+          "FacetName": "git_root_secret",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "SECRET#id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "SECRET#5140d109-ffc6-5095-9ed4-eb28bca09e20"
+              },
+              "key": {
+                "S": "username"
+              },
+              "value": {
+                "S": "jane_doe"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "key",
+            "value",
+            "id"
           ]
         },
         {
@@ -14989,6 +15021,7 @@
             "queue"
           ]
         }
+
       ],
       "GlobalSecondaryIndexes": [
         {
