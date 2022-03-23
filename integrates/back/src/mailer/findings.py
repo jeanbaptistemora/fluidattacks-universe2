@@ -27,6 +27,7 @@ from mailer.utils import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Tuple,
 )
@@ -237,13 +238,24 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 async def send_mail_vulnerability_report(
     *,
     loaders: Any,
-    email_to: List[str],
     group_name: str = "",
     finding_title: str,
     finding_id: str,
     severity: str,
+    is_closed: bool = False,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
+    stakeholders: Tuple[
+        Dict[str, Any], ...
+    ] = await loaders.group_stakeholders.load(group_name)
+    recipients = [stakeholder["email"] for stakeholder in stakeholders]
+    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.VULNERABILITY_REPORT
+        in user.notifications_preferences.email
+    ]
 
     email_context: MailContentType = {
         "finding": finding_title,
@@ -253,9 +265,10 @@ async def send_mail_vulnerability_report(
             f"{finding_id}/locations"
         ),
         "severity": severity,
+        "is_closed": is_closed,
     }
     await send_mails_async(
-        email_to=email_to,
+        email_to=users_email,
         context=email_context,
         tags=GENERAL_TAG,
         subject=(

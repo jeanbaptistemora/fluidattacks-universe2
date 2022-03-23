@@ -13,14 +13,8 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.findings.types import (
     Finding,
-)
-from db_model.users.get import (
-    User,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -53,8 +47,6 @@ from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
-    Any,
-    Dict,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -86,17 +78,6 @@ async def mutate(
         group_name = finding.group_name
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
-        stakeholders: Tuple[
-            Dict[str, Any], ...
-        ] = await loaders.group_stakeholders.load(group_name)
-        recipients = [stakeholder["email"] for stakeholder in stakeholders]
-        users: Tuple[User, ...] = await loaders.user.load_many(recipients)
-        users_email = [
-            user.email
-            for user in users
-            if Notification.VULNERABILITY_REPORT
-            in user.notifications_preferences.email
-        ]
         approval_date = await findings_domain.approve_draft(
             info.context, finding_id, user_email
         )
@@ -109,7 +90,6 @@ async def mutate(
             schedule(
                 findings_mail.send_mail_vulnerability_report(
                     loaders=loaders,
-                    email_to=users_email,
                     group_name=group_name,
                     finding_title=finding.title,
                     finding_id=finding_id,
