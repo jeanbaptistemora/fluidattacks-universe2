@@ -6,7 +6,11 @@
 makePythonPypiEnvironment rec {
   name = "skims-runtime";
   searchPathsBuild = {
-    bin = [inputs.nixpkgs.gcc];
+    bin = [
+      inputs.nixpkgs.gcc
+      inputs.nixpkgs.gnutar
+      inputs.nixpkgs.gzip
+    ];
     pythonPackage38 = [inputs.nixpkgs.python38Packages.pygraphviz];
   };
   searchPathsRuntime = searchPathsBuild;
