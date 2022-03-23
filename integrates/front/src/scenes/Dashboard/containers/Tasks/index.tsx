@@ -40,7 +40,7 @@ import type {
 } from "scenes/Dashboard/containers/Tasks/types";
 import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/utils";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
-import { ButtonToolbarRow, Col100 } from "styles/styledComponents";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState, useTabTracking } from "utils/hooks";
 import { msgError } from "utils/notifications";
@@ -588,7 +588,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
   return (
     <React.StrictMode>
       <div>
-        <Col100>
+        <div>
           <VulnComponent
             canDisplayHacker={canRetrieveHacker}
             changePermissions={changePermissions}
@@ -668,7 +668,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
             onVulnSelect={openRemediationModal}
             vulnerabilities={resultVulnerabilities}
           />
-        </Col100>
+        </div>
       </div>
       {isOpen ? (
         <UpdateVerificationModal
