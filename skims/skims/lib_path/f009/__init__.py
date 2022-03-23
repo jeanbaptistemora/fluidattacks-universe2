@@ -25,7 +25,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
-    load_as_json,
     load_templates_blocking,
 )
 from state.cache import (
@@ -76,7 +75,7 @@ def run_sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
 
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
-def run_sensitive_info_in_json(
+def run_sensitive_info_in_dotnet_json(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return sensitive_info_in_dotnet_json(
@@ -148,13 +147,12 @@ def analyze(
         results = (*results, run_java_properties_sensitive_data(content, path))
 
     elif file_extension in {"json"}:
-        template = load_as_json(content)
-        results = (
-            *results,
-            run_sensitive_key_in_json(content, path),
-            run_sensitive_info_in_json(content, path, template),
-        )
-
+        for template in load_templates_blocking(content, fmt=file_extension):
+            results = (
+                *results,
+                run_sensitive_key_in_json(content, path),
+                run_sensitive_info_in_dotnet_json(content, path, template),
+            )
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
         results = (
             *results,

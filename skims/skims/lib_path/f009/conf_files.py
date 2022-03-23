@@ -123,17 +123,18 @@ def _sensitive_info_in_dotnet_json(
     regex_email = re.compile(
         r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
     )
-    services = template.get("OutlookServices")
+    services = template.inner.get("OutlookServices")
     if (
         services
-        and services.keys() >= {"Email", "Password", "__line__"}
-        and isinstance(services["Email"], str)
+        and services.inner.get("Email")
+        and services.inner.get("Password")
+        and isinstance(services.inner.get("Email").data, str)
         and re.fullmatch(
             regex_email,
-            services["Email"],
+            services.inner.get("Email").data,
         )
     ):
-        yield (services["__line__"] - 1), 0
+        yield services.start_line, services.start_column
 
 
 def sensitive_info_in_dotnet_json(
