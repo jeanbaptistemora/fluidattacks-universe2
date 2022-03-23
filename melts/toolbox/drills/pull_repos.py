@@ -17,6 +17,7 @@ from pathspec.patterns.gitwildmatch import (
 )
 import requests  # type: ignore
 import shutil
+import subprocess
 from toolbox import (
     utils,
 )
@@ -203,7 +204,7 @@ def pull_repos_s3_to_fusion(
         {}
         if utils.generic.is_env_ci()
         else dict(
-            stdout=None,
+            stdout=subprocess.DEVNULL,
             stderr=None,
         )
     )
@@ -227,6 +228,22 @@ def pull_repos_s3_to_fusion(
         progress_bar()
 
     failed = False
+
+    if repository_name != "*":
+        try:
+            repo = Repo(local_path)
+            repo.git.reset("--hard", "HEAD")
+        except GitError as exc:
+            if not os.listdir(local_path):
+                return True
+
+            LOGGER.error("Expand repositories has failed:")
+            LOGGER.info("Repository: %s", local_path)
+            LOGGER.info(exc)
+            LOGGER.info("\n")
+            failed = True
+        return not failed
+
     for folder in os.listdir(f"groups/{subs}/fusion/"):
         repo_path = f"groups/{subs}/fusion/{folder}/"
         if os.path.isfile(repo_path):
@@ -271,16 +288,21 @@ def main(subs: str, repository_name: str) -> bool:
         len(zip_roots) + len(pull_roots), enrich_print=False
     ) as progress_bar:
         with ThreadPoolExecutor() as executor:
-            passed = passed and all(
-                executor.map(
-                    download_repo_from_s3,
-                    [subs for _ in range(len(zip_roots))],
-                    [root["nickname"] for root in zip_roots],
-                    [root["downloadUrl"] for root in zip_roots],
-                    [progress_bar for _ in range(len(zip_roots))],
+            passed = (
+                passed
+                and all(
+                    executor.map(
+                        download_repo_from_s3,
+                        [subs for _ in range(len(zip_roots))],
+                        [root["nickname"] for root in zip_roots],
+                        [root["downloadUrl"] for root in zip_roots],
+                        [progress_bar for _ in range(len(zip_roots))],
+                    )
                 )
+                if zip_roots
+                else True
             )
-            passed = passed and all(
+            pull = list(
                 executor.map(
                     pull_repos_s3_to_fusion,
                     [subs for _ in range(len(pull_roots))],
@@ -288,6 +310,7 @@ def main(subs: str, repository_name: str) -> bool:
                     [progress_bar for _ in range(len(pull_roots))],
                 )
             )
+            passed = passed and all(pull) if pull_roots else True
 
     if not drills_generic.s3_path_exists(bucket, f"{subs}/"):
         LOGGER.info("group %s does not have repos uploaded to s3", subs)
@@ -297,7 +320,7 @@ def main(subs: str, repository_name: str) -> bool:
             drills_generic.get_last_upload(bucket, f"{subs}/")
         )
 
-        passed = passed and delete_out_of_scope_files(subs)
+        passed = delete_out_of_scope_files(subs) and passed
 
         LOGGER.info("Data for %s was uploaded to S3 %i days ago", subs, days)
 
