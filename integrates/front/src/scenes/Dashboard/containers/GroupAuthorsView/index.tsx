@@ -130,48 +130,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
 
-  const headersAuthorsTable: IHeaderConfig[] = [
-    {
-      dataField: "actor",
-      formatter: formatText,
-      header: translate.t("group.authors.actor"),
-      width: "40%",
-      wrapped: true,
-    },
-    {
-      dataField: "groups",
-      formatter: formatText,
-      header: translate.t("group.authors.groupsContributed"),
-      width: "20%",
-      wrapped: true,
-    },
-    {
-      dataField: "commit",
-      formatter: formatCommit,
-      header: translate.t("group.authors.commit"),
-      width: "20%",
-      wrapped: true,
-    },
-    {
-      dataField: "repository",
-      formatter: formatText,
-      header: translate.t("group.authors.repository"),
-      width: "20%",
-      wrapped: true,
-    },
-    {
-      csvExport: false,
-      dataField: "invitation",
-      header: translate.t("group.authors.invitationState.confirmed"),
-      visible:
-        stackHolderData !== undefined &&
-        permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
-        permissions.can("api_mutations_grant_stakeholder_access_mutate"),
-      width: "130px",
-      wrapped: true,
-    },
-  ];
-
   const { data } = useQuery<IData>(GET_BILLING, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -223,6 +181,74 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     },
     [stackHolderData]
   );
+
+  const headersAuthorsTable: IHeaderConfig[] = [
+    {
+      dataField: "actor",
+      formatter: formatText,
+      header: translate.t("group.authors.actor"),
+      width: "40%",
+      wrapped: true,
+    },
+    {
+      dataField: "groups",
+      formatter: formatText,
+      header: translate.t("group.authors.groupsContributed"),
+      width: "20%",
+      wrapped: true,
+    },
+    {
+      dataField: "commit",
+      formatter: formatCommit,
+      header: translate.t("group.authors.commit"),
+      width: "20%",
+      wrapped: true,
+    },
+    {
+      dataField: "repository",
+      formatter: formatText,
+      header: translate.t("group.authors.repository"),
+      width: "20%",
+      wrapped: true,
+    },
+    {
+      csvExport: false,
+      dataField: "invitation",
+      header: translate.t("group.authors.invitationState.confirmed"),
+      sortFunc: (
+        _a,
+        _b,
+        order,
+        _dataField,
+        rowA: IAuthors,
+        rowB: IAuthors
+      ): number => {
+        function invitationState(actor: string): string {
+          const place: number = actor.lastIndexOf("<");
+
+          return place >= 0
+            ? formatInvitation(actor.substring(place + 1, actor.length - 1))
+            : formatInvitation(actor);
+        }
+        if (
+          (order === "asc" &&
+            invitationState(rowB.actor) < invitationState(rowA.actor)) ||
+          (order === "desc" &&
+            invitationState(rowA.actor) < invitationState(rowB.actor))
+        ) {
+          return 1;
+        }
+
+        return -1;
+      },
+      visible:
+        stackHolderData !== undefined &&
+        permissions.can("api_resolvers_query_stakeholder__resolve_for_group") &&
+        permissions.can("api_mutations_grant_stakeholder_access_mutate"),
+      width: "130px",
+      wrapped: true,
+    },
+  ];
 
   const stakeholdersEmail: string[] = useMemo(
     (): string[] =>
