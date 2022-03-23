@@ -71,8 +71,10 @@ class ShardDb:
         self.current_paths.append(path)
 
     def get_shard(self, path: str) -> Optional[GraphShard]:
-        self.store_shard(path)
-        return self.shards.get(path)
+        if path not in self.shards:
+            self.store_shard(path)
+
+        return self.shards[path]
 
     def iter_lang_shards(self, lang: LanguagesEnum) -> Iterator[GraphShard]:
         for path in self.paths.paths_by_lang[lang]:
