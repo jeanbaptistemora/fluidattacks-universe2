@@ -9,6 +9,9 @@ from custom_types import (
     Event as EventType,
     Historic,
 )
+from db_model.events.types import (
+    Event,
+)
 from events import (
     domain as events_domain,
 )
@@ -18,7 +21,9 @@ from newutils.utils import (
 from typing import (
     cast,
     Dict,
+    Iterable,
     List,
+    Tuple,
 )
 
 
@@ -72,3 +77,11 @@ class EventLoader(DataLoader):
     # pylint: disable=no-self-use
     async def batch_load_fn(self, event_ids: List[str]) -> List[EventType]:
         return await _batch_load_fn(event_ids)
+
+
+class EventTypedLoader(DataLoader):
+    # pylint: disable=no-self-use
+    async def batch_load_fn(
+        self, event_ids: Iterable[str]
+    ) -> Tuple[Event, ...]:
+        return tuple(event_ids)

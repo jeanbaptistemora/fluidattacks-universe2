@@ -1,5 +1,6 @@
 from .event import (
     EventLoader,
+    EventTypedLoader,
 )
 from .group import (
     GroupIndicatorsTypedLoader,
@@ -79,6 +80,7 @@ from typing import (
 class Dataloaders(NamedTuple):
     credential: CredentialLoader
     event: EventLoader
+    event_typed: EventTypedLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
@@ -157,6 +159,7 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         credential=CredentialLoader(),
         event=EventLoader(),
+        event_typed=EventTypedLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
