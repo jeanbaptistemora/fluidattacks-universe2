@@ -9,7 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -183,7 +185,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
       if (mtResult.grantStakeholderAccess.success) {
         await refetch();
-        track("AddUserAccess");
+        mixpanel.track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email}${t("searchFindings.tabUsers.success")}`,
@@ -206,7 +208,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           setuserModalAction("add");
           await refetch();
 
-          track("EditUserAccess");
+          mixpanel.track("EditUserAccess");
           msgSuccess(
             t("searchFindings.tabUsers.successAdmin"),
             t("searchFindings.tabUsers.titleSuccess")
@@ -227,7 +229,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         if (mtResult.removeStakeholderAccess.success) {
           await refetch();
 
-          track("RemoveUserAccess");
+          mixpanel.track("RemoveUserAccess");
           const { removedEmail } = mtResult.removeStakeholderAccess;
           msgSuccess(
             `${removedEmail} ${t("searchFindings.tabUsers.successDelete")}`,

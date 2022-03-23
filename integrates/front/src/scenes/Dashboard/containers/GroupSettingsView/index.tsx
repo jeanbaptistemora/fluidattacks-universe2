@@ -1,5 +1,4 @@
-import { track } from "mixpanel-browser";
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
 import { Unsubscribe } from "./Unsubscribe";
@@ -16,12 +15,6 @@ import { Have } from "utils/authz/Have";
 
 const GroupSettingsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
-
-  // Side effects
-  const onMount: () => void = (): void => {
-    track("GroupResources");
-  };
-  useEffect(onMount, []);
 
   return (
     <React.StrictMode>

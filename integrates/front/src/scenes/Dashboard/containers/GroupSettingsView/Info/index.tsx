@@ -4,7 +4,9 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -74,7 +76,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
 
   const [editGroupInfo] = useMutation(UPDATE_GROUP_INFO, {
     onCompleted: (): void => {
-      track("EditGroupData");
+      mixpanel.track("EditGroupData");
       msgSuccess(
         translate.t("groupAlerts.groupInfoUpdated"),
         translate.t("groupAlerts.titleSuccess")

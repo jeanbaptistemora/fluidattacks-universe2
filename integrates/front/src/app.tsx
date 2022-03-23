@@ -1,8 +1,7 @@
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
-import {
-  disable as mixpanelDisable,
-  init as mixpanelInit,
-} from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useState } from "react";
 import { render } from "react-dom";
 import { useTranslation } from "react-i18next";
@@ -83,9 +82,9 @@ if (module.hot) {
   module.hot.accept();
 }
 
-mixpanelInit("7a7ceb75ff1eed29f976310933d1cc3e");
+mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
 if (getEnvironment() !== "production") {
-  mixpanelDisable();
+  mixpanel.disable();
 }
 
 render(<App />, document.getElementById("root"));

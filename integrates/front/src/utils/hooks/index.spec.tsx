@@ -1,6 +1,8 @@
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
-import mixpanel from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter, useHistory } from "react-router-dom";

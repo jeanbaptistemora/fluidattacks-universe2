@@ -12,7 +12,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { reset } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
@@ -89,7 +91,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const [removeStakeholder] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
       if (mtResult.removeStakeholder.success) {
-        reset();
+        mixpanel.reset();
         location.assign("/logout");
       } else {
         push("/home");
@@ -226,7 +228,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               {(confirm): React.ReactNode => {
                 function handleLogoutClick(): void {
                   confirm((): void => {
-                    reset();
+                    mixpanel.reset();
                     location.assign("/logout");
                   });
                 }

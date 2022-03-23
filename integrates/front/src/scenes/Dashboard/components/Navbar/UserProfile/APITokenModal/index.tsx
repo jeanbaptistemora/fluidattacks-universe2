@@ -1,7 +1,9 @@
 import type { MutationFunction } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -57,7 +59,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
     const expTimeStamp: number = Math.floor(
       new Date(values.expirationTime).getTime() / msToSec
     );
-    track("GenerateAPIToken");
+    mixpanel.track("GenerateAPIToken");
     await updateAPIToken({
       variables: { expirationTime: expTimeStamp },
     });

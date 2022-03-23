@@ -4,7 +4,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 
@@ -102,7 +104,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [removeFile] = useMutation(REMOVE_FILE_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      track("RemoveGroupFiles");
+      mixpanel.track("RemoveGroupFiles");
       msgSuccess(
         translate.t("searchFindings.tabResources.successRemove"),
         translate.t("searchFindings.tabUsers.titleSuccess")
@@ -118,7 +120,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const handleRemoveFile: () => Promise<void> =
     useCallback(async (): Promise<void> => {
       closeOptionsModal();
-      track("RemoveFile");
+      mixpanel.track("RemoveFile");
       await removeFile({
         variables: {
           filesData: JSON.stringify({ fileName: currentRow.fileName }),
@@ -143,7 +145,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [addFilesToDb] = useMutation(ADD_FILES_TO_DB_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      track("AddGroupFiles");
+      mixpanel.track("AddGroupFiles");
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {

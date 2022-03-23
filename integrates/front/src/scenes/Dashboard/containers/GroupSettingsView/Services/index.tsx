@@ -3,7 +3,9 @@ import type { ApolloError } from "@apollo/client";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -50,7 +52,7 @@ const Services: React.FC<IServicesProps> = ({
     UPDATE_GROUP_DATA,
     {
       onCompleted: async (): Promise<void> => {
-        track("EditGroupData");
+        mixpanel.track("EditGroupData");
         msgSuccess(
           t("searchFindings.servicesTable.success"),
           t("searchFindings.servicesTable.successTitle")

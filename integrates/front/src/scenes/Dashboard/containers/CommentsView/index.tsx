@@ -2,7 +2,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 
@@ -108,7 +110,7 @@ const CommentsView: React.FC = (): JSX.Element => {
           };
         };
       }
-      track(`Add${_.capitalize(type)}`, { findingId });
+      mixpanel.track(`Add${_.capitalize(type)}`, { findingId });
       void addComment({
         variables: {
           findingId,

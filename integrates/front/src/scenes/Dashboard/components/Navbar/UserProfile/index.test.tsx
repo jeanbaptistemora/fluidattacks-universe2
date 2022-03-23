@@ -3,7 +3,9 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
-import { reset } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -104,7 +106,7 @@ describe("User Profile", (): void => {
     });
 
     await waitFor((): void => {
-      expect(reset).toHaveBeenCalledTimes(1);
+      expect(mixpanel.reset).toHaveBeenCalledTimes(1);
     });
 
     jest.clearAllMocks();

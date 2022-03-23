@@ -4,7 +4,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
@@ -281,7 +283,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     _0: React.FormEvent<HTMLButtonElement>,
     rowInfo: { id: string }
   ): void => {
-    track("ReadEvent");
+    mixpanel.track("ReadEvent");
     push(`${url}/${rowInfo.id}/description`);
   };
 

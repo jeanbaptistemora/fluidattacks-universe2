@@ -1,6 +1,8 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, {
   useCallback,
   useEffect,
@@ -99,7 +101,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       changePermissions(vulnerability.groupName);
     }
     updateRow(vulnerability);
-    track("ViewVulnerability", { groupName: vulnerability.groupName });
+    mixpanel.track("ViewVulnerability", { groupName: vulnerability.groupName });
     setAdditionalInfoOpen(true);
   }
   const closeAdditionalInfoModal: () => void = useCallback((): void => {

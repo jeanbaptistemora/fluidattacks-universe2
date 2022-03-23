@@ -15,7 +15,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ComponentSize } from "@rehooks/component-size";
 import useComponentSize from "@rehooks/component-size";
 import _ from "lodash";
-import { track as mixpanelTrack } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, {
   useCallback,
   useContext,
@@ -317,7 +319,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
   const track: () => void = useCallback((): void => {
-    mixpanelTrack("DownloadGraphic", { currentDocumentName, entity });
+    mixpanel.track("DownloadGraphic", { currentDocumentName, entity });
   }, [currentDocumentName, entity]);
 
   useEffect((): void => {

@@ -8,7 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -81,7 +83,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
     if (icon !== null) {
       const reportType: string = setReportType(icon);
 
-      track("GroupReportRequest", { reportType });
+      mixpanel.track("GroupReportRequest", { reportType });
 
       requestGroupReport({
         variables: {

@@ -5,7 +5,9 @@ import { useAbility } from "@casl/react";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -97,7 +99,7 @@ const SeverityView: React.FC = (): JSX.Element => {
           translate.t("groupAlerts.updated"),
           translate.t("groupAlerts.updatedTitle")
         );
-        track("UpdateSeverity");
+        mixpanel.track("UpdateSeverity");
       }
     }
   };

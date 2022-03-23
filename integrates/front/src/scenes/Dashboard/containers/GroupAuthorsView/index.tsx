@@ -4,7 +4,9 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import type { ReactElement } from "react";
 import React, { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -184,7 +186,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
       if (mtResult.grantStakeholderAccess.success) {
         await refetch();
-        track("AddUserAccess");
+        mixpanel.track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
           `${email}${translate.t("searchFindings.tabUsers.success")}`,

@@ -5,15 +5,10 @@
 import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import fetchMock from "fetch-mock";
-import {
-  disable as mixpanelDisable,
-  init as mixpanelInit,
-} from "mixpanel-browser";
 import "@testing-library/jest-dom";
 
-// Disable tracking
-mixpanelInit("7a7ceb75ff1eed29f976310933d1cc3e");
-mixpanelDisable();
+// Mock mixpanel
+jest.mock("mixpanel-browser");
 
 // Mock fetch
 Object.defineProperty(global, "fetch", { value: fetchMock, writable: true });

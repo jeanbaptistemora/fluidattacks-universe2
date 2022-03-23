@@ -4,7 +4,9 @@ import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { identify, people, register } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -99,13 +101,13 @@ export const Dashboard: React.FC = (): JSX.Element => {
         userName: me.userName,
       });
       Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
-      identify(me.userEmail);
-      register({
+      mixpanel.identify(me.userEmail);
+      mixpanel.register({
         User: me.userName,
         // eslint-disable-next-line camelcase -- It is possibly required for the API
         integrates_user_email: me.userEmail,
       });
-      people.set({ $email: me.userEmail, $name: me.userName });
+      mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
       initializeDelighted(me.userEmail, me.userName);
       initializeZendesk(me.userEmail, me.userName);
       setupSessionCheck(me.sessionExpiration);

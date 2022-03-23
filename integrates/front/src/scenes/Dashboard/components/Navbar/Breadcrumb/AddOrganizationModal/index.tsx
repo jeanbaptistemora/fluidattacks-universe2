@@ -3,7 +3,9 @@ import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -63,7 +65,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
       onCompleted: (result: IAddOrganizationMtProps): void => {
         if (result.addOrganization.success) {
           onClose();
-          track("NewOrganization", {
+          mixpanel.track("NewOrganization", {
             OrganizationId: result.addOrganization.organization.id,
             OrganizationName: result.addOrganization.organization.name,
           });
@@ -96,7 +98,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
   );
 
   function handleSubmit(values: { name: string }): void {
-    track("AddOrganization");
+    mixpanel.track("AddOrganization");
     void addOrganization({ variables: { name: values.name } });
   }
 

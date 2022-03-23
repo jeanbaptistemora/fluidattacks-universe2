@@ -9,7 +9,9 @@ import {
   faWindows,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -29,15 +31,15 @@ export const Login: React.FC = (): JSX.Element => {
 
   // Event handlers
   function handleBitbucketLogin(): void {
-    track("Login Bitbucket");
+    mixpanel.track("Login Bitbucket");
     window.location.assign("/dblogin");
   }
   function handleGoogleLogin(): void {
-    track("Login Google");
+    mixpanel.track("Login Google");
     window.location.assign("/dglogin");
   }
   function handleMicrosoftLogin(): void {
-    track("Login Azure");
+    mixpanel.track("Login Azure");
     window.location.assign("/dalogin");
   }
 

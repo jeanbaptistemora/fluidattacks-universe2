@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
@@ -52,7 +54,7 @@ const DeleteGroup: React.FC = (): JSX.Element => {
   }) => void = useCallback(
     (values: { confirmation: string; reason: string }): void => {
       const { reason } = values;
-      track("DeleteGroup");
+      mixpanel.track("DeleteGroup");
       void removeGroupMutation({ variables: { groupName, reason } });
       setIsModalOpen(!isModalOpen);
     },

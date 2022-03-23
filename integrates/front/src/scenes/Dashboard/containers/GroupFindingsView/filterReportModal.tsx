@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -64,7 +66,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
   function handleRequestGroupReport(values: { treatments: string[] }): void {
     const reportType = "XLS";
-    track("GroupReportRequest", { reportType });
+    mixpanel.track("GroupReportRequest", { reportType });
 
     requestGroupReport({
       variables: {

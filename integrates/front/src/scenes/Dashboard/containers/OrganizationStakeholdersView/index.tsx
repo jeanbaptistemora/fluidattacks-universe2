@@ -8,7 +8,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -163,7 +165,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
     onCompleted: async (mtResult: IAddStakeholderAttrs): Promise<void> => {
       if (mtResult.grantStakeholderOrganizationAccess.success) {
         await refetchStakeholders();
-        track("AddUserOrganzationAccess", {
+        mixpanel.track("AddUserOrganzationAccess", {
           Organization: organizationName,
         });
         const { email } =
@@ -187,7 +189,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           mtResult.updateOrganizationStakeholder.modifiedStakeholder;
         await refetchStakeholders();
 
-        track("EditUserOrganizationAccess", {
+        mixpanel.track("EditUserOrganizationAccess", {
           Organization: organizationName,
         });
         msgSuccess(
@@ -207,7 +209,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
         if (mtResult.removeStakeholderOrganizationAccess.success) {
           await refetchStakeholders();
 
-          track("RemoveUserOrganizationAccess", {
+          mixpanel.track("RemoveUserOrganizationAccess", {
             Organization: organizationName,
           });
           msgSuccess(

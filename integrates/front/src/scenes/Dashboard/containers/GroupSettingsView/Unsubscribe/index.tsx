@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
@@ -56,7 +58,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
   }
 
   function handleSubmit(): void {
-    track("UnsubscribeFromGroup");
+    mixpanel.track("UnsubscribeFromGroup");
     void unsubscribeFromGroupMutation();
     setIsModalOpen(!isModalOpen);
   }

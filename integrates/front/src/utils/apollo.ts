@@ -123,7 +123,7 @@ const xhrWrapper: WindowOrWorkerGlobalScope["fetch"] = async (
 
       xhr.upload.onprogress = options.onUploadProgress;
 
-      xhr.send(options.body);
+      xhr.send(options.body as XMLHttpRequestBodyInit);
     }
   );
 

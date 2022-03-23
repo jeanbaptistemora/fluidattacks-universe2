@@ -1,5 +1,7 @@
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 
 import type { IVulnData } from ".";
 import type {
@@ -141,7 +143,7 @@ const handleSubmitHelper = async (
       (vuln: IVulnData): string => vuln.id
     );
 
-    track("RequestReattack");
+    mixpanel.track("RequestReattack");
     const vulnerabilitiesIdsChunks: string[][] = _.chunk(
       vulnerabilitiesId,
       chunkSize

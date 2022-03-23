@@ -1,7 +1,9 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -18,7 +20,7 @@ export const Searchbar: React.FC = (): JSX.Element => {
     (values: { groupName: string }): void => {
       const groupName = values.groupName.toLowerCase();
       if (groupName.trim() !== "") {
-        track("SearchGroup", { group: groupName });
+        mixpanel.track("SearchGroup", { group: groupName });
         push(`/groups/${groupName}/vulns`);
       }
     },

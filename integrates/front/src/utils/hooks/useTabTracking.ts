@@ -1,5 +1,7 @@
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -12,9 +14,9 @@ const useTabTracking = (containerName: string): void => {
     const [id, tabName] = pathname.split("/").slice(lastElements);
 
     if (tabName && tabName.toLowerCase() !== containerName.toLowerCase()) {
-      track(`${containerName}${_.capitalize(tabName)}`, { id });
+      mixpanel.track(`${containerName}${_.capitalize(tabName)}`, { id });
     } else {
-      track(containerName);
+      mixpanel.track(containerName);
     }
   }, [containerName, pathname]);
 };

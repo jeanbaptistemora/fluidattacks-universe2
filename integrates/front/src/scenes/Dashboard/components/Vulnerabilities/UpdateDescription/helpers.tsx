@@ -1,7 +1,9 @@
 import type { FetchResult } from "@apollo/client";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 
 import type {
@@ -235,10 +237,10 @@ const dataTreatmentTrackHelper = (
   dataTreatment: IUpdateTreatmentVulnerabilityForm
 ): void => {
   if (dataTreatment.tag !== undefined) {
-    track("AddVulnerabilityTag");
+    mixpanel.track("AddVulnerabilityTag");
   }
   if (!_.isEmpty(dataTreatment.severity)) {
-    track("AddVulnerabilityLevel");
+    mixpanel.track("AddVulnerabilityLevel");
   }
 };
 
@@ -250,7 +252,7 @@ const validMutationsHelper = (
   isTreatmentPristine: boolean
 ): void => {
   if (areAllMutationValid.every(Boolean)) {
-    track("UpdatedTreatmentVulnerabilities", {
+    mixpanel.track("UpdatedTreatmentVulnerabilities", {
       batchSize: vulnerabilities.length,
     });
     if (!isTreatmentPristine && !_.isEmpty(dataTreatment.assigned)) {
@@ -259,7 +261,7 @@ const validMutationsHelper = (
           vulnerability.assigned !== dataTreatment.assigned
       ).length;
       if (assignedChanged > 0) {
-        track("UpdatedAssignedVulnerabilities", {
+        mixpanel.track("UpdatedAssignedVulnerabilities", {
           batchSize: assignedChanged,
         });
       }

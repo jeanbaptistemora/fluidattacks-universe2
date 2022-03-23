@@ -2,7 +2,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
@@ -93,7 +95,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       squad: boolean;
       machine: boolean;
     }): void => {
-      track("AddGroup");
+      mixpanel.track("AddGroup");
       void addGroup({
         variables: {
           description: values.description,

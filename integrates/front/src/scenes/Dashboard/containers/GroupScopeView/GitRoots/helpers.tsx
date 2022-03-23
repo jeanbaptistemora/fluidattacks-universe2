@@ -3,7 +3,9 @@ import { Buffer } from "buffer";
 import type { FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { BaseSchema } from "yup";
@@ -201,7 +203,7 @@ function useGitSubmit(
     }: IGitRootAttr): Promise<void> => {
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
-          track("AddGitRoot");
+          mixpanel.track("AddGitRoot");
           await addGitRoot({
             variables: {
               branch: branch.trim(),
@@ -222,7 +224,7 @@ function useGitSubmit(
             },
           });
         } else {
-          track("EditGitRoot");
+          mixpanel.track("EditGitRoot");
           await updateGitRoot({
             variables: {
               branch,

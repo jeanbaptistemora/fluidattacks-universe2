@@ -8,7 +8,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -82,7 +84,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
 
   const subscribeDropdownOnSelect = useCallback(
     (key: string): void => {
-      track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
+      mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
       void subscribe({
         variables: {
           frequency: key.toUpperCase(),

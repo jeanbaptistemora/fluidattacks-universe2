@@ -4,7 +4,9 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
@@ -57,7 +59,7 @@ const Portfolio: React.FC<IPortfolioProps> = ({
   const [addGroupTags] = useMutation(ADD_GROUP_TAGS_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      track("AddGroupTags");
+      mixpanel.track("AddGroupTags");
       msgSuccess(
         t("searchFindings.tabResources.success"),
         t("searchFindings.tabUsers.titleSuccess")
@@ -80,7 +82,7 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     {
       onCompleted: (): void => {
         void refetch();
-        track("RemoveTag");
+        mixpanel.track("RemoveTag");
         msgSuccess(
           t("searchFindings.tabResources.successRemove"),
           t("searchFindings.tabUsers.titleSuccess")
