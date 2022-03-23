@@ -1148,3 +1148,33 @@ async def do_add_finding_consult(
         return result["data"]["addFindingConsult"]["success"]
 
     return False
+
+
+@SHIELD
+async def get_finding_consult(
+    *,
+    finding_id: str,
+    client: Optional[GraphQLClient] = None,
+) -> str:
+    result = await _execute(
+        query="""
+            query SkimsGetFindingConsult(
+                $finding_id: String!
+            ) {
+                finding(identifier: $finding_id) {
+                    consulting {
+                        content
+                    }
+                }
+            }
+        """,
+        operation="SkimsGetFindingConsult",
+        variables=dict(
+            finding_id=finding_id,
+        ),
+        client=client,
+    )
+    with suppress(AttributeError, KeyError, TypeError):
+        solution: str = result["data"]["finding"]["consulting"]
+
+    return solution
