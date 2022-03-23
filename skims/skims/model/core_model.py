@@ -2037,6 +2037,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.BRIAM_AGUDELO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JSON_ANON_CONNECTION_CONFIG = MethodInfo(
+        file_name="conf_files",
+        name="json_anon_connection_config",
+        module="lib_path",
+        finding=FindingEnum.F056,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     APK_DEBUGGING_ENABLED = MethodInfo(
         file_name="analyze_bytecodes",
         name="apk_debugging_enabled",
