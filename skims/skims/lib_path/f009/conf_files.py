@@ -149,3 +149,29 @@ def sensitive_info_in_dotnet_json(
         path=path,
         method=MethodsEnum.SENSITIVE_INFO_DOTNET_JSON,
     )
+
+
+def _sensitive_info_in_json(
+    template: Any,
+) -> Iterator[Any]:
+    regex_password = re.compile(r"Password=.*")
+    connection_str = template.inner.get("ConnectionStrings")
+    if connection_str and connection_str.inner.get("Claims"):
+        data_str = connection_str.inner.get("Claims").data
+        for element in data_str.split(";"):
+            if re.match(regex_password, element):
+                yield connection_str.start_line, connection_str.start_column
+
+
+def sensitive_info_in_json(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f009.sensitive_key_in_json.description",
+        iterator=_sensitive_info_in_json(
+            template=template,
+        ),
+        path=path,
+        method=MethodsEnum.SENSITIVE_INFO_JSON,
+    )
