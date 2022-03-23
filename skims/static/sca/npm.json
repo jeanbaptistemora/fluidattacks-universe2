@@ -166,8 +166,23 @@
   "@ensdomains/ens": {
     "GHSA-8f9f-pc5v-9r5h": "<0.4.0"
   },
+  "@fabiocaccamo/utils.js": {
+    "CVE-2021-3815": "<0.17.2"
+  },
+  "@fangrong/xoc": {
+    "GHSA-pjxp-f379-6284": "1.0.6"
+  },
+  "@fast-csv/parse": {
+    "GHSA-8cv5-p934-3hwp": "<4.3.6"
+  },
+  "@fastify/csrf": {
+    "GHSA-rc4q-9m69-gqp8": "<4.0.0"
+  },
   "@firebase/util": {
     "CVE-2020-7765": "<0.3.4"
+  },
+  "@floffah/build": {
+    "GHSA-jcgr-9698-82jx": "<1.0.0"
   },
   "@fraction/oasis": {
     "CVE-2020-11003": "<2.15.0",
@@ -177,8 +192,23 @@
     "CVE-2021-37700": "<0.3.4",
     "GHSA-gpfj-4j6g-c4w9": "<0.3.4"
   },
+  "@grafana/data": {
+    "GHSA-3j9m-hcv9-rpj8": ">=8.0.0 <8.2.3"
+  },
   "@graphql-tools/git-loader": {
     "CVE-2021-23326": "<6.2.6"
+  },
+  "@grpc/grpc-js": {
+    "GHSA-pp75-xfpw-37g9": "<1.1.8"
+  },
+  "@hapi/accept": {
+    "GHSA-9vrw-m88g-w75q": ">=3.2.0 <3.2.4 || >=4.0.0 <5.0.1"
+  },
+  "@hapi/ammo": {
+    "GHSA-gjph-xf5q-6mfq": "<3.1.2 || >=4.0.0 <5.0.1"
+  },
+  "@hapi/boom": {
+    "GHSA-2ggq-vfcp-gwhj": "<0.3.8"
   },
   "@irrelon/path": {
     "CVE-2020-7708": "<4.7.0"
