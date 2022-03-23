@@ -2,6 +2,9 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
+from charts.utils import (
+    TICK_ROTATION,
+)
 from datetime import (
     datetime,
 )
@@ -161,7 +164,7 @@ def format_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=12,
+                    rotate=TICK_ROTATION,
                 ),
                 type="category",
             ),
@@ -257,7 +260,7 @@ def format_distribution_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=12,
+                    rotate=TICK_ROTATION,
                 ),
                 type="category",
             ),

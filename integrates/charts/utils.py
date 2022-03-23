@@ -69,7 +69,7 @@ PortfoliosGroups = NamedTuple(
     ],
 )
 
-TICK_ROTATION = -45  # display group name at that rotation
+TICK_ROTATION = 12  # display group name at that rotation
 MAX_WITH_DECIMALS = Decimal("10.0")
 
 

@@ -251,7 +251,7 @@ def format_document(
                 tick=dict(
                     centered=True,
                     multiline=False,
-                    rotate=12,
+                    rotate=utils.TICK_ROTATION,
                 ),
                 type="category",
             ),

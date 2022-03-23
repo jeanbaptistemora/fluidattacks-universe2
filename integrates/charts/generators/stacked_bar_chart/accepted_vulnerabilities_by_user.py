@@ -16,6 +16,7 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
+    TICK_ROTATION,
 )
 from dataloaders import (
     get_new_context,
@@ -160,7 +161,7 @@ def format_vulnerabilities_by_data(
                 categories=[key for key, _ in data],
                 type="category",
                 tick=dict(
-                    rotate=12,
+                    rotate=TICK_ROTATION,
                     multiline=False,
                 ),
             ),

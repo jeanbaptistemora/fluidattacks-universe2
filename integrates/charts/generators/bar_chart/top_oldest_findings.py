@@ -16,6 +16,7 @@ from charts.utils import (
     get_portfolios_groups,
     iterate_organizations_and_groups,
     json_dump,
+    TICK_ROTATION,
 )
 from dataloaders import (
     get_new_context,
@@ -112,7 +113,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 type="category",
                 tick=dict(
                     outer=False,
-                    rotate=12,
+                    rotate=TICK_ROTATION,
                 ),
             ),
             y=dict(

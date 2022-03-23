@@ -15,6 +15,7 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
+    TICK_ROTATION,
 )
 from dataloaders import (
     Dataloaders,
@@ -129,7 +130,7 @@ def format_data(
                 type="category",
                 tick=dict(
                     outer=False,
-                    rotate=12,
+                    rotate=TICK_ROTATION,
                 ),
             ),
             y=dict(

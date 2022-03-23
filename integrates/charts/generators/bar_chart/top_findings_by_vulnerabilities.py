@@ -113,7 +113,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 type="category",
                 tick=dict(
                     outer=False,
-                    rotate=12,
+                    rotate=utils.TICK_ROTATION,
                 ),
             ),
             y=dict(

@@ -102,7 +102,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> Dict[str, Any]:
                 tick=dict(
                     multiline=False,
                     outer=False,
-                    rotate=12,
+                    rotate=utils.TICK_ROTATION,
                 ),
             ),
             y=dict(
