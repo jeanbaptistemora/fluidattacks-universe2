@@ -43,6 +43,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   return (
     <React.Fragment>
       <StyledInput
+        aria-label={name}
         autoComplete={"off"}
         autoFocus={focus} // eslint-disable-line jsx-a11y/no-autofocus
         disabled={disabled}

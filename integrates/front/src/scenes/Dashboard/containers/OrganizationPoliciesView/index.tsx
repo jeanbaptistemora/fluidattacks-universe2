@@ -5,6 +5,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -27,7 +28,6 @@ import { Can } from "utils/authz/Can";
 import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   isFloatOrInteger,
@@ -39,6 +39,7 @@ import {
 const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   props: IOrganizationPolicies
 ): JSX.Element => {
+  const { t } = useTranslation();
   // State management
   const minSeverity: number = 0.0;
   const maxSeverity: number = 10.0;
@@ -53,7 +54,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   } = useQuery<IOrganizationPoliciesData>(GET_ORGANIZATION_POLICIES, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred fetching organization policies",
           error
@@ -66,62 +67,50 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   const [savePolicies, { loading: savingPolicies }] = useMutation(
     UPDATE_ORGANIZATION_POLICIES,
     {
-      onCompleted: (): void => {
+      onCompleted: async (): Promise<void> => {
         track("UpdateOrganizationPolicies");
         msgSuccess(
-          translate.t("organization.tabs.policies.success"),
-          translate.t("organization.tabs.policies.successTitle")
+          t("organization.tabs.policies.success"),
+          t("organization.tabs.policies.successTitle")
         );
 
-        void refetchPolicies();
+        await refetchPolicies();
       },
       onError: (error: ApolloError): void => {
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
             case "Exception - Vulnerability grace period value should be a positive integer":
               msgError(
-                translate.t(
-                  "organization.tabs.policies.errors.vulnerabilityGracePeriod"
-                )
+                t("organization.tabs.policies.errors.vulnerabilityGracePeriod")
               );
               break;
             case "Exception - Acceptance days should be a positive integer":
               msgError(
-                translate.t(
-                  "organization.tabs.policies.errors.maxAcceptanceDays"
-                )
+                t("organization.tabs.policies.errors.maxAcceptanceDays")
               );
               break;
             case "Exception - Severity value must be a positive floating number between 0.0 and 10.0":
               msgError(
-                translate.t(
-                  "organization.tabs.policies.errors.acceptanceSeverity"
-                )
+                t("organization.tabs.policies.errors.acceptanceSeverity")
               );
               break;
             case "Exception - Severity value must be between 0.0 and 10.0":
               msgError(
-                translate.t(
-                  "organization.tabs.policies.errors.invalidBreakableSeverity"
-                )
+                t("organization.tabs.policies.errors.invalidBreakableSeverity")
               );
               break;
             case "Exception - Min acceptance severity value should not be higher than the max value":
               msgError(
-                translate.t(
-                  "organization.tabs.policies.errors.acceptanceSeverityRange"
-                )
+                t("organization.tabs.policies.errors.acceptanceSeverityRange")
               );
               break;
             case "Exception - Number of acceptances should be zero or positive":
               msgError(
-                translate.t(
-                  "organization.tabs.policies.errors.maxNumberAcceptances"
-                )
+                t("organization.tabs.policies.errors.maxNumberAcceptances")
               );
               break;
             default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
+              msgError(t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred updating the organization policies",
                 error
@@ -135,19 +124,19 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "policy",
-      header: translate.t("organization.tabs.policies.policy"),
+      header: t("organization.tabs.policies.policy"),
       width: "50%",
       wrapped: true,
     },
     {
       dataField: "value",
-      header: translate.t("organization.tabs.policies.value"),
+      header: t("organization.tabs.policies.value"),
       width: "25%",
       wrapped: true,
     },
     {
       dataField: "recommended",
-      header: translate.t("organization.tabs.policies.recommended.title"),
+      header: t("organization.tabs.policies.recommended.title"),
       width: "25%",
       wrapped: true,
     },
@@ -156,13 +145,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   const policiesDataSet: Record<string, JSX.Element>[] = [
     {
       policy: (
-        <p>
-          {translate.t("organization.tabs.policies.policies.maxAcceptanceDays")}
-        </p>
+        <p>{t("organization.tabs.policies.policies.maxAcceptanceDays")}</p>
       ),
       recommended: (
         <p className={style.recommended}>
-          {translate.t("organization.tabs.policies.recommended.acceptanceDays")}
+          {t("organization.tabs.policies.recommended.acceptanceDays")}
         </p>
       ),
       value: (
@@ -184,17 +171,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     },
     {
       policy: (
-        <p>
-          {translate.t(
-            "organization.tabs.policies.policies.maxNumberAcceptances"
-          )}
-        </p>
+        <p>{t("organization.tabs.policies.policies.maxNumberAcceptances")}</p>
       ),
       recommended: (
         <p className={style.recommended}>
-          {translate.t(
-            "organization.tabs.policies.recommended.numberAcceptances"
-          )}
+          {t("organization.tabs.policies.recommended.numberAcceptances")}
         </p>
       ),
       value: (
@@ -217,16 +198,12 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       policy: (
         <p>
-          {translate.t(
-            "organization.tabs.policies.policies.vulnerabilityGracePeriod"
-          )}
+          {t("organization.tabs.policies.policies.vulnerabilityGracePeriod")}
         </p>
       ),
       recommended: (
         <p className={style.recommended}>
-          {translate.t(
-            "organization.tabs.policies.recommended.vulnerabilityGracePeriod"
-          )}
+          {t("organization.tabs.policies.recommended.vulnerabilityGracePeriod")}
         </p>
       ),
       value: (
@@ -248,17 +225,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     },
     {
       policy: (
-        <p>
-          {translate.t(
-            "organization.tabs.policies.policies.minBreakingSeverity"
-          )}
-        </p>
+        <p>{t("organization.tabs.policies.policies.minBreakingSeverity")}</p>
       ),
       recommended: (
         <p className={style.recommended}>
-          {translate.t(
-            "organization.tabs.policies.recommended.breakableSeverity"
-          )}
+          {t("organization.tabs.policies.recommended.breakableSeverity")}
         </p>
       ),
       value: (
@@ -284,16 +255,12 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       policy: (
         <p>
-          {translate.t(
-            "organization.tabs.policies.policies.acceptanceSeverityRange"
-          )}
+          {t("organization.tabs.policies.policies.acceptanceSeverityRange")}
         </p>
       ),
       recommended: (
         <p className={style.recommended}>
-          {translate.t(
-            "organization.tabs.policies.recommended.acceptanceSeverity"
-          )}
+          {t("organization.tabs.policies.recommended.acceptanceSeverity")}
         </p>
       ),
       value: (
@@ -348,8 +315,8 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   ];
 
   const handleFormSubmit = useCallback(
-    (values: IPoliciesFormData): void => {
-      void savePolicies({
+    async (values: IPoliciesFormData): Promise<void> => {
+      await savePolicies({
         variables: {
           maxAcceptanceDays: parseInt(values.maxAcceptanceDays, 10),
           maxAcceptanceSeverity: parseFloat(values.maxAcceptanceSeverity),
@@ -410,12 +377,8 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         {({ dirty, isValid, submitForm }): JSX.Element => (
           <Form id={"orgPolicies"}>
             <TooltipWrapper
-              id={translate.t(
-                "organization.tabs.policies.permissionTooltip.id"
-              )}
-              message={translate.t(
-                "organization.tabs.policies.permissionTooltip"
-              )}
+              id={t("organization.tabs.policies.permissionTooltip.id")}
+              message={t("organization.tabs.policies.permissionTooltip")}
             >
               <Table
                 dataset={policiesDataSet}
@@ -434,7 +397,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
                     onClick={submitForm}
                     variant={"primary"}
                   >
-                    {translate.t("organization.tabs.policies.save")}
+                    {t("organization.tabs.policies.save")}
                   </Button>
                 </ButtonToolbar>
               )}
@@ -444,7 +407,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       </Formik>
       <br />
       <p className={"mb0 f4 tc"}>
-        <b>{translate.t("organization.tabs.policies.findings.title")}</b>
+        <b>{t("organization.tabs.policies.findings.title")}</b>
       </p>
       <hr className={"b--light-gray bw2 mt0"} />
       <VulnerabilityPolicies
