@@ -1,3 +1,6 @@
+from alive_progress import (
+    alive_bar,
+)
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
@@ -31,7 +34,9 @@ from toolbox.utils.integrates import (
     get_git_roots,
 )
 from typing import (
+    Any,
     List,
+    Optional,
     Set,
 )
 import urllib.parse
@@ -129,7 +134,10 @@ def delete_out_of_scope_files(group: str) -> bool:
 
 
 def download_repo_from_s3(
-    group_name: str, nickname: str, presigned_url: str
+    group_name: str,
+    nickname: str,
+    presigned_url: str,
+    progress_bar: Optional[Any] = None,
 ) -> bool:
     os.makedirs(f"groups/{group_name}/fusion/", exist_ok=True)
     file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
@@ -138,7 +146,8 @@ def download_repo_from_s3(
         with open(file_path, "wb") as file:
             for chunk in handler.iter_content(8192):
                 file.write(chunk)
-
+    if progress_bar:
+        progress_bar()
     code, _, stderr = utils.generic.run_command(
         cmd=["tar", "-xf", f"{nickname}.tar.gz"],
         cwd=f"groups/{group_name}/fusion/",
@@ -153,7 +162,11 @@ def download_repo_from_s3(
     return True
 
 
-def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
+def pull_repos_s3_to_fusion(
+    subs: str,
+    repository_name: str,
+    progress_bar: Optional[Any] = None,
+) -> bool:
     """
     Download repos from s3 to a provided path
 
@@ -210,6 +223,9 @@ def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
         LOGGER.info("\n")
         return False
 
+    if progress_bar:
+        progress_bar()
+
     failed = False
     for folder in os.listdir(f"groups/{subs}/fusion/"):
         repo_path = f"groups/{subs}/fusion/{folder}/"
@@ -251,22 +267,27 @@ def main(subs: str, repository_name: str) -> bool:
         else [{"nickname": repository_name}]
     )
 
-    with ThreadPoolExecutor() as executor:
-        passed = passed and all(
-            executor.map(
-                download_repo_from_s3,
-                [subs for _ in range(len(zip_roots))],
-                [root["nickname"] for root in zip_roots],
-                [root["downloadUrl"] for root in zip_roots],
+    with alive_bar(
+        len(zip_roots) + len(pull_roots), enrich_print=False
+    ) as progress_bar:
+        with ThreadPoolExecutor() as executor:
+            passed = passed and all(
+                executor.map(
+                    download_repo_from_s3,
+                    [subs for _ in range(len(zip_roots))],
+                    [root["nickname"] for root in zip_roots],
+                    [root["downloadUrl"] for root in zip_roots],
+                    [progress_bar for _ in range(len(zip_roots))],
+                )
             )
-        )
-        passed = passed and all(
-            executor.map(
-                pull_repos_s3_to_fusion,
-                [subs for _ in range(len(pull_roots))],
-                [root["nickname"] for root in pull_roots],
+            passed = passed and all(
+                executor.map(
+                    pull_repos_s3_to_fusion,
+                    [subs for _ in range(len(pull_roots))],
+                    [root["nickname"] for root in pull_roots],
+                    [progress_bar for _ in range(len(pull_roots))],
+                )
             )
-        )
 
     if not drills_generic.s3_path_exists(bucket, f"{subs}/"):
         LOGGER.info("group %s does not have repos uploaded to s3", subs)
