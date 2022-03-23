@@ -17,7 +17,10 @@ const Portrait: React.FC = (): JSX.Element => (
   <NewMainCoverHome>
     <MainContentHome>
       <HomeImageContainer>
-        <CloudImage alt={"portrait-home"} src={"/home/portrait-home.png"} />
+        <CloudImage
+          alt={"Attacks Surface Management"}
+          src={"/home/portrait-home.png"}
+        />
       </HomeImageContainer>
       <NewInnerMainContentHome>
         <WhiteBigParagraph className={"f-home-title"}>
