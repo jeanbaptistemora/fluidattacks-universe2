@@ -100,6 +100,7 @@ async def send_report(
     report_url: str,
 ) -> None:
     translations: Dict[str, str] = {
+        "CERT": "Certificate",
         "DATA": "Group Data",
         "PDF": "Executive",
         "XLS": "Technical",

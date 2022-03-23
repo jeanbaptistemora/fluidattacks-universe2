@@ -286,11 +286,15 @@ class PDFWordlistEn(Wordlist):
 
 
 class PDFWordlistEs(Wordlist):
+    CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
+        "closed_vulns_title", "Vulnerabilidades Remediadas"
+    )
     FINDING_QUANTITY_TITLE: WordlistItem = WordlistItem(
         "finding_quantity_title", "Cantidad de Tipologías"
     )
-    OPEN_VULNS_TITLE: WordlistItem = WordlistItem(
-        "open_vulns_title", "Vulnerabilidades Remediadas"
+    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Abierto")
+    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
+        "fin_status_closed", "Cerrado"
     )
     RESUME_PERC_TITLE: WordlistItem = WordlistItem(
         "resume_perc_title", "Porcentaje de Remediación"
@@ -301,6 +305,10 @@ class PDFWordlistEs(Wordlist):
     TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
         "total_vulns_title", "Vulnerabilidades Reportadas"
     )
+    VULN_C: WordlistItem = WordlistItem("vuln_c", "Crítica")
+    VULN_H: WordlistItem = WordlistItem("vuln_h", "Alta")
+    VULN_M: WordlistItem = WordlistItem("vuln_m", "Media")
+    VULN_L: WordlistItem = WordlistItem("vuln_l", "Baja")
 
 
 class CertInfoEs(Wordlist):
