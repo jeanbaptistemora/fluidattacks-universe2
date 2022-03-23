@@ -23,6 +23,7 @@ export const FormikCheckbox: React.FC<ICheckboxProps> = (
     <React.Fragment>
       {isChecked ? (
         <Checkbox
+          aria-label={name}
           checked={true}
           // Best way to pass down props.
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -32,6 +33,7 @@ export const FormikCheckbox: React.FC<ICheckboxProps> = (
         </Checkbox>
       ) : (
         <Checkbox
+          aria-label={name}
           checked={value}
           // Best way to pass down props.
           // eslint-disable-next-line react/jsx-props-no-spreading

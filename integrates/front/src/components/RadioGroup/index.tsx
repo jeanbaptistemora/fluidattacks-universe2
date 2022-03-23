@@ -39,6 +39,7 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
     (label): JSX.Element => (
       <React.Fragment key={label}>
         <Radio
+          aria-label={label}
           checked={select === label}
           onChange={(): void => {
             handleSelectChange(label);

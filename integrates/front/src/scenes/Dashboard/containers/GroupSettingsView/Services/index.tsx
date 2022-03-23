@@ -5,6 +5,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ServicesForm } from "./form";
 import { handleEditGroupDataError } from "./helpers";
@@ -22,13 +23,11 @@ import type {
 import { Col80, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
-const Services: React.FC<IServicesProps> = (
-  props: IServicesProps
-): JSX.Element => {
-  const { groupName } = props;
-
+const Services: React.FC<IServicesProps> = ({
+  groupName,
+}: IServicesProps): JSX.Element => {
+  const { t } = useTranslation();
   // State management
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -40,7 +39,7 @@ const Services: React.FC<IServicesProps> = (
   } = useQuery<IGroupData>(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred getting group data", error);
       });
     },
@@ -50,13 +49,13 @@ const Services: React.FC<IServicesProps> = (
   const [editGroupData, { loading: submittingGroupData }] = useMutation(
     UPDATE_GROUP_DATA,
     {
-      onCompleted: (): void => {
+      onCompleted: async (): Promise<void> => {
         track("EditGroupData");
         msgSuccess(
-          translate.t("searchFindings.servicesTable.success"),
-          translate.t("searchFindings.servicesTable.successTitle")
+          t("searchFindings.servicesTable.success"),
+          t("searchFindings.servicesTable.successTitle")
         );
-        void refetchGroupData({ groupName });
+        await refetchGroupData({ groupName });
       },
       onError: (error: ApolloError): void => {
         handleEditGroupDataError(error);
@@ -73,8 +72,8 @@ const Services: React.FC<IServicesProps> = (
   );
 
   const handleFormSubmit = useCallback(
-    (values: IFormData): void => {
-      void editGroupData({
+    async (values: IFormData): Promise<void> => {
+      await editGroupData({
         variables: {
           comments: values.comments,
           description: values.description,
@@ -105,7 +104,7 @@ const Services: React.FC<IServicesProps> = (
       const errorsFound: { confirmation?: string } = {
         // Exception: FP(Implicit treatment in assignment)
         // eslint-disable-next-line
-        confirmation: translate.t( // NOSONAR
+        confirmation: t( // NOSONAR
           "searchFindings.servicesTable.errors.expectedGroupName",
           { groupName }
         ),
@@ -113,7 +112,7 @@ const Services: React.FC<IServicesProps> = (
 
       return errorsFound;
     },
-    [groupName]
+    [groupName, t]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -126,7 +125,7 @@ const Services: React.FC<IServicesProps> = (
         <Row>
           {/* eslint-disable-next-line react/forbid-component-props */}
           <Col80 className={"pa0"}>
-            <h2>{translate.t("searchFindings.servicesTable.services")}</h2>
+            <h2>{t("searchFindings.servicesTable.services")}</h2>
           </Col80>
         </Row>
         <Formik
