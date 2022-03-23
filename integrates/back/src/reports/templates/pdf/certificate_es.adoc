@@ -13,6 +13,7 @@ información del proceso y tipo de pruebas.
 
 El resultado actual de las pruebas realizadas es el siguiente:
 
+[cols="5*^",options=header]
 |===
 |{{words['severity_title']}}|{{words['finding_quantity_title']}}|{{words['total_vulns_title']}}|{{words['closed_vulns_title']}}|{{words['resume_perc_title']}}
 {% for row in remediation_table %}
@@ -28,8 +29,8 @@ solución y *Fluid Attacks* realiza la verificación de estas
 correcciones para garantizar la calidad de la solución.
 
 La presente certificación se expide por solicitud del cliente a los
-{{report_day}} del mes de {{report_month}} de {{report_year}}.
+{{report_day}} días del mes de {{report_month}} de {{report_year}}.
 
 {{fluid_tpl['signature_img']}}
-Representante legal
+Representante legal +
 Fluidsignal Group S.A.

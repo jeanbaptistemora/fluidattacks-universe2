@@ -97,7 +97,10 @@ async def format_finding(
 
 def _set_percentage(total_vulns: int, closed_vulns: int) -> str:
     if total_vulns != 0:
-        return f"{closed_vulns * 100.0 / total_vulns:.1f}%"
+        percentage = closed_vulns * 100.0 / total_vulns
+        if percentage == int(percentage):
+            return f"{percentage:.0f}%"
+        return f"{percentage:.1f}%"
     return "N/A"
 
 
@@ -152,6 +155,14 @@ def make_remediation_table(
     return remediation_dict.values()
 
 
+def resolve_month_name(
+    lang: str, date: datetime, words: Dict[str, str]
+) -> str:
+    if lang.lower() == "en":
+        return date.strftime("%B")
+    return words[date.strftime("%B").lower()]
+
+
 class CertificateCreator(CreatorPdf):
     """Class to generate certificates in PDF."""
 
@@ -173,7 +184,9 @@ class CertificateCreator(CreatorPdf):
         """Fetch information and fill out the context"""
         words = self.wordlist[self.lang]
         fluid_tpl_content: Dict[str, str] = {
-            "signature_img": "image::../templates/pdf/signature.png[]",
+            "signature_img": (
+                "image::../templates/pdf/signature.png[Signature,200,100]"
+            ),
             "footer_adoc": (
                 f"include::../templates/pdf/footer_{self.lang}.adoc[]"
             ),
@@ -192,10 +205,10 @@ class CertificateCreator(CreatorPdf):
             "fluid_tpl": fluid_tpl_content,
             "remediation_table": remediation_table,
             "start_day": str(start_date.day),
-            "start_month": start_date.strftime("%B"),
+            "start_month": resolve_month_name(self.lang, start_date, words),
             "start_year": str(start_date.year),
             "report_day": str(current_date.day),
-            "report_month": current_date.strftime("%B"),
+            "report_month": resolve_month_name(self.lang, current_date, words),
             "report_year": str(current_date.year),
             "solution": description,
             "words": words,
@@ -219,7 +232,7 @@ class CertificateCreator(CreatorPdf):
             autoescape=select_autoescape(["html", "xml"], default=True),
         )
         template = template_env.get_template(self.proj_tpl)
-        tpl_name = f"{self.tpl_dir}{group}_IT.tpl"
+        tpl_name = f"{self.tpl_dir}{group}_CERT.tpl"
         render_text = template.render(self.cert_context)
         with open(tpl_name, "wb") as tplfile:
             tplfile.write(render_text.encode("utf-8"))

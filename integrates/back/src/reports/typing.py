@@ -309,6 +309,19 @@ class PDFWordlistEs(Wordlist):
     VULN_H: WordlistItem = WordlistItem("vuln_h", "Alta")
     VULN_M: WordlistItem = WordlistItem("vuln_m", "Media")
     VULN_L: WordlistItem = WordlistItem("vuln_l", "Baja")
+    # To avoid setlocale's global effects, we'll have to support these names
+    JANUARY: WordlistItem = WordlistItem("january", "Enero")
+    FEBRUARY: WordlistItem = WordlistItem("february", "Febrero")
+    MARCH: WordlistItem = WordlistItem("march", "Marzo")
+    APRIL: WordlistItem = WordlistItem("april", "Abril")
+    MAY: WordlistItem = WordlistItem("may", "Mayo")
+    JUNE: WordlistItem = WordlistItem("june", "Junio")
+    JULY: WordlistItem = WordlistItem("july", "Julio")
+    AUGUST: WordlistItem = WordlistItem("august", "Agosto")
+    SEPTEMBER: WordlistItem = WordlistItem("september", "Septiembre")
+    OCTOBER: WordlistItem = WordlistItem("october", "Octubre")
+    NOVEMBER: WordlistItem = WordlistItem("november", "Noviembre")
+    DECEMBER: WordlistItem = WordlistItem("december", "Diciembre")
 
 
 class CertInfoEs(Wordlist):

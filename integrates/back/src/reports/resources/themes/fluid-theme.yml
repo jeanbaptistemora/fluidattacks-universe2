@@ -181,10 +181,14 @@ table:
   even_row_background_color: f9f9f9
   #odd_row_background_color: <hex value>
   foot_background_color: f0f0f0
-  border_color: dddddd
+  border_color: fc3333
   border_width: $base_border_width
   # HACK accounting for line-height
   cell_padding: 2
+  head:
+    background-color: fc3333
+    font-color: ffffff
+    font-size: 11
 toc:
   dot_leader_color: dddddd
   #dot_leader_content: '. '
