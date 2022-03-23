@@ -68,6 +68,14 @@ precedence over the value set in ASM.
 
 ## Examples
 
+Remember that the `--rm` and
+`--ti` parameters are optional.
+Indeed,
+they are not the only way
+of implementing the agent.
+According to your context,
+you define your best way.
+
 Run the Docker image:
 
 1. To check `all` vulnerabilities
