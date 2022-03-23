@@ -14449,35 +14449,46 @@
   en:
     title: Technical information leak - Stacktrace
     description: >
-      Inside the source code, the PrintStacktrace
-      function is used allowing the error trace
-      to be displayed to users.
+      Errors or exceptional events
+      are not properly handled by the application
+      allowing an attacker to disclose technical information
+      from system error traces:
     impact: >
       Exhibit technical information of the system.
     recommendation: >
-      Remove the PrintStacktrace function
-      within the source code.
+      - Remove functions that print technical information
+      such as PrintStacktrace from the source code
+
+       - Handle errors with typified exceptions
+       and store them in duly protected logs
     threat: >
       Internal attacker with access to the server console.
   es:
     title: Technical information leak - Stacktrace
     description: >
-      Dentro del código fuente, se hace uso
-      la función PrintStacktrace permitiendo
-      que la traza del error sea mostrada los usuarios.
+      La aplicación no maneja adecuadamente
+      los errores o eventos excepcionales
+      permitiendo a un atacante
+      conocer información técnica
+      de las trazas de error del sistema
     impact: >
       Exponer información técnica del sistema.
     recommendation: >
-      Eliminar la funcion PrintStacktrace dentro del código fuente.
+      - Eliminar del código fuente
+      las funciones que imprimen información técnica
+      como  PrintStacktrace 
+
+      - Manejar los errores con excepciones tipificadas
+      y almacenarlas en logs debidamente protegidos
     threat: >
-      Atacante interno con acceso a la consola del servidor.
+      Atacante autenticado desde Internet
   category: Collect Information
   remediation_time: "15"
   score:
     base:
-      attack_vector: "L"
+      attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "L"
@@ -14485,8 +14496,8 @@
       availability: "N"
     temporal:
       exploit_code_maturity: "P"
-      remediation_level: "X"
-      report_confidence: "X"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["077","176"]
   metadata:
     en:
@@ -24453,10 +24464,12 @@
   en:
     title: Dependency Confusion
     description: >
-      The application uses third-party components
-      that can be replaced by malicious components,
-      thus executing potentially harmful code
-      and increasing possible attack vectors.
+      The application incorrectly defines the dependencies to be used.
+      This generates some ambiguity that can be used by an attacker
+      to confuse the package manager in charge of installing
+      or updating the project's dependencies,
+      with the aim of executing potentially harmful code,
+      thus increasing the possible attack vectors.
     impact: >
       Execute malicious code in the application
     recommendation: >
@@ -24473,10 +24486,12 @@
   es:
     title: Dependency Confusion
     description: >
-      La aplicación utiliza componentes de terceros
-      que pueden ser sustituidos por componentes maliciosos
-      logrando así ejecutar código potencialmente dañino
-      e incrementar los posibles vectores de ataque
+      La aplicación define incorrectamente las dependencias a usar.
+      Debido a esto se genera cierta ambigüedad que puede ser utilizada
+      por un atacante para confundir al gestor de paquetes
+      encargado de instalar o actualizar las dependencias del proyecto,
+      con el objetivo de ejecutar código potencialmente dañino,
+      aumentando así los posibles vectores de ataque.
     impact: >
       Ejecutar código malicioso en la aplicación
     recommendation: >
