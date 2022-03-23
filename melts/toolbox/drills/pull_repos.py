@@ -30,6 +30,9 @@ from toolbox.drills import (
 from toolbox.logger import (
     LOGGER,
 )
+from toolbox.resources import (
+    get_head_commit,
+)
 from toolbox.utils.function import (
     shield,
 )
@@ -39,6 +42,7 @@ from toolbox.utils.integrates import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Set,
@@ -140,16 +144,18 @@ def delete_out_of_scope_files(group: str) -> bool:
 def download_repo_from_s3(
     group_name: str,
     nickname: str,
-    presigned_url: str,
+    root: Dict[str, Any],
     progress_bar: Optional[Any] = None,
-    commit: Optional[str] = None,
 ) -> bool:
     repo_path = f"groups/{group_name}/fusion/{nickname}"
+
     with suppress(GitError):
-        if commit and os.path.isdir(repo_path):
-            git_repo = Repo(repo_path)
-            hashr = git_repo.head.commit.hexsha
-            if hashr == commit:
+        if (
+            (commit := root.get("cloningStatus", {}).get("commit"))
+            and (branch := root.get("branch"))
+            and (local_commit := get_head_commit(repo_path, branch))
+        ):
+            if local_commit == commit:
                 LOGGER.info("%s  repository already exists", nickname)
                 if progress_bar:
                     progress_bar()
@@ -158,7 +164,7 @@ def download_repo_from_s3(
     os.makedirs(f"groups/{group_name}/fusion/", exist_ok=True)
     file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
 
-    with requests.get(presigned_url, stream=True) as handler:
+    with requests.get(root["downloadUrl"], stream=True) as handler:
         handler.raise_for_status()
         with open(file_path, "wb") as file:
             for chunk in handler.iter_content(8192):
@@ -289,6 +295,7 @@ def main(subs: str, repository_name: str) -> bool:
         len(zip_roots) + len(pull_roots), enrich_print=False
     ) as progress_bar:
         with ThreadPoolExecutor() as executor:
+            LOGGER.info("Downloading .tar files")
             passed = (
                 passed
                 and all(
@@ -296,17 +303,14 @@ def main(subs: str, repository_name: str) -> bool:
                         download_repo_from_s3,
                         [subs for _ in range(len(zip_roots))],
                         [root["nickname"] for root in zip_roots],
-                        [root["downloadUrl"] for root in zip_roots],
+                        zip_roots,
                         [progress_bar for _ in range(len(zip_roots))],
-                        [
-                            root["cloningStatus"]["commit"]
-                            for root in zip_roots
-                        ],
                     )
                 )
                 if zip_roots
                 else True
             )
+            LOGGER.info("Sync from s3")
             pull = list(
                 executor.map(
                     pull_repos_s3_to_fusion,

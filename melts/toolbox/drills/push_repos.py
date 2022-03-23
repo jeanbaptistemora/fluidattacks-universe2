@@ -16,7 +16,9 @@ import os
 from pathlib import (
     Path,
 )
+import requests  # type: ignore
 import shutil
+import tempfile
 from toolbox import (
     utils,
 )
@@ -143,37 +145,13 @@ def s3_sync_fusion_to_s3(
     group_name: str,
     root_nickname: str,
     root_id: str,
-    bucket: str = "continuous-repositories",
-    endpoint_url: Optional[str] = None,
+    upload_url: str,
 ) -> bool:
     append_root_metadata(group_name, root_nickname)
 
     fusion_dir: str = f"groups/{group_name}/fusion"
-    s3_subs_repos_path: str = group_name
-    kwargs = (
-        {}
-        if generic.is_env_ci()
-        else dict(
-            stdout=None,
-            stderr=None,
-        )
-    )
     base_path = os.getcwd()
     repo_path = f"{base_path}/{fusion_dir}/{root_nickname}"
-    aws_sync_command: List[str] = [
-        "aws",
-        "s3",
-        "sync",
-        "--delete",
-        "--sse",
-        "AES256",
-        "--exclude",
-        f"{repo_path}/*",
-        "--include",
-        f"{repo_path}/.git/*",
-        repo_path,
-        f"s3://{bucket}/{s3_subs_repos_path}/{root_nickname}/",
-    ]
 
     if not generic.is_env_ci():
         git_optimize_all(f"{base_path}/{fusion_dir}/{root_nickname}/")
@@ -182,24 +160,27 @@ def s3_sync_fusion_to_s3(
     # and avoid errors
     fill_empty_folders(fusion_dir)
 
-    if endpoint_url:
-        aws_sync_command.append("--endpoint")
-        aws_sync_command.append(endpoint_url)
-    if generic.is_env_ci():
-        aws_sync_command.append("--quiet")
-    status, stdout, stderr = generic.run_command(
-        cmd=aws_sync_command,
-        cwd=".",
+    _, zip_output_path = tempfile.mkstemp()
+    code, _, stderr = generic.run_command(
+        cmd=[
+            "tar",
+            "czf",
+            zip_output_path,
+            "--transform",
+            f"flags=r;s/./{root_nickname}/",
+            ".",
+        ],
+        cwd=repo_path,
         env={},
-        **kwargs,  # type:ignore
     )
-    # refer to https://docs.aws.amazon.com/cli/latest/topic/return-codes.html
-    if status not in (0, 2):
-        LOGGER.debug("push status: %s", status)
-        LOGGER.error("Sync from bucket has failed:")
-        LOGGER.info("stdout: %s", stdout)
-        LOGGER.info("stderr: %s", stderr)
-        return False
+    if code != 0:
+        LOGGER.error("Failed to comppres root \n %s", stderr)
+
+    with open(zip_output_path, "rb") as object_file:
+        object_text = object_file.read()
+        response = requests.put(upload_url, data=object_text)
+        response.raise_for_status()
+
     with suppress(GitError, AttributeError):
         utils.integrates.update_root_cloning_status(
             group_name,
@@ -222,13 +203,10 @@ def update_last_sync_date(table: str, group: str) -> None:
 
 
 @shield(retries=1)
-# pylint: disable=too-many-arguments
 def main(
     subs: str,
-    bucket: str = "continuous-repositories",
     aws_login: bool = True,
     aws_profile: str = "continuous-admin",
-    endpoint_url: Optional[str] = None,
     force: bool = False,
 ) -> bool:
     """
@@ -294,8 +272,7 @@ def main(
                         subs,
                         root["nickname"],
                         root["id"],
-                        bucket,
-                        endpoint_url,
+                        root["uploadUrl"],
                     )
                 else:
                     LOGGER.info("%s is already in S3", repo)
