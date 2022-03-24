@@ -197,7 +197,8 @@ You can use the 'code-as-data' approach to:
 
 This is what interests us most. `Semmle` maintains a public queries
 [repository](https://github.com/lgtmhq/lgtm-queries) and a
-[website](https://help.semmle.com/wiki/) with general rules that should
+[website](https://help.semmle.com/home/help/home.html) with general rules
+that should
 be followed for some of the supported languages, namely, `Java`, `C`,
 `Python` and some of their derivatives. Included are some security
 guidelines, with their corresponding `CWE`. For example, we can detect
@@ -217,7 +218,7 @@ And it would detect this kind of vulnerable code, which does not
 properly validate user input:
 
 **`XSS`-vulnerable `Java` code. Via
-[Semmle](https://help.semmle.com/wiki/pages/viewpage.action?pageId=1607941).**
+Semmle.**
 
 ``` java
 public class XSS extends HttpServlet {

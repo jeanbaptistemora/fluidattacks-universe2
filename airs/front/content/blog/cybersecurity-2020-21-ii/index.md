@@ -95,7 +95,7 @@ represent a crisis.
 
 <div class="title">
 
-Figure 1. Photo by [Jr Korpa](https://unsplash.com/@korpa)
+Figure 1. Photo by [Jr Korpa](https://unsplash.com/@jrkorpa)
 on [Unsplash](https://unsplash.com/photos/24ZrCqsAVeQ).
 
 </div>

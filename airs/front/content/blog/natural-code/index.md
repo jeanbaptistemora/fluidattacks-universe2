@@ -166,7 +166,7 @@ suggestions. The goal is to infer a good name for a function given its
 code. That is to say, if I know what it does, I should be able to know
 what its name is, assuming that the names are not entirely random or
 [humorously
-unmaintainable](https://www.se.rit.edu/~tabeec/RIT_441/Resources_files/How%20To%20Write%20Unmaintainable%20Code.pdf).
+unmaintainable](http://www2.imm.dtu.dk/courses/02161/2018/files/how_to_write_unmaintainable_code.pdf).
 
 Behind the scenes `Naturalize` uses natural language processing
 techniques, such as *n*-gram analysis to suggest more *natural-sounding*

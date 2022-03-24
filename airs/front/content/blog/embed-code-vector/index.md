@@ -62,7 +62,7 @@ called an *autoencoder*:
 <div class="title">
 
 Figure 2. Autoencoder neural network via [Carnegie
-Mellon](https://insights.sei.cmu.edu/sei_blog/blog_figure1_06102019.png).
+Mellon](https://insights.sei.cmu.edu/media/images/blog_figure1_06102019.original.png).
 
 </div>
 
@@ -109,7 +109,7 @@ seem obvious to a human to call that function `add` or even `give_sum`.
 However, this is not the case, as there are developers who give strange
 names to their identifiers and methods, such as
 `perform_binary_operation1`. Maybe to make their code [hilariously
-unmaintainable](https://www.se.rit.edu/~tabeec/RIT_441/Resources_files/How%20To%20Write%20Unmaintainable%20Code.pdf)
+unmaintainable](http://www2.imm.dtu.dk/courses/02161/2018/files/how_to_write_unmaintainable_code.pdf)
 and keep their jobs forever, since nobody else would understand it; or
 just make it sound like it does more than in reality.
 

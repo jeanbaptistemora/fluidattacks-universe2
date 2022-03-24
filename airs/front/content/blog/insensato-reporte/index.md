@@ -112,7 +112,7 @@ gustaría mantenerme enfocado en el asunto del reporte de la
 vulnerabilidad.
 
 Como dijo [Oakley para
-GlobeLiveMedia](https://globelivemedia.com/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/),
+GlobeLiveMedia](https://globelivemedia.com/news/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/),
 algunas otras personas también rechazaron la publicación de LSV. Repito:
 ¡podían haber estado llamando a la ciberdelincuencia\! Su comportamiento
 no fue apropiado ni juicioso en cuanto a la revelación de una
