@@ -1,14 +1,9 @@
 import React from "react";
 
-import { SwitchButton } from "components/SwitchButton";
+import { Switch } from "components/Switch";
 import type { IHeaderConfig } from "components/Table/types";
 
-export const changeVulnTreatmentFormatter: (
-  value: string,
-  row: Readonly<Record<string, string>>,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-) => JSX.Element = (
+export const changeVulnTreatmentFormatter = (
   _value: string,
   row: Readonly<Record<string, string>>,
   _rowIndex: number,
@@ -21,12 +16,10 @@ export const changeVulnTreatmentFormatter: (
   }
 
   return (
-    <SwitchButton
+    <Switch
       checked={!("acceptance" in row) || row.acceptance !== "REJECTED"}
-      id={"vulnTreatmentSwitch"}
-      offlabel={"REJECTED"}
+      label={{ off: "REJECTED", on: "APPROVED" }}
       onChange={handleOnChange}
-      onlabel={"APPROVED"}
     />
   );
 };

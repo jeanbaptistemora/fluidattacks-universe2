@@ -142,11 +142,7 @@ describe("handle vulns acceptance modal", (): void => {
       screen.getByRole("textbox", { name: "justification" }),
       "This is a justification test"
     );
-    userEvent.click(
-      screen
-        .getByRole("row", { name: "APPROVED REJECTED" })
-        .querySelectorAll("#vulnTreatmentSwitch")[0]
-    );
+    userEvent.click(screen.getByRole("checkbox"));
 
     await waitFor((): void => {
       expect(screen.queryByText("confirmmodal.proceed")).toBeInTheDocument();

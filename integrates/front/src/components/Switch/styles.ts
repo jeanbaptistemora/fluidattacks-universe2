@@ -30,9 +30,8 @@ const Slider = styled.span.attrs({
   }
 `;
 
-const Container = styled.label.attrs({ className: "dib mh2 relative" })`
+const Container = styled.label.attrs({ className: "dib mh2 relative v-mid" })`
   height: 24px;
-  vertical-align: text-top;
   width: 48px;
 
   input {

@@ -1,14 +1,9 @@
 import React from "react";
 
-import { SwitchButton } from "components/SwitchButton";
+import { Switch } from "components/Switch";
 import type { IHeaderConfig } from "components/Table/types";
 
-export const changeVulnStateFormatter: (
-  value: string,
-  row: Readonly<Record<string, string>>,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-) => JSX.Element = (
+export const changeVulnStateFormatter = (
   _value: string,
   row: Readonly<Record<string, string>>,
   _rowIndex: number,
@@ -21,12 +16,10 @@ export const changeVulnStateFormatter: (
   }
 
   return (
-    <SwitchButton
+    <Switch
       checked={!("currentState" in row) || row.currentState !== "closed"}
-      id={"vulnStateSwitch"}
-      offlabel={"closed"}
+      label={{ off: "closed", on: "open" }}
       onChange={handleOnChange}
-      onlabel={"open"}
     />
   );
 };

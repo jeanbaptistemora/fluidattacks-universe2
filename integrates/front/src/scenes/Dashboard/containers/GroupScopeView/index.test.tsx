@@ -608,21 +608,10 @@ describe("GroupScopeView", (): void => {
       screen.queryByText("group.scope.common.confirm")
     ).not.toBeInTheDocument();
     expect(
-      screen
-        .getByRole("cell", { name: "Active Inactive" })
-        .querySelectorAll("#rootSwitch")[0]
-    ).toHaveClass("b--moon-gray");
-    expect(
-      screen
-        .getByRole("cell", { name: "Active Inactive" })
-        .querySelectorAll("#rootSwitch")[0]
-    ).not.toHaveClass("b--switch");
+      screen.getByRole<HTMLInputElement>("checkbox").checked
+    ).toStrictEqual(false);
 
-    userEvent.click(
-      screen
-        .getByRole("cell", { name: "Active Inactive" })
-        .querySelectorAll("#rootSwitch")[0]
-    );
+    userEvent.click(screen.getByRole("checkbox"));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.scope.common.confirm")
@@ -631,17 +620,9 @@ describe("GroupScopeView", (): void => {
     userEvent.click(screen.getByText("Proceed"));
     await waitFor((): void => {
       expect(
-        screen
-          .getByRole("cell", { name: "Active Inactive" })
-          .querySelectorAll("#rootSwitch")[0]
-      ).toHaveClass("b--switch");
+        screen.getByRole<HTMLInputElement>("checkbox").checked
+      ).toStrictEqual(true);
     });
-
-    expect(
-      screen
-        .getByRole("cell", { name: "Active Inactive" })
-        .querySelectorAll("#rootSwitch")[0]
-    ).not.toHaveClass("b--moon-gray");
   });
 
   it.each(["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"])(
@@ -790,21 +771,10 @@ describe("GroupScopeView", (): void => {
         screen.queryByText("group.scope.common.confirm")
       ).not.toBeInTheDocument();
       expect(
-        screen
-          .getByRole("cell", { name: "Active Inactive" })
-          .querySelectorAll("#rootSwitch")[0]
-      ).not.toHaveClass("b--moon-gray");
-      expect(
-        screen
-          .getByRole("cell", { name: "Active Inactive" })
-          .querySelectorAll("#rootSwitch")[0]
-      ).toHaveClass("b--switch");
+        screen.getByRole<HTMLInputElement>("checkbox").checked
+      ).toStrictEqual(true);
 
-      userEvent.click(
-        screen
-          .getByRole("cell", { name: "Active Inactive" })
-          .querySelectorAll("#rootSwitch")[0]
-      );
+      userEvent.click(screen.getByRole("checkbox"));
       await waitFor((): void => {
         expect(
           screen.queryByText("group.scope.common.deactivation.title")
@@ -834,17 +804,9 @@ describe("GroupScopeView", (): void => {
       userEvent.click(screen.getByText("Proceed"));
       await waitFor((): void => {
         expect(
-          screen
-            .getByRole("cell", { name: "Active Inactive" })
-            .querySelectorAll("#rootSwitch")[0]
-        ).toHaveClass("b--moon-gray");
+          screen.getByRole<HTMLInputElement>("checkbox").checked
+        ).toStrictEqual(false);
       });
-
-      expect(
-        screen
-          .getByRole("cell", { name: "Active Inactive" })
-          .querySelectorAll("#rootSwitch")[0]
-      ).not.toHaveClass("b--switch");
     }
   );
 });

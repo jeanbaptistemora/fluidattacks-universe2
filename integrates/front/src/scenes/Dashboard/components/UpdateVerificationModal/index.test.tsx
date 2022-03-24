@@ -270,7 +270,7 @@ describe("update verification component", (): void => {
       screen.getByRole("textbox"),
       "This is a commenting test of a verifying request verification in vulns"
     );
-    userEvent.click(screen.getByText("closed"));
+    userEvent.click(screen.getByRole("checkbox"));
 
     userEvent.click(screen.getByText("confirmmodal.proceed"));
 

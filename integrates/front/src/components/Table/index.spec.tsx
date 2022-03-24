@@ -177,9 +177,9 @@ describe("Table", (): void => {
       .find("RowPureContent")
       .find("Cell")
       .at(2)
-      .find("div")
-      .at(0);
-    proceedChangeFunction.simulate("click");
+      .find("Switch")
+      .find("input");
+    proceedChangeFunction.simulate("change");
     const proceedDeleteFunction: ReactWrapper = wrapper
       .find("BootstrapTable")
       .find("RowPureContent")

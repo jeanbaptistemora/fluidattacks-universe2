@@ -1,14 +1,9 @@
 import React from "react";
 
-import { SwitchButton } from "components/SwitchButton";
+import { Switch } from "components/Switch";
 import type { IHeaderConfig } from "components/Table/types";
 
-export const changeFormatter: (
-  value: string,
-  row: Readonly<Record<string, string>>,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-) => JSX.Element = (
+export const changeFormatter = (
   _value: string,
   row: Readonly<Record<string, string>>,
   _rowIndex: number,
@@ -21,12 +16,10 @@ export const changeFormatter: (
   }
 
   return (
-    <SwitchButton
+    <Switch
       checked={!("state" in row) || row.state.toUpperCase() !== "INACTIVE"}
-      id={"rootSwitch"}
-      offlabel={"Inactive"}
+      label={{ off: "Inactive", on: "Active" }}
       onChange={handleOnChange}
-      onlabel={"Active"}
     />
   );
 };
