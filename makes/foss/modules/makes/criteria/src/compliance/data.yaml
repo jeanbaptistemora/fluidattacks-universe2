@@ -2732,79 +2732,79 @@
     description: __empty__
   definitions:
     "787":
-      title: Out-of-bounds Write
+      title: Out-of-bounds write
       link: https://cwe.mitre.org/data/definitions/787.html
     "79":
-      title: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+      title: Improper neutralization of input during web page generation (Cross-site scripting)
       link: https://cwe.mitre.org/data/definitions/79.html
     "125":
-      title: Out-of-bounds Read
+      title: Out-of-bounds read
       link: https://cwe.mitre.org/data/definitions/125.html
     "20":
-      title: Improper Input Validation
+      title: Improper input validation
       link: https://cwe.mitre.org/data/definitions/20.html
     "78":
-      title: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
+      title: Improper neutralization of special elements used in an OS command (OS Command Injection)
       link: https://cwe.mitre.org/data/definitions/78.html
     "89":
-      title: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+      title: Improper neutralization of special elements used in an SQL command (SQL Injection)
       link: https://cwe.mitre.org/data/definitions/89.html
     "416":
-      title: User After Free
+      title: User after free
       link: https://cwe.mitre.org/data/definitions/416.html
     "22":
-      title: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')
+      title: Improper limitation of a pathname to a restricted directory (Path Traversal)
       link: https://cwe.mitre.org/data/definitions/22.html
     "352":
-      title: Cross-Site Request Forgery (CSRF)
+      title: Cross-site request forgery (CSRF)
       link: https://cwe.mitre.org/data/definitions/352.html
     "434":
-      title: Unrestricted Upload of File with Dangerous Type
+      title: Unrestricted upload of file with dangerous type
       link: https://cwe.mitre.org/data/definitions/434.html
     "306":
-      title: Missing Authentication for Critical Function
+      title: Missing authentication for critical function
       link: https://cwe.mitre.org/data/definitions/306.html
     "190":
-      title: Integer Overflow or Wraparound
+      title: Integer overflow or wraparound
       link: https://cwe.mitre.org/data/definitions/190.html
     "502":
-      title: Deserialization of Untrusted Data
+      title: Deserialization of untrusted data
       link: https://cwe.mitre.org/data/definitions/502.html
     "287":
-      title: Improper Authentication
+      title: Improper authentication
       link: https://cwe.mitre.org/data/definitions/287.html
     "476":
-      title: NULL Pointer Dereference
+      title: NULL pointer dereference
       link: https://cwe.mitre.org/data/definitions/476.html
     "798":
-      title: Use of Hard-coded Credentials
+      title: Use of hard-coded credentials
       link: https://cwe.mitre.org/data/definitions/798.html
     "119":
-      title: Improper Restriction of Operations within the Bounds of a Memory Buffer
+      title: Improper restriction of operations within the bounds of a memory buffer
       link: https://cwe.mitre.org/data/definitions/119.html
     "862":
-      title: Missing Authorization
+      title: Missing authorization
       link: https://cwe.mitre.org/data/definitions/862.html
     "276":
-      title: Incorrect Default Permissions
+      title: Incorrect default permissions
       link: https://cwe.mitre.org/data/definitions/276.html
     "200":
-      title: Exposure of Sensitive Information to an Unauthorized Actor
+      title: Exposure of sensitive information to an unauthorized actor
       link: https://cwe.mitre.org/data/definitions/200.html
     "522":
-      title: Insufficiently Protected Credentials
+      title: Insufficiently protected credentials
       link: https://cwe.mitre.org/data/definitions/522.html
     "732":
-      title: Incorrect Permission Assignment for Critical Resource
+      title: Incorrect permission assignment for critical resource
       link: https://cwe.mitre.org/data/definitions/732.html
     "611":
-      title: Improper Restriction of XML External Entity Reference
+      title: Improper restriction of XML external entity reference
       link: https://cwe.mitre.org/data/definitions/611.html
     "918":
-      title: Server-Side Request Forgery (SSRF)
+      title: Server-side request forgery (SSRF)
       link: https://cwe.mitre.org/data/definitions/918.html
     "77":
-      title: Improper Neutralization of Special Elements used in a Command ('Command Injection')
+      title: Improper neutralization of special elements used in a command (Command Injection)
       link: https://cwe.mitre.org/data/definitions/77.html
   metadata: {}
 "owaspm10":
@@ -3264,7 +3264,7 @@
     description: __empty__
   definitions:
     "604-E_5":
-      title: Notification System
+      title: Notification system
       link: https://www.ftc.gov/system/files/documents/statutes/fair-credit-reporting-act/545a_fair-credit-reporting-act-0918.pdf
     "605-H_2":
       title: Prevent SQL injection
@@ -3283,10 +3283,10 @@
     description: __empty__
   definitions:
     "157-A":
-      title: Study on the Use of Technology to Combat Identity Theft
+      title: Study on the use of technology to combat identity theft
       link: https://www.ftc.gov/enforcement/statutes/fair-accurate-credit-transactions-act-2003
     "312-B_3":
-      title: Procedures to Enhance Accuracy and Integrity of Information
+      title: Procedures to enhance accuracy and integrity of information
       link: https://www.ftc.gov/enforcement/statutes/fair-accurate-credit-transactions-act-2003
   metadata: {}
 "glba":
@@ -4591,166 +4591,166 @@
     description: __empty__
   definitions:
     "AC-2_3":
-      title: Account Management - Disable Inactive Accounts
+      title: Account management - Disable inactive accounts
       link: https://www.fedramp.gov/documents-templates/
     "AC-2_5":
-      title: Account Management - Inactivity Logout
+      title: Account management - Inactivity logout
       link: https://www.fedramp.gov/documents-templates/
     "AC-2_7":
-      title: Account Management - Role-Based Schemes
+      title: Account management - Role-based schemes
       link: https://www.fedramp.gov/documents-templates/
     "AC-2_12":
-      title: Account Management - Account Monitoring, Atypical Usage
+      title: Account management - Account monitoring, atypical usage
       link: https://www.fedramp.gov/documents-templates/
     "AC-6_1":
-      title: Least Privilege - Authorize Access to Security Functions
+      title: Least privilege - Authorize access to security functions
       link: https://www.fedramp.gov/documents-templates/
     "AC-6_2":
-      title: Least Privilege - Non-Privileged Access for Nonsecurity Functions
+      title: Least privilege - Non-privileged access for nonsecurity functions
       link: https://www.fedramp.gov/documents-templates/
     "AC-6_3":
-      title: Least Privilege - Network Access to Privileged Commands
+      title: Least privilege - Network access to privileged commands
       link: https://www.fedramp.gov/documents-templates/
     "AC-6_8":
-      title: Least Privilege - Privilege Levels for Code Execution
+      title: Least privilege - Privilege levels for code execution
       link: https://www.fedramp.gov/documents-templates/
     "AC-7_2":
-      title: Unsuccessful Logon - Purge, Wipe Mobile Device
+      title: Unsuccessful logon - Purge, wipe mobile device
       link: https://www.fedramp.gov/documents-templates/
     "AC-8":
-      title: System Use Notification
+      title: System use notification
       link: https://www.fedramp.gov/documents-templates/
     "AC-10":
-      title: Concurrent Session Control
+      title: Concurrent session control
       link: https://www.fedramp.gov/documents-templates/
     "AC-11":
-      title: Session Lock
+      title: Session lock
       link: https://www.fedramp.gov/documents-templates/
     "AC-22":
-      title: Publicly Accessible Content
+      title: Publicly accessible content
       link: https://www.fedramp.gov/documents-templates/
     "AU-3_2":
-      title: Centralized Management of Planned Audit Record Content
+      title: Centralized management of planned audit record content
       link: https://www.fedramp.gov/documents-templates/
     "AU-8":
-      title: Time Stamps
+      title: Time stamps
       link: https://www.fedramp.gov/documents-templates/
     "AU-8_1":
-      title: Synchronization with Authoritative Time Source
+      title: Synchronization with authoritative time source
       link: https://www.fedramp.gov/documents-templates/
     "AU-12_3":
-      title: Audit Regeneration - Changes by Authorized Individuals
+      title: Audit regeneration - Changes by authorized individuals
       link: https://www.fedramp.gov/documents-templates/
     "CA-2_2":
-      title: Security Assesment - Specialized Assesments
+      title: Security assesment - Specialized assesments
       link: https://www.fedramp.gov/documents-templates/
     "CA-2_3":
-      title: Security Assesment - External Organizations
+      title: Security assesment - External organizations
       link: https://www.fedramp.gov/documents-templates/
     "CA-3":
-      title: System Interconnections
+      title: System interconnections
       link: https://www.fedramp.gov/documents-templates/
     "CA-3_3":
-      title: Unclassified Non-National Security System Connections
+      title: Unclassified non-national security system connections
       link: https://www.fedramp.gov/documents-templates/
     "CA-6":
-      title: Security Authorization
+      title: Security authorization
       link: https://www.fedramp.gov/documents-templates/
     "CA-7":
-      title: Continuous Monitoring
+      title: Continuous monitoring
       link: https://www.fedramp.gov/documents-templates/
     "CM-2_1":
-      title: Baseline Configuration - Reviews and Updates
+      title: Baseline configuration - Reviews and updates
       link: https://www.fedramp.gov/documents-templates/
     "CM-3_6":
-      title: Baseline Configuration - Cryptography Management
+      title: Baseline configuration - Cryptography management
       link: https://www.fedramp.gov/documents-templates/
     "CM-5_5":
-      title: Access Restrictions for Change - Limit Production, Operational Privileges
+      title: Access restrictions for change - Limit production, pperational privileges
       link: https://www.fedramp.gov/documents-templates/
     "CM-7":
-      title: Least Functionality
+      title: Least functionality
       link: https://www.fedramp.gov/documents-templates/
     "CM-7_5":
-      title: Least Functionality - Authorized Software, Whitelisting
+      title: Least functionality - Authorized software, whitelisting
       link: https://www.fedramp.gov/documents-templates/
     "IA-2_11":
-      title: Identification and Authentication - Remote Access, Separate Device
+      title: Identification and authentication - Remote access, separate device
       link: https://www.fedramp.gov/documents-templates/
     "IA-4":
-      title: Identifier Management
+      title: Identifier management
       link: https://www.fedramp.gov/documents-templates/
     "IA-5_1":
-      title: Authenticator Management - Password-Based Authentication
+      title: Authenticator management - Password-based authentication
       link: https://www.fedramp.gov/documents-templates/
     "IA-5_3":
-      title: Authenticator Management - In-Person or Trusted Third-Party Registration
+      title: Authenticator management - In-person or trusted third-party registration
       link: https://www.fedramp.gov/documents-templates/
     "IA-5_8":
-      title: Authenticator Management - Multiple Information System Accounts
+      title: Authenticator management - Multiple information system accounts
       link: https://www.fedramp.gov/documents-templates/
     "MP-2":
-      title: Media Access
+      title: Media access
       link: https://www.fedramp.gov/documents-templates/
     "MP-5":
-      title: Media Transport
+      title: Media transport
       link: https://www.fedramp.gov/documents-templates/
     "MP-6":
-      title: Media Sanitization
+      title: Media sanitization
       link: https://www.fedramp.gov/documents-templates/
     "PE-3":
-      title: Physical Access Control
+      title: Physical access control
       link: https://www.fedramp.gov/documents-templates/
     "PE-16":
-      title: Delivery and Removal
+      title: Delivery and removal
       link: https://www.fedramp.gov/documents-templates/
     "PS-3_3":
-      title: Personnel Screening - Information with Special Protection Measures
+      title: Personnel screening - Information with special protection measures
       link: https://www.fedramp.gov/documents-templates/
     "PS-7":
-      title: Third-Party Personnel Security
+      title: Third-party personnel security
       link: https://www.fedramp.gov/documents-templates/
     "RA-5":
-      title: Vulnerability Scanning
+      title: Vulnerability scanning
       link: https://www.fedramp.gov/documents-templates/
     "RA-5_4":
-      title: Privileged Access
+      title: Privileged access
       link: https://www.fedramp.gov/documents-templates/
     "SA-1":
-      title: System and Services Acquisition Policy and Procedures
+      title: System and services acquisition policy and procedures
       link: https://www.fedramp.gov/documents-templates/
     "SA-9":
-      title: External Information System Services
+      title: External information system services
       link: https://www.fedramp.gov/documents-templates/
     "SA-10":
-      title: Developer Configuration Management
+      title: Developer configuration management
       link: https://www.fedramp.gov/documents-templates/
     "SC-1":
-      title: System and Communications Protection Policy and Procedures
+      title: System and communications protection policy and procedures
       link: https://www.fedramp.gov/documents-templates/
     "SC-8":
-      title: Transmission Confidentiality and Integrity
+      title: Transmission confidentiality and integrity
       link: https://www.fedramp.gov/documents-templates/
     "SC-8_1":
-      title: Cryptographic or Alternate Physical Protection
+      title: Cryptographic or alternate physical protection
       link: https://www.fedramp.gov/documents-templates/
     "SC-10":
-      title: Network Disconnect
+      title: Network disconnect
       link: https://www.fedramp.gov/documents-templates/
     "SC-12_2":
-      title: Cryptographic Key Establishment and Management - Symmetric Keys
+      title: Cryptographic key establishment and management - Symmetric keys
       link: https://www.fedramp.gov/documents-templates/
     "SC-13":
-      title: Cryptographic Protection
+      title: Cryptographic protection
       link: https://www.fedramp.gov/documents-templates/
     "SC-28":
-      title: Protection of Information al Rest
+      title: Protection of information al rest
       link: https://www.fedramp.gov/documents-templates/
     "SI-3":
-      title: Malicious Code Protection
+      title: Malicious code protection
       link: https://www.fedramp.gov/documents-templates/
     "SI-5":
-      title: Security Alerts, Advisories, and Directives
+      title: Security alerts, advisories, and directives
       link: https://www.fedramp.gov/documents-templates/
   metadata: {}
 "iso27002":
