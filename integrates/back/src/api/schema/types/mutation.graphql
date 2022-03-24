@@ -880,6 +880,10 @@ type Mutation {
 
   "Updates a group's general information"
   updateGroupInfo(
+    "Business registration number to update"
+    businessId: String
+    "Business name to update"
+    businessName: String
     "Description of the group"
     description: String!
     "Name of the group to be updated"

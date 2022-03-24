@@ -96,6 +96,8 @@ class Group(NamedTuple):
 
 
 class GroupMetadataToUpdate(NamedTuple):
+    business_id: Optional[str] = None
+    business_name: Optional[str] = None
     context: Optional[str] = None
     description: Optional[str] = None
     disambiguation: Optional[str] = None

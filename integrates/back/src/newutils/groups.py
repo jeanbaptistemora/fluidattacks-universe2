@@ -258,6 +258,10 @@ def format_group_unreliable_indicators(
 
 def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     item = {
+        "business_id": metadata.business_id if metadata.business_id else None,
+        "business_name": metadata.business_name
+        if metadata.business_name
+        else None,
         "description": metadata.description,
         "disambiguation": metadata.disambiguation,
         "group_context": metadata.context,

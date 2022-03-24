@@ -13,7 +13,7 @@ type Group {
     (year and month)"""
     date: DateTime
   ): Authors
-  "Official identifier of the business"
+  "Official business registration number"
   businessId: String
   "Name of the business related to this Group"
   businessName: String

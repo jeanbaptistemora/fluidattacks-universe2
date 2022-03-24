@@ -32,6 +32,7 @@ from newutils import (
 )
 from typing import (
     Any,
+    Dict,
 )
 
 
@@ -47,17 +48,26 @@ async def mutate(
     description: str,
     group_name: str,
     language: str,
+    **parameters: Dict[str, str],
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     try:
+        business_id = parameters.get("business_id", None)
+        business_name = parameters.get("business_name", None)
         description = description.strip()
         if not description:
             raise InvalidParameter()
+        if business_id is not None:
+            validations_utils.validate_field_length(business_id, 60)
+        if business_name is not None:
+            validations_utils.validate_field_length(business_name, 60)
         validations_utils.validate_field_length(description, 200)
         validations_utils.validate_group_language(language)
         await groups_domain.update_metadata_typed(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(
+                business_id=business_id,
+                business_name=business_name,
                 description=description,
                 language=GroupLanguage[language.upper()],
             ),
