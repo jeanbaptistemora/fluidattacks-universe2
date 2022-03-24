@@ -151,7 +151,7 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
             sorted(
                 data,
                 key=lambda x: (
-                    x.closed_vulnerabilities
+                    x.open_vulnerabilities
                     / (x.closed_vulnerabilities + x.open_vulnerabilities)
                     if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
                     else 0

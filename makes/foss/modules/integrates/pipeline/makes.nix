@@ -431,7 +431,7 @@ in {
               chartsTemplate
               // {
                 interruptible = false;
-                parallel = 22;
+                parallel = 25;
                 rules = [
                   (gitlabCi.rules.schedules)
                   (

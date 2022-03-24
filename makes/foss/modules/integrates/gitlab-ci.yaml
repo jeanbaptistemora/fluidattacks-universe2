@@ -3005,7 +3005,7 @@
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
-  parallel: 22
+  parallel: 25
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
