@@ -241,17 +241,19 @@ async def add_vulnerability_treatment(
 def get_treatment_change(
     vulnerability: Vulnerability, min_date: Datetime
 ) -> Optional[Tuple[str, Vulnerability]]:
-    last_treatment_date = datetime.fromisoformat(
-        vulnerability.treatment.modified_date
-    )
-    if last_treatment_date > min_date:
-        treatment = str(vulnerability.treatment.status.value)
-        status = (
-            f"_{vulnerability.treatment.acceptance_status.value}"
-            if vulnerability.treatment.acceptance_status is not None
-            else ""
+    if vulnerability.treatment is not None:
+        last_treatment_date = datetime.fromisoformat(
+            vulnerability.treatment.modified_date
         )
-        return treatment + status, vulnerability
+        if last_treatment_date > min_date:
+            treatment = str(vulnerability.treatment.status.value)
+            status = (
+                f"_{vulnerability.treatment.acceptance_status.value}"
+                if vulnerability.treatment.acceptance_status is not None
+                else ""
+            )
+            return treatment + status, vulnerability
+        return None
     return None
 
 
@@ -320,13 +322,14 @@ async def _handle_vulnerability_acceptance(
         for treatment in vulns_model.utils.adjust_historic_dates(
             treatments_to_add
         ):
-            await vulns_model.update_treatment(
-                current_value=current_value,
-                finding_id=finding_id,
-                vulnerability_id=vulnerability.id,
-                treatment=treatment,
-            )
-            current_value = treatment
+            if isinstance(treatment, VulnerabilityTreatment):
+                await vulns_model.update_treatment(
+                    current_value=current_value,
+                    finding_id=finding_id,
+                    vulnerability_id=vulnerability.id,
+                    treatment=treatment,
+                )
+                current_value = treatment
 
 
 async def handle_vulnerabilities_acceptance(
@@ -477,10 +480,11 @@ async def update_vulnerabilities_treatment(
         validations.validate_field_length(
             updated_values["justification"], 10000
         )
-    if not compare_historic_treatments(
-        vulnerability.treatment, updated_values
-    ):
-        raise SameValues()
+    if vulnerability.treatment:
+        if not compare_historic_treatments(
+            vulnerability.treatment, updated_values
+        ):
+            raise SameValues()
 
     historic_treatment = await loaders.vulnerability_historic_treatment.load(
         vulnerability.id
@@ -522,26 +526,28 @@ async def validate_and_send_notification_request(
             "Some of the provided vulns ids don't match existing vulns"
         )
     # Validate assigned
-    assigned: str = assigned_vulns[0].treatment.assigned
-    if assigned is None:
-        raise InvalidNotificationRequest(
-            "Some of the provided vulns don't have any assigned hackers"
-        )
+    if assigned_vulns[0].treatment:
+        assigned = str(assigned_vulns[0].treatment.assigned)
+        if assigned is None:
+            raise InvalidNotificationRequest(
+                "Some of the provided vulns don't have any assigned hackers"
+            )
     # Validate recent changes in treatment
     for vuln in assigned_vulns:
-        if not (
-            timedelta(minutes=10)
-            > datetime_utils.get_now()
-            - datetime.fromisoformat(vuln.treatment.modified_date)
-            and vuln.treatment.assigned == assigned
-        ):
-            raise InvalidNotificationRequest(
-                "Too much time has passed to notify some of these changes"
-            )
-        if vuln.treatment.assigned != assigned:
-            raise InvalidNotificationRequest(
-                "Not all of the vulns provided have the same assigned hacker"
-            )
+        if vuln.treatment:
+            if not (
+                timedelta(minutes=10)
+                > datetime_utils.get_now()
+                - datetime.fromisoformat(vuln.treatment.modified_date)
+                and vuln.treatment.assigned == assigned
+            ):
+                raise InvalidNotificationRequest(
+                    "Too much time has passed to notify some of these changes"
+                )
+            if vuln.treatment.assigned != assigned:
+                raise InvalidNotificationRequest(
+                    "Not all the vulns provided have the same assigned hacker"
+                )
     where_str = format_vulnerability_locations(
         list(vuln.where for vuln in assigned_vulns)
     )
