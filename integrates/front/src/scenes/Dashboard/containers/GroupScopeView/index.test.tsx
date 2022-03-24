@@ -625,7 +625,7 @@ describe("GroupScopeView", (): void => {
     });
   });
 
-  it.each(["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"])(
+  it.each(["REGISTERED_BY_MISTAKE"])(
     "should deactivate root with reason %s",
     async (reason): Promise<void> => {
       expect.hasAssertions();

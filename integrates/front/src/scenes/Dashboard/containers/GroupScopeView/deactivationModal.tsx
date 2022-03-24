@@ -268,11 +268,6 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                           </ControlLabel>
                           <Field component={FormikDropdown} name={"reason"}>
                             <option value={""} />
-                            <option value={"OUT_OF_SCOPE"}>
-                              {t(
-                                "group.scope.common.deactivation.reason.scope"
-                              )}
-                            </option>
                             <option value={"REGISTERED_BY_MISTAKE"}>
                               {t(
                                 "group.scope.common.deactivation.reason.mistake"
