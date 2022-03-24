@@ -255,8 +255,10 @@ def main(
                     f"groups/{subs}/fusion/{repo}", root["branch"]
                 )
             ):
-                if force or local_commit != root.get("cloningStatus", {}).get(
-                    "commit"
+                if force or (
+                    local_commit
+                    and local_commit
+                    != root.get("cloningStatus", {}).get("commit")
                 ):
                     LOGGER.info(
                         (

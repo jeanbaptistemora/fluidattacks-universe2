@@ -18,7 +18,6 @@ import pathspec
 from pathspec.patterns.gitwildmatch import (
     GitWildMatchPattern,
 )
-import requests  # type: ignore
 import shutil
 import subprocess
 from toolbox import (
@@ -48,6 +47,9 @@ from typing import (
     Set,
 )
 import urllib.parse
+from urllib.request import (
+    urlretrieve,
+)
 
 
 def notify_out_of_scope(
@@ -164,11 +166,7 @@ def download_repo_from_s3(
     os.makedirs(f"groups/{group_name}/fusion/", exist_ok=True)
     file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
 
-    with requests.get(root["downloadUrl"], stream=True) as handler:
-        handler.raise_for_status()
-        with open(file_path, "wb") as file:
-            for chunk in handler.iter_content(8192):
-                file.write(chunk)
+    urlretrieve(root["downloadUrl"], file_path)
 
     if progress_bar:
         progress_bar()
@@ -277,7 +275,6 @@ def main(subs: str, repository_name: str) -> bool:
     bucket: str = "continuous-repositories"
     passed: bool = True
 
-    utils.generic.aws_login(f"continuous-{subs}")
     roots = [
         root for root in get_git_roots(group=subs) if root["state"] == "ACTIVE"
     ]
@@ -290,6 +287,8 @@ def main(subs: str, repository_name: str) -> bool:
         if repository_name == "*"
         else [{"nickname": repository_name}]
     )
+    if pull_roots:
+        utils.generic.aws_login(f"continuous-{subs}")
 
     with alive_bar(
         len(zip_roots) + len(pull_roots), enrich_print=False
@@ -310,6 +309,7 @@ def main(subs: str, repository_name: str) -> bool:
                 if zip_roots
                 else True
             )
+
             LOGGER.info("Sync from s3")
             pull = list(
                 executor.map(
