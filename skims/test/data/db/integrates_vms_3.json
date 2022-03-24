@@ -246,7 +246,7 @@
             "S": "ROOT"
           },
           "where": {
-            "S": "test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+            "S": "namespace3/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
           },
           "pk": {
             "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
@@ -272,35 +272,16 @@
           },
           "sk_2": {
             "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
           },
-          "modified_by": {
-            "S": "unittest@fluidattacks.com"
-          },
-          "pk": {
-            "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2#VERIFICATION"
-          },
-          "modified_date": {
-            "S": "2022-03-18T15:28:07.070648+00:00"
-          },
-          "comment_id": {
-            "S": "1558048727999"
-          },
-          "status": {
-            "S": "REQUESTED"
-          },
-          "vulnerability_ids": {
-            "SS": [
-              "0a848781-b6a4-422e-95fa-692151e6a98z"
-            ]
+          "verification": {
+            "M": {
+              "modified_date": {
+                "S": "2022-03-19T15:29:07.070648+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              }
+            }
           }
         }
       }
