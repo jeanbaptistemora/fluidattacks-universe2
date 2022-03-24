@@ -9,11 +9,13 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
+import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
@@ -103,10 +105,19 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           : group.hasSquad
           ? "Squad"
           : "Machine";
+      const eventFormat: string =
+        _.isUndefined(group.events) || _.isEmpty(group.events)
+          ? "Ok"
+          : group.events.filter((event): boolean =>
+              event.eventStatus.includes("CREATED")
+            ).length > 0
+          ? "Failed"
+          : "Ok";
 
       return {
         ...group,
         description,
+        eventFormat,
         name,
         plan,
       };
@@ -147,6 +158,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           defaultValue: "-",
         }),
       header: t("organization.tabs.groups.role"),
+    },
+    {
+      dataField: "eventFormat",
+      formatter: statusFormatter,
+      header: t("organization.tabs.groups.newGroup.status.text"),
+      headerFormatter: tooltipFormatter,
+      tooltipDataField: t("organization.tabs.groups.newGroup.status.tooltip"),
+      wrapped: true,
     },
   ];
 

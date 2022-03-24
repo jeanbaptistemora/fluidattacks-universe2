@@ -13,6 +13,9 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
         service
         subscription
         userRole
+        events {
+          eventStatus
+        }
       }
     }
   }

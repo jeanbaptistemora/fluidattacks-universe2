@@ -1343,6 +1343,10 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Squad finds deep and zero-day vulnerabilities during software development",
           },
+          status: {
+            text: "Status",
+            tooltip: "There are open eventualities that may affect tests.",
+          },
           success: "Group created successfully",
           switch: {
             no: "No",

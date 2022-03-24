@@ -1,5 +1,9 @@
 interface IGroupData {
   description: string;
+  eventFormat: string;
+  events: {
+    eventStatus: string;
+  }[];
   machine: string;
   squad: string;
   service: string;
