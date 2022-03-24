@@ -255,15 +255,36 @@
     "CVE-2020-15092": "<3.7.0",
     "GHSA-2jpm-827p-j44g": "<3.7.0"
   },
+  "@liquity/contracts": {
+    "GHSA-xh2p-7p87-fhgh": "<=1.0.0"
+  },
+  "@metamask/eth-ledger-bridge-keyring": {
+    "GHSA-vg44-fw64-cpjx": "<0.2.2"
+  },
   "@nextcloud/dialogs": {
     "CVE-2021-29438": "<3.1.2",
     "GHSA-g3fq-3v3g-mh32": "<3.1.2"
+  },
+  "@node-red/runtime": {
+    "GHSA-m33v-338h-4v9f": "<1.2.8"
+  },
+  "@novnc/novnc": {
+    "GHSA-49rv-g7w5-m8xx": "<0.6.2"
+  },
+  "@nozbe/watermelondb": {
+    "GHSA-38f9-m297-6q9g": "<0.15.1 || >=0.16.0 <0.16.2"
   },
   "@npmcli/arborist": {
     "CVE-2021-39134": "<2.8.2",
     "CVE-2021-39135": "<2.8.2",
     "GHSA-2h3h-q99f-3fhc": "<2.8.2",
     "GHSA-gmw6-94gg-2rc2": "<2.8.2"
+  },
+  "@npmcli/arborist2": {
+    "GHSA-gmw6-94gg-2rc2": "<2.8.23"
+  },
+  "@npmcli/git": {
+    "GHSA-hxwm-x553-x359": "<2.0.8"
   },
   "@nuxt/devalue": {
     "CVE-2019-13506": "<1.2.3"
@@ -274,8 +295,18 @@
     "GHSA-fg47-3c2x-m2wr": ">=3.3.0 <3.4.2 || >=4.0.0 <4.3.1",
     "GHSA-vrw4-w73r-6mm8": ">=3.3.0 <3.4.2 || >=4.0.0 <4.3.1"
   },
+  "@openzeppelin/contracts-upgradeable": {
+    "GHSA-9c22-pwxw-p6hx": ">=3.2.0 <4.4.1",
+    "GHSA-m6w8-fq7v-ph4m": ">=4.3.0 <4.4.2"
+  },
+  "@prisma/sdk": {
+    "GHSA-pxcc-hj8w-fmm7": "<2.20.0"
+  },
   "@progfay/scrapbox-parser": {
     "CVE-2021-27405": "<6.0.3"
+  },
+  "@progress/kendo-angular-editor": {
+    "GHSA-j7wp-vjj6-cp5m": "<1.2.3"
   },
   "@ronomon/opened": {
     "CVE-2021-29300": "<1.5.2"
