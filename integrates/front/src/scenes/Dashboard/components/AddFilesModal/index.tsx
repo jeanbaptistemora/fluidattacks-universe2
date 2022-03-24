@@ -2,6 +2,7 @@ import { Field, Form, Formik } from "formik";
 import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 import { mixed, object, string } from "yup";
 
@@ -10,7 +11,6 @@ import { Modal, ModalFooter } from "components/Modal";
 import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   isValidFileSize,
@@ -22,21 +22,24 @@ import {
 const MAX_LENGTH: number = 200;
 const maxFileDescriptionLength: ConfigurableValidator = maxLength(MAX_LENGTH);
 
-const addFilesModal: React.FC<IAddFilesModalProps> = (
-  props: IAddFilesModalProps
-): JSX.Element => {
-  const { isOpen, isUploading, onClose, onSubmit } = props;
+const AddFilesModal: React.FC<IAddFilesModalProps> = ({
+  isOpen,
+  isUploading,
+  onClose,
+  onSubmit,
+}: IAddFilesModalProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const MAX_FILE_SIZE: number = 5000;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
   const addFilesModalSchema = object().shape({
-    description: string().required(translate.t("validations.required")),
+    description: string().required(t("validations.required")),
     file: mixed()
-      .required(translate.t("validations.required"))
+      .required(t("validations.required"))
       .test(
         "isValidFileName",
-        translate.t("searchFindings.tabResources.invalidChars"),
+        t("searchFindings.tabResources.invalidChars"),
         (value?: FileList): boolean => {
           if (value === undefined || _.isEmpty(value)) {
             return false;
@@ -60,7 +63,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t("searchFindings.tabResources.modalFileTitle")}
+        title={t("searchFindings.tabResources.modalFileTitle")}
       >
         <Formik
           enableReinitialize={true}
@@ -86,7 +89,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 <div>
                   <label>
                     <RequiredField>{"*"} </RequiredField>
-                    {translate.t("searchFindings.tabResources.description")}
+                    {t("searchFindings.tabResources.description")}
                   </label>
                   <Field
                     component={FormikTextArea}
@@ -104,7 +107,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 <div>
                   {" "}
                   <br />
-                  {translate.t("searchFindings.tabResources.uploadingProgress")}
+                  {t("searchFindings.tabResources.uploadingProgress")}
                 </div>
               ) : undefined}
               <ModalFooter>
@@ -113,7 +116,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                   onClick={onClose}
                   variant={"secondary"}
                 >
-                  {translate.t("confirmmodal.cancel")}
+                  {t("confirmmodal.cancel")}
                 </Button>
                 <Button
                   disabled={!dirty || isUploading}
@@ -121,7 +124,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                   type={"submit"}
                   variant={"primary"}
                 >
-                  {translate.t("confirmmodal.proceed")}
+                  {t("confirmmodal.proceed")}
                 </Button>
               </ModalFooter>
             </Form>
@@ -132,4 +135,4 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
   );
 };
 
-export { IAddFilesModalProps, addFilesModal as AddFilesModal };
+export { IAddFilesModalProps, AddFilesModal };

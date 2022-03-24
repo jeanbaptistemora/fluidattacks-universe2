@@ -2,6 +2,7 @@ import { Field, Form, Formik } from "formik";
 import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mixed, object } from "yup";
 
 import { Button } from "components/Button";
@@ -9,23 +10,25 @@ import { Modal, ModalFooter } from "components/Modal";
 import { IAddFilesBasicModalProps } from "scenes/Dashboard/components/AddFilesBasicModal/types";
 import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import { isValidFileSize } from "utils/validations";
 
-const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
-  props: IAddFilesBasicModalProps
-): JSX.Element => {
-  const { isOpen, isUploading, onClose, onSubmit } = props;
+const AddFilesBasicModal: React.FC<IAddFilesBasicModalProps> = ({
+  isOpen,
+  isUploading,
+  onClose,
+  onSubmit,
+}: IAddFilesBasicModalProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const MAX_FILE_SIZE: number = 5000;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
   const addFilesModalSchema = object().shape({
     file: mixed()
-      .required(translate.t("validations.required"))
+      .required(t("validations.required"))
       .test(
         "isValidFileName",
-        translate.t("searchFindings.tabResources.invalidChars"),
+        t("searchFindings.tabResources.invalidChars"),
         (value?: FileList): boolean => {
           if (value === undefined || _.isEmpty(value)) {
             return false;
@@ -48,7 +51,7 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t("searchFindings.tabResources.modalFileTitle")}
+        title={t("searchFindings.tabResources.modalFileTitle")}
       >
         <Formik
           enableReinitialize={true}
@@ -76,7 +79,7 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
                 <div>
                   {" "}
                   <br />
-                  {translate.t("searchFindings.tabResources.uploadingProgress")}
+                  {t("searchFindings.tabResources.uploadingProgress")}
                 </div>
               ) : undefined}
               <ModalFooter>
@@ -85,7 +88,7 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
                   onClick={onClose}
                   variant={"secondary"}
                 >
-                  {translate.t("confirmmodal.cancel")}
+                  {t("confirmmodal.cancel")}
                 </Button>
                 <Button
                   disabled={!dirty || isUploading}
@@ -93,7 +96,7 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
                   type={"submit"}
                   variant={"primary"}
                 >
-                  {translate.t("confirmmodal.proceed")}
+                  {t("confirmmodal.proceed")}
                 </Button>
               </ModalFooter>
             </Form>
@@ -104,4 +107,4 @@ const addFilesBasicModal: React.FC<IAddFilesBasicModalProps> = (
   );
 };
 
-export { IAddFilesBasicModalProps, addFilesBasicModal as AddFilesBasicModal };
+export { IAddFilesBasicModalProps, AddFilesBasicModal };
