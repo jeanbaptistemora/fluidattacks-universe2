@@ -39,6 +39,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
     catch_clause as common_catch_clause,
+    catch_declaration as common_catch_declaration,
     conditional_expression as common_conditional_expression,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
@@ -108,6 +109,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "catch_clause",
         },
         syntax_reader=common_catch_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "catch_declaration",
+        },
+        syntax_reader=common_catch_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
