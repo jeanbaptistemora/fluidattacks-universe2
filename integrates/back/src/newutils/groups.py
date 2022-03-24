@@ -168,6 +168,8 @@ def format_group(item: Item, organization_name: str) -> Group:
     else:
         current_state = last_configuration
     return Group(
+        business_id=item.get("business_id", None),
+        business_name=item.get("business_name", None),
         description=item.get("description", ""),
         language=GroupLanguage[item.get("language", "en").upper()],
         name=str(

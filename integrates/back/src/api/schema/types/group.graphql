@@ -13,6 +13,10 @@ type Group {
     (year and month)"""
     date: DateTime
   ): Authors
+  "Official identifier of the business"
+  businessId: String
+  "Name of the business related to this Group"
+  businessName: String
   "Amount of currently closed vulnerabilities in the group"
   closedVulnerabilities: Int
   "Information about the group shared by the stakeholders via comments"

@@ -81,6 +81,8 @@ class GroupFile(NamedTuple):
 
 
 class Group(NamedTuple):
+    business_id: Optional[str]
+    business_name: Optional[str]
     description: str
     language: GroupLanguage
     name: str
