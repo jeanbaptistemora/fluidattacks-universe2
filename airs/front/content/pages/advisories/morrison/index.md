@@ -28,7 +28,7 @@ template: advisory
 |                       |                                                                                                   |
 |-----------------------|---------------------------------------------------------------------------------------------------|
 | **Kind**              | Double-Free/Arbitrary code execution                                                              |
-| **Rule**              | [345. Establish protections against overflows](https://docs.fluidattacks.com/criteria/source/345) |
+| **Rule**              | [345. Establish protections against overflows](https://docs.fluidattacks.com/criteria/requirements/345/) |
 | **Remote**            | No                                                                                                |
 | **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H                                                      |
 | **CVSSv3 Base Score** | 6.4 MEDIUM                                                                                        |

@@ -59,7 +59,7 @@ We have given this free academic conference for a year, in:
   [Banco de Credito del Peru](https://www.bcp.com.bo/),
   [Banistmo](https://www.banistmo.com/),
   [Celsia-EPSA](http://www.celsia.com/),
-  [Comfama](https://www.comfama.com/webinicio/default.asp), [Cueros
+  [Comfama](https://www.comfama.com/), [Cueros
   Velez](https://www.velez.com.co/), [GNB
   Sudameris](https://www.gnbsudameris.com.co/), [Grupo
   Éxito](https://www.grupoexito.com.co/es/),

@@ -50,7 +50,7 @@ vulnerabilities to whom we will issue CVE IDs and that are not in the
 scope of another CNA (CVE Numbering Authority).
 
 The vulnerability types that we would process are the ones defined in
-our [findings classification](https://docs.fluidattacks.com/types/).
+our [findings classification](https://docs.fluidattacks.com/criteria/vulnerabilities/).
 However, vulnerabilities that don’t fit on this classification will be
 also reviewed if there is an evidenced risk.
 

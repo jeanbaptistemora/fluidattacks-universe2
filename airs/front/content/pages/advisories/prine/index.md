@@ -30,7 +30,7 @@ template: advisory
 |                       |                                                                                                   |
 |-----------------------|---------------------------------------------------------------------------------------------------|
 | **Kind**              | Stack Buffer Overflow                                                                             |
-| **Rule**              | [345. Establish protections against overflows](https://docs.fluidattacks.com/criteria/source/345) |
+| **Rule**              | [345. Establish protections against overflows](https://docs.fluidattacks.com/criteria/requirements/345/) |
 | **Remote**            | Yes                                                                                               |
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H                                                      |
 | **CVSSv3 Base Score** | 9.8 CRITICAL                                                                                      |
