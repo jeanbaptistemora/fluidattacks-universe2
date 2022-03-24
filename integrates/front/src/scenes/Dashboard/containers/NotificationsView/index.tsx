@@ -82,7 +82,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
 
             return {
               name: translate.t(
-                `searchFindings.enumValues.${subscription.name}`
+                `searchFindings.enumValues.${subscription.name}.name`
               ),
               subscribeEmail: (
                 <Switch
@@ -90,6 +90,9 @@ const NotificationsView: React.FC = (): JSX.Element => {
                   label={{ off: "Off", on: "On" }}
                   onChange={onChange}
                 />
+              ),
+              tooltip: translate.t(
+                `searchFindings.enumValues.${subscription.name}.tooltip`
               ),
             };
           }
@@ -121,7 +124,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
               <Col key={item.name} large={"25"} medium={"50"} small={"50"}>
                 <TooltipWrapper
                   id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
-                  message={item.name}
+                  message={item.tooltip}
                 >
                   <Card>
                     <CardHeader>{item.name}</CardHeader>

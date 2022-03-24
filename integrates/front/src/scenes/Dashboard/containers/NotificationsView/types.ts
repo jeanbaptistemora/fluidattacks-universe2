@@ -1,6 +1,7 @@
 interface ISubscriptionName {
   name: string;
   subscribeEmail: JSX.Element;
+  tooltip: string;
 }
 
 interface ISubscriptionsNames {

@@ -1581,22 +1581,58 @@ export const enTranslations: ResourceKey = {
       submitted: "Submitted",
     },
     enumValues: {
-      ACCESS_GRANTED: "ACCESS_GRANTED",
-      CHARTS_REPORT: "Analytics report",
-      COMMENTS: "Consulting",
-      DAILY_DIGEST: "Daily digest",
+      ACCESS_GRANTED: {
+        name: "ACCESS_GRANTED",
+        tooltip: "ACCESS_GRANTED",
+      },
+      CHARTS_REPORT: {
+        name: "Analytics report",
+        tooltip: "Analytics report",
+      },
+      COMMENTS: {
+        name: "Consulting",
+        tooltip: "Consulting",
+      },
+      DAILY_DIGEST: {
+        name: "Daily digest",
+        tooltip: "Daily digest",
+      },
       DIGEST: "Daily digest",
       GROUP: "GROUP",
-      GROUP_REPORT: "GROUP_REPORT",
-      NEW_COMMENT: "Consulting",
-      NEW_DRAFT: "Draft updates",
+      GROUP_REPORT: {
+        name: "GROUP_REPORT",
+        tooltip: "GROUP_REPORT",
+      },
+      NEW_COMMENT: {
+        name: "Consulting",
+        tooltip: "Consulting",
+      },
+      NEW_DRAFT: {
+        name: "Draft updates",
+        tooltip: "Draft updates",
+      },
       ORGANIZATION: "ORGANIZATION",
       PORTFOLIO: "PORTFOLIO",
-      REMEDIATE_FINDING: "Vulnerabilities updates",
-      ROOT_MOVED: "Roots updates",
-      UPDATED_TREATMENT: "Treatment updates",
-      VULNERABILITY_ASSIGNED: "Vulnerabilities assignment",
-      VULNERABILITY_REPORT: "Vulnerabilities alert",
+      REMEDIATE_FINDING: {
+        name: "Vulnerabilities updates",
+        tooltip: "Vulnerabilities updates",
+      },
+      ROOT_MOVED: {
+        name: "Roots updates",
+        tooltip: "Roots updates",
+      },
+      UPDATED_TREATMENT: {
+        name: "Treatment updates",
+        tooltip: "Treatment updates",
+      },
+      VULNERABILITY_ASSIGNED: {
+        name: "Vulnerabilities assignment",
+        tooltip: "Vulnerabilities assignment",
+      },
+      VULNERABILITY_REPORT: {
+        name: "Vulnerabilities alert",
+        tooltip: "Vulnerabilities alert",
+      },
     },
     environmentTable: {
       environment: "Environment",
