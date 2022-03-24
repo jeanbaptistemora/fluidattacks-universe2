@@ -15,6 +15,8 @@ interface IFormData {
 
 interface IGroupData {
   group: {
+    businessId: string;
+    businessName: string;
     description: string;
     hasSquad: boolean;
     hasForces: boolean;

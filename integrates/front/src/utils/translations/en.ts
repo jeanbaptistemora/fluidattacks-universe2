@@ -1305,6 +1305,14 @@ export const enTranslations: ResourceKey = {
           plan: "Filter by plan",
         },
         newGroup: {
+          businessId: {
+            text: "Business Registration Number",
+            tooltip: "The registration number of your business e.g. NIT",
+          },
+          businessName: {
+            text: "Business Name",
+            tooltip: "The name of your business",
+          },
           description: {
             text: "Description",
             tooltip: "Brief description to identify the group",

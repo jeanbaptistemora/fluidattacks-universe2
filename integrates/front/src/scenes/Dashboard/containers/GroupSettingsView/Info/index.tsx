@@ -92,6 +92,8 @@ const GroupInformation: React.FC = (): JSX.Element => {
     (values: Record<string, string>): void => {
       void editGroupInfo({
         variables: {
+          businessId: values.businessId,
+          businessName: values.businessName,
           description: values.description,
           groupName,
           language: values.language,
@@ -116,6 +118,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
     {
       attribute: "Description",
       value: data.group.description,
+    },
+    {
+      attribute: "Business Registration Number",
+      value: data.group.businessId,
+    },
+    {
+      attribute: "Business Name",
+      value: data.group.businessName,
     },
   ];
   const tableHeaders: IHeaderConfig[] = [

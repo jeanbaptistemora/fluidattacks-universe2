@@ -16,8 +16,12 @@ import {
   validTextField,
 } from "utils/validations";
 
+const MAX_BUSINESS_INFO_LENGTH: number = 60;
 const MAX_DESCRIPTION_LENGTH: number = 200;
 
+const maxBusinessInfoLength: ConfigurableValidator = maxLength(
+  MAX_BUSINESS_INFO_LENGTH
+);
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
@@ -46,6 +50,64 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
             <Form>
               <Row>
                 <Col100>
+                  <FormGroup>
+                    <ControlLabel>
+                      {translate.t(
+                        "organization.tabs.groups.newGroup.businessId.text"
+                      )}
+                    </ControlLabel>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.businessId.tooltip"
+                      }
+                      message={translate.t(
+                        "organization.tabs.groups.newGroup.businessId.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <Field
+                          component={FormikText}
+                          id={"add-group-description"}
+                          name={"businessId"}
+                          type={"text"}
+                          validate={composeValidators([
+                            maxBusinessInfoLength,
+                            validTextField,
+                          ])}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>
+                      {translate.t(
+                        "organization.tabs.groups.newGroup.businessName.text"
+                      )}
+                    </ControlLabel>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.businessName.tooltip"
+                      }
+                      message={translate.t(
+                        "organization.tabs.groups.newGroup.businessName.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <Field
+                          component={FormikText}
+                          id={"add-group-description"}
+                          name={"businessName"}
+                          type={"text"}
+                          validate={composeValidators([
+                            maxBusinessInfoLength,
+                            validTextField,
+                          ])}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </FormGroup>
                   <FormGroup>
                     <ControlLabel>
                       {translate.t(
