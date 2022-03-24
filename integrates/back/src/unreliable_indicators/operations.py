@@ -211,6 +211,8 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     if (
         indicators_to_update.unreliable_status == FindingStatus.CLOSED
         and finding.state.status == FindingStateStatus.APPROVED
+        and indicators_to_update.unreliable_status
+        != finding.unreliable_indicators.unreliable_status
     ):
         if severity_score >= 7.0:
             schedule(
