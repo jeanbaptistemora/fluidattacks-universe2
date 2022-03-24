@@ -110,9 +110,9 @@ documentation.**
 
 **The exam [asks you to be
 familiar](https://www.offensive-security.com/exp301-osed/) with
-debuggers (ImmunityDBG, [OllyDBG](../../reversing-mortals/)), basic
+debuggers (ImmunityDBG, [OllyDBG](../reversing-mortals/)), basic
 32-bit exploitation concepts and to be comfortable with
-[Python](../../road-to-functional-python/) 3. Do you think they are
+[Python](../road-to-functional-python/) 3. Do you think they are
 sufficient requirements, or would you add some other skills to be
 prepared for the exam?**
 

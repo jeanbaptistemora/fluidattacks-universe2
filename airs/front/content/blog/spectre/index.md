@@ -81,9 +81,10 @@ Privacy**](https://www.ieee-security.org/TC/SP2019/).
 ## Speculative execution
 
 A CPU could start a course of action without confirming that it is the
-correct path. In other words: ["the CPU guess likely future execution
+correct path. In other words,
+["having the CPU guess likely future execution
 directions and prematurely execute instructions on these
-paths."](https://www.computer.org/csdl/pds/api/csdl/proceedings/download-article/19skfbE9KUw/pdf)
+paths."](https://spectreattack.com/spectre.pdf)
 This means that even before the value that executes an instruction
 appears, the CPU is already performing it.
 
@@ -99,7 +100,7 @@ To avoid waiting,
 <div class="title">
 
 Figure 2. [(Text fragment from: Kocher et
-al., 2019)](https://www.computer.org/csdl/pds/api/csdl/proceedings/download-article/19skfbE9KUw/pdf)
+al., 2019)](https://spectreattack.com/spectre.pdf).
 
 </div>
 
@@ -116,7 +117,7 @@ come faster." If the assumption was wrong,
 <div class="title">
 
 Figure 3. [(Text fragment from: Kocher et
-al., 2019)](https://www.computer.org/csdl/pds/api/csdl/proceedings/download-article/19skfbE9KUw/pdf)
+al., 2019)](https://spectreattack.com/spectre.pdf).
 
 </div>
 

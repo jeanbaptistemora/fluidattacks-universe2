@@ -106,7 +106,7 @@ have not been solved? Engaging questions, although I would like to keep
 focused on the vulnerability reporting issue at this point.
 
 As [Oakley for
-GlobeLiveMedia](https://globelivemedia.com/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/)
+GlobeLiveMedia](https://globelivemedia.com/news/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/)
 said, some other people were also rejecting the publication by LSV. I
 repeat: they could have been calling for cybercrime\! Their behavior was
 not appropriate or judicious in terms of disclosing an IT system

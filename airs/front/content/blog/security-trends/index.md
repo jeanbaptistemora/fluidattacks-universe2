@@ -108,7 +108,7 @@ lack of knowledge or negligence regarding infrastructure settings can
 directly impact your company. A weak `AWS` configuration can be detected
 using automated tools. Asserts, a product we used to offer, detected
 these flaws, using the [`AWS Cloudtrail
-module`](/resources/doc/asserts/fluidasserts.cloud.aws.cloudtrail/).
+module`](https://aws.amazon.com/cloudtrail/).
 However, some of the cloud leakages were also caused by hardware
 vulnerabilities [<sup>\[3\]</sup>](#r3), such as `Spectre`
 [<sup>\[4\]</sup>](#r4), `Meltdown` [<sup>\[5\]</sup>](#r5) or
