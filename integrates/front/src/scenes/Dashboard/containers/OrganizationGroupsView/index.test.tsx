@@ -71,6 +71,7 @@ describe("Organization groups view", (): void => {
               groups: [
                 {
                   description: "Continuous type test group",
+                  events: [],
                   hasMachine: true,
                   hasSquad: true,
                   name: "unittesting",
@@ -80,6 +81,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "One-shot type test group",
+                  events: [],
                   hasMachine: true,
                   hasSquad: true,
                   name: "oneshottest",
@@ -89,6 +91,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "Continuous group for deletion",
+                  events: [],
                   hasMachine: true,
                   hasSquad: false,
                   name: "pendingGroup",
@@ -212,6 +215,7 @@ describe("Organization groups view", (): void => {
               groups: [
                 {
                   description: "Continuous type test group",
+                  events: [],
                   hasMachine: true,
                   hasSquad: true,
                   name: "unittesting",
@@ -221,6 +225,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "One-shot type test group",
+                  events: [],
                   hasMachine: true,
                   hasSquad: true,
                   name: "oneshottest",
@@ -281,6 +286,7 @@ describe("Organization groups view", (): void => {
               groups: [
                 {
                   description: "Continuous type test group",
+                  events: [],
                   hasAsm: true,
                   hasForces: true,
                   hasMachine: true,
@@ -292,6 +298,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "One-shot type test group",
+                  events: [],
                   hasAsm: true,
                   hasForces: false,
                   hasMachine: true,
@@ -303,6 +310,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "Test group",
+                  events: [],
                   hasAsm: true,
                   hasForces: true,
                   hasMachine: true,

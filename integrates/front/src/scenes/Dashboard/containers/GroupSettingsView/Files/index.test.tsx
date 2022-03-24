@@ -190,7 +190,7 @@ describe("Files", (): void => {
       expect(screen.queryByTestId("file")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Proceed")).toBeDisabled();
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
     await waitFor((): void => {
       fireEvent.change(screen.getByTestId("file"), {
@@ -202,9 +202,9 @@ describe("Files", (): void => {
       "Test description"
     );
     await waitFor((): void => {
-      expect(screen.getByText("Proceed")).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(4);
     });
@@ -459,7 +459,7 @@ describe("Files", (): void => {
       expect(screen.queryByTestId("file")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Proceed")).toBeDisabled();
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
     await waitFor((): void => {
       fireEvent.change(screen.getByTestId("file"), {
@@ -471,9 +471,9 @@ describe("Files", (): void => {
       "Test description"
     );
     await waitFor((): void => {
-      expect(screen.getByText("Proceed")).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     const TEST_CALLING_TIMES = 3;
 
     await waitFor((): void => {
@@ -513,7 +513,7 @@ describe("Files", (): void => {
       expect(screen.queryByTestId("file")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("Proceed")).toBeDisabled();
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
     await waitFor((): void => {
       fireEvent.change(screen.getByTestId("file"), {
@@ -525,9 +525,9 @@ describe("Files", (): void => {
       "Test description"
     );
     await waitFor((): void => {
-      expect(screen.getByText("Proceed")).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(

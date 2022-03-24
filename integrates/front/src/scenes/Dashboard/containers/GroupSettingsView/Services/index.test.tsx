@@ -279,6 +279,28 @@ describe("Services", (): void => {
           },
         },
       },
+      {
+        request: {
+          query: GET_GROUP_DATA,
+          variables: {
+            groupName: "unittesting",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              description: "Integrates unit test project",
+              hasASM: true,
+              hasMachine: true,
+              hasSquad: false,
+              language: "EN",
+              name: "unittesting",
+              service: "WHITE",
+              subscription: "CONTINUOUS",
+            },
+          },
+        },
+      },
     ];
 
     render(

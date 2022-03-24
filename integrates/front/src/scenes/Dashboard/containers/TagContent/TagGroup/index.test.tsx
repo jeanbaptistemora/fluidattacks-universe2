@@ -4,7 +4,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
@@ -108,8 +107,6 @@ describe("Portfolio Groups", (): void => {
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     render(
       <MemoryRouter
         initialEntries={["/orgs/okada/portfolios/another-tag/groups"]}
@@ -124,7 +121,7 @@ describe("Portfolio Groups", (): void => {
     );
 
     await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledWith(t("groupAlerts.errorTextsad"));
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
   });
 });

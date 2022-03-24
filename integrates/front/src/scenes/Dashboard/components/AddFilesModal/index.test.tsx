@@ -1,5 +1,5 @@
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
@@ -13,7 +13,7 @@ describe("Add Files modal", (): void => {
   it("should render", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <AddFilesModal
         isOpen={true}
         isUploading={false}
@@ -22,13 +22,18 @@ describe("Add Files modal", (): void => {
       />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabResources.modalFileTitle")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabResources.uploadingProgress")
+    ).not.toBeInTheDocument();
   });
 
   it("should render uploadbar", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <AddFilesModal
         isOpen={true}
         isUploading={true}
@@ -37,14 +42,19 @@ describe("Add Files modal", (): void => {
       />
     );
 
-    expect(wrapper.text()).toMatch("Uploading file...");
+    expect(
+      screen.queryByText("searchFindings.tabResources.modalFileTitle")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabResources.uploadingProgress")
+    ).toBeInTheDocument();
   });
 
-  it("should close on cancel", (): void => {
+  it("should close on cancel", async (): Promise<void> => {
     expect.hasAssertions();
 
     const handleClose: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper = mount(
+    render(
       <AddFilesModal
         isOpen={true}
         isUploading={false}
@@ -52,12 +62,9 @@ describe("Add Files modal", (): void => {
         onSubmit={jest.fn()}
       />
     );
-    const cancelButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Cancel"))
-      .at(0);
-    cancelButton.simulate("click");
-
-    expect(handleClose.mock.calls).toHaveLength(1);
+    userEvent.click(screen.getByText("confirmmodal.cancel"));
+    await waitFor((): void => {
+      expect(handleClose).toHaveBeenCalledTimes(1);
+    });
   });
 });

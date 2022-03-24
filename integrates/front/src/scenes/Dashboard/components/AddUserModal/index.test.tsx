@@ -21,7 +21,6 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
     "../../../../utils/notifications"
   );
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
