@@ -43,6 +43,7 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
           <input
             accept={accept}
             className={style.inputfileBtn}
+            data-testid={name}
             name={name}
             onChange={handleFileChange}
             onClick={onClick}

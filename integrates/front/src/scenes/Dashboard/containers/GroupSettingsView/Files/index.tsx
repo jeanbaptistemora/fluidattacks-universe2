@@ -9,6 +9,7 @@ import _ from "lodash";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Table } from "components/Table";
@@ -33,14 +34,15 @@ import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
-import { translate } from "utils/translations/translate";
 
 interface IFilesProps {
   groupName: string;
 }
 
-const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
-  const { groupName } = props;
+const Files: React.FC<IFilesProps> = ({
+  groupName,
+}: IFilesProps): JSX.Element => {
+  const { t } = useTranslation();
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = useState(false);
@@ -78,7 +80,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const { data, refetch } = useQuery<IGetFilesQuery>(GET_FILES, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading group files", error);
       });
     },
@@ -91,7 +93,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred downloading group files", error);
       });
     },
@@ -106,13 +108,13 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       void refetch();
       mixpanel.track("RemoveGroupFiles");
       msgSuccess(
-        translate.t("searchFindings.tabResources.successRemove"),
-        translate.t("searchFindings.tabUsers.titleSuccess")
+        t("searchFindings.tabResources.successRemove"),
+        t("searchFindings.tabUsers.titleSuccess")
       );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing group files", error);
       });
     },
@@ -132,7 +134,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [uploadFile] = useMutation(SIGN_POST_URL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred uploading group files", error);
       });
     },
@@ -149,7 +151,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred adding files to the db", error);
       });
     },
@@ -212,7 +214,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     );
 
     if (repeatedFiles.length > 0) {
-      msgError(translate.t("searchFindings.tabResources.repeatedItem"));
+      msgError(t("searchFindings.tabResources.repeatedItem"));
     } else {
       disableButton();
       const results = await uploadFile({
@@ -223,7 +225,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
               fileName: values.file[0].name,
             },
           ]),
-          groupName: props.groupName,
+          groupName,
         },
       });
 
@@ -253,11 +255,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
             const { success } = mutationResults;
             if (success) {
               msgSuccess(
-                translate.t("searchFindings.tabResources.success"),
-                translate.t("searchFindings.tabUsers.titleSuccess")
+                t("searchFindings.tabResources.success"),
+                t("searchFindings.tabUsers.titleSuccess")
               );
             } else {
-              msgError(translate.t("groupAlerts.errorTextsad"));
+              msgError(t("groupAlerts.errorTextsad"));
               Logger.warning(
                 "An error occurred adding group files to the db",
                 response.json
@@ -272,11 +274,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                 fileName: values.file[0].name,
               },
             ]),
-            groupName: props.groupName,
+            groupName,
           },
         });
       } else {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred uploading group files",
           response.json
@@ -299,21 +301,21 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "fileName",
-      header: translate.t("searchFindings.filesTable.file"),
+      header: t("searchFindings.filesTable.file"),
       onSort: sortState,
       width: "25%",
       wrapped: true,
     },
     {
       dataField: "description",
-      header: translate.t("searchFindings.filesTable.description"),
+      header: t("searchFindings.filesTable.description"),
       onSort: sortState,
       width: "50%",
       wrapped: true,
     },
     {
       dataField: "uploadDate",
-      header: translate.t("searchFindings.filesTable.uploadDate"),
+      header: t("searchFindings.filesTable.uploadDate"),
       onSort: sortState,
       width: "25%",
       wrapped: true,
@@ -329,7 +331,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     <React.StrictMode>
       <Row>
         <h2 className={"mb0 pb0"}>
-          {translate.t("searchFindings.tabResources.files.title")}
+          {t("searchFindings.tabResources.files.title")}
         </h2>
       </Row>
       <div className={"flex flex-wrap nt1"}>
@@ -349,9 +351,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                 <ButtonToolbar>
                   <TooltipWrapper
                     id={"searchFindings.tabResources.files.btnTooltip.id"}
-                    message={translate.t(
-                      "searchFindings.tabResources.files.btnTooltip"
-                    )}
+                    message={t("searchFindings.tabResources.files.btnTooltip")}
                     placement={"top"}
                   >
                     <Button
@@ -361,7 +361,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
                     >
                       <FontAwesomeIcon icon={faPlus} />
                       &nbsp;
-                      {translate.t("searchFindings.tabResources.addRepository")}
+                      {t("searchFindings.tabResources.addRepository")}
                     </Button>
                   </TooltipWrapper>
                 </ButtonToolbar>
@@ -376,7 +376,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         />
       </div>
       <label>
-        <b>{translate.t("searchFindings.tabResources.totalFiles")}</b>
+        <b>{t("searchFindings.tabResources.totalFiles")}</b>
         {filesDataset.length}
       </label>
       <AddFilesModal

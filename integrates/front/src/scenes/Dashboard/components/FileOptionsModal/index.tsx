@@ -1,6 +1,7 @@
 import { faDownload, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -11,7 +12,6 @@ import {
   Col33,
   Row,
 } from "styles/styledComponents";
-import { translate } from "utils/translations/translate";
 
 interface IFileOptionsModalProps {
   canRemove: boolean;
@@ -22,20 +22,25 @@ interface IFileOptionsModalProps {
   onDownload: () => void;
 }
 
-const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
-  props: IFileOptionsModalProps
-): JSX.Element => {
-  const { canRemove, fileName, isOpen, onClose, onDelete, onDownload } = props;
+const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
+  canRemove,
+  fileName,
+  isOpen,
+  onClose,
+  onDelete,
+  onDownload,
+}: IFileOptionsModalProps): JSX.Element => {
+  const { t } = useTranslation();
 
   return (
     <React.StrictMode>
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t("searchFindings.tabResources.modalOptionsTitle")}
+        title={t("searchFindings.tabResources.modalOptionsTitle")}
       >
         <ConfirmDialog
-          title={translate.t("searchFindings.tabResources.files.confirm.title")}
+          title={t("searchFindings.tabResources.files.confirm.title")}
         >
           {(confirm): JSX.Element => {
             function onConfirmDelete(): void {
@@ -49,9 +54,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                 <Row>
                   <Col100>
                     <label>
-                      {translate.t(
-                        "searchFindings.tabResources.modalOptionsContent"
-                      )}
+                      {t("searchFindings.tabResources.modalOptionsContent")}
                       <b>{fileName}</b>
                       {"?"}
                     </label>
@@ -63,9 +66,7 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                         <Button onClick={onConfirmDelete} variant={"secondary"}>
                           <FontAwesomeIcon icon={faMinus} />
                           &nbsp;
-                          {translate.t(
-                            "searchFindings.tabResources.removeRepository"
-                          )}
+                          {t("searchFindings.tabResources.removeRepository")}
                         </Button>
                       </Col33>
                     ) : undefined}
@@ -73,14 +74,14 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
                       <Button onClick={onDownload} variant={"secondary"}>
                         <FontAwesomeIcon icon={faDownload} />
                         &nbsp;
-                        {translate.t("searchFindings.tabResources.download")}
+                        {t("searchFindings.tabResources.download")}
                       </Button>
                     </Col33>
                   </ButtonToolbarCenter>
                 </Row>
                 <ModalFooter>
                   <Button onClick={onClose} variant={"secondary"}>
-                    {translate.t("confirmmodal.cancel")}
+                    {t("confirmmodal.cancel")}
                   </Button>
                 </ModalFooter>
               </React.Fragment>
@@ -92,4 +93,4 @@ const fileOptionsModal: React.FC<IFileOptionsModalProps> = (
   );
 };
 
-export { fileOptionsModal as FileOptionsModal, IFileOptionsModalProps };
+export { FileOptionsModal, IFileOptionsModalProps };
