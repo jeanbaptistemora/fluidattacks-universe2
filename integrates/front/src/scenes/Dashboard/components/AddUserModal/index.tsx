@@ -4,6 +4,7 @@ import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import { getNewInitialValues, getUserData } from "./helpers";
@@ -26,7 +27,6 @@ import { Can } from "utils/authz/Can";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { validTextField } from "utils/validations";
 
 const userLevelRoles: string[] = ["user", "hacker", "admin"];
@@ -49,20 +49,19 @@ const organizationLevelRoles: string[] = [
 ];
 const MAX_RESPONSIBILITY_LENGTH: number = 50;
 
-export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
-  props: IAddStakeholderModalProps
-): JSX.Element => {
-  const {
-    action,
-    editTitle,
-    initialValues,
-    onClose,
-    onSubmit,
-    open,
-    groupName,
-    title,
-    type,
-  } = props;
+export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
+  action,
+  editTitle,
+  initialValues,
+  onClose,
+  onSubmit,
+  open,
+  organizationId,
+  groupName,
+  title,
+  type,
+}: IAddStakeholderModalProps): JSX.Element => {
+  const { t } = useTranslation();
   const newTitle: string = action === "add" ? title : editTitle;
   const groupModal: boolean = groupName !== undefined;
   const organizationModal: boolean = type === "organization";
@@ -77,7 +76,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         if (error.message !== "Access denied or stakeholder not found") {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred getting user information for autofill",
             error
@@ -93,8 +92,8 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
       getUser({
         variables: {
           entity: organizationModal ? "ORGANIZATION" : "GROUP",
-          groupName: _.get(props, "groupName", "-"),
-          organizationId: _.get(props, "organizationId", "-"),
+          groupName: groupName ?? "-",
+          organizationId: organizationId ?? "-",
           userEmail,
         },
       });
@@ -105,17 +104,17 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
 
   const addUserModalSchema = object().shape({
     email: string()
-      .email(translate.t("validations.email"))
-      .required(translate.t("validations.required")),
+      .email(t("validations.email"))
+      .required(t("validations.required")),
     responsibility: string()
       .when("$groupName", {
         is: groupName,
-        otherwise: string().required(translate.t("validations.required")),
+        otherwise: string().required(t("validations.required")),
         then: string(),
       })
       .max(
         MAX_RESPONSIBILITY_LENGTH,
-        translate.t("validations.maxLength", {
+        t("validations.maxLength", {
           count: MAX_RESPONSIBILITY_LENGTH,
         })
       ),
@@ -124,7 +123,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
      * will still be performed by the old custom
      * method via field-level validation
      */
-    role: string().required(translate.t("validations.required")),
+    role: string().required(t("validations.required")),
   });
 
   return (
@@ -144,21 +143,21 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                 <FormGroup>
                   <ControlLabel>
                     <RequiredField>{"* "}</RequiredField>
-                    {translate.t("userModal.emailText")}
+                    {t("userModal.emailText")}
                   </ControlLabel>
                   <Field
                     component={FormikText}
                     customBlur={loadAutofillData}
                     disabled={action === "edit"}
                     name={"email"}
-                    placeholder={translate.t("userModal.emailPlaceholder")}
+                    placeholder={t("userModal.emailPlaceholder")}
                     type={"text"}
                   />
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>
                     <RequiredField>{"* "}</RequiredField>
-                    {translate.t("userModal.role")}
+                    {t("userModal.role")}
                   </ControlLabel>
                   <Field component={FormikDropdown} name={"role"}>
                     <option value={""} />
@@ -166,9 +165,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                       (role: string): JSX.Element => (
                         <Can do={`grant_group_level_role:${role}`} key={role}>
                           <option value={role.toUpperCase()}>
-                            {translate.t(
-                              `userModal.roles.${_.camelCase(role)}`
-                            )}
+                            {t(`userModal.roles.${_.camelCase(role)}`)}
                           </option>
                         </Can>
                       )
@@ -177,9 +174,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                       (role: string): JSX.Element => (
                         <Can do={`grant_user_level_role:${role}`} key={role}>
                           <option value={role.toUpperCase()}>
-                            {translate.t(
-                              `userModal.roles.${_.camelCase(role)}`
-                            )}
+                            {t(`userModal.roles.${_.camelCase(role)}`)}
                           </option>
                         </Can>
                       )
@@ -187,7 +182,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     {(organizationModal ? organizationLevelRoles : []).map(
                       (role: string): JSX.Element => (
                         <option key={role} value={role.toUpperCase()}>
-                          {translate.t(`userModal.roles.${_.camelCase(role)}`)}
+                          {t(`userModal.roles.${_.camelCase(role)}`)}
                         </option>
                       )
                     )}
@@ -197,14 +192,12 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                   <FormGroup>
                     <ControlLabel>
                       <RequiredField>{"* "}</RequiredField>
-                      {translate.t("userModal.responsibility")}
+                      {t("userModal.responsibility")}
                     </ControlLabel>
                     <Field
                       component={FormikText}
                       name={"responsibility"}
-                      placeholder={translate.t(
-                        "userModal.responsibilityPlaceholder"
-                      )}
+                      placeholder={t("userModal.responsibilityPlaceholder")}
                       type={"text"}
                       validate={validTextField}
                     />
@@ -214,10 +207,10 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
             </Row>
             <ModalFooter>
               <Button onClick={onClose} variant={"secondary"}>
-                {translate.t("confirmmodal.cancel")}
+                {t("confirmmodal.cancel")}
               </Button>
               <Button type={"submit"} variant={"primary"}>
-                {translate.t("confirmmodal.proceed")}
+                {t("confirmmodal.proceed")}
               </Button>
             </ModalFooter>
           </Form>
