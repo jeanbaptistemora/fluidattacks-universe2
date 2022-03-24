@@ -212,7 +212,7 @@ that is both difficult and timely to dissect."
 
 ## Any tips other than not tapping?
 
-In [our post](../blog/smishing/) about smishing,
+In [our post](../smishing/) about smishing,
 we advise to avoid opening links in SMS messages
 and to contact the supposed sender
 through their official communication channels instead.

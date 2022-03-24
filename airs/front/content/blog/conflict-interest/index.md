@@ -103,7 +103,7 @@ Bruce Schneier related to this years ago.
 Conflicts of interest pose at least two threats to businesses:
 
 First, these conflicts [undermine the validity of audit
-results.](https://www.isaca.org/Journal/archives/2017/Volume-2/Documents/The-Validity-of-Penetration-Tests_joa_Eng_0417.pdf)
+results.](https://www.isaca.org/resources/isaca-journal/issues/2017/volume-2/the-validity-of-penetration-tests)
 It’s tough to support findings when someone acts as jury and interested
 party. This translates to wasting valuable resources like time, effort,
 and money. Eventually, having non-credible results could harm one of the

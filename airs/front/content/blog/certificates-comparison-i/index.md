@@ -104,7 +104,7 @@ obtain it
 [requires](https://www.practical-devsecops.com/certified-devsecops-professional/)
 basic knowledge of Linux commands and an understanding of security
 practices such as those of [the OWASP
-Top 10](https://docs.fluidattacks.com/criteria/compliance/owaspten/).
+Top 10](https://docs.fluidattacks.com/criteria/compliance/owasp10).
 The exam lasts 12 hours. Upon completion, [the
 candidates](https://medium.com/devops4me/review-study-guide-certified-devsecops-professional-cdp-be3cf8ae95e5)
 "should be able to implement the real DevSecOps approach in the CI/CD

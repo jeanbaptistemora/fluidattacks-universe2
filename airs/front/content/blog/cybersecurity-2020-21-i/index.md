@@ -70,9 +70,9 @@ daily complaints they received before the pandemic. Criminals have been
 able to scam many people with coronavirus-related
 [phishing](../phishing/) emails containing links to fake login pages or
 malware to download [as if they were sent by trusted
-entities](https://www.ncsc.gov.uk/files/Joint%20Advisory%20COVID-19%20exploited%20by%20malicious%20cyber%20actors%20V1.pdf)
+entities](https://www.ncsc.gov.uk/files/Final%20Joint%20Advisory%20COVID-19%20exploited%20by%20malicious%20cyber%20actors%20v3.pdf)
 (e.g., the World Health Organization) or [by internal
-departments](https://www.ncsc.gov.uk/files/Joint%20Advisory%20COVID-19%20exploited%20by%20malicious%20cyber%20actors%20V1.pdf)
+departments](https://www.ncsc.gov.uk/files/Final%20Joint%20Advisory%20COVID-19%20exploited%20by%20malicious%20cyber%20actors%20v3.pdf)
 of an organization to their employees. As another example, in the middle
 of this year, [Microsoft even
 reported](https://www.microsoft.com/security/blog/2020/06/16/exploiting-a-crisis-how-cybercriminals-behaved-during-the-outbreak/)
@@ -117,7 +117,7 @@ security
 protocols](https://www.securityweek.com/back-basics-pandemic-cybersecurity-trends-and-solutions).
 As a result, criminals have succeeded in [exploiting diverse publicly
 known
-vulnerabilities](https://www.ncsc.gov.uk/files/Joint%20Advisory%20COVID-19%20exploited%20by%20malicious%20cyber%20actors%20V1.pdf)
+vulnerabilities](https://www.ncsc.gov.uk/files/Final%20Joint%20Advisory%20COVID-19%20exploited%20by%20malicious%20cyber%20actors%20v3.pdf)
 in networks and other remote working tools and have even targeted
 communication platforms that are widely used today (e.g., Microsoft
 Teams, Zoom). All this without leaving aside the human factor, in this
@@ -135,7 +135,7 @@ organizations, such as banks and governments.
 
 <div class="title">
 
-Figure 1. Photo by [Jr Korpa](https://unsplash.com/@korpa)
+Figure 1. Photo by [Jr Korpa](https://unsplash.com/@jrkorpa)
 on [Unsplash](https://unsplash.com/photos/fByGQ64Iky8).
 
 </div>
@@ -146,8 +146,8 @@ on [Unsplash](https://unsplash.com/photos/fByGQ64Iky8).
 
 Today, cybercriminals have also been flexible enough to respond to
 global trends regarding the implementation and use of new technologies
-and techniques. As an example is something that [Tech
-Guru](https://techyguru2021.medium.com/top-3-cybersecurity-trends-4d6b80af5545)
+and techniques. As an example is something that Tech
+Guru
 shares concerning advances in the automotive field: new vehicles can be
 equipped "with automatic software for cruise control drivers, engine
 timing, door lock, airbags, and advanced driver assistance systems that

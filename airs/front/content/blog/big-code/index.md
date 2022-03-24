@@ -169,12 +169,12 @@ security vulnerabilities, and pretty serious ones at that:
   This should be researched further.
 
 - `SQL` injection. As per [security
-  guide](https://appsecco.com/books/dvna-developers-security-guide/solution/a1-injection.html)
+  guide](https://github.com/appsecco/dvna/blob/master/docs/solution/a1-injection.md)
   and
   [Writeups](https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0564-sql-injection/jicardona.feature).
 
 - Open Redirect. Also in [the security
-  guide](https://appsecco.com/books/dvna-developers-security-guide/solution/ax-unvalidated-redirects-and-forwards.html)
+  guide](https://github.com/appsecco/dvna/blob/master/docs/solution/ax-unvalidated-redirects-and-forwards.md)
   and
   [Writeups](https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0601-unvalidated-redirects/simongomez95.feature).
 
