@@ -5,7 +5,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { Portfolio } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
 import type { IPortfolioProps } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
@@ -76,7 +75,6 @@ describe("Portfolio", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-    const { t } = useTranslation();
 
     const mocksMutation: readonly MockedResponse[] = [
       {
@@ -104,16 +102,12 @@ describe("Portfolio", (): void => {
       </MockedProvider>
     );
 
-    await screen.findByText(
-      t("searchFindings.tabResources.addRepository").toString()
-    );
+    await screen.findByText("searchFindings.tabResources.addRepository");
     userEvent.click(
-      screen.getByText(
-        t("searchFindings.tabResources.addRepository").toString()
-      )
+      screen.getByText("searchFindings.tabResources.addRepository")
     );
     userEvent.type(screen.getByRole("textbox"), "test-new-tag");
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -124,7 +118,6 @@ describe("Portfolio", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-    const { t } = useTranslation();
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
@@ -155,15 +148,13 @@ describe("Portfolio", (): void => {
 
     userEvent.click(screen.getByRole("row", { name: "test-tag1" }));
     userEvent.click(
-      screen.getByText(
-        t("searchFindings.tabResources.removeRepository").toString()
-      )
+      screen.getByText("searchFindings.tabResources.removeRepository")
     );
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        t("searchFindings.tabResources.successRemove"),
-        t("searchFindings.tabUsers.titleSuccess")
+        "searchFindings.tabResources.successRemove",
+        "searchFindings.tabUsers.titleSuccess"
       );
     });
   });
@@ -193,7 +184,6 @@ describe("Portfolio", (): void => {
 
     jest.clearAllMocks();
 
-    const { t } = useTranslation();
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
@@ -225,16 +215,12 @@ describe("Portfolio", (): void => {
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
-    await screen.findByText(
-      t("searchFindings.tabResources.addRepository").toString()
-    );
+    await screen.findByText("searchFindings.tabResources.addRepository");
     userEvent.click(
-      screen.getByText(
-        t("searchFindings.tabResources.addRepository").toString()
-      )
+      screen.getByText("searchFindings.tabResources.addRepository")
     );
     userEvent.type(screen.getByRole("textbox"), "test-new-tag");
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(2);
@@ -246,7 +232,6 @@ describe("Portfolio", (): void => {
 
     jest.clearAllMocks();
 
-    const { t } = useTranslation();
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
@@ -276,9 +261,7 @@ describe("Portfolio", (): void => {
 
     userEvent.click(screen.getByRole("row", { name: "test-tag1" }));
     userEvent.click(
-      screen.getByText(
-        t("searchFindings.tabResources.removeRepository").toString()
-      )
+      screen.getByText("searchFindings.tabResources.removeRepository")
     );
 
     await waitFor((): void => {
@@ -290,7 +273,6 @@ describe("Portfolio", (): void => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
-    const { t } = useTranslation();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_add_group_tags_mutate" },
     ]);
@@ -302,20 +284,16 @@ describe("Portfolio", (): void => {
       </MockedProvider>
     );
 
-    await screen.findByText(
-      t("searchFindings.tabResources.addRepository").toString()
-    );
+    await screen.findByText("searchFindings.tabResources.addRepository");
     userEvent.click(
-      screen.getByText(
-        t("searchFindings.tabResources.addRepository").toString()
-      )
+      screen.getByText("searchFindings.tabResources.addRepository")
     );
     userEvent.type(screen.getByRole("textbox"), "test-tag1");
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        t("searchFindings.tabResources.repeatedItem")
+        "searchFindings.tabResources.repeatedItem"
       );
     });
   });

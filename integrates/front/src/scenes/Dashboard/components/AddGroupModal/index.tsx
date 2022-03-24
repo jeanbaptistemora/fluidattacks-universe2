@@ -61,10 +61,10 @@ const maxGroupNameLength: ConfigurableValidator = maxLength(
 const maxOrganizationLength: ConfigurableValidator = maxLength(
   MAX_ORGANIZATION_LENGTH
 );
-const AddGroupModal: React.FC<IAddGroupModalProps> = (
-  props: IAddGroupModalProps
-): JSX.Element => {
-  const { onClose, organization } = props;
+const AddGroupModal: React.FC<IAddGroupModalProps> = ({
+  onClose,
+  organization,
+}: IAddGroupModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   const handleMutationResult = (result: {

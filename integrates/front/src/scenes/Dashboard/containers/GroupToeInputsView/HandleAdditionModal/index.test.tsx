@@ -4,7 +4,6 @@ import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { ADD_TOE_INPUT, GET_ROOTS } from "./queries";
 
@@ -27,7 +26,6 @@ describe("handle toe inputs addition modal", (): void => {
 
     jest.clearAllMocks();
 
-    const { t } = useTranslation();
     const handleRefetchData: jest.Mock = jest.fn();
     const handleCloseModal: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
@@ -83,19 +81,13 @@ describe("handle toe inputs addition modal", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    await screen.findByPlaceholderText(
-      t("group.toe.inputs.addModal.fields.path").toString()
-    );
+    await screen.findByPlaceholderText("group.toe.inputs.addModal.fields.path");
     userEvent.type(
-      screen.getByPlaceholderText(
-        t("group.toe.inputs.addModal.fields.path").toString()
-      ),
+      screen.getByPlaceholderText("group.toe.inputs.addModal.fields.path"),
       "test/path"
     );
     userEvent.type(screen.getAllByRole("textbox")[2], "-");
-    userEvent.click(
-      screen.getByText(t("group.toe.inputs.addModal.procced").toString())
-    );
+    userEvent.click(screen.getByText("group.toe.inputs.addModal.procced"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

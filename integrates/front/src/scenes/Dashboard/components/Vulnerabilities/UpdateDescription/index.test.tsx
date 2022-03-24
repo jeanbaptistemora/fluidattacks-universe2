@@ -5,7 +5,6 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import {
   REQUEST_VULNS_ZERO_RISK,
@@ -42,7 +41,6 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Update Description component", (): void => {
-  const { t } = useTranslation();
   const vulns: IVulnDataTypeAttr[] = [
     {
       assigned: "",
@@ -299,9 +297,7 @@ describe("Update Description component", (): void => {
       ).toHaveLength(1);
     });
 
-    expect(
-      screen.getByText(t("confirmmodal.proceed").toString())
-    ).toBeDisabled();
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
     userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
@@ -312,12 +308,10 @@ describe("Update Description component", (): void => {
       "This is a commenting test of a request zero risk in vulns"
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText(t("confirmmodal.proceed").toString())
-      ).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -383,9 +377,7 @@ describe("Update Description component", (): void => {
       ).toHaveLength(1);
     });
 
-    expect(
-      screen.getByText(t("confirmmodal.proceed").toString())
-    ).toBeDisabled();
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
     userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
@@ -396,12 +388,10 @@ describe("Update Description component", (): void => {
       "This is a commenting test of a request zero risk in vulns"
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText(t("confirmmodal.proceed").toString())
-      ).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenNthCalledWith(
@@ -553,12 +543,10 @@ describe("Update Description component", (): void => {
     );
 
     await waitFor((): void => {
-      expect(
-        screen.getByText(t("confirmmodal.proceed").toString())
-      ).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -636,9 +624,7 @@ describe("Update Description component", (): void => {
     });
 
     expect(
-      screen.queryByText(
-        t("searchFindings.tabDescription.approvalTitle").toString()
-      )
+      screen.queryByText("searchFindings.tabDescription.approvalTitle")
     ).not.toBeInTheDocument();
 
     userEvent.selectOptions(
@@ -651,18 +637,14 @@ describe("Update Description component", (): void => {
     );
 
     await waitFor((): void => {
-      expect(
-        screen.getByText(t("confirmmodal.proceed").toString())
-      ).not.toBeDisabled();
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText(t("confirmmodal.proceed").toString()));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
 
     await waitFor((): void => {
       expect(
-        screen.queryByText(
-          t("searchFindings.tabDescription.approvalTitle").toString()
-        )
+        screen.queryByText("searchFindings.tabDescription.approvalTitle")
       ).toBeInTheDocument();
     });
     userEvent.click(
