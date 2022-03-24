@@ -41,6 +41,9 @@ from toolbox.utils import (
 from toolbox.utils.function import (
     shield,
 )
+from toolbox.utils.integrates import (
+    get_git_root_upload_url,
+)
 from typing import (
     Dict,
     List,
@@ -229,9 +232,6 @@ def main(
         LOGGER.error("Either the subs or the fusion folder does not exist")
         return False
 
-    if aws_login:
-        generic.aws_login(aws_profile)
-
     repo_request = integrates.Queries.git_roots(
         API_TOKEN,
         subs,
@@ -245,6 +245,23 @@ def main(
         for root in repo_request.data["group"]["roots"]
         if root.get("state", "") == "ACTIVE"
     }
+    roots_dict_by_id = {
+        root["id"]: root
+        for root in repo_request.data["group"]["roots"]
+        if root.get("state", "") == "ACTIVE"
+    }
+    with ThreadPoolExecutor() as executor:
+        roots_ulrs_dict = dict(
+            executor.map(
+                get_git_root_upload_url,
+                [subs for _ in range(len(roots_dict))],
+                roots_dict_by_id.keys(),
+            )
+        )
+    for root_id, download_url in roots_ulrs_dict.items():
+        roots_dict[roots_dict_by_id[root_id]["nickname"]][
+            "uploadUrl"
+        ] = download_url
 
     LOGGER.info("Syncing repositories")
     repos = os.listdir(f"groups/{subs}/fusion")
@@ -284,6 +301,8 @@ def main(
         (generic.is_env_ci() and generic.is_branch_master())
         or not generic.is_env_ci()
     ):
+        if aws_login:
+            generic.aws_login(aws_profile)
         update_last_sync_date("last_sync_date", subs)
     if passed and subs != TEST_SUBS:
         utils.integrates.refresh_toe_lines(subs)
