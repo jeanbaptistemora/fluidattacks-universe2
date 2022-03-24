@@ -316,7 +316,7 @@ async def get_last_closed_vulnerability_info(
         current_date, date_index = max(
             (v, i) for i, v in enumerate(closing_vuln_dates)
         )
-        last_closed_vuln: Vulnerability = closed_vulns[date_index]
+        last_closed_vuln: Optional[Vulnerability] = closed_vulns[date_index]
         current_date = max(closing_vuln_dates)
         last_closed_days = Decimal(
             (datetime_utils.get_now().date() - current_date).days
@@ -567,7 +567,7 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
     ) + await comments_domain.get("observation", finding.id)
     success = all(
         await collect(
-            comments_domain.delete(comment["comment_id"], finding.id)
+            comments_domain.delete(str(comment["comment_id"]), finding.id)
             for comment in comments_and_observations
         )
     )
@@ -804,7 +804,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 
     comment_id = str(round(time() * 1000))
     today = datetime_utils.get_iso_date()
-    user_email: str = user_info["user_email"]
+    user_email = str(user_info["user_email"])
 
     # Modify the verification state to mark the finding as verified
     verification = FindingVerification(

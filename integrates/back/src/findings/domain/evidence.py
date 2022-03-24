@@ -75,7 +75,7 @@ async def download_evidence_file(
         ext = {".py": ".tmp"}
         tmp_filepath = utils.replace_all(localfile, ext)
         await findings_storage.download_evidence(file_id, tmp_filepath)
-        return cast(str, tmp_filepath)
+        return tmp_filepath
     raise Exception("Evidence not found")
 
 

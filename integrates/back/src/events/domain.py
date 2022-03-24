@@ -126,7 +126,7 @@ async def add_comment(
     user_data = await users_domain.get(user_email)
     user_data["user_email"] = user_data.pop("email")
     success = await comments_domain.add(event_id, comment_data, user_data)
-    return cast(Tuple[Optional[str], bool], success)
+    return success
 
 
 async def add_event(  # pylint: disable=too-many-locals
@@ -266,7 +266,7 @@ async def mask(event_id: str) -> bool:
     list_comments = await comments_domain.get("event", event_id)
     mask_events_coroutines.extend(
         [
-            comments_domain.delete(comment["comment_id"], event_id)
+            comments_domain.delete(str(comment["comment_id"]), event_id)
             for comment in list_comments
         ]
     )
@@ -450,7 +450,7 @@ async def request_vulnerabilities_hold(
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    user_email: str = user_info["user_email"]
+    user_email = str(user_info["user_email"])
     verification = FindingVerification(
         comment_id=comment_id,
         modified_by=user_email,
