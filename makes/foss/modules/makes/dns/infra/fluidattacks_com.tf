@@ -498,20 +498,6 @@ resource "cloudflare_page_rule" "install_makes" {
   }
 }
 
-resource "cloudflare_page_rule" "redirect_asserts" {
-  zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "${cloudflare_zone.fluidattacks_com.zone}/asserts/*"
-  status   = "active"
-  priority = 96
-
-  actions {
-    forwarding_url {
-      url         = "https://${cloudflare_zone.fluidattacks_com.zone}/$1"
-      status_code = 410
-    }
-  }
-}
-
 # Workers
 
 resource "cloudflare_worker_script" "headers" {
