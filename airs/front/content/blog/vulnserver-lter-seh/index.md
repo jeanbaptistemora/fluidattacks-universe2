@@ -667,7 +667,7 @@ that short jump manually.
 
 Having our restricted allowed characters set, the technique we will use
 is known as ADD/SUB/AND encoding. The technique is fully described
-[here](https://vellosec.net/2018/08/carving-shellcode-using-restrictive-character-sets/).
+[here](https://web.archive.org/web/20190218144432/https://vellosec.net/2018/08/carving-shellcode-using-restrictive-character-sets/).
 
 Basically, what we’ll need to do is the following:
 

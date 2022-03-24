@@ -122,7 +122,7 @@ portion of the system independent of any other protective layers."
 <div class="title">
 
 Figure 1. Benjamin’s original picture taken from
-[pbs.twimg.com](https://pbs.twimg.com/profile_images/1092476712741302272/Ss5tKSjh_400x400.jpg).
+[pbs.twimg.com](https://web.archive.org/web/20190929024550/https://pbs.twimg.com/profile_images/1092476712741302272/Ss5tKSjh_400x400.jpg).
 
 </div>
 

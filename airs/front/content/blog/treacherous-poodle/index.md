@@ -265,7 +265,7 @@ stated flaw? No? Perhaps on encryption? Or before?
 
 Well, if you didn’t, here is a clue: Authentication should be done after
 encryption, **NOT** before. The
-[Authenticate-then-Encrypt](https://moxie.org/blog/the-cryptographic-doom-principle/)
+[Authenticate-then-Encrypt](https://moxie.org/2011/12/13/the-cryptographic-doom-principle.html)
 poses a problem, which by that time wasn’t that evident.
 
 <div class="imgblock">

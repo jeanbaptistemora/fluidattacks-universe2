@@ -227,7 +227,7 @@ identity](https://grahamcluley.com/darkside-ransomware-gang-fear/). So,
 it should not be surprising that Congressman Jim Langevin (D-RI), chair
 of the House Armed Services Subcommittee on Cybersecurity, Innovative
 Technologies, and Information Systems [has
-said](https://langevin.house.gov/press-release/langevin-praises-sweeping-biden-executive-actions-cybersecurity):
+said](https://web.archive.org/web/20210514050555/https://langevin.house.gov/press-release/langevin-praises-sweeping-biden-executive-actions-cybersecurity):
 "Cybersecurity is the most urgent national security challenge facing our
 nation, and I applaud President Biden for taking action early in his
 term to address and eliminate glaring vulnerabilities."
