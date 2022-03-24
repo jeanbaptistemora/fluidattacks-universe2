@@ -35,6 +35,9 @@ from toolbox.resources import (
 from toolbox.utils.function import (
     shield,
 )
+from toolbox.utils.generic import (
+    rfc3339_str_to_date_obj,
+)
 from toolbox.utils.integrates import (
     get_filter_rules,
     get_git_roots,
@@ -272,7 +275,6 @@ def main(subs: str, repository_name: str) -> bool:
 
     param: subs: group to work with
     """
-    bucket: str = "continuous-repositories"
     passed: bool = True
 
     roots = [
@@ -321,16 +323,20 @@ def main(subs: str, repository_name: str) -> bool:
             )
             passed = passed and all(pull) if pull_roots else True
 
-    if not drills_generic.s3_path_exists(bucket, f"{subs}/"):
-        LOGGER.info("group %s does not have repos uploaded to s3", subs)
-    else:
-        LOGGER.info("Computing last upload date")
-        days: int = drills_generic.calculate_days_ago(
-            drills_generic.get_last_upload(bucket, f"{subs}/")
-        )
-
-        passed = delete_out_of_scope_files(subs) and passed
-
-        LOGGER.info("Data for %s was uploaded to S3 %i days ago", subs, days)
+    for root in roots:
+        if date := root.get("lastCloningStatusUpdate"):
+            days = drills_generic.calculate_days_ago(
+                rfc3339_str_to_date_obj(date)
+            )
+            LOGGER.info(
+                "Data for %s was uploaded to S3 %i days ago",
+                root["nickname"],
+                days,
+            )
+        else:
+            LOGGER.info(
+                "root %s does not have repos uploaded to s3", root["nickname"]
+            )
+    passed = delete_out_of_scope_files(subs) and passed
 
     return passed

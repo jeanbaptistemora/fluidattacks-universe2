@@ -68,6 +68,36 @@ def get_git_roots(group: str) -> List[Dict[str, Any]]:
     return roots.data["group"]["roots"]
 
 
+def get_git_root_download_url(
+    group: str, root_id: str
+) -> Tuple[str, Optional[str]]:
+    roots = api.integrates.Queries.git_download_url(API_TOKEN, group, root_id)
+    if not roots.ok:
+        LOGGER.error(
+            "An error has occurred querying the root %s for group %s",
+            root_id,
+            group,
+        )
+        LOGGER.error(roots.errors)
+        return (root_id, None)
+    return (roots.data["root"]["id"], roots.data["root"]["downloadUrl"])
+
+
+def get_git_root_upload_url(
+    group: str, root_id: str
+) -> Tuple[str, Optional[str]]:
+    roots = api.integrates.Queries.git_upload_url(API_TOKEN, group, root_id)
+    if not roots.ok:
+        LOGGER.error(
+            "An error has occurred querying the root %s for group %s",
+            root_id,
+            group,
+        )
+        LOGGER.error(roots.errors)
+        return (root_id, None)
+    return (roots.data["root"]["id"], roots.data["root"]["uploadUrl"])
+
+
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)

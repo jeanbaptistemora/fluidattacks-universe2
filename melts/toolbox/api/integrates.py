@@ -344,8 +344,6 @@ class Queries:
                     nickname
                     url
                     state
-                    downloadUrl
-                    uploadUrl
                     cloningStatus {
                         commit
                     }
@@ -356,6 +354,77 @@ class Queries:
         """
         params: dict = {"groupName": group_name}
         return request(api_token, query, params, operation="MeltsGetGitRoots")
+
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def git_root(api_token: str, group_name: str, root_id: str) -> Response:
+        """Get group git root"""
+        query = """
+            query MeltsGetGitRoot($groupName: String!, $rootId: ID!) {
+              root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                  id
+                  branch
+                  lastCloningStatusUpdate
+                  nickname
+                  url
+                  state
+                  downloadUrl
+                  uploadUrl
+                  cloningStatus {
+                    commit
+                  }
+                }
+              }
+            }
+        """
+        params: dict = {"groupName": group_name, "rootId": root_id}
+        return request(api_token, query, params, operation="MeltsGetGitRoot")
+
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def git_download_url(
+        api_token: str, group_name: str, root_id: str
+    ) -> Response:
+        """Get group git root download url"""
+        query = """
+            query MeltsGetGitRootDownloadUrl($groupName: String!, $rootId: ID!)
+            {
+              root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                  id
+                  nickname
+                  downloadUrl
+                }
+              }
+            }
+        """
+        params: dict = {"groupName": group_name, "rootId": root_id}
+        return request(
+            api_token, query, params, operation="MeltsGetGitRootDownloadUrl"
+        )
+
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def git_upload_url(
+        api_token: str, group_name: str, root_id: str
+    ) -> Response:
+        """Get group git root download url"""
+        query = """
+            query MeltsGetGitRootUploadUrl($groupName: String!, $rootId: ID!) {
+              root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                  id
+                  nickname
+                  uploadUrl
+                }
+              }
+            }
+        """
+        params: dict = {"groupName": group_name, "rootId": root_id}
+        return request(
+            api_token, query, params, operation="MeltsGetGitRootUploadUrl"
+        )
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
