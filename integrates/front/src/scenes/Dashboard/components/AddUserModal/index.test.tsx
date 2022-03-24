@@ -1,17 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable react/jsx-props-no-spreading
   --------
-  Best way to pass down props and allow lazy updates for test wrappers.
+  Best way to pass down props for test wrappers.
 */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import wait from "waait";
 
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
@@ -46,9 +43,12 @@ describe("Add user modal", (): void => {
 
   const mockPropsEdit: IAddStakeholderModalProps = {
     action: "edit",
-    editTitle: "",
+    editTitle: "edit title",
     groupName: "TEST",
-    initialValues: {},
+    initialValues: {
+      email: "user@test.com",
+      role: "USER",
+    },
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
@@ -135,102 +135,83 @@ describe("Add user modal", (): void => {
     expect(typeof AddUserModal).toStrictEqual("function");
   });
 
-  it("should render an error in component", async (): Promise<void> => {
+  it("should handle errors when auto fill data", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <MockedProvider addTypename={true} mocks={mockError}>
-        <AddUserModal {...mockPropsAdd} />
+        <AddUserModal {...mockPropsEdit} />
       </MockedProvider>
     );
-    await wait(0);
+    await waitFor((): void => {
+      expect(
+        screen.getByPlaceholderText("userModal.emailPlaceholder")
+      ).toHaveValue("user@test.com");
+    });
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByText("edit title")).toBeInTheDocument();
+
+    fireEvent.blur(screen.getByPlaceholderText("userModal.emailPlaceholder"));
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
+    });
+
+    jest.clearAllMocks();
   });
 
   it("should render an add component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <MockedProvider addTypename={true} mocks={mocks}>
         <AddUserModal {...mockPropsAdd} />
       </MockedProvider>
     );
-    await wait(0);
-
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(
+        screen.getByPlaceholderText("userModal.emailPlaceholder")
+      ).toHaveValue("");
+    });
   });
 
   it("should render an edit component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <MockedProvider addTypename={true} mocks={mocks}>
         <AddUserModal {...mockPropsEdit} />
       </MockedProvider>
     );
-    await wait(0);
-
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(
+        screen.getByPlaceholderText("userModal.emailPlaceholder")
+      ).toHaveValue("user@test.com");
+    });
   });
 
   it("should auto fill data on inputs", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={true} mocks={mocks}>
         <AddUserModal {...mockPropsAdd} />
       </MockedProvider>
     );
-    const emailInput = (): ReactWrapper =>
-      wrapper.find({ name: "email", type: "text" }).at(0).find("input");
-    const responsibilityInput = (): ReactWrapper =>
-      wrapper
-        .find({ name: "responsibility", type: "text" })
-        .at(0)
-        .find("input");
-
-    await act(async (): Promise<void> => {
-      emailInput().simulate("change", {
-        target: { name: "email", value: "unittest@test.com" },
-      });
-      emailInput().simulate("blur", {
-        target: { name: "email", value: "unittest@test.com" },
-      });
-      const delay = 200;
-      await wait(delay);
-
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.getByPlaceholderText("userModal.emailPlaceholder")
+      ).toHaveValue("");
     });
-
-    expect(responsibilityInput().prop("value")).toStrictEqual("edited");
-  });
-
-  it("should handle errors when auto fill data", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const wrapper: ReactWrapper = mount(
-      <MockedProvider addTypename={true} mocks={mockError}>
-        <AddUserModal {...mockPropsAdd} />
-      </MockedProvider>
+    userEvent.type(
+      screen.getByRole("textbox", { name: "email" }),
+      "unittest@test.com"
     );
-    const emailInput: ReactWrapper = wrapper
-      .find({ name: "email", type: "text" })
-      .at(0)
-      .find("input");
-    await act(async (): Promise<void> => {
-      emailInput.simulate("change", {
-        target: { name: "email", value: "unittest@test.com" },
-      });
-      emailInput.simulate("blur", {
-        target: { name: "email", value: "unittest@test.com" },
-      });
-      await wait(0);
-
-      wrapper.update();
+    fireEvent.blur(screen.getByRole("textbox", { name: "email" }));
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("textbox", { name: "responsibility" })
+      ).toHaveValue("edited");
     });
-
-    expect(msgError).toHaveBeenCalledWith("There is an error :(");
   });
 
   it("should render user level role options", async (): Promise<void> => {
@@ -241,30 +222,38 @@ describe("Add user modal", (): void => {
       { action: "grant_user_level_role:user" },
       { action: "grant_user_level_role:hacker" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={true} mocks={mocks}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <AddUserModal {...mockPropsAdd} groupName={undefined} />
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const options: ReactWrapper = wrapper.find("option");
-    const adminOption: ReactWrapper = options.find({ value: "ADMIN" });
-
-    expect(adminOption).toHaveLength(1);
-
-    const userOption: ReactWrapper = options.find({ value: "USER" });
-
-    expect(userOption).toHaveLength(1);
-
-    const hackerOption: ReactWrapper = options.find({
-      value: "HACKER",
+    await waitFor((): void => {
+      expect(screen.getByRole("combobox")).toBeInTheDocument();
     });
 
-    expect(hackerOption).toHaveLength(1);
+    expect(screen.queryAllByRole("option")).toHaveLength(4);
+    expect(
+      screen.getByRole("option", {
+        name: "userModal.roles.admin",
+        selected: false,
+      })
+    ).toHaveValue("ADMIN");
+    expect(
+      screen.getByRole("option", {
+        name: "userModal.roles.hacker",
+        selected: false,
+      })
+    ).toHaveValue("HACKER");
+    expect(
+      screen.getByRole("option", {
+        name: "userModal.roles.user",
+        selected: false,
+      })
+    ).toHaveValue("USER");
+    expect(
+      screen.getByRole("option", { name: "", selected: true })
+    ).toHaveValue("");
   });
 });

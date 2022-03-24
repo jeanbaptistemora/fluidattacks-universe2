@@ -2,7 +2,6 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter } from "react-router-dom";
 
 import { TreatmentTracking } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/index";
@@ -127,8 +126,6 @@ describe("TrackingTreatment", (): void => {
   it("should render in treatment tracking 1", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment1]}>
@@ -139,9 +136,7 @@ describe("TrackingTreatment", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.getByText(
-          t("searchFindings.tabDescription.treatment.inProgress").toString()
-        )
+        screen.getByText("searchFindings.tabDescription.treatment.inProgress")
       ).toBeInTheDocument();
     });
 
@@ -159,8 +154,6 @@ describe("TrackingTreatment", (): void => {
   it("should render in treatment tracking 2", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-
     render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/locations"]}>
         <MockedProvider addTypename={false} mocks={[mockQueryVulnTreatment2]}>
@@ -171,9 +164,7 @@ describe("TrackingTreatment", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.queryAllByText(
-          t("searchFindings.tabDescription.treatment.new").toString()
-        )
+        screen.queryAllByText("searchFindings.tabDescription.treatment.new")
       ).toHaveLength(2);
     });
 
@@ -189,17 +180,16 @@ describe("TrackingTreatment", (): void => {
     ).toHaveLength(normalNumberOfFields);
     expect(
       screen.getByText(
-        t(formatDropdownField(historicTreatment[2].treatment)) +
-          t("searchFindings.tabDescription.treatment.pendingApproval")
+        `${formatDropdownField(
+          historicTreatment[2].treatment
+        )}searchFindings.tabDescription.treatment.pendingApproval`
       )
     ).toBeInTheDocument();
 
     expect(
       screen.getByText(
         new RegExp(
-          `${t(
-            "searchFindings.tabTracking.justification"
-          ).toString()} ${rejectedObservation}`,
+          `${"searchFindings.tabTracking.justification"} ${rejectedObservation}`,
           "u"
         )
       )
