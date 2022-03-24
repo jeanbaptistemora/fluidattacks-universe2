@@ -8,6 +8,7 @@ import React, { useCallback } from "react";
 import { Card, CardBody, CardHeader } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { SwitchButton } from "components/SwitchButton";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_SUBSCRIPTIONS,
   UPDATE_NOTIFICATIONS_PREFERENCES,
@@ -120,19 +121,26 @@ const NotificationsView: React.FC = (): JSX.Element => {
           {subscriptionsFiltered.map((item: ISubscriptionName): JSX.Element => {
             return (
               <Col key={item.name} large={"25"} medium={"50"} small={"50"}>
-                <Card>
-                  <CardHeader>{item.name}</CardHeader>
-                  <CardBody>
-                    <Row>
-                      <Col large={"70"} medium={"70"} small={"70"}>
-                        {translate.t("searchFindings.notificationTable.email")}
-                      </Col>
-                      <Col large={"30"} medium={"30"} small={"30"}>
-                        {item.subscribeEmail}
-                      </Col>
-                    </Row>
-                  </CardBody>
-                </Card>
+                <TooltipWrapper
+                  id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
+                  message={item.name}
+                >
+                  <Card>
+                    <CardHeader>{item.name}</CardHeader>
+                    <CardBody>
+                      <Row>
+                        <Col large={"70"} medium={"70"} small={"70"}>
+                          {translate.t(
+                            "searchFindings.notificationTable.email"
+                          )}
+                        </Col>
+                        <Col large={"30"} medium={"30"} small={"30"}>
+                          {item.subscribeEmail}
+                        </Col>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </TooltipWrapper>
               </Col>
             );
           })}
