@@ -5442,7 +5442,97 @@
   es:
     description: __empty__
   definitions:
-    "8_5_2":
+    "1_1_i":
       title: ASSET - Manage IT and OT asset inventory (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "1_2_i":
+      title: ASSET - Manage IT and OT asset inventory (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "1_3_a":
+      title: ASSET - Manage asset configuration (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "1_4_f":
+      title: ASSET - Manage changes to assets (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "2_1_d":
+      title: THREAT - Reduce cybersecurity vulnerabilities (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "2_1_j":
+      title: THREAT - Reduce cybersecurity vulnerabilities (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "2_1_l":
+      title: THREAT - Reduce cybersecurity vulnerabilities (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "2_2_h":
+      title: THREAT - Respond to threats and share threat information (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "2_3_e":
+      title: THREAT - Management activities (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "3_1_b":
+      title: RISK - Establish and maintain cyber risk management strategy (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "3_3_g":
+      title: RISK - Analyze cyber risk (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "3_5_e":
+      title: RISK - Management activities (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_1_a":
+      title: ACCESS - Establish and maintain identities (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_1_b":
+      title: ACCESS - Establish and maintain identities (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_1_c":
+      title: ACCESS - Establish and maintain identities (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_1_e":
+      title: ACCESS - Establish and maintain identities (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_1_f":
+      title: ACCESS - Establish and maintain identities (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_2_d":
+      title: ACCESS - Control logical access (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "4_2_i":
+      title: ACCESS - Control logical access (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "5_1_e":
+      title: SITUATION - Perform logging (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "5_2_b":
+      title: SITUATION - Perform monitoring (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "5_2_c":
+      title: SITUATION - Perform monitoring (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "5_2_d":
+      title: SITUATION - Perform monitoring (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "5_2_h":
+      title: SITUATION - Perform monitoring (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "6_1_c":
+      title: RESPONSE - Detect cybersecurity events (2)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "7_1_a":
+      title: THIRD-PARTIES - Identify and prioritize third parties (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "7_1_b":
+      title: THIRD-PARTIES - Identify and prioritize third parties (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "7_1_e":
+      title: THIRD-PARTIES - Identify and prioritize third parties (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "7_2_a":
+      title: THIRD-PARTIES - Manage third-party risk (1)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "7_2_h":
+      title: THIRD-PARTIES - Manage third-party risk (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    "8_1_b":
+      title: WORKFORCE - Assign cybersecurity responsibilities (1)
       link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
   metadata: {}
