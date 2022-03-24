@@ -5434,3 +5434,15 @@
       title: Data networks security (Alert and log review) - Storage and retrieval
       link: https://www.isecom.org/OSSTMM.3.pdf
   metadata: {}
+"c2m2":
+  title: C2M2
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "8_5_2":
+      title: ASSET - Manage IT and OT asset inventory (3)
+      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+  metadata: {}
