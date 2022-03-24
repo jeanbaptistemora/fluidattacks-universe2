@@ -35,6 +35,7 @@ from db_model.roots.types import (
     RootMachineExecutionItem,
     RootState,
     RootUnreliableIndicators,
+    Secret,
     URLRootItem,
     URLRootState,
 )
@@ -433,4 +434,42 @@ async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
             ClientMethod="put_object",
             Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
             ExpiresIn=1800,
+        )
+
+
+async def get_secrets(
+    *, root_id: str, secret_id: Optional[str] = None
+) -> Tuple[Secret, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_secret"],
+        values={"uuid": root_id, "id": secret_id},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & (
+                Key(key_structure.sort_key).eq(primary_key.sort_key)
+                if secret_id
+                else Key(key_structure.sort_key).begins_with(
+                    primary_key.sort_key
+                )
+            )
+        ),
+        facets=(TABLE.facets["git_root_secret"],),
+        table=TABLE,
+    )
+    return tuple(
+        Secret(key=item["key"], value=item["value"], id=item["id"])
+        for item in response.items
+    )
+
+
+class RootSecretsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[str]
+    ) -> Tuple[Tuple[Secret, ...], ...]:
+        return await collect(
+            get_secrets(root_id=root_id) for root_id in root_ids
         )

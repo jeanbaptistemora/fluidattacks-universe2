@@ -39,6 +39,7 @@ from db_model.roots.get import (
     OrganizationRootsLoader,
     RootLoader,
     RootMachineExecutionsLoader,
+    RootSecretsLoader,
     RootStatesLoader,
 )
 from db_model.toe_inputs.get import (
@@ -107,6 +108,7 @@ class Dataloaders(NamedTuple):
     organization_tags: OrganizationTagsLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
+    root_secrets: RootSecretsLoader
     root_states: RootStatesLoader
     root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
@@ -187,6 +189,7 @@ def get_new_context() -> Dataloaders:
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_states=RootStatesLoader(),
+        root_secrets=RootSecretsLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
