@@ -2,34 +2,34 @@ import type { FieldProps } from "formik";
 import _ from "lodash";
 import React from "react";
 
-import type { ISwitchButtonProps } from "components/SwitchButton";
-import { SwitchButton } from "components/SwitchButton/index";
+import { Switch } from "components/Switch";
 
-declare type FormikSwitchButtonProps = FieldProps & ISwitchButtonProps;
+interface IFormikSwitchButtonProps extends FieldProps {
+  disabled?: boolean;
+  offlabel: string;
+  onlabel: string;
+  onChange: (checked: boolean) => void;
+}
 
 // Custom SwitchButton whose state can be managed by Formik
-export const FormikSwitchButton: React.FC<FormikSwitchButtonProps> = (
-  // Readonly utility type does not work on deeply nested types
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  props: Readonly<FormikSwitchButtonProps>
+export const FormikSwitchButton: React.FC<IFormikSwitchButtonProps> = (
+  props: Readonly<IFormikSwitchButtonProps>
 ): JSX.Element => {
-  const { field, id, disabled, offlabel, onlabel, onChange } = props;
-  const { checked } = field;
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  function handleOnChange(checked: boolean): void {
+  const { disabled, field, offlabel, onlabel, onChange } = props;
+  const { checked, name } = field;
+  function handleOnChange(): void {
     if (!_.isUndefined(onChange)) {
-      onChange(checked);
+      onChange(!(checked as boolean));
     }
   }
 
   return (
-    <SwitchButton
+    <Switch
       checked={checked ?? false}
       disabled={disabled}
-      id={id}
-      offlabel={offlabel}
+      label={{ off: offlabel, on: onlabel }}
+      name={name}
       onChange={handleOnChange}
-      onlabel={onlabel}
     />
   );
 };

@@ -18,7 +18,7 @@ import {
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
-import { SwitchButton } from "components/SwitchButton";
+import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ADD_GROUP_MUTATION,
@@ -339,16 +339,18 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           {t("organization.tabs.groups.newGroup.machine.text")}
                           {" *"}
                         </ControlLabel>
-                        <SwitchButton
+                        <Switch
                           checked={values.machine}
+                          label={{
+                            off: t(
+                              "organization.tabs.groups.newGroup.switch.no"
+                            ),
+                            on: t(
+                              "organization.tabs.groups.newGroup.switch.yes"
+                            ),
+                          }}
                           name={"machine"}
-                          offlabel={t(
-                            "organization.tabs.groups.newGroup.switch.no"
-                          )}
                           onChange={handleMachineBtnChange}
-                          onlabel={t(
-                            "organization.tabs.groups.newGroup.switch.yes"
-                          )}
                         />
                       </FormGroup>
                     </TooltipWrapper>
@@ -366,16 +368,18 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           {t("organization.tabs.groups.newGroup.squad.text")}
                           {" *"}
                         </ControlLabel>
-                        <SwitchButton
+                        <Switch
                           checked={values.squad}
+                          label={{
+                            off: t(
+                              "organization.tabs.groups.newGroup.switch.no"
+                            ),
+                            on: t(
+                              "organization.tabs.groups.newGroup.switch.yes"
+                            ),
+                          }}
                           name={"squad"}
-                          offlabel={t(
-                            "organization.tabs.groups.newGroup.switch.no"
-                          )}
                           onChange={handleSquadBtnChange}
-                          onlabel={t(
-                            "organization.tabs.groups.newGroup.switch.yes"
-                          )}
                         />
                       </FormGroup>
                     </TooltipWrapper>

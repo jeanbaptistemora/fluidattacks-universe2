@@ -63,10 +63,10 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
 
             return (
               <Row key={column.dataField}>
-                <Col>
+                <Col large={"80"} medium={"80"} small={"80"}>
                   <ToggleLabel>{column.text}</ToggleLabel>
                 </Col>
-                <Col large={"25"} medium={"25"} small={"25"}>
+                <Col large={"20"} medium={"20"} small={"20"}>
                   <Switch
                     checked={toggles[column.dataField as number]}
                     name={column.dataField}

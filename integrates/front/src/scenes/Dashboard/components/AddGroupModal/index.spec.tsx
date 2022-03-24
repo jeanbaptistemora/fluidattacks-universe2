@@ -84,7 +84,10 @@ describe("AddGroupModal component", (): void => {
       .find({ name: "service" })
       .find("select");
 
-    const switchButtons: ReactWrapper = wrapper.find({ checked: true });
+    const switchButtons: ReactWrapper = wrapper
+      .find("Switch")
+      .find("input")
+      .find({ checked: true });
 
     const submitButton: ReactWrapper = wrapper
       .findWhere((element: ReactWrapper): boolean =>

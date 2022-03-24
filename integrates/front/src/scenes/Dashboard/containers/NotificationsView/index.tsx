@@ -7,7 +7,7 @@ import React, { useCallback } from "react";
 
 import { Card, CardBody, CardHeader } from "components/Card";
 import { Col, Row } from "components/Layout";
-import { SwitchButton } from "components/SwitchButton";
+import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_SUBSCRIPTIONS,
@@ -85,12 +85,10 @@ const NotificationsView: React.FC = (): JSX.Element => {
                 `searchFindings.enumValues.${subscription.name}`
               ),
               subscribeEmail: (
-                <SwitchButton
+                <Switch
                   checked={isSubscribe}
-                  id={"emailSwitch"}
-                  offlabel={"Off"}
+                  label={{ off: "Off", on: "On" }}
                   onChange={onChange}
-                  onlabel={"On"}
                 />
               ),
             };

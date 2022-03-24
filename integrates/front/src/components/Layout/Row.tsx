@@ -31,7 +31,7 @@ const getTextAlign = (align: IRowProps["align"]): string => {
 };
 
 const Row = styled.div.attrs({
-  className: "flex flex-row flex-wrap",
+  className: "flex flex-row flex-wrap items-center",
 })<IRowProps>`
   justify-content: ${(props): string => getJustifyContent(props.align)};
   text-align: ${(props): string => getTextAlign(props.align)};

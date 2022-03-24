@@ -50,7 +50,7 @@ const getSwitchButtonHandlers = (
     shouldValidate?: boolean | undefined
   ) => void,
   scope: "machine" | "squad"
-): ((checked: boolean) => void) => {
+): (() => void) => {
   function handleMachineBtnChange(): void {
     setFieldValue("machine", !values.machine);
 

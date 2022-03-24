@@ -306,11 +306,7 @@ describe("Services", (): void => {
     expect(screen.getByRole("cell", { name: "Machine" })).toBeInTheDocument();
     expect(screen.getByRole("cell", { name: "Squad" })).toBeInTheDocument();
 
-    userEvent.click(
-      screen
-        .getAllByRole("cell", { name: "Active Inactive" })[0]
-        .querySelectorAll("#machineSwitch")[0]
-    );
+    userEvent.click(screen.getByRole("checkbox", { name: "machine" }));
 
     await waitFor((): void => {
       expect(
@@ -344,11 +340,7 @@ describe("Services", (): void => {
       );
     });
 
-    userEvent.click(
-      screen
-        .getAllByRole("cell", { name: "Active Inactive" })[1]
-        .querySelectorAll("#squadSwitch")[0]
-    );
+    userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
     await waitFor((): void => {
       expect(
         screen.getByText(
@@ -382,11 +374,7 @@ describe("Services", (): void => {
       );
     });
 
-    userEvent.click(
-      screen
-        .getAllByRole("cell", { name: "Active Inactive" })[1]
-        .querySelectorAll("#squadSwitch")[0]
-    );
+    userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
     await waitFor((): void => {
       expect(
         screen.getByText(
