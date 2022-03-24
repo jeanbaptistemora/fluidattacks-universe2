@@ -522,7 +522,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       : statusFormatter,
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
-                    width: canUpdateRootState ? "10%" : "100px",
+                    width: canUpdateRootState ? "130px" : "100px",
                   },
                   {
                     dataField: "cloningStatus.status",

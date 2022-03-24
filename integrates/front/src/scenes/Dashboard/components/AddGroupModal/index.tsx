@@ -163,7 +163,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
 
             return (
               <Form>
-                <Row align={"space-between"}>
+                <Row justify={"space-between"}>
                   <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
@@ -248,7 +248,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                   </Col>
                 </Row>
-                <Row align={"space-between"}>
+                <Row justify={"space-between"}>
                   <Col large={"33"} medium={"33"} small={"33"}>
                     <FormGroup>
                       <ControlLabel>
@@ -325,7 +325,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                   </Col>
                 </Row>
-                <Row align={"space-between"}>
+                <Row justify={"space-between"}>
                   <Col large={"50"} medium={"50"} small={"50"}>
                     <TooltipWrapper
                       id={"organization.tabs.groups.newGroup.machine.tooltip"}

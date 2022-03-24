@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 interface IRowProps {
-  align?:
+  align?: "center" | "flex-end" | "flex-start";
+  justify?:
     | "center"
     | "flex-end"
     | "flex-start"
@@ -10,7 +11,7 @@ interface IRowProps {
     | "space-evenly";
 }
 
-const getJustifyContent = (align: IRowProps["align"]): string => {
+const getAlignItems = (align: IRowProps["align"]): string => {
   if (align === undefined) {
     return "flex-start";
   }
@@ -18,12 +19,20 @@ const getJustifyContent = (align: IRowProps["align"]): string => {
   return align;
 };
 
-const getTextAlign = (align: IRowProps["align"]): string => {
-  if (align === "center") {
+const getJustifyContent = (justify: IRowProps["justify"]): string => {
+  if (justify === undefined) {
+    return "flex-start";
+  }
+
+  return justify;
+};
+
+const getTextAlign = (justify: IRowProps["justify"]): string => {
+  if (justify === "center") {
     return "center";
-  } else if (align === "flex-end") {
+  } else if (justify === "flex-end") {
     return "end";
-  } else if (align === "flex-start") {
+  } else if (justify === "flex-start") {
     return "start";
   }
 
@@ -31,10 +40,11 @@ const getTextAlign = (align: IRowProps["align"]): string => {
 };
 
 const Row = styled.div.attrs({
-  className: "flex flex-row flex-wrap items-center",
+  className: "flex flex-row flex-wrap",
 })<IRowProps>`
-  justify-content: ${(props): string => getJustifyContent(props.align)};
-  text-align: ${(props): string => getTextAlign(props.align)};
+  align-items: ${(props): string => getAlignItems(props.align)};
+  justify-content: ${(props): string => getJustifyContent(props.justify)};
+  text-align: ${(props): string => getTextAlign(props.justify)};
 `;
 
 export { Row };

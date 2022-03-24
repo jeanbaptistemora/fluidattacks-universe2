@@ -94,7 +94,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
 
   return (
     <React.StrictMode>
-      <Row align={"center"}>
+      <Row justify={"center"}>
         <Col>
           <Timeline>
             {reversedHistoricTreatment.map((treatment): JSX.Element => {

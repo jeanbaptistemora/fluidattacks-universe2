@@ -11,6 +11,9 @@ const config: Meta = {
 };
 
 const Box = styled.div.attrs({ className: "bg-gray pa3" })``;
+const LargeBox = styled(Box)`
+  height: 8rem;
+`;
 
 const Alignment: Story = (): JSX.Element => {
   return (
@@ -19,17 +22,26 @@ const Alignment: Story = (): JSX.Element => {
       <p>{"flex-start (default)"}</p>
       <Row>
         <Col large={"50"} medium={"50"} small={"50"}>
+          <LargeBox />
+        </Col>
+        <Col large={"50"} medium={"50"} small={"50"}>
           <Box />
         </Col>
       </Row>
       <p>{"center"}</p>
       <Row align={"center"}>
         <Col large={"50"} medium={"50"} small={"50"}>
+          <LargeBox />
+        </Col>
+        <Col large={"50"} medium={"50"} small={"50"}>
           <Box />
         </Col>
       </Row>
       <p>{"flex-end"}</p>
       <Row align={"flex-end"}>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <LargeBox />
+        </Col>
         <Col large={"50"} medium={"50"} small={"50"}>
           <Box />
         </Col>
@@ -65,7 +77,7 @@ const Distribution: Story = (): JSX.Element => {
   return (
     <React.Fragment>
       <p>{"space-around"}</p>
-      <Row align={"space-around"}>
+      <Row justify={"space-around"}>
         <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
@@ -77,7 +89,7 @@ const Distribution: Story = (): JSX.Element => {
         </Col>
       </Row>
       <p>{"space-between"}</p>
-      <Row align={"space-between"}>
+      <Row justify={"space-between"}>
         <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
@@ -89,7 +101,7 @@ const Distribution: Story = (): JSX.Element => {
         </Col>
       </Row>
       <p>{"space-evenly"}</p>
-      <Row align={"space-evenly"}>
+      <Row justify={"space-evenly"}>
         <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
@@ -97,6 +109,31 @@ const Distribution: Story = (): JSX.Element => {
           <Box />
         </Col>
         <Col large={"20"} medium={"20"} small={"20"}>
+          <Box />
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
+};
+
+const Justification: Story = (): JSX.Element => {
+  return (
+    <React.Fragment>
+      <p>{"flex-start (default)"}</p>
+      <Row>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Box />
+        </Col>
+      </Row>
+      <p>{"center"}</p>
+      <Row justify={"center"}>
+        <Col large={"50"} medium={"50"} small={"50"}>
+          <Box />
+        </Col>
+      </Row>
+      <p>{"flex-end"}</p>
+      <Row justify={"flex-end"}>
+        <Col large={"50"} medium={"50"} small={"50"}>
           <Box />
         </Col>
       </Row>
@@ -138,5 +175,5 @@ const Responsive: Story = (): JSX.Element => {
   );
 };
 
-export { Alignment, AutoWidth, Distribution, Responsive };
+export { Alignment, AutoWidth, Distribution, Justification, Responsive };
 export default config;
