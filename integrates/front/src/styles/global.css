@@ -695,11 +695,6 @@ label {
   min-height: calc(1.5em + 0.75rem + 2px);
 }
 
-:global .switch-transition {
-  transition: left 0.35s;
-  -webkit-transition: left 0.35s;
-}
-
 :global .tc-bb {
   border-bottom: 1px #eee solid;
 }
