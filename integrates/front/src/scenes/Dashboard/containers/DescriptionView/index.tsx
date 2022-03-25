@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { DescriptionViewForm } from "scenes/Dashboard/containers/DescriptionView/DescriptionViewForm";
@@ -23,9 +24,9 @@ import type {
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const DescriptionView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { findingId, groupName } = useParams<{
     findingId: string;
     groupName: string;
@@ -39,7 +40,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
     fetchPolicy: "no-cache",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading group language", error);
       });
     },
@@ -52,7 +53,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
   >(GET_FINDING_DESCRIPTION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading finding description", error);
       });
     },
@@ -72,10 +73,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
       updateDescription: { success: boolean };
     }): Promise<void> => {
       if (result.updateDescription.success) {
-        msgSuccess(
-          translate.t("groupAlerts.updated"),
-          translate.t("groupAlerts.updatedTitle")
-        );
+        msgSuccess(t("groupAlerts.updated"), t("groupAlerts.updatedTitle"));
         await refetch();
       }
     },
@@ -83,13 +81,13 @@ const DescriptionView: React.FC = (): JSX.Element => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Invalid field in form":
-            msgError(translate.t("validations.invalidValueInField"));
+            msgError(t("validations.invalidValueInField"));
             break;
           case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalidChar"));
+            msgError(t("validations.invalidChar"));
             break;
           default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
+            msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred updating finding description",
               updateError
