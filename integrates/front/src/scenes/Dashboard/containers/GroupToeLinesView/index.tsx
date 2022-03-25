@@ -9,6 +9,7 @@ import type { ChangeEvent } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
@@ -43,14 +44,13 @@ import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
-import { translate } from "utils/translations/translate";
 
 const NOEXTENSION = ".no.extension.";
 
-const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
-  props: IGroupToeLinesViewProps
-): JSX.Element => {
-  const { isInternal } = props;
+const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
+  isInternal,
+}: IGroupToeLinesViewProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateAttackedLines: boolean = permissions.can(
@@ -139,7 +139,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         checkedItems[columnName]
       ) {
         // eslint-disable-next-line no-alert
-        alert(translate.t("validations.columns"));
+        alert(t("validations.columns"));
         setCheckedItems({
           ...checkedItems,
           [columnName]: true,
@@ -151,7 +151,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
         });
       }
     },
-    [checkedItems, setCheckedItems]
+    [checkedItems, setCheckedItems, t]
   );
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -171,9 +171,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       style: "percent",
     }).format(value);
   const formatBoolean = (value: boolean): string =>
-    value
-      ? translate.t("group.toe.lines.yes")
-      : translate.t("group.toe.lines.no");
+    value ? t("group.toe.lines.yes") : t("group.toe.lines.no");
   const onSort: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -187,33 +185,33 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
   const headersToeLinesTable: IHeaderConfig[] = [
     {
       dataField: "rootNickname",
-      header: translate.t("group.toe.lines.root"),
+      header: t("group.toe.lines.root"),
       onSort,
       visible: checkedItems.rootNickname,
     },
     {
       dataField: "filename",
-      header: translate.t("group.toe.lines.filename"),
+      header: t("group.toe.lines.filename"),
       onSort,
       visible: checkedItems.filename,
     },
     {
       dataField: "coverage",
       formatter: formatPercentage,
-      header: translate.t("group.toe.lines.coverage"),
+      header: t("group.toe.lines.coverage"),
       omit: !isInternal || !canSeeCoverage || !canGetAttackedLines,
       onSort,
       visible: checkedItems.coverage,
     },
     {
       dataField: "loc",
-      header: translate.t("group.toe.lines.loc"),
+      header: t("group.toe.lines.loc"),
       onSort,
       visible: checkedItems.loc,
     },
     {
       dataField: "attackedLines",
-      header: translate.t("group.toe.lines.attackedLines"),
+      header: t("group.toe.lines.attackedLines"),
       omit: !isInternal || !canGetAttackedLines,
       onSort,
       visible: checkedItems.attackedLines,
@@ -221,7 +219,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       dataField: "hasVulnerabilities",
       formatter: formatBoolean,
-      header: translate.t("group.toe.lines.hasVulnerabilities"),
+      header: t("group.toe.lines.hasVulnerabilities"),
       onSort,
       visible: checkedItems.hasVulnerabilities,
     },
@@ -229,25 +227,25 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       dataField: "modifiedDate",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.modifiedDate"),
+      header: t("group.toe.lines.modifiedDate"),
       onSort,
       visible: checkedItems.modifiedDate,
     },
     {
       dataField: "lastCommit",
-      header: translate.t("group.toe.lines.lastCommit"),
+      header: t("group.toe.lines.lastCommit"),
       onSort,
       visible: checkedItems.lastCommit,
     },
     {
       dataField: "lastAuthor",
-      header: translate.t("group.toe.lines.lastAuthor"),
+      header: t("group.toe.lines.lastAuthor"),
       onSort,
       visible: checkedItems.lastAuthor,
     },
     {
       dataField: "daysToAttack",
-      header: translate.t("group.toe.lines.daysToAttack"),
+      header: t("group.toe.lines.daysToAttack"),
       omit: !isInternal || !canSeeDaysToAttack || !canGetAttackedAt,
       onSort,
       visible: checkedItems.daysToAttack,
@@ -256,14 +254,14 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.attackedAt"),
+      header: t("group.toe.lines.attackedAt"),
       omit: !isInternal || !canGetAttackedAt,
       onSort,
       visible: checkedItems.attackedAt,
     },
     {
       dataField: "attackedBy",
-      header: translate.t("group.toe.lines.attackedBy"),
+      header: t("group.toe.lines.attackedBy"),
       omit: !isInternal || !canGetAttackedBy,
       onSort,
       visible: checkedItems.attackedBy,
@@ -272,7 +270,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       dataField: "firstAttackAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.firstAttackAt"),
+      header: t("group.toe.lines.firstAttackAt"),
       omit: !isInternal || !canGetFirstAttackAt,
       onSort,
       visible: checkedItems.firstAttackAt,
@@ -281,13 +279,13 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.seenAt"),
+      header: t("group.toe.lines.seenAt"),
       onSort,
       visible: checkedItems.seenAt,
     },
     {
       dataField: "comments",
-      header: translate.t("group.toe.lines.comments"),
+      header: t("group.toe.lines.comments"),
       omit: !isInternal || !canGetComments,
       onSort,
       visible: checkedItems.comments,
@@ -295,14 +293,14 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       dataField: "sortsRiskLevel",
       formatter: formatRiskLevel,
-      header: translate.t("group.toe.lines.sortsRiskLevel"),
+      header: t("group.toe.lines.sortsRiskLevel"),
       onSort,
       visible: checkedItems.sortsRiskLevel,
     },
     {
       dataField: "bePresent",
       formatter: formatBoolean,
-      header: translate.t("group.toe.lines.bePresent"),
+      header: t("group.toe.lines.bePresent"),
       onSort,
       visible: checkedItems.bePresent,
     },
@@ -310,7 +308,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
       dataField: "bePresentUntil",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.lines.bePresentUntil"),
+      header: t("group.toe.lines.bePresentUntil"),
       omit: !isInternal || !canGetBePresentUntil,
       onSort,
       visible: checkedItems.bePresentUntil,
@@ -506,7 +504,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       defaultValue: filterGroupToeLinesTable.rootId,
       onChangeSelect: onBasicFilterValueChange("rootId"),
-      placeholder: translate.t("group.toe.lines.filters.root.placeholder"),
+      placeholder: t("group.toe.lines.filters.root.placeholder"),
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.lines.filters.root.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.root.tooltip",
@@ -515,7 +513,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       defaultValue: filterGroupToeLinesTable.filenameExtension,
       onChangeSelect: onBasicFilterValueChange("filenameExtension"),
-      placeholder: translate.t("group.toe.lines.filters.extension.placeholder"),
+      placeholder: t("group.toe.lines.filters.extension.placeholder"),
       selectOptions: extensionSelectOptions,
       tooltipId: "group.toe.lines.filters.extension.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.extension.tooltip",
@@ -524,7 +522,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       defaultValue: "",
       omit: !isInternal || !canSeeCoverage || !canGetAttackedLines,
-      placeholder: translate.t("group.toe.lines.filters.coverage.placeholder"),
+      placeholder: t("group.toe.lines.filters.coverage.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeLinesTable.coverage,
         onChangeMax: onRangeFilterValueChange("coverage", "max"),
@@ -537,9 +535,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     },
     {
       defaultValue: "",
-      placeholder: translate.t(
-        "group.toe.lines.filters.modifiedDate.placeholder"
-      ),
+      placeholder: t("group.toe.lines.filters.modifiedDate.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeLinesTable.modifiedDate,
         onChangeMax: onRangeFilterValueChange("modifiedDate", "max"),
@@ -552,9 +548,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       defaultValue: filterGroupToeLinesTable.hasVulnerabilities,
       onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
-      placeholder: translate.t(
-        "group.toe.lines.filters.hasVulnerabilities.placeholder"
-      ),
+      placeholder: t("group.toe.lines.filters.hasVulnerabilities.placeholder"),
       selectOptions: booleanSelectOptions,
       tooltipId: "group.toe.lines.filters.hasVulnerabilities.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.hasVulnerabilities.tooltip",
@@ -562,7 +556,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     },
     {
       defaultValue: "",
-      placeholder: translate.t("group.toe.lines.filters.seenAt.placeholder"),
+      placeholder: t("group.toe.lines.filters.seenAt.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeLinesTable.seenAt,
         onChangeMax: onRangeFilterValueChange("seenAt", "max"),
@@ -574,7 +568,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     },
     {
       defaultValue: "",
-      placeholder: translate.t("group.toe.lines.filters.priority.placeholder"),
+      placeholder: t("group.toe.lines.filters.priority.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeLinesTable.priority,
         onChangeMax: onRangeFilterValueChange("priority", "max"),
@@ -588,7 +582,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = (
     {
       defaultValue: filterGroupToeLinesTable.bePresent,
       onChangeSelect: onBasicFilterValueChange("bePresent"),
-      placeholder: translate.t("group.toe.lines.filters.bePresent.placeholder"),
+      placeholder: t("group.toe.lines.filters.bePresent.placeholder"),
       selectOptions: booleanSelectOptions,
       tooltipId: "group.toe.lines.filters.bePresent.tooltip.id",
       tooltipMessage: "group.toe.lines.filters.bePresent.tooltip",
