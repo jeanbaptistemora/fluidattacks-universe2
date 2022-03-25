@@ -38,7 +38,7 @@ def tfm_lb_target_group_insecure_port(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f070.elb2_uses_insecure_security_policy",
+        description_key="lib_path.f070.tfm_lb_target_group_insecure_port",
         iterator=get_cloud_iterator(
             _tfm_lb_target_group_insecure_port_iterate_vulnerabilities(
                 resource_iterator=iter_aws_lb_target_group(model=model)

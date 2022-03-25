@@ -15340,7 +15340,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   59 |               ""StatusCode"": ""HTTP_301""
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/lb_test.tf,"
+F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. Insecure service configuration - ELB,Property port is either missing or misconfigured in namespace/skims/test/data/lib_path/f070/lb_test.tf,"
   1 | resource ""aws_lb_target_group"" ""test"" {
   2 |   name     = ""tf-example-lb-tg""
 > 3 |   port     = 80
