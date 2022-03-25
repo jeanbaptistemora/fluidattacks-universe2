@@ -489,7 +489,7 @@ of the existing code before starting the hacking process?
 We recommend that application development and the hacking process begin
 simultaneously. However, this is not always possible. To catch up with
 developers, we perform a [`Health
-Check`](../../services/continuous-hacking/healthcheck/) (additional fees
+Check`](../services/continuous-hacking/) (additional fees
 apply). This means all versions of the existing code are attacked up to
 the contracted starting point in addition to the monthly test limit.
 This allows us to catch up with the development team within the first
