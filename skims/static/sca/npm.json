@@ -490,8 +490,17 @@
   "ammo": {
     "www.npmjs.com/advisories/1472": "<=3.0.3"
   },
+  "an0n-chat-lib": {
+    "GHSA-7xcv-wvr7-4h6p": ">=0"
+  },
+  "anarchy": {
+    "GHSA-jjhg-qw5v-r8xx": ">=0"
+  },
   "anchorme": {
     "CVE-2021-23411": ">=0"
+  },
+  "angluar-cli": {
+    "GHSA-8mm3-2mcj-cx6r": ">=0"
   },
   "angular": {
     "CVE-2019-10768": "<1.7.9",
@@ -500,6 +509,9 @@
     "npm:angular:20150807-1": ">=1.3.1 <1.5.0",
     "npm:angular:20160527": ">=1.0.0 <1.2.30",
     "npm:angular:20161101": ">=1.5.0 <1.5.9"
+  },
+  "angular-bmap": {
+    "GHSA-w8hg-mxvh-9h57": "0.0.9"
   },
   "angular-expressions": {
     "CVE-2020-5219": "<1.0.1",
@@ -513,8 +525,20 @@
   "angular-jwt": {
     "CVE-2018-11537": "<0.1.10"
   },
+  "angular-location-update": {
+    "GHSA-53jx-4wwh-gcqj": "0.0.3"
+  },
+  "angular-material-sidenav-rnd": {
+    "GHSA-qmxf-fxq7-w59f": "0.1.1"
+  },
   "angular-redactor": {
     "CVE-2018-13339": "=1.1.6"
+  },
+  "another-date-picker": {
+    "GHSA-2p62-c4rm-mr72": "2.0.43"
+  },
+  "another-date-range-picker": {
+    "GHSA-8rxg-9g6f-vq9p": "4.1.48"
   },
   "ansi-html": {
     "CVE-2021-23424": ">=0"
@@ -528,6 +552,9 @@
   },
   "ansi_up": {
     "CVE-2021-3377": "<5.0.0"
+  },
+  "antd-cloud": {
+    "GHSA-j4vm-hg8g-g9qv": ">=0"
   },
   "anymatch": {},
   "anywhere": {
@@ -551,6 +578,10 @@
   },
   "apk-parser3": {
     "GMS-2016-107": "<0.1.3"
+  },
+  "apollo-server": {
+    "GHSA-qm7x-rc44-rrqw": ">=2.0.0 <2.25.3 || >=3.0.0 <3.4.1",
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
   },
   "appium-chromedriver": {
     "CVE-2016-10557": "<2.9.4",
