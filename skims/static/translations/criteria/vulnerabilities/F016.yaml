@@ -1,6 +1,6 @@
 src.lib_path.f016.serves_content_over_insecure_protocols:
-  en: The application is not using the strongest protocol
-  es: La aplicación no está usando el protocolo mas fuerte
+  en: The application makes use of an insecure protocol
+  es: La aplicación hace uso de un protocolo inseguro
 lib_ssl.analyze_protocol.sslv3_enabled:
   en: server accepts connections with SSLv3
   es: el servidor acepta conexiones con SSLv3
