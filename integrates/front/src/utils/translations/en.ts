@@ -1611,7 +1611,8 @@ export const enTranslations: ResourceKey = {
       DIGEST: "Daily digest",
       EVENT_REPORT: {
         name: "Events alert",
-        tooltip: "EVENT_REPORT",
+        tooltip:
+          "Reports information about an event that has been created in a group",
       },
       GROUP: "GROUP",
       GROUP_REPORT: {
