@@ -4,6 +4,7 @@ import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _, { toString } from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -27,7 +28,6 @@ import { castAffectedComponents } from "utils/formatHelpers";
 import { EditableField, FormikDateTime, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   dateTimeBeforeToday,
@@ -57,6 +57,7 @@ interface IEventDescriptionData {
 }
 
 const EventDescriptionView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { eventId } = useParams<{ eventId: string }>();
 
   // State management
@@ -71,11 +72,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading event description", error);
       });
     },
-    []
+    [t]
   );
 
   const { data, refetch } = useQuery<IEventDescriptionData>(
@@ -95,9 +96,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   ): void => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message === "Exception - The event has already been closed") {
-        msgError(translate.t("group.events.alreadyClosed"));
+        msgError(t("group.events.alreadyClosed"));
       } else {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred updating event", updateError);
       }
     });
@@ -139,7 +140,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         <Modal
           onClose={closeSolvingModal}
           open={isSolvingModalOpen}
-          title={translate.t("searchFindings.tabSeverity.solve")}
+          title={t("searchFindings.tabSeverity.solve")}
         >
           <Formik
             enableReinitialize={true}
@@ -153,7 +154,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                   <Col50>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t("group.events.description.solved.date")}
+                        {t("group.events.description.solved.date")}
                       </ControlLabel>
                       <Field
                         component={FormikDateTime}
@@ -169,9 +170,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                   <Col50>
                     <FormGroup>
                       <ControlLabel>
-                        {translate.t(
-                          "group.events.description.solved.affectation"
-                        )}
+                        {t("group.events.description.solved.affectation")}
                       </ControlLabel>
                       <Field
                         component={FormikText}
@@ -185,7 +184,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                 {_.isEmpty(data.event.affectedReattacks) ? undefined : (
                   <Row>
                     <Col100>
-                      {translate.t("group.events.description.solved.holds", {
+                      {t("group.events.description.solved.holds", {
                         length: data.event.affectedReattacks.length,
                       })}
                     </Col100>
@@ -193,14 +192,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                 )}
                 <ModalFooter>
                   <Button onClick={closeSolvingModal} variant={"secondary"}>
-                    {translate.t("confirmmodal.cancel")}
+                    {t("confirmmodal.cancel")}
                   </Button>
                   <Button
                     disabled={!dirty || submitting}
                     type={"submit"}
                     variant={"primary"}
                   >
-                    {translate.t("confirmmodal.proceed")}
+                    {t("confirmmodal.proceed")}
                   </Button>
                 </ModalFooter>
               </Form>
@@ -225,7 +224,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       >
                         <FluidIcon icon={"verified"} />
                         &nbsp;
-                        {translate.t("searchFindings.tabSeverity.solve")}
+                        {t("searchFindings.tabSeverity.solve")}
                       </Button>
                     </Can>
                   </ButtonToolbar>
@@ -236,9 +235,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       alignField={"horizontalWide"}
                       component={FormikText}
                       currentValue={data.event.detail}
-                      label={translate.t(
-                        "searchFindings.tabEvents.description"
-                      )}
+                      label={t("searchFindings.tabEvents.description")}
                       name={"detail"}
                       renderAsEditable={false}
                       type={"text"}
@@ -249,7 +246,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       alignField={"horizontalWide"}
                       component={FormikText}
                       currentValue={data.event.client}
-                      label={translate.t("searchFindings.tabEvents.client")}
+                      label={t("searchFindings.tabEvents.client")}
                       name={"client"}
                       renderAsEditable={false}
                       type={"text"}
@@ -262,7 +259,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       alignField={"horizontalWide"}
                       component={FormikText}
                       currentValue={data.event.hacker}
-                      label={translate.t("searchFindings.tabEvents.hacker")}
+                      label={t("searchFindings.tabEvents.hacker")}
                       name={"hacker"}
                       renderAsEditable={false}
                       type={"text"}
@@ -277,9 +274,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                           ? "-"
                           : data.event.affectation
                       }
-                      label={translate.t(
-                        "searchFindings.tabEvents.affectation"
-                      )}
+                      label={t("searchFindings.tabEvents.affectation")}
                       name={"affectation"}
                       renderAsEditable={false}
                       type={"text"}
@@ -292,12 +287,10 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       <EditableField
                         alignField={"horizontalWide"}
                         component={FormikText}
-                        currentValue={translate.t(
+                        currentValue={t(
                           castAffectedComponents(data.event.affectedComponents)
                         )}
-                        label={translate.t(
-                          "searchFindings.tabEvents.affectedComponents"
-                        )}
+                        label={t("searchFindings.tabEvents.affectedComponents")}
                         name={"affectedComponents"}
                         renderAsEditable={false}
                         type={"text"}
@@ -309,7 +302,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       alignField={"horizontalWide"}
                       component={FormikText}
                       currentValue={data.event.accessibility}
-                      label={translate.t("searchFindings.tabEvents.eventIn")}
+                      label={t("searchFindings.tabEvents.eventIn")}
                       name={"accessibility"}
                       renderAsEditable={false}
                       type={"text"}

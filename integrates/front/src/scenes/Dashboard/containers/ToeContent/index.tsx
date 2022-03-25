@@ -2,6 +2,7 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import type { IToeContentProps } from "./types";
@@ -14,12 +15,11 @@ import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { translate } from "utils/translations/translate";
 
-const toeContent: React.FC<IToeContentProps> = (
-  props: IToeContentProps
-): JSX.Element => {
-  const { isInternal } = props;
+const toeContent: React.FC<IToeContentProps> = ({
+  isInternal,
+}: IToeContentProps): JSX.Element => {
+  const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const { path: groupPath }: IGroupContext = useContext(groupContext);
 
@@ -39,16 +39,16 @@ const toeContent: React.FC<IToeContentProps> = (
             <ContentTab
               id={"toeLinesTab"}
               link={`${url}/lines`}
-              title={translate.t("group.toe.tabs.lines.text")}
-              tooltip={translate.t("group.toe.tabs.lines.tooltip")}
+              title={t("group.toe.tabs.lines.text")}
+              tooltip={t("group.toe.tabs.lines.tooltip")}
             />
           </Can>
           <Can do={"api_resolvers_group_toe_inputs_resolve"}>
             <ContentTab
               id={"toeInputsTab"}
               link={`${url}/inputs`}
-              title={translate.t("group.toe.tabs.inputs.text")}
-              tooltip={translate.t("group.toe.tabs.inputs.tooltip")}
+              title={t("group.toe.tabs.inputs.text")}
+              tooltip={t("group.toe.tabs.inputs.tooltip")}
             />
           </Can>
         </TabsContainer>
