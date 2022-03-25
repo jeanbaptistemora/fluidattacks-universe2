@@ -16466,7 +16466,7 @@ F075,inputs,skims/test/data/lib_path/f075/AndroidManifest.xml (namespace),applic
   16 | </manifest>
      ^ Col 0
 ",analyze_bytecodes.apk_exported_cp
-F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
+F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Property admin_ssh_key is either missing or misconfigured in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
 >  1 | resource ""azurerm_linux_virtual_machine"" ""vulnerable"" {
    2 |   name           = ""example-machine""
    3 |   size           = ""Standard_F2""
@@ -16486,7 +16486,7 @@ F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,s
   17 | }
      ^ Col 0
 ",terraform.tfm_azure_linux_vm_insecure_authentication
-F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,015. Insecure authentication method - Basic,Azure instance does not authenticate using SSH keys in namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,"
+F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,015. Insecure authentication method - Basic,Property ssh_keys is either missing or misconfigured in namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,"
    1 | resource ""azurerm_virtual_machine"" ""vulnerable"" {
    2 |   name                  = ""${var.prefix}-vm""
    3 |   location              = azurerm_resource_group.main.location

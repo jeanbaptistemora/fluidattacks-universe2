@@ -49,7 +49,9 @@ def tfm_azure_virtual_machine_insecure_authentication(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("lib_path.f015.does_not_use_ssh"),
+        description_key=(
+            "lib_path.f015.tfm_azure_virtual_machine_insecure_authentication"
+        ),
         iterator=get_cloud_iterator(
             _tfm_azure_vm_insecure_authentication_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_virtual_machine(model=model)
@@ -65,7 +67,9 @@ def tfm_azure_linux_vm_insecure_authentication(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("lib_path.f015.does_not_use_ssh"),
+        description_key=(
+            "lib_path.f015.tfm_azure_linux_vm_insecure_authentication"
+        ),
         iterator=get_cloud_iterator(
             _tfm_azure_linux_vm_insecure_auth_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_linux_virtual_machine(

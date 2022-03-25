@@ -1,6 +1,9 @@
-lib_path.f015.does_not_use_ssh:
-  en: Azure instance does not authenticate using SSH keys
-  es: La instancia azure no se autentica con llaves SSH
+lib_path.f015.tfm_azure_virtual_machine_insecure_authentication:
+  en: Property ssh_keys is either missing or misconfigured
+  es: Falta la propiedad ssh_keys o está mal configurada
+lib_path.f015.tfm_azure_linux_vm_insecure_authentication:
+  en: Property admin_ssh_key is either missing or misconfigured
+  es: Falta la propiedad admin_ssh_key o está mal configurada
 lib_http.analyze_headers.www_authenticate.basic:
   en: The application uses Basic authentication over HTTP
   es: La aplicación usa autenticación de tipo Basic sobre HTTP
