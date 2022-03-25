@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
@@ -19,7 +18,7 @@ describe("TextArea Field", (): void => {
       dropdownTest: string().required(),
     });
 
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <Formik
         initialValues={{ textAreaTest: "" }}
         onSubmit={jest.fn()}
@@ -36,6 +35,9 @@ describe("TextArea Field", (): void => {
       </Formik>
     );
 
-    expect(wrapper.find("textarea").props().id).toBe("test");
+    expect(
+      screen.getByRole("textbox", { name: "textAreaTest" })
+    ).toBeInTheDocument();
+    expect(container.querySelector("#test")).toBeInTheDocument();
   });
 });

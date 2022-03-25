@@ -4,7 +4,6 @@ import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { UPDATE_TOE_INPUT } from "./queries";
 
@@ -25,8 +24,6 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("handle toe input edition modal", (): void => {
   it("should handle input edition", async (): Promise<void> => {
     expect.hasAssertions();
-
-    const { t } = useTranslation();
 
     jest.clearAllMocks();
 
@@ -84,9 +81,7 @@ describe("handle toe input edition modal", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    userEvent.click(
-      screen.getByText(t("group.toe.inputs.editModal.procced").toString())
-    );
+    userEvent.click(screen.getByText("group.toe.inputs.editModal.procced"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

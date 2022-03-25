@@ -4,7 +4,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
@@ -224,7 +223,6 @@ describe("GroupFindingsView", (): void => {
 
     jest.clearAllMocks();
 
-    const { t } = useTranslation();
     const handleClose: jest.Mock = jest.fn();
     render(
       <MemoryRouter initialEntries={["orgs/testorg/groups/testgroup/vulns"]}>
@@ -268,15 +266,13 @@ describe("GroupFindingsView", (): void => {
 
     await waitFor((): void => {
       expect(
-        screen.getByText(t("group.findings.report.modalTitle").toString())
+        screen.getByText("group.findings.report.modalTitle")
       ).toBeInTheDocument();
     });
-    userEvent.click(
-      screen.getByText(t("group.findings.report.pdf").toString())
-    );
+    userEvent.click(screen.getByText("group.findings.report.pdf"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
-        t("groupAlerts.reportAlreadyRequested").toString()
+        "groupAlerts.reportAlreadyRequested"
       );
     });
   });
@@ -305,7 +301,6 @@ describe("GroupFindingsView", (): void => {
 
     jest.clearAllMocks();
 
-    const { t } = useTranslation();
     render(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <MockedProvider addTypename={true} mocks={mocksFindings}>
@@ -326,9 +321,7 @@ describe("GroupFindingsView", (): void => {
     expect(screen.queryByText("Where")).not.toBeInTheDocument();
     expect(screen.queryByText("Reattack")).not.toBeInTheDocument();
 
-    userEvent.click(
-      screen.getByText(t("group.findings.tableSet.btn.text").toString())
-    );
+    userEvent.click(screen.getByText("group.findings.tableSet.btn.text"));
 
     userEvent.click(
       screen.getByRole("checkbox", { checked: false, name: "where" })
@@ -337,13 +330,13 @@ describe("GroupFindingsView", (): void => {
       screen.getByRole("checkbox", { checked: false, name: "remediated" })
     );
     userEvent.type(
-      screen.getByText(t("group.findings.tableSet.modalTitle").toString()),
+      screen.getByText("group.findings.tableSet.modalTitle"),
       "{esc}"
     );
 
     await waitFor((): void => {
       expect(
-        screen.queryByText(t("group.findings.tableSet.modalTitle").toString())
+        screen.queryByText("group.findings.tableSet.modalTitle")
       ).not.toBeInTheDocument();
     });
 

@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
@@ -19,7 +18,7 @@ describe("Text Field", (): void => {
   it("should render text component", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <Formik
         initialValues={{ textTest: "" }}
         onSubmit={jest.fn()}
@@ -36,6 +35,9 @@ describe("Text Field", (): void => {
       </Formik>
     );
 
-    expect(wrapper.find("input").props().id).toBe("test");
+    expect(
+      screen.getByRole("textbox", { name: "textTest" })
+    ).toBeInTheDocument();
+    expect(container.querySelector("#test")).toBeInTheDocument();
   });
 });

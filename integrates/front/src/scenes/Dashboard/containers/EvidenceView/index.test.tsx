@@ -1,11 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
 import { GET_FINDING_EVIDENCES } from "scenes/Dashboard/containers/EvidenceView/queries";
@@ -21,13 +19,17 @@ describe("FindingEvidenceView", (): void => {
         data: {
           finding: {
             evidence: {
-              animation: { description: "", url: "some_file.gif" },
-              evidence1: { description: "", url: "" },
-              evidence2: { description: "", url: "" },
-              evidence3: { description: "", url: "" },
-              evidence4: { description: "", url: "" },
-              evidence5: { description: "", url: "" },
-              exploitation: { description: "", url: "" },
+              animation: {
+                date: "",
+                description: "Test description",
+                url: "some_file.gif",
+              },
+              evidence1: { date: "", description: "", url: "" },
+              evidence2: { date: "", description: "", url: "" },
+              evidence3: { date: "", description: "", url: "" },
+              evidence4: { date: "", description: "", url: "" },
+              evidence5: { date: "", description: "", url: "" },
+              exploitation: { date: "", description: "", url: "" },
             },
             id: "413372600",
           },
@@ -39,26 +41,6 @@ describe("FindingEvidenceView", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
     expect(typeof EvidenceView).toStrictEqual("function");
-  });
-
-  it("should render a component", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
-        <MockedProvider addTypename={false} mocks={[]}>
-          <Route
-            component={EvidenceView}
-            path={"/:groupName/events/:findingId/evidence"}
-          />
-        </MockedProvider>
-      </MemoryRouter>
-    );
-    await act(async (): Promise<void> => {
-      await wait(0);
-    });
-
-    expect(wrapper).toHaveLength(1);
   });
 
   it("should render empty UI", async (): Promise<void> => {
@@ -74,13 +56,13 @@ describe("FindingEvidenceView", (): void => {
           data: {
             finding: {
               evidence: {
-                animation: { description: "", url: "" },
-                evidence1: { description: "", url: "" },
-                evidence2: { description: "", url: "" },
-                evidence3: { description: "", url: "" },
-                evidence4: { description: "", url: "" },
-                evidence5: { description: "", url: "" },
-                exploitation: { description: "", url: "" },
+                animation: { date: "", description: "", url: "" },
+                evidence1: { date: "", description: "", url: "" },
+                evidence2: { date: "", description: "", url: "" },
+                evidence3: { date: "", description: "", url: "" },
+                evidence4: { date: "", description: "", url: "" },
+                evidence5: { date: "", description: "", url: "" },
+                exploitation: { date: "", description: "", url: "" },
               },
               id: "413372600",
             },
@@ -88,7 +70,7 @@ describe("FindingEvidenceView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={emptyMocks}>
           <Route
@@ -98,18 +80,19 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
 
-    expect(wrapper.text()).toContain("There are no evidences");
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.findings.evidence.noData")
+      ).toBeInTheDocument();
+    });
+    jest.clearAllMocks();
   });
 
   it("should render image", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -119,18 +102,19 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("img")).toHaveLength(1);
     });
 
-    expect(wrapper.containsMatchingElement(<img alt={""} />)).toBe(true);
+    expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "");
+
+    jest.clearAllMocks();
   });
 
   it("should render image lightbox", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -140,16 +124,26 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    wrapper.find("img").at(0).simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("Exploitation animation: Test description")
+      ).toBeInTheDocument();
     });
 
-    expect(wrapper.find("ReactImageLightbox")).toHaveLength(1);
+    expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(0);
+
+    userEvent.click(screen.getAllByRole("img")[0]);
+    userEvent.hover(
+      screen.getByRole("dialog", { hidden: true, name: "Lightbox" })
+    );
+
+    const ReactImageLightboxButtons: number = 5;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(
+        ReactImageLightboxButtons
+      );
+    });
+
+    jest.clearAllMocks();
   });
 });
