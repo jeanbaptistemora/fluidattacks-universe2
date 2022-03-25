@@ -10,6 +10,7 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import {
@@ -38,7 +39,6 @@ import { ButtonToolbarRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   isValidFileSize,
@@ -53,6 +53,7 @@ interface IEvidenceItem {
 
 const EvidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
+  const { t } = useTranslation();
 
   // State management
   const [isEditing, setEditing] = useState(false);
@@ -69,7 +70,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
       notifyOnNetworkStatusChange: true,
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred loading finding evidences", error);
         });
       },
@@ -82,7 +83,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
     onCompleted: refetch,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing finding evidences", error);
       });
     },
@@ -171,11 +172,11 @@ const EvidenceView: React.FC = (): JSX.Element => {
         <Can do={"api_mutations_update_evidence_mutate"}>
           <TooltipWrapper
             id={"searchFindings.tabEvidence.editableTooltip.id"}
-            message={translate.t("searchFindings.tabEvidence.editableTooltip")}
+            message={t("searchFindings.tabEvidence.editableTooltip")}
           >
             <Button onClick={handleEditClick} variant={"secondary"}>
               <FluidIcon icon={"edit"} />
-              &nbsp;{translate.t("searchFindings.tabEvidence.editable")}
+              &nbsp;{t("searchFindings.tabEvidence.editable")}
             </Button>
           </TooltipWrapper>
         </Can>
@@ -184,7 +185,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
       {_.isEmpty(evidenceList) ? (
         <div className={globalStyle["no-data"]}>
           <FontAwesomeIcon icon={faImage} size={"3x"} />
-          <p>{translate.t("group.findings.evidence.noData")}</p>
+          <p>{t("group.findings.evidence.noData")}</p>
         </div>
       ) : (
         <Formik
@@ -199,12 +200,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
                 {isEditing ? (
                   <ButtonToolbarRow>
                     <TooltipWrapper
-                      id={translate.t(
-                        "searchFindings.tabEvidence.updateTooltip.id"
-                      )}
-                      message={translate.t(
-                        "searchFindings.tabEvidence.updateTooltip"
-                      )}
+                      id={t("searchFindings.tabEvidence.updateTooltip.id")}
+                      message={t("searchFindings.tabEvidence.updateTooltip")}
                     >
                       <Button
                         disabled={!dirty}
@@ -212,7 +209,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                         variant={"primary"}
                       >
                         <FluidIcon icon={"loading"} />
-                        &nbsp;{translate.t("searchFindings.tabEvidence.update")}
+                        &nbsp;{t("searchFindings.tabEvidence.update")}
                       </Button>
                     </TooltipWrapper>
                   </ButtonToolbarRow>
@@ -221,19 +218,18 @@ const EvidenceView: React.FC = (): JSX.Element => {
                   {evidenceList.map(
                     (name: string, index: number): JSX.Element => {
                       const evidence: IEvidenceItem = evidenceImages[name];
-                      const handleRemove: () => void =
-                        async (): Promise<void> => {
-                          mixpanel.track("RemoveEvidence");
-                          setEditing(false);
-                          await removeEvidence({
-                            variables: {
-                              evidenceId: name.toUpperCase(),
-                              findingId,
-                            },
-                          });
-                        };
+                      const handleRemove = async (): Promise<void> => {
+                        mixpanel.track("RemoveEvidence");
+                        setEditing(false);
+                        await removeEvidence({
+                          variables: {
+                            evidenceId: name.toUpperCase(),
+                            findingId,
+                          },
+                        });
+                      };
 
-                      const openImage: () => void = (): void => {
+                      const openImage = (): void => {
                         if (!isEditing && !isRefetching) {
                           setLightboxIndex(index);
                         }
