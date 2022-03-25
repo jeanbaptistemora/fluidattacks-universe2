@@ -80,6 +80,7 @@ async def autoenroll_user(email: str) -> None:
                 "ACCESS_GRANTED",
                 "CHARTS_REPORT",
                 "DAILY_DIGEST",
+                "EVENT_REPORT",
                 "GROUP_REPORT",
                 "NEW_COMMENT",
                 "NEW_DRAFT",

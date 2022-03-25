@@ -46,6 +46,7 @@ async def main() -> None:
                     "ACCESS_GRANTED",
                     "CHARTS_REPORT",
                     "DAILY_DIGEST",
+                    "EVENT_REPORT",
                     "GROUP_REPORT",
                     "NEW_COMMENT",
                     "NEW_DRAFT",

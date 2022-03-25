@@ -425,6 +425,8 @@ enum NotificationsName {
   CHARTS_REPORT
   "daily_digest"
   DAILY_DIGEST
+  "event_report"
+  EVENT_REPORT
   "group_report"
   GROUP_REPORT
   "new_comment"

@@ -661,6 +661,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -708,6 +711,9 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -759,6 +765,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -808,6 +817,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -852,6 +864,9 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -903,6 +918,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -950,6 +968,9 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -1001,6 +1022,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -1050,6 +1074,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -1096,6 +1123,9 @@
                         "S": "DAILY_DIGEST"
                       },
                       {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
                         "S": "GROUP_REPORT"
                       },
                       {
@@ -1140,6 +1170,9 @@
                       },
                       {
                         "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
                       },
                       {
                         "S": "GROUP_REPORT"
