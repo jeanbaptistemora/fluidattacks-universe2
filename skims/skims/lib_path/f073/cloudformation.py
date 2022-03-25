@@ -40,7 +40,7 @@ def cfn_rds_is_publicly_accessible(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f073.rds_is_publicly_accessible",
+        description_key="lib_path.f073.cfn_rds_is_publicly_accessible",
         iterator=get_cloud_iterator(
             _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
                 rds_iterator=iter_rds_clusters_and_instances(

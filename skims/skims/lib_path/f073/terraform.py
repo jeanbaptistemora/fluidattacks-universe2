@@ -54,7 +54,7 @@ def tfm_db_cluster_publicly_accessible(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f073.rds_is_publicly_accessible",
+        description_key="lib_path.f073.cfn_rds_is_publicly_accessible",
         iterator=get_cloud_iterator(
             _tfm_db_cluster_publicly_accessible_iterate_vulnerabilities(
                 resource_iterator=iter_aws_db_instance(model=model)
@@ -70,7 +70,7 @@ def tfm_db_instance_publicly_accessible(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f073.rds_is_publicly_accessible",
+        description_key="lib_path.f073.cfn_rds_is_publicly_accessible",
         iterator=get_cloud_iterator(
             _tfm_db_instance_publicly_accessible_iterate_vulnerabilities(
                 resource_iterator=iter_aws_rds_cluster_instance(model=model)
