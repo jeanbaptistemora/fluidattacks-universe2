@@ -1,19 +1,13 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
-import { Field } from "formik";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
-import type { IUnsubscribeModalProps } from "./UnsubscribeModal";
-import { UnsubscribeModal } from "./UnsubscribeModal";
 import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 
 import { Unsubscribe } from ".";
-import { Button } from "components/Button";
 import { msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
@@ -45,7 +39,7 @@ describe("Unsubscribe from group", (): void => {
         result: { data: { unsubscribeFromGroup: { success: true } } },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/test"]}>
         <MockedProvider addTypename={true} mocks={mocksMutation}>
           <Route component={Unsubscribe} path={"/:groupName"} />
@@ -53,34 +47,34 @@ describe("Unsubscribe from group", (): void => {
       </MemoryRouter>
     );
 
-    const unsubscribeButton = wrapper.find(Button);
-    unsubscribeButton.simulate("click");
+    expect(
+      screen.queryByText("searchFindings.servicesTable.unsubscribe.button")
+    ).toBeInTheDocument();
 
-    const unsubscribeModal: ReactWrapper<IUnsubscribeModalProps> =
-      wrapper.find(UnsubscribeModal);
-    const confirmationField: ReactWrapper = unsubscribeModal
-      .find(Field)
-      .filter({ name: "confirmation" })
-      .find("input");
-    confirmationField.simulate("change", {
-      target: { name: "confirmation", value: "test" },
-    });
-
-    const proccedButton = wrapper
-      .find(Button)
-      .filterWhere((element): boolean =>
-        element.text().includes("confirmmodal.proceed")
-      );
-    proccedButton.simulate("click");
-
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "searchFindings.servicesTable.unsubscribe.success",
-      "searchFindings.servicesTable.unsubscribe.successTitle"
+    userEvent.click(
+      screen.getByText("searchFindings.servicesTable.unsubscribe.button")
     );
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("textbox", { name: "confirmation" })
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+
+    userEvent.type(
+      screen.getByRole("textbox", { name: "confirmation" }),
+      "test"
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "searchFindings.servicesTable.unsubscribe.success",
+        "searchFindings.servicesTable.unsubscribe.successTitle"
+      );
+    });
   });
 });

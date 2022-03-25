@@ -1,18 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { GET_TOE_LINES } from "./queries";
 
 import { GroupToeLinesView } from ".";
-import { Table } from "components/Table";
-import type { ITableProps } from "components/Table/types";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupToeLinesView", (): void => {
@@ -111,7 +106,7 @@ describe("GroupToeLinesView", (): void => {
       { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
       { action: "see_toe_lines_coverage" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -122,52 +117,44 @@ describe("GroupToeLinesView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    const numberOfRows: number = 3;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
 
-    const toeLinesTable: ReactWrapper<ITableProps> = wrapper
-      .find(Table)
-      .filter({ id: "tblToeLines" });
-    const tableHeader: ReactWrapper = toeLinesTable.find("Header");
-    const simpleRows: ReactWrapper = toeLinesTable.find("RowPureContent");
-    const firstRow: ReactWrapper = simpleRows.at(0);
-    const secondRow: ReactWrapper = simpleRows.at(1);
-
-    expect(tableHeader.text()).toStrictEqual(
+    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
       [
-        "Root",
-        "Coverage",
-        "LOC",
-        "Attacked lines",
-        "Has vulnerabilities",
-        "Modified date",
-        "Last commit",
-        "Attacked at",
-        "Comments",
+        "group.toe.lines.root",
+        "group.toe.lines.coverage",
+        "group.toe.lines.loc",
+        "group.toe.lines.attackedLines",
+        "group.toe.lines.hasVulnerabilities",
+        "group.toe.lines.modifiedDate",
+        "group.toe.lines.lastCommit",
+        "group.toe.lines.attackedAt",
+        "group.toe.lines.comments",
       ].join("")
     );
-    expect(firstRow.text()).toStrictEqual(
+    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
       [
         "integrates_1",
         "70%",
         "172",
         "120",
-        "Yes",
+        "group.toe.lines.yes",
         "2020-11-16",
         "273412t",
         "",
         "comment 2",
       ].join("")
     );
-    expect(secondRow.text()).toStrictEqual(
+    expect(screen.getAllByRole("row")[2].textContent).toStrictEqual(
       [
         "product",
         "50%",
         "8",
         "4",
-        "No",
+        "group.toe.lines.no",
         "2020-11-15",
         "983466z",
         "2021-02-20",
