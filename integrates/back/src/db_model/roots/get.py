@@ -51,9 +51,11 @@ from s3.operations import (
     list_files,
 )
 from typing import (
+    Dict,
     List,
     Optional,
     Tuple,
+    Union,
 )
 
 
@@ -433,6 +435,18 @@ async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
         return await client.generate_presigned_url(
             ClientMethod="put_object",
             Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+            ExpiresIn=1800,
+        )
+
+
+async def get_upload_url_post(
+    group_name: str, root_nickname: str
+) -> Dict[str, Union[str, Dict[str, str]]]:
+    object_name = f"{group_name}/{root_nickname}.tar.gz"
+    async with aio_client() as client:
+        return await client.generate_presigned_post(
+            FI_AWS_S3_MIRRORS_BUCKET,
+            object_name,
             ExpiresIn=1800,
         )
 
