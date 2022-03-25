@@ -20,6 +20,7 @@ from pathspec.patterns.gitwildmatch import (
 )
 import shutil
 import subprocess
+import tarfile
 from toolbox import (
     utils,
 )
@@ -175,18 +176,21 @@ def download_repo_from_s3(
     if progress_bar:
         progress_bar()
 
-    code, _, stderr = utils.generic.run_command(
-        cmd=["tar", "-xf", f"{nickname}.tar.gz"],
-        cwd=f"groups/{group_name}/fusion/",
-        env={},
-    )
-
-    if code != 0:
-        LOGGER.error(stderr)
-        os.remove(file_path)
-        return False
+    with tarfile.open(file_path, "r") as tar_handler:
+        tar_handler.extractall(f"groups/{group_name}/fusion/")
 
     os.remove(file_path)
+
+    try:
+        repo = Repo(repo_path)
+        repo.git.reset("--hard", "HEAD")
+    except GitError as exc:
+        LOGGER.error("Expand repositories has failed:")
+        LOGGER.info("Repository: %s", repo_path)
+        LOGGER.info(exc)
+        LOGGER.info("\n")
+        return False
+
     return True
 
 

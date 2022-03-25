@@ -1,4 +1,3 @@
-import boto3
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
@@ -7,17 +6,13 @@ from contextlib import (
 )
 import git
 from git.exc import (
-    GitCommandError,
     GitError,
 )
 import glob
 import json
 import os
-from pathlib import (
-    Path,
-)
 import requests  # type: ignore
-import shutil
+import tarfile
 import tempfile
 from toolbox import (
     utils,
@@ -41,7 +36,6 @@ from toolbox.utils.integrates import (
 )
 from typing import (
     Dict,
-    List,
     Optional,
 )
 
@@ -49,55 +43,19 @@ from typing import (
 TEST_SUBS: str = "continuoustest"
 
 
-def s3_ls(
-    bucket: str,
-    path: str,
-    endpoint_url: Optional[str] = None,
-) -> List[str]:
-    client = boto3.client("s3", endpoint_url=endpoint_url)
-
-    path = f"{path}/" if not path.endswith("/") else path
-
-    response = client.list_objects_v2(
-        Bucket=bucket,
-        Delimiter="/",
-        Prefix=path,
-    )
-    try:
-        return [x["Prefix"] for x in response.get("CommonPrefixes", [])]
-    except KeyError as key_error:
-        LOGGER.error("Looks like response does not have Common Prefixes:")
-        LOGGER.error(key_error)
-    except json.decoder.JSONDecodeError as json_decode_error:
-        LOGGER.error("Looks like response was not parseable")
-        LOGGER.error(json_decode_error)
-    return []
-
-
-def fill_empty_folders(path: str) -> None:
-    empty_folders = [
-        root for root, dirs, files in os.walk(path) if not dirs and not files
-    ]
-    for folder in empty_folders:
-        LOGGER.info("Adding .keep at %s", folder)
-        Path(folder, ".keep").touch()
-
-
-def git_optimize_all(path: str) -> None:
-    git_files = tuple(Path(path).glob("**/.git"))
-    LOGGER.info("Git files: %s", tuple(x.name for x in git_files))
-    git_folders = {x.parent for x in git_files}
-    for folder in git_folders:
-        LOGGER.info("Git optimize at %s", folder)
-        try:
-            git.Repo(str(folder), search_parent_directories=True).git.gc(
-                "--aggressive", "--prune=all"
+def create_git_root_tar_file(
+    root_nickname: str, repo_path: str, output_path: Optional[str] = None
+) -> bool:
+    git_dir = os.path.normpath(f"{repo_path}/.git")
+    with tarfile.open(
+        output_path or f"{root_nickname}.tar.gz", "w:gz"
+    ) as tar_handler:
+        if os.path.exists(git_dir):
+            tar_handler.add(
+                git_dir, arcname=f"{root_nickname}/.git", recursive=True
             )
-        except GitCommandError as exc:
-            LOGGER.error("Git optimization has failed at %s: ", folder)
-            LOGGER.info(exc.stdout)
-            LOGGER.info(exc.stderr)
-            shutil.rmtree(folder)
+            return True
+        return False
 
 
 def get_root_upload_dates(subs: str) -> Dict[str, str]:
@@ -146,28 +104,12 @@ def s3_sync_fusion_to_s3(
     base_path = os.getcwd()
     repo_path = f"{base_path}/{fusion_dir}/{root_nickname}"
 
-    if not generic.is_env_ci():
-        git_optimize_all(f"{base_path}/{fusion_dir}/{root_nickname}/")
-
-    # Allow upload empty folders to keep .git structure
-    # and avoid errors
-    fill_empty_folders(fusion_dir)
-
     _, zip_output_path = tempfile.mkstemp()
-    code, _, stderr = generic.run_command(
-        cmd=[
-            "tar",
-            "czf",
-            zip_output_path,
-            "--transform",
-            f"flags=r;s/./{root_nickname}/",
-            ".",
-        ],
-        cwd=repo_path,
-        env={},
-    )
-    if code != 0:
-        LOGGER.error("Failed to comppres root \n %s", stderr)
+
+    if not create_git_root_tar_file(
+        root_nickname, repo_path, output_path=zip_output_path
+    ):
+        LOGGER.error("Failed to comppres root \n %s", root_nickname)
 
     with open(zip_output_path, "rb") as object_file:
         object_text = object_file.read()
@@ -279,6 +221,7 @@ def main(
         (generic.is_env_ci() and generic.is_branch_master())
         or not generic.is_env_ci()
     ):
+        LOGGER.info("Update sync date in DB")
         if aws_login:
             generic.aws_login(aws_profile)
         update_last_sync_date("last_sync_date", subs)
