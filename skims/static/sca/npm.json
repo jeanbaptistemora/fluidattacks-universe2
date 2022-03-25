@@ -598,6 +598,9 @@
   "apollo-server-core": {
     "GHSA-w42g-7vfc-xf37": "<2.14.2"
   },
+  "apollo-server-express": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
   "apollo-server-fastify": {
     "GHSA-w42g-7vfc-xf37": "<2.14.2"
   },
@@ -610,9 +613,18 @@
   "apollo-server-lambda": {
     "GHSA-w42g-7vfc-xf37": "<2.14.2"
   },
+  "apollo-server-micro": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apostrophe": {
+    "GHSA-pv6r-vchh-cxg9": "<2.97.1"
+  },
   "appium-chromedriver": {
     "CVE-2016-10557": "<2.9.4",
     "GMS-2016-87": "<2.9.4"
+  },
+  "appx-compiler": {
+    "GHSA-8q2c-2396-hf7j": ">=0"
   },
   "aproba": {},
   "arcanist": {
@@ -628,14 +640,32 @@
     "CVE-2016-10598": "<=0.21.4",
     "GMS-2017-101": ">=0.0.0-alpha"
   },
+  "arsenic-tabasco-cyborg-peanut-butter": {
+    "GHSA-r742-7j4h-hjr8": ">=0"
+  },
+  "ascii-art": {
+    "GHSA-9hqj-38j2-5jgm": "<=1.4.2"
+  },
   "asciitable.js": {
     "CVE-2020-7771": "<1.0.3"
+  },
+  "asinc": {
+    "GHSA-87qw-7v97-w34r": ">=0"
+  },
+  "asnc": {
+    "GHSA-2p99-6f47-8x9j": ">=0"
+  },
+  "asnyc": {
+    "GHSA-v99v-xgjx-7m7g": ">=0"
   },
   "assert-plus": {},
   "assign-deep": {
     "CVE-2018-3720": "<0.4.7",
     "CVE-2019-10745": "<0.4.8 || =1.0.0",
     "GMS-2018-15": "<0.4.7"
+  },
+  "asycn": {
+    "GHSA-h26f-j4mv-84g7": ">=0"
   },
   "async": {},
   "async-git": {
