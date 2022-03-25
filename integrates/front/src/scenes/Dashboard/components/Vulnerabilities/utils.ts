@@ -35,10 +35,12 @@ const getNonSelectableVulnerabilitiesOnReattack: (
   vulnerabilities.reduce(
     (
       nonSelectableVulnerabilities: number[],
-      vulnerabilitiy: IVulnRowAttr,
+      vulnerability: IVulnRowAttr,
       currentVulnerabilityIndex: number
     ): number[] =>
-      vulnerabilitiy.remediated || vulnerabilitiy.currentState === "closed"
+      vulnerability.remediated ||
+      vulnerability.currentState === "closed" ||
+      vulnerability.verification?.toLowerCase() === "on_hold"
         ? [...nonSelectableVulnerabilities, currentVulnerabilityIndex]
         : nonSelectableVulnerabilities,
     []
@@ -216,7 +218,9 @@ function getNonSelectableVulnerabilitiesOnReattackIds(
       nonSelectableVulnerabilities: string[],
       vulnerability: IVulnRowAttr
     ): string[] =>
-      vulnerability.remediated || vulnerability.currentState === "closed"
+      vulnerability.remediated ||
+      vulnerability.currentState === "closed" ||
+      vulnerability.verification?.toLowerCase() === "on_hold"
         ? [...nonSelectableVulnerabilities, vulnerability.id]
         : nonSelectableVulnerabilities,
     []
