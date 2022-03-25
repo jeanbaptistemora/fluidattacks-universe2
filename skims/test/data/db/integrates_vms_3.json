@@ -204,20 +204,23 @@
                 "S": "2022-03-17T15:28:07.070648+00:00"
               },
               "status": {
-                "S": "IN_PROGRESS"
+                "S": "NEW"
               }
             }
-          },
-          "commit": {
-            "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
           },
           "unreliable_indicators": {
             "M": {
               "unreliable_reattack_cycles": {
-                "N": "0"
+                "N": "1"
               },
               "unreliable_source": {
                 "S": "MACHINE"
+              },
+              "unreliable_last_reattack_requester": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "unreliable_last_requested_reattack_date": {
+                "S": "2022-03-24T15:29:07.070648+00:00"
               },
               "unreliable_efficacy": {
                 "N": "0"
@@ -226,9 +229,12 @@
                 "S": "2022-03-17T15:28:07.070648+00:00"
               },
               "unreliable_treatment_changes": {
-                "N": "1"
+                "N": "0"
               }
             }
+          },
+          "commit": {
+            "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
           },
           "specific": {
             "S": "5"
@@ -260,10 +266,10 @@
                 "S": "unittest@fluidattacks.com"
               },
               "source": {
-                "S": "MACHINE"
+                "S": "ASM"
               },
               "modified_date": {
-                "S": "2022-03-17T15:28:07.070648+00:00"
+                "S": "2022-03-24T15:28:07.070648+00:00"
               },
               "status": {
                 "S": "OPEN"
@@ -276,7 +282,7 @@
           "verification": {
             "M": {
               "modified_date": {
-                "S": "2022-03-19T15:29:07.070648+00:00"
+                "S": "2022-03-24T15:29:07.070648+00:00"
               },
               "status": {
                 "S": "REQUESTED"
