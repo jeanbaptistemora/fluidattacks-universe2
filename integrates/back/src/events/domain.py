@@ -333,6 +333,7 @@ async def solve_event(
                     "the Requested stage."
                 ),
                 vulnerability_ids=hold_ids,
+                is_closing_event=True,
             )
 
     today = datetime_utils.get_now()

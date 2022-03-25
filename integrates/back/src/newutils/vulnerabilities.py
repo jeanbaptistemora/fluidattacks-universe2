@@ -694,12 +694,21 @@ def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
 
 def validate_requested_verification(
     vulnerability: Vulnerability,
+    is_closing_event: bool = False,
 ) -> Vulnerability:
-    """Validate if the vulnerability is not requested."""
+    """Validate if the vulnerability is not requested. If no Event is being
+    closed, vulnerabilities on hold count as requested"""
     if (
         vulnerability.verification
         and vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
+    ):
+        raise AlreadyRequested()
+    if (
+        (not is_closing_event)
+        and vulnerability.verification
+        and vulnerability.verification.status
+        == VulnerabilityVerificationStatus.ON_HOLD
     ):
         raise AlreadyRequested()
     return vulnerability

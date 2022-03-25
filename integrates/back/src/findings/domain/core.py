@@ -619,12 +619,13 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
     return True
 
 
-async def request_vulnerabilities_verification(
+async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many-arguments, too-many-locals
     loaders: Any,
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
     vulnerability_ids: Set[str],
+    is_closing_event: bool = False,
 ) -> None:
     finding: Finding = await loaders.finding.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
@@ -633,7 +634,7 @@ async def request_vulnerabilities_verification(
         vulnerability_ids,
     )
     vulnerabilities = [
-        vulns_utils.validate_requested_verification(vuln)
+        vulns_utils.validate_requested_verification(vuln, is_closing_event)
         for vuln in vulnerabilities
     ]
     vulnerabilities = [
