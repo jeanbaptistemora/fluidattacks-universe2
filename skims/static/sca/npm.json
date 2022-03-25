@@ -407,6 +407,9 @@
   "aaptjs": {
     "GHSA-7fw7-gh23-f832": "<=1.3.1"
   },
+  "aasync": {
+    "GHSA-9mjp-gv34-3jcf": ">=0"
+  },
   "accepts": {},
   "access-policy": {
     "CVE-2020-7674": "<=3.1.0"
@@ -421,6 +424,9 @@
   },
   "adb-driver": {
     "CVE-2020-7636": "<=0.1.8"
+  },
+  "addax": {
+    "GHSA-4q8f-5xxj-946r": "<1.1.0"
   },
   "adm-zip": {
     "CVE-2018-1002204": "<0.4.9",
@@ -443,6 +449,9 @@
     "CVE-2017-16009": "<=18.1.2",
     "GMS-2017-119": ">=0.0.0-alpha"
   },
+  "ag-grid-community": {
+    "/GHSA-7p6w-x2gr-rrf8": "<14.0.0"
+  },
   "agent-base": {},
   "air-sdk": {
     "GMS-2017-96": ">=0.0.0-alpha"
@@ -450,10 +459,31 @@
   "airbrake": {
     "GMS-2016-18": "<=0.3.8"
   },
+  "airtable": {
+    "GHSA-jrj9-5qp6-2v8q": ">=0.1.19 <0.7.2"
+  },
   "ajv": {
     "CVE-2020-15366": "=6.12.2"
   },
   "ajv-keywords": {},
+  "algo-httpserv": {
+    "GHSA-cgjv-rghq-qhgp": "<1.1.2"
+  },
+  "algoliasearch-helper": {
+    "CVE-2021-23433": "<3.6.2"
+  },
+  "ali-contributor": {
+    "GHSA-h3m2-h22h-695r": ">=0"
+  },
+  "ali-contributors": {
+    "GHSA-8m5v-f2wp-wqr9": ">=0"
+  },
+  "alico": {
+    "GHSA-jfx5-7mr2-g8hg": ">=0"
+  },
+  "alipayjsapi": {
+    "GHSA-rjhc-w3fj-j6x9": ">=0"
+  },
   "alto-saxophone": {
     "GMS-2017-5": "<2.25.1"
   },
