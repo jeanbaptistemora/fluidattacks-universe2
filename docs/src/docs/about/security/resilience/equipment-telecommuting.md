@@ -9,7 +9,7 @@ slug: /about/security/resilience/equipment-telecommuting
 (bring your own device) is not allowed.
 Every employee receives a computer
 with a password-secured BIOS,
-[TPM](https://docs.microsoft.com/en-us/windows/about/security/information-protection/tpm/trusted-platform-module-overview)
+[TPM](https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview)
 (Trusted Platform Module)
 hardware and
 [biometric fingerprint reader](/criteria/requirements/231).

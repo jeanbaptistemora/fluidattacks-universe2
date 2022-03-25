@@ -46,11 +46,9 @@ to the scope section of your group
 and click on the **Add new root**
 or **Edit root** button
 depending on what you want to do,
-and the following will show up
+and a window will show up.
 
-![Edit Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/edit_root_whbob4.webp)
-
-Here you can see
+There you can see
 the section that says **Gitignore**,
 this is where you can specify
 the paths that you don't want us to test.
@@ -93,3 +91,6 @@ Here we have some examples:
 - build/tmp/
 - test/*.js (Here we use the wildcard that we advised you to be careful with)
 - repo-root/dummy/excludeme.js
+
+> **Note:** This subsection is pending review.
+> Some of the information might be outdated.

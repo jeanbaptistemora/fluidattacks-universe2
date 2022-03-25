@@ -26,6 +26,6 @@ we keep all our systems as code:
 
 - [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
 
-- [Infrastructure](https://fluidattacks.com/about/security/#IAC)
+- [Infrastructure](https://docs.fluidattacks.com/about/security/integrity/developing-integrity#infrastructure-as-code-iac)
 
 - General documentation

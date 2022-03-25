@@ -35,7 +35,7 @@ We make rotations in the following two ways:
   using AES256 symmetric keys.
   They are treated as code,
   which means that
-  [manual approval](https://fluidattacks.com/about/security/#PR)
+  [manual approval](https://docs.fluidattacks.com/about/security/integrity/developing-integrity#peer-review)
   is required to rotate them.
   These secrets include KMS keys
   and other application credentials.

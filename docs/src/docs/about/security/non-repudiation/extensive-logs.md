@@ -34,7 +34,7 @@ we store logs for:
 
 - **DevSecOps execution:**
   Whenever a client's
-  [CI pipeline](https://fluidattacks.com/about/security/#CI)
+  [CI pipeline](https://docs.fluidattacks.com/about/security/integrity/developing-integrity#continuous-integration)
   runs DevSecOps,
   logs containing information
   such as who ran it,
@@ -64,7 +64,7 @@ we store logs for:
   These logs cannot be modified.
 
 - **CI job logs:**
-  All our [CI pipelines](https://fluidattacks.com/about/security/#CI)
+  All our CI pipelines
   provide a full record of who triggered them,
   when,
   and the console output.

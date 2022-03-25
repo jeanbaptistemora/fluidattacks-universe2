@@ -125,7 +125,7 @@ over other alternatives are:
     [Repository Mirroring](https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html),
     allowing us to have a mirror
     of [our repository][PRODUCT]
-    on [GitHub](https://github.com/fluidattacks/product).
+    on GitHub.
 1. It supports
     [Project Access Tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html),
     which greatly increase security and reliability on our integrations,
@@ -222,6 +222,9 @@ We do not use [Gitlab][GITLAB] for:
 1. [Create a personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token).
 1. [Create a merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html).
 1. [Create an issue](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#create-a-new-issue).
+
+> **Note:** This subsection is pending review.
+> Some of the information might be outdated.
 
 [GITLAB]: https://about.gitlab.com/
 [PRODUCT]: https://gitlab.com/fluidattacks/product
