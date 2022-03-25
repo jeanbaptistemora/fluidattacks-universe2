@@ -49,8 +49,8 @@ spec:
             #   kubectl get pod -n production
             #   kubectl describe pod -n production <pod>
             requests:
-              cpu: 2000m
-              memory: 4000Mi
+              cpu: 1000m
+              memory: 2000Mi
             limits:
               cpu: 4000m
               memory: 7600Mi
