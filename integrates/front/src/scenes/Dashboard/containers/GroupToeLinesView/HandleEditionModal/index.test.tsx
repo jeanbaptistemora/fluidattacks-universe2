@@ -4,7 +4,6 @@ import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { UPDATE_TOE_LINES_ATTACKED_LINES } from "./queries";
 
@@ -26,8 +25,6 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("handle toe lines edition modal", (): void => {
   it("should handle attacked lines edition", async (): Promise<void> => {
     expect.hasAssertions();
-
-    const { t } = useTranslation();
 
     jest.clearAllMocks();
 
@@ -100,9 +97,7 @@ describe("handle toe lines edition modal", (): void => {
       "This is a test of updating toe lines"
     );
 
-    userEvent.click(
-      screen.getByText(t("group.toe.lines.editModal.procced").toString())
-    );
+    userEvent.click(screen.getByText("group.toe.lines.editModal.procced"));
 
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);
