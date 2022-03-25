@@ -1,3 +1,6 @@
+from .enums import (
+    EventStatus,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -7,7 +10,7 @@ from typing import (
 class EventHistory(NamedTuple):
     affectation: str
     date: str
-    state: str
+    state: EventStatus
 
 
 class Event(NamedTuple):
