@@ -175,7 +175,3 @@ async def reject_invitation(
             "request": request,
         },
     )
-
-
-def crashtest(_request: Request) -> HTMLResponse:
-    return HTMLResponse("0b9079cc-fbf9-473a-9133-d60edabe8e93")
