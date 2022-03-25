@@ -1,11 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
-import wait from "waait";
 
 import { ManagementModal } from "./ManagementModal";
 
@@ -19,7 +17,7 @@ describe("GitRoots", (): void => {
     expect(typeof GitRoots).toStrictEqual("function");
   });
 
-  it("should render tables", (): void => {
+  it("should render tables", async (): Promise<void> => {
     expect.hasAssertions();
 
     const roots: IGitRootAttr[] = [
@@ -50,7 +48,7 @@ describe("GitRoots", (): void => {
       },
     ];
     const refetch: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider>
         <MemoryRouter initialEntries={["/TEST"]}>
           <GitRoots
@@ -62,15 +60,16 @@ describe("GitRoots", (): void => {
       </MockedProvider>
     );
 
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("table")).toHaveLength(2);
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("table")).toHaveLength(2);
+    });
   });
 
-  it("should render action buttons", (): void => {
+  it("should render action buttons", async (): Promise<void> => {
     expect.hasAssertions();
 
     const refetch: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider>
         <MemoryRouter initialEntries={["/TEST"]}>
           <authzPermissionsContext.Provider
@@ -87,28 +86,31 @@ describe("GitRoots", (): void => {
       </MockedProvider>
     );
 
-    expect(wrapper).toHaveLength(1);
-
-    act((): void => {
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("button")).toHaveLength(4);
     });
 
-    const addButton: ReactWrapper = wrapper.find({ id: "git-root-add" }).at(0);
+    expect(
+      screen.queryByRole("textbox", { name: "url" })
+    ).not.toBeInTheDocument();
 
-    expect(addButton).toHaveLength(1);
-    expect(wrapper.find(ManagementModal)).toHaveLength(0);
-
-    addButton.simulate("click");
-
-    expect(wrapper.find(ManagementModal)).toHaveLength(1);
+    userEvent.click(
+      screen.getByRole("button", { name: "group.scope.common.add" })
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "url" })
+      ).toBeInTheDocument();
+    });
+    jest.clearAllMocks();
   });
 
-  it("should render git modal", (): void => {
+  it("should render git modal", async (): Promise<void> => {
     expect.hasAssertions();
 
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
-    const wrapper: ReactWrapper = mount(
+    render(
       <authzGroupContext.Provider
         value={new PureAbility([{ action: "is_continuous" }])}
       >
@@ -129,24 +131,38 @@ describe("GitRoots", (): void => {
       </authzGroupContext.Provider>
     );
 
-    expect(wrapper).toHaveLength(1);
-
     // Repository fields
-    expect(wrapper.find({ name: "url" }).find("input")).toHaveLength(1);
-    expect(wrapper.find({ name: "branch" }).find("input")).toHaveLength(1);
-    expect(wrapper.find({ name: "environment" }).find("input")).toHaveLength(1);
+    await waitFor((): void => {
+      expect(screen.getByRole("textbox", { name: "url" })).toBeInTheDocument();
+    });
+
+    expect(screen.getByRole("textbox", { name: "branch" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("textbox", { name: "environment" })
+    ).toBeInTheDocument();
 
     // Health Check
-    expect(wrapper.find({ name: "includesHealthCheck" })).toHaveLength(4);
-
-    wrapper.find({ id: "Yes" }).find("div").at(0).simulate("click");
-
     expect(
-      wrapper.find({ name: "includesHealthCheck" }).find("input")
-    ).toHaveLength(2);
+      screen.queryAllByRole("checkbox", { name: "includesHealthCheckA" })
+    ).toHaveLength(0);
+
+    userEvent.click(screen.getByRole("radio", { name: "Yes" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryAllByRole("checkbox", { name: "includesHealthCheckA" })
+      ).toHaveLength(1);
+    });
+
+    userEvent.click(screen.getAllByRole("button")[2]);
 
     // Filters
-    expect(wrapper.find({ name: "gitignore" }).find("input")).toHaveLength(0);
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("textbox", { name: "gitignore[0]" })
+      ).toBeInTheDocument();
+    });
+    jest.clearAllMocks();
   });
 
   it("should render envs modal", async (): Promise<void> => {
@@ -179,7 +195,7 @@ describe("GitRoots", (): void => {
       state: "ACTIVE",
       url: "https://gitlab.com/fluidattacks/product",
     };
-    const wrapper: ReactWrapper = mount(
+    render(
       <authzPermissionsContext.Provider
         value={
           new PureAbility([
@@ -200,38 +216,44 @@ describe("GitRoots", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    expect(wrapper).toHaveLength(1);
-
-    wrapper.find("a").at(1).simulate("click", { button: 0 });
-    const firstInput: ReactWrapper = wrapper
-      .find({ name: "environmentUrls" })
-      .find("input")
-      .at(0);
-
-    expect(firstInput).toHaveLength(1);
-
-    firstInput.simulate("change", {
-      target: {
-        name: "environmentUrls[0]",
-        value: "https://app.fluidattacks.com/",
-      },
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("link")).toHaveLength(2);
     });
-
-    wrapper.find("form").simulate("submit");
-    await wait(0);
-
-    expect(handleSubmit).toHaveBeenCalledWith(
-      {
-        ...initialValues,
-        environmentUrls: ["https://app.fluidattacks.com/"],
-      },
-      expect.anything()
+    userEvent.click(
+      screen.getByRole("link", { name: "group.scope.git.envUrls" })
     );
 
-    const cancelButton = wrapper.find({ id: "close-modal" }).at(0);
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("textbox", { name: "environmentUrls[0]" })
+      ).toBeInTheDocument();
+    });
 
-    cancelButton.simulate("click");
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
-    expect(handleClose).toHaveBeenCalledWith(expect.anything());
+    userEvent.type(
+      screen.getByRole("textbox", { name: "environmentUrls[0]" }),
+      "https://app.fluidattacks.com/"
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+    });
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    await waitFor((): void => {
+      expect(handleSubmit).toHaveBeenCalledWith(
+        {
+          ...initialValues,
+          environmentUrls: ["https://app.fluidattacks.com/"],
+        },
+        expect.anything()
+      );
+    });
+    userEvent.click(screen.getByText("confirmmodal.cancel"));
+
+    await waitFor((): void => {
+      expect(handleClose).toHaveBeenCalledTimes(1);
+    });
+
+    jest.clearAllMocks();
   });
 });
