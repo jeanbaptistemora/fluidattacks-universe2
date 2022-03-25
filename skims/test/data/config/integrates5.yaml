@@ -1,0 +1,7 @@
+checks:
+- F099
+namespace: namespace3
+output: skims/test/outputs/integrates5.csv
+path:
+  include:
+    - skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml
