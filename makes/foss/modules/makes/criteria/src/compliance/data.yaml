@@ -5438,7 +5438,18 @@
   title: C2M2
   en:
     description: >
-      ...
+      The Cybersecurity Capability Maturity
+      Model (C2M2) is a tool for evaluating
+      and improving cybersecurity.
+      It focuses on the implementation and
+      management of cybersecurity practices
+      associated with information,
+      information technology (IT),
+      and operations technology (OT)
+      assets and the environments in
+      which they operate.
+      The version used in this section
+      is C2M2 v2.0.
   es:
     description: __empty__
   definitions:
