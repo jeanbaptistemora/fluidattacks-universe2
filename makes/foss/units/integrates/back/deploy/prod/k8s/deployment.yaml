@@ -52,8 +52,8 @@ spec:
               cpu: 1000m
               memory: 2000Mi
             limits:
-              cpu: 4000m
-              memory: 7600Mi
+              cpu: 2000m
+              memory: 3800Mi
           envFrom:
             - secretRef:
                 name: integrates-master
