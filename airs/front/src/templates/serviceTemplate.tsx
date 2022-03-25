@@ -42,6 +42,11 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
       ? { isContinuous: "yes", serviceImage: continuousImage }
       : { isContinuous: "no", serviceImage: oneShotImage };
 
+  const serviceIndex = crumbs.findIndex(
+    (crumb): boolean => crumb.crumbLabel === "services"
+  );
+  crumbs[serviceIndex].pathname = "/services/continuous-hacking/";
+
   return (
     <React.Fragment>
       <Seo
