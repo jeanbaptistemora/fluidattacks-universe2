@@ -11,7 +11,7 @@ const NavSplitButtonContainer = styled.div.attrs({
 `;
 
 const SplitItems = styled.div.attrs({
-  className: "mr3 flex-wrap fixed br2",
+  className: "mr3 pb2 flex flex-wrap fixed br2",
 })`
   background-color: #f4f4f6;
   border: solid 1px;
@@ -20,7 +20,7 @@ const SplitItems = styled.div.attrs({
   color: #333;
   margin-top: 5px;
   max-width: 1172px;
-  max-height: 827px;
+  max-height: 835px;
   overflow: auto;
   writing-mode: vertical-lr;
   z-index: 1;
@@ -67,13 +67,13 @@ const StyledMenuItem = styled.button.attrs(
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `bn br0 f5 mh3 mb2 outline-0 pa0 tl pointer bg-transparent ${
+    className: `bn br0 f5 mh3 outline-0 pa0 tl pointer bg-transparent ${
       className ?? ""
     }`,
     type: type ?? "button",
   })
 )`
-  height: 47px;
+  height: 55px;
   width: 85px;
   writing-mode: horizontal-tb;
   border-bottom: 1px solid #e5e5e5 !important;
