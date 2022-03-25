@@ -1,25 +1,25 @@
 import { Field, Form, Formik } from "formik";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Modal, ModalFooter } from "components/Modal";
 import { FormikCheckbox } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 
 interface ICompulsoryNoticeProps {
   open: boolean;
   onAccept: (remember: boolean) => void;
 }
 
-export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
-  props: ICompulsoryNoticeProps
-): JSX.Element => {
-  const { open, onAccept } = props;
-
+export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = ({
+  open,
+  onAccept,
+}: ICompulsoryNoticeProps): JSX.Element => {
+  const { t } = useTranslation();
   const currentYear: number = new Date().getFullYear();
 
-  const handleSubmit: (values: { remember: boolean }) => void = useCallback(
+  const handleSubmit = useCallback(
     (values: { remember: boolean }): void => {
       onAccept(values.remember);
     },
@@ -27,33 +27,33 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
   );
 
   return (
-    <Modal open={open} title={translate.t("legalNotice.title")}>
+    <Modal open={open} title={t("legalNotice.title")}>
       <Formik
         initialValues={{ remember: false }}
         name={"acceptLegal"}
         onSubmit={handleSubmit}
       >
         <Form>
-          <p>{translate.t("legalNotice.description.legal", { currentYear })}</p>
+          <p>{t("legalNotice.description.legal", { currentYear })}</p>
           <p>
-            {translate.t("legalNotice.description.privacy")}
+            {t("legalNotice.description.privacy")}
             <ExternalLink href={"https://fluidattacks.com/privacy/"}>
-              {translate.t("legalNotice.description.privacyLinkText")}
+              {t("legalNotice.description.privacyLinkText")}
             </ExternalLink>
           </p>
           <Field
             component={FormikCheckbox}
-            label={translate.t("legalNotice.rememberCbo.text")}
+            label={t("legalNotice.rememberCbo.text")}
             name={"remember"}
-            title={translate.t("legalNotice.rememberCbo.tooltip")}
+            title={t("legalNotice.rememberCbo.tooltip")}
           />
           <ModalFooter>
             <Button
-              title={translate.t("legalNotice.acceptBtn.tooltip")}
+              title={t("legalNotice.acceptBtn.tooltip")}
               type={"submit"}
               variant={"primary"}
             >
-              {translate.t("legalNotice.acceptBtn.text")}
+              {t("legalNotice.acceptBtn.text")}
             </Button>
           </ModalFooter>
         </Form>
