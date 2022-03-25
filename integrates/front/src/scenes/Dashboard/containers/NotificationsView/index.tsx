@@ -98,7 +98,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
           }
         );
 
-  const defaultExceptions = ["ACCESS_GRANTED", "EVENT_REPORT", "GROUP_REPORT"];
+  const defaultExceptions = ["ACCESS_GRANTED", "GROUP_REPORT"];
 
   const exceptions =
     _.isUndefined(dataEnum) || _.isEmpty(dataEnum)

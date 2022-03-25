@@ -1610,7 +1610,7 @@ export const enTranslations: ResourceKey = {
       },
       DIGEST: "Daily digest",
       EVENT_REPORT: {
-        name: "EVENT_REPORT",
+        name: "Events alert",
         tooltip: "EVENT_REPORT",
       },
       GROUP: "GROUP",
