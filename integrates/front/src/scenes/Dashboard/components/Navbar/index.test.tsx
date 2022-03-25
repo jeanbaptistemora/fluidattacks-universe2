@@ -139,7 +139,7 @@ describe("Navbar", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("button")[0].textContent).toBe("okada");
+    expect(screen.getAllByRole("button")[0].textContent).toBe("Okada\u00a0");
   });
 
   it("should display draft title", async (): Promise<void> => {

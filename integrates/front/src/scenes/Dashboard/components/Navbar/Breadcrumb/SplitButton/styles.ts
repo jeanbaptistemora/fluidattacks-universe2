@@ -1,23 +1,12 @@
 import styled from "styled-components";
 
-const LastOrg = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `br0 outline-0 ${className ?? ""}`,
-    type: type ?? "button",
-  })
-)``;
+const SplitButtonContainer = styled.button.attrs({
+  className: "bn bg-transparent relative dib pointer pv2",
+})`
+  color: #2e2e38;
+  :hover {
+    color: #ff3435;
+  }
+`;
 
-const IconButton = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `br0 outline-0 ph0 ${className ?? ""}`,
-    type: type ?? "button",
-  })
-)``;
-
-export { IconButton, LastOrg };
+export { SplitButtonContainer };

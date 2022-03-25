@@ -1,12 +1,13 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import _, { capitalize } from "lodash";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 import { AddOrganizationModal } from "./AddOrganizationModal";
+import { MenuItem } from "./MenuItem";
 import { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS } from "./queries";
 import { SplitButton } from "./SplitButton";
 import {
@@ -17,9 +18,6 @@ import {
 import type { IFindingTitle, IUserOrgs } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
-import { MenuItem } from "components/DropdownButton";
-import { LastOrg } from "scenes/Dashboard/components/Navbar/Breadcrumb/SplitButton/styles";
-import { ButtonGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -35,14 +33,6 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     { name: "" },
     localStorage
   );
-
-  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
-  const openOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(true);
-  }, []);
-  const closeOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(false);
-  }, []);
 
   const { data, refetch } = useQuery<IUserOrgs>(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }): void => {
@@ -60,64 +50,40 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       ? [{ name: "" }]
       : _.sortBy(data.me.organizations, ["name"]);
 
+  const [isItemsOpen, setItemsOpen] = useState(false);
+  const showItems = useCallback((): void => {
+    setItemsOpen(true);
+  }, []);
+  const hideItems = useCallback((): void => {
+    setItemsOpen(false);
+  }, []);
+
+  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
+  const openOrganizationModal: () => void = useCallback((): void => {
+    setOrganizationModalOpen(true);
+    setItemsOpen(false);
+  }, []);
+  const closeOrganizationModal: () => void = useCallback((): void => {
+    setOrganizationModalOpen(false);
+    void refetch();
+  }, [refetch]);
+
   const handleOrganizationChange = useCallback(
     (eventKey: string): void => {
       if (eventKey !== lastOrganization.name) {
         setLastOrganization({ name: eventKey });
         push(`/orgs/${eventKey}/`);
       }
-      document
-        .getElementsByClassName("splitItems")[0]
-        .setAttribute("style", "display:none;");
+      setItemsOpen(false);
     },
     [lastOrganization.name, push, setLastOrganization]
   );
-  const handleOrganizationClick: () => void = useCallback((): void => {
-    push(`/orgs/${lastOrganization.name}/`);
-  }, [lastOrganization.name, push]);
-
-  const handleHome = useCallback((): void => {
-    push("/home");
-  }, [push]);
-
-  const HANDLE_BLUR_EVENT_TIMEOUT: number = 250;
-  const handleBlurEvent: (event: FocusEvent) => void = (
-    event: FocusEvent
-  ): void => {
-    const child: HTMLElement = event.target as HTMLElement;
-    const element: HTMLElement = child.parentNode as HTMLElement;
-    setTimeout((): void => {
-      element.setAttribute("style", "display:none;");
-    }, HANDLE_BLUR_EVENT_TIMEOUT);
-    child.removeEventListener("blur", (): void => undefined);
-  };
-
-  const showItems: () => void = useCallback((): void => {
-    setOrganizationModalOpen(false);
-
-    const element: Element = document.querySelector(".splitItems") as Element;
-    const child: HTMLElement = element.firstChild as HTMLElement;
-    const elementStyle: CSSStyleDeclaration = window.getComputedStyle(element);
-    const displayValue: string = elementStyle.getPropertyValue("display");
-    if (displayValue === "none") {
-      element.setAttribute("style", "display:flex;");
-      child.addEventListener("blur", handleBlurEvent);
-      child.focus();
-    }
-  }, []);
 
   const path: string = escape(pathname);
   const pathData: string[] = path.split("/").slice(2);
   const pathOrganization: string = path.includes("/orgs")
     ? pathData[0].toLowerCase()
     : lastOrganization.name;
-
-  useEffect((): void => {
-    void refetch();
-    setLastOrganization({ name: pathOrganization });
-    // Annotation needed as adding the dependencies creates a memory leak
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathOrganization]);
 
   const pathBreadcrumbItems = pathData.slice(1);
   const findingAlias = ["drafts", "vulns"];
@@ -158,7 +124,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         : item;
 
       return (
-        <li key={index.toString()}>
+        <li className={"pv2"} key={index.toString()}>
           <Link to={`/${baseLink}/${link}`}>
             {stylizeBreadcrumbItem(breadcrumbItem)}
           </Link>
@@ -168,21 +134,8 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   );
 
   return (
-    <BreadcrumbContainer>
-      {path === "/todos" ? (
-        <React.Fragment>
-          <NavSplitButtonContainer>
-            <ButtonGroup>
-              <LastOrg id={"home.text"} onClick={handleHome}>
-                <div className={"pointer"}>{t("navbar.home.text")}</div>
-              </LastOrg>
-            </ButtonGroup>
-          </NavSplitButtonContainer>
-          <li className={"nl2"}>
-            <Link to={"/todos"}>{t("navbar.task.text")}</Link>
-          </li>
-        </React.Fragment>
-      ) : (
+    <React.Fragment>
+      <BreadcrumbContainer>
         <li>
           <NavSplitButtonContainer>
             <SplitButton
@@ -194,18 +147,12 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
                       itemContent={t("sidebar.newOrganization.text")}
                       onClick={openOrganizationModal}
                     />
-                    {isOrganizationModalOpen ? (
-                      <AddOrganizationModal
-                        onClose={closeOrganizationModal}
-                        open={true}
-                      />
-                    ) : undefined}
                   </Can>
                   {organizationList.map(
                     (organization: { name: string }): JSX.Element => (
                       <MenuItem
                         eventKey={organization.name}
-                        itemContent={organization.name}
+                        itemContent={capitalize(organization.name)}
                         key={organization.name}
                         onClick={handleOrganizationChange}
                       />
@@ -214,14 +161,18 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
                 </SplitItems>
               }
               id={"organizationList"}
-              onClick={handleOrganizationClick}
-              onClickIcon={showItems}
-              title={pathOrganization}
+              isOpen={isItemsOpen}
+              onHover={showItems}
+              onLeave={hideItems}
+              title={capitalize(pathOrganization)}
             />
           </NavSplitButtonContainer>
         </li>
-      )}
-      {breadcrumbItems}
-    </BreadcrumbContainer>
+        {breadcrumbItems}
+      </BreadcrumbContainer>
+      {isOrganizationModalOpen ? (
+        <AddOrganizationModal onClose={closeOrganizationModal} open={true} />
+      ) : undefined}
+    </React.Fragment>
   );
 };

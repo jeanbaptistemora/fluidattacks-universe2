@@ -2,34 +2,31 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-import { IconButton, LastOrg } from "./styles";
-
-import { ButtonGroup } from "styles/styledComponents";
+import { SplitButtonContainer } from "./styles";
 
 interface ISplitButtonProps {
   content: React.ReactNode;
   id: string;
-  onClick: () => void;
-  onClickIcon: () => void;
+  isOpen: boolean;
+  onHover: () => void;
+  onLeave: () => void;
   title: React.ReactNode;
 }
 
 const SplitButton: React.FC<ISplitButtonProps> = ({
   content,
   id,
-  onClick,
-  onClickIcon,
+  isOpen,
+  onHover,
+  onLeave,
   title,
 }: Readonly<ISplitButtonProps>): JSX.Element => (
-  <ButtonGroup>
-    <LastOrg id={id} onClick={onClick}>
-      {title}
-    </LastOrg>
-    <IconButton onClick={onClickIcon}>
-      <FontAwesomeIcon icon={faAngleDown} />
-    </IconButton>
-    {content}
-  </ButtonGroup>
+  <SplitButtonContainer id={id} onMouseLeave={onLeave} onMouseOver={onHover}>
+    {title}
+    &nbsp;
+    <FontAwesomeIcon icon={faAngleDown} />
+    {isOpen ? content : undefined}
+  </SplitButtonContainer>
 );
 
 export { SplitButton };

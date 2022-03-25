@@ -241,34 +241,6 @@ label {
   width: 260px;
 }
 
-:global .split-button > div > button {
-  background: transparent !important;
-  border: none;
-  color: #2e2e38;
-  font-size: 1rem;
-  text-transform: capitalize;
-}
-
-:global .split-button > div > button + button + div > button {
-  font-size: 18px !important;
-  text-transform: capitalize;
-  max-height: 500px !important;
-  width: 117px;
-}
-
-:global .split-button > div > button:active,
-:global .split-button > div > button:focus,
-:global .split-button > div > button:hover {
-  color: #ff3435 !important;
-  background: transparent !important;
-}
-
-:global .split-button > div > button:active,
-:global .split-button > div > button:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
 :global .table-btn {
   margin-left: -7px;
   margin-bottom: -10px;
