@@ -24520,3 +24520,110 @@
   metadata:
     en:
       details: __empty__
+"411":
+  en:
+    title: Insecure encryption algorithm - Default encryption
+    description: >
+      Some Amazon services support Key Management Service (KMS).
+      As a good practice, it is recommended
+      to use Customer Controlled Keys (CMK)
+      instead of the default keys,
+      in order to take full advantage of the KMS service.
+    impact: >
+      - Obtain sensitive information in plain text
+
+      - Lose the malleability and control offered by a Customer Managed Key
+    recommendation: >
+      Enable the encryption using KMS Customer Controlled Keys (CMK)
+    threat: >
+      Authenticated attacker from the Internet with access to the service
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: Insecure encryption algorithm - Default encryption
+    description: >
+      Algunos servicios de Amazon son compatibles
+      con el servicio de administración de llaves (KMS).
+      Como buena práctica, es recomendable utilizar llaves
+      controladas por el usuario (CMK) en lugar de las llaves por defecto,
+      para utilizar todas las ventajas que ofrece el servicio KMS.
+    impact: >
+      - Obtener información confidencial en texto plano
+
+      - Perder la maleabilidad y control
+      que ofrece una llave administrada por el usuario
+    recommendation: >
+      Habilitar el cifrado utilizando llaves controladas por el usuario (CMK)
+      del servicio de manejo de llaves de Amazon (KMS)
+    threat: >
+      Atacante autenticado desde Internet con acceso al servicio
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["147", "151", "181", "224"]
+  metadata:
+    en:
+      details: __empty__
+"412":
+  en:
+    title: Lack of protection against deletion - Azure Key Vault
+    description: >
+      Some Azure Key Vaults instances
+      do not enable properties that allow secrets
+      to be recovered in the event of accidental deletion
+      or by malicious actors.
+    impact: >
+      Delete sensitive secrets by accident
+      with no chance of recovery
+    recommendation: >
+      Enable the properties EnableSoftDelete and EnablePurgeProtection
+      in every Azure Key Vault (AKV) instance.
+    threat: >
+      Authenticated attacker from the Internet
+      with write permissions in the vault
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: Lack of protection against deletion - Azure Key Vault
+    description: >
+      Algunas instancias de Azure Key Vault
+      no activan propiedades que permitan recuperar secretos
+      en caso de borrado accidental o por cuenta de actores maliciosos.
+    impact: >
+      Eliminar secretos confidenciales por accidente
+      sin posibilidad de recuperarlos
+    recommendation: >
+      Activar las propiedades EnableSoftDelete y EnablePurgeProtection
+      en todas las instancias de Azure Key Vault (AKV)
+    threat: >
+      Atacante autenticado desde Internet
+      con permisos de edición en los secretos
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "H"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "H"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["186","265"]
+  metadata:
+    en:
+      details: __empty__
