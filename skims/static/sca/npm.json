@@ -583,6 +583,33 @@
     "GHSA-qm7x-rc44-rrqw": ">=2.0.0 <2.25.3 || >=3.0.0 <3.4.1",
     "GHSA-w42g-7vfc-xf37": "<2.14.2"
   },
+  "apollo-server-azure-functions": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-cache-memcached": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-cloud-functions": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-cloudflare": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-core": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-fastify": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-hapi": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-koa": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-lambda": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
   "appium-chromedriver": {
     "CVE-2016-10557": "<2.9.4",
     "GMS-2016-87": "<2.9.4"
