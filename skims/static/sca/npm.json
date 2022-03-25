@@ -368,14 +368,44 @@
     "CVE-2021-21412": "<0.4.0",
     "GHSA-rj44-gpjc-29r7": "<0.4.0"
   },
+  "@toast-ui/editor": {
+    "GHSA-cr56-66mx-293v": "<2.2.0"
+  },
   "@tsed/core": {
     "CVE-2020-7748": "<5.65.7"
   },
+  "@uppy/companion": {
+    "GHSA-9m4x-8w29-r78g": "<1.13.2 || >=2.0.0-alpha.0 <=2.0.0-alpha.4"
+  },
+  "@vaadin/vaadin-menu-bar": {
+    "CVE-2021-33611": ">=1.0.0 <=1.2.0"
+  },
+  "@viking04/merge": {
+    "GHSA-cqqh-49mx-fq63": "<1.0.2"
+  },
+  "@vivaxy/here": {
+    "GHSA-m4vv-p6fq-jhqp": "<=3.2.1"
+  },
+  "@vuelidate/validators": {
+    "GHSA-vvf2-ppj9-pp49": "<=2.0.0-alpha.21"
+  },
   "@webassemblyjs/ast": {},
   "@webassemblyjs/helper-wasm-bytecode": {},
+  "@worker-tools/stripe-webhook": {
+    "GHSA-4g53-vp7q-gfjv": "<1.1.4"
+  },
+  "@wturyn/swagger-injector": {
+    "GHSA-4x7w-frcq-v4m3": ">=0.0.0"
+  },
+  "@zhaoyao91/eval-in-vm": {
+    "GHSA-jp99-5h8w-gmxc": ">=0.0.0"
+  },
   "a12n-server": {
     "CVE-2021-29452": ">=0.18.0 <0.18.2",
     "GHSA-8hw9-22v6-9jr9": ">=0.18.0 <0.18.2"
+  },
+  "aaptjs": {
+    "GHSA-7fw7-gh23-f832": "<=1.3.1"
   },
   "accepts": {},
   "access-policy": {
