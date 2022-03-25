@@ -1,13 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
-import _ from "lodash";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
 import { GET_EVENT_DESCRIPTION } from "scenes/Dashboard/containers/EventDescriptionView/queries";
@@ -26,6 +23,7 @@ describe("EventDescriptionView", (): void => {
             accessibility: "Repositorio",
             affectation: "1",
             affectedComponents: "-",
+            affectedReattacks: [],
             client: "Test",
             detail: "Something happened",
             eventStatus: "CREATED",
@@ -45,7 +43,7 @@ describe("EventDescriptionView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -55,18 +53,17 @@ describe("EventDescriptionView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabEvents.description")
+      ).toBeInTheDocument();
     });
-
-    expect(wrapper).toHaveLength(1);
   });
 
   it("should render affected components", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -76,12 +73,9 @@ describe("EventDescriptionView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(container.textContent).toContain("-");
     });
-
-    expect(wrapper.text()).toContain("-");
   });
 
   it("should render solving modal", async (): Promise<void> => {
@@ -90,7 +84,7 @@ describe("EventDescriptionView", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_solve_event_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -102,21 +96,21 @@ describe("EventDescriptionView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    const solveButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((button: ReactWrapper): boolean =>
-        _.includes(button.text(), "Mark as solved")
-      );
-    solveButton.simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.getByText("searchFindings.tabSeverity.solve")
+      ).toBeInTheDocument();
     });
 
-    expect(wrapper.find("Formik").find({ name: "solveEvent" })).toHaveLength(1);
+    expect(
+      screen.queryByRole("spinbutton", { name: "affectation" })
+    ).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByText("searchFindings.tabSeverity.solve"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("spinbutton", { name: "affectation" })
+      ).toBeInTheDocument();
+    });
   });
 });
