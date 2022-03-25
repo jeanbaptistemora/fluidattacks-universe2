@@ -2,7 +2,6 @@ from batch.types import (
     CloneResult,
 )
 from batch.utils.s3 import (
-    upload_cloned_repo_to_s3,
     upload_cloned_repo_to_s3_tar,
 )
 from contextlib import (
@@ -87,19 +86,12 @@ async def clone_root(
             )
             return CloneResult(success=False)
 
-        success = (
-            await upload_cloned_repo_to_s3(
-                repo_path=folder_to_clone_root,
-                group_name=group_name,
-                nickname=root_nickname,
-            )
-        ) and (
-            await upload_cloned_repo_to_s3_tar(
-                repo_path=folder_to_clone_root,
-                group_name=group_name,
-                nickname=root_nickname,
-            )
+        success = await upload_cloned_repo_to_s3_tar(
+            repo_path=folder_to_clone_root,
+            group_name=group_name,
+            nickname=root_nickname,
         )
+
         if success:
             with suppress(GitError, AttributeError):
                 commit = Repo(
