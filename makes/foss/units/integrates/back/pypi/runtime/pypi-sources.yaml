@@ -1,6 +1,6 @@
 closure:
-  aioboto3: 8.0.3
-  aiobotocore: 1.0.4
+  aioboto3: 9.4.0
+  aiobotocore: 2.1.2
   aiodataloader: 0.2.0
   aioextensions: 21.7.2261349
   aiofiles: 0.7.0
@@ -17,9 +17,9 @@ closure:
   backports.csv: 1.0.7
   binaryornot: 0.4.4
   bleach: 4.1.0
-  boto3: 1.12.32
+  boto3: 1.20.24
   boto3-type-annotations: 0.3.1
-  botocore: 1.15.32
+  botocore: 1.23.24
   cachetools: 5.0.0
   certifi: 2021.10.8
   cffi: 1.15.0
@@ -32,7 +32,6 @@ closure:
   cycler: 0.11.0
   defusedxml: 0.7.1
   docopt: 0.6.2
-  docutils: 0.15.2
   ecdsa: 0.17.0
   exponent-server-sdk: 0.3.1
   fpdf: 1.7.2
@@ -55,7 +54,7 @@ closure:
   jinja2: 2.11.2
   jmespath: 0.10.0
   jwcrypto: "0.8"
-  kiwisolver: 1.3.2
+  kiwisolver: 1.4.0
   korean-lunar-calendar: 0.2.1
   lxml: 4.7.1
   mailchimp-transactional: 1.0.40
@@ -82,7 +81,7 @@ closure:
   pyparsing: 2.4.7
   pypdf4: 1.27.0
   python-dateutil: 2.8.2
-  python-dotenv: 0.19.2
+  python-dotenv: 0.20.0
   python-jose: 3.1.0
   python-magic: 0.4.18
   python-multipart: 0.0.5
@@ -98,7 +97,7 @@ closure:
   rsa: "4.8"
   ruamel.yaml: 0.17.21
   ruamel.yaml.clib: 0.2.6
-  s3transfer: 0.3.7
+  s3transfer: 0.5.2
   simplejson: 3.17.0
   six: 1.16.0
   smmap: 5.0.0
@@ -110,10 +109,10 @@ closure:
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
   typing-extensions: 4.1.1
-  urllib3: 1.25.11
+  urllib3: 1.26.9
   uvicorn: 0.17.4
   uvloop: 0.16.0
-  watchgod: "0.8"
+  watchgod: 0.8.1
   watchtower: 0.7.3
   webencodings: 0.5.1
   websockets: "10.2"
@@ -121,18 +120,15 @@ closure:
   yarl: 1.7.2
   zenpy: 2.0.24
 links:
-  - name: aioboto3-8.0.3-py2.py3-none-any.whl
-    sha256: 1vr9s82y8q5xcq5493nm2gpvjvzz7gapnif69sy7riys0qj13zdk
-    url: https://files.pythonhosted.org/packages/ed/c6/baa60289d1c8c04f7680f56ed08f1a0d2887af961003cb7c73c9a99847e8/aioboto3-8.0.3-py2.py3-none-any.whl
-  - name: aioboto3-8.0.3.tar.gz
-    sha256: 1z3hn3w9znf86z4d112hcxa32w979dsp4awaskvirlfjg32ajl0n
-    url: https://files.pythonhosted.org/packages/5e/a3/f6dcb8047438a85352d54ad75270139810ce1111ccabc489bc7dec65c7a1/aioboto3-8.0.3.tar.gz
-  - name: aiobotocore-1.0.4-py3-none-any.whl
-    sha256: 1lyq7qb28253bpjcc297knwf6ahnmc617af4qy4pvdrfqnbyz28y
-    url: https://files.pythonhosted.org/packages/b2/82/7914c3e3db9d18e893ac0d6e60e7bfea597435e519b367c67f94602a6984/aiobotocore-1.0.4-py3-none-any.whl
-  - name: aiobotocore-1.0.4.tar.gz
-    sha256: 1y2gf51h8xi9d7fcvnqdxrzc6mjzn4j52af57lh7c88nkq5xj0s1
-    url: https://files.pythonhosted.org/packages/96/43/8674a7144e137e5130fb80fab8a3ad1c8c841e0d4dd15dab846f4a45730a/aiobotocore-1.0.4.tar.gz
+  - name: aioboto3-9.4.0-py3-none-any.whl
+    sha256: 0bfgqm4xq4dcmkaqzrchrvm7y8lh7qh8l1q04jx9zhdpz3vdag1x
+    url: https://files.pythonhosted.org/packages/56/1b/100b93b15ef5efea8b664bd4715ff54b787038181c4a3612f3060ee9b159/aioboto3-9.4.0-py3-none-any.whl
+  - name: aioboto3-9.4.0.tar.gz
+    sha256: 11182gv4s6z5lca6qgdq986lywnyhpxzx74ydnszqxf67hv455z3
+    url: https://files.pythonhosted.org/packages/4e/bc/73404548c1f637ab7845865aa68cdd46c0e88a6e92dd295cae896d934c2e/aioboto3-9.4.0.tar.gz
+  - name: aiobotocore-2.1.2.tar.gz
+    sha256: 08id9k525drbc1makglxczm7ysm1594vxl2g4znxi104ri1pzz80
+    url: https://files.pythonhosted.org/packages/4e/8d/01035d9b56893bd3b5d6eb4505d3ed1383d124b1c9c2b6024c175681c64b/aiobotocore-2.1.2.tar.gz
   - name: aiodataloader-0.2.0.tar.gz
     sha256: 1yjpnqz6dai7s291vfvqdgqqvv4nivppi94a3v28jq3y22fbs6yx
     url: https://files.pythonhosted.org/packages/7b/23/3a7cbaa38ad7d9e6d67fce2054b84d7363da502638b16b13069328b746bf/aiodataloader-0.2.0.tar.gz
@@ -256,24 +252,24 @@ links:
   - name: bleach-4.1.0.tar.gz
     sha256: 1nkibazmw1ry4cfxs9qrkkidxdf2z1hh1b20xq1ahqdsgsrxh009
     url: https://files.pythonhosted.org/packages/6a/a3/217842324374fd3fb33db0eb4c2909ccf3ecc5a94f458088ac68581f8314/bleach-4.1.0.tar.gz
-  - name: boto3-1.12.32-py2.py3-none-any.whl
-    sha256: 0y0hmbxh9vdfv0hs0hspknani50cz5liwi36r0ayfx70nphqsfap
-    url: https://files.pythonhosted.org/packages/2b/4d/d205e9dee3216f163c484171c9bee410fa446fd27d12dd871ec22067a857/boto3-1.12.32-py2.py3-none-any.whl
-  - name: boto3-1.12.32.tar.gz
-    sha256: 09ajb1zgf505s85b6fikjaxh380n1p6lf19jlwvfscbjb4j13b30
-    url: https://files.pythonhosted.org/packages/1a/66/14469ec66c7cb3e68e05926f952f66a65828bc5a6f66d6fb91dc4ed1d299/boto3-1.12.32.tar.gz
+  - name: boto3-1.20.24-py3-none-any.whl
+    sha256: 11hr99kjhwsfp8fmrzhcxnmn17wdvymfk136hvlwa1zi9glyh24g
+    url: https://files.pythonhosted.org/packages/4a/15/d854221077e22acd05c190778c29b14398bce0cee0fed34a6979d320546e/boto3-1.20.24-py3-none-any.whl
+  - name: boto3-1.20.24.tar.gz
+    sha256: 16lapydsjyql543qbxvny6m9dhirsh0sh6s87gm2j8vbisr0b5vk
+    url: https://files.pythonhosted.org/packages/7c/16/f1311747c6eb9a4f69b9a07e82e7836f4e8c925f9006f24f715a8f3ec0c6/boto3-1.20.24.tar.gz
   - name: boto3_type_annotations-0.3.1-py3-none-any.whl
     sha256: 0pj34m11cr5wln1i57p7hhd7ijdcq8ck1b5a8bpap4mp5an0gq2j
     url: https://files.pythonhosted.org/packages/96/7f/9477016e1bfd5b87ce9fcbadd3363ca3b7eb07ed2fe43137588a44dfc06c/boto3_type_annotations-0.3.1-py3-none-any.whl
   - name: boto3_type_annotations-0.3.1.tar.gz
     sha256: 11dqn69x0a94jakjnr0yrpgwxb3fxw0wc94z3343bs9ms29j0s75
     url: https://files.pythonhosted.org/packages/9f/f1/fd99a0d0e52fe26ffaf601cce72757e740a45e0d08d942cdedf4935dcd0f/boto3_type_annotations-0.3.1.tar.gz
-  - name: botocore-1.15.32-py2.py3-none-any.whl
-    sha256: 16miv7wppcgwz04xdk8lw097zvbsid756b1xzy3pf44l9mbayqx9
-    url: https://files.pythonhosted.org/packages/49/86/6448bb5ab4b0c169f379fce589e568e798907b569eaeb012c720a4dd9ca2/botocore-1.15.32-py2.py3-none-any.whl
-  - name: botocore-1.15.32.tar.gz
-    sha256: 0vgwsccqyv2bn7f8arhnwpylr1dy6bc8n9q58046aas5xq0rda1y
-    url: https://files.pythonhosted.org/packages/80/38/b2fb224d0b74a48c14f997be0511d677f5f4e16523e0b971120a1b6604a7/botocore-1.15.32.tar.gz
+  - name: botocore-1.23.24-py3-none-any.whl
+    sha256: 05qnykghn640h2b536yqvy78dzp2xhpj1ik2nfwky0cc1k2li3g7
+    url: https://files.pythonhosted.org/packages/ef/05/cb9048c57f77ab9fa6970d2c88bd92471dc4ccc4bcf5b59c645db9cbdedc/botocore-1.23.24-py3-none-any.whl
+  - name: botocore-1.23.24.tar.gz
+    sha256: 01j8dcp9d7yln6y1xk1shmi7gvnvbihhznnk359nbfypa97nn023
+    url: https://files.pythonhosted.org/packages/2e/32/9103b5c8a8e2596f39e6db658f1e2f4193ecdacec7539854c09ed4612699/botocore-1.23.24.tar.gz
   - name: cachetools-5.0.0-py3-none-any.whl
     sha256: 1r3nm7jxhwkv0ykrq8i26q3h6dh8v24hdfg7if91gbrq78hd9v4g
     url: https://files.pythonhosted.org/packages/19/99/ace1769546388976b45e93445bb04c6df95e96363f03fbb56f916da5ebde/cachetools-5.0.0-py3-none-any.whl
@@ -370,12 +366,6 @@ links:
   - name: docopt-0.6.2.tar.gz
     sha256: 14f4hn6d1j4b99svwbaji8n2zj58qicyz19mm0x6pmhb50jsics9
     url: https://files.pythonhosted.org/packages/a2/55/8f8cab2afd404cf578136ef2cc5dfb50baa1761b68c9da1fb1e4eed343c9/docopt-0.6.2.tar.gz
-  - name: docutils-0.15.2-py3-none-any.whl
-    sha256: 1l5nk52lmds6gjak2az9b7q43g8fhiilnn8cpaw1z7xpcdj6jkvc
-    url: https://files.pythonhosted.org/packages/22/cd/a6aa959dca619918ccb55023b4cb151949c64d4d5d55b3f4ffd7eee0c6e8/docutils-0.15.2-py3-none-any.whl
-  - name: docutils-0.15.2.tar.gz
-    sha256: 168s5v7bff5ar9jspr6wn823q1sbn0jhnbp9clk41nl8j09fmbm2
-    url: https://files.pythonhosted.org/packages/93/22/953e071b589b0b1fee420ab06a0d15e5aa0c7470eb9966d60393ce58ad61/docutils-0.15.2.tar.gz
   - name: ecdsa-0.17.0-py2.py3-none-any.whl
     sha256: 0xpn7rzwpqvya9g56jwrixa9v9j9r0v91698zh6vwfkl6ddivwsw
     url: https://files.pythonhosted.org/packages/4a/b6/b678b080967b2696e9a201c096dc076ad756fb35c87dca4e1d1a13496ff7/ecdsa-0.17.0-py2.py3-none-any.whl
@@ -544,33 +534,33 @@ links:
   - name: jwcrypto-0.8.tar.gz
     sha256: 093cy19b9d07w5gnpikih8f1cm5d4szgb4lk752z3zdybdiy5zmp
     url: https://files.pythonhosted.org/packages/00/bb/ee916ab08e0510eb79cb3bfb561de2cd965ee60f0c3046c112e6e03c674a/jwcrypto-0.8.tar.gz
-  - name: kiwisolver-1.3.2-cp39-cp39-macosx_10_9_universal2.whl
-    sha256: 01q5am948j4lyc1vg64798ajh9yr1bp31fr203fzx8z80p8br654
-    url: https://files.pythonhosted.org/packages/86/3a/52a9163717351c20f35ea57552da06e7d82250d0eb8c34c03894066b067c/kiwisolver-1.3.2-cp39-cp39-macosx_10_9_universal2.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 13w35xs6pf9vfiqsg81jq8644hw6qzvnkcj2w1842flc201d5vw0
-    url: https://files.pythonhosted.org/packages/17/99/40638eab98b3e3970ad2aec0715e13bf38497b4ee5dd74d14ba622bbe342/kiwisolver-1.3.2-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 1fam0j1jrh2651rvwbli84g21ppj5hbi8yi00sf0xdgm2rkppszq
-    url: https://files.pythonhosted.org/packages/02/a3/bff9e7368355d3d03259c02a29eeec9455ea9aef44b55bc311eea4646fce/kiwisolver-1.3.2-cp39-cp39-macosx_11_0_arm64.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 02bh05lv6i29xjcq3881rrvfpv4hwy4d7grxggg2baqkncml4hgl
-    url: https://files.pythonhosted.org/packages/4a/59/4c4fe1be642b3fe31f50b51b77c0368c22336781c0fe218ff7d75419ec48/kiwisolver-1.3.2-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 1iijskhdsq3b1xn3vdvx9n6868ybf1r3m62rh5vcfm932y601yih
-    url: https://files.pythonhosted.org/packages/1f/99/58fe27c8e4a3de823f9fc28ab2c415347efc4139f1c85cac65a008007210/kiwisolver-1.3.2-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1f4qzzn7schz31vgpiglngn25agx1rgyrmjqa3597zqw9y7nr3rg
-    url: https://files.pythonhosted.org/packages/03/3c/0d52f63c80869311bdf555f4abfe793b2c514ae822edb833f2fe31a42ac0/kiwisolver-1.3.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-    sha256: 0nz73wi8hvc5ypaq7wwd0q6nr9ff044ssj0ny0dzsaclzz57nrxs
-    url: https://files.pythonhosted.org/packages/95/14/1d1270da411c05f9be4caac405123fc920f460b8b9cf8205d10eb59eddde/kiwisolver-1.3.2-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-  - name: kiwisolver-1.3.2-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-    sha256: 0fdlcm77b6d9q581g2m8b961ib98gizjgl8hlq1s9k3c9mib2hvq
-    url: https://files.pythonhosted.org/packages/cb/03/cec2a895984f27007e31803aef824ac80bd5fb658779df8b9eb96698d2e0/kiwisolver-1.3.2-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-  - name: kiwisolver-1.3.2.tar.gz
-    sha256: 0p5799qs971zfcpfghka9x9lfz67167ss25qsml3bl41bdq56i7w
-    url: https://files.pythonhosted.org/packages/8e/87/259fde8cf07d06677f0a749cb157d079ebd00d40fe52faaab1a882a66159/kiwisolver-1.3.2.tar.gz
+  - name: kiwisolver-1.4.0-cp39-cp39-macosx_10_9_universal2.whl
+    sha256: 0v8q24cr5xiqjnqvj8prl843329p3idvvapgh4bac7clb1zla6bc
+    url: https://files.pythonhosted.org/packages/50/cc/ddc88e87371606d24501f45e6326242e9ffd86ce6d8887260b2b070b5689/kiwisolver-1.4.0-cp39-cp39-macosx_10_9_universal2.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1l21nj3clwm0yhd1gsy6mfcfadnbsa57fws75rkdczry0vaz79m0
+    url: https://files.pythonhosted.org/packages/73/68/709f071972f31236e238c195409b2a459feafd0d9cd7dab8558acb72d2ad/kiwisolver-1.4.0-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 15wpcz5vfhwkjbfqp3j095sk7bcz14qnfp8br2fm4zzrjfn9yvv7
+    url: https://files.pythonhosted.org/packages/c0/0f/ed033e28da53eb9bb0fbadbf8fdc2e42830ac2f5aae7aef7492eb4dd1b48/kiwisolver-1.4.0-cp39-cp39-macosx_11_0_arm64.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 1mzby282jr53n8w14i5slhbs6i7dgi3v7qarsry35mj7k5rg0w2b
+    url: https://files.pythonhosted.org/packages/f5/35/7aa910c73060190119725d39130244ff0b8f900abb78d9d649f29cccab49/kiwisolver-1.4.0-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 00a060irx9g05daxac09vhpsyvkp5v50yb7c1nx30r611y834nlj
+    url: https://files.pythonhosted.org/packages/f3/5a/9c7ef88d6f2312b46ec085e1fdc07e5bf6ba0904e22a4169638bbe04fafd/kiwisolver-1.4.0-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1ywfxmjjkj46k0ryjy4ba9d6dz8npg2raws64f3hmzb2w7a8pv0p
+    url: https://files.pythonhosted.org/packages/91/5a/91cbc92ffedc147e3d3e7bbd8c91ba937c33d8c9e8193c50a31110662e66/kiwisolver-1.4.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 010ri7mj7nsgcbhk52ddz745l8q02kmnizc02kgq45jg5ariskcv
+    url: https://files.pythonhosted.org/packages/15/64/c19ecaafa38e0c38f53869fda53932caa2c4e3dcc1a8719b76260a48787c/kiwisolver-1.4.0-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: kiwisolver-1.4.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 1q8j96zcs3v0yhd0z20fx4im204q6sjr2dg22nymjbzd635w1srq
+    url: https://files.pythonhosted.org/packages/2a/66/963a04a384ce13ccec00ef2a59c587c8bd27f27ad2c02c2db8f8250ed71f/kiwisolver-1.4.0-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: kiwisolver-1.4.0.tar.gz
+    sha256: 1f535wad9m288z8wns2c990b4xvbhhlp1y7i45fshy0i44gb023m
+    url: https://files.pythonhosted.org/packages/de/a8/8c5ed1845bfdcf753ac13c3c6368c16df20a8a8ee3c06e5114eca83b9f0b/kiwisolver-1.4.0.tar.gz
   - name: korean_lunar_calendar-0.2.1-py3-none-any.whl
     sha256: 1mc2sg6i1dmfs61fgcll2rpan3xgkz68ays6cy902a81c64fl6d6
     url: https://files.pythonhosted.org/packages/15/41/aa426a4a9141afd8e7f5c8312bb59d5693274f3f7b34e73bdce4ee48b4c1/korean_lunar_calendar-0.2.1-py3-none-any.whl
@@ -856,12 +846,12 @@ links:
   - name: python-dateutil-2.8.2.tar.gz
     sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
     url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
-  - name: python_dotenv-0.19.2-py2.py3-none-any.whl
-    sha256: 1lxif64lq3072s2z7w985z3c6lq07nw6s76s8v1s7lrzhz0vvcij
-    url: https://files.pythonhosted.org/packages/0e/f1/0317f4b2c5284075a2154fe95539b43c0acecbcb86fe80fcb2645803edd9/python_dotenv-0.19.2-py2.py3-none-any.whl
-  - name: python-dotenv-0.19.2.tar.gz
-    sha256: 0pv5ygpr6syc6zkw21in4ysqs3k7qaxk9m1g5pzlafwm3silkpm5
-    url: https://files.pythonhosted.org/packages/49/62/4f25667e10561303a34cb89e3187c35985c0889b99f6f1468aaf17fbb03e/python-dotenv-0.19.2.tar.gz
+  - name: python_dotenv-0.20.0-py3-none-any.whl
+    sha256: 0f19m57wwh0sjfzsn95p28xfcyqf4196snv7zpj85r0zwrxihanr
+    url: https://files.pythonhosted.org/packages/30/5f/2e5c564bd86349fe6b82ca840f46acf6f4bb76d79ba9057fce3d3e008864/python_dotenv-0.20.0-py3-none-any.whl
+  - name: python-dotenv-0.20.0.tar.gz
+    sha256: 13s9imfd0k4d7b1qy5wfqzw5vyj6rhmcrccsdz1l4g39b55b1qxp
+    url: https://files.pythonhosted.org/packages/02/ee/43e1c862a3e7259a1f264958eaea144f0a2fac9f175c1659c674c34ea506/python-dotenv-0.20.0.tar.gz
   - name: python_jose-3.1.0-py2.py3-none-any.whl
     sha256: 0wcm3k09myg5d1rsxl71nsq6knshv0p710mxyl6agmgbpzscmi0s
     url: https://files.pythonhosted.org/packages/6c/80/5bdf2543fe002dc74429e9360148deb4d9e0b453acdc2b5c6fb1617f4f9d/python_jose-3.1.0-py2.py3-none-any.whl
@@ -946,12 +936,12 @@ links:
   - name: ruamel.yaml.clib-0.2.6.tar.gz
     sha256: 1gdchmdngbni9mv6f62xb7ii1kjr8wvkqq859xwj1fws8g709xjg
     url: https://files.pythonhosted.org/packages/8b/25/08e5ad2431a028d0723ca5540b3af6a32f58f25e83c6dda4d0fcef7288a3/ruamel.yaml.clib-0.2.6.tar.gz
-  - name: s3transfer-0.3.7-py2.py3-none-any.whl
-    sha256: 0iijs1pgp8v30ms4jvbmw280fbfmlgf2hf1qq7asidlpm29bv9gg
-    url: https://files.pythonhosted.org/packages/00/89/0cb4e92c239e6425b9b0035227b8cdf9d3d098a5c9e95632c3815df63a09/s3transfer-0.3.7-py2.py3-none-any.whl
-  - name: s3transfer-0.3.7.tar.gz
-    sha256: 1509v2y2g5l8df53scy68r5q24m3k05gwxbrq9x7xycgmy37nqim
-    url: https://files.pythonhosted.org/packages/66/f5/5ca537483fa5e96fbd455f52a69fc70c5f659f7e8c9189a1dbc211e1ccf9/s3transfer-0.3.7.tar.gz
+  - name: s3transfer-0.5.2-py3-none-any.whl
+    sha256: 0w8r20khzpa4y175i1mk6jpd6b5w5ha8w02409j2p6nv3x6lqvvs
+    url: https://files.pythonhosted.org/packages/7b/9c/f51775ebe7df5a7aa4e7c79ed671bde94e154bd968aca8d65bb24aba0c8c/s3transfer-0.5.2-py3-none-any.whl
+  - name: s3transfer-0.5.2.tar.gz
+    sha256: 1vcqvghiyxxqibcqqqpdia40ij3896l617hbzgsaamz69hcqricm
+    url: https://files.pythonhosted.org/packages/7e/19/f82e4af435a19b28bdbfba63f338ea20a264f4df4beaf8f2ab9bfa34072b/s3transfer-0.5.2.tar.gz
   - name: simplejson-3.17.0.tar.gz
     sha256: 108yf3252fy4ndqab7h46raksxfhcn113bzy2yd8369vidrjnjrb
     url: https://files.pythonhosted.org/packages/98/87/a7b98aa9256c8843f92878966dc3d8d914c14aad97e2c5ce4798d5743e07/simplejson-3.17.0.tar.gz
@@ -1015,12 +1005,12 @@ links:
   - name: typing_extensions-4.1.1.tar.gz
     sha256: 0hndrnilvf88s8ggmflqnl5mhi78g6z1y9y0y6qpjyilqgf6550s
     url: https://files.pythonhosted.org/packages/b1/5a/8b5fbb891ef3f81fc923bf3cb4a578c0abf9471eb50ce0f51c74212182ab/typing_extensions-4.1.1.tar.gz
-  - name: urllib3-1.25.11-py2.py3-none-any.whl
-    sha256: 0pnxjyc33d162wrxmk285av9x44h9sqpzzhbzl7gmzpk9fz1ycpm
-    url: https://files.pythonhosted.org/packages/56/aa/4ef5aa67a9a62505db124a5cb5262332d1d4153462eb8fd89c9fa41e5d92/urllib3-1.25.11-py2.py3-none-any.whl
-  - name: urllib3-1.25.11.tar.gz
-    sha256: 18hpzh1am1dqx81fypn57r2wk565fi4g14292qrc5jm1h9dalzld
-    url: https://files.pythonhosted.org/packages/76/d9/bbbafc76b18da706451fa91bc2ebe21c0daf8868ef3c30b869ac7cb7f01d/urllib3-1.25.11.tar.gz
+  - name: urllib3-1.26.9-py2.py3-none-any.whl
+    sha256: 051c8x2xchkhcrvagwzw4p4jx6j6ym4cdlcvgik6yw5i7zay9v24
+    url: https://files.pythonhosted.org/packages/ec/03/062e6444ce4baf1eac17a6a0ebfe36bb1ad05e1df0e20b110de59c278498/urllib3-1.26.9-py2.py3-none-any.whl
+  - name: urllib3-1.26.9.tar.gz
+    sha256: 13j4mkk6vgix4bixfqk3fhydsl3r5f61z94ss4fmwsl0fxjg3fma
+    url: https://files.pythonhosted.org/packages/1b/a5/4eab74853625505725cefdf168f48661b2cd04e7843ab836f3f63abf81da/urllib3-1.26.9.tar.gz
   - name: uvicorn-0.17.4-py3-none-any.whl
     sha256: 1v1arz0848h96s7fgwfqnj7mn1ddgv7p2ajx9k6cqldn9zc74n78
     url: https://files.pythonhosted.org/packages/f1/4c/9f4b2a72512c1f70caf9be3087703f4b7716c253ae69ed7aaeaba6a72627/uvicorn-0.17.4-py3-none-any.whl
@@ -1042,12 +1032,12 @@ links:
   - name: uvloop-0.16.0.tar.gz
     sha256: 0a0jzwrhkszknh14alflrp1db6dyjp7ph730f9yc5lb7gc6c4jzp
     url: https://files.pythonhosted.org/packages/ab/d9/22bbffa8f8d7e075ccdb29e8134107adfb4710feb10039f9d357db8b589c/uvloop-0.16.0.tar.gz
-  - name: watchgod-0.8-py3-none-any.whl
-    sha256: 1sxm310iqinr22mla7xh044ciww653j84pmzgckixk0wvvz2r71k
-    url: https://files.pythonhosted.org/packages/37/94/3e91ef2983d8f8116249077b5336ac2718b6b49b10bb29006d7e2abb11f8/watchgod-0.8-py3-none-any.whl
-  - name: watchgod-0.8.tar.gz
-    sha256: 1c9k01a037bvvlfigi1fn7zqfwy432ijqrc176vxs88pbvrdi899
-    url: https://files.pythonhosted.org/packages/43/d9/13e9bb6ddb472f5617453fc1671aaee736f11f190459aae97e295f6aab97/watchgod-0.8.tar.gz
+  - name: watchgod-0.8.1-py3-none-any.whl
+    sha256: 0pa8gmab27yphkcvzjxpmmgkj19v8nwr9rjhmc3gfgg6lcphr8jb
+    url: https://files.pythonhosted.org/packages/6f/97/cfff3405ecf88a48a6e102141b204463d4b085c0219da6db689ad4221851/watchgod-0.8.1-py3-none-any.whl
+  - name: watchgod-0.8.1.tar.gz
+    sha256: 11ihin5zsnshsylrrmbayiw1spzpfy13jiaff10ff4bxvzriabf1
+    url: https://files.pythonhosted.org/packages/4d/e9/c6b672b4c5df5e6a880a05476a89da2ef2a62dcbee3763139ff13e15c30e/watchgod-0.8.1.tar.gz
   - name: watchtower-0.7.3-py2.py3-none-any.whl
     sha256: 1lpqci9yjldihkn572l4di54sc43lh358c7wpf25r0lr14syivl2
     url: https://files.pythonhosted.org/packages/e1/ad/a891df8edb54720c981b1f696611292ce24c8e02a20898f32efcb9d1f5ff/watchtower-0.7.3-py2.py3-none-any.whl
