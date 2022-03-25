@@ -79,18 +79,24 @@ async def send_mail_event_report(
         Dict[str, Any], ...
     ] = await loaders.group_stakeholders.load(group_name)
     recipients = [stakeholder["email"] for stakeholder in stakeholders]
+    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users_email = [
+        user.email
+        for user in users
+        if Notification.EVENT_REPORT in user.notifications_preferences.email
+    ]
 
     email_context: MailContentType = {
         "group": group_name,
-        "event_type": event_type,
+        "event_type": event_type.capitalize().replace("_", " "),
         "description": description,
-        "finding_url": (
+        "event_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
         ),
     }
     await send_mails_async(
-        email_to=recipients,
+        email_to=users_email,
         context=email_context,
         tags=GENERAL_TAG,
         subject=(f"Event reported #[{event_id}] for [{group_name}]"),

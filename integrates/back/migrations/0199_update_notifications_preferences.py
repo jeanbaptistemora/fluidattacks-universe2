@@ -19,6 +19,11 @@ Added Vulnerability report
 
 Execution Time: 2022-03-18 at 14:26:17 UTC
 Finalization Time: 2022-03-18 at 14:27:50 UTC
+
+Added Event report
+
+Execution Time: 2022-03-25 at 14:27:37 UTC
+Finalization Time: 2022-03-25 at 14:29:05 UTC
 """
 
 

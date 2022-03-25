@@ -2,6 +2,7 @@
 
 from aioextensions import (
     collect,
+    schedule,
 )
 import authz
 from comments import (
@@ -52,6 +53,9 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import logging
+from mailer import (
+    events as events_mail,
+)
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
@@ -202,6 +206,19 @@ async def add_event(  # pylint: disable=too-many-locals
             await update_evidence(event_id, "evidence_file", file, event_date)
         if image:
             await update_evidence(event_id, "evidence", image, event_date)
+
+    event_type = event_attrs["event_type"]
+    description = event_attrs["detail"]
+    schedule(
+        events_mail.send_mail_event_report(
+            loaders=loaders,
+            group_name=group_name,
+            event_id=event_id,
+            event_type=event_type,
+            description=description,
+        )
+    )
+
     return AddEventPayload(event_id, success)
 
 
