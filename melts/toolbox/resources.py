@@ -45,14 +45,11 @@ import tempfile
 from toolbox import (
     utils,
 )
-from toolbox.api import (
-    integrates,
-)
-from toolbox.constants import (
-    API_TOKEN,
-)
 from toolbox.logger import (
     LOGGER,
+)
+from toolbox.utils.integrates import (
+    get_git_roots,
 )
 from typing import (
     Any,
@@ -434,25 +431,17 @@ def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
     os.makedirs(destination_folder, exist_ok=True)
     os.chdir(destination_folder)
 
-    repo_request = integrates.Queries.git_roots(
-        API_TOKEN,
-        subs,
-    )
-    if not repo_request.ok:
-        LOGGER.error(repo_request.errors)
-        return False
+    roots = get_git_roots(subs)
 
     if repo_name == "*":
         repositories = list(
-            root
-            for root in repo_request.data["group"]["roots"]
-            if root.get("state", "") == "ACTIVE"
+            root for root in roots if root.get("state", "") == "ACTIVE"
         )
         manage_repo_diffs(repositories)
     else:
         repositories = list(
             root
-            for root in repo_request.data["group"]["roots"]
+            for root in roots
             if root.get("state", "") == "ACTIVE"
             and root["nickname"] == repo_name
         )

@@ -22,12 +22,6 @@ import tempfile
 from toolbox import (
     utils,
 )
-from toolbox.api import (
-    integrates,
-)
-from toolbox.constants import (
-    API_TOKEN,
-)
 from toolbox.logger import (
     LOGGER,
 )
@@ -43,6 +37,7 @@ from toolbox.utils.function import (
 )
 from toolbox.utils.integrates import (
     get_git_root_upload_url,
+    get_git_roots,
 )
 from typing import (
     Dict,
@@ -106,14 +101,9 @@ def git_optimize_all(path: str) -> None:
 
 
 def get_root_upload_dates(subs: str) -> Dict[str, str]:
-    response = integrates.Queries.git_roots(API_TOKEN, subs)
-    if not response.ok:
-        LOGGER.error(response.errors)
-        raise ValueError("Could not retrieve git roots from Integrates")
-
     return {
         root["nickname"]: root["lastCloningStatusUpdate"]
-        for root in response.data["group"]["roots"]
+        for root in get_git_roots(subs)
     }
 
 
@@ -232,41 +222,29 @@ def main(
         LOGGER.error("Either the subs or the fusion folder does not exist")
         return False
 
-    repo_request = integrates.Queries.git_roots(
-        API_TOKEN,
-        subs,
-    )
-    if not repo_request.ok:
-        LOGGER.error(repo_request.errors)
-        return False
+    roots = get_git_roots(subs)
 
     roots_dict = {
         root["nickname"]: root
-        for root in repo_request.data["group"]["roots"]
+        for root in roots
         if root.get("state", "") == "ACTIVE"
     }
     roots_dict_by_id = {
-        root["id"]: root
-        for root in repo_request.data["group"]["roots"]
-        if root.get("state", "") == "ACTIVE"
+        root["id"]: root for root in roots if root.get("state", "") == "ACTIVE"
     }
     with ThreadPoolExecutor() as executor:
-        roots_ulrs_dict = dict(
-            executor.map(
-                get_git_root_upload_url,
-                [subs for _ in range(len(roots_dict))],
-                roots_dict_by_id.keys(),
-            )
-        )
-    for root_id, download_url in roots_ulrs_dict.items():
-        roots_dict[roots_dict_by_id[root_id]["nickname"]][
-            "uploadUrl"
-        ] = download_url
+        for root_id, download_url in executor.map(
+            get_git_root_upload_url,
+            [subs for _ in range(len(roots_dict))],
+            roots_dict_by_id.keys(),
+        ):
+            roots_dict[roots_dict_by_id[root_id]["nickname"]][
+                "uploadUrl"
+            ] = download_url
 
     LOGGER.info("Syncing repositories")
-    repos = os.listdir(f"groups/{subs}/fusion")
     with ThreadPoolExecutor() as executor:
-        for repo in repos:
+        for repo in os.listdir(f"groups/{subs}/fusion"):
             if (root := roots_dict.get(repo)) and (
                 local_commit := get_head_commit(
                     f"groups/{subs}/fusion/{repo}", root["branch"]

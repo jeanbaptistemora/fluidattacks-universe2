@@ -287,15 +287,12 @@ def main(subs: str, repository_name: str) -> bool:
         return False
 
     with ThreadPoolExecutor() as executor:
-        roots_ulrs_dict = dict(
-            executor.map(
-                get_git_root_download_url,
-                [subs for _ in range(len(roots_dict))],
-                roots_dict.keys(),
-            )
-        )
-    for root_id, download_url in roots_ulrs_dict.items():
-        roots_dict[root_id]["downloadUrl"] = download_url
+        for root_id, download_url in executor.map(
+            get_git_root_download_url,
+            [subs for _ in range(len(roots_dict))],
+            roots_dict.keys(),
+        ):
+            roots_dict[root_id]["downloadUrl"] = download_url
 
     zip_roots = [
         root
@@ -347,13 +344,12 @@ def main(subs: str, repository_name: str) -> bool:
 
     for root in roots_dict.values():
         if date := root.get("lastCloningStatusUpdate"):
-            days = drills_generic.calculate_days_ago(
-                rfc3339_str_to_date_obj(date)
-            )
             LOGGER.info(
                 "Data for %s was uploaded to S3 %i days ago",
                 root["nickname"],
-                days,
+                drills_generic.calculate_days_ago(
+                    rfc3339_str_to_date_obj(date)
+                ),
             )
         else:
             LOGGER.info(
