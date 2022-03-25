@@ -1595,15 +1595,18 @@ export const enTranslations: ResourceKey = {
       },
       CHARTS_REPORT: {
         name: "Analytics report",
-        tooltip: "Analytics report",
+        tooltip:
+          "Notifies with charts and metrics that will help you " +
+          "understand the actual status of reported and fixed vulnerabilities." +
+          "Show how your application's remediation process has evolved over time",
       },
-      COMMENTS: {
-        name: "Consulting",
-        tooltip: "Consulting",
-      },
+      COMMENTS: "Consulting",
       DAILY_DIGEST: {
         name: "Daily digest",
-        tooltip: "Daily digest",
+        tooltip:
+          "Reports a daily update of the security metrics for your application. " +
+          "It contains special statistics to alert you to the real risk and " +
+          "the work that has been done to remediate application security breaches",
       },
       DIGEST: "Daily digest",
       EVENT_REPORT: {
@@ -1617,33 +1620,45 @@ export const enTranslations: ResourceKey = {
       },
       NEW_COMMENT: {
         name: "Consulting",
-        tooltip: "Consulting",
+        tooltip:
+          "Notifies when an ASM user submits a communication, question, " +
+          "request, suggestion or issue related to her group, a specific vulnerability " +
+          "or an event that requires a special attention.",
       },
       NEW_DRAFT: {
         name: "Draft updates",
-        tooltip: "Draft updates",
+        tooltip:
+          "Notifies when a hacker submits a vulnerability draft or " +
+          "when an admin user reject and unsubmmit a vulnerability draft submission",
       },
       ORGANIZATION: "ORGANIZATION",
       PORTFOLIO: "PORTFOLIO",
       REMEDIATE_FINDING: {
         name: "Vulnerabilities updates",
-        tooltip: "Vulnerabilities updates",
+        tooltip:
+          "Communicates when a new vulnerability is discovered, " +
+          "when a vulnerability fix is reported " +
+          "or when one or more specific vulnerabilities are removed",
       },
       ROOT_MOVED: {
         name: "Roots updates",
-        tooltip: "Roots updates",
+        tooltip:
+          "Notifies when you deactivate a root or when you move a root to another group",
       },
       UPDATED_TREATMENT: {
         name: "Treatment updates",
-        tooltip: "Treatment updates",
+        tooltip:
+          "Reports when you define how to address or remediate a vulnerability",
       },
       VULNERABILITY_ASSIGNED: {
         name: "Vulnerabilities assignment",
-        tooltip: "Vulnerabilities assignment",
+        tooltip:
+          "Notifies when a user has been assigned to work on a vulnerability",
       },
       VULNERABILITY_REPORT: {
         name: "Vulnerabilities alert",
-        tooltip: "Vulnerabilities alert",
+        tooltip:
+          "Communicates when a vulnerability has been reported or has been closed",
       },
     },
     environmentTable: {
