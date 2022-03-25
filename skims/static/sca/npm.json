@@ -308,8 +308,20 @@
   "@progress/kendo-angular-editor": {
     "GHSA-j7wp-vjj6-cp5m": "<1.2.3"
   },
+  "@redocly/openapi-cli": {
+    "GHSA-q324-q795-2q5p": "<=1.0.0-beta.58"
+  },
+  "@replit/crosis": {
+    "GHSA-7w54-gp8x-f33m": "<7.3.1"
+  },
+  "@risingstack/protect": {
+    "GHSA-vpch-rxw3-fgx8": "<=1.2.0"
+  },
   "@ronomon/opened": {
     "CVE-2021-29300": "<1.5.2"
+  },
+  "@sap-cloud-sdk/core": {
+    "GHSA-gp2f-254m-rh32": "<1.52.0"
   },
   "@scandipwa/magento-scripts": {
     "CVE-2021-32684": ">=1.5.1 <=1.5.2",
@@ -318,16 +330,34 @@
   "@scullyio/scully": {
     "CVE-2020-28470": "<1.0.9"
   },
+  "@soketi/soketi": {
+    "GHSA-2w8g-m5j8-7m87": "<0.26.1"
+  },
+  "@solid/identity-token-verifier": {
+    "GHSA-xmh9-rg6f-j3mr": "<0.5.2"
+  },
+  "@starkbank/ecdsa": {
+    "CVE-2021-43571": "1.1.2"
+  },
   "@stoplight/simplemde": {
     "CVE-2018-19057": "=1.11.2"
   },
   "@strikeentco/set": {
     "CVE-2020-28267": "=1.0.0"
   },
+  "@theia/console": {
+    "GHSA-cwg9-c9cr-p5fq": "<1.8.1"
+  },
+  "@theia/messages": {
+    "GHSA-c94v-8fff-73ph": "<1.0.0"
+  },
   "@theia/mini-browser": {
     "CVE-2021-28161": "<=1.8.0",
     "CVE-2021-28162": "<=0.16.0",
     "CVE-2021-34435": ">=0.3.9 <=1.8.1"
+  },
+  "@theia/plugin-ext": {
+    "GHSA-w6v7-w58j-pg5r": "<1.18.0"
   },
   "@theia/preview": {
     "CVE-2020-27224": "<=1.2.0",
