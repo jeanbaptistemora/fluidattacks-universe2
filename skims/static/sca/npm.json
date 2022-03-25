@@ -667,13 +667,25 @@
   "asycn": {
     "GHSA-h26f-j4mv-84g7": ">=0"
   },
+  "asymc": {
+    "GHSA-x6ch-c6rv-f7wh": ">=0"
+  },
   "async": {},
   "async-git": {
     "CVE-2020-28490": "<1.13.2",
     "CVE-2021-3190": "<1.13.2"
   },
+  "asynnc": {
+    "GHSA-5fm9-jmv7-fcx5": ">=0"
+  },
+  "asyync": {
+    "GHSA-rm7c-x424-g2mw": ">=0"
+  },
   "atlasboard": {
     "CVE-2021-39109": "<1.1.9"
+  },
+  "atlasboard-atlassian-package": {
+    "GHSA-25v4-mcx4-hh35": ">=0"
   },
   "atob": {
     "CVE-2018-3745": "<=2.0.3",
@@ -682,6 +694,9 @@
   "atom-node-module-installer": {
     "GMS-2017-79": ">=0.0.0-alpha"
   },
+  "atompm": {
+    "GHSA-v86x-f47q-f7f4": "<0.8.2"
+  },
   "augustine": {
     "CVE-2017-0930": "=0.2.3",
     "GMS-2018-5": ">=0.0.0-alpha"
@@ -689,6 +704,9 @@
   "aurelia-path": {
     "CVE-2021-41097": "<1.1.7",
     "GHSA-3c9c-2p65-qvwv": "<1.1.7"
+  },
+  "auth0": {
+    "GHSA-5jpf-pj32-xx53": "<2.27.1"
   },
   "auth0-js": {
     "CVE-2017-17068": "<8.12",
@@ -707,6 +725,15 @@
     "GHSA-6gg3-pmm7-97xc": "<=11.25.1",
     "GHSA-jr3j-whm4-9wwm": "<11.30.1"
   },
+  "awesome_react_utility": {
+    "GHSA-m25q-fwg4-9v2p": "1.0.2"
+  },
+  "aws-iot-device-sdk-v2": {
+    "CVE-2021-40831": "<1.6.0"
+  },
+  "aws-lambda": {
+    "GHSA-934x-72xh-5hrg": "<=1.0.4"
+  },
   "aws-lambda-multipart-parser": {
     "CVE-2018-7560": "<=0.1.1"
   },
@@ -723,6 +750,9 @@
   },
   "axioss": {
     "npmjs.com/advisories/1124": ">=0.0.0"
+  },
+  "axois": {
+    "GHSA-wpfc-3w63-g4hm": ">=0"
   },
   "babel-runtime": {},
   "babel-types": {},
