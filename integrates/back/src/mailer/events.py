@@ -1,5 +1,6 @@
 from .common import (
     COMMENTS_TAG,
+    GENERAL_TAG,
     send_mails_async,
 )
 from context import (
@@ -20,6 +21,7 @@ from mailer.utils import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Tuple,
 )
@@ -61,4 +63,36 @@ async def send_mail_comment(
         COMMENTS_TAG,
         f"New comment in event #{event_id} for [{group_name}]",
         "new_comment",
+    )
+
+
+async def send_mail_event_report(
+    *,
+    loaders: Any,
+    group_name: str = "",
+    event_id: str,
+    event_type: str,
+    description: str,
+) -> None:
+    org_name = await get_organization_name(loaders, group_name)
+    stakeholders: Tuple[
+        Dict[str, Any], ...
+    ] = await loaders.group_stakeholders.load(group_name)
+    recipients = [stakeholder["email"] for stakeholder in stakeholders]
+
+    email_context: MailContentType = {
+        "group": group_name,
+        "event_type": event_type,
+        "description": description,
+        "finding_url": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
+            f"{event_id}/description"
+        ),
+    }
+    await send_mails_async(
+        email_to=recipients,
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=(f"Event reported #[{event_id}] for [{group_name}]"),
+        template_name="event_report",
     )

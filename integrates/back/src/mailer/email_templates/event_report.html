@@ -1,0 +1,27 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_finding, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_finding('Vulnerability Report') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      An event has been <strong>reported</strong> in <strong>{{ group }}</strong>:
+    </p>
+    <p>
+      Type: <strong>{{ event_type }}</strong>.<br/>
+      Description: <strong>{{ description }}</strong>.
+    </p>
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+    {{ go_to_button('Go to event', finding_url) }}
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
