@@ -63,4 +63,30 @@ const SplitItems = styled.div.attrs({
   }
 `;
 
-export { BreadcrumbContainer, NavSplitButtonContainer, SplitItems };
+const StyledMenuItem = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `bn br0 f5 mh3 mb2 outline-0 pa0 tl pointer bg-transparent ${
+      className ?? ""
+    }`,
+    type: type ?? "button",
+  })
+)`
+  height: 47px;
+  width: 85px;
+  writing-mode: horizontal-tb;
+  border-bottom: 1px solid #e5e5e5 !important;
+
+  :hover {
+    color: #ff3435;
+  }
+`;
+
+export {
+  BreadcrumbContainer,
+  NavSplitButtonContainer,
+  SplitItems,
+  StyledMenuItem,
+};
