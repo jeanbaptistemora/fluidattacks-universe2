@@ -317,6 +317,7 @@ async def get_group_open_severity(
 
 
 class ResultGetGroupRoots(NamedTuple):
+    id: str
     environment_urls: List[str]
     nickname: str
     gitignore: List[str]
@@ -340,8 +341,8 @@ async def get_group_roots(
                             environmentUrls
                             nickname
                             url
+                            id
                             gitignore
-                            downloadUrl
                         }
                     }
                 }
@@ -360,12 +361,43 @@ async def get_group_roots(
                 environment_urls=root["environmentUrls"],
                 nickname=root["nickname"],
                 gitignore=root["gitignore"],
-                download_url=root["downloadUrl"],
+                id=root["id"],
             )
             for root in result["data"]["group"]["roots"]
         )
     except (AttributeError, KeyError, TypeError):
         return None
+
+
+@SHIELD
+async def get_group_root_download_url(
+    *,
+    group: str,
+    root_id: str,
+    client: Optional[GraphQLClient] = None,
+) -> Tuple[str, Optional[str]]:
+    result = await _execute(
+        query="""
+            query SkimsGetGroupRootDownloadUrl(
+                $groupName: String!, $rootId: ID!
+            ) {
+              root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                  downloadUrl
+                }
+              }
+            }
+        """,
+        operation="SkimsGetGroupRootDownloadUrl",
+        variables={"groupName": group, "rootId": root_id},
+        client=client,
+    )
+
+    try:
+        return (root_id, result["data"]["root"]["downloadUrl"])
+
+    except (AttributeError, KeyError, TypeError):
+        return (root_id, None)
 
 
 @SHIELD

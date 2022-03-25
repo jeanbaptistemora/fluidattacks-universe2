@@ -27,7 +27,9 @@ from dateutil.parser import (  # type: ignore
 )
 from integrates.dal import (
     get_group_language,
+    get_group_root_download_url,
     get_group_roots,
+    ResultGetGroupRoots,
 )
 from integrates.graphql import (
     create_session,
@@ -189,7 +191,9 @@ async def _get_namespace(
     )
 
 
-async def main(action_dynamo_pk: Optional[str] = None) -> None:
+async def main(  # pylint: disable=too-many-locals)
+    action_dynamo_pk: Optional[str] = None,
+) -> None:
     action_dynamo_pk = action_dynamo_pk or sys.argv[1]
     CTX.debug = False
     token = os.environ["INTEGRATES_API_TOKEN"]
@@ -211,9 +215,28 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:
     roots_nicknames: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
 
-    roots_dict = {
-        item.nickname: item for item in await get_group_roots(group=group_name)
-    }
+    roots = await get_group_roots(group=group_name)
+    roots_dict_by_nickname = {item.nickname: item for item in roots}
+    roots_dict_by_id = {item.id: item for item in roots}
+
+    for root_id, download_url in await collect(
+        [
+            get_group_root_download_url(group=group_name, root_id=root.id)
+            for root in roots
+        ]
+    ):
+        current_root = roots_dict_by_nickname[
+            roots_dict_by_id[root_id].nickname
+        ]
+        roots_dict_by_nickname[
+            roots_dict_by_id[root_id].nickname
+        ] = ResultGetGroupRoots(
+            id=current_root.id,
+            environment_urls=current_root.environment_urls,
+            nickname=current_root.nickname,
+            gitignore=current_root.gitignore,
+            download_url=download_url,
+        )
 
     namespaces_path_dict = dict(
         await collect(
@@ -221,8 +244,8 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:
                 _get_namespace(
                     group_name,
                     root_nickname,
-                    roots_dict[root_nickname].download_url
-                    if root_nickname in roots_dict
+                    roots_dict_by_nickname[root_nickname].download_url
+                    if root_nickname in roots_dict_by_nickname
                     else None,
                 )
                 for root_nickname in roots_nicknames
