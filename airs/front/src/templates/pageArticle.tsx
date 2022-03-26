@@ -8,6 +8,7 @@
 /* eslint import/no-default-export:0 */
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+/* eslint fp/no-mutation: 0 */
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
@@ -39,6 +40,20 @@ const MdDefaultPage: React.FC<IQueryData> = ({
   const hasBanner: boolean = typeof banner === "string";
   const isCareers: boolean = slug === "careers/";
 
+  const isComparative: boolean = slug === "services/comparative/";
+  const serviceIndex = crumbs.findIndex(
+    (crumb): boolean => crumb.crumbLabel === "services"
+  );
+
+  const changeCrumbs = (
+    index: number
+  ): [{ pathname: string; crumbLabel: string }] => {
+    const comparativeCrumbs = crumbs;
+    comparativeCrumbs[index].pathname = "/services/continuous-hacking/";
+
+    return comparativeCrumbs;
+  };
+
   return (
     <React.Fragment>
       <Seo
@@ -57,7 +72,9 @@ const MdDefaultPage: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={decode(capitalizePlainString(title))}
             crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
+            crumbs={capitalizeObject(
+              isComparative ? changeCrumbs(serviceIndex) : crumbs
+            )}
           />
 
           <PageArticle>
