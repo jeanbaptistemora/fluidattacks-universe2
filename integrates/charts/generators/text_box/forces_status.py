@@ -7,26 +7,18 @@ from charts import (
 from charts.generators.text_box.utils import (
     ForcesReport,
 )
-from dataloaders import (
-    get_new_context,
-)
 
 
-async def generate_one(group: str) -> ForcesReport:
-    context = get_new_context()
-    group_data = await context.group.load(group)
-
-    has_forces = group_data["has_forces"]
-
-    return ForcesReport(
-        fontSizeRatio=0.5, text="Active" if has_forces else "Inactive"
-    )
+async def generate_one() -> ForcesReport:
+    # By default, Forces is enabled for all groups
+    # https://gitlab.com/fluidattacks/product/-/issues/4880
+    return ForcesReport(fontSizeRatio=0.5, text="Active")
 
 
 async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=await generate_one(group),
+            document=await generate_one(),
             entity="group",
             subject=group,
         )
