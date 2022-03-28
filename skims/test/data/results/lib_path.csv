@@ -1958,16 +1958,6 @@ F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypt
   6 | }
     ^ Col 0
 ",terraform.tfm_aws_ebs_volumes_unencrypted
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,1,16,skims,165. Insecure service configuration - AWS,Ensure that Secrets Manager secret is encrypted using KMS CMK in namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,"
-> 1 | resource ""aws_secretsmanager_secret"" ""rotation-example"" {
-  2 |   name                = ""rotation-example""
-  3 |   rotation_lambda_arn = aws_lambda_function.example.arn
-  4 |   rotation_rules {
-  5 |     automatically_after_days = 7
-  6 |   }
-  7 | }
-    ^ Col 0
-",terraform.tfm_aws_secret_encrypted_whitouth_kms_cmk
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -2692,6 +2682,16 @@ F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,1
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_aws_ec2_allows_all_outbound_traffic
+F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,1,16,skims,165. Insecure service configuration - AWS,Property kms_key_id is either missing or misconfigured in namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,"
+> 1 | resource ""aws_secretsmanager_secret"" ""rotation-example"" {
+  2 |   name                = ""rotation-example""
+  3 |   rotation_lambda_arn = aws_lambda_function.example.arn
+  4 |   rotation_rules {
+  5 |     automatically_after_days = 7
+  6 |   }
+  7 | }
+    ^ Col 0
+",terraform.tfm_aws_secret_encrypted_whitouth_kms_cmk
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,12,16,skims,024. Unrestricted access between network segments - AWS,"Security groups contain RFC-1918 CIDRs open
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
    2 |   InstanceSecurityGroup:
