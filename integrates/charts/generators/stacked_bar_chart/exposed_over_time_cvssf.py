@@ -31,6 +31,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
+)
 from decimal import (
     Decimal,
 )
@@ -73,15 +76,19 @@ def get_rangetime(
 async def get_group_document(  # pylint: disable=too-many-locals
     group: str, loaders: Dataloaders
 ) -> RiskOverTime:
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group)
+    )
     data: List[GroupDocumentCvssfData] = []
     data_monthly: List[GroupDocumentCvssfData] = []
     data_yearly: List[GroupDocumentCvssfData] = []
-    data_name = "exposed_over_time_cvssf"
 
-    group_data = await loaders.group.load(group)
-    group_over_time = [elements[-12:] for elements in group_data[data_name]]
-    group_over_time_monthly = group_data["exposed_over_time_month_cvssf"]
-    group_over_time_yearly = group_data["exposed_over_time_year_cvssf"]
+    group_over_time = [
+        elements[-12:]
+        for elements in group_indicators.exposed_over_time_cvssf or []
+    ]
+    group_over_time_monthly = group_indicators.exposed_over_time_month_cvssf
+    group_over_time_yearly = group_indicators.exposed_over_time_year_cvssf
 
     if group_over_time:
         group_low_over_time = group_over_time[0]
@@ -150,12 +157,14 @@ async def get_group_document(  # pylint: disable=too-many-locals
             )
 
     weekly_data_size: int = len(
-        group_data[data_name][0] if group_data[data_name] else []
+        group_indicators.exposed_over_time_cvssf[0]
+        if group_indicators.exposed_over_time_cvssf
+        else []
     )
 
     monthly_data_size: int = len(
-        group_data["exposed_over_time_month_cvssf"][0]
-        if group_data["exposed_over_time_month_cvssf"]
+        group_indicators.exposed_over_time_month_cvssf[0]
+        if group_indicators.exposed_over_time_month_cvssf
         else []
     )
     monthly = {
