@@ -3,6 +3,7 @@ import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
+import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
@@ -23,11 +24,11 @@ import type {
 } from "scenes/Dashboard/containers/GroupForcesView/types";
 import { Col33, Row, TabContent, TabsContainer } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
-import { translate } from "utils/translations/translate";
 
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
 ): JSX.Element => {
+  const { t } = useTranslation();
   const { log, executionId, groupName } = props;
   const isOld: boolean = log !== undefined;
 
@@ -91,11 +92,11 @@ const Execution: React.FC<IExecution> = (
   const stateResolve: (status: string) => string = (status: string): string => {
     switch (status) {
       case "OPEN":
-        return translate.t("group.forces.status.vulnerable");
+        return t("group.forces.status.vulnerable");
       case "CLOSED":
-        return translate.t("group.forces.status.secure");
+        return t("group.forces.status.secure");
       case "ACCEPTED":
-        return translate.t("group.forces.status.accepted");
+        return t("group.forces.status.accepted");
       default:
         return "";
     }
@@ -104,18 +105,14 @@ const Execution: React.FC<IExecution> = (
   const getVulnerabilitySummaries: (
     foundVulnerabilities: IFoundVulnerabilities
   ) => string = (foundVulnerabilities: IFoundVulnerabilities): string => {
-    const openTrans: string = translate.t(
-      "group.forces.foundVulnerabilitiesNew.open"
-    );
-    const acceptedTrans: string = translate.t(
+    const openTrans: string = t("group.forces.foundVulnerabilitiesNew.open");
+    const acceptedTrans: string = t(
       "group.forces.foundVulnerabilitiesNew.accepted"
     );
-    const closedTrans: string = translate.t(
+    const closedTrans: string = t(
       "group.forces.foundVulnerabilitiesNew.closed"
     );
-    const totalTrans: string = translate.t(
-      "group.forces.foundVulnerabilitiesNew.total"
-    );
+    const totalTrans: string = t("group.forces.foundVulnerabilitiesNew.total");
 
     const openStr: string = `${foundVulnerabilities.open} ${openTrans}`;
     const acceptedStr: string = `${foundVulnerabilities.accepted} ${acceptedTrans}`;
@@ -153,7 +150,7 @@ const Execution: React.FC<IExecution> = (
         options: selectOptionsExploitability,
       }),
       formatter: formatText,
-      header: translate.t("group.forces.compromisedToe.exploitability"),
+      header: t("group.forces.compromisedToe.exploitability"),
       width: "15%",
       wrapped: true,
     },
@@ -165,7 +162,7 @@ const Execution: React.FC<IExecution> = (
         options: selectOptionsStatus,
       }),
       formatter: statusFormatter,
-      header: translate.t("group.forces.compromisedToe.status"),
+      header: t("group.forces.compromisedToe.status"),
       width: "105px",
       wrapped: true,
     },
@@ -177,20 +174,20 @@ const Execution: React.FC<IExecution> = (
         options: selectOptionsKind,
       }),
       formatter: formatText,
-      header: translate.t("group.forces.compromisedToe.type"),
+      header: t("group.forces.compromisedToe.type"),
       width: "10%",
       wrapped: true,
     },
     {
       dataField: "who",
       formatter: formatText,
-      header: translate.t("group.forces.compromisedToe.what"),
+      header: t("group.forces.compromisedToe.what"),
       wrapped: true,
     },
     {
       dataField: "where",
       formatter: formatText,
-      header: translate.t("group.forces.compromisedToe.where"),
+      header: t("group.forces.compromisedToe.where"),
       wrapped: true,
     },
   ];
@@ -211,7 +208,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.date")}</b>
+            <b>{t("group.forces.date")}</b>
           </p>
         </Col33>
         <Col33>
@@ -222,7 +219,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.status.title")}</b>
+            <b>{t("group.forces.status.title")}</b>
           </p>
         </Col33>
         <Col33>
@@ -233,7 +230,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.strictness.title")}</b>
+            <b>{t("group.forces.strictness.title")}</b>
           </p>
         </Col33>
         <Col33>
@@ -244,7 +241,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.severityThreshold.title")}</b>
+            <b>{t("group.forces.severityThreshold.title")}</b>
           </p>
         </Col33>
         <Col33>
@@ -255,7 +252,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.gracePeriod.title")}</b>
+            <b>{t("group.forces.gracePeriod.title")}</b>
           </p>
         </Col33>
         <Col33>
@@ -266,7 +263,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.kind.title")}</b>
+            <b>{t("group.forces.kind.title")}</b>
           </p>
         </Col33>
         <Col33>
@@ -277,7 +274,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.gitRepo")}</b>
+            <b>{t("group.forces.gitRepo")}</b>
           </p>
         </Col33>
         <Col33>
@@ -288,7 +285,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.identifier")}</b>
+            <b>{t("group.forces.identifier")}</b>
           </p>
         </Col33>
         <Col33>
@@ -299,7 +296,7 @@ const Execution: React.FC<IExecution> = (
       <Row className={"nb3"}>
         <Col33>
           <p>
-            <b>{translate.t("group.forces.foundVulnerabilities.title")}</b>
+            <b>{t("group.forces.foundVulnerabilities.title")}</b>
           </p>
         </Col33>
         <Col33>
@@ -314,14 +311,14 @@ const Execution: React.FC<IExecution> = (
           <ContentTab
             id={"forcesExecutionSummaryTab"}
             link={"/summary"}
-            title={translate.t("group.forces.tabs.summary.text")}
-            tooltip={translate.t("group.forces.tabs.summary.tooltip")}
+            title={t("group.forces.tabs.summary.text")}
+            tooltip={t("group.forces.tabs.summary.tooltip")}
           />
           <ContentTab
             id={"forcesExecutionLogTab"}
             link={"/log"}
-            title={translate.t("group.forces.tabs.log.text")}
-            tooltip={translate.t("group.forces.tabs.log.tooltip")}
+            title={t("group.forces.tabs.log.text")}
+            tooltip={t("group.forces.tabs.log.tooltip")}
           />
         </TabsContainer>
         <TabContent>

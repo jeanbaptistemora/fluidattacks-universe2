@@ -4,6 +4,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -28,7 +29,6 @@ import { formatDate } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
   dateRange: { max: string; min: string };
@@ -39,6 +39,7 @@ interface IFilterSet {
 }
 
 const GroupForcesView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
 
   // States
@@ -114,44 +115,44 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const headersExecutionTable: IHeaderConfig[] = [
     {
       dataField: "date",
-      header: translate.t("group.forces.date"),
+      header: t("group.forces.date"),
       onSort: onSortState,
     },
     {
       dataField: "status",
       formatter: statusFormatter,
-      header: translate.t("group.forces.status.title"),
+      header: t("group.forces.status.title"),
       onSort: onSortState,
       width: "105px",
       wrapped: true,
     },
     {
       dataField: "foundVulnerabilities.total",
-      header: translate.t("group.forces.status.vulnerabilities"),
+      header: t("group.forces.status.vulnerabilities"),
       onSort: onSortState,
       wrapped: true,
     },
     {
       dataField: "strictness",
-      header: translate.t("group.forces.strictness.title"),
+      header: t("group.forces.strictness.title"),
       onSort: onSortState,
       wrapped: true,
     },
     {
       dataField: "kind",
-      header: translate.t("group.forces.kind.title"),
+      header: t("group.forces.kind.title"),
       onSort: onSortState,
       wrapped: true,
     },
     {
       dataField: "gitRepo",
-      header: translate.t("group.forces.gitRepo"),
+      header: t("group.forces.gitRepo"),
       onSort: onSortState,
       wrapped: true,
     },
     {
       dataField: "executionId",
-      header: translate.t("group.forces.identifier"),
+      header: t("group.forces.identifier"),
       onSort: onSortState,
       wrapped: true,
     },
@@ -173,7 +174,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred getting executions", error);
     });
   };
@@ -190,9 +191,9 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const executions: IExecution[] = data.forcesExecutions.executions.map(
     (execution: IExecution): IExecution => {
       const date: string = formatDate(execution.date);
-      const kind: string = translate.t(`group.forces.kind.${execution.kind}`);
+      const kind: string = t(`group.forces.kind.${execution.kind}`);
       const strictness: string = toTitleCase(
-        translate.t(
+        t(
           execution.strictness === "lax"
             ? "group.forces.strictness.tolerant"
             : "group.forces.strictness.strict"
@@ -217,7 +218,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
               vulnerabilities.numOfOpenVulnerabilities +
               vulnerabilities.numOfClosedVulnerabilities,
           };
-      const status: string = translate.t(
+      const status: string = t(
         foundVulnerabilities.open === 0
           ? "group.forces.status.secure"
           : "group.forces.status.vulnerable"
@@ -421,7 +422,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <p>{translate.t("group.forces.tableAdvice")}</p>
+      <p>{t("group.forces.tableAdvice")}</p>
       <Table
         clearFiltersButton={clearFilters}
         customFilters={{
@@ -453,7 +454,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       <Modal
         onClose={closeSeeExecutionDetailsModal}
         open={isExecutionDetailsModalOpen}
-        title={translate.t("group.forces.executionDetailsModal.title")}
+        title={t("group.forces.executionDetailsModal.title")}
       >
         <Execution
           date={currentRow.date}
@@ -472,7 +473,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         />
         <ModalFooter>
           <Button onClick={closeSeeExecutionDetailsModal} variant={"secondary"}>
-            {translate.t("group.forces.executionDetailsModal.close")}
+            {t("group.forces.executionDetailsModal.close")}
           </Button>
         </ModalFooter>
       </Modal>
