@@ -85,10 +85,19 @@ async def send_mail_event_report(
         for user in users
         if Notification.EVENT_REPORT in user.notifications_preferences.email
     ]
+    event_type_format = {
+        "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for special attack",
+        "CLIENT_APPROVES_CHANGE_TOE": "Client approves ToE change",
+        "CLIENT_DETECTS_ATTACK": "Client detects the attack",
+        "HIGH_AVAILABILITY_APPROVAL": "High availability approval",
+        "INCORRECT_MISSING_SUPPLIES": "Incorrect or missing supplies",
+        "OTHER": "Other",
+        "TOE_DIFFERS_APPROVED": "ToE different than agreed upon",
+    }
 
     email_context: MailContentType = {
         "group": group_name,
-        "event_type": event_type.capitalize().replace("_", " "),
+        "event_type": event_type_format[event_type],
         "description": description,
         "event_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
