@@ -1,3 +1,9 @@
 lib_path.f247.resource_not_encrypted:
-  en: The resource or the information on it is not encrypted
-  es: El recurso o la informacion de este no esta cifrada
+  en: Property encrypted is either missing or misconfigured
+  es: Falta la propiedad encrypted o está mal configurada
+lib_path.f247.tfm_ebs_unencrypted_by_default:
+  en: Property enabled is either missing or misconfigured
+  es: Falta la propiedad enabled o está mal configurada
+lib_path.f247.tfm_fsx_unencrypted_volumes:
+  en: Property kms_key_id is either missing or misconfigured
+  es: Falta la propiedad kms_key_id o está mal configurada

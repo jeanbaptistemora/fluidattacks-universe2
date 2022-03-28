@@ -101,7 +101,7 @@ def tfm_fsx_unencrypted_volumes(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f247.resource_not_encrypted",
+        description_key="lib_path.f247.tfm_fsx_unencrypted_volumes",
         iterator=get_cloud_iterator(
             _tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
                 resource_iterator=iter_aws_fsx_windows_file_system(model=model)
@@ -149,7 +149,7 @@ def tfm_ebs_unencrypted_by_default(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f247.resource_not_encrypted",
+        description_key="lib_path.f247.tfm_ebs_unencrypted_by_default",
         iterator=get_cloud_iterator(
             _tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
                 resource_iterator=iter_aws_ebs_encryption_by_default(
