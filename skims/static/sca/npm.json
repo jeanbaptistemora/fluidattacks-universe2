@@ -1050,6 +1050,15 @@
   "bs58chekc": {
     "GHSA-fwvq-x4j9-hr5f": ">=0"
   },
+  "bs85": {
+    "GHSA-gvm7-8fq3-qjj2": ">=0"
+  },
+  "bs85check": {
+    "GHSA-4hq8-v42x-9wx3": ">=0"
+  },
+  "bsae-x": {
+    "GHSA-mgff-xpg3-3gwc": ">=0"
+  },
   "bson": {
     "CVE-2018-13863": ">=0.5.0 <1.0.5",
     "CVE-2019-2391": "<1.1.4",
@@ -1057,6 +1066,27 @@
   },
   "bson-objectid": {
     "CVE-2019-19729": "=1.3.0"
+  },
+  "btffer-xor": {
+    "GHSA-8hrq-9wm7-v3jw": ">=0"
+  },
+  "bubfer-xor": {
+    "GHSA-vm67-mh96-95mq": ">=0"
+  },
+  "budfer-xor": {
+    "GHSA-6584-gfwm-3vc3": ">=0"
+  },
+  "buefy": {
+    "GHSA-xwqw-rf2q-xmhf": "<0.7.2"
+  },
+  "bufber-xor": {
+    "GHSA-p9g3-vpvp-hcj5": ">=0"
+  },
+  "bufder-xor": {
+    "GHSA-w9q5-mvc6-5cw3": ">=0"
+  },
+  "buffar-xor": {
+    "GHSA-f64g-whxf-w8f2": ">=0"
   },
   "buns": {
     "CVE-2020-7794": ">=0"
