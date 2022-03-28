@@ -47,10 +47,8 @@ async def main() -> None:
         print(f"[INFO] processing {project}")
         current_token = await get_old_forces_token(project)
         if current_token:
-            if await update_token(project, current_token):
-                print(f"[OK] {project}")
-            else:
-                print(f"[FAIL] {project}")
+            await update_token(project, current_token)
+            print(f"[OK] {project}")
 
 
 if __name__ == "__main__":

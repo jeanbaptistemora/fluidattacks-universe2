@@ -64,16 +64,16 @@ async def mutate(
                     f"{group_name}"
                 ),
             )
-            if await forces_domain.update_token(
-                group_name, result.session_jwt
-            ):
-                logs_utils.cloudwatch_log(
-                    info.context,
-                    (
-                        f'{user_info["user_email"]} store in secretsmanager '
-                        f"forces token for {user_email}"
-                    ),
-                )
+            await forces_domain.update_token(
+                group_name=group_name, token=result.session_jwt
+            )
+            logs_utils.cloudwatch_log(
+                info.context,
+                (
+                    f'{user_info["user_email"]} store in secretsmanager '
+                    f"forces token for {user_email}"
+                ),
+            )
         else:
             logs_utils.cloudwatch_log(
                 info.context,

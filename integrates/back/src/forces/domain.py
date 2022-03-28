@@ -5,6 +5,9 @@ from custom_types import (
 from datetime import (
     datetime,
 )
+from db_model.groups.types import (
+    GroupMetadataToUpdate,
+)
 from forces import (
     dal as forces_dal,
 )
@@ -215,5 +218,10 @@ def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
     return new
 
 
-async def update_token(group_name: str, token: str) -> bool:
-    return await groups_domain.update(group_name, {"agent_token": token})
+async def update_token(group_name: str, token: str) -> None:
+    return await groups_domain.update_metadata_typed(
+        group_name=group_name,
+        metadata=GroupMetadataToUpdate(
+            agent_token=token,
+        ),
+    )
