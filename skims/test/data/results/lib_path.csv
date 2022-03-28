@@ -19787,7 +19787,7 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   82 |           }
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_port
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,11,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,11,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
    1 | Resources:
    2 |   NewVolume1:
    3 |     Type: AWS::EC2::Volume
@@ -19811,7 +19811,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   21 |     DeletionPolicy: Snapshot
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,6,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,6,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
    1 | Resources:
    2 |   NewVolume1:
    3 |     Type: AWS::EC2::Volume
@@ -19835,7 +19835,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   21 |     DeletionPolicy: Snapshot
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,17,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,17,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
    7 |       AvailabilityZone: us-east-1
    8 |     DeletionPolicy: Snapshot
    9 |   NewVolume2:
@@ -19859,7 +19859,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   27 |       KmsKeyId: arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,7,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,7,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""NewVolume1"": {
@@ -19883,7 +19883,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   21 |       ""Type"": ""AWS::EC2::Volume"",
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,14,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,14,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json","
    4 |       ""Type"": ""AWS::EC2::Volume"",
    5 |       ""Properties"": {
    6 |         ""Size"": 100,
@@ -19907,7 +19907,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   24 |         ""Encrypted"": true,
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,22,313,skims,250. Non-encrypted hard drives,EC2 volumes are not encrypted or do not use customer-managed keys in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,22,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json","
   12 |     ""NewVolume2"": {
   13 |       ""Type"": ""AWS::EC2::Volume"",
   14 |       ""Properties"": {
@@ -19931,8 +19931,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   32 |         ""Size"": 100,
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
- in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml","
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,25,313,skims,250. Non-encrypted hard drives,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml,"
   15 |         AutoImportPolicy: ""NEW""
   16 |         CopyTagsToBackups: true
   17 |         DeploymentType: ""PERSISTENT_1""
@@ -19956,8 +19955,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volum
   35 |         AutoImportPolicy: ""NEW""
      ^ Col 0
 ",cloudformation.cfn_fsx_has_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml.json,60,313,skims,250. Non-encrypted hard drives,"FileSystem must be encrypted with a KmsKeyId
- in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml.json","
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml.json,60,313,skims,250. Non-encrypted hard drives,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_fsx_has_unencrypted_volumes.yaml.json,"
    50 |                 }
    51 |               ]
    52 |             ]

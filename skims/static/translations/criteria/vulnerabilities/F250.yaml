@@ -1,10 +1,6 @@
 src.lib_path.f250.fsx_has_unencrypted_volumes:
-  en: >
-    FileSystem must be encrypted with a KmsKeyId
-  es: >
-    Las entidades de FileSystem deben estar encryptadas con KmsKeyId
+  en: Property KmsKeyId is either missing or misconfigured
+  es: Falta la propiedad KmsKeyId o está mal configurada
 src.lib_path.f250.ec2_has_unencrypted_volumes:
-  en: EC2 volumes are not encrypted or do not use customer-managed keys
-  es: >
-    Los volúmenes EC2 no están cifrados o no usan claves administradas por el
-    cliente
+  en: Properties Encrypted, KmsKeyId are missing or misconfigured
+  es: Las propiedades Encrypted, KmsKeyId faltan o están mal configurados
