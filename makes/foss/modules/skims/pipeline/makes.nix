@@ -114,6 +114,10 @@ in {
             (inputs.skimsTestPythonCategories)))
         ++ [
           {
+            output = "/skims/lintPythonIso";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/skims/test/cli";
             gitlabExtra = gitlabTestFuntional;
           }
