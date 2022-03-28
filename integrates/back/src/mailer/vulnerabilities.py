@@ -27,7 +27,7 @@ from typing import (
 )
 
 
-async def send_mail_updated_treatment(  # pylint: disable=too-many-locals
+async def send_mail_updated_treatment(
     *,
     loaders: Any,
     finding_id: str,
@@ -37,14 +37,7 @@ async def send_mail_updated_treatment(  # pylint: disable=too-many-locals
     vulnerabilities: str,
     modified_by: str,
 ) -> None:
-    group_loader = loaders.group
-    group = await group_loader.load(group_name)
-    org_id = group["organization"]
-
-    organization_loader = loaders.organization
-    organization = await organization_loader.load(org_id)
-    org_name = organization["name"]
-
+    org_name = await get_organization_name(loaders, group_name)
     managers = await group_access_domain.get_managers(group_name)
     users: Tuple[User, ...] = await loaders.user.load_many(managers)
     users_email = [
