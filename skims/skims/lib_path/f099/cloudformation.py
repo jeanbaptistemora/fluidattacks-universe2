@@ -94,7 +94,7 @@ def cfn_unencrypted_buckets(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f099.unencrypted_buckets",
+        description_key="lib_path.f099.unencrypted_buckets",
         iterator=get_cloud_iterator(
             _cfn_unencrypted_buckets_iterate_vulnerabilities(
                 file_ext=file_ext,

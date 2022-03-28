@@ -1,6 +1,6 @@
 src.lib_path.f099.bckp_has_server_side_encryption_disabled:
   en: Buckets have Server-Side Encryption disabled
   es: Los Buckets tienen el cifrado del lado del servidor deshabilitado
-src.lib_path.f099.unencrypted_buckets:
-  en: S3 buckets do not use server-side encryption
-  es: Los buckets S3 no usan cifrado del lado del servidor
+lib_path.f099.unencrypted_buckets:
+  en: Property BucketEncryption is either missing or misconfigured
+  es: La propiedad BucketEncryption falta o está mal configurada

@@ -44,7 +44,7 @@ def tfm_unencrypted_buckets(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="src.lib_path.f099.unencrypted_buckets",
+        description_key="lib_path.f099.unencrypted_buckets",
         iterator=get_cloud_iterator(
             _tfm_unencrypted_buckets_iterate_vulnerabilities(
                 buckets_iterator=tfm_iter_s3_buckets(model=model)

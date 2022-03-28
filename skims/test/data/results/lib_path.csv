@@ -18212,7 +18212,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_
    36 |
       ^ Col 23
 ",cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled
-F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,5,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,5,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
    3 |     Type: AWS::S3::Bucket
@@ -18231,7 +18231,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,
   16 |     DeletionPolicy: Delete
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,"
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
@@ -18255,7 +18255,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.
   21 |             }
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""bucket"" {
    2 |   bucket = ""fluidattacks.com""
    3 |   acl    = ""private""
@@ -18279,7 +18279,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,
   21 |   }
      ^ Col 0
 ",terraform.tfm_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
+F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read-write""
    4 |
@@ -18303,7 +18303,7 @@ F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,311,
   22 | }
      ^ Col 0
 ",terraform.tfm_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
+F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read-write""
@@ -18327,7 +18327,7 @@ F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,311,s
   21 |   }
      ^ Col 0
 ",terraform.tfm_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,9,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,9,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
    3 |     Type: AWS::S3::Bucket
@@ -18344,7 +18344,7 @@ F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,4,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,4,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
    3 |     Type: AWS::S3::Bucket
@@ -18361,7 +18361,7 @@ F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   14 |         LogFilePrefix: log_prefix
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,5,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,5,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
@@ -18385,7 +18385,7 @@ F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   21 |   }
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,12,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,S3 buckets do not use server-side encryption in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,12,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
    4 |       ""Type"": ""AWS::S3::Bucket"",
