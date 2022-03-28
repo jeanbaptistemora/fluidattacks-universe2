@@ -23,6 +23,13 @@ from fa_purity.frozen import (
 from fa_purity.maybe import (
     Maybe,
 )
+from fa_purity.result import (
+    Result,
+    ResultE,
+)
+from git import (
+    InvalidGitRepositoryError,
+)
 from git.repo.base import (
     Repo,
 )
@@ -59,23 +66,35 @@ def upload_or_register(
     return _register.bind(lambda _: _upload)
 
 
+def _try_repo(raw: str) -> ResultE[Repo]:
+    try:
+        return Result.success(Repo(raw))
+    except InvalidGitRepositoryError as err:
+        return Result.failure(err)
+
+
 def upload(
     client: Client,
     namespace: str,
     repo_path: Path,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    repo = Repo(str(repo_path))
+    repo = _try_repo(str(repo_path))
     repo_id = RepoId(namespace, repo_path.name)
     info = Cmd.from_cmd(lambda: LOG.info("Uploading %s", repo_id))
     extractor = client.get_context(repo_id).map(
         lambda r: Extractor(r, mailmap)
     )
-    return info.bind(
-        lambda _: extractor.bind(
-            lambda ext: upload_or_register(client, ext, repo)
-        )
+    report = Cmd.from_cmd(
+        lambda: LOG.error("InvalidGitRepositoryError at %s", repo_id)
     )
+    return repo.map(
+        lambda r: info.bind(
+            lambda _: extractor.bind(
+                lambda ext: upload_or_register(client, ext, r)
+            )
+        )
+    ).value_or(report)
 
 
 def upload_repos(
