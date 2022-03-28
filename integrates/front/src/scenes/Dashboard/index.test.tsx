@@ -1,13 +1,8 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
-import wait from "waait";
-
-import { Sidebar } from "./components/Sidebar";
 
 import { Dashboard } from "scenes/Dashboard";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
@@ -85,7 +80,7 @@ describe("Dashboard", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider mocks={mocks}>
           <Dashboard />
@@ -93,18 +88,15 @@ describe("Dashboard", (): void => {
       </MemoryRouter>
     );
 
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(container.querySelector("#navbar")).toBeInTheDocument();
     });
 
-    const sideBar = wrapper.find(Sidebar);
-    const scrollUpButton: ReactWrapper = wrapper.find("ScrollUp");
-    const navBar: ReactWrapper = wrapper.find({ id: "navbar" });
-
-    expect(wrapper).toHaveLength(1);
-    expect(sideBar).toHaveLength(1);
-    expect(scrollUpButton).toHaveLength(1);
-    expect(navBar.length).toBeGreaterThan(0);
+    expect(container.querySelector("#scroll-up")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "App logo" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "App logo" })).toHaveAttribute(
+      "href",
+      "/home"
+    );
   });
 });
