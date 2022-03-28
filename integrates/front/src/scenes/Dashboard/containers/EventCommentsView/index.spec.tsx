@@ -109,7 +109,7 @@ describe("EventCommentsView", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.text()).toContain("No comments");
+    expect(wrapper.text()).toContain("comments.noComments");
 
     document.body.removeChild(container);
   });

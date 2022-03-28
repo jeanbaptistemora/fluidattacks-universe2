@@ -1,20 +1,16 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
-import { Comments } from "scenes/Dashboard/components/Comments";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView";
 import {
   GET_FINDING_CONSULTING,
   GET_FINDING_OBSERVATIONS,
 } from "scenes/Dashboard/containers/CommentsView/queries";
 
-describe("FindingCommentsView", (): void => {
+describe("CommentsView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
@@ -34,6 +30,16 @@ describe("FindingCommentsView", (): void => {
                 fullName: "Test User",
                 id: "1337260012345",
                 modified: "2019/12/04 08:13:53",
+                parent: "0",
+              },
+              {
+                __typename: "Consult",
+                content: "Consult comment two",
+                created: "2019/12/04 08:14:53",
+                email: "unittest@fluidattacks.com",
+                fullName: "Test User",
+                id: "1337260012346",
+                modified: "2019/12/04 08:14:53",
                 parent: "0",
               },
             ],
@@ -78,9 +84,7 @@ describe("FindingCommentsView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/consulting"]}>
         <MockedProvider addTypename={true} mocks={mocks}>
           <Route
@@ -88,19 +92,16 @@ describe("FindingCommentsView", (): void => {
             path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+
+    await waitFor((): void => {
+      expect(screen.queryByText("Consult comment")).toBeInTheDocument();
     });
 
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.text()).toContain("Consult comment");
-    expect(wrapper.find(Comments)).toHaveLength(1);
+    expect(screen.queryByText("comments.orderBy.label")).toBeInTheDocument();
 
-    document.body.removeChild(container);
+    jest.clearAllMocks();
   });
 
   it("should render empty UI", async (): Promise<void> => {
@@ -125,7 +126,7 @@ describe("FindingCommentsView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/consulting"]}>
         <MockedProvider addTypename={true} mocks={emptyMocks}>
           <Route
@@ -133,25 +134,18 @@ describe("FindingCommentsView", (): void => {
             path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("comments.noComments")).toBeInTheDocument();
     });
-
-    expect(wrapper.text()).toContain("No comments");
-
-    document.body.removeChild(container);
+    jest.clearAllMocks();
   });
 
   it("should render comment", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/consulting"]}>
         <MockedProvider addTypename={true} mocks={mocks}>
           <Route
@@ -159,26 +153,20 @@ describe("FindingCommentsView", (): void => {
             path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+
+    await waitFor((): void => {
+      expect(screen.queryByText("Consult comment")).toBeInTheDocument();
     });
 
-    expect(wrapper.find(Comments)).toHaveLength(1);
-    expect(wrapper.text()).toContain("Consult comment");
-
-    document.body.removeChild(container);
+    jest.clearAllMocks();
   });
 
   it("should render observation", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/observations"]}>
         <MockedProvider addTypename={true} mocks={mocks}>
           <Route
@@ -186,17 +174,11 @@ describe("FindingCommentsView", (): void => {
             path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("Observation comment")).toBeInTheDocument();
     });
-
-    expect(wrapper.find(Comments)).toHaveLength(1);
-    expect(wrapper.text()).toContain("Observation comment");
-
-    document.body.removeChild(container);
+    jest.clearAllMocks();
   });
 });

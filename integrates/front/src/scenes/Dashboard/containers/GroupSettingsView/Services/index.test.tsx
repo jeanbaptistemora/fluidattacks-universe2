@@ -37,6 +37,8 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            businessId: "",
+            businessName: "",
             description: "Integrates unit test project",
             hasMachine: true,
             hasSquad: true,
@@ -58,6 +60,8 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            businessId: "",
+            businessName: "",
             description: "Integrates unit test project",
             hasMachine: true,
             hasSquad: true,
@@ -79,6 +83,8 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
+            businessId: "",
+            businessName: "",
             description: "Integrates unit test project",
             hasMachine: true,
             hasSquad: true,
@@ -289,6 +295,8 @@ describe("Services", (): void => {
         result: {
           data: {
             group: {
+              businessId: "",
+              businessName: "",
               description: "Integrates unit test project",
               hasASM: true,
               hasMachine: true,
