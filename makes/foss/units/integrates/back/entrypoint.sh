@@ -15,6 +15,10 @@ function serve {
     --bind "${HOST}:${PORT}"
     # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
     --forwarded-allow-ips '*'
+    # The maximum number of requests a worker will process before restarting. [0]
+    --max-requests '256'
+    # The maximum jitter to add to the max_requests setting. [0]
+    --max-requests-jitter '64'
     # Workers silent for more than this many seconds are killed and restarted. [30]
     --timeout '120'
     # The type of workers to use. [sync]
