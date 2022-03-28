@@ -16,7 +16,7 @@ async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
     has_mobile_app: bool = False
-    user_email: str = parent["user_email"]
+    user_email = str(parent["user_email"])
     user_attrs: dict = await users_domain.get_attributes(
         user_email, ["push_tokens"]
     )

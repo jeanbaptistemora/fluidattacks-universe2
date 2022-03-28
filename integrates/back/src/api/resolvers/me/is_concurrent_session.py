@@ -12,7 +12,7 @@ from users import (
 async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
-    user_email: str = parent["user_email"]
+    user_email = str(parent["user_email"])
     is_concurrent_session: bool = bool(
         await users_domain.get_data(user_email, "is_concurrent_session")
     )
