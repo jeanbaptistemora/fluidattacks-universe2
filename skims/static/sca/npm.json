@@ -850,6 +850,36 @@
     "CVE-2016-10613": "<=1.0.3",
     "GMS-2017-86": ">=0.0.0-alpha"
   },
+  "bip30": {
+    "GHSA-wch2-46wj-6x5j": ">=0"
+  },
+  "bitcion-ops": {
+    "GHSA-85q4-v37c-wfpc": ">=0"
+  },
+  "bitcionjs": {
+    "GHSA-qmgf-fp85-55gr": ">=0"
+  },
+  "bitcionjslib": {
+    "GHSA-p4mf-4qvh-w8g5": ">=0"
+  },
+  "bitcoijns-lib": {
+    "GHSA-37vc-gwvp-6cgv": ">=0"
+  },
+  "bitcoimd-rpc": {
+    "GHSA-rwmv-c7v8-v9vf": ">=0"
+  },
+  "bitcoimjs-lib": {
+    "GHSA-rv6q-p3x7-43fx": ">=0"
+  },
+  "bitcoin-osp": {
+    "GHSA-v8g7-9qv2-j865": ">=0"
+  },
+  "bitcoin-sweep": {
+    "GHSA-8hqw-qp6r-vqcm": ">=0"
+  },
+  "bitcoisnj-lib": {
+    "GHSA-629c-j867-3v45": ">=0"
+  },
   "bittorrent-dht": {
     "GMS-2016-1": "<5.1.3"
   },
