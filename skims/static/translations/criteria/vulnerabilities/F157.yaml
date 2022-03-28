@@ -2,11 +2,11 @@ lib_path.f157.etl_visible_to_the_public_network:
   en: The ETL is visible to the public network
   es: El ETL es visible para la red pública
 lib_path.f157.tfm_azure_sa_default_network_access:
-  en: Ensure Azure Storage Account default network access is set to Deny
-  es: Asegúrese de que el acceso predeterminado a la red de Azure Storage Account esté establecido en Deny
+  en: Ensure Azure Storage Account default network access is set to deny
+  es: Asegúrese de que el acceso predeterminado a la red de Azure Storage Account esté establecido en deny
 lib_path.f157.tfm_azure_kv_default_network_access:
-  en: Ensure Azure Key Vault default network access is set to Deny
-  es: Asegúrese de que el acceso predeterminado a la red de Azure Key Vault esté establecido en Deny
+  en: Property default_action is either missing or misconfigured
+  es: Falta la propiedad default_action o está mal configurada
 lib_path.f157.tfm_azure_kv_danger_bypass:
-  en: Ensure only Azure Services can bypass the network rules.
-  es: Asegúrese de que solo los servicios de Azure puedan omitir las reglas de red.
+  en: Property bypass is either missing or misconfigured
+  es: Falta la propiedad bypass o está mal configurada
