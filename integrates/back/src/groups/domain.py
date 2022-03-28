@@ -1483,18 +1483,17 @@ async def update_pending_deletion_date(
     return success
 
 
-async def update_tags(
-    group_name: str, group_tags: GroupType, tags: List[str]
-) -> bool:
-    success: bool = False
-    if not group_tags["tag"]:
-        group_tags = {"tag": set(tags)}
-    else:
-        cast(Set[str], group_tags.get("tag")).update(tags)
-    success = await update(group_name, group_tags)
-    if not success:
-        LOGGER.error("Couldn't add tags", extra={"extra": locals()})
-    return success
+async def add_tags(
+    group: Group,
+    tags_to_add: set[str],
+) -> None:
+    updated_tags = group.tags.union(tags_to_add) if group.tags else tags_to_add
+    await update_metadata_typed(
+        group_name=group.name,
+        metadata=GroupMetadataToUpdate(
+            tags=updated_tags,
+        ),
+    )
 
 
 async def remove_tag(
@@ -1526,8 +1525,8 @@ def validate_group_services_config(
             )
 
 
-async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
-    """Validate tags array"""
+async def validate_group_tags(group_name: str, tags: list[str]) -> list[str]:
+    """Validate tags array."""
     pattern = re.compile("^[a-z0-9]+(?:-[a-z0-9]+)*$")
     if await _has_repeated_tags(group_name, tags):
         raise RepeatedValues()

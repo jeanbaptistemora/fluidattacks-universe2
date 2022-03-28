@@ -1,8 +1,17 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ErrorUpdatingGroup,
+)
 from custom_types import (
-    SimpleGroupPayload as SimpleGroupPayloadType,
+    SimpleGroupPayload,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
 )
 from decorators import (
     concurrent_decorators,
@@ -24,7 +33,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    List,
 )
 
 
@@ -36,36 +44,34 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     group_name: str,
-    tags: List[str],
-) -> SimpleGroupPayloadType:
-    success = False
+    tags: list[str],
+) -> SimpleGroupPayload:
     group_name = group_name.lower()
-    group_loader = info.context.loaders.group
-    if await groups_domain.is_valid(group_name):
-        if await groups_domain.validate_group_tags(group_name, tags):
-            group_attrs = await group_loader.load(group_name)
-            group_tags = {"tag": group_attrs["tags"]}
-            success = await groups_domain.update_tags(
-                group_name, group_tags, tags
-            )
-        else:
-            logs_utils.cloudwatch_log(
-                info.context,
-                "Security: Attempted to add tags without allowed structure",
-            )
-    else:
+
+    if not await groups_domain.is_valid(group_name):
         logs_utils.cloudwatch_log(
             info.context,
             "Security: Attempted to add tags without the allowed validations",
         )
-    if success:
-        group_loader.clear(group_name)
-        info.context.loaders.group.clear(group_name)
-        redis_del_by_deps_soon("add_group_tags", group_name=group_name)
+        raise ErrorUpdatingGroup.new()
+
+    if not await groups_domain.validate_group_tags(group_name, tags):
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Added tag to {group_name} group successfully",
+            "Security: Attempted to add tags without allowed structure",
         )
+        raise ErrorUpdatingGroup.new()
 
-    group = await group_loader.load(group_name)
-    return SimpleGroupPayloadType(success=success, group=group)
+    loaders: Dataloaders = info.context.loaders
+    group: Group = await loaders.group_typed.load(group_name)
+    await groups_domain.add_tags(group, set(tags))
+
+    loaders.group_typed.clear(group_name)
+    redis_del_by_deps_soon("add_group_tags", group_name=group_name)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Tags added to {group_name} group successfully",
+    )
+
+    group = await loaders.group_typed.load(group_name)
+    return SimpleGroupPayload(success=True, group=group)
