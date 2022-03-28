@@ -1,5 +1,5 @@
 import type { IEventsDataset } from "..";
-import type { IFindingsQuery } from "../AffectedReattackAccordion/types";
+import type { IFinding } from "../AffectedReattackAccordion/types";
 
 interface IUpdateAffectedValues {
   eventId: string;
@@ -7,8 +7,8 @@ interface IUpdateAffectedValues {
 }
 
 interface IUpdateAffectedModalProps {
-  eventsInfo: IEventsDataset;
-  findingsInfo: IFindingsQuery;
+  eventsInfo: IEventsDataset | undefined;
+  findings: IFinding[];
   onClose: () => void;
   onSubmit: (values: IUpdateAffectedValues) => Promise<void>;
 }

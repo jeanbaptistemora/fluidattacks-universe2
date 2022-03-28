@@ -361,9 +361,13 @@ export const enTranslations: ResourceKey = {
             "At least one of the selected reattacks was closed already",
           alreadyOnHold:
             "At least one of the selected reattacks was put on hold already",
+          btn: {
+            text: "Update Affected Reattacks",
+            tooltip: "Put reattacks on hold on already existing Events",
+          },
           checkbox: "Does this event have an impact on any ongoing reattacks?",
           description: "Please select the affected reattacks",
-          eventSection: "Please select an Event",
+          eventSection: "Event",
           holdsCreate: "Reattack holds requested successfully",
           sectionTitle: "Affected Reattacks",
           selection: "Please select the reattacks that would be affected",

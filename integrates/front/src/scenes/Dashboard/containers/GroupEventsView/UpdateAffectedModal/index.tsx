@@ -3,56 +3,28 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
+import type { IUpdateAffectedModalProps, IUpdateAffectedValues } from "./types";
+
 import { AffectedReattackAccordion } from "../AffectedReattackAccordion";
-import type { IFindingsQuery } from "../AffectedReattackAccordion/types";
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikDropdown } from "utils/forms/fields";
 
-interface IEventsDataset {
-  group: {
-    events: {
-      detail: string;
-      eventStatus: string;
-      id: string;
-    }[];
-    name: string;
-  };
-}
-
-interface IUpdateAffectedValues {
-  eventId: string;
-  affectedReattacks: string[];
-}
-
-interface IUpdateAffectedModalProps {
-  eventsInfo: IEventsDataset;
-  findingsInfo: IFindingsQuery;
-  onClose: () => void;
-  onSubmit: (values: IUpdateAffectedValues) => Promise<void>;
-}
-
 export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
   eventsInfo,
-  findingsInfo,
+  findings,
   onClose,
   onSubmit,
 }: IUpdateAffectedModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const validations = object().shape({
-    affectedReattacks: array().when("affectsReattacks", {
-      is: true,
-      otherwise: array().notRequired(),
-      then: array().min(1, t("validations.someRequired")),
-    }),
-    eventId: string().required(),
-  });
+  // Null check
+  const events = eventsInfo?.group.events ?? [];
 
-  const eventOptions = eventsInfo.group.events.map(
+  const eventOptions = events.map(
     ({ detail, eventStatus, id }): JSX.Element => {
-      if (eventStatus !== "SOLVED") {
+      if (eventStatus.toUpperCase() !== "SOLVED") {
         return <option value={id}>{detail}</option>;
       }
 
@@ -65,6 +37,11 @@ export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
       ...values,
     });
   }
+
+  const validations = object().shape({
+    affectedReattacks: array().min(1, t("validations.someRequired")),
+    eventId: string().required(t("validations.required")),
+  });
 
   return (
     <Modal
@@ -95,11 +72,13 @@ export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
               </FormGroup>
               <FormGroup>
                 <ControlLabel>
-                  {t("group.events.form.affectedReattacks.description")}
+                  {t("group.events.form.affectedReattacks.sectionTitle")}
                 </ControlLabel>
-                <AffectedReattackAccordion
-                  findings={findingsInfo.group.findings}
-                />
+                <br />
+                {t("group.events.form.affectedReattacks.selection")}
+                <br />
+                <br />
+                <AffectedReattackAccordion findings={findings} />
               </FormGroup>
             </Row>
             <ModalFooter>

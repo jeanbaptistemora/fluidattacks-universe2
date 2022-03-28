@@ -13,6 +13,11 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import type { IFormValues } from "./AddModal";
 import { AddModal } from "./AddModal";
+import { GET_REATTACK_VULNS } from "./AffectedReattackAccordion/queries";
+import type {
+  IFinding,
+  IFindingsQuery,
+} from "./AffectedReattackAccordion/types";
 import {
   handleCreationError,
   handleFileListUpload,
@@ -26,6 +31,8 @@ import {
   eventActionsBeforeBlocking,
   selectOptionType,
 } from "./selectOptions";
+import { UpdateAffectedModal } from "./UpdateAffectedModal";
+import type { IUpdateAffectedValues } from "./UpdateAffectedModal/types";
 
 import { Button } from "components/Button";
 import { Table } from "components/Table";
@@ -287,15 +294,24 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     push(`${url}/${rowInfo.id}/description`);
   };
 
-  const [isEventModalOpen, setEventModalOpen] = useState(false);
+  // State Management
   const [selectedReattacks, setSelectedReattacks] = useState({});
 
+  const [isEventModalOpen, setEventModalOpen] = useState(false);
   const openNewEventModal: () => void = useCallback((): void => {
     setEventModalOpen(true);
   }, []);
-
   const closeNewEventModal: () => void = useCallback((): void => {
     setEventModalOpen(false);
+  }, []);
+
+  const [isUpdateAffectedModalOpen, setUpdateAffectedModalOpen] =
+    useState(false);
+  const openUpdateAffectedModal: () => void = useCallback((): void => {
+    setUpdateAffectedModalOpen(true);
+  }, []);
+  const closeUpdateAffectedModal: () => void = useCallback((): void => {
+    setUpdateAffectedModalOpen(false);
   }, []);
 
   const { data, refetch } = useQuery(GET_EVENTS, {
@@ -303,6 +319,21 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     onError: handleQryErrors,
     variables: { groupName },
   });
+
+  const { data: findingsData, refetch: refetchReattacks } =
+    useQuery<IFindingsQuery>(GET_REATTACK_VULNS, {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load reattack vulns", error);
+        });
+      },
+      variables: { groupName },
+    });
+  const findings =
+    findingsData === undefined ? [] : findingsData.group.findings;
+  const hasReattacks = findings.some(
+    (finding: IFinding): boolean => finding.vulnerabilitiesToReattack.length > 0
+  );
 
   const [requestHold] = useMutation(REQUEST_VULNS_HOLD_MUTATION, {
     onError: handleRequestHoldError,
@@ -381,7 +412,43 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     [addEvent, groupName]
   );
 
+  const handleUpdateAffectedSubmit = useCallback(
+    async (values: IUpdateAffectedValues): Promise<void> => {
+      setSelectedReattacks(formatReattacks(values.affectedReattacks));
+
+      if (!_.isEmpty(selectedReattacks)) {
+        const allHoldsValid = await handleRequestHoldsHelper(
+          requestHold,
+          selectedReattacks,
+          values.eventId,
+          groupName
+        );
+
+        if (allHoldsValid) {
+          msgSuccess(
+            translate.t("group.events.form.affectedReattacks.holdsCreate"),
+            translate.t("group.events.titleSuccess")
+          );
+        }
+
+        closeUpdateAffectedModal();
+        void refetchReattacks();
+      }
+    },
+    [
+      closeUpdateAffectedModal,
+      refetchReattacks,
+      requestHold,
+      groupName,
+      selectedReattacks,
+    ]
+  );
+
   const dataset = data === undefined ? [] : formatEvents(data.group.events);
+  const hasOpenEvents = dataset.some(
+    (event: IEventConfig): boolean =>
+      event.eventStatus.toUpperCase() !== "SOLVED"
+  );
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -670,6 +737,14 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           onSubmit={handleSubmit}
         />
       ) : undefined}
+      {isUpdateAffectedModalOpen ? (
+        <UpdateAffectedModal
+          eventsInfo={data}
+          findings={findings}
+          onClose={closeUpdateAffectedModal}
+          onSubmit={handleUpdateAffectedSubmit}
+        />
+      ) : undefined}
       <TooltipWrapper
         id={"group.events.help"}
         message={translate.t("searchFindings.tabEvents.tableAdvice")}
@@ -706,6 +781,28 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                     <Button onClick={openNewEventModal} variant={"primary"}>
                       <FontAwesomeIcon icon={faPlus} />
                       &nbsp;{translate.t("group.events.btn.text")}
+                    </Button>
+                  </TooltipWrapper>
+                </Can>
+              </ButtonToolbar>
+              <ButtonToolbar>
+                <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
+                  <TooltipWrapper
+                    id={"group.events.form.affectedReattacks.btn.id"}
+                    message={translate.t(
+                      "group.events.form.affectedReattacks.btn.tooltip"
+                    )}
+                  >
+                    <Button
+                      disabled={!(hasReattacks && hasOpenEvents)}
+                      onClick={openUpdateAffectedModal}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                      &nbsp;
+                      {translate.t(
+                        "group.events.form.affectedReattacks.btn.text"
+                      )}
                     </Button>
                   </TooltipWrapper>
                 </Can>
