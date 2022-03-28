@@ -9,6 +9,7 @@ import _ from "lodash";
 import { default as mixpanel } from "mixpanel-browser";
 import type { ReactElement } from "react";
 import React, { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { handleGrantError } from "../GroupStakeholdersView/helpers";
@@ -45,7 +46,6 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IFilterSet {
   author: string;
@@ -56,6 +56,7 @@ interface IFilterSet {
 
 const GroupAuthorsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const now: Date = new Date();
@@ -121,7 +122,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
     fetchPolicy: "cache-first",
     onError: (error: ApolloError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group stakeholders", error);
     },
     skip: permissions.cannot(
@@ -133,7 +134,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   const { data } = useQuery<IData>(GET_BILLING, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred getting billing data", error);
       });
     },
@@ -147,8 +148,8 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         mixpanel.track("AddUserAccess");
         const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
         msgSuccess(
-          `${email}${translate.t("searchFindings.tabUsers.success")}`,
-          translate.t("searchFindings.tabUsers.titleSuccess")
+          `${email}${t("searchFindings.tabUsers.success")}`,
+          t("searchFindings.tabUsers.titleSuccess")
         );
       }
     },
@@ -171,50 +172,50 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
               ""
             );
       if (invitationState === "CONFIRMED") {
-        return translate.t("group.authors.invitationState.confirmed");
+        return t("group.authors.invitationState.confirmed");
       }
       if (invitationState === "PENDING") {
-        return translate.t("group.authors.invitationState.pending");
+        return t("group.authors.invitationState.pending");
       }
 
-      return translate.t("group.authors.invitationState.unregistered");
+      return t("group.authors.invitationState.unregistered");
     },
-    [stackHolderData]
+    [stackHolderData, t]
   );
 
   const headersAuthorsTable: IHeaderConfig[] = [
     {
       dataField: "actor",
       formatter: formatText,
-      header: translate.t("group.authors.actor"),
+      header: t("group.authors.actor"),
       width: "40%",
       wrapped: true,
     },
     {
       dataField: "groups",
       formatter: formatText,
-      header: translate.t("group.authors.groupsContributed"),
+      header: t("group.authors.groupsContributed"),
       width: "20%",
       wrapped: true,
     },
     {
       dataField: "commit",
       formatter: formatCommit,
-      header: translate.t("group.authors.commit"),
+      header: t("group.authors.commit"),
       width: "20%",
       wrapped: true,
     },
     {
       dataField: "repository",
       formatter: formatText,
-      header: translate.t("group.authors.repository"),
+      header: t("group.authors.repository"),
       width: "20%",
       wrapped: true,
     },
     {
       csvExport: false,
       dataField: "invitation",
-      header: translate.t("group.authors.invitationState.confirmed"),
+      header: t("group.authors.invitationState.confirmed"),
       sortFunc: (
         _a,
         _b,
@@ -316,7 +317,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                   <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
                     <TooltipWrapper
                       id={"authorsGrantTooltip"}
-                      message={translate.t("group.authors.tooltip.text")}
+                      message={t("group.authors.tooltip.text")}
                     >
                       <div className={"nl2"}>
                         <Button
@@ -324,7 +325,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                           onClick={handleSendInvitation}
                           variant={"secondary"}
                         >
-                          {translate.t("group.authors.sendInvitation")}
+                          {t("group.authors.sendInvitation")}
                         </Button>
                       </div>
                     </TooltipWrapper>
@@ -342,6 +343,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       loadingStakeholders,
       stackHolderData,
       stakeholdersEmail,
+      t,
     ]
   );
 
@@ -516,7 +518,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       <Row>
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col100 className={"pl0"}>
-          <p>{translate.t("group.authors.tableAdvice")}</p>
+          <p>{t("group.authors.tableAdvice")}</p>
         </Col100>
       </Row>
       <Row>

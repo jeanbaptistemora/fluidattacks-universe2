@@ -8,6 +8,7 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -25,10 +26,10 @@ import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const GroupInformation: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const [isGroupSettingsModalOpen, setGroupSettingsModalOpen] = useState(false);
@@ -51,9 +52,13 @@ const GroupInformation: React.FC = (): JSX.Element => {
     }[]
   ): Record<string, string> => {
     return attributes.reduce(
-      // Type specification not necessary
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-      (acc, cur) => ({
+      (
+        acc: Record<string, string>,
+        cur: {
+          attribute: string;
+          value: string;
+        }
+      ): Record<string, string> => ({
         ...acc,
         [cur.attribute.toLocaleLowerCase()]: cur.value,
       }),
@@ -66,7 +71,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
     {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorText"));
+          msgError(t("groupAlerts.errorText"));
           Logger.warning("An error occurred getting group data", error);
         });
       },
@@ -75,13 +80,13 @@ const GroupInformation: React.FC = (): JSX.Element => {
   );
 
   const [editGroupInfo] = useMutation(UPDATE_GROUP_INFO, {
-    onCompleted: (): void => {
+    onCompleted: async (): Promise<void> => {
       mixpanel.track("EditGroupData");
       msgSuccess(
-        translate.t("groupAlerts.groupInfoUpdated"),
-        translate.t("groupAlerts.titleSuccess")
+        t("groupAlerts.groupInfoUpdated"),
+        t("groupAlerts.titleSuccess")
       );
-      void refetchGroupData({ groupName });
+      await refetchGroupData({ groupName });
     },
     onError: (error: ApolloError): void => {
       handleEditGroupDataError(error);
@@ -89,8 +94,8 @@ const GroupInformation: React.FC = (): JSX.Element => {
   });
 
   const handleFormSubmit = useCallback(
-    (values: Record<string, string>): void => {
-      void editGroupInfo({
+    async (values: Record<string, string>): Promise<void> => {
+      await editGroupInfo({
         variables: {
           businessId: values.businessId,
           businessName: values.businessName,
@@ -156,16 +161,15 @@ const GroupInformation: React.FC = (): JSX.Element => {
       <Row>
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col60 className={"pa0"}>
-          <h2>{translate.t("searchFindings.infoTable.title")}</h2>
+          <h2>{t("searchFindings.infoTable.title")}</h2>
         </Col60>
-        {/* eslint-disable-next-line react/forbid-component-props */}
         <Col40>
           <ButtonToolbar>
             <Can do={"api_mutations_update_group_stakeholder_mutate"}>
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                message={translate.t(
+                message={t(
                   "searchFindings.tabResources.information.btnTooltip"
                 )}
               >
@@ -179,7 +183,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                 >
                   <FluidIcon icon={"edit"} />
                   &nbsp;
-                  {translate.t("searchFindings.tabUsers.editButton.text")}
+                  {t("searchFindings.tabUsers.editButton.text")}
                 </Button>
               </TooltipWrapper>
             </Can>
