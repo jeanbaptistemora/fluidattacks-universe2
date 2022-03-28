@@ -5,12 +5,10 @@ function main {
   export COVERAGE_FILE=.coverage.unit
   local pytest_args=(
     --cov 'back'
-    --cov 'backend'
     --cov-report 'term'
     --cov-report 'html:build/coverage/html'
     --cov-report 'xml:coverage.xml'
     --cov-report 'annotate:build/coverage/annotate'
-    --cov myproj
     --disable-warnings
     --exitfirst
     --no-cov-on-fail
@@ -22,6 +20,7 @@ function main {
     && DAEMON=true dynamodb-for-integrates \
     && DAEMON=true integrates-storage \
     && pushd integrates \
+    && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
     && pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \

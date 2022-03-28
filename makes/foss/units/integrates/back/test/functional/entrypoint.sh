@@ -7,9 +7,7 @@ function main {
   local populate_db="${2:-false}"
   local pytest_args=(
     --cov 'back'
-    --cov 'backend'
     --cov-report 'term'
-    --cov myproj
     --disable-warnings
     --exitfirst
     --no-cov-on-fail
@@ -26,6 +24,7 @@ function main {
     && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \
     && pushd integrates \
+    && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
     && pytest back/tests/functional "${pytest_args[@]}" \
     && popd \
     || return 1
