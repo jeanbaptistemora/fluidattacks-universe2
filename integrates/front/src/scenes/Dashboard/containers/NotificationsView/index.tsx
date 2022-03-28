@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable react/forbid-component-props */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
@@ -87,7 +88,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
               subscribeEmail: (
                 <Switch
                   checked={isSubscribe}
-                  label={{ off: "Off", on: "On" }}
+                  label={{ off: "", on: "" }}
                   onChange={onChange}
                 />
               ),
@@ -121,22 +122,24 @@ const NotificationsView: React.FC = (): JSX.Element => {
         <Row>
           {subscriptionsFiltered.map((item: ISubscriptionName): JSX.Element => {
             return (
-              <Col key={item.name} large={"25"} medium={"50"} small={"50"}>
+              <Col key={item.name} large={"25"} medium={"100"} small={"100"}>
                 <TooltipWrapper
                   id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
                   message={item.tooltip}
                 >
                   <Card>
-                    <CardHeader>{item.name}</CardHeader>
                     <CardBody>
                       <Row>
                         <Col large={"70"} medium={"70"} small={"70"}>
-                          {translate.t(
-                            "searchFindings.notificationTable.email"
-                          )}
+                          <CardHeader>{item.name}</CardHeader>
                         </Col>
                         <Col large={"30"} medium={"30"} small={"30"}>
-                          {item.subscribeEmail}
+                          <div className={"fr"}>
+                            {translate.t(
+                              "searchFindings.notificationTable.email"
+                            )}
+                            {item.subscribeEmail}
+                          </div>
                         </Col>
                       </Row>
                     </CardBody>
