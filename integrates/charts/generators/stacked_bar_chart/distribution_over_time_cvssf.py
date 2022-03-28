@@ -56,12 +56,8 @@ async def get_group_document(  # pylint: disable=too-many-locals
         elements[-12:]
         for elements in group_indicators.remediated_over_time_cvssf or []
     ]
-    group_over_time_monthly = (
-        group_indicators.remediated_over_time_month_cvssf or []
-    )
-    group_over_time_yearly = (
-        group_indicators.remediated_over_time_year_cvssf or []
-    )
+    group_over_time_monthly = group_indicators.remediated_over_time_month_cvssf
+    group_over_time_yearly = group_indicators.remediated_over_time_year_cvssf
 
     if group_over_time_monthly:
         group_opened_over_time = group_over_time_monthly[4]

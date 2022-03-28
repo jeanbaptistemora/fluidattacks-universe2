@@ -30,6 +30,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
+)
 from typing import (
     Dict,
     List,
@@ -42,15 +45,19 @@ async def get_group_document(  # pylint: disable=too-many-locals
     group: str,
     loaders: Dataloaders,
 ) -> RiskOverTime:
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group)
+    )
     data: List[GroupDocumentData] = []
     data_monthly: List[GroupDocumentData] = []
     data_yearly: List[GroupDocumentData] = []
-    data_name = "remediated_over_time"
 
-    group_data = await loaders.group.load(group)
-    group_over_time = [elements[-12:] for elements in group_data[data_name]]
-    group_over_time_monthly = group_data["remediated_over_time_month"]
-    group_over_time_yearly = group_data["remediated_over_time_year"]
+    group_over_time = [
+        elements[-12:]
+        for elements in group_indicators.remediated_over_time or []
+    ]
+    group_over_time_monthly = group_indicators.remediated_over_time_month
+    group_over_time_yearly = group_indicators.remediated_over_time_year
 
     if group_over_time:
         group_opened_over_time = group_over_time[4]
@@ -113,11 +120,13 @@ async def get_group_document(  # pylint: disable=too-many-locals
             )
 
     weekly_data_size: int = len(
-        group_data[data_name][0] if group_data[data_name] else []
+        group_indicators.remediated_over_time[0]
+        if group_indicators.remediated_over_time
+        else []
     )
     monthly_data_size: int = len(
-        group_data["remediated_over_time_month"][0]
-        if group_data["remediated_over_time_month"]
+        group_indicators.remediated_over_time_month[0]
+        if group_indicators.remediated_over_time_month
         else []
     )
     monthly = {
