@@ -27739,7 +27739,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_kv_default_network_
   27 | }
      ^ Col 0
 ",terraform.tfm_azure_kv_default_network_access
-F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,The ETL is visible to the public network in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
+F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,Property default_apublic_network_enabledction is either missing or misconfigured in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
   1 | resource ""azurerm_data_factory"" ""example"" {
   2 |   name                   = ""example""
   3 |   location               = azurerm_resource_group.example.location
