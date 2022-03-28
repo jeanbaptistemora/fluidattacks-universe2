@@ -939,8 +939,14 @@
   "bodymen": {
     "GHSA-8h84-8j4f-p97q": "<1.1.1"
   },
+  "boogeyman": {
+    "GHSA-9hc2-w9gg-q6jw": ">=0"
+  },
   "boom": {
     "npm:boom:20130209": "<0.3.0"
+  },
+  "bootbox": {
+    "GHSA-87mg-h5r3-hw88": "<=5.5.2"
   },
   "bootstrap": {
     "CVE-2016-10735": "<3.4.0 || >=4.0.0-alpha <4.0.0-beta.2",
@@ -954,18 +960,42 @@
   "bootstrap-3-typeahead": {
     "CVE-2019-10215": ">4.0.2"
   },
+  "bootstrap-sass": {
+    "GHSA-wh77-3x4m-4q9g": ">=3.0.0 <3.4.1"
+  },
+  "bootstrap-select": {
+    "GHSA-9r7h-6639-v5mw": "<1.13.6"
+  },
+  "bootstrap-table": {
+    "CVE-2021-23472": "<1.19.1"
+  },
   "bootstrap-tagsinput": {
     "GMS-2016-43": ">=0.0.0-alpha"
+  },
+  "bootstrap-vue": {
+    "GHSA-c7pp-x73h-4m2v": "<=2.0.0-rc.11"
   },
   "botbait": {
     "CVE-2017-16126": "<=2.0.0",
     "GMS-2017-225": ">=0.0.0-alpha"
+  },
+  "botframework-connector": {
+    "GHSA-fvcj-hvfw-7f2v": "4.8.0 || >=4.10.0 <4.10.3 || >=4.7.0 <4.7.3 || >=4.9.0 <4.9.4"
+  },
+  "bowe": {
+    "GHSA-xmmp-hrmx-x5g7": ">=0"
+  },
+  "bowee": {
+    "GHSA-wgvj-6v57-wjh3": ">=0"
   },
   "bower": {
     "CVE-2019-5484": "<1.8.8"
   },
   "box2d-native": {
     "GMS-2017-82": ">=0.0.0-alpha"
+  },
+  "bp66": {
+    "GHSA-8gc6-65mm-xr6r": ">=0"
   },
   "brace-expansion": {
     "CVE-2017-18077": "<1.1.7",
