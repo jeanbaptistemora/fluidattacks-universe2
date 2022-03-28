@@ -17,10 +17,14 @@ from charts.generators.stacked_bar_chart.utils import (
     sum_over_time_many_groups,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
     datetime,
+)
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
 )
 from typing import (
     Dict,
@@ -32,28 +36,31 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_document(group: str, days: int) -> RiskOverTime:
-    context = get_new_context()
-    group_loader = context.group
+    loaders: Dataloaders = get_new_context()
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group)
+    )
 
-    data_name_monthly = "remediated_over_time_month_cvssf"
-    data_name = "remediated_over_time_cvssf"
     if days == 30:
-        data_name = f"{data_name}_30"
+        group_data = group_indicators.remediated_over_time_cvssf_30 or []
     elif days == 90:
-        data_name = f"{data_name}_90"
+        group_data = group_indicators.remediated_over_time_cvssf_90 or []
+    else:
+        group_data = group_indicators.remediated_over_time_cvssf or []
 
-    group_data = await group_loader.load(group)
-    group_over_time = [elements[-12:] for elements in group_data[data_name]]
-    group_over_time_monthly = group_data[data_name_monthly]
-    group_over_time_yearly = group_data["remediated_over_time_year_cvssf"]
+    group_over_time = [elements[-12:] for elements in group_data]
+    group_over_time_monthly = (
+        group_indicators.remediated_over_time_month_cvssf or []
+    )
+    group_over_time_yearly = (
+        group_indicators.remediated_over_time_year_cvssf or []
+    )
 
     return get_data_risk_over_time_group(
         over_time_weekly=group_over_time,
         over_time_monthly=group_over_time_monthly,
         over_time_yearly=group_over_time_yearly,
-        weekly_data_size=len(group_data[data_name][0])
-        if group_data[data_name]
-        else 0,
+        weekly_data_size=len(group_data[0]) if group_data else 0,
         limited_days=bool(days),
     )
 
