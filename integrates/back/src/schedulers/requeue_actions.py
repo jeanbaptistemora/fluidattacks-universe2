@@ -166,6 +166,7 @@ async def requeue_actions() -> bool:
     report_additional_info = dict(
         vcpus=4,
         attempt_duration_seconds=7200,
+        memory=7200,
     )
     new_batch_jobs_ids = await collect(
         (

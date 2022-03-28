@@ -340,6 +340,7 @@ async def queue_job_new(
         attempt_duration_seconds=86400,
         subject="integrates@fluidattacks.com",
         dynamodb_pk=dynamodb_pk,
+        memory=7200,
         **kwargs,
     )
 
