@@ -1088,6 +1088,36 @@
   "buffar-xor": {
     "GHSA-f64g-whxf-w8f2": ">=0"
   },
+  "buffdr-xor": {
+    "GHSA-8549-p68h-m9mc": ">=0"
+  },
+  "buffe2-xor": {
+    "GHSA-3f97-rj68-2pjf": ">=0"
+  },
+  "buffeb-xor": {
+    "GHSA-5ggx-g294-qj3q": ">=0"
+  },
+  "buffep-xor": {
+    "GHSA-73wv-v82c-xmqv": ">=0"
+  },
+  "buffer-8or": {
+    "GHSA-4hm7-73ch-vm59": ">=0"
+  },
+  "buffer-hor": {
+    "GHSA-wh87-3959-vfrq": ">=0"
+  },
+  "buffer-por": {
+    "GHSA-6xg2-cf6h-x4v8": ">=0"
+  },
+  "buffer-xgr": {
+    "GHSA-mp55-2274-4pj8": ">=0"
+  },
+  "buffer-xkr": {
+    "GHSA-rw53-q8x7-ccx8": ">=0"
+  },
+  "buffer-xmr": {
+    "GHSA-5327-gfq5-8f4m": ">=0"
+  },
   "buns": {
     "CVE-2020-7794": ">=0"
   },
