@@ -9,7 +9,11 @@ from charts import (
     utils,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
 )
 from decimal import (
     Decimal,
@@ -21,10 +25,12 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> Decimal:
-    context = get_new_context()
-    group_data = await context.group.load(group)
+    loaders: Dataloaders = get_new_context()
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group)
+    )
 
-    return group_data["last_closing_vuln"]
+    return group_indicators.last_closed_vulnerability_days or Decimal("0.0")
 
 
 async def get_many_groups(groups: Tuple[str, ...]) -> Decimal:
