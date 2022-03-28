@@ -12,7 +12,7 @@ from typing import (
 class Credential(NamedTuple):
     id: str
     name: str
-    type: CredentialType
+    type: Union[CredentialType, str]
 
 
 class GitRootCloningStatus(NamedTuple):
