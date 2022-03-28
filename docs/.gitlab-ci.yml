@@ -1,6 +1,6 @@
 .makes4: &makes4
   tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:22.04
   needs: []
   interruptible: true
   script:
@@ -8,7 +8,7 @@
   variables:
     GIT_DEPTH: 5
 
-.docs_commit_pattern: &docs_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|docs)/'
+.docs_commit_pattern: &docs_commit_pattern "$CI_COMMIT_TITLE =~ /^(all|docs)/"
 
 .docs_in_dev_branch: &docs_in_dev_branch
   rules:

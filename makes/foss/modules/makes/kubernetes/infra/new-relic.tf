@@ -36,4 +36,18 @@ resource "helm_release" "newrelic" {
     name  = "logging.enabled"
     value = "true"
   }
+
+  set {
+    name = "server\\.resources"
+    value = yamlencode({
+      limits = {
+        cpu    = "100m"
+        memory = "64Mi"
+      }
+      requests = {
+        cpu    = "75m"
+        memory = "50Mi"
+      }
+    })
+  }
 }

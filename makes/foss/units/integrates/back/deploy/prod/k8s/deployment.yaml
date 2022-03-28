@@ -23,21 +23,21 @@ spec:
         worker_group: production
       containers:
         - name: integrates
-          image: ghcr.io/fluidattacks/makes:21.11
+          image: ghcr.io/fluidattacks/makes:22.04
           imagePullPolicy: Always
           command: [sh]
           args:
-          - -c
-          - m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/liveness;
-            m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/readiness;
-            m f@${CI_COMMIT_SHA} /integrates/back prod
+            - -c
+            - m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/liveness;
+              m f@${CI_COMMIT_SHA} /integrates/back/deploy/probes/readiness;
+              m f@${CI_COMMIT_SHA} /integrates/back prod
           env:
-          - name: MAKES_K8S_COMPAT
-            value: "1"
-          - name: INSTANA_AGENT_HOST
-            valueFrom:
-              fieldRef:
-                fieldPath: status.hostIP
+            - name: MAKES_K8S_COMPAT
+              value: "1"
+            - name: INSTANA_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
           resources:
             # Ensure your request and limit fits in the node:
             #   kubectl get node --selector=worker_group=production
@@ -66,12 +66,12 @@ spec:
           readinessProbe:
             exec:
               command:
-              - sh
-              - -c
-              - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
-                aws_login_prod
-                prod_integrates
-                FluidIntegrates http://localhost:8001
+                - sh
+                - -c
+                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
+                  aws_login_prod
+                  prod_integrates
+                  FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1
@@ -80,13 +80,13 @@ spec:
           livenessProbe:
             exec:
               command:
-              - sh
-              - -c
-              - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
-                aws_login_prod
-                prod_integrates
-                FluidIntegrates http://localhost:8001
-                https://app.fluidattacks.com
+                - sh
+                - -c
+                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
+                  aws_login_prod
+                  prod_integrates
+                  FluidIntegrates http://localhost:8001
+                  https://app.fluidattacks.com
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1

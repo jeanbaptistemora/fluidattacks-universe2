@@ -36,7 +36,7 @@ workflow:
 
 .makes4: &makes4
   tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:22.04
   needs: []
   interruptible: true
   script:
@@ -127,8 +127,8 @@ workflow:
 .nix_get_pkgs: &nix_get_pkgs
   before_script:
     - echo 'sandbox = false' | tee -a
-        "/home/makes/.config/nix/nix.conf"
-        "/etc/nix/nix.conf"
+      "/home/makes/.config/nix/nix.conf"
+      "/etc/nix/nix.conf"
     - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
     - nix-channel --update
 
@@ -163,5 +163,5 @@ common_sonarcloud_check:
   script:
     - sonar-scanner
   variables:
-    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
-    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
+    GIT_DEPTH: "0" # Tells git to fetch all the branches of the project, required by the analysis task

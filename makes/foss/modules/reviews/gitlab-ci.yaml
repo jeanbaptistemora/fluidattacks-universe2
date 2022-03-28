@@ -1,5 +1,5 @@
 /lintPython/dirOfModules/reviews:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
   rules:
