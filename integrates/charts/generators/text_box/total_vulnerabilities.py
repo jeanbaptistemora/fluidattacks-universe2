@@ -9,7 +9,11 @@ from charts import (
     utils,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
 )
 from typing import (
     Tuple,
@@ -18,13 +22,14 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
-    context = get_new_context()
-    group_data = await context.group.load(group)
-
-    return (
-        group_data["closed_vulnerabilities"]
-        + group_data["open_vulnerabilities"]
+    loaders: Dataloaders = get_new_context()
+    group_indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group)
     )
+    closed_vulnerabilities = group_indicators.closed_vulnerabilities or 0
+    open_vulnerabilities = group_indicators.open_vulnerabilities or 0
+
+    return closed_vulnerabilities + open_vulnerabilities
 
 
 async def get_vulns_count_many_groups(groups: Tuple[str, ...]) -> int:
