@@ -997,6 +997,18 @@
   "bp66": {
     "GHSA-8gc6-65mm-xr6r": ">=0"
   },
+  "bpi39": {
+    "GHSA-762c-v946-pf25": ">=0"
+  },
+  "bpi66": {
+    "GHSA-7xc4-793x-25jp": ""
+  },
+  "bpmn-js-properties-panel": {
+    "GHSA-vpj4-89q8-rh38": "<0.31.0"
+  },
+  "bqffer-xor": {
+    "GHSA-pxqp-mv67-g528": ">=0"
+  },
   "brace-expansion": {
     "CVE-2017-18077": "<1.1.7",
     "GMS-2017-113": "<=1.1.6"
@@ -1011,6 +1023,9 @@
   "broccoli-closure": {
     "GMS-2017-64": "<1.3.1"
   },
+  "browserift": {
+    "GHSA-43vf-2x6g-p2m5": ">=0"
+  },
   "browserify-hmr": {
     "CVE-2018-14730": "<0.4.0"
   },
@@ -1019,6 +1034,21 @@
   },
   "browserslist": {
     "CVE-2021-23364": ">=4.0.0 <4.16.5"
+  },
+  "bruteser": {
+    "GHSA-v7cp-5326-54fh": "<0.1.0"
+  },
+  "bs-sha3": {
+    "GHSA-88xx-23mf-rcj2": ">=0"
+  },
+  "bs58chcek": {
+    "GHSA-97mp-9g5c-6c93": ">=0"
+  },
+  "bs58chek": {
+    "GHSA-3cpj-mj3q-82wr": ">=0"
+  },
+  "bs58chekc": {
+    "GHSA-fwvq-x4j9-hr5f": ">=0"
   },
   "bson": {
     "CVE-2018-13863": ">=0.5.0 <1.0.5",
