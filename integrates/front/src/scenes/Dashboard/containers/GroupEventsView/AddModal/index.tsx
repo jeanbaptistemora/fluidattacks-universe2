@@ -539,7 +539,7 @@ const AddModal: React.FC<IAddModalProps> = ({
             {hasReattacks ? (
               <FormGroup>
                 <ControlLabel>
-                  {t("group.events.form.affectedReattacks.title")}
+                  {t("group.events.form.affectedReattacks.sectionTitle")}
                 </ControlLabel>
                 <br />
                 <Field

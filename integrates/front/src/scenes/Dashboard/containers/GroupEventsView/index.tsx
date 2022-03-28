@@ -724,4 +724,4 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { GroupEventsView };
+export { GroupEventsView, IEventsDataset };
