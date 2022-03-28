@@ -16099,8 +16099,7 @@ F056,lines,namespace/skims/test/data/lib_path/f056/json_anon_connection_config.j
   11 |
      ^ Col 5
 ",conf_files.json_anon_connection_config
-F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
+F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,Property auth_settings.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,"
    1 | resource ""azurerm_app_service"" ""vulnerable"" {
    2 |   name                = var.functionapp_name
    3 |   location            = var.rg_location
@@ -16124,8 +16123,7 @@ F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_
   21 |   https_only                 = true
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,14,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
+F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,14,284,skims,300. Authentication mechanism absence or evasion - Azure,Property auth_settings.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,"
    4 |   resource_group_name = var.resource_group_name
    5 |   app_service_plan_id = var.asp_id
    6 |   https_only          = true
@@ -16149,83 +16147,7 @@ F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_
   24 | }
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,27,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
-  17 |   resource_group_name        = azurerm_resource_group.example.name
-  18 |   app_service_plan_id        = azurerm_app_service_plan.example.id
-  19 |   storage_account_name       = azurerm_storage_account.example.name
-  20 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
-  21 |   https_only                 = true
-  22 |   os_type                    = ""linux""
-  23 |   version                    = ""~3""
-  24 | }
-  25 |
-  26 |
-> 27 | resource ""azurerm_app_service"" ""not_vulnerable"" {
-  28 |   name                = var.functionapp_name
-  29 |   location            = var.rg_location
-  30 |   resource_group_name = var.resource_group_name
-  31 |   app_service_plan_id = var.asp_id
-  32 |   https_only          = true
-  33 |   tags                = var.modtags
-  34 |   auth_settings {
-  35 |     enabled = true
-  36 |   }
-  37 | }
-     ^ Col 0
-",terraform.tfm_azure_as_client_certificates_enabled
-F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf","
->  1 | resource ""azurerm_app_service"" ""vulnerable"" {
-   2 |   name                = var.functionapp_name
-   3 |   location            = var.rg_location
-   4 |   resource_group_name = var.resource_group_name
-   5 |   app_service_plan_id = var.asp_id
-   6 |   https_only          = true
-   7 |   tags                = var.modtags
-   8 |   auth_settings {
-   9 |     enabled = false
-  10 |   }
-  11 | }
-  12 |
-  13 |
-  14 | resource ""azurerm_function_app"" ""vulnerable"" {
-  15 |   name                       = ""test-azure-functions""
-  16 |   location                   = azurerm_resource_group.example.location
-  17 |   resource_group_name        = azurerm_resource_group.example.name
-  18 |   app_service_plan_id        = azurerm_app_service_plan.example.id
-  19 |   storage_account_name       = azurerm_storage_account.example.name
-  20 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
-  21 |   https_only                 = true
-     ^ Col 0
-",terraform.tfm_azure_as_client_certificates_enabled
-F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_as_client_certificates_enabled.tf,24,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f300/tfm_azure_as_client_certificates_enabled.tf","
-  12 |   auth_settings {
-  13 |     enabled = true
-  14 |   }
-  15 | }
-  16 |
-  17 |
-  18 | resource ""azurerm_app_service"" ""vulnerable"" {
-  19 |   name                = ""example-app-service""
-  20 |   location            = azurerm_resource_group.example.location
-  21 |   resource_group_name = azurerm_resource_group.example.name
-  22 |   app_service_plan_id = azurerm_app_service_plan.example.id
-  23 |   https_only          = true
-> 24 |   client_cert_enabled = false
-  25 |   logs {
-  26 |     failed_request_tracing_enabled  = true
-  27 |     detailed_error_messages_enabled = true
-  28 |   }
-  29 |   auth_settings {
-  30 |     enabled = true
-  31 |   }
-  32 | }
-     ^ Col 0
-",terraform.tfm_azure_as_client_certificates_enabled
-F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
+F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,Property auth_settings.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
    1 | resource ""azurerm_app_service"" ""vulnerable"" {
    2 |   name                = var.functionapp_name
    3 |   location            = var.rg_location
@@ -16249,8 +16171,7 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,18,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
+F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,18,284,skims,300. Authentication mechanism absence or evasion - Azure,Property auth_settings.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
    8 |
    9 | resource ""azurerm_app_service"" ""not_vulnerable"" {
   10 |   name                = var.functionapp_name
@@ -16274,8 +16195,7 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   28 | }
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,30,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
+F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,30,284,skims,300. Authentication mechanism absence or evasion - Azure,Property auth_settings.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
   20 |   location                   = azurerm_resource_group.example.location
   21 |   resource_group_name        = azurerm_resource_group.example.name
   22 |   app_service_plan_id        = azurerm_app_service_plan.example.id
@@ -16299,8 +16219,7 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   40 | }
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
+F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,Property auth_settings.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
 >  1 | resource ""azurerm_app_service"" ""vulnerable"" {
    2 |   name                = var.functionapp_name
    3 |   location            = var.rg_location
@@ -16324,8 +16243,79 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
+F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,27,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,"
+  17 |   resource_group_name        = azurerm_resource_group.example.name
+  18 |   app_service_plan_id        = azurerm_app_service_plan.example.id
+  19 |   storage_account_name       = azurerm_storage_account.example.name
+  20 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
+  21 |   https_only                 = true
+  22 |   os_type                    = ""linux""
+  23 |   version                    = ""~3""
+  24 | }
+  25 |
+  26 |
+> 27 | resource ""azurerm_app_service"" ""not_vulnerable"" {
+  28 |   name                = var.functionapp_name
+  29 |   location            = var.rg_location
+  30 |   resource_group_name = var.resource_group_name
+  31 |   app_service_plan_id = var.asp_id
+  32 |   https_only          = true
+  33 |   tags                = var.modtags
+  34 |   auth_settings {
+  35 |     enabled = true
+  36 |   }
+  37 | }
+     ^ Col 0
+",terraform.tfm_azure_as_client_certificates_enabled
+F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f300/tfm_azure_app_authentication_off.tf,"
+>  1 | resource ""azurerm_app_service"" ""vulnerable"" {
+   2 |   name                = var.functionapp_name
+   3 |   location            = var.rg_location
+   4 |   resource_group_name = var.resource_group_name
+   5 |   app_service_plan_id = var.asp_id
+   6 |   https_only          = true
+   7 |   tags                = var.modtags
+   8 |   auth_settings {
+   9 |     enabled = false
+  10 |   }
+  11 | }
+  12 |
+  13 |
+  14 | resource ""azurerm_function_app"" ""vulnerable"" {
+  15 |   name                       = ""test-azure-functions""
+  16 |   location                   = azurerm_resource_group.example.location
+  17 |   resource_group_name        = azurerm_resource_group.example.name
+  18 |   app_service_plan_id        = azurerm_app_service_plan.example.id
+  19 |   storage_account_name       = azurerm_storage_account.example.name
+  20 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
+  21 |   https_only                 = true
+     ^ Col 0
+",terraform.tfm_azure_as_client_certificates_enabled
+F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_as_client_certificates_enabled.tf,24,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f300/tfm_azure_as_client_certificates_enabled.tf,"
+  12 |   auth_settings {
+  13 |     enabled = true
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | resource ""azurerm_app_service"" ""vulnerable"" {
+  19 |   name                = ""example-app-service""
+  20 |   location            = azurerm_resource_group.example.location
+  21 |   resource_group_name = azurerm_resource_group.example.name
+  22 |   app_service_plan_id = azurerm_app_service_plan.example.id
+  23 |   https_only          = true
+> 24 |   client_cert_enabled = false
+  25 |   logs {
+  26 |     failed_request_tracing_enabled  = true
+  27 |     detailed_error_messages_enabled = true
+  28 |   }
+  29 |   auth_settings {
+  30 |     enabled = true
+  31 |   }
+  32 | }
+     ^ Col 0
+",terraform.tfm_azure_as_client_certificates_enabled
+F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,9,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
    1 | resource ""azurerm_app_service"" ""vulnerable"" {
    2 |   name                = var.functionapp_name
    3 |   location            = var.rg_location
@@ -16349,8 +16339,7 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",terraform.tfm_azure_as_client_certificates_enabled
-F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf","
+F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
 >  1 | resource ""azurerm_app_service"" ""vulnerable"" {
    2 |   name                = var.functionapp_name
    3 |   location            = var.rg_location
@@ -16374,8 +16363,7 @@ F300,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",terraform.tfm_azure_as_client_certificates_enabled
-F300,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,17,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf","
+F300,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,17,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,"
    7 |   logs {
    8 |     failed_request_tracing_enabled  = true
    9 |     detailed_error_messages_enabled = true
@@ -16399,8 +16387,7 @@ F300,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_trac
   27 |     enabled = true
      ^ Col 0
 ",terraform.tfm_azure_as_client_certificates_enabled
-F300,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,"Ensure Azure app authentication is on
- in namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf","
+F300,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,1,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,"
 >  1 | resource ""azurerm_app_service"" ""not_vulnerable"" {
    2 |   name                = ""example-app-service""
    3 |   location            = azurerm_resource_group.example.location

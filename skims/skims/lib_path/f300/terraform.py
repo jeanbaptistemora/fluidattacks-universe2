@@ -57,7 +57,7 @@ def tfm_azure_app_authentication_off(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f300.azure_app_authentication_is_off",
+        description_key="lib_path.f300.tfm_azure_app_authentication_off",
         iterator=get_cloud_iterator(
             _tfm_azure_app_authentication_off_iterate_vulnerabilities(
                 resource_iterator=chain(
@@ -76,7 +76,9 @@ def tfm_azure_as_client_certificates_enabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f300.azure_app_authentication_is_off",
+        description_key=(
+            "lib_path.f300.tfm_azure_as_client_certificates_enabled"
+        ),
         iterator=get_cloud_iterator(
             _tfm_azure_as_client_certificates_enabled_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_app_service(model=model),
