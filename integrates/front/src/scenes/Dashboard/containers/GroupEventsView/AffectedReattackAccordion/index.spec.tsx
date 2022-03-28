@@ -22,7 +22,7 @@ describe("Affected Reattack accordion", (): void => {
         title: "038. Business information leak",
         vulnerabilitiesToReattack: [
           {
-            findingId: "436992569",
+            findingId: "test-finding-id",
             id: "test-vuln-id",
             specific: "9999",
             where: "vulnerable entrance",
@@ -32,7 +32,7 @@ describe("Affected Reattack accordion", (): void => {
     ];
 
     const wrapper: ReactWrapper = mount(
-      <Formik initialValues={{ checkboxTest: false }} onSubmit={jest.fn()}>
+      <Formik initialValues={{ affectedReattacks: [] }} onSubmit={jest.fn()}>
         <Form name={""}>
           <AffectedReattackAccordion findings={testFindings} />
         </Form>
