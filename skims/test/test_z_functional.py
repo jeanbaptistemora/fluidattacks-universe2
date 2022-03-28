@@ -440,6 +440,26 @@ def _run_no_group(
     check_that_csv_results_match(suite, snippet_filter=snippet_filter)
 
 
+@pytest.mark.skims_test_group("functional")
+@pytest.mark.usefixtures("test_integrates_session")
+def test_should_report_nothing_to_integrates_run_7(test_group: str) -> None:
+    # Test should execute a reattack
+    suite: str = "integrates5"
+    code, stdout, stderr = skims(
+        "--debug",
+        "scan",
+        "--group",
+        test_group,
+        get_suite_config(suite),
+    )
+    assert code == 0
+    assert "[INFO] Startup work dir is:" in stdout
+    assert f"[INFO] Results will be sync to group: {test_group}" in stdout
+    assert f"[INFO] Your role in group {test_group} is: admin" in stdout
+    assert "[INFO] Success: True" in stdout
+    assert not stderr, stderr
+
+
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
