@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading, react/no-multi-comp */
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field } from "formik";
 import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button/index";
@@ -16,7 +18,6 @@ import {
   Row,
 } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   maxLength,
@@ -45,30 +46,33 @@ const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
 
-const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
-  props: IEvidenceImageProps
-): JSX.Element => {
-  const { onDelete } = props;
-
+const RenderForm: React.FC<IEvidenceImageProps> = ({
+  acceptedMimes,
+  description,
+  isDescriptionEditable,
+  isRemovable,
+  name,
+  onDelete,
+  validate,
+}: IEvidenceImageProps): JSX.Element => {
+  const { t } = useTranslation();
   const getFieldName = (fieldName: string): string => {
-    const { name } = props;
-
     return name ? `${name}.${fieldName}` : fieldName;
   };
 
   return (
     <div>
       <Field
-        accept={props.acceptedMimes}
+        accept={acceptedMimes}
         component={FormikFileInput}
-        id={props.name}
+        id={name}
         name={getFieldName("file")}
-        validate={props.validate}
+        validate={validate}
       />
-      {props.isDescriptionEditable ? (
+      {isDescriptionEditable ? (
         <TooltipWrapper
-          id={translate.t("searchFindings.tabEvidence.descriptionTooltip.id")}
-          message={translate.t("searchFindings.tabEvidence.descriptionTooltip")}
+          id={t("searchFindings.tabEvidence.descriptionTooltip.id")}
+          message={t("searchFindings.tabEvidence.descriptionTooltip")}
           placement={"right"}
         >
           <Field
@@ -82,17 +86,17 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
           />
         </TooltipWrapper>
       ) : (
-        <p>{props.description}</p>
+        <p>{description}</p>
       )}
-      {props.isRemovable === true ? (
+      {isRemovable === true ? (
         <ButtonToolbarLeft>
           <TooltipWrapper
-            id={translate.t("searchFindings.tabEvidence.removeTooltip.id")}
-            message={translate.t("searchFindings.tabEvidence.removeTooltip")}
+            id={t("searchFindings.tabEvidence.removeTooltip.id")}
+            message={t("searchFindings.tabEvidence.removeTooltip")}
           >
             <Button onClick={onDelete} variant={"secondary"}>
               <FontAwesomeIcon icon={faTrashAlt} />
-              &nbsp;{translate.t("searchFindings.tabEvidence.remove")}
+              &nbsp;{t("searchFindings.tabEvidence.remove")}
             </Button>
           </TooltipWrapper>
         </ButtonToolbarLeft>
@@ -104,8 +108,9 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
 const EvidenceImage: React.FC<IEvidenceImageProps> = (
   props: IEvidenceImageProps
 ): JSX.Element => {
-  const { content, isEditing, description, date, onClick } = props;
-  const handleClick: () => void = useCallback((): void => {
+  const { content, isEditing, description, date, name, onClick } = props;
+  const { t } = useTranslation();
+  const handleClick = useCallback((): void => {
     onClick();
   }, [onClick]);
 
@@ -119,6 +124,7 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
               <img
                 alt={""}
                 className={style.img}
+                key={`${name}.img.key`}
                 onClick={handleClick}
                 src={content}
               />
@@ -132,18 +138,18 @@ const EvidenceImage: React.FC<IEvidenceImageProps> = (
           <div className={style.description}>
             <Row>
               <label>
-                <b>{translate.t("searchFindings.tabEvidence.detail")}</b>
+                <b>{t("searchFindings.tabEvidence.detail")}</b>
               </label>
             </Row>
             <Row>
               {isEditing ? (
-                renderForm(props)
+                <RenderForm {...props} />
               ) : (
                 <React.Fragment>
                   <EvidenceDescription>{description}</EvidenceDescription>
                   {_.isEmpty(date) ? undefined : (
                     <EvidenceDescription>
-                      {translate.t("searchFindings.tabEvidence.date")}&nbsp;
+                      {t("searchFindings.tabEvidence.date")}&nbsp;
                       {date?.split(" ")[0]}
                     </EvidenceDescription>
                   )}
