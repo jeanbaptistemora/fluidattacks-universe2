@@ -59,11 +59,12 @@ describe("Comments section", (): void => {
     render(<CommentEditor id={0} onPost={onPostComment} />);
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.queryByText("comments.send")).not.toBeInTheDocument();
 
     userEvent.clear(screen.getByRole("textbox"));
     userEvent.type(screen.getByRole("textbox"), "test comment");
     await waitFor((): void => {
-      expect(screen.getByText("comments.send")).not.toBeDisabled();
+      expect(screen.queryByText("comments.send")).toBeInTheDocument();
     });
     userEvent.click(screen.getByText("comments.send"));
     await waitFor((): void => {

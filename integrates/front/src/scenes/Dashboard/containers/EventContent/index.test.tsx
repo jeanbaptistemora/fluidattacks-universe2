@@ -1,14 +1,22 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
+import { msgError } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("EventContent", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -29,16 +37,27 @@ describe("EventContent", (): void => {
       },
     },
   ];
+  const mocksError: MockedResponse[] = [
+    {
+      request: {
+        query: GET_EVENT_HEADER,
+        variables: { eventId: "413372600" },
+      },
+      result: {
+        errors: [new GraphQLError("Access denied")],
+      },
+    },
+  ];
 
   it("should return a fuction", (): void => {
     expect.hasAssertions();
     expect(typeof EventContent).toStrictEqual("function");
   });
 
-  it("should render a component", (): void => {
+  it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -49,13 +68,36 @@ describe("EventContent", (): void => {
       </MemoryRouter>
     );
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabEvents.typeValues.other")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("should render error in component", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
+        <MockedProvider addTypename={false} mocks={mocksError}>
+          <Route
+            component={EventContent}
+            path={"/:groupName/events/:eventId/description"}
+          />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
+    });
   });
 
   it("should render header component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -65,11 +107,10 @@ describe("EventContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabEvents.statusValues.solve")
+      ).toBeInTheDocument();
     });
-
-    expect(wrapper.text()).toContain("Solved");
   });
 });
