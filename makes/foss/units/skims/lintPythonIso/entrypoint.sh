@@ -10,8 +10,7 @@ function main {
     && copy "${package_path}" "${tmpdir}/skims" \
     && pushd "${tmpdir}" \
     && export MYPYPATH=${tmpdir}/skims \
-    && mypy --follow-imports=normal --namespace-packages \
-      --explicit-package-bases --config-file __argSettingsMypy__ "${tmpdir}/skims"
+    && mypy --config-file __argSettingsMypy__ "${tmpdir}/skims"
 
 }
 
