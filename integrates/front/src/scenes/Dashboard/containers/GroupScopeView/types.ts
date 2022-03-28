@@ -20,6 +20,11 @@ interface IGitRootAttr {
   includesHealthCheck: boolean | null;
   id: string;
   nickname: string;
+  secrets: {
+    key: string;
+    value: string;
+    id: string;
+  }[];
   state: "ACTIVE" | "INACTIVE";
   url: string;
 }

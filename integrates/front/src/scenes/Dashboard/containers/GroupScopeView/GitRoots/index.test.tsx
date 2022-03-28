@@ -43,6 +43,7 @@ describe("GitRoots", (): void => {
         id: "",
         includesHealthCheck: false,
         nickname: "",
+        secrets: [],
         state: "ACTIVE",
         url: "https://gitlab.com/fluidattacks/product",
       },
@@ -192,6 +193,7 @@ describe("GitRoots", (): void => {
       id: "",
       includesHealthCheck: false,
       nickname: "",
+      secrets: [],
       state: "ACTIVE",
       url: "https://gitlab.com/fluidattacks/product",
     };
@@ -217,7 +219,8 @@ describe("GitRoots", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("link")).toHaveLength(2);
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      expect(screen.queryAllByRole("link")).toHaveLength(3);
     });
     userEvent.click(
       screen.getByRole("link", { name: "group.scope.git.envUrls" })

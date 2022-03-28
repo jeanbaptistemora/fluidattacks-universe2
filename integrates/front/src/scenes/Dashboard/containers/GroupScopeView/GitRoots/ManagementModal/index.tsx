@@ -4,6 +4,7 @@ import { MemoryRouter, Route, Switch } from "react-router-dom";
 
 import { Environments } from "./environments";
 import { Repository } from "./repository";
+import { Secrets } from "./secrets";
 
 import type { IGitRootAttr } from "../../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -45,6 +46,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     id: "",
     includesHealthCheck: null,
     nickname: "",
+    secrets: [],
     state: "ACTIVE",
     url: "",
   },
@@ -79,6 +81,12 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                 tooltip={t("group.scope.git.manageEnvsTooltip")}
               />
             </Can>
+            <ContentTab
+              id={"secretsTab"}
+              link={"/secrets"}
+              title={"Secrets"}
+              tooltip={t("group.scope.git.repo.title")}
+            />
           </TabsContainer>
         ) : undefined}
         <TabContent>
@@ -127,6 +135,9 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                 onClose={onClose}
                 onSubmit={onSubmitEnvs}
               />
+            </Route>
+            <Route path={"/secrets"}>
+              <Secrets initialValues={initialValues} />
             </Route>
           </Switch>
         </TabContent>

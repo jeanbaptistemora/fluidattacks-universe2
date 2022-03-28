@@ -23,6 +23,11 @@ const GET_ROOTS: DocumentNode = gql`
           id
           includesHealthCheck
           nickname
+          secrets {
+            id
+            key
+            value
+          }
           state
           url
         }
