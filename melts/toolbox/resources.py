@@ -169,14 +169,15 @@ def setup_ssh_key() -> Iterator[str]:
 
             yield keyfile.name
     finally:
-        cmd_execute(
-            [
-                "ssh-agent",
-                "sh",
-                "-c",
-                f"ssh-add -D; rm -f {shq(keyfile.name)}",
-            ]
-        )
+        with suppress(UnboundLocalError):
+            cmd_execute(
+                [
+                    "ssh-agent",
+                    "sh",
+                    "-c",
+                    f"ssh-add -D; rm -f {shq(keyfile.name)}",
+                ]
+            )
 
 
 def repo_url(baseurl: str) -> str:

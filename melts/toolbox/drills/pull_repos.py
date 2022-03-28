@@ -120,10 +120,17 @@ def delete_out_of_scope_files(group: str) -> bool:
 
         # Compute what files should be deleted according to the scope rules
         path_to_repo = os.path.join("groups", group, "fusion", nickname)
-        for path in utils.file.iter_rel_paths(path_to_repo):
+        with suppress(FileNotFoundError):
+            if not os.listdir(path_to_repo):
+                shutil.rmtree(path_to_repo)
+                continue
+
+        for path in (
+            path
+            for path in utils.file.iter_rel_paths(path_to_repo)
+            if not path.startswith(".git/")
+        ):
             if match_file(spec_ignore.patterns, path):
-                if path.startswith(".git/"):
-                    continue
                 path_to_delete = os.path.join(path_to_fusion, nickname, path)
                 if os.path.isfile(path_to_delete):
                     os.unlink(path_to_delete)
@@ -172,6 +179,9 @@ def download_repo_from_s3(
     file_path = f"groups/{group_name}/fusion/{nickname}.tar.gz"
 
     urlretrieve(root["downloadUrl"], file_path)
+
+    if not os.path.exists(file_path):
+        return False
 
     if progress_bar:
         progress_bar()
@@ -247,6 +257,8 @@ def pull_repos_s3_to_fusion(
     )
 
     if status:
+        if not os.listdir(local_path):
+            shutil.rmtree(local_path)
         LOGGER.debug("pull status: %s", status)
         LOGGER.error("Sync from bucket has failed:")
         LOGGER.info(stdout)
@@ -264,6 +276,7 @@ def pull_repos_s3_to_fusion(
         repo.git.reset("--hard", "HEAD")
     except GitError as exc:
         if not os.listdir(local_path):
+            shutil.rmtree(local_path)
             return True
         LOGGER.error("Expand repositories has failed:")
         LOGGER.info("Repository: %s", local_path)
@@ -285,7 +298,7 @@ def main(subs: str, repository_name: str) -> bool:
     roots_dict = {
         root["id"]: root
         for root in get_git_roots(group=subs)
-        if root["state"] == "ACTIVE"
+        if root.get("state") == "ACTIVE"
     }
     if not roots_dict:
         return False
