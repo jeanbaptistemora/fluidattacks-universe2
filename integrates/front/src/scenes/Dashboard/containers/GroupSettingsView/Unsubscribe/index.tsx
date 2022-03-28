@@ -46,7 +46,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
           msgError(t("groupAlerts.errorTextsad"));
         });
       },
-      refetchQueries: [GET_USER_ORGANIZATIONS_GROUPS],
+      refetchQueries: [{ query: GET_USER_ORGANIZATIONS_GROUPS }],
       variables: {
         groupName,
       },

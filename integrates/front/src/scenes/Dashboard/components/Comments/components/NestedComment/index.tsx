@@ -1,6 +1,7 @@
 import { Comment } from "antd";
 import _ from "lodash";
 import React, { useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import Linkify from "react-linkify";
 
 import { ExternalLink } from "components/ExternalLink";
@@ -10,8 +11,8 @@ import type {
   ICommentContext,
   ICommentStructure,
 } from "scenes/Dashboard/components/Comments/types";
+
 import "scenes/Dashboard/components/Comments/index.css";
-import { translate } from "utils/translations/translate";
 
 interface INestedCommentProps {
   id: number;
@@ -21,10 +22,14 @@ interface INestedCommentProps {
   orderBy: string;
 }
 
-const NestedComment: React.FC<INestedCommentProps> = (
-  props: INestedCommentProps
-): JSX.Element => {
-  const { id, comments, onPost, backgroundEnabled, orderBy } = props;
+const NestedComment: React.FC<INestedCommentProps> = ({
+  id,
+  comments,
+  onPost,
+  backgroundEnabled,
+  orderBy,
+}: INestedCommentProps): JSX.Element => {
+  const { t } = useTranslation();
   const { replying, setReplying }: ICommentContext = useContext(commentContext);
 
   const rootComment: ICommentStructure = _.find(comments, [
@@ -76,7 +81,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
               key={"comment-reply"}
               onClick={replyHandler}
             >
-              {translate.t("comments.reply")}
+              {t("comments.reply")}
             </button>,
           ]}
           author={

@@ -1,13 +1,14 @@
 import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
+import { useTranslation } from "react-i18next";
 import TextArea from "react-textarea-autosize";
 
 import { Button } from "components/Button";
 import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentContext } from "scenes/Dashboard/components/Comments/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-import { translate } from "utils/translations/translate";
+
 import "scenes/Dashboard/components/Comments/index.css";
 
 interface ICommentEditorProps {
@@ -15,10 +16,11 @@ interface ICommentEditorProps {
   onPost: (editorText: string) => void;
 }
 
-const CommentEditor: React.FC<ICommentEditorProps> = (
-  props: ICommentEditorProps
-): JSX.Element => {
-  const { id, onPost } = props;
+const CommentEditor: React.FC<ICommentEditorProps> = ({
+  id,
+  onPost,
+}: ICommentEditorProps): JSX.Element => {
+  const { t } = useTranslation();
   const [editorText, setEditorText] = useState("");
   const { replying, setReplying }: ICommentContext = useContext(commentContext);
 
@@ -57,13 +59,14 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
   return (
     <React.Fragment>
       <TextArea
+        aria-label={"comment-editor"}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={true}
         maxRows={8}
         minRows={2}
         onChange={onChange}
         onFocus={onFocus}
-        placeholder={translate.t("comments.editorPlaceholder")}
+        placeholder={t("comments.editorPlaceholder")}
         value={editorText}
       />
       <div className={"pv2"}>
@@ -72,7 +75,7 @@ const CommentEditor: React.FC<ICommentEditorProps> = (
             {editorText !== "" && (
               <ButtonToolbar>
                 <Button onClick={clickHandler} variant={"primary"}>
-                  {translate.t("comments.send")}
+                  {t("comments.send")}
                 </Button>
               </ButtonToolbar>
             )}

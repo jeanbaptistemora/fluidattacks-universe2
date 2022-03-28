@@ -1,6 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -15,7 +16,6 @@ import type {
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import style from "utils/forms/index.css";
-import { translate } from "utils/translations/translate";
 
 const Select: StyledComponent<
   "select",
@@ -31,10 +31,11 @@ const Small: StyledComponent<
   className: "f5 black-60 db",
 })``;
 
-export const Comments: React.FC<ICommentsProps> = (
-  props: ICommentsProps
-): JSX.Element => {
-  const { onLoad, onPostComment } = props;
+export const Comments: React.FC<ICommentsProps> = ({
+  onLoad,
+  onPostComment,
+}: ICommentsProps): JSX.Element => {
+  const { t } = useTranslation();
   const { userEmail, userName }: IAuthContext = useContext(authContext);
   const [comments, setComments] = useState<ICommentStructure[]>([]);
   const [replying, setReplying] = useState<number>(0);
@@ -99,14 +100,10 @@ export const Comments: React.FC<ICommentsProps> = (
         <CommentEditor id={0} onPost={postHandler} />
         {comments.length > 1 && (
           <div className={"w-25 w-50-m mb3"}>
-            <Small>{translate.t("comments.orderBy.label")}</Small>
+            <Small>{t("comments.orderBy.label")}</Small>
             <Select defaultValue={"newest"} onChange={onOrderChange}>
-              <option value={"newest"}>
-                {translate.t("comments.orderBy.newest")}
-              </option>
-              <option value={"oldest"}>
-                {translate.t("comments.orderBy.oldest")}
-              </option>
+              <option value={"newest"}>{t("comments.orderBy.newest")}</option>
+              <option value={"oldest"}>{t("comments.orderBy.oldest")}</option>
             </Select>
           </div>
         )}
@@ -126,7 +123,7 @@ export const Comments: React.FC<ICommentsProps> = (
           )
         ) : (
           <div className={"w-100 f4 pa3 ba-80 tc"} id={"no-comments"}>
-            {translate.t("comments.noComments")}
+            {t("comments.noComments")}
           </div>
         )}
       </commentContext.Provider>
