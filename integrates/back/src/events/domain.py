@@ -311,7 +311,7 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     )
 
 
-async def solve_event(
+async def solve_event(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo,
     event_id: str,
     affectation: str,
@@ -320,6 +320,8 @@ async def solve_event(
 ) -> bool:
     event = await get_event(event_id)
     success = False
+    loaders = info.context.loaders
+    group_name = str(get_key_or_fallback(event, fallback=""))
 
     if (
         cast(List[Dict[str, str]], event.get("historic_state", []))[-1].get(
@@ -331,9 +333,7 @@ async def solve_event(
 
     affected_reattacks: Tuple[
         Vulnerability, ...
-    ] = await info.context.loaders.event_vulnerabilities_loader.load(
-        (event_id)
-    )
+    ] = await loaders.event_vulnerabilities_loader.load((event_id))
     if len(affected_reattacks) > 0:
         user_info = await token_utils.get_jwt_content(info.context)
         reattacks_dict: Dict[str, Set[str]] = {}
@@ -342,7 +342,7 @@ async def solve_event(
 
         for finding_id, hold_ids in reattacks_dict.items():
             await findings_domain.request_vulnerabilities_verification(
-                loaders=info.context.loaders,
+                loaders=loaders,
                 finding_id=finding_id,
                 user_info=user_info,
                 justification=(
@@ -352,6 +352,19 @@ async def solve_event(
                 vulnerability_ids=hold_ids,
                 is_closing_event=True,
             )
+
+    event_type = event["event_type"]
+    description = event["detail"]
+    schedule(
+        events_mail.send_mail_event_report(
+            loaders=loaders,
+            group_name=group_name,
+            event_id=event_id,
+            event_type=event_type,
+            description=description,
+            is_closed=True,
+        )
+    )
 
     today = datetime_utils.get_now()
     history = cast(List[Dict[str, str]], event.get("historic_state", []))

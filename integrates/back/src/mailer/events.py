@@ -73,6 +73,7 @@ async def send_mail_event_report(
     event_id: str,
     event_type: str,
     description: str,
+    is_closed: bool = False,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
@@ -103,6 +104,7 @@ async def send_mail_event_report(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
         ),
+        "is_closed": is_closed,
     }
     await send_mails_async(
         email_to=users_email,
