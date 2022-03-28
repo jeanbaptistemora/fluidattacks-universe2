@@ -1,11 +1,8 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { GroupInformation } from "scenes/Dashboard/containers/GroupSettingsView/Info";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
@@ -22,6 +19,9 @@ describe("Info", (): void => {
       result: {
         data: {
           group: {
+            businessId: "",
+            businessName: "",
+            description: "group description",
             hasMachine: true,
             hasSquad: true,
             language: "EN",
@@ -42,7 +42,7 @@ describe("Info", (): void => {
   it("should show group info", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mocksInfo}>
         <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
           <Route
@@ -52,12 +52,15 @@ describe("Info", (): void => {
         </MemoryRouter>
       </MockedProvider>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.getByRole("table")).toBeInTheDocument();
     });
-    const firstRowInfo: ReactWrapper = wrapper.find("RowPureContent").at(0);
 
-    expect(firstRowInfo.text()).toStrictEqual("LanguageEnglish");
+    expect(
+      screen.queryByText("table.noDataIndication")
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
+      "LanguageEnglish"
+    );
   });
 });
