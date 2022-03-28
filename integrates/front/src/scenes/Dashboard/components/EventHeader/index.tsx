@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { HeaderContainer } from "./styles";
 
@@ -10,7 +11,6 @@ import {
   Row,
 } from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
-import { translate } from "utils/translations/translate";
 
 interface IEventHeaderProps {
   eventDate: string;
@@ -19,34 +19,36 @@ interface IEventHeaderProps {
   id: string;
 }
 
-const EventHeader: (props: IEventHeaderProps) => JSX.Element = (
-  props: IEventHeaderProps
-): JSX.Element => {
-  const { eventDate, eventStatus, eventType, id } = props;
-  const tEventType: string = translate.t(castEventType(eventType));
-  const tEventStatus: string = translate.t(castEventStatus(eventStatus));
+const EventHeader: (props: IEventHeaderProps) => JSX.Element = ({
+  eventDate,
+  eventStatus,
+  eventType,
+  id,
+}: IEventHeaderProps): JSX.Element => {
+  const { t } = useTranslation();
 
   return (
     <HeaderContainer>
       <Row>
         <Col100>
-          <h2>{tEventType}</h2>
+          <h2>{t(castEventType(eventType))}</h2>
         </Col100>
       </Row>
       <Row>
         <Col100>
           <EventHeaderGrid>
             <EventHeaderLabel>
-              {translate.t("searchFindings.tabEvents.id")}
+              {t("searchFindings.tabEvents.id")}
               &nbsp;<Badge variant={"gray"}>{id}</Badge>
             </EventHeaderLabel>
             <EventHeaderLabel>
-              {translate.t("searchFindings.tabEvents.date")}
+              {t("searchFindings.tabEvents.date")}
               &nbsp;<Badge variant={"gray"}>{eventDate}</Badge>
             </EventHeaderLabel>
             <EventHeaderLabel>
-              {translate.t("searchFindings.tabEvents.status")}
-              &nbsp;<Badge variant={"gray"}>{tEventStatus}</Badge>
+              {t("searchFindings.tabEvents.status")}
+              &nbsp;
+              <Badge variant={"gray"}>{t(castEventStatus(eventStatus))}</Badge>
             </EventHeaderLabel>
           </EventHeaderGrid>
         </Col100>

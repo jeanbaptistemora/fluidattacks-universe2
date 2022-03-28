@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
@@ -21,27 +22,27 @@ import { Tab, TabContent, TabsContainer } from "styles/styledComponents";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IEventHeaderData {
   event: IEventHeaderProps;
 }
 
 const EventContent: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { eventId } = useParams<{ eventId: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
   // Side effects
   useTabTracking("Event");
 
-  const handleErrors: (error: ApolloError) => void = useCallback(
+  const handleErrors = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading event header", error);
       });
     },
-    []
+    [t]
   );
 
   const { data } = useQuery<IEventHeaderData>(GET_EVENT_HEADER, {
@@ -69,17 +70,17 @@ const EventContent: React.FC = (): JSX.Element => {
             <TabsContainer>
               <li>
                 <Tab id={"resourcesTab"} to={`${url}/description`}>
-                  {translate.t("searchFindings.tabEvents.description")}
+                  {t("searchFindings.tabEvents.description")}
                 </Tab>
               </li>
               <li>
                 <Tab id={"evidenceTab"} to={`${url}/evidence`}>
-                  {translate.t("searchFindings.tabEvents.evidence")}
+                  {t("searchFindings.tabEvents.evidence")}
                 </Tab>
               </li>
               <li>
                 <Tab id={"commentsTab"} to={`${url}/comments`}>
-                  {translate.t("searchFindings.tabEvents.comments")}
+                  {t("searchFindings.tabEvents.comments")}
                 </Tab>
               </li>
             </TabsContainer>
