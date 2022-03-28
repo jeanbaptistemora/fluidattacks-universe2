@@ -1,14 +1,22 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { GroupSettingsView } from "scenes/Dashboard/containers/GroupSettingsView";
 import { GET_TAGS } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import { msgError } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("GroupSettingsView", (): void => {
   const mocksTags: Readonly<MockedResponse> = {
@@ -47,10 +55,10 @@ describe("GroupSettingsView", (): void => {
     expect(typeof GroupSettingsView).toStrictEqual("function");
   });
 
-  it("should render tags component", async (): Promise<void> => {
+  it("should render tags component", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <MockedProvider addTypename={false} mocks={[mocksTags]}>
         <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
           <Route
@@ -60,15 +68,14 @@ describe("GroupSettingsView", (): void => {
         </MemoryRouter>
       </MockedProvider>
     );
-    await wait(0);
 
-    expect(wrapper).toHaveLength(1);
+    expect(container.querySelector("#resources")).toBeInTheDocument();
   });
 
   it("should render a error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={mockError}>
         <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
           <Route
@@ -78,15 +85,17 @@ describe("GroupSettingsView", (): void => {
         </MemoryRouter>
       </MockedProvider>
     );
-    await wait(0);
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
+    });
+    jest.clearAllMocks();
   });
 
   it("should render files component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MockedProvider addTypename={false} mocks={[mocksTags]}>
         <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
           <Route
@@ -96,9 +105,8 @@ describe("GroupSettingsView", (): void => {
         </MemoryRouter>
       </MockedProvider>
     );
-    await wait(0);
-
-    // eslint-disable-next-line jest/no-restricted-matchers
-    expect(wrapper.find("#tblFiles")).toBeTruthy();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
   });
 });

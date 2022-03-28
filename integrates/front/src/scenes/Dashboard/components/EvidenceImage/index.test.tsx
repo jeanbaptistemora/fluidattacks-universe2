@@ -127,5 +127,7 @@ describe("Evidence image", (): void => {
     await waitFor((): void => {
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
+
+    jest.clearAllMocks();
   });
 });

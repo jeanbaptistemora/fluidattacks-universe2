@@ -1,16 +1,14 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
 
 describe("TrackingView", (): void => {
+  const testJustification: string = "test justification accepted treatment";
   const mocks: MockedResponse = {
     request: {
       query: GET_FINDING_TRACKING,
@@ -38,7 +36,7 @@ describe("TrackingView", (): void => {
               closed: 0,
               cycle: 1,
               date: "2019-01-08",
-              justification: "test justification accepted treatment",
+              justification: testJustification,
               open: 0,
             },
           ],
@@ -52,10 +50,10 @@ describe("TrackingView", (): void => {
     expect(typeof TrackingView).toStrictEqual("function");
   });
 
-  it("should render", (): void => {
+  it("should render", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter
         initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
       >
@@ -70,13 +68,17 @@ describe("TrackingView", (): void => {
       </MemoryRouter>
     );
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(/searchFindings.tabTracking.cycle/u)
+      ).toBeInTheDocument();
+    });
   });
 
   it("should render timeline", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter
         initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
       >
@@ -90,15 +92,19 @@ describe("TrackingView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(/searchFindings.tabTracking.cycle/u)
+      ).toBeInTheDocument();
     });
-
     const numberOfCycles: number = 2;
 
-    expect(wrapper.find("li").last().text()).not.toContain("justification");
-    expect(wrapper.find("li").first().text()).toContain("justification");
-    expect(wrapper.find("li")).toHaveLength(numberOfCycles);
+    expect(screen.getAllByRole("listitem")).toHaveLength(numberOfCycles);
+    expect(screen.getAllByRole("listitem")[0].textContent).toContain(
+      testJustification
+    );
+    expect(screen.getAllByRole("listitem")[1].textContent).not.toContain(
+      testJustification
+    );
   });
 });
