@@ -23,6 +23,6 @@ data "aws_subnet" "main" {
   vpc_id = data.aws_vpc.main.id
   filter {
     name   = "tag:Name"
-    values = ["batch"]
+    values = ["ci"]
   }
 }
