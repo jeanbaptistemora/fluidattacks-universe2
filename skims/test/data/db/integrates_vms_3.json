@@ -291,6 +291,112 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "treatment": {
+            "M": {
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "assigned": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "justification": {
+                "S": "test justification"
+              },
+              "modified_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "status": {
+                "S": "NEW"
+              }
+            }
+          },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_reattack_cycles": {
+                "N": "1"
+              },
+              "unreliable_source": {
+                "S": "MACHINE"
+              },
+              "unreliable_last_reattack_requester": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "unreliable_last_requested_reattack_date": {
+                "S": "2022-03-24T15:29:07.070648+00:00"
+              },
+              "unreliable_efficacy": {
+                "N": "0"
+              },
+              "unreliable_report_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "unreliable_treatment_changes": {
+                "N": "0"
+              }
+            }
+          },
+          "commit": {
+            "S": "f4ffdbf3aac08e62a13445e26b10751d94286303"
+          },
+          "specific": {
+            "S": "5"
+          },
+          "type": {
+            "S": "LINES"
+          },
+          "sk": {
+            "S": "FIN#23f7e5c1-5e1e-4167-976a-06b86ac501c2"
+          },
+          "sk_3": {
+            "S": "VULN#5397a4d4-3a10-4475-ab03-d3f6c7e1aefe"
+          },
+          "pk_2": {
+            "S": "ROOT"
+          },
+          "where": {
+            "S": "namespace3/skims/test/data/lib_path/f099/cfn_bucket_policy.yaml"
+          },
+          "pk": {
+            "S": "VULN#5397a4d4-3a10-4475-ab03-d3f6c7e1aefe"
+          },
+          "pk_3": {
+            "S": "USER#unittest@fluidattacks.com"
+          },
+          "state": {
+            "M": {
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2022-03-24T15:28:07.070648+00:00"
+              },
+              "status": {
+                "S": "OPEN"
+              }
+            }
+          },
+          "sk_2": {
+            "S": "VULN#5397a4d4-3a10-4475-ab03-d3f6c7e1aefe"
+          },
+          "verification": {
+            "M": {
+              "modified_date": {
+                "S": "2022-03-24T15:29:07.070648+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }
