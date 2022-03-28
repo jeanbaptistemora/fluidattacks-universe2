@@ -808,12 +808,43 @@
   "bcion": {
     "GHSA-2fwq-wx47-hm6x": ">=0"
   },
+  "bcoin": {
+    "GHSA-hx3r-jv9q-85jw": "<1.0.2"
+  },
+  "bconi": {
+    "GHSA-7j93-5m2h-rvjx": ">=0"
+  },
   "bcrypt": {
     "CVE-2020-7689": "<5.0.0",
     "SNYK-JS-BCRYPT-575033": "<5.0.0"
   },
+  "beffer-xor": {
+    "GHSA-7cvf-p83w-48q6": ">=0"
+  },
   "bestzip": {
     "CVE-2020-7730": "<2.1.7"
+  },
+  "bictoin-ops": {
+    "GHSA-xrrg-wfwc-c7r3": ">=0"
+  },
+  "bictoind-rpc": {
+    "GHSA-jqvv-r4w3-8f7w": ">=0"
+  },
+  "bictoinjs-lib": {
+    "GHSA-hwh3-fhf6-73x9": ">=0"
+  },
+  "bictore-lib": {
+    "GHSA-f8vf-6hwg-hw55": ">=0"
+  },
+  "bigint-money": {
+    "GHSA-9r3m-mhfm-39cm": "<0.6.2"
+  },
+  "bin-links": {
+    "GHSA-v45m-2wcp-gg98": "<1.1.6"
+  },
+  "binaryen": {
+    "CVE-2021-46053": "103",
+    "CVE-2021-46055": "104"
   },
   "bionode-sra": {
     "CVE-2016-10613": "<=1.0.3",
