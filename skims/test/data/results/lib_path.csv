@@ -20647,26 +20647,6 @@ F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asy
   17 | }
      ^ Col 0
 ",c_sharp.csharp_vuln_regular_expression
-F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skims,101. Lack of protection against deletion,Azure key vault is not recoverable in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,"
->  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
-   2 |   name                       = ""examplekeyvault""
-   3 |   location                   = azurerm_resource_group.example.location
-   4 |   resource_group_name        = azurerm_resource_group.example.name
-   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
-   6 |   soft_delete_retention_days = 7
-   7 | }
-   8 |
-   9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
-  10 |   name                       = ""examplekeyvault""
-  11 |   location                   = azurerm_resource_group.example.location
-  12 |   resource_group_name        = azurerm_resource_group.example.name
-  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
-  14 |   soft_delete_retention_days = 7
-  15 |   soft_delete_enabled        = true
-  16 |   purge_protection_enabled   = true
-  17 | }
-     ^ Col 0
-",terraform.tfm_azure_key_vault_not_recoverable
 F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -21258,6 +21238,26 @@ F259,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencr
   6 | }
     ^ Col 0
 ",terraform.tfm_db_no_point_in_time_recovery
+F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skims,101. Lack of protection against deletion,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf","
+>  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
+   2 |   name                       = ""examplekeyvault""
+   3 |   location                   = azurerm_resource_group.example.location
+   4 |   resource_group_name        = azurerm_resource_group.example.name
+   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+   6 |   soft_delete_retention_days = 7
+   7 | }
+   8 |
+   9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
+  10 |   name                       = ""examplekeyvault""
+  11 |   location                   = azurerm_resource_group.example.location
+  12 |   resource_group_name        = azurerm_resource_group.example.name
+  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  14 |   soft_delete_retention_days = 7
+  15 |   soft_delete_enabled        = true
+  16 |   purge_protection_enabled   = true
+  17 | }
+     ^ Col 0
+",terraform.tfm_azure_key_vault_not_recoverable
 F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,19,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    9 |         Value: True
   10 |       - Key: ""access_logs.s3.bucket""
