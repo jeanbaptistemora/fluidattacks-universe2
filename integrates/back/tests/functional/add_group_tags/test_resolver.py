@@ -1,40 +1,57 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.groups.types import (
+    Group,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_group_tags")
 @pytest.mark.parametrize(
-    ("email", "tag_list"),
+    ("email", "tag_to_add"),
     (
-        ("admin@gmail.com", ["testing1"]),
-        ("user@gmail.com", ["testing2"]),
-        ("user_manager@gmail.com", ["testing3"]),
-        ("vulnerability_manager@gmail.com", ["testing4"]),
-        ("executive@gmail.com", ["testing5"]),
-        ("customer_manager@fluidattacks.com", ["testing6"]),
+        ("admin@gmail.com", "testing1"),
+        ("user@gmail.com", "testing2"),
+        ("user_manager@gmail.com", "testing3"),
+        ("vulnerability_manager@gmail.com", "testing4"),
+        ("executive@gmail.com", "testing5"),
+        ("customer_manager@fluidattacks.com", "testing6"),
     ),
 )
 async def test_add_group_tags(
-    populate: bool, email: str, tag_list: List[str]
+    populate: bool, email: str, tag_to_add: str
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group_typed.load(group_name)
+    if group.tags:
+        assert tag_to_add not in group.tags
+
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
-        tags=tag_list,
+        tags=[tag_to_add],
     )
     assert "errors" not in result
     assert "success" in result["data"]["addGroupTags"]
     assert result["data"]["addGroupTags"]["success"]
+
+    loaders.group_typed.clear(group_name)
+    group = await loaders.group_typed.load(group_name)
+    if group.tags:
+        assert tag_to_add in group.tags
+    else:
+        assert group.tags is None
 
 
 @pytest.mark.asyncio
@@ -51,8 +68,8 @@ async def test_add_group_tags(
 async def test_add_group_tags_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    tag_list: List[str] = ["testing"]
-    result: Dict[str, Any] = await get_result(
+    tag_list: list[str] = ["testing"]
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         tags=tag_list,

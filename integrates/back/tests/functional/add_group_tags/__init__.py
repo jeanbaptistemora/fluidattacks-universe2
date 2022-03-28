@@ -8,8 +8,6 @@ from dataloaders import (
 import json
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -17,8 +15,8 @@ async def get_result(
     *,
     user: str,
     group: str,
-    tags: List[str],
-) -> Dict[str, Any]:
+    tags: list[str],
+) -> dict[str, Any]:
     query: str = """
         mutation AddGroupTagsMutation(
             $groupName: String!,
@@ -31,11 +29,11 @@ async def get_result(
             }
         }
     """
-    variables: Dict[str, Any] = {
+    variables: dict[str, Any] = {
         "groupName": group,
         "tagsData": json.dumps(tags),
     }
-    data: Dict[str, Any] = {"query": query, "variables": variables}
+    data: dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,
