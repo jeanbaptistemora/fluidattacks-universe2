@@ -1118,6 +1118,36 @@
   "buffer-xmr": {
     "GHSA-5327-gfq5-8f4m": ">=0"
   },
+  "buffer-xnr": {
+    "GHSA-c4hh-fg8x-6h9p": ">=0"
+  },
+  "buffer-xo2": {
+    "GHSA-f72h-wf57-7xwh": ">=0"
+  },
+  "buffer-xob": {
+    "GHSA-gpg2-7r7j-4pm9": ">=0"
+  },
+  "buffer-xop": {
+    "GHSA-jqjg-v355-hr9q": ">=0"
+  },
+  "buffer-xos": {
+    "GHSA-h2j3-gg8w-4858": ">=0"
+  },
+  "buffer-xov": {
+    "GHSA-3h9m-9g3g-5wqx": ">=0"
+  },
+  "buffer-xoz": {
+    "GHSA-j6x7-42x2-hpcf": ">=0"
+  },
+  "buffer-yor": {
+    "GHSA-g2c4-4m64-vxm3": ">=0"
+  },
+  "buffer-zor": {
+    "GHSA-f294-27fc-wgj7": ">=0"
+  },
+  "buffermxor": {
+    "GHSA-536f-268f-6gxc": ">=0"
+  },
   "buns": {
     "CVE-2020-7794": ">=0"
   },
