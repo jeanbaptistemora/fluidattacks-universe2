@@ -28333,7 +28333,55 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (color-string v1
    28 |     ""diff"": ""3.3.1"",
       ^ Col 0
 ",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [SNYK-JAVA-COMH2DATABASE-1769238],18,937,skims,011. Use of software with known vulnerabilities,Use of com.h2database:h2 at version 1.4.200 with SNYK-JAVA-COMH2DATABASE-1769238 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2021-23463],18,937,skims,011. Use of software with known vulnerabilities,Use of com.h2database:h2 at version 1.4.200 with CVE-2021-23463 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+  11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+> 18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+  22 |   ""org.apache.nutch""         %  ""nutch""                 % ""2.0.0"",
+  23 |   ""org.apache.ode""           %   ""ode""                  % ode.version,
+  24 |   ""org.apache.openjpa""       %   ""openjpa""              % ""2.2.0""   % ""test,it""
+  25 | )
+     ^ Col 0
+",maven.maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2021-42392],18,937,skims,011. Use of software with known vulnerabilities,Use of com.h2database:h2 at version 1.4.200 with CVE-2021-42392 in namespace/skims/test/data/lib_path/f011/build.sbt,"
+   5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
+   6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
+   7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
+   8 |   ""org.glassfish.jersey.core"" %  ""jersey-client""  % ""2.17""
+   9 | )
+  10 |
+  11 | libraryDependencies += ""org.apache.kylin"" % ""kylin"" % ""2.5.0""
+  12 |
+  13 | libraryDependencies ++= Seq(
+  14 |   ""org.scalatest""            %% ""scalatest""             % ""2.2.4""   % ""test,it"",
+  15 |   ""org.mockito""              %  ""mockito-all""           % ""1.9.5""   % ""test,it"",
+  16 |   ""com.novocode""             %  ""junit-interface""       % ""0.7""     % ""test->default"",
+  17 |   ""org.pegdown""              %  ""pegdown""               % ""1.6.0""   % ""test,it"",
+> 18 |   ""com.h2database""           %  ""h2""                    % ""1.4.200"" % ""test,it"",
+  19 |   ""org.scala-lang""           %  ""scala-compiler""        % scalaVersion.value,
+  20 |   ""org.scala-lang""           %  ""scala-reflect""         % scalaVersion.value,
+  21 |   ""org.apache.nifi.registry"" %  ""nifi-registry-web-api"" % ""0.4.1""   % ""nifi"",
+  22 |   ""org.apache.nutch""         %  ""nutch""                 % ""2.0.0"",
+  23 |   ""org.apache.ode""           %   ""ode""                  % ode.version,
+  24 |   ""org.apache.openjpa""       %   ""openjpa""              % ""2.2.0""   % ""test,it""
+  25 | )
+     ^ Col 0
+",maven.maven_sbt
+F011,lines,namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2022-23221],18,937,skims,011. Use of software with known vulnerabilities,Use of com.h2database:h2 at version 1.4.200 with CVE-2022-23221 in namespace/skims/test/data/lib_path/f011/build.sbt,"
    5 |   ""org.apache.logging.log4j""  %  ""log4j-core""     % ""2.2"",
    6 |   ""org.apache.logging.log4j""  %  ""log4j-web""      % ""2.2"",
    7 |   ""com.lmax""                  %  ""disruptor""      % ""3.3.2"",
