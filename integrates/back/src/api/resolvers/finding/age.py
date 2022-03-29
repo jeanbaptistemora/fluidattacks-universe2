@@ -11,7 +11,7 @@ from graphql.type.definition import (
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> int:
     unreliable_indicators = parent.unreliable_indicators
     return findings_domain.get_report_days(
         unreliable_indicators.unreliable_oldest_vulnerability_report_date

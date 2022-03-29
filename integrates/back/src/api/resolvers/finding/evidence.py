@@ -9,10 +9,11 @@ from newutils.findings import (
 )
 from typing import (
     Dict,
+    Optional,
 )
 
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Dict[str, Dict[str, str]]:
+) -> Dict[str, Dict[str, Optional[str]]]:
     return get_formatted_evidence(parent)

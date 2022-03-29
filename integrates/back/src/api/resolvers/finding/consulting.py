@@ -27,6 +27,7 @@ from redis_cluster.operations import (
 )
 from typing import (
     List,
+    Tuple,
 )
 
 
@@ -47,7 +48,7 @@ async def resolve(
 
 async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[Comment]:
+) -> Tuple[Comment, ...]:
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     return await comments_domain.get_comments(

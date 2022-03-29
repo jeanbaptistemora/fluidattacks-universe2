@@ -1,6 +1,8 @@
-from batch.dal import (
-    Job,
+from batch.enums import (
     JobStatus,
+)
+from batch.types import (
+    Job,
 )
 from db_model.findings.types import (
     Finding,
@@ -19,7 +21,6 @@ from machine.jobs import (
     get_finding_code_from_title,
 )
 from typing import (
-    Any,
     Dict,
     List,
     Optional,
@@ -31,7 +32,7 @@ async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,
     **_: None,
-) -> List[Dict[str, Any]]:
+) -> List[Job]:
     finding_code: Optional[str] = get_finding_code_from_title(parent.title)
     root_nicknames: Dict[str, str] = {
         root.id: root.state.nickname
