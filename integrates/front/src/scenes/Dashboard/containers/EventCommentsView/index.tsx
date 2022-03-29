@@ -6,6 +6,7 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Comments } from "scenes/Dashboard/components/Comments";
@@ -22,7 +23,6 @@ import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IEventConsultingData {
   event: {
@@ -33,15 +33,16 @@ interface IEventConsultingData {
 const EventCommentsView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
   const { userEmail }: IAuthContext = useContext(authContext);
+  const { t } = useTranslation();
 
   const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred loading event comments", error);
       });
     },
-    []
+    [t]
   );
 
   const { data, loading } = useQuery<IEventConsultingData>(
@@ -77,14 +78,14 @@ const EventCommentsView: React.FC = (): JSX.Element => {
     addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message === "Exception - Comment parent is invalid") {
         msgError(
-          translate.t("validations.invalidCommentParent", {
+          t("validations.invalidCommentParent", {
             count: 1,
           })
         );
       } else if (message === "Exception - Invalid characters") {
-        msgError(translate.t("validations.invalidChar"));
+        msgError(t("validations.invalidChar"));
       } else {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning(
           "An error occurred posting event comment",
           addCommentError
@@ -97,11 +98,11 @@ const EventCommentsView: React.FC = (): JSX.Element => {
     onError: handleAddCommentError,
   });
 
-  const handlePost: (
-    comment: ICommentStructure,
-    callbackFn: IPostCallback
-  ) => void = useCallback(
-    (comment: ICommentStructure, callbackFn: IPostCallback): void => {
+  const handlePost = useCallback(
+    async (
+      comment: ICommentStructure,
+      callbackFn: IPostCallback
+    ): Promise<void> => {
       interface IMutationResult {
         data: {
           addEventConsult: {
@@ -111,7 +112,7 @@ const EventCommentsView: React.FC = (): JSX.Element => {
         };
       }
       mixpanel.track("AddEventComment", { eventId });
-      void addComment({ variables: { eventId, ...comment } }).then(
+      await addComment({ variables: { eventId, ...comment } }).then(
         (mtResult: unknown | null): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)
             .data;
