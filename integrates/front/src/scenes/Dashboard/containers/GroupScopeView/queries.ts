@@ -108,6 +108,24 @@ const ADD_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
+const ADD_SECRET: DocumentNode = gql`
+  mutation AddSecret(
+    $rootId: ID!
+    $key: String!
+    $value: String!
+    $groupName: String!
+  ) {
+    addSecret(
+      rootId: $rootId
+      key: $key
+      value: $value
+      groupName: $groupName
+    ) {
+      success
+    }
+  }
+`;
+
 const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
   mutation UpdateGitEnvironments(
     $groupName: String!
@@ -289,6 +307,7 @@ export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
   ADD_IP_ROOT,
+  ADD_SECRET,
   ADD_URL_ROOT,
   DEACTIVATE_ROOT,
   GET_GIT_ROOT_DETAILS,
