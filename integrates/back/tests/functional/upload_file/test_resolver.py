@@ -36,16 +36,13 @@ from freezegun import (  # type: ignore
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
 )
 
 
 async def _get_vulns(
     loaders: Dataloaders, finding_id: str
-) -> List[Dict[str, Any]]:
-    finding_vulns: Tuple[
+) -> list[dict[str, Any]]:
+    finding_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load(finding_id)
     return sorted(
@@ -87,7 +84,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     loaders: Dataloaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns.yaml"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         yaml_file_name=file_name,
@@ -164,6 +161,17 @@ async def test_upload_file(populate: bool, email: str) -> None:
         {
             "commit_hash": None,
             "repo_nickname": "product",
+            "specific": "4747",
+            "state_status": "CLOSED",
+            "stream": None,
+            "treatment_status": "NEW",
+            "type": "PORTS",
+            "verification_status": None,
+            "where": "192.168.1.47",
+        },
+        {
+            "commit_hash": None,
+            "repo_nickname": "product",
             "specific": "8080",
             "state_status": "OPEN",
             "stream": None,
@@ -236,7 +244,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
 
     finding: Finding = await loaders.finding.load(finding_id)
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
-        unreliable_closed_vulnerabilities=2,
+        unreliable_closed_vulnerabilities=3,
         unreliable_is_verified=True,
         unreliable_newest_vulnerability_report_date="2022-02-09T00:00:00"
         "+00:00",
@@ -273,7 +281,7 @@ async def test_upload_file_access_denied_error(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns.yaml"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         yaml_file_name=file_name,
@@ -296,7 +304,7 @@ async def test_upload_new_closed_error(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns-new-closed-error.yaml"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         yaml_file_name=file_name,

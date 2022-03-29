@@ -39,3 +39,7 @@ ports:
   repo_nickname: product
   source: 'escape'
   escaper: 'escaper@gmail.com'
+- host: '192.168.1.47'
+  port: '4747'
+  state: closed
+  repo_nickname: product

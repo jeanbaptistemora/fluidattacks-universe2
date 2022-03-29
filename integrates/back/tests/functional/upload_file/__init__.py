@@ -11,7 +11,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -20,7 +19,7 @@ async def get_result(
     user: str,
     finding: str,
     yaml_file_name: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
             mutation UploadFileMutation(
                 $file: Upload!, $findingId: String!
@@ -39,12 +38,12 @@ async def get_result(
         uploaded_file: UploadFile = UploadFile(
             test_file.name, test_file, "text/x-yaml"
         )
-        variables: Dict[str, Any] = {
+        variables: dict[str, Any] = {
             "file": uploaded_file,
             "findingId": finding,
         }
-        data: Dict[str, Any] = {"query": query, "variables": variables}
-        result: Dict[str, Any] = await get_graphql_result(
+        data: dict[str, Any] = {"query": query, "variables": variables}
+        result: dict[str, Any] = await get_graphql_result(
             data,
             stakeholder=user,
             context=get_new_context(),

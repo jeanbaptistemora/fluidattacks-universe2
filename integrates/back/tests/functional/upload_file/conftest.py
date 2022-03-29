@@ -45,15 +45,14 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("upload_file")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "findings": [
             {
                 "finding": Finding(
@@ -319,6 +318,33 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityVerificationStatus.VERIFIED,
                     ),
                 ],
+            },
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdceb",
+                    repo="product",
+                    specific="4747",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:44:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:44:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_last_reattack_requester="requester@gmail.com",
+                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+                        unreliable_report_date="2018-04-08T00:44:11+00:00",
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                    where="192.168.1.47",
+                ),
             },
         ],
     }
