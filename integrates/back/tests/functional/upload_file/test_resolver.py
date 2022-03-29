@@ -241,6 +241,11 @@ async def test_upload_file(populate: bool, email: str) -> None:
             unreliable_treatment_changes=0,
         )
     )
+    changed_source_id = "be09edb7-cd5c-47ed-bee4-97c645acdceb"
+    vuln_changed_source: Vulnerability = await vuln_loader.load(
+        changed_source_id
+    )
+    assert vuln_changed_source.state.source == Source.ASM
 
     finding: Finding = await loaders.finding.load(finding_id)
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
