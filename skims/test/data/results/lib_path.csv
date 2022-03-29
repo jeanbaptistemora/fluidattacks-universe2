@@ -1432,41 +1432,6 @@ F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   21 |       IamInstanceProfile: iamProfile
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F409,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,1,16,skims,409. Non-encrypted confidential information - DynamoDB,"Ensure DynamoDB tables are encrypted
- in namespace/skims/test/data/lib_path/f259/tfm_db_test.tf","
->  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
-   2 |   name           = ""GameScores""
-   3 |   billing_mode   = ""PROVISIONED""
-   4 |   read_capacity  = 20
-   5 |   write_capacity = 20
-   6 |   hash_key       = ""UserId""
-   7 |   range_key      = ""GameTitle""
-   8 |
-   9 |   point_in_time_recovery {
-  10 |     enabled = false
-  11 |   }
-  12 |
-  13 |   attribute {
-  14 |     name = ""UserId""
-  15 |     type = ""S""
-  16 |   }
-  17 |
-  18 |   attribute {
-  19 |     name = ""GameTitle""
-  20 |     type = ""S""
-  21 |   }
-     ^ Col 0
-",terraform.tfm_aws_dynamodb_table_unencrypted
-F409,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf,3,16,skims,409. Non-encrypted confidential information - DynamoDB,"Ensure DynamoDB tables are encrypted
- in namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf","
-  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
-  2 |   server_side_encryption {
-> 3 |     enabled     = false
-  4 |     kms_key_arn = aws_kms_key.dynamo.arn
-  5 |   }
-  6 | }
-    ^ Col 0
-",terraform.tfm_aws_dynamodb_table_unencrypted
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -2690,6 +2655,39 @@ F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypt
   6 | }
     ^ Col 0
 ",terraform.tfm_aws_ebs_volumes_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,1,16,skims,409. Non-encrypted confidential information - DynamoDB,Property server_side_encryption.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,"
+>  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
+   2 |   name           = ""GameScores""
+   3 |   billing_mode   = ""PROVISIONED""
+   4 |   read_capacity  = 20
+   5 |   write_capacity = 20
+   6 |   hash_key       = ""UserId""
+   7 |   range_key      = ""GameTitle""
+   8 |
+   9 |   point_in_time_recovery {
+  10 |     enabled = false
+  11 |   }
+  12 |
+  13 |   attribute {
+  14 |     name = ""UserId""
+  15 |     type = ""S""
+  16 |   }
+  17 |
+  18 |   attribute {
+  19 |     name = ""GameTitle""
+  20 |     type = ""S""
+  21 |   }
+     ^ Col 0
+",terraform.tfm_aws_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf,3,16,skims,409. Non-encrypted confidential information - DynamoDB,Property server_side_encryption.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf,"
+  1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
+  2 |   server_side_encryption {
+> 3 |     enabled     = false
+  4 |     kms_key_arn = aws_kms_key.dynamo.arn
+  5 |   }
+  6 | }
+    ^ Col 0
+",terraform.tfm_aws_dynamodb_table_unencrypted
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,12,16,skims,024. Unrestricted access between network segments - AWS,"Security groups contain RFC-1918 CIDRs open
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
    2 |   InstanceSecurityGroup:

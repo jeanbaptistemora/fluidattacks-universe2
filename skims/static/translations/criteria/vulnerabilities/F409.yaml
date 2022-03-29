@@ -1,5 +1,3 @@
 lib_path.f409.tfm_aws_dynamodb_table_unencrypted:
-  en: >
-    Ensure DynamoDB tables are encrypted
-  es: >
-    Asegúrese de que las tablas de DynamoDB estén cifradas
+  en: Property server_side_encryption.enabled is either missing or misconfigured
+  es: Falta la server_side_encryption.enabled o está mal configurada
