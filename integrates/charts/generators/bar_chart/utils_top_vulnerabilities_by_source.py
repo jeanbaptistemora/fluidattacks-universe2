@@ -122,7 +122,12 @@ def format_data(
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            position="inset",
+            inset=dict(
+                anchor="top-right",
+                step=1.5,
+                x=10,
+            ),
         ),
         axis=dict(
             x=dict(

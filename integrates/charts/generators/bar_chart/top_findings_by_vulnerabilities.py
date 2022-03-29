@@ -102,7 +102,12 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            position="inset",
+            inset=dict(
+                anchor="top-right",
+                step=1.5,
+                x=10,
+            ),
         ),
         axis=dict(
             x=dict(
