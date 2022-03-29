@@ -23,7 +23,7 @@ async def generate_cert_file(
     user_email: str,
 ) -> str:
     with TemporaryDirectory() as tempdir:
-        pdf_maker = CertificateCreator(lang, "tech", tempdir)
+        pdf_maker = CertificateCreator(lang, "cert", tempdir)
         await pdf_maker.cert(
             findings_ord,
             group_name,

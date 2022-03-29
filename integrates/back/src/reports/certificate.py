@@ -199,8 +199,8 @@ class CertificateCreator(CreatorPdf):
         start_date: datetime = get_from_str(group_data["created_date"])
         current_date: datetime = get_now()
         self.cert_context = {
-            "business": "Serious Business",
-            "business_number": "676767",
+            "business": group_data["business_name"],
+            "business_number": group_data["business_id"],
             "customer": user,
             "fluid_tpl": fluid_tpl_content,
             "remediation_table": remediation_table,

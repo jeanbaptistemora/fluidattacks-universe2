@@ -1099,6 +1099,10 @@ async def get_description(group_name: str) -> str:
     return await groups_dal.get_description(group_name)
 
 
+async def get_group_info(group_name: str) -> Tuple[str, str, str]:
+    return await groups_dal.get_group_info(group_name)
+
+
 @newrelic.agent.function_trace()
 async def get_groups_by_user(
     user_email: str,

@@ -916,10 +916,13 @@ class RequestedInvitationTooSoon(CustomBaseException):
 
 
 class RequestedReportError(CustomBaseException):
-    """Exception to control pdf, xls or data report error."""
+    """Exception to control cert, pdf, xls or data report error."""
 
-    def __init__(self) -> None:
-        msg = "Error - Some error ocurred generating the report"
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = f"Error - {expr}"
+        else:
+            msg = "Error - Some error ocurred generating the report"
         super(RequestedReportError, self).__init__(msg)
 
 

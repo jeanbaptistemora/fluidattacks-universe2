@@ -37,6 +37,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Tuple,
     Union,
 )
 
@@ -163,6 +164,17 @@ async def get_description(group_name: str) -> str:
         str(description.get("description", "")) if description else ""
     )
     return group_description
+
+
+async def get_group_info(group_name: str) -> Tuple[str, str, str]:
+    """Get the information section of a group."""
+    info = await get_attributes(
+        group_name, ["description", "business_id", "business_name"]
+    )
+    business_id = str(info.get("business_id", "")) if info else ""
+    business_name = str(info.get("business_name", "")) if info else ""
+    group_description = str(info.get("description", "")) if info else ""
+    return (business_id, business_name, group_description)
 
 
 async def get_group(

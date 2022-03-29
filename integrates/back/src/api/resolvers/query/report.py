@@ -28,6 +28,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from groups.domain import (
+    get_group_info,
+)
 import json
 from newutils import (
     token as token_utils,
@@ -113,6 +116,18 @@ async def resolve(
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
+    if report_type == "CERT":
+        business_id, business_name, description = await get_group_info(
+            group_name
+        )
+        if not (business_id and business_name and description):
+            raise RequestedReportError(
+                expr=(
+                    "Lacking required group information to generate the"
+                    " certificate. Make sure the businessId, businessName "
+                    " and description fields of the Group are filled out"
+                )
+            )
     treatments = (
         {
             VulnerabilityTreatmentStatus[treatment]
