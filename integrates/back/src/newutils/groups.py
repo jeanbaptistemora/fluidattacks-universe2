@@ -26,6 +26,7 @@ from dynamodb.types import (
 import logging
 import logging.config
 from newutils.datetime import (
+    convert_from_iso_str,
     convert_to_iso_str,
     get_as_utc_iso_format,
     get_from_str,
@@ -259,10 +260,10 @@ def format_group_unreliable_indicators(
 def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     item = {
         "agent_token": metadata.agent_token if metadata.agent_token else "",
-        "business_id": metadata.business_id if metadata.business_id else None,
+        "business_id": metadata.business_id if metadata.business_id else "",
         "business_name": metadata.business_name
         if metadata.business_name
-        else None,
+        else "",
         "description": metadata.description,
         "disambiguation": metadata.disambiguation,
         "group_context": metadata.context if metadata.context else "",
@@ -275,4 +276,27 @@ def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         key: None if not value else value
         for key, value in item.items()
         if value is not None
+    }
+
+
+def format_group_to_add_item(group: Group) -> Item:
+    return {
+        "project_name": group.name,
+        "group_name": group.name,
+        "description": group.description,
+        "language": str(group.language.value).lower(),
+        "historic_configuration": [
+            {
+                "date": convert_from_iso_str(group.state.modified_date),
+                "has_skims": group.state.has_machine,
+                "has_drills": group.state.has_squad,
+                "has_forces": True,
+                "requester": group.state.modified_by,
+                "service": group.state.service.value,
+                "tier": str(group.state.tier.value).lower(),
+                "type": str(group.state.type.value).lower(),
+            }
+        ],
+        "project_status": group.state.status,
+        "group_status": group.state.status,
     }

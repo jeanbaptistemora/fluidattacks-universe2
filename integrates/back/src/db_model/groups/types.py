@@ -81,14 +81,14 @@ class GroupFile(NamedTuple):
 
 
 class Group(NamedTuple):
-    business_id: Optional[str]
-    business_name: Optional[str]
     description: str
     language: GroupLanguage
     name: str
     organization_name: str
     state: GroupState
     agent_token: Optional[str] = None
+    business_id: Optional[str] = None
+    business_name: Optional[str] = None
     context: Optional[str] = None
     disambiguation: Optional[str] = None
     files: Optional[list[GroupFile]] = None

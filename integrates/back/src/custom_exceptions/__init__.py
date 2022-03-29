@@ -24,6 +24,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class ErrorAddingGroup(_SingleMessageException):
+    msg: str = "Unable to add group"
+
+
 class ErrorUpdatingGroup(_SingleMessageException):
     msg: str = "Unable to update group"
 

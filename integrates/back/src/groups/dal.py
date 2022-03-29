@@ -7,12 +7,14 @@ from botocore.exceptions import (
     ClientError,
 )
 from custom_exceptions import (
+    ErrorAddingGroup,
     ErrorUpdatingGroup,
 )
 from custom_types import (
     Group as GroupType,
 )
 from db_model.groups.types import (
+    Group,
     GroupMetadataToUpdate,
 )
 from dynamodb import (
@@ -72,6 +74,15 @@ async def add(group: GroupType) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return resp
+
+
+async def add_typed(
+    *,
+    group: Group,
+) -> None:
+    group_item = groups_utils.format_group_to_add_item(group)
+    if not await add(group=group_item):
+        raise ErrorAddingGroup.new()
 
 
 async def exists(
