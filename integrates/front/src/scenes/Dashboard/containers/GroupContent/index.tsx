@@ -1,17 +1,30 @@
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React from "react";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 
 import { groupContext } from "./context";
 
 import { GroupInternalContent } from "../GroupInternalContent";
 import { GroupScopeView } from "../GroupScopeView";
 import { ToeContent } from "../ToeContent";
+import { Dot } from "components/Dot";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
+import { GET_EVENTS } from "scenes/Dashboard/containers/GroupContent/queries";
+import type { IEventsDataset } from "scenes/Dashboard/containers/GroupContent/types";
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
@@ -22,10 +35,13 @@ import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
 import { useTabTracking } from "utils/hooks";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
@@ -34,6 +50,41 @@ const GroupContent: React.FC = (): JSX.Element => {
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
   );
+  const { data } = useQuery(GET_EVENTS, {
+    onCompleted: (paramData: IEventsDataset): void => {
+      if (_.isEmpty(paramData.group.events)) {
+        Logger.warning("Empty groups", document.location.pathname);
+      }
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.warning("An error occurred loading group data", error);
+        msgError(translate.t("groupAlerts.errorTextsad"));
+      });
+    },
+    variables: { groupName },
+  });
+  const event: JSX.Element = (
+    <ContentTab
+      id={"eventsTab"}
+      link={`${url}/events`}
+      title={translate.t("group.tabs.events.text")}
+      tooltip={translate.t("group.tabs.events.tooltip")}
+    />
+  );
+  const eventFormat: JSX.Element =
+    _.isUndefined(data) || _.isEmpty(data) ? (
+      event
+    ) : data.group.events.filter((eventElement): boolean =>
+        eventElement.eventStatus.includes("CREATED")
+      ).length > 0 ? (
+      <div className={"flex"}>
+        {event}
+        <Dot />
+      </div>
+    ) : (
+      event
+    );
 
   // Side effects
   useTabTracking("Group");
@@ -72,12 +123,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     title={translate.t("group.tabs.forces.text")}
                     tooltip={translate.t("group.tabs.forces.tooltip")}
                   />
-                  <ContentTab
-                    id={"eventsTab"}
-                    link={`${url}/events`}
-                    title={translate.t("group.tabs.events.text")}
-                    tooltip={translate.t("group.tabs.events.tooltip")}
-                  />
+                  {eventFormat}
                   <Have I={"has_squad"}>
                     <Can do={"api_resolvers_group_consulting_resolve"}>
                       <ContentTab
