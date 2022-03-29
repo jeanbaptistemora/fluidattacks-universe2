@@ -1,20 +1,16 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
-import _ from "lodash";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
 } from "scenes/Dashboard/containers/EventEvidenceView/queries";
-import { EvidenceDescription } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 
 describe("EventEvidenceView", (): void => {
@@ -30,7 +26,7 @@ describe("EventEvidenceView", (): void => {
       {
         request: {
           query: GET_EVENT_EVIDENCES,
-          variables: { identifier: "413372600" },
+          variables: { eventId: "413372600" },
         },
         result: {
           data: {
@@ -46,21 +42,28 @@ describe("EventEvidenceView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_event_evidence_mutate" },
+    ]);
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route
-            component={EventEvidenceView}
-            path={"/:groupName/events/:eventId/evidence"}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventEvidenceView}
+              path={"/:groupName/events/:eventId/evidence"}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.events.evidence.edit")
+      ).toBeInTheDocument();
     });
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByText("group.events.evidence.edit")).not.toBeDisabled();
   });
 
   it("should render empty UI", async (): Promise<void> => {
@@ -86,7 +89,7 @@ describe("EventEvidenceView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -96,12 +99,13 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.events.evidence.noData")
+      ).toBeInTheDocument();
     });
 
-    expect(wrapper.text()).toContain("There are no evidences");
+    expect(screen.queryByText("File")).not.toBeInTheDocument();
   });
 
   it("should render image and file", async (): Promise<void> => {
@@ -127,7 +131,7 @@ describe("EventEvidenceView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -137,17 +141,11 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("img")).toBeInTheDocument();
     });
 
-    expect(wrapper.containsMatchingElement(<img alt={""} />)).toBe(true);
-    expect(
-      wrapper.containsMatchingElement(
-        <EvidenceDescription>{"File"}</EvidenceDescription>
-      )
-    ).toBe(true);
+    expect(screen.queryByText("File")).toBeInTheDocument();
   });
 
   it("should render image lightbox", async (): Promise<void> => {
@@ -173,7 +171,7 @@ describe("EventEvidenceView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -183,17 +181,25 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-    wrapper.find("img").simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("img")).toHaveLength(1);
     });
 
-    expect(wrapper.find("ReactImageLightbox")).toHaveLength(1);
+    expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(0);
+
+    userEvent.click(screen.getAllByRole("img")[0]);
+    userEvent.hover(
+      screen.getByRole("dialog", { hidden: true, name: "Lightbox" })
+    );
+
+    const ReactImageLightboxButtons: number = 5;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("button", { hidden: true })).toHaveLength(
+        ReactImageLightboxButtons
+      );
+    });
+
+    jest.clearAllMocks();
   });
 
   it("should disable edit when closed", async (): Promise<void> => {
@@ -222,7 +228,7 @@ describe("EventEvidenceView", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_event_evidence_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -234,19 +240,9 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.evidence.edit")).toBeDisabled();
     });
-
-    expect(
-      wrapper
-        .find("button")
-        .filterWhere((button: ReactWrapper): boolean =>
-          _.includes(button.text(), "Edit")
-        )
-        .prop("disabled")
-    ).toStrictEqual(true);
   });
 
   it("should open file link", async (): Promise<void> => {
@@ -296,7 +292,7 @@ describe("EventEvidenceView", (): void => {
         open: (url: string) => { opener: undefined };
       }
     ).open = onOpenLink;
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -306,19 +302,17 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(container.querySelectorAll(".fa-file")).toHaveLength(1);
     });
-    wrapper.find("svg").find(".fa-file").simulate("click");
-    await act(async (): Promise<void> => {
-      await wait(0);
+    userEvent.click(container.querySelectorAll(".fa-file")[0]);
+    await waitFor((): void => {
+      expect(onOpenLink).toHaveBeenCalledWith(
+        "https://localhost:9000/some_file.pdf",
+        undefined,
+        "noopener,noreferrer,"
+      );
     });
-
-    expect(onOpenLink).toHaveBeenCalledWith(
-      "https://localhost:9000/some_file.pdf",
-      undefined,
-      "noopener,noreferrer,"
-    );
+    jest.clearAllMocks();
   });
 });

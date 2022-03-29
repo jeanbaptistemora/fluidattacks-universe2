@@ -231,7 +231,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   isEditing={isEditing}
                   isRemovable={!_.isEmpty(data.event.evidenceFile)}
                   name={"file"}
-                  onClick={handleDownload} // eslint-disable-line react/jsx-no-bind -- Needed due to a memory leakage
+                  onClick={handleDownload}
                   onDelete={removeFile}
                   validate={composeValidators([validEventFile, maxFileSize])}
                 />
