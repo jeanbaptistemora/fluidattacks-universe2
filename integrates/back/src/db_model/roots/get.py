@@ -452,11 +452,11 @@ async def get_upload_url_post(
 
 
 async def get_secrets(
-    *, root_id: str, secret_id: Optional[str] = None
+    *, root_id: str, secret_key: Optional[str] = None
 ) -> Tuple[Secret, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_secret"],
-        values={"uuid": root_id, "id": secret_id},
+        values={"uuid": root_id, "key": secret_key},
     )
     key_structure = TABLE.primary_key
     response = await operations.query(
@@ -464,7 +464,7 @@ async def get_secrets(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & (
                 Key(key_structure.sort_key).eq(primary_key.sort_key)
-                if secret_id
+                if secret_key
                 else Key(key_structure.sort_key).begins_with(
                     primary_key.sort_key
                 )
@@ -474,8 +474,7 @@ async def get_secrets(
         table=TABLE,
     )
     return tuple(
-        Secret(key=item["key"], value=item["value"], id=item["id"])
-        for item in response.items
+        Secret(key=item["key"], value=item["value"]) for item in response.items
     )
 
 

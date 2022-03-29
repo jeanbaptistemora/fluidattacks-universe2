@@ -104,14 +104,13 @@ async def add_secret(
     key_structure = TABLE.primary_key
     secret_key = keys.build_key(
         facet=TABLE.facets["git_root_secret"],
-        values={"uuid": root_id, "id": secret.id},
+        values={"uuid": root_id, "key": secret.key},
     )
     machine_exectution = {
         key_structure.partition_key: secret_key.partition_key,
         key_structure.sort_key: secret_key.sort_key,
         "key": secret.key,
         "value": secret.value,
-        "id": secret.id,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(

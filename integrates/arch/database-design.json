@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 23, 2022, 10:15 AM",
+    "DateLastModified": "Mar 29, 2022, 2:39 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1736,7 +1736,7 @@
           "FacetName": "git_root_secret",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
-            "SortKeyAlias": "SECRET#id"
+            "SortKeyAlias": "SECRET#key"
           },
           "TableData": [
             {
@@ -1744,7 +1744,7 @@
                 "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "sk": {
-                "S": "SECRET#5140d109-ffc6-5095-9ed4-eb28bca09e20"
+                "S": "SECRET#user_name"
               },
               "key": {
                 "S": "username"

@@ -89,7 +89,6 @@ from urllib.parse import (
     unquote,
     urlparse,
 )
-import uuid
 from uuid import (
     uuid4,
 )
@@ -1070,7 +1069,7 @@ async def add_secret(
     value: str,
 ) -> bool:
     await loaders.root.load((group_name, root_id))
-    secret = Secret(key=key, value=value, id=str(uuid.uuid4()))
+    secret = Secret(key=key, value=value)
     return await roots_model.add_secret(root_id, secret)
 
 

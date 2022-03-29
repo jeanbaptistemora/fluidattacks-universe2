@@ -24,7 +24,6 @@ const GET_ROOTS: DocumentNode = gql`
           includesHealthCheck
           nickname
           secrets {
-            id
             key
             value
           }
