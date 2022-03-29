@@ -3,6 +3,7 @@ import yaml from "js-yaml";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import type { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { ExternalLink } from "components/ExternalLink";
@@ -31,7 +32,6 @@ import {
   FormikDropdown,
   FormikTextArea,
 } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   maxLength,
@@ -70,6 +70,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   setEditing,
 }: IDescriptionViewFormProps): JSX.Element => {
   const { dirty, resetForm, submitForm } = useFormikContext();
+  const { t } = useTranslation();
 
   const isDescriptionPristine = !dirty;
 
@@ -185,7 +186,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
               <Col45>
                 <FormGroup>
                   <ControlLabel>
-                    <b>{translate.t("searchFindings.tabDescription.hacker")}</b>
+                    <b>{t("searchFindings.tabDescription.hacker")}</b>
                   </ControlLabel>
                   <p className={"ma0"}>{dataset.hacker}</p>
                 </FormGroup>
@@ -198,17 +199,11 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                 <Col100>
                   <TooltipWrapper
                     id={"searchFindings.tabDescription.title.tooltip"}
-                    message={translate.t(
-                      "searchFindings.tabDescription.title.tooltip"
-                    )}
+                    message={t("searchFindings.tabDescription.title.tooltip")}
                   >
                     <FormGroup>
                       <ControlLabel>
-                        <b>
-                          {translate.t(
-                            "searchFindings.tabDescription.title.text"
-                          )}
-                        </b>
+                        <b>{t("searchFindings.tabDescription.title.text")}</b>
                       </ControlLabel>
                       <br />
                       <Field
@@ -240,15 +235,13 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     currentValue={dataset.description}
                     id={"searchFindings.tabDescription.description.tooltip"}
                     infoLink={`${baseCriteriaUrl}vulnerabilities/${findingNumber}`}
-                    infoLinkText={translate.t(
+                    infoLinkText={t(
                       "searchFindings.tabDescription.description.infoLinkText"
                     )}
-                    label={translate.t(
-                      "searchFindings.tabDescription.description.text"
-                    )}
+                    label={t("searchFindings.tabDescription.description.text")}
                     name={"description"}
                     renderAsEditable={isEditing}
-                    tooltip={translate.t(
+                    tooltip={t(
                       "searchFindings.tabDescription.description.tooltip"
                     )}
                     type={"text"}
@@ -267,21 +260,19 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
             <Col100>
               <TooltipWrapper
                 id={"searchFindings.tabDescription.requirements.tooltip.id"}
-                message={translate.t(
+                message={t(
                   "searchFindings.tabDescription.requirements.tooltip"
                 )}
               >
                 <FormGroup>
                   <ControlLabel>
                     <b>
-                      {translate.t(
-                        "searchFindings.tabDescription.requirements.text"
-                      )}
+                      {t("searchFindings.tabDescription.requirements.text")}
                     </b>
                   </ControlLabel>
                   {reqsList.length === 0 ? (
                     <p>
-                      {translate.t(
+                      {t(
                         "searchFindings.tabDescription.requirements.loadingText"
                       )}
                     </p>
@@ -317,12 +308,12 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     component={FormikTextArea}
                     currentValue={dataset.attackVectorDescription}
                     id={"searchFindings.tabDescription.attackVectors.tooltip"}
-                    label={translate.t(
+                    label={t(
                       "searchFindings.tabDescription.attackVectors.text"
                     )}
                     name={"attackVectorDescription"}
                     renderAsEditable={isEditing}
-                    tooltip={translate.t(
+                    tooltip={t(
                       "searchFindings.tabDescription.attackVectors.tooltip"
                     )}
                     type={"text"}
@@ -348,14 +339,10 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     component={FormikTextArea}
                     currentValue={dataset.threat}
                     id={"searchFindings.tabDescription.threat.tooltip"}
-                    label={translate.t(
-                      "searchFindings.tabDescription.threat.text"
-                    )}
+                    label={t("searchFindings.tabDescription.threat.text")}
                     name={"threat"}
                     renderAsEditable={isEditing}
-                    tooltip={translate.t(
-                      "searchFindings.tabDescription.threat.tooltip"
-                    )}
+                    tooltip={t("searchFindings.tabDescription.threat.tooltip")}
                     type={"text"}
                     validate={composeValidators([
                       required,
@@ -379,12 +366,12 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     component={FormikTextArea}
                     currentValue={dataset.recommendation}
                     id={"searchFindings.tabDescription.recommendation.tooltip"}
-                    label={translate.t(
+                    label={t(
                       "searchFindings.tabDescription.recommendation.text"
                     )}
                     name={"recommendation"}
                     renderAsEditable={isEditing}
-                    tooltip={translate.t(
+                    tooltip={t(
                       "searchFindings.tabDescription.recommendation.tooltip"
                     )}
                     type={"text"}
@@ -405,17 +392,11 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                 <Col45>
                   <TooltipWrapper
                     id={"searchFindings.tabDescription.sorts.tooltip"}
-                    message={translate.t(
-                      "searchFindings.tabDescription.sorts.tooltip"
-                    )}
+                    message={t("searchFindings.tabDescription.sorts.tooltip")}
                   >
                     <FormGroup>
                       <ControlLabel>
-                        <b>
-                          {translate.t(
-                            "searchFindings.tabDescription.sorts.text"
-                          )}
-                        </b>
+                        <b>{t("searchFindings.tabDescription.sorts.text")}</b>
                       </ControlLabel>
                       <br />
                       <Field
@@ -426,10 +407,10 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       >
                         <option value={""} />
                         <option value={"NO"}>
-                          {translate.t("group.findings.boolean.False")}
+                          {t("group.findings.boolean.False")}
                         </option>
                         <option value={"YES"}>
-                          {translate.t("group.findings.boolean.True")}
+                          {t("group.findings.boolean.True")}
                         </option>
                       </Field>
                     </FormGroup>
