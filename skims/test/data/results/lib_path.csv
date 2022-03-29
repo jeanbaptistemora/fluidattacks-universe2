@@ -22628,55 +22628,7 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Ins
   22 | }
      ^ Col 0
 ",c_sharp.csharp_insecurely_generated_cookies
-F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,24,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
-  14 |   https_only          = true
-  15 |   tags                = var.modtags
-  16 | }
-  17 |
-  18 | resource ""azurerm_function_app"" ""vulnerable"" {
-  19 |   name                       = ""test-azure-functions""
-  20 |   location                   = azurerm_resource_group.example.location
-  21 |   resource_group_name        = azurerm_resource_group.example.name
-  22 |   app_service_plan_id        = azurerm_app_service_plan.example.id
-  23 |   storage_account_name       = azurerm_storage_account.example.name
-> 24 |   https_only                 = false
-  25 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
-  26 |   os_type                    = ""linux""
-  27 |   version                    = ""~3""
-  28 | }
-  29 |
-  30 | resource ""azurerm_function_app"" ""not_vulnerable"" {
-  31 |   name                       = ""test-azure-functions""
-  32 |   location                   = azurerm_resource_group.example.location
-  33 |   resource_group_name        = azurerm_resource_group.example.name
-  34 |   app_service_plan_id        = azurerm_app_service_plan.example.id
-     ^ Col 0
-",terraform.tfm_azure_kv_only_accessible_over_https
-F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,650,skims,372. Use of an insecure channel - HTTP,Ensure function apps are only accessible over HTTPS in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
->  1 | resource ""azurerm_app_service"" ""vulnerable"" {
-   2 |   name                = var.functionapp_name
-   3 |   location            = var.rg_location
-   4 |   resource_group_name = var.resource_group_name
-   5 |   app_service_plan_id = var.asp_id
-   6 |   tags                = var.modtags
-   7 | }
-   8 |
-   9 | resource ""azurerm_app_service"" ""not_vulnerable"" {
-  10 |   name                = var.functionapp_name
-  11 |   location            = var.rg_location
-  12 |   resource_group_name = var.resource_group_name
-  13 |   app_service_plan_id = var.asp_id
-  14 |   https_only          = true
-  15 |   tags                = var.modtags
-  16 | }
-  17 |
-  18 | resource ""azurerm_function_app"" ""vulnerable"" {
-  19 |   name                       = ""test-azure-functions""
-  20 |   location                   = azurerm_resource_group.example.location
-  21 |   resource_group_name        = azurerm_resource_group.example.name
-     ^ Col 0
-",terraform.tfm_azure_kv_only_accessible_over_https
-F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,30,650,skims,372. Use of an insecure channel - HTTP,Ensure secure transfer required is enabled in namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,"
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,30,650,skims,372. Use of an insecure channel - HTTP,Property enable_https_traffic_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfer.tf,"
   20 | }
   21 |
   22 |
@@ -22700,6 +22652,246 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_sa_insecure_transfe
   40 |   network_rules {
      ^ Col 0
 ",terraform.tfm_azure_sa_insecure_transfer
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,24,650,skims,372. Use of an insecure channel - HTTP,Property https_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
+  14 |   https_only          = true
+  15 |   tags                = var.modtags
+  16 | }
+  17 |
+  18 | resource ""azurerm_function_app"" ""vulnerable"" {
+  19 |   name                       = ""test-azure-functions""
+  20 |   location                   = azurerm_resource_group.example.location
+  21 |   resource_group_name        = azurerm_resource_group.example.name
+  22 |   app_service_plan_id        = azurerm_app_service_plan.example.id
+  23 |   storage_account_name       = azurerm_storage_account.example.name
+> 24 |   https_only                 = false
+  25 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
+  26 |   os_type                    = ""linux""
+  27 |   version                    = ""~3""
+  28 | }
+  29 |
+  30 | resource ""azurerm_function_app"" ""not_vulnerable"" {
+  31 |   name                       = ""test-azure-functions""
+  32 |   location                   = azurerm_resource_group.example.location
+  33 |   resource_group_name        = azurerm_resource_group.example.name
+  34 |   app_service_plan_id        = azurerm_app_service_plan.example.id
+     ^ Col 0
+",terraform.tfm_azure_kv_only_accessible_over_https
+F372,lines,namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,1,650,skims,372. Use of an insecure channel - HTTP,Property https_only is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/tfm_azure_kv_only_accessible_over_https.tf,"
+>  1 | resource ""azurerm_app_service"" ""vulnerable"" {
+   2 |   name                = var.functionapp_name
+   3 |   location            = var.rg_location
+   4 |   resource_group_name = var.resource_group_name
+   5 |   app_service_plan_id = var.asp_id
+   6 |   tags                = var.modtags
+   7 | }
+   8 |
+   9 | resource ""azurerm_app_service"" ""not_vulnerable"" {
+  10 |   name                = var.functionapp_name
+  11 |   location            = var.rg_location
+  12 |   resource_group_name = var.resource_group_name
+  13 |   app_service_plan_id = var.asp_id
+  14 |   https_only          = true
+  15 |   tags                = var.modtags
+  16 | }
+  17 |
+  18 | resource ""azurerm_function_app"" ""vulnerable"" {
+  19 |   name                       = ""test-azure-functions""
+  20 |   location                   = azurerm_resource_group.example.location
+  21 |   resource_group_name        = azurerm_resource_group.example.name
+     ^ Col 0
+",terraform.tfm_azure_kv_only_accessible_over_https
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,13,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
+   3 |   Type: AWS::CloudFront::Distribution
+   4 |   Properties:
+   5 |     DistributionConfig:
+   6 |       Enabled: 'true'
+   7 |       DefaultCacheBehavior:
+   8 |         TargetOriginId: def1
+   9 |         ForwardedValues:
+  10 |           QueryString: 'false'
+  11 |           Cookies:
+  12 |             Forward: all
+> 13 |         ViewerProtocolPolicy: allow-all
+  14 |       CacheBehaviors:
+  15 |       - TargetOriginId: cache11
+  16 |         ForwardedValues:
+  17 |           QueryString: 'true'
+  18 |           Cookies:
+  19 |             Forward: none
+  20 |         ViewerProtocolPolicy: https-only
+  21 |         PathPattern: images1/*.jpg
+  22 |       - TargetOriginId: cache12
+  23 |         ForwardedValues:
+     ^ Col 2
+",cloudformation.cfn_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,27,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
+  17 |           QueryString: 'true'
+  18 |           Cookies:
+  19 |             Forward: none
+  20 |         ViewerProtocolPolicy: https-only
+  21 |         PathPattern: images1/*.jpg
+  22 |       - TargetOriginId: cache12
+  23 |         ForwardedValues:
+  24 |           QueryString: 'true'
+  25 |           Cookies:
+  26 |             Forward: none
+> 27 |         ViewerProtocolPolicy: allow-all
+  28 |         PathPattern: images2/*.jpg
+  29 | distribution2:
+  30 |   Type: AWS::CloudFront::Distribution
+  31 |   Properties:
+  32 |     DistributionConfig:
+  33 |       Enabled: 'true'
+  34 |       DefaultCacheBehavior:
+  35 |         TargetOriginId: def2
+  36 |         ForwardedValues:
+  37 |           QueryString: 'false'
+     ^ Col 2
+",cloudformation.cfn_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,47,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
+  35 |         TargetOriginId: def2
+  36 |         ForwardedValues:
+  37 |           QueryString: 'false'
+  38 |           Cookies:
+  39 |             Forward: all
+  40 |         ViewerProtocolPolicy: https-only
+  41 |       CacheBehaviors:
+  42 |       - TargetOriginId: cache21
+  43 |         ForwardedValues:
+  44 |           QueryString: 'true'
+  45 |           Cookies:
+  46 |             Forward: none
+> 47 |         ViewerProtocolPolicy: allow-all
+  48 |         PathPattern: images1/*.jpg
+  49 |       - TargetOriginId: cache22
+  50 |         ForwardedValues:
+  51 |           QueryString: 'true'
+  52 |           Cookies:
+  53 |             Forward: none
+  54 |         ViewerProtocolPolicy: https-only
+  55 |         PathPattern: images2/*.jpg
+     ^ Col 2
+",cloudformation.cfn_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,16,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
+   6 |   ""DistributionConfig"": {
+   7 |     ""Enabled"": ""true"",
+   8 |     ""DefaultCacheBehavior"": {
+   9 |       ""TargetOriginId"": ""def1"",
+  10 |       ""ForwardedValues"": {
+  11 |         ""QueryString"": ""false"",
+  12 |         ""Cookies"": {
+  13 |           ""Forward"": ""all""
+  14 |         }
+  15 |       },
+> 16 |       ""ViewerProtocolPolicy"": ""allow-all""
+  17 |     },
+  18 |     ""CacheBehaviors"": [
+  19 |       {
+  20 |         ""TargetOriginId"": ""cache11"",
+  21 |         ""ForwardedValues"": {
+  22 |           ""QueryString"": ""true"",
+  23 |           ""Cookies"": {
+  24 |             ""Forward"": ""none""
+  25 |           }
+  26 |         },
+     ^ Col 6
+",cloudformation.cfn_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
+  28 |       ""PathPattern"": ""images1/*.jpg""
+  29 |     },
+  30 |     {
+  31 |       ""TargetOriginId"": ""cache12"",
+  32 |       ""ForwardedValues"": {
+  33 |         ""QueryString"": ""true"",
+  34 |         ""Cookies"": {
+  35 |           ""Forward"": ""none""
+  36 |         }
+  37 |       },
+> 38 |       ""ViewerProtocolPolicy"": ""allow-all"",
+  39 |       ""PathPattern"": ""images2/*.jpg""
+  40 |     }
+  41 |   ]
+  42 | }
+  43 |
+  44 |
+  45 | tribution2"": {
+  46 | ype"": ""AWS::CloudFront::Distribution"",
+  47 | roperties"": {
+  48 | ""DistributionConfig"": {
+     ^ Col 8
+",cloudformation.cfn_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
+  59 |   },
+  60 |   ""CacheBehaviors"": [
+  61 |     {
+  62 |       ""TargetOriginId"": ""cache21"",
+  63 |       ""ForwardedValues"": {
+  64 |         ""QueryString"": ""true"",
+  65 |         ""Cookies"": {
+  66 |           ""Forward"": ""none""
+  67 |         }
+  68 |       },
+> 69 |       ""ViewerProtocolPolicy"": ""allow-all"",
+  70 |       ""PathPattern"": ""images1/*.jpg""
+  71 |     },
+  72 |     {
+  73 |       ""TargetOriginId"": ""cache22"",
+  74 |       ""ForwardedValues"": {
+  75 |         ""QueryString"": ""true"",
+  76 |         ""Cookies"": {
+  77 |           ""Forward"": ""none""
+  78 |         }
+  79 |       },
+     ^ Col 8
+",cloudformation.cfn_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/test.tf,"
+  27 |     target_origin_id = local.s3_origin_id
+  28 |
+  29 |     forwarded_values {
+  30 |       query_string = false
+  31 |
+  32 |       cookies {
+  33 |         forward = ""none""
+  34 |       }
+  35 |     }
+  36 |
+> 37 |     viewer_protocol_policy = ""allow-all""
+  38 |     min_ttl                = 0
+  39 |     default_ttl            = 3600
+  40 |     max_ttl                = 86400
+  41 |   }
+  42 |
+  43 |   ordered_cache_behavior {
+  44 |     path_pattern     = ""/content/immutable/*""
+  45 |     allowed_methods  = [""GET"", ""HEAD"", ""OPTIONS""]
+  46 |     cached_methods   = [""GET"", ""HEAD"", ""OPTIONS""]
+  47 |     target_origin_id = local.s3_origin_id
+     ^ Col 0
+",terraform.tfm_serves_content_over_http
+F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/test.tf,"
+  52 |
+  53 |       cookies {
+  54 |         forward = ""none""
+  55 |       }
+  56 |     }
+  57 |
+  58 |     min_ttl                = 0
+  59 |     default_ttl            = 86400
+  60 |     max_ttl                = 31536000
+  61 |     compress               = true
+> 62 |     viewer_protocol_policy = ""allow-all""
+  63 |   }
+  64 |
+  65 |   tags = {
+  66 |     Environment = ""production""
+  67 |   }
+  68 |
+  69 |   viewer_certificate {
+  70 |     cloudfront_default_certificate = true
+  71 |   }
+  72 | }
+     ^ Col 0
+",terraform.tfm_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,4,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f281/cfn_elb2_uses_insecure_port.yaml,"
    1 | Resources:
    2 |   ELBv2targetGroup1:
@@ -22892,198 +23084,6 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   69 |     },
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_protocol
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,13,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-   3 |   Type: AWS::CloudFront::Distribution
-   4 |   Properties:
-   5 |     DistributionConfig:
-   6 |       Enabled: 'true'
-   7 |       DefaultCacheBehavior:
-   8 |         TargetOriginId: def1
-   9 |         ForwardedValues:
-  10 |           QueryString: 'false'
-  11 |           Cookies:
-  12 |             Forward: all
-> 13 |         ViewerProtocolPolicy: allow-all
-  14 |       CacheBehaviors:
-  15 |       - TargetOriginId: cache11
-  16 |         ForwardedValues:
-  17 |           QueryString: 'true'
-  18 |           Cookies:
-  19 |             Forward: none
-  20 |         ViewerProtocolPolicy: https-only
-  21 |         PathPattern: images1/*.jpg
-  22 |       - TargetOriginId: cache12
-  23 |         ForwardedValues:
-     ^ Col 2
-",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,27,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-  17 |           QueryString: 'true'
-  18 |           Cookies:
-  19 |             Forward: none
-  20 |         ViewerProtocolPolicy: https-only
-  21 |         PathPattern: images1/*.jpg
-  22 |       - TargetOriginId: cache12
-  23 |         ForwardedValues:
-  24 |           QueryString: 'true'
-  25 |           Cookies:
-  26 |             Forward: none
-> 27 |         ViewerProtocolPolicy: allow-all
-  28 |         PathPattern: images2/*.jpg
-  29 | distribution2:
-  30 |   Type: AWS::CloudFront::Distribution
-  31 |   Properties:
-  32 |     DistributionConfig:
-  33 |       Enabled: 'true'
-  34 |       DefaultCacheBehavior:
-  35 |         TargetOriginId: def2
-  36 |         ForwardedValues:
-  37 |           QueryString: 'false'
-     ^ Col 2
-",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,47,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-  35 |         TargetOriginId: def2
-  36 |         ForwardedValues:
-  37 |           QueryString: 'false'
-  38 |           Cookies:
-  39 |             Forward: all
-  40 |         ViewerProtocolPolicy: https-only
-  41 |       CacheBehaviors:
-  42 |       - TargetOriginId: cache21
-  43 |         ForwardedValues:
-  44 |           QueryString: 'true'
-  45 |           Cookies:
-  46 |             Forward: none
-> 47 |         ViewerProtocolPolicy: allow-all
-  48 |         PathPattern: images1/*.jpg
-  49 |       - TargetOriginId: cache22
-  50 |         ForwardedValues:
-  51 |           QueryString: 'true'
-  52 |           Cookies:
-  53 |             Forward: none
-  54 |         ViewerProtocolPolicy: https-only
-  55 |         PathPattern: images2/*.jpg
-     ^ Col 2
-",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,16,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-   6 |   ""DistributionConfig"": {
-   7 |     ""Enabled"": ""true"",
-   8 |     ""DefaultCacheBehavior"": {
-   9 |       ""TargetOriginId"": ""def1"",
-  10 |       ""ForwardedValues"": {
-  11 |         ""QueryString"": ""false"",
-  12 |         ""Cookies"": {
-  13 |           ""Forward"": ""all""
-  14 |         }
-  15 |       },
-> 16 |       ""ViewerProtocolPolicy"": ""allow-all""
-  17 |     },
-  18 |     ""CacheBehaviors"": [
-  19 |       {
-  20 |         ""TargetOriginId"": ""cache11"",
-  21 |         ""ForwardedValues"": {
-  22 |           ""QueryString"": ""true"",
-  23 |           ""Cookies"": {
-  24 |             ""Forward"": ""none""
-  25 |           }
-  26 |         },
-     ^ Col 6
-",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-  28 |       ""PathPattern"": ""images1/*.jpg""
-  29 |     },
-  30 |     {
-  31 |       ""TargetOriginId"": ""cache12"",
-  32 |       ""ForwardedValues"": {
-  33 |         ""QueryString"": ""true"",
-  34 |         ""Cookies"": {
-  35 |           ""Forward"": ""none""
-  36 |         }
-  37 |       },
-> 38 |       ""ViewerProtocolPolicy"": ""allow-all"",
-  39 |       ""PathPattern"": ""images2/*.jpg""
-  40 |     }
-  41 |   ]
-  42 | }
-  43 |
-  44 |
-  45 | tribution2"": {
-  46 | ype"": ""AWS::CloudFront::Distribution"",
-  47 | roperties"": {
-  48 | ""DistributionConfig"": {
-     ^ Col 8
-",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-  59 |   },
-  60 |   ""CacheBehaviors"": [
-  61 |     {
-  62 |       ""TargetOriginId"": ""cache21"",
-  63 |       ""ForwardedValues"": {
-  64 |         ""QueryString"": ""true"",
-  65 |         ""Cookies"": {
-  66 |           ""Forward"": ""none""
-  67 |         }
-  68 |       },
-> 69 |       ""ViewerProtocolPolicy"": ""allow-all"",
-  70 |       ""PathPattern"": ""images1/*.jpg""
-  71 |     },
-  72 |     {
-  73 |       ""TargetOriginId"": ""cache22"",
-  74 |       ""ForwardedValues"": {
-  75 |         ""QueryString"": ""true"",
-  76 |         ""Cookies"": {
-  77 |           ""Forward"": ""none""
-  78 |         }
-  79 |       },
-     ^ Col 8
-",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/test.tf,"
-  27 |     target_origin_id = local.s3_origin_id
-  28 |
-  29 |     forwarded_values {
-  30 |       query_string = false
-  31 |
-  32 |       cookies {
-  33 |         forward = ""none""
-  34 |       }
-  35 |     }
-  36 |
-> 37 |     viewer_protocol_policy = ""allow-all""
-  38 |     min_ttl                = 0
-  39 |     default_ttl            = 3600
-  40 |     max_ttl                = 86400
-  41 |   }
-  42 |
-  43 |   ordered_cache_behavior {
-  44 |     path_pattern     = ""/content/immutable/*""
-  45 |     allowed_methods  = [""GET"", ""HEAD"", ""OPTIONS""]
-  46 |     cached_methods   = [""GET"", ""HEAD"", ""OPTIONS""]
-  47 |     target_origin_id = local.s3_origin_id
-     ^ Col 0
-",terraform.tfm_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use of an insecure channel - HTTP,The application is serving content over HTTP in namespace/skims/test/data/lib_path/f372/test.tf,"
-  52 |
-  53 |       cookies {
-  54 |         forward = ""none""
-  55 |       }
-  56 |     }
-  57 |
-  58 |     min_ttl                = 0
-  59 |     default_ttl            = 86400
-  60 |     max_ttl                = 31536000
-  61 |     compress               = true
-> 62 |     viewer_protocol_policy = ""allow-all""
-  63 |   }
-  64 |
-  65 |   tags = {
-  66 |     Environment = ""production""
-  67 |   }
-  68 |
-  69 |   viewer_certificate {
-  70 |     cloudfront_default_certificate = true
-  71 |   }
-  72 | }
-     ^ Col 0
-",terraform.tfm_serves_content_over_http
 F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = true
