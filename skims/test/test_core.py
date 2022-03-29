@@ -9,6 +9,7 @@ from model import (
     core_model,
 )
 import pytest
+import re
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
@@ -464,3 +465,96 @@ async def test_vulnerability_justification() -> None:
     assert len(justification) == 1
     assert not justification_2
     assert len(justification_3) == 2
+
+
+@pytest.mark.asyncio
+@pytest.mark.skims_test_group("unittesting")
+async def test_comment_to_dast_methods() -> None:
+    namespace = "test"
+    skims_store: EphemeralStore = get_ephemeral_store()
+    reattacked_store: EphemeralStore = get_ephemeral_store()
+    common_finding = core_model.FindingEnum.F133
+    common_kind = core_model.VulnerabilityKindEnum.LINES
+    common_reattack_requested = core_model.VulnerabilityVerification(
+        state=core_model.VulnerabilityVerificationStateEnum.REQUESTED,
+        date="2020-01-01T00:45:12+00:00",
+    )
+    common_verified_status = core_model.VulnerabilityVerification(
+        state=core_model.VulnerabilityVerificationStateEnum.VERIFIED,
+        date="2020-01-01T00:45:12+00:00",
+    )
+    common_skims_metadata = core_model.SkimsVulnerabilityMetadata(
+        cwe=16,
+        description="Description",
+        snippet="> Vulnerable line 1 \n \
+                > Vulnerable lines 2 \n \
+                > Vulnerable lines 3 \n",
+        source_method="DAST",
+        developer=core_model.DeveloperEnum.DIEGO_RESTREPO,
+        technique=core_model.TechniqueEnum.DAST,
+    )
+
+    # Vulnerability with a reattack requested
+    skims_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="file",
+            where="1",
+            skims_metadata=common_skims_metadata,
+        )
+    )
+    # On integrate_store but not in reattacked store
+    skims_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_verified_status,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="file",
+            where="0",
+            skims_metadata=common_skims_metadata,
+        )
+    )
+    reattacked_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                source=core_model.VulnerabilitySourceEnum.SKIMS,
+                verification=common_reattack_requested,
+                commit_hash="b72bd2c2b3c6d34caec6cd1733eca959a1bfe074",
+            ),
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="file",
+            where="1",
+            skims_metadata=None,
+        )
+    )
+    open_vulns_comment = (
+        r"^A reattack request was executed on\s"
+        + r"+([0-9]{4}\/+[0-9]{2}\/+[0-9]{2}\sat\s"
+        + r"[0-9]{2}\:[0-9]{2})\.\n"
+        + r"Reported vulnerabilities are still open in commit\s+"
+        + r"([a-zA-Z0-9]{40})\: \n"
+        + r"   - file $"
+    )
+    justification = get_vulnerability_justification(
+        reattacked_store=reattacked_store, store=skims_store
+    )
+
+    assert re.search(open_vulns_comment, justification[0])
+    assert len(justification) == 1
