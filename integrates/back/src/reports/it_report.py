@@ -339,7 +339,10 @@ class ITReport:
                     == VulnerabilityVerificationStatus.REQUESTED
                 ]
             )
-            if vuln.state.status == VulnerabilityStateStatus.CLOSED:
+            if (
+                vuln.state.status == VulnerabilityStateStatus.CLOSED
+                and n_requested_reattacks
+            ):
                 effectiveness: float = 100 / n_requested_reattacks
                 remediation_effectiveness = (
                     f"{f'{effectiveness:.2f}'.rstrip('0').rstrip('.')}%"
