@@ -130,6 +130,27 @@ const pageTexts: ResourceKey = {
       title: "Product & Projects Teams",
     },
   },
+  productOverview: {
+    cardsSection: {
+      card1Description:
+        "You can be aware of all vulnerability types " +
+        "we identify in your system and their main attributes to act promptly.",
+      card1Title: "Know your vulnerabilities",
+      card2Description:
+        "Your developers and managers can understand " +
+        "what is happening with each vulnerability reported on the ASM.",
+      card2Title: "Learn details of each vulnerability",
+      card3Description:
+        "You can decide the course of action for each " +
+        "vulnerability: start its remediation or accept its presence.",
+      card3Title: "Define treatments for vulnerabilities",
+    },
+    mainButton: "Schedule your free trial",
+    planText:
+      "*This free trial is for Machine Plan. " +
+      "See how this compares to our main Squad Plan",
+    title: "Enjoy Continuous Hacking",
+  },
   resources: {
     cardsText: {
       buttons: {
