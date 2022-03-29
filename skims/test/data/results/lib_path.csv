@@ -25346,15 +25346,6 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_s3_buckets_logging_disabl
   19 | }
      ^ Col 0
 ",terraform.tfm_s3_bucket_logging_disabled
-F408,lines,namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,1,778,skims,408. Tracebility Loss - API Gateway,"Missing Logging property to make traceability
- in namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf","
-> 1 | resource ""aws_api_gateway_stage"" ""example"" {
-  2 |   deployment_id = aws_api_gateway_deployment.example.id
-  3 |   rest_api_id   = aws_api_gateway_rest_api.example.id
-  4 |   stage_name    = ""example""
-  5 | }
-    ^ Col 0
-",terraform.tfm_api_gateway_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,9,778,skims,400. Tracebility Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
    1 | Resources:
    2 |   S3Bucket:
@@ -25902,6 +25893,14 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_trac
   29 | }
      ^ Col 0
 ",terraform.tfm_azure_app_service_logging_disabled
+F408,lines,namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,1,778,skims,408. Tracebility Loss - API Gateway,Property access_log_settings is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,"
+> 1 | resource ""aws_api_gateway_stage"" ""example"" {
+  2 |   deployment_id = aws_api_gateway_deployment.example.id
+  3 |   rest_api_id   = aws_api_gateway_rest_api.example.id
+  4 |   stage_name    = ""example""
+  5 | }
+    ^ Col 0
+",terraform.tfm_api_gateway_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,17,778,skims,400. Tracebility Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,"
    7 |         S3BucketName: bkname
    8 |       Listeners:

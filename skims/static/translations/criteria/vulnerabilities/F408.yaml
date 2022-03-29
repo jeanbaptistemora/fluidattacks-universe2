@@ -1,5 +1,3 @@
 lib_path.f408.has_logging_disabled:
-  en: >
-    Missing Logging property to make traceability
-  es: >
-    Falta la propiedad Logging para hacer trazabilidad
+  en: Property access_log_settings is either missing or misconfigured
+  es: Falta la propiedad access_log_settings o está mal configurada
