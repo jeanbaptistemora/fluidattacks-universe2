@@ -1467,16 +1467,6 @@ F409,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencr
   6 | }
     ^ Col 0
 ",terraform.tfm_aws_dynamodb_table_unencrypted
-F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,"Ensure Instances and Launch configurations use encrypted EBS volumes
- in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf","
-  1 | resource ""aws_launch_configuration"" ""example"" {
-  2 |   instance_type = ""t2.micro""
-  3 |   root_block_device {
-> 4 |     encrypted = false
-  5 |   }
-  6 | }
-    ^ Col 0
-",terraform.tfm_aws_ebs_volumes_unencrypted
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -2691,6 +2681,15 @@ F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whit
   7 | }
     ^ Col 0
 ",terraform.tfm_aws_secret_encrypted_whitouth_kms_cmk
+F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property root_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,"
+  1 | resource ""aws_launch_configuration"" ""example"" {
+  2 |   instance_type = ""t2.micro""
+  3 |   root_block_device {
+> 4 |     encrypted = false
+  5 |   }
+  6 | }
+    ^ Col 0
+",terraform.tfm_aws_ebs_volumes_unencrypted
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,12,16,skims,024. Unrestricted access between network segments - AWS,"Security groups contain RFC-1918 CIDRs open
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml","
    2 |   InstanceSecurityGroup:

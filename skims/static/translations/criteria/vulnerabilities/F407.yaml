@@ -1,5 +1,3 @@
 lib_path.f407.tfm_aws_ebs_volumes_unencrypted:
-  en: >
-    Ensure Instances and Launch configurations use encrypted EBS volumes
-  es: >
-    Asegúrese de que las configuraciones de instancias y lanzamiento utilicen volúmenes de EBS cifrados
+  en: Property root_block_device.encrypted is either missing or misconfigured
+  es: Falta la propiedad root_block_device.encrypted o está mal configuradaesté activada
