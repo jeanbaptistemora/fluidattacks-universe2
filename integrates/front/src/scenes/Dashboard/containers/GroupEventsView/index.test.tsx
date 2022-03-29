@@ -1,20 +1,25 @@
-// Needed to allow lazy updates of test components
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
-import _ from "lodash";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView";
 import { GET_EVENTS } from "scenes/Dashboard/containers/GroupEventsView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgError } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("EventsView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -72,7 +77,7 @@ describe("EventsView", (): void => {
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <MockedProvider addTypename={false} mocks={mockError}>
           <Route
@@ -82,35 +87,16 @@ describe("EventsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
-
-    expect(wrapper.find("Query").children()).toHaveLength(0);
-  });
-
-  it("should render a component", (): void => {
-    expect.hasAssertions();
-
-    const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
-          <Route
-            component={GroupEventsView}
-            path={"/groups/:groupName/events"}
-          />
-        </MockedProvider>
-      </MemoryRouter>
-    );
-
-    expect(wrapper).toHaveLength(1);
+    jest.clearAllMocks();
   });
 
   it("should render events table", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -120,26 +106,14 @@ describe("EventsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(wrapper.find("table")).toHaveLength(1);
     expect(
-      wrapper
-        .find("td")
-        .filterWhere((td: ReactWrapper): boolean =>
-          _.includes(td.text(), "Authorization for special attack")
-        )
-    ).toHaveLength(1);
-    expect(
-      wrapper
-        .find("td")
-        .filterWhere((td: ReactWrapper): boolean =>
-          td.containsMatchingElement(<span>{"Solved"}</span>)
-        )
-    ).toHaveLength(1);
+      screen.getByRole("cell", { name: "Authorization for special attack" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Solved" })).toBeInTheDocument();
   });
 
   it("should render new event modal", async (): Promise<void> => {
@@ -148,7 +122,7 @@ describe("EventsView", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_add_event_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -160,56 +134,32 @@ describe("EventsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.btn.text")).toBeInTheDocument();
     });
-    const newButton = (): ReactWrapper =>
-      wrapper
-        .find("button")
-        .filterWhere((button: ReactWrapper): boolean =>
-          _.includes(button.text(), "New")
-        );
+    userEvent.click(screen.getByText("group.events.btn.text"));
+    await waitFor((): void => {
+      expect(screen.queryByText("group.events.new")).toBeInTheDocument();
+    });
 
-    expect(newButton()).toHaveLength(1);
-
-    newButton().simulate("click");
-
-    const dateField = (): ReactWrapper =>
-      wrapper.find({ name: "eventDate" }).find("input");
-
-    const typeField = (): ReactWrapper =>
-      wrapper.find({ name: "eventType" }).find("select");
-
-    const contextField = (): ReactWrapper =>
-      wrapper.find({ name: "context" }).find("select");
-
-    const checkBoxes = (): ReactWrapper =>
-      wrapper
-        .find({ name: "accessibility" })
-        .find("input")
-        .find({ type: "checkbox" });
-
-    const textAreaField = (): ReactWrapper =>
-      wrapper.find({ name: "detail" }).find("textarea");
-
-    const actionBeforeBlockingField = (): ReactWrapper =>
-      wrapper.find({ name: "actionBeforeBlocking" }).find("select");
-
-    const actionAfterBlockedField = (): ReactWrapper =>
-      wrapper.find({ name: "actionAfterBlocking" }).find("select");
-
-    const evidenceFiles = (): ReactWrapper =>
-      wrapper.find("span").find(".fa-magnifying-glass");
-
-    expect(wrapper.text()).toContain("group.events.new");
-    expect(dateField()).toHaveLength(1);
-    expect(typeField()).toHaveLength(1);
-    expect(contextField()).toHaveLength(1);
-    expect(checkBoxes()).toHaveLength(2);
-    expect(textAreaField()).toHaveLength(1);
-    expect(actionBeforeBlockingField()).toHaveLength(1);
-    expect(actionAfterBlockedField()).toHaveLength(1);
-    expect(evidenceFiles()).toHaveLength(2);
+    expect(screen.getAllByText("group.events.form.date")).toHaveLength(1);
+    expect(screen.getAllByRole("combobox", { name: "eventType" })).toHaveLength(
+      1
+    );
+    expect(screen.getAllByRole("combobox", { name: "context" })).toHaveLength(
+      1
+    );
+    expect(
+      screen.getAllByRole("checkbox", { name: "accessibility" })
+    ).toHaveLength(2);
+    expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
+    expect(
+      screen.getAllByRole("combobox", { name: "actionBeforeBlocking" })
+    ).toHaveLength(1);
+    expect(
+      screen.getAllByRole("combobox", { name: "actionAfterBlocking" })
+    ).toHaveLength(1);
+    expect(screen.getAllByTestId("file")).toHaveLength(1);
+    expect(screen.getAllByTestId("image")).toHaveLength(1);
   });
 });

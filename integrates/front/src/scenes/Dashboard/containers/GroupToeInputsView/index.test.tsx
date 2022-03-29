@@ -1,29 +1,14 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { GET_TOE_INPUTS } from "./queries";
 
 import { GroupToeInputsView } from ".";
-import { Table } from "components/Table";
-import type { ITableProps } from "components/Table/types";
 import { authzPermissionsContext } from "utils/authz/config";
-
-jest.mock("../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../utils/notifications"
-  );
-  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
-
-  return mockedNotifications;
-});
 
 describe("GroupToeInputsView", (): void => {
   it("should return a function", (): void => {
@@ -119,7 +104,7 @@ describe("GroupToeInputsView", (): void => {
       { action: "api_resolvers_toe_input_first_attack_at_resolve" },
       { action: "api_resolvers_toe_input_seen_first_time_by_resolve" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/unittesting/surface/inputs"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeInputs]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -130,45 +115,52 @@ describe("GroupToeInputsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    const toeInputsTable: ReactWrapper<ITableProps> = wrapper
-      .find(Table)
-      .filter({ id: "tblToeInputs" });
-    const tableHeader: ReactWrapper = toeInputsTable.find("Header");
-    const simpleRows: ReactWrapper = toeInputsTable.find("RowPureContent");
-    const firstRow: ReactWrapper = simpleRows.at(0);
-    const secondRow: ReactWrapper = simpleRows.at(1);
-    const thirdRow: ReactWrapper = simpleRows.at(2);
-
-    expect(tableHeader.text()).toStrictEqual(
+    expect(screen.getAllByRole("row")[0].textContent).toStrictEqual(
       [
-        "Root",
-        "Entry point",
-        "Has vulnerabilities",
-        "Attacked at",
-        "Seen at",
-        "Seen first time by",
+        "group.toe.inputs.root",
+        "group.toe.inputs.entryPoint",
+        "group.toe.inputs.hasVulnerabilities",
+        "group.toe.inputs.attackedAt",
+        "group.toe.inputs.seenAt",
+        "group.toe.inputs.seenFirstTimeBy",
       ].join("")
     );
-    expect(firstRow.text()).toStrictEqual(
-      ["test_nickname", "idTest", "No", "2020-01-02", "2000-01-01", ""].join("")
+    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
+      [
+        "test_nickname",
+        "idTest",
+        "group.toe.inputs.no",
+        "2020-01-02",
+        "2000-01-01",
+        "",
+      ].join("")
     );
-    expect(secondRow.text()).toStrictEqual(
+    expect(screen.getAllByRole("row")[2].textContent).toStrictEqual(
       [
         "test_nickname",
         "btnTest",
-        "Yes",
+        "group.toe.inputs.yes",
         "2021-02-02",
         "2020-03-14",
         "test@test.com",
       ].join("")
     );
-    expect(thirdRow.text()).toStrictEqual(
-      ["", "-", "Yes", "2021-02-11", "2020-01-11", "test2@test.com"].join("")
+
+    const thirdRow: number = 3;
+
+    expect(screen.getAllByRole("row")[thirdRow].textContent).toStrictEqual(
+      [
+        "",
+        "-",
+        "group.toe.inputs.yes",
+        "2021-02-11",
+        "2020-01-11",
+        "test2@test.com",
+      ].join("")
     );
   });
 });
