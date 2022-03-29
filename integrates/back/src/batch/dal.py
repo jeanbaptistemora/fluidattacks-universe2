@@ -602,7 +602,7 @@ async def put_action_to_batch(
     entity: str,
     product_name: str,
     attempt_duration_seconds: int = 3600,
-    memory: int = 2048,
+    memory: int = 3800,
     queue: str = "spot_soon",
     vcpus: int = 2,
     **kwargs: Any,
@@ -670,7 +670,7 @@ async def put_action(  # pylint: disable=too-many-locals
     attempt_duration_seconds: int = 3600,
     dynamodb_pk: Optional[str] = None,
     queue: str = "spot_soon",
-    vcpus: int = 1,
+    vcpus: int = 2,
     **kwargs: Any,
 ) -> PutActionResult:
     time: str = str(get_as_epoch(get_now()))

@@ -96,7 +96,7 @@ async def _get_url_group_report(
             attempt_duration_seconds=7200,
             queue="reports_soon",
             product_name=Product.INTEGRATES,
-            memory=7200,
+            memory=7600,
         )
     ).success
     if not success:
