@@ -8,6 +8,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { selectFilter } from "react-bootstrap-table2-filter";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 
@@ -43,7 +44,6 @@ import {
 import { FormikAutocompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   required,
@@ -55,6 +55,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { push } = useHistory();
   const { url } = useRouteMatch();
+  const { t } = useTranslation();
 
   const goToFinding: (
     event: React.FormEvent<HTMLButtonElement>,
@@ -155,7 +156,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning(
         "An error occurred getting group drafts or findings",
         error
@@ -191,8 +192,8 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     if (result.addDraft.success) {
       closeNewDraftModal();
       msgSuccess(
-        translate.t("group.drafts.successCreate"),
-        translate.t("group.drafts.titleSuccess")
+        t("group.drafts.successCreate"),
+        t("group.drafts.titleSuccess")
       );
       await refetch();
     }
@@ -212,13 +213,13 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         error.message ===
         "Exception - The inserted Draft/Finding title is invalid"
       ) {
-        msgError(translate.t("validations.draftTitle"));
+        msgError(t("validations.draftTitle"));
       } else if (
         error.message ===
         "Exception - A draft of this type has been already created. Please submit vulnerabilities there"
       ) {
         msgError(
-          translate.t("validations.duplicateDraft", {
+          t("validations.duplicateDraft", {
             type: "draft",
           })
         );
@@ -227,12 +228,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         "Exception - A finding of this type has been already created. Please submit vulnerabilities there"
       ) {
         msgError(
-          translate.t("validations.duplicateDraft", {
+          t("validations.duplicateDraft", {
             type: "finding",
           })
         );
       } else {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.error("An error occurred while adding drafts", error);
       }
     });
@@ -246,14 +247,14 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     onError: handleMutationError,
   });
 
-  const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
-    (values: Record<string, unknown>): void => {
+  const handleSubmit = useCallback(
+    async (values: Record<string, unknown>): Promise<void> => {
       const [matchingSuggestion]: IDraftVariables[] = suggestions.filter(
         (suggestion: ISuggestion): boolean =>
           `${suggestion.key}. ${suggestion.title}` === values.title
       );
 
-      void addDraft({
+      await addDraft({
         variables: {
           ...matchingSuggestion,
           groupName,
@@ -277,7 +278,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       !matchingSuggestion.description ||
       matchingSuggestion.description.includes("__empty__")
     ) {
-      return translate.t("group.drafts.hint.empty");
+      return t("group.drafts.hint.empty");
     }
 
     return matchingSuggestion.description;
@@ -302,7 +303,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       <Modal
         onClose={closeNewDraftModal}
         open={isDraftModalOpen}
-        title={translate.t("group.drafts.new")}
+        title={t("group.drafts.new")}
       >
         <Formik
           enableReinitialize={true}
@@ -336,7 +337,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                 <React.Fragment>
                   <hr />
                   <HintFieldText>
-                    {translate.t("group.drafts.hint.description")}
+                    {t("group.drafts.hint.description")}
                   </HintFieldText>
                   <HintFieldText>
                     {getFindingDescription(values.title)}
@@ -345,14 +346,14 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
               ) : undefined}
               <ModalFooter>
                 <Button onClick={closeNewDraftModal} variant={"secondary"}>
-                  {translate.t("confirmmodal.cancel")}
+                  {t("confirmmodal.cancel")}
                 </Button>
                 <Button
                   disabled={!dirty || !isValid || submitting}
                   type={"submit"}
                   variant={"primary"}
                 >
-                  {translate.t("confirmmodal.proceed")}
+                  {t("confirmmodal.proceed")}
                 </Button>
               </ModalFooter>
             </Form>
@@ -374,11 +375,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             <ButtonToolbar>
               <TooltipWrapper
                 id={"group.drafts.btn.tooltip"}
-                message={translate.t("group.drafts.btn.tooltip")}
+                message={t("group.drafts.btn.tooltip")}
               >
                 <Button onClick={openNewDraftModal} variant={"secondary"}>
                   <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;{translate.t("group.drafts.btn.text")}
+                  &nbsp;{t("group.drafts.btn.text")}
                 </Button>
               </TooltipWrapper>
             </ButtonToolbar>
