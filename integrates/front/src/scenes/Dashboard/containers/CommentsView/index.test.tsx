@@ -107,8 +107,6 @@ describe("CommentsView", (): void => {
   it("should render empty UI", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
     const emptyMocks: readonly MockedResponse[] = [
       {
         request: {
