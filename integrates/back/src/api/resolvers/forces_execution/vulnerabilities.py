@@ -20,7 +20,7 @@ async def resolve(
     parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> ExecutionVulnerabilities:
     group_name: str = get_key_or_fallback(parent)
-    execution_id: str = parent["execution_id"]
+    execution_id = str(parent["execution_id"])
     vulnerabilities: ExecutionVulnerabilities = cast(
         ExecutionVulnerabilities, parent.get("vulnerabilities", {})
     )

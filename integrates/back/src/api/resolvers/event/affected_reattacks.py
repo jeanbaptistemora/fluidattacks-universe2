@@ -20,7 +20,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[Vulnerability]:
-    event_id: str = parent["id"]
+    event_id = str(parent["id"])
 
     event_vulns_loader: DataLoader = (
         info.context.loaders.event_vulnerabilities_loader

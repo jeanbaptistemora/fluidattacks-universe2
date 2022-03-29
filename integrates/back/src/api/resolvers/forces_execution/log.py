@@ -10,17 +10,12 @@ from graphql.type.definition import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from typing import (
-    cast,
-)
 
 
 async def resolve(
     parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     group_name: str = get_key_or_fallback(parent)
-    execution_id: str = parent["execution_id"]
+    execution_id = str(parent["execution_id"])
 
-    return cast(
-        str, await forces_domain.get_log_execution(group_name, execution_id)
-    )
+    return await forces_domain.get_log_execution(group_name, execution_id)

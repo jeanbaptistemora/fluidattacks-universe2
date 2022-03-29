@@ -22,7 +22,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
 )
@@ -33,17 +32,14 @@ async def resolve_no_cache(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[Comment]:
-    event_id: str = parent["id"]
+    event_id = str(parent["id"])
     group_name: str = get_key_or_fallback(parent)
 
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
 
-    return cast(
-        List[Comment],
-        await comments_domain.get_event_comments(
-            group_name, event_id, user_email
-        ),
+    return await comments_domain.get_event_comments(
+        group_name, event_id, user_email
     )
 
 
@@ -56,6 +52,6 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="event",
         attr="consulting",
-        id=parent["id"],
+        id=str(parent["id"]),
     )
     return response
