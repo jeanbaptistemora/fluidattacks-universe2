@@ -63,7 +63,7 @@ async def mutate(
     user_email = user_data["user_email"]
     user_role = await authz.get_user_level_role(user_email)
 
-    await groups_domain.add_group_typed(
+    await groups_domain.add_group(
         description=description,
         group_name=group_name.lower(),
         has_machine=has_machine,
