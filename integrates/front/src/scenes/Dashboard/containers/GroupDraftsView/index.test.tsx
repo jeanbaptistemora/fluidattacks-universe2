@@ -1,17 +1,25 @@
 /* eslint-disable camelcase */
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import type { FetchMockStatic } from "fetch-mock";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GET_DRAFTS_AND_FINDING_TITLES } from "scenes/Dashboard/containers/GroupDraftsView/queries";
+import { msgError } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+
+  return mockedNotifications;
+});
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string =
@@ -21,13 +29,13 @@ const vulnsFileId: string =
   "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
 mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
   body: {
-    "008": {
+    "002": {
       en: {
         description: "",
         impact: "",
         recommendation: "",
         threat: "",
-        title: "Reflected cross-site scripting (XSS)",
+        title: "Asymmetric denial of service",
       },
       remediation_time: "60",
       requirements: [],
@@ -116,6 +124,7 @@ describe("GroupDraftsView", (): void => {
                 title: "008. Reflected cross-site scripting (XSS)",
               },
             ],
+            findings: [],
             language: "EN",
             name: "TEST",
           },
@@ -146,7 +155,7 @@ describe("GroupDraftsView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -156,20 +165,36 @@ describe("GroupDraftsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.getByText("group.drafts.btn.text")).toBeInTheDocument();
 
-    wrapper.unmount();
+    userEvent.click(screen.getByText("group.drafts.btn.text"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "title" })
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+    userEvent.type(screen.getByRole("textbox", { name: "title" }), "002");
+    await waitFor((): void => {
+      expect(screen.queryByRole("listitem")).toBeInTheDocument();
+    });
+
+    expect(screen.queryByRole("list")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "002. Asymmetric denial of service" })
+    ).toBeInTheDocument();
   });
 
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <MockedProvider addTypename={false} mocks={mockError}>
           <Route
@@ -179,13 +204,8 @@ describe("GroupDraftsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
-
-    expect(wrapper).toHaveLength(1);
-
-    wrapper.unmount();
   });
 });

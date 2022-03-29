@@ -1,13 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
-import { Comments } from "scenes/Dashboard/components/Comments";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView";
 import { GET_GROUP_CONSULTING } from "scenes/Dashboard/containers/GroupConsultingView/queries";
 
@@ -47,33 +43,21 @@ describe("GroupConsultingView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route component={GroupConsultingView} path={"/:groupName"} />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("Hello world")).toBeInTheDocument();
     });
-
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.text()).toContain("Hello world");
-    expect(wrapper.find(Comments)).toHaveLength(1);
-
-    document.body.removeChild(container);
   });
 
   it("should render empty UI", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
     const emptyMocks: readonly MockedResponse[] = [
       {
         request: {
@@ -90,45 +74,32 @@ describe("GroupConsultingView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={emptyMocks}>
           <Route component={GroupConsultingView} path={"/:groupName"} />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("comments.noComments")).toBeInTheDocument();
     });
-
-    expect(wrapper.text()).toContain("comments.noComments");
-
-    document.body.removeChild(container);
   });
 
   it("should render comment", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const container: HTMLDivElement = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route component={GroupConsultingView} path={"/:groupName"} />
         </MockedProvider>
-      </MemoryRouter>,
-      { attachTo: container }
+      </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryByText("Hello world")).toBeInTheDocument();
     });
 
-    expect(wrapper.find(Comments)).toHaveLength(1);
-    expect(wrapper.text()).toContain("Hello world");
-
-    document.body.removeChild(container);
+    expect(screen.getByText("comments.reply")).toBeInTheDocument();
   });
 });
