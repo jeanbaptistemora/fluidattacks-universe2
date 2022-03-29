@@ -2,13 +2,11 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import type { FetchMockStatic } from "fetch-mock";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView";
 import {
@@ -155,7 +153,7 @@ describe("Finding Description", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <MockedProvider
           addTypename={false}
@@ -168,20 +166,11 @@ describe("Finding Description", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      const TEST_TIMEOUT: number = 50;
-      await wait(TEST_TIMEOUT);
-      wrapper.update();
-    });
 
-    expect(wrapper).toHaveLength(1);
-    expect(
-      wrapper
-        .find("button")
-        .filterWhere((button: ReactWrapper): boolean =>
-          button.text().includes("Edit")
-        )
-    ).toHaveLength(0);
+    await waitFor((): void => {
+      expect(screen.queryByText("Run a reverse shell")).toBeInTheDocument();
+    });
+    jest.clearAllMocks();
   });
 
   it("should set the description as editable", async (): Promise<void> => {
@@ -190,7 +179,7 @@ describe("Finding Description", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_finding_description_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <MockedProvider
           addTypename={false}
@@ -205,36 +194,27 @@ describe("Finding Description", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      const TEST_TIMEOUT: number = 50;
-      await wait(TEST_TIMEOUT);
-      wrapper.update();
-    });
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((element: ReactWrapper): boolean =>
-        element.contains("Edit")
-      );
-    editButton.simulate("click");
-
-    const editingComponents: ReactWrapper = wrapper.find({ isEditing: true });
-    const fieldsAsEditable: ReactWrapper = wrapper.find({
-      renderAsEditable: true,
-    });
-    const EXPECTED_LENGTH: number = 4;
-
-    expect(editingComponents).toHaveLength(2);
-    expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);
-
-    editButton.simulate("click");
-    const editingComponentsAfterClick: ReactWrapper = wrapper.find({
-      isEditing: true,
-    });
-    const fieldsAsEditableAfterClick: ReactWrapper = wrapper.find({
-      renderAsEditable: true,
+    const EXPECTED_LENGTH: number = 5;
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabDescription.editable.text")
+      ).toBeInTheDocument();
     });
 
-    expect(editingComponentsAfterClick).toHaveLength(0);
-    expect(fieldsAsEditableAfterClick).toHaveLength(0);
+    expect(screen.queryAllByRole("textbox")).toHaveLength(0);
+
+    userEvent.click(
+      screen.getByText("searchFindings.tabDescription.editable.text")
+    );
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("textbox")).toHaveLength(EXPECTED_LENGTH);
+    });
+    userEvent.click(
+      screen.getByText("searchFindings.tabDescription.editable.cancel")
+    );
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("textbox")).toHaveLength(0);
+    });
+    jest.clearAllMocks();
   });
 });

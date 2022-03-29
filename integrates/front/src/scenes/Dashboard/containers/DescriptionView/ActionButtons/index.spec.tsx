@@ -45,7 +45,7 @@ describe("ActionButtons", (): void => {
     expect(buttons).toHaveLength(1);
     expect(
       buttons.filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes("Edit")
+        button.text().includes("searchFindings.tabDescription.editable.text")
       )
     ).toHaveLength(1);
   });
