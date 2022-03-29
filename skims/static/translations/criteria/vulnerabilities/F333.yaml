@@ -1,9 +1,9 @@
 lib_path.f333.ec2_allows_shutdown_command:
-  en: EC2 Launch Templates allows the shutdown command to terminate the instance
-  es: Las plantillas de lanzamiento de EC2 permiten que el comando de apagado termine la instancia
+  en: Property instance_initiated_shutdown_behavior is either missing or misconfigured
+  es: Falta la propiedad instance_initiated_shutdown_behavior o está mal configuradaesté activada
 lib_path.f333.ec2_public_ip_addresses:
-  en: EC2 instances should not be launched with public IP addresses.
-  es: Las instancias EC2 no deben ser lanzadas con direcciones IP públicas.
+  en: Property associate_public_ip_address is either missing or misconfigured
+  es: Falta la propiedad associate_public_ip_address o está mal configuradaesté activada
 src.lib_path.f333.ec2_has_not_an_iam_instance_profile:
-  en: EC2 instance have not an IamInstanceProfile
-  es: La instancia EC2 no tiene un IamInstanceProfile
+  en: Property iam_instance_profile is either missing or misconfigured
+  es: Falta la propiedad iam_instance_profile o está mal configuradaesté activada
