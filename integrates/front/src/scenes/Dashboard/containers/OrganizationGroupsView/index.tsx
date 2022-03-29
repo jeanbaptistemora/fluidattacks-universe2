@@ -14,6 +14,7 @@ import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
@@ -32,6 +33,7 @@ interface IFilterSet {
   groupName: string;
   plan: string;
 }
+
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   props: IOrganizationGroupsProps
 ): JSX.Element => {
@@ -43,10 +45,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const [isGroupModalOpen, setGroupModalOpen] = useState(false);
+  const [runTour, toggleTour] = useState(false);
 
   const openNewGroupModal: () => void = useCallback((): void => {
+    if (runTour) {
+      toggleTour(false);
+    }
     setGroupModalOpen(true);
-  }, []);
+  }, [runTour, toggleTour]);
 
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery<IGetOrganizationGroups>(
@@ -302,6 +308,20 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                               <FontAwesomeIcon icon={faPlus} />
                               &nbsp;
                               {t("organization.tabs.groups.newGroup.new.text")}
+                              {runTour ? (
+                                <Tour
+                                  run={true}
+                                  steps={[
+                                    {
+                                      content: t("tours.addGroup.addButton"),
+                                      disableBeacon: true,
+                                      // HideCloseButton: true,
+                                      hideFooter: true,
+                                      target: "#add-group",
+                                    },
+                                  ]}
+                                />
+                              ) : undefined}
                             </Button>
                           </TooltipWrapper>
                         </ButtonToolbar>
