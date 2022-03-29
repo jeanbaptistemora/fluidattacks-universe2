@@ -43,10 +43,17 @@ locals {
       tags                    = {}
     },
     {
-      name                    = "batch"
+      name                    = "batch_clone"
       availability_zone       = "us-east-1a"
       map_public_ip_on_launch = true
-      new_bits                = 7
+      new_bits                = 8
+      tags                    = {}
+    },
+    {
+      name                    = "batch_main"
+      availability_zone       = "us-east-1b"
+      map_public_ip_on_launch = true
+      new_bits                = 8
       tags                    = {}
     },
     {
