@@ -21,6 +21,10 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.enums import (
+    GroupService,
+    GroupSubscriptionType,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -60,7 +64,7 @@ from group_comments.domain import (
     list_comments,
 )
 from groups.domain import (
-    add_group,
+    add_group_typed,
     get_active_groups,
     get_closed_vulnerabilities,
     get_description,
@@ -666,19 +670,17 @@ async def test_create_group_not_user_admin() -> None:
     await names_domain.create("newavailablename", "group")
     user_email = "integratesuser@gmail.com"
     user_role = "user_manager"
-    test_data = await add_group(
-        user_email=user_email,
-        user_role=user_role,
-        group_name="newavailablename",
-        organization="okada",
+    await add_group_typed(
         description="This is a new group",
+        group_name="newavailablename",
         has_machine=True,
         has_squad=True,
-        service="WHITE",
-        subscription="continuous",
+        organization_name="okada",
+        service=GroupService.WHITE,
+        subscription=GroupSubscriptionType.CONTINUOUS,
+        user_email=user_email,
+        user_role=user_role,
     )
-    expected_output = True
-    assert test_data == expected_output
 
 
 @pytest.mark.changes_db
