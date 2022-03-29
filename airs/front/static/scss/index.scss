@@ -27,6 +27,7 @@ $black-18: rgba(18, 18, 22, 1);
 $gray-221: rgba(221, 221, 227, 1);
 $gray-120: rgba(120, 120, 145, 1);
 $gray-154: rgba(154, 154, 172, 1);
+$gray-36: rgba(36, 37, 45, 1);
 
 // Rules
 @keyframes fadein {
@@ -51,6 +52,7 @@ $gray-154: rgba(154, 154, 172, 1);
 .bg-gray-233 { background-color: $gray-233; }
 .bg-gray-244 { background-color: $gray-244; }
 .bg-gray-221 { background-color: $gray-221; }
+.bg-gray-36 { background-color: $gray-36; }
 .bg-whitergray { background-color: $whiter-gray; }
 
 // Background Images
