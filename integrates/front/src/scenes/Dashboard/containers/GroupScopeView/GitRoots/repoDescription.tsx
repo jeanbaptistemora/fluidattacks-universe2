@@ -143,8 +143,7 @@ const Description = ({
         <Col50>
           {t("group.scope.git.repo.machineExecutions.messageSpecific")}
           {":"}&nbsp;
-          {lastMachineExecutions.specific === null ||
-          lastMachineExecutions.specific.findingsExecuted.length === 0
+          {lastMachineExecutions.specific === null
             ? t("group.scope.git.repo.machineExecutions.noExecutions")
             : lastMachineExecutions.specific.stoppedAt === null
             ? `${t("group.scope.git.repo.machineExecutions.active")} for ${

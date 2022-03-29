@@ -37,6 +37,7 @@ from db_model.roots.get import (
 from db_model.roots.types import (
     GitRootItem,
     LastMachineExecutions,
+    MachineFindingResult,
     RootMachineExecutionItem,
 )
 from enum import (
@@ -381,7 +382,12 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
             name=f"skims-process-{group}-{root_nickname}",
             queue=queued_jobs_dict[entry_execution["jobId"]].queue,
             root_id=root.id,
-            findings_executed=[],
+            findings_executed=[
+                MachineFindingResult(open=0, modified=0, finding=fin)
+                for fin in json.loads(
+                    queued_jobs_dict[entry_execution["jobId"]].additional_info
+                )["checks"]
+            ],
         )
         for entry_execution in jobs_from_batch
         for root_nickname in json.loads(
