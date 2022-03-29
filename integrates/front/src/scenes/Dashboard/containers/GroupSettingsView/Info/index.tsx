@@ -40,12 +40,21 @@ const GroupInformation: React.FC = (): JSX.Element => {
     setGroupSettingsModalOpen(false);
   }, []);
 
-  const formatDataSet: (
-    attributes: {
-      attribute: string;
-      value: string;
-    }[]
-  ) => Record<string, string> = (
+  const attributeMapper = (attribute: string): string => {
+    /**
+     * Needed for the new attribute headers of the dataset that do not match
+     * the underlying field names
+     */
+    if (attribute === "Business Registration Number") {
+      return "businessId";
+    } else if (attribute === "Business Name") {
+      return "businessName";
+    }
+
+    return attribute.toLocaleLowerCase();
+  };
+
+  const formatDataSet = (
     attributes: {
       attribute: string;
       value: string;
@@ -60,7 +69,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
         }
       ): Record<string, string> => ({
         ...acc,
-        [cur.attribute.toLocaleLowerCase()]: cur.value,
+        [attributeMapper(cur.attribute)]: cur.value,
       }),
       {}
     );

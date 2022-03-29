@@ -27,6 +27,9 @@ const GET_FINDINGS: DocumentNode = gql`
         verified
       }
       name
+      businessId
+      businessName
+      description
     }
   }
 `;
@@ -68,6 +71,7 @@ const GET_HAS_MOBILE_APP: DocumentNode = gql`
   query GetHasMobileApp {
     me {
       hasMobileApp
+      role
     }
   }
 `;

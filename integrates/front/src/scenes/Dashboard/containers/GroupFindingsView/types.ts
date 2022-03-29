@@ -1,6 +1,9 @@
 interface IGroupFindingsAttr {
   group: {
     findings: IFindingAttr[];
+    businessId: string;
+    businessName: string;
+    description: string;
   };
 }
 

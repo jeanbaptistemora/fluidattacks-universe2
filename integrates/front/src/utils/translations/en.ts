@@ -487,6 +487,11 @@ export const enTranslations: ResourceKey = {
           text: "Reports",
           tooltip: "Generate a report of findings and send it to your email",
         },
+        cert: "  Certificate",
+        certTooltip:
+          "Receive a security testing certification with the up-to-date" +
+          " Finding remediation data of this group. Before requesting it," +
+          " make sure to fill out the Information section of Scope",
         data: "  Export",
         dataTooltip:
           "Receive a zip file containing the exported data of all the findings " +
