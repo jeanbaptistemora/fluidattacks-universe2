@@ -155,6 +155,11 @@ resource "aws_ec2_client_vpn_route" "main" {
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.main.id
   destination_cidr_block = each.key
   target_vpc_subnet_id   = aws_ec2_client_vpn_network_association.main.subnet_id
+
+  timeouts {
+    create = "10m"
+    delete = "10m"
+  }
 }
 
 module "vpn" {
