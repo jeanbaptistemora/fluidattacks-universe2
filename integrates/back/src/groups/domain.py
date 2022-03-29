@@ -50,9 +50,17 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
 from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
+    GroupState,
 )
 from db_model.roots.types import (
     RootItem,
@@ -662,6 +670,107 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
             subscription=subscription,
         )
     return success
+
+
+async def add_group_typed(  # pylint: disable=too-many-locals
+    *,
+    description: str,
+    group_name: str,
+    organization_name: str,
+    service: GroupService,
+    user_email: str,
+    user_role: str,
+    has_machine: bool = False,
+    has_squad: bool = False,
+    language: str = GroupLanguage.EN,
+    subscription: str = GroupSubscriptionType.CONTINUOUS,
+    tier: str = GroupTier.FREE,
+) -> None:
+    validate_group_name(group_name)
+    validate_fields([description])
+    validate_field_length(group_name, 20)
+    validate_field_length(description, 200)
+    validate_group_services_config(
+        has_machine,
+        has_squad,
+        has_asm=True,
+    )
+
+    if not description.strip() or not group_name.strip():
+        raise InvalidParameter()
+
+    org_id = await orgs_domain.get_id_by_name(organization_name)
+    if not await orgs_domain.has_user_access(org_id, user_email):
+        raise UserNotInOrganization(org_id)
+
+    is_group_avail, group_exists = await collect(
+        [
+            names_domain.exists(group_name, "group"),
+            groups_dal.exists(group_name),
+        ]
+    )
+    if not is_group_avail or group_exists:
+        raise InvalidGroupName()
+
+    await groups_dal.add_typed(
+        group=Group(
+            description=description,
+            language=language,
+            name=group_name,
+            state=GroupState(
+                has_machine=has_machine,
+                has_squad=has_squad,
+                modified_by=user_email,
+                modified_date=datetime_utils.get_iso_date(),
+                service=service,
+                status=GroupStateStatus.ACTIVE,
+                tier=tier,
+                type=subscription,
+            ),
+            organization_name=organization_name,
+        )
+    )
+    await collect(
+        (
+            orgs_domain.add_group(org_id, group_name),
+            names_domain.remove(group_name, "group"),
+        )
+    )
+
+    success: bool = False
+    # Admins are not granted access to the group
+    # they are omnipresent
+    if not user_role == "admin":
+        # Only Fluid staff can be customer managers
+        # Customers are granted the user manager role
+        role: str = (
+            "customer_manager"
+            if users_domain.is_fluid_staff(user_email)
+            else "user_manager"
+        )
+        success = all(
+            await collect(
+                (
+                    group_access_domain.update_has_access(
+                        user_email, group_name, True
+                    ),
+                    authz.grant_group_level_role(user_email, group_name, role),
+                )
+            )
+        )
+
+    # Notify us in case the user wants any Fluid Service
+    if success:
+        await notifications_domain.new_group(
+            description=description,
+            group_name=group_name,
+            has_machine=has_machine,
+            has_squad=has_squad,
+            organization=organization_name,
+            requester_email=user_email,
+            service=service,
+            subscription=subscription,
+        )
 
 
 async def add_without_group(
