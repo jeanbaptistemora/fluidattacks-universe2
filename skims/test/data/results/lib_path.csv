@@ -27286,7 +27286,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Ser
   21 | }
      ^ Col 0
 ",query.query_f100
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,22,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,22,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
   12 |   server_side_encryption_configuration {
   13 |     rule {
   14 |       apply_server_side_encryption_by_default {
@@ -27310,7 +27310,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,22
   32 |     }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""web_site"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read""
@@ -27334,7 +27334,7 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,1,
   21 |
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
    2 |   bucket = ""fluidattacks.com""
    3 |   acl    = ""private""
    4 |   region = var.region
@@ -27358,7 +27358,7 @@ F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12
   22 | }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""bucket"" {
    2 |   bucket = ""fluidattacks.com""
    3 |   acl    = ""private""
@@ -27382,7 +27382,7 @@ F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,
   21 |   }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read-write""
    4 |
@@ -27406,7 +27406,7 @@ F335,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,922,
   22 | }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""example"" {
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read-write""
@@ -27430,7 +27430,7 @@ F335,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,922,s
   21 |   }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,7,922,skims,335. Insecure service configuration - Bucket,Ensure AWS S3 object versioning is enabled in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
+F335,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,7,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
    1 | resource ""aws_s3_bucket"" ""state_bucket"" {
    2 |   bucket        = ""${data.aws_caller_identity.current.account_id}-terraform-state""
    3 |   acl           = var.acl
