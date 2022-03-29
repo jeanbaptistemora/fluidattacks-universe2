@@ -9,6 +9,7 @@ import _ from "lodash";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import type { IFormValues } from "./AddModal";
@@ -60,7 +61,6 @@ import { castEventType } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IEventsDataset {
   group: {
@@ -95,6 +95,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { groupName } = useParams<{ groupName: string }>();
   const { url } = useRouteMatch();
+  const { t } = useTranslation();
 
   const [optionType, setOptionType] = useState(selectOptionType);
 
@@ -155,7 +156,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         columnItems[columnName]
       ) {
         // eslint-disable-next-line no-alert
-        alert(translate.t("validations.columns"));
+        alert(t("validations.columns"));
         setColumnItems({
           ...columnItems,
           [columnName]: true,
@@ -167,13 +168,13 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         });
       }
     },
-    [columnItems, setColumnItems]
+    [columnItems, setColumnItems, t]
   );
 
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "id",
-      header: translate.t("searchFindings.tabEvents.id"),
+      header: t("searchFindings.tabEvents.id"),
       onSort: onSortState,
       visible: columnItems.id,
       width: "8%",
@@ -181,7 +182,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "eventDate",
-      header: translate.t("searchFindings.tabEvents.date"),
+      header: t("searchFindings.tabEvents.date"),
       onSort: onSortState,
       visible: columnItems.eventDate,
       width: "10%",
@@ -189,7 +190,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "detail",
-      header: translate.t("searchFindings.tabEvents.description"),
+      header: t("searchFindings.tabEvents.description"),
       onSort: onSortState,
       visible: columnItems.detail,
       width: "50%",
@@ -197,7 +198,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "accessibility",
-      header: translate.t("searchFindings.tabEvents.accessibility"),
+      header: t("searchFindings.tabEvents.accessibility"),
       onSort: onSortState,
       visible: columnItems.accessibility,
       width: "50%",
@@ -205,7 +206,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "affectedComponents",
-      header: translate.t("searchFindings.tabEvents.affectedComponents"),
+      header: t("searchFindings.tabEvents.affectedComponents"),
       onSort: onSortState,
       visible: columnItems.affectedComponents,
       width: "50%",
@@ -213,7 +214,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "actionAfterBlocking",
-      header: translate.t("searchFindings.tabEvents.actionAfterBlocking"),
+      header: t("searchFindings.tabEvents.actionAfterBlocking"),
       onSort: onSortState,
       visible: columnItems.actionAfterBlocking,
       width: "50%",
@@ -221,7 +222,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "actionBeforeBlocking",
-      header: translate.t("searchFindings.tabEvents.actionBeforeBlocking"),
+      header: t("searchFindings.tabEvents.actionBeforeBlocking"),
       onSort: onSortState,
       visible: columnItems.actionBeforeBlocking,
       width: "50%",
@@ -229,7 +230,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "eventType",
-      header: translate.t("searchFindings.tabEvents.type"),
+      header: t("searchFindings.tabEvents.type"),
       onSort: onSortState,
       visible: columnItems.eventType,
       width: "20%",
@@ -238,7 +239,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     {
       dataField: "eventStatus",
       formatter: statusFormatter,
-      header: translate.t("searchFindings.tabEvents.status"),
+      header: t("searchFindings.tabEvents.status"),
       onSort: onSortState,
       visible: columnItems.eventStatus,
       width: "90px",
@@ -246,7 +247,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "closingDate",
-      header: translate.t("searchFindings.tabEvents.closingDate"),
+      header: t("searchFindings.tabEvents.closingDate"),
       onSort: onSortState,
       visible: columnItems.closingDate,
       width: "13%",
@@ -266,7 +267,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         )
       );
       const transEventOptions = eventOptions.map((option: string): string =>
-        translate.t(castEventType(option))
+        t(castEventType(option))
       );
       const filterOptions = _.pickBy(selectOptionType, (value): boolean =>
         _.includes(transEventOptions, value)
@@ -279,7 +280,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       Logger.warning("An error occurred loading group data", error);
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
     });
   };
 
@@ -346,8 +347,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
     if (result.addEvent.success) {
       msgSuccess(
-        translate.t("group.events.successCreate"),
-        translate.t("group.events.titleSuccess")
+        t("group.events.successCreate"),
+        t("group.events.titleSuccess")
       );
 
       if (!_.isEmpty(selectedReattacks)) {
@@ -360,12 +361,12 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
         if (allHoldsValid) {
           msgSuccess(
-            translate.t("group.events.form.affectedReattacks.holdsCreate"),
-            translate.t("group.events.titleSuccess")
+            t("group.events.form.affectedReattacks.holdsCreate"),
+            t("group.events.titleSuccess")
           );
         }
       }
-      void refetch();
+      await refetch();
     }
   };
 
@@ -426,13 +427,13 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
         if (allHoldsValid) {
           msgSuccess(
-            translate.t("group.events.form.affectedReattacks.holdsCreate"),
-            translate.t("group.events.titleSuccess")
+            t("group.events.form.affectedReattacks.holdsCreate"),
+            t("group.events.titleSuccess")
           );
         }
 
         closeUpdateAffectedModal();
-        void refetchReattacks();
+        await refetchReattacks();
       }
     },
     [
@@ -441,6 +442,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       requestHold,
       groupName,
       selectedReattacks,
+      t,
     ]
   );
 
@@ -747,7 +749,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       ) : undefined}
       <TooltipWrapper
         id={"group.events.help"}
-        message={translate.t("searchFindings.tabEvents.tableAdvice")}
+        message={t("searchFindings.tabEvents.tableAdvice")}
       >
         <Table
           clearFiltersButton={clearFilters}
@@ -776,11 +778,11 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                 <Can do={"api_mutations_add_event_mutate"}>
                   <TooltipWrapper
                     id={"group.events.btn.tooltip.id"}
-                    message={translate.t("group.events.btn.tooltip")}
+                    message={t("group.events.btn.tooltip")}
                   >
                     <Button onClick={openNewEventModal} variant={"primary"}>
                       <FontAwesomeIcon icon={faPlus} />
-                      &nbsp;{translate.t("group.events.btn.text")}
+                      &nbsp;{t("group.events.btn.text")}
                     </Button>
                   </TooltipWrapper>
                 </Can>
@@ -789,7 +791,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                 <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
                   <TooltipWrapper
                     id={"group.events.form.affectedReattacks.btn.id"}
-                    message={translate.t(
+                    message={t(
                       "group.events.form.affectedReattacks.btn.tooltip"
                     )}
                   >
@@ -800,9 +802,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                     >
                       <FontAwesomeIcon icon={faPlus} />
                       &nbsp;
-                      {translate.t(
-                        "group.events.form.affectedReattacks.btn.text"
-                      )}
+                      {t("group.events.form.affectedReattacks.btn.text")}
                     </Button>
                   </TooltipWrapper>
                 </Can>

@@ -9,6 +9,7 @@ import type { ChangeEvent } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
@@ -41,14 +42,13 @@ import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
-import { translate } from "utils/translations/translate";
 
 const NOSEENFIRSTTIMEBY = "no seen first time by";
 
-const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
-  props: IGroupToeInputsViewProps
-): JSX.Element => {
-  const { isInternal } = props;
+const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
+  isInternal,
+}: IGroupToeInputsViewProps): JSX.Element => {
+  const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetAttackedAt: boolean = permissions.can(
@@ -120,7 +120,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         checkedItems[columnName]
       ) {
         // eslint-disable-next-line no-alert
-        alert(translate.t("validations.columns"));
+        alert(t("validations.columns"));
         setCheckedItems({
           ...checkedItems,
           [columnName]: true,
@@ -132,7 +132,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
         });
       }
     },
-    [checkedItems, setCheckedItems]
+    [checkedItems, setCheckedItems, t]
   );
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -196,9 +196,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   );
 
   const formatBoolean = (value: boolean): string =>
-    value
-      ? translate.t("group.toe.inputs.yes")
-      : translate.t("group.toe.inputs.no");
+    value ? t("group.toe.inputs.yes") : t("group.toe.inputs.no");
   const formatDate: (date: Date | undefined) => string = (
     date: Date | undefined
   ): string => {
@@ -220,26 +218,26 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
   const headersToeInputsTable: IHeaderConfig[] = [
     {
       dataField: "rootNickname",
-      header: translate.t("group.toe.inputs.root"),
+      header: t("group.toe.inputs.root"),
       onSort,
       visible: checkedItems.rootNickname,
     },
     {
       dataField: "component",
-      header: translate.t("group.toe.inputs.component"),
+      header: t("group.toe.inputs.component"),
       onSort,
       visible: checkedItems.component,
     },
     {
       dataField: "entryPoint",
-      header: translate.t("group.toe.inputs.entryPoint"),
+      header: t("group.toe.inputs.entryPoint"),
       onSort,
       visible: checkedItems.entryPoint,
     },
     {
       dataField: "hasVulnerabilities",
       formatter: formatBoolean,
-      header: translate.t("group.toe.inputs.hasVulnerabilities"),
+      header: t("group.toe.inputs.hasVulnerabilities"),
       onSort,
       visible: checkedItems.hasVulnerabilities,
     },
@@ -247,14 +245,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       dataField: "attackedAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.inputs.attackedAt"),
+      header: t("group.toe.inputs.attackedAt"),
       omit: !isInternal || !canGetAttackedAt,
       onSort,
       visible: checkedItems.attackedAt,
     },
     {
       dataField: "attackedBy",
-      header: translate.t("group.toe.inputs.attackedBy"),
+      header: t("group.toe.inputs.attackedBy"),
       omit: !isInternal || !canGetAttackedBy,
       onSort,
       visible: checkedItems.attackedBy,
@@ -263,7 +261,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       dataField: "firstAttackAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.inputs.firstAttackAt"),
+      header: t("group.toe.inputs.firstAttackAt"),
       omit: !isInternal || !canGetFirstAttackAt,
       onSort,
       visible: checkedItems.firstAttackAt,
@@ -272,13 +270,13 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       dataField: "seenAt",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.inputs.seenAt"),
+      header: t("group.toe.inputs.seenAt"),
       onSort,
       visible: checkedItems.seenAt,
     },
     {
       dataField: "seenFirstTimeBy",
-      header: translate.t("group.toe.inputs.seenFirstTimeBy"),
+      header: t("group.toe.inputs.seenFirstTimeBy"),
       omit: !isInternal || !canGetSeenFirstTimeBy,
       onSort,
       visible: checkedItems.seenFirstTimeBy,
@@ -286,7 +284,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     {
       dataField: "bePresent",
       formatter: formatBoolean,
-      header: translate.t("group.toe.inputs.bePresent"),
+      header: t("group.toe.inputs.bePresent"),
       onSort,
       visible: checkedItems.bePresent,
     },
@@ -294,7 +292,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       dataField: "bePresentUntil",
       filter: dateFilter({}),
       formatter: formatDate,
-      header: translate.t("group.toe.inputs.bePresentUntil"),
+      header: t("group.toe.inputs.bePresentUntil"),
       omit: !isInternal || !canGetBePresentUntil,
       onSort,
       visible: checkedItems.bePresentUntil,
@@ -403,7 +401,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     {
       defaultValue: filterGroupToeInputTable.rootId,
       onChangeSelect: onBasicFilterValueChange("rootId"),
-      placeholder: translate.t("group.toe.inputs.filters.root.placeholder"),
+      placeholder: t("group.toe.inputs.filters.root.placeholder"),
       selectOptions: rootSelectOptions,
       tooltipId: "group.toe.inputs.filters.root.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.root.tooltip",
@@ -412,9 +410,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     {
       defaultValue: filterGroupToeInputTable.component,
       onChangeSelect: onBasicFilterValueChange("component"),
-      placeholder: translate.t(
-        "group.toe.inputs.filters.component.placeholder"
-      ),
+      placeholder: t("group.toe.inputs.filters.component.placeholder"),
       selectOptions: componentSelectOptions,
       tooltipId: "group.toe.inputs.filters.component.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.component.tooltip",
@@ -424,9 +420,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     {
       defaultValue: filterGroupToeInputTable.hasVulnerabilities,
       onChangeSelect: onBasicFilterValueChange("hasVulnerabilities"),
-      placeholder: translate.t(
-        "group.toe.inputs.filters.hasVulnerabilities.placeholder"
-      ),
+      placeholder: t("group.toe.inputs.filters.hasVulnerabilities.placeholder"),
       selectOptions: booleanSelectOptions,
       tooltipId: "group.toe.inputs.filters.hasVulnerabilities.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.hasVulnerabilities.tooltip",
@@ -434,7 +428,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     },
     {
       defaultValue: "",
-      placeholder: translate.t("group.toe.inputs.filters.seenAt.placeholder"),
+      placeholder: t("group.toe.inputs.filters.seenAt.placeholder"),
       rangeProps: {
         defaultValue: filterGroupToeInputTable.seenAt,
         onChangeMax: onRangeFilterValueChange("seenAt", "max"),
@@ -448,9 +442,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
       defaultValue: filterGroupToeInputTable.seenFirstTimeBy,
       omit: !isInternal || !canGetSeenFirstTimeBy,
       onChangeSelect: onBasicFilterValueChange("seenFirstTimeBy"),
-      placeholder: translate.t(
-        "group.toe.inputs.filters.seenFirstTimeBy.placeholder"
-      ),
+      placeholder: t("group.toe.inputs.filters.seenFirstTimeBy.placeholder"),
       selectOptions: seenFirstTimeBySelectOptions,
       tooltipId: "group.toe.inputs.filters.seenFirstTimeBy.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.seenFirstTimeBy.tooltip",
@@ -459,9 +451,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = (
     {
       defaultValue: filterGroupToeInputTable.bePresent,
       onChangeSelect: onBasicFilterValueChange("bePresent"),
-      placeholder: translate.t(
-        "group.toe.inputs.filters.bePresent.placeholder"
-      ),
+      placeholder: t("group.toe.inputs.filters.bePresent.placeholder"),
       selectOptions: booleanSelectOptions,
       tooltipId: "group.toe.inputs.filters.bePresent.tooltip.id",
       tooltipMessage: "group.toe.inputs.filters.bePresent.tooltip",

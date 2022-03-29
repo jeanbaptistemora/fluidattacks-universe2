@@ -6,6 +6,7 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Comments } from "scenes/Dashboard/components/Comments";
@@ -22,7 +23,6 @@ import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IGroupConsultingData {
   group: {
@@ -31,6 +31,7 @@ interface IGroupConsultingData {
 }
 
 const GroupConsultingView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
   const { userEmail }: IAuthContext = useContext(authContext);
 
@@ -39,9 +40,9 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
   ): void => {
     addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message === "Exception - Comment parent is invalid") {
-        msgError(translate.t("validations.invalidCommentParent", { count: 1 }));
+        msgError(t("validations.invalidCommentParent", { count: 1 }));
       } else {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.error("An error occurred adding comment", addCommentError);
       }
     });
@@ -51,7 +52,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group comments", error);
     });
   };
