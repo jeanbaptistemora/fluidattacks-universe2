@@ -1467,14 +1467,6 @@ F409,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencr
   6 | }
     ^ Col 0
 ",terraform.tfm_aws_dynamodb_table_unencrypted
-F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,"Ensure EFS file system is encrypted
- in namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf","
-  1 | resource ""aws_efs_file_system"" ""enabled"" {
-  2 |   creation_token = ""example""
-> 3 |   encrypted      = false
-  4 | }
-    ^ Col 0
-",terraform.tfm_aws_efs_unencrypted
 F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,"Ensure Instances and Launch configurations use encrypted EBS volumes
  in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf","
   1 | resource ""aws_launch_configuration"" ""example"" {
@@ -2353,6 +2345,13 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   38 | }
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
+F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,"
+  1 | resource ""aws_efs_file_system"" ""enabled"" {
+  2 |   creation_token = ""example""
+> 3 |   encrypted      = false
+  4 | }
+    ^ Col 0
+",terraform.tfm_aws_efs_unencrypted
 F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
