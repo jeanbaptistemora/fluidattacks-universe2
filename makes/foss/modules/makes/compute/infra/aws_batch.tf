@@ -271,7 +271,8 @@ resource "aws_batch_compute_environment" "default" {
     ]
     spot_iam_fleet_role = each.value.spot_iam_fleet_role
     subnets = [
-      data.aws_subnet.main.id,
+      data.aws_subnet.batch_clone.id,
+      data.aws_subnet.batch_main.id,
     ]
     type = each.value.type
     tags = each.value.tags

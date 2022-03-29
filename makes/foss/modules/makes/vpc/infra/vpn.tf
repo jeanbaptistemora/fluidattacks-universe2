@@ -90,7 +90,7 @@ resource "aws_route53_resolver_endpoint" "main" {
   ]
 
   ip_address {
-    subnet_id = aws_subnet.main["ci"].id
+    subnet_id = aws_subnet.main["batch_clone"].id
   }
 
   ip_address {
@@ -138,7 +138,7 @@ resource "aws_ec2_client_vpn_endpoint" "main" {
 
 resource "aws_ec2_client_vpn_network_association" "main" {
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.main.id
-  subnet_id              = aws_subnet.main["ci"].id
+  subnet_id              = aws_subnet.main["batch_clone"].id
 }
 
 resource "aws_ec2_client_vpn_authorization_rule" "main" {

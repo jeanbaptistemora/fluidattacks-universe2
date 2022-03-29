@@ -19,10 +19,17 @@ data "aws_vpc" "main" {
     values = ["fluid-vpc"]
   }
 }
-data "aws_subnet" "main" {
+data "aws_subnet" "batch_clone" {
   vpc_id = data.aws_vpc.main.id
   filter {
     name   = "tag:Name"
-    values = ["ci"]
+    values = ["batch_clone"]
+  }
+}
+data "aws_subnet" "batch_main" {
+  vpc_id = data.aws_vpc.main.id
+  filter {
+    name   = "tag:Name"
+    values = ["batch_main"]
   }
 }
