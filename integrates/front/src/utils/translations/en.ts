@@ -739,6 +739,15 @@ export const enTranslations: ResourceKey = {
             name: "Credential Name",
             nameHint: "Repository SSH Key",
             password: "Repository password",
+            secrets: {
+              add: "Add secret",
+              key: "Key",
+              success: "added secret",
+              successTitle: "Success",
+              tittle: "Secrets management",
+              update: "Update secret",
+              value: "Value",
+            },
             ssh: "SSH",
             sshHint:
               "-----BEGIN OPENSSH PRIVATE KEY-----\n" +
