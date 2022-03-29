@@ -7,6 +7,7 @@ import type { FieldValidator } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import {
@@ -34,7 +35,6 @@ import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   isValidFileSize,
@@ -44,6 +44,7 @@ import {
 
 const EventEvidenceView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
 
   // State management
   const [isEditing, setEditing] = useState(false);
@@ -60,7 +61,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
       notifyOnNetworkStatusChange: true,
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred loading event evidences", error);
         });
       },
@@ -77,7 +78,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred downloading event file", error);
       });
     },
@@ -86,7 +87,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     onCompleted: refetch,
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred removing event evidence", error);
       });
     },
@@ -116,27 +117,28 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     }
   }, [isEditing, isRefetching]);
 
-  const removeImage: () => void = useCallback((): void => {
+  const removeImage = useCallback(async (): Promise<void> => {
     setEditing(false);
-    void removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
+    await removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
   }, [eventId, removeEvidence]);
 
-  const removeFile: () => void = useCallback((): void => {
+  const removeFile = useCallback(async (): Promise<void> => {
     setEditing(false);
-    void removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
+    await removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
   }, [eventId, removeEvidence]);
+
+  const handleDownload = useCallback(async (): Promise<void> => {
+    if (!isEditing) {
+      await downloadEvidence({
+        variables: { eventId, fileName: data?.event.evidenceFile },
+      });
+    }
+  }, [data, downloadEvidence, eventId, isEditing]);
 
   if (_.isEmpty(data) || _.isUndefined(data)) {
     return <div />;
   }
 
-  const handleDownload: () => void = (): void => {
-    if (!isEditing) {
-      void downloadEvidence({
-        variables: { eventId, fileName: data.event.evidenceFile },
-      });
-    }
-  };
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
   const MAX_FILE_SIZE = 10;
   const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
@@ -147,8 +149,8 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         <ButtonToolbarRow>
           <Can do={"api_mutations_update_event_evidence_mutate"}>
             <TooltipWrapper
-              id={translate.t("group.events.evidence.editTooltip.id")}
-              message={translate.t("group.events.evidence.editTooltip")}
+              id={t("group.events.evidence.editTooltip.id")}
+              message={t("group.events.evidence.editTooltip")}
             >
               <Button
                 disabled={data.event.eventStatus === "SOLVED"}
@@ -156,7 +158,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                 variant={"secondary"}
               >
                 <FluidIcon icon={"edit"} />
-                &nbsp;{translate.t("group.events.evidence.edit")}
+                &nbsp;{t("group.events.evidence.edit")}
               </Button>
             </TooltipWrapper>
           </Can>
@@ -167,7 +169,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         !isEditing ? (
           <div className={globalStyle["no-data"]}>
             <FontAwesomeIcon icon={faImage} size={"3x"} />
-            <p>{translate.t("group.events.evidence.noData")}</p>
+            <p>{t("group.events.evidence.noData")}</p>
           </div>
         ) : undefined}
         <Formik
@@ -181,12 +183,8 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
               {isEditing ? (
                 <ButtonToolbarRow>
                   <TooltipWrapper
-                    id={translate.t(
-                      "searchFindings.tabEvidence.updateTooltip.id"
-                    )}
-                    message={translate.t(
-                      "searchFindings.tabEvidence.updateTooltip"
-                    )}
+                    id={t("searchFindings.tabEvidence.updateTooltip.id")}
+                    message={t("searchFindings.tabEvidence.updateTooltip")}
                   >
                     <Button
                       disabled={!dirty}
@@ -194,7 +192,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       variant={"primary"}
                     >
                       <FluidIcon icon={"loading"} />
-                      &nbsp;{translate.t("searchFindings.tabEvidence.update")}
+                      &nbsp;{t("searchFindings.tabEvidence.update")}
                     </Button>
                   </TooltipWrapper>
                 </ButtonToolbarRow>
