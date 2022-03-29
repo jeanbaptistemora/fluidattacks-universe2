@@ -105,8 +105,9 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             position="inset",
             inset=dict(
                 anchor="top-right",
-                step=1.5,
+                step=1.3,
                 x=10,
+                y=-5,
             ),
         ),
         axis=dict(
