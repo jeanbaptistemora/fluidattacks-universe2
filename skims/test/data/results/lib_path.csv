@@ -22191,8 +22191,7 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,10,502,skims,096. Ins
   15 |
      ^ Col 9
 ",c_sharp.c_sharp_insecure_deserialization
-F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,"Azure Key Vault secrets do not have an expiration date set
- in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf","
+F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,Property expiration_date is either missing or misconfigured in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,"
 >  1 | resource ""azurerm_key_vault_secret"" ""vulnerable"" {
    2 |   name         = ""example""
    3 |   value        = var.value_azsqlrevapp

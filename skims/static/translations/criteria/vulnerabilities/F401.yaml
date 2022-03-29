@@ -1,5 +1,3 @@
 lib_path.f401.has_not_expiration_date_set:
-  en: >
-    Azure Key Vault secrets do not have an expiration date set
-  es: >
-    Los secretos de Azure Key Vault no tienen una fecha de caducidad establecida
+  en: Property expiration_date is either missing or misconfigured
+  es: Falta la propiedad expiration_date o está mal configuradaesté activada
