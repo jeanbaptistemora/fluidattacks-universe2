@@ -636,14 +636,6 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 status="FAILED",
                 message="Clone failed",
             )
-    await put_action(
-        action=Action.REFRESH_TOE_LINES,
-        entity=group_name,
-        subject="integrates@fluidattacks.com",
-        additional_info="*",
-        queue="spot_later",
-        product_name=Product.INTEGRATES,
-    )
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:

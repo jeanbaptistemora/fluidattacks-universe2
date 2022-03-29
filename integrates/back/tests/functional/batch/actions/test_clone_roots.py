@@ -87,14 +87,6 @@ async def test_clone_roots(
         )
         > 0
     )
-    assert (
-        len(
-            await get_actions_by_name(
-                action_name=Action.REFRESH_TOE_LINES.value, entity="group1"
-            )
-        )
-        > 0
-    )
 
 
 @pytest.mark.asyncio

@@ -3686,6 +3686,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.refresh_toe_lines.main:
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_refresh_toe_lines == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.refresh_toe_lines.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.report_squad_usage.main:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
