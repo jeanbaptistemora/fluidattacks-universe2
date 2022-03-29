@@ -13,7 +13,7 @@ const Container = styled.div.attrs({
 const CardContainer = styled.div.attrs({
   className: `
     bg-fluid-black
-    center
+    mh3
     mv5
     pv4
     ph3
@@ -46,4 +46,14 @@ const CardText = styled.p.attrs({
   `,
 })``;
 
-export { CardContainer, CardText, CardTitle, Container };
+const CardsContainer = styled.div.attrs({
+  className: `
+    center
+    flex
+    justify-around
+    flex-wrap
+    mw-1920
+  `,
+})``;
+
+export { CardContainer, CardsContainer, CardText, CardTitle, Container };

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ProductCard } from "./ProductCard";
-import { Container } from "./styledComponents";
+import { CardsContainer, Container } from "./styledComponents";
 
 import { translate } from "../../../utils/translations/translate";
 
@@ -26,16 +26,18 @@ const CardsSection: React.FC = (): JSX.Element => {
 
   return (
     <Container>
-      {data.map((card): JSX.Element => {
-        return (
-          <ProductCard
-            image={card.image}
-            key={`card-${card.text}`}
-            text={card.text}
-            title={card.title}
-          />
-        );
-      })}
+      <CardsContainer>
+        {data.map((card): JSX.Element => {
+          return (
+            <ProductCard
+              image={card.image}
+              key={`card-${card.text}`}
+              text={card.text}
+              title={card.title}
+            />
+          );
+        })}
+      </CardsContainer>
     </Container>
   );
 };

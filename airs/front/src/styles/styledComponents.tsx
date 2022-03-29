@@ -952,26 +952,6 @@ const RegularRedButton: StyledComponent<
   `,
 })``;
 
-const BigRegularRedButton = styled.button.attrs({
-  className: `
-    outline-transparent
-    bg-fluid-red
-    hv-bg-fluid-dkred
-    pointer
-    white
-    pv3
-    ph4
-    fw7
-    f3
-    dib
-    t-all-3-eio
-    br2
-    bc-fluid-red
-    ba
-    roboto
-  `,
-})``;
-
 const NewRegularRedButton: StyledComponent<
   "button",
   Record<string, unknown>
@@ -1799,7 +1779,6 @@ export {
   AdvisoryContainer,
   ArticleContainer,
   ArticleTitle,
-  BigRegularRedButton,
   BlogArticleBannerContainer,
   BlogArticleContainer,
   BlogArticleSubtitle,

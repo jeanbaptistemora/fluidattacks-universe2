@@ -9,12 +9,12 @@ import {
 } from "./styledComponents";
 
 import {
-  BigRegularRedButton,
   FullWidthContainer,
   NewBlackBigParagraph,
 } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
+import { BigRegularRedButton } from "../styledComponents";
 
 interface IProps {
   description: string;
