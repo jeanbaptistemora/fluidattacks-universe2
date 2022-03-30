@@ -1,6 +1,5 @@
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
@@ -30,7 +29,7 @@ describe("ActionButtons", (): void => {
     ]);
     const { editTooltip, isEditing, isPristine, onEdit, onUpdate, permission } =
       baseMockedProps;
-    const wrapper: ReactWrapper = mount(
+    render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <ActionButtons
           editTooltip={editTooltip}
@@ -43,15 +42,9 @@ describe("ActionButtons", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    expect(wrapper).toHaveLength(1);
-
-    const buttons: ReactWrapper = wrapper.find("button");
-
-    expect(buttons).toHaveLength(1);
+    expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(
-      buttons.filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes("Edit")
-      )
-    ).toHaveLength(1);
+      screen.queryByText("searchFindings.tabDescription.editable.text")
+    ).toBeInTheDocument();
   });
 });
