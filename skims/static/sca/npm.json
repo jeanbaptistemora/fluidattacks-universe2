@@ -1178,12 +1178,24 @@
   "bugfer-xor": {
     "GHSA-8g64-9cm2-838j": ">=0"
   },
+  "bunfer-xor": {
+    "GHSA-6f93-xj8r-jp82": ">=0"
+  },
   "buns": {
     "CVE-2020-7794": ">=0"
   },
   "buttle": {
     "CVE-2018-3766": "<=0.2.0",
     "CVE-2019-5422": "=0.2.0"
+  },
+  "buvfer-xor": {
+    "GHSA-wjpj-gmc3-5w56": ">=0"
+  },
+  "bwffer-xor": {
+    "GHSA-7qg7-6g3g-8vxg": ">=0"
+  },
+  "byte": {
+    "GHSA-xm7f-x4wx-wmgv": "<1.4.1"
   },
   "byucslabsix": {
     "CVE-2017-16166": "=0.0.5",
@@ -1196,8 +1208,17 @@
   "cached-path-relative": {
     "CVE-2018-16472": "<=1.0.1"
   },
+  "cage-js": {
+    "GHSA-jf8x-wg7f-p3w8": ">=0"
+  },
+  "cal_rd": {
+    "GHSA-226w-6hhj-69hp": ">=0"
+  },
   "calipso": {
     "CVE-2021-23391": ">=0"
+  },
+  "calk": {
+    "GHSA-9mmw-3fmh-96g3": ">=0"
   },
   "call": {
     "GMS-2016-39": ">=2.0.1 <3.0.2"
@@ -1214,6 +1235,12 @@
     "CVE-2017-16159": "=1.0.0",
     "GMS-2017-252": ">=0.0.0-alpha"
   },
+  "carloprojectdiscord": {
+    "GHSA-9rwj-8mh9-4876": ">=0"
+  },
+  "carloprojectlesang": {
+    "GHSA-qj2g-642f-4jrv": ">=0"
+  },
   "casperjs": {
     "CVE-2020-7679": "<=1.1.4"
   },
@@ -1227,6 +1254,9 @@
   "censorify.tanisjr": {
     "CVE-2017-16157": ">=0.1.2 <=0.1.4",
     "GMS-2017-254": ">=0.0.0-alpha"
+  },
+  "centra": {
+    "GHSA-v6cj-r88p-92rm": "<2.4.0"
   },
   "chalk": {},
   "changeset": {
