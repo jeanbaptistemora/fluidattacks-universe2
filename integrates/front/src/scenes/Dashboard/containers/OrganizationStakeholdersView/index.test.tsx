@@ -384,15 +384,15 @@ describe("Organization users view", (): void => {
 
     userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
-      expect(
-        screen.queryByText("organization.tabs.users.modalEditTitle")
-      ).not.toBeInTheDocument();
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "testuser1@gmail.com organization.tabs.users.editButton.success",
+        "organization.tabs.users.successTitle"
+      );
     });
 
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "testuser1@gmail.com organization.tabs.users.editButton.success",
-      "organization.tabs.users.successTitle"
-    );
+    expect(
+      screen.queryByText("organization.tabs.users.modalEditTitle")
+    ).not.toBeInTheDocument();
     expect(screen.getAllByRole("row")).toHaveLength(2);
   });
 

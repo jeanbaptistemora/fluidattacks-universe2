@@ -1,7 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -32,10 +31,10 @@ describe("TagContent", (): void => {
     expect(typeof TagContent).toStrictEqual("function");
   });
 
-  it("should render a component", (): void => {
+  it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter
         initialEntries={["/orgs/testorg/portfolios/test-projects/analytics"]}
       >
@@ -48,6 +47,14 @@ describe("TagContent", (): void => {
       </MemoryRouter>
     );
 
-    expect(wrapper).toHaveLength(1);
+    await waitFor((): void => {
+      expect(screen.getAllByRole("listitem")).toHaveLength(2);
+    });
+
+    expect(
+      screen.getByText("organization.tabs.portfolios.tabs.indicators.text")
+    ).toBeInTheDocument();
+
+    jest.clearAllMocks();
   });
 });
