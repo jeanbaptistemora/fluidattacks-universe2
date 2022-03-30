@@ -1,7 +1,6 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import _ from "lodash";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 import { SeverityTile } from "./tile";
 
@@ -16,17 +15,19 @@ describe("SeverityTile", (): void => {
   it("should render a tile", (): void => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
     const userInteraction: string = "0.85";
-    const wrapper: ReactWrapper = mount(
+    render(
       <SeverityTile
         color={userInteractionBgColor[userInteraction]}
         name={"userInteraction"}
         value={userInteraction}
-        valueText={t(userInteractionOptions[userInteraction])}
+        valueText={userInteractionOptions[userInteraction]}
       />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText(_.capitalize(userInteractionOptions[userInteraction]))
+    ).toBeInTheDocument();
+    expect(screen.queryByText(userInteraction)).toBeInTheDocument();
   });
 });

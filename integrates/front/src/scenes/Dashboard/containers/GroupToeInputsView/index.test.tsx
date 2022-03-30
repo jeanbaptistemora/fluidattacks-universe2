@@ -45,6 +45,7 @@ describe("GroupToeInputsView", (): void => {
                     bePresent: true,
                     component: "test.com/api/Test",
                     entryPoint: "idTest",
+                    firstAttackAt: "2020-02-19T15:41:04+00:00",
                     hasVulnerabilities: false,
                     root: {
                       id: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
@@ -62,6 +63,7 @@ describe("GroupToeInputsView", (): void => {
                     bePresent: true,
                     component: "test.com/test/test.aspx",
                     entryPoint: "btnTest",
+                    firstAttackAt: "",
                     hasVulnerabilities: true,
                     root: {
                       id: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
