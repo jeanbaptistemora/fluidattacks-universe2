@@ -1,13 +1,13 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {
   editTooltip: string;
@@ -18,11 +18,15 @@ interface IActionButtonsProps {
   permission: string;
 }
 
-const ActionButtons: React.FC<IActionButtonsProps> = (
-  props: IActionButtonsProps
-): JSX.Element => {
-  const { editTooltip, isEditing, isPristine, onEdit, onUpdate, permission } =
-    props;
+const ActionButtons: React.FC<IActionButtonsProps> = ({
+  editTooltip,
+  isEditing,
+  isPristine,
+  onEdit,
+  onUpdate,
+  permission,
+}: IActionButtonsProps): JSX.Element => {
+  const { t } = useTranslation();
 
   return (
     <ButtonToolbarRow>
@@ -30,7 +34,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
         {isEditing ? (
           <TooltipWrapper
             id={"searchFindings.tabDescription.save.tooltip.btn"}
-            message={translate.t("searchFindings.tabDescription.save.tooltip")}
+            message={t("searchFindings.tabDescription.save.tooltip")}
           >
             <Button
               disabled={isPristine}
@@ -39,7 +43,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
             >
               <FluidIcon icon={"loading"} />
               &nbsp;
-              {translate.t("searchFindings.tabDescription.save.text")}
+              {t("searchFindings.tabDescription.save.text")}
             </Button>
           </TooltipWrapper>
         ) : undefined}
@@ -47,9 +51,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
           id={`${editTooltip}.id`}
           message={
             isEditing
-              ? translate.t(
-                  "searchFindings.tabDescription.editable.cancelTooltip"
-                )
+              ? t("searchFindings.tabDescription.editable.cancelTooltip")
               : editTooltip
           }
         >
@@ -58,13 +60,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
               <React.Fragment>
                 <FontAwesomeIcon icon={faTimes} />
                 &nbsp;
-                {translate.t("searchFindings.tabDescription.editable.cancel")}
+                {t("searchFindings.tabDescription.editable.cancel")}
               </React.Fragment>
             ) : (
               <React.Fragment>
                 <FluidIcon icon={"edit"} />
                 &nbsp;
-                {translate.t("searchFindings.tabDescription.editable.text")}
+                {t("searchFindings.tabDescription.editable.text")}
               </React.Fragment>
             )}
           </Button>

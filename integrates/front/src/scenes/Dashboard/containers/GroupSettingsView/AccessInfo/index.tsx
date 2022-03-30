@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { DisambiguationForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/DisambiguationForm";
@@ -16,7 +17,6 @@ import {
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IGroupAccessInfo {
   group: {
@@ -26,6 +26,7 @@ interface IGroupAccessInfo {
 }
 
 const AccessInfo: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
   const [isEditingGroupAccessInfo, setEditingGroupAccessInfo] = useState(false);
   const [isEditingDisambiguation, setEditingDisambiguation] = useState(false);
@@ -34,7 +35,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
     fetchPolicy: "no-cache",
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred while getting group info", error);
       });
     },
@@ -48,10 +49,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
       updateGroupAccessInfo: { success: boolean };
     }): Promise<void> => {
       if (result.updateGroupAccessInfo.success) {
-        msgSuccess(
-          translate.t("groupAlerts.updated"),
-          translate.t("groupAlerts.updatedTitle")
-        );
+        msgSuccess(t("groupAlerts.updated"), t("groupAlerts.updatedTitle"));
         await refetch();
       }
     },
@@ -59,10 +57,10 @@ const AccessInfo: React.FC = (): JSX.Element => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Invalid markdown":
-            msgError(translate.t("validations.invalidMarkdown"));
+            msgError(t("validations.invalidMarkdown"));
             break;
           default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
+            msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred updating group access info",
               updateError
@@ -77,10 +75,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
       updateGroupDisambiguation: { success: boolean };
     }): Promise<void> => {
       if (result.updateGroupDisambiguation.success) {
-        msgSuccess(
-          translate.t("groupAlerts.updated"),
-          translate.t("groupAlerts.updatedTitle")
-        );
+        msgSuccess(t("groupAlerts.updated"), t("groupAlerts.updatedTitle"));
         await refetch();
       }
     },
@@ -88,10 +83,10 @@ const AccessInfo: React.FC = (): JSX.Element => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Invalid markdown":
-            msgError(translate.t("validations.invalidMarkdown"));
+            msgError(t("validations.invalidMarkdown"));
             break;
           default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
+            msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(
               "An error occurred updating group access info",
               updateError
