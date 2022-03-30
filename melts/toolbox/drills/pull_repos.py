@@ -186,8 +186,16 @@ def download_repo_from_s3(
     if progress_bar:
         progress_bar()
 
-    with tarfile.open(file_path, "r") as tar_handler:
-        tar_handler.extractall(f"groups/{group_name}/fusion/")
+    try:
+        shutil.rmtree(
+            f"groups/{group_name}/fusion/{nickname}", ignore_errors=True
+        )
+        with tarfile.open(file_path, "r:gz") as tar_handler:
+            tar_handler.extractall(
+                f"groups/{group_name}/fusion/", numeric_owner=True
+            )
+    except PermissionError:
+        LOGGER.error("filed to unzip %s", nickname)
 
     os.remove(file_path)
 
