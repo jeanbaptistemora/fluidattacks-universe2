@@ -24,7 +24,11 @@ const ADD_GROUP_CONSULT: DocumentNode = gql`
     $groupName: String!
     $parent: GenericScalar!
   ) {
-    addGroupConsult(content: $content, groupName: $groupName, parent: $parent) {
+    addGroupConsult(
+      content: $content
+      groupName: $groupName
+      parentComment: $parent
+    ) {
       commentId
       success
     }

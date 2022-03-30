@@ -266,7 +266,7 @@ async def test_add_group_consult_parent_zero() -> None:
       mutation {
         addGroupConsult(
           content: "Test comment",
-          parent: "0",
+          parentComment: "0",
           groupName: "unittesting",
         ) {
           success
@@ -288,7 +288,7 @@ async def test_add_group_consult_parent_non_zero() -> None:
       mutation {
         addGroupConsult(
           content: "Test comment",
-          parent: "1545946228675",
+          parentComment: "1545946228675",
           groupName: "unittesting",
         ) {
           success

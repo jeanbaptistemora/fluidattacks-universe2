@@ -76,17 +76,17 @@ async def add_comment(
     comment_data: CommentType,
 ) -> bool:
     """Add comment in a group."""
-    parent = str(comment_data["parent"])
+    parent_comment = str(comment_data["parent"])
     content = str(comment_data["content"])
     await authz.validate_handle_comment_scope(
-        content, email, group_name, parent, info.context.store
+        content, email, group_name, parent_comment, info.context.store
     )
-    if parent != "0":
+    if parent_comment != "0":
         group_comments = [
             str(comment.get("user_id"))
             for comment in await get_comments(group_name)
         ]
-        if parent not in group_comments:
+        if parent_comment not in group_comments:
             raise InvalidCommentParent()
     return await group_comments_dal.add_comment(
         group_name, email, comment_data

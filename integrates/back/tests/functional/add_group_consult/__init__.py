@@ -20,7 +20,7 @@ async def get_result(
         mutation {{
             addGroupConsult(
                 content: "Test consult",
-                parent: "0",
+                parentComment: "0",
                 groupName: "{group}",
             ) {{
                 success

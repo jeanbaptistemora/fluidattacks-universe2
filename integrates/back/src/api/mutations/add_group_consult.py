@@ -83,7 +83,7 @@ async def mutate(
             " ", [user_info["first_name"], user_info["last_name"]]
         ),
         "modified": current_time,
-        "parent": parameters.get("parent"),
+        "parent": parameters.get("parent_comment"),
     }
     success = await group_comments_domain.add_comment(
         info, group_name, user_email, comment_data

@@ -224,7 +224,7 @@ type Mutation {
     "Name of the group where the comment will be made"
     groupName: String!
     "Identifier of the parent comment it is replying to"
-    parent: GenericScalar!
+    parentComment: GenericScalar!
   ): AddConsultPayload!
 
   "Adds the specified tags to the group"
