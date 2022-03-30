@@ -269,7 +269,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           })}
         </p>
       )}
-      <TableContainer rowSize={rowSize ?? "bold"}>
+      <TableContainer
+        isRowFunctional={rowEvents !== undefined}
+        rowSize={rowSize ?? "bold"}
+      >
         <BootstrapTable
           {...baseProps}
           bootstrap4={true}

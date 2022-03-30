@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 interface ITableContainerProps {
+  isRowFunctional: boolean;
   rowSize: "bold" | "thin";
 }
 
@@ -33,7 +34,7 @@ const TableContainer = styled.div.attrs({
   }
 
   tr {
-    cursor: pointer;
+    cursor: ${(props): string => (props.isRowFunctional ? "pointer" : "unset")};
   }
 
   table {
