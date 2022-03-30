@@ -1,13 +1,18 @@
+import { useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
+import type { GraphQLError } from "graphql";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddSecret } from "./addSecret";
 import { SecretValue } from "./secretValue";
 
+import { GET_ROOT } from "../../queries";
 import type { IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
+import { Logger } from "utils/logger";
 
 interface ISecret {
   key: string;
@@ -19,29 +24,43 @@ interface ISecretItem {
 }
 
 interface ISecretsProps {
-  initialValues: IGitRootAttr;
+  gitRootId: string;
   groupName: string;
 }
 
 const Secrets: React.FC<ISecretsProps> = ({
-  initialValues,
+  gitRootId,
   groupName,
 }: ISecretsProps): JSX.Element => {
   const { t } = useTranslation();
   const [addSecretModalOpen, setAddSecretModalOpen] = useState(false);
-  const secretsDataSet = initialValues.secrets.map(
-    (item: ISecret): ISecretItem => {
-      return {
-        key: item.key,
-        value: <SecretValue value={item.value} />,
-      };
-    }
-  );
+
+  const { data, refetch } = useQuery<{ root: IGitRootAttr }>(GET_ROOT, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load secrets", error);
+      });
+    },
+    variables: { groupName, rootId: gitRootId },
+  });
+
+  const secretsDataSet =
+    data === undefined
+      ? []
+      : data.root.secrets.map((item: ISecret): ISecretItem => {
+          return {
+            key: item.key,
+            value: <SecretValue value={item.value} />,
+          };
+        });
   function closeModal(): void {
     setAddSecretModalOpen(false);
   }
   function openModal(): void {
     setAddSecretModalOpen(true);
+  }
+  function isSecretDuplicated(key: string): boolean {
+    return secretsDataSet.some((item): boolean => item.key === key);
   }
 
   return (
@@ -53,8 +72,10 @@ const Secrets: React.FC<ISecretsProps> = ({
         <AddSecret
           closeModal={closeModal}
           groupName={groupName}
+          handleSubmitSecret={refetch}
+          isDuplicated={isSecretDuplicated}
           key={""}
-          rootId={initialValues.id}
+          rootId={gitRootId}
           value={""}
         />
       </Modal>

@@ -20,17 +20,33 @@ interface ISecretsProps {
   rootId: string;
   value: string;
   closeModal: () => void;
+  handleSubmitSecret: () => void;
+  isDuplicated: (key: string) => boolean;
 }
 
-const secretSchema = lazy(
-  (): BaseSchema =>
-    object().shape({
-      secretKey: string()
-        .required(translate.t("validations.required"))
-        .matches(/^[a-zA-Z_0-9-]{1,128}$/u),
-      secretValue: string().required(translate.t("validations.required")),
-    })
-);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getSecretSchema(duplicateValidator: (key: string) => boolean): any {
+  return lazy(
+    (): BaseSchema =>
+      object().shape({
+        secretKey: string()
+          .required(translate.t("validations.required"))
+          .matches(/^[a-zA-Z_0-9-]{1,128}$/u)
+          .test(
+            "duplicateValue",
+            translate.t("validations.duplicateSecret"),
+            (value): boolean => {
+              if (_.isUndefined(value)) {
+                return true;
+              }
+
+              return !duplicateValidator(value);
+            }
+          ),
+        secretValue: string().required(translate.t("validations.required")),
+      })
+  );
+}
 
 const AddSecret: React.FC<ISecretsProps> = ({
   groupName,
@@ -38,6 +54,8 @@ const AddSecret: React.FC<ISecretsProps> = ({
   rootId,
   value,
   closeModal,
+  isDuplicated,
+  handleSubmitSecret,
 }: ISecretsProps): JSX.Element => {
   const initialValues = { secretKey: key, secretValue: value };
   const { t } = useTranslation();
@@ -47,6 +65,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
         t("group.scope.git.repo.credentials.secrets.success"),
         t("group.scope.git.repo.credentials.secrets.successTitle")
       );
+      handleSubmitSecret();
       closeModal();
     },
     onError: ({ graphQLErrors }): void => {
@@ -77,9 +96,9 @@ const AddSecret: React.FC<ISecretsProps> = ({
         initialValues={initialValues}
         name={"gitRootSecret"}
         onSubmit={handleSecretSubmit}
-        validationSchema={secretSchema}
+        validationSchema={getSecretSchema(isDuplicated)}
       >
-        {(): JSX.Element => (
+        {({ isValid, dirty, isSubmitting }): JSX.Element => (
           <Form>
             <fieldset className={"bn"}>
               <legend className={"f3 b"}>
@@ -112,6 +131,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
                 </div>
                 <div className={"mt3"}>
                   <Button
+                    disabled={!isValid || !dirty || isSubmitting}
                     id={"git-root-add-secret"}
                     type={"submit"}
                     variant={"primary"}

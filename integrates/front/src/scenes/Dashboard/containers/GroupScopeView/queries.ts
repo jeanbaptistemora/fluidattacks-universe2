@@ -23,10 +23,6 @@ const GET_ROOTS: DocumentNode = gql`
           id
           includesHealthCheck
           nickname
-          secrets {
-            key
-            value
-          }
           state
           url
         }
@@ -45,6 +41,18 @@ const GET_ROOTS: DocumentNode = gql`
           port
           protocol
           state
+        }
+      }
+    }
+  }
+`;
+const GET_ROOT: DocumentNode = gql`
+  query GetRoot($groupName: String!, $rootId: ID!) {
+    root(groupName: $groupName, rootId: $rootId) {
+      ... on GitRoot {
+        secrets {
+          key
+          value
         }
       }
     }
@@ -312,6 +320,7 @@ export {
   GET_GIT_ROOT_DETAILS,
   GET_GROUPS,
   GET_ROOTS_VULNS,
+  GET_ROOT,
   GET_ROOTS,
   MOVE_ROOT,
   SYNC_GIT_ROOT,

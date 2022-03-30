@@ -3016,6 +3016,7 @@ export const enTranslations: ResourceKey = {
     draftTypology: "The finding typology is not valid",
     duplicateDraft:
       "A {{type}} of this type has been already created. Please submit vulnerabilities there",
+    duplicateSecret: "This secret has been already defined",
     email: "The email format is not valid",
     excludeFormat: "Root name should not be included in the exception pattern",
     excludePathHost: "The path should not include the host",

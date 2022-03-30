@@ -23,7 +23,6 @@ interface IGitRootAttr {
   secrets: {
     key: string;
     value: string;
-    id: string;
   }[];
   state: "ACTIVE" | "INACTIVE";
   url: string;

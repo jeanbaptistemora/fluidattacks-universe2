@@ -140,7 +140,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
               />
             </Route>
             <Route path={"/secrets"}>
-              <Secrets groupName={groupName} initialValues={initialValues} />
+              <Secrets gitRootId={initialValues.id} groupName={groupName} />
             </Route>
           </Switch>
         </TabContent>
