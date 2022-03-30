@@ -16,7 +16,6 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
-    cast,
     List,
 )
 
@@ -40,4 +39,4 @@ async def resolve(
 
 async def resolve_no_cache() -> List[str]:
     groups = await groups_domain.get_groups_with_forces()
-    return cast(List[str], groups)
+    return groups

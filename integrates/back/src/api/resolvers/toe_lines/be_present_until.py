@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.toe_lines.types import (
     ToeLines,
 )
@@ -7,10 +10,13 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Optional,
+)
 
 
 @enforce_group_level_auth_async
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> Optional[datetime]:
     return parent.be_present_until
