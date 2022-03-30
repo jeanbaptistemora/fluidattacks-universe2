@@ -45,4 +45,4 @@ async def mutate(
         f'Security: Added a root in {kwargs["group_name"].lower()}',
     )
 
-    return AddRootPayload(root_id=root, success=True)
+    return AddRootPayload(root_id=str(root), success=True)
