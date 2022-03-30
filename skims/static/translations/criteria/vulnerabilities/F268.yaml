@@ -1,9 +1,14 @@
 lib_apk.analyze_bytecodes.webview_caches_javascript:
-  en: The given APK has WebView that caches JavaScript data and code.
+  en: >
+    The setJavaScriptEnabled method is enabled
+    and the clearCache method is not present.
   es: >
-    El APK dado tiene WebView que almacena en caché los datos
-    y el código de JavaScript.
+    El método setJavaScriptEnabled esta habilitado
+    y el método clearCache no esta presente
 lib_apk.analyze_bytecodes.webview_allows_resource_access:
-  en: The given APK has WebView that allows resource access.
+  en: >
+    The setJavaScriptEnabled method is enabled
+    and there're additional ones that allow access to resources.
   es: >
-    El APK dado tiene WebView que permite el acceso a los recursos.
+    El método setJavaScriptEnabled esta habilitado
+    y hay otros adicionales que permiten acceso a los recursos.

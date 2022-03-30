@@ -1021,7 +1021,10 @@ F372,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The given APK r
      | http://www.jamendo.com/en/cgu_user', 'http://www.jamendo.com/track/%d']
      ^ Col 0
 ",analyze_bytecodes.uses_http_resources
-F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
+F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+","
+   1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1032,20 +1035,15 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The giv
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
-     | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
-     | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
-     | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
-     | 1(String[] p1, android.app.Activity p2, int p3)\n    {\n        this.val$permissions = p1;\n        this.val$activity =
-     | p2;\n        this.val$requestCode = p3;\n        return;\n    }\n\n    public void run()\n    {\n        int[] v0_2 = ne
-     | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
-     | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
-     |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
+> 12 | # The setJavaScriptEnabled method and the following dangerous
+  13 | # methods are enabled:
+  14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
+F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+","
+   1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1056,20 +1054,15 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
-     | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
-     | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
-     | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
-     | 1(String[] p1, android.app.Activity p2, int p3)\n    {\n        this.val$permissions = p1;\n        this.val$activity =
-     | p2;\n        this.val$requestCode = p3;\n        return;\n    }\n\n    public void run()\n    {\n        int[] v0_2 = ne
-     | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
-     | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
-     |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
+> 12 | # The setJavaScriptEnabled method and the following dangerous
+  13 | # methods are enabled:
+  14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
+F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+","
+   1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1080,20 +1073,15 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
-     | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
-     | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
-     | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
-     | 1(String[] p1, android.app.Activity p2, int p3)\n    {\n        this.val$permissions = p1;\n        this.val$activity =
-     | p2;\n        this.val$requestCode = p3;\n        return;\n    }\n\n    public void run()\n    {\n        int[] v0_2 = ne
-     | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
-     | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
-     |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
+> 12 | # The setJavaScriptEnabled method and the following dangerous
+  13 | # methods are enabled:
+  14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK has WebView that allows resource access.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that allows resource access.,"
+F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+","
+   1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1104,20 +1092,14 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
-     | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
-     | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
-     | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
-     | 1(String[] p1, android.app.Activity p2, int p3)\n    {\n        this.val$permissions = p1;\n        this.val$activity =
-     | p2;\n        this.val$requestCode = p3;\n        return;\n    }\n\n    public void run()\n    {\n        int[] v0_2 = ne
-     | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
-     | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
-     |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
+> 12 | # The setJavaScriptEnabled method and the following dangerous
+  13 | # methods are enabled:
+  14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
+F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+","
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1128,8 +1110,9 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The giv
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
+> 12 | # The setJavaScriptEnabled method is enabled and the clearCache
+  13 | # method is not present.
+  14 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
      | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
      | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
      | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
@@ -1138,10 +1121,11 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The giv
      | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
      | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
+F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+","
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1152,8 +1136,9 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
+> 12 | # The setJavaScriptEnabled method is enabled and the clearCache
+  13 | # method is not present.
+  14 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
      | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
      | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
      | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
@@ -1162,10 +1147,11 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),The given
      | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
      | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
+F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+","
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1176,8 +1162,9 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
+> 12 | # The setJavaScriptEnabled method is enabled and the clearCache
+  13 | # method is not present.
+  14 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
      | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
      | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
      | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
@@ -1186,10 +1173,11 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
      | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
      | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK has WebView that caches JavaScript data and code.,749,"home,apk,bytecodes",268. Insecure service configuration - Webview,The given APK has WebView that caches JavaScript data and code.,"
+F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+","
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
@@ -1200,8 +1188,9 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
-> 12 | # No method performs root detection
-  13 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
+> 12 | # The setJavaScriptEnabled method is enabled and the clearCache
+  13 | # method is not present.
+  14 | >>> 'package android.arch.lifecycle;\ninterface ReportFragment$ActivityInitializationListener {\n\n    public abstract v
      | oid onCreate();\n\n    public abstract void onResume();\n\n    public abstract void onStart();\n}\npackage android.suppo
      | rt.v4.app;\nfinal class ActivityCompat$1 implements java.lang.Runnable {\n    final synthetic android.app.Activity val$a
      | ctivity;\n    final synthetic String[] val$permissions;\n    final synthetic int val$requestCode;\n\n    ActivityCompat$
@@ -1210,6 +1199,5 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      | w int[this.val$permissions.length];\n        android.content.pm.PackageManager v1_1 = this.val$activity.getPackageManage
      | r();\n        String v2_1 = this.val$activity.getPackageName();\n        int v3_0 = this.val$permissions.length;\n
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
-     |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities

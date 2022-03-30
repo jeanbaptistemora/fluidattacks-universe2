@@ -434,7 +434,8 @@ def _add_webview_caches_javascript_location(
 
                 >>> # Get the method names from all classes in each .dex file
                 >>> sorted(set(method.name for method in dex.get_methods()))
-                # No method performs root detection
+                # The setJavaScriptEnabled method is enabled and the clearCache
+                # method is not present.
                 >>> {repr(source)}
                 """
             )[1:],
@@ -446,7 +447,7 @@ def _add_webview_caches_javascript_location(
 def _add_webview_allows_resource_access(
     ctx: APKCheckCtx,
     locations: Locations,
-    source: str,
+    source: List[str],
 ) -> None:
     locations.append(
         desc="webview_allows_resource_access",
@@ -464,7 +465,8 @@ def _add_webview_allows_resource_access(
 
                 >>> # Get the method names from all classes in each .dex file
                 >>> sorted(set(method.name for method in dex.get_methods()))
-                # No method performs root detection
+                # The setJavaScriptEnabled method and the following dangerous
+                # methods are enabled:
                 >>> {repr(source)}
                 """
             )[1:],
@@ -500,7 +502,9 @@ def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         has_dangerous_permissions: bool = bool(effective_dangerous)
 
         if has_dangerous_permissions:
-            _add_webview_allows_resource_access(ctx, locations, act_source)
+            _add_webview_allows_resource_access(
+                ctx, locations, effective_dangerous
+            )
 
         if is_vulnerable:
             _add_webview_caches_javascript_location(ctx, locations, act_source)
