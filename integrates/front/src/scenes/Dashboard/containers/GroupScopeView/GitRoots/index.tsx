@@ -47,6 +47,7 @@ import {
   filterText,
 } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tour } from "components/Tour/index";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -90,10 +91,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isManagingRoot, setManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
+  const [runTour, toggleTour] = useState(false);
 
   const openAddModal: () => void = useCallback((): void => {
+    if (runTour) {
+      toggleTour(false);
+    }
     setManagingRoot({ mode: "ADD" });
-  }, []);
+  }, [runTour, toggleTour]);
 
   const closeModal: () => void = useCallback((): void => {
     setManagingRoot(false);
@@ -497,6 +502,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                           <FontAwesomeIcon icon={faPlus} />
                           &nbsp;{t("group.scope.common.add")}
                         </Button>
+                        {runTour ? (
+                          <Tour
+                            run={true}
+                            steps={[
+                              {
+                                content: t("tours.addGitRoot.addButton"),
+                                disableBeacon: true,
+                                hideFooter: true,
+                                target: "#git-root-add",
+                              },
+                            ]}
+                          />
+                        ) : undefined}
                       </TooltipWrapper>
                     </Can>
                     <InternalSurfaceButton />
@@ -592,6 +610,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           onClose={closeModal}
           onSubmitEnvs={handleEnvsSubmit}
           onSubmitRepo={handleGitSubmit}
+          runTour={runTour}
         />
       )}
       {deactivationModal.open ? (

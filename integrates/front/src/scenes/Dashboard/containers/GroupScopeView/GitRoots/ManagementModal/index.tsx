@@ -20,6 +20,7 @@ interface IManagementModalProps {
   onClose: () => void;
   onSubmitEnvs: (values: IGitRootAttr) => Promise<void>;
   onSubmitRepo: (values: IGitRootAttr) => Promise<void>;
+  runTour: boolean;
 }
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
@@ -54,6 +55,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   onClose,
   onSubmitEnvs,
   onSubmitRepo,
+  runTour,
 }: IManagementModalProps): JSX.Element => {
   const { t } = useTranslation();
   const isEditing: boolean = initialValues.url !== "";
@@ -124,6 +126,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                       nicknames={nicknames}
                       onClose={onClose}
                       onSubmit={confirmAndSubmit}
+                      runTour={runTour}
                     />
                   );
                 }}

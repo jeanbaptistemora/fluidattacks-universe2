@@ -126,6 +126,7 @@ describe("GitRoots", (): void => {
               onClose={handleClose}
               onSubmitEnvs={handleSubmit}
               onSubmitRepo={handleSubmit}
+              runTour={false}
             />
           </MockedProvider>
         </authzPermissionsContext.Provider>
@@ -213,6 +214,7 @@ describe("GitRoots", (): void => {
             onClose={handleClose}
             onSubmitEnvs={handleSubmit}
             onSubmitRepo={handleSubmit}
+            runTour={false}
           />
         </MockedProvider>
       </authzPermissionsContext.Provider>
