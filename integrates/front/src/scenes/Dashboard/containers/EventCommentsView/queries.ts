@@ -24,7 +24,11 @@ const ADD_EVENT_CONSULT: DocumentNode = gql`
     $eventId: String!
     $parent: GenericScalar!
   ) {
-    addEventConsult(content: $content, eventId: $eventId, parent: $parent) {
+    addEventConsult(
+      content: $content
+      eventId: $eventId
+      parentComment: $parent
+    ) {
       commentId
       success
     }

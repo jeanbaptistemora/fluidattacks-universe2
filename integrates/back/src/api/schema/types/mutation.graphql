@@ -117,7 +117,7 @@ type Mutation {
     "Identifier of the Event to comment about"
     eventId: String!
     "Identifier of the comment it is replying to. 0 otherwise"
-    parent: GenericScalar!
+    parentComment: GenericScalar!
   ): AddConsultPayload!
 
   "Adds files to a Group's scope view"

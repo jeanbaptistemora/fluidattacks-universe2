@@ -115,23 +115,23 @@ async def add_comment(
     user_email: str,
     comment_data: CommentType,
     event_id: str,
-    parent: str,
+    parent_comment: str,
 ) -> Tuple[Union[str, None], bool]:
-    parent = str(parent)
+    parent_comment = str(parent_comment)
     content = str(comment_data["content"])
     event_loader = info.context.loaders.event
     event = await event_loader.load(event_id)
     group_name = get_key_or_fallback(event)
 
     await authz.validate_handle_comment_scope(
-        content, user_email, group_name, parent, info.context.store
+        content, user_email, group_name, parent_comment, info.context.store
     )
-    if parent != "0":
+    if parent_comment != "0":
         event_comments = [
             comment["comment_id"]
             for comment in await comments_domain.get("event", event_id)
         ]
-        if parent not in event_comments:
+        if parent_comment not in event_comments:
             raise InvalidCommentParent()
     user_data = await users_domain.get(user_email)
     user_data["user_email"] = user_data.pop("email")

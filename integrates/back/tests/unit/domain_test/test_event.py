@@ -137,17 +137,17 @@ async def test_add_comment() -> None:
     event_id = "538745942"
     user_email = "integratesmanager@gmail.com"
     comment_id = str(round(time() * 1000))
-    parent = "0"
+    parent_comment = "0"
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
     comment_data = {
         "comment_type": "event",
-        "parent": parent,
+        "parent": parent_comment,
         "content": "comment test",
         "comment_id": comment_id,
     }
     comment_id, success = await events_domain.add_comment(
-        info, user_email, comment_data, event_id, parent
+        info, user_email, comment_data, event_id, parent_comment
     )
     assert success
     assert comment_id
@@ -156,7 +156,11 @@ async def test_add_comment() -> None:
     comment_data["parent"] = comment_id
     comment_data["comment_id"] = str(round(time() * 1000))
     comment_id, success = await events_domain.add_comment(
-        info, user_email, comment_data, event_id, parent=str(comment_id)
+        info,
+        user_email,
+        comment_data,
+        event_id,
+        parent_comment=str(comment_id),
     )
     assert success
     assert comment_id
@@ -169,7 +173,7 @@ async def test_add_comment() -> None:
             user_email,
             comment_data,
             event_id,
-            parent=str(int(comment_id) + 1),
+            parent_comment=str(int(comment_id) + 1),
         )
 
 
@@ -221,7 +225,7 @@ async def test_validate_evidence_invalid_file_size() -> None:
 @pytest.mark.changes_db
 async def test_mask_event() -> None:
     event_id = "418900971"
-    parent = "0"
+    parent_comment = "0"
     comment_id = str(round(time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
@@ -232,7 +236,11 @@ async def test_mask_event() -> None:
         "comment_id": comment_id,
     }
     comment_id, success = await events_domain.add_comment(
-        info, "integratesmanager@gmail.com", comment_data, event_id, parent
+        info,
+        "integratesmanager@gmail.com",
+        comment_data,
+        event_id,
+        parent_comment,
     )
     evidence_type = "records"
     filename = os.path.dirname(os.path.abspath(__file__))

@@ -19,7 +19,7 @@ async def get_result(
     query: str = f"""
         mutation {{
             addEventConsult(eventId: "{event}",
-                            parent: "0",
+                            parentComment: "0",
                             content: "Test content of new event") {{
                 success
                 commentId

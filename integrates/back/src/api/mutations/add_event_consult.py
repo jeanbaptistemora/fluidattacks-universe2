@@ -77,7 +77,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     content: str,
     event_id: str,
-    parent: str,
+    parent_comment: str,
 ) -> AddConsultPayload:
     validations.validate_fields([content])
 
@@ -86,12 +86,12 @@ async def mutate(
     user_email = str(user_info["user_email"])
     comment_data = {
         "comment_type": "event",
-        "parent": parent,
+        "parent": parent_comment,
         "content": content,
         "comment_id": comment_id,
     }
     comment_id, success = await events_domain.add_comment(
-        info, user_email, comment_data, event_id, parent
+        info, user_email, comment_data, event_id, parent_comment
     )
     if success:
         redis_del_by_deps_soon("add_event_consult", event_id=event_id)

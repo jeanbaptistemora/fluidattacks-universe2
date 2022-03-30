@@ -182,7 +182,7 @@ async def test_add_event_consult() -> None:
     query = """
         mutation {
             addEventConsult(eventId: "538745942",
-                            parent: "0",
+                            parentComment: "0",
                             content: "Test comment") {
                 success
                 commentId
