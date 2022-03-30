@@ -1073,6 +1073,10 @@ async def add_secret(
     return await roots_model.add_secret(root_id, secret)
 
 
+async def remove_secret(root_id: str, secret_key: str) -> None:
+    await roots_model.remove_secret(root_id, secret_key)
+
+
 async def finish_machine_execution(
     root_id: str,
     job_id: str,

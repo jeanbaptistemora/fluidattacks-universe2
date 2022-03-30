@@ -556,6 +556,15 @@ type Mutation {
     paymentMethodId: String!
   ): SimplePayload!
 
+  "Adds a machine execution to git root"
+  removeSecret(
+    "Secret key"
+    key: String!
+    "Id of the root to put secret"
+    rootId: ID!
+  ): SimplePayload!
+
+
   "Removes/deletes your access to ASM"
   removeStakeholder: SimplePayload!
 

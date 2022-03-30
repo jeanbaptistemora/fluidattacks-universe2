@@ -50,6 +50,7 @@ from api.mutations import (
     remove_group,
     remove_group_tag,
     remove_payment_method,
+    remove_secret,
     remove_stakeholder,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
@@ -174,6 +175,7 @@ MUTATION.set_field(
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
 MUTATION.set_field("removeFinding", remove_finding.mutate)
+MUTATION.set_field("removeSecret", remove_secret.mutate)
 MUTATION.set_field("removeStakeholder", remove_stakeholder.mutate)
 MUTATION.set_field("removeStakeholderAccess", remove_stakeholder_access.mutate)
 MUTATION.set_field(
