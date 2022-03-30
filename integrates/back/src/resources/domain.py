@@ -1,8 +1,14 @@
 from custom_exceptions import (
+    ErrorUpdatingGroup,
     InvalidFileSize,
 )
 from custom_types import (
     Resource as ResourceType,
+)
+from db_model.groups.types import (
+    Group,
+    GroupFile,
+    GroupMetadataToUpdate,
 )
 from groups import (
     domain as groups_domain,
@@ -26,9 +32,9 @@ from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
+    Any,
     cast,
-    Dict,
-    List,
+    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -38,17 +44,17 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def add_file(
-    files_data: List[Dict[str, str]],
+    files_data: list[dict[str, str]],
     uploaded_file: UploadFile,
     group_name: str,
     user_email: str,
 ) -> bool:
     success = False
     group_name = group_name.lower()
-    json_data: List[ResourceType] = []
+    json_data: list[ResourceType] = []
     for file_info in files_data:
         description = file_info["description"]
-        validations.validate_fields(cast(List[str], [description]))
+        validations.validate_fields(cast(list[str], [description]))
         validations.validate_field_length(description, 200)
         json_data.append(
             {
@@ -67,7 +73,7 @@ async def add_file(
     except InvalidFileSize as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     files = await groups_domain.get_attributes(group_name, ["files"])
-    group_files = cast(List[ResourceType], files.get("files", []))
+    group_files = cast(list[ResourceType], files.get("files", []))
     if group_files:
         contains_repeated = [
             f.get("fileName")
@@ -90,7 +96,7 @@ async def remove_file(file_name: str, group_name: str) -> bool:
     success = False
     group_name = group_name.lower()
     group = await groups_domain.get_attributes(group_name, ["files"])
-    file_list = cast(List[Dict[str, str]], group.get("files", []))
+    file_list = cast(list[dict[str, str]], group.get("files", []))
     index = -1
     cont = 0
     while index < 0 and len(file_list) > cont:
@@ -101,6 +107,36 @@ async def remove_file(file_name: str, group_name: str) -> bool:
         await resources_utils.remove_file(file_url)
         success = await resources_dal.remove(group_name, "files", index)
     return success
+
+
+async def remove_file_typed(
+    *,
+    loaders: Any,
+    group_name: str,
+    file_name: str,
+) -> None:
+    group: Group = await loaders.group_typed.load(group_name)
+    if not group.files:
+        raise ErrorUpdatingGroup.new()
+
+    file_to_remove: Optional[GroupFile] = next(
+        (file for file in group.files if file.file_name == file_name), None
+    )
+    if not file_to_remove:
+        raise ErrorUpdatingGroup.new()
+
+    file_url = f"{group_name}/{file_name}"
+    await resources_utils.remove_file(file_url)
+    await groups_domain.update_metadata_typed(
+        group_name=group_name,
+        metadata=GroupMetadataToUpdate(
+            files=[
+                file
+                for file in group.files
+                if file.file_name != file_to_remove.file_name
+            ]
+        ),
+    )
 
 
 async def validate_file_size(
@@ -114,16 +150,16 @@ async def validate_file_size(
 
 
 async def add_file_to_db(
-    files_data: List[Dict[str, str]],
+    files_data: list[dict[str, str]],
     group_name: str,
     user_email: str,
 ) -> bool:
     success = False
     group_name = group_name.lower()
-    json_data: List[ResourceType] = []
+    json_data: list[ResourceType] = []
     for file_info in files_data:
         description = file_info["description"]
-        validations.validate_fields(cast(List[str], [description]))
+        validations.validate_fields(cast(list[str], [description]))
         validations.validate_field_length(description, 200)
         json_data.append(
             {
@@ -136,7 +172,7 @@ async def add_file_to_db(
             }
         )
     files = await groups_domain.get_attributes(group_name, ["files"])
-    group_files = cast(List[ResourceType], files.get("files", []))
+    group_files = cast(list[ResourceType], files.get("files", []))
     if group_files:
         contains_repeated = [
             f.get("fileName")

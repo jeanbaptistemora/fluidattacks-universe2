@@ -27,13 +27,9 @@ from newutils.utils import (
     get_key_or_fallback,
     get_present_key,
 )
-from typing import (
-    Dict,
-    List,
-)
 
 
-def _format_group_files(group_files: List[GroupFile]) -> List[Dict[str, str]]:
+def _format_group_files(group_files: list[GroupFile]) -> list[dict[str, str]]:
     return [
         {
             "description": file.description,
