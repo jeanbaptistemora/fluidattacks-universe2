@@ -21,9 +21,6 @@ from newutils import (
     resources as resources_utils,
     validations,
 )
-from resources import (
-    dal as resources_dal,
-)
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -92,24 +89,7 @@ async def add_file(
     return success
 
 
-async def remove_file(file_name: str, group_name: str) -> bool:
-    success = False
-    group_name = group_name.lower()
-    group = await groups_domain.get_attributes(group_name, ["files"])
-    file_list = cast(list[dict[str, str]], group.get("files", []))
-    index = -1
-    cont = 0
-    while index < 0 and len(file_list) > cont:
-        index = cont if file_list[cont]["fileName"] == file_name else -1
-        cont += 1
-    if index >= 0:
-        file_url = f"{group_name.lower()}/{file_name}"
-        await resources_utils.remove_file(file_url)
-        success = await resources_dal.remove(group_name, "files", index)
-    return success
-
-
-async def remove_file_typed(
+async def remove_file(
     *,
     loaders: Any,
     group_name: str,

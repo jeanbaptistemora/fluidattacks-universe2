@@ -7,6 +7,9 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -44,13 +47,20 @@ async def mutate(
     files_data: dict[str, Any],
     group_name: str,
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     files_data = {
         re.sub(r"_([a-z])", lambda x: x.group(1).upper(), k): v
         for k, v in files_data.items()
     }
-    file_name = files_data.get("fileName")
-    success = await resources_domain.remove_file(str(file_name), group_name)
-    if not success:
+    file_name = str(files_data.get("fileName"))
+    group_name = group_name.lower()
+    try:
+        await resources_domain.remove_file(
+            loaders=loaders,
+            group_name=group_name,
+            file_name=file_name,
+        )
+    except ErrorUpdatingGroup:
         LOGGER.error(
             "Couldn't remove file",
             extra={
@@ -64,11 +74,10 @@ async def mutate(
             info.context,
             f"Security: Attempted to remove files from {group_name} group",
         )
-        raise ErrorUpdatingGroup.new()
+        raise
 
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Removed files from {group_name} group successfully",
     )
-
     return SimplePayload(success=True)
