@@ -36,11 +36,13 @@ from integrates.graphql import (
 )
 import json
 from model.core_model import (
+    LocalesEnum,
     SkimsConfig,
 )
 import os
 import sys
 from typing import (
+    cast,
     List,
     NamedTuple,
     Optional,
@@ -172,7 +174,7 @@ async def _gererate_configs(
                 checks=tuple(
                     check for check, should in checks_dict.items() if should
                 ),
-                language=group_language,
+                language=cast(LocalesEnum, group_language),
                 working_dir=f"groups/{group_name}/fusion/{root}",
             )
             for root, checks_dict in should_run_dict.items()
@@ -215,7 +217,8 @@ async def main(  # pylint: disable=too-many-locals)
     roots_nicknames: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
 
-    roots = await get_group_roots(group=group_name)
+    res_roots = await get_group_roots(group=group_name)
+    roots: Tuple[ResultGetGroupRoots, ...] = res_roots if res_roots else ()
     roots_dict_by_nickname = {item.nickname: item for item in roots}
     roots_dict_by_id = {item.id: item for item in roots}
 
@@ -259,7 +262,7 @@ async def main(  # pylint: disable=too-many-locals)
             group_name=group_name,
             namespace=root_nickname,
             checks=tuple(checks),
-            language=group_language,
+            language=cast(LocalesEnum, group_language),
             working_dir=namespaces_path_dict[root_nickname],
         )
         for root_nickname in roots_nicknames
