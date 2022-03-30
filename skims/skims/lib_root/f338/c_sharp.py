@@ -77,7 +77,11 @@ def check_hashes_salt(
                     == "invocation_expression"
                     and node_to_str(
                         shard.graph,
-                        g.match_ast(shard.graph, node_param, "__0__")["__0__"],
+                        str(
+                            g.match_ast(shard.graph, str(node_param), "__0__")[
+                                "__0__"
+                            ]
+                        ),
                     )
                     in danger_methods
                 ):

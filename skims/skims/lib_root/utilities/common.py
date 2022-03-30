@@ -20,18 +20,21 @@ from utils.graph import (
 def get_method_param_by_obj(
     shard: GraphShard, n_id: str, object_type: str
 ) -> str:
-    for _class in shard.metadata.c_sharp.classes.values():
+    for _class in (
+        shard.metadata.c_sharp.classes.values()
+        if shard.metadata.c_sharp
+        else []
+    ):
         if "." + get_method_name(shard.graph, n_id) in _class.methods.keys():
-            param_keys = _class.methods[
+            parameters = _class.methods[
                 "." + get_method_name(shard.graph, n_id)
-            ].parameters.keys()
+            ].parameters
+            param_keys = parameters.keys() if parameters else []
             for param in param_keys:
-                if (
-                    _class.methods["." + get_method_name(shard.graph, n_id)]
-                    .parameters[param]
-                    .type_name
-                    == object_type
-                ):
+                params = _class.methods[
+                    "." + get_method_name(shard.graph, n_id)
+                ].parameters
+                if params and params[param].type_name == object_type:
                     return param
     return ""
 

@@ -533,5 +533,8 @@ class GraphDB(NamedTuple):
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
-Query = Callable[[Graph], core_model.Vulnerabilities]
+Query = Union[
+    Callable[[Graph], core_model.Vulnerabilities],
+    Callable[[Any, GraphDB], core_model.Vulnerabilities],
+]
 Queries = Tuple[Tuple[core_model.FindingEnum, Query], ...]

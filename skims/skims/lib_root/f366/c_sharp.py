@@ -17,7 +17,11 @@ def conflicting_annotations(
     def n_ids() -> graph_model.GraphShardNodes:
         critical = False
         for shard in graph_db.shards:
-            for _class in shard.metadata.c_sharp.classes.values():
+            for _class in (
+                shard.metadata.c_sharp.classes.values()
+                if shard.metadata.c_sharp
+                else []
+            ):
                 if (
                     _class.attributes
                     and "SecurityCritical" in _class.attributes
