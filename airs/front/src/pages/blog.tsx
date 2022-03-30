@@ -3,7 +3,6 @@
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { BlogSeo } from "../components/BlogSeo";
 import { BlogsList } from "../components/BlogsList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
@@ -28,12 +27,6 @@ const BlogIndex: React.FC<IQueryData> = ({
         description={translate.t("blog.description")}
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={"Blog | A Pentesting Company | Fluid Attacks"}
-        url={"https://fluidattacks.com/blog"}
-      />
-      <BlogSeo
-        description={translate.t("blog.description")}
-        image={blogImage}
         title={"Blog | A Pentesting Company | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
       />
