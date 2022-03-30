@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
@@ -24,16 +25,16 @@ import {
 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const TagContent: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch();
 
   const { data } = useQuery<IGetOrganizationId>(GET_ORGANIZATION_ID, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred fetching organization ID", error);
       });
     },
@@ -56,22 +57,16 @@ const TagContent: React.FC = (): JSX.Element => {
                 <ContentTab
                   id={"tagIndicatorsTab"}
                   link={`${url}/analytics`}
-                  title={translate.t(
-                    "organization.tabs.portfolios.tabs.indicators.text"
-                  )}
-                  tooltip={translate.t(
+                  title={t("organization.tabs.portfolios.tabs.indicators.text")}
+                  tooltip={t(
                     "organization.tabs.portfolios.tabs.indicators.tooltip"
                   )}
                 />
                 <ContentTab
                   id={"tagGroupsTab"}
                   link={`${url}/groups`}
-                  title={translate.t(
-                    "organization.tabs.portfolios.tabs.group.text"
-                  )}
-                  tooltip={translate.t(
-                    "organization.tabs.portfolios.tabs.group.tooltip"
-                  )}
+                  title={t("organization.tabs.portfolios.tabs.group.text")}
+                  tooltip={t("organization.tabs.portfolios.tabs.group.tooltip")}
                 />
               </TabsContainer>
             </div>

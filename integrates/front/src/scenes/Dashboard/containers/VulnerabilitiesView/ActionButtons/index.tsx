@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import { EditButton } from "./EditButton";
 import { HandleAcceptanceButton } from "./HandleAcceptanceButton";
@@ -8,7 +9,6 @@ import { VerifyVulnerabilitiesButton } from "./VerifyVulnerabilitiesButton";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Have } from "utils/authz/Have";
 import { msgInfo } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 interface IActionButtonsProps {
   areVulnsSelected: boolean;
@@ -45,14 +45,15 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   openHandleAcceptance,
   openModal,
 }: IActionButtonsProps): JSX.Element => {
+  const { t } = useTranslation();
   const displayMessage: () => void = (): void => {
     msgInfo(
-      translate.t("searchFindings.tabVuln.info.text"),
-      translate.t("searchFindings.tabVuln.info.title"),
+      t("searchFindings.tabVuln.info.text"),
+      t("searchFindings.tabVuln.info.title"),
       !isRequestingReattack || isOpen
     );
   };
-  useEffect(displayMessage, [isRequestingReattack, isOpen]);
+  useEffect(displayMessage, [isRequestingReattack, isOpen, t]);
 
   return (
     <ButtonToolbarRow>
