@@ -27,7 +27,7 @@ async def test_update_secret_token() -> None:
         group: Group = await loaders.group_typed.load(group_name)
         assert group.agent_token == token
 
-        await update_token(group_name, None)
+        await update_token(group_name, "")
         loaders.group_typed.clear(group_name)
         group = await loaders.group_typed.load(group_name)
         assert group.agent_token is None

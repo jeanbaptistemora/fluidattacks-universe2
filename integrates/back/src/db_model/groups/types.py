@@ -102,5 +102,6 @@ class GroupMetadataToUpdate(NamedTuple):
     context: Optional[str] = None
     description: Optional[str] = None
     disambiguation: Optional[str] = None
+    files: Optional[list[GroupFile]] = None
     language: Optional[GroupLanguage] = None
     tags: Optional[set[str]] = None

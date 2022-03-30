@@ -2,6 +2,9 @@ from custom_types import (
     Group as GroupType,
     Historic as HistoricType,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
@@ -28,6 +31,7 @@ import logging.config
 from newutils.datetime import (
     convert_from_iso_str,
     convert_to_iso_str,
+    get_as_str,
     get_as_utc_iso_format,
     get_from_str,
 )
@@ -39,8 +43,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
 )
 
@@ -71,7 +73,7 @@ def filter_active_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
     )
 
 
-def format_group_files(files: List[Dict[str, str]]) -> List[GroupFile]:
+def format_group_files(files: list[dict[str, str]]) -> list[GroupFile]:
     return [
         GroupFile(
             description=file["description"],
@@ -110,7 +112,7 @@ def format_state_justification(
 def format_group_state(  # pylint: disable=too-many-arguments
     justification: Optional[GroupStatusJustification],
     pending_deletion_date: Optional[str],
-    state: Dict[str, Any],
+    state: dict[str, Any],
     state_status: GroupStateStatus,
     suscription_type: GroupSubscriptionType,
     tier: GroupTier,
@@ -149,7 +151,7 @@ def format_group(item: Item, organization_name: str) -> Group:
         == GroupStateStatus.ACTIVE.value
         else GroupStateStatus.DELETED
     )
-    last_configuration: Dict[str, Any] = item["historic_configuration"][-1]
+    last_configuration: dict[str, Any] = item["historic_configuration"][-1]
     suscription_type = GroupSubscriptionType[
         str(last_configuration["type"]).upper()
     ]
@@ -165,7 +167,7 @@ def format_group(item: Item, organization_name: str) -> Group:
         state_status == GroupStateStatus.DELETED
         and "historic_deletion" in item
     ):
-        current_state: Dict[str, Any] = item["historic_deletion"][-1]
+        current_state: dict[str, Any] = item["historic_deletion"][-1]
     else:
         current_state = last_configuration
     return Group(
@@ -194,7 +196,7 @@ def format_group(item: Item, organization_name: str) -> Group:
 
 
 def format_group_treatment_summary(
-    treatment_data: Dict[str, int]
+    treatment_data: dict[str, int]
 ) -> GroupTreatmentSummary:
     return GroupTreatmentSummary(
         accepted=int(treatment_data.get("accepted", 0)),
@@ -257,20 +259,40 @@ def format_group_unreliable_indicators(
     )
 
 
+def format_group_files_item(
+    group_files: list[GroupFile],
+) -> list[Item]:
+    return [
+        {
+            "description": file.description,
+            "fileName": file.file_name,
+            "uploader": file.modified_by,
+            "uploadDate": get_as_str(
+                date=datetime.fromisoformat(file.modified_date),
+                date_format="%Y-%m-%d %H:%M",
+            )
+            if file.modified_date
+            else None,
+        }
+        for file in group_files
+    ]
+
+
 def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     item = {
-        "agent_token": metadata.agent_token if metadata.agent_token else "",
-        "business_id": metadata.business_id if metadata.business_id else "",
-        "business_name": metadata.business_name
-        if metadata.business_name
-        else "",
+        "agent_token": metadata.agent_token,
+        "business_id": metadata.business_id,
+        "business_name": metadata.business_name,
         "description": metadata.description,
         "disambiguation": metadata.disambiguation,
-        "group_context": metadata.context if metadata.context else "",
+        "group_context": metadata.context,
+        "files": format_group_files_item(metadata.files)
+        if metadata.files is not None
+        else None,
         "language": str(metadata.language.value).lower()
         if metadata.language
         else None,
-        "tag": metadata.tags if metadata.tags else set(),
+        "tag": metadata.tags,
     }
     return {
         key: None if not value else value
