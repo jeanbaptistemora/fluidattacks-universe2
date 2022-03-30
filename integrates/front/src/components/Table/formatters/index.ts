@@ -1,5 +1,6 @@
 export { changeVulnStateFormatter } from "components/Table/formatters/changeVulnStateFormatter";
 export { changeVulnTreatmentFormatter } from "components/Table/formatters/changeVulnTreatmentFormatter";
+export { groupLinkFormatter } from "components/Table/formatters/groupLinkFormatter";
 export { limitFormatter } from "components/Table/formatters/limitFormatter";
 export { treatmentFormatter } from "components/Table/formatters/treatmentFormatter";
 export { changeFormatter } from "components/Table/formatters/changeFormatter";
