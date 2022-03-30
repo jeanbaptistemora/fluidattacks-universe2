@@ -24,7 +24,7 @@ async def get_result(
                 content: "{content}",
                 findingId: "{finding}",
                 type: {mutation_type},
-                parent: "0"
+                parentComment: "0"
             ) {{
                 success
                 commentId

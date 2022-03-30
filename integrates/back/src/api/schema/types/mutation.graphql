@@ -135,7 +135,7 @@ type Mutation {
     "Identifier of the Finding to be commented"
     findingId: String!
     "Identifier of the comment it is replying to. 0 otherwise"
-    parent: GenericScalar!
+    parentComment: GenericScalar!
     "Type of the comment to be added"
     type: FindingConsultType!
   ): AddConsultPayload!

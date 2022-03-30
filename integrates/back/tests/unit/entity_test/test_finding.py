@@ -493,7 +493,7 @@ async def test_add_finding_consult_parent_zero() -> None:
           content: "This is a comenting test",
           findingId: "422286126",
           type: CONSULT,
-          parent: "0"
+          parentComment: "0"
         ) {
           success
           commentId
@@ -516,7 +516,7 @@ async def test_add_finding_consult_parent_non_zero() -> None:
           content: "This is a comenting test",
           findingId: "422286126",
           type: CONSULT,
-          parent: "1566336916294"
+          parentComment: "1566336916294"
         ) {
           success
           commentId

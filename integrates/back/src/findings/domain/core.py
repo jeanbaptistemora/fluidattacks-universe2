@@ -165,11 +165,11 @@ async def add_comment(
     group_name: str,
 ) -> bool:
     param_type = comment_data.get("comment_type")
-    parent = str(comment_data["parent"])
+    parent_comment = str(comment_data["parent"])
     content = str(comment_data["content"])
 
     await authz.validate_handle_comment_scope(
-        content, user_email, group_name, parent, info.context.store
+        content, user_email, group_name, parent_comment, info.context.store
     )
 
     if param_type == "observation":
@@ -179,14 +179,14 @@ async def add_comment(
         if not enforcer(group_name, "post_finding_observation"):
             raise PermissionDenied()
 
-    if parent != "0":
+    if parent_comment != "0":
         finding_comments = [
             comment["comment_id"]
             for comment in await comments_domain.get(
                 str(comment_data.get("comment_type")), finding_id
             )
         ]
-        if parent not in finding_comments:
+        if parent_comment not in finding_comments:
             raise InvalidCommentParent()
 
     user_data = await users_domain.get_by_email(user_email)

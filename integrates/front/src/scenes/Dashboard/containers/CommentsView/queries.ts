@@ -60,7 +60,7 @@ const ADD_FINDING_CONSULT: DocumentNode = gql`
     addFindingConsult(
       content: $content
       findingId: $findingId
-      parent: $parent
+      parentComment: $parent
       type: $type
     ) {
       commentId

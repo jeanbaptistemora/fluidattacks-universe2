@@ -98,7 +98,7 @@ async def _add_finding_consult(
         "fullname": " ".join(
             [user_data["first_name"], user_data["last_name"]]
         ),
-        "parent": parameters.get("parent", "0"),
+        "parent": parameters.get("parent_comment", "0"),
         "created": current_time,
         "modified": current_time,
     }
