@@ -16,6 +16,7 @@ from custom_types import (
 from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
+    GroupState,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -270,4 +271,26 @@ async def update_metadata_typed(
 ) -> None:
     group_item = groups_utils.format_group_metadata_item(metadata)
     if group_item and not await update(group_name=group_name, data=group_item):
+        raise ErrorUpdatingGroup.new()
+
+
+async def update_state_typed(
+    *,
+    group_name: str,
+    state: GroupState,
+) -> None:
+    new_state_item = groups_utils.format_group_state_item(state)
+    group_item = await get_attributes(
+        group_name=group_name,
+        attributes=["historic_configuration"],
+    )
+    if new_state_item and not await update(
+        group_name=group_name,
+        data={
+            "historic_configuration": [
+                *group_item["historic_configuration"],
+                new_state_item,
+            ],
+        },
+    ):
         raise ErrorUpdatingGroup.new()

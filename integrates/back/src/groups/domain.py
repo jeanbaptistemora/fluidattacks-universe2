@@ -1478,6 +1478,14 @@ async def update_metadata_typed(
     )
 
 
+async def update_state_typed(
+    *,
+    group_name: str,
+    state: GroupState,
+) -> None:
+    await groups_dal.update_state_typed(group_name=group_name, state=state)
+
+
 async def update_pending_deletion_date(
     group_name: str, pending_deletion_date: Optional[str]
 ) -> bool:

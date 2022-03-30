@@ -301,6 +301,28 @@ def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     }
 
 
+def format_group_state_item(state: GroupState) -> Item:
+    item = {
+        "comments": state.comments,
+        "date": convert_from_iso_str(state.modified_date),
+        "has_skims": state.has_machine,
+        "has_machine": state.has_machine,
+        "has_drills": state.has_squad,
+        "has_squad": state.has_squad,
+        "has_forces": True,
+        "reason": state.justification.value if state.justification else None,
+        "requester": state.modified_by,
+        "service": state.service.value if state.service else None,
+        "tier": str(state.tier.value).lower(),
+        "type": str(state.type.value).lower(),
+    }
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
+
+
 def format_group_to_add_item(group: Group) -> Item:
     return {
         "project_name": group.name,
