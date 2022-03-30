@@ -958,13 +958,12 @@
   title: ePrivacy Directive
   en:
     description: >
-      ePrivacy Directive is an important legal
-      instrument for privacy in the digital age,
+      ePrivacy Directive is an important legal instrument
+      for privacy in the digital age,
       and more specifically
       for the confidentiality of communications
       and the rules regarding tracking and monitoring.
-      The version used in this section is
-      Directive 2002 58 EC
+      The version used in this section is Directive 2002 58 EC
       (amended by E-privacy Directive 2009 136 EC).
   es:
     description: __empty__
@@ -991,11 +990,10 @@
     description: >
       This regulation lays down rules
       relating to the protection of natural persons
-      with regard to the processing
-      of personal data and rules relating
-      to the free movement of personal data.
-      The version used in this section
-      is GDPR - OJ L 119, 4.5.2016.
+      with regard to the processing of personal data
+      and rules relating to the free movement of personal data.
+      The version used in this section is GDPR - OJ L 119,
+      4.5.2016.
   es:
     description: __empty__
   definitions:
@@ -1072,10 +1070,10 @@
       title: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes
       link: https://gdpr-info.eu/art-89-gdpr/
     "R6":
-      title: Ensuring a High Level of Data Protection Despite the Increased Exchange of Data
+      title: Ensuring a high level of data protection despite the increased exchange of data
       link: https://gdpr-info.eu/recitals/no-6/
     "R7":
-      title: The Framework is Based on Control and Certainty
+      title: The framework is based on control and certainty
       link: https://gdpr-info.eu/recitals/no-7/
     "R39":
       title: Principles of data processing
@@ -2719,13 +2717,12 @@
     description: >
       Common Weakness Enumeration Top 25
       (CWE Top 25) is a demonstrative list
-      and valuable community resource of the
-      most common and impactful issues
-      experienced over the previous two
-      calendar years.
+      and valuable community resource
+      of the most common and impactful issues
+      experienced over the previous two calendar years.
       It can help developers,
-      testers and users to provide insight
-      into the most severe
+      testers and users
+      to provide insight into the most severe
       and current security weaknesses.
       The version used in this section is CWE Top 25 2021.
   es:
@@ -2735,7 +2732,7 @@
       title: Out-of-bounds write
       link: https://cwe.mitre.org/data/definitions/787.html
     "79":
-      title: Improper neutralization of input during web page generation (Cross-site scripting)
+      title: Improper neutralization of input during web page generation (cross-site scripting)
       link: https://cwe.mitre.org/data/definitions/79.html
     "125":
       title: Out-of-bounds read
@@ -2744,16 +2741,16 @@
       title: Improper input validation
       link: https://cwe.mitre.org/data/definitions/20.html
     "78":
-      title: Improper neutralization of special elements used in an OS command (OS Command Injection)
+      title: Improper neutralization of special elements used in an OS command (OS command injection)
       link: https://cwe.mitre.org/data/definitions/78.html
     "89":
-      title: Improper neutralization of special elements used in an SQL command (SQL Injection)
+      title: Improper neutralization of special elements used in an SQL command (SQL injection)
       link: https://cwe.mitre.org/data/definitions/89.html
     "416":
       title: User after free
       link: https://cwe.mitre.org/data/definitions/416.html
     "22":
-      title: Improper limitation of a pathname to a restricted directory (Path Traversal)
+      title: Improper limitation of a pathname to a restricted directory (path traversal)
       link: https://cwe.mitre.org/data/definitions/22.html
     "352":
       title: Cross-site request forgery (CSRF)
@@ -2804,7 +2801,7 @@
       title: Server-side request forgery (SSRF)
       link: https://cwe.mitre.org/data/definitions/918.html
     "77":
-      title: Improper neutralization of special elements used in a command (Command Injection)
+      title: Improper neutralization of special elements used in a command (command injection)
       link: https://cwe.mitre.org/data/definitions/77.html
   metadata: {}
 "owaspm10":
@@ -3252,14 +3249,13 @@
   title: FCRA
   en:
     description: >
-      Fair Credit Reporting Act (FCRA),
-      regulates the way credit reporting
-      agencies can collect, access, use
-      and share the data they collect in
-      consumer reports, referencing personal
-      and sensitive information.
-      Te version used in this section is
-      FCRA of September 2018.
+      The Fair Credit Reporting Act
+      (FCRA) regulates the way
+      credit reporting agencies can collect,
+      access, use and share the data
+      they collect in consumer reports,
+      referencing personal and sensitive information.
+      The version used in this section is FCRA of September 2018.
   es:
     description: __empty__
   definitions:
@@ -3274,11 +3270,11 @@
   title: FACTA
   en:
     description: >
-      Fair and Accurate Credit Transactions
-      Act (FACTA) of 2003, amending the Fair
-      Credit Reporting Act, adds provisions
-      designed to improve the accuracy of
-      consumer's credit-related records.
+      The Fair and Accurate Credit Transactions Act
+      (FACTA) of 2003,
+      amending the Fair Credit Reporting Act,
+      adds provisions designed to improve
+      the accuracy of consumers' credit-related records.
   es:
     description: __empty__
   definitions:
@@ -3293,21 +3289,23 @@
   title: GLBA
   en:
     description: >
-      Lastly, Gramm–Leach–Bliley Act (GLBA)
-      requires financial institutions – companies
-      that offer consumers financial products
-      or services like loans, financial or
-      investment advice, or insurance – to explain
-      their information-sharing practices to their
-      customers and to safeguard sensitive data.
+      The Gramm–Leach–Bliley Act
+      (GLBA) requires financial institutions
+      —companies that offer consumers financial products
+      or services like loans,
+      financial or investment advice,
+      or insurance—
+      to explain their information-sharing practices
+      to their customers
+      and to safeguard sensitive data.
   es:
     description: __empty__
   definitions:
     "501_A":
-      title: Privacy Obligation Policy
+      title: Privacy obligation policy
       link: https://www.govinfo.gov/content/pkg/PLAW-106publ102/pdf/PLAW-106publ102.pdf
     "502_A":
-      title: Obligations with respect to disclosures of personal information – Notice Requirements
+      title: Obligations with respect to disclosures of personal information – Notice requirements
       link: https://www.govinfo.gov/content/pkg/PLAW-106publ102/pdf/PLAW-106publ102.pdf
     "502_B":
       title: Obligations with respect to disclosures of personal information – Opt out
@@ -4580,12 +4578,13 @@
       how the Federal Information Security Management Act
       (FISMA) applies to cloud computing services.
       It provides a standardized approach
-      to security assessment, authorization,
-      and continuous monitoring of cloud-based services.
+      to security assessment,
+      authorization and continuous monitoring
+      of cloud-based services.
 
-      FedRAMP defines a set of security control
-      implementations and security impact level
-      systems based on NIST baseline controls
+      FedRAMP defines a set of security control implementations
+      and security impact level systems
+      based on NIST baseline controls
       (NIST SP 800-53).
   es:
     description: __empty__
@@ -4642,10 +4641,10 @@
       title: Audit regeneration - Changes by authorized individuals
       link: https://www.fedramp.gov/documents-templates/
     "CA-2_2":
-      title: Security assesment - Specialized assesments
+      title: Security assessment - Specialized assessments
       link: https://www.fedramp.gov/documents-templates/
     "CA-2_3":
-      title: Security assesment - External organizations
+      title: Security assessment - External organizations
       link: https://www.fedramp.gov/documents-templates/
     "CA-3":
       title: System interconnections
@@ -4666,7 +4665,7 @@
       title: Baseline configuration - Cryptography management
       link: https://www.fedramp.gov/documents-templates/
     "CM-5_5":
-      title: Access restrictions for change - Limit production, pperational privileges
+      title: Access restrictions for change - Limit production, operational privileges
       link: https://www.fedramp.gov/documents-templates/
     "CM-7":
       title: Least functionality
@@ -4744,7 +4743,7 @@
       title: Cryptographic protection
       link: https://www.fedramp.gov/documents-templates/
     "SC-28":
-      title: Protection of information al rest
+      title: Protection of information at rest
       link: https://www.fedramp.gov/documents-templates/
     "SI-3":
       title: Malicious code protection
