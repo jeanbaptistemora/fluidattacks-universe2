@@ -37,6 +37,9 @@ from db_model.findings.types import (
     Finding,
     FindingVerification,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.roots.types import (
     RootItem,
 )
@@ -66,6 +69,9 @@ from newutils import (
 )
 from newutils.utils import (
     get_key_or_fallback,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 import pytz  # type: ignore
 import random
@@ -148,9 +154,9 @@ async def add_event(  # pylint: disable=too-many-locals
     tzn = pytz.timezone(TIME_ZONE)
     today = datetime_utils.get_now()
 
-    group = await loaders.group.load(group_name)
-    subscription = group["subscription"]
-    org_id = group["organization"]
+    group: Group = await loaders.group_typed.load(group_name)
+    subscription = group.state.type
+    org_id = await orgs_domain.get_id_by_name(group.organization_name)
 
     root: RootItem = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
@@ -179,7 +185,7 @@ async def add_event(  # pylint: disable=too-many-locals
                 },
             ],
             "root_id": root.id,
-            "subscription": subscription.upper(),
+            "subscription": subscription.value,
         }
     )
     if "affected_components" in event_attrs:
