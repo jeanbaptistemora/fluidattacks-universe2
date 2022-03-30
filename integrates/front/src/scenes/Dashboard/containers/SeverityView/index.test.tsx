@@ -1,22 +1,27 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
-import type { ISeverityTile } from "./SeverityContent/tile";
-import { SeverityTile } from "./SeverityContent/tile";
 import type { ISeverityAttr } from "./types";
 
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView";
 import { GET_SEVERITY } from "scenes/Dashboard/containers/SeverityView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgError } from "utils/notifications";
+
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("SeverityView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -85,11 +90,10 @@ describe("SeverityView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_severity_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    const { container } = render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -101,51 +105,52 @@ describe("SeverityView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabSeverity.editable.label")
+      ).toBeInTheDocument();
     });
-
-    expect(wrapper).toHaveLength(1);
-
-    const numberOfTiles: number = 11;
-    const severityTiles: ReactWrapper<ISeverityTile> =
-      wrapper.find(SeverityTile);
-    const reportConfidence: ReactWrapper<ISeverityTile> = severityTiles.last();
-
+    const numberOfTilesAndButtonTooltip: number = 12;
     type resultType = Dictionary<{ finding: ISeverityAttr["finding"] }>;
 
-    expect(severityTiles).toHaveLength(numberOfTiles);
-    expect(reportConfidence.find("small").last().text()).toStrictEqual(
-      String(
-        (mocks[0].result as resultType).data.finding.severity.reportConfidence
+    expect(
+      container.querySelectorAll(".__react_component_tooltip")
+    ).toHaveLength(numberOfTilesAndButtonTooltip);
+    expect(
+      screen.queryByText(
+        (mocks[0].result as resultType).data.finding.severity.attackComplexity
       )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabSeverity.reportConfidence.label")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "searchFindings.tabSeverity.exploitability.options.proofOfConcept.label"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabSeverity.editable.label")
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByText("searchFindings.tabSeverity.editable.label")
     );
-    expect(reportConfidence.find("b").first().text()).toStrictEqual(
-      t("searchFindings.tabSeverity.reportConfidence.label")
-    );
-
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-
-    expect(editButton).toHaveLength(1);
-
-    editButton.simulate("click");
-
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      screen.queryByText(
+        "searchFindings.tabSeverity.exploitability.options.proofOfConcept.label"
+      );
     });
 
-    expect(wrapper.text()).toContain("Proof of Concept");
+    expect(
+      container.querySelectorAll(".__react_component_tooltip")
+    ).toHaveLength(1);
   });
 
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
         <MockedProvider addTypename={false} mocks={mockError}>
           <Route
@@ -155,12 +160,11 @@ describe("SeverityView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });
 
-    expect(wrapper).toHaveLength(1);
+    jest.clearAllMocks();
   });
 
   it("should render as editable", async (): Promise<void> => {
@@ -169,7 +173,7 @@ describe("SeverityView", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_severity_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -181,29 +185,25 @@ describe("SeverityView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabSeverity.editable.label")
+      ).toBeInTheDocument();
     });
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-
-    expect(editButton).toHaveLength(1);
-
-    editButton.simulate("click");
-    act((): void => {
-      wrapper.update();
+    userEvent.click(
+      screen.getByText("searchFindings.tabSeverity.editable.label")
+    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabSeverity.update")
+      ).toBeInTheDocument();
     });
-
-    expect(wrapper.text()).toContain("Update");
   });
 
   it("should render as readonly", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
         <MockedProvider addTypename={false} mocks={mockError}>
           <Route
@@ -213,15 +213,10 @@ describe("SeverityView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabSeverity.editable.label")
+      ).not.toBeInTheDocument();
     });
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-
-    expect(editButton).toHaveLength(0);
   });
 });

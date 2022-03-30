@@ -1,12 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, Route } from "react-router-dom";
-import wait from "waait";
 
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/RecordsView/queries";
@@ -51,7 +49,7 @@ describe("FindingRecordsView", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -61,14 +59,9 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("columnheader")).toHaveLength(4);
     });
-    const table: ReactWrapper = wrapper.find("BootstrapTable");
-
-    expect(table).toHaveLength(1);
-    expect(table.find("HeaderCell")).toHaveLength(4);
   });
 
   it("should render as editable", async (): Promise<void> => {
@@ -77,7 +70,7 @@ describe("FindingRecordsView", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_evidence_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -89,26 +82,23 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabRecords.editable")
+      ).toBeInTheDocument();
     });
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-
-    expect(editButton).toHaveLength(1);
-
-    editButton.simulate("click");
-
-    expect(wrapper.contains("Update")).toBe(true);
+    userEvent.click(screen.getByText("searchFindings.tabRecords.editable"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabEvidence.update")
+      ).toBeInTheDocument();
+    });
   });
 
   it("should render as readonly", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
@@ -118,12 +108,11 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabRecords.editable")
+      ).not.toBeInTheDocument();
     });
-
-    expect(wrapper.contains("Edit")).toBe(false);
   });
 
   it("should render delete button", async (): Promise<void> => {
@@ -132,7 +121,7 @@ describe("FindingRecordsView", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_evidence_mutate" },
     ]);
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -144,20 +133,17 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabRecords.editable")
+      ).toBeInTheDocument();
     });
-    const editButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
-      .at(0);
-
-    expect(editButton).toHaveLength(1);
-
-    editButton.simulate("click");
-
-    expect(wrapper.contains("Delete")).toBe(true);
+    userEvent.click(screen.getByText("searchFindings.tabRecords.editable"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("searchFindings.tabEvidence.remove")
+      ).toBeInTheDocument();
+    });
   });
 
   it("should render empty UI", async (): Promise<void> => {
@@ -179,7 +165,7 @@ describe("FindingRecordsView", (): void => {
         },
       },
     ];
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter initialEntries={["/TEST/vulns/422286126/records"]}>
         <MockedProvider addTypename={false} mocks={emptyMocks}>
           <Route
@@ -189,11 +175,10 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.findings.records.noData")
+      ).toBeInTheDocument();
     });
-
-    expect(wrapper.text()).toContain("There are no records");
   });
 });
