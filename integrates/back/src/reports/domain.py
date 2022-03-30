@@ -74,7 +74,6 @@ async def get_group_report_url(
             findings_ord=findings_ord,
             group_name=group_name,
             lang="es",
-            user_email=user_email,
         )
     if report_type == "DATA":
         return await data_report.generate(

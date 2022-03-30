@@ -53,16 +53,15 @@ CertContext = TypedDict(
     {
         "business": str,
         "business_number": str,
-        "customer": str,
         "solution": str,
         "remediation_table": ValuesView[List[Union[float, int, str]]],
-        "fluid_tpl": Dict[str, str],
         "start_day": str,
         "start_month": str,
         "start_year": str,
         "report_day": str,
         "report_month": str,
         "report_year": str,
+        "signature_img": str,
         "words": Dict[str, str],
     },
 )
@@ -178,19 +177,10 @@ class CertificateCreator(CreatorPdf):
         findings: Tuple[Finding, ...],
         group: str,
         description: str,
-        user: str,
         loaders: Any,
     ) -> None:
         """Fetch information and fill out the context"""
         words = self.wordlist[self.lang]
-        fluid_tpl_content: Dict[str, str] = {
-            "signature_img": (
-                "image::../templates/pdf/signature.png[Signature,200,100]"
-            ),
-            "footer_adoc": (
-                f"include::../templates/pdf/footer_{self.lang}.adoc[]"
-            ),
-        }
         context_findings = await collect(
             [format_finding(loaders, finding, words) for finding in findings]
         )
@@ -198,11 +188,10 @@ class CertificateCreator(CreatorPdf):
         group_data: Dict[str, Any] = await loaders.group.load((group))
         start_date: datetime = get_from_str(group_data["created_date"])
         current_date: datetime = get_now()
+
         self.cert_context = {
             "business": group_data["business_name"],
             "business_number": group_data["business_id"],
-            "customer": user,
-            "fluid_tpl": fluid_tpl_content,
             "remediation_table": remediation_table,
             "start_day": str(start_date.day),
             "start_month": resolve_month_name(self.lang, start_date, words),
@@ -211,6 +200,9 @@ class CertificateCreator(CreatorPdf):
             "report_month": resolve_month_name(self.lang, current_date, words),
             "report_year": str(current_date.year),
             "solution": description,
+            "signature_img": (
+                "image::../templates/pdf/signature.png[Signature,180,45]"
+            ),
             "words": words,
         }
 
@@ -219,11 +211,10 @@ class CertificateCreator(CreatorPdf):
         findings: Tuple[Finding, ...],
         group: str,
         description: str,
-        user: str,
         loaders: Any,
     ) -> None:
         """Create the template to render and apply the context."""
-        await self.fill_context(findings, group, description, user, loaders)
+        await self.fill_context(findings, group, description, loaders)
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
