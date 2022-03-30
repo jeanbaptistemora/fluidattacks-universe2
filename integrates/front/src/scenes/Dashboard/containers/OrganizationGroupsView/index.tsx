@@ -6,9 +6,10 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
+import { groupLinkFormatter } from "components/Table/formatters";
 import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
@@ -16,7 +17,6 @@ import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
-import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
   IGetOrganizationGroups,
@@ -39,8 +39,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 ): JSX.Element => {
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
-  const { url } = useRouteMatch();
-  const { push } = useHistory();
   const { t } = useTranslation();
 
   // State management
@@ -84,20 +82,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     void refetchGroups();
   }, [refetchGroups]);
   // Auxiliary functions
-  const goToGroup: (groupName: string) => void = (groupName: string): void => {
-    push(`${url}/${groupName.toLowerCase()}/vulns`);
-  };
-
-  const handleRowClick: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { name: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { name: string }
-  ): void => {
-    goToGroup(rowInfo.name);
-  };
-
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]
   ): IGroupData[] =>
@@ -113,12 +97,16 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           : "Machine";
       const eventFormat: string =
         _.isUndefined(group.events) || _.isEmpty(group.events)
-          ? "Ok"
+          ? "None"
           : group.events.filter((event): boolean =>
               event.eventStatus.includes("CREATED")
             ).length > 0
-          ? "Failed"
-          : "Ok";
+          ? `${
+              group.events.filter((event): boolean =>
+                event.eventStatus.includes("CREATED")
+              ).length
+            } need(s) attention`
+          : "None";
 
       return {
         ...group,
@@ -150,6 +138,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "name",
+      formatter: groupLinkFormatter,
       header: t("organization.tabs.groups.newGroup.name"),
     },
     {
@@ -167,10 +156,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       dataField: "eventFormat",
-      formatter: statusFormatter,
-      header: t("organization.tabs.groups.newGroup.status.text"),
+      formatter: groupLinkFormatter,
+      header: t("organization.tabs.groups.newGroup.events.text"),
       headerFormatter: tooltipFormatter,
-      tooltipDataField: t("organization.tabs.groups.newGroup.status.tooltip"),
+      tooltipDataField: t("organization.tabs.groups.newGroup.events.tooltip"),
       wrapped: true,
     },
   ];
@@ -331,7 +320,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   headers={tableHeaders}
                   id={"tblGroups"}
                   pageSize={10}
-                  rowEvents={{ onClick: handleRowClick }}
                   search={false}
                 />
               </Row>

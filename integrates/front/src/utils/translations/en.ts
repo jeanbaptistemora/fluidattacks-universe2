@@ -1337,6 +1337,10 @@ export const enTranslations: ResourceKey = {
             text: "Description",
             tooltip: "Brief description to identify the group",
           },
+          events: {
+            text: "Events",
+            tooltip: "There are open eventualities that may affect tests.",
+          },
           extraChargesMayApply: "Extra charges may apply",
           language: {
             EN: "English",
@@ -1370,10 +1374,6 @@ export const enTranslations: ResourceKey = {
             text: "Include Squad Service?",
             tooltip:
               "Squad finds deep and zero-day vulnerabilities during software development",
-          },
-          status: {
-            text: "Status",
-            tooltip: "There are open eventualities that may affect tests.",
           },
           success: "Group created successfully",
           switch: {

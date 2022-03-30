@@ -17,21 +17,6 @@ import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/Organ
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const mockHistoryPush: jest.Mock = jest.fn();
-
-jest.mock("react-router-dom", (): Dictionary => {
-  const mockedRouter: Dictionary<() => Dictionary> =
-    jest.requireActual("react-router-dom");
-
-  return {
-    ...mockedRouter,
-    useHistory: (): Dictionary => ({
-      ...mockedRouter.useHistory(),
-      push: mockHistoryPush,
-    }),
-  };
-});
-
 jest.mock("../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../utils/notifications"
@@ -130,13 +115,13 @@ describe("Organization groups view", (): void => {
     expect(screen.getAllByRole("button")[0].textContent).toMatch(
       /organization.tabs.groups.newGroup.new.text/u
     );
-    expect(screen.getAllByRole("row")[1].textContent).toContain("ONESHOTTEST");
+    expect(screen.getAllByRole("row")[1].textContent).toContain("Oneshottest");
     expect(screen.getAllByRole("row")[1].textContent).toContain("Oneshot");
     expect(screen.getAllByRole("row")[1].textContent).toContain(
       "userModal.roles.userManager"
     );
 
-    expect(screen.getAllByRole("row")[2].textContent).toContain("PENDINGGROUP");
+    expect(screen.getAllByRole("row")[2].textContent).toContain("Pendinggroup");
     expect(screen.getAllByRole("row")[2].textContent).toContain("Machine");
     expect(screen.getAllByRole("row")[2].textContent).toContain(
       "userModal.roles.customerManager"
@@ -144,7 +129,7 @@ describe("Organization groups view", (): void => {
 
     expect(
       screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
-    ).toContain("UNITTESTING");
+    ).toContain("Unittesting");
     expect(
       screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
     ).toContain("Squad");
@@ -152,13 +137,7 @@ describe("Organization groups view", (): void => {
       screen.getAllByRole("row")[UNIT_TESTING_ROW_AT].textContent
     ).toContain("userModal.roles.user");
 
-    userEvent.click(screen.getByRole("cell", { name: "UNITTESTING" }));
-
-    await waitFor((): void => {
-      expect(mockHistoryPush).toHaveBeenCalledWith(
-        "/orgs/okada/groups/unittesting/vulns"
-      );
-    });
+    userEvent.click(screen.getByRole("cell", { name: "Unittesting" }));
   });
 
   it("should show an error", async (): Promise<void> => {
