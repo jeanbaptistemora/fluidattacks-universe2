@@ -74,7 +74,7 @@ async def add_machine_execution(
 ) -> bool:
     key_structure = TABLE.primary_key
     machine_execution_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution_new"],
+        facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, "job_id": execution.job_id},
     )
     machine_exectution = {

@@ -309,7 +309,7 @@ async def get_machine_executions(
     *, root_id: str, job_id: Optional[str] = None
 ) -> Tuple[RootMachineExecutionItem, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution_new"],
+        facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, **({"job_id": job_id} if job_id else {})},
     )
     key_structure = TABLE.primary_key
@@ -324,7 +324,7 @@ async def get_machine_executions(
                 )
             )
         ),
-        facets=(TABLE.facets["machine_git_root_execution_new"],),
+        facets=(TABLE.facets["machine_git_root_execution"],),
         table=TABLE,
     )
     return tuple(
@@ -354,7 +354,7 @@ async def get_machine_executions_by_job_id(
     *, job_id: str, root_id: Optional[str] = None
 ) -> Tuple[RootMachineExecutionItem, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution_new"],
+        facet=TABLE.facets["machine_git_root_execution"],
         values={"job_id": job_id, **({"uuid": root_id} if root_id else {})},
     )
 
@@ -368,7 +368,7 @@ async def get_machine_executions_by_job_id(
                 primary_key.partition_key
             )
         ),
-        facets=(TABLE.facets["machine_git_root_execution_new"],),
+        facets=(TABLE.facets["machine_git_root_execution"],),
         table=TABLE,
         index=index,
     )

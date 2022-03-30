@@ -49,7 +49,6 @@ from api.validations.query_breadth import (
 from api.validations.query_depth import (
     QueryDepthValidation,
 )
-import asyncio
 from billing.domain import (
     webhook,
 )

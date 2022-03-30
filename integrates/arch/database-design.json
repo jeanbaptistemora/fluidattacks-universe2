@@ -15000,7 +15000,7 @@
           ]
         },
         {
-          "FacetName": "machine_git_root_execution_new",
+          "FacetName": "machine_git_root_execution",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "MACHINE#job_id"
