@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
@@ -19,7 +18,7 @@ describe("Checkbox Field", (): void => {
   it("should render checkbox component", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <Formik initialValues={{ checkboxTest: false }} onSubmit={jest.fn()}>
         <Form name={""}>
           <Field
@@ -31,6 +30,8 @@ describe("Checkbox Field", (): void => {
       </Formik>
     );
 
-    expect(wrapper.find("Checkbox").first().props().name).toBe("checkboxTest");
+    expect(
+      screen.queryByRole("checkbox", { name: "checkboxTest" })
+    ).toBeInTheDocument();
   });
 });

@@ -1,10 +1,8 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
 
-import { FormGroup } from "styles/styledComponents";
 import { FormikFileInput } from "utils/forms/fields/FileInput/FormikFileInput";
 
 describe("FileInput Field", (): void => {
@@ -20,7 +18,7 @@ describe("FileInput Field", (): void => {
       dropdownTest: string().required(),
     });
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <Formik
         initialValues={{ fileInputTest: "" }}
         onSubmit={jest.fn()}
@@ -36,6 +34,6 @@ describe("FileInput Field", (): void => {
       </Formik>
     );
 
-    expect(wrapper.find(FormGroup).props().id).toBe("test");
+    expect(screen.queryByTestId("fileInputTest")).toBeInTheDocument();
   });
 });

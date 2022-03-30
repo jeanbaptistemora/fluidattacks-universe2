@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
@@ -19,7 +18,7 @@ describe("Dropdown Field", (): void => {
       dropdownTest: string().required(),
     });
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <Formik
         initialValues={{ dropdownTest: "" }}
         onSubmit={jest.fn()}
@@ -34,8 +33,9 @@ describe("Dropdown Field", (): void => {
       </Formik>
     );
 
-    const options: ReactWrapper = wrapper.find("option");
-
-    expect(options).toHaveLength(2);
+    expect(
+      screen.queryByRole("combobox", { name: "dropdownTest" })
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("option")).toHaveLength(2);
   });
 });

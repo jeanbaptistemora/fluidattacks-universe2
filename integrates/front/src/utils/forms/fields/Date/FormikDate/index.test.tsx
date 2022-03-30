@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
@@ -19,11 +18,12 @@ describe("Date Field", (): void => {
   it("should render date component", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <Formik initialValues={{ dateTest: "" }} onSubmit={jest.fn()}>
         <Form name={""}>
           <Field
             component={FormikDate}
+            dataTestId={"dateTest"}
             id={"test"}
             name={"dateTest"}
             validationSchema={FormikDateSchema}
@@ -32,6 +32,6 @@ describe("Date Field", (): void => {
       </Formik>
     );
 
-    expect(wrapper.find("input").props().id).toBe("test");
+    expect(screen.queryByTestId("dateTest")).toBeInTheDocument();
   });
 });
