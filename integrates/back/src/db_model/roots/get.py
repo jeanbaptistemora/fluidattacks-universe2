@@ -5,7 +5,6 @@ from aioextensions import (
     collect,
 )
 from boto3.dynamodb.conditions import (
-    Attr,
     Key,
 )
 from context import (
@@ -205,7 +204,6 @@ async def _get_group_roots(*, group_name: str) -> Tuple[RootItem, ...]:
             TABLE.facets["ip_root_metadata"],
             TABLE.facets["url_root_metadata"],
         ),
-        filter_expression=Attr("type").exists(),
         index=index,
         table=TABLE,
     )
@@ -244,7 +242,6 @@ async def _get_organization_roots(
             TABLE.facets["ip_root_metadata"],
             TABLE.facets["url_root_metadata"],
         ),
-        filter_expression=Attr("type").exists(),
         index=index,
         table=TABLE,
     )

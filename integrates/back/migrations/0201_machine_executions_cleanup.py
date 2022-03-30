@@ -3,8 +3,8 @@
 This migration removes the items previously used to store machine executions
 as the approach changed and they are no longer needed
 
-Execution Time:
-Finalization Time:
+Execution Time: 2022-03-30 at 19:21:11 UTC
+Finalization Time: 2022-03-30 at 19:22:45 UTC
 """
 
 from aioextensions import (
