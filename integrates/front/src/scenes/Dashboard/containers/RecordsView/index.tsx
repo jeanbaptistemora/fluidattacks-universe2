@@ -13,6 +13,7 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -36,7 +37,6 @@ import { Can } from "utils/authz/Can";
 import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   required,
@@ -44,6 +44,7 @@ import {
 } from "utils/validations";
 
 const RecordsView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { findingId } = useParams<{ findingId: string }>();
 
   const [isEditing, setEditing] = useState(false);
@@ -55,7 +56,7 @@ const RecordsView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading finding records", error);
     });
   };
@@ -63,7 +64,7 @@ const RecordsView: React.FC = (): JSX.Element => {
   const handleRemoveErrors: (removeError: ApolloError) => void = (
     removeError: ApolloError
   ): void => {
-    msgError(translate.t("groupAlerts.errorTextsad"));
+    msgError(t("groupAlerts.errorTextsad"));
     Logger.warning("An error occurred removing records", removeError);
   };
 
@@ -82,16 +83,16 @@ const RecordsView: React.FC = (): JSX.Element => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       switch (message) {
         case "Exception - Wrong File Structure":
-          msgError(translate.t("groupAlerts.invalidStructure"));
+          msgError(t("groupAlerts.invalidStructure"));
           break;
         case "Exception - Invalid File Size":
-          msgError(translate.t("validations.fileSize", { count: 1 }));
+          msgError(t("validations.fileSize", { count: 1 }));
           break;
         case "Exception - Invalid File Type":
-          msgError(translate.t("groupAlerts.fileTypeCsv"));
+          msgError(t("groupAlerts.fileTypeCsv"));
           break;
         default:
-          msgError(translate.t("groupAlerts.errorTextsad"));
+          msgError(t("groupAlerts.errorTextsad"));
           Logger.warning("An error occurred updating records", updateError);
       }
     });
@@ -140,16 +141,12 @@ const RecordsView: React.FC = (): JSX.Element => {
             <Col100 className={"pa0"}>
               <ButtonToolbarRow>
                 <TooltipWrapper
-                  id={translate.t(
-                    "searchFindings.tabRecords.editableTooltip.id"
-                  )}
-                  message={translate.t(
-                    "searchFindings.tabRecords.editableTooltip"
-                  )}
+                  id={t("searchFindings.tabRecords.editableTooltip.id")}
+                  message={t("searchFindings.tabRecords.editableTooltip")}
                 >
                   <Button onClick={handleEditClick} variant={"secondary"}>
                     <FluidIcon icon={"edit"} />
-                    &nbsp;{translate.t("searchFindings.tabRecords.editable")}
+                    &nbsp;{t("searchFindings.tabRecords.editable")}
                   </Button>
                 </TooltipWrapper>
               </ButtonToolbarRow>
@@ -183,7 +180,7 @@ const RecordsView: React.FC = (): JSX.Element => {
                     variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faCloudUploadAlt} />
-                    &nbsp;{translate.t("searchFindings.tabEvidence.update")}
+                    &nbsp;{t("searchFindings.tabEvidence.update")}
                   </Button>
                 </ButtonToolbarRow>
               </Form>
@@ -200,7 +197,7 @@ const RecordsView: React.FC = (): JSX.Element => {
                 variant={"secondary"}
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
-                &nbsp;{translate.t("searchFindings.tabEvidence.remove")}
+                &nbsp;{t("searchFindings.tabEvidence.remove")}
               </Button>
             </Col100>
           </Row>
@@ -209,7 +206,7 @@ const RecordsView: React.FC = (): JSX.Element => {
           {_.isEmpty(JSON.parse(data.finding.records)) ? (
             <div className={globalStyle["no-data"]}>
               <FontAwesomeIcon icon={faList} size={"3x"} />
-              <p>{translate.t("group.findings.records.noData")}</p>
+              <p>{t("group.findings.records.noData")}</p>
             </div>
           ) : (
             <Table

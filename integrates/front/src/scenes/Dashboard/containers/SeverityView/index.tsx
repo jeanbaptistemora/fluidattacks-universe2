@@ -9,6 +9,7 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { mapSeveritytoStringValues, tooltipPropHelper } from "./helpers";
@@ -36,10 +37,10 @@ import { calcCVSSv3 } from "utils/cvss";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
 const SeverityView: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const { findingId } = useParams<{ findingId: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
@@ -61,7 +62,7 @@ const SeverityView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading finding severity", error);
     });
   };
@@ -95,10 +96,7 @@ const SeverityView: React.FC = (): JSX.Element => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.updateSeverity.success) {
         void refetch();
-        msgSuccess(
-          translate.t("groupAlerts.updated"),
-          translate.t("groupAlerts.updatedTitle")
-        );
+        msgSuccess(t("groupAlerts.updated"), t("groupAlerts.updatedTitle"));
         mixpanel.track("UpdateSeverity");
       }
     }
@@ -108,7 +106,7 @@ const SeverityView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      msgError(t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred updating severity", error);
     });
   };
@@ -172,14 +170,12 @@ const SeverityView: React.FC = (): JSX.Element => {
               <ButtonToolbarRow>
                 <TooltipWrapper
                   id={"severityEditTooltip"}
-                  message={translate.t(
-                    "searchFindings.tabSeverity.editable.tooltip"
-                  )}
+                  message={t("searchFindings.tabSeverity.editable.tooltip")}
                 >
                   <Button onClick={handleEditClick} variant={"secondary"}>
                     <FluidIcon icon={"edit"} />
                     &nbsp;
-                    {translate.t("searchFindings.tabSeverity.editable.label")}
+                    {t("searchFindings.tabSeverity.editable.label")}
                   </Button>
                 </TooltipWrapper>
               </ButtonToolbarRow>
@@ -210,7 +206,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                             variant={"primary"}
                           >
                             <FluidIcon icon={"loading"} />
-                            {translate.t("searchFindings.tabSeverity.update")}
+                            {t("searchFindings.tabSeverity.update")}
                           </Button>
                         </ButtonToolbarRow>
                         <Row>
@@ -218,9 +214,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                             alignField={"horizontal"}
                             component={FormikDropdown}
                             currentValue={"3.1"}
-                            label={translate.t(
-                              "searchFindings.tabSeverity.cvssVersion"
-                            )}
+                            label={t("searchFindings.tabSeverity.cvssVersion")}
                             name={"cvssVersion"}
                             renderAsEditable={isEditing}
                             validate={required}
@@ -247,7 +241,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                               component={FormikDropdown}
                               currentValue={`${Number(
                                 field.currentValue
-                              ).toFixed(2)} | ${translate.t(currentOption)}`}
+                              ).toFixed(2)} | ${t(currentOption)}`}
                               id={`Row${index}`}
                               label={field.title}
                               name={field.name}
@@ -260,7 +254,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                                 field.options,
                                 (text: string, value: string): JSX.Element => (
                                   <option key={text} value={value}>
-                                    {translate.t(text)}
+                                    {t(text)}
                                   </option>
                                 )
                               )}
