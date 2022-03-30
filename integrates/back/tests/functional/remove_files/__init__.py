@@ -8,7 +8,6 @@ from dataloaders import (
 import json
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def get_result(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         mutation RemoveFileMutation(
             $filesData: JSONString!,
@@ -27,16 +26,16 @@ async def get_result(
             }
         }
     """
-    file_data: Dict[str, str] = {
+    file_data: dict[str, str] = {
         "description": "Test",
         "fileName": "test.zip",
         "uploadDate": "2019-03-01 15:21",
     }
-    variables: Dict[str, Any] = {
+    variables: dict[str, Any] = {
         "filesData": json.dumps(file_data),
         "groupName": group,
     }
-    data: Dict[str, Any] = {"query": query, "variables": variables}
+    data: dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,
