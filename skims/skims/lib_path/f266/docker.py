@@ -5,30 +5,37 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
-from re import (
-    match,
-)
+import re
 from typing import (
     Iterator,
     Optional,
     Tuple,
 )
 
+COMMANDS_REGEX = [
+    re.compile(r"^RUN.*useradd"),
+    re.compile(r"^RUN.*adduser"),
+    re.compile(r"^RUN.*addgroup"),
+    re.compile(r"^RUN.*usergroup"),
+    re.compile(r"^RUN.*usermod"),
+    re.compile(r"^USER"),
+]
+
 
 def get_container_image(content: str) -> Optional[Tuple[int, int]]:
     for line_number, line in enumerate(content.splitlines(), start=1):
-        if match(r"FROM\s+\S+", line):
+        if re.match(r"FROM\s+\S+", line):
             return line_number, 0
     return None
 
 
 def container_whitout_user(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
-        root_group = True
+        has_user = False
         for _, line in enumerate(content.splitlines(), start=1):
-            if match(r"^RUN.*useradd", line) or match(r"^USER", line):
-                root_group = False
-        if (lines := get_container_image(content)) and root_group:
+            if any(regex.match(line) for regex in COMMANDS_REGEX):
+                has_user = True
+        if (lines := get_container_image(content)) and not has_user:
             yield lines
 
     return get_vulnerabilities_from_iterator_blocking(
