@@ -1416,6 +1416,21 @@
     "CVE-2017-16205": ">=0",
     "GMS-2017-301": ">=0.0.0-alpha"
   },
+  "coinpayment": {
+    "GHSA-3h99-v4qw-p2h5": ">=0"
+  },
+  "coinstirng": {
+    "GHSA-ff6g-gm92-rf32": ">=0"
+  },
+  "coinstrig": {
+    "GHSA-4m3j-h8f2-4xh4": ">=0"
+  },
+  "coinstrng": {
+    "GHSA-hj5w-xgw9-w4rj": ">=0"
+  },
+  "colne": {
+    "GHSA-mhxg-pr3j-v9gr": ">=0"
+  },
   "color-convert": {},
   "color-name": {},
   "color-string": {
@@ -1426,7 +1441,22 @@
     "CVE-2021-23567": "1.4.1 || 1.4.44-liberty-2",
     "SNYK-JS-COLORS-2331906": ">1.4.0"
   },
+  "colour-string": {
+    "GHSA-8mmf-qp7j-2w24": ">=0"
+  },
+  "colro-name": {
+    "GHSA-jp9g-5x75-ccp8": ">=0"
+  },
+  "comander": {
+    "GHSA-4xg9-g7qj-jhg4": ">=0"
+  },
+  "comb": {
+    "CVE-2021-23561": "<=2.0.0"
+  },
   "combined-stream": {},
+  "command-exists": {
+    "GHSA-cff4-rrq6-h78w": "<1.2.4"
+  },
   "commander": {},
   "commentapp.stetsonwood": {
     "CVE-2017-16143": "=0.0.1",
