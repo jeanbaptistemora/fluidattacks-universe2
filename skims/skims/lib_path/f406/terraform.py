@@ -34,7 +34,7 @@ def tfm_aws_efs_unencrypted(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f165.tfm_aws_efs_unencrypted",
+        description_key="lib_path.f406.tfm_aws_efs_unencrypted",
         iterator=get_cloud_iterator(
             _tfm_aws_efs_unencrypted(
                 resource_iterator=iter_aws_efs_file_system(model=model)
