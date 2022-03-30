@@ -1,12 +1,12 @@
 import { Field, Formik } from "formik";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { Alert, ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
 interface IDeleteGroupModalProps {
@@ -16,10 +16,13 @@ interface IDeleteGroupModalProps {
   onSubmit: (values: { confirmation: string; reason: string }) => void;
 }
 
-const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
-  props: IDeleteGroupModalProps
-): JSX.Element => {
-  const { groupName, isOpen, onClose, onSubmit } = props;
+const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = ({
+  groupName,
+  isOpen,
+  onClose,
+  onSubmit,
+}: IDeleteGroupModalProps): JSX.Element => {
+  const { t } = useTranslation();
 
   function formValidations(values: { confirmation: string; reason: string }): {
     confirmation?: string;
@@ -28,7 +31,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
     return values.confirmation === groupName
       ? {}
       : {
-          confirmation: translate.t(
+          confirmation: t(
             "searchFindings.servicesTable.errors.expectedGroupName",
             { groupName }
           ),
@@ -39,9 +42,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
     <React.StrictMode>
       <Modal
         open={isOpen}
-        title={translate.t(
-          "searchFindings.servicesTable.deleteGroup.deleteGroup"
-        )}
+        title={t("searchFindings.servicesTable.deleteGroup.deleteGroup")}
       >
         <Formik
           initialValues={{
@@ -55,20 +56,14 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
           {({ submitForm, isValid, dirty }): JSX.Element => (
             <React.Fragment>
               <ControlLabel>
-                {translate.t(
-                  "searchFindings.servicesTable.deleteGroup.warningTitle"
-                )}
+                {t("searchFindings.servicesTable.deleteGroup.warningTitle")}
               </ControlLabel>
               <Alert>
-                {translate.t(
-                  "searchFindings.servicesTable.deleteGroup.warningBody"
-                )}
+                {t("searchFindings.servicesTable.deleteGroup.warningBody")}
               </Alert>
               <FormGroup>
                 <ControlLabel>
-                  {translate.t(
-                    "searchFindings.servicesTable.deleteGroup.typeGroupName"
-                  )}
+                  {t("searchFindings.servicesTable.deleteGroup.typeGroupName")}
                 </ControlLabel>
                 <Field
                   component={FormikText}
@@ -80,13 +75,11 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
               </FormGroup>
               <FormGroup>
                 <ControlLabel>
-                  {translate.t(
-                    "searchFindings.servicesTable.deleteGroup.reason.title"
-                  )}
+                  {t("searchFindings.servicesTable.deleteGroup.reason.title")}
                 </ControlLabel>
                 <TooltipWrapper
                   id={"searchFindings.servicesTable.deleteGroup.reason.tooltip"}
-                  message={translate.t(
+                  message={t(
                     "searchFindings.servicesTable.deleteGroup.reason.tooltip"
                   )}
                   placement={"top"}
@@ -94,27 +87,27 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   <FormGroup>
                     <Field component={FormikDropdown} name={"reason"}>
                       <option value={"NO_SYSTEM"}>
-                        {translate.t(
+                        {t(
                           "searchFindings.servicesTable.deleteGroup.reason.noSystem"
                         )}
                       </option>
                       <option value={"NO_SECTST"}>
-                        {translate.t(
+                        {t(
                           "searchFindings.servicesTable.deleteGroup.reason.noSectst"
                         )}
                       </option>
                       <option value={"DIFF_SECTST"}>
-                        {translate.t(
+                        {t(
                           "searchFindings.servicesTable.deleteGroup.reason.diffSectst"
                         )}
                       </option>
                       <option value={"MIGRATION"}>
-                        {translate.t(
+                        {t(
                           "searchFindings.servicesTable.deleteGroup.reason.migration"
                         )}
                       </option>
                       <option value={"OTHER"}>
-                        {translate.t(
+                        {t(
                           "searchFindings.servicesTable.deleteGroup.reason.other"
                         )}
                       </option>
@@ -124,7 +117,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
               </FormGroup>
               <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
-                  {translate.t("confirmmodal.cancel")}
+                  {t("confirmmodal.cancel")}
                 </Button>
                 <Button
                   disabled={!dirty || !isValid}
@@ -132,7 +125,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   type={"submit"}
                   variant={"primary"}
                 >
-                  {translate.t("confirmmodal.proceed")}
+                  {t("confirmmodal.proceed")}
                 </Button>
               </ModalFooter>
             </React.Fragment>
