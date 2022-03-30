@@ -329,6 +329,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                 isOpen={true}
                 onClose={closeNewGroupModal}
                 organization={organizationName}
+                runTour={runTour}
               />
             ) : undefined}
           </div>

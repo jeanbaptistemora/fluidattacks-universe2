@@ -35,6 +35,7 @@ describe("AddGroupModal component", (): void => {
           isOpen={true}
           onClose={handleOnClose}
           organization={"okada"}
+          runTour={false}
         />
       </MockedProvider>
     );
@@ -57,6 +58,7 @@ describe("AddGroupModal component", (): void => {
           isOpen={true}
           onClose={jest.fn()}
           organization={"okada"}
+          runTour={false}
         />
       </MockedProvider>
     );

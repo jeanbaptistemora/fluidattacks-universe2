@@ -20,6 +20,7 @@ import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
 import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { BaseStep, Tour } from "components/Tour/index";
 import {
   ADD_GROUP_MUTATION,
   GROUPS_NAME_QUERY,
@@ -61,10 +62,10 @@ const maxGroupNameLength: ConfigurableValidator = maxLength(
 const maxOrganizationLength: ConfigurableValidator = maxLength(
   MAX_ORGANIZATION_LENGTH
 );
-const AddGroupModal: React.FC<IAddGroupModalProps> = ({
-  onClose,
-  organization,
-}: IAddGroupModalProps): JSX.Element => {
+const AddGroupModal: React.FC<IAddGroupModalProps> = (
+  props: IAddGroupModalProps
+): JSX.Element => {
+  const { onClose, organization, runTour } = props;
   const { t } = useTranslation();
 
   const handleMutationResult = (result: {
@@ -162,249 +163,280 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = ({
             );
 
             return (
-              <Form>
-                <Row justify={"space-between"}>
-                  <Col large={"33"} medium={"33"} small={"33"}>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t(
-                          "organization.tabs.groups.newGroup.organization.text"
-                        )}
-                      </ControlLabel>
+              <React.Fragment>
+                <Form>
+                  <Row justify={"space-between"}>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <FormGroup>
+                        <ControlLabel>
+                          {t(
+                            "organization.tabs.groups.newGroup.organization.text"
+                          )}
+                        </ControlLabel>
+                        <TooltipWrapper
+                          id={
+                            "organization.tabs.groups.newGroup.organization.tooltip"
+                          }
+                          message={t(
+                            "organization.tabs.groups.newGroup.organization.tooltip"
+                          )}
+                          placement={"top"}
+                        >
+                          <FormGroup>
+                            <Field
+                              component={FormikText}
+                              disabled={true}
+                              name={"organization"}
+                              type={"text"}
+                              validate={composeValidators([
+                                required,
+                                maxOrganizationLength,
+                                validTextField,
+                              ])}
+                            />
+                          </FormGroup>
+                        </TooltipWrapper>
+                      </FormGroup>
+                    </Col>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <FormGroup>
+                        <ControlLabel>
+                          {t("organization.tabs.groups.newGroup.name")}
+                        </ControlLabel>
+                        <Field
+                          component={FormikText}
+                          disabled={true}
+                          id={"add-group-name"}
+                          name={"name"}
+                          type={"text"}
+                          validate={composeValidators([
+                            alphaNumeric,
+                            maxGroupNameLength,
+                            required,
+                            validTextField,
+                          ])}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <FormGroup>
+                        <ControlLabel>
+                          {t(
+                            "organization.tabs.groups.newGroup.description.text"
+                          )}
+                        </ControlLabel>
+                        <TooltipWrapper
+                          id={
+                            "organization.tabs.groups.newGroup.description.tooltip"
+                          }
+                          message={t(
+                            "organization.tabs.groups.newGroup.description.tooltip"
+                          )}
+                          placement={"top"}
+                        >
+                          <FormGroup>
+                            <Field
+                              component={FormikText}
+                              id={"add-group-description"}
+                              name={"description"}
+                              type={"text"}
+                              validate={composeValidators([
+                                required,
+                                maxDescriptionLength,
+                                validTextField,
+                              ])}
+                            />
+                          </FormGroup>
+                        </TooltipWrapper>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row justify={"space-between"}>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <FormGroup>
+                        <ControlLabel>
+                          {t("organization.tabs.groups.newGroup.type.title")}
+                        </ControlLabel>
+                        <TooltipWrapper
+                          id={"organization.tabs.groups.newGroup.type.tooltip"}
+                          message={t(
+                            "organization.tabs.groups.newGroup.type.tooltip"
+                          )}
+                          placement={"top"}
+                        >
+                          <FormGroup>
+                            <Field component={FormikDropdown} name={"type"}>
+                              <option value={"CONTINUOUS"}>
+                                {t(
+                                  "organization.tabs.groups.newGroup.type.continuous"
+                                )}
+                              </option>
+                              <option value={"ONESHOT"}>
+                                {t(
+                                  "organization.tabs.groups.newGroup.type.oneShot"
+                                )}
+                              </option>
+                            </Field>
+                          </FormGroup>
+                        </TooltipWrapper>
+                      </FormGroup>
+                    </Col>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <FormGroup>
+                        <ControlLabel>
+                          {t("organization.tabs.groups.newGroup.service.title")}
+                        </ControlLabel>
+                        <Field component={FormikDropdown} name={"service"}>
+                          <option value={"BLACK"}>
+                            {t(
+                              "organization.tabs.groups.newGroup.service.black"
+                            )}
+                          </option>
+                          <option value={"WHITE"}>
+                            {t(
+                              "organization.tabs.groups.newGroup.service.white"
+                            )}
+                          </option>
+                        </Field>
+                      </FormGroup>
+                    </Col>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <FormGroup>
+                        <ControlLabel>
+                          {t("organization.tabs.groups.newGroup.language.text")}
+                        </ControlLabel>
+                        <TooltipWrapper
+                          id={
+                            "organization.tabs.groups.newGroup.language.tooltip"
+                          }
+                          message={t(
+                            "organization.tabs.groups.newGroup.language.tooltip"
+                          )}
+                          placement={"top"}
+                        >
+                          <FormGroup>
+                            <Field component={FormikDropdown} name={"language"}>
+                              <option value={"EN"}>
+                                {t(
+                                  "organization.tabs.groups.newGroup.language.EN"
+                                )}
+                              </option>
+                              <option value={"ES"}>
+                                {t(
+                                  "organization.tabs.groups.newGroup.language.ES"
+                                )}
+                              </option>
+                            </Field>
+                          </FormGroup>
+                        </TooltipWrapper>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row justify={"space-between"}>
+                    <Col large={"50"} medium={"50"} small={"50"}>
                       <TooltipWrapper
-                        id={
-                          "organization.tabs.groups.newGroup.organization.tooltip"
-                        }
+                        id={"organization.tabs.groups.newGroup.machine.tooltip"}
                         message={t(
-                          "organization.tabs.groups.newGroup.organization.tooltip"
+                          "organization.tabs.groups.newGroup.machine.tooltip"
                         )}
                         placement={"top"}
                       >
                         <FormGroup>
-                          <Field
-                            component={FormikText}
-                            disabled={true}
-                            name={"organization"}
-                            type={"text"}
-                            validate={composeValidators([
-                              required,
-                              maxOrganizationLength,
-                              validTextField,
-                            ])}
+                          <ControlLabel>
+                            {t(
+                              "organization.tabs.groups.newGroup.machine.text"
+                            )}
+                            {" *"}
+                          </ControlLabel>
+                          <Switch
+                            checked={values.machine}
+                            label={{
+                              off: t(
+                                "organization.tabs.groups.newGroup.switch.no"
+                              ),
+                              on: t(
+                                "organization.tabs.groups.newGroup.switch.yes"
+                              ),
+                            }}
+                            name={"machine"}
+                            onChange={handleMachineBtnChange}
                           />
                         </FormGroup>
                       </TooltipWrapper>
-                    </FormGroup>
-                  </Col>
-                  <Col large={"33"} medium={"33"} small={"33"}>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("organization.tabs.groups.newGroup.name")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikText}
-                        disabled={true}
-                        name={"name"}
-                        type={"text"}
-                        validate={composeValidators([
-                          alphaNumeric,
-                          maxGroupNameLength,
-                          required,
-                          validTextField,
-                        ])}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col large={"33"} medium={"33"} small={"33"}>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t(
-                          "organization.tabs.groups.newGroup.description.text"
-                        )}
-                      </ControlLabel>
+                    </Col>
+                    <Col large={"50"} medium={"50"} small={"50"}>
                       <TooltipWrapper
-                        id={
-                          "organization.tabs.groups.newGroup.description.tooltip"
-                        }
+                        id={"organization.tabs.groups.newGroup.squad.tooltip"}
                         message={t(
-                          "organization.tabs.groups.newGroup.description.tooltip"
+                          "organization.tabs.groups.newGroup.squad.tooltip"
                         )}
                         placement={"top"}
                       >
                         <FormGroup>
-                          <Field
-                            component={FormikText}
-                            id={"add-group-description"}
-                            name={"description"}
-                            type={"text"}
-                            validate={composeValidators([
-                              required,
-                              maxDescriptionLength,
-                              validTextField,
-                            ])}
+                          <ControlLabel>
+                            {t("organization.tabs.groups.newGroup.squad.text")}
+                            {" *"}
+                          </ControlLabel>
+                          <Switch
+                            checked={values.squad}
+                            label={{
+                              off: t(
+                                "organization.tabs.groups.newGroup.switch.no"
+                              ),
+                              on: t(
+                                "organization.tabs.groups.newGroup.switch.yes"
+                              ),
+                            }}
+                            name={"squad"}
+                            onChange={handleSquadBtnChange}
                           />
                         </FormGroup>
                       </TooltipWrapper>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row justify={"space-between"}>
-                  <Col large={"33"} medium={"33"} small={"33"}>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("organization.tabs.groups.newGroup.type.title")}
-                      </ControlLabel>
-                      <TooltipWrapper
-                        id={"organization.tabs.groups.newGroup.type.tooltip"}
-                        message={t(
-                          "organization.tabs.groups.newGroup.type.tooltip"
-                        )}
-                        placement={"top"}
-                      >
-                        <FormGroup>
-                          <Field component={FormikDropdown} name={"type"}>
-                            <option value={"CONTINUOUS"}>
-                              {t(
-                                "organization.tabs.groups.newGroup.type.continuous"
-                              )}
-                            </option>
-                            <option value={"ONESHOT"}>
-                              {t(
-                                "organization.tabs.groups.newGroup.type.oneShot"
-                              )}
-                            </option>
-                          </Field>
-                        </FormGroup>
-                      </TooltipWrapper>
-                    </FormGroup>
-                  </Col>
-                  <Col large={"33"} medium={"33"} small={"33"}>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("organization.tabs.groups.newGroup.service.title")}
-                      </ControlLabel>
-                      <Field component={FormikDropdown} name={"service"}>
-                        <option value={"BLACK"}>
-                          {t("organization.tabs.groups.newGroup.service.black")}
-                        </option>
-                        <option value={"WHITE"}>
-                          {t("organization.tabs.groups.newGroup.service.white")}
-                        </option>
-                      </Field>
-                    </FormGroup>
-                  </Col>
-                  <Col large={"33"} medium={"33"} small={"33"}>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("organization.tabs.groups.newGroup.language.text")}
-                      </ControlLabel>
-                      <TooltipWrapper
-                        id={
-                          "organization.tabs.groups.newGroup.language.tooltip"
-                        }
-                        message={t(
-                          "organization.tabs.groups.newGroup.language.tooltip"
-                        )}
-                        placement={"top"}
-                      >
-                        <FormGroup>
-                          <Field component={FormikDropdown} name={"language"}>
-                            <option value={"EN"}>
-                              {t(
-                                "organization.tabs.groups.newGroup.language.EN"
-                              )}
-                            </option>
-                            <option value={"ES"}>
-                              {t(
-                                "organization.tabs.groups.newGroup.language.ES"
-                              )}
-                            </option>
-                          </Field>
-                        </FormGroup>
-                      </TooltipWrapper>
-                    </FormGroup>
-                  </Col>
-                </Row>
-                <Row justify={"space-between"}>
-                  <Col large={"50"} medium={"50"} small={"50"}>
-                    <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.machine.tooltip"}
-                      message={t(
-                        "organization.tabs.groups.newGroup.machine.tooltip"
-                      )}
-                      placement={"top"}
+                    </Col>
+                  </Row>
+                  {" *"}
+                  {t("organization.tabs.groups.newGroup.extraChargesMayApply")}
+                  <ModalFooter>
+                    <Button
+                      id={"add-group-cancel"}
+                      onClick={onClose}
+                      variant={"secondary"}
                     >
-                      <FormGroup>
-                        <ControlLabel>
-                          {t("organization.tabs.groups.newGroup.machine.text")}
-                          {" *"}
-                        </ControlLabel>
-                        <Switch
-                          checked={values.machine}
-                          label={{
-                            off: t(
-                              "organization.tabs.groups.newGroup.switch.no"
-                            ),
-                            on: t(
-                              "organization.tabs.groups.newGroup.switch.yes"
-                            ),
-                          }}
-                          name={"machine"}
-                          onChange={handleMachineBtnChange}
-                        />
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </Col>
-                  <Col large={"50"} medium={"50"} small={"50"}>
-                    <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.squad.tooltip"}
-                      message={t(
-                        "organization.tabs.groups.newGroup.squad.tooltip"
-                      )}
-                      placement={"top"}
+                      {t("confirmmodal.cancel")}
+                    </Button>
+                    <Button
+                      disabled={!dirty || submitting}
+                      id={"add-group-proceed"}
+                      type={"submit"}
+                      variant={"primary"}
                     >
-                      <FormGroup>
-                        <ControlLabel>
-                          {t("organization.tabs.groups.newGroup.squad.text")}
-                          {" *"}
-                        </ControlLabel>
-                        <Switch
-                          checked={values.squad}
-                          label={{
-                            off: t(
-                              "organization.tabs.groups.newGroup.switch.no"
-                            ),
-                            on: t(
-                              "organization.tabs.groups.newGroup.switch.yes"
-                            ),
-                          }}
-                          name={"squad"}
-                          onChange={handleSquadBtnChange}
-                        />
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </Col>
-                </Row>
-                {" *"}
-                {t("organization.tabs.groups.newGroup.extraChargesMayApply")}
-                <ModalFooter>
-                  <Button
-                    id={"add-group-cancel"}
-                    onClick={onClose}
-                    variant={"secondary"}
-                  >
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={!dirty || submitting}
-                    id={"add-group-proceed"}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
-              </Form>
+                      {t("confirmmodal.proceed")}
+                    </Button>
+                  </ModalFooter>
+                </Form>
+                <Tour
+                  run={runTour}
+                  steps={[
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGroup.groupName"),
+                      target: "#add-group-name",
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGroup.groupDescription"),
+                      hideFooter: values.description.length === 0,
+                      target: "#add-group-description",
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGroup.proceedButton"),
+                      hideFooter: true,
+                      target: "#add-group-proceed",
+                    },
+                  ]}
+                />
+              </React.Fragment>
             );
           }}
         </Formik>
