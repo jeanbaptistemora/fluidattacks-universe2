@@ -75,7 +75,7 @@ class GroupUnreliableIndicators(NamedTuple):
 
 class GroupFile(NamedTuple):
     description: str
-    filename: str
+    file_name: str
     modified_by: str
     modified_date: Optional[str] = None
 

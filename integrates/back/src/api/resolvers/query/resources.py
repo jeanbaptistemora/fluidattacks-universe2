@@ -37,7 +37,7 @@ def _format_group_files(group_files: List[GroupFile]) -> List[Dict[str, str]]:
     return [
         {
             "description": file.description,
-            "file_name": file.filename,
+            "file_name": file.file_name,
             "uploader": file.modified_by,
             "upload_date": convert_from_iso_str(file.modified_date)
             if file.modified_date

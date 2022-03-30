@@ -1,8 +1,11 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ErrorUpdatingGroup,
+)
 from custom_types import (
-    SimplePayload as SimplePayloadType,
+    SimplePayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -24,7 +27,6 @@ from resources import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -39,22 +41,16 @@ LOGGER = logging.getLogger(__name__)
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-    files_data: Dict[str, Any],
+    files_data: dict[str, Any],
     group_name: str,
-) -> SimplePayloadType:
+) -> SimplePayload:
     files_data = {
         re.sub(r"_([a-z])", lambda x: x.group(1).upper(), k): v
         for k, v in files_data.items()
     }
     file_name = files_data.get("fileName")
     success = await resources_domain.remove_file(str(file_name), group_name)
-    if success:
-        info.context.loaders.group.clear(group_name)
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Removed files from {group_name} group successfully",
-        )
-    else:
+    if not success:
         LOGGER.error(
             "Couldn't remove file",
             extra={
@@ -68,5 +64,11 @@ async def mutate(
             info.context,
             f"Security: Attempted to remove files from {group_name} group",
         )
+        raise ErrorUpdatingGroup.new()
 
-    return SimplePayloadType(success=success)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Removed files from {group_name} group successfully",
+    )
+
+    return SimplePayload(success=True)

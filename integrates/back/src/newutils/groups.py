@@ -75,7 +75,7 @@ def format_group_files(files: List[Dict[str, str]]) -> List[GroupFile]:
     return [
         GroupFile(
             description=file["description"],
-            filename=file["fileName"],
+            file_name=file["fileName"],
             modified_by=file["uploader"],
             modified_date=get_as_utc_iso_format(
                 get_from_str(

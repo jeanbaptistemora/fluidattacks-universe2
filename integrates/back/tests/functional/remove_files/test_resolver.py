@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    ErrorUpdatingGroup,
+)
 import pytest
 from typing import (
     Any,
@@ -44,8 +47,8 @@ async def test_remove_files_fail_1(populate: bool, email: str) -> None:
         user=email,
         group="group1",
     )
-    assert "errors" not in result
-    assert not result["data"]["removeFiles"]["success"]
+    assert "errors" in result
+    assert result["errors"][0]["message"] == ErrorUpdatingGroup.msg
 
 
 @pytest.mark.asyncio
