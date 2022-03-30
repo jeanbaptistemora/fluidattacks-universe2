@@ -1148,6 +1148,36 @@
   "buffermxor": {
     "GHSA-536f-268f-6gxc": ">=0"
   },
+  "buffes-xor": {
+    "GHSA-28f4-mjfq-qrvf": ">=0"
+  },
+  "buffev-xor": {
+    "GHSA-x3w4-mrmv-cw2x": ">=0"
+  },
+  "buffez-xor": {
+    "GHSA-7frr-c83r-fm22": ">=0"
+  },
+  "buffgr-xor": {
+    "GHSA-r9cj-xj33-4q42": ">=0"
+  },
+  "buffmr-xor": {
+    "GHSA-wv39-cgmm-cq29": ">=0"
+  },
+  "buffur-xor": {
+    "GHSA-p7qp-3fh7-pv4p": ">=0"
+  },
+  "bufger-xor": {
+    "GHSA-2w8q-69fh-9gq6": ">=0"
+  },
+  "bufner-xor": {
+    "GHSA-7xf6-cpxm-5mx9": ">=0"
+  },
+  "bufver-xor": {
+    "GHSA-cr4x-w2v7-4mmf": ">=0"
+  },
+  "bugfer-xor": {
+    "GHSA-8g64-9cm2-838j": ">=0"
+  },
   "buns": {
     "CVE-2020-7794": ">=0"
   },
@@ -3425,10 +3455,10 @@
     "GMS-2017-240": ">=0.0.0-alpha"
   },
   "mysql": {
-    "npm:mysql:20140514": ">=2.0.0 <2.3.0",
-    "npm:mysql:20170317": "<2.14.0",
     "CVE-2015-9244": ">=2.0.0-alpha <2.0.0-alpha8",
-    "CVE-2019-14939": "=2.17.1"
+    "CVE-2019-14939": "=2.17.1",
+    "npm:mysql:20140514": ">=2.0.0 <2.3.0",
+    "npm:mysql:20170317": "<2.14.0"
   },
   "mysql2": {
     "SNYK-JS-MYSQL2-536208": "<1.0.0-rc.1"
