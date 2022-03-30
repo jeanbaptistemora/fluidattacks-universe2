@@ -10,6 +10,7 @@ from state.ephemeral import (
 )
 from typing import (
     List,
+    Optional,
 )
 from utils.repositories import (
     get_repo_head_hash,
@@ -22,13 +23,13 @@ from utils.time import (
 
 def vulns_with_reattack_requested(
     store: EphemeralStore,
-) -> EphemeralStore:
+) -> Optional[EphemeralStore]:
     vulnerability: core_model.Vulnerability
     reattacked_store: EphemeralStore = get_ephemeral_store()
     reattacked_flag: bool = False
     for vulnerability in store.iterate():
         integrates_metadata = vulnerability.integrates_metadata
-        if integrates_metadata.verification:
+        if integrates_metadata and integrates_metadata.verification:
             verification = integrates_metadata.verification.state
             if (
                 verification
@@ -45,7 +46,7 @@ def vulns_with_reattack_requested(
 
 
 def get_vulnerability_justification(  # noqa: MC0001
-    reattacked_store: EphemeralStore,
+    reattacked_store: Optional[EphemeralStore],
     store: EphemeralStore,
 ) -> List[str]:
 

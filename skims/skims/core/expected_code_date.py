@@ -60,7 +60,11 @@ async def main(
         vulnerabilities_store = await result
         vulnerability: core_model.Vulnerability
         for vulnerability in vulnerabilities_store.iterate():
-            verification = vulnerability.integrates_metadata.verification
+            verification = (
+                vulnerability.integrates_metadata.verification
+                if vulnerability.integrates_metadata
+                else None
+            )
             verification_date: Optional[datetime] = None
             if (
                 verification
@@ -71,12 +75,13 @@ async def main(
                     verification_date = date_parser.parse(verification.date)
                 except ParserError:
                     continue
-            elif verification_date:
+            elif verification:
                 verification_date = verification.date
 
             if (
                 namespace == vulnerability.namespace
                 and verification_date
+                and verification
                 and verification.state
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
                 and verification_date.timestamp()

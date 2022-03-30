@@ -80,7 +80,11 @@ def _rebase(
             repo,
             path=vulnerability.what,
             line=int(vulnerability.where),
-            rev_a=vulnerability.integrates_metadata.commit_hash,
+            rev_a=str(
+                vulnerability.integrates_metadata.commit_hash
+                if vulnerability.integrates_metadata
+                else None
+            ),
             rev_b="HEAD",
         ):
             log_blocking(
@@ -96,7 +100,11 @@ def _rebase(
                 ),
                 vulnerability.what,
                 vulnerability.where,
-                vulnerability.integrates_metadata.commit_hash,
+                (
+                    vulnerability.integrates_metadata.commit_hash
+                    if vulnerability.integrates_metadata
+                    else None
+                ),
                 result.path,
                 result.line,
                 result.rev,
