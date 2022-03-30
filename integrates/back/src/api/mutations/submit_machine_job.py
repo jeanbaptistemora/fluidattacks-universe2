@@ -71,7 +71,7 @@ async def mutate(
         return SimplePayloadMessage(
             success=False, message="The finding cannot be found"
         )
-    notsuccess = False
+    success = False
     message = ""
     with suppress(ClientError):
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
@@ -84,6 +84,6 @@ async def mutate(
     return SimplePayloadMessage(
         success=success.success
         if isinstance(success, PutActionResult)
-        else notsuccess,
+        else success,
         message=message,
     )

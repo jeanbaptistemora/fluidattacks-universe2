@@ -52,8 +52,8 @@ async def mutate(
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     try:
-        business_id = str(parameters.get("business_id", None))
-        business_name = str(parameters.get("business_name", None))
+        business_id = parameters.get("business_id", None)
+        business_name = parameters.get("business_name", None)
         description = description.strip()
         if not description:
             raise InvalidParameter()
