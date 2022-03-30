@@ -4,6 +4,7 @@ import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
@@ -24,10 +25,11 @@ import { GET_GROUP_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
-const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
-  const { setUserRole } = props;
+const GroupRoute: React.FC<IGroupRoute> = ({
+  setUserRole,
+}: IGroupRoute): JSX.Element => {
+  const { t } = useTranslation();
   const { organizationName, groupName } = useParams<{
     organizationName: string;
     groupName: string;
@@ -94,7 +96,7 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((groupError: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred group data", groupError);
       });
     },
