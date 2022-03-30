@@ -1,6 +1,7 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+import authz
 from batch import (
     dal as batch_dal,
 )
@@ -127,6 +128,11 @@ async def resolve(
                     " certificate. Make sure the businessId, businessName "
                     " and description fields of the Group are filled out"
                 )
+            )
+        user_role = await authz.get_group_level_role(user_email, group_name)
+        if user_role != "user_manager":
+            raise RequestedReportError(
+                expr="Only user managers can request certificates"
             )
     treatments = (
         {

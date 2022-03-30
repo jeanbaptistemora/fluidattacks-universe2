@@ -1,4 +1,5 @@
 from .report_types import (
+    certificate as cert_report,
     data as data_report,
     technical as technical_report,
 )
@@ -64,6 +65,15 @@ async def get_group_report_url(
             group_name=group_name,
             lang="en",
             passphrase=passphrase,
+            user_email=user_email,
+        )
+    if report_type == "CERT":
+        return await cert_report.generate_cert_file(
+            loaders=loaders,
+            description=description,
+            findings_ord=findings_ord,
+            group_name=group_name,
+            lang="es",
             user_email=user_email,
         )
     if report_type == "DATA":
