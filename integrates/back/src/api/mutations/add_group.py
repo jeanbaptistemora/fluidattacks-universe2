@@ -47,16 +47,16 @@ async def mutate(
     language: str = "en",
     **kwargs: Any,
 ) -> SimplePayload:
-    group_name: str = kwargs["group_name"]
+    group_name: str = str(kwargs["group_name"]).lower()
     has_squad: bool = kwargs.get("has_squad", False)
     has_machine: bool = kwargs.get("has_machine", False)
-    suscription_type = GroupSubscriptionType[subscription.upper()]
+    subscription_type = GroupSubscriptionType[subscription.upper()]
     if kwargs.get("service"):
         service = GroupService[str(kwargs["service"]).upper()]
     else:
         service = (
             GroupService.WHITE
-            if suscription_type == GroupSubscriptionType.CONTINUOUS
+            if subscription_type == GroupSubscriptionType.CONTINUOUS
             else GroupService.BLACK
         )
     user_data = await token_utils.get_jwt_content(info.context)
@@ -65,20 +65,20 @@ async def mutate(
 
     await groups_domain.add_group(
         description=description,
-        group_name=group_name.lower(),
+        group_name=group_name,
         has_machine=has_machine,
         has_squad=has_squad,
         language=GroupLanguage[language.upper()],
         organization_name=organization,
         service=service,
-        subscription=suscription_type,
+        subscription=subscription_type,
         user_email=user_email,
         user_role=user_role,
     )
     await forces_domain.add_forces_user(info, group_name)
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Created group {group_name.lower()} successfully",
+        f"Security: Created group {group_name} successfully",
     )
 
     return SimplePayload(success=True)

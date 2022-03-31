@@ -13,10 +13,16 @@ from custom_exceptions import (
     PermissionDenied,
 )
 from custom_types import (
-    SimplePayload as SimplePayloadType,
+    SimplePayload,
 )
 from dataloaders import (
     Dataloaders,
+)
+from db_model.groups.enums import (
+    GroupService,
+    GroupStateUpdationJustification,
+    GroupSubscriptionType,
+    GroupTier,
 )
 from decorators import (
     concurrent_decorators,
@@ -57,41 +63,45 @@ async def mutate(
     group_name: str,
     reason: str,
     subscription: str,
-    **parameters: Any,
-) -> SimplePayloadType:
+    **kwargs: Any,
+) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    requester_email = user_info["user_email"]
-    success = False
-
-    # Compatibility with old API
-    has_asm: bool = parameters["has_asm"]
-    has_machine: bool = parameters["has_machine"]
-    has_squad: bool = parameters["has_squad"]
+    user_email = user_info["user_email"]
+    has_asm: bool = kwargs["has_asm"]
+    has_machine: bool = kwargs["has_machine"]
+    has_squad: bool = kwargs["has_squad"]
+    subscription_type = GroupSubscriptionType[subscription.upper()]
+    if kwargs.get("service"):
+        service = GroupService[str(kwargs["service"]).upper()]
+    else:
+        service = (
+            GroupService.WHITE
+            if subscription_type == GroupSubscriptionType.CONTINUOUS
+            else GroupService.BLACK
+        )
+    tier = GroupTier[str(kwargs.get("tier", "free")).upper()]
 
     try:
-        success = await groups_domain.update_group_attrs(
+        await groups_domain.update_group_typed(
             loaders=loaders,
             comments=comments,
             group_name=group_name,
+            justification=GroupStateUpdationJustification[reason.upper()],
             has_squad=has_squad,
             has_asm=has_asm,
             has_machine=has_machine,
-            reason=reason,
-            requester_email=requester_email,
-            service=parameters.get(
-                "service",
-                ("WHITE" if subscription == "continuous" else "BLACK"),
-            ),
-            subscription=subscription,
-            tier=parameters.get("tier", "free"),
+            service=service,
+            subscription=subscription_type,
+            tier=tier,
+            user_email=user_email,
         )
-        if success and not has_asm:
+        if not has_asm:
             await batch_dal.put_action(
                 action=Action.REMOVE_GROUP_RESOURCES,
                 entity=group_name,
-                subject=requester_email,
+                subject=user_email,
                 additional_info="mutation_update_group",
                 queue="dedicated_later",
                 product_name=Product.INTEGRATES,
@@ -99,16 +109,16 @@ async def mutate(
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Unauthorized role attempted to update group",
+            f"Security: Unauthorized role attempted "
+            f"to update {group_name} group",
         )
+        raise
 
-    if success:
-        loaders.group.clear(group_name)
-        await redis_del_by_deps("update_group", group_name=group_name)
-        await authz.revoke_cached_group_service_policies(group_name)
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Updated group {group_name} successfully",
-        )
+    await redis_del_by_deps("update_group", group_name=group_name)
+    await authz.revoke_cached_group_service_policies(group_name)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Updated group {group_name} successfully",
+    )
 
-    return SimplePayloadType(success=success)
+    return SimplePayload(success=True)
