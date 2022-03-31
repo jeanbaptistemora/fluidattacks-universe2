@@ -1,0 +1,32 @@
+=== Security Testing Service Certificate
+
+Fluidsignal Group S.A. identified with the registration number *8110285148*
+certifies that it currently maintains commercial dealings with the company
+{{business}} identified with the registration number *{{business_number}}*.
+
+Since the {{start_day}}^th^ day of {{start_month}}, {{start_year}}, as part
+of our Continuous Hacking cycle, comprehensive security tests
+(SAST, DAST, SCA, IAS) have been carried out in the solution {{solution}}.
+
+As of date, the results of the conducted tests are as follows:
+
+[cols="5*^",options=header]
+|===
+|{{words['severity_title']}}|{{words['finding_number_title']}}|{{words['total_vulns_title']}}|{{words['closed_vulns_title']}}|{{words['resume_perc_title']}}
+{% for row in remediation_table %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+{%- endfor %}
+|===
+
+The vulnerabilities found are notified to all stakeholders, who continuously
+implement the corrective procedures to remediate them and *Fluid Attacks*
+verifies these remediations to guarantee the quality of the solution.
+
+This certification is being issued by request this {{report_day}}^th^ day
+of {{report_month}}, {{report_year}}.
+
+{{signature_img}}
+Head of Delivery +
+Fluidsignal Group S.A.

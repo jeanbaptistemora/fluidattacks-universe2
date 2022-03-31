@@ -190,7 +190,10 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType("ReportLang", {"EN": "en"}),
-    EnumType("ReportType", {"DATA": "DATA", "PDF": "PDF", "XLS": "XLS"}),
+    EnumType(
+        "ReportType",
+        {"CERT": "CERT", "DATA": "DATA", "PDF": "PDF", "XLS": "XLS"},
+    ),
     EnumType("ResourceState", {"ACTIVE": "ACTIVE", "INACTIVE": "INACTIVE"}),
     EnumType("ServiceType", {"BLACK": "BLACK", "WHITE": "WHITE"}),
     EnumType("Sorts", {"NO": "NO", "YES": "YES"}),
