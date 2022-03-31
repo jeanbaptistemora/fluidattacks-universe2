@@ -140,3 +140,15 @@ async def send_mail_deactivated_root(
         subject=("Root deactivated"),
         template_name="root_deactivated",
     )
+
+
+async def send_mail_updated_policies(
+    email_to: List[str], context: MailContentType
+) -> None:
+    await send_mails_async(
+        email_to,
+        context,
+        GENERAL_TAG,
+        f'A policies has been changed in [{context["org_name"]}]',
+        "updated_policies",
+    )
