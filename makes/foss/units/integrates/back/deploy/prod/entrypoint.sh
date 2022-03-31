@@ -75,7 +75,7 @@ function rollout {
 
 function deploy {
   local name="${1}"
-  local endpoint="${1}"
+  local endpoint="${2}"
   export NAME="${name}"
   export ENDPOINT="${endpoint}"
   export CI_COMMIT_REF_NAME='master'
