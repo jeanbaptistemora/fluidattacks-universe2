@@ -4507,7 +4507,8 @@
     "CVE-2020-16165": ">=0 <=2.7.1"
   },
   "org.springframework.amqp:spring-amqp": {
-    "CVE-2021-22097": ">=2.2.0 <=2.2.18 || >=2.3.0 <=2.3.10",
+    "CVE-2021-22095": ">=2.2.0 <2.2.20 || >=2.3.0 <2.3.12",
+    "CVE-2021-22097": "<2.2.19 || >=2.3.0 <2.3.11",
     "GHSA-w4g2-9hj6-5472": "<1.7.10 || >=2.0.0 <2.0.6"
   },
   "org.springframework.batch:spring-batch-core": {
@@ -4517,7 +4518,9 @@
   "org.springframework.boot:spring-boot": {
     "CVE-2017-8046": ">=0 <1.5.9",
     "CVE-2018-1196": ">=0 <1.5.10",
-    "CVE-2021-26987": ">=0 <1.3.2"
+    "CVE-2021-26987": ">=0 <1.3.2",
+    "CVE-2022-27772": "<2.2.11.release",
+    "CVE-2022-22965": "<2.5.12 || >=2.6.0 <2.6.6"
   },
   "org.springframework.boot:spring-boot-starter": {},
   "org.springframework.boot:spring-boot-starter-data-rest": {
@@ -4532,20 +4535,33 @@
     "CVE-2020-5405": ">=2.1.0 <2.1.7 || >=2.2.0 <2.2.2",
     "CVE-2020-5410": ">=2.1.0 <2.1.9 || >=2.2.0 <2.2.3"
   },
+  "org.springframework.cloud:spring-cloud-dataflow-server-core": {
+    "CVE-2020-5427": "<2.5.4.release || >=2.6.0 <2.6.5"
+  },
+  " org.springframework.cloud:spring-cloud-function-context": {
+    "CVE-2022-22963": "<3.1.7 || >=3.2.0 <3.2.3"
+  },
   "org.springframework.cloud:spring-cloud-gateway": {
+    "CVE-2022-22947": "<3.0.7 || >=3.1.0 <3.1.1",
     "GHSA-2r2v-q399-qq93": ">=2.2.0 <=2.2.10.release || >=3.0.0 <3.0.5"
+  },
+  "org.springframework.cloud:spring-cloud-gateway-server": {
+    "CVE-2021-22051": "<2.2.10.release || >=3.0.0 <3.0.5"
   },
   "org.springframework.cloud:spring-cloud-netflix": {
     "GHSA-qgcg-p3v2-9h4p": ">=2.1.0 <2.1.6 || >=2.2.0 <2.2.4"
   },
   "org.springframework.cloud:spring-cloud-netflix-hystrix-dashboard": {
-    "GHSA-gx3f-hq7p-8fxv": "<=2.2.9.release"
+    "CVE-2021-22053": "<2.2.10.release"
   },
   "org.springframework.cloud:spring-cloud-netflix-zuul": {
-    "GHSA-vwpg-f6gw-rjvf": "<2.2.7"
+    "CVE-2021-22113": "<2.2.7.release"
   },
   "org.springframework.cloud:spring-cloud-openfeign-core": {
-    "CVE-2021-22044": ">=2.2.0 <=2.2.9 || >=3.0.0 <=3.0.4"
+    "CVE-2021-22044": "<2.2.10 || >=3.0.0 <3.0.5"
+  },
+  " org.springframework.cloud:spring-cloud-task-core": {
+    "CVE-2020-5428": "<2.2.5"
   },
   "org.springframework.credhub:spring-credhub-core": {
     "GHSA-q3jg-4c82-j4xh": "<1.1.0"
@@ -4564,6 +4580,9 @@
     "CVE-2017-8046": ">=0 <2.6.9 || >=3.0.0-snapshot <3.0.1",
     "CVE-2018-1259": ">2.6.0 <=2.6.11 || >=3.0.0-snapshot <3.0.6"
   },
+  "org.springframework.data:spring-data-rest-webmvc": {
+    "CVE-2021-22047": "<3.4.14 || >=3.5.0 <3.5.6"
+  },
   "org.springframework.integration:spring-integration-core": {
     "GHSA-86qr-9vqc-pgc6": ">=4.3.0 <4.3.23 || >=5.1.0 <5.1.12 || >=5.2.0 <5.2.8 || >=5.3.0 <5.3.2"
   },
@@ -4574,7 +4593,8 @@
     "GHSA-wr5r-m8pc-85j9": "<4.3.19 || >=5.0.0 <5.0.11 || >=5.1.0 <5.1.2"
   },
   "org.springframework.integration:spring-integration-zip": {
-    "CVE-2018-1261": ">=0 <1.0.1.release"
+    "CVE-2018-1261": ">=0 <1.0.1.release",
+    "CVE-2021-22114": "<1.0.4.release"
   },
   "org.springframework.security.oauth:spring-security-oauth": {
     "GHSA-mmf6-6597-3v6m": ">=2.0.0 <2.0.18 || >=2.1.0 <2.1.5 || >=2.2.0 <2.2.5 || >=2.3.0 <2.3.6"
@@ -4612,14 +4632,14 @@
     "CVE-2019-3795": ">=4.2.0.release <4.2.12.release || >=5.0.0.release <5.0.12.release || >=5.1.0.release <5.1.5.release",
     "CVE-2020-3700": ">=2.0.0 <2.0.6 || >=3.0.0 <3.0.4",
     "CVE-2020-5408": ">=4.2.0 <4.2.16 || >=5.0.0 <5.0.16 || >=5.1.0 <5.1.10 || >=5.2.0 <5.2.4 || >=5.3.0 <5.3.2",
-    "CVE-2021-22112": ">=0 <5.2.9 || >=5.3.0 <5.3.8 || >=5.4.0 <5.4.4",
+    "CVE-2021-22112": "<5.2.9.release || >=5.3.0.release <5.3.8.release || >=5.4.0 <5.4.4",
     "CVE-2021-22119": ">=5.2.0 <5.2.11 || >=5.3.0 <5.3.10 || >=5.4.0 <5.4.7 || >=5.5.0 <5.5.1"
   },
   "org.springframework.security:spring-security-ldap": {
     "CVE-2014-0097": ">=3.1 <=3.2.1.release"
   },
   "org.springframework.security:spring-security-oauth2-client": {
-    "GHSA-w9jg-gvgr-354m": ">=5.2.0 <=5.2.10 || >=5.3.0 <=5.3.9 || >=5.4.0 <5.4.7 || >=5.5.0 <5.5.1"
+    "CVE-2021-22119": ">=5.2.0.release <5.2.11.release || >=5.3.0.release <5.3.10.release || >=5.5.0 <5.5.1 || >=5.4.0 <5.4.7"
   },
   "org.springframework.security:spring-security-oauth2-jose": {
     "CVE-2018-15801": ">=5.1.0.release <5.1.2.release"
@@ -4656,7 +4676,8 @@
   },
   "org.springframework:spring-aop": {},
   "org.springframework:spring-beans": {
-    "CVE-2010-1622": ">=2.5.0 <2.5.6 || >=3.0.0 <3.0.3"
+    "CVE-2010-1622": ">=2.5.0 <2.5.6 || >=3.0.0 <3.0.3",
+    "CVE-2022-22965": "<5.2.20 || >=5.3.0 < 5.3.18"
   },
   "org.springframework:spring-context": {
     "SNYK-JAVA-ORGSPRINGFRAMEWORK-31323": ">=3.2.13 <3.2.14 || >=4.1.6 <4.1.7"
@@ -4672,9 +4693,13 @@
     "CVE-2018-1258": "5.0.5.release",
     "CVE-2019-11272": ">=4.2.0 <=4.2.12",
     "CVE-2019-3795": ">=4.2.0 <4.2.12 || >=5.0.0 <5.0.12 || >=5.1.0 <5.1.5",
-    "CVE-2020-5421": ">=0 <=4.2.9 || >=4.3.0 <=4.3.28 || >=5.0.0 <=5.0.18 || >=5.1.0 <=5.1.17 || >=5.2.0 <=5.2.8"
+    "CVE-2020-5421": ">=0 <=4.2.9 || >=4.3.0 <=4.3.28 || >=5.0.0 <=5.0.18 || >=5.1.0 <=5.1.17 || >=5.2.0 <=5.2.8",
+    "CVE-2021-22060": "<5.2.19.release || >=5.3.0 <5.3.14",
+    "CVE-2021-22096": "<5.2.18 || >=5.3.0 <5.3.12"
   },
-  "org.springframework:spring-expression": {},
+  "org.springframework:spring-expression": {
+    "CVE-2022-22950": "<5.3.17"
+  },
   "org.springframework:spring-framework-bom": {
     "GHSA-rv39-3qh7-9v7w": ">=4.3.0 <=4.3.28 || >=5.0.0 <=5.0.18 || >=5.1.0 <=5.1.17 || >=5.2.0 <=5.2.8"
   },
@@ -4715,7 +4740,9 @@
     "CVE-2020-5397": ">=5.2.0 <5.2.3",
     "CVE-2020-5398": ">=5.0.0 <5.0.16 || >=5.1.0 <=5.1.13 || >=5.2.0 <5.2.3",
     "CVE-2020-5421": ">=0 <=4.2.9 || >=4.3.0 <=4.3.28 || >=5.0.0 <=5.0.18 || >=5.1.0 <=5.1.17 || >=5.2.0 <=5.2.8",
-    "CVE-2021-22118": ">=5.2.0 <5.2.15 || >=5.3.0 <5.3.7"
+    "CVE-2021-22096": "<5.2.18 || >=5.3.0 <5.3.12",
+    "CVE-2021-22118": ">=5.2.0 <5.2.15 || >=5.3.0 <5.3.7",
+    "CVE-2022-22965": "<5.2.20 || >=5.3.0 <5.3.18"
   },
   "org.springframework:spring-webmvc": {
     "CVE-2013-6430": ">=3.0.0 <3.2.2",
@@ -4734,7 +4761,7 @@
     "CVE-2020-5397": ">=5.2.0 <5.2.3",
     "CVE-2020-5398": ">=5.0.0 <5.0.16 || >=5.1.0 <=5.1.13 || >=5.2.0 <5.2.3",
     "CVE-2020-5421": ">=0 <=4.2.9 || >=4.3.0 <=4.3.28 || >=5.0.0 <=5.0.18 || >=5.1.0 <=5.1.17 || >=5.2.0 <=5.2.8",
-    "SNYK-JAVA-ORGSPRINGFRAMEWORK-31512": ">=3.0.0 <3.0.6.release"
+    "CVE-2022-22965": "<5.2.20 || >=5.3.0 <5.3.18"
   },
   "org.springframework:spring-websocket": {
     "CVE-2015-0201": ">=4.1.0.release <4.1.5.release",
