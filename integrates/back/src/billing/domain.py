@@ -24,6 +24,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.groups.enums import (
+    GroupTier,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -513,14 +516,14 @@ async def webhook(request: Request) -> JSONResponse:
             LOGGER.warning(message, extra=dict(extra=locals()))
 
         if tier != "":
-            if await groups_domain.update_group_tier(
+            await groups_domain.update_group_tier(
                 loaders=get_new_context(),
-                reason=f"Triggered by Stripe with event {event.id}",
-                requester_email="development@fluidattacks.com",
-                group_name=event.data.object.metadata.group,
-                tier=tier,
-            ):
-                message = "Success"
+                comments=f"Triggered by Stripe with event {event.id}",
+                group_name=str(event.data.object.metadata.group).lower(),
+                tier=GroupTier[tier.upper()],
+                user_email="development@fluidattacks.com",
+            )
+            message = "Success"
 
     except ValueError as ex:
         message = "Invalid payload"

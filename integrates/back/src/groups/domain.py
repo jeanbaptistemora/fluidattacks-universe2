@@ -54,6 +54,7 @@ from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
     GroupStateStatus,
+    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -905,9 +906,9 @@ async def update_group_typed(
     loaders: Any,
     comments: str,
     group_name: str,
-    has_squad: bool,
     has_asm: bool,
     has_machine: bool,
+    has_squad: bool,
     justification: GroupStatusJustification,
     service: Optional[GroupService],
     subscription: GroupSubscriptionType,
@@ -955,12 +956,12 @@ async def update_group_typed(
         await notifications_domain.update_group(
             comments=comments,
             group_name=group_name,
+            had_asm=True,
             had_machine=group.state.has_machine,
             had_squad=group.state.has_squad,
-            had_asm=True,
+            has_asm=has_asm,
             has_machine=has_machine,
             has_squad=has_squad,
-            has_asm=has_asm,
             reason=justification.value,
             requester_email=user_email,
             service=service.value if service else "",
@@ -988,50 +989,50 @@ async def update_group_typed(
 async def update_group_tier(
     *,
     loaders: Any,
-    reason: str,
-    requester_email: str,
+    comments: str,
     group_name: str,
-    tier: str,
-) -> bool:
-    """Set a new tier for a group"""
+    tier: GroupTier,
+    user_email: str,
+) -> None:
+    """Set a new tier for a group."""
     data = {
         "loaders": loaders,
+        "comments": comments,
         "group_name": group_name,
-        "reason": reason,
-        "requester_email": requester_email,
-        "comments": "",
-        "subscription": "",
+        "has_asm": True,
         "has_machine": False,
         "has_squad": False,
-        "has_asm": True,
-        "service": "",
+        "justification": GroupStateUpdationJustification.OTHER,
+        "service": GroupService.WHITE,
+        "subscription": GroupSubscriptionType.CONTINUOUS,
         "tier": tier,
+        "user_email": user_email,
     }
 
-    if tier == "machine":
-        data["subscription"] = "continuous"
+    if tier == GroupTier.MACHINE:
+        data["subscription"] = GroupSubscriptionType.CONTINUOUS
         data["has_machine"] = True
         data["has_squad"] = False
-        data["service"] = "WHITE"
-    elif tier == "squad":
-        data["subscription"] = "continuous"
+        data["service"] = GroupService.WHITE
+    elif tier == GroupTier.SQUAD:
+        data["subscription"] = GroupSubscriptionType.CONTINUOUS
         data["has_machine"] = True
         data["has_squad"] = True
-        data["service"] = "WHITE"
-    elif tier == "oneshot":
-        data["subscription"] = "oneshot"
+        data["service"] = GroupService.WHITE
+    elif tier == GroupTier.ONESHOT:
+        data["subscription"] = GroupSubscriptionType.ONESHOT
         data["has_machine"] = False
         data["has_squad"] = False
-        data["service"] = "BLACK"
-    elif tier == "free":
-        data["subscription"] = "continuous"
+        data["service"] = GroupService.BLACK
+    elif tier == GroupTier.FREE:
+        data["subscription"] = GroupSubscriptionType.CONTINUOUS
         data["has_machine"] = False
         data["has_squad"] = False
-        data["service"] = "WHITE"
+        data["service"] = GroupService.WHITE
     else:
         raise InvalidGroupTier()
 
-    return await update_group_attrs(**data)
+    await update_group_typed(**data)
 
 
 async def get_active_groups() -> List[str]:
