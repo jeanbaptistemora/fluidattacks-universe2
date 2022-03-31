@@ -1,5 +1,5 @@
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -39,9 +39,11 @@ describe("Custom utility hooks", (): void => {
     it("should render with fallback value", (): void => {
       expect.hasAssertions();
 
-      const wrapper: ShallowWrapper = shallow(<TestComponent />);
+      render(<TestComponent />);
 
-      expect(wrapper.find("p").at(0).text()).toStrictEqual("fallback");
+      expect(screen.queryByText("fallback")).toBeInTheDocument();
+
+      jest.clearAllMocks();
     });
 
     it("should load from storage", (): void => {
@@ -49,26 +51,31 @@ describe("Custom utility hooks", (): void => {
 
       sessionStorage.setItem("message", JSON.stringify("stored"));
       sessionStorage.setItem("sortOrder", JSON.stringify({ order: "dsc" }));
-      const wrapper: ShallowWrapper = shallow(<TestComponent />);
+      render(<TestComponent />);
 
-      expect(wrapper.find("p").at(0).text()).toStrictEqual("stored");
-      expect(wrapper.find("p").at(1).text()).toStrictEqual("dsc");
+      expect(screen.queryByText("stored")).toBeInTheDocument();
+      expect(screen.queryByText("dsc")).toBeInTheDocument();
+
+      jest.clearAllMocks();
     });
 
-    it("should store state", (): void => {
+    it("should store state", async (): Promise<void> => {
       expect.hasAssertions();
 
-      const wrapper: ShallowWrapper = shallow(<TestComponent />);
+      render(<TestComponent />);
 
-      act((): void => {
-        wrapper.find("button").simulate("click");
+      expect(screen.queryByRole("button")).toBeInTheDocument();
+      expect(screen.queryByText("Hello world")).not.toBeInTheDocument();
+
+      userEvent.click(screen.getByRole("button"));
+      await waitFor((): void => {
+        expect(screen.queryByText("Hello world")).toBeInTheDocument();
       });
 
-      expect(wrapper.find("p").at(0).text()).toStrictEqual("Hello world");
       expect(sessionStorage.getItem("message")).toStrictEqual(
         JSON.stringify("Hello world")
       );
-      expect(wrapper.find("p").at(1).text()).toStrictEqual("none");
+      expect(screen.queryByText("none")).toBeInTheDocument();
       expect(sessionStorage.getItem("sortOrder")).toStrictEqual(
         JSON.stringify({ order: "none" })
       );
@@ -93,27 +100,29 @@ describe("Custom utility hooks", (): void => {
       expect(typeof useTabTracking).toStrictEqual("function");
     });
 
-    it("should trigger on route change", (): void => {
+    it("should trigger on route change", async (): Promise<void> => {
       expect.hasAssertions();
 
       const trackMock: jest.SpyInstance = jest.spyOn(mixpanel, "track");
 
-      const wrapper: ReactWrapper = mount(
+      render(
         <MemoryRouter initialEntries={["/groups/grp1/analytics"]}>
           <TestComponent />
         </MemoryRouter>
       );
 
       expect(trackMock).toHaveBeenCalledWith("GroupAnalytics", { id: "grp1" });
+      expect(screen.queryByRole("button")).toBeInTheDocument();
 
-      act((): void => {
-        wrapper.find("button").simulate("click");
+      userEvent.click(screen.getByRole("button"));
+      await waitFor((): void => {
+        expect(trackMock).toHaveBeenCalledTimes(2);
       });
 
       expect(trackMock).toHaveBeenCalledWith("GroupScope", { id: "grp2" });
-      expect(trackMock).toHaveBeenCalledTimes(2);
 
       trackMock.mockReset();
+      jest.clearAllMocks();
     });
   });
 
@@ -135,13 +144,13 @@ describe("Custom utility hooks", (): void => {
       expect(typeof useWindowSize).toStrictEqual("function");
     });
 
-    it("should trigger on size change", (): void => {
+    it("should trigger on size change", async (): Promise<void> => {
       expect.hasAssertions();
 
-      const wrapper: ReactWrapper = mount(<TestComponent />);
+      render(<TestComponent />);
 
-      expect(wrapper.find("p").at(0).text()).toStrictEqual("768");
-      expect(wrapper.find("p").at(1).text()).toStrictEqual("1024");
+      expect(screen.queryByText("768")).toBeInTheDocument();
+      expect(screen.queryByText("1024")).toBeInTheDocument();
 
       // eslint-disable-next-line fp/no-mutating-methods
       Object.defineProperty(window, "innerHeight", { value: 900 });
@@ -151,8 +160,11 @@ describe("Custom utility hooks", (): void => {
         window.dispatchEvent(new Event("resize"));
       });
 
-      expect(wrapper.find("p").at(0).text()).toStrictEqual("900");
-      expect(wrapper.find("p").at(1).text()).toStrictEqual("1600");
+      await waitFor((): void => {
+        expect(screen.queryByText("900")).toBeInTheDocument();
+      });
+
+      expect(screen.queryByText("1600")).toBeInTheDocument();
     });
   });
 });

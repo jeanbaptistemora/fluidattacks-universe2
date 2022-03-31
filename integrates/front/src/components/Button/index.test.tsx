@@ -1,5 +1,5 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { Button } from "components/Button";
@@ -14,27 +14,30 @@ describe("Button", (): void => {
     expect.hasAssertions();
 
     const clickCallback: jest.Mock = jest.fn();
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Button onClick={clickCallback} variant={"primary"}>
-        {"Test"}
+        {"Test1"}
       </Button>
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByRole("button", { name: "Test1" })).toBeInTheDocument();
   });
 
-  it("should be clickable", (): void => {
+  it("should be clickable", async (): Promise<void> => {
     expect.hasAssertions();
 
     const clickCallback: jest.Mock = jest.fn();
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Button onClick={clickCallback} variant={"primary"}>
-        {"Test"}
+        {"Test2"}
       </Button>
     );
 
-    wrapper.simulate("click");
+    expect(screen.queryByRole("button", { name: "Test2" })).toBeInTheDocument();
 
-    expect(clickCallback.mock.calls).toHaveLength(1);
+    userEvent.click(screen.getByRole("button", { name: "Test2" }));
+    await waitFor((): void => {
+      expect(clickCallback).toHaveBeenCalledTimes(1);
+    });
   });
 });
