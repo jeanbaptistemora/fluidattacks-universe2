@@ -42,15 +42,11 @@ from typing import (
 )
 import urllib.parse
 from utils.function import (
-    rate_limited,
     shield_blocking,
 )
 from utils.http import (
     create_session,
     request,
-)
-from utils.limits import (
-    LIB_HTTP_DEFAULT,
 )
 from utils.logs import (
     log_blocking,
@@ -94,7 +90,7 @@ def analyze_one(
     )
 
 
-@rate_limited(rpm=LIB_HTTP_DEFAULT)
+# @rate_limited(rpm=LIB_HTTP_DEFAULT)
 async def get_url(
     url: str,
     *,

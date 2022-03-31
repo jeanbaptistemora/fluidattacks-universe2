@@ -38,14 +38,9 @@ from typing import (
     Union,
 )
 from utils.function import (
-    rate_limited,
     shield,
     SkimsCanNotOperate,
     StopRetrying,
-)
-from utils.limits import (
-    INTEGRATES_DEFAULT as DEFAULT_RATE_LIMIT,
-    INTEGRATES_DO_UPDATE_EVIDENCE as DO_UPDATE_EVIDENCE_RATE_LIMIT,
 )
 from utils.logs import (
     log,
@@ -111,7 +106,7 @@ async def _request(
     return response
 
 
-@rate_limited(rpm=DEFAULT_RATE_LIMIT)
+# @rate_limited(rpm=DEFAULT_RATE_LIMIT)
 async def _execute(
     *,
     query: str,
@@ -827,7 +822,7 @@ async def do_update_finding_severity(
     return False
 
 
-@rate_limited(rpm=DO_UPDATE_EVIDENCE_RATE_LIMIT)
+# @rate_limited(rpm=DO_UPDATE_EVIDENCE_RATE_LIMIT)
 @SHIELD
 async def do_update_evidence(
     *,
