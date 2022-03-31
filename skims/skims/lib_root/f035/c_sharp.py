@@ -110,7 +110,7 @@ def _get_var_val(
 
 def _check_no_password_argument(arg: graph_model.SyntaxStepLiteral) -> bool:
     if arg.value_type == "string":
-        for arg_part in arg.value.split(";"):
+        for arg_part in str(arg.value).split(";"):
             if "=" in arg_part:
                 var, value = arg_part.split("=", maxsplit=1)
                 if var == "Password" and not value:

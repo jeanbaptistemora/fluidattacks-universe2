@@ -60,11 +60,11 @@ def insecure_cors(
                             dependencies[0], SyntaxStepLambdaExpression
                         )
                     ):
-                        cors_objects.append(
-                            get_dependencies_from_nid(
-                                steps, dependencies[0].meta.n_id
-                            )[0].var
+                        nid_dependencies = get_dependencies_from_nid(
+                            steps, dependencies[0].meta.n_id
                         )
+                        if nid_dependencies:
+                            cors_objects.append(nid_dependencies[0].var)
                     if allow_all(step, dependencies):
                         yield shard, step.meta.n_id
                     if vuln_nid := allow_any_origin(step, cors_objects):
@@ -83,7 +83,9 @@ def allow_any_origin(step: SyntaxStep, cors_objects: list) -> Optional[str]:
         isinstance(step, SyntaxStepMethodInvocationChain)
         and step.method == "AllowAnyOrigin"
         and list(
-            elem for elem in step.expression.split(".") if elem in cors_objects
+            elem
+            for elem in str(step.expression).split(".")
+            if elem in cors_objects
         )
     ):
         return step.meta.n_id

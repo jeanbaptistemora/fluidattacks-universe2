@@ -88,14 +88,19 @@ def check_xml_serializer(
                 and shard.graph.nodes[type_var].get("label_type")
                 == "invocation_expression"
             ):
-                var_value = node_to_str(shard.graph, type_var)
+                var_value = node_to_str(shard.graph, str(type_var))
             if len(var_value) > 0:
                 var_items = var_value.split("(")
-                for _class in shard.metadata.c_sharp.classes.values():
+                for _class in (
+                    shard.metadata.c_sharp.classes.values()
+                    if shard.metadata.c_sharp
+                    else []
+                ):
                     for _method in _class.methods.values():
                         if (
                             var_items[0] == "Type.GetType"
                             and len(var_items) > 1
+                            and _method.parameters
                             and var_items[1].replace(")", "")
                             in _method.parameters.keys()
                             and _method.parameters[

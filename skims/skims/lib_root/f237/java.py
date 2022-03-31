@@ -33,7 +33,7 @@ def info_leak_stacktrace(
                 predicate=g.pred_has_labels(label_type="catch_clause"),
             ):
                 param = g.match_ast_d(graph, catch, "catch_formal_parameter")
-                exception_id = g.match_ast_d(graph, param, "identifier")
+                exception_id = g.match_ast_d(graph, str(param), "identifier")
 
                 if exception_id is None:
                     continue
@@ -42,7 +42,7 @@ def info_leak_stacktrace(
                 block = g.match_ast_d(graph, catch, "block")
                 for method_inv_id in g.filter_nodes(
                     graph,
-                    nodes=g.adj_ast(graph, block, depth=-1),
+                    nodes=g.adj_ast(graph, str(block), depth=-1),
                     predicate=g.pred_has_labels(
                         label_type="method_invocation"
                     ),

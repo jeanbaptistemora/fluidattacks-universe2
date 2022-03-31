@@ -230,7 +230,7 @@ def mark_obj_inst_sink(
 def mark_assignments_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.SyntaxStepsLists,
     attributes: Set[str],
 ) -> None:
     _mark_assignments(
