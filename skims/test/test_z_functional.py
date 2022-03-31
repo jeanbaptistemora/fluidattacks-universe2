@@ -12,7 +12,6 @@ import csv
 from integrates.dal import (
     do_add_git_root,
     do_delete_finding,
-    get_finding_consult,
     get_finding_current_release_status,
     get_finding_vulnerabilities,
     get_group_findings,
@@ -28,7 +27,6 @@ from model import (
 )
 import os
 import pytest
-import re
 from state.ephemeral import (
     EphemeralStore,
 )
@@ -460,50 +458,6 @@ def test_should_execute_a_reattack(test_group: str) -> None:
     assert f"[INFO] Your role in group {test_group} is: admin" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_integrates_session")
-async def test_reattack_comments_open_and_closed_vulnerability(
-    test_group: str,
-) -> None:
-    # A reattack request was executed, a finding consult was found
-    # that report open vulnerabilities
-    findings = await get_group_findings(group=test_group)
-
-    for finding in findings:
-        if finding.title.startswith("099"):
-            finding_id = finding.identifier
-
-    open_vulns_comment = (
-        r"^A reattack request was executed on\s"
-        + r"+([0-9]{4}\/+[0-9]{2}\/+[0-9]{2}\sat\s"
-        + r"[0-9]{2}\:[0-9]{2})\.\n"
-        + r"Reported vulnerabilities are still open in commit\s+"
-        + r"([a-zA-Z0-9]{40})\: \n"
-        + r"   - skims/test/data/lib_path/f099/"
-        + r"cfn_unencrypted_buckets.yaml:\n"
-        + r"     Non-compliant code: >  5 |     Properties:$"
-    )
-
-    closed_vulns_comment = (
-        r"^Reattack request was executed on\s"
-        + r"+([0-9]{4}\/+[0-9]{2}\/+[0-9]{2}\sat\s"
-        + r"[0-9]{2}\:[0-9]{2})\.\s\n"
-        + r"Reported vulnerabilities were solved in commit\s+"
-        + r"([a-zA-Z0-9]{40})\: \n"
-        + r"  - skims/test/data/lib_path/f099/cfn_bucket_policy.yaml\s\n$"
-    )
-
-    finding_consult = await get_finding_consult(finding_id=finding_id)
-
-    assert re.search(
-        closed_vulns_comment, finding_consult[0].get("content")
-    ) or re.search(closed_vulns_comment, finding_consult[1].get("content"))
-    assert re.search(
-        open_vulns_comment, finding_consult[0].get("content")
-    ) or re.search(open_vulns_comment, finding_consult[1].get("content"))
 
 
 @pytest.mark.asyncio
