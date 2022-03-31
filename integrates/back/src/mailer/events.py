@@ -75,6 +75,7 @@ async def send_mail_event_report(
     description: str,
     is_closed: bool = False,
 ) -> None:
+    state: str = "closed" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
         Dict[str, Any], ...
@@ -104,12 +105,12 @@ async def send_mail_event_report(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
         ),
-        "is_closed": is_closed,
+        "state": state,
     }
     await send_mails_async(
         email_to=users_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=(f"Event reported #[{event_id}] for [{group_name}]"),
+        subject=(f"Event {state} #[{event_id}] for [{group_name}]"),
         template_name="event_report",
     )

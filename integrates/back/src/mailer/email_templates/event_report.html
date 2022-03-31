@@ -9,9 +9,7 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      An event has been
-      <strong>{% if is_closed %} closed {% else %} reported {% endif %}</strong>
-      in <strong>{{ group }}</strong>:
+      An event has been <strong>{{ state }}</strong> in <strong>{{ group }}</strong>:
     </p>
     <p>
       Type: <strong>{{ event_type }}</strong>.<br/>
