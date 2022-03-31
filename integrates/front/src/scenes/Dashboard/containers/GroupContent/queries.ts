@@ -7,6 +7,7 @@ const GET_EVENTS: DocumentNode = gql`
       events {
         eventStatus
       }
+      name
     }
   }
 `;

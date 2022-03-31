@@ -1,6 +1,5 @@
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
@@ -27,7 +26,7 @@ describe("ActionButtons", (): void => {
       { action: "api_mutations_update_finding_description_mutate" },
     ]);
     const { isEditing, isPristine, onEdit, onUpdate } = baseMockedProps;
-    const wrapper: ReactWrapper = mount(
+    render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <ActionButtons
           isEditing={isEditing}
@@ -38,15 +37,9 @@ describe("ActionButtons", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    expect(wrapper).toHaveLength(1);
-
-    const buttons: ReactWrapper = wrapper.find("button");
-
-    expect(buttons).toHaveLength(1);
+    expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(
-      buttons.filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes("searchFindings.tabDescription.editable.text")
-      )
-    ).toHaveLength(1);
+      screen.queryByText("searchFindings.tabDescription.editable.text")
+    ).toBeInTheDocument();
   });
 });
