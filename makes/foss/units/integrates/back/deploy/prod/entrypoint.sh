@@ -37,7 +37,47 @@ function b64 {
   echo -n "${1}" | base64 --wrap=0
 }
 
-function main {
+function report_deployment_checkly {
+  echo '[INFO] Announcing deployment to Checkly' \
+    && curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
+      --request 'GET'
+}
+
+function report_deployment_new_relic {
+  echo '[INFO] Announcing deployment to New Relic' \
+    && curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
+      --request 'POST' \
+      --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
+      --header 'Content-Type: application/json' \
+      --include \
+      --data "{
+        \"deployment\": {
+          \"revision\": \"${CI_COMMIT_SHA}\",
+          \"user\": \"${CI_COMMIT_AUTHOR}\"
+        }
+      }"
+}
+
+function report_deployment {
+  report_deployment_checkly \
+    && report_deployment_new_relic
+}
+
+function rollout {
+  local name="${1}"
+
+  echo '[INFO] Rolling out update' \
+    && kubectl rollout status \
+      "deploy/integrates-${name}" \
+      -n 'production' \
+      --timeout="30m"
+}
+
+function deploy {
+  local name="${1}"
+  local endpoint="${1}"
+  export NAME="${name}"
+  export ENDPOINT="${endpoint}"
   export CI_COMMIT_REF_NAME='master'
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
@@ -56,36 +96,23 @@ function main {
     && B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
-    && for manifest in __argManifests__/*; do
-      echo "[INFO] Applying: ${manifest}" \
-        && apply "${manifest}" \
-        || return 1
-    done \
-    && echo '[INFO] Rolling out update' \
-    && kubectl rollout status \
-      "deploy/integrates-${CI_COMMIT_REF_NAME}" \
-      -n 'production' \
-      --timeout="30m" \
     && sops_export_vars integrates/secrets-production.yaml \
       CHECKLY_CHECK_ID \
       CHECKLY_TRIGGER_ID \
       NEW_RELIC_API_KEY \
       NEW_RELIC_APP_ID \
-    && echo '[INFO] Announcing deployment to Checkly' \
-    && curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
-      --request 'GET' \
-    && echo '[INFO] Announcing deployment to New Relic' \
-    && curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
-      --request 'POST' \
-      --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
-      --header 'Content-Type: application/json' \
-      --include \
-      --data "{
-            \"deployment\": {
-              \"revision\": \"${CI_COMMIT_SHA}\",
-              \"user\": \"${CI_COMMIT_AUTHOR}\"
-            }
-          }"
+    && for manifest in __argManifests__/*; do
+      echo "[INFO] Applying: ${manifest}" \
+        && apply "${manifest}" \
+        || return 1
+    done
+}
+
+function main {
+  deploy "master" "app" \
+    && deploy "mastertest" "apptest" \
+    && rollout "master" \
+    && report_deployment
 }
 
 main "${@}"

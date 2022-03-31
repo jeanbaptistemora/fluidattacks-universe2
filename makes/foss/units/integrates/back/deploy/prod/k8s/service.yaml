@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: integrates-master
+  name: integrates-${NAME}
   namespace: production
 spec:
   type: NodePort
@@ -11,4 +11,4 @@ spec:
       targetPort: 8001
       protocol: TCP
   selector:
-    app: integrates-master
+    app: integrates-${NAME}

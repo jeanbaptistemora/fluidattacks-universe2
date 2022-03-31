@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: integrates-master
+  name: integrates-${NAME}
   namespace: production
   annotations:
     kubernetes.io/ingress.class: alb
@@ -17,13 +17,13 @@ metadata:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   rules:
-    - host: app.fluidattacks.com
+    - host: ${ENDPOINT}.fluidattacks.com
       http:
         paths:
           - path: /*
             pathType: Prefix
             backend:
               service:
-                name: integrates-master
+                name: integrates-${NAME}
                 port:
                   number: 81

@@ -1,13 +1,13 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: integrates-master
+  name: integrates-${NAME}
   namespace: production
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: integrates-master
+    name: integrates-${NAME}
   minReplicas: 5
   maxReplicas: 75
   targetCPUUtilizationPercentage: 60

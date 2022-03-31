@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: integrates-master
+  name: integrates-${NAME}
   namespace: production
 type: Opaque
 data:

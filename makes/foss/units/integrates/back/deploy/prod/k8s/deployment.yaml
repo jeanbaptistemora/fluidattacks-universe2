@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: integrates-master
+  name: integrates-${NAME}
   namespace: production
 spec:
   replicas: ${REPLICAS}
   selector:
     matchLabels:
-      app: integrates-master
+      app: integrates-${NAME}
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: integrates-master
+        app: integrates-${NAME}
         # This ensures that the resource is updated on every apply
         uuid: ${UUID}
     spec:
@@ -56,7 +56,7 @@ spec:
               memory: 7800Mi
           envFrom:
             - secretRef:
-                name: integrates-master
+                name: integrates-${NAME}
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
@@ -86,7 +86,7 @@ spec:
                   aws_login_prod
                   prod_integrates
                   FluidIntegrates http://localhost:8001
-                  https://app.fluidattacks.com
+                  https://${ENDPOINT}.fluidattacks.com
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1
