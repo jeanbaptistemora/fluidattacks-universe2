@@ -48,23 +48,21 @@ def verify_decoder(
                     if len(props) > 2 and verify_prop(shard.graph, props):
                         yield shard, member
 
-    def verify_prop(
-        graph: graph_model.GraphShard, props: Tuple[Any, ...]
-    ) -> bool:
+    def verify_prop(graph: graph_model.Graph, props: Tuple[Any, ...]) -> bool:
         insecure = False
         prop_value = g.match_ast(graph, props[2])["__0__"]
         if graph.nodes[prop_value].get("label_text") == "false":
             insecure = True
         elif (
-            g.match_ast(graph, prop_value)
-            and graph.nodes[g.match_ast(graph, prop_value)["__0__"]].get(
+            g.match_ast(graph, str(prop_value))
+            and graph.nodes[g.match_ast(graph, str(prop_value))["__0__"]].get(
                 "label_text"
             )
             == "verify"
         ):
             arg = g.pred(
                 graph,
-                prop_value,
+                str(prop_value),
             )[0]
             arg_value = g.get_ast_childs(
                 graph, arg, label_type="boolean_literal"
@@ -96,7 +94,7 @@ def jwt_signed(
                 yield shard, member
 
     def check_pred(
-        graph: graph_model.GraphShard, depth: int = 1, elem_jwt: int = 0
+        graph: graph_model.Graph, depth: int = 1, elem_jwt: str = "0"
     ) -> bool:
         pred = g.pred(graph, elem_jwt, depth)[0]
         if graph.nodes[pred].get("label_type") == "member_access_expression":
