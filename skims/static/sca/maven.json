@@ -4538,7 +4538,7 @@
   "org.springframework.cloud:spring-cloud-dataflow-server-core": {
     "CVE-2020-5427": "<2.5.4.release || >=2.6.0 <2.6.5"
   },
-  " org.springframework.cloud:spring-cloud-function-context": {
+  "org.springframework.cloud:spring-cloud-function-context": {
     "CVE-2022-22963": "<3.1.7 || >=3.2.0 <3.2.3"
   },
   "org.springframework.cloud:spring-cloud-gateway": {
@@ -4560,7 +4560,7 @@
   "org.springframework.cloud:spring-cloud-openfeign-core": {
     "CVE-2021-22044": "<2.2.10 || >=3.0.0 <3.0.5"
   },
-  " org.springframework.cloud:spring-cloud-task-core": {
+  "org.springframework.cloud:spring-cloud-task-core": {
     "CVE-2020-5428": "<2.2.5"
   },
   "org.springframework.credhub:spring-credhub-core": {
