@@ -112,6 +112,7 @@ def format_state_justification(
 def format_group_state(  # pylint: disable=too-many-arguments
     justification: Optional[GroupStatusJustification],
     pending_deletion_date: Optional[str],
+    service: Optional[GroupService],
     state: dict[str, Any],
     state_status: GroupStateStatus,
     suscription_type: GroupSubscriptionType,
@@ -136,9 +137,7 @@ def format_group_state(  # pylint: disable=too-many-arguments
         pending_deletion_date=convert_to_iso_str(pending_deletion_date)
         if pending_deletion_date
         else None,
-        service=GroupService[str(state["service"]).upper()]
-        if state.get("service")
-        else None,
+        service=service,
     )
 
 
@@ -152,6 +151,11 @@ def format_group(item: Item, organization_name: str) -> Group:
         else GroupStateStatus.DELETED
     )
     last_configuration: dict[str, Any] = item["historic_configuration"][-1]
+    service: Optional[GroupService] = (
+        GroupService[str(last_configuration["service"]).upper()]
+        if last_configuration.get("service")
+        else None
+    )
     suscription_type = GroupSubscriptionType[
         str(last_configuration["type"]).upper()
     ]
@@ -182,6 +186,7 @@ def format_group(item: Item, organization_name: str) -> Group:
         state=format_group_state(
             justification=justification,
             pending_deletion_date=item.get("pending_deletion_date"),
+            service=service,
             state=current_state,
             state_status=state_status,
             suscription_type=suscription_type,

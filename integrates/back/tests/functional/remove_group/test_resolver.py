@@ -6,6 +6,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.groups.enums import (
+    GroupService,
     GroupStateRemovalJustification,
     GroupStateStatus,
     GroupTier,
@@ -40,11 +41,15 @@ async def test_remove_group(populate: bool, email: str) -> None:
 
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group_typed.load(group_name)
-    assert group.state.status == GroupStateStatus.DELETED
-    assert group.state.tier == GroupTier.FREE
+    assert group.state.has_machine is False
+    assert group.state.has_squad is False
     assert (
         group.state.justification == GroupStateRemovalJustification.NO_SYSTEM
     )
+    assert group.state.modified_by == email
+    assert group.state.service == GroupService.WHITE
+    assert group.state.status == GroupStateStatus.DELETED
+    assert group.state.tier == GroupTier.FREE
 
 
 @pytest.mark.asyncio
