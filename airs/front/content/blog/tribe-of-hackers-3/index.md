@@ -159,7 +159,9 @@ evaluation.
 
 ## That’s all, folks!
 
-If you want to know about our security testing services for your
-company, you can [contact us here](../../contact-us/). I hope you
-enjoyed reading this post, the third in the Tribe of Hackers Red Team
-series. See you soon\!
+If you want to know about our [security testing](../../solutions/security-testing/)
+solution for your company,
+you can [contact us here](../../contact-us/).
+I hope you enjoyed reading this post,
+the third in the Tribe of Hackers Red Team series.
+See you soon\!

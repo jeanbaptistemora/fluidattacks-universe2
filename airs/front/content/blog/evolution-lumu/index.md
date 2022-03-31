@@ -16,11 +16,11 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/aWDgqexSxA0
 ---
 
-The activity of cybersecurity testing at present, according to the
-information given to us by
-[Sylvester](https://www.youtube.com/watch?time_continue=1&v=rc8-0LV4tlU&feature=emb_logo)
-and
-[Cuervo](https://lumu.io/wp-content/uploads/2019/10/en_wp_itstesting.pdf),
+The activity of [cybersecurity testing](../../solutions/security-testing/)
+at present,
+according to the information
+given to us by [Sylvester](https://www.youtube.com/watch?time_continue=1&v=rc8-0LV4tlU&feature=emb_logo)
+and [Cuervo](https://lumu.io/wp-content/uploads/2019/10/en_wp_itstesting.pdf),
 can prompt us to remember its beginnings. Among them, for example, what
 was carried out by the US Navy in the eighties. On that occasion, it was
 a pentesting procedure, intended to reveal how simple it might be to
@@ -57,7 +57,7 @@ detailed research, with the aim of immediate remediation of any
 inconvenience. These industries have tried to be open communities and to
 share information between entities, in addition to establishing
 standardized processes. Their testing exercises continually aim for an
-approach to ‘perfection.’ At least assuming the alteration of some
+approach to 'perfection.' At least assuming the alteration of some
 controllable variables. And hoping that some methods result even more
 predictable and successful, always to the benefit of the user.
 
@@ -72,9 +72,9 @@ outside. It’s not being considered that the attacker may already be
 inside. In the latter, prevention may no longer be useful.
 
 [Cuervo](https://lumu.io/wp-content/uploads/2019/10/en_wp_itstesting.pdf)
-talks about a typical “misconception that all attacks occur on servers
-and databases.” When in fact most attacks start with emails addressed to
-an organization’s employees, from malicious subjects (recall our
+talks about a typical "misconception that all attacks occur on servers
+and databases." When in fact most attacks start with emails addressed to
+an organization's employees, from malicious subjects (recall our
 [ransomware](../ransomware/) blog post). This is intended to affect
 certain devices initially, and then "move laterally until higher value
 assets are found."

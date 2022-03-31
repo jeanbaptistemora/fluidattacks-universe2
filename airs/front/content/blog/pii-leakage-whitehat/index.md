@@ -21,8 +21,8 @@ webinar (which you can access
 [here](https://www.brighttalk.com/webcast/11691/387589)) in a blog post
 (link
 [here](https://www.whitehatsec.com/blog/mobile-security-app-titude-best-practices-for-secure-app-design-and-data-privacy/)):
-“Mobile app owners and developers are receiving a failing grade on due
-diligence to protecting consumer data.”
+"Mobile app owners and developers are receiving a failing grade on due
+diligence to protecting consumer data."
 
 There are different means by which information can be collected today to
 identify a particular individual. People are continually registering for
@@ -37,7 +37,7 @@ information, especially sensitive information that we store on these
 devices.
 
 Such sensitive information can also be categorized as personally
-identifiable information or `PII`. This information may include the real
+identifiable information or PII. This information may include the real
 name, alias, account name, actual address, IP address, email address,
 social security number, passport, driver’s license number, and some
 other data.
@@ -104,8 +104,8 @@ and to prevent mobile app security intrusions, the following:
 
 On the one hand, it has to be defined what information is required; what
 information is needed for the application. Distinguish which of it is
-part of the sensitive data or `PII`. Within the `GDPR` ([General Data
-Protection Regulation](https://gdpr-info.eu/)), privacy by design is an
+part of the sensitive data or PII. Within the GDPR ([General Data
+Protection Regulation](../../compliance/gdpr/)), privacy by design is an
 essential requirement, so the applications we develop must maintain,
 process, and share with external sources the *necessary* user data. But
 what information is classified as *necessary*, and who defines that?
@@ -133,18 +133,20 @@ generated can be hacked. Hence the need to maintain a constant
 evaluation of the system, even in the middle of development.
 
 We come back to something that is continuously repeated in the area of
-cybersecurity. In essence, sometimes the developers don’t know, or
-sometimes they don’t pay attention to it and the subsequent risks, and
+cybersecurity. In essence, sometimes the developers don't know, or
+sometimes they don't pay attention to it and the subsequent risks, and
 they are not building secure code when creating software. Sometimes they
-don’t even know how or don’t have the tools to address a vulnerability
+don’t even know how or don't have the tools to address a vulnerability
 before it becomes a problem. Besides, enterprise managers may request
 application development for quick commitment to their customers without
 fully considering the value of cybersecurity assessment and
 implementation.
 
-Is your company prepared for the implications that an application
-security breach may have? Always keep mobile application security
-testing as an option, so that the application in question is attacked,
+Is your company prepared for the implications
+that an application security breach may have?
+Always keep mobile application [security testing](../../solutions/security-testing/)
+as an option,
+so that the application in question is attacked,
 and vulnerabilities that give access to external people or systems to
 the private information of the mobile application user are identified.
 Again, this is something to be done periodically; at least it is what we
@@ -156,6 +158,6 @@ this? Leaving that extraordinary possibility aside, we recommend keeping
 as a priority the proper securing of other people’s information on any
 kind of system.
 
-Would you like to know about `Fluid Attacks` [continuous
-hacking](../../services/continuous-hacking/) services? [Contact
-us](../../contact-us/).
+Would you like to know about `Fluid Attacks`
+[Continuous Hacking](../../services/continuous-hacking/) service?
+[Contact us](../../contact-us/).

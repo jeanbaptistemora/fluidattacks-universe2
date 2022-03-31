@@ -36,7 +36,7 @@ that practice a new security testing methodology. They act within a new
 generation scheme, following a process similar to that which a real
 hacker would follow.
 
-But before we make an overview of this process, let’s put it in context.
+But before we make an overview of this process, let's put it in context.
 
 Security tests tend to be thought of as being carried out at specific
 times. For example, as soon as a program has been developed and before
@@ -53,8 +53,10 @@ are those that have not been discovered by anyone. And *zero-day*
 vulnerabilities have already been found by some subjects, but have not
 been disclosed to vendors or communities.
 
-Vulnerability detection can be done with `SAST`, `DAST`, or a mixture of
-both techniques (*grey-box* testing).
+Vulnerability detection can be done with [SAST](../../categories/sast/),
+[DAST](../../categories/dast/),
+or a mixture of both techniques
+(*grey-box* testing).
 
 If we take the first one, we’re referring to **Static Analysis Security
 Testing**. This form of *white-box* testing uncovers vulnerabilities
@@ -81,9 +83,9 @@ application may be unlikely.
 
 It is here that the use of **continuous hacking** appears as
 recommended, a process that goes beyond one-pass checks. While people
-use the software and hackers try to find the vulnerabilities, continuous
-hacking is conducted as a security testing, and it is performed as the
-software evolves.
+use the software and hackers try to find the vulnerabilities,
+continuous hacking is conducted as a [security testing](../../solutions/security-testing/),
+and it is performed as the software evolves.
 
 Concerning the negative testing, we can then mention **continuous
 fuzzing**. As [Ispoglou et al.
@@ -155,6 +157,6 @@ must be aware that: whether through automatic systems or manual work,
 continuous hacking will always mean more depth and thoroughness in the
 search for vulnerabilities.
 
-Would you like to know about `Fluid Attacks` [continuous
-hacking](../../services/continuous-hacking/) services? [Contact
-us](../../contact-us/).
+Would you like to know about `Fluid Attacks`
+[Continuous Hacking](../../services/continuous-hacking/) service?
+[Contact us](../../contact-us/).
