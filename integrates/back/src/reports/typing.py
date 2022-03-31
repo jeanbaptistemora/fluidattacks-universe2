@@ -283,14 +283,23 @@ class PDFWordlistEn(Wordlist):
     FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
         "fin_status_closed", "Closed"
     )
+    FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
+        "finding_number_title", "Number of Findings"
+    )
+    TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
+        "total_vulns_title", "Found Vulnerabilities"
+    )
+    CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
+        "closed_vulns_title", "Closed Vulnerabilities"
+    )
 
 
 class PDFWordlistEs(Wordlist):
     CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
         "closed_vulns_title", "Vulnerabilidades Remediadas"
     )
-    FINDING_QUANTITY_TITLE: WordlistItem = WordlistItem(
-        "finding_quantity_title", "Cantidad de Tipologías"
+    FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
+        "finding_number_title", "Cantidad de Tipologías"
     )
     FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Abierto")
     FIN_STATUS_CLOSED: WordlistItem = WordlistItem(

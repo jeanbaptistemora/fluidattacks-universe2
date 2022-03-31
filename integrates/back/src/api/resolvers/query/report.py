@@ -118,9 +118,11 @@ async def resolve(
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
     if report_type == "CERT":
-        business_id, business_name, description = await get_group_info(
-            group_name
-        )
+        (
+            business_id,
+            business_name,
+            description,
+        ) = await get_group_info(group_name)
         if not (business_id and business_name and description):
             raise RequestedReportError(
                 expr=(

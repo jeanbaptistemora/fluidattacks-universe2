@@ -964,6 +964,8 @@ async def get_description(group_name: str) -> str:
 
 
 async def get_group_info(group_name: str) -> Tuple[str, str, str]:
+    """Returns the description, business_id, and business_name attrs
+    of a Group"""
     return await groups_dal.get_group_info(group_name)
 
 

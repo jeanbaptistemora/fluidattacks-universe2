@@ -9,14 +9,14 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
 from findings import (
     domain as findings_domain,
-)
-from groups import (
-    domain as groups_domain,
 )
 from typing import (
     Optional,
@@ -47,7 +47,7 @@ async def get_group_report_url(
             reverse=True,
         )
     )
-    description = await groups_domain.get_description(group_name)
+    group: Group = await loaders.group_typed.load(group_name)
 
     if report_type == "XLS":
         return await technical_report.generate_xls_file(
@@ -60,7 +60,7 @@ async def get_group_report_url(
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(
             loaders=loaders,
-            description=description,
+            description=group.description,
             findings_ord=findings_ord,
             group_name=group_name,
             lang="en",
@@ -70,17 +70,17 @@ async def get_group_report_url(
     if report_type == "CERT":
         return await cert_report.generate_cert_file(
             loaders=loaders,
-            description=description,
+            description=group.description,
             findings_ord=findings_ord,
             group_name=group_name,
-            lang="es",
+            lang=str(group.language.value).lower(),
         )
     if report_type == "DATA":
         return await data_report.generate(
             loaders=loaders,
             findings_ord=findings_ord,
             group=group_name,
-            group_description=description,
+            group_description=group.description,
             passphrase=passphrase,
             requester_email=user_email,
         )
