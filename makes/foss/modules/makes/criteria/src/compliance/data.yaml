@@ -5630,3 +5630,15 @@
       title: Implement data security as an element of the cybersecurity architecture (3)
       link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
   metadata: {}
+"wasc":
+  title: WASC
+  en:
+    description: >
+      ...
+  es:
+    description: __empty__
+  definitions:
+    "A_42":
+      title: Abuse of functionality
+      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+  metadata: {}
