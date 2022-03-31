@@ -84,7 +84,7 @@ async def mutate(
     tier = GroupTier[str(kwargs.get("tier", "free")).upper()]
 
     try:
-        await groups_domain.update_group_typed(
+        await groups_domain.update_group(
             loaders=loaders,
             comments=comments,
             group_name=group_name,

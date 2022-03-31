@@ -787,121 +787,7 @@ async def validate_open_roots(loaders: Any, group_name: str) -> None:
         raise HasActiveRoots()
 
 
-async def update_group_attrs(
-    *,
-    loaders: Any,
-    comments: str,
-    group_name: str,
-    has_squad: bool,
-    has_asm: bool,
-    has_machine: bool,
-    reason: str,
-    requester_email: str,
-    service: str,
-    subscription: str,
-    tier: str = "",
-) -> bool:
-    success: bool = False
-
-    validate_fields([comments])
-    validate_string_length_between(comments, 0, 250)
-    validate_group_services_config(
-        has_machine,
-        has_squad,
-        has_asm,
-    )
-
-    item = cast(
-        Dict[str, Any],
-        await groups_dal.get_attributes(
-            group_name=group_name,
-            attributes=["historic_configuration", "project_name"],
-        ),
-    )
-    item.setdefault("historic_configuration", [])
-
-    if get_key_or_fallback(item):
-        if service != item["historic_configuration"][-1]["service"]:
-            await deactivate_all_roots(
-                loaders=loaders,
-                group_name=group_name,
-                user_email=requester_email,
-                other=comments,
-                reason=reason,
-            )
-        if tier == "":
-            tier = item["historic_configuration"][-1].get("tier", "free")
-
-        success = await update(
-            data={
-                "historic_configuration": [
-                    *item["historic_configuration"],
-                    {
-                        "comments": comments,
-                        "date": datetime_utils.get_now_as_str(),
-                        "has_skims": has_machine,
-                        "has_machine": has_machine,
-                        "has_drills": has_squad,
-                        "has_squad": has_squad,
-                        "has_forces": True,
-                        "reason": reason,
-                        "requester": requester_email,
-                        "service": service,
-                        "tier": tier,
-                        "type": subscription,
-                    },
-                ],
-            },
-            group_name=group_name,
-        )
-
-    if not success:
-        return False
-
-    if has_asm:
-        await notifications_domain.update_group(
-            comments=comments,
-            group_name=group_name,
-            had_machine=item["historic_configuration"][-1]["has_skims"],
-            had_squad=(
-                cast(
-                    bool,
-                    get_key_or_fallback(
-                        item["historic_configuration"][-1],
-                        "has_squad",
-                        "has_drills",
-                    ),
-                )
-                if item["historic_configuration"]
-                else False
-            ),
-            had_asm=True,
-            has_machine=has_machine,
-            has_squad=has_squad,
-            has_asm=has_asm,
-            reason=reason,
-            requester_email=requester_email,
-            service=service,
-            subscription=subscription,
-        )
-        return True
-
-    group = await loaders.group.load(group_name)
-    org_id = group["organization"]
-    success = await remove_group(
-        loaders, group_name, requester_email, org_id, reason
-    )
-    if success:
-        await notifications_domain.delete_group(
-            deletion_date=datetime_utils.get_now_as_str(),
-            group_name=group_name,
-            requester_email=requester_email,
-            reason=reason,
-        )
-    return success
-
-
-async def update_group_typed(
+async def update_group(
     *,
     loaders: Any,
     comments: str,
@@ -1032,7 +918,7 @@ async def update_group_tier(
     else:
         raise InvalidGroupTier()
 
-    await update_group_typed(**data)
+    await update_group(**data)
 
 
 async def get_active_groups() -> List[str]:

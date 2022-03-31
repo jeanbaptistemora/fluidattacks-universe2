@@ -71,7 +71,7 @@ async def mutate(
     requester_email = user_info["user_email"]
 
     try:
-        await groups_domain.update_group_typed(
+        await groups_domain.update_group(
             loaders=loaders,
             comments="",
             group_name=group_name,

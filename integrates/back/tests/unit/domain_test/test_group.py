@@ -81,7 +81,7 @@ from groups.domain import (
     get_open_vulnerabilities,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
-    update_group_typed,
+    update_group,
     validate_group_services_config,
     validate_group_tags,
 )
@@ -727,7 +727,7 @@ async def test_update_group_attrs(
     has_asm: bool,
     tier: GroupTier,
 ) -> None:
-    await update_group_typed(
+    await update_group(
         loaders=get_new_context(),
         comments="",
         group_name=group_name,
@@ -784,7 +784,7 @@ async def test_update_group_attrs_fail(
     tier: GroupTier,
 ) -> None:
     with pytest.raises(UnavailabilityError):
-        await update_group_typed(
+        await update_group(
             loaders=get_new_context(),
             comments="",
             group_name=group_name,
