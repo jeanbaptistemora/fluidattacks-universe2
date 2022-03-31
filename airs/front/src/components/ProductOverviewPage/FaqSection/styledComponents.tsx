@@ -24,7 +24,7 @@ const FaqParagraph = styled.p.attrs({
     c-black-gray
     roboto
     ma0
-    mv5
+    mt5
     tc
   `,
 })`
