@@ -1,6 +1,7 @@
 import React from "react";
 
 import { CardsSection } from "./CardsSection";
+import { FaqSection } from "./FaqSection";
 import { PlanSection } from "./PlanSection";
 
 import { PageArticle } from "../../styles/styledComponents";
@@ -16,6 +17,7 @@ const ProductOverviewPage: React.FC<IProps> = ({
     <PageArticle>
       <PlanSection description={description} />
       <CardsSection />
+      <FaqSection />
     </PageArticle>
   );
 };

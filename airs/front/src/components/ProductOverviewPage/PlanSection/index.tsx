@@ -37,9 +37,11 @@ const PlanSection: React.FC<IProps> = ({
           {translate.t("productOverview.title")}
         </NewBlackBigParagraph>
         <ProductParagraph>{description}</ProductParagraph>
-        <BigRegularRedButton>
-          {translate.t("productOverview.mainButton")}
-        </BigRegularRedButton>
+        <Link to={"/contact-us-demo/"}>
+          <BigRegularRedButton>
+            {translate.t("productOverview.mainButton")}
+          </BigRegularRedButton>
+        </Link>
         <ProductParagraph>
           <i>
             {translate.t("productOverview.planText")}

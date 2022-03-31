@@ -145,6 +145,51 @@ const pageTexts: ResourceKey = {
         "vulnerability: start its remediation or accept its presence.",
       card3Title: "Define treatments for vulnerabilities",
     },
+    faqSection: {
+      paragraph:
+        "Do you have more questions?  Explore the most frequently asked questions ",
+      question1Answer:
+        "We find vulnerabilities in the systems of a wide variety " +
+        "of companies in the following industries: banking, fintech, " +
+        "automotive, healthcare, oil and energy, pharmaceutical, telecommunications, " +
+        "technology and human resources. Explore our clients ",
+      question1Title: "What industries use our Continuous Hacking solution?",
+      question2Answer: {
+        a1: "Secure your system through continuous comprehensive analyses of its components.",
+        a2:
+          "Identify vulnerabilities immediately with very low rates of false positives " +
+          "and false negatives.",
+        a3:
+          "Remediate up to 50% of critical severity vulnerabilities within " +
+          "seven days from discovery.",
+        a4: "Achieve a remediation rate of 100% of critical severity vulnerabilities.",
+        a5:
+          "Save up to 90% in remediation costs by addressing vulnerabilities during " +
+          "development rather than during the production phase.",
+        a6: "Reduce your systems' time-to-market.",
+      },
+      question2Title:
+        "How do you benefit from our Continuous Hacking solution?",
+      question3Answer: {
+        a1:
+          "An active account in our Attack Surface Manager (ASM). " +
+          "This is where vulnerabilities are reported.",
+        a2:
+          "URL (SSH) and branch of each code repository. Repos must be reachable " +
+          "over the Internet and hosted on a git-like solution (for instance, Gitlab, " +
+          "Azure DevOps, Bitbucket, etc.).",
+        a3: "SSH key, allowing our solution to access the code repos to be tested.",
+      },
+      question3Title:
+        "What are the requirements for the one-month free trial " +
+        "of Continuous Hacking?",
+      question4Answer:
+        "During the free trial, the security testing will be completely automatic. " +
+        "You can upgrade at any time during your free trial period to our " +
+        "Continuous Hacking Squad Plan, which mainly involves manual pentesting.",
+      question4Title:
+        "Can I upgrade from the Continuous Hacking Machine Plan to the Squad Plan?",
+    },
     mainButton: "Schedule your free trial",
     planText:
       "*This free trial is for Machine Plan. " +
