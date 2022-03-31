@@ -17,7 +17,6 @@ from settings import (
     NEW_RELIC_CONF_FILE,
     TEMPLATES_DIR,
 )
-import tracemalloc
 
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 from . import (
@@ -140,12 +139,6 @@ LOGGER = logging.getLogger(__name__)
 @authenticate_session
 async def app(request: Request) -> HTMLResponse:
     """View for authenticated users"""
-    tracemalloc.start()
-    snapshot = tracemalloc.take_snapshot()
-    top_stats = snapshot.statistics("lineno")
-    print("[ Top 10 ]")
-    for stat in top_stats[:10]:
-        print(stat)
     email = request.session.get("username")
     try:
         if email:
