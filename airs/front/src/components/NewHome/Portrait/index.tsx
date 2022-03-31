@@ -27,7 +27,7 @@ const Portrait: React.FC = (): JSX.Element => (
           {"Secure your applications with our Continuous Hacking Solution"}
         </WhiteBigParagraph>
         <NewGrayBigParagraph>
-          {"Effective Automation + AI + Expert Intelligence"}
+          {"Accurate automation + AI prioritization + Expert intelligence"}
         </NewGrayBigParagraph>
         <div className={"cf mt4 mb5"}>
           <Link className={"no-underline"} to={"/contact-us-demo/"}>
