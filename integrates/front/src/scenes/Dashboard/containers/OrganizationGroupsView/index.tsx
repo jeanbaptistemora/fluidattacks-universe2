@@ -4,7 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -24,6 +24,8 @@ import type {
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { ButtonToolbar, Row } from "styles/styledComponents";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -43,14 +45,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const [isGroupModalOpen, setGroupModalOpen] = useState(false);
-  const [runTour, toggleTour] = useState(false);
+  const { userEmail }: IAuthContext = useContext(authContext);
+  const [runTour, toggleTour] = useState(
+    userEmail.endsWith("fluidattacks.com")
+  );
 
   const openNewGroupModal: () => void = useCallback((): void => {
-    if (runTour) {
-      toggleTour(false);
-    }
     setGroupModalOpen(true);
-  }, [runTour, toggleTour]);
+  }, []);
 
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery<IGetOrganizationGroups>(
@@ -78,9 +80,12 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const closeNewGroupModal: () => void = useCallback((): void => {
+    if (runTour) {
+      toggleTour(false);
+    }
     setGroupModalOpen(false);
     void refetchGroups();
-  }, [refetchGroups]);
+  }, [refetchGroups, runTour, toggleTour]);
   // Auxiliary functions
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]
@@ -297,21 +302,20 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                               <FontAwesomeIcon icon={faPlus} />
                               &nbsp;
                               {t("organization.tabs.groups.newGroup.new.text")}
-                              {runTour ? (
-                                <Tour
-                                  run={true}
-                                  steps={[
-                                    {
-                                      content: t("tours.addGroup.addButton"),
-                                      disableBeacon: true,
-                                      // HideCloseButton: true,
-                                      hideFooter: true,
-                                      target: "#add-group",
-                                    },
-                                  ]}
-                                />
-                              ) : undefined}
                             </Button>
+                            {runTour ? (
+                              <Tour
+                                run={true}
+                                steps={[
+                                  {
+                                    content: t("tours.addGroup.addButton"),
+                                    disableBeacon: true,
+                                    hideFooter: true,
+                                    target: "#add-group",
+                                  },
+                                ]}
+                              />
+                            ) : undefined}
                           </TooltipWrapper>
                         </ButtonToolbar>
                       </Can>

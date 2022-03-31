@@ -5,7 +5,7 @@ import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
@@ -50,6 +50,8 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { Tour } from "components/Tour/index";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -91,18 +93,21 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isManagingRoot, setManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
-  const [runTour, toggleTour] = useState(false);
+  const { userEmail }: IAuthContext = useContext(authContext);
+  const [runTour, toggleTour] = useState(
+    userEmail.endsWith("fluidattacks.com")
+  );
 
   const openAddModal: () => void = useCallback((): void => {
+    setManagingRoot({ mode: "ADD" });
+  }, []);
+
+  const closeModal: () => void = useCallback((): void => {
     if (runTour) {
       toggleTour(false);
     }
-    setManagingRoot({ mode: "ADD" });
-  }, [runTour, toggleTour]);
-
-  const closeModal: () => void = useCallback((): void => {
     setManagingRoot(false);
-  }, []);
+  }, [runTour, toggleTour]);
 
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
