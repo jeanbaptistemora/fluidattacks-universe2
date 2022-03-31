@@ -201,6 +201,8 @@ async def https_ls_remote(
 
     proc = await asyncio.create_subprocess_exec(
         "git",
+        "-c",
+        "http.sslVerify=false",
         "ls-remote",
         url,
         branch,
@@ -210,7 +212,7 @@ async def https_ls_remote(
     )
     try:
         stdout, _ = await asyncio.wait_for(proc.communicate(), 4)
-    except TimeoutError:
+    except asyncio.exceptions.TimeoutError:
         return None
 
     if proc.returncode != 0:
@@ -279,6 +281,8 @@ async def https_clone(
     folder_to_clone_root = f"{temp_dir}/{uuid.uuid4()}"
     proc = await asyncio.create_subprocess_exec(
         "git",
+        "-c",
+        "http.sslVerify=false",
         "clone",
         "--branch",
         branch,

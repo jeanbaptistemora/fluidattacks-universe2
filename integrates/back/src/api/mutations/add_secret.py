@@ -6,7 +6,7 @@ from custom_types import (
 )
 from decorators import (
     concurrent_decorators,
-    enforce_user_level_auth_async,
+    enforce_group_level_auth_async,
     require_login,
 )
 from graphql.type.definition import (
@@ -20,7 +20,7 @@ from roots.domain import (
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
-    enforce_user_level_auth_async,
+    enforce_group_level_auth_async,
 )
 async def mutate(
     _: None,
