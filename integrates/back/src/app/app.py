@@ -71,6 +71,12 @@ from custom_types import (
 from dataloaders import (
     get_new_context,
 )
+from ddtrace import (
+    patch,
+)
+from ddtrace.runtime import (
+    RuntimeMetrics,
+)
 from decorators import (
     authenticate_session,
 )
@@ -411,6 +417,10 @@ STARLETTE_APP = Starlette(
     ],
     exception_handlers=exception_handlers,
 )
+
+# APM Config
+patch(aiobotocore=True)
+RuntimeMetrics.enable()
 
 # ASGI wrappers
 NEWRELIC_WRAPPER = newrelic.agent.ASGIApplicationWrapper(STARLETTE_APP)

@@ -30,7 +30,7 @@ spec:
           env:
             - name: MAKES_K8S_COMPAT
               value: "1"
-            - name: INSTANA_AGENT_HOST
+            - name: DD_AGENT_HOST
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP

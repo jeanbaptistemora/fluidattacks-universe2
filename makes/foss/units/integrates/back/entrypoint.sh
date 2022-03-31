@@ -55,7 +55,7 @@ function serve {
         # The number of seconds to wait for requests on a Keep-Alive connection
         --keep-alive "${load_balancer_timeout}"
         # host:port of the statsd server to log to
-        --statsd-host "${INSTANA_AGENT_HOST}":8125
+        --statsd-host "${DD_AGENT_HOST}":8125
         # The number of worker processes for handling requests
         --workers "${recommended_workers}"
       )
@@ -64,7 +64,7 @@ function serve {
         # The number of seconds to wait for requests on a Keep-Alive connection
         --keep-alive "${load_balancer_timeout}"
         # host:port of the statsd server to log to
-        --statsd-host "${INSTANA_AGENT_HOST}":8125
+        --statsd-host "${DD_AGENT_HOST}":8125
         # The number of worker processes for handling requests
         --workers "${recommended_workers}"
       )
