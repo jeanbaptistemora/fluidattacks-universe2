@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -14,7 +13,7 @@ describe("ContentTab", (): void => {
   it("should render a component", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <MemoryRouter>
         <ContentTab
           id={"test-id"}
@@ -25,7 +24,6 @@ describe("ContentTab", (): void => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find("#test-id").hostNodes()).toHaveLength(1);
-    expect(wrapper.find("#test-id").at(0).text()).toContain("Tab-Title");
+    expect(screen.queryByRole("link")).toBeInTheDocument();
   });
 });

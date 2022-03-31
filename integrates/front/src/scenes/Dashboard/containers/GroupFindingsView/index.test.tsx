@@ -84,6 +84,8 @@ describe("GroupFindingsView", (): void => {
       data: {
         me: {
           hasMobileApp: true,
+          role: "",
+          userEmail: "",
         },
       },
     },

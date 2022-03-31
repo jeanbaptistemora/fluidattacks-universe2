@@ -486,7 +486,7 @@ describe("FindingContent", (): void => {
         screen.queryByText("group.drafts.approve.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.approve.text")
@@ -548,7 +548,7 @@ describe("FindingContent", (): void => {
         screen.queryByText("group.drafts.approve.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(4);
     });
@@ -607,7 +607,7 @@ describe("FindingContent", (): void => {
         screen.queryByText("group.drafts.reject.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(
         screen.queryByText("group.drafts.reject.title")
@@ -667,7 +667,7 @@ describe("FindingContent", (): void => {
         screen.queryByText("group.drafts.reject.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     const numberOfErrors: number = 3;
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(numberOfErrors);

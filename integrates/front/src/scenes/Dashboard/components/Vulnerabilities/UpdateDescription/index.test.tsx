@@ -650,7 +650,7 @@ describe("Update Description component", (): void => {
     userEvent.click(
       within(
         screen.getByText("searchFindings.tabDescription.approvalMessage")
-      ).getByRole("button", { name: "Proceed" })
+      ).getByRole("button", { name: "confirmmodal.proceed" })
     );
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(

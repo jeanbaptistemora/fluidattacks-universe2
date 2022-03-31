@@ -98,7 +98,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     // eslint-disable-next-line fp/no-mutating-methods
     Object.defineProperty(window, "location", {
       value: { assign: jest.fn() },
@@ -155,7 +155,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });

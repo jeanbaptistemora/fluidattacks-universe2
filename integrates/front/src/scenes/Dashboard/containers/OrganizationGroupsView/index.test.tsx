@@ -171,6 +171,8 @@ describe("Organization groups view", (): void => {
     });
 
     expect(screen.queryAllByRole("table")).toHaveLength(0);
+
+    jest.clearAllMocks();
   });
 
   it("should add a new group", async (): Promise<void> => {
@@ -354,13 +356,18 @@ describe("Organization groups view", (): void => {
 
     userEvent.click(screen.getByText("confirmmodal.proceed"));
 
-    await waitFor((): void => {
-      expect(screen.getAllByRole("row")).toHaveLength(4);
-    });
+    await waitFor(
+      (): void => {
+        expect(screen.queryAllByRole("row")).toHaveLength(4);
+      },
+      { timeout: 2000 }
+    );
 
     expect(msgSuccess).toHaveBeenCalledWith(
       "organization.tabs.groups.newGroup.success",
       "organization.tabs.groups.newGroup.titleSuccess"
     );
+
+    jest.clearAllMocks();
   });
 });

@@ -617,7 +617,7 @@ describe("GroupScopeView", (): void => {
         screen.queryByText("group.scope.common.confirm")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(
         screen.getByRole<HTMLInputElement>("checkbox").checked
@@ -801,7 +801,7 @@ describe("GroupScopeView", (): void => {
           screen.queryByText("group.scope.common.confirm")
         ).toBeInTheDocument();
       });
-      userEvent.click(screen.getByText("Proceed"));
+      userEvent.click(screen.getAllByText("confirmmodal.proceed")[1]);
       await waitFor((): void => {
         expect(
           screen.getByRole<HTMLInputElement>("checkbox").checked

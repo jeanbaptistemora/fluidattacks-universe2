@@ -310,7 +310,7 @@ describe("Files", (): void => {
         screen.queryByText("searchFindings.tabResources.files.confirm.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("Proceed"));
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
