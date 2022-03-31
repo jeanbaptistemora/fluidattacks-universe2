@@ -23,7 +23,9 @@ from db_model.findings.types import (
 )
 from db_model.groups.enums import (
     GroupService,
+    GroupStateUpdationJustification,
     GroupSubscriptionType,
+    GroupTier,
 )
 from db_model.groups.types import (
     Group,
@@ -78,7 +80,7 @@ from groups.domain import (
     get_open_vulnerabilities,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
-    update_group_attrs,
+    update_group_typed,
     validate_group_services_config,
     validate_group_tags,
 )
@@ -692,74 +694,50 @@ async def test_create_group_not_user_admin() -> None:
         "has_machine",
         "has_squad",
         "has_asm",
-        "expected",
         "tier",
     ],
     [
         [
             "unittesting",
-            "WHITE",
-            "continuous",
+            GroupService.WHITE,
+            GroupSubscriptionType.CONTINUOUS,
             True,
             True,
             True,
-            True,
-            "SQUAD",
+            GroupTier.SQUAD,
         ],
         [
             "oneshottest",
-            "BLACK",
-            "oneshot",
+            GroupService.BLACK,
+            GroupSubscriptionType.ONESHOT,
             False,
             False,
             True,
-            True,
-            "ONESHOT",
-        ],
-        [
-            "not-exists",
-            "WHITE",
-            "continuous",
-            True,
-            True,
-            True,
-            False,
-            "MACHINE",
-        ],
-        [
-            "not-exists",
-            "WHITE",
-            "continuous",
-            False,
-            False,
-            False,
-            False,
-            "FREE",
+            GroupTier.ONESHOT,
         ],
     ],  # pylint: disable=too-many-arguments
 )
 async def test_update_group_attrs(
     group_name: str,
-    service: str,
-    subscription: str,
+    service: GroupService,
+    subscription: GroupSubscriptionType,
     has_machine: bool,
     has_squad: bool,
     has_asm: bool,
-    expected: bool,
-    tier: str,
+    tier: GroupTier,
 ) -> None:
-    assert expected == await update_group_attrs(
+    await update_group_typed(
         loaders=get_new_context(),
         comments="",
         group_name=group_name,
-        subscription=subscription,
+        justification=GroupStateUpdationJustification.NONE,
+        has_asm=has_asm,
         has_machine=has_machine,
         has_squad=has_squad,
-        has_asm=has_asm,
-        reason="",
-        requester_email="test@test.test",
         service=service,
+        subscription=subscription,
         tier=tier,
+        user_email="test@test.test",
     )
 
 
