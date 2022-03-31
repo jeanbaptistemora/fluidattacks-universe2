@@ -6,6 +6,7 @@ from back.tests.unit.utils import (
 from custom_exceptions import (
     InvalidGroupServicesConfig,
     RepeatedValues,
+    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -739,6 +740,63 @@ async def test_update_group_attrs(
         tier=tier,
         user_email="test@test.test",
     )
+
+
+@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "service",
+        "subscription",
+        "has_machine",
+        "has_squad",
+        "has_asm",
+        "tier",
+    ],
+    [
+        [
+            "not-exists",
+            GroupService.WHITE,
+            GroupSubscriptionType.CONTINUOUS,
+            True,
+            True,
+            True,
+            GroupTier.MACHINE,
+        ],
+        [
+            "not-exists",
+            GroupService.WHITE,
+            GroupSubscriptionType.CONTINUOUS,
+            False,
+            False,
+            False,
+            GroupTier.FREE,
+        ],
+    ],  # pylint: disable=too-many-arguments
+)
+async def test_update_group_attrs_fail(
+    group_name: str,
+    service: GroupService,
+    subscription: GroupSubscriptionType,
+    has_machine: bool,
+    has_squad: bool,
+    has_asm: bool,
+    tier: GroupTier,
+) -> None:
+    with pytest.raises(UnavailabilityError):
+        await update_group_typed(
+            loaders=get_new_context(),
+            comments="",
+            group_name=group_name,
+            justification=GroupStateUpdationJustification.NONE,
+            has_asm=has_asm,
+            has_machine=has_machine,
+            has_squad=has_squad,
+            service=service,
+            subscription=subscription,
+            tier=tier,
+            user_email="test@test.test",
+        )
 
 
 async def test_get_pending_verification_findings() -> None:
