@@ -22,6 +22,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.enums import (
+    GroupStateRemovalJustification,
     GroupTier,
 )
 from db_model.groups.types import (
@@ -58,50 +59,57 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str, reason: str
+    _: Any,
+    info: GraphQLResolveInfo,
+    group_name: str,
+    reason: str,
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
+    group_name = group_name.lower()
+    user_info = await token_utils.get_jwt_content(info.context)
+    group: Group = await loaders.group_typed.load(group_name)
+    requester_email = user_info["user_email"]
+
     try:
-        loaders: Dataloaders = info.context.loaders
-        group_name = group_name.lower()
-        user_info = await token_utils.get_jwt_content(info.context)
-        group: Group = await loaders.group_typed.load(group_name)
-        requester_email = user_info["user_email"]
-        success: bool = await groups_domain.update_group_attrs(
+        await groups_domain.update_group_typed(
             loaders=loaders,
             comments="",
             group_name=group_name,
-            has_machine=False,
+            justification=GroupStateRemovalJustification[reason.upper()],
             has_squad=False,
             has_asm=False,
-            reason=reason,
-            requester_email=requester_email,
-            service=group.state.service.value,
-            subscription=str(group.state.type.value).lower(),
-            tier=str(GroupTier.FREE.value).lower(),
+            has_machine=False,
+            service=group.state.service,
+            subscription=group.state.type,
+            tier=GroupTier.FREE,
+            user_email=requester_email,
         )
-        if success:
-            await batch_dal.put_action(
-                action=Action.REMOVE_GROUP_RESOURCES,
-                entity=group_name,
-                subject=requester_email,
-                additional_info="mutation_remove_group",
-                queue="dedicated_later",
-                product_name=Product.INTEGRATES,
-            )
-            redis_del_by_deps_soon("remove_group", group_name=group_name)
-            await authz.revoke_cached_group_service_policies(group_name)
-            logs_utils.cloudwatch_log(
-                info.context,
-                f"Security: Removed group {group_name} successfully",
-            )
+        await batch_dal.put_action(
+            action=Action.REMOVE_GROUP_RESOURCES,
+            entity=group_name,
+            subject=requester_email,
+            additional_info="mutation_remove_group",
+            queue="dedicated_later",
+            product_name=Product.INTEGRATES,
+        )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Unauthorized role attempted to remove a group",
+            f"Security: Unauthorized role attempted "
+            f"to remove {group_name} group",
         )
+        raise
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context, f"Security: Attempted to remove group {group_name}"
         )
         raise
-    return SimplePayload(success=success)
+
+    redis_del_by_deps_soon("remove_group", group_name=group_name)
+    await authz.revoke_cached_group_service_policies(group_name)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Removed group {group_name} successfully",
+    )
+
+    return SimplePayload(success=True)

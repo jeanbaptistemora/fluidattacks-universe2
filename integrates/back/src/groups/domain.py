@@ -54,7 +54,6 @@ from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
     GroupStateStatus,
-    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -62,6 +61,7 @@ from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
     GroupState,
+    GroupStatusJustification,
 )
 from db_model.roots.types import (
     RootItem,
@@ -908,8 +908,8 @@ async def update_group_typed(
     has_squad: bool,
     has_asm: bool,
     has_machine: bool,
-    justification: GroupStateUpdationJustification,
-    service: GroupService,
+    justification: GroupStatusJustification,
+    service: Optional[GroupService],
     subscription: GroupSubscriptionType,
     tier: GroupTier = GroupTier.OTHER,
     user_email: str,
@@ -963,7 +963,7 @@ async def update_group_typed(
             has_asm=has_asm,
             reason=justification.value,
             requester_email=user_email,
-            service=service.value,
+            service=service.value if service else "",
             subscription=str(subscription.value).lower(),
         )
         return
