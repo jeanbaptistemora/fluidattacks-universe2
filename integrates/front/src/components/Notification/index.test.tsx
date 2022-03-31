@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { Notification } from "components/Notification";
@@ -13,10 +12,9 @@ describe("Notification", (): void => {
   it("should render a notification", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
-      <Notification text={"text test"} title={"Title test"} />
-    );
+    render(<Notification text={"text test"} title={"Title test"} />);
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByText("text test")).toBeInTheDocument();
+    expect(screen.queryByText("Title test")).toBeInTheDocument();
   });
 });

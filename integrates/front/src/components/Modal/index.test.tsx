@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { Modal } from "components/Modal";
@@ -13,36 +12,37 @@ describe("Modal", (): void => {
   it("should render modal title", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Modal open={true} title={"Unit test title"}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );
 
-    expect(wrapper.text()).toContain("Unit test title");
+    expect(screen.queryByText("Unit test title")).toBeInTheDocument();
   });
 
   it("should render modal body", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Modal open={true} title={"Unit test title"}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );
 
-    expect(wrapper.text()).toContain("Unit modal content");
+    expect(screen.queryByText("Unit modal content")).toBeInTheDocument();
   });
 
   it("should render a modal", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Modal open={true} title={"Unit test title"}>
         <p>{"Unit modal content"}</p>
       </Modal>
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByText("Unit modal content")).toBeInTheDocument();
+    expect(screen.queryByText("Unit test title")).toBeInTheDocument();
   });
 });

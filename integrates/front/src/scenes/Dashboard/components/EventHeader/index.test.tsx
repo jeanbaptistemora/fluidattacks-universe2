@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
@@ -16,11 +15,11 @@ describe("EventHeader", (): void => {
 
     const mockProps: IEventHeaderProps = {
       eventDate: "",
-      eventStatus: "",
+      eventStatus: "SOLVED",
       eventType: "",
       id: "",
     };
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <EventHeader
         eventDate={mockProps.eventDate}
         eventStatus={mockProps.eventStatus}
@@ -29,21 +28,24 @@ describe("EventHeader", (): void => {
       />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabEvents.id")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabEvents.statusValues.solve")
+    ).toBeInTheDocument();
   });
 
-  // Exception: WF(This function must contain explicit assert)
-  // eslint-disable-next-line
-  it("should render event header without evidence", (): void => { // NOSONAR
+  it("should render event header without evidence", (): void => {
     expect.hasAssertions();
 
     const mockProps: IEventHeaderProps = {
-      eventDate: "",
-      eventStatus: "",
+      eventDate: "2019-04-02 03:02:00",
+      eventStatus: "CREATED",
       eventType: "",
-      id: "",
+      id: "540462628",
     };
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <EventHeader
         eventDate={mockProps.eventDate}
         eventStatus={mockProps.eventStatus}
@@ -52,6 +54,13 @@ describe("EventHeader", (): void => {
       />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.tabEvents.id")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("540462628")).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabEvents.statusValues.unsolve")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("2019-04-02 03:02:00")).toBeInTheDocument();
   });
 });

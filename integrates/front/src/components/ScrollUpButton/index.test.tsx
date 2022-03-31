@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
 import React from "react";
 
 import { ScrollUpButton } from "components/ScrollUpButton";
@@ -13,8 +12,8 @@ describe("ScrollUpButton", (): void => {
   it("should render a scroll up button", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(<ScrollUpButton visibleAt={400} />);
+    const { container } = render(<ScrollUpButton visibleAt={400} />);
 
-    expect(wrapper).toHaveLength(1);
+    expect(container.querySelector("#scroll-up")).toBeInTheDocument();
   });
 });

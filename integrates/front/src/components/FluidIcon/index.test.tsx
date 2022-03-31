@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
 import React from "react";
 
 import { FluidIcon } from "components/FluidIcon";
@@ -13,10 +12,10 @@ describe("FluidIcon", (): void => {
   it("should render an icon", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    const { container } = render(
       <FluidIcon height={"20px"} icon={"authors"} width={"20px"} />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(container.querySelector(".container")).toBeInTheDocument();
   });
 });

@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
@@ -13,10 +12,12 @@ describe("Concurrent session notice modal", (): void => {
   it("should be rendered", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
-      <ConcurrentSessionNotice onClick={jest.fn()} open={true} />
-    );
+    render(<ConcurrentSessionNotice onClick={jest.fn()} open={true} />);
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("registration.concurrentSessionTitle")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("registration.continueBtn")).toBeInTheDocument();
+    expect(screen.queryByRole("button")).toBeInTheDocument();
   });
 });
