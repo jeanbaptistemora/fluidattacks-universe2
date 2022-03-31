@@ -35,7 +35,7 @@ async def client() -> AsyncIterator[GraphQLClient]:
                 endpoint=(
                     os.environ.get("INTEGRATES_API_ENDPOINT")
                     or (
-                        "https://apptest.fluidattacks.com/api"
+                        "https://app.fluidattacks.com/api"
                         if guess_environment() == "production"
                         else "https://127.0.0.1:8001/api"
                     )
