@@ -1,5 +1,4 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Form, Formik } from "formik";
 import React from "react";
 
@@ -51,7 +50,7 @@ describe("Update Affected Modal", (): void => {
       },
     };
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <Formik
         initialValues={{ affectedReattacks: [], eventId: "" }}
         onSubmit={jest.fn()}
@@ -67,6 +66,8 @@ describe("Update Affected Modal", (): void => {
       </Formik>
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("group.events.form.affectedReattacks.title")
+    ).toBeInTheDocument();
   });
 });

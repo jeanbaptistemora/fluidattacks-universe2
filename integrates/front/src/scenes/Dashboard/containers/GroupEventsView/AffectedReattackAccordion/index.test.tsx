@@ -1,5 +1,5 @@
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Form, Formik } from "formik";
 import React from "react";
 
@@ -31,7 +31,7 @@ describe("Affected Reattack accordion", (): void => {
       },
     ];
 
-    const wrapper: ReactWrapper = mount(
+    render(
       <Formik initialValues={{ affectedReattacks: [] }} onSubmit={jest.fn()}>
         <Form name={""}>
           <AffectedReattackAccordion findings={testFindings} />
@@ -39,6 +39,12 @@ describe("Affected Reattack accordion", (): void => {
       </Formik>
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("038. Business information leak")
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByText("038. Business information leak"));
+
+    expect(screen.queryByRole("table")).toBeInTheDocument();
   });
 });

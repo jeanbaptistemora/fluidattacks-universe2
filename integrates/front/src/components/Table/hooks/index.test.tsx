@@ -1,4 +1,5 @@
-import { mount } from "enzyme";
+import { render, screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { useRowExpand } from "./useRowExpand";
@@ -42,39 +43,44 @@ describe("Table hooks", (): void => {
       expect(typeof useRowExpand).toStrictEqual("function");
     });
 
-    it("should expand", (): void => {
+    it("should expand", async (): Promise<void> => {
       expect.hasAssertions();
 
-      const wrapper = mount(<TestComponent />);
+      const { container } = render(<TestComponent />);
 
-      expect(wrapper.find({ id: "expanded" })).toHaveLength(0);
+      expect(container.querySelectorAll("#expanded")).toHaveLength(0);
 
-      const rows = wrapper.find("tbody").find("tr");
-      rows.slice(0, 2).forEach((row): void => {
-        const expandBtn = row.find("td").at(0);
-        expandBtn.simulate("click");
+      userEvent.click(
+        within(screen.getByRole("row", { name: "1" })).getAllByRole("cell")[0]
+      );
+      userEvent.click(
+        within(screen.getByRole("row", { name: "2" })).getAllByRole("cell")[0]
+      );
+      await waitFor((): void => {
+        expect(container.querySelectorAll("#expanded")).toHaveLength(2);
       });
 
-      expect(wrapper.find({ id: "expanded" })).toHaveLength(2);
-
       sessionStorage.clear();
+      jest.clearAllMocks();
     });
 
-    it("should expand all", (): void => {
+    it("should expand all", async (): Promise<void> => {
       expect.hasAssertions();
 
-      const wrapper = mount(<TestComponent />);
+      const { container } = render(<TestComponent />);
 
-      expect(wrapper.find({ id: "expanded" })).toHaveLength(0);
+      expect(container.querySelectorAll("#expanded")).toHaveLength(0);
 
-      const expandBtn = wrapper.find("thead").find("tr").find("th").at(0);
-      expandBtn.simulate("click");
-
+      userEvent.click(
+        within(screen.getAllByRole("row")[0]).getAllByRole("columnheader")[0]
+      );
       const totalRows = 3;
-
-      expect(wrapper.find({ id: "expanded" })).toHaveLength(totalRows);
+      await waitFor((): void => {
+        expect(container.querySelectorAll("#expanded")).toHaveLength(totalRows);
+      });
 
       sessionStorage.clear();
+      jest.clearAllMocks();
     });
   });
 });
