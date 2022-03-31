@@ -747,6 +747,8 @@ export const enTranslations: ResourceKey = {
             secrets: {
               add: "Add secret",
               key: "Key",
+              remove: "Remove",
+              removed: "removed",
               success: "added secret",
               successTitle: "Success",
               tittle: "Secrets management",

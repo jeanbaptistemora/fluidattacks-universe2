@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator, FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -568,7 +569,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                     hideFooter:
                       values.credentials.type === "" ||
                       values.credentials.name.length === 0 ||
-                      (values.credentials.key.length === 0 &&
+                      (!_.isUndefined(values.credentials.key) &&
+                        !_.isUndefined(values.credentials.token) &&
+                        values.credentials.key.length === 0 &&
                         values.credentials.token.length === 0 &&
                         (values.credentials.user.length === 0 ||
                           values.credentials.password.length === 0)),

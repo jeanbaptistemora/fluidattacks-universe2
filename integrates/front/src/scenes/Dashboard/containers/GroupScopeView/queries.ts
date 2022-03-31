@@ -132,6 +132,13 @@ const ADD_SECRET: DocumentNode = gql`
     }
   }
 `;
+const REMOVE_SECRET: DocumentNode = gql`
+  mutation RemoveSecret($rootId: ID!, $key: String!) {
+    removeSecret(rootId: $rootId, key: $key) {
+      success
+    }
+  }
+`;
 
 const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
   mutation UpdateGitEnvironments(
@@ -323,6 +330,7 @@ export {
   GET_ROOT,
   GET_ROOTS,
   MOVE_ROOT,
+  REMOVE_SECRET,
   SYNC_GIT_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
