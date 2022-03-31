@@ -1153,7 +1153,7 @@ async def do_add_finding_consult(
                 addFindingConsult(
                     content: $content
                     findingId: $finding_id
-                    parent: $parent
+                    parentComment: $parent
                     type: $comment_type
                 ) {
                     commentId
