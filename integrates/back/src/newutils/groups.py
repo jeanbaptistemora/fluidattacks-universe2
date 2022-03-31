@@ -117,11 +117,11 @@ def format_group_state(  # pylint: disable=too-many-arguments
     suscription_type: GroupSubscriptionType,
     tier: GroupTier,
 ) -> GroupState:
-    has_machine: bool = get_key_or_fallback(
-        state, "has_machine", "has_skims", False
+    has_machine: bool = bool(
+        get_key_or_fallback(state, "has_machine", "has_skims", False)
     )
-    has_squad: bool = get_key_or_fallback(
-        state, "has_squad", "has_drills", False
+    has_squad: bool = bool(
+        get_key_or_fallback(state, "has_squad", "has_drills", False)
     )
     return GroupState(
         has_machine=has_machine,
@@ -317,7 +317,7 @@ def format_group_state_item(state: GroupState) -> Item:
         "type": str(state.type.value).lower(),
     }
     return {
-        key: None if not value else value
+        key: None if not value and value is not False else value
         for key, value in item.items()
         if value is not None
     }
