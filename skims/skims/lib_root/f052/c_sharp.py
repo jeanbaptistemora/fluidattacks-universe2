@@ -11,6 +11,7 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShard,
     GraphShardMetadataLanguage,
@@ -37,7 +38,11 @@ def _new_insecure_keys_check(
     shard: GraphShard, ciphers: Set[str]
 ) -> GraphShardNodes:
     graph = shard.syntax_graph
-    for n_id in filter_ast(graph, "1", types={"ObjectCreation"}):
+    for n_id in (
+        filter_ast(graph, "1", types={"ObjectCreation"}) if graph else []
+    ):
+        if graph is None:
+            continue
         oc_attrs = graph.nodes[n_id]
 
         if oc_attrs["name"] not in ciphers:
@@ -200,12 +205,10 @@ def c_sharp_aesmanaged_secure_mode(
                 ) and check_props(shard.graph, match_object_creation):
                     yield shard, member
 
-    def check_props(
-        graph: GraphShard, match: Dict[str, Optional[str]]
-    ) -> bool:
+    def check_props(graph: Graph, match: Dict[str, Optional[str]]) -> bool:
         insecure = False
         props = g.get_ast_childs(
-            graph, match["__2__"], "member_access_expression", depth=2
+            graph, str(match["__2__"]), "member_access_expression", depth=2
         )
 
         for prop in props:

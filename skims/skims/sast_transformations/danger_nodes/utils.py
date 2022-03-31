@@ -101,7 +101,7 @@ def mark_function_arg(
 def _mark_methods(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.SyntaxStepsLists,
     methods: Set[str],
     marker: AppendLabelType,
 ) -> None:
@@ -167,7 +167,7 @@ def mark_methods_input(
 def mark_methods_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.SyntaxStepsLists,
     methods: Set[str],
 ) -> None:
     _mark_methods(

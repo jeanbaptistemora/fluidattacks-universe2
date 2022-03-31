@@ -142,12 +142,12 @@ def _yield_insecure_key(
         )
         parameters = g.adj_ast(
             shard.graph,
-            match["argument_list"],
+            str(match["argument_list"]),
         )[1:-1]
         yield from java_security_yield_insecure_key(
             shard,
             type_name,
-            parameters,
+            list(parameters),
         )
 
 
@@ -165,7 +165,7 @@ def _yield_insecure_hash(
             match["argument_list"][0],
         )[1:-1]
         yield from jvm_yield_insecure_hash(
-            shard, method_name, method_id, parameters
+            shard, method_name, method_id, list(parameters)
         )
 
 
@@ -226,7 +226,9 @@ def _yield_insecure_ciphers(
             shard.graph,
             match["argument_list"][0],
         )[1:-1]
-        yield from javax_yield_insecure_ciphers(shard, method_name, parameters)
+        yield from javax_yield_insecure_ciphers(
+            shard, method_name, list(parameters)
+        )
 
 
 def java_insecure_pass(
