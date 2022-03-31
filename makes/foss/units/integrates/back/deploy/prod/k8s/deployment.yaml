@@ -50,10 +50,10 @@ spec:
             #   kubectl describe pod -n production <pod>
             requests:
               cpu: 1000m
-              memory: 6000Mi
+              memory: 2000Mi
             limits:
               cpu: 2000m
-              memory: 7800Mi
+              memory: 3800Mi
           envFrom:
             - secretRef:
                 name: integrates-${NAME}
