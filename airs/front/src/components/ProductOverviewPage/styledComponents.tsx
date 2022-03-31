@@ -9,7 +9,8 @@ const BigRegularRedButton = styled.button.attrs({
     pv3
     ph4
     fw7
-    f3
+    f3-ns
+    f4
     dib
     t-all-3-eio
     br2
