@@ -16,6 +16,8 @@ const BigRegularRedButton = styled.button.attrs({
     bc-fluid-red
     ba
     roboto
+    w-auto-ns
+    w-100
   `,
 })`
   :hover {

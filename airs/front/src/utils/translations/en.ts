@@ -194,6 +194,13 @@ const pageTexts: ResourceKey = {
     planText:
       "*This free trial is for Machine Plan. " +
       "See how this compares to our main Squad Plan",
+    portrait: {
+      button: "Schedule your free trial",
+      paragraph:
+        "Discover the benefits of our comprehensive Continuous Hacking solution which hundreds " +
+        "of organizations are already enjoying.",
+      title: "Ready to try Continuous Hacking?",
+    },
     title: "Enjoy Continuous Hacking",
   },
   resources: {
