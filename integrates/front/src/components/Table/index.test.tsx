@@ -1,5 +1,5 @@
-import type { ReactWrapper, ShallowWrapper } from "enzyme";
-import { mount, shallow } from "enzyme";
+import { render, screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { Table } from "components/Table";
@@ -22,7 +22,7 @@ describe("Table", (): void => {
     };
     const data: Record<string, unknown>[] = [];
     const testHeaders: IHeaderConfig[] = [];
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Table
         dataset={data}
         exportCsv={false}
@@ -34,7 +34,8 @@ describe("Table", (): void => {
       />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByRole("table")).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("columnheader")).toHaveLength(0);
   });
 
   it("should render dynamic headers", (): void => {
@@ -51,7 +52,7 @@ describe("Table", (): void => {
       mode: "checkbox",
     };
     const testHeaders: IHeaderConfig[] = [];
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <Table
         dataset={data}
         exportCsv={false}
@@ -62,8 +63,15 @@ describe("Table", (): void => {
         selectionMode={selectionMode}
       />
     );
+    const numberOfDynamicHeaders: number = 3;
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByRole("table")).toBeInTheDocument();
+    expect(
+      screen.queryByText("table.noDataIndication")
+    ).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("columnheader")).toHaveLength(
+      numberOfDynamicHeaders
+    );
   });
 
   it("should render a table with id", (): void => {
@@ -89,7 +97,7 @@ describe("Table", (): void => {
         wrapped: false,
       },
     ];
-    const wrapper: ShallowWrapper = shallow(
+    const { container } = render(
       <Table
         dataset={data}
         exportCsv={false}
@@ -100,10 +108,15 @@ describe("Table", (): void => {
       />
     );
 
-    expect(wrapper.find("#testTable")).toHaveLength(1);
+    expect(screen.queryByRole("table")).toBeInTheDocument();
+    expect(
+      screen.queryByText("table.noDataIndication")
+    ).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("columnheader")).toHaveLength(2);
+    expect(container.querySelectorAll("#testTable")).toHaveLength(1);
   });
 
-  it("should render a table", (): void => {
+  it("should render a table", async (): Promise<void> => {
     expect.hasAssertions();
 
     const handleChange: jest.Mock = jest.fn();
@@ -160,7 +173,7 @@ describe("Table", (): void => {
       onSelect: handleOnSelect,
       onSelectAll: jest.fn(),
     };
-    const wrapper: ReactWrapper = mount(
+    render(
       <Table
         dataset={data}
         exportCsv={true}
@@ -172,32 +185,34 @@ describe("Table", (): void => {
       />
     );
 
-    const proceedChangeFunction: ReactWrapper = wrapper
-      .find("BootstrapTable")
-      .find("RowPureContent")
-      .find("Cell")
-      .at(2)
-      .find("Switch")
-      .find("input");
-    proceedChangeFunction.simulate("change");
-    const proceedDeleteFunction: ReactWrapper = wrapper
-      .find("BootstrapTable")
-      .find("RowPureContent")
-      .find("Cell")
-      .at(1)
-      .find("button");
-    proceedDeleteFunction.simulate("click");
-    const checkboxInput: ReactWrapper = wrapper.find("SelectionCell").at(0);
-    checkboxInput.simulate("click");
-
-    expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("BootstrapTable").find("HeaderCell")).toHaveLength(
-      testHeaders.length
+    expect(screen.queryByRole("table")).toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "Search this table" })
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("columnheader")).toHaveLength(
+      testHeaders.length + 1
     );
-    expect(wrapper.find("ExportCSVButtonWrapper")).toHaveLength(1);
-    expect(wrapper.find("SearchBar")).toHaveLength(1);
-    expect(handleChange.mock.calls).toHaveLength(1);
-    expect(handleDelete.mock.calls).toHaveLength(1);
+    expect(
+      screen.queryByRole("button", { name: "group.findings.exportCsv.text" })
+    ).toBeInTheDocument();
+
+    userEvent.click(within(screen.getAllByRole("row")[1]).getByRole("button"));
+    userEvent.click(
+      within(
+        within(screen.getAllByRole("row")[1]).getByRole("cell", {
+          name: "Active",
+        })
+      ).getByRole("checkbox")
+    );
+    userEvent.click(screen.getAllByRole("checkbox")[1]);
+
+    await waitFor((): void => {
+      expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    expect(handleDelete).toHaveBeenCalledTimes(1);
     expect(handleOnSelect.mock.results[0].value).toBe(true);
+
+    jest.clearAllMocks();
   });
 });

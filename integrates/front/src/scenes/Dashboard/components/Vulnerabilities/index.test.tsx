@@ -1,10 +1,7 @@
 import { PureAbility } from "@casl/ability";
-import type { ReactWrapper } from "enzyme";
-import { mount } from "enzyme";
+import { render, screen, within } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
-import { act } from "react-dom/test-utils";
-import { useTranslation } from "react-i18next";
 
 import type { IVulnRowAttr } from "./types";
 
@@ -152,91 +149,78 @@ describe("VulnComponent", (): void => {
   it("should render in vulnerabilities", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ReactWrapper = mount(
-      <VulnComponent
-        canDisplayHacker={false}
-        extraButtons={<div />}
-        findingState={"open"}
-        isEditing={true}
-        isFindingReleased={true}
-        isRequestingReattack={false}
-        isVerifyingRequest={false}
-        onVulnSelect={jest.fn()}
-        vulnerabilities={mocks}
-      />,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    const { rerender } = render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <VulnComponent
+          canDisplayHacker={false}
+          extraButtons={<div />}
+          findingState={"open"}
+          isEditing={true}
+          isFindingReleased={true}
+          isRequestingReattack={false}
+          isVerifyingRequest={false}
+          onVulnSelect={jest.fn()}
+          vulnerabilities={mocks}
+        />
+      </authzPermissionsContext.Provider>
     );
-    wrapper.update();
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByRole("table")).toBeInTheDocument();
+    expect(
+      within(screen.getAllByRole("row")[1]).getByRole("checkbox")
+    ).not.toBeDisabled();
+    expect(
+      within(screen.getAllByRole("row")[2]).getByRole("checkbox")
+    ).toBeDisabled();
 
-    const tableVulns: ReactWrapper = wrapper
-      .find({ id: "vulnerabilitiesTable" })
-      .at(0);
-    const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
-
-    expect(selectionCell.at(0).find("input").prop("disabled")).toBe(false);
-    expect(selectionCell.at(1).find("input").prop("disabled")).toBe(true);
-
-    act((): void => {
-      wrapper.setProps({ isEditing: false, isRequestingReattack: true });
-      wrapper.update();
-    });
-
-    const tableVulnsUpdated: ReactWrapper = wrapper
-      .find({ id: "vulnerabilitiesTable" })
-      .at(0);
-    const selectionCellUpdated: ReactWrapper =
-      tableVulnsUpdated.find("SelectionCell");
-
-    expect(selectionCellUpdated.at(0).find("input").prop("disabled")).toBe(
-      true
+    rerender(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <VulnComponent
+          canDisplayHacker={false}
+          extraButtons={<div />}
+          findingState={"open"}
+          isEditing={false}
+          isFindingReleased={true}
+          isRequestingReattack={true}
+          isVerifyingRequest={false}
+          onVulnSelect={jest.fn()}
+          vulnerabilities={mocks}
+        />
+      </authzPermissionsContext.Provider>
     );
-    expect(selectionCellUpdated.at(1).find("input").prop("disabled")).toBe(
-      true
-    );
+
+    expect(
+      within(screen.getAllByRole("row")[1]).getByRole("checkbox")
+    ).toBeDisabled();
+    expect(
+      within(screen.getAllByRole("row")[2]).getByRole("checkbox")
+    ).toBeDisabled();
   });
 
   it("should render in vulnerabilities in draft", (): void => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
-    const wrapper: ReactWrapper = mount(
-      <VulnComponent
-        canDisplayHacker={false}
-        extraButtons={<div />}
-        findingState={"open"}
-        isEditing={true}
-        isFindingReleased={false}
-        isRequestingReattack={false}
-        isVerifyingRequest={false}
-        onVulnSelect={jest.fn()}
-        vulnerabilities={mocks}
-      />,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <VulnComponent
+          canDisplayHacker={false}
+          extraButtons={<div />}
+          findingState={"open"}
+          isEditing={true}
+          isFindingReleased={false}
+          isRequestingReattack={false}
+          isVerifyingRequest={false}
+          onVulnSelect={jest.fn()}
+          vulnerabilities={mocks}
+        />
+      </authzPermissionsContext.Provider>
     );
-    wrapper.update();
 
-    expect(wrapper).toHaveLength(1);
-
-    const tableVulnsDraft: ReactWrapper = wrapper
-      .find({ id: "vulnerabilitiesTable" })
-      .at(0);
-    const selectionCellDraft: ReactWrapper =
-      tableVulnsDraft.find("SelectionCell");
-    const buttons: ReactWrapper = wrapper
-      .find("button")
-      .filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("searchFindings.tabDescription.editVuln"))
-      );
-
-    expect(buttons).toHaveLength(0);
-    expect(selectionCellDraft).toHaveLength(0);
+    expect(screen.queryByRole("table")).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.tabDescription.editVuln")
+    ).not.toBeInTheDocument();
+    expect(screen.queryAllByRole("button")).toHaveLength(0);
+    expect(screen.queryAllByRole("checkbox")).toHaveLength(0);
   });
 });
