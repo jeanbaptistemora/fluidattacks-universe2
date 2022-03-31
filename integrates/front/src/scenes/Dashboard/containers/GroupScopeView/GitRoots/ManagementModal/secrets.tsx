@@ -19,8 +19,9 @@ interface ISecret {
   value: string;
 }
 interface ISecretItem {
+  element: JSX.Element;
   key: string;
-  value: JSX.Element;
+  value: string;
 }
 
 interface ISecretsProps {
@@ -33,8 +34,12 @@ const Secrets: React.FC<ISecretsProps> = ({
   groupName,
 }: ISecretsProps): JSX.Element => {
   const { t } = useTranslation();
-  const [addSecretModalOpen, setAddSecretModalOpen] = useState(false);
 
+  const defaultCurrentRow: ISecret = { key: "", value: "" };
+  const [currentRow, updateRow] = useState(defaultCurrentRow);
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const [addSecretModalOpen, setAddSecretModalOpen] = useState(false);
   const { data, refetch } = useQuery<{ root: IGitRootAttr }>(GET_ROOT, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -49,11 +54,14 @@ const Secrets: React.FC<ISecretsProps> = ({
       ? []
       : data.root.secrets.map((item: ISecret): ISecretItem => {
           return {
+            element: <SecretValue value={item.value} />,
             key: item.key,
-            value: <SecretValue value={item.value} />,
+            value: item.value,
           };
         });
   function closeModal(): void {
+    setIsUpdate(false);
+    updateRow(defaultCurrentRow);
     setAddSecretModalOpen(false);
   }
   function openModal(): void {
@@ -63,8 +71,17 @@ const Secrets: React.FC<ISecretsProps> = ({
     return secretsDataSet.some((item): boolean => item.key === key);
   }
 
+  const editCurrentRow = (
+    _0: Record<string, unknown>,
+    row: ISecretItem
+  ): void => {
+    updateRow({ key: row.key, value: row.value });
+    setIsUpdate(true);
+    setAddSecretModalOpen(true);
+  };
+
   return (
-    <div>
+    <React.StrictMode>
       <Modal
         open={addSecretModalOpen}
         title={t("group.scope.git.repo.credentials.secrets.tittle")}
@@ -74,9 +91,10 @@ const Secrets: React.FC<ISecretsProps> = ({
           groupName={groupName}
           handleSubmitSecret={refetch}
           isDuplicated={isSecretDuplicated}
-          key={""}
+          isUpdate={isUpdate}
           rootId={gitRootId}
-          value={""}
+          secretKey={currentRow.key}
+          secretValue={currentRow.value}
         />
       </Modal>
       <Table
@@ -88,18 +106,19 @@ const Secrets: React.FC<ISecretsProps> = ({
             header: t("group.scope.git.repo.credentials.secrets.key"),
           },
           {
-            dataField: "value",
+            dataField: "element",
             header: t("group.scope.git.repo.credentials.secrets.value"),
           },
         ]}
         id={"tblGitRootSecrets"}
         pageSize={10}
+        rowEvents={{ onClick: editCurrentRow }}
         search={false}
       />
       <Button id={"add-secret"} onClick={openModal} variant={"secondary"}>
         {"Add secret"}
       </Button>
-    </div>
+    </React.StrictMode>
   );
 };
 

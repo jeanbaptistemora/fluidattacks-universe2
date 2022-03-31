@@ -16,48 +16,54 @@ import { translate } from "utils/translations/translate";
 
 interface ISecretsProps {
   groupName: string;
-  key: string;
+  isUpdate: boolean;
+  secretKey: string;
   rootId: string;
-  value: string;
+  secretValue: string;
   closeModal: () => void;
   handleSubmitSecret: () => void;
   isDuplicated: (key: string) => boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getSecretSchema(duplicateValidator: (key: string) => boolean): any {
+function getSecretSchema(
+  duplicateValidator: (key: string) => boolean,
+  isUpdate: boolean = false
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
   return lazy(
     (): BaseSchema =>
       object().shape({
-        secretKey: string()
+        key: string()
           .required(translate.t("validations.required"))
           .matches(/^[a-zA-Z_0-9-]{1,128}$/u)
           .test(
             "duplicateValue",
             translate.t("validations.duplicateSecret"),
             (value): boolean => {
-              if (_.isUndefined(value)) {
+              if (_.isUndefined(value) || isUpdate) {
                 return true;
               }
 
               return !duplicateValidator(value);
             }
           ),
-        secretValue: string().required(translate.t("validations.required")),
+        value: string().required(translate.t("validations.required")),
       })
   );
 }
 
 const AddSecret: React.FC<ISecretsProps> = ({
   groupName,
-  key,
+  isUpdate,
+  secretKey,
   rootId,
-  value,
+  secretValue,
   closeModal,
   isDuplicated,
   handleSubmitSecret,
 }: ISecretsProps): JSX.Element => {
-  const initialValues = { secretKey: key, secretValue: value };
+  const initialValues = { key: secretKey, value: secretValue };
+
   const { t } = useTranslation();
   const [addSecret] = useMutation(ADD_SECRET, {
     onCompleted: (): void => {
@@ -75,16 +81,11 @@ const AddSecret: React.FC<ISecretsProps> = ({
       });
     },
   });
+
   const handleSecretSubmit = useCallback(
-    async ({
-      secretKey,
-      secretValue,
-    }: {
-      secretKey: string;
-      secretValue: string;
-    }): Promise<void> => {
+    async ({ key, value }: { key: string; value: string }): Promise<void> => {
       await addSecret({
-        variables: { groupName, key: secretKey, rootId, value: secretValue },
+        variables: { groupName, key, rootId, value },
       });
     },
     [addSecret, groupName, rootId]
@@ -96,15 +97,15 @@ const AddSecret: React.FC<ISecretsProps> = ({
         initialValues={initialValues}
         name={"gitRootSecret"}
         onSubmit={handleSecretSubmit}
-        validationSchema={getSecretSchema(isDuplicated)}
+        validationSchema={getSecretSchema(isDuplicated, isUpdate)}
       >
         {({ isValid, dirty, isSubmitting }): JSX.Element => (
           <Form>
             <fieldset className={"bn"}>
               <legend className={"f3 b"}>
-                {_.isUndefined(key) || key.length === 0
-                  ? t("group.scope.git.repo.credentials.secrets.add")
-                  : t("group.scope.git.repo.credentials.secrets.update")}
+                {isUpdate
+                  ? t("group.scope.git.repo.credentials.secrets.update")
+                  : t("group.scope.git.repo.credentials.secrets.add")}
               </legend>
               <div>
                 <div>
@@ -112,11 +113,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     <RequiredField>{"*"}&nbsp;</RequiredField>
                     {"Key"}
                   </ControlLabel>
-                  <Field
-                    component={FormikText}
-                    name={"secretKey"}
-                    type={"text"}
-                  />
+                  <Field component={FormikText} name={"key"} type={"text"} />
                 </div>
                 <div className={"mt3"}>
                   <ControlLabel>
@@ -125,7 +122,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
                   </ControlLabel>
                   <Field
                     component={FormikTextArea}
-                    name={"secretValue"}
+                    name={"value"}
                     type={"text"}
                   />
                 </div>
