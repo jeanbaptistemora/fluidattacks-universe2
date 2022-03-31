@@ -2326,10 +2326,19 @@
   "git-parse": {
     "CVE-2021-26543": "<1.0.5"
   },
+  "git-tags-remote": {
+    "GHSA-gm9x-q798-hmr4": "<1.0.4"
+  },
   "gitbook": {
     "CVE-2017-16019": "<3.2.2",
     "CVE-2019-19596": "<=2.6.9",
     "GMS-2016-86": "<3.2.2"
+  },
+  "github-jquery-widgets": {
+    "GHSA-c722-pv5w-cfg2": "0.1.2"
+  },
+  "github-todos": {
+    "CVE-2021-44684": "<=3.1.0"
   },
   "giting": {
     "CVE-2019-10802": "<0.0.8"
@@ -2359,6 +2368,9 @@
     "CVE-2016-1000228": "<0.6.5",
     "GMS-2016-44": "<0.6.5"
   },
+  "gnuplot": {
+    "GHSA-cfwc-xjfp-44jg": ">=0"
+  },
   "go-ipfs-dep": {
     "GMS-2016-96": "<=0.4.4-1"
   },
@@ -2372,14 +2384,32 @@
   "google-closure-tools-latest": {
     "GMS-2017-22": ">=0.0.0-alpha"
   },
+  "googleapis": {
+    "GHSA-7543-mr7h-6v86": "<39.1.0"
+  },
   "goserv": {
     "CVE-2017-16133": "=1.0.0",
     "GMS-2017-218": ">=0.0.0-alpha"
   },
   "graceful-fs": {},
+  "graphiql": {
+    "CVE-2021-41248": ">=0.5.0 <1.4.7"
+  },
+  "graphql-code-generator": {
+    "GHSA-9w87-4j72-gcv7": "<0.18.2"
+  },
   "graphql-playground-html": {
     "CVE-2020-4038": "<1.6.22",
     "GHSA-4852-vrh7-28rf": "<1.6.22"
+  },
+  "graphql-playground-react": {
+    "GHSA-59r9-6jp6-jcm7": "<1.7.28"
+  },
+  "graphql-shield": {
+    "HSA-hx78-272p-mqqh": "<6.0.6"
+  },
+  "graphql-tools": {
+    "CVE-2021-23326": "<6.2.6"
   },
   "graylog-web-interface": {
     "GHSA-9qgh-7pgp-hp7r": ">=0"
