@@ -54,6 +54,7 @@ from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
     GroupStateStatus,
+    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -897,6 +898,91 @@ async def update_group_attrs(
             reason=reason,
         )
     return success
+
+
+async def update_group_typed(
+    *,
+    loaders: Any,
+    comments: str,
+    group_name: str,
+    has_squad: bool,
+    has_asm: bool,
+    has_machine: bool,
+    justification: GroupStateUpdationJustification,
+    service: GroupService,
+    subscription: GroupSubscriptionType,
+    tier: GroupTier = GroupTier.OTHER,
+    user_email: str,
+) -> None:
+    validate_fields([comments])
+    validate_string_length_between(comments, 0, 250)
+    validate_group_services_config(
+        has_machine,
+        has_squad,
+        has_asm,
+    )
+
+    group: Group = await loaders.group_typed.load(group_name)
+    if service != group.state.service:
+        await deactivate_all_roots(
+            loaders=loaders,
+            group_name=group_name,
+            user_email=user_email,
+            other=comments,
+            reason=justification.value,
+        )
+    if tier == GroupTier.OTHER:
+        tier = GroupTier.FREE
+
+    await update_state_typed(
+        group_name=group_name,
+        state=GroupState(
+            comments=comments,
+            modified_date=datetime_utils.get_iso_date(),
+            has_machine=has_machine,
+            has_squad=has_squad,
+            justification=justification,
+            modified_by=user_email,
+            service=service,
+            status=GroupStateStatus.ACTIVE
+            if has_asm
+            else GroupStateStatus.DELETED,
+            tier=tier,
+            type=subscription,
+        ),
+    )
+    if has_asm:
+        await notifications_domain.update_group(
+            comments=comments,
+            group_name=group_name,
+            had_machine=group.state.has_machine,
+            had_squad=group.state.has_squad,
+            had_asm=True,
+            has_machine=has_machine,
+            has_squad=has_squad,
+            has_asm=has_asm,
+            reason=justification.value,
+            requester_email=user_email,
+            service=service.value,
+            subscription=str(subscription.value).lower(),
+        )
+        return
+
+    org_id = await orgs_domain.get_id_for_group(group_name)
+    success = await remove_group(
+        loaders=loaders,
+        group_name=group_name,
+        user_email=user_email,
+        organization_id=org_id,
+        reason=justification.value,
+    )
+    if success:
+        await notifications_domain.delete_group(
+            deletion_date=datetime_utils.get_now_as_str(),
+            group_name=group_name,
+            requester_email=user_email,
+            reason=justification.value,
+        )
 
 
 async def update_group_tier(
