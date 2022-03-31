@@ -28,7 +28,7 @@ jest.mock(
 jest.mock("@bugsnag/js");
 
 // Set max timeout from 5000
-const newMaxTime: number = 10000;
+const newMaxTime: number = 15000;
 jest.setTimeout(newMaxTime);
 
 // Configure enzyme

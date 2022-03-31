@@ -72,6 +72,7 @@ const GET_HAS_MOBILE_APP: DocumentNode = gql`
     me {
       hasMobileApp
       role
+      userEmail
     }
   }
 `;

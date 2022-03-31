@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
-import { translate } from "utils/translations/translate";
 
 interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
@@ -14,10 +14,12 @@ interface IConfirmDialogProps {
   children: (confirm: IConfirmFn) => React.ReactNode;
 }
 
-const ConfirmDialog: React.FC<IConfirmDialogProps> = (
-  props: Readonly<IConfirmDialogProps>
-): JSX.Element => {
-  const { children, title, message } = props;
+const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
+  children,
+  title,
+  message,
+}: Readonly<IConfirmDialogProps>): JSX.Element => {
+  const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const [confirmCallback, setConfirmCallback] = useState(
     (): (() => void) => (): void => undefined
@@ -57,14 +59,14 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
             onClick={handleClose}
             variant={"secondary"}
           >
-            {translate.t("confirmmodal.cancel")}
+            {t("confirmmodal.cancel")}
           </Button>
           <Button
             id={"confirmmodal-proceed"}
             onClick={handleProceed}
             variant={"primary"}
           >
-            {translate.t("confirmmodal.proceed")}
+            {t("confirmmodal.proceed")}
           </Button>
         </ModalFooter>
       </Modal>

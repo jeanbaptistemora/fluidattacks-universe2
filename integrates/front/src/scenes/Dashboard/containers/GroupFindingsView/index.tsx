@@ -63,6 +63,8 @@ import { composeValidators, required } from "utils/validations";
 interface IDataResult {
   me: {
     hasMobileApp: boolean;
+    role: string;
+    userEmail: string;
   };
 }
 
