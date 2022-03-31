@@ -130,6 +130,9 @@ def format_data(
                 y=-5,
             ),
         ),
+        padding=dict(
+            bottom=20,
+        ),
         axis=dict(
             x=dict(
                 categories=[key for key, _ in data],

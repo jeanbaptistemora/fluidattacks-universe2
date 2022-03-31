@@ -141,6 +141,9 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 y=-5,
             ),
         ),
+        padding=dict(
+            bottom=20,
+        ),
         axis=dict(
             x=dict(
                 categories=[
