@@ -110,6 +110,7 @@ def format_state_justification(
 
 
 def format_group_state(  # pylint: disable=too-many-arguments
+    comments: Optional[str],
     justification: Optional[GroupStatusJustification],
     pending_deletion_date: Optional[str],
     service: Optional[GroupService],
@@ -132,7 +133,7 @@ def format_group_state(  # pylint: disable=too-many-arguments
         status=state_status,
         tier=tier,
         type=suscription_type,
-        comments=state.get("comments"),
+        comments=comments,
         justification=justification,
         pending_deletion_date=convert_to_iso_str(pending_deletion_date)
         if pending_deletion_date
@@ -168,6 +169,17 @@ def format_group(item: Item, organization_name: str) -> Group:
         last_configuration.get("reason")
     )
     if (
+        last_configuration.get("reason")
+        and "with event" in last_configuration["reason"]
+    ):
+        comments: Optional[str] = last_configuration["reason"]
+        justification = GroupStateUpdationJustification.OTHER
+    else:
+        comments = last_configuration.get("comments")
+        justification = format_state_justification(
+            last_configuration.get("reason")
+        )
+    if (
         state_status == GroupStateStatus.DELETED
         and "historic_deletion" in item
     ):
@@ -184,6 +196,7 @@ def format_group(item: Item, organization_name: str) -> Group:
         ).lower(),
         organization_name=organization_name,
         state=format_group_state(
+            comments=comments,
             justification=justification,
             pending_deletion_date=item.get("pending_deletion_date"),
             service=service,
