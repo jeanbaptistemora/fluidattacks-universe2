@@ -2868,12 +2868,12 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "L"
-      integrity: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["159"]
   metadata:
     en:
@@ -12742,37 +12742,42 @@
   en:
     title: Security controls bypass or absence - SSLPinning
     description: >
-      It is possible for an attacker to bypass
-      the SSLPinning control by reverse engineering
-      the application and removing the control.
+      The application does not define an SSLPinning mechanism
+      or configures it insecurely,
+      allowing an attacker to intercept and manipulate
+      the information that travels through the application
     impact: >
       - Intercept data from the app.
 
       - Tamper  data from the app.
     recommendation: >
-      Obfuscate the applications source code at
-      deploy time with tools like:
-      https://github.com/ClaudiuGeorgiu/Obfuscapk
-      in its strongest configuration.
-      Add tampering detection to the App.
+      - Establish security controls for certificates
+      that include integrity checks and white lists of trusted public keys
+      that will be accepted by the application
+
+       - Define pin-sets with integrity hashes
+       in res/xml/network_security_config.xml file
     threat: >
       Anonymous attacker from the Internet.
   es:
     title: Security controls bypass or absence - SSLPinning
     description: >
-      Es posible que un atacante se salte el control
-      SSLPinning haciendo ingeniería inversa de la
-      aplicación y eliminando el control.
+      La aplicación no define un mecanismo de SSLPinning
+      o lo configura de forma insegura,
+      permitiendo a un atacante interceptar y manipular
+      la información que viaja por la aplicación
     impact: >
       - Interceptar datos de la aplicación.
 
       - Manipular datos de la aplicación.
     recommendation: >
-      Ofuscar el código fuente de las aplicaciones
-      en el momento del despliegue con herramientas
-      como: https://github.com/ClaudiuGeorgiu/Obfuscapk
-      en su configuración más fuerte.
-      Añade detección de manipulación a la App.
+      - Establecer controles de seguridad
+      para los certificados que incluyan verificaciones de integridad
+      y listas blancas de llaves públicas de confianza
+      que serán aceptadas por la aplicación
+
+      - Definir pin-sets con los hashes de integridad
+      en el archivo res/xml/network_security_config.xml
     threat: >
       Ataque anónimo desde Internet.
   category: Subvert Access
@@ -12784,13 +12789,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "L"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["062","266","273"]
   metadata:
     en:
@@ -18158,9 +18163,7 @@
       - Allow fraudulent attempts on access
       users accounts.
     recommendation: >
-      - Configure Azure AD Multi-Factor Authentication (MFA).
-
-      - Require users to register multiple authentication methods.
+      - Force users to register multiple authentication methods.
 
       - Enable Azure Fraud alert to empower users to proactively
       report attempts of someone trying to use their account.
@@ -18180,9 +18183,7 @@
       - Permitir intentos fraudulentos de
       acceso a las cuentas de los usuarios.
     recommendation: >
-      - Configurar la autenticación multifactorial (MFA) de Azure AD.
-
-      - Exija a los usuarios que registren varios métodos
+      - Exigir a los usuarios que registren varios métodos
       de autenticación.
 
       - Habilitar la alerta de fraude de Azure para que los
@@ -18205,9 +18206,9 @@
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["227","228","229","231","235","264","323"]
   metadata:
     en:
