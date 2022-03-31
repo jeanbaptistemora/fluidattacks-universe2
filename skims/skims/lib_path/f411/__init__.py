@@ -2,7 +2,7 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
-from lib_path.f165.terraform import (
+from lib_path.f411.terraform import (
     tfm_aws_secret_encrypted_whitouth_kms_cmk,
 )
 from model.core_model import (

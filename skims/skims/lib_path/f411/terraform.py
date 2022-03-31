@@ -35,7 +35,7 @@ def tfm_aws_secret_encrypted_whitouth_kms_cmk(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=(
-            "lib_path.f165.tfm_aws_secret_encrypted_whitouth_kms_cmk"
+            "lib_path.f411.tfm_aws_secret_encrypted_whitouth_kms_cmk"
         ),
         iterator=get_cloud_iterator(
             _tfm_aws_secret_encrypted_whitouth_kms_cmk(

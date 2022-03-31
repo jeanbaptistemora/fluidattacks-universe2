@@ -2636,7 +2636,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,44,16,skims,333. 
   54 |   key_name = ""test""
      ^ Col 0
 ",terraform.ec2_has_terminate_shutdown_behavior
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,1,16,skims,165. Insecure service configuration - AWS,Property kms_key_id is either missing or misconfigured in namespace/skims/test/data/lib_path/f165/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,"
+F411,lines,namespace/skims/test/data/lib_path/f411/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,1,16,skims,411. Insecure encryption algorithm - Default encryption,Property kms_key_id is either missing or misconfigured in namespace/skims/test/data/lib_path/f411/tfm_aws_secret_encrypted_whitouth_kms_cmk.tf,"
 > 1 | resource ""aws_secretsmanager_secret"" ""rotation-example"" {
   2 |   name                = ""rotation-example""
   3 |   rotation_lambda_arn = aws_lambda_function.example.arn

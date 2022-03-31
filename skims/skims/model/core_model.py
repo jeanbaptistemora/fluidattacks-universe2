@@ -582,9 +582,9 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[95, 96, 186],
     )
-    F165: FindingMetadata = FindingMetadata.new(
+    F411: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F165",
+        code="F411",
         cwe=16,
         execution_queue=ExecutionQueue.control,
         requirements=[185, 265, 266],
@@ -2449,7 +2449,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_aws_secret_encrypted_whitouth_kms_cmk",
         module="lib_path",
-        finding=FindingEnum.F165,
+        finding=FindingEnum.F411,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
