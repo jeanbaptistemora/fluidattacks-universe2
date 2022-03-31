@@ -465,7 +465,7 @@
       title: Improper input validation
       link: https://cwe.mitre.org/data/definitions/20.html
     "22":
-      title: Improper limitation of a pathname to a restricted directory ('path traversal')
+      title: Improper limitation of a pathname to a restricted directory ("path traversal")
       link: https://cwe.mitre.org/data/definitions/22.html
     "23":
       title: Relative path traversal
@@ -477,28 +477,28 @@
       title: External control of file name or path
       link: https://cwe.mitre.org/data/definitions/73.html
     "74":
-      title: Improper neutralization of special elements in output used by a downstream component ('injection')
+      title: Improper neutralization of special elements in output used by a downstream component ("injection")
       link: https://cwe.mitre.org/data/definitions/74.html
     "78":
-      title: Improper neutralization of special elements used in an OS command ('OS command injection')
+      title: Improper neutralization of special elements used in an OS command ("OS command injection")
       link: https://cwe.mitre.org/data/definitions/78.html
     "79":
-      title: Improper neutralization of input during web page generation ('cross-site scripting')
+      title: Improper neutralization of input during web page generation ("cross-site scripting")
       link: https://cwe.mitre.org/data/definitions/79.html
     "80":
       title: Improper neutralization of script-related HTML tags in a web page (basic XSS)
       link: https://cwe.mitre.org/data/definitions/80.html
     "89":
-      title: Improper neutralization of special elements used in an SQL command ('SQL injection')
+      title: Improper neutralization of special elements used in an SQL command ("SQL injection")
       link: https://cwe.mitre.org/data/definitions/89.html
     "94":
-      title: Improper control of generation of code ('code injection')
+      title: Improper control of generation of code ("code injection")
       link: https://cwe.mitre.org/data/definitions/94.html
     "95":
-      title: Improper neutralization of directives in dynamically evaluated code ('eval injection')
+      title: Improper neutralization of directives in dynamically evaluated code ("eval injection")
       link: https://cwe.mitre.org/data/definitions/95.html
     "98":
-      title: Improper control of filename for include/require statement in PHP program ('PHP remote file inclusion')
+      title: Improper control of filename for include/require statement in PHP program ("PHP remote file inclusion")
       link: https://cwe.mitre.org/data/definitions/98.html
     "116":
       title: Improper encoding or escaping of output
@@ -507,7 +507,7 @@
       title: Improper output neutralization for logs
       link: https://cwe.mitre.org/data/definitions/117.html
     "120":
-      title: Buffer copy without checking size of input ('classic buffer overflow')
+      title: Buffer copy without checking size of input ("classic buffer overflow")
       link: https://cwe.mitre.org/data/definitions/120.html
     "134":
       title: Use of externally-controlled format string
@@ -702,7 +702,7 @@
       title: Exposure of private personal information to an unauthorized actor
       link: https://cwe.mitre.org/data/definitions/359.html
     "362":
-      title: Concurrent execution using shared resource with improper synchronization ('race condition')
+      title: Concurrent execution using shared resource with improper synchronization ("race condition")
       link: https://cwe.mitre.org/data/definitions/362.html
     "367":
       title: Time-of-check time-of-use (TOCTOU) race condition
@@ -735,7 +735,7 @@
       title: Unrestricted upload of file with dangerous type
       link: https://cwe.mitre.org/data/definitions/434.html
     "444":
-      title: Inconsistent interpretation of HTTP requests ('HTTP request smuggling')
+      title: Inconsistent interpretation of HTTP requests ("HTTP request smuggling")
       link: https://cwe.mitre.org/data/definitions/444.html
     "451":
       title: User interface (UI) misrepresentation of critical information
@@ -813,7 +813,7 @@
       title: Use of GET request method with sensitive query strings
       link: https://cwe.mitre.org/data/definitions/598.html
     "601":
-      title: URL redirection to untrusted site ('open redirect')
+      title: URL redirection to untrusted site ("open redirect")
       link: https://cwe.mitre.org/data/definitions/601.html
     "602":
       title: Client-side enforcement of server-side security
@@ -846,7 +846,7 @@
       title: External control of critical state data
       link: https://cwe.mitre.org/data/definitions/642.html
     "643":
-      title: Improper neutralization of data within XPath expressions ('XPath injection')
+      title: Improper neutralization of data within XPath expressions ("XPath injection")
       link: https://cwe.mitre.org/data/definitions/643.html
     "644":
       title: Improper neutralization of HTTP headers for scripting syntax
@@ -873,7 +873,7 @@
       title: Exposed dangerous method or function
       link: https://cwe.mitre.org/data/definitions/749.html
     "757":
-      title: Selection of less-secure algorithm during negotiation ('algorithm downgrade')
+      title: Selection of less-secure algorithm during negotiation ("algorithm downgrade")
       link: https://cwe.mitre.org/data/definitions/757.html
     "759":
       title: Use of a one-way hash without a salt
@@ -1095,56 +1095,53 @@
   title: HIPAA
   en:
     description: >
-      The Health Insurance Portability
-      and Accountability Act of 1996
-      required the Secretary of the
-      U.S. Department of Health and Human Services (HHS)
+      The Health Insurance Portability and Accountability Act of 1996
+      required the Secretary of the U.S. Department of Health
+      and Human Services (HHS)
       to develop regulations
-      protecting the privacy and security
-      of certain health information.
-      The version used in this section
-      is the HIPAA Rules 2013 update.
+      protecting the privacy and security of certain health information.
+      The version used in this section is the HIPAA Rules 2013 update.
   es:
     description: __empty__
   definitions:
     "164_308_a_1_ii_D":
-      title: Information system activity review (Required)
+      title: Information system activity review (required)
       link: https://www.law.cornell.edu/cfr/text/45/164.308
     "164_308_a_3_i":
-      title: "Standard: Workforce security"
+      title: "Standard: workforce security"
       link: https://www.law.cornell.edu/cfr/text/45/164.308
     "164_308_a_3_ii_A":
-      title: Authorization or supervision (Addressable)
+      title: Authorization or supervision (addressable)
       link: https://www.law.cornell.edu/cfr/text/45/164.308
     "164_310_a_2_iii":
-      title: Access control and validation procedures (Addressable)
+      title: Access control and validation procedures (addressable)
       link: https://www.law.cornell.edu/cfr/text/45/164.310
     "164_310_d_2_i":
-      title: Disposal (Required)
+      title: Disposal (required)
       link: https://www.law.cornell.edu/cfr/text/45/164.310
     "164_312_a_1":
-      title: "Standard: Access control"
+      title: "Standard: access control"
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_a_2_i":
-      title: Unique user identification (Required)
+      title: Unique user identification (required)
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_a_2_iii":
-      title: Automatic logoff (Addressable)
+      title: Automatic logoff (addressable)
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_a_2_iv":
-      title: Encryption and decryption (Addressable)
+      title: Encryption and decryption (addressable)
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_b":
-      title: "Standard: Audit controls"
+      title: "Standard: audit controls"
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_d":
-      title: "Standard: Person or entity authentication"
+      title: "Standard: person or entity authentication"
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_e_1":
-      title: "Standard: Transmission security"
+      title: "Standard: transmission security"
       link: https://www.law.cornell.edu/cfr/text/45/164.312
     "164_312_e_2_i":
-      title: Integrity controls (Addressable)
+      title: Integrity controls (addressable)
       link: https://www.law.cornell.edu/cfr/text/45/164.312
   metadata: {}
 "iso27001":
@@ -1153,18 +1150,16 @@
     description: >
       ISO/IEC 27001 is widely known,
       providing requirements
-      for an information security
-      management system (ISMS),
-      though there are more than
-      a dozen standards in the
-      ISO/IEC 27000 family.
-      Using them enables organizations
-      of any kind to manage the security
-      of assets such as financial information,
-      intellectual property, employee details
-      or information entrusted by third parties.
-      The version used in this section is
-      ISO/IEC 27001:2013 - Annex A.
+      for an information security management system (ISMS),
+      though there are more than a dozen standards
+      in the ISO/IEC 27000 family.
+      Using them enables organizations of any kind
+      to manage the security of assets
+      such as financial information,
+      intellectual property,
+      employee details or information entrusted by third parties.
+      The version used in this section is ISO/IEC 27001:2013
+      - Annex A.
   es:
     description: __empty__
   definitions:
@@ -3315,17 +3310,16 @@
   title: MISRA-C
   en:
     description: >
-      MISRA C is a set of software development
-      guidelines for the C programming language
+      MISRA C is a set of software development guidelines
+      for the C programming language
       developed by The MISRA Consortium.
-      It is the most widely used set of coding
-      guidelines for C around the world.
+      It is the most widely used set of coding guidelines for C
+      around the world.
       MISRA provides best practice guidelines
-      for the safe and secure application of
-      both embedded control systems and
-      standalone software.
-      The version used in this section
-      is MISRA-C:2004.
+      for the safe and secure application
+      of both embedded control systems
+      and standalone software.
+      The version used in this section is MISRA-C:2004.
   es:
     description: __empty__
   definitions:
@@ -4292,21 +4286,20 @@
   en:
     description: >
       HITRUST CSF is both risk and compliance-based,
-      making it possible for organizations of
-      varying risk profiles to customize their
-      security and privacy control baselines.
+      making it possible
+      for organizations of varying risk profiles
+      to customize their security and privacy control baselines.
       It is sensitive to data protection compliance
-      and the challenges of assembling and
-      maintaining various programs.
-      Therefore, it provides the structure,
-      transparency, guidance and cross-references
-      to authoritative sources organizations need
-      to check their data protection compliance,
-      as well as an approach to ensure the proper
-      alignment, maintenance and comprehensiveness
-      of components.
-      The version used in this section is
-      HITRUST CSF v9.6.0.
+      and the challenges of assembling
+      and maintaining various programs.
+      Therefore,
+      it provides the structure, transparency,
+      guidance and cross-references
+      to authoritative sources that organizations need
+      in order to check their data protection compliance,
+      as well as an approach to ensure the proper alignment,
+      maintenance and comprehensiveness of components.
+      The version used in this section is HITRUST CSF v9.6.0.
   es:
     description: __empty__
   definitions:
@@ -4419,10 +4412,10 @@
       title: Physical entry controls
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_c":
-      title: Securing offices, rooms, and facilities
+      title: Securing offices, rooms and facilities
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_f":
-      title: Public access, delivery, and loading areas
+      title: Public access, delivery and loading areas
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "08_g":
       title: Equipment siting and protection
@@ -4431,7 +4424,7 @@
       title: Segregation of duties
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_d":
-      title: Separation of development, test, and operational environments
+      title: Separation of development, test and operational environments
       link: https://hitrustalliance.net/product-tool/hitrust-csf/
     "09_e":
       title: Service delivery
@@ -4757,23 +4750,19 @@
   en:
     description: >
       ISO/IEC 27002 is used as a reference
-      for determining and implementing
-      controls for information security risk
-      treatment in an information security
-      management system (ISMS) based on
-      ISO/IEC 27001.
-      It describes a suite of information
-      security controls to mitigate unacceptable
-      risks to the confidentiality, integrity
-      and availability of information.
+      for determining and implementing controls
+      for information security risk treatment
+      in an information security management system (ISMS)
+      based on ISO/IEC 27001.
+      It describes a suite of information security controls
+      to mitigate unacceptable risks to the confidentiality,
+      integrity and availability of information.
 
-      Organizations identify and evaluate
-      their own information risks, selecting
-      and applying suitable information
-      security controls to mitigate unacceptable
-      risks using ISO/IEC 27002 for guidance.
-      The version used in this section is
-      ISO/IEC 27002:2022.
+      Organizations identify and evaluate their own information risks,
+      selecting and applying suitable information security controls
+      to mitigate unacceptable risks
+      using ISO/IEC 27002 for guidance.
+      The version used in this section is ISO/IEC 27002:2022.
   es:
     description: __empty__
   definitions:
@@ -4853,7 +4842,7 @@
       title: Monitoring activities
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
     "8_17":
-      title: Clock synchronisation
+      title: Clock synchronization
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
     "8_19":
       title: Installation of software on operational systems
@@ -4894,109 +4883,107 @@
   en:
     description: >
       The Brazilian General Data Protection Law
-      (LGPD) can be considered as
-      Brazil's answer to the GDPR – with
-      the Brazilian law aligning with the
-      European Regulation in many ways,
+      (LGPD) can be considered as Brazil's answer to the GDPR
+      —with the Brazilian law
+      aligning with the European Regulation in many ways,
       while differing in others.
-      The LGPD aims at creating a new legal
-      framework for the use of personal
-      data in Brazil, both online and offline,
+      The LGPD aims at creating a new legal framework
+      for the use of personal data in Brazil,
+      both online and offline,
       in the private and public sectors.
-      The version used in this section
-      is LGPD 2019.
+      The version used in this section is LGPD 2019.
   es:
     description: __empty__
   definitions:
     "7_I":
-      title: Chances of carrying out personal data processing (1)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_II":
-      title: Chances of carrying out personal data processing (2)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_III":
-      title: Chances of carrying out personal data processing (3)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_VI":
-      title: Chances of carrying out personal data processing (6)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_X-3":
-      title: Chances of carrying out personal data processing (10-3)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_X-5":
-      title: Chances of carrying out personal data processing (10-5)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "7_X-7":
-      title: Chances of carrying out personal data processing (10-7)
+      title: Chances of carrying out personal data processing
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-2":
-      title: Consent of the personal data holder (2)
+      title: Consent of the personal data holder
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-4":
-      title: Consent of the personal data holder (4)
+      title: Consent of the personal data holder
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-5":
-      title: Consent of the personal data holder (5)
+      title: Consent of the personal data holder
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "8-6":
-      title: Consent of the personal data holder (6)
+      title: Consent of the personal data holder
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "9":
       title: Personal data subject's right of access
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "9_VII-2":
-      title: Personal data subject's right of access (2)
+      title: Personal data subject's right of access
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "11_I":
       title: Processing of sensitive personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "14-1":
-      title: Personal data of children and adolescents (1)
+      title: Personal data of children and adolescents
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "14-2":
-      title: Personal data of children and adolescents (2)
+      title: Personal data of children and adolescents
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "15_I":
-      title: Termination of processing of personal data (1)
+      title: Termination of processing of personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "15_III":
-      title: Termination of processing of personal data (3)
+      title: Termination of processing of personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "16":
       title: Deletion of personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_I":
-      title: Personal data subject's rights in relation to the controller (1)
+      title: Personal data subject's rights in relation to the controller
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_II":
-      title: Personal data subject's rights in relation to the controller (2)
+      title: Personal data subject's rights in relation to the controller
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_III":
-      title: Personal data subject's rights in relation to the controller (3)
+      title: Personal data subject's rights in relation to the controller
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_IV":
-      title: Personal data subject's rights in relation to the controller (4)
+      title: Personal data subject's rights in relation to the controller
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_VI":
-      title: Personal data subject's rights in relation to the controller (6)
+      title: Personal data subject's rights in relation to the controller
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "18_IX":
-      title: Personal data subject's rights in relation to the controller (9)
+      title: Personal data subject's rights in relation to the controller
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "19":
       title: Personal data subject's requests
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "19_II-1":
-      title: Personal data subject's requests (1)
+      title: Personal data subject's requests
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "20":
       title: Right to review decisions based on automated processing of personal data
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "23_I":
-      title: Specific rules for the processing of personal data by the government (1)
+      title: Specific rules for the processing of personal data by the government
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "23_III":
-      title: Specific rules for the processing of personal data by the government (3)
+      title: Specific rules for the processing of personal data by the government
       link: https://iapp.org/media/pdf/resource_center/Brazilian_General_Data_Protection_Law.pdf
     "26":
       title: Sharing personal data by the government
@@ -5015,13 +5002,10 @@
   title: ISA/IEC 62443
   en:
     description: >
-      ISA/IEC 62443 standard defines the
-      necessary elements to establish a
-      cyber security management system
-      (CSMS) for industrial automation
-      and control systems (IACS) and
-      provides guidance on how to develop
-      those elements.
+      The ISA/IEC 62443 standard defines the necessary elements
+      to establish a cyber security management system (CSMS)
+      for industrial automation and control systems (IACS)
+      and provides guidance on how to develop those elements.
       The version used in this section
       is IEC 62443-3-3 edition 1.0 2013-08.
   es:
@@ -5034,7 +5018,7 @@
       title: Software process and device identification and authentication
       link: https://webstore.iec.ch/publication/7033
     "IAC-1_3":
-      title: Account Management
+      title: Account management
       link: https://webstore.iec.ch/publication/7033
     "IAC-1_5":
       title: Authenticator management
@@ -5121,7 +5105,7 @@
       title: User content filtering
       link: https://webstore.iec.ch/publication/7033
     "TRE-6_1":
-      title: Audit log accesibility
+      title: Audit log accessibility
       link: https://webstore.iec.ch/publication/7033
     "RA-7_1":
       title: Denial of service protection
@@ -5130,7 +5114,7 @@
       title: Network and security configuration settings
       link: https://webstore.iec.ch/publication/7033
     "RA-7_7":
-      title: Least Functionality
+      title: Least functionality
       link: https://webstore.iec.ch/publication/7033
     "CR-1_1-RE_1":
       title: Unique identification and authentication
@@ -5142,7 +5126,7 @@
       title: Strength of password-based authentication
       link: https://webstore.iec.ch/publication/7033
     "CR-1_7-RE_2":
-      title: Password Lifetime Restrictions for all Users
+      title: Password lifetime restrictions for all users
       link: https://webstore.iec.ch/publication/7033
     "CR-2_1-RE_3":
       title: Permission mapping to roles
