@@ -2574,6 +2574,9 @@
   "heroku-addonpool": {
     "CVE-2020-7634": "<=0.1.15"
   },
+  "hexo": {
+    "CVE-2021-25987": ">=0.0.1 <=5.4.0"
+  },
   "hexo-admin": {
     "CVE-2019-17606": "<=2.3.0"
   },
@@ -2585,6 +2588,9 @@
     "CVE-2018-20801": "<6.1.0",
     "CVE-2021-29489": "<9.0.0",
     "GHSA-8j65-4pcq-xq95": "<9.0.0"
+  },
+  "highcharts-export-server": {
+    "GHSA-hfwx-c7q6-g54c": "<=2.0.30"
   },
   "highlight.js": {
     "CVE-2020-26237": "<9.18.2 || >=10.1.0 <10.1.2",
@@ -2607,6 +2613,15 @@
   "hot-formula-parser": {
     "CVE-2020-6836": "<3.0.1"
   },
+  "hpmm": {
+    "GHSA-vxfp-qmpq-6826": ">=0"
+  },
+  "hs-sha3": {
+    "GHSA-6mrq-7r7m-hh4p": ">=0"
+  },
+  "hsf-clients": {
+    "GHSA-g5q2-fcg9-j526": ">=0"
+  },
   "html-janitor": {
     "CVE-2017-0928": "=2.0.2",
     "CVE-2017-0931": "=2.0.2",
@@ -2620,8 +2635,20 @@
     "CVE-2021-23346": "<2.0.1",
     "SNYK-JS-ANSIREGEX-1583908": "<2.0.1"
   },
+  "html-parse-stringify2": {
+    "GHSA-545q-3fg6-48m7": "<=2.0.1"
+  },
   "html-pdf": {
     "CVE-2019-15138": "<=2.2.0"
+  },
+  "html-pdf-chrome": {
+    "GHSA-5p98-wpc9-g498": ">=0"
+  },
+  "html-purify": {
+    "GHSA-5p28-63mc-cgr9": "<=1.1.0"
+  },
+  "htmr": {
+    "GHSA-f8rq-m28h-8hxj": "<0.8.7"
   },
   "http-auth": {
     "SNYK-JS-HTTPAUTH-471683": "<3.2.4"
@@ -2648,6 +2675,9 @@
   "http-proxy.js": {
     "CVE-2017-16075": ">=0",
     "GMS-2017-146": ">=0.0.0-alpha"
+  },
+  "http-server-node": {
+    "CVE-2021-23797": "<=1.0.2"
   },
   "http-signature": {
     "CVE-2017-16005": "<=0.9.11",
