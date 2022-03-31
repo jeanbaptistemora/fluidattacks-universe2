@@ -1,0 +1,32 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Deletion Confirmation') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      You are receiving this email because you choose to remove
+      ASM account. If you click on the <strong>Confirm deletion</strong> button
+      the account will be removed from ASM. This invitation is valid for
+      seven calendar days. If you do not confirm within the seven calendar
+      days period, you will need a new deletion confirmation email.
+    </p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+      <table aria-label="Deletion Confirmation Link" style="width: 50%; margin: 0 auto;">
+        <tr>
+          <th scope="col">
+            {{ go_to_button('Confirm deletion', confirm_deletion_url) }}
+          </th>
+        </tr>
+      </table>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
