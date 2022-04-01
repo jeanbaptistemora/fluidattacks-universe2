@@ -5,6 +5,9 @@ from organizations.domain import (
     get_user_organizations,
     remove_user,
 )
+from remove_user.dal import (
+    remove_stakeholder,
+)
 from subscriptions.domain import (
     get_user_subscriptions,
     unsubscribe_user_to_entity_report,
@@ -38,4 +41,9 @@ async def remove_user_all_organizations(*, loaders: Any, email: str) -> None:
         )
     )
 
-    await delete(email)
+    await collect(
+        (
+            delete(email),
+            remove_stakeholder(user_email=email),
+        )
+    )

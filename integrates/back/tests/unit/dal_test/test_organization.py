@@ -32,22 +32,6 @@ def test__map_keys_to_domain() -> None:
     assert "sk" not in mapped_dict
 
 
-def test__map_keys_to_dal() -> None:
-    test_dict = {
-        "id": "primary-key",
-        "name": "secondary-key",
-        "attr1": "attribute_1",
-        "attr2": "attribute_2",
-    }
-    mapped_dict = orgs_dal._map_keys_to_dal(test_dict)
-    assert mapped_dict["pk"] == test_dict["id"]
-    assert mapped_dict["sk"] == test_dict["name"]
-    assert mapped_dict["attr1"] == test_dict["attr1"]
-    assert mapped_dict["attr2"] == test_dict["attr2"]
-    assert "id" not in mapped_dict
-    assert "name" not in mapped_dict
-
-
 def test__map_attributes_to_dal() -> None:
     test_list = ["id", "name", "attr1", "attr2"]
     mapped_list = orgs_dal._map_attributes_to_dal(test_list)

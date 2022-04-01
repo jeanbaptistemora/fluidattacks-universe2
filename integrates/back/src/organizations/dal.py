@@ -59,18 +59,6 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     return mapped_attrs
 
 
-def _map_keys_to_dal(org: OrganizationType) -> OrganizationType:
-    """
-    Map domain keys to its DynamoDB representation
-    """
-    mapping = {"id": "pk", "name": "sk"}
-    mapped_org = {key: org[key] for key in org if key not in mapping}
-    mapped_org.update(
-        {mapping[key]: org[key] for key in org if key in mapping}
-    )
-    return mapped_org
-
-
 def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
     """
     Map DynamoDB keys to a human-readable form
