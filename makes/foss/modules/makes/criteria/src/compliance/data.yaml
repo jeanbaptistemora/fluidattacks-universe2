@@ -1234,13 +1234,11 @@
       The North American Electric Reliability
       Corporation Reliability Standards
       are developed using an industry-driven,
-      ANSI-accredited process that ensures
-      the process is open to anyone
+      ANSI-accredited process
+      that ensures the process is open to anyone
       who is directly and materially affected
-      by the reliability of the North American
-      bulk power system.
-      The version used for this section is
-      NERC CIP v5 Standards.
+      by the reliability of the North American bulk power system.
+      The version used for this section is NERC CIP v5 Standards.
   es:
     description: __empty__
   definitions:
@@ -1350,7 +1348,7 @@
       title: Policy and procedures
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "IA-2":
-      title: Identification and authentication (Organizational Users)
+      title: Identification and authentication (organizational users)
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "IA-7":
       title: Cryptographic module authentication
@@ -2851,15 +2849,13 @@
   title: NIST Framework
   en:
     description: >
-      The NIST Cybersecurity Framework is a
-      guidance based on existing standards,
-      guidelines, and practices for
-      organizations to better manage and
-      reduce cybersecurity risk.
+      The NIST Cybersecurity Framework is a guidance
+      based on existing standards,
+      guidelines and practices for organizations
+      to better manage and reduce cybersecurity risk.
       This set of requirements was developed
-      by the National Institute of Standards
-      and Technology (NIST) in close
-      collaboration with the private sector.
+      by the National Institute of Standards and Technology (NIST)
+      in close collaboration with the private sector.
   es:
     description: __empty__
   definitions:
@@ -2876,7 +2872,7 @@
       title: Dependencies and critical functions for delivery of critical services are established
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_AC-1":
-      title: Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes
+      title: Identities and credentials are issued, managed, verified, revoked and audited for authorized devices, users and processes
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_AC-2":
       title: Physical access to assets is managed and protected
@@ -2894,7 +2890,7 @@
       title: Identities are proofed and bound to credentials and asserted in interactions
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_AC-7":
-      title: Users, devices, and other assets are authenticated (e.g., single-factor, multifactor) commensurate with the risk of the transaction
+      title: Users, devices and other assets are authenticated (e.g., single-factor, multifactor) commensurate with the risk of the transaction
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_DS-1":
       title: Data-at-rest is protected
@@ -2909,7 +2905,7 @@
       title: Protections against data leaks are implemented
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_DS-6":
-      title: Integrity checking mechanisms are used to verify software, firmware, and information integrity
+      title: Integrity checking mechanisms are used to verify software, firmware and information integrity
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_DS-7":
       title: The development and testing environments are separate from the production environment
@@ -2921,7 +2917,7 @@
       title: Data is destroyed according to policy
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_PT-1":
-      title: Audit/log records are determined, documented, implemented, and reviewed in accordance with policy
+      title: Audit/log records are determined, documented, implemented and reviewed in accordance with policy
       link: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.04162018.pdf
     "PR_PT-2":
       title: Removable media is protected and its use restricted according to policy
@@ -3361,14 +3357,12 @@
   title: NYDFS
   en:
     description: >
-      The NYDFS Cybersecurity Regulation
-      (23 NYCRR 500) is a set of regulations
-      from the New York State Department of
-      Financial Services (NYDFS) that places
-      cybersecurity requirements on all
-      Covered Entities.
-      The version used in this section is
-      NYDFS, February 2017.
+      The NYDFS Cybersecurity Regulation (23 NYCRR 500)
+      is a set of regulations
+      from the New York State Department of Financial Services (NYDFS)
+      that places cybersecurity requirements
+      on all covered entities.
+      The version used in this section is NYDFS, February 2017.
   es:
     description: __empty__
   definitions:
@@ -3413,17 +3407,14 @@
   title: NY SHIELD Act
   en:
     description: >
-      Stop Hacks and Improve Electronic
-      Data Security Act (SHIELD ACT) was
-      developed in july of 2019.
-      This Act amends New York’s existing
-      data breach notification law by
-      expanding the definition of “Private
-      Information” and by adding “Data
-      Breach Security Protections”.
-      It has additional cybersecurity
-      safeguards and new reporting
-      requirements in the event of a breach.
+      Stop Hacks and Improve Electronic Data Security Act (SHIELD ACT)
+      was developed in July of 2019.
+      This Act amends New York's existing data breach notification law
+      by expanding the definition of "Private Information"
+      and by adding "Data Breach Security Protections."
+      It has additional cybersecurity safeguards
+      and new reporting requirements
+      in the event of a breach.
   es:
     description: __empty__
   definitions:
@@ -3441,18 +3432,14 @@
   title: MITRE ATT&CK®
   en:
     description: >
-      MITRE ATT&CK® - Enterprise Mitigations.
       MITRE ATT&CK® is a globally-accessible
-      knowledge base of adversary tactics
-      and techniques based on real-world
-      observations and is used as a
-      cybersecurity product and service
-      community.
+      knowledge base of adversary tactics and techniques
+      based on real-world observations
+      and is used as a cybersecurity product and service community.
       This mitigation describes any guidance
-      or training given to developers of
-      applications to avoid introducing
-      security weaknesses that an adversary
-      may be able to take advantage of.
+      or training given to developers of applications
+      to avoid introducing security weaknesses
+      that an adversary may be able to take advantage of.
   es:
     description: __empty__
   definitions:
@@ -5277,120 +5264,116 @@
   title: OSSTMM3
   en:
     description: >
-      The Open Source Security Testing
-      Methodology Manual (OSSTMM)
-      provides a methodology for the
-      accurate characterization of
-      operational security (OpSec)
-      through examination and correlation
-      of test results in a consistent way.
+      The Open Source Security Testing Methodology Manual (OSSTMM)
+      provides a methodology for the accurate characterization
+      of operational security (OpSec)
+      through examination and correlation of test results
+      in a consistent way.
       It is one of the most complete
-      and commonly used professional
-      standards in Security Audits to
-      review the Security of Systems
-      from the Internet.
-      The version used in this
-      section is OSSTMM 3.0,
-      published on December 14,
-      2010.
+      and commonly used professional standards
+      in security audits
+      to review the security of systems
+      from the internet.
+      The version used in this section is OSSTMM 3.0,
+      published on December 14, 2010.
   es:
     description: __empty__
   definitions:
     "8_5_2":
-      title: Physical security (Access verification) - Authentication
+      title: Physical security (access verification) - Authentication
       link: https://www.isecom.org/OSSTMM.3.pdf
     "8_7_2":
-      title: Physical security (Controls verification) - Confidentiality
+      title: Physical security (controls verification) - Confidentiality
       link: https://www.isecom.org/OSSTMM.3.pdf
     "8_7_4":
-      title: Physical security (Controls verification) - Integrity
+      title: Physical security (controls verification) - Integrity
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_1_1":
-      title: Wireless security (Posture review) - Policy
+      title: Wireless security (posture review) - Policy
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_2_2":
-      title: Wireless security (Logistics) - Communications
+      title: Wireless security (logistics) - Communications
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_3_1":
-      title: Wireless security (Active detection verification) - Channel monitoring
+      title: Wireless security (active detection verification) - Channel monitoring
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_4_1":
-      title: Wireless security (Visibility audit) - Interception
+      title: Wireless security (visibility audit) - Interception
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_5_3":
-      title: Evaluate configuration, authentication, and encryption of wireless networks
+      title: Evaluate configuration, authentication and encryption of wireless networks
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_5_4":
-      title: Wireless security (Access verification) - Authentication
+      title: Wireless security (access verification) - Authentication
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_5_5":
-      title: Wireless security (Access verification) - Access control
+      title: Wireless security (access verification) - Access control
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_7_3":
-      title: Wireless security (Controls verification) - Privacy
+      title: Wireless security (controls verification) - Privacy
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_7_4":
-      title: Wireless security (Controls verification) - Integrity
+      title: Wireless security (controls verification) - Integrity
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_9_1":
-      title: Wireless security (Configuration verification) - Common errors
+      title: Wireless security (configuration verification) - Common errors
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_9_2":
-      title: Wireless security (Configuration verification) - Configuration controls
+      title: Wireless security (configuration verification) - Configuration controls
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_15_2":
-      title: Wireless security (Privileges audit) - Authorization
+      title: Wireless security (privileges audit) - Authorization
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_15_3":
-      title: Wireless security (Privileges audit) - Escalation
+      title: Wireless security (privileges audit) - Escalation
       link: https://www.isecom.org/OSSTMM.3.pdf
     "9_17_2":
-      title: Wireless security (Alert and log review) - Storage and retrieval
+      title: Wireless security (alert and log review) - Storage and retrieval
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_2_1":
-      title: Telecommunications security (Logistics) - Framework
+      title: Telecommunications security (logistics) - Framework
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_3_1":
-      title: Telecommunications security (Active detection verification) - Monitoring
+      title: Telecommunications security (active detection verification) - Monitoring
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_5_2":
-      title: Telecommunications security (Access verification) - Services
+      title: Telecommunications security (access verification) - Services
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_5_3":
-      title: Telecommunications security (Access verification) - Authentication
+      title: Telecommunications security (access verification) - Authentication
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_7_2":
-      title: Telecommunications security (Controls verification) - Confidentiality
+      title: Telecommunications security (controls verification) - Confidentiality
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_7_3":
-      title: Telecommunications security (Controls verification) - Privacy
+      title: Telecommunications security (controls verification) - Privacy
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_7_4":
-      title: Telecommunications security (Controls verification) - Integrity
+      title: Telecommunications security (controls verification) - Integrity
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_9_3":
-      title: Telecommunications security (Configurations verification) - Configuration errors
+      title: Telecommunications security (configurations verification) - Configuration errors
       link: https://www.isecom.org/OSSTMM.3.pdf
     "10_15_2":
-      title: Telecommunications security (Privileges audit) - Authorization
+      title: Telecommunications security (privileges audit) - Authorization
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_3_1":
-      title: Data networks security (Active detection verification) - Filtering
+      title: Data networks security (active detection verification) - Filtering
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_5_3":
-      title: Data networks security (Access verification) - Authentication
+      title: Data networks security (access verification) - Authentication
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_6_2":
-      title: Data networks security (Trust verification) - Pishing
+      title: Data networks security (trust verification) - Pishing
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_7_2":
-      title: Data networks security (Controls verification) - Confidentiality
+      title: Data networks security (controls verification) - Confidentiality
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_7_3":
-      title: Data networks security (Controls verification) - Privacy
+      title: Data networks security (controls verification) - Privacy
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_7_4":
-      title: Data networks security (Controls verification) - Integrity
+      title: Data networks security (controls verification) - Integrity
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_9_1":
       title: Data networks security - Configuration controls
@@ -5405,16 +5388,16 @@
       title: Data networks security - Privacy containment mapping
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_11_2":
-      title: Data networks security (Segregation review) - Disclosure
+      title: Data networks security (segregation review) - Disclosure
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_13_1":
       title: Data networks security - Business grinding
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_15_3":
-      title: Data networks security (Privileges audit) - Escalation
+      title: Data networks security (privileges audit) - Escalation
       link: https://www.isecom.org/OSSTMM.3.pdf
     "11_17_2":
-      title: Data networks security (Alert and log review) - Storage and retrieval
+      title: Data networks security (alert and log review) - Storage and retrieval
       link: https://www.isecom.org/OSSTMM.3.pdf
   metadata: {}
 "c2m2":
