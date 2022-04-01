@@ -12,7 +12,7 @@ makeDerivation {
     envSrcIntegratesFront = projectPath "/integrates/front";
   };
   builder = ./builder.sh;
-  name = "integrates-front-test-enzyme";
+  name = "integrates-front-test";
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash

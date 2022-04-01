@@ -158,7 +158,7 @@
     "css": "tcm src/ --silent",
     "plot": "ts-node src/graphics/cli.ts",
     "start": "webpack-cli serve --config webpack.dev.config.ts",
-    "test:rtl": "npm run css && jest --maxWorkers=1",
+    "test": "npm run css && jest --maxWorkers=1",
     "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
     "lint:stylelint": "stylelint '**/*.css' --output-file",
     "storybook": "start-storybook -p 6006",

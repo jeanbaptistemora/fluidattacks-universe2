@@ -470,7 +470,7 @@ in {
                 needs =
                   [
                     "/integrates/back/test/unit"
-                    "/integrates/front/test/rtl"
+                    "/integrates/front/test"
                     "/integrates/mobile/test"
                   ]
                   ++ (
@@ -537,12 +537,12 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/integrates/front/test/rtl";
+            output = "/integrates/front/test";
             gitlabExtra =
               gitlabTest
               // {
                 after_script = [
-                  "cp ~/.makes/out-integrates-front-test-rtl/coverage/lcov.info integrates/front/coverage.lcov"
+                  "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
                 ];
                 artifacts = {
                   expire_in = "1 week";

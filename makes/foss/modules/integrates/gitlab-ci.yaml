@@ -3049,7 +3049,7 @@
   interruptible: true
   needs:
     - /integrates/back/test/unit
-    - /integrates/front/test/rtl
+    - /integrates/front/test
     - /integrates/mobile/test
     - /integrates/coverage/combine__1
     - /integrates/coverage/combine__2
@@ -3315,9 +3315,9 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/front/test/rtl:
+/integrates/front/test:
   after_script:
-    - cp ~/.makes/out-integrates-front-test-rtl/coverage/lcov.info integrates/front/coverage.lcov
+    - cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
   artifacts:
     expire_in: 1 week
     name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
@@ -3337,7 +3337,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/front/test/rtl
+    - m . /integrates/front/test
   stage: test-code
   tags:
     - autoscaling
