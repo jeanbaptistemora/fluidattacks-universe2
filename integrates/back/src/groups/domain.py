@@ -50,6 +50,9 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.constants import (
+    MASKED,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
@@ -60,6 +63,7 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
+    GroupFile,
     GroupMetadataToUpdate,
     GroupState,
     GroupStatusJustification,
@@ -1334,6 +1338,33 @@ async def mask_resources(group_name: str) -> NamedTuple:
             repositories_result,
         ),
     )
+
+
+async def mask_files(
+    loaders: Any,
+    group_name: str,
+) -> None:
+    group: Group = await loaders.group_typed.load(group_name)
+    resources_files = await resources_utils.search_file(f"{group_name}/")
+    if resources_files:
+        await collect(
+            resources_utils.remove_file(file_name)
+            for file_name in resources_files
+        )
+    if group.files:
+        masked_files: list[GroupFile] = [
+            GroupFile(
+                description=MASKED,
+                file_name=MASKED,
+                modified_by=MASKED,
+                modified_date=file.modified_date,
+            )
+            for file in group.files
+        ]
+        await groups_dal.update_metadata_typed(
+            group_name=group_name,
+            metadata=GroupMetadataToUpdate(files=masked_files),
+        )
 
 
 async def remove_all_users(loaders: Any, group: str) -> bool:
