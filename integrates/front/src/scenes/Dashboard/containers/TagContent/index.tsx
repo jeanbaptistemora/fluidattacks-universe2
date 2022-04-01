@@ -17,12 +17,7 @@ import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPor
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
-import {
-  Col100,
-  Row,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -50,8 +45,8 @@ const TagContent: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <Row>
-          <Col100>
+        <div>
+          <div>
             <div>
               <TabsContainer>
                 <ContentTab
@@ -85,8 +80,8 @@ const TagContent: React.FC = (): JSX.Element => {
                 <Redirect to={`${path}/analytics`} />
               </Switch>
             </TabContent>
-          </Col100>
-        </Row>
+          </div>
+        </div>
       </div>
     </React.StrictMode>
   );
