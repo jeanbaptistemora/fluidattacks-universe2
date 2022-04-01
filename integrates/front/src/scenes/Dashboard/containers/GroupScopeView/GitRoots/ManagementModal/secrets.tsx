@@ -48,13 +48,24 @@ const Secrets: React.FC<ISecretsProps> = ({
     },
     variables: { groupName, rootId: gitRootId },
   });
+  function editCurrentRow(key: string, value: string): void {
+    updateRow({ key, value });
+    setIsUpdate(true);
+    setAddSecretModalOpen(true);
+  }
 
   const secretsDataSet =
     data === undefined
       ? []
       : data.root.secrets.map((item: ISecret): ISecretItem => {
           return {
-            element: <SecretValue value={item.value} />,
+            element: (
+              <SecretValue
+                onEdit={editCurrentRow}
+                secretKey={item.key}
+                secretValue={item.value}
+              />
+            ),
             key: item.key,
             value: item.value,
           };
@@ -70,15 +81,6 @@ const Secrets: React.FC<ISecretsProps> = ({
   function isSecretDuplicated(key: string): boolean {
     return secretsDataSet.some((item): boolean => item.key === key);
   }
-
-  const editCurrentRow = (
-    _0: Record<string, unknown>,
-    row: ISecretItem
-  ): void => {
-    updateRow({ key: row.key, value: row.value });
-    setIsUpdate(true);
-    setAddSecretModalOpen(true);
-  };
 
   return (
     <React.StrictMode>
@@ -112,7 +114,6 @@ const Secrets: React.FC<ISecretsProps> = ({
         ]}
         id={"tblGitRootSecrets"}
         pageSize={10}
-        rowEvents={{ onClick: editCurrentRow }}
         search={false}
       />
       <Button id={"add-secret"} onClick={openModal} variant={"secondary"}>

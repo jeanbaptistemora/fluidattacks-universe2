@@ -136,7 +136,12 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     <RequiredField>{"*"}&nbsp;</RequiredField>
                     {"Key"}
                   </ControlLabel>
-                  <Field component={FormikText} name={"key"} type={"text"} />
+                  <Field
+                    component={FormikText}
+                    disabled={isUpdate}
+                    name={"key"}
+                    type={"text"}
+                  />
                 </div>
                 <div className={"mt3"}>
                   <ControlLabel>
