@@ -28,6 +28,9 @@ from db_model.enums import (
     CredentialType,
     GitCloningStatus,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
@@ -177,13 +180,13 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url).rstrip(" /")
 
 
-async def add_git_root(  # pylint: disable=too-many-locals
+async def add_git_root(
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
 ) -> GitRootItem:
-    group_name: str = kwargs["group_name"].lower()
+    group_name = str(kwargs["group_name"]).lower()
     url: str = _format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
@@ -206,12 +209,11 @@ async def add_git_root(  # pylint: disable=too-many-locals
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
 
-    group = await loaders.group.load(group_name)
-    organization = await loaders.organization.load(group["organization"])
+    group: Group = await loaders.group_typed.load(group_name)
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
         branch,
-        await loaders.organization_roots.load(organization["name"]),
+        await loaders.organization_roots.load(group.organization_name),
     ):
         raise RepeatedRoot()
 
@@ -224,7 +226,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         ),
         group_name=group_name,
         id=str(uuid4()),
-        organization_name=organization["name"],
+        organization_name=group.organization_name,
         state=GitRootState(
             branch=branch,
             environment_urls=[],
@@ -272,7 +274,7 @@ async def add_ip_root(
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
 ) -> str:
-    group_name: str = kwargs["group_name"].lower()
+    group_name = str(kwargs["group_name"]).lower()
     address: str = kwargs["address"]
     port = str(kwargs["port"])
     is_valid: bool = (
@@ -282,13 +284,11 @@ async def add_ip_root(
     if not is_valid:
         raise InvalidParameter()
 
-    group = await loaders.group.load(group_name)
-    organization = await loaders.organization.load(group["organization"])
-
+    group: Group = await loaders.group_typed.load(group_name)
     if ensure_org_uniqueness and not validations.is_ip_unique(
         address,
         port,
-        await loaders.organization_roots.load(organization["name"]),
+        await loaders.organization_roots.load(group.organization_name),
     ):
         raise RepeatedRoot()
 
@@ -303,7 +303,7 @@ async def add_ip_root(
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        organization_name=organization["name"],
+        organization_name=group.organization_name,
         state=IPRootState(
             address=address,
             modified_by=user_email,
@@ -324,13 +324,13 @@ async def add_ip_root(
     return root.id
 
 
-async def add_url_root(  # pylint: disable=too-many-locals
+async def add_url_root(
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
 ) -> str:
-    group_name: str = kwargs["group_name"].lower()
+    group_name = str(kwargs["group_name"]).lower()
 
     try:
         url_attributes = parse_url(kwargs["url"])
@@ -348,15 +348,14 @@ async def add_url_root(  # pylint: disable=too-many-locals
     default_port = "443" if url_attributes.scheme == "https" else "80"
     port = url_attributes.port if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
-    group = await loaders.group.load(group_name)
-    organization = await loaders.organization.load(group["organization"])
 
+    group: Group = await loaders.group_typed.load(group_name)
     if ensure_org_uniqueness and not validations.is_url_unique(
         host,
         path,
         port,
         protocol,
-        await loaders.organization_roots.load(organization["name"]),
+        await loaders.organization_roots.load(group.organization_name),
     ):
         raise RepeatedRoot()
 
@@ -370,7 +369,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     root = URLRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        organization_name=organization["name"],
+        organization_name=group.organization_name,
         state=URLRootState(
             host=host,
             modified_by=user_email,
@@ -550,7 +549,7 @@ async def update_git_root(
     loaders: Any, user_email: str, **kwargs: Any
 ) -> RootItem:
     root_id: str = kwargs["id"]
-    group_name: str = kwargs["group_name"]
+    group_name = str(kwargs["group_name"]).lower()
     root: RootItem = await loaders.root.load((group_name, root_id))
 
     url: str = kwargs["url"]
@@ -570,12 +569,11 @@ async def update_git_root(
             group_name=group_name,
         ):
             raise HasVulns()
-        group = await loaders.group.load(group_name)
-        organization = await loaders.organization.load(group["organization"])
+        group: Group = await loaders.group_typed.load(group_name)
         if not validations.is_git_unique(
             url,
             branch,
-            await loaders.organization_roots.load(organization["name"]),
+            await loaders.organization_roots.load(group.organization_name),
         ):
             raise RepeatedRoot()
 
@@ -675,9 +673,10 @@ async def activate_root(
     new_status = "ACTIVE"
 
     if root.state.status != new_status:
-        group = await loaders.group.load(group_name)
-        organization = await loaders.organization.load(group["organization"])
-        org_roots = await loaders.organization_roots.load(organization["name"])
+        group: Group = await loaders.group_typed.load(group_name)
+        org_roots = await loaders.organization_roots.load(
+            group.organization_name
+        )
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(
@@ -942,16 +941,15 @@ async def move_root(
     target_group_name: str,
 ) -> str:
     root: RootItem = await loaders.root.load((group_name, root_id))
-    source_group, target_group = await loaders.group.load_many(
-        [group_name, target_group_name]
-    )
+    source_group: Group = await loaders.group_typed.load(group_name)
+    source_org_id = await orgs_domain.get_id_for_group(group_name)
+    target_group: Group = await loaders.group_typed.load(target_group_name)
 
     if (
         root.state.status != "ACTIVE"
         or target_group_name == root.group_name
-        or target_group_name
-        not in await orgs_domain.get_groups(source_group["organization"])
-        or source_group["service"] != target_group["service"]
+        or target_group_name not in await orgs_domain.get_groups(source_org_id)
+        or source_group.state.service != target_group.state.service
     ):
         raise InvalidParameter()
 
