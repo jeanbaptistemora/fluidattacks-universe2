@@ -63,3 +63,14 @@ async def upload_report_from_file_descriptor(report: Any) -> str:
         file_name,
     )
     return file_name
+
+
+def get_ordinal_ending(number: int) -> str:
+    """
+    Get the ordinal representation ending of an integer::
+
+        get_ordinal_ending(22)   => "nd"
+    """
+    if 11 <= (number % 100) <= 13:
+        return "th"
+    return ["th", "st", "nd", "rd", "th"][min(number % 10, 4)]

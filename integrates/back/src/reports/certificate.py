@@ -4,6 +4,9 @@ from aioextensions import (
 from back.src.settings.logger import (
     LOGGING,
 )
+from context import (
+    FI_AWS_S3_RESOURCES_BUCKET,
+)
 from datetime import (
     datetime,
 )
@@ -23,18 +26,24 @@ from newutils.datetime import (
     get_from_str,
     get_now,
 )
+from newutils.reports import (
+    get_ordinal_ending,
+)
 from reports.pdf import (
     CreatorPdf,
 )
 from reports.typing import (
     CertFindingInfo,
 )
+from s3 import (
+    operations as s3_ops,
+)
 import subprocess  # nosec
+import tempfile
 from typing import (
     Any,
     Dict,
     List,
-    Optional,
     Tuple,
     TypedDict,
     Union,
@@ -58,9 +67,11 @@ CertContext = TypedDict(
         "start_day": str,
         "start_month": str,
         "start_year": str,
+        "start_ordinal_ending": str,
         "report_day": str,
         "report_month": str,
         "report_year": str,
+        "report_ordinal_ending": str,
         "signature_img": str,
         "words": Dict[str, str],
     },
@@ -165,7 +176,7 @@ def resolve_month_name(
 class CertificateCreator(CreatorPdf):
     """Class to generate certificates in PDF."""
 
-    cert_context: Optional[CertContext] = None
+    cert_context: CertContext
 
     def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
         "Class constructor"
@@ -196,13 +207,13 @@ class CertificateCreator(CreatorPdf):
             "start_day": str(start_date.day),
             "start_month": resolve_month_name(self.lang, start_date, words),
             "start_year": str(start_date.year),
+            "start_ordinal_ending": get_ordinal_ending(start_date.day),
             "report_day": str(current_date.day),
             "report_month": resolve_month_name(self.lang, current_date, words),
             "report_year": str(current_date.year),
+            "report_ordinal_ending": get_ordinal_ending(current_date.day),
             "solution": description,
-            "signature_img": (
-                "image::../templates/pdf/signature.png[Signature,180,45]"
-            ),
+            "signature_img": "placeholder value",
             "words": words,
         }
 
@@ -224,8 +235,18 @@ class CertificateCreator(CreatorPdf):
         )
         template = template_env.get_template(self.proj_tpl)
         tpl_name = f"{self.tpl_dir}{group}_CERT.tpl"
-        render_text = template.render(self.cert_context)
-        with open(tpl_name, "wb") as tplfile:
-            tplfile.write(render_text.encode("utf-8"))
-        self.create_command(tpl_name)
-        subprocess.call(self.command, shell=True)  # nosec
+        # Fetch signature resource
+        with tempfile.NamedTemporaryFile(mode="w+") as file:
+            await s3_ops.download_file(
+                FI_AWS_S3_RESOURCES_BUCKET,
+                "certificate/signature.png",
+                file.name,
+            )
+            self.cert_context[
+                "signature_img"
+            ] = f"image::{file.name}[Signature,180,45]"
+            render_text = template.render(self.cert_context)
+            with open(tpl_name, "wb") as tplfile:
+                tplfile.write(render_text.encode("utf-8"))
+            self.create_command(tpl_name)
+            subprocess.call(self.command, shell=True)  # nosec

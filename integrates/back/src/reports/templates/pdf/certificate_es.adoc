@@ -13,7 +13,11 @@ El resultado actual de las pruebas realizadas es el siguiente:
 
 [cols="5*^",options=header]
 |===
-|{{words['severity_title']}}|{{words['finding_number_title']}}|{{words['total_vulns_title']}}|{{words['closed_vulns_title']}}|{{words['resume_perc_title']}}
+|{{words['severity_title']}}
+|{{words['finding_number_title']}}
+|{{words['total_vulns_title']}}
+|{{words['closed_vulns_title']}}
+|{{words['resume_perc_title']}}
 {% for row in remediation_table %}
   {% for col in row %}
     {{"| "+col|string}}
