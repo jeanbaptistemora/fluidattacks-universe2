@@ -57,6 +57,18 @@ const ClientsMenuButtons: React.FC = (): JSX.Element => {
       </MenuItem>
       <MenuItem>
         <RadioButton
+          checked={filter === "fintech"}
+          className={"fintech"}
+          id={"fintech"}
+          name={"clientsMenu"}
+          onChange={filterCards}
+        />
+        <RadioLabel className={"tag-fintech"} htmlFor={"fintech"}>
+          {"Fintech"}
+        </RadioLabel>
+      </MenuItem>
+      <MenuItem>
+        <RadioButton
           checked={filter === "oil-energy"}
           className={"oil-energy"}
           id={"oil-energy"}

@@ -1137,6 +1137,10 @@ $gray-36: rgba(36, 37, 45, 1);
   @include menu-font;
 }
 
+.fintech:checked~.tag-fintech {
+  @include menu-font;
+}
+
 .oil-energy:checked~.tag-oil-energy {
   @include menu-font;
 }
