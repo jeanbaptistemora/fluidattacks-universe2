@@ -1618,23 +1618,21 @@ export const enTranslations: ResourceKey = {
       CHARTS_REPORT: {
         name: "Analytics report",
         tooltip:
-          "Notifies with charts and metrics that will help you " +
-          "understand the actual status of reported and fixed vulnerabilities." +
-          "Show how your application's remediation process has evolved over time",
+          "Get charts and data on the status and characteristics " +
+          "of reported vulnerabilities and your remediation practices.",
       },
       COMMENTS: "Consulting",
       DAILY_DIGEST: {
         name: "Daily digest",
         tooltip:
-          "Reports a daily update of the security metrics for your application. " +
-          "It contains special statistics to alert you to the real risk and " +
-          "the work that has been done to remediate application security breaches",
+          "Get daily updates on noteworthy activity and vulnerabilities " +
+          "in your subscribed groups.",
       },
       DIGEST: "Daily digest",
       EVENT_REPORT: {
-        name: "Events alert",
+        name: "Event alert",
         tooltip:
-          "Reports information about an event that has been created in a group",
+          "Get information about an event when it is reported in a group.",
       },
       GROUP: "GROUP",
       GROUP_REPORT: {
@@ -1644,44 +1642,44 @@ export const enTranslations: ResourceKey = {
       NEW_COMMENT: {
         name: "Consulting",
         tooltip:
-          "Notifies when an ASM user submits a communication, question, " +
-          "request, suggestion or issue related to her group, a specific vulnerability " +
-          "or an event that requires a special attention.",
+          "Get notifications when an ASM user submits a comment concerning " +
+          "a group, a specific vulnerability or an event.",
       },
       NEW_DRAFT: {
         name: "Draft updates",
         tooltip:
-          "Notifies when a hacker submits a vulnerability draft or " +
-          "when an admin user reject and unsubmmit a vulnerability draft submission",
+          "Get notifications when a hacker submits a vulnerability draft " +
+          "or when a draft is rejected.",
       },
       ORGANIZATION: "ORGANIZATION",
       PORTFOLIO: "PORTFOLIO",
       REMEDIATE_FINDING: {
-        name: "Vulnerabilities updates",
+        name: "Vulnerability updates",
         tooltip:
-          "Communicates when a new vulnerability is discovered, " +
-          "when a vulnerability fix is reported " +
-          "or when one or more specific vulnerabilities are removed",
+          "Get notifications when a new vulnerability is discovered, " +
+          "a vulnerability fix is reported " +
+          "or a specific vulnerability is removed.",
       },
       ROOT_MOVED: {
-        name: "Roots updates",
+        name: "Root updates",
         tooltip:
-          "Notifies when you deactivate a root or when you move a root to another group",
+          "Get notifications when a user deactivates a root " +
+          "or moves a root to another group.",
       },
       UPDATED_TREATMENT: {
         name: "Treatment updates",
         tooltip:
-          "Reports when you define how to address or remediate a vulnerability",
+          "Get notifications when a user defines how to address a vulnerability.",
       },
       VULNERABILITY_ASSIGNED: {
-        name: "Vulnerabilities assignment",
+        name: "Vulnerability assignment",
         tooltip:
-          "Notifies when a user has been assigned to work on a vulnerability",
+          "Get notifications when a user is assigned to work on a vulnerability.",
       },
       VULNERABILITY_REPORT: {
-        name: "Vulnerabilities alert",
+        name: "Vulnerability alert",
         tooltip:
-          "Communicates when a vulnerability has been reported or has been closed",
+          "Get notifications when a vulnerability is reported or closed.",
       },
     },
     environmentTable: {
