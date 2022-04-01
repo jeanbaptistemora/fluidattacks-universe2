@@ -32,10 +32,6 @@ const esModules = [
   "decode-named-character-reference",
 ].join("|");
 
-const isUsingEnzyme = process.env.isEnzyme === "true";
-const enzymeTestMatch = ["<rootDir>/**/*.spec.tsx"];
-const rtlTestMatch = ["<rootDir>/**/*.test.tsx"];
-
 module.exports = {
   collectCoverage: true,
   coverageDirectory: "coverage",
@@ -57,8 +53,7 @@ module.exports = {
   preset: "ts-jest",
   setupFiles: ["jest-canvas-mock"],
   setupFilesAfterEnv: ["<rootDir>/jestSetup.ts"],
-  testEnvironment: isUsingEnzyme ? "jsdom" : "jest-environment-jsdom",
-  testMatch: isUsingEnzyme ? enzymeTestMatch : rtlTestMatch,
+  testEnvironment: "jest-environment-jsdom",
   transform: {
     [`(${esModules}).+\\.js$`]: "babel-jest",
   },

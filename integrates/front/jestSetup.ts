@@ -2,8 +2,6 @@
   --------
   Since most Jest mocks override/mutate properties, we need to disable the above rules.
 */
-import { configure } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import fetchMock from "fetch-mock";
 import "@testing-library/jest-dom";
 
@@ -30,9 +28,6 @@ jest.mock("@bugsnag/js");
 // Set max timeout from 5000
 const newMaxTime: number = 15000;
 jest.setTimeout(newMaxTime);
-
-// Configure enzyme
-configure({ adapter: new ReactSixteenAdapter() });
 
 // Mock matchMedia
 Object.defineProperty(window, "matchMedia", {
