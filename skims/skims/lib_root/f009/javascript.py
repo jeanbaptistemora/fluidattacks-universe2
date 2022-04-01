@@ -54,7 +54,7 @@ def crypto_js_credentials(
                     if method_name in danger_methods:
                         match_arguments = g.match_ast_group(
                             graph,
-                            match["arguments"],
+                            str(match["arguments"]),
                             "string",
                             "template_string",
                         )

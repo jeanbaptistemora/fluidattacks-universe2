@@ -14,8 +14,10 @@ def evaluate(args: EvaluatorArgs) -> None:
     step = args.syntax_step
     if "." in step.symbol:
         var_name, field = split_on_last_dot(step.symbol)
-        if args.current_instance and (
-            field_instance := args.current_instance.fields.get(field)
+        if (
+            args.current_instance
+            and args.current_instance.fields
+            and (field_instance := args.current_instance.fields.get(field))
         ):
             step.meta.danger = field_instance.meta.danger
             args.syntax_step.meta.value = field_instance.meta.value

@@ -43,7 +43,7 @@ def evaluate_required(args: EvaluatorArgs) -> None:
 
     module: SyntaxStepLiteral = args.dependencies[0]
     if isinstance(module, SyntaxStepLiteral):
-        method.return_type = module.value
+        method.return_type = str(module.value)
 
 
 @javascript_only
@@ -63,6 +63,7 @@ def process_declaration(args: EvaluatorArgs) -> None:
             method_var
             and not declaration.return_type
             and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+            and isinstance(method_var_decl, SyntaxStepDeclaration)
         ):
             step.var_type = f"{method_var_decl.var_type}.{method_path}"
 

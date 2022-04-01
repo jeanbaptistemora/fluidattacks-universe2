@@ -3,6 +3,7 @@ from model import (
 )
 from model.graph_model import (
     SyntaxStep,
+    SyntaxStepDeclaration,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
@@ -30,8 +31,10 @@ def attempt_java_util_properties_methods(args: EvaluatorArgs) -> bool:
     method_var, method_path = split_on_first_dot(args.syntax_step.method)
 
     if (
-        dcl := lookup_var_dcl_by_name(args, method_var)
-    ) and dcl.var_type in build_attr_paths("java", "util", "Properties"):
+        (dcl := lookup_var_dcl_by_name(args, method_var))
+        and isinstance(dcl, SyntaxStepDeclaration)
+        and dcl.var_type in build_attr_paths("java", "util", "Properties")
+    ):
         if method_path == "load" and len(args.dependencies) == 1:
             dcl.meta.value = args.dependencies[0].meta.value
         if (

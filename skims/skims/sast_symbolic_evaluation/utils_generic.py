@@ -42,7 +42,7 @@ def lookup_var_value(args: EvaluatorArgs, var_name: str) -> str:
             ):
                 return depend.expression
             if isinstance(depend, graph_model.SyntaxStepLiteral):
-                return depend.value
+                return str(depend.value)
         step_ind += 1
     return ""
 

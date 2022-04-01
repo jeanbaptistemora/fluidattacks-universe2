@@ -1,4 +1,5 @@
 from model.graph_model import (
+    SyntaxStepDeclaration,
     SyntaxStepMethodInvocation,
 )
 from sast_symbolic_evaluation.types import (
@@ -53,9 +54,11 @@ def evaluate(args: EvaluatorArgs) -> None:
     if isinstance(las_statement, SyntaxStepMethodInvocation):
         var, method_path = split_on_last_dot(las_statement.method)
         if (var_decl := lookup_var_dcl_by_name(args, var)) and (
-            all_param_types := PARAM_TYPES.get(var_decl.var_type, {}).get(
+            all_param_types := PARAM_TYPES.get(str(var_decl.var_type), {}).get(
                 method_path
             )
+            if isinstance(var_decl, SyntaxStepDeclaration)
+            else None
         ):
             for param_types in all_param_types:
                 if len(param_types) == len(args.dependencies):
