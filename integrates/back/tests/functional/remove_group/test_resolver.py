@@ -5,6 +5,12 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding,
+)
+from db_model.groups.constants import (
+    MASKED,
+)
 from db_model.groups.enums import (
     GroupService,
     GroupStateRemovalJustification,
@@ -50,6 +56,17 @@ async def test_remove_group(populate: bool, email: str) -> None:
     assert group.state.service == GroupService.WHITE
     assert group.state.status == GroupStateStatus.DELETED
     assert group.state.tier == GroupTier.FREE
+    for file in group.files:
+        assert file.description == MASKED
+        assert file.file_name == MASKED
+        assert file.modified_by == MASKED
+        assert file.modified_date
+        assert file.modified_date != MASKED
+
+    findings: tuple[
+        Finding, ...
+    ] = await loaders.group_drafts_and_findings.load(group_name)
+    assert not findings
 
 
 @pytest.mark.asyncio

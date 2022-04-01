@@ -60,6 +60,32 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     }
                 ],
                 "project_status": "ACTIVE",
+                "files": [
+                    {
+                        "description": "Test",
+                        "fileName": "test.zip",
+                        "uploadDate": "2019-03-01 15:21",
+                        "uploader": "unittest@fluidattacks.com",
+                    },
+                    {
+                        "description": "Test",
+                        "fileName": "shell.exe",
+                        "uploadDate": "2019-04-24 14:56",
+                        "uploader": "unittest@fluidattacks.com",
+                    },
+                    {
+                        "description": "Test",
+                        "fileName": "shell2.exe",
+                        "uploadDate": "2019-04-24 14:59",
+                        "uploader": "unittest@fluidattacks.com",
+                    },
+                    {
+                        "description": "Test",
+                        "fileName": "asdasd.py",
+                        "uploadDate": "2019-08-06 14:28",
+                        "uploader": "unittest@fluidattacks.com",
+                    },
+                ],
             },
             {
                 "project_name": "group2",
