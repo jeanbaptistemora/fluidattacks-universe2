@@ -47,6 +47,7 @@ from syntax_graph.syntax_readers.common import (
     do_statement as common_do_statement,
     execution_block as common_execution_block,
     identifier as common_identifier,
+    interpolation as common_interpolation,
     null_literal as common_null_literal,
     number_literal as common_number_literal,
     string_literal as common_string_literal,
@@ -219,6 +220,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "invocation_expression",
         },
         syntax_reader=c_sharp_invocation_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "interpolation",
+        },
+        syntax_reader=common_interpolation.reader,
     ),
     Dispatcher(
         applicable_types={
