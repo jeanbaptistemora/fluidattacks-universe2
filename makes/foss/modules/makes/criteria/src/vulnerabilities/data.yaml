@@ -687,7 +687,7 @@
         change the compromised credentials
         and ideally remove the credentials from the git log.
         In some cases the last recommendation cannot be applied
-        to avoid tracebility issues.
+        to avoid traceability issues.
         If that's the case,
         in addition to removing the credentials from the code,
         we require a customer confirmation
@@ -1323,7 +1323,7 @@
         change the compromised credentials
         and ideally remove the credentials from the git log.
         In some cases the last recommendation cannot be applied
-        to avoid tracebility issues.
+        to avoid traceability issues.
         If that's the case,
         in addition to removing the credentials from the code,
         we require a customer confirmation
@@ -23865,7 +23865,7 @@
       details: __empty__
 "400":
   en:
-    title: Tracebility Loss - AWS
+    title: Traceability Loss - AWS
     description: >
       Some EC2, ELB or S3 instances do not set
       the logging property,
@@ -23885,7 +23885,7 @@
   category: Abuse Functionality
   remediation_time: "60"
   es:
-    title: Tracebility Loss - AWS
+    title: Traceability Loss - AWS
     description: >
       Algunas instancias de EC2, S3 o ELB
       no definen la propiedad logging,
@@ -23971,7 +23971,7 @@
         https://docs.bridgecrew.io/docs/set-an-expiration-date-on-all-secrets
 "402":
   en:
-    title: Tracebility Loss - Azure
+    title: Traceability Loss - Azure
     description: >
       The Azure configurations
       do not enable the log service
@@ -23991,7 +23991,7 @@
   category: Abuse Functionality
   remediation_time: "60"
   es:
-    title: Tracebility Loss - Azure
+    title: Traceability Loss - Azure
     description: >
       Las configuraciones de Azure
       no habilitan el registro de logs
@@ -24324,7 +24324,7 @@
         https://docs.bridgecrew.io/docs/general_13
 "408":
   en:
-    title: Tracebility Loss - API Gateway
+    title: Traceability Loss - API Gateway
     description: >
       Some AWS API Gateway instances
       do not enable the logging feature,
@@ -24345,7 +24345,7 @@
   category: Deceptive Interactions
   remediation_time: "20"
   es:
-    title: Tracebility Loss - API Gateway
+    title: Traceability Loss - API Gateway
     description: >
       Algunas instancias de API Gateway de AWS
       no tienen habilitada la funcionalidad de logging,
