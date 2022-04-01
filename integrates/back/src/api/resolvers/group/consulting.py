@@ -27,7 +27,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Union,
@@ -62,7 +61,4 @@ async def resolve_no_cache(
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
 
-    return cast(
-        List[Comment],
-        await group_comments_domain.list_comments(group_name, user_email),
-    )
+    return await group_comments_domain.list_comments(group_name, user_email)

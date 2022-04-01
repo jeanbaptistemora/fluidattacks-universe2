@@ -54,5 +54,6 @@ async def resolve(
     return tuple(
         vulnerability
         for vulnerability in filter_open_vulns(vulnerabilities)
-        if vulnerability.treatment.assigned == user_data["user_email"]
+        if vulnerability.treatment
+        and vulnerability.treatment.assigned == user_data["user_email"]
     )

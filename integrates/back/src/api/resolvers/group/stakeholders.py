@@ -54,7 +54,7 @@ async def resolve(
         response = [
             user
             for user in response
-            if not users_domain.is_fluid_staff(user["email"])
+            if not users_domain.is_fluid_staff(str(user["email"]))
         ]
     return response
 

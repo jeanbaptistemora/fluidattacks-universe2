@@ -5,6 +5,9 @@ from db_model.groups.types import (
     Group,
     GroupUnreliableIndicators,
 )
+from decimal import (
+    Decimal,
+)
 from decorators import (
     require_asm,
 )
@@ -24,7 +27,7 @@ async def resolve(
     parent: Union[Group, Dict[str, Any]],
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[int]:
+) -> Optional[Decimal]:
     if isinstance(parent, dict):
         return parent["mean_remediate_critical_severity"]
 

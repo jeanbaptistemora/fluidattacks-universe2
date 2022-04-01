@@ -50,7 +50,7 @@ async def resolve_no_cache(
 ) -> Optional[Finding]:
     loaders: Dataloaders = info.context.loaders
     if isinstance(parent, dict):
-        finding_id: str = parent["max_open_severity_finding"]
+        finding_id = parent["max_open_severity_finding"]
     else:
         group_name: str = parent.name
         group_indicators: GroupUnreliableIndicators = (
