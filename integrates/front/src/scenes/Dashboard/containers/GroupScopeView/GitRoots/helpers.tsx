@@ -189,6 +189,7 @@ function useGitSubmit(
   includesHealthCheck,
   nickname,
   url,
+  useVpn,
 }: IGitRootAttr) => Promise<void> {
   return useCallback(
     async ({
@@ -200,6 +201,7 @@ function useGitSubmit(
       includesHealthCheck,
       nickname,
       url,
+      useVpn,
     }: IGitRootAttr): Promise<void> => {
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
@@ -230,6 +232,7 @@ function useGitSubmit(
               includesHealthCheck: includesHealthCheck ?? false,
               nickname,
               url: url.trim(),
+              useVpn,
             },
           });
         } else {
@@ -266,6 +269,7 @@ function useGitSubmit(
               id,
               includesHealthCheck,
               url,
+              useVpn,
             },
           });
         }

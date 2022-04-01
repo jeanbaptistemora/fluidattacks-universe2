@@ -46,6 +46,7 @@ describe("GitRoots", (): void => {
         secrets: [],
         state: "ACTIVE",
         url: "https://gitlab.com/fluidattacks/product",
+        useVpn: false,
       },
     ];
     const refetch: jest.Mock = jest.fn();
@@ -197,6 +198,7 @@ describe("GitRoots", (): void => {
       secrets: [],
       state: "ACTIVE",
       url: "https://gitlab.com/fluidattacks/product",
+      useVpn: false,
     };
     render(
       <authzPermissionsContext.Provider

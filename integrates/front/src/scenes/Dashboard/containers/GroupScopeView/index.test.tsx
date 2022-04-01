@@ -137,6 +137,7 @@ describe("GroupScopeView", (): void => {
           includesHealthCheck: false,
           nickname: "",
           url: "https://gitlab.com/fluidattacks/product",
+          useVpn: false,
         },
       },
       result: {
@@ -239,7 +240,7 @@ describe("GroupScopeView", (): void => {
       "production"
     );
     userEvent.click(screen.getByRole("radio", { name: "No" }));
-    const numberOfRejectionCheckbox: number = 3;
+    const numberOfRejectionCheckbox: number = 4;
     await waitFor((): void => {
       expect(
         screen.queryAllByRole("checkbox", { checked: false })
@@ -254,9 +255,10 @@ describe("GroupScopeView", (): void => {
     userEvent.click(
       screen.getByRole("checkbox", { name: "rejectHealthCheckC" })
     );
+
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
-        numberOfRejectionCheckbox
+        numberOfRejectionCheckbox - 1
       );
     });
     userEvent.click(screen.getByText("confirmmodal.proceed"));
@@ -437,7 +439,7 @@ describe("GroupScopeView", (): void => {
     await waitFor((): void => {
       expect(
         screen.queryAllByRole("checkbox", { checked: false })
-      ).toHaveLength(1);
+      ).toHaveLength(2);
     });
     userEvent.click(
       screen.getByRole("checkbox", { name: "includesHealthCheckA" })

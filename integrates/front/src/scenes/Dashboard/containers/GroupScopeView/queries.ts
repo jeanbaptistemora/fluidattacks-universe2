@@ -25,6 +25,7 @@ const GET_ROOTS: DocumentNode = gql`
           nickname
           state
           url
+          useVpn
         }
         ... on IPRoot {
           address
@@ -84,6 +85,7 @@ const GET_GIT_ROOT_DETAILS = gql`
         }
         lastStateStatusUpdate
         nickname
+        useVpn
       }
     }
   }
@@ -99,6 +101,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
     $includesHealthCheck: Boolean!
     $nickname: String!
     $url: String!
+    $useVpn: Boolean!
   ) {
     addGitRoot(
       branch: $branch
@@ -109,6 +112,7 @@ const ADD_GIT_ROOT: DocumentNode = gql`
       includesHealthCheck: $includesHealthCheck
       nickname: $nickname
       url: $url
+      useVpn: $useVpn
     ) {
       success
     }
@@ -166,6 +170,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
     $id: ID!
     $includesHealthCheck: Boolean!
     $url: String!
+    $useVpn: Boolean!
   ) {
     updateGitRoot(
       branch: $branch
@@ -176,6 +181,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
       id: $id
       includesHealthCheck: $includesHealthCheck
       url: $url
+      useVpn: $useVpn
     ) {
       success
     }

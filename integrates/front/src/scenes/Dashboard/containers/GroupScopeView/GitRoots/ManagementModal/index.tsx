@@ -50,6 +50,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     secrets: [],
     state: "ACTIVE",
     url: "",
+    useVpn: false,
   },
   nicknames,
   onClose,

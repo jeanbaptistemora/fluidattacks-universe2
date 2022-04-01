@@ -778,6 +778,7 @@ export const enTranslations: ResourceKey = {
             "Nickname must be unique and different from the repository name",
           title: "Git repository",
           url: "URL",
+          useVpn: "Use Vpn",
         },
         sync: {
           alreadyCloning: "Git root already has an active cloning process",

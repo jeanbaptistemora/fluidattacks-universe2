@@ -216,7 +216,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                     {t("group.scope.git.repo.title")}
                   </legend>
                   <div className={"flex"}>
-                    <div className={"w-70 mr3"} id={"git-root-add-repo-url"}>
+                    <div className={"w-60 mr3"} id={"git-root-add-repo-url"}>
                       <ControlLabel>
                         <RequiredField>{"*"}&nbsp;</RequiredField>
                         {t("group.scope.git.repo.url")}
@@ -237,6 +237,18 @@ const Repository: React.FC<IRepositoryProps> = ({
                         name={"branch"}
                         type={"text"}
                       />
+                    </div>
+                    <div className={"w-10 ml3 mt4"} id={"git-root-add-use-vpn"}>
+                      <Field
+                        component={FormikCheckbox}
+                        isChecked={initialValues.useVpn}
+                        label={""}
+                        name={"useVpn"}
+                        type={"checkbox"}
+                      >
+                        {t("group.scope.git.repo.useVpn")}
+                        <RequiredField>{"*"}&nbsp;</RequiredField>
+                      </Field>
                     </div>
                   </div>
                   {isEditing && values.branch !== initialValues.branch ? (

@@ -26,6 +26,7 @@ interface IGitRootAttr {
   }[];
   state: "ACTIVE" | "INACTIVE";
   url: string;
+  useVpn: boolean;
 }
 
 interface IIPRootAttr {
