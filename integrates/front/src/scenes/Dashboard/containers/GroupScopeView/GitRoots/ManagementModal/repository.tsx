@@ -359,6 +359,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikText}
                                 name={"credentials.user"}
                                 type={"text"}
+                                validate={composeValidators([
+                                  required,
+                                  requireGitAccessibility,
+                                ])}
                               />
                             </div>
                             <div className={"w-70"}>
@@ -369,6 +373,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikText}
                                 name={"credentials.password"}
                                 type={"text"}
+                                validate={composeValidators([
+                                  required,
+                                  requireGitAccessibility,
+                                ])}
                               />
                             </div>
                           </div>
@@ -382,6 +390,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikText}
                                 name={"credentials.token"}
                                 type={"text"}
+                                validate={composeValidators([
+                                  required,
+                                  requireGitAccessibility,
+                                ])}
                               />
                             </div>
                           </div>

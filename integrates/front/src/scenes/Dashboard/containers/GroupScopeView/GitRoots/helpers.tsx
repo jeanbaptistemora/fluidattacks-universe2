@@ -208,12 +208,21 @@ function useGitSubmit(
             variables: {
               branch: branch.trim(),
               credentials:
-                credentials.key === ""
+                credentials.key === "" &&
+                credentials.user === "" &&
+                credentials.password === "" &&
+                credentials.token === ""
                   ? null
                   : {
-                      key: Buffer.from(credentials.key).toString("base64"),
+                      key:
+                        credentials.key === ""
+                          ? undefined
+                          : Buffer.from(credentials.key).toString("base64"),
                       name: credentials.name,
+                      password: credentials.password,
+                      token: credentials.token,
                       type: credentials.type,
+                      user: credentials.user,
                     },
               environment,
               gitignore,
@@ -229,25 +238,27 @@ function useGitSubmit(
             variables: {
               branch,
               credentials:
-                credentials.id === ""
-                  ? _.isUndefined(credentials.key)
-                    ? null
-                    : {
-                        key: Buffer.from(credentials.key).toString("base64"),
+                _.isUndefined(credentials.key) &&
+                _.isUndefined(credentials.user) &&
+                _.isUndefined(credentials.password) &&
+                _.isUndefined(credentials.token)
+                  ? !_.isUndefined(credentials.id) && credentials.id !== ""
+                    ? {
+                        id: credentials.id,
                         name: credentials.name,
                         type: credentials.type,
                       }
-                  : _.isUndefined(credentials.key)
-                  ? {
-                      id: credentials.id,
-                      name: credentials.name,
-                      type: credentials.type,
-                    }
+                    : undefined
                   : {
-                      id: credentials.id,
-                      key: Buffer.from(credentials.key).toString("base64"),
+                      key:
+                        credentials.key === "" || _.isUndefined(credentials.key)
+                          ? undefined
+                          : Buffer.from(credentials.key).toString("base64"),
                       name: credentials.name,
+                      password: credentials.password,
+                      token: credentials.token,
                       type: credentials.type,
+                      user: credentials.user,
                     },
               environment,
               gitignore,
