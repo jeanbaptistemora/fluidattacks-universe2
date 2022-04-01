@@ -199,7 +199,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </FormGroup>
                     </Col>
                     <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup>
+                      <FormGroup id={"add-group-name-tour"}>
                         <ControlLabel>
                           {t("organization.tabs.groups.newGroup.name")}
                         </ControlLabel>
@@ -219,7 +219,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </FormGroup>
                     </Col>
                     <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup>
+                      <FormGroup id={"add-group-description-tour"}>
                         <ControlLabel>
                           {t(
                             "organization.tabs.groups.newGroup.description.text"
@@ -420,13 +420,13 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     {
                       ...BaseStep,
                       content: t("tours.addGroup.groupName"),
-                      target: "#add-group-name",
+                      target: "#add-group-name-tour",
                     },
                     {
                       ...BaseStep,
                       content: t("tours.addGroup.groupDescription"),
                       hideFooter: values.description.length === 0,
-                      target: "#add-group-description",
+                      target: "#add-group-description-tour",
                     },
                     {
                       ...BaseStep,

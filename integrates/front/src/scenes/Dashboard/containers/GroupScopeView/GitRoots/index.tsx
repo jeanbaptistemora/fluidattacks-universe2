@@ -47,7 +47,7 @@ import {
   filterText,
 } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { Tour } from "components/Tour/index";
+import { BaseStep, Tour } from "components/Tour/index";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
@@ -94,20 +94,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     false | { mode: "ADD" | "EDIT" }
   >(false);
   const { userEmail }: IAuthContext = useContext(authContext);
-  const [runTour, toggleTour] = useState(
-    userEmail.endsWith("fluidattacks.com")
-  );
+  const enableTour = userEmail.endsWith("fluidattacks.com");
+  const [runTour, toggleTour] = useState(enableTour);
 
   const openAddModal: () => void = useCallback((): void => {
-    setManagingRoot({ mode: "ADD" });
-  }, []);
-
-  const closeModal: () => void = useCallback((): void => {
     if (runTour) {
       toggleTour(false);
     }
-    setManagingRoot(false);
+    setManagingRoot({ mode: "ADD" });
   }, [runTour, toggleTour]);
+
+  const closeModal: () => void = useCallback((): void => {
+    setManagingRoot(false);
+  }, []);
 
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
@@ -512,6 +511,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                             run={true}
                             steps={[
                               {
+                                ...BaseStep,
                                 content: t("tours.addGitRoot.addButton"),
                                 disableBeacon: true,
                                 hideFooter: true,
@@ -615,7 +615,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           onClose={closeModal}
           onSubmitEnvs={handleEnvsSubmit}
           onSubmitRepo={handleGitSubmit}
-          runTour={runTour}
+          runTour={enableTour}
         />
       )}
       {deactivationModal.open ? (

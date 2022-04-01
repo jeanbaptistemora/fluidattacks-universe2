@@ -10,11 +10,15 @@ interface ITourProps {
 const BaseStep: Step = {
   content: "",
   disableBeacon: true,
-  hideCloseButton: true,
-  placement: "bottom-start",
+  hideCloseButton: false,
+  placement: "bottom",
   styles: {
     options: {
       zIndex: 9999,
+    },
+    tooltipContainer: {
+      fontFamily: "roboto",
+      textAlign: "left",
     },
   },
   target: "",
@@ -34,7 +38,8 @@ const Tour: React.FC<ITourProps> = (props: ITourProps): JSX.Element => {
     ) {
       changeTourStep(index + (action === ACTIONS.PREV ? -1 : 1));
     } else if (
-      ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status)
+      ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status) ||
+      action === "close"
     ) {
       toggleTour(false);
     }
@@ -45,6 +50,7 @@ const Tour: React.FC<ITourProps> = (props: ITourProps): JSX.Element => {
       callback={handleJoyrideCallback}
       continuous={true}
       disableOverlayClose={true}
+      disableScrollParentFix={true}
       run={runTour}
       spotlightClicks={true}
       stepIndex={tourStep}

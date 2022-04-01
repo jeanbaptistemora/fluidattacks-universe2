@@ -215,8 +215,8 @@ const Repository: React.FC<IRepositoryProps> = ({
                   <legend className={"f3 b"}>
                     {t("group.scope.git.repo.title")}
                   </legend>
-                  <div className={"flex"} id={"git-root-add-repo"}>
-                    <div className={"w-70 mr3"}>
+                  <div className={"flex"}>
+                    <div className={"w-70 mr3"} id={"git-root-add-repo-url"}>
                       <ControlLabel>
                         <RequiredField>{"*"}&nbsp;</RequiredField>
                         {t("group.scope.git.repo.url")}
@@ -227,7 +227,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         type={"text"}
                       />
                     </div>
-                    <div className={"w-30"}>
+                    <div className={"w-30"} id={"git-root-add-repo-branch"}>
                       <ControlLabel>
                         <RequiredField>{"*"}&nbsp;</RequiredField>
                         {t("group.scope.git.repo.branch")}
@@ -558,10 +558,15 @@ const Repository: React.FC<IRepositoryProps> = ({
                 steps={[
                   {
                     ...BaseStep,
-                    content: t("tours.addGitRoot.rootInfo"),
-                    hideFooter:
-                      values.url.length === 0 || values.branch.length === 0,
-                    target: "#git-root-add-repo",
+                    content: t("tours.addGitRoot.rootUrl"),
+                    hideFooter: values.url.length === 0,
+                    target: "#git-root-add-repo-url",
+                  },
+                  {
+                    ...BaseStep,
+                    content: t("tours.addGitRoot.rootBranch"),
+                    hideFooter: values.branch.length === 0,
+                    target: "#git-root-add-repo-branch",
                   },
                   {
                     ...BaseStep,

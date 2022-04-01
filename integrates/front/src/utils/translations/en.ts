@@ -2914,12 +2914,13 @@ export const enTranslations: ResourceKey = {
       addButton: "Let's set up your repositories so we can analyze your code",
       proceedButton:
         "Great! Press the button to start cloning and analyzing your code",
+      rootBranch: "Fill the branch of the code repository to analyze",
       rootCredentials:
         "Fill the credentials that will be used to clone the repository",
       rootEnvironment: "Name the type of environment that the code refers to",
       rootHasHealthcheck:
         "For currently on-going repositories, decide if we are going to analyze the existing code or only the new work from this point forward",
-      rootInfo: "Fill the information of the code repository to analyze",
+      rootUrl: "Fill the url of the code repository to analyze",
     },
     addGroup: {
       addButton:

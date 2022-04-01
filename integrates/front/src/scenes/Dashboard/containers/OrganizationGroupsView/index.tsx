@@ -15,7 +15,7 @@ import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import { Tour } from "components/Tour/index";
+import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
@@ -46,13 +46,15 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   // State management
   const [isGroupModalOpen, setGroupModalOpen] = useState(false);
   const { userEmail }: IAuthContext = useContext(authContext);
-  const [runTour, toggleTour] = useState(
-    userEmail.endsWith("fluidattacks.com")
-  );
+  const enableTour = userEmail.endsWith("fluidattacks.com");
+  const [runTour, toggleTour] = useState(enableTour);
 
   const openNewGroupModal: () => void = useCallback((): void => {
+    if (runTour) {
+      toggleTour(false);
+    }
     setGroupModalOpen(true);
-  }, []);
+  }, [runTour, toggleTour]);
 
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery<IGetOrganizationGroups>(
@@ -80,12 +82,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const closeNewGroupModal: () => void = useCallback((): void => {
-    if (runTour) {
-      toggleTour(false);
-    }
     setGroupModalOpen(false);
     void refetchGroups();
-  }, [refetchGroups, runTour, toggleTour]);
+  }, [refetchGroups]);
   // Auxiliary functions
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]
@@ -308,6 +307,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                                 run={true}
                                 steps={[
                                   {
+                                    ...BaseStep,
                                     content: t("tours.addGroup.addButton"),
                                     disableBeacon: true,
                                     hideFooter: true,
@@ -333,7 +333,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                 isOpen={true}
                 onClose={closeNewGroupModal}
                 organization={organizationName}
-                runTour={runTour}
+                runTour={enableTour}
               />
             ) : undefined}
           </div>
