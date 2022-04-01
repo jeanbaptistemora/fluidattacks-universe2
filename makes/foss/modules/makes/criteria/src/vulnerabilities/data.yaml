@@ -6131,61 +6131,32 @@
   en:
     title: Non-encrypted confidential information - S3 Server Side Encryption
     description: >
-      When dealing with sensitive data
-      that is crucial to your business,
-      it is required by regulations
-      to implement encryption in order
-      to protect it
-      from attackers or unauthorized personnel.
-      Using S3 Server-Side Encryption (SSE)
-      will enable Amazon
-      to encrypt your data at rest.
-      Data protected by Server-Side Encryption
-      is encrypted with 256-bit
-      Advanced Encryption Standard (AES-256).
+      Some S3 buckets do not explicitly enable
+      the Server-Side-Encryption (SSE) property.
+      So the stored objects are not encrypted at rest,
+      exposing their content to leaks by attackers or unauthorized users.
     impact: >
       Compromise sensitive data stored in
       the bucket in plaintext.
     recommendation: >
-      Encrypt each object with a unique key.
-      As an additional safeguard, it encrypts
-      the key itself with a root key that
-      regularly rotates.
-      Amazon S3 server-side encryption uses one
-      of the strongest block ciphers available,
-      256-bit Advanced Encryption Standard
-      (AES-256), to encrypt the data.
+      Enable the SSE property in all S3 instances.
     threat: >
       Authenticated  attacker from Internet
       with access to the bucket.
   es:
     title: Non-encrypted confidential information - S3 Server Side Encryption
     description: >
-      Al tratar con datos sensibles
-      que son críticos para el negocio,
-      las regulaciones requieren
-      para implementar el cifrado
-      para protegerlo de atacantes
-      ó personal no autorizado.
-      El uso de S3 Server-Side Encryption (SSE)
-      permitirá a Amazon cifrar tus datos
-      en reposo.
-      La información protegida con
-      Server-Side Encryption está cifrada
-      con 256-bit Advanced Encryption Standard
-      (AES-256).
+      Algunos buckets de S3 no habilitan
+      explícitamente la propiedad Server-Side-Encryption (SSE).
+      Por lo que los objetos almacenados
+      no se encuentran cifrados at rest,
+      exponiendo su contenido a fugas
+      por atacantes o usuarios no autorizados
     impact: >
       Comprometer datos sensibles del bucket
       almacenados en texto plano.
     recommendation: >
-      Cifrar cada objeto con una clave única.
-      Como salvaguarda adicional, cifra la propia
-      clave con una clave raíz que regularmente rota.
-      El cifrado del lado del servidor de Amazon S3
-      utiliza uno de los cifrados en bloque más
-      potentes disponibles, el Advanced Encryption
-      Standard (AES-256) de 256 bits, para cifrar
-      los datos.
+      Habilitar la propiedad SSE en todas las instancias de S3
     threat: >
       Atacante autenticado desde Internet
       con acceso al bucket.
