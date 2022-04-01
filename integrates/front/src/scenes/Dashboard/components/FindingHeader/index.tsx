@@ -6,6 +6,7 @@ import {
   faUnlockKeyhole,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import type { IBadgeProps } from "components/Badge";
 import { Badge } from "components/Badge";
@@ -64,11 +65,14 @@ const statusConfigs: Record<
   },
 };
 
-const FindingHeader: React.FC<IFindingHeaderProps> = (
-  props: IFindingHeaderProps
-): JSX.Element => {
-  const { discoveryDate, estRemediationTime, openVulns, severity, status } =
-    props;
+const FindingHeader: React.FC<IFindingHeaderProps> = ({
+  discoveryDate,
+  estRemediationTime,
+  openVulns,
+  severity,
+  status,
+}: IFindingHeaderProps): JSX.Element => {
+  const { t } = useTranslation();
   const SEVERITY_THRESHOLD_CRITICAL: number = 9;
   const SEVERITY_THRESHOLD_HIGH: number = 6.9;
   const SEVERITY_THRESHOLD_MED: number = 3.9;
@@ -78,25 +82,19 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
     string
   ] {
     if (severity >= SEVERITY_THRESHOLD_CRITICAL) {
-      return [
-        "CRITICAL",
-        translate.t("searchFindings.header.severity.level.critical"),
-      ];
+      return ["CRITICAL", t("searchFindings.header.severity.level.critical")];
     }
     if (severity > SEVERITY_THRESHOLD_HIGH) {
-      return ["HIGH", translate.t("searchFindings.header.severity.level.high")];
+      return ["HIGH", t("searchFindings.header.severity.level.high")];
     }
     if (severity > SEVERITY_THRESHOLD_MED) {
-      return [
-        "MED",
-        translate.t("searchFindings.header.severity.level.medium"),
-      ];
+      return ["MED", t("searchFindings.header.severity.level.medium")];
     }
     if (severity >= SEVERITY_THRESHOLD_LOW) {
-      return ["LOW", translate.t("searchFindings.header.severity.level.low")];
+      return ["LOW", t("searchFindings.header.severity.level.low")];
     }
 
-    return ["NONE", translate.t("searchFindings.header.severity.level.none")];
+    return ["NONE", t("searchFindings.header.severity.level.none")];
   }
   const [severityLevel, severityLevelTooltip] = setSeverityLevel();
   const { color, text: severityText } = severityConfigs[severityLevel];
@@ -106,13 +104,12 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
     <Indicators>
       <Indicator
         icon={faTriangleExclamation}
-        title={translate.t("searchFindings.header.severity.label")}
+        title={t("searchFindings.header.severity.label")}
       >
         <TooltipWrapper
           id={"severityTooltip"}
           message={
-            translate.t("searchFindings.header.severity.tooltip") +
-            severityLevelTooltip
+            t("searchFindings.header.severity.tooltip") + severityLevelTooltip
           }
         >
           <Badge variant={color}>{severity}</Badge>
@@ -122,48 +119,44 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
       </Indicator>
       <Indicator
         icon={faSkullCrossbones}
-        title={translate.t("searchFindings.header.status.label")}
+        title={t("searchFindings.header.status.label")}
       >
         <TooltipWrapper
           id={"statusTooltip"}
-          message={
-            translate.t("searchFindings.header.status.tooltip") + statusTooltip
-          }
+          message={t("searchFindings.header.status.tooltip") + statusTooltip}
         >
           {statusText}
         </TooltipWrapper>
       </Indicator>
       <Indicator
         icon={faUnlockKeyhole}
-        title={translate.t("searchFindings.header.openVulns.label")}
+        title={t("searchFindings.header.openVulns.label")}
       >
         <TooltipWrapper
           id={"openVulnsTooltip"}
-          message={translate.t("searchFindings.header.openVulns.tooltip")}
+          message={t("searchFindings.header.openVulns.tooltip")}
         >
           {openVulns}
         </TooltipWrapper>
       </Indicator>
       <Indicator
         icon={faCalendarTimes}
-        title={translate.t("searchFindings.header.discoveryDate.label")}
+        title={t("searchFindings.header.discoveryDate.label")}
       >
         <TooltipWrapper
           id={"discoveryDateTooltip"}
-          message={translate.t("searchFindings.header.discoveryDate.tooltip")}
+          message={t("searchFindings.header.discoveryDate.tooltip")}
         >
           {discoveryDate}
         </TooltipWrapper>
       </Indicator>
       <Indicator
         icon={faClock}
-        title={translate.t("searchFindings.header.estRemediationTime.label")}
+        title={t("searchFindings.header.estRemediationTime.label")}
       >
         <TooltipWrapper
           id={"estRemediationTime"}
-          message={translate.t(
-            "searchFindings.header.estRemediationTime.tooltip"
-          )}
+          message={t("searchFindings.header.estRemediationTime.tooltip")}
         >
           {estRemediationTime}
         </TooltipWrapper>
