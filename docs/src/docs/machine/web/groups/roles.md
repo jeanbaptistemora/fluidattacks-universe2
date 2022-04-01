@@ -121,9 +121,11 @@ edit or remove users.
   to the scope of the group
   being managed.
 - **Edit roots:**
-  This function is for
-  editing the mentioned
-  git roots.
+  This function allows you
+  to change URLs of roots
+  that do not have reported
+  vulnerabilities and edit
+  root branches.
 - **Delete groups:**
   With this function
   you are able to
@@ -150,6 +152,25 @@ edit or remove users.
   detailed information about
   the vulnerabilities of
   a specific group.
+- **Exclusions:**
+  This feature allows you
+  to choose files or folders
+  in your repository that
+  you do not want to
+  include in the security
+  assessments.
+- **Deactivate/Activate root:**
+  This function allows you to:
+
+  1. Deactivate repositories
+     for which you no longer want
+     an assessment;
+  1. Activate repositories you want
+     to leave available to our analysts,
+     and
+  1. Move a root to another group,
+     taking all the associated
+     vulnerabilities with it.
 
 ## Roles table
 
@@ -172,3 +193,5 @@ for each role.
 |Edit users           |    |         |                     |X           |
 |Receive notifications|X   |         |X                    |X           |
 |Generate a report    |    |         |X                    |X           |
+|Exclusions           |    |         |                     |X           |
+|Deactivate/Activate root  |    |         |                     |X           |
