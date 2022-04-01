@@ -9,23 +9,26 @@ import json
 import os
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
 async def get_result(
     *,
-    user: str,
-    group: str,
-) -> Dict[str, Any]:
+    description: str,
+    file_name: str,
+    group_name: str,
+    user_email: str,
+) -> dict[str, Any]:
     path: str = os.path.dirname(os.path.abspath(__file__))
-    filename: str = "test-anim.gif"
-    file_path: str = f"{path}/{filename}"
-    result: Dict[str, Any] = {}
+    file_path: str = f"{path}/{file_name}"
+    result: dict[str, Any] = {}
     with open(file_path, "rb"):
-        file_data: List[Dict[str, str]] = [
-            {"description": "test", "fileName": filename, "uploadDate": ""}
+        file_data: list[dict[str, str]] = [
+            {
+                "description": description,
+                "fileName": file_name,
+                "uploadDate": "",
+            }
         ]
         query: str = """
             mutation AddFilesToDb(
@@ -38,14 +41,14 @@ async def get_result(
                 }
             }
         """
-        variables: Dict[str, Any] = {
+        variables: dict[str, Any] = {
             "filesData": json.dumps(file_data),
-            "groupName": group,
+            "groupName": group_name,
         }
-        data: Dict[str, Any] = {"query": query, "variables": variables}
+        data: dict[str, Any] = {"query": query, "variables": variables}
         result = await get_graphql_result(
             data,
-            stakeholder=user,
+            stakeholder=user_email,
             context=get_new_context(),
         )
     return result
