@@ -2,7 +2,6 @@ data "aws_caller_identity" "current" {}
 variable "cloudflareEmail" {}
 variable "cloudflareApiKey" {}
 variable "kubeConfig" {}
-variable "kubecostToken" {}
 
 data "aws_security_group" "cloudflare" {
   name = "CloudFlare"

@@ -9,9 +9,3 @@ resource "kubernetes_namespace" "production" {
     name = "production"
   }
 }
-
-resource "kubernetes_namespace" "kubecost" {
-  metadata {
-    name = "kubecost"
-  }
-}
