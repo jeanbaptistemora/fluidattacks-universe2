@@ -23,7 +23,6 @@ from roots import (
 from typing import (
     Any,
     Dict,
-    Optional,
 )
 
 
@@ -37,7 +36,7 @@ async def mutate(
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
-    root: Optional[str] = await roots_domain.add_url_root(
+    root = await roots_domain.add_url_root(
         info.context.loaders, user_email, **kwargs
     )
     logs_utils.cloudwatch_log(

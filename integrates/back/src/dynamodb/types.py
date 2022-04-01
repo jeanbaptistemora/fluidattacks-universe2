@@ -4,6 +4,7 @@ from typing import (
     NamedTuple,
     Set,
     Tuple,
+    Union,
 )
 
 Item = Dict[str, Any]
@@ -34,7 +35,7 @@ class Table(NamedTuple):
 
 class OrgFindingPolicyMetadata(NamedTuple):
     name: str
-    tags: Set[str]
+    tags: Union[Set[str], Dict]
 
 
 class OrgFindingPolicyState(NamedTuple):

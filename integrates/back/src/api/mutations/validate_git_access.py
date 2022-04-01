@@ -2,7 +2,6 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    AddRootPayload,
     SimplePayload,
 )
 from decorators import (
@@ -35,7 +34,7 @@ from typing import (
 )
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
-) -> AddRootPayload:
+) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     await roots_domain.validate_git_access(**kwargs)

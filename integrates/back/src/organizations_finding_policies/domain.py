@@ -49,10 +49,12 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Set,
     Tuple,
+    Union,
 )
 from uuid import (
     uuid4,
@@ -102,7 +104,7 @@ async def add_finding_policy(
     *,
     finding_name: str,
     org_name: str,
-    tags: Set[str],
+    tags: Union[Set[str], Dict],
     user_email: str,
 ) -> None:
     validate_finding_name(finding_name)
@@ -384,7 +386,7 @@ async def get_org_policies(*, org_name: str) -> Tuple[OrgFindingPolicy, ...]:
             last_status_update=policy.state.modified_date,
             name=policy.metadata.name,
             status=policy.state.status,
-            tags=policy.metadata.tags,
+            tags=set(policy.metadata.tags),
         )
         for policy in finding_policies
     )

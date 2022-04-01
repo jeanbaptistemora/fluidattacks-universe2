@@ -32,7 +32,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -48,7 +47,7 @@ async def mutate(
     description: str,
     group_name: str,
     language: str,
-    **parameters: Dict[str, str],
+    **parameters: str,
 ) -> SimplePayloadType:
     group_name = group_name.lower()
     try:

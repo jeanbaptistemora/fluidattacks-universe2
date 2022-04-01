@@ -1,9 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch.types import (
-    PutActionResult,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -72,18 +69,16 @@ async def mutate(
             success=False, message="The finding cannot be found"
         )
     success = False
-    message = ""
     with suppress(ClientError):
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
-        success = await queue_job_new(
+        queued_job = await queue_job_new(
             finding_codes=[finding_code],
             group_name=group_name,
             roots=list(roots_to_execute),
         )
-
+        if queued_job is not None:
+            success = queued_job.success
     return SimplePayloadMessage(
-        success=success.success
-        if isinstance(success, PutActionResult)
-        else success,
-        message=message,
+        success=success,
+        message="",
     )
