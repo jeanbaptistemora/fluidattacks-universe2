@@ -296,6 +296,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     onError: handleQryErrors,
     variables: { groupName },
   });
+  const filledGroupInfo =
+    !_.isEmpty(data?.group.description) &&
+    !_.isEmpty(data?.group.businessId) &&
+    !_.isEmpty(data?.group.businessName);
 
   const { data: userData } = useQuery<IDataResult>(GET_HAS_MOBILE_APP, {
     fetchPolicy: "no-cache",
@@ -791,9 +795,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         }}
       />
       <ReportsModal
+        filledGroupInfo={filledGroupInfo}
         hasMobileApp={hasMobileApp}
         isOpen={isReportsModalOpen}
         onClose={closeReportsModal}
+        userRole={userData?.me.role ?? "user"}
       />
       <Modal
         onClose={closeDeleteModal}

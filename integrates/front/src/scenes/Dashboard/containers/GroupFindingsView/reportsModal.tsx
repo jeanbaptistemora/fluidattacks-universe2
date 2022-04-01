@@ -2,6 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
   faFileArchive,
+  faFileContract,
   faFileExcel,
   faFilePdf,
   faSlidersH,
@@ -32,15 +33,19 @@ import { msgError, msgSuccess } from "utils/notifications";
 const DOCS_URL = "https://docs.fluidattacks.com/machine/web/groups/reports";
 
 interface IDeactivationModalProps {
+  filledGroupInfo: boolean;
   hasMobileApp: boolean;
   isOpen: boolean;
   onClose: () => void;
+  userRole: string;
 }
 
 const ReportsModal: React.FC<IDeactivationModalProps> = ({
+  filledGroupInfo,
   hasMobileApp,
   isOpen,
   onClose,
+  userRole,
 }: IDeactivationModalProps): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
@@ -113,6 +118,21 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                 <Row>
                   <Col100>
                     <ButtonToolbarCenter>
+                      <TooltipWrapper
+                        id={"group.findings.report.certTooltip.id"}
+                        message={t("group.findings.report.certTooltip")}
+                      >
+                        <Button
+                          disabled={!filledGroupInfo}
+                          hidden={userRole !== "user_manager"}
+                          id={"report-cert"}
+                          onClick={handleRequestGroupReport}
+                          variant={"secondary"}
+                        >
+                          <FontAwesomeIcon icon={faFileContract} />
+                          {t("group.findings.report.cert")}
+                        </Button>
+                      </TooltipWrapper>
                       <TooltipWrapper
                         id={"group.findings.report.pdfTooltip.id"}
                         message={t("group.findings.report.pdfTooltip")}

@@ -234,9 +234,11 @@ describe("GroupFindingsView", (): void => {
         >
           <Route path={"orgs/:organizationName/groups/:groupName/vulns"}>
             <ReportsModal
+              filledGroupInfo={true}
               hasMobileApp={true}
               isOpen={true}
               onClose={handleClose}
+              userRole={"user_manager"}
             />
           </Route>
         </MockedProvider>
@@ -250,18 +252,23 @@ describe("GroupFindingsView", (): void => {
 
     expect(buttons[0].querySelector(".svg-inline--fa")).toHaveAttribute(
       "data-icon",
-      "file-pdf"
+      "file-contract"
     );
     expect(buttons[1].querySelector(".svg-inline--fa")).toHaveAttribute(
       "data-icon",
-      "file-excel"
+      "file-pdf"
     );
     expect(buttons[2].querySelector(".svg-inline--fa")).toHaveAttribute(
+      "data-icon",
+      "file-excel"
+    );
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    expect(buttons[3].querySelector(".svg-inline--fa")).toHaveAttribute(
       "data-icon",
       "sliders"
     );
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    expect(buttons[3].querySelector(".svg-inline--fa")).toHaveAttribute(
+    expect(buttons[4].querySelector(".svg-inline--fa")).toHaveAttribute(
       "data-icon",
       "file-zipper"
     );
