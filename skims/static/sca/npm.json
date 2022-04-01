@@ -3084,6 +3084,12 @@
   "js-3ha3": {
     "GHSA-52c9-458g-whrf": ">=0"
   },
+  "js-base64-int": {
+    "GHSA-76qf-6mvw-c5hm": ">=0"
+  },
+  "js-cha3": {
+    "GHSA-7xf9-74cp-8hx3": ">=0"
+  },
   "js-data": {
     "CVE-2020-28442": ">=0"
   },
@@ -3092,6 +3098,30 @@
   },
   "js-given": {
     "GMS-2017-61": "<0.0.18"
+  },
+  "js-qha3": {
+    "GHSA-vf5m-q45w-8mh9": ">=0"
+  },
+  "js-regular": {
+    "GHSA-qcc9-q247-3m2m": ">=0"
+  },
+  "js-rha3": {
+    "GHSA-95cg-3r4g-7w6j": ">=0"
+  },
+  "js-sha7": {
+    "GHSA-hvgc-mggg-pxr2": ">=0"
+  },
+  "js-shas": {
+    "GHSA-5wq6-v5cw-jvfr": ">=0"
+  },
+  "js-shc3": {
+    "GHSA-69mf-2cw2-38m8": ">=0"
+  },
+  "js-she3": {
+    "GHSA-f8jj-45fj-44r6": ">=0"
+  },
+  "js-shi3": {
+    "GHSA-g37j-v5gh-g25c": ">=0"
   },
   "js-stellar-sdk": {
     "CVE-2021-32738": "<8.2.3",
