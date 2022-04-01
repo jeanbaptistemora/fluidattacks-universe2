@@ -76,6 +76,9 @@ from dataloaders import (
 from ddtrace import (
     patch,
 )
+from ddtrace.profiling import (
+    Profiler,
+)
 from ddtrace.runtime import (
     RuntimeMetrics,
 )
@@ -418,6 +421,7 @@ STARLETTE_APP = Starlette(
 # APM Config
 patch(aiobotocore=True)
 RuntimeMetrics.enable()
+Profiler().start()
 
 # ASGI wrappers
 NEWRELIC_WRAPPER = newrelic.agent.ASGIApplicationWrapper(STARLETTE_APP)
