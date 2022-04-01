@@ -13,10 +13,6 @@ from dataloaders import (
 from dynamodb.exceptions import (
     DynamoDbBaseException,
 )
-from graphql import (
-    version,
-)
-import newrelic.agent
 from newutils import (
     logs as logs_utils,
 )
@@ -32,45 +28,58 @@ from starlette.requests import (
 from typing import (
     Any,
     Dict,
+    NamedTuple,
 )
 
 APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 
 
-async def _log_request(
-    request: Request,
-    name: str,
-    query: str,
-    variables: str,
-) -> None:
+class Operation(NamedTuple):
+    name: str
+    query: str
+    variables: str
+
+
+def _get_operation(data: Dict[str, Any]) -> Operation:
+    return Operation(
+        name=data.get("operationName") or "External (unnamed)",
+        query=data.get("query", "").replace("\n", "") or "-",
+        variables=data.get("variables") or "-",
+    )
+
+
+async def _log_request(request: Request, operation: Operation) -> None:
     """
     Sends API operation metadata to cloud logging services for
     analytical purposes.
     """
     logs_utils.cloudwatch_log(
         request,
-        f"API: {name} with parameters {variables}. Complete query: {query}",
+        f"API: {operation.name} with parameters {operation.variables}. "
+        f"Complete query: {operation.query}",
     )
     user_data = await get_jwt_content(request)
-    await mixpanel_track(user_data["user_email"], f"API/{name}", query=query)
+    await mixpanel_track(
+        user_data["user_email"], f"API/{operation.name}", query=operation.query
+    )
 
 
 class IntegratesAPI(GraphQL):
     async def get_context_for_request(self, request: Request) -> Request:
-        return apply_context_attrs(request)
+        data: Dict[str, Any] = await super().extract_data_from_request(request)
+        operation = _get_operation(data)
+        context = apply_context_attrs(request)
+        setattr(context, "operation", operation)
+
+        return context
 
     async def extract_data_from_request(
         self, request: Request
     ) -> Dict[str, Any]:
         """Hook before the execution process begins"""
         data: Dict[str, Any] = await super().extract_data_from_request(request)
-        name: str = data.get("operationName") or "External (unnamed)"
-        query: str = data.get("query", "").replace("\n", "") or "-"
-        variables: str = data.get("variables") or "-"
+        operation = _get_operation(data)
 
-        newrelic.agent.set_transaction_name(name, "GraphQL")
-        newrelic.agent.add_framework_info("GraphQL", version)
-        newrelic.agent.add_custom_parameters(tuple(data.items()))
-        schedule(_log_request(request, name, query, variables))
+        schedule(_log_request(request, operation))
 
         return data
