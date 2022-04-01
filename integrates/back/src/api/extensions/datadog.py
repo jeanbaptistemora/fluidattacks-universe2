@@ -1,9 +1,6 @@
 from api import (
     Operation,
 )
-from ariadne.contrib.tracing.utils import (
-    should_trace,
-)
 from ariadne.types import (
     Extension,
     Resolver,
@@ -46,12 +43,6 @@ class DatadogTracingExtension(Extension):
         info: GraphQLResolveInfo,
         **kwargs: Any,
     ) -> Any:
-        if not should_trace(info):
-            result = next_(parent_, info, **kwargs)
-            if isawaitable(result):
-                return await result
-            return result
-
         path = "/".join(
             field for field in info.path.as_list() if isinstance(field, str)
         )
