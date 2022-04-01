@@ -470,7 +470,6 @@ in {
                 needs =
                   [
                     "/integrates/back/test/unit"
-                    "/integrates/front/test/enzyme"
                     "/integrates/front/test/rtl"
                     "/integrates/mobile/test"
                   ]
@@ -536,21 +535,6 @@ in {
           {
             output = "/integrates/front/lint";
             gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/integrates/front/test/enzyme";
-            gitlabExtra =
-              gitlabTest
-              // {
-                after_script = [
-                  "cp ~/.makes/out-integrates-front-test-enzyme/coverage/lcov.info integrates/front/coverage.lcov"
-                ];
-                artifacts = {
-                  expire_in = "1 week";
-                  name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
-                  paths = ["integrates/front/coverage.lcov"];
-                };
-              };
           }
           {
             output = "/integrates/front/test/rtl";
