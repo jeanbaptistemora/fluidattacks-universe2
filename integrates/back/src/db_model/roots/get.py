@@ -111,6 +111,7 @@ def _format_root(*, item: Item) -> RootItem:
                 download_url=None,
                 secrets=[],
                 upload_url=None,
+                use_vpn=state.get("use_vpn", False),
             ),
             type=item["type"],
             unreliable_indicators=unreliable_indicators,

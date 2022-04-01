@@ -124,6 +124,7 @@ def format_root(root: RootItem) -> Root:
             nickname=root.state.nickname,
             state=root.state.status,
             url=root.state.url,
+            use_vpn=root.state.use_vpn,
         )
 
     if isinstance(root, IPRootItem):
@@ -241,6 +242,7 @@ async def add_git_root(
             reason=None,
             status="ACTIVE",
             url=url,
+            use_vpn=kwargs.get("use_vpn", False),
         ),
         type="Git",
         unreliable_indicators=RootUnreliableIndicators(
@@ -491,6 +493,7 @@ async def update_git_environments(
             reason=None,
             status=root.state.status,
             url=root.state.url,
+            use_vpn=root.state.use_vpn,
         ),
     )
 
@@ -608,6 +611,7 @@ async def update_git_root(
         reason=None,
         status=root.state.status,
         url=url,
+        use_vpn=kwargs.get("use_vpn") or root.state.use_vpn,
     )
     await roots_model.update_root_state(
         current_value=root.state,
@@ -705,6 +709,7 @@ async def activate_root(
                     reason=None,
                     status=new_status,
                     url=root.state.url,
+                    use_vpn=root.state.use_vpn,
                 ),
             )
 
@@ -800,6 +805,7 @@ async def deactivate_root(
                     reason=reason,
                     status=new_status,
                     url=root.state.url,
+                    use_vpn=root.state.use_vpn,
                 ),
             )
 

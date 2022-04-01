@@ -195,6 +195,8 @@ type Mutation {
     nickname: String
     "Repository URL"
     url: String!
+    "repository requires vpn to clone"
+    useVpn: Boolean
   ): AddRootPayload!
 
   "Adds a new group to the specified organization"
@@ -840,6 +842,8 @@ type Mutation {
     includesHealthCheck: Boolean!
     "Repository URL"
     url: String!
+    "Repository requires vpn to clone"
+    useVpn: Boolean
   ): SimplePayload!
 
   "Updates a group's services and parameters"

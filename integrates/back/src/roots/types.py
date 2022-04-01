@@ -48,6 +48,7 @@ class GitRoot(NamedTuple):
     url: str
     download_url: Optional[str] = None
     upload_url: Optional[str] = None
+    use_vpn: bool = False
     secrets: List[Secret] = []
 
 

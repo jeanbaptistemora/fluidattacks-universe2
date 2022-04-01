@@ -51,6 +51,7 @@ class GitRootState(NamedTuple):
     reason: Optional[str] = None
     secrets: List[Secret] = []
     upload_url: Optional[str] = None
+    use_vpn: bool = False
 
 
 class GitRootItem(NamedTuple):

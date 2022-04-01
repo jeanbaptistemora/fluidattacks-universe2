@@ -80,6 +80,8 @@ type GitRoot implements IRoot {
   uploadUrl: String
   "Repository URL"
   url: String!
+  "Repository requires vpn to clone"
+  useVpn: Boolean!
   "Vulnerabilities associated to the root"
   vulnerabilities: [Vulnerability!]
 }
