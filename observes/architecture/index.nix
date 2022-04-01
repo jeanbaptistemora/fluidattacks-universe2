@@ -2,17 +2,27 @@ let
   commonPath = "/observes/common";
   singerPath = "/observes/singer";
   etlsPath = "/observes/etl";
+  makes_pkg = builtins.replaceStrings ["_"] ["-"];
   std_data = root: {
     inherit root;
     env = {
-      runtime = builtins.replaceStrings ["_"] ["-"] "${root}/env/runtime";
-      dev = builtins.replaceStrings ["_"] ["-"] "${root}/env/development";
+      runtime = makes_pkg "${root}/env/runtime";
+      dev = makes_pkg "${root}/env/development";
     };
-    bin = builtins.replaceStrings ["_"] ["-"] "${root}/bin";
+    bin = makes_pkg "${root}/bin";
     src = "${root}/${baseNameOf root}";
     tests = "${root}/tests"; # path of tests
-    lint = builtins.replaceStrings ["_"] ["-"] "${root}/lint"; # lint job
-    test = builtins.replaceStrings ["_"] ["-"] "${root}/test"; # test job
+    lint = makes_pkg "${root}/lint"; # lint job
+    test = makes_pkg "${root}/test"; # test job
+  };
+  new_std = root: {
+    inherit root;
+    env = {
+      runtime = makes_pkg "${root}/env/runtime";
+      dev = makes_pkg "${root}/env/development";
+    };
+    lint = makes_pkg "${root}/lint";
+    test = makes_pkg "${root}/test";
   };
   streamer_zoho_crm = std_data "${singerPath}/streamer_zoho_crm";
 in {
@@ -37,6 +47,11 @@ in {
           dev = "/observes/etl/dynamo/conf/env/development";
         };
       };
+    code =
+      (new_std "${etlsPath}/code")
+      // {
+        root = "/observes/code_etl";
+      };
   };
   common = {
     paginator = "${commonPath}/paginator";
@@ -45,12 +60,12 @@ in {
     singer_io =
       std_data "${commonPath}/singer_io"
       // {
-        env2.dev = builtins.replaceStrings ["_"] ["-"] "${commonPath}/singer_io/env2/dev";
+        env2.dev = makes_pkg "${commonPath}/singer_io/env2/dev";
       };
     utils_logger =
       std_data "${commonPath}/utils_logger"
       // {
-        new_env.dev = builtins.replaceStrings ["_"] ["-"] "${commonPath}/utils_logger/new_env/dev";
+        new_env.dev = makes_pkg "${commonPath}/utils_logger/new_env/dev";
       };
   };
   tap = {

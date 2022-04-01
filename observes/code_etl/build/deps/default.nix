@@ -24,7 +24,7 @@ in
     import-linter = import ./import-linter {
       inherit lib pythonPkgs;
     };
-    purity = purity."${python_version}".pkg;
+    fa-purity = purity."${python_version}".pkg;
     types-click = import ./click/stubs.nix lib;
     utils-logger = utils-logger.pkg;
   }

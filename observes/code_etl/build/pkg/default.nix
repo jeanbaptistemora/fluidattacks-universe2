@@ -6,7 +6,7 @@
 }: let
   runtime_deps = [
     pythonPkgs.click
-    pythonPkgs.fa_purity
+    pythonPkgs.fa-purity
     pythonPkgs.GitPython
     pythonPkgs.pathos
     pythonPkgs.psycopg2
