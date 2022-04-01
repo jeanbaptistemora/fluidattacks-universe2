@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
@@ -13,7 +12,7 @@ describe("FindingHeader", (): void => {
   it("should render finding header", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <FindingHeader
         discoveryDate={""}
         estRemediationTime={"42.1"}
@@ -23,6 +22,12 @@ describe("FindingHeader", (): void => {
       />
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(
+      screen.queryByText("searchFindings.header.severity.label")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("searchFindings.header.estRemediationTime.label")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("42.1")).toBeInTheDocument();
   });
 });
