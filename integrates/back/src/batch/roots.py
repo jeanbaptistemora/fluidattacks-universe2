@@ -761,6 +761,7 @@ async def queue_sync_git_roots(
                 root_id
                 for root_id, commit in last_commits_dict.items()
                 if not commit  # if the commite exists the credentials work
+                and not roots_dict[root_id].state.use_vpn
             )
         ]
     )
@@ -780,12 +781,15 @@ async def queue_sync_git_roots(
         for root_id in (
             root_id
             for root_id, commit in last_commits_dict.items()
-            if commit  # if the commite exists the credentials work
-            and (
-                force
-                or commit != roots_dict[root_id].cloning.commit
-                or not is_in_s3_dict.get(
-                    roots_dict[root_id].state.nickname, False
+            if roots_dict[root_id].state.use_vpn
+            or (
+                commit  # if the commite exists the credentials work
+                and (
+                    force
+                    or commit != roots_dict[root_id].cloning.commit
+                    or not is_in_s3_dict.get(
+                        roots_dict[root_id].state.nickname, False
+                    )
                 )
             )
         )
