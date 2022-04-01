@@ -41,11 +41,11 @@ function main {
       && check_md_blog_categories "${path}" \
         && check_md_blog_patterns "${path}" \
         && check_md_blog_tags "${path}" \
-        && check_md_lix "${path}" '52' \
+        && check_md_lix "${path}" '70' \
         && check_md_tag_exists "${path}" 'alt' \
         && check_md_tag_exists "${path}" 'source' \
         && check_md_tag_exists "${path}" 'subtitle' \
-        && check_md_word_count "${path}" '800' '1200' \
+        && check_md_word_count "${path}" '800' '1500' \
         || return 1
     done \
     && touch "${out}" \

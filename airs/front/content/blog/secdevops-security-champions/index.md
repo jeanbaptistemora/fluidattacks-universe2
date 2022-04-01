@@ -79,10 +79,15 @@ language suitable for their understanding.
 
 Maintaining secure infrastructures and products is a challenge,
 especially when there are constant changes in their architecture.
-Therefore, security testing must also be continuous. Automation in
-processes such as SAST and DAST will depend on some tools; you must be
-careful concerning them. It’s not a question of acquiring tools because
-they’re offered as new, or because the competition uses this and that,
+Therefore,
+[security testing](../../solutions/security-testing/)
+must also be continuous.
+Automation in processes such as [SAST](../../categories/sast/)
+and [DAST](../../categories/dast/)
+will depend on some tools;
+you must be careful concerning them.
+It’s not a question of acquiring tools because they’re offered as new,
+or because the competition uses this and that,
 or because they are supposed to be useful in your security testing
 processes. "What tools are essential for our business?" This is a
 question you can answer with the help of your developers with security

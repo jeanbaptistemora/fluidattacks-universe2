@@ -17,10 +17,13 @@ about2: Enjoy life
 source: https://unsplash.com/photos/kwzWjTnDPLk
 ---
 
-`SAST` is a type of white box test in which a set of technologies is
-used to analyze the source code, byte code or the application binaries
-in order to reveal known security vulnerabilities that can be exploited
-by malicious users.
+SAST ([Static Application Security Testing](../../categories/sast/))
+is a type of white box test
+in which a set of technologies is used
+to analyze the source code,
+byte code or the application binaries
+in order to reveal known security vulnerabilities
+that can be exploited by malicious users.
 
 ## A Bit of History
 
@@ -93,9 +96,9 @@ Figure 3. OWASP Top Ten Project via [owasp.org](https://www.owasp.org/images/5/5
 
 </div>
 
-By applying Static Application Security Testing (`SAST`) we can detect
-and avoid most of the security vulnerabilities listed in the previous
-links' pages.
+By applying SAST
+we can detect and avoid most of the security vulnerabilities
+listed in the previous links' pages.
 
 ## How does SAST work?
 

@@ -259,8 +259,11 @@ At least at the moment. According to [\[3\]](#r3%20),
 > providing hints where security vulnerabilities might be located in the
 > code, not a replacement for experts.
 
-In the future, we might see things like distributed on-demand security
-testing and machine learning algorithms[<sup>\[2\]</sup>](#r2%20) using
+In the future,
+we might see things
+like distributed on-demand
+[security testing](../../solutions/security-testing/)
+and machine learning algorithms[<sup>\[2\]</sup>](#r2%20) using
 support vector machines to try to predict which commits are likely to
 open vulnerabilities, but in the meantime, stick to the tried-and-true.
 

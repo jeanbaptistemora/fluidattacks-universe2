@@ -24,7 +24,7 @@ Benchmark** version 1.2. Let’s put this achievement in context:
 
 ## What is the OWASP?
 
-Perhaps you’ve heard of the [OWASP
+Perhaps you've heard of the [OWASP
 Top 10](https://owasp.org/www-project-top-ten/) list of vulnerabilities.
 The Open Web Application Security Project ([OWASP](https://owasp.org/))
 is a non-profit foundation committed to helping improve software
@@ -139,14 +139,21 @@ the diagonal "Random Guess" line.
 
 ## What are Fluid Attacks' results?
 
-At `Fluid Attacks`, we decided to test our primary, customized tool.
-Only by applying the SAST technique (although it can also perform DAST),
-this tool can achieve the best possible outcome against the OWASP
-Benchmark with a TPR of 100% and an FPR of 0%. So, our Benchmark Score
-equals 100, the highest value\! A few years ago, developers in the OWASP
-Benchmark project published a comparison chart for different open-source
-and commercial SAST tools.
-It is now in this chart that we include the results obtained by our tool.
+At `Fluid Attacks`,
+we decided to test our primary,
+customized tool.
+Only by applying the [SAST](../../categories/sast/) technique
+(although it can also perform [DAST](../../categories/dast/)),
+this tool can achieve the best possible outcome against the OWASP Benchmark
+with a TPR of 100% and an FPR of 0%.
+So,
+our Benchmark Score equals 100,
+the highest value\!
+A few years ago,
+developers in the OWASP Benchmark project published a comparison chart
+for different open-source and commercial SAST tools.
+It is now in this chart
+that we include the results obtained by our tool.
 
 <div class="imgblock">
 
@@ -160,7 +167,7 @@ Figure 4. OWASP Benchmark results comparison.
 
 </div>
 
-## Issues we’re aware of at Fluid Attacks
+## Issues we're aware of at Fluid Attacks
 
 The values obtained in this scenario are easy to determine accurately
 because the number of existing vulnerabilities is known from the

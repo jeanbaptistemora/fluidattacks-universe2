@@ -95,21 +95,29 @@ on [Unsplash](https://unsplash.com/photos/blVVEIz3UZ0).
 
 ### Shift to the left
 
-A crucial suggestion for your organization’s security, which we at
+A crucial suggestion for your organization's security, which we at
 `Fluid Attacks` never get tired of sharing, is to shift the 'security
 element' to the left. In short, this means that any company creating or
 using software (almost all of them today) should think about its
 security and apply it from the beginning. This methodology belongs to
-the [DevSecOps](../devsecops-concept/) approach. There, security testing
-must be [continuous](../../services/continuous-hacking/) —covering the
-whole software development lifecycle (SDLC)—, and ensures significant
-savings in time and money. Then, for the next year, many businesses
-should move away from the approach of searching for and identifying
-vulnerabilities in their systems and software only after deployment to
-production. In such cases, attackers may already have access to the
-gaps. And these issues may not be immediately remediated and may require
-considerable time, effort and money due to their quantity and
-complexity.
+the [DevSecOps](../devsecops-concept/) approach.
+There,
+[security testing](../../solutions/security-testing/)
+must be [continuous](../../services/continuous-hacking/)
+—covering the whole software development lifecycle (SDLC)—,
+and ensures significant savings in time and money.
+Then,
+for the next year,
+many businesses should move away
+from the approach of searching for
+and identifying vulnerabilities in their systems and software
+only after deployment to production.
+In such cases,
+attackers may already have access to the gaps.
+And these issues may not be immediately remediated
+and may require considerable time,
+effort and money
+due to their quantity and complexity.
 
 ### Secure hosting in the cloud
 

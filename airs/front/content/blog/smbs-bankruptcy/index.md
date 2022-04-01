@@ -166,7 +166,9 @@ Nevertheless, there are actions and processes `SMBs` could establish to
 manage those risks better. One of them is to be proactive and integral
 in testing, and we mean testing by attacking. As many of the cases
 reviewed here, it all began with one or more weaknesses exploited by an
-attacker. At `Fluid Attacks`, we excel in proactive security testing:
+attacker.
+At `Fluid Attacks`,
+we excel in proactive [security testing](../../solutions/security-testing/):
 
 - We are capable of [continuously
   hacking](../../services/continuous-hacking/) enterprise-level
