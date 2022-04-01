@@ -4899,10 +4899,6 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F101": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
   "F103": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
@@ -5162,6 +5158,10 @@
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
   "F411": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F412": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   }

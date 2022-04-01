@@ -470,13 +470,6 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.f014,
         requirements=[173, 324],
     )
-    F101: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F101",
-        cwe=463,
-        execution_queue=ExecutionQueue.cloud,
-        requirements=[186, 265],
-    )
     F103: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F103",
@@ -581,13 +574,6 @@ class FindingEnum(Enum):
         cwe=378,
         execution_queue=ExecutionQueue.control,
         requirements=[95, 96, 186],
-    )
-    F411: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F411",
-        cwe=16,
-        execution_queue=ExecutionQueue.control,
-        requirements=[185, 265, 266],
     )
     F177: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -896,6 +882,20 @@ class FindingEnum(Enum):
         cwe=16,
         execution_queue=ExecutionQueue.cloud,
         requirements=[185, 265, 266],
+    )
+    F411: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F411",
+        cwe=16,
+        execution_queue=ExecutionQueue.control,
+        requirements=[147, 151, 181, 224],
+    )
+    F412: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F412",
+        cwe=463,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[186, 265],
     )
 
 
@@ -2269,14 +2269,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
-        file_name="terraform",
-        name="tfm_azure_key_vault_not_recoverable",
-        module="lib_path",
-        finding=FindingEnum.F101,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     APK_UNSIGNED = MethodInfo(
         file_name="analyze_bytecodes",
         name="apk_unsigned",
@@ -2443,14 +2435,6 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F160,
         developer=DeveloperEnum.DIEGO_RESTREPO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TFM_AWS_SECRET_WHITOUTH_KMS_CMK = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_secret_encrypted_whitouth_kms_cmk",
-        module="lib_path",
-        finding=FindingEnum.F411,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
@@ -3074,6 +3058,22 @@ class MethodsEnum(Enum):
         name="tfm_aws_dynamodb_table_unencrypted",
         module="lib_path",
         finding=FindingEnum.F409,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_AWS_SECRET_WHITOUTH_KMS_CMK = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_secret_encrypted_whitouth_kms_cmk",
+        module="lib_path",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
+        file_name="terraform",
+        name="tfm_azure_key_vault_not_recoverable",
+        module="lib_path",
+        finding=FindingEnum.F412,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

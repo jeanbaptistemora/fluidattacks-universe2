@@ -27,7 +27,6 @@ from lib_path import (
     f075,
     f079,
     f099,
-    f101,
     f109,
     f117,
     f157,
@@ -62,6 +61,7 @@ from lib_path import (
     f408,
     f409,
     f411,
+    f412,
 )
 from lib_sast.types import (
     Paths,
@@ -116,7 +116,6 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F075, f075.analyze),
     (core_model.FindingEnum.F079, f079.analyze),
     (core_model.FindingEnum.F099, f099.analyze),
-    (core_model.FindingEnum.F101, f101.analyze),
     (core_model.FindingEnum.F109, f109.analyze),
     (core_model.FindingEnum.F117, f117.analyze),
     (core_model.FindingEnum.F157, f157.analyze),
@@ -151,6 +150,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F408, f408.analyze),
     (core_model.FindingEnum.F409, f409.analyze),
     (core_model.FindingEnum.F411, f411.analyze),
+    (core_model.FindingEnum.F412, f412.analyze),
 )
 
 

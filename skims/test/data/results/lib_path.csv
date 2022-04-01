@@ -21219,7 +21219,7 @@ F259,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencr
   6 | }
     ^ Col 0
 ",terraform.tfm_db_no_point_in_time_recovery
-F101,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skims,101. Lack of protection against deletion,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf","
+F412,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skims,412. Lack of protection against deletion - Azure Key Vault,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f101/azure_key_valut.tf","
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
    3 |   location                   = azurerm_resource_group.example.location

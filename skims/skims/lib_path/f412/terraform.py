@@ -40,7 +40,7 @@ def tfm_azure_key_vault_not_recoverable(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("lib_path.f101.azure_key_vault_not_recoverable"),
+        description_key=("lib_path.f412.azure_key_vault_not_recoverable"),
         iterator=get_cloud_iterator(
             _tfm_azure_key_vault_not_recoverable_iterate_vulnerabilities(
                 resource_iterator=iter_azurerm_key_vault(model=model)

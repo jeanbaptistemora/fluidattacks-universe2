@@ -2,7 +2,7 @@ from lib_path.common import (
     EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
-from lib_path.f101.terraform import (
+from lib_path.f412.terraform import (
     tfm_azure_key_vault_not_recoverable,
 )
 from model.core_model import (
