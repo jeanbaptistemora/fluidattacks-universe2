@@ -2,6 +2,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     accessor_declaration as c_sharp_accessor_declaration,
     argument as c_sharp_argument,
     argument_list as c_sharp_argument_list,
+    arrow_expression_clause as c_sharp_arrow_expression_clause,
     assignment_expression as c_sharp_assignment_expression,
     binary_expression as c_sharp_binary_expression,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
@@ -73,6 +74,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "argument_list",
         },
         syntax_reader=c_sharp_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "arrow_expression_clause",
+        },
+        syntax_reader=c_sharp_arrow_expression_clause.reader,
     ),
     Dispatcher(
         applicable_types={
