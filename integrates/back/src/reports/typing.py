@@ -191,12 +191,16 @@ class Wordlist(Enum):
 
 
 class PDFWordlistEn(Wordlist):
-    FINDING_TITLE: WordlistItem = WordlistItem("finding_title", "Finding")
-    FINDING_SECTION_TITLE: WordlistItem = WordlistItem(
-        "finding_section_title", "Summary"
+    ATTACK_VECTOR_TITLE: WordlistItem = WordlistItem(
+        "attack_vector_title", "Attack Vector"
+    )
+    CARDINALITY_TITLE: WordlistItem = WordlistItem(
+        "cardinality_title", "Vulnerabilities"
+    )
+    CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
+        "closed_vulns_title", "Closed Vulnerabilities"
     )
     COMMIT_HASH: WordlistItem = WordlistItem("commit_hash", "Commit Hash")
-    CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Content")
     CONTENT_LIST: WordlistItem = WordlistItem(
         "content_list",
         [
@@ -206,104 +210,100 @@ class PDFWordlistEn(Wordlist):
             "4. Findings Summary",
         ],
     )
-    TECH: WordlistItem = WordlistItem("tech", "Technical Report")
-    EXECUTIVE: WordlistItem = WordlistItem("executive", "Executive Report")
-    GOALS_TITLE: WordlistItem = WordlistItem("goals_title", "Goals")
-    METHODOLOGY_TITLE: WordlistItem = WordlistItem(
-        "metodology_title", "Methodology"
-    )
-    STATE_TITLE: WordlistItem = WordlistItem("state_title", "Status")
-    RECORDS_TITLE: WordlistItem = WordlistItem("records_title", "Records")
+    CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Content")
+    CRIT_C: WordlistItem = WordlistItem("crit_c", "(Critical)")
+    CRIT_H: WordlistItem = WordlistItem("crit_h", "(High)")
+    CRIT_L: WordlistItem = WordlistItem("crit_l", "(Low)")
+    CRIT_M: WordlistItem = WordlistItem("crit_m", "(Moderate)")
     DESCRIPTION_TITLE: WordlistItem = WordlistItem(
         "description_title", "Vulnerability"
     )
+    EVIDENCE_TITLE: WordlistItem = WordlistItem("evidence_title", "Evidences")
+    EXECUTIVE: WordlistItem = WordlistItem("executive", "Executive Report")
     FIELD: WordlistItem = WordlistItem("field", "Field")
+    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
+        "fin_status_closed", "Closed"
+    )
+    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Open")
+    FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
+        "finding_number_title", "Number of Findings"
+    )
+    FINDING_SECTION_TITLE: WordlistItem = WordlistItem(
+        "finding_section_title", "Summary"
+    )
+    FINDING_TITLE: WordlistItem = WordlistItem("finding_title", "Finding")
+    GOALS_TITLE: WordlistItem = WordlistItem("goals_title", "Goals")
     INPUTS: WordlistItem = WordlistItem("inputs", "Inputs")
     LINE: WordlistItem = WordlistItem("line", "Line")
     LINES: WordlistItem = WordlistItem("lines", "Lines")
+    METHODOLOGY_TITLE: WordlistItem = WordlistItem(
+        "metodology_title", "Methodology"
+    )
     PATH: WordlistItem = WordlistItem("path", "Path")
     PORT: WordlistItem = WordlistItem("port", "Port")
     PORTS: WordlistItem = WordlistItem("ports", "Ports")
-    RESUME_VULN_TITLE: WordlistItem = WordlistItem(
-        "resume_vuln_title", "Vulnerabilities"
-    )
-    WHERE_TITLE: WordlistItem = WordlistItem("where_title", "Where")
-    RESUME_PERC_TITLE: WordlistItem = WordlistItem(
-        "resume_perc_title", "Percent"
-    )
-    RESUME_VNUM_TITLE: WordlistItem = WordlistItem("resume_vnum_title", "#")
-    RESUME_VNAME_TITLE: WordlistItem = WordlistItem(
-        "resume_vname_title", "Name"
-    )
-    RESUME_TTAB_TITLE: WordlistItem = WordlistItem("resume_ttab_title", "Name")
-    RESUME_TOP_TITLE: WordlistItem = WordlistItem(
-        "resume_top_title", "Finding Top"
-    )
-    THREAT_TITLE: WordlistItem = WordlistItem("threat_title", "Threat")
-    SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solution")
+    RECORDS_TITLE: WordlistItem = WordlistItem("records_title", "Records")
     REQUISITE_TITLE: WordlistItem = WordlistItem(
         "requisite_title", "Requirement"
-    )
-    TREATMENT_TITLE: WordlistItem = WordlistItem(
-        "treatment_title", "Treatment"
-    )
-    EVIDENCE_TITLE: WordlistItem = WordlistItem("evidence_title", "Evidences")
-    SEVERITY_TITLE: WordlistItem = WordlistItem("severity_title", "Severity")
-    CARDINALITY_TITLE: WordlistItem = WordlistItem(
-        "cardinality_title", "Vulnerabilities"
-    )
-    ATTACK_VECTOR_TITLE: WordlistItem = WordlistItem(
-        "attack_vector_title", "Attack Vector"
     )
     RESUME_PAGE_TITLE: WordlistItem = WordlistItem(
         "resume_page_title", "General View"
     )
+    RESUME_PERC_TITLE: WordlistItem = WordlistItem(
+        "resume_perc_title", "Percent"
+    )
     RESUME_TABLE_TITLE: WordlistItem = WordlistItem(
         "resume_table_title", "Finding Table"
     )
-    VULN_C: WordlistItem = WordlistItem("vuln_c", "Critical")
-    VULN_H: WordlistItem = WordlistItem("vuln_h", "High")
-    VULN_M: WordlistItem = WordlistItem("vuln_m", "Moderate")
-    VULN_L: WordlistItem = WordlistItem("vuln_l", "Low")
-    CRIT_C: WordlistItem = WordlistItem("crit_c", "(Critical)")
-    CRIT_H: WordlistItem = WordlistItem("crit_h", "(High)")
-    CRIT_M: WordlistItem = WordlistItem("crit_m", "(Moderate)")
-    CRIT_L: WordlistItem = WordlistItem("crit_l", "(Low)")
-    TREAT_STATUS_WOR: WordlistItem = WordlistItem("treat_status_wor", "New")
-    TREAT_STATUS_ASU: WordlistItem = WordlistItem(
-        "treat_status_asu", "Temporarily Accepted"
+    RESUME_TOP_TITLE: WordlistItem = WordlistItem(
+        "resume_top_title", "Finding Top"
+    )
+    RESUME_TTAB_TITLE: WordlistItem = WordlistItem("resume_ttab_title", "Name")
+    RESUME_VNAME_TITLE: WordlistItem = WordlistItem(
+        "resume_vname_title", "Name"
+    )
+    RESUME_VNUM_TITLE: WordlistItem = WordlistItem("resume_vnum_title", "#")
+    RESUME_VULN_TITLE: WordlistItem = WordlistItem(
+        "resume_vuln_title", "Vulnerabilities"
+    )
+    SEVERITY_TITLE: WordlistItem = WordlistItem("severity_title", "Severity")
+    SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solution")
+    STATE_TITLE: WordlistItem = WordlistItem("state_title", "Status")
+    TECH: WordlistItem = WordlistItem("tech", "Technical Report")
+    THREAT_TITLE: WordlistItem = WordlistItem("threat_title", "Threat")
+    TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
+        "total_vulns_title", "Found Vulnerabilities"
     )
     TREAT_PERMANENTLY_ASU: WordlistItem = WordlistItem(
         "treat_per_asu", "Permanently Accepted"
     )
+    TREAT_STATUS_ASU: WordlistItem = WordlistItem(
+        "treat_status_asu", "Temporarily Accepted"
+    )
     TREAT_STATUS_REM: WordlistItem = WordlistItem(
         "treat_status_rem", "In Progress"
     )
-    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Open")
-    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
-        "fin_status_closed", "Closed"
+    TREAT_STATUS_WOR: WordlistItem = WordlistItem("treat_status_wor", "New")
+    TREATMENT_TITLE: WordlistItem = WordlistItem(
+        "treatment_title", "Treatment"
     )
-    FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
-        "finding_number_title", "Number of Findings"
-    )
-    TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
-        "total_vulns_title", "Found Vulnerabilities"
-    )
-    CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
-        "closed_vulns_title", "Closed Vulnerabilities"
-    )
+    VULN_C: WordlistItem = WordlistItem("vuln_c", "Critical")
+    VULN_H: WordlistItem = WordlistItem("vuln_h", "High")
+    VULN_L: WordlistItem = WordlistItem("vuln_l", "Low")
+    VULN_M: WordlistItem = WordlistItem("vuln_m", "Moderate")
+    WHERE_TITLE: WordlistItem = WordlistItem("where_title", "Where")
 
 
 class PDFWordlistEs(Wordlist):
     CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
         "closed_vulns_title", "Vulnerabilidades Remediadas"
     )
-    FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
-        "finding_number_title", "Cantidad de Tipologías"
-    )
-    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Abierto")
     FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
         "fin_status_closed", "Cerrado"
+    )
+    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Abierto")
+    FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
+        "finding_number_title", "Cantidad de Tipologías"
     )
     RESUME_PERC_TITLE: WordlistItem = WordlistItem(
         "resume_perc_title", "Porcentaje de Remediación"
@@ -316,8 +316,8 @@ class PDFWordlistEs(Wordlist):
     )
     VULN_C: WordlistItem = WordlistItem("vuln_c", "Crítica")
     VULN_H: WordlistItem = WordlistItem("vuln_h", "Alta")
-    VULN_M: WordlistItem = WordlistItem("vuln_m", "Media")
     VULN_L: WordlistItem = WordlistItem("vuln_l", "Baja")
+    VULN_M: WordlistItem = WordlistItem("vuln_m", "Media")
     # To avoid setlocale's global effects, we'll have to support these names
     JANUARY: WordlistItem = WordlistItem("january", "Enero")
     FEBRUARY: WordlistItem = WordlistItem("february", "Febrero")
@@ -331,39 +331,3 @@ class PDFWordlistEs(Wordlist):
     OCTOBER: WordlistItem = WordlistItem("october", "Octubre")
     NOVEMBER: WordlistItem = WordlistItem("november", "Noviembre")
     DECEMBER: WordlistItem = WordlistItem("december", "Diciembre")
-
-
-class CertInfoEs(Wordlist):
-    CERT_TITLE: WordlistItem = WordlistItem(
-        "cert_title", "Certificación de servicio de pruebas"
-    )
-    CERT_BODY_PART_1: WordlistItem = WordlistItem(
-        "cert_body_part_1",
-        """Fluidsignal Group S.A. identificada con *NIT 8110285148* certifica
-        que mantiene en la actualidad relaciones comerciales con la empresa
-        {{business}} identificada con *NIT {{business_number}}*.
-
-        Desde el {{start_day}} de {{start_month}} de {{start_year}} se han
-        desarrollado pruebas de seguridad en modalidad Hacking Continuo sobre
-        la solución {{solution}}.
-
-        Ver anexo *Hacking_Continuo_Fluidattacks* para encontrar toda la
-        información del proceso y tipo de pruebas.
-
-        El resultado actual de las pruebas realizadas es el siguiente:""",
-    )
-    CERT_BODY_PART_2: WordlistItem = WordlistItem(
-        "cert_body_part_2",
-        """Las vulnerabilidades encontradas son notificadas a {{customer}}
-        quien continuamente ejecuta las acciones correctivas para darles
-        solución y *Fluid Attacks* realiza la verificación de estas
-        correcciones para garantizar la calidad de la solución.
-
-        La presente certificación se expide por solicitud del cliente a los
-        {{report_day}} del mes {{report_month}} de {{report_year}}.""",
-    )
-    SIGNATURE_FOOTER: WordlistItem = WordlistItem(
-        "signature_footer",
-        """Representante legal
-        Fluidsignal Group S.A.""",
-    )
