@@ -1,5 +1,4 @@
-import type { ShallowWrapper } from "enzyme";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -14,12 +13,13 @@ describe("Sidebar", (): void => {
   it("should render a sidebar", (): void => {
     expect.hasAssertions();
 
-    const wrapper: ShallowWrapper = shallow(
+    render(
       <MemoryRouter initialEntries={["/home"]}>
         <Sidebar />
       </MemoryRouter>
     );
 
-    expect(wrapper).toHaveLength(1);
+    expect(screen.queryByRole("link")).toBeInTheDocument();
+    expect(screen.getByRole("link")).toHaveAttribute("href", "/home");
   });
 });
