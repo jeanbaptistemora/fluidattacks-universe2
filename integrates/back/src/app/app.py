@@ -37,6 +37,9 @@ from aioextensions import (
 from api import (
     IntegratesAPI,
 )
+from api.extensions.datadog import (
+    DatadogTracingExtension,
+)
 from api.extensions.new_relic import (
     NewRelicTracingExtension,
 )
@@ -344,6 +347,7 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 exception_handlers = {404: not_found, 500: server_error}
 
 API_EXTENSIONS = [
+    DatadogTracingExtension,
     NewRelicTracingExtension,
 ]
 
