@@ -2738,6 +2738,12 @@
   "hubot-scripts": {
     "GMS-2013-10": "<=2.4.3"
   },
+  "hulp": {
+    "GHSA-fqw7-8v6m-2f86": ">=0"
+  },
+  "hw-trnasport-u2f": {
+    "GHSA-4363-x42f-xph6": ">=0"
+  },
   "i": {
     "SNYK-JS-I-1726768": "<0.3.7"
   },
@@ -2761,12 +2767,24 @@
     "GMS-2016-110": "<1.0.2"
   },
   "iconv-lite": {},
+  "ids-enterprise": {
+    "GHSA-hpfq-8wx8-cgqw": "<4.18.2"
+  },
   "iedriver": {
     "GMS-2016-95": "<3.0.0"
+  },
+  "igniteui": {
+    "GHSA-2r5h-gh4x-8hp9": "<=0.0.5"
+  },
+  "iie-viz": {
+    "GHSA-jf55-rgpx-p6rx": "1.0.4"
   },
   "ikst": {
     "CVE-2017-16041": "<1.1.2",
     "GMS-2017-140": "<1.1.2"
+  },
+  "im-metadata": {
+    "CVE-2019-10788": "<=3.0.1"
   },
   "im-resize": {
     "CVE-2019-10787": "<=2.3.2"
@@ -2778,6 +2796,12 @@
     "CVE-2020-28477": "<8.0.1",
     "CVE-2021-23436": "<9.0.6",
     "CVE-2021-3757": "<=9.0.5"
+  },
+  "impala": {
+    "GHSA-92px-q4w8-hrr5": "1.1.7"
+  },
+  "import-mysql": {
+    "GHSA-whjr-jj69-7prm": ">=0"
   },
   "imurmurhash": {},
   "inert": {
@@ -2797,6 +2821,9 @@
   },
   "iniparserjs": {
     "CVE-2021-23328": ">=0"
+  },
+  "insight-api": {
+    "CVE-2018-1000023": "<=5.0.0"
   },
   "install-g-test": {
     "GMS-2017-69": ">=0.0.0-alpha"
@@ -2827,6 +2854,9 @@
   },
   "ip": {
     "npm:ip:20170304": "<1.1.5"
+  },
+  "ipfs-bitswap": {
+    "GHSA-6fcr-9h9g-23fq": "<0.24.1"
   },
   "ipip": {
     "CVE-2016-10594": "<=3.0.0",
