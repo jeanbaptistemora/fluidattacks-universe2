@@ -1756,11 +1756,13 @@ def process_user_digest_stats(
 
 
 async def request_upgrade(
-    loaders: Any, group_names: List[str], user_email: str
+    loaders: Any,
+    group_names: list[str],
+    user_email: str,
 ) -> None:
     """
-    Lead the user towards a subscription upgrade managed by our team
-    This is meant to be a temporary flow while the billing module gets ready
+    Lead the user towards a subscription upgrade managed by our team.
+    This is meant to be a temporary flow while the billing module gets ready.
     """
     enforcer = await authz.get_group_level_enforcer(user_email)
     if not all(
@@ -1769,13 +1771,10 @@ async def request_upgrade(
     ):
         raise GroupNotFound()
 
-    groups: List[Dict[str, Any]] = await loaders.group.load_many(group_names)
-    if any(group["has_squad"] for group in groups):
+    groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        group_names
+    )
+    if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
-    # Needed at the moment since group["organization"] is the org id
-    # Would be great to have the org name directly in a future db migration
-    orgs: List[Dict[str, Any]] = await loaders.organization.load_many(
-        [group["organization"] for group in groups]
-    )
-    await notifications_domain.request_groups_upgrade(user_email, orgs, groups)
+    await notifications_domain.request_groups_upgrade(user_email, groups)

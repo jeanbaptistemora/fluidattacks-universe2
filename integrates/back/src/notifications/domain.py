@@ -11,11 +11,13 @@ from context import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
 )
 import html
-import itertools
 from mailer import (
     groups as groups_mail,
 )
@@ -318,21 +320,19 @@ async def send_push_notification(
 
 
 async def request_groups_upgrade(
-    user_email: str, orgs: List[Dict[str, Any]], groups: List[Dict[str, Any]]
+    user_email: str,
+    groups: tuple[Group, ...],
 ) -> None:
-    org_names_by_id = {org["id"]: org["name"] for org in orgs}
-
-    def keyfunc(group: Dict[str, Any]) -> str:
-        return group["organization"]
-
-    orgs_message = "".join(
+    organization_names = set(group.organization_name for group in groups)
+    organizations_message = "".join(
         f"""
-            - Organization {org_names_by_id[org_id]}:
-                {', '.join(group['name'] for group in org_groups)}
+            - Organization {organization_name}:
+                {', '.join(
+                    group.name
+                    for group in groups
+                    if group.organization_name == organization_name)}
         """
-        for org_id, org_groups in itertools.groupby(
-            sorted(groups, key=keyfunc), keyfunc
-        )
+        for organization_name in organization_names
     )
 
     await in_thread(
@@ -341,7 +341,7 @@ async def request_groups_upgrade(
         description=f"""
             You are receiving this email because you have requested an upgrade
             to the Squad plan for the following groups:
-            {orgs_message}
+            {organizations_message}
             If you require any further information,
             do not hesitate to contact us.
         """,
