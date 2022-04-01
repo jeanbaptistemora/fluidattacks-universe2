@@ -596,10 +596,68 @@ async def update_policies(
             loaders, organization_id, email, values
         )
         if new_policies:
+            await send_mail_policies(
+                loaders,
+                new_policies,
+                organization_id,
+                organization_name,
+            )
             success = await orgs_dal.update(
                 organization_id, organization_name, new_policies
             )
     return success
+
+
+async def send_mail_policies(
+    loaders: Any,
+    new_policies: Dict[str, Any],
+    organization_id: str,
+    organization_name: str,
+) -> None:
+    policies_format = {
+        "max_acceptance_days": "Maximum number of calendar days a finding "
+        "can be temporarily accepted",
+        "max_acceptance_severity": "Maximum temporal CVSS 3.1 score range "
+        "between which a finding can be accepted",
+        "min_breaking_severity": "Minimum CVSS 3.1 score of an open "
+        "vulnerability for DevSecOps to break the build in strict mode",
+        "min_acceptance_severity": "Minimum temporal CVSS 3.1 score range "
+        "between which a finding can be accepted",
+        "vulnerability_grace_period": "Grace period in days where newly "
+        "reported vulnerabilities won't break the build (DevSecOps only)",
+    }
+
+    policies_content: str = ""
+    for key, val in new_policies.items():
+        if "historic_max_number_acceptations" in key:
+            number_acceptations = val[-1]["max_number_acceptations"]
+            policies_content += (
+                "Maximum number of times a finding can be "
+                f"temporarily accepted: {number_acceptations}\n"
+            )
+        else:
+            policies_content += f"{policies_format[key]}: {val}\n"
+
+    email_context: Dict[str, Any] = {
+        "org_name": organization_name,
+        "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
+        "policies": policies_content.splitlines(),
+    }
+
+    org_stakeholders_loaders = await loaders.organization_stakeholders.load(
+        organization_id
+    )
+
+    stakeholders_emails = [
+        stakeholder["email"]
+        for stakeholder in org_stakeholders_loaders
+        if stakeholder["role"] == "customer_manager"
+    ]
+
+    await groups_mail.send_mail_updated_policies(
+        email_to=stakeholders_emails,
+        context=email_context,
+    )
 
 
 async def validate_acceptance_severity_range(
