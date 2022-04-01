@@ -2997,11 +2997,20 @@
   "jose-node-cjs-runtime": {
     "GHSA-rvcw-f68w-8h8h": "<3.11.4"
   },
+  "jose-node-esm-runtime": {
+    "GHSA-4v4g-726h-xvfv": "<3.11.4"
+  },
   "jpeg-js": {
     "CVE-2020-8175": "<0.4.0"
   },
   "jpv": {
     "CVE-2020-17479": "<2.2.2"
+  },
+  "jq-sha3": {
+    "GHSA-x8m7-cv39-xmg9": ">=0"
+  },
+  "jqeury": {
+    "GHSA-4964-cjrr-jg97": ">=0"
   },
   "jqtree": {
     "CVE-2016-1000234": "<=1.3.3"
@@ -3025,6 +3034,9 @@
     "GMS-2017-121": ">=1.7.1 <=1.8.3",
     "GMS-2017-122": "<1.12.0 || >1.12.2 <3.0.0-beta1"
   },
+  "jquery-airload": {
+    "GHSA-78p3-96hc-3j47": "0.2.5"
+  },
   "jquery-bbq": {
     "CVE-2021-20086": "=1.2.1"
   },
@@ -3033,6 +3045,9 @@
   },
   "jquery-file-upload": {
     "CVE-2018-9207": ">=0.0.0"
+  },
+  "jquery-mobile": {
+    "GHSA-fj93-7wm4-8x2g": ">=0"
   },
   "jquery-ui": {
     "GMS-2016-46": "<=1.11.4"
@@ -3047,12 +3062,27 @@
     "CVE-2017-16045": ">=0",
     "GMS-2017-175": ">=0.0.0-alpha"
   },
+  "jquery.json-viewer": {
+    "GHSA-v9wp-8r97-v6xg": "<1.3.0"
+  },
+  "jquery.terminal": {
+    "CVE-2021-43862": "<2.31.1"
+  },
   "jqueryfiletree": {
     "CVE-2017-1000170": "<=2.1.5"
+  },
+  "jquerz": {
+    "GHSA-c6f3-3c98-2j2f": ">=0"
   },
   "jquey": {
     "CVE-2017-16204": ">=0",
     "GMS-2017-302": ">=0.0.0-alpha"
+  },
+  "jr-sha3": {
+    "GHSA-67mp-pcv9-vvq6": ">=0"
+  },
+  "js-3ha3": {
+    "GHSA-52c9-458g-whrf": ">=0"
   },
   "js-data": {
     "CVE-2020-28442": ">=0"
