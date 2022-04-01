@@ -19,15 +19,15 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
 )
 import re
-from resources import (
-    domain as resources_domain,
-)
 from typing import (
     Any,
 )
@@ -55,7 +55,7 @@ async def mutate(
     file_name = str(files_data.get("fileName"))
     group_name = group_name.lower()
     try:
-        await resources_domain.remove_file(
+        await groups_domain.remove_file(
             loaders=loaders,
             group_name=group_name,
             file_name=file_name,

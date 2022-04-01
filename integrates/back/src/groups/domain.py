@@ -26,6 +26,7 @@ from contextlib import (
 from custom_exceptions import (
     AlreadyPendingDeletion,
     BillingSubscriptionSameActive,
+    ErrorUpdatingGroup,
     GroupNotFound,
     HasActiveRoots,
     InvalidGroupName,
@@ -1309,6 +1310,36 @@ async def mask_files(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(files=masked_files),
         )
+
+
+async def remove_file(
+    *,
+    loaders: Any,
+    group_name: str,
+    file_name: str,
+) -> None:
+    group: Group = await loaders.group_typed.load(group_name)
+    if not group.files:
+        raise ErrorUpdatingGroup.new()
+
+    file_to_remove: Optional[GroupFile] = next(
+        (file for file in group.files if file.file_name == file_name), None
+    )
+    if not file_to_remove:
+        raise ErrorUpdatingGroup.new()
+
+    file_url = f"{group_name}/{file_name}"
+    await resources_utils.remove_file(file_url)
+    await update_metadata_typed(
+        group_name=group_name,
+        metadata=GroupMetadataToUpdate(
+            files=[
+                file
+                for file in group.files
+                if file.file_name != file_to_remove.file_name
+            ]
+        ),
+    )
 
 
 async def remove_all_users(loaders: Any, group: str) -> bool:
