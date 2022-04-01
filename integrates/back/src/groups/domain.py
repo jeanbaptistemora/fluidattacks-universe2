@@ -14,7 +14,6 @@ from authz.validations import (
 import bugsnag
 from collections import (
     Counter,
-    namedtuple,
 )
 from context import (
     BASE_URL,
@@ -158,7 +157,6 @@ from typing import (
     cast,
     Dict,
     List,
-    NamedTuple,
     Optional,
     Set,
     Tuple,
@@ -1286,60 +1284,6 @@ async def is_valid(
     return await groups_dal.is_valid(group, pre_computed_group_data)
 
 
-async def mask_resources(group_name: str) -> NamedTuple:
-    group_name = group_name.lower()
-    group = await get_attributes(
-        group_name, ["environments", "files", "repositories"]
-    )
-    status: NamedTuple = namedtuple(  # NOSONAR
-        "status", ("files_result environments_result repositories_result")
-    )
-    list_resources_files = await resources_utils.search_file(f"{group_name}/")
-    await collect(
-        resources_utils.remove_file(file_name)
-        for file_name in list_resources_files
-    )
-
-    files_result = await update(
-        group_name,
-        {
-            "files": [
-                {
-                    "fileName": "Masked",
-                    "description": "Masked",
-                    "uploader": "Masked",
-                }
-                for _ in group.get("files", [])
-            ]
-        },
-    )
-    environments_result = await update(
-        group_name,
-        {
-            "environments": [
-                {"urlEnv": "Masked"} for _ in group.get("environments", [])
-            ]
-        },
-    )
-    repositories_result = await update(
-        group_name,
-        {
-            "repositories": [
-                {"protocol": "Masked", "urlRepo": "Masked"}
-                for _ in group.get("repositories", [])
-            ]
-        },
-    )
-    return cast(
-        NamedTuple,
-        status(
-            files_result,
-            environments_result,
-            repositories_result,
-        ),
-    )
-
-
 async def mask_files(
     loaders: Any,
     group_name: str,
@@ -1384,7 +1328,9 @@ async def remove_all_users(loaders: Any, group: str) -> bool:
 
 
 async def remove_resources(
-    loaders: Any, group_name: str, user_email: str
+    loaders: Any,
+    group_name: str,
+    user_email: str,
 ) -> bool:
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
     are_findings_masked = all(
@@ -1400,10 +1346,8 @@ async def remove_resources(
     are_events_masked = all(
         await collect(events_domain.mask(event_id) for event_id in events)
     )
-    are_resources_masked = all(
-        list(cast(List[bool], await mask_resources(group_name)))
-    )
     are_comments_masked = await mask_comments(group_name)
+    await mask_files(loaders, group_name)
     await deactivate_all_roots(
         loaders=loaders,
         group_name=group_name,
@@ -1415,7 +1359,6 @@ async def remove_resources(
         [
             are_findings_masked,
             are_events_masked,
-            are_resources_masked,
             are_comments_masked,
         ]
     )
