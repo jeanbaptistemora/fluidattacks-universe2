@@ -36,13 +36,13 @@ const PlanSection: React.FC<IProps> = ({
         <NewBlackBigParagraph>
           {translate.t("productOverview.title")}
         </NewBlackBigParagraph>
-        <ProductParagraph>{description}</ProductParagraph>
+        <ProductParagraph isSecundary={false}>{description}</ProductParagraph>
         <Link to={"/contact-us-demo/"}>
           <BigRegularRedButton>
             {translate.t("productOverview.mainButton")}
           </BigRegularRedButton>
         </Link>
-        <ProductParagraph>
+        <ProductParagraph isSecundary={true}>
           <i>
             {translate.t("productOverview.planText")}
             &nbsp;

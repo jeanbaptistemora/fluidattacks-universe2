@@ -40,31 +40,40 @@ const DropDownQuestion: React.FC<IDropDownQuestion> = ({
           <RotatingArrow isTouch={isTouch} />
         </div>
       </QuestionTitle>
-      <AnswerContainer
-        style={{
-          animation: "fadein 0.5s",
-          display: isTouch ? "block" : "none",
-        }}
-      >
-        {isList
-          ? answers.map((answer): JSX.Element => {
-              return (
-                <AnswerItem key={`${answer.answer}`}>
-                  {answer.answer}
-                </AnswerItem>
-              );
-            })
-          : answers.map((answer): JSX.Element => {
-              return (
-                <AnswerLabel key={`${answer.answer}`}>
-                  {answer.answer}
-                  {hasLink ? (
-                    <Link to={"/about-us/clients/"}>{"here."}</Link>
-                  ) : undefined}
-                </AnswerLabel>
-              );
-            })}
-      </AnswerContainer>
+      {isList ? (
+        <AnswerContainer
+          isItem={true}
+          style={{
+            animation: "fadein 0.5s",
+            display: isTouch ? "block" : "none",
+          }}
+        >
+          {answers.map((answer): JSX.Element => {
+            return (
+              <AnswerItem key={`${answer.answer}`}>{answer.answer}</AnswerItem>
+            );
+          })}{" "}
+        </AnswerContainer>
+      ) : (
+        <AnswerContainer
+          isItem={false}
+          style={{
+            animation: "fadein 0.5s",
+            display: isTouch ? "block" : "none",
+          }}
+        >
+          {answers.map((answer): JSX.Element => {
+            return (
+              <AnswerLabel key={`${answer.answer}`}>
+                {answer.answer}
+                {hasLink ? (
+                  <Link to={"/about-us/clients/"}>{"here."}</Link>
+                ) : undefined}
+              </AnswerLabel>
+            );
+          })}
+        </AnswerContainer>
+      )}
     </QuestionContainer>
   );
 };

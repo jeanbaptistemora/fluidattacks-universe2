@@ -137,8 +137,8 @@ const pageTexts: ResourceKey = {
         "we identify in your system and their main attributes to act promptly.",
       card1Title: "Know your vulnerabilities",
       card2Description:
-        "Your developers and managers can understand " +
-        "what is happening with each vulnerability reported on the ASM.",
+        "Your developers and managers can understand what is happening " +
+        "with each vulnerability reported on the Attack Surface Manager (ASM).",
       card2Title: "Learn details of each vulnerability",
       card3Description:
         "You can decide the course of action for each " +
@@ -146,8 +146,7 @@ const pageTexts: ResourceKey = {
       card3Title: "Define treatments for vulnerabilities",
     },
     faqSection: {
-      paragraph:
-        "Do you have more questions?  Explore the most frequently asked questions ",
+      paragraph: "Questions? Explore our FAQ. ",
       question1Answer:
         "We find vulnerabilities in the systems of a wide variety " +
         "of companies in the following industries: banking, fintech, " +
@@ -185,8 +184,9 @@ const pageTexts: ResourceKey = {
         "of Continuous Hacking?",
       question4Answer:
         "During the free trial, the security testing will be completely automatic. " +
-        "You can upgrade at any time during your free trial period to our " +
-        "Continuous Hacking Squad Plan, which mainly involves manual pentesting.",
+        "You can upgrade at any time during this period to our Continuous Hacking Squad Plan, " +
+        "which extends the capabilities of Machine to include manual pentesting, " +
+        "achieving low rates of false positives and false negatives.",
       question4Title:
         "Can I upgrade from the Continuous Hacking Machine Plan to the Squad Plan?",
     },

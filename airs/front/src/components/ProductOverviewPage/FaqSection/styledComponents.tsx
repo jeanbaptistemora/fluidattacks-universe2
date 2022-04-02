@@ -20,7 +20,7 @@ const FaqContainer = styled.div.attrs({
 
 const FaqParagraph = styled.p.attrs({
   className: `
-    f3
+    f5
     c-black-gray
     roboto
     ma0

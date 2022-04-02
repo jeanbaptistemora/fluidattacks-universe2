@@ -14,16 +14,15 @@ const BigRegularRedButton = styled.button.attrs({
     dib
     t-all-3-eio
     br2
-    bc-fluid-red
     ba
     roboto
     w-auto-ns
     w-100
   `,
 })`
+  border-color: #ff3435;
   :hover {
     background-color: #b80000;
-    box-shadow: 0px 15px 23px rgba(255, 52, 53, 0.3);
   }
 `;
 

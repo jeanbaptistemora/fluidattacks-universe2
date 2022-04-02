@@ -12,14 +12,14 @@ const Container = styled.div.attrs({
 
 const ProductParagraph = styled.p.attrs({
   className: `
-    f3
     c-black-gray
     roboto
     ma0
-    mv5
+    mv4
     center
   `,
-})`
+})<{ isSecundary: boolean }>`
+  font-size: ${({ isSecundary }): string => (isSecundary ? "1rem" : "1.5rem")};
   line-height: 2rem;
   max-width: 1088px;
 `;

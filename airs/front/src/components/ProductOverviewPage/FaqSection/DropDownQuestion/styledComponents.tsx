@@ -24,10 +24,11 @@ const QuestionTitle = styled.div.attrs({
 
 const AnswerContainer = styled.div.attrs({
   className: `
-    pv2
     w-100
   `,
-})`
+})<{ isItem: boolean }>`
+  padding-top: ${({ isItem }): string => (isItem ? "2rem" : "1rem")};
+  padding-bottom: ${({ isItem }): string => (isItem ? "1rem" : "0.5rem")};
   display: none;
 `;
 
