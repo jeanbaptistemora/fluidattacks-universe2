@@ -69,7 +69,7 @@ PortfoliosGroups = NamedTuple(
     ],
 )
 
-TICK_ROTATION = 18  # display vulnerability type at that rotation
+TICK_ROTATION = 20  # rotation displayed for group name and vulnerability type
 MAX_WITH_DECIMALS = Decimal("10.0")
 
 

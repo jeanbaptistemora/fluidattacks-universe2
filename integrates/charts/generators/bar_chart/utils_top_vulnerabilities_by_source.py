@@ -131,7 +131,7 @@ def format_data(
             ),
         ),
         padding=dict(
-            bottom=20,
+            bottom=30,
         ),
         axis=dict(
             x=dict(

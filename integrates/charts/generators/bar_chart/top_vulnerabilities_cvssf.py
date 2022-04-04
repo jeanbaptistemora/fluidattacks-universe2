@@ -142,7 +142,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
             ),
         ),
         padding=dict(
-            bottom=20,
+            bottom=30,
         ),
         axis=dict(
             x=dict(
