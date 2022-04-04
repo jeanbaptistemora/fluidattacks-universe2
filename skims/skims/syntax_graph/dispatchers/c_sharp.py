@@ -313,6 +313,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "real_literal",
+        },
+        syntax_reader=common_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "return_statement",
         },
         syntax_reader=c_sharp_return_statement.reader,
