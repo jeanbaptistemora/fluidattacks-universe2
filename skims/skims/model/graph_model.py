@@ -34,7 +34,6 @@ NIdPredicateFunction = Callable[[str], bool]
 
 SyntaxStep = Any
 SyntaxSteps = List[SyntaxStep]
-SyntaxStepsLists = Dict[str, List[SyntaxStep]]
 SyntaxStepsLazy = Iterator[SyntaxStep]
 
 

@@ -38,14 +38,20 @@ def mark_metadata(
     }
     danger_classes = tuple(
         _class
-        for _class in metadata.c_sharp.classes.values()
+        for _class in (
+            metadata.c_sharp.classes.values() if metadata.c_sharp else []
+        )
         if _class.inherit in danger_superclass
     )
     for _class in danger_classes:
         danger_methods = tuple(
             _method
             for _method in _class.methods.values()
-            if any(_method.name.startswith(action) for action in http_actions)
+            if any(
+                _method.name.startswith(action)
+                for action in http_actions
+                if _method.name
+            )
             or (
                 set(getattr(_method, "attributes", [])).intersection(
                     danger_attributes
@@ -55,7 +61,9 @@ def mark_metadata(
         parameters = tuple(
             _parameter
             for _method in danger_methods
-            for _parameter in _method.parameters.values()
+            for _parameter in (
+                _method.parameters.values() if _method.parameters else []
+            )
         )
         for _parameter in parameters:
             for finding in FINDINGS:

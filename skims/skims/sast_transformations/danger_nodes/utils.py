@@ -53,7 +53,7 @@ def _append_label_sink(
 def _mark_array(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     types: Set[str],
     marker: AppendLabelType,
 ) -> None:
@@ -68,7 +68,7 @@ def _mark_array(
 def mark_array_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     types: Set[str],
 ) -> None:
     _mark_array(
@@ -83,7 +83,7 @@ def mark_array_input(
 def mark_function_arg(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     dangerous_types: Set[str],
 ) -> None:
     for syntax_steps in graph_syntax.values():
@@ -101,7 +101,7 @@ def mark_function_arg(
 def _mark_methods(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxStepsLists,
+    graph_syntax: graph_model.GraphSyntax,
     methods: Set[str],
     marker: AppendLabelType,
 ) -> None:
@@ -136,7 +136,7 @@ def _mark_methods(
 def _mark_assignments(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     attributes: Set[str],
     marker: AppendLabelType,
 ) -> None:
@@ -152,7 +152,7 @@ def _mark_assignments(
 def mark_methods_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     methods: Set[str],
 ) -> None:
     _mark_methods(
@@ -167,7 +167,7 @@ def mark_methods_input(
 def mark_methods_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxStepsLists,
+    graph_syntax: graph_model.GraphSyntax,
     methods: Set[str],
 ) -> None:
     _mark_methods(
@@ -182,7 +182,7 @@ def mark_methods_sink(
 def _mark_obj_inst(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     types: Set[str],
     marker: AppendLabelType,
 ) -> None:
@@ -200,7 +200,7 @@ def _mark_obj_inst(
 def mark_obj_inst_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     types: Set[str],
 ) -> None:
     _mark_obj_inst(
@@ -215,7 +215,7 @@ def mark_obj_inst_input(
 def mark_obj_inst_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxSteps,
+    graph_syntax: graph_model.GraphSyntax,
     types: Set[str],
 ) -> None:
     _mark_obj_inst(
@@ -230,7 +230,7 @@ def mark_obj_inst_sink(
 def mark_assignments_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
-    graph_syntax: graph_model.SyntaxStepsLists,
+    graph_syntax: graph_model.GraphSyntax,
     attributes: Set[str],
 ) -> None:
     _mark_assignments(

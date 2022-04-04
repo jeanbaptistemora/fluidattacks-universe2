@@ -67,7 +67,8 @@ class ShardDb:
 
         language = self.paths.paths_lang[path]
         content = safe_sync_get_file_raw_content(path)
-        self.shards[path] = parse_one(path, language, content)
+        if gs_parsed := parse_one(path, language, content):
+            self.shards[path] = gs_parsed
         self.current_paths.append(path)
 
     def get_shard(self, path: str) -> Optional[GraphShard]:
