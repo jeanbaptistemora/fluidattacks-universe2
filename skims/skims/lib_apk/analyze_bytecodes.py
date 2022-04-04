@@ -742,7 +742,7 @@ def _uses_http_resources(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         "http://localhost",
         "http://127.0.0.1/",
         "http://java.sun.com/",
-        r"http://\[",
+        r"http:\/\/\[",
     }
 
     if ctx.apk_ctx.analysis is not None:
