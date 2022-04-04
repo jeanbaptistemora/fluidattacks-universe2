@@ -1,9 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    Resources,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -27,9 +24,16 @@ from newutils.utils import (
     get_key_or_fallback,
     get_present_key,
 )
+from typing import (
+    Optional,
+    Union,
+)
+
+Resource = dict[str, str]
+Resources = dict[str, Union[str, Optional[list[Resource]]]]
 
 
-def _format_group_files(group_files: list[GroupFile]) -> list[dict[str, str]]:
+def _format_group_files(group_files: list[GroupFile]) -> list[Resource]:
     return [
         {
             "description": file.description,
