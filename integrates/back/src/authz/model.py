@@ -14,7 +14,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             "api_mutations_activate_root_mutate",
-            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_draft_mutate",
             "api_mutations_add_event_mutate",
@@ -44,7 +43,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_remove_finding_mutate",
             "api_mutations_remove_event_evidence_mutate",
             "api_mutations_remove_files_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_remove_finding_evidence_mutate",
             "api_mutations_remove_group_mutate",
             "api_mutations_remove_group_tag_mutate",
@@ -244,7 +242,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
-            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_files_to_db_mutate",
@@ -256,7 +253,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_url_root_mutate",
             "api_mutations_download_event_file_mutate",
             "api_mutations_download_file_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_remove_files_mutate",
             "api_mutations_remove_group_tag_mutate",
             "api_mutations_remove_vulnerability_tags_mutate",
@@ -299,7 +295,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     user_manager=dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
-            "api_mutations_add_secret_mutate",
             "api_mutations_update_forces_access_token_mutate",
             "api_mutations_activate_root_mutate",
             "api_mutations_deactivate_root_mutate",
@@ -323,7 +318,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_handle_vulnerabilities_acceptation_mutate",
             "api_mutations_handle_vulnerabilities_acceptance_mutate",
             "api_mutations_remove_files_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_remove_group_mutate",
             "api_mutations_remove_group_tag_mutate",
             "api_mutations_remove_stakeholder_access_mutate",
@@ -426,7 +420,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
-            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_files_to_db_mutate",
@@ -447,7 +440,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_grant_stakeholder_access_mutate",
             "api_mutations_remove_files_mutate",
             "api_mutations_remove_group_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_remove_group_tag_mutate",
             "api_mutations_remove_stakeholder_access_mutate",
             "api_mutations_remove_vulnerability_tags_mutate",
@@ -509,7 +501,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_event_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_git_root_mutate",
-            "api_mutations_add_secret_mutate",
             "api_mutations_download_event_file_mutate",
             "api_mutations_download_file_mutate",
             "api_mutations_request_vulnerabilities_hold_mutate",
@@ -601,7 +592,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_add_draft_mutate",
             "api_mutations_add_event_mutate",
-            "api_mutations_add_secret_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_group_consult_mutate",
@@ -614,7 +604,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_remove_finding_mutate",
             "api_mutations_remove_finding_evidence_mutate",
             "api_mutations_remove_vulnerability_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_remove_vulnerability_tags_mutate",
             "api_mutations_request_vulnerabilities_hold_mutate",
             "api_mutations_request_vulnerabilities_verification_mutate",
@@ -622,7 +611,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_draft_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_event_evidence_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_update_evidence_description_mutate",
             "api_mutations_update_evidence_mutate",
             "api_mutations_update_finding_description_mutate",
@@ -764,6 +752,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_internal_toe",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "api_mutations_add_secret_mutate",
+            "api_mutations_remove_secret_mutate",
         },
         tags={
             *GROUP_LEVEL_ROLES["admin"]["tags"],
@@ -817,6 +807,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
+            "api_mutations_add_secret_mutate",
+            "api_mutations_remove_secret_mutate",
         },
         tags={
             *GROUP_LEVEL_ROLES["user"]["tags"],
@@ -866,6 +858,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_internal_toe",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "api_mutations_add_secret_mutate",
+            "api_mutations_remove_secret_mutate",
         },
         tags={
             *GROUP_LEVEL_ROLES["customer_manager"]["tags"],
@@ -895,6 +889,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_internal_toe",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "api_mutations_add_secret_mutate",
+            "api_mutations_remove_secret_mutate",
         },
         tags={
             *GROUP_LEVEL_ROLES["resourcer"]["tags"],
@@ -1093,8 +1089,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             "api_mutations_add_machine_execution_mutate",
-            "api_mutations_add_secret_mutate",
-            "api_mutations_remove_secret_mutate",
             "api_mutations_finish_machine_execution_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_mutate",
@@ -1143,6 +1137,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *USER_LEVEL_ROLES["admin"]["actions"],
             "keep_default_organization_access",
+            "api_mutations_add_secret_mutate",
         },
         tags={
             *USER_LEVEL_ROLES["admin"]["tags"],
@@ -1168,6 +1163,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_organization_mutate",
             "front_can_use_groups_searchbar",
             "keep_default_organization_access",
+            "api_mutations_add_secret_mutate",
         },
         tags={
             *USER_LEVEL_ROLES["user"]["tags"],
