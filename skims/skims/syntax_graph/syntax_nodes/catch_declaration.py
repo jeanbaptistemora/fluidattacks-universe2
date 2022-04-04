@@ -5,12 +5,12 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from typing import (
-    Iterator,
+    Iterable,
 )
 
 
 def build_catch_declaration_node(
-    args: SyntaxGraphArgs, c_ids: Iterator[NId]
+    args: SyntaxGraphArgs, c_ids: Iterable[NId]
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

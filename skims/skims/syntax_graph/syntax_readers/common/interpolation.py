@@ -14,4 +14,4 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     identifier_id = match_ast_d(args.ast_graph, args.n_id, "identifier")
-    return build_interpolation_node(args, identifier_id)
+    return build_interpolation_node(args, str(identifier_id))

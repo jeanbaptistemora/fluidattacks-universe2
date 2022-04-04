@@ -20,7 +20,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     for var_identifier in assignments[:-1]:
         yield graph_model.SyntaxStepAssignment(
             meta=last_assignment.meta,  # type: ignore
-            var=var_identifier,
+            var=str(var_identifier),
         )
     yield last_assignment
 

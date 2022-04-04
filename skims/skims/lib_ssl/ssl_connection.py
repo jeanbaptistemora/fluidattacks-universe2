@@ -30,6 +30,7 @@ from struct import (
 from typing import (
     Generator,
     List,
+    Literal,
     Optional,
     Tuple,
 )
@@ -85,12 +86,16 @@ def ssl_connect(
             ssl_sock.close()
 
 
-def num_to_bytes(num: int, n_bytes: int, encoding: str = "big") -> List[int]:
+def num_to_bytes(
+    num: int, n_bytes: int, encoding: Literal["little", "big"] = "big"
+) -> List[int]:
     b_num: bytes = num.to_bytes(n_bytes, encoding)
     return list(b_num)
 
 
-def bytes_to_num(data: bytes, encoding: str = "big") -> int:
+def bytes_to_num(
+    data: bytes, encoding: Literal["little", "big"] = "big"
+) -> int:
     return int.from_bytes(data, byteorder=encoding)
 
 
