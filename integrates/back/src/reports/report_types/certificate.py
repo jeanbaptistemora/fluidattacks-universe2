@@ -4,6 +4,9 @@ from db_model.findings.types import (
 from reports.certificate import (
     CertificateCreator,
 )
+from reports.secure_pdf import (
+    SecurePDF,
+)
 from tempfile import (
     TemporaryDirectory,
 )
@@ -20,7 +23,11 @@ async def generate_cert_file(
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     lang: str,
+    passphrase: str,
+    user_email: str,
 ) -> str:
+    secure_pdf = SecurePDF(passphrase)
+    report_filename = ""
     with TemporaryDirectory() as tempdir:
         pdf_maker = CertificateCreator(lang, "cert", tempdir)
         await pdf_maker.cert(
@@ -29,4 +36,7 @@ async def generate_cert_file(
             description,
             loaders,
         )
-    return pdf_maker.out_name
+    report_filename = await secure_pdf.create_full(
+        user_email, pdf_maker.out_name, group_name
+    )
+    return report_filename
