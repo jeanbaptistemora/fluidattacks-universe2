@@ -146,7 +146,7 @@ const pageTexts: ResourceKey = {
       card3Title: "Define treatments for vulnerabilities",
     },
     faqSection: {
-      paragraph: "Questions? Explore our FAQ. ",
+      paragraph: "Questions? Explore our FAQ ",
       question1Answer:
         "We find vulnerabilities in the systems of a wide variety " +
         "of companies in the following industries: banking, fintech, " +
@@ -190,12 +190,11 @@ const pageTexts: ResourceKey = {
       question4Title:
         "Can I upgrade from the Continuous Hacking Machine Plan to the Squad Plan?",
     },
-    mainButton: "Schedule your free trial",
+    mainButton: "Start your Machine Plan Free Trial",
     planText:
       "*This free trial is for Machine Plan. " +
       "See how this compares to our main Squad Plan",
     portrait: {
-      button: "Schedule your free trial",
       paragraph:
         "Discover the benefits of our comprehensive Continuous Hacking solution which hundreds " +
         "of organizations are already enjoying.",

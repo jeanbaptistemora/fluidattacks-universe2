@@ -28,7 +28,7 @@ const Portrait: React.FC = (): JSX.Element => (
         <div className={"cf tl-l tc mt4 mb5"}>
           <Link className={"no-underline"} to={"/contact-us-demo/"}>
             <BigRegularRedButton>
-              {translate.t("productOverview.portrait.button")}
+              {translate.t("productOverview.mainButton")}
             </BigRegularRedButton>
           </Link>
         </div>
