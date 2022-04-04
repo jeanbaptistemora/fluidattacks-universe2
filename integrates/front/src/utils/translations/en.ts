@@ -76,9 +76,18 @@ export const enTranslations: ResourceKey = {
       groupsByTag: "Tags by groups",
     },
     limitData: {
-      all: "All",
-      ninetyDays: "90",
-      thirtyDays: "30",
+      all: {
+        text: "All",
+        tooltip: "All data, not filtered",
+      },
+      ninetyDays: {
+        text: "90",
+        tooltip: "Data filtered from the last 90 days",
+      },
+      thirtyDays: {
+        text: "30",
+        tooltip: "Data filtered from the last 30 days",
+      },
     },
     pieChart: {
       resources: {

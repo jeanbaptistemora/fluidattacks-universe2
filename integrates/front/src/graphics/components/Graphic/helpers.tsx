@@ -10,15 +10,15 @@ interface IDaysLabelProps {
 }
 
 const labels: Record<string, string> = {
-  "30": translate.t("analytics.limitData.thirtyDays"),
-  "90": translate.t("analytics.limitData.ninetyDays"),
-  allTime: translate.t("analytics.limitData.all"),
+  "30": translate.t("analytics.limitData.thirtyDays.text"),
+  "90": translate.t("analytics.limitData.ninetyDays.text"),
+  allTime: translate.t("analytics.limitData.all.text"),
 };
 
-const DaysLabel: React.FC<IDaysLabelProps> = (
-  props: IDaysLabelProps
-): JSX.Element => {
-  const { days, isEqual } = props;
+const DaysLabel: React.FC<IDaysLabelProps> = ({
+  days,
+  isEqual,
+}: IDaysLabelProps): JSX.Element => {
   const label = labels[days];
 
   return <div className={"pointer"}>{isEqual ? <b>{label}</b> : label}</div>;

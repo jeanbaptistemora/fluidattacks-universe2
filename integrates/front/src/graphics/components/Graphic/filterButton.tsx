@@ -4,12 +4,14 @@
   Needed to declare various small helpers components
 */
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import type { IDocumentValues } from "./ctx";
 import { mergedDocuments } from "./ctx";
 import { DropdownFilter } from "./filter";
 import { DaysLabel, DocumentMerged } from "./helpers";
 
+import { TooltipWrapper } from "components/TooltipWrapper";
 import styles from "graphics/components/Graphic/index.css";
 import { GraphicButton } from "styles/styledComponents";
 
@@ -66,21 +68,40 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
   changeToNinety,
   changeToAll,
 }: ITimeFilterButton): JSX.Element => {
+  const { t } = useTranslation();
   if (!timeFilter) {
     return <React.StrictMode />;
   }
 
   return (
     <React.StrictMode>
-      <GraphicButton className={styles.buttonSize} onClick={changeToThirtyDays}>
-        <DaysLabel days={"30"} isEqual={subjectName === `${subject}_30`} />
-      </GraphicButton>
-      <GraphicButton className={styles.buttonSize} onClick={changeToNinety}>
-        <DaysLabel days={"90"} isEqual={subjectName === `${subject}_90`} />
-      </GraphicButton>
-      <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
-        <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
-      </GraphicButton>
+      <TooltipWrapper
+        id={"analytics.limitData.thirtyDays.tooltip.id"}
+        message={t("analytics.limitData.thirtyDays.tooltip")}
+      >
+        <GraphicButton
+          className={styles.buttonSize}
+          onClick={changeToThirtyDays}
+        >
+          <DaysLabel days={"30"} isEqual={subjectName === `${subject}_30`} />
+        </GraphicButton>
+      </TooltipWrapper>
+      <TooltipWrapper
+        id={"analytics.limitData.ninetyDays.tooltip.id"}
+        message={t("analytics.limitData.ninetyDays.tooltip")}
+      >
+        <GraphicButton className={styles.buttonSize} onClick={changeToNinety}>
+          <DaysLabel days={"90"} isEqual={subjectName === `${subject}_90`} />
+        </GraphicButton>
+      </TooltipWrapper>
+      <TooltipWrapper
+        id={"analytics.limitData.all.tooltip.id"}
+        message={t("analytics.limitData.all.tooltip")}
+      >
+        <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
+          <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
+        </GraphicButton>
+      </TooltipWrapper>
     </React.StrictMode>
   );
 };
