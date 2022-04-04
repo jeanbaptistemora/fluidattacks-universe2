@@ -25,7 +25,7 @@ describe("GroupConsultingView", (): void => {
                 fullName: "Test User",
                 id: "1337260012345",
                 modified: "2019/12/04 08:13:53",
-                parent: "0",
+                parentComment: "0",
               },
             ],
             name: "unittesting",

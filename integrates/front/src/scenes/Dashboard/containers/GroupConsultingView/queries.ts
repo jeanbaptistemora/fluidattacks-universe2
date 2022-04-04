@@ -11,7 +11,7 @@ const GET_GROUP_CONSULTING: DocumentNode = gql`
         email
         fullName
         modified
-        parent
+        parentComment
       }
       name
     }
@@ -22,12 +22,12 @@ const ADD_GROUP_CONSULT: DocumentNode = gql`
   mutation addGroupConsult(
     $content: String!
     $groupName: String!
-    $parent: GenericScalar!
+    $parentComment: GenericScalar!
   ) {
     addGroupConsult(
       content: $content
       groupName: $groupName
-      parentComment: $parent
+      parentComment: $parentComment
     ) {
       commentId
       success

@@ -84,7 +84,7 @@ const CommentsView: React.FC = (): JSX.Element => {
               ...comment,
               createdByCurrentUser: comment.email === userEmail,
               id: Number(comment.id),
-              parent: Number(comment.parent),
+              parentComment: Number(comment.parentComment),
             })
           )
         );

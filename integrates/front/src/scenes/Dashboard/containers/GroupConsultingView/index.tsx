@@ -75,7 +75,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
               ...consult,
               createdByCurrentUser: consult.email === userEmail,
               id: Number(consult.id),
-              parent: Number(consult.parent),
+              parentComment: Number(consult.parentComment),
             })
           )
         );

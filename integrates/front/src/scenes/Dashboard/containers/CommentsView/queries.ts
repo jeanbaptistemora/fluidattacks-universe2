@@ -10,7 +10,7 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
       email
       fullName
       modified
-      parent
+      parentComment
     }
   `,
   consultFields: gql`
@@ -21,7 +21,7 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
       email
       fullName
       modified
-      parent
+      parentComment
     }
   `,
 };
@@ -54,13 +54,13 @@ const ADD_FINDING_CONSULT: DocumentNode = gql`
   mutation AddFindingConsult(
     $content: String!
     $findingId: String!
-    $parent: GenericScalar!
+    $parentComment: GenericScalar!
     $type: FindingConsultType!
   ) {
     addFindingConsult(
       content: $content
       findingId: $findingId
-      parentComment: $parent
+      parentComment: $parentComment
       type: $type
     ) {
       commentId

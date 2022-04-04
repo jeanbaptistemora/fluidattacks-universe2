@@ -20,7 +20,7 @@ describe("Comments section", (): void => {
     fullName: "Test User",
     id: 1337260012345,
     modified: "2021/04/20 00:00:01",
-    parent: 0,
+    parentComment: 0,
   };
 
   it("should return a function", (): void => {

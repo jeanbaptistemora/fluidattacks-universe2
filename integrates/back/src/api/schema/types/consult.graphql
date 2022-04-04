@@ -16,5 +16,5 @@ type Consult {
   "Datetime of last modification in the format `YYYY/MM/DD hh:mm:ss`"
   modified: String!
   "Identifier of the parent comment it replies to, 0 otherwise"
-  parent: String!
+  parentComment: String!
 }

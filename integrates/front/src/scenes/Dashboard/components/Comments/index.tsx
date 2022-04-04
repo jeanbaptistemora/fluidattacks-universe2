@@ -65,7 +65,7 @@ export const Comments: React.FC<ICommentsProps> = ({
           fullName: userName,
           id: 0,
           modified: getFormattedTime(),
-          parent: replying,
+          parentComment: replying,
         },
         (result: ICommentStructure): void => {
           setComments([...comments, result]);
@@ -83,7 +83,10 @@ export const Comments: React.FC<ICommentsProps> = ({
     []
   );
 
-  const rootComments: ICommentStructure[] = _.filter(comments, ["parent", 0]);
+  const rootComments: ICommentStructure[] = _.filter(comments, [
+    "parentComment",
+    0,
+  ]);
 
   const orderComments = (
     unordered: ICommentStructure[],

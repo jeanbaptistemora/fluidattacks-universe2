@@ -37,7 +37,7 @@ const NestedComment: React.FC<INestedCommentProps> = ({
     id,
   ]) as ICommentStructure;
   const childrenComments: ICommentStructure[] = _.filter(comments, [
-    "parent",
+    "parentComment",
     id,
   ]);
 

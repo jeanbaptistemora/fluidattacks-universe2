@@ -6,7 +6,7 @@ interface ICommentStructure {
   fullName: string;
   id: number;
   modified: string;
-  parent: number;
+  parentComment: number;
 }
 
 interface ILoadCallback {

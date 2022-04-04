@@ -11,7 +11,7 @@ const GET_EVENT_CONSULTING: DocumentNode = gql`
         email
         fullName
         modified
-        parent
+        parentComment
       }
       id
     }
@@ -22,12 +22,12 @@ const ADD_EVENT_CONSULT: DocumentNode = gql`
   mutation AddEventConsult(
     $content: String!
     $eventId: String!
-    $parent: GenericScalar!
+    $parentComment: GenericScalar!
   ) {
     addEventConsult(
       content: $content
       eventId: $eventId
-      parentComment: $parent
+      parentComment: $parentComment
     ) {
       commentId
       success
