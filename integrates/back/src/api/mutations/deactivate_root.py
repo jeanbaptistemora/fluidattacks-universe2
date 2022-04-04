@@ -22,10 +22,8 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.enums import (
+    GitCloningStatus,
     Notification,
-)
-from db_model.roots.get import (
-    RootStatesLoader,
 )
 from db_model.roots.types import (
     GitRootItem,
@@ -97,6 +95,20 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     reason: str = kwargs["reason"]
     other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
     source = requests_utils.get_source_new(info.context)
+    historic_state_date = datetime_utils.get_datetime_from_iso_str(
+        root.state.modified_date
+    )
+    last_clone_date: str = "Never cloned"
+    last_root_state: str = "Unknow"
+
+    if (
+        isinstance(root, GitRootItem)
+        and root.cloning.status != GitCloningStatus.UNKNOWN
+    ):
+        last_clone_date = datetime_utils.get_date_from_iso_str(
+            root.cloning.modified_date
+        )
+        last_root_state = root.cloning.status
 
     users = await group_access_domain.get_group_users(group_name, active=True)
     user_roles = await collect(
@@ -165,10 +177,6 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root_ids=[(root.group_name, root.id)],
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
-    historic_state: RootStatesLoader = await loaders.root_states.load(root.id)
-    historic_state_date = datetime_utils.get_datetime_from_iso_str(
-        historic_state[0].modified_date
-    )
     root_age = (datetime_utils.get_now() - historic_state_date).days
     user: Tuple[User, ...] = await loaders.user.load_many(email_list)
     users_email = [
@@ -179,6 +187,8 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     await groups_mail.send_mail_deactivated_root(
         email_to=users_email,
         group_name=group_name,
+        last_clone_date=last_clone_date,
+        last_root_state=last_root_state,
         other=other,
         reason=reason,
         root_age=root_age,
