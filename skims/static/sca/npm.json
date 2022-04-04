@@ -1614,6 +1614,9 @@
   "css-what": {
     "CVE-2021-33587": "<5.0.1"
   },
+  "css_transform_support": {
+    "GHSA-45cp-hpc9-8347": "1.0.2"
+  },
   "csv-parse": {
     "CVE-2019-17592": "<4.4.6"
   },
@@ -1629,9 +1632,15 @@
   "cue-sdk-node": {
     "GMS-2016-123": ">=0.0.0"
   },
+  "cuffer-xor": {
+    "GHSA-6xm4-p6r2-mwrc": ">=0"
+  },
   "cumulative-distribution-function": {
     "CVE-2021-29486": "<2.0.0",
     "GHSA-58qp-5328-v7mh": "<2.0.0"
+  },
+  "curling": {
+    "GHSA-xmxh-g7wj-8m4m": "<=1.0.0"
   },
   "curlrequest": {
     "CVE-2020-7646": "<=1.0.1"
@@ -1641,6 +1650,12 @@
   },
   "curses": {
     "GMS-2017-84": ">=0.0.0-alpha"
+  },
+  "cxct": {
+    "GHSA-c5xm-m64m-f2vq": ">=0"
+  },
+  "cxt": {
+    "GHSA-fpgg-r39h-3x5x": ">=0"
   },
   "cyber-js": {
     "CVE-2017-16093": "<=1.9.7",
@@ -1707,6 +1722,9 @@
   "deap": {
     "CVE-2018-3749": "<1.0.1"
   },
+  "deasyncp": {
+    "GHSA-qfc9-x7gv-27jr": ">=0"
+  },
   "debug": {
     "CVE-2017-16137": ">=2.0.0 <2.6.9 || >=3.0.0 <3.1.0",
     "GMS-2017-248": "<2.6.9 || >=3.0.0 <3.1.0"
@@ -1744,6 +1762,9 @@
   "deep-set": {
     "CVE-2020-28276": ">=1.0.0 <=1.0.1"
   },
+  "deep-setter": {
+    "GHSA-9qrg-h9g8-c65q": ">=0"
+  },
   "deephas": {
     "CVE-2020-28271": ">=1.0.0 <=1.0.5"
   },
@@ -1759,6 +1780,9 @@
   "deeps": {
     "CVE-2020-7716": ">=0"
   },
+  "default-deep": {
+    "GHSA-cqp5-m4pq-gfgp": "<0.2.4"
+  },
   "defaults-deep": {
     "CVE-2018-16486": "<=0.2.4",
     "CVE-2018-3723": "<0.2.4",
@@ -1766,10 +1790,16 @@
   },
   "define-properties": {},
   "define-property": {},
+  "degbu": {
+    "GHSA-xr3g-4gg5-w3wq": ">=0"
+  },
   "depd": {},
   "desafio": {
     "CVE-2017-16164": ">=1.0.0 <=1.1.0",
     "GMS-2017-267": ">=0.0.0-alpha"
+  },
+  "destroyer-of-worlds": {
+    "GHSA-w3f3-4j22-2v3p": ">=0"
   },
   "detect-character-encoding": {
     "CVE-2021-39157": "<0.7.0",
