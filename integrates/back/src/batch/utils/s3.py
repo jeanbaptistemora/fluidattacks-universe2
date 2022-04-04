@@ -19,6 +19,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger("console")
+SESSION = aioboto3.Session()
 
 
 def create_git_root_tar_file(
@@ -80,7 +81,7 @@ async def upload_cloned_repo_to_s3_tar(
 
 
 async def is_in_s3(group_name: str, root_nickname: str) -> Tuple[str, bool]:
-    async with aioboto3.client(service_name="s3") as client:
+    async with SESSION.client(service_name="s3") as client:
         return (
             root_nickname,
             any(

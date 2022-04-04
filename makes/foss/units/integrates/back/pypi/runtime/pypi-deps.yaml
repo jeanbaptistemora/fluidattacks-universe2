@@ -1,4 +1,5 @@
-aioboto3: 8.0.3
+aioboto3: 9.5.0
+aiobotocore: 2.2.0
 aiodataloader: 0.2.0
 aioextensions: 21.7.2261349
 aiofiles: 0.7.0
@@ -12,8 +13,8 @@ backports.csv: 1.0.7
 binaryornot: "0.4.4"
 bleach: 4.1.0
 boto3-type-annotations: 0.3.1
-boto3: 1.12.32
-botocore: 1.15.32
+boto3: 1.21.21
+botocore: 1.24.21
 cryptography: 3.3.2
 ddtrace: 0.60.0
 exponent-server-sdk: 0.3.1
