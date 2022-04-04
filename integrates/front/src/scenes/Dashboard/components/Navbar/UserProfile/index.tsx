@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import {
   faAngleDown,
   faKey,
+  faMobileAlt,
   faSignOutAlt,
   faUserCircle,
   faUserCog,
@@ -21,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 
 import { APITokenModal } from "./APITokenModal";
+import { MobileModal } from "./MobileModal";
 import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
@@ -65,7 +67,14 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     },
   });
 
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isTokenModalOpen, setTokenModalOpen] = useState(false);
+  const openMobileModal = useCallback((): void => {
+    setIsMobileModalOpen(true);
+  }, []);
+  const closeMobileModal = useCallback((): void => {
+    setIsMobileModalOpen(false);
+  }, []);
   const openTokenModal = useCallback((): void => {
     setTokenModalOpen(true);
   }, []);
@@ -123,7 +132,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               {_.isUndefined(userIntPhone) ? undefined : (
                 <React.Fragment>
                   <br />
-                  {t("navbar.mobile")}
+                  {t("navbar.mobile.text")}
                   {":"}&nbsp;
                   {userIntPhone}
                 </React.Fragment>
@@ -165,6 +174,21 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                 </DropdownButton>
               </TooltipWrapper>
             </Link>
+          </li>
+          <li>
+            <DropdownButton onClick={openMobileModal}>
+              <TooltipWrapper
+                id={"mobile"}
+                message={t("navbar.mobile.tooltip")}
+              >
+                <FontAwesomeIcon icon={faMobileAlt} />
+                &nbsp;
+                {t("navbar.mobile.text")}
+              </TooltipWrapper>
+            </DropdownButton>
+            {isMobileModalOpen ? (
+              <MobileModal onClose={closeMobileModal} />
+            ) : undefined}
           </li>
           <Can do={"api_mutations_add_stakeholder_mutate"}>
             <li>

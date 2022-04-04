@@ -1,42 +1,44 @@
 import styled, { css } from "styled-components";
 
-import { IntlTelInputWrapper } from "components/IntlTelInputWrapper";
+import { PhoneInputWrapper } from "components/PhoneInputWrapper";
 
 const baseInputStyles = css`
-  font-size: 16px;
+  color: #777;
+  width: 100% !important;
+  font-size: 16px !important;
+  border-style: solid !important;
+  border-width: 0.125rem !important;
+  border-radius: 0 !important;
+  border-color: #eee !important;
+  line-height: 1.5 !important;
+  padding: 0.5rem;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 
   &:focus {
-    border-color: #d1d1d1;
+    border-color: #d1d1d1 !important;
+    box-shadow: none !important;
     outline: none;
   }
+  &:disabled {
+    background: none !important;
+  }
 `;
-const baseInputClassName = "w-100 pa2 lh-copy gray bw1 b--light-gray b--solid";
 
-const StyledInput = styled.input.attrs<{ className: string }>({
-  className: baseInputClassName,
-})`
+const StyledInput = styled.input`
   ${baseInputStyles}
 `;
 
-const StyledPhoneNumberInput = styled(IntlTelInputWrapper).attrs<{
-  className: string;
-}>({
-  className: baseInputClassName,
-})`
+const StyledPhoneInput = styled(PhoneInputWrapper)`
   ${baseInputStyles}
 `;
 
-const StyledSelect = styled.select.attrs({
-  className: "w-100 pa2 lh-copy gray bw1 b--light-gray",
-})`
-  &:focus {
-    border-color: #d1d1d1;
-    outline: none;
-  }
+const StyledSelect = styled.select`
+  ${baseInputStyles}
 `;
 
 const ValidationError = styled.div.attrs({
   className: "dark-red",
 })``;
 
-export { StyledPhoneNumberInput, StyledInput, StyledSelect, ValidationError };
+export { StyledPhoneInput, StyledInput, StyledSelect, ValidationError };

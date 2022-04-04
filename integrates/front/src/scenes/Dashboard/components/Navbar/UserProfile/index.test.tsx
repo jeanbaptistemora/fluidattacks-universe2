@@ -80,7 +80,7 @@ describe("User Profile", (): void => {
     expect(screen.getAllByRole("button")).toHaveLength(1);
 
     userEvent.click(screen.getByRole("button"));
-    const NUMBER_OF_DROPDOWN_BUTTONS: number = 6;
+    const NUMBER_OF_DROPDOWN_BUTTONS: number = 7;
 
     await waitFor((): void => {
       expect(screen.getAllByRole("button")).toHaveLength(
@@ -137,7 +137,7 @@ describe("User Profile", (): void => {
     expect(screen.getAllByRole("button")).toHaveLength(1);
 
     userEvent.click(screen.getByRole("button"));
-    const NUMBER_OF_DROPDOWN_BUTTONS: number = 6;
+    const NUMBER_OF_DROPDOWN_BUTTONS: number = 7;
 
     await waitFor((): void => {
       expect(screen.getAllByRole("button")).toHaveLength(

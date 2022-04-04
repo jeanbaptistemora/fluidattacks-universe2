@@ -295,7 +295,7 @@ const isValidPhoneNumber: Validator = (
 ): string | undefined => {
   if (
     !_.isUndefined(value) &&
-    /^(?:[0-9] ?){6,13}[0-9]$/u.test(value.nationalNumber)
+    /^(?:[0-9] ?){6,11}[0-9]$/u.test(value.nationalNumber)
   ) {
     return undefined;
   }

@@ -1216,7 +1216,10 @@ export const enTranslations: ResourceKey = {
       text: "Log out",
       tooltip: "Log out of ASM",
     },
-    mobile: "Mobile",
+    mobile: {
+      text: "Mobile",
+      tooltip: "Manage the mobile information",
+    },
     newsTooltip: "Latest updates about ASM",
     notification: {
       text: "Notifications",
