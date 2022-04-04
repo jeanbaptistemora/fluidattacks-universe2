@@ -18,6 +18,19 @@
     src = local_lib.utils-logger;
     inherit python_version legacy_pkgs;
   };
+  postgres-client = import local_lib.postgres-client {
+    src = local_lib.postgres-client;
+    legacy_pkgs =
+      legacy_pkgs
+      // {
+        python39Packages =
+          legacy_pkgs.python39Packages
+          // {
+            utils-logger = utils-logger.pkg;
+          };
+      };
+    inherit system local_lib;
+  };
   pythonPkgs2 =
     pythonPkgs
     // {
@@ -57,4 +70,5 @@ in
     types-click = import ./click/stubs.nix lib;
     types-psycopg2 = import ./psycopg2/stubs.nix lib;
     utils-logger = utils-logger.pkg;
+    postgres-client = postgres-client.pkg;
   }

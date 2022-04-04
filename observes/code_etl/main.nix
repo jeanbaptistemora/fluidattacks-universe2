@@ -5,6 +5,7 @@ fetchNixpkgs: projectPath: observesIndex: let
   };
   local_lib = {
     utils-logger = projectPath observesIndex.common.utils_logger.root;
+    postgres-client = projectPath "/observes/common/postgres_client";
   };
   out = import ./. {
     system = "x86_64-linux";

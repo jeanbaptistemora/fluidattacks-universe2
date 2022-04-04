@@ -9,6 +9,7 @@
     pythonPkgs.fa-purity
     pythonPkgs.GitPython
     pythonPkgs.pathos
+    pythonPkgs.postgres-client
     pythonPkgs.psycopg2
     pythonPkgs.ratelimiter
     pythonPkgs.requests
