@@ -15,9 +15,12 @@ ratelimiter = "^1.2.0.post0"
 requests = "^2.25.1"
 six = "^1.16.0"
 types-click = "^7.1.8"
+types-psycopg2 = "^2.9.0"
+types-requests = "^2.27.16"
 utils-logger = "^1.0.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.scripts]
+observes-etl-code-bin = 'code_etl.cli:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

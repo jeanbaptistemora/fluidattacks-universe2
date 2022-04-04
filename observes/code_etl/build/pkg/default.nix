@@ -14,6 +14,8 @@
     pythonPkgs.requests
     pythonPkgs.six
     pythonPkgs.types-click
+    pythonPkgs.types-psycopg2
+    pythonPkgs.types-requests
     pythonPkgs.utils-logger
   ];
   dev_deps = [
@@ -38,4 +40,5 @@ in {
   inherit pkg;
   env.runtime = build_env runtime_deps;
   env.dev = build_env (runtime_deps ++ dev_deps);
+  env.bin = build_env [pkg];
 }
