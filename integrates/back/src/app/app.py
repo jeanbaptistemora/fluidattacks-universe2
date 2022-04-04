@@ -6,7 +6,6 @@ Unlike standard Python functionality, the import order matters:
 the agent package must be imported first.
 """
 # flake8: noqa
-import newrelic.agent
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -14,11 +13,9 @@ from settings import (
     DEBUG,
     JWT_COOKIE_NAME,
     LOGGING,
-    NEW_RELIC_CONF_FILE,
     TEMPLATES_DIR,
 )
 
-newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 from . import (
     utils,
 )
@@ -39,9 +36,6 @@ from api import (
 )
 from api.extensions.datadog import (
     DatadogTracingExtension,
-)
-from api.extensions.new_relic import (
-    NewRelicTracingExtension,
 )
 from api.schema import (
     SCHEMA,
@@ -351,7 +345,6 @@ exception_handlers = {404: not_found, 500: server_error}
 
 API_EXTENSIONS = [
     DatadogTracingExtension,
-    NewRelicTracingExtension,
 ]
 
 API_VALIDATIONS = [
@@ -424,7 +417,6 @@ RuntimeMetrics.enable()
 Profiler().start()
 
 # ASGI wrappers
-NEWRELIC_WRAPPER = newrelic.agent.ASGIApplicationWrapper(STARLETTE_APP)
-BUGSNAG_WRAPPER = BugsnagMiddleware(NEWRELIC_WRAPPER)
+BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)
 
 APP = BUGSNAG_WRAPPER

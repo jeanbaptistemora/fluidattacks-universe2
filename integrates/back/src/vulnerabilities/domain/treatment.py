@@ -54,7 +54,6 @@ from decimal import (
 from mailer import (
     vulnerabilities as vulns_mailer,
 )
-import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     validations,
@@ -257,7 +256,6 @@ def get_treatment_change(
     return None
 
 
-@newrelic.agent.function_trace()
 async def get_treatment_changes(
     loaders: Any,
     vuln: Vulnerability,

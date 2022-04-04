@@ -38,7 +38,6 @@ from itertools import (
 from more_itertools import (
     chunked,
 )
-import newrelic.agent
 from typing import (
     Any,
     Dict,
@@ -117,11 +116,6 @@ def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-@newrelic.agent.datastore_trace(
-    "DynamoDB",
-    "integrates_vms",
-    "batch_delete_item",
-)
 async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
@@ -155,7 +149,6 @@ async def batch_delete_item(
                 handle_error(error=error)
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "batch_get_item")
 async def batch_get_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> Tuple[Item, ...]:
@@ -199,7 +192,6 @@ async def batch_get_item(
     return tuple(items)
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "batch_put_item")
 async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
     async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
@@ -222,7 +214,6 @@ async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
                 handle_error(error=error)
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "delete_item")
 async def delete_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
@@ -268,7 +259,6 @@ def _build_get_item_args(
     }
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "get_item")
 async def get_item(
     *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
 ) -> Optional[Item]:
@@ -289,7 +279,6 @@ async def get_item(
     return item
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "put_item")
 async def put_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
@@ -311,7 +300,6 @@ async def put_item(
             handle_error(error=error)
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "query")
 async def query(  # pylint: disable=too-many-locals
     *,
     after: Optional[str] = None,
@@ -369,7 +357,6 @@ def _format_map_attrs(attr: str) -> str:
     return ".".join([f"#{map_attr}" for map_attr in attr.split(".")])
 
 
-@newrelic.agent.datastore_trace("DynamoDB", "integrates_vms", "update_item")
 async def update_item(
     *,
     condition_expression: Optional[ConditionBase] = None,

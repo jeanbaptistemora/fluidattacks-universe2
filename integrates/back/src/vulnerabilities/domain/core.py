@@ -57,7 +57,6 @@ import logging.config
 from mailer import (
     vulnerabilities as vulns_mail,
 )
-import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     requests as requests_utils,
@@ -899,7 +898,6 @@ async def close_by_exclusion(
             await verify_vulnerability(vulnerability)
 
 
-@newrelic.agent.function_trace()
 async def get_reattack_requester(
     loaders: Any,
     vuln: Vulnerability,
@@ -918,7 +916,6 @@ async def get_reattack_requester(
     return None
 
 
-@newrelic.agent.function_trace()
 async def get_last_requested_reattack_date(
     loaders: Any,
     vuln: Vulnerability,
@@ -941,7 +938,6 @@ async def get_last_requested_reattack_date(
     )
 
 
-@newrelic.agent.function_trace()
 async def get_last_reattack_date(
     loaders: Any,
     vuln: Vulnerability,
@@ -964,7 +960,6 @@ async def get_last_reattack_date(
     )
 
 
-@newrelic.agent.function_trace()
 async def get_report_date(
     loaders: Any,
     vuln: Vulnerability,

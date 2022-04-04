@@ -1,6 +1,5 @@
 from .analytics import (
     MIXPANEL_API_TOKEN,
-    NEW_RELIC_CONF_FILE,
 )
 from .cache import (
     CACHE_TTL,
@@ -31,7 +30,6 @@ from .various import (
 
 __all__ = [
     "MIXPANEL_API_TOKEN",
-    "NEW_RELIC_CONF_FILE",
     "CACHE_TTL",
     "JWT_COOKIE_NAME",
     "JWT_COOKIE_SAMESITE",

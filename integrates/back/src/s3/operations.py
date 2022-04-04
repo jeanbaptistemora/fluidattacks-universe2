@@ -21,7 +21,6 @@ from custom_exceptions import (
 import io
 import logging
 import logging.config
-import newrelic.agent
 import os
 from settings import (
     LOGGING,
@@ -61,20 +60,17 @@ async def aio_client() -> aioboto3.session.Session.client:
         yield client
 
 
-@newrelic.agent.datastore_trace("S3", None, "download_file")
 async def download_file(bucket: str, file_name: str, file_path: str) -> None:
     async with aio_client() as client:
         await client.download_file(bucket, file_name, file_path)
 
 
-@newrelic.agent.datastore_trace("S3", None, "list_objects_v2")
 async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
     async with aio_client() as client:
         resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
         return [item["Key"] for item in resp.get("Contents", [])]
 
 
-@newrelic.agent.datastore_trace("S3", None, "delete_object")
 async def remove_file(bucket: str, name: str) -> None:
     async with aio_client() as client:
         try:
@@ -87,7 +83,6 @@ async def remove_file(bucket: str, name: str) -> None:
             raise UnavailabilityError() from ex
 
 
-@newrelic.agent.datastore_trace("S3", None, "generate_presigned_url")
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
     async with aioboto3.Session().client(
         **OPTIONS,
@@ -107,7 +102,6 @@ async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
             raise UnavailabilityError() from ex
 
 
-@newrelic.agent.datastore_trace("S3", None, "upload_fileobj")
 async def upload_memory_file(
     bucket: str, file_object: object, file_name: str
 ) -> None:
@@ -131,7 +125,6 @@ async def upload_memory_file(
             raise UnavailabilityError() from ex
 
 
-@newrelic.agent.datastore_trace("S3", None, "generate_presigned_post")
 async def sing_upload_url(
     file_name: str, expire_mins: float, bucket: str
 ) -> Dict[str, str]:

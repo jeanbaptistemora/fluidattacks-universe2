@@ -43,24 +43,8 @@ function report_deployment_checkly {
       --request 'GET'
 }
 
-function report_deployment_new_relic {
-  echo '[INFO] Announcing deployment to New Relic' \
-    && curl "https://api.newrelic.com/v2/applications/${NEW_RELIC_APP_ID}/deployments.json" \
-      --request 'POST' \
-      --header "X-Api-Key: ${NEW_RELIC_API_KEY}" \
-      --header 'Content-Type: application/json' \
-      --include \
-      --data "{
-        \"deployment\": {
-          \"revision\": \"${CI_COMMIT_SHA}\",
-          \"user\": \"${CI_COMMIT_AUTHOR}\"
-        }
-      }"
-}
-
 function report_deployment {
-  report_deployment_checkly \
-    && report_deployment_new_relic
+  report_deployment_checkly
 }
 
 function rollout {
@@ -99,8 +83,6 @@ function deploy {
     && sops_export_vars integrates/secrets-production.yaml \
       CHECKLY_CHECK_ID \
       CHECKLY_TRIGGER_ID \
-      NEW_RELIC_API_KEY \
-      NEW_RELIC_APP_ID \
     && for manifest in __argManifests__/*; do
       echo "[INFO] Applying: ${manifest}" \
         && apply "${manifest}" \

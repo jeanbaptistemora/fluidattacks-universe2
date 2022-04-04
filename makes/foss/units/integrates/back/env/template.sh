@@ -42,12 +42,6 @@ function main {
     fi \
     && export DD_ENV="${env}" \
     && export DD_VERSION="${CI_COMMIT_SHA}" \
-    && if test "${env}" = 'prod'; then
-      # Needed to preserve the continuity of data already reported with the old name
-      export NEW_RELIC_APP_NAME="Fluid Integrates"
-    else
-      export NEW_RELIC_APP_NAME="integrates-${CI_COMMIT_REF_NAME}"
-    fi \
     && if ! test -e 'integrates'; then
       # Kubernetes specific
       mkdir 'integrates' \

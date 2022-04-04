@@ -64,7 +64,6 @@ closure:
   mixpanel: 4.5.0
   more-itertools: 8.4.0
   multidict: 6.0.2
-  newrelic: 7.4.0.172
   numpy: 1.21.2
   oauth2client: 4.1.3
   oauthlib: 3.2.0
@@ -736,15 +735,6 @@ links:
   - name: multidict-6.0.2.tar.gz
     sha256: 04xhddyvb725w62f6az29hf842s39mxdzwkhykql6k4fydsvvwsz
     url: https://files.pythonhosted.org/packages/fa/a7/71c253cdb8a1528802bac7503bf82fe674367e4055b09c28846fdfa4ab90/multidict-6.0.2.tar.gz
-  - name: newrelic-7.4.0.172-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 00g6cddfyb6h3ssknl3yv1z2hasi4p5qa4kxv5056b1bnk0ksflp
-    url: https://files.pythonhosted.org/packages/1e/8f/89733c75cfe7cfd793dfad529ff020ba873287227bc81531569799f92622/newrelic-7.4.0.172-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: newrelic-7.4.0.172-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 1n4sflb8n5s6a2fv2piac08z4x9r6ni97bhyg3l57akd91ldz0ig
-    url: https://files.pythonhosted.org/packages/dd/9f/2677d1c9339db5338b8191cc6c546379937431f1ab515a27fc368011a8b7/newrelic-7.4.0.172-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: newrelic-7.4.0.172.tar.gz
-    sha256: 18rbhjszf3pqxi0jq7an6sh2h6awgnphnq0rbl670fv4ml57cb7l
-    url: https://files.pythonhosted.org/packages/68/33/1fb32981c089223deb76d894b5dc5ee06de700b5d31039773f8e7511b542/newrelic-7.4.0.172.tar.gz
   - name: numpy-1.21.2-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 0f6cnafmi20pi4gjc2zga7pnwra5m9ddf0w5w49qs1hhs98kc3nx
     url: https://files.pythonhosted.org/packages/cf/96/4a0eed13a185da6f7e48f76739de86c21661fe6c2738f4630a628d5dcbcf/numpy-1.21.2-cp39-cp39-macosx_10_9_universal2.whl

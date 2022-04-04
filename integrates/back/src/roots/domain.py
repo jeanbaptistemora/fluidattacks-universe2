@@ -46,7 +46,6 @@ from db_model.roots.types import (
     URLRootItem,
     URLRootState,
 )
-import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     validations as validation_utils,
@@ -97,7 +96,6 @@ from uuid import (
 )
 
 
-@newrelic.agent.function_trace()
 def format_root(root: RootItem) -> Root:
     if isinstance(root, GitRootItem):
         return GitRoot(
@@ -923,7 +921,6 @@ def get_root_ids_by_nicknames(
     return root_ids
 
 
-@newrelic.agent.function_trace()
 async def get_last_status_update(loaders: Any, root_id: str) -> str:
     historic_state: Tuple[RootState, ...] = await loaders.root_states.load(
         root_id

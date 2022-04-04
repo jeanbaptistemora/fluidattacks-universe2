@@ -112,7 +112,6 @@ from mailer import (
 from names import (
     domain as names_domain,
 )
-import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
@@ -973,7 +972,6 @@ async def get_group_info(group_name: str) -> Tuple[str, str, str]:
     return await groups_dal.get_group_info(group_name)
 
 
-@newrelic.agent.function_trace()
 async def get_groups_by_user(
     user_email: str,
     active: bool = True,
@@ -1028,7 +1026,6 @@ async def get_groups_with_forces() -> List[str]:
     return await groups_dal.get_groups_with_forces()
 
 
-@newrelic.agent.function_trace()
 async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     async with AsyncExitStack() as stack:
         resource = await stack.enter_async_context(start_context())

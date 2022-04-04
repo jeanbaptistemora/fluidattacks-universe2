@@ -4,7 +4,6 @@ from custom_exceptions import (
     SecureAccessException,
 )
 import json
-import newrelic.agent
 from redis_cluster.model import (
     KeyNotFound as RedisKeyNotFound,
 )
@@ -27,7 +26,6 @@ from typing import (
 )
 
 
-@newrelic.agent.datastore_trace("Redis", "cluster", "setex")
 async def add_element(key: str, value: Dict[str, Any], time: int) -> None:
     await redis_cmd("setex", key, time, json.dumps(value))
 
