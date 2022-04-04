@@ -85,80 +85,33 @@ edit or remove users.
 
 ## Functions
 
-- **View vulnerabilities:**
-  The ability to view
-  all the information available
-  about all the vulnerabilities
-  that the project has.
-- **Change treatments:**
-  Each vulnerability can be given
-  a specific treatment.
-  This function gives the ability
-  to request the change
-  of this treatment.
-- **Approve treatments:**
+- **Add roots:**
   This function is for
-  when a treatment change is requested,
-  as there is a need to validate
-  and then accept or reject
-  this request.
-- **Request reattacks:**
-  When a vulnerability is solved,
-  there is the need to ask our hackers
-  to verify that it was indeed solved.
-  This function gives you
-  the ability to make
-  this kind of request.
+  adding git roots
+  to the scope of the group
+  being managed.
 - **Add tags:**
   This is for adding tags
   to the group being managed
   which is useful for
   categorizing different groups
   in an organization.
-- **Add roots:**
-  This function is for
-  adding git roots
-  to the scope of the group
-  being managed.
-- **Edit roots:**
-  This function allows you
-  to change URLs of roots
-  that do not have reported
-  vulnerabilities and edit
-  root branches.
-- **Delete groups:**
-  With this function
-  you are able to
-  completely delete
-  the group being managed.
 - **Add users:**
   This function is for
   adding user to a group
   and setting their privileges.
-- **Edit users:**
-  This option is for
-  editing everything related
-  to the users added
-  to the group.
-- **Receive notifications:**
-  This is the ability to
-  receive notifications
-  that the ASM can send
-  related to your group.
-- **Generate a report:**
-  This feature allows you
-  to generate and download
-  a complete report with
-  detailed information about
-  the vulnerabilities of
-  a specific group.
-- **Exclusions:**
-  This feature allows you
-  to choose files or folders
-  in your repository that
-  you do not want to
-  include in the security
-  assessments.
+- **Approve treatments:**
+  This function is for
+  when a treatment change is requested,
+  as there is a need to validate
+  and then accept or reject
+  this request.
+- **Change treatments:**
+  Each vulnerability can be given
+  a specific treatment.
+  This function gives the ability
+  to request the change
+  of this treatment.
 - **Deactivate/Activate root:**
   This function allows you to:
 
@@ -171,6 +124,54 @@ edit or remove users.
   1. Move a root to another group,
      taking all the associated
      vulnerabilities with it.
+
+- **Delete groups:**
+  With this function
+  you are able to
+  completely delete
+  the group being managed.
+- **Edit roots:**
+  This function allows you
+  to change URLs of roots
+  that do not have reported
+  vulnerabilities and edit
+  root branches.
+- **Edit users:**
+  This option is for
+  editing everything related
+  to the users added
+  to the group.
+- **Exclusions:**
+  This feature allows you
+  to choose files or folders
+  in your repository that
+  you do not want to
+  include in the security
+  assessments.
+- **Generate a report:**
+  This feature allows you
+  to generate and download
+  a complete report with
+  detailed information about
+  the vulnerabilities of
+  a specific group.
+- **Receive notifications:**
+  This is the ability to
+  receive notifications
+  that the ASM can send
+  related to your group.
+- **Request reattacks:**
+  When a vulnerability is solved,
+  there is the need to ask our hackers
+  to verify that it was indeed solved.
+  This function gives you
+  the ability to make
+  this kind of request.
+- **View vulnerabilities:**
+  The ability to view
+  all the information available
+  about all the vulnerabilities
+  that the project has.
 
 ## Roles table
 
