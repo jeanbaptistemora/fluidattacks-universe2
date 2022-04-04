@@ -111,10 +111,6 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesUsersProdSorts";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/makesVpc";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -160,10 +156,6 @@ in {
         }
         {
           output = "/lintTerraform/makesUsersProdServices";
-          gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/lintTerraform/makesUsersProdSorts";
           gitlabExtra = gitlabLint;
         }
         {
@@ -231,14 +223,6 @@ in {
           gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
-          output = "/taintTerraform/makesUsersProdSortsKeys1";
-          gitlabExtra = gitlabRotateUsersKeys1;
-        }
-        {
-          output = "/taintTerraform/makesUsersProdSortsKeys2";
-          gitlabExtra = gitlabRotateUsersKeys2;
-        }
-        {
           output = "/testTerraform/makesCi";
           gitlabExtra = gitlabTestInfra;
         }
@@ -284,10 +268,6 @@ in {
         }
         {
           output = "/testTerraform/makesUsersProdServices";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
-          output = "/testTerraform/makesUsersProdSorts";
           gitlabExtra = gitlabTestInfra;
         }
         {

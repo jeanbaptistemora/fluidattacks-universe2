@@ -4,7 +4,6 @@
     ./prod/integrates/makes.nix
     ./prod/makes/makes.nix
     ./prod/services/makes.nix
-    ./prod/sorts/makes.nix
   ];
   secretsForEnvFromSops = {
     makesUsersDev = {
