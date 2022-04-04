@@ -12337,50 +12337,50 @@
   en:
     title: Traceability loss
     description: >
-      The VPC Flow Logs are disabled thus any
-      security and access issues will pass
-      unnoticed such as rejected connection
-      requests or unusual levels of data transfer.
+      Some features of the application do not properly keep track of errors,
+      exceptional events or critical actions on the system,
+      hidering the detection of possible security events.
     impact: >
       Lose the tracking of exceptional events and
       fail to detect potential security breaches.
     recommendation: >
-      Enable VPC Flow Logs to record events
-      and messages from the VPC.
+      Set alerts for errors, events and critical actions
+      using the mechanisms available by the technology stack.
     threat: >
       Unauthorized internal attacker.
   es:
     title: Traceability loss
     description: >
-      Los registros de flujo VPC están desactivados,
-      por lo que cualquier problema de seguridad y
-      acceso pasará desapercibido, como las solicitudes
-      de conexión rechazadas o los niveles inusuales
-      de transferencia de datos.
+      Algunas funcionalidades de la aplicación
+      no guardan adecuadamente la trazabilidad
+      de errores, eventos excepcionales
+      o acciones críticas sobre el sistema,
+      dificultando la detección de posibles eventos de seguridad
     impact: >
       Perder el seguimiento de eventos excepcionales
       y no detectar posibles violaciones de la seguridad.
     recommendation: >
-      Habilite los registros de flujo de la VPC
-      para registrar los eventos y mensajes de la VPC.
+      Establecer alertas para errores, eventos y acciones críticas
+      utilizando los mecanismos disponibles por las tecnologías
+      utilizadas
     threat: >
       Atacante interno no autorizado.
   category: Abuse Functionality
   remediation_time: "30"
   score:
     base:
-      attack_vector: "A"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
-      availability: "L"
+      availability: "N"
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "O"
-      report_confidence: "X"
+      report_confidence: "C"
   requirements: ["075","320"]
   metadata:
     en:
