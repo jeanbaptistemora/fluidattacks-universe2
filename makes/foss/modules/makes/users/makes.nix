@@ -3,7 +3,6 @@
     ./dev/makes.nix
     ./prod/integrates/makes.nix
     ./prod/makes/makes.nix
-    ./prod/observes/makes.nix
     ./prod/services/makes.nix
     ./prod/skims/makes.nix
     ./prod/sorts/makes.nix
