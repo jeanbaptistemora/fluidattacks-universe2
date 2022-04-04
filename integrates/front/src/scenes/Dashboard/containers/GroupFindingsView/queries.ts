@@ -30,6 +30,7 @@ const GET_FINDINGS: DocumentNode = gql`
       businessId
       businessName
       description
+      userRole
     }
   }
 `;
@@ -71,7 +72,6 @@ const GET_HAS_MOBILE_APP: DocumentNode = gql`
   query GetHasMobileApp {
     me {
       hasMobileApp
-      role
       userEmail
     }
   }

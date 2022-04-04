@@ -63,7 +63,6 @@ import { composeValidators, required } from "utils/validations";
 interface IDataResult {
   me: {
     hasMobileApp: boolean;
-    role: string;
     userEmail: string;
   };
 }
@@ -799,7 +798,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         hasMobileApp={hasMobileApp}
         isOpen={isReportsModalOpen}
         onClose={closeReportsModal}
-        userRole={userData?.me.role ?? "user"}
+        userRole={data?.group.userRole ?? "user"}
       />
       <Modal
         onClose={closeDeleteModal}
