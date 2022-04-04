@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    ErrorFileNameAlreadyExists,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -54,6 +57,35 @@ async def test_add_files_to_db(
     assert file_uploaded.file_name == file_name
     assert file_uploaded.modified_by == user_email
     assert file_uploaded.modified_date is not None
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_files_to_db")
+@pytest.mark.parametrize(
+    ["user_email"],
+    [
+        ["admin@gmail.com"],
+        ["user@gmail.com"],
+        ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
+        ["executive@gmail.com"],
+    ],
+)
+async def test_add_files_to_db_fail_already_exists(
+    populate: bool, user_email: str
+) -> None:
+    assert populate
+    description: str = "test description"
+    filename: str = "test-anim.gif"
+    group_name: str = "group1"
+    result: dict[str, Any] = await get_result(
+        description=description,
+        file_name=filename,
+        group_name=group_name,
+        user_email=user_email,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == ErrorFileNameAlreadyExists.msg
 
 
 @pytest.mark.asyncio

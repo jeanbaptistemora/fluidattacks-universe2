@@ -1,8 +1,15 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ErrorFileNameAlreadyExists,
+    InvalidChar,
+)
 from custom_types import (
-    SimplePayload as SimplePayloadType,
+    SimplePayload,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -13,15 +20,15 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
     utils,
-)
-from resources.domain import (
-    add_file_to_db,
 )
 from typing import (
     Any,
@@ -37,30 +44,42 @@ LOGGER = logging.getLogger(__name__)
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
-) -> SimplePayloadType:
-    success = False
-    files_data = parameters["files_data"]
+    _: Any,
+    info: GraphQLResolveInfo,
+    group_name: str,
+    **kwargs: Any,
+) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
+    group_name = str(group_name).lower()
+    files_data = kwargs["files_data"]
     new_files_data = utils.camel_case_list_dict(files_data)
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
-    success = await add_file_to_db(new_files_data, group_name, user_email)
-
-    if success:
-        msg = (
-            f'Security: Added file {parameters["files_data"]} '
-            f"to db in group {group_name} successfully"
-        )
-        logs_utils.cloudwatch_log(info.context, msg)
-    else:
+    try:
+        for file_data in new_files_data:
+            await groups_domain.add_file(
+                loaders=loaders,
+                description=file_data["description"],
+                file_name=file_data["fileName"],
+                group_name=group_name,
+                user_email=user_email,
+            )
+    except (InvalidChar, ErrorFileNameAlreadyExists):
         LOGGER.error(
-            "Couldn't add the file to the db", extra={"extra": parameters}
+            "Couldn't add the file to the db", extra={"extra": kwargs}
         )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Attempted to add resource files "
             f"from {group_name} group",
         )
+        raise
 
-    return SimplePayloadType(success=success)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f'Security: Added file {kwargs["files_data"]} '
+        f"to db in group {group_name} successfully",
+    )
+
+    return SimplePayload(success=True)
