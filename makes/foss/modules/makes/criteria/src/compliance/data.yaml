@@ -5610,104 +5610,104 @@
       link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
     "A_11":
       title: Brute force
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246915/Brute%20Force
     "A_07":
       title: Buffer overflow
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246916/Buffer%20Overflow
     "A_12":
       title: Content spoofing
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246917/Content%20Spoofing
     "A_18":
       title: Credential and session prediction
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246918/Credential%20and%20Session%20Prediction
     "A_08":
       title: Cross-site scripting
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246920/Cross%20Site%20Scripting
     "A_09":
       title: Cross-site request forgery
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246919/Cross%20Site%20Request%20Forgery
     "A_10":
       title: Denial of service
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246921/Denial%20of%20Service
     "A_26":
       title: HTTP request smuggling
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246928/HTTP%20Request%20Smuggling
     "A_03":
       title: Integer overflows
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246946/Integer%20Overflows
     "A_29":
       title: LDAP injection
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246947/LDAP%20Injection
     "A_30":
       title: Mail command injection
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246948/Mail%20Command%20Injection
     "A_31":
       title: OS commanding
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246950/OS%20Commanding
     "A_33":
       title: Path traversal
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246952/Path%20Traversal
     "A_34":
       title: Predictable resource location
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246953/Predictable%20Resource%20Location
     "A_05":
       title: Remote File Inclusion (RFI)
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246955/Remote%20File%20Inclusion
     "A_37":
       title: Session fixation
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246960/Session%20Fixation
     "A_19":
       title: SQL injection
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246963/SQL%20Injection
     "A_38":
       title: URL redirector abuse
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246981/URL%20Redirector%20Abuse
     "A_39":
       title: XPath injection
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13247005/XPath%20Injection
     "A_46":
       title: XML injection
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13247004/XML%20Injection
     "W_15":
       title: Application misconfiguration
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246914/Application%20Misconfiguration
     "W_16":
       title: Directory indexing
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246922/Directory%20Indexing
     "W_17":
       title: Improper filesystem permissions
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246932/Improper%20Filesystem%20Permissions
     "W_20":
       title: Improper input handling
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246933/Improper%20Input%20Handling
     "W_22":
       title: Improper output handling
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246934/Improper%20Output%20Handling
     "W_13":
       title: Information leakage
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246936/Information%20Leakage
     "W_21":
       title: Insufficient anti-automation
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246938/Insufficient%20Anti-automation
     "W_01":
       title: Insufficient authentication
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246939/Insufficient%20Authentication
     "W_02":
       title: Insufficient authorization
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246940/Insufficient%20Authorization
     "W_49":
       title: Insufficient password recovery
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246942/Insufficient%20Password%20Recovery
     "W_40":
       title: Insufficient process validation
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246943/Insufficient%20Process%20Validation
     "W_47":
       title: Insufficient session expiration
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246944/Insufficient%20Session%20Expiration
     "W_04":
       title: Insufficient transport layer protection
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246945/Insufficient%20Transport%20Layer%20Protection
     "W_14":
       title: Server misconfiguration
-      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+      link: http://projects.webappsec.org/w/page/13246959/Server%20Misconfiguration
   metadata: {}
