@@ -9,17 +9,17 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <div style="padding-left: 2rem !important;">
-      <p>Talent:
+      <p><strong>Talent</strong>:
         <strong>
           <a href="mailto:{{ hacker_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
             {{ hacker_email }}
           </a>
         </strong>
       </p>
-      <p>Group: <strong>{{ group }}</strong></p>
-      <p>Finding: <strong>{{ finding_name }}</strong></p>
-      <p>ID: <strong>{{ finding_id }}</strong></p>
-      <p>Justification: <strong>{{ justification }}</strong></p>
+      <p><strong>Group</strong>: {{ group }}</p>
+      <p><strong>Finding</strong>: {{ finding_name }}</p>
+      <p><strong>ID</strong>: {{ finding_id }}</p>
+      <p><strong>Justification</strong>: {{ justification }}</p>
     </div>
     <p>Regards,<br>
       Fluid Attacks Team</p>
