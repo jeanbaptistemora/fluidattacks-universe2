@@ -237,7 +237,7 @@ describe("Organization groups view", (): void => {
             hasMachine: true,
             hasSquad: true,
             language: "EN",
-            organization: "OKADA",
+            organizationName: "OKADA",
             service: "WHITE",
             subscription: "CONTINUOUS",
           },

@@ -104,7 +104,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           hasMachine: values.machine,
           hasSquad: values.squad,
           language: values.language,
-          organization: values.organization,
+          organizationName: values.organization,
           service: values.service,
           subscription: values.type,
         },

@@ -19,7 +19,7 @@ async def get_result(
     query: str = f"""
         mutation {{
             addGroup(
-                organization: "{org}",
+                organizationName: "{org}",
                 description: "This is a new group from pytest",
                 groupName: "{group}",
                 subscription: CONTINUOUS,

@@ -212,7 +212,7 @@ type Mutation {
     "Language in which findings should be reported"
     language: Language
     "Organization to which the group will belong"
-    organization: String
+    organizationName: String
     "Enables either Black or White box type of hacking service"
     service: ServiceType
     "Enables either continuous or one-shot hacking within the group"

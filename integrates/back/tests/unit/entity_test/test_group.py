@@ -191,7 +191,7 @@ async def test_add_group() -> None:
     query = """
     mutation {
         addGroup(
-            organization: "okada",
+            organizationName: "okada",
             description: "This is a new group from pytest",
             groupName: "%(name)s",
             subscription: CONTINUOUS,

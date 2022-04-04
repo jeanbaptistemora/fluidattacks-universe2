@@ -16,7 +16,7 @@ const ADD_GROUP_MUTATION: DocumentNode = gql`
     $hasMachine: Boolean!
     $hasSquad: Boolean!
     $language: Language!
-    $organization: String!
+    $organizationName: String!
     $service: ServiceType!
     $subscription: SubscriptionType!
   ) {
@@ -26,7 +26,7 @@ const ADD_GROUP_MUTATION: DocumentNode = gql`
       hasMachine: $hasMachine
       hasSquad: $hasSquad
       language: $language
-      organization: $organization
+      organizationName: $organizationName
       service: $service
       subscription: $subscription
     ) {
