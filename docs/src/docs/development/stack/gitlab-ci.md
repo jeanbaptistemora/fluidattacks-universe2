@@ -248,8 +248,6 @@ Once inside, you can:
 
 ### Pending tasks
 
-1. [Workers are left orphaned when a bastion is destroyed](https://github.com/npalm/terraform-aws-gitlab-runner/issues/214),
-    impacting reproducibility.
 1. [External cache module fails when referenced before creation](https://github.com/npalm/terraform-aws-gitlab-runner/issues/298),
     impacting reproducibility.
 
