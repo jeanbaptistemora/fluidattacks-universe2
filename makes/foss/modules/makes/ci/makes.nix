@@ -52,27 +52,17 @@ in {
   };
   secretsForEnvFromSops = {
     makesCiProd = {
-      vars = [
-        "GITLAB_TOKEN_FLUIDATTACKS"
-        "GITLAB_TOKEN_AUTONOMICMIND"
-        "GITLAB_TOKEN_AUTONOMICJUMP"
-      ];
+      vars = ["GITLAB_TOKEN_FLUIDATTACKS"];
       manifest = "/makes/secrets/prod.yaml";
     };
     makesCiDev = {
-      vars = [
-        "GITLAB_TOKEN_FLUIDATTACKS"
-        "GITLAB_TOKEN_AUTONOMICMIND"
-        "GITLAB_TOKEN_AUTONOMICJUMP"
-      ];
+      vars = ["GITLAB_TOKEN_FLUIDATTACKS"];
       manifest = "/makes/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     makesCi = {
       gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
-      gitlabTokenAutonomicmind = "GITLAB_TOKEN_AUTONOMICMIND";
-      gitlabTokenAutonomicjump = "GITLAB_TOKEN_AUTONOMICJUMP";
     };
   };
   testTerraform = {

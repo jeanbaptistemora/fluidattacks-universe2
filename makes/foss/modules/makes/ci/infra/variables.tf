@@ -1,6 +1,4 @@
 variable "gitlabTokenFluidattacks" {}
-variable "gitlabTokenAutonomicmind" {}
-variable "gitlabTokenAutonomicjump" {}
 variable "makesCiInit" {}
 
 data "local_file" "init_runner" {
