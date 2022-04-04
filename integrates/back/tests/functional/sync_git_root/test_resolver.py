@@ -53,11 +53,6 @@ async def test_sync_git_root(
             "58167a02-08c2-4cdf-a5e4-568398cbe7cb",
             "Exception - The root is not active",
         ],
-        [
-            "admin@gmail.com",
-            "c75f9c2c-1984-49cf-bd3f-c628175a569c",
-            "Exception - The root already has an active cloning process",
-        ],
     ],
 )
 async def test_sync_git_root_error(

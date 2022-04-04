@@ -37,6 +37,13 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "subject": "admin@gmail.com",
                 "time": "1644596859",
             },
+            {
+                "action_name": "clone_roots",
+                "additional_info": "nickname5",
+                "entity": "group1",
+                "subject": "admin@gmail.com",
+                "time": "1644596852",
+            },
         ),
         "credentials": (
             CredentialItem(

@@ -2,6 +2,7 @@ from aioextensions import (
     collect,
 )
 from batch.dal import (
+    cancel_batch_job,
     delete_action,
     get_actions_by_name,
     put_action,
@@ -137,6 +138,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -677,7 +679,7 @@ async def _ls_remote_root(
     raise InvalidParameter()
 
 
-async def queue_sync_git_roots(
+async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     user_email: str,
@@ -687,7 +689,10 @@ async def queue_sync_git_roots(
     check_existing_jobs: bool = True,
     force: bool = False,
 ) -> Optional[PutActionResult]:
-    current_jobs = await get_actions_by_name("clone_roots", group_name)
+    current_jobs = sorted(
+        await get_actions_by_name("clone_roots", group_name),
+        key=lambda x: x.time,
+    )
     roots = roots or await loaders.group_roots.load(group_name)
     roots = tuple(root for root in roots if root.state.status == "ACTIVE")
     roots_dict: Dict[str, GitRootItem] = {root.id: root for root in roots}
@@ -739,6 +744,22 @@ async def queue_sync_git_roots(
         > 0
     ):
         raise RootAlreadyCloning()
+
+    roots_in_current_actions: Set[str] = set()
+    current_action = None
+    if current_jobs:
+        current_action = current_jobs[0]
+        current_jobs = current_jobs[1:]
+        roots_in_current_actions = {*current_action.additional_info.split(",")}
+
+    for action in [item for item in current_jobs if not item.running]:
+        roots_in_current_actions = {
+            *roots_in_current_actions,
+            *action.additional_info.split(","),
+        }
+        await delete_action(dynamodb_pk=action.key)
+        if action.batch_job_id:
+            await cancel_batch_job(job_id=action.batch_job_id)
 
     last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(
@@ -801,11 +822,17 @@ async def queue_sync_git_roots(
             entity=group_name,
             subject=user_email,
             additional_info=",".join(
-                roots_dict[root_id].state.nickname
-                for root_id in roots_to_clone
+                {
+                    *[
+                        roots_dict[root_id].state.nickname
+                        for root_id in set(roots_to_clone)
+                    ],
+                    *roots_in_current_actions,
+                }
             ),
             queue=queue,
             product_name=Product.INTEGRATES,
+            dynamodb_pk=current_action.key if current_action else None,
         )
         await collect(
             roots_domain.update_root_cloning_status(

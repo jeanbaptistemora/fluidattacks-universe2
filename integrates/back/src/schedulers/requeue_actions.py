@@ -104,6 +104,14 @@ async def _filter_non_requeueable_actions(
     keys_to_delete: List[str] = (
         succeeded_keys_to_delete + machine_keys_to_delete
     )
+
+    await collect(
+        [
+            batch_dal.cancel_batch_job(job_id=action.batch_job_id)
+            for action in running_actions
+            if action.key in keys_to_delete
+        ]
+    )
     await collect(
         [batch_dal.delete_action(dynamodb_pk=key) for key in keys_to_delete]
     )
