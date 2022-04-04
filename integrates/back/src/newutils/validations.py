@@ -68,9 +68,9 @@ def validate_url(url: Optional[str]) -> None:
         )
 
 
-def validate_file_name(name: str) -> bool:
+def validate_file_name(name: str) -> None:
     """Verify that filename has valid characters. Raises InvalidChar
-    otherwise"""
+    otherwise."""
     name = str(name)
     name_len = len(name.split("."))
     if name_len <= 2:
@@ -81,7 +81,6 @@ def validate_file_name(name: str) -> bool:
             raise InvalidChar("filename")
     else:
         raise InvalidChar("filename")
-    return is_valid
 
 
 def check_field(field: str, regexp: str) -> None:

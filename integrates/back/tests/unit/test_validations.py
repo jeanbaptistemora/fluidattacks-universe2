@@ -109,7 +109,7 @@ def test_validate_alphanumeric_field() -> None:
 
 
 def test_validate_file_name() -> None:
-    assert validate_file_name("test123.py")
+    validate_file_name("test123.py")
     with pytest.raises(InvalidChar):
         assert validate_file_name("test.test.py")
         assert validate_file_name("test=$invalidname!.py")

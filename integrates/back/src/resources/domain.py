@@ -59,10 +59,8 @@ async def add_file_to_db(
     else:
         # Group doesn't have files
         pass
-    if validations.validate_file_name(files_data[0]["fileName"]):
-        group_files.extend(json_data)
-        success = await groups_domain.update(
-            group_name, {"files": group_files}
-        )
+    validations.validate_file_name(files_data[0]["fileName"])
+    group_files.extend(json_data)
+    success = await groups_domain.update(group_name, {"files": group_files})
 
     return success
