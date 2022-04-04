@@ -114,7 +114,6 @@ edit or remove users.
   of this treatment.
 - **Deactivate/Activate root:**
   This function allows you to:
-
   1. Deactivate repositories
      for which you no longer want
      an assessment;
@@ -124,7 +123,6 @@ edit or remove users.
   1. Move a root to another group,
      taking all the associated
      vulnerabilities with it.
-
 - **Delete groups:**
   With this function
   you are able to
