@@ -1,3 +1,6 @@
+from aiobotocore.config import (
+    AioConfig,
+)
 from context import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
@@ -11,6 +14,10 @@ RESOURCE_OPTIONS = {
     "aws_access_key_id": FI_AWS_DYNAMODB_ACCESS_KEY,
     "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
     "aws_session_token": FI_AWS_SESSION_TOKEN,
+    "config": AioConfig(
+        connect_timeout=15,
+        read_timeout=30,
+    ),
     "endpoint_url": (
         # FP: the endpoint is hosted in a local environment
         f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
@@ -19,6 +26,6 @@ RESOURCE_OPTIONS = {
     ),
     "region_name": "us-east-1",
     "service_name": "dynamodb",
-    "use_ssl": False,
-    "verify": False,
+    "use_ssl": True,
+    "verify": True,
 }
