@@ -28,6 +28,10 @@ class ErrorAddingGroup(_SingleMessageException):
     msg: str = "Unable to add group"
 
 
+class ErrorFileNameAlreadyExists(_SingleMessageException):
+    msg: str = "File name already exists in group files"
+
+
 class ErrorUpdatingGroup(_SingleMessageException):
     msg: str = "Unable to update group"
 

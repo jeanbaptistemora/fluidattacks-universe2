@@ -118,6 +118,7 @@ from newutils import (
     events as events_utils,
     groups as groups_utils,
     resources as resources_utils,
+    validations,
     vulnerabilities as vulns_utils,
 )
 from newutils.utils import (
@@ -1310,6 +1311,38 @@ async def mask_files(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(files=masked_files),
         )
+
+
+async def add_file(
+    *,
+    loaders: Any,
+    description: str,
+    file_name: str,
+    group_name: str,
+    user_email: str,
+) -> None:
+    group: Group = await loaders.group_typed.load(group_name)
+    validations.validate_fields([description])
+    validations.validate_field_length(description, 200)
+    validations.validate_file_name(file_name)
+    validations.validate_file_exists(file_name, group.files)
+    group_file_to_add = GroupFile(
+        description=description,
+        file_name=file_name,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+    )
+    if not group.files:
+        files_to_update: list[GroupFile] = []
+    else:
+        files_to_update = group.files
+    files_to_update.append(group_file_to_add)
+    await update_metadata_typed(
+        group_name=group_name,
+        metadata=GroupMetadataToUpdate(
+            files=files_to_update,
+        ),
+    )
 
 
 async def remove_file(

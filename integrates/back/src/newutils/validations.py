@@ -1,6 +1,7 @@
 import bleach  # type: ignore
 from custom_exceptions import (
     DuplicateDraftFound,
+    ErrorFileNameAlreadyExists,
     IncompleteSeverity,
     InvalidChar,
     InvalidCvssVersion,
@@ -19,6 +20,9 @@ from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
+)
+from db_model.groups.types import (
+    GroupFile,
 )
 from newutils import (
     utils,
@@ -81,6 +85,23 @@ def validate_file_name(name: str) -> None:
             raise InvalidChar("filename")
     else:
         raise InvalidChar("filename")
+
+
+def validate_file_exists(
+    file_name: str, group_files: Optional[list[GroupFile]]
+) -> None:
+    """Verify that file name is not already in group files."""
+    if group_files:
+        file_to_check = next(
+            (
+                group_file
+                for group_file in group_files
+                if group_file.file_name == file_name
+            ),
+            None,
+        )
+        if file_to_check is not None:
+            raise ErrorFileNameAlreadyExists.new()
 
 
 def check_field(field: str, regexp: str) -> None:
