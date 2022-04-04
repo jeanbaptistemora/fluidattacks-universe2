@@ -174,3 +174,15 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
             if str(context.get("group", "")).lower() not in test_group_list
         )
     )
+
+
+async def send_mail_confirm_deletion(
+    email_to: List[str], context: MailContentType
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context=context,
+        tags=[],
+        subject="Confirm account deletion",
+        template_name="confirm_deletion",
+    )
