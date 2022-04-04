@@ -2087,6 +2087,16 @@
   "eslint": {
     "npm:eslint:20180222": ">=1.4.0 <4.18.2"
   },
+  "eslint-config-airbnb-standard": {
+    "GHSA-m852-866j-69j8": "2.0.0"
+  },
+  "eslint-config-eslint": {
+    "GHSA-hxxf-q3w9-4xgw": "5.0.1",
+    "GHSA-pv55-r6j3-wp94": "5.0.2"
+  },
+  "eslint-fixer": {
+    "GHSA-45w5-pvr8-4rh5": "<=0.1.5"
+  },
   "eslint-scope": {
     "SNYK-JS-ESLINTSCOPE-11120": "3.7.2"
   },
@@ -2100,11 +2110,17 @@
   "esprima": {},
   "estraverse": {},
   "esutils": {},
+  "eth-ledger-bridge-keyring": {
+    "GHSA-vg44-fw64-cpjx": "<0.2.1"
+  },
   "ethereumjs-vm": {
     "CVE-2018-19183": "=2.4.0"
   },
   "event-stream": {
     "GMS-2018-32": "=3.3.6"
+  },
+  "evil-package": {
+    "GHSA-p62r-jf56-h429": ">=0"
   },
   "ewgaddis.lab6": {
     "CVE-2017-16175": "=0.1.1",
@@ -2116,11 +2132,23 @@
   "execa": {
     "GMS-2020-2": "<2.0.0"
   },
+  "exiftool-vendored": {
+    "GHSA-4whq-r978-2x68": "<14.3.0"
+  },
   "expand-hash": {
     "CVE-2021-25948": ">=0.1.0 <=1.0.1"
   },
+  "experss": {
+    "GHSA-mmph-wp49-r48h": ">=0"
+  },
   "express": {
     "CVE-2014-6393": "<3.11.0 || >=4.0.0-rc1 <4.5.0"
+  },
+  "express-basic-auth": {
+    "GHSA-c35v-qwqg-87jc": "<1.1.7"
+  },
+  "express-brute": {
+    "GHSA-984p-xq9m-4rjw": "<=1.0.1"
   },
   "express-cart": {
     "CVE-2018-12457": "<1.1.6",
@@ -2139,6 +2167,9 @@
   "express-jwt": {
     "CVE-2020-15084": "<=5.3.3",
     "GHSA-6g6m-m6h5-w9gf": "<=5.3.3"
+  },
+  "express-laravel-passport": {
+    "GHSA-v66p-w7qx-wv98": ">=0"
   },
   "express-mock-middleware": {
     "CVE-2020-7616": "<=0.0.6"
