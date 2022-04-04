@@ -1955,6 +1955,9 @@
     "GMS-2015-55": "<1.4.0",
     "GMS-2017-333": "<2.0.0"
   },
+  "ecuvre": {
+    "GHSA-cgvm-rvfv-c92r": ">=0"
+  },
   "edge.js": {
     "CVE-2021-23443": "<5.3.2"
   },
@@ -1980,6 +1983,9 @@
   "elding": {
     "CVE-2017-16222": "=1.0.0",
     "GMS-2017-316": ">=0.0.0-alpha"
+  },
+  "electorn": {
+    "GHSA-38hx-3542-8fh3": "<=10.0.0"
   },
   "electron": {
     "CVE-2017-1000424": ">=1.6.4 <=1.6.11 || >=1.7.0 <=1.7.5",
@@ -2007,6 +2013,9 @@
     "GHSA-mpjm-v997-c4h4": ">=10.1.0 <11.5.0 || >=12.0.0 <12.1.0 || >=13.0.0 <13.3.0 || >=14.0.0 <=15.0.0",
     "GMS-2017-249": "<1.6.14 || >=1.7.0 <1.7.8"
   },
+  "electron-native-notify": {
+    "GHSA-j8qr-rvcv-crhv": ">=0"
+  },
   "electron-packager": {
     "GMS-2016-29": ">=5.2.1 <=6.0.0 || >=6.0.0 <=6.0.2"
   },
@@ -2021,6 +2030,12 @@
   },
   "embedza": {
     "GMS-2016-102": "<1.2.4"
+  },
+  "ember-power-timepicker": {
+    "GHSA-28f8-hqmc-7ph8": "1.0.8"
+  },
+  "ember_cli_babe": {
+    "GHSA-vm7j-4rj6-mw2p": ">=0"
   },
   "emoji-regex": {},
   "emojione": {
@@ -2042,11 +2057,26 @@
     "CVE-2017-16209": "<=1.0.0",
     "GMS-2017-312": ">=0.0.0-alpha"
   },
+  "entitlements": {
+    "GHSA-g8vp-6hv4-m67c": "<1.3.0"
+  },
   "ep_imageconvert": {
     "GMS-2013-9": "<0.0.3"
   },
   "epiceditor": {
     "CVE-2017-6589": "<=0.2.3"
+  },
+  "epress": {
+    "GHSA-vf8q-pw7h-r2x2": ">=0"
+  },
+  "epubjs": {
+    "GHSA-c6rp-xvqv-mwmf": "<0.3.89"
+  },
+  "equest": {
+    "GHSA-mvch-rh6h-2m47": ">=0"
+  },
+  "erquest": {
+    "GHSA-4pmg-jgm5-3jg6": ">=0"
   },
   "es-abstract": {},
   "es6-crawler-detect": {
