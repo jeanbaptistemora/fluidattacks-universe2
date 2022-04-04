@@ -180,17 +180,17 @@ for each role.
 
 |                     |User|Executive|Vulnerability manager|User manager|
 |:-------------------:|:--:|:-------:|:-------------------:|:----------:|
-|View vulnerabilities |X   |X        |X                    |X           |
-|Change treatments    |X   |X        |X                    |X           |
-|Approve treatments   |    |         |X                    |X           |
-|Request reattack     |X   |X        |X                    |X           |
-|Add tags             |X   |X        |X                    |X           |
 |Add roots            |X   |X        |                     |X           |
-|Edit roots           |X   |X        |                     |X           |
-|Delete group         |    |         |                     |X           |
+|Add tags             |X   |X        |X                    |X           |
 |Add users            |    |         |                     |X           |
-|Edit users           |    |         |                     |X           |
-|Receive notifications|X   |         |X                    |X           |
-|Generate a report    |    |         |X                    |X           |
-|Exclusions           |    |         |                     |X           |
+|Approve treatments   |    |         |X                    |X           |
+|Change treatments    |X   |X        |X                    |X           |
 |Deactivate/Activate root  |    |         |                     |X           |
+|Delete groups        |    |         |                     |X           |
+|Edit roots           |X   |X        |                     |X           |
+|Edit users           |    |         |                     |X           |
+|Exclusions           |    |         |                     |X           |
+|Generate a report    |    |         |X                    |X           |
+|Receive notifications|X   |         |X                    |X           |
+|Request reattack     |X   |X        |X                    |X           |
+|View vulnerabilities |X   |X        |X                    |X           |
