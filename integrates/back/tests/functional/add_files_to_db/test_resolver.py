@@ -17,27 +17,29 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_files_to_db")
 @pytest.mark.parametrize(
-    ["email"],
+    ["user_email", "file_name"],
     [
-        ["admin@gmail.com"],
-        ["user@gmail.com"],
-        ["user_manager@gmail.com"],
-        ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
+        ["admin@gmail.com", "test-anim.gif"],
+        ["user@gmail.com", "test-file2.txt"],
+        ["user_manager@gmail.com", "test-file3.txt"],
+        ["vulnerability_manager@gmail.com", "test-file4.txt"],
+        ["executive@gmail.com", "test-file5.txt"],
     ],
 )
-async def test_add_files_to_db(populate: bool, email: str) -> None:
+async def test_add_files_to_db(
+    populate: bool,
+    user_email: str,
+    file_name: str,
+) -> None:
     assert populate
     group_name: str = "group1"
-    file_name: str = "test-anim.gif"
     description: str = "test description"
-    first_modifier_email: str = "admin@gmail.com"
 
     result: dict[str, Any] = await get_result(
         description=description,
         file_name=file_name,
         group_name=group_name,
-        user_email=email,
+        user_email=user_email,
     )
     assert "errors" not in result
     assert result["data"]["addFilesToDb"]["success"]
@@ -50,14 +52,14 @@ async def test_add_files_to_db(populate: bool, email: str) -> None:
     )
     assert file_uploaded.description == description
     assert file_uploaded.file_name == file_name
-    assert file_uploaded.modified_by == first_modifier_email
+    assert file_uploaded.modified_by == user_email
     assert file_uploaded.modified_date is not None
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_files_to_db")
 @pytest.mark.parametrize(
-    ["email"],
+    ["user_email"],
     [
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
@@ -65,7 +67,9 @@ async def test_add_files_to_db(populate: bool, email: str) -> None:
         ["reviewer@gmail.com"],
     ],
 )
-async def test_add_files_to_db_fail(populate: bool, email: str) -> None:
+async def test_add_files_to_db_fail_access_denied(
+    populate: bool, user_email: str
+) -> None:
     assert populate
     description: str = "test description"
     filename: str = "test-anim.gif"
@@ -74,7 +78,7 @@ async def test_add_files_to_db_fail(populate: bool, email: str) -> None:
         description=description,
         file_name=filename,
         group_name=group_name,
-        user_email=email,
+        user_email=user_email,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
