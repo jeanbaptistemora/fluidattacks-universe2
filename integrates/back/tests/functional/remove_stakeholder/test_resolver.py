@@ -3,6 +3,14 @@ from . import (
     get_result_mutation,
     get_result_stakeholder_query,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.users.types import (
+    NotificationsPreferences,
+    User,
+)
 import pytest
 from typing import (
     Any,
@@ -45,6 +53,12 @@ async def test_remove_stakeholder(
         organization_id=organization_id,
         entity="ORGANIZATION",
     )
+    old_loaders: Dataloaders = get_new_context()
+    old_user: User = await old_loaders.user.load(email)
+
+    assert old_user.email == email
+    assert "ACCESS_GRANTED" in old_user.notifications_preferences.email
+    assert "DAILY_DIGEST" in old_user.notifications_preferences.email
 
     assert not result_me_query["data"]["me"]["remember"]
     assert result_me_query["data"]["me"]["role"] == role
@@ -93,4 +107,13 @@ async def test_remove_stakeholder(
     assert (
         result_organization_stakeholder_query["errors"][0]["message"]
         == "Access denied or stakeholder not found"
+    )
+
+    new_loaders: Dataloaders = get_new_context()
+    new_user: User = await new_loaders.user.load(email)
+    assert new_user.email == ""
+    assert "ACCESS_GRANTED" not in new_user.notifications_preferences.email
+    assert "DAILY_DIGEST" not in new_user.notifications_preferences.email
+    assert new_user.notifications_preferences == NotificationsPreferences(
+        email=[]
     )
