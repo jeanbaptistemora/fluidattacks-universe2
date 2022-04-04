@@ -37,6 +37,7 @@
           "module.prod_docs_aws.aws_iam_access_key._1"
           "module.prod_forces_aws.aws_iam_access_key._1"
           "module.prod_makes_aws.aws_iam_access_key._1"
+          "module.prod_melts_aws.aws_iam_access_key._1"
         ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/makes/infra";
@@ -53,6 +54,7 @@
           "module.prod_docs_aws.aws_iam_access_key._2"
           "module.prod_forces_aws.aws_iam_access_key._2"
           "module.prod_makes_aws.aws_iam_access_key._2"
+          "module.prod_melts_aws.aws_iam_access_key._2"
         ];
         reDeploy = true;
         src = "/makes/foss/modules/makes/users/prod/makes/infra";
