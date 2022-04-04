@@ -3668,6 +3668,15 @@
     "GMS-2017-231": ">=0.0.0-alpha"
   },
   "loader-utils": {},
+  "loadyaml": {
+    "GHSA-mfc2-93pr-jf92": "<=1.0.2"
+  },
+  "local-devices": {
+    "GHSA-w725-67p7-xv22": "<3.0.0"
+  },
+  "localeval": {
+    "GHSA-mmqv-m45h-q2hp": ">=0.0.0 <15.3.0"
+  },
   "localhost-now": {
     "CVE-2018-3729": "=1.0.1",
     "CVE-2019-5416": "=1.0.2",
@@ -3697,9 +3706,21 @@
     "SNYK-JS-LODASH-608086": "<4.17.17",
     "SNYK-JS-LODASH-73639": "<4.17.11"
   },
+  "lodash-amd": {
+    "GHSA-jf85-cpcp-j695": "<4.17.13"
+  },
+  "lodash-es": {
+    "GHSA-jf85-cpcp-j695": "<4.17.14"
+  },
+  "lodash.defaultsdeep": {
+    "GHSA-h5mp-5q4p-ggf5": "<4.6.1"
+  },
   "lodash.merge": {
     "SNYK-JS-LODASHMERGE-173732": "<4.6.2",
     "SNYK-JS-LODASHMERGE-173733": "<4.6.2"
+  },
+  "lodash.mergewith": {
+    "GHSA-779f-wgxg-qr8f": "<4.6.2"
   },
   "lodash.set": {
     "SNYK-JS-LODASHSET-1320032": "<=4.3.2"
@@ -3707,11 +3728,20 @@
   "lodash.template": {
     "SNYK-JS-LODASHTEMPLATE-1088054": "<=4.5.0"
   },
+  "log-symboles": {
+    "GHSA-h232-fpqx-mqgr": ">=0"
+  },
   "log4js": {
     "CVE-2022-21704": "<6.4.0"
   },
   "logkitty": {
     "CVE-2020-8149": "<0.7.1"
+  },
+  "logsymbles": {
+    "GHSA-vcg5-9xw6-r56c": ">=0"
+  },
+  "loopback": {
+    "GHSA-724c-6vrf-99rq": "<=2.41.0 || >=3.0.0 <=3.25.0"
   },
   "loopback-connector-mongodb": {
     "GHSA-m734-r4g6-34f9": "<3.6.0"
