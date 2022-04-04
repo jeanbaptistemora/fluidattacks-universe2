@@ -1,6 +1,3 @@
-from aioextensions import (
-    in_thread,
-)
 from contextlib import (
     contextmanager,
 )
@@ -31,10 +28,6 @@ LOG = logging.getLogger(__name__)
 
 def log_sync(level: str, msg: str, *args: Any) -> None:
     getattr(LOG, level)(msg, *args)
-
-
-async def log(level: str, msg: str, *args: Any) -> None:
-    await in_thread(log_sync, level, msg, *args)
 
 
 @contextmanager

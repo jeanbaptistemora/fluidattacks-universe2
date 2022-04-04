@@ -37,7 +37,7 @@ import logging
 from pathlib import (
     Path,
 )
-from pathos.threading import (
+from pathos.threading import (  # type: ignore[import]
     ThreadPool,
 )
 from postgres_client.client import (

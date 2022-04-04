@@ -81,7 +81,7 @@ def _to_table(pair: Tuple[str, str]) -> TableID:
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
 @click.pass_obj
-def amend_authors(  # type: ignore[misc]
+def amend_authors(
     ctx: CmdContext,
     schema: str,
     table: str,
@@ -120,7 +120,7 @@ def compute_bills(
 @click.option("--mailmap", type=mailmap_file)
 @click.argument("repositories", type=str, nargs=-1)
 @pass_ctx
-def upload_code(  # type: ignore[misc]
+def upload_code(
     ctx: CmdContext,
     schema: str,
     table: str,
@@ -142,7 +142,7 @@ def upload_code(  # type: ignore[misc]
 @click.option("--source", type=(str, str), help="schema-table pair")
 @click.option("--target", type=(str, str), help="schema-table pair")
 @pass_ctx
-def calculate_fa_hash(  # type: ignore[misc]
+def calculate_fa_hash(
     ctx: CmdContext,
     source: Tuple[str, str],
     target: Tuple[str, str],

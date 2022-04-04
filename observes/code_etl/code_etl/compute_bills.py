@@ -19,13 +19,14 @@ from operator import (
     itemgetter,
 )
 import os
-from ratelimiter import (
+from ratelimiter import (  # type: ignore[import]
     RateLimiter,
 )
-import requests  # type: ignore
+import requests
 from typing import (
     Any,
     Callable,
+    cast,
     Dict,
     Iterable,
     List,
@@ -74,7 +75,8 @@ def get_group_org(token: str, group: str) -> Optional[str]:
     data = result.json()
     LOG.debug("Group: %s; \nResponse: %s", group, json.dumps(data, indent=4))
     if data["data"]["group"]:
-        return data["data"]["group"]["organization"]
+        raw = data["data"]["group"]["organization"]
+        return str(raw) if raw is not None else None
     return None
 
 
@@ -99,14 +101,14 @@ def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
             ),
         )
         for row in cursor:
-            row = dict(zip(map(itemgetter(0), cursor.description), row))
+            _row = dict(zip(map(itemgetter(0), cursor.description), row))
 
-            actor = row.pop("actor")
-            group = row.pop("namespace")
+            actor = _row.pop("actor")
+            group = _row.pop("namespace")
 
             data.setdefault(actor, {})
             data[actor].setdefault(group, [])
-            data[actor][group].append(row)
+            data[actor][group].append(_row)
             groups.add(group)
 
     LOG.info("Data: %s", json.dumps(data, indent=2))
@@ -167,7 +169,7 @@ def main(folder: str, year: int, month: int, integrates_token: str) -> None:
 
     @lru_cache(maxsize=None)
     def get_org(group: str) -> Optional[str]:
-        return get_group_org(integrates_token, group)
+        return cast(Optional[str], get_group_org(integrates_token, group))
 
     for group in groups:
         LOG.info("Creating bill for: %s", group)
