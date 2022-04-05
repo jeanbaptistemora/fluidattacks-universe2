@@ -31,6 +31,48 @@ describe("Mobile modal", (): void => {
     expect(typeof MobileModal).toStrictEqual("function");
   });
 
+  it("should close the mobile modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleOnClose: jest.Mock = jest.fn();
+
+    const mockQuery: MockedResponse[] = [
+      {
+        request: {
+          query: GET_STAKEHOLDER_PHONE,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              phone: {
+                callingCountryCode: "1",
+                countryCode: "US",
+                nationalNumber: "1234545",
+              },
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+    ];
+
+    render(
+      <MockedProvider addTypename={false} mocks={mockQuery}>
+        <MobileModal onClose={handleOnClose} />
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(screen.getByDisplayValue("+1 (123) 454-5")).toBeInTheDocument();
+    });
+
+    userEvent.click(
+      screen.getByRole("button", { name: "profile.mobileModal.close" })
+    );
+
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
+  });
+
   it("should display the stakeholder's mobile without edit permission", async (): Promise<void> => {
     expect.hasAssertions();
 
