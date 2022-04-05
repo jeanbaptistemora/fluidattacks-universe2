@@ -3,7 +3,6 @@
     ./dev/makes.nix
     ./infra_roles/makes.nix
     ./prod/makes/makes.nix
-    ./prod/services/makes.nix
   ];
   secretsForEnvFromSops = {
     makesUsersDev = {

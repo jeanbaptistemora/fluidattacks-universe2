@@ -272,6 +272,10 @@ module "prod_integrates_keys" {
 module "prod_integrates_publish_credentials" {
   source = "../../../modules/publish_credentials"
 
+  providers = {
+    gitlab = gitlab.product
+  }
+
   key_1     = module.prod_integrates_aws.keys.1
   key_2     = module.prod_integrates_aws.keys.2
   prefix    = "PROD_INTEGRATES"

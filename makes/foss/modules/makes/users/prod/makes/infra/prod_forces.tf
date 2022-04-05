@@ -90,6 +90,10 @@ module "prod_forces_keys" {
 module "prod_forces_publish_credentials" {
   source = "../../../modules/publish_credentials"
 
+  providers = {
+    gitlab = gitlab.product
+  }
+
   key_1     = module.prod_forces_aws.keys.1
   key_2     = module.prod_forces_aws.keys.2
   prefix    = "PROD_FORCES"

@@ -200,6 +200,10 @@ module "prod_skims_keys" {
 module "prod_skims_publish_credentials" {
   source = "../../../modules/publish_credentials"
 
+  providers = {
+    gitlab = gitlab.product
+  }
+
   key_1     = module.prod_skims_aws.keys.1
   key_2     = module.prod_skims_aws.keys.2
   prefix    = "PROD_SKIMS"
