@@ -267,6 +267,14 @@ in {
           gitlabExtra = gitlabScheduled;
         }
         {
+          output = inputs.observesIndex.etl.code.lint;
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = inputs.observesIndex.etl.code.test;
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/observes/etl/dynamo/centralize";
           gitlabExtra = gitlabScheduled;
         }

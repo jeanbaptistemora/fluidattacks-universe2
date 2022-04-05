@@ -13,6 +13,6 @@ in
     searchPaths = {
       bin = [check];
     };
-    name = "observes-etl-code-test";
+    name = "observes-etl-code-lint";
     entrypoint = "";
   }
