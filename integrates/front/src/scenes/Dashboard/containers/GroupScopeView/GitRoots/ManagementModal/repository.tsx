@@ -241,13 +241,11 @@ const Repository: React.FC<IRepositoryProps> = ({
                     <div className={"w-10 ml3 mt4"} id={"git-root-add-use-vpn"}>
                       <Field
                         component={FormikCheckbox}
-                        isChecked={initialValues.useVpn}
                         label={""}
                         name={"useVpn"}
                         type={"checkbox"}
                       >
                         {t("group.scope.git.repo.useVpn")}
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
                       </Field>
                     </div>
                   </div>
