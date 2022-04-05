@@ -341,7 +341,7 @@ in {
                   name = "production";
                   url = "https://app.fluidattacks.com";
                 };
-                needs = ["/taintTerraform/makesUsersProdIntegratesKeys1"];
+                needs = ["/taintTerraform/makesUsersProdMakesKeys1"];
                 rules = [
                   (gitlabCi.rules.schedules)
                   (gitlabCi.rules.varIsDefined "makes_users_rotate_even")
@@ -359,7 +359,7 @@ in {
                   name = "production";
                   url = "https://app.fluidattacks.com";
                 };
-                needs = ["/taintTerraform/makesUsersProdIntegratesKeys2"];
+                needs = ["/taintTerraform/makesUsersProdMakesKeys2"];
                 rules = [
                   (gitlabCi.rules.schedules)
                   (gitlabCi.rules.varIsDefined "makes_users_rotate_odd")
