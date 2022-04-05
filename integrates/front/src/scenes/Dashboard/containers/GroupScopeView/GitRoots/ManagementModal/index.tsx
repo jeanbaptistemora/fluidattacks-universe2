@@ -1,3 +1,5 @@
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
@@ -12,6 +14,7 @@ import { Modal } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 
 interface IManagementModalProps {
   groupName: string;
@@ -58,6 +61,10 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   onSubmitRepo,
   runTour,
 }: IManagementModalProps): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canUpdateRootState: boolean = permissions.can(
+    "api_mutations_update_git_root_mutate"
+  );
   const { t } = useTranslation();
   const isEditing: boolean = initialValues.url !== "";
 
@@ -67,15 +74,19 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
       open={true}
       title={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
     >
-      <MemoryRouter initialEntries={["/repository"]}>
+      <MemoryRouter
+        initialEntries={[canUpdateRootState ? "/repository" : "/secrets"]}
+      >
         {isEditing ? (
           <TabsContainer>
-            <ContentTab
-              id={"repoTab"}
-              link={"/repository"}
-              title={t("group.scope.git.repo.title")}
-              tooltip={t("group.scope.git.repo.title")}
-            />
+            <Can do={"api_mutations_update_git_root_mutate"}>
+              <ContentTab
+                id={"repoTab"}
+                link={"/repository"}
+                title={t("group.scope.git.repo.title")}
+                tooltip={t("group.scope.git.repo.title")}
+              />
+            </Can>
             <Can do={"api_mutations_update_git_environments_mutate"}>
               <ContentTab
                 id={"envsTab"}

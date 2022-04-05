@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +14,7 @@ import type { IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 
 interface ISecret {
@@ -36,7 +39,10 @@ const Secrets: React.FC<ISecretsProps> = ({
   groupName,
 }: ISecretsProps): JSX.Element => {
   const { t } = useTranslation();
-
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canAddSecret: boolean = permissions.can(
+    "api_mutations_add_secret_mutate"
+  );
   const defaultCurrentRow: ISecret = { description: "", key: "", value: "" };
   const [currentRow, updateRow] = useState(defaultCurrentRow);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -125,7 +131,12 @@ const Secrets: React.FC<ISecretsProps> = ({
         pageSize={10}
         search={false}
       />
-      <Button id={"add-secret"} onClick={openModal} variant={"secondary"}>
+      <Button
+        disabled={!canAddSecret}
+        id={"add-secret"}
+        onClick={openModal}
+        variant={"secondary"}
+      >
         {"Add secret"}
       </Button>
     </React.StrictMode>

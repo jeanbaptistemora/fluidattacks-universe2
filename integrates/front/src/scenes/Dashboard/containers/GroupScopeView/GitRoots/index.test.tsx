@@ -117,7 +117,13 @@ describe("GitRoots", (): void => {
         value={new PureAbility([{ action: "is_continuous" }])}
       >
         <authzPermissionsContext.Provider
-          value={new PureAbility([{ action: "update_git_root_filter" }])}
+          value={
+            new PureAbility([
+              { action: "update_git_root_filter" },
+              { action: "api_mutations_add_secret_mutate" },
+              { action: "api_mutations_update_git_root_mutate" },
+            ])
+          }
         >
           <MockedProvider>
             <ManagementModal
@@ -205,6 +211,8 @@ describe("GitRoots", (): void => {
         value={
           new PureAbility([
             { action: "api_mutations_update_git_environments_mutate" },
+            { action: "api_mutations_add_secret_mutate" },
+            { action: "api_mutations_update_git_root_mutate" },
           ])
         }
       >

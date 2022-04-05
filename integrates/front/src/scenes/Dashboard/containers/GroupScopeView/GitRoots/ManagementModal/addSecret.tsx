@@ -1,4 +1,6 @@
 import { useMutation } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
@@ -11,6 +13,7 @@ import type { BaseSchema } from "yup";
 import { ADD_SECRET, REMOVE_SECRET } from "../../queries";
 import { Button } from "components/Button";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -66,6 +69,13 @@ const AddSecret: React.FC<ISecretsProps> = ({
   isDuplicated,
   handleSubmitSecret,
 }: ISecretsProps): JSX.Element => {
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canAddSecret: boolean = permissions.can(
+    "api_mutations_add_secret_mutate"
+  );
+  const canRemoveSecret: boolean = permissions.can(
+    "api_mutations_remove_secret_mutate"
+  );
   const initialValues = {
     description: secretDescription,
     key: secretKey,
@@ -180,14 +190,16 @@ const AddSecret: React.FC<ISecretsProps> = ({
                 </div>
                 <div className={"mt3"}>
                   <Button
-                    disabled={!isValid || !dirty || isSubmitting}
+                    disabled={
+                      !isValid || !dirty || isSubmitting || !canAddSecret
+                    }
                     id={"git-root-add-secret"}
                     type={"submit"}
                     variant={"primary"}
                   >
                     {t("confirmmodal.proceed")}
                   </Button>
-                  {isUpdate ? (
+                  {isUpdate && canRemoveSecret ? (
                     <Button
                       id={"git-root-remove-secret"}
                       onClick={handleRemoveClick}

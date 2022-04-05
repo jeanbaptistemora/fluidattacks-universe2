@@ -226,15 +226,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   const handleRowClick = useCallback(
     (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
-      if (
-        permissions.can("api_mutations_update_git_root_mutate") &&
-        row.state === "ACTIVE"
-      ) {
+      if (row.state === "ACTIVE") {
         setCurrentRow(row);
         setManagingRoot({ mode: "EDIT" });
       }
     },
-    [permissions]
+    []
   );
 
   const handleGitSubmit = useGitSubmit(

@@ -196,7 +196,11 @@ describe("GroupScopeView", (): void => {
         >
           <authzPermissionsContext.Provider
             value={
-              new PureAbility([{ action: "api_mutations_add_git_root_mutate" }])
+              new PureAbility([
+                { action: "api_mutations_add_git_root_mutate" },
+                { action: "api_mutations_add_secret_mutate" },
+                { action: "api_mutations_update_git_root_mutate" },
+              ])
             }
           >
             <MemoryRouter
