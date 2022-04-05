@@ -162,6 +162,31 @@ async def valid_invitation(
     )
 
 
+async def confirm_deletion(*, request: Request) -> HTMLResponse:
+
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="valid_delete_confirmation.html",
+        context={
+            "request": request,
+        },
+    )
+
+
+def invalid_confirm_deletion(
+    *,
+    request: Request,
+    error: str,
+) -> HTMLResponse:
+
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="invalid_delete_confirmation.html",
+        context={
+            "error": error,
+            "request": request,
+        },
+    )
+
+
 async def reject_invitation(
     request: Request, group_access: GroupAccessType
 ) -> HTMLResponse:
