@@ -267,7 +267,7 @@ async def update_root_unreliable_indicators(
     if EntityAttr.last_status_update in attrs_to_update:
         indicators[
             EntityAttr.last_status_update
-        ] = roots_domain.get_last_status_update(loaders, root.id)
+        ] = roots_domain.get_last_status_update_date(loaders, root.id)
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
 

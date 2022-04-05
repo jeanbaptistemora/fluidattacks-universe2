@@ -46,12 +46,18 @@ from db_model.roots.types import (
     URLRootItem,
     URLRootState,
 )
+from itertools import (
+    groupby,
+)
 from newutils import (
     datetime as datetime_utils,
     validations as validation_utils,
 )
 from notifications import (
     domain as notifications_domain,
+)
+from operator import (
+    attrgetter,
 )
 from organizations import (
     domain as orgs_domain,
@@ -921,19 +927,29 @@ def get_root_ids_by_nicknames(
     return root_ids
 
 
-async def get_last_status_update(loaders: Any, root_id: str) -> str:
+async def get_last_status_update(loaders: Any, root_id: str) -> RootState:
+    """
+    Returns the state item where the status last changed
+
+    ACTIVE, [ACTIVE], INACTIVE, ACTIVE
+    """
     historic_state: Tuple[RootState, ...] = await loaders.root_states.load(
         root_id
     )
-
-    return next(
-        (
-            state.modified_date
-            for state in reversed(historic_state)
-            if state.status != historic_state[-1].status
-        ),
-        historic_state[0].modified_date,
+    status_changes = tuple(
+        tuple(group)
+        for _, group in groupby(historic_state, key=attrgetter("status"))
     )
+    with_current_status = status_changes[-1]
+
+    return with_current_status[0]
+
+
+async def get_last_status_update_date(loaders: Any, root_id: str) -> str:
+    """Returns the date where the status last changed"""
+    last_status_update = await get_last_status_update(loaders, root_id)
+
+    return last_status_update.modified_date
 
 
 async def move_root(
