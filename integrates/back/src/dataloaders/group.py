@@ -9,6 +9,7 @@ from custom_types import (
 )
 from db_model.groups.types import (
     Group,
+    GroupState,
     GroupUnreliableIndicators,
 )
 from dynamodb.types import (
@@ -19,6 +20,7 @@ from groups import (
 )
 from newutils.groups import (
     format_group,
+    format_group_historic_state,
     format_group_unreliable_indicators,
 )
 from newutils.utils import (
@@ -29,19 +31,16 @@ from organizations import (
 )
 from typing import (
     cast,
-    Dict,
-    List,
     Optional,
-    Tuple,
     Union,
 )
 
 
 async def _batch_load_fn(
-    group_names: List[str], parent_org_id: Optional[List[str]]
-) -> List[GroupType]:
-    groups: Dict[str, GroupType] = {}
-    groups_by_names: List[GroupType] = await groups_domain.get_many_groups(
+    group_names: list[str], parent_org_id: Optional[list[str]]
+) -> list[GroupType]:
+    groups: dict[str, GroupType] = {}
+    groups_by_names: list[GroupType] = await groups_domain.get_many_groups(
         group_names
     )
     organization_ids = (
@@ -60,8 +59,8 @@ async def _batch_load_fn(
         status = get_key_or_fallback(
             group, "group_status", "project_status", "DELETED"
         )
-        historic_configuration: List[Dict[str, str]] = cast(
-            List[Dict[str, str]], group.get("historic_configuration", [{}])
+        historic_configuration: list[dict[str, str]] = cast(
+            list[dict[str, str]], group.get("historic_configuration", [{}])
         )
         has_asm = status == "ACTIVE"
         has_machine: bool = get_key_or_fallback(
@@ -71,8 +70,8 @@ async def _batch_load_fn(
             historic_configuration[-1], "has_squad", "has_drills", False
         )
 
-        historic_deletion: List[Dict[str, str]] = cast(
-            List[Dict[str, str]], group.get("historic_deletion", [{}])
+        historic_deletion: list[dict[str, str]] = cast(
+            list[dict[str, str]], group.get("historic_deletion", [{}])
         )
         organization_id = organization_ids[index]
 
@@ -173,15 +172,15 @@ class GroupLoader(DataLoader):
 
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: Union[List[str], List[Tuple[str, str]]]
-    ) -> List[GroupType]:
+        self, group_names: Union[list[str], list[tuple[str, str]]]
+    ) -> list[GroupType]:
 
         groups_names = (
             list(map(str, group_names))
             if isinstance(group_names[0], str)
             else [group_name[0] for group_name in group_names]
         )
-        parent_org_id: Optional[List[str]] = (
+        parent_org_id: Optional[list[str]] = (
             None
             if isinstance(group_names[0], str)
             else [group_name[1] for group_name in group_names]
@@ -193,24 +192,24 @@ class GroupLoader(DataLoader):
 class GroupTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, groups_info: Union[Tuple[str, ...], Tuple[Tuple[str, str], ...]]
-    ) -> Tuple[Group, ...]:
+        self, groups_info: Union[tuple[str, ...], tuple[tuple[str, str], ...]]
+    ) -> tuple[Group, ...]:
         if isinstance(groups_info[0], str):
-            # Given info is Tuple[group_name, ...]
+            # Given info is tuple[group_name, ...]
             groups_names = groups_info
             organizations_names = await collect(
                 orgs_domain.get_name_for_group(group_name)
                 for group_name in groups_info
             )
         else:
-            # Given info is Tuple[Tuple[group_name, organization_id], ...]
+            # Given info is tuple[tuple[group_name, organization_id], ...]
             groups_names = tuple(group_info[0] for group_info in groups_info)
             organizations_names = await collect(
                 orgs_domain.get_name_by_id(group_info[1])
                 for group_info in groups_info
             )
 
-        groups_items: List[Item] = await groups_domain.get_many_groups(
+        groups_items: list[Item] = await groups_domain.get_many_groups(
             list(groups_names)
         )
         return tuple(
@@ -222,12 +221,25 @@ class GroupTypedLoader(DataLoader):
 class GroupIndicatorsTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: Tuple[str, ...]
-    ) -> Tuple[GroupUnreliableIndicators, ...]:
-        groups_items: List[Item] = await groups_domain.get_many_groups(
+        self, group_names: tuple[str, ...]
+    ) -> tuple[GroupUnreliableIndicators, ...]:
+        groups_items: list[Item] = await groups_domain.get_many_groups(
             list(group_names)
         )
         return tuple(
             format_group_unreliable_indicators(item=item)
             for item in groups_items
+        )
+
+
+class GroupHistoricStateTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: tuple[str, ...]
+    ) -> tuple[GroupState, ...]:
+        groups_items: list[Item] = await groups_domain.get_many_groups(
+            list(group_names)
+        )
+        return tuple(
+            format_group_historic_state(item=item) for item in groups_items
         )

@@ -3,6 +3,7 @@ from .event import (
     EventTypedLoader,
 )
 from .group import (
+    GroupHistoricStateTypedLoader,
     GroupIndicatorsTypedLoader,
     GroupLoader,
     GroupTypedLoader,
@@ -92,16 +93,17 @@ class Dataloaders(NamedTuple):
     finding_vulnerabilities_zr: FindingVulnerabilitiesOnlyZeroRiskLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     group: GroupLoader
-    group_indicators_typed: GroupIndicatorsTypedLoader
-    group_typed: GroupTypedLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
+    group_historic_state_typed: GroupHistoricStateTypedLoader
+    group_indicators_typed: GroupIndicatorsTypedLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
+    group_typed: GroupTypedLoader
     organization: OrganizationLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
@@ -172,16 +174,17 @@ def get_new_context() -> Dataloaders:
         finding_vulnerabilities_zr=finding_vulnerabilities_zr_loader,
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         group=GroupLoader(),
-        group_indicators_typed=GroupIndicatorsTypedLoader(),
-        group_typed=GroupTypedLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=group_findings_loader,
+        group_historic_state_typed=GroupHistoricStateTypedLoader(),
+        group_indicators_typed=GroupIndicatorsTypedLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=GroupStakeholdersLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
+        group_typed=GroupTypedLoader(),
         organization=OrganizationLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
