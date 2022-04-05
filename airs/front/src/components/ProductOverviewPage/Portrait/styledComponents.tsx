@@ -11,6 +11,11 @@ const PortraitContainer = styled.div.attrs({
 })`
   background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1648748426/airs/product-overview/portrait/cover-portrait.webp");
   min-height: 50vh;
+
+  @media (max-width: 480px) {
+    background-image: unset;
+    background-color: #e9e9ed;
+  }
 `;
 
 const MainContentPortrait = styled.div.attrs({
@@ -44,7 +49,6 @@ const PortraitImageContainer = styled.div.attrs({
     mt3
     center
     pt0-ns
-    pt4
     pl3
     tc
   `,
