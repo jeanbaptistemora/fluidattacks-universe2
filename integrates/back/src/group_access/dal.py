@@ -36,11 +36,10 @@ TABLE_NAME: str = "FI_project_access"
 
 async def get_access_by_url_token(
     url_token: str,
+    attr: str = "invitation",
 ) -> List[GroupAccessType]:
     """Get user access of a group by the url token"""
-    filter_exp = Attr("invitation").exists() & Attr("invitation.url_token").eq(
-        url_token
-    )
+    filter_exp = Attr(attr).exists() & Attr(f"{attr}.url_token").eq(url_token)
     scan_attrs = {"FilterExpression": filter_exp}
     items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
     return items

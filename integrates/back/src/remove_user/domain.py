@@ -12,8 +12,12 @@ from custom_types import (
     MailContent,
 )
 from group_access.dal import (
+    get_access_by_url_token,
     remove_access as remove_confirm_deletion,
     update,
+)
+from groups.domain import (
+    get_groups_by_user,
 )
 from jose import (
     JWTError,
@@ -36,8 +40,14 @@ from organizations.domain import (
     get_user_organizations,
     remove_user,
 )
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
 from remove_user.dal import (
     remove_stakeholder,
+)
+from sessions.dal import (
+    remove_session_key,
 )
 from subscriptions.domain import (
     get_user_subscriptions,
@@ -88,6 +98,36 @@ async def complete_deletion(*, loaders: Any, user_email: str) -> None:
             remove_confirm_deletion(user_email, "confirm_deletion"),
         )
     )
+    stakeholder_organizations_ids = await get_user_organizations(user_email)
+    stakeholder_groups = await get_groups_by_user(user_email)
+
+    await collect(
+        tuple(
+            redis_del_by_deps(
+                "remove_stakeholder_organization_access",
+                organization_id=organization_id,
+            )
+            for organization_id in stakeholder_organizations_ids
+        )
+    )
+
+    await collect(
+        tuple(
+            redis_del_by_deps(
+                "remove_stakeholder_access",
+                group_name=group_name,
+            )
+            for group_name in stakeholder_groups
+        )
+    )
+
+    await collect(
+        [
+            remove_session_key(user_email, "jti"),
+            remove_session_key(user_email, "web"),
+            remove_session_key(user_email, "jwt"),
+        ]
+    )
 
 
 async def get_email_from_url_token(
@@ -97,10 +137,10 @@ async def get_email_from_url_token(
     try:
         token_content = decode_jwt(url_token)
         user_email: str = token_content["user_email"]
-
-        return user_email
-    except JWTError:
-        InvalidAuthorization()
+        if await get_access_by_url_token(url_token, attr="confirm_deletion"):
+            return user_email
+    except JWTError as ex:
+        raise InvalidAuthorization() from ex
 
     return ""
 
@@ -118,8 +158,8 @@ async def confirm_deletion_mail(
     )
     if validate_email_address(email):
         success = await update(
-            "confirm_deletion",
             email,
+            "confirm_deletion",
             {
                 "expiration_time": expiration_time,
                 "confirm_deletion": {
