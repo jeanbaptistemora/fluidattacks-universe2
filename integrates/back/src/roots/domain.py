@@ -615,7 +615,9 @@ async def update_git_root(
         reason=None,
         status=root.state.status,
         url=url,
-        use_vpn=kwargs.get("use_vpn") or root.state.use_vpn,
+        use_vpn=kwargs.get("use_vpn", None)
+        if kwargs.get("use_vpn") is not None
+        else root.state.use_vpn,
     )
     await roots_model.update_root_state(
         current_value=root.state,
