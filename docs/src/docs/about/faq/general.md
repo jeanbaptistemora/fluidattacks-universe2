@@ -331,4 +331,4 @@ Examples:
   262,144 vulnerabilities 1 (column).
 - A vulnerability 5 (row)
   equals 16 times the severity
-  of a vulnerability 5 (column).
+  of a vulnerability 3 (column).
