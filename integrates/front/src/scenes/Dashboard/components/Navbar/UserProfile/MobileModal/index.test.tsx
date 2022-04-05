@@ -186,5 +186,152 @@ describe("Mobile modal", (): void => {
       screen.getByRole("button", { name: "profile.mobileModal.close" })
     ).toBeInTheDocument();
     expect(handleOnClose).toHaveBeenCalledTimes(0);
+
+    jest.clearAllMocks();
+  });
+
+  it("should edit mobile", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleOnClose: jest.Mock = jest.fn();
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_stakeholder_phone_mutate" },
+    ]);
+    const mockQuery: MockedResponse[] = [
+      {
+        request: {
+          query: GET_STAKEHOLDER_PHONE,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              phone: {
+                callingCountryCode: "57",
+                countryCode: "CO",
+                nationalNumber: "123456789",
+              },
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_STAKEHOLDER_PHONE,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              phone: {
+                callingCountryCode: "57",
+                countryCode: "CO",
+                nationalNumber: "987654321",
+              },
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+    ];
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: VERIFY_STAKEHOLDER_MUTATION,
+        },
+        result: { data: { verifyStakeholder: { success: true } } },
+      },
+      {
+        request: {
+          query: VERIFY_STAKEHOLDER_MUTATION,
+          variables: {
+            newPhone: {
+              callingCountryCode: "57",
+              nationalNumber: "987654321",
+            },
+            verificationCode: "1234",
+          },
+        },
+        result: { data: { verifyStakeholder: { success: true } } },
+      },
+      {
+        request: {
+          query: UPDATE_STAKEHOLDER_PHONE_MUTATION,
+          variables: {
+            newPhone: { callingCountryCode: "57", nationalNumber: "987654321" },
+            verificationCode: "1234",
+          },
+        },
+        result: { data: { updateStakeholderPhone: { success: true } } },
+      },
+    ];
+
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={mockQuery.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <MobileModal onClose={handleOnClose} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(screen.getByDisplayValue("+57 123 456 789")).toBeInTheDocument();
+    });
+
+    userEvent.click(
+      screen.getByRole("button", { name: "profile.mobileModal.edit" })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "profile.mobileModal.alerts.sendCurrentMobileVerificationSuccess",
+        "groupAlerts.titleSuccess"
+      );
+    });
+
+    userEvent.type(
+      screen.getByRole("textbox", {
+        name: "verificationCode",
+      }),
+      "1234"
+    );
+    userEvent.type(screen.getByDisplayValue("+57"), "987654321");
+    userEvent.click(
+      screen.getByRole("button", { name: "profile.mobileModal.edit" })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(2);
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "profile.mobileModal.alerts.sendNewMobileVerificationSuccess",
+        "groupAlerts.titleSuccess"
+      );
+    });
+
+    userEvent.type(
+      screen.getByRole("textbox", {
+        name: "newVerificationCode",
+      }),
+      "1234"
+    );
+    userEvent.click(
+      screen.getByRole("button", { name: "profile.mobileModal.verify" })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "profile.mobileModal.alerts.editionSuccess",
+        "groupAlerts.titleSuccess"
+      );
+    });
+
+    expect(
+      screen.getByRole("button", { name: "profile.mobileModal.close" })
+    ).toBeInTheDocument();
+    expect(handleOnClose).toHaveBeenCalledTimes(0);
+
+    jest.clearAllMocks();
   });
 });
