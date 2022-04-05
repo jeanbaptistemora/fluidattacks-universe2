@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddSecret } from "./addSecret";
+import { renderSecretsDescription } from "./secretDescription";
 import { SecretValue } from "./secretValue";
 
 import { GET_ROOT } from "../../queries";
@@ -116,6 +117,11 @@ const Secrets: React.FC<ISecretsProps> = ({
       </Modal>
       <Table
         dataset={secretsDataSet}
+        expandRow={{
+          expandByColumnOnly: true,
+          renderer: renderSecretsDescription,
+          showExpandColumn: true,
+        }}
         exportCsv={false}
         headers={[
           {
