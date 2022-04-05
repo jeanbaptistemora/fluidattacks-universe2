@@ -14,6 +14,18 @@
     inherit system legacy_pkgs;
     src = purity_src;
   };
+  redshift_src = builtins.fetchGit {
+    url = "https://gitlab.com/dmurciaatfluid/redshift_client";
+    ref = "main";
+    rev = "ae83bd10ee8d809e833e2a117e39dab4f2a87c55";
+  };
+  redshift = import redshift_src {
+    inherit system legacy_pkgs python_version;
+    src = redshift_src;
+    others = {
+      fa-purity = purity."${python_version}".pkg;
+    };
+  };
   utils-logger = import local_lib.utils-logger {
     src = local_lib.utils-logger;
     inherit python_version legacy_pkgs;
@@ -66,8 +78,8 @@ in
       inherit lib;
       pythonPkgs = pythonPkgs2;
     };
-    types-click = import ./click/stubs.nix lib;
-    types-psycopg2 = import ./psycopg2/stubs.nix lib;
-    utils-logger = utils-logger.pkg;
     postgres-client = postgres-client.pkg;
+    redshift-client = redshift.pkg;
+    types-click = import ./click/stubs.nix lib;
+    utils-logger = utils-logger.pkg;
   }

@@ -12,10 +12,10 @@
     pythonPkgs.postgres-client
     pythonPkgs.psycopg2
     pythonPkgs.ratelimiter
+    pythonPkgs.redshift-client
     pythonPkgs.requests
     pythonPkgs.six
     pythonPkgs.types-click
-    pythonPkgs.types-psycopg2
     pythonPkgs.types-requests
     pythonPkgs.utils-logger
   ];
