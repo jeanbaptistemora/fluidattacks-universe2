@@ -6,7 +6,10 @@ from custom_exceptions import (
     StakeholderHasGroupAccess,
 )
 from custom_types import (
-    GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
+    GrantStakeholderAccessPayload,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -63,8 +66,8 @@ async def mutate(
     group_name: str,
     role: str,
     **query_args: str,
-) -> GrantStakeholderAccessPayloadType:
-    # Compatibility with old API
+) -> GrantStakeholderAccessPayload:
+    loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
@@ -93,6 +96,7 @@ async def mutate(
 
     if new_user_role in allowed_roles_to_grant:
         success = await groups_domain.invite_to_group(
+            loaders=loaders,
             email=new_user_email,
             responsibility=new_user_responsibility,
             role=new_user_role,
@@ -131,7 +135,7 @@ async def mutate(
             f"in {group_name} group",
         )
 
-    return GrantStakeholderAccessPayloadType(
+    return GrantStakeholderAccessPayload(
         success=success,
         granted_stakeholder=dict(group_name=group_name, email=new_user_email),
     )

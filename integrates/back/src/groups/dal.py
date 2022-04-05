@@ -49,25 +49,6 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_projects"
 
 
-async def can_user_access(
-    group_name: str, role: str, table: aioboto3.session.Session.client = None
-) -> bool:
-    group_data = await get_attributes(
-        group_name.lower(),
-        [
-            "deletion_date",
-            "historic_deletion",
-            "project_name",
-            "project_status",
-        ],
-        table,
-    )
-    is_user_allowed = False
-    if await is_valid(group_name, group_data):
-        is_user_allowed = bool(role)
-    return is_user_allowed
-
-
 async def add(group: GroupType) -> bool:
     """Add group to dynamo."""
     resp = False
@@ -156,15 +137,6 @@ async def get_attributes(
     if response_items:
         response = response_items[0]
     return response
-
-
-async def get_description(group_name: str) -> str:
-    """Get the description of a group."""
-    description = await get_attributes(group_name, ["description"])
-    group_description = (
-        str(description.get("description", "")) if description else ""
-    )
-    return group_description
 
 
 async def get_group_info(group_name: str) -> Tuple[str, str, str]:

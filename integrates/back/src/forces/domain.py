@@ -102,6 +102,7 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     user_data = await token_utils.get_jwt_content(info.context)
     modified_by = user_data["user_email"]
     success = await groups_domain.invite_to_group(
+        loaders=info.context.loaders,
         email=user_email,
         responsibility="Forces service user",
         role="service_forces",

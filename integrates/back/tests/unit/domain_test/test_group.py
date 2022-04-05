@@ -70,7 +70,6 @@ from groups.domain import (
     add_group,
     get_active_groups,
     get_closed_vulnerabilities,
-    get_description,
     get_group_digest_stats,
     get_groups_by_user,
     get_mean_remediate_non_treated_severity,
@@ -460,12 +459,6 @@ async def test_get_managers() -> None:
         "continuoushack2@gmail.com",
     ]
     assert expected_output == await get_managers(group_name)
-
-
-async def test_get_description() -> None:
-    group_name = "unittesting"
-    expected_output = "Integrates unit test group"
-    assert expected_output == await get_description(group_name)
 
 
 async def test_get_users() -> None:

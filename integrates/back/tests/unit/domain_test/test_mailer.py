@@ -4,6 +4,10 @@ from aioextensions import (
 from context import (
     FI_MAIL_CUSTOMER_SUCCESS,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from group_access.domain import (
     get_group_users,
 )
@@ -37,7 +41,9 @@ async def test_get_recipient_first_name() -> None:
         is not None
     )
 
+    loaders: Dataloaders = get_new_context()
     await invite_to_group(
+        loaders=loaders,
         email="nonexistinguser@fluidattacks.com",
         responsibility="Tester",
         role="USER",

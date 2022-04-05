@@ -442,10 +442,6 @@ async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
     return has_repeated_tags
 
 
-async def can_user_access(group: str, role: str) -> bool:
-    return await groups_dal.can_user_access(group, role)
-
-
 async def complete_register_for_group_invitation(
     group_access: GroupAccessType,
 ) -> bool:
@@ -962,10 +958,6 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     return last_approved_status.count(VulnerabilityStateStatus.CLOSED)
 
 
-async def get_description(group_name: str) -> str:
-    return await groups_dal.get_description(group_name)
-
-
 async def get_group_info(group_name: str) -> Tuple[str, str, str]:
     """Returns the description, business_id, and business_name attrs
     of a Group"""
@@ -1227,6 +1219,8 @@ async def get_open_vulnerabilities(
 
 
 async def invite_to_group(
+    *,
+    loaders: Any,
     email: str,
     responsibility: str,
     role: str,
@@ -1261,7 +1255,7 @@ async def invite_to_group(
                 },
             },
         )
-        description = await get_description(group_name.lower())
+        group: Group = await loaders.group_typed.load(group_name)
         confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
         reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
         mail_to = [email]
@@ -1269,7 +1263,7 @@ async def invite_to_group(
             "admin": email,
             "group": group_name,
             "responsible": modified_by,
-            "group_description": description,
+            "group_description": group.description,
             "confirm_access_url": confirm_access_url,
             "reject_access_url": reject_access_url,
         }
