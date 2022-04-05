@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
@@ -270,7 +270,7 @@ describe("update verification component", (): void => {
       screen.getByRole("textbox"),
       "This is a commenting test of a verifying request verification in vulns"
     );
-    userEvent.click(screen.getByRole("checkbox"));
+    userEvent.click(within(screen.getByRole("table")).getByRole("checkbox"));
 
     userEvent.click(screen.getByText("confirmmodal.proceed"));
 

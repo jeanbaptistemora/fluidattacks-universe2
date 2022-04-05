@@ -13,9 +13,11 @@ import {
   handleVerifyRequestError,
 } from "./helpers";
 
+import { Switch } from "components/Switch";
 import { Table } from "components/Table";
 import { changeVulnStateFormatter } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
   REQUEST_VULNERABILITIES_VERIFICATION,
@@ -65,6 +67,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
 
   // State management
   const [vulnerabilitiesList, setVulnerabilities] = useState(vulns);
+  const [isOpen, setOpen] = useState(true);
   const closeRemediationModal: () => void = useCallback((): void => {
     handleCloseModal();
   }, [handleCloseModal]);
@@ -158,6 +161,20 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
     closeRemediationModal();
   }
 
+  const handleOnChange = useCallback((): void => {
+    setOpen((currentValue: boolean): boolean => {
+      const newVulnList: IVulnData[] = vulnerabilitiesList.map(
+        (vuln: IVulnData): IVulnData => ({
+          ...vuln,
+          currentState: currentValue ? "closed" : "open",
+        })
+      );
+      setVulnerabilities([...newVulnList]);
+
+      return !currentValue;
+    });
+  }, [vulnerabilitiesList]);
+
   const renderVulnsToVerify: () => JSX.Element = (): JSX.Element => {
     const handleUpdateRepo: (vulnInfo: Dictionary<string>) => void = (
       vulnInfo: Dictionary<string>
@@ -197,14 +214,37 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
     ];
 
     return (
-      <Table
-        dataset={vulnerabilitiesList}
-        exportCsv={false}
-        headers={vulnsHeader}
-        id={"vulnstoverify"}
-        pageSize={10}
-        search={false}
-      />
+      <React.StrictMode>
+        <TooltipWrapper
+          id={"toogleToolTip"}
+          message={t(
+            "searchFindings.tabDescription.remediationModal.globalSwitch.tooltip"
+          )}
+          placement={"top"}
+        >
+          <div className={"pr4 tr w-100"}>
+            <span className={"mb0 mt1 pr2"}>
+              {t(
+                "searchFindings.tabDescription.remediationModal.globalSwitch.text"
+              )}
+            </span>
+            &nbsp;
+            <Switch
+              checked={isOpen}
+              label={{ off: "closed", on: "open" }}
+              onChange={handleOnChange}
+            />
+          </div>
+        </TooltipWrapper>
+        <Table
+          dataset={vulnerabilitiesList}
+          exportCsv={false}
+          headers={vulnsHeader}
+          id={"vulnstoverify"}
+          pageSize={10}
+          search={false}
+        />
+      </React.StrictMode>
     );
   };
 

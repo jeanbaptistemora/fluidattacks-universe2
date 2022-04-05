@@ -1987,6 +1987,10 @@ export const enTranslations: ResourceKey = {
         tooltip: "General suggestion to solve the vulnerability",
       },
       remediationModal: {
+        globalSwitch: {
+          text: "Change all",
+          tooltip: "Toggle the state change for all vulnerabilities",
+        },
         justification: "Which was the applied solution?",
         message: "Verification will be requested for {{vulns}} vulnerabilities",
         observations: "What observations do you have?",
