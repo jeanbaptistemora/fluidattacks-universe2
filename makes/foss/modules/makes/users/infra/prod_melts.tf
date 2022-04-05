@@ -46,7 +46,7 @@ locals {
 }
 
 module "prod_melts_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_melts"
   policy = local.prod_melts.policies.aws
@@ -60,7 +60,7 @@ module "prod_melts_aws" {
 }
 
 module "prod_melts_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product

@@ -64,7 +64,7 @@ locals {
 }
 
 module "prod_forces_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_forces"
   policy = local.prod_forces.policies.aws
@@ -78,7 +78,7 @@ module "prod_forces_aws" {
 }
 
 module "prod_forces_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_forces.keys
 
   name   = each.key
@@ -88,7 +88,7 @@ module "prod_forces_keys" {
 }
 
 module "prod_forces_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product

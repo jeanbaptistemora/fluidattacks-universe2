@@ -174,7 +174,7 @@ locals {
 }
 
 module "prod_skims_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_skims"
   policy = local.prod_skims.policies.aws
@@ -188,7 +188,7 @@ module "prod_skims_aws" {
 }
 
 module "prod_skims_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_skims.keys
 
   name   = each.key
@@ -198,7 +198,7 @@ module "prod_skims_keys" {
 }
 
 module "prod_skims_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product

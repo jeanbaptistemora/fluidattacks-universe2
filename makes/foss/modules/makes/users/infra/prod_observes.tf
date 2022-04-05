@@ -163,7 +163,7 @@ locals {
 }
 
 module "prod_observes_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_observes"
   policy = local.prod_observes.policies.aws
@@ -177,7 +177,7 @@ module "prod_observes_aws" {
 }
 
 module "prod_observes_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_observes.keys
 
   name   = each.key
@@ -187,7 +187,7 @@ module "prod_observes_keys" {
 }
 
 module "prod_observes_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product

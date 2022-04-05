@@ -73,7 +73,7 @@ locals {
 }
 
 module "prod_services_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_services"
   policy = local.prod_services.policies.aws
@@ -87,7 +87,7 @@ module "prod_services_aws" {
 }
 
 module "prod_services_publish_credentials_product" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product
@@ -100,7 +100,7 @@ module "prod_services_publish_credentials_product" {
 }
 
 module "prod_services_publish_credentials_services" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.services

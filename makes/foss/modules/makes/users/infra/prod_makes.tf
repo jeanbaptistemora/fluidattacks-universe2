@@ -79,7 +79,7 @@ locals {
 }
 
 module "prod_makes_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_makes"
   policy = local.prod_makes.policies.aws
@@ -93,7 +93,7 @@ module "prod_makes_aws" {
 }
 
 module "prod_makes_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_makes.keys
 
   name   = each.key
@@ -103,7 +103,7 @@ module "prod_makes_keys" {
 }
 
 module "prod_makes_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product

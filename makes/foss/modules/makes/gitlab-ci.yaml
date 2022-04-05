@@ -124,6 +124,27 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/deployTerraform/makesUsers:
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /deployTerraform/makesUsers
+  stage: deploy-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/makesVpc:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
@@ -321,7 +342,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesUsersProdMakes:
+/lintTerraform/makesUsers:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -336,7 +357,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesUsersProdMakes
+    - m . /lintTerraform/makesUsers
   stage: lint-code
   tags:
     - autoscaling
@@ -519,7 +540,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersProdMakesKeys1:
+/taintTerraform/makesUsersKeys1:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -530,14 +551,14 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersProdMakesKeys1
+    - m . /taintTerraform/makesUsersKeys1
   stage: rotation
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersProdMakesKeys2:
+/taintTerraform/makesUsersKeys2:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -548,7 +569,7 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersProdMakesKeys2
+    - m . /taintTerraform/makesUsersKeys2
   stage: rotation
   tags:
     - autoscaling
@@ -709,7 +730,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesUsersProdMakes:
+/testTerraform/makesUsers:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -724,7 +745,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesUsersProdMakes
+    - m . /testTerraform/makesUsers
   stage: test-infra
   tags:
     - autoscaling

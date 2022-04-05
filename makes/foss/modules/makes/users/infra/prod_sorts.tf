@@ -174,7 +174,7 @@ locals {
 }
 
 module "prod_sorts_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_sorts"
   policy = local.prod_sorts.policies.aws
@@ -199,7 +199,7 @@ module "prod_sorts_aws" {
 }
 
 module "prod_sorts_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_sorts.keys
 
   name   = each.key
@@ -209,7 +209,7 @@ module "prod_sorts_keys" {
 }
 
 module "prod_sorts_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product

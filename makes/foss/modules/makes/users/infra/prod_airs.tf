@@ -89,7 +89,7 @@ locals {
 }
 
 module "prod_airs_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_airs"
   policy = local.prod_airs.policies.aws
@@ -103,7 +103,7 @@ module "prod_airs_aws" {
 }
 
 module "prod_airs_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_airs.keys
 
   name   = each.key
@@ -113,7 +113,7 @@ module "prod_airs_keys" {
 }
 
 module "prod_airs_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product
@@ -126,7 +126,7 @@ module "prod_airs_publish_credentials" {
 }
 
 module "prod_airs_cloudflare" {
-  source = "../../../modules/cloudflare"
+  source = "./modules/cloudflare"
 
   name   = "prod_airs"
   policy = local.prod_airs.policies.cloudflare

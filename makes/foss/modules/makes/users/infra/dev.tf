@@ -159,7 +159,7 @@ locals {
 }
 
 module "dev_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "dev"
   policy = local.dev.policies.aws
@@ -173,7 +173,7 @@ module "dev_aws" {
 }
 
 module "dev_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.dev.keys
 
   name   = each.key
@@ -183,7 +183,7 @@ module "dev_keys" {
 }
 
 module "dev_publish_credentials_product" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product
@@ -196,7 +196,7 @@ module "dev_publish_credentials_product" {
 }
 
 module "dev_publish_credentials_services" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.services
@@ -210,7 +210,7 @@ module "dev_publish_credentials_services" {
 }
 
 module "dev_cloudflare" {
-  source = "../../../modules/cloudflare"
+  source = "./modules/cloudflare"
 
   name   = "dev"
   policy = local.dev.policies.cloudflare

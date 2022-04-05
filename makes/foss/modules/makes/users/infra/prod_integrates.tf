@@ -246,7 +246,7 @@ locals {
 }
 
 module "prod_integrates_aws" {
-  source = "../../../modules/aws"
+  source = "./modules/aws"
 
   name   = "prod_integrates"
   policy = local.prod_integrates.policies.aws
@@ -260,7 +260,7 @@ module "prod_integrates_aws" {
 }
 
 module "prod_integrates_keys" {
-  source   = "../../../modules/key"
+  source   = "./modules/key"
   for_each = local.prod_integrates.keys
 
   name   = each.key
@@ -270,7 +270,7 @@ module "prod_integrates_keys" {
 }
 
 module "prod_integrates_publish_credentials" {
-  source = "../../../modules/publish_credentials"
+  source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product
@@ -283,7 +283,7 @@ module "prod_integrates_publish_credentials" {
 }
 
 module "prod_integrates_cloudflare" {
-  source = "../../../modules/cloudflare"
+  source = "./modules/cloudflare"
 
   name   = "prod_integrates"
   policy = local.prod_integrates.policies.cloudflare
