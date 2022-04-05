@@ -677,7 +677,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       defaultValue: filterGroupFindingsTable.where,
       onChangeInput: onWhereChange,
-      placeholder: "Where",
+      placeholder: "Locations",
       tooltipId: "group.findings.filtersTooltips.where.id",
       tooltipMessage: "group.findings.filtersTooltips.where",
       type: "text",
