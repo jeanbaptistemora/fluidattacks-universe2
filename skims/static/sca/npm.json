@@ -4902,6 +4902,9 @@
   "priest-runner": {
     "GHSA-9px9-f7jw-fwhj": ">=0"
   },
+  "primefaces": {
+    "GHSA-fw5f-7c6c-3vmv": "<=7.0.11"
+  },
   "primeng": {
     "SNYK-JS-PRIMENG-537902": "<9.0.0-rc.3"
   },
@@ -4981,6 +4984,9 @@
     "CVE-2021-21353": "<2.0.3 || >=3.0.0 <3.0.2",
     "GHSA-p493-635q-r6gr": "<2.0.3 || >=3.0.0 <3.0.2"
   },
+  "pullit": {
+    "GHSA-8px5-63x9-5c7p": "<1.4.0"
+  },
   "pulverizr": {
     "CVE-2020-7604": "<=0.7.0"
   },
@@ -4998,11 +5004,17 @@
   "push-dir": {
     "CVE-2019-10803": "<=0.4.1"
   },
+  "put": {
+    "GHSA-v6gv-fg46-h89j": ">=0"
+  },
   "putil-merge": {
     "CVE-2021-25953": ">=1.0.0 <=3.6.6"
   },
   "pym.js": {
     "CVE-2018-1000086": ">=0.4.2 <=1.3.1"
+  },
+  "pyramid-proportion": {
+    "GHSA-v6vv-hhqc-6hh2": "1.0.5"
   },
   "pytservce": {
     "CVE-2017-16195": "=1.0.0",
@@ -5013,6 +5025,9 @@
   },
   "qbs": {
     "GMS-2017-43": ">=0.0.0-alpha"
+  },
+  "qingting": {
+    "GHSA-559q-92vx-xvjp": ">=0"
   },
   "qinserve": {
     "CVE-2017-16197": "=1.0.0",
@@ -5040,13 +5055,34 @@
   "quill": {
     "CVE-2021-3163": "=4.8.0"
   },
+  "radic-util": {
+    "GHSA-8qh7-xw58-3ww7": "1.0.2"
+  },
+  "radicjs": {
+    "GHSA-56r9-v65c-34jm": "0.2.1"
+  },
+  "rails-session-decoder": {
+    "GHSA-44vf-8ffm-v2qh": ">=0"
+  },
   "randomatic": {
     "CVE-2017-16028": "<3.0.0"
   },
   "randombytes": {},
   "range-parser": {},
+  "rate-map": {
+    "GHSA-x48m-gp6r-gp4v": "1.0.3"
+  },
   "rc": {
     "SNYK-JS-RC-1911120": ">1.2.8"
+  },
+  "rc-calendar-jhorst": {
+    "GHSA-4c87-gg2q-fc6m": "8.4.3"
+  },
+  "rceat": {
+    "GHSA-7w7c-867m-4mqc": ">=0"
+  },
+  "rdf-graph-array": {
+    "GHSA-prv2-xwr7-hr57": "<=0.3.0-rc6"
   },
   "react": {
     "CVE-2018-6341": ">=16.0.0 <16.0.1 || >=16.1.0 <16.1.2 || >=16.2.0 <16.2.1 || >=16.3.0 <16.3.3 || >=16.4.0 <16.4.2"
@@ -5056,6 +5092,12 @@
   },
   "react-bootstrap-table": {
     "CVE-2021-23398": ">=0"
+  },
+  "react-datepicker-plus": {
+    "GHSA-4wcx-c9c4-89p2": ">=2.4.2 <=2.4.3"
+  },
+  "react-dates-sc": {
+    "GHSA-5645-gc7h-98h8": "0.3.0"
   },
   "react-dev-utils": {
     "CVE-2017-16028": "<11.0.4",
@@ -5068,6 +5110,12 @@
   "react-draft-wysiwyg": {
     "CVE-2021-31712": "<1.14.6"
   },
+  "react-marked-markdown": {
+    "GHSA-m7qm-r2r5-f77q": ">=0"
+  },
+  "react-native": {
+    "CVE-2020-1920": ">=0.59.0 <0.64.1"
+  },
   "react-native-baidu-voice-synthesizer": {
     "GMS-2017-2": ">=0.0.0-alpha"
   },
@@ -5076,6 +5124,18 @@
   },
   "react-native-meteor-oauth": {
     "GMS-2017-126": ">=0.0.0-alpha"
+  },
+  "react-native-webview": {
+    "GHSA-36j3-xxf7-4pqg": "<=10.10.2"
+  },
+  "react-oauth-flow": {
+    "GHSA-65m9-m259-7jqw": ">=0"
+  },
+  "react-server-native": {
+    "GHSA-fwvp-x5gj-773j": "0.0.7"
+  },
+  "react-svg": {
+    "GHSA-8xqr-4cpm-wx7g": "<2.2.18"
   },
   "readable-stream": {},
   "record-like-deep-assign": {
