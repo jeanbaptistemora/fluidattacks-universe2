@@ -1,5 +1,5 @@
 resource "aws_vpn_gateway" "main" {
-  vpc_id = aws_vpc.fluid-vpc.id
+  vpc_id = data.aws_vpc.main.id
 
   tags = {
     "Name"               = "main"
@@ -86,15 +86,15 @@ resource "aws_route53_resolver_endpoint" "main" {
   direction = "INBOUND"
 
   security_group_ids = [
-    aws_vpc.fluid-vpc.default_security_group_id
+    var.vpc_default_security_group_id
   ]
 
   ip_address {
-    subnet_id = aws_subnet.main["batch_clone"].id
+    subnet_id = data.aws_subnet.batch_clone.id
   }
 
   ip_address {
-    subnet_id = aws_subnet.main["common"].id
+    subnet_id = data.aws_subnet.common.id
   }
 
   tags = {
@@ -106,7 +106,7 @@ resource "aws_route53_resolver_endpoint" "main" {
 }
 
 resource "aws_ec2_client_vpn_endpoint" "main" {
-  vpc_id                 = aws_vpc.fluid-vpc.id
+  vpc_id                 = data.aws_vpc.main.id
   server_certificate_arn = module.acm.acm_certificate_arn
   client_cidr_block      = "10.0.0.0/22"
   session_timeout_hours  = 12
@@ -138,7 +138,7 @@ resource "aws_ec2_client_vpn_endpoint" "main" {
 
 resource "aws_ec2_client_vpn_network_association" "main" {
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.main.id
-  subnet_id              = aws_subnet.main["batch_clone"].id
+  subnet_id              = data.aws_subnet.batch_clone.id
 }
 
 resource "aws_ec2_client_vpn_authorization_rule" "main" {
@@ -172,7 +172,7 @@ module "vpn" {
   dns             = each.value.dns
   routes          = each.value.routes
   vpn_gateway_id  = aws_vpn_gateway.main.id
-  vpc_id          = aws_vpc.fluid-vpc.id
+  vpc_id          = data.aws_vpc.main.id
 
   tags = {
     "Name"               = each.key
