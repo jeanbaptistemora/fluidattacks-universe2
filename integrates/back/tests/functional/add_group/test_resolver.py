@@ -78,7 +78,6 @@ async def test_add_group(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
@@ -86,7 +85,6 @@ async def test_add_group(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
     ],
 )
 async def test_add_group_fail(populate: bool, email: str) -> None:
