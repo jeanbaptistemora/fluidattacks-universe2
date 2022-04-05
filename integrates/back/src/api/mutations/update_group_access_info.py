@@ -58,7 +58,9 @@ async def mutate(
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Unauthorized role attempted to update group",
+            f"Security: Unauthorized role attempted to update group "
+            f"{group_name}",
         )
+        raise
 
     return SimplePayloadType(success=True)

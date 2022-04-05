@@ -77,5 +77,6 @@ async def mutate(
             f"Security: Unauthorized role attempted to update group "
             f"{group_name}",
         )
+        raise
 
     return SimplePayloadType(success=True)

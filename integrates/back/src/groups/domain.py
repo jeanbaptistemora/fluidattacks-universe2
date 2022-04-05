@@ -1304,7 +1304,7 @@ async def mask_files(
             )
             for file in group.files
         ]
-        await groups_dal.update_metadata_typed(
+        await update_metadata_typed(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(files=masked_files),
         )
