@@ -105,20 +105,6 @@ in {
       };
     };
     modules = {
-      observesCodeEtl = {
-        searchPaths.source = [
-          outputs."/observes/etl/code/env/development"
-        ];
-        python = "3.8";
-        src = "/observes/code_etl/code_etl";
-      };
-      observesCodeEtlTests = {
-        searchPaths.source = [
-          outputs."/observes/etl/code/env/development"
-        ];
-        python = "3.8";
-        src = "/observes/code_etl/tests";
-      };
       observesCommonPaginator = {
         searchPaths.source = [
           outputs."/observes/common/paginator/env/development"

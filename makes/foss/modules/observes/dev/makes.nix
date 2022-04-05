@@ -31,7 +31,7 @@
     };
     observesCodeEtl = {
       source = [
-        outputs."/observes/etl/code/env/development"
+        outputs."${inputs.observesIndex.etl.code.env.dev}"
       ];
     };
     observesTapDynamo = {

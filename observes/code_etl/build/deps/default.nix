@@ -29,7 +29,6 @@
             utils-logger = utils-logger.pkg;
           };
       };
-    inherit system local_lib;
   };
   pythonPkgs2 =
     pythonPkgs

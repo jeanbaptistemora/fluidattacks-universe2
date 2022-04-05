@@ -134,14 +134,6 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/observesCodeEtl";
-          gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/lintPython/module/observesCodeEtlTests";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/lintPython/module/observesCommonPaginator";
           gitlabExtra = gitlabLint;
         }
@@ -308,10 +300,6 @@ in {
         }
         {
           output = "/observes/singer/tap-announcekit/fx-test";
-          gitlabExtra = gitlabTestCode;
-        }
-        {
-          output = "/observes/etl/code/test";
           gitlabExtra = gitlabTestCode;
         }
         {
