@@ -16,7 +16,6 @@ in {
           searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesVpcProd"
-          outputs."/secretsForEnvFromSops/makesVpcVpnData"
           outputs."/secretsForTerraformFromEnv/makesVpc"
         ];
         src = "/makes/foss/modules/makes/vpc/infra";
@@ -31,7 +30,6 @@ in {
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpcDev"
-          outputs."/secretsForEnvFromSops/makesVpcVpnData"
           outputs."/secretsForTerraformFromEnv/makesVpc"
         ];
         src = "/makes/foss/modules/makes/vpc/infra";
@@ -48,16 +46,11 @@ in {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
-    makesVpcVpnData = {
-      vars = ["VPN_DATA_RAW"];
-      manifest = "/makes/secrets/dev.yaml";
-    };
   };
   secretsForTerraformFromEnv = {
     makesVpc = {
       cloudflare_api_key = "CLOUDFLARE_API_KEY";
       cloudflare_email = "CLOUDFLARE_EMAIL";
-      vpnDataRaw = "VPN_DATA_RAW";
     };
   };
   testTerraform = {
@@ -67,7 +60,6 @@ in {
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpcDev"
-          outputs."/secretsForEnvFromSops/makesVpcVpnData"
           outputs."/secretsForTerraformFromEnv/makesVpc"
         ];
         src = "/makes/foss/modules/makes/vpc/infra";

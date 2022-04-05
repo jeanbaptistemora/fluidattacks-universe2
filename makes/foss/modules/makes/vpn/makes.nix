@@ -16,7 +16,7 @@ in {
           searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
           outputs."/secretsForEnvFromSops/makesVpnProd"
-          outputs."/secretsForEnvFromSops/makesVpnVpnData"
+          outputs."/secretsForEnvFromSops/makesVpnData"
           outputs."/secretsForTerraformFromEnv/makesVpn"
         ];
         src = "/makes/foss/modules/makes/vpn/infra";
@@ -31,7 +31,7 @@ in {
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpnDev"
-          outputs."/secretsForEnvFromSops/makesVpnVpnData"
+          outputs."/secretsForEnvFromSops/makesVpnData"
           outputs."/secretsForTerraformFromEnv/makesVpn"
         ];
         src = "/makes/foss/modules/makes/vpn/infra";
@@ -48,7 +48,7 @@ in {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
-    makesVpnVpnData = {
+    makesVpnData = {
       vars = ["VPN_DATA_RAW"];
       manifest = "/makes/secrets/dev.yaml";
     };
@@ -67,7 +67,7 @@ in {
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/makesVpnDev"
-          outputs."/secretsForEnvFromSops/makesVpnVpnData"
+          outputs."/secretsForEnvFromSops/makesVpnData"
           outputs."/secretsForTerraformFromEnv/makesVpn"
         ];
         src = "/makes/foss/modules/makes/vpn/infra";
