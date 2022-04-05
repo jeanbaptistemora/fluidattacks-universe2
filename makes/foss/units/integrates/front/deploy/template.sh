@@ -27,8 +27,8 @@ function deploy {
     && pushd integrates \
     && sops_export_vars "secrets-${env}.yaml" \
       CLOUDFLARE_API_TOKEN \
-    && mkdir -p app/static \
-    && copy "__argCompiledFront__/output/app/static" app/static \
+    && mkdir -p app \
+    && copy "__argCompiledFront__/output/app" app \
     && if test -z "${CI_COMMIT_SHA:-}"; then
       CI_COMMIT_SHA="$(get_commit_from_rev . HEAD)"
     fi \

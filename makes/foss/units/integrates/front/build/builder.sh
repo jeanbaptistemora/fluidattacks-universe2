@@ -21,6 +21,7 @@ function main {
       --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
       --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \
       --env INTEGRATES_DEPLOYMENT_DATE="${INTEGRATES_DEPLOYMENT_DATE}" \
+    && npx build-storybook -o ../app/storybook \
     && popd \
     && mkdir -p app/static/external/C3 \
     && copy "${envExternalC3}" app/static/external/C3 \
