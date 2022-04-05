@@ -65,7 +65,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str,
     role: str,
-    **query_args: str,
+    **kwargs: str,
 ) -> GrantStakeholderAccessPayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
@@ -73,8 +73,8 @@ async def mutate(
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     new_user_role = map_roles(role)
-    new_user_email = query_args.get("email", "")
-    new_user_responsibility = query_args.get("responsibility", "-")
+    new_user_email = kwargs.get("email", "")
+    new_user_responsibility = kwargs.get("responsibility", "-")
 
     group_access = await group_access_domain.get_user_access(
         new_user_email, group_name

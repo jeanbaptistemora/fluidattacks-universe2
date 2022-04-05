@@ -10,7 +10,6 @@ from back.tests.functional.utils import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -30,7 +29,7 @@ async def test_grant_stakeholder_access(
     group_name: str = "group2"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
         group=group_name,
@@ -44,7 +43,7 @@ async def test_grant_stakeholder_access(
         == stakeholder_email
     )
 
-    stakeholders: Dict[str, Any] = await get_stakeholders(
+    stakeholders: dict[str, Any] = await get_stakeholders(
         user=email, group=group_name
     )
 
@@ -55,7 +54,7 @@ async def test_grant_stakeholder_access(
 
     if confirm:
         await complete_register(stakeholder_email, group_name)
-        stakeholders_after_confirm: Dict[str, Any] = await get_stakeholders(
+        stakeholders_after_confirm: dict[str, Any] = await get_stakeholders(
             user=email, group=group_name
         )
 
@@ -67,7 +66,7 @@ async def test_grant_stakeholder_access(
                 assert stakeholder["invitationState"] == "CONFIRMED"
     else:
         await reject_register(stakeholder_email, group_name)
-        stakeholders_after_reject: Dict[str, Any] = await get_stakeholders(
+        stakeholders_after_reject: dict[str, Any] = await get_stakeholders(
             user=email, group=group_name
         )
 
@@ -103,7 +102,7 @@ async def test_grant_stakeholder_access_fail(
     stakeholder_email: str = "hacker@gmail.com"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
         group=group_name,

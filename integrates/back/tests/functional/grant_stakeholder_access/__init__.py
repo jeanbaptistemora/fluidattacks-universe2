@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -18,7 +17,7 @@ async def get_result(
     group: str,
     responsibility: str,
     role: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             grantStakeholderAccess (
@@ -34,7 +33,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(
@@ -48,7 +47,7 @@ async def get_stakeholders(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query GetStakeholders($groupName: String!) {
             group (groupName: $groupName) {
@@ -59,7 +58,7 @@ async def get_stakeholders(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "groupName": group,
