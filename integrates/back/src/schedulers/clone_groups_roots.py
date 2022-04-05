@@ -62,9 +62,7 @@ async def _queue_sync_git_roots(
 async def clone_groups_roots() -> None:
     loaders: Dataloaders = get_new_context()
 
-    groups: List[str] = sorted(
-        await groups_domain.get_active_groups(), reverse=True
-    )
+    groups: List[str] = await groups_domain.get_active_groups()
 
     for group in groups:
         result = await _queue_sync_git_roots(

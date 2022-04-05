@@ -703,7 +703,8 @@ async def put_action(  # pylint: disable=too-many-locals
         and (not current_action.running)
     ):
         LOGGER.info(
-            "There is a job that is still in queue, it will be updated",
+            "There is a job that is still in queue for %s, it will be updated",
+            entity,
             extra={"extra": None},
         )
         success = await update_action_to_dynamodb(

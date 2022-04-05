@@ -748,6 +748,12 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     roots_in_current_actions: Set[str] = set()
     current_action = None
     if current_jobs:
+        LOGGER.info(
+            "There are %s jobs in queue for %s",
+            len(current_jobs),
+            group_name,
+            extra={"extra": None},
+        )
         current_action = current_jobs[0]
         current_jobs = current_jobs[1:]
         roots_in_current_actions = {*current_action.additional_info.split(",")}
@@ -759,6 +765,12 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         }
         await delete_action(dynamodb_pk=action.key)
         if action.batch_job_id:
+            LOGGER.info(
+                "Canceling batch job %s for %s",
+                action.batch_job_id,
+                group_name,
+                extra={"extra": None},
+            )
             await cancel_batch_job(job_id=action.batch_job_id)
 
     last_commits_dict: Dict[str, Optional[str]] = dict(
