@@ -68,7 +68,7 @@ def _test_native_cipher(
         and (algorithm_value := algorithm.value)
         and javascript_cipher_vulnerable(algorithm_value)
     ):
-        yield get_vulnerabilities_from_n_ids(
+        yield from get_vulnerabilities_from_n_ids(
             desc_key=("src.lib_path.f052.insecure_cipher.description"),
             desc_params=dict(lang="JavaScript"),
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
@@ -82,7 +82,7 @@ def _test_native_cipher(
             shard.syntax,
             {"createCipheriv", "createDecipheriv"},
         )
-        yield shard_n_id_query(
+        yield from shard_n_id_query(
             shard_db,
             graph_db,
             shard,
@@ -109,7 +109,7 @@ def _test_crypto_js(
     methods = set(chain.from_iterable(build_attr_paths(*m) for m in _methods))
     _, method_name = split_on_first_dot(invocation_step.method)
     if method_name in methods:
-        yield get_vulnerabilities_from_n_ids(
+        yield from get_vulnerabilities_from_n_ids(
             desc_key=("src.lib_path.f052.insecure_cipher.description"),
             desc_params=dict(lang="JavaScript"),
             graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
@@ -128,7 +128,7 @@ def _test_crypto_js(
             shard.syntax,
             {"encrypt"},
         )
-        yield shard_n_id_query(
+        yield from shard_n_id_query(
             shard_db,
             graph_db,
             shard,
@@ -169,14 +169,14 @@ def javascript_insecure_hash(
                     )
                 )
             ):
-                yield get_vulnerabilities_from_n_ids(
+                yield from get_vulnerabilities_from_n_ids(
                     desc_key=("src.lib_path.f052.insecure_cipher.description"),
                     desc_params=dict(lang="JavaScript"),
                     graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
                     method=MethodsEnum.JS_INSECURE_HASH,
                 )
 
-    return tuple(chain.from_iterable(find_vulns()))
+    return tuple(find_vulns())
 
 
 def javascript_insecure_cipher(
@@ -205,7 +205,7 @@ def javascript_insecure_cipher(
                 invocation_step,
             )
 
-    return tuple(chain.from_iterable(find_vulns()))
+    return tuple(find_vulns())
 
 
 def javascript_insecure_key(
@@ -231,7 +231,7 @@ def javascript_insecure_key(
                     and (algorithm_value := curve.value)
                     and insecure_elliptic_curve(algorithm_value)
                 ):
-                    yield get_vulnerabilities_from_n_ids(
+                    yield from get_vulnerabilities_from_n_ids(
                         desc_key="src.lib_path.f052.insecure_key.description",
                         desc_params=dict(lang="JavaScript"),
                         graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
@@ -245,7 +245,7 @@ def javascript_insecure_key(
                     shard.syntax,
                     {"generateKeyPair"},
                 )
-                yield shard_n_id_query(
+                yield from shard_n_id_query(
                     shard_db,
                     graph_db,
                     shard,
@@ -253,4 +253,4 @@ def javascript_insecure_key(
                     method=method,
                 )
 
-    return tuple(chain.from_iterable(find_vulns()))
+    return tuple(find_vulns())

@@ -1,6 +1,3 @@
-from itertools import (
-    chain,
-)
 from lib_root.utilities.javascript import (
     yield_method_invocation,
 )
@@ -59,7 +56,7 @@ def weak_random(
                     shard.syntax,
                     {"cookie"},
                 )
-                yield shard_n_id_query(
+                yield from shard_n_id_query(
                     shard_db,
                     graph_db,
                     shard,
@@ -67,4 +64,4 @@ def weak_random(
                     method=method,
                 )
 
-    return tuple(chain.from_iterable(find_vulns()))
+    return tuple(find_vulns())
