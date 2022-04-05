@@ -214,8 +214,8 @@ async def finish_machine_execution(
 
 
 async def remove_secret(root_id: str, secret_key: str) -> None:
-    secret_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["git_root_secret"],
         values={"uuid": root_id, "key": secret_key},
     )
-    await operations.delete_item(key=secret_key, table=TABLE)
+    await operations.delete_item(key=primary_key, table=TABLE)

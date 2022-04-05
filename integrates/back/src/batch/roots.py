@@ -70,7 +70,7 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesRequest,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from db_model.vulnerabilities.enums import (
@@ -181,7 +181,7 @@ async def update_indicators(
     await update_unreliable_indicators_by_deps(
         EntityDependency.move_root,
         finding_ids=[finding_id],
-        vulnerability_ids=vuln_ids,
+        vulnerability_ids=list(vuln_ids),
     )
 
 

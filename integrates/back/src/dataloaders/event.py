@@ -9,9 +9,6 @@ from custom_types import (
     Event as EventType,
     Historic,
 )
-from db_model.events.types import (
-    Event,
-)
 from events import (
     domain as events_domain,
 )
@@ -35,8 +32,8 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
     for event in evnts:
         history: Historic = cast(Historic, event.get("historic_state", []))
         event_id: str = cast(str, event["event_id"])
-        client_group: str = event.get(
-            "client_group", event.get("client_project", "")
+        client_group = str(
+            event.get("client_group", event.get("client_project", ""))
         )
         group_name: str = get_key_or_fallback(event, fallback="")
         events[event_id] = dict(
@@ -81,7 +78,5 @@ class EventLoader(DataLoader):
 
 class EventTypedLoader(DataLoader):
     # pylint: disable=no-self-use
-    async def batch_load_fn(
-        self, event_ids: Iterable[str]
-    ) -> Tuple[Event, ...]:
+    async def batch_load_fn(self, event_ids: Iterable[str]) -> Tuple[str, ...]:
         return tuple(event_ids)

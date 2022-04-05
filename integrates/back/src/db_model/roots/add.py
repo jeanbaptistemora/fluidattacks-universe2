@@ -65,7 +65,7 @@ async def add(*, root: RootItem) -> None:
         }
         items.append(historic_cloning_item)
 
-    await operations.batch_put_item(items=items, table=TABLE)
+    await operations.batch_put_item(items=tuple(items), table=TABLE)
 
 
 async def add_machine_execution(
