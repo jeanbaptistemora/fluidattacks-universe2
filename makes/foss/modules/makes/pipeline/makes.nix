@@ -99,10 +99,6 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesVpc";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/lintTerraform/makesCi";
           gitlabExtra = gitlabLint;
         }
@@ -136,6 +132,10 @@ in {
         }
         {
           output = "/lintTerraform/makesVpc";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesVpn";
           gitlabExtra = gitlabLint;
         }
         {
@@ -212,6 +212,10 @@ in {
         }
         {
           output = "/testTerraform/makesVpc";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesVpn";
           gitlabExtra = gitlabTestInfra;
         }
       ];

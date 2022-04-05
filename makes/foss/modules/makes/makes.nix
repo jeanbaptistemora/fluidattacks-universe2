@@ -12,6 +12,7 @@
     ./status/makes.nix
     ./users/makes.nix
     ./vpc/makes.nix
+    ./vpn/makes.nix
   ];
   secretsForAwsFromEnv = {
     dev = {
