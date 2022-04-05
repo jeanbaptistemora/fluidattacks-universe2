@@ -472,7 +472,12 @@ async def get_secrets(
         table=TABLE,
     )
     return tuple(
-        Secret(key=item["key"], value=item["value"]) for item in response.items
+        Secret(
+            key=item["key"],
+            value=item["value"],
+            description=item.get("description"),
+        )
+        for item in response.items
     )
 
 

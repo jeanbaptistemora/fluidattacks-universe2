@@ -3,6 +3,7 @@ from aioextensions import (
 )
 from boto3.dynamodb.conditions import (
     Attr,
+    ConditionBase,
     Key,
 )
 from botocore.exceptions import (
@@ -149,7 +150,7 @@ async def get_access_by_url_token(
 ) -> Dict[str, Dict[str, Any]]:
     """Get user access of a organization by the url token"""
     key = {"pk": organization_id, "sk": f"USER#{user_email}"}
-    get_attrs = {"Key": key}
+    get_attrs = {"Key": cast(ConditionBase, key)}
     item = await dynamodb_get_item(TABLE_NAME, get_attrs)
     return item
 

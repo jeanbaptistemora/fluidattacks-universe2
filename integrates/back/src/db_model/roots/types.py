@@ -32,6 +32,7 @@ class GitEnvironmentUrl(NamedTuple):
 class Secret(NamedTuple):
     key: str
     value: str
+    description: Optional[str] = None
 
 
 class GitRootState(NamedTuple):

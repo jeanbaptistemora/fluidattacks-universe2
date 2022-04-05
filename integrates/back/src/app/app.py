@@ -5,17 +5,6 @@ IMPORTANT
 Unlike standard Python functionality, the import order matters:
 the agent package must be imported first.
 """
-# flake8: noqa
-from newutils.utils import (
-    get_key_or_fallback,
-)
-from settings import (
-    DEBUG,
-    JWT_COOKIE_NAME,
-    LOGGING,
-    TEMPLATES_DIR,
-)
-
 from . import (
     utils,
 )
@@ -91,6 +80,10 @@ from newutils import (
     analytics,
     templates,
 )
+# flake8: noqa
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -100,6 +93,12 @@ from redis_cluster.operations import (
 )
 from sessions import (
     dal as sessions_dal,
+)
+from settings import (
+    DEBUG,
+    JWT_COOKIE_NAME,
+    LOGGING,
+    TEMPLATES_DIR,
 )
 from starlette.applications import (
     Starlette,

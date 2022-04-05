@@ -111,6 +111,7 @@ async def add_secret(
         key_structure.sort_key: secret_key.sort_key,
         "key": secret.key,
         "value": secret.value,
+        "description": secret.description,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(

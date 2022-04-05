@@ -104,6 +104,8 @@ type IPRoot implements IRoot {
 
 "Git root secret"
 type Secret {
+  "Description of secret"
+  description: String
   "Secret key"
   key: String!
   "Secret value"

@@ -1062,15 +1062,16 @@ async def add_machine_execution(
     return await roots_model.add_machine_execution(root_id, execution)
 
 
-async def add_secret(
+async def add_secret(  # pylint: disable=too-many-arguments
     loaders: Any,
     group_name: str,
     root_id: str,
     key: str,
     value: str,
+    description: Optional[str] = None,
 ) -> bool:
     await loaders.root.load((group_name, root_id))
-    secret = Secret(key=key, value=value)
+    secret = Secret(key=key, value=value, description=description)
     return await roots_model.add_secret(root_id, secret)
 
 

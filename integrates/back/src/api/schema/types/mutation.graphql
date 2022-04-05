@@ -305,6 +305,8 @@ type Mutation {
 
   "Adds a machine execution to git root"
   addSecret(
+    "Description of secret"
+    description: String
     "Name of the group the root is associated with"
     groupName: String!
     "Secret key"

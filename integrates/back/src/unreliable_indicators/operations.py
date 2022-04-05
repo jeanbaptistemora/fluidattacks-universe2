@@ -53,6 +53,7 @@ from roots import (
     domain as roots_domain,
 )
 from typing import (
+    cast,
     List,
     Optional,
     Set,
@@ -393,7 +394,10 @@ async def update_unreliable_indicators_by_deps(
     if Entity.root in entities_to_update:
         updates.append(
             update_roots_unreliable_indicators(
-                entities_to_update[Entity.root].entity_ids[EntityId.ids],
+                cast(
+                    List[Tuple[str, str]],
+                    entities_to_update[Entity.root].entity_ids[EntityId.ids],
+                ),
                 entities_to_update[Entity.root].attributes_to_update,
             )
         )

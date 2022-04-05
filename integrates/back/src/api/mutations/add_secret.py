@@ -15,6 +15,9 @@ from graphql.type.definition import (
 from roots.domain import (
     add_secret,
 )
+from typing import (
+    Optional,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -22,16 +25,17 @@ from roots.domain import (
     require_login,
     enforce_group_level_auth_async,
 )
-async def mutate(
+async def mutate(  # pylint: disable=too-many-arguments
     _: None,
     info: GraphQLResolveInfo,
     group_name: str,
     key: str,
     value: str,
     root_id: str,
+    description: Optional[str] = None,
 ) -> SimplePayload:
     result = await add_secret(
-        info.context.loaders, group_name, root_id, key, value
+        info.context.loaders, group_name, root_id, key, value, description
     )
 
     return SimplePayload(success=result)

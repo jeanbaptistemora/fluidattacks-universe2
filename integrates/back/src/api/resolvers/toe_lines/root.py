@@ -13,11 +13,14 @@ from graphql.type.definition import (
 from roots import (
     domain as roots_domain,
 )
+from roots.types import (
+    Root,
+)
 
 
 async def resolve(
     parent: ToeLines, info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> Root:
     loaders: Dataloaders = info.context.loaders
     root: RootItem = await loaders.root.load(
         (parent.group_name, parent.root_id)

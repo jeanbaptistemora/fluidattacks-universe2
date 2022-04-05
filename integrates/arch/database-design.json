@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Mar 29, 2022, 2:39 AM",
+    "DateLastModified": "Apr 4, 2022, 3:25 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1751,13 +1751,16 @@
               },
               "value": {
                 "S": "jane_doe"
+              },
+              "description":{
+                "S": "User name for user management"
               }
             }
           ],
           "NonKeyAttributes": [
             "key",
             "value",
-            "id"
+            "description"
           ]
         },
         {
