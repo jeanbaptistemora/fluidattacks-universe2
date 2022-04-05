@@ -5601,7 +5601,17 @@
   title: WASC
   en:
     description: >
-      ...
+      The WASC Threat Classification is
+      a cooperative effort to clarify
+      and organize the threats to the
+      security of a web site.
+      It outlines the attacks and
+      weaknesses that can lead to
+      the compromise of a website,
+      its data,
+      or its users.
+      The version used in this section
+      is WASC Threat Classification v2.0.
   es:
     description: __empty__
   definitions:
