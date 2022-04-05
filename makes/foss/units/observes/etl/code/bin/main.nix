@@ -5,11 +5,11 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run code_etl.cli main "$@"
+    observes-etl-code-bin "$@"
   '';
   searchPaths = {
     source = [
-      outputs."/observes/etl/code/env/runtime"
+      outputs."/observes/etl/code/env/bin"
       outputs."/observes/common/import-and-run"
     ];
   };

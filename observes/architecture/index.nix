@@ -19,7 +19,7 @@ let
     inherit root;
     env = {
       runtime = makes_pkg "${root}/env/runtime";
-      dev = makes_pkg "${root}/env/development";
+      dev = makes_pkg "${root}/env/dev";
     };
     lint = makes_pkg "${root}/lint";
     test = makes_pkg "${root}/test";
@@ -44,7 +44,7 @@ in {
       // {
         env = {
           runtime = "/observes/etl/dynamo/conf/env/runtime";
-          dev = "/observes/etl/dynamo/conf/env/development";
+          dev = "/observes/etl/dynamo/conf/env/dev";
         };
       };
     code =
