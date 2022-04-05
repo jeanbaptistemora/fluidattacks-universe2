@@ -15,7 +15,7 @@ const FaqContainer = styled.div.attrs({
     mv5
   `,
 })`
-  width: 1088px;
+  width: 1200px;
 `;
 
 const FaqParagraph = styled.p.attrs({

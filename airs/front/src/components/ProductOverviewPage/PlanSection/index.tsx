@@ -56,7 +56,7 @@ const PlanSection: React.FC<IProps> = ({
         <CloudImage
           alt={"Product Overview"}
           src={"/airs/product-overview/product-overview-video"}
-          styles={"flex center mb5 w-60"}
+          styles={"flex center mb5 w-60-l w-100"}
         />
       </FullWidthContainer>
     </Container>

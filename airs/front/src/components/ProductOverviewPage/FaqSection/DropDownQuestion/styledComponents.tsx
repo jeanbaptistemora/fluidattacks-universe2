@@ -20,6 +20,8 @@ const QuestionTitle = styled.div.attrs({
   `,
 })`
   border-bottom: solid 1px #ceced7;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 `;
 
 const AnswerContainer = styled.div.attrs({
@@ -29,6 +31,8 @@ const AnswerContainer = styled.div.attrs({
 })<{ isItem: boolean }>`
   padding-top: ${({ isItem }): string => (isItem ? "2rem" : "1rem")};
   padding-bottom: ${({ isItem }): string => (isItem ? "1rem" : "0.5rem")};
+  padding-left: ${({ isItem }): string => (isItem ? "3rem" : "1.5rem")};
+  padding-rigth: ${({ isItem }): string => (isItem ? "3rem" : "1.5rem")};
   display: none;
 `;
 

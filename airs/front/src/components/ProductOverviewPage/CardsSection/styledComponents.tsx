@@ -14,7 +14,7 @@ const CardContainer = styled.div.attrs({
   className: `
     bg-fluid-black
     mh3
-    mv5
+    mb4
     pv4
     ph3
     tc
@@ -50,8 +50,11 @@ const CardsContainer = styled.div.attrs({
   className: `
     center
     flex
+    mb4
+    mt5
     justify-around
     flex-wrap
+    flex-nowrap-l
     mw-1920
   `,
 })``;
