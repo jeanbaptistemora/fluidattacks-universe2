@@ -1,6 +1,5 @@
 {
   imports = [
-    ./dev/makes.nix
     ./infra_roles/makes.nix
     ./prod/makes/makes.nix
   ];

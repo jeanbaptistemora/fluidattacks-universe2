@@ -33,6 +33,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [
+          "module.dev_aws.aws_iam_access_key._1"
           "module.prod_airs_aws.aws_iam_access_key._1"
           "module.prod_docs_aws.aws_iam_access_key._1"
           "module.prod_forces_aws.aws_iam_access_key._1"
@@ -55,6 +56,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsers"
         ];
         resources = [
+          "module.dev_aws.aws_iam_access_key._2"
           "module.prod_airs_aws.aws_iam_access_key._2"
           "module.prod_docs_aws.aws_iam_access_key._2"
           "module.prod_forces_aws.aws_iam_access_key._2"
