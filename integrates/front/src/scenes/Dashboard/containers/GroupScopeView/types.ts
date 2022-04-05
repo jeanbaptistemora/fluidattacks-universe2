@@ -21,6 +21,7 @@ interface IGitRootAttr {
   id: string;
   nickname: string;
   secrets: {
+    description: string;
     key: string;
     value: string;
   }[];

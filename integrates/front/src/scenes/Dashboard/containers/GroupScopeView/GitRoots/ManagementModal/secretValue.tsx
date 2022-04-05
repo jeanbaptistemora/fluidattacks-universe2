@@ -5,20 +5,23 @@ import React, { useCallback } from "react";
 import { Button } from "components/Button";
 
 const SecretValue: React.FC<{
+  secretDescription: string;
   secretKey: string;
   secretValue: string;
-  onEdit: (key: string, value: string) => void;
+  onEdit: (key: string, value: string, description: string) => void;
 }> = ({
+  secretDescription,
   secretKey,
   secretValue,
   onEdit,
 }: {
+  secretDescription: string;
   secretKey: string;
   secretValue: string;
-  onEdit: (key: string, value: string) => void;
+  onEdit: (key: string, value: string, description: string) => void;
 }): JSX.Element => {
   function handleOnEdit(): void {
-    onEdit(secretKey, secretValue);
+    onEdit(secretKey, secretValue, secretDescription);
   }
 
   return (

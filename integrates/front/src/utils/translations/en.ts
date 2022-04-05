@@ -755,6 +755,7 @@ export const enTranslations: ResourceKey = {
             password: "Repository password",
             secrets: {
               add: "Add secret",
+              description: "Secret description",
               key: "Key",
               remove: "Remove",
               removed: "removed",

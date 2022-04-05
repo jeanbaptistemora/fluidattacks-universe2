@@ -19,6 +19,7 @@ import { translate } from "utils/translations/translate";
 interface ISecretsProps {
   groupName: string;
   isUpdate: boolean;
+  secretDescription: string;
   secretKey: string;
   rootId: string;
   secretValue: string;
@@ -57,6 +58,7 @@ function getSecretSchema(
 const AddSecret: React.FC<ISecretsProps> = ({
   groupName,
   isUpdate,
+  secretDescription,
   secretKey,
   rootId,
   secretValue,
@@ -64,7 +66,11 @@ const AddSecret: React.FC<ISecretsProps> = ({
   isDuplicated,
   handleSubmitSecret,
 }: ISecretsProps): JSX.Element => {
-  const initialValues = { key: secretKey, value: secretValue };
+  const initialValues = {
+    description: secretDescription,
+    key: secretKey,
+    value: secretValue,
+  };
 
   const { t } = useTranslation();
   const [addSecret] = useMutation(ADD_SECRET, {
@@ -102,9 +108,17 @@ const AddSecret: React.FC<ISecretsProps> = ({
   });
 
   const handleSecretSubmit = useCallback(
-    async ({ key, value }: { key: string; value: string }): Promise<void> => {
+    async ({
+      description,
+      key,
+      value,
+    }: {
+      description: string;
+      key: string;
+      value: string;
+    }): Promise<void> => {
       await addSecret({
-        variables: { groupName, key, rootId, value },
+        variables: { description, groupName, key, rootId, value },
       });
     },
     [addSecret, groupName, rootId]
@@ -146,11 +160,21 @@ const AddSecret: React.FC<ISecretsProps> = ({
                 <div className={"mt3"}>
                   <ControlLabel>
                     <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {"Value"}
+                    {t("group.scope.git.repo.credentials.secrets.value")}
                   </ControlLabel>
                   <Field
                     component={FormikTextArea}
                     name={"value"}
+                    type={"text"}
+                  />
+                </div>
+                <div className={"mt3"}>
+                  <ControlLabel>
+                    {t("group.scope.git.repo.credentials.secrets.description")}
+                  </ControlLabel>
+                  <Field
+                    component={FormikTextArea}
+                    name={"description"}
                     type={"text"}
                   />
                 </div>

@@ -52,6 +52,7 @@ const GET_ROOT: DocumentNode = gql`
     root(groupName: $groupName, rootId: $rootId) {
       ... on GitRoot {
         secrets {
+          description
           key
           value
         }
@@ -125,12 +126,14 @@ const ADD_SECRET: DocumentNode = gql`
     $key: String!
     $value: String!
     $groupName: String!
+    $description: String
   ) {
     addSecret(
       rootId: $rootId
       key: $key
       value: $value
       groupName: $groupName
+      description: $description
     ) {
       success
     }

@@ -15,10 +15,12 @@ import { Table } from "components/Table";
 import { Logger } from "utils/logger";
 
 interface ISecret {
+  description: string;
   key: string;
   value: string;
 }
 interface ISecretItem {
+  description: string;
   element: JSX.Element;
   key: string;
   value: string;
@@ -35,7 +37,7 @@ const Secrets: React.FC<ISecretsProps> = ({
 }: ISecretsProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const defaultCurrentRow: ISecret = { key: "", value: "" };
+  const defaultCurrentRow: ISecret = { description: "", key: "", value: "" };
   const [currentRow, updateRow] = useState(defaultCurrentRow);
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -48,8 +50,12 @@ const Secrets: React.FC<ISecretsProps> = ({
     },
     variables: { groupName, rootId: gitRootId },
   });
-  function editCurrentRow(key: string, value: string): void {
-    updateRow({ key, value });
+  function editCurrentRow(
+    key: string,
+    value: string,
+    description: string
+  ): void {
+    updateRow({ description, key, value });
     setIsUpdate(true);
     setAddSecretModalOpen(true);
   }
@@ -59,9 +65,11 @@ const Secrets: React.FC<ISecretsProps> = ({
       ? []
       : data.root.secrets.map((item: ISecret): ISecretItem => {
           return {
+            description: item.description,
             element: (
               <SecretValue
                 onEdit={editCurrentRow}
+                secretDescription={item.description}
                 secretKey={item.key}
                 secretValue={item.value}
               />
@@ -95,6 +103,7 @@ const Secrets: React.FC<ISecretsProps> = ({
           isDuplicated={isSecretDuplicated}
           isUpdate={isUpdate}
           rootId={gitRootId}
+          secretDescription={currentRow.description}
           secretKey={currentRow.key}
           secretValue={currentRow.value}
         />
