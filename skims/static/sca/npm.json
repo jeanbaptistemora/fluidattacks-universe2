@@ -3587,8 +3587,17 @@
   "lactate": {
     "GMS-2018-6": ">=0.0.0-alpha"
   },
+  "ladder-text-js": {
+    "GHSA-33gc-f8v9-v8hm": ">=0"
+  },
   "larvitbase-api": {
     "CVE-2019-5479": "<0.5.5"
+  },
+  "larvitbase-www": {
+    "GHSA-88h9-fc6v-jcw7": ">=0"
+  },
+  "launchpad": {
+    "GHSA-7h8x-wmq2-7mff": "<=0.7.5"
   },
   "lazysizes": {
     "CVE-2020-7642": "<=5.2.0"
@@ -3598,6 +3607,12 @@
   },
   "ldapauth-fork": {
     "CVE-2015-7294": "<2.3.3"
+  },
+  "leaflet-gpx": {
+    "GHSA-gjc9-932x-c59p": "1.0.1"
+  },
+  "leetlog": {
+    "GHSA-gfm8-g3vm-53jh": ">=0.1.2"
   },
   "lemonldap-ng-handler": {
     "CVE-2020-24660": "<=0.5.2",
@@ -3636,11 +3651,17 @@
     "CVE-2016-10675": "<=0.0.2",
     "GMS-2017-24": ">=0.0.0-alpha"
   },
+  "libubx": {
+    "GHSA-m7xv-7p93-g6q8": "1.0.3"
+  },
   "libxl": {
     "GMS-2016-119": ">=0.2.20"
   },
   "libyaml": {
     "CVE-2013-6393": "<0.2.3"
+  },
+  "lighter-vm": {
+    "GHSA-c3hq-7mxh-mqxf": ">=0"
   },
   "lightning-server": {
     "CVE-2020-7747": ">=0"
@@ -3663,9 +3684,18 @@
     "CVE-2017-16170": "=1.0.0",
     "GMS-2017-261": ">=0.0.0-alpha"
   },
+  "lix": {
+    "GHSA-q8xg-8xwf-m598": "<=15.11.4"
+  },
   "liyujing": {
     "CVE-2017-16120": ">=1.0.0 <=1.1.0",
     "GMS-2017-231": ">=0.0.0-alpha"
+  },
+  "llhttp": {
+    "CVE-2021-22960": "<2.1.4 || >=3.0.0 <6.0.6"
+  },
+  "load-from-cwd-or-npm": {
+    "GHSA-jxf5-7x3j-8j9m": "=3.0.2"
   },
   "loader-utils": {},
   "loadyaml": {
