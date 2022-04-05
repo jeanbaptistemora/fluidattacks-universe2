@@ -568,11 +568,11 @@ const Machine = [
         items: [
           'machine/web/analytics/introduction',
           'machine/web/analytics/reports',
-          'machine/web/analytics/chart',
           'machine/web/analytics/common',
           'machine/web/analytics/organization',
           'machine/web/analytics/portfolio',
           'machine/web/analytics/groups',
+          'machine/web/analytics/chart-options',
         ],
       },
     ],
