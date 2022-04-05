@@ -95,10 +95,6 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesVpc";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/lintTerraform/makesCi";
           gitlabExtra = gitlabLint;
         }
