@@ -69,6 +69,7 @@ def _propagate_return_type(args: EvaluatorArgs) -> None:
     if (
         method_var
         and (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+        and isinstance(method_var_decl, SyntaxStepDeclaration)
         and method_var_decl.var_type
     ):
         base_type, _ = split_on_last_dot(method_var_decl.var_type)
@@ -160,7 +161,7 @@ def attempt_by_obj(
     method_var, method_path = split_on_first_dot(method)
 
     if (
-        method_var_decl
+        isinstance(method_var_decl, SyntaxStepDeclaration)
         and (
             method_var_decl.var_type_base
             and method_path in BY_OBJ.get(method_var_decl.var_type_base, {})
@@ -187,7 +188,7 @@ def attempt_by_obj_args(
     _, method_path = split_on_first_dot(method)
 
     if (
-        method_var_decl
+        isinstance(method_var_decl, SyntaxStepDeclaration)
         and (
             method_var_decl.var_type_base
             and method_path
@@ -216,7 +217,12 @@ def attempt_by_type_args_propagation(
 
     _, method_path = split_on_first_dot(method)
 
-    if args_danger and method_var_decl and method_var_decl.var_type_base:
+    if (
+        args_danger
+        and method_var_decl
+        and isinstance(method_var_decl, SyntaxStepDeclaration)
+        and method_var_decl.var_type_base
+    ):
         if method_path in (
             BY_TYPE_ARGS_PROPAGATION.get(method_var_decl.var_type_base, {})
         ):
@@ -250,6 +256,7 @@ def attempt_by_type_and_value_finding(
 
     if (
         method_var_decl
+        and isinstance(method_var_decl, SyntaxStepDeclaration)
         and method_var_decl.var_type_base
         and (
             methods := (
@@ -296,14 +303,15 @@ def attempt_by_type(
 
     if (
         method_var_decl
+        and isinstance(method_var_decl, SyntaxStepDeclaration)
         and method_var_decl.var_type_base
         and (method_path in BY_TYPE.get(method_var_decl.var_type_base, {}))
     ):
         args.syntax_step.meta.danger = True
         return True
 
-    if (method_var_decl := lookup_field(args, method_var)) and (
-        method_path in BY_TYPE.get(method_var_decl.metadata.var_type, {})
+    if (look_field := lookup_field(args, method_var)) and (
+        method_path in BY_TYPE.get(look_field.metadata.var_type, {})
     ):
         args.syntax_step.meta.danger = True
         return True
@@ -323,7 +331,11 @@ def attemp_by_type_handler(
 ) -> bool:
     _, method_path = split_on_first_dot(method)
 
-    if method_var_decl and method_var_decl.var_type_base:
+    if (
+        method_var_decl
+        and isinstance(method_var_decl, SyntaxStepDeclaration)
+        and method_var_decl.var_type_base
+    ):
         var_type = method_var_decl.var_type_base
         if handlers := BY_TYPE_HANDLER.get(var_type, {}).get(method_path):
             for handler in handlers:
@@ -410,7 +422,7 @@ def analyze_method_invocation_external(
     _, method_path = split_on_first_dot(method)
     method_var_decl_type = None
 
-    if method_var_decl:
+    if method_var_decl and isinstance(method_var_decl, SyntaxStepDeclaration):
         method_var_decl_type = method_var_decl.var_type
     # lookup methods with teh format new Test().some()
     # last argument is teh instance
@@ -494,7 +506,7 @@ def analyze_method_invocation_values(
                 fields={},
                 class_name=method_var_decl_type,
             )
-            if lookup_class(args, _method.metadata.class_name)
+            if lookup_class(args, str(_method.metadata.class_name))
             else None
         )
 
@@ -576,7 +588,7 @@ def analyze_unvalidated_method(
     )
     _, method_path = split_on_first_dot(method)
     if len(dangers_args) > 0 and (
-        method_var_decl
+        isinstance(method_var_decl, SyntaxStepDeclaration)
         and method_var_decl.var_type_base
         and method_path
         in (BY_UNVALIDATED_ARGUMENTS.get(method_var_decl.var_type_base, {}))

@@ -2,6 +2,7 @@ from contextlib import (
     suppress,
 )
 from model.graph_model import (
+    SyntaxStepDeclaration,
     SyntaxStepLiteral,
     SyntaxStepMemberAccessExpression,
     SyntaxStepMeta,
@@ -153,9 +154,11 @@ def evaluate(args: EvaluatorArgs) -> None:
     if v_dcl := lookup_var_dcl_by_name(args, var):
         if isinstance(v_dcl.meta.value, JavaClassInstance):
             v_dcl.meta.value.fields[field] = args.syntax_step
-        elif isinstance(dependency, SyntaxStepMemberAccessExpression):
+        elif isinstance(
+            dependency, SyntaxStepMemberAccessExpression
+        ) and isinstance(v_dcl, SyntaxStepDeclaration):
             full_expression = f"{dependency.expression}.{dependency.member}"
-            if full_expression in vuln_assign.get(v_dcl.var_type, set()):
+            if full_expression in vuln_assign.get(str(v_dcl.var_type), set()):
                 args.syntax_step.meta.danger = True
         elif (
             isinstance(dependency, SyntaxStepLiteral)
@@ -163,16 +166,17 @@ def evaluate(args: EvaluatorArgs) -> None:
             and dependency.meta.value in vuln_literal.get(field, set())
         ):
             args.syntax_step.meta.danger = True
-        elif isinstance(
-            dependency, SyntaxStepSymbolLookup
-        ) and lookup_var_value(
-            args, args.dependencies[0].symbol
-        ) in vuln_assign.get(
-            v_dcl.var_type, set()
+        elif (
+            isinstance(dependency, SyntaxStepSymbolLookup)
+            and isinstance(v_dcl, SyntaxStepDeclaration)
+            and lookup_var_value(args, args.dependencies[0].symbol)
+            in vuln_assign.get(str(v_dcl.var_type), set())
         ):
             args.syntax_step.meta.danger = True
 
-        if field in vuln_field_access.get(v_dcl.var_type, set()):
+        if isinstance(
+            v_dcl, SyntaxStepDeclaration
+        ) and field in vuln_field_access.get(str(v_dcl.var_type), set()):
             v_dcl.meta.danger = args.syntax_step.meta.danger
 
 
