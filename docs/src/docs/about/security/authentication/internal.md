@@ -57,6 +57,23 @@ and requirements are listed below:
 
 - All successful sessions have a duration of 9 hours.
 
+## Authentication criteria
+
+At `Fluid Attacks`,
+we check the internal rights for
+internal users on a monthly basis,
+complying with the following:
+
+- User rights are reviewed
+  at regular intervals and
+  after any change,
+  promotion or termination
+  of employment.
+
+- Authorizations for privileged
+  access rights are reviewed at
+  frequent intervals.
+
 ## GPG signature for repository commits
 
 In order to prevent identity hijacking,
