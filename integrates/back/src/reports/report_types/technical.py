@@ -5,6 +5,9 @@ from PIL import (
 from botocore.exceptions import (
     ClientError,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -36,7 +39,6 @@ from tempfile import (
     TemporaryDirectory,
 )
 from typing import (
-    Any,
     Dict,
     List,
     Set,
@@ -131,7 +133,7 @@ async def download_evidences_for_pdf(
 
 async def generate_pdf_file(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     description: str,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
@@ -162,7 +164,7 @@ async def generate_pdf_file(
 
 
 async def generate_xls_file(
-    loaders: Any,
+    loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,

@@ -7,6 +7,9 @@ from back.src.settings.logger import (
 from context import (
     FI_AWS_S3_RESOURCES_BUCKET,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -79,7 +82,7 @@ CertContext = TypedDict(
 
 
 async def format_finding(
-    loaders: Any,
+    loaders: Dataloaders,
     finding: Finding,
     words: Dict[str, str],
 ) -> CertFindingInfo:
@@ -188,7 +191,7 @@ class CertificateCreator(CreatorPdf):
         findings: Tuple[Finding, ...],
         group: str,
         description: str,
-        loaders: Any,
+        loaders: Dataloaders,
     ) -> None:
         """Fetch information and fill out the context"""
         words = self.wordlist[self.lang]
@@ -222,7 +225,7 @@ class CertificateCreator(CreatorPdf):
         findings: Tuple[Finding, ...],
         group: str,
         description: str,
-        loaders: Any,
+        loaders: Dataloaders,
     ) -> None:
         """Create the template to render and apply the context."""
         await self.fill_context(findings, group, description, loaders)

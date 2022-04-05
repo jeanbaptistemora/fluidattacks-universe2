@@ -10,6 +10,9 @@ from context import (
     BASE_URL,
     STARTDIR,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
@@ -44,7 +47,6 @@ import subprocess  # nosec
 import sys
 import time
 from typing import (
-    Any,
     Dict,
     List,
     Optional,
@@ -133,7 +135,7 @@ Context = TypedDict(
 
 
 async def format_finding(
-    loaders: Any,
+    loaders: Dataloaders,
     finding: Finding,
     evidence_set: List[Dict[str, str]],
     words: Dict[str, str],
@@ -407,7 +409,7 @@ class CreatorPdf:
         group: str,
         description: str,
         user: str,
-        loaders: Any,
+        loaders: Dataloaders,
     ) -> None:
         """Add group information."""
         words = self.wordlist[self.lang]
@@ -572,7 +574,7 @@ class CreatorPdf:
         group: str,
         description: str,
         user: str,
-        loaders: Any,
+        loaders: Dataloaders,
     ) -> None:
         """Create the template to render and apply the context."""
         await self.fill_group(

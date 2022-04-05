@@ -4,6 +4,9 @@ from . import (
 from context import (
     FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -21,7 +24,6 @@ from s3.operations import (
 import subprocess  # nosec
 import tempfile
 from typing import (
-    Any,
     Dict,
     List,
     Tuple,
@@ -75,7 +77,7 @@ async def _append_evidences(
 
 async def _append_pdf_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     directory: str,
     findings_ord: Tuple[Finding, ...],
     group: str,
@@ -100,7 +102,7 @@ async def _append_pdf_report(
 
 async def _append_xls_report(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     directory: str,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
@@ -170,7 +172,7 @@ def _get_directory_contents(directory: str) -> List[str]:
 
 async def generate(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],
     group: str,
     group_description: str,

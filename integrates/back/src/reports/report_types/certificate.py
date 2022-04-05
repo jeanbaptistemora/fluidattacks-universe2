@@ -1,3 +1,6 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -10,17 +13,13 @@ from reports.secure_pdf import (
 from tempfile import (
     TemporaryDirectory,
 )
-from typing import (
-    Any,
-    Tuple,
-)
 
 
 async def generate_cert_file(
     *,
-    loaders: Any,
+    loaders: Dataloaders,
     description: str,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
     group_name: str,
     lang: str,
     passphrase: str,

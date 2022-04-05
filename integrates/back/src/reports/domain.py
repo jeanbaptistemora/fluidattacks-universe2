@@ -4,6 +4,7 @@ from .report_types import (
     technical as technical_report,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.findings.types import (
@@ -33,7 +34,7 @@ async def get_group_report_url(
     user_email: str,
     treatments: Set[VulnerabilityTreatmentStatus],
 ) -> Optional[str]:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name

@@ -4,6 +4,9 @@ from .typing import (
 from aioextensions import (
     collect,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -47,7 +50,6 @@ from pyexcelerate import (
     Worksheet as WorksheetType,
 )
 from typing import (
-    Any,
     Dict,
     List,
     Optional,
@@ -101,7 +103,7 @@ class ITReport:
         data: Tuple[Finding, ...],
         group_name: str,
         treatments: Set[VulnerabilityTreatmentStatus],
-        loaders: Any,
+        loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
         self.data = data
@@ -123,7 +125,7 @@ class ITReport:
     ) -> Tuple[Vulnerability, ...]:
         return (
             await self.loaders.finding_vulnerabilities_nzr.load_many_chained(
-                findings_ids
+                list(findings_ids)
             )
         )
 
