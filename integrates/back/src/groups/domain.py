@@ -1813,3 +1813,13 @@ async def request_upgrade(
         raise BillingSubscriptionSameActive()
 
     await notifications_domain.request_groups_upgrade(user_email, groups)
+
+
+async def get_creation_date(
+    loaders: Any,
+    group_name: str,
+) -> str:
+    historic: tuple[
+        GroupState, ...
+    ] = await loaders.group_historic_state_typed.load(group_name)
+    return historic[0].modified_date

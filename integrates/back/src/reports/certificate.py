@@ -16,8 +16,14 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from findings import (
     domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
 )
 import jinja2
 from jinja2.utils import (
@@ -44,10 +50,6 @@ from s3 import (
 import subprocess  # nosec
 import tempfile
 from typing import (
-    Any,
-    Dict,
-    List,
-    Tuple,
     TypedDict,
     Union,
     ValuesView,
@@ -66,7 +68,7 @@ CertContext = TypedDict(
         "business": str,
         "business_number": str,
         "solution": str,
-        "remediation_table": ValuesView[List[Union[float, int, str]]],
+        "remediation_table": ValuesView[list[Union[float, int, str]]],
         "start_day": str,
         "start_month": str,
         "start_year": str,
@@ -76,7 +78,7 @@ CertContext = TypedDict(
         "report_year": str,
         "report_ordinal_ending": str,
         "signature_img": str,
-        "words": Dict[str, str],
+        "words": dict[str, str],
     },
 )
 
@@ -84,7 +86,7 @@ CertContext = TypedDict(
 async def format_finding(
     loaders: Dataloaders,
     finding: Finding,
-    words: Dict[str, str],
+    words: dict[str, str],
 ) -> CertFindingInfo:
     closed_vulnerabilities = await findings_domain.get_closed_vulnerabilities(
         loaders, finding.id
@@ -118,15 +120,15 @@ def _set_percentage(total_vulns: int, closed_vulns: int) -> str:
 
 
 def make_remediation_table(
-    context_findings: Tuple[CertFindingInfo, ...], words: Dict[str, str]
-) -> ValuesView[List[Union[float, int, str]]]:
+    context_findings: tuple[CertFindingInfo, ...], words: dict[str, str]
+) -> ValuesView[list[Union[float, int, str]]]:
     critical, high, medium, low = (
         words["vuln_c"],
         words["vuln_h"],
         words["vuln_m"],
         words["vuln_l"],
     )
-    remediation_dict: Dict[str, List[Union[float, int, str]]] = {
+    remediation_dict: dict[str, list[Union[float, int, str]]] = {
         #   Severity | Quantity | Total vulns | Closed vulns | Remediation %
         critical: [critical, 0, 0, 0, "N/A"],
         high: [high, 0, 0, 0, "N/A"],
@@ -169,7 +171,7 @@ def make_remediation_table(
 
 
 def resolve_month_name(
-    lang: str, date: datetime, words: Dict[str, str]
+    lang: str, date: datetime, words: dict[str, str]
 ) -> str:
     if lang.lower() == "en":
         return date.strftime("%B")
@@ -188,24 +190,26 @@ class CertificateCreator(CreatorPdf):
 
     async def fill_context(  # noqa pylint: disable=too-many-arguments,too-many-locals
         self,
-        findings: Tuple[Finding, ...],
-        group: str,
+        findings: tuple[Finding, ...],
+        group_name: str,
         description: str,
         loaders: Dataloaders,
     ) -> None:
-        """Fetch information and fill out the context"""
+        """Fetch information and fill out the context."""
         words = self.wordlist[self.lang]
         context_findings = await collect(
             [format_finding(loaders, finding, words) for finding in findings]
         )
         remediation_table = make_remediation_table(context_findings, words)
-        group_data: Dict[str, Any] = await loaders.group.load((group))
-        start_date: datetime = get_from_str(group_data["created_date"])
+        group: Group = await loaders.group_typed.load(group_name)
+        start_date: datetime = get_from_str(
+            await groups_domain.get_creation_date(loaders, group_name)
+        )
         current_date: datetime = get_now()
 
         self.cert_context = {
-            "business": group_data["business_name"],
-            "business_number": group_data["business_id"],
+            "business": group.business_name or "",
+            "business_number": group.business_id or "",
             "remediation_table": remediation_table,
             "start_day": str(start_date.day),
             "start_month": resolve_month_name(self.lang, start_date, words),
@@ -222,13 +226,13 @@ class CertificateCreator(CreatorPdf):
 
     async def cert(  # noqa pylint: disable=too-many-arguments
         self,
-        findings: Tuple[Finding, ...],
-        group: str,
+        findings: tuple[Finding, ...],
+        group_name: str,
         description: str,
         loaders: Dataloaders,
     ) -> None:
         """Create the template to render and apply the context."""
-        await self.fill_context(findings, group, description, loaders)
+        await self.fill_context(findings, group_name, description, loaders)
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
@@ -237,7 +241,7 @@ class CertificateCreator(CreatorPdf):
             autoescape=select_autoescape(["html", "xml"], default=True),
         )
         template = template_env.get_template(self.proj_tpl)
-        tpl_name = f"{self.tpl_dir}{group}_CERT.tpl"
+        tpl_name = f"{self.tpl_dir}{group_name}_CERT.tpl"
         # Fetch signature resource
         with tempfile.NamedTemporaryFile(mode="w+") as file:
             await s3_ops.download_file(
