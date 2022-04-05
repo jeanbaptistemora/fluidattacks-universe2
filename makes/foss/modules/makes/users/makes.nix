@@ -1,7 +1,4 @@
 {outputs, ...}: {
-  imports = [
-    ./infra_roles/makes.nix
-  ];
   secretsForEnvFromSops = {
     makesUsersDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
@@ -21,6 +18,13 @@
   };
   deployTerraform = {
     modules = {
+      makesRolesForProjects = {
+        setup = [
+          outputs."/integrates/back/tools/dump-groups"
+        ];
+        src = "/makes/foss/modules/makes/users/infra_roles";
+        version = "1.0";
+      };
       makesUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
@@ -95,6 +99,16 @@
   };
   testTerraform = {
     modules = {
+      makesRolesForProjects = {
+        setup = [
+          outputs."/integrates/back/tools/dump-groups"
+          outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/makesUsersDev"
+          outputs."/secretsForTerraformFromEnv/makesUsers"
+        ];
+        src = "/makes/foss/modules/makes/users/infra_roles";
+        version = "1.0";
+      };
       makesUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
