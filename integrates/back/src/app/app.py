@@ -1,10 +1,5 @@
 # Starlette app init file
 
-"""
-IMPORTANT
-Unlike standard Python functionality, the import order matters:
-the agent package must be imported first.
-"""
 from . import (
     utils,
 )
@@ -80,7 +75,6 @@ from newutils import (
     analytics,
     templates,
 )
-# flake8: noqa
 from newutils.utils import (
     get_key_or_fallback,
 )
