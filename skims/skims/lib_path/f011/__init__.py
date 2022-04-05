@@ -1,3 +1,4 @@
+import bs4
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
@@ -67,6 +68,18 @@ def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
     )
 
 
+def _is_pom_xml(content: str) -> bool:
+    root = bs4.BeautifulSoup(content, features="html.parser")
+    if root.project:
+        if root.project["xmlns"]:
+            is_pom_xml = (
+                str(root.project["xmlns"])
+                == "http://maven.apache.org/POM/4.0.0"
+            )
+            return is_pom_xml
+    return False
+
+
 @SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
@@ -77,8 +90,9 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     # pylint: disable=too-many-return-statements
 
-    if (file_name, file_extension) == ("pom", "xml"):
-        return (run_maven_pom_xml(content_generator(), path),)
+    if file_extension == "xml":
+        if _is_pom_xml(content_generator()):
+            return (run_maven_pom_xml(content_generator(), path),)
 
     if file_extension == "gradle":
         return (run_maven_gradle(content_generator(), path),)
