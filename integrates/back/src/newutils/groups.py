@@ -42,7 +42,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    Any,
     Optional,
 )
 
@@ -109,40 +108,44 @@ def format_state_justification(
     return None
 
 
-def format_group_state(  # pylint: disable=too-many-arguments
-    comments: Optional[str],
-    justification: Optional[GroupStatusJustification],
-    pending_deletion_date: Optional[str],
-    service: Optional[GroupService],
-    state: dict[str, Any],
-    state_status: GroupStateStatus,
-    suscription_type: GroupSubscriptionType,
-    tier: GroupTier,
-) -> GroupState:
+def format_group_state(state: Item) -> GroupState:
     has_machine: bool = bool(
         get_key_or_fallback(state, "has_machine", "has_skims", False)
     )
     has_squad: bool = bool(
         get_key_or_fallback(state, "has_squad", "has_drills", False)
     )
+    if state.get("reason") and "with event" in state["reason"]:
+        comments: Optional[str] = state["reason"]
+        justification = GroupStateUpdationJustification.OTHER
+    else:
+        comments = state.get("comments")
+        justification = format_state_justification(state.get("reason"))
+
     return GroupState(
+        comments=comments,
         has_machine=has_machine,
         has_squad=has_squad,
+        justification=justification,
         modified_by=state.get("requester") or state.get("user"),
         modified_date=convert_to_iso_str(state["date"]),
-        status=state_status,
-        tier=tier,
-        type=suscription_type,
-        comments=comments,
-        justification=justification,
-        pending_deletion_date=convert_to_iso_str(pending_deletion_date)
-        if pending_deletion_date
+        service=GroupService[str(state["service"]).upper()]
+        if state.get("service")
         else None,
-        service=service,
+        status=GroupStateStatus.ACTIVE,
+        tier=GroupTier[str(state["tier"]).upper()]
+        if state.get("tier")
+        else GroupTier.OTHER,
+        type=GroupSubscriptionType[str(state["type"]).upper()],
     )
 
 
-def format_group(item: Item, organization_name: str) -> Group:
+def format_group_historic_state(item: Item) -> tuple[GroupState, ...]:
+    historic_configuration: list[Item] = item["historic_configuration"]
+    historic_state = [
+        format_group_state(entry) for entry in historic_configuration
+    ]
+
     state_status = (
         GroupStateStatus.ACTIVE
         if str(
@@ -151,41 +154,33 @@ def format_group(item: Item, organization_name: str) -> Group:
         == GroupStateStatus.ACTIVE.value
         else GroupStateStatus.DELETED
     )
-    last_configuration: dict[str, Any] = item["historic_configuration"][-1]
-    service: Optional[GroupService] = (
-        GroupService[str(last_configuration["service"]).upper()]
-        if last_configuration.get("service")
-        else None
-    )
-    suscription_type = GroupSubscriptionType[
-        str(last_configuration["type"]).upper()
-    ]
-    tier = (
-        GroupTier[str(last_configuration["tier"]).upper()]
-        if last_configuration.get("tier")
-        else GroupTier.OTHER
-    )
-    justification = format_state_justification(
-        last_configuration.get("reason")
-    )
-    if (
-        last_configuration.get("reason")
-        and "with event" in last_configuration["reason"]
-    ):
-        comments: Optional[str] = last_configuration["reason"]
-        justification = GroupStateUpdationJustification.OTHER
-    else:
-        comments = last_configuration.get("comments")
-        justification = format_state_justification(
-            last_configuration.get("reason")
+    if state_status == GroupStateStatus.DELETED:
+        last_state: GroupState = historic_state[-1]
+        last_deletion_state: dict[str, str] = item["historic_deletion"][-1]
+        deletion_requester = last_deletion_state["user"]
+        deletion_date = last_deletion_state["date"]
+        historic_state.append(
+            last_state._replace(
+                status=GroupStateStatus.DELETED,
+                modified_by=deletion_requester,
+                modified_date=convert_to_iso_str(deletion_date),
+            )
         )
-    if (
-        state_status == GroupStateStatus.DELETED
-        and "historic_deletion" in item
-    ):
-        current_state: dict[str, Any] = item["historic_deletion"][-1]
-    else:
-        current_state = last_configuration
+    elif item.get("pending_deletion_date"):
+        historic_state = [
+            *historic_state[:-1],
+            historic_state[-1]._replace(
+                pending_deletion_date=convert_to_iso_str(
+                    item["pending_deletion_date"]
+                )
+            ),
+        ]
+
+    return tuple(historic_state)
+
+
+def format_group(item: Item, organization_name: str) -> Group:
+    historic_state = format_group_historic_state(item)
     return Group(
         business_id=item.get("business_id", None),
         business_name=item.get("business_name", None),
@@ -195,16 +190,7 @@ def format_group(item: Item, organization_name: str) -> Group:
             get_key_or_fallback(item, "group_name", "project_name")
         ).lower(),
         organization_name=organization_name,
-        state=format_group_state(
-            comments=comments,
-            justification=justification,
-            pending_deletion_date=item.get("pending_deletion_date"),
-            service=service,
-            state=current_state,
-            state_status=state_status,
-            suscription_type=suscription_type,
-            tier=tier,
-        ),
+        state=historic_state[-1],
         agent_token=item.get("agent_token"),
         context=item.get("group_context"),
         disambiguation=item.get("disambiguation"),
