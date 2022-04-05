@@ -95,8 +95,12 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     reason: str = kwargs["reason"]
     other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
     source = requests_utils.get_source_new(info.context)
+    last_status_update = await roots_domain.get_last_status_update(
+        loaders,
+        root.id,
+    )
     historic_state_date = datetime_utils.get_datetime_from_iso_str(
-        root.state.modified_date
+        last_status_update.modified_date
     )
     last_clone_date: str = "Never cloned"
     last_root_state: str = "Unknow"
