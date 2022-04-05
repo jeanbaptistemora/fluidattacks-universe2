@@ -21,10 +21,12 @@ function dynamodb_etl {
       --segments "${segments}" \
     | tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
-      | target-redshift \
-        --auth "${db_creds}" \
-        --drop-schema \
-        --schema-name "${schema}" \
+      > data \
+    && target-redshift \
+      --auth "${db_creds}" \
+      --drop-schema \
+      --schema-name "${schema}" \
+      < data \
     && job-last-success compound-job \
       --auth "${db_creds}" \
       --job "dynamo" \
