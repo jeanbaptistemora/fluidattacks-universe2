@@ -50,12 +50,7 @@ const GroupContent: React.FC = (): JSX.Element => {
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
   );
-  const { data } = useQuery(GET_EVENTS, {
-    onCompleted: (paramData: IEventsDataset): void => {
-      if (_.isEmpty(paramData.group.events)) {
-        Logger.warning("Empty groups", document.location.pathname);
-      }
-    },
+  const { data } = useQuery<IEventsDataset>(GET_EVENTS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.warning("An error occurred loading group data", error);

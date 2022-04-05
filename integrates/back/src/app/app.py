@@ -43,6 +43,7 @@ from context import (
 )
 from custom_exceptions import (
     ExpiredToken,
+    InvalidAuthorization,
     SecureAccessException,
 )
 from custom_types import (
@@ -84,6 +85,9 @@ from organizations import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
     redis_del_entity_attr,
+)
+from remove_user import (
+    domain as remove_user_domain,
 )
 from sessions import (
     dal as sessions_dal,
@@ -188,6 +192,41 @@ async def confirm_access(request: Request) -> HTMLResponse:
             )
     else:
         response = templates.invalid_invitation(request, "Invalid or Expired")
+    return response
+
+
+async def confirm_deletion(request: Request) -> HTMLResponse:
+    url_token = request.path_params.get("url_token")
+    if url_token:
+        try:
+            user_email: str = (
+                await remove_user_domain.get_email_from_url_token(
+                    url_token=url_token
+                )
+            )
+            if user_email:
+                await remove_user_domain.complete_deletion(
+                    loaders=get_new_context(), user_email=user_email
+                )
+                response = await templates.confirm_deletion(request=request)
+            else:
+                await in_thread(
+                    bugsnag.notify,
+                    Exception("Invalid token"),
+                    severity="error",
+                )
+                response = templates.invalid_confirm_deletion(
+                    request=request, error="Invalid or Expired"
+                )
+        except InvalidAuthorization:
+            response = templates.invalid_confirm_deletion(
+                request=request, error="Invalid or Expired"
+            )
+    else:
+        response = templates.invalid_confirm_deletion(
+            request=request, error="Invalid or Expired"
+        )
+
     return response
 
 
@@ -365,6 +404,10 @@ STARLETTE_APP = Starlette(
         Route(
             "/confirm_access_organization/{url_token:path}",
             confirm_access_organization,
+        ),
+        Route(
+            "/confirm_deletion/{url_token:path}",
+            confirm_deletion,
         ),
         Route("/dglogin", auth.do_google_login),
         Route("/dalogin", auth.do_azure_login),
