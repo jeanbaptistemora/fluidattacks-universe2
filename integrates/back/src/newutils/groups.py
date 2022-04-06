@@ -154,7 +154,9 @@ def format_group_historic_state(item: Item) -> tuple[GroupState, ...]:
         == GroupStateStatus.ACTIVE.value
         else GroupStateStatus.DELETED
     )
-    if state_status == GroupStateStatus.DELETED:
+    if state_status == GroupStateStatus.DELETED and item.get(
+        "historic_deletion"
+    ):
         last_state: GroupState = historic_state[-1]
         last_deletion_state: dict[str, str] = item["historic_deletion"][-1]
         deletion_requester = last_deletion_state["user"]

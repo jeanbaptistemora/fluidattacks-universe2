@@ -830,9 +830,7 @@ async def update_group(
             justification=justification,
             modified_by=user_email,
             service=service,
-            status=GroupStateStatus.ACTIVE
-            if has_asm
-            else GroupStateStatus.DELETED,
+            status=GroupStateStatus.ACTIVE,
             tier=tier,
             type=subscription,
         ),

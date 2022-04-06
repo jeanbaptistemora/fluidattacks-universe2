@@ -21,6 +21,9 @@ from db_model.groups.types import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
+from dynamodb.types import (
+    Item,
+)
 import logging
 import logging.config
 from newutils import (
@@ -252,32 +255,30 @@ async def update_state_typed(
     group_name: str,
     state: GroupState,
 ) -> None:
-    new_state_item = groups_utils.format_group_state_item(state)
-    group_item = await get_attributes(
+    item_to_update: Item = {}
+    current_group_item = await get_attributes(
         group_name=group_name,
         attributes=["historic_configuration"],
     )
-    if new_state_item and not await update(
-        group_name=group_name,
-        data={
-            "historic_configuration": [
-                *group_item["historic_configuration"],
-                new_state_item,
-            ],
-        },
-    ):
-        raise ErrorUpdatingGroup.new()
+    new_state_item = groups_utils.format_group_state_item(state)
+    item_to_update["historic_configuration"] = [
+        *current_group_item["historic_configuration"],
+        new_state_item,
+    ]
 
-    # This field is currently outside the group's state
-    # We'll update it independently while the migration is going on
-    if state.pending_deletion_date is not None and not await update(
-        group_name=group_name,
-        data={
-            "pending_deletion_date": datetime_utils.convert_from_iso_str(
-                state.pending_deletion_date
-            )
+    # These fields are currently outside the group's state
+    # We'll update them independently while the migration is going on
+    item_to_update["group_status"] = state.status.value
+    item_to_update["project_status"] = state.status.value
+    if state.pending_deletion_date is not None:
+        item_to_update["pending_deletion_date"] = (
+            datetime_utils.convert_from_iso_str(state.pending_deletion_date)
             if state.pending_deletion_date
-            else None,
-        },
+            else None
+        )
+
+    if not await update(
+        group_name=group_name,
+        data=item_to_update,
     ):
         raise ErrorUpdatingGroup.new()
