@@ -25,7 +25,7 @@ const Portrait: React.FC = (): JSX.Element => (
         <PortraitParagraph>
           {translate.t("productOverview.portrait.paragraph")}
         </PortraitParagraph>
-        <div className={"cf tl-l tc mt4 mb4"}>
+        <div className={"cf mt4 mb4"}>
           <Link className={"no-underline"} to={"/contact-us-demo/"}>
             <BigRegularRedButton>
               {translate.t("productOverview.mainButton")}

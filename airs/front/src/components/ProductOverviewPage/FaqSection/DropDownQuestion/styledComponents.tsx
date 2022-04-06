@@ -22,6 +22,18 @@ const QuestionTitle = styled.div.attrs({
   border-bottom: solid 1px #ceced7;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+
+  @media (max-width: 1166px) {
+    min-height: 73px;
+  }
+
+  @media (max-width: 646px) {
+    min-height: 109px;
+  }
+
+  @media (max-width: 503px) {
+    min-height: 145px;
+  }
 `;
 
 const AnswerContainer = styled.div.attrs({

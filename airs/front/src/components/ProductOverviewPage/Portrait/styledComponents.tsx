@@ -9,13 +9,8 @@ const PortraitContainer = styled.div.attrs({
     bg-banner-sz
   `,
 })`
-  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1648748426/airs/product-overview/portrait/cover-portrait.webp");
   min-height: 50vh;
-
-  @media (max-width: 480px) {
-    background-image: unset;
-    background-color: #e9e9ed;
-  }
+  background-color: #e9e9ed;
 `;
 
 const MainContentPortrait = styled.div.attrs({
@@ -25,46 +20,55 @@ const MainContentPortrait = styled.div.attrs({
     mw-1366
     center
     w-100
+    flex
+    flex-wrap
+    justify-center
+    items-center
   `,
 })``;
 
 const InnerMainContentPortrait = styled.div.attrs({
   className: `
-    fl-l
-    w-100
-    w-50-l
     center
     pt0-ns
     pt4
     cf
-    tl
   `,
-})``;
+})`
+  width: 50%;
+  text-align: left;
+
+  @media (max-width: 984px) {
+    width: 100%;
+    text-align: center;
+  }
+`;
 
 const PortraitImageContainer = styled.div.attrs({
   className: `
     fr-l
-    w-100
-    w-50-l
     mt3
     center
     pt0-ns
     pl3
     tc
   `,
-})``;
+})`
+  width: 50%;
+
+  @media (max-width: 984px) {
+    width: 100%;
+  }
+`;
 
 const PortraitBigParagraph = styled.p.attrs({
   className: `
     f1
     c-fluid-bk
     fw6
-    tl
     neue
     lh-solid
     ma0
-    tl-l
-    tc
   `,
 })``;
 
@@ -74,8 +78,6 @@ const PortraitParagraph = styled.p.attrs({
     c-black-gray
     roboto
     mv4
-    tl-l
-    tc
   `,
 })`
   line-height: 2rem;
