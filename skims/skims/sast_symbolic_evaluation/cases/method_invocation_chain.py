@@ -75,7 +75,9 @@ def attempt_java_class_loader_get_resource_as_stream(
         and isinstance(arguments[0], graph_model.SyntaxStepLiteral)
     ):
         arg1 = arguments[0]
-        if rsrc := args.graph_db.context.java_resources.get(arg1.meta.value):
+        if rsrc := args.graph_db.context.java_resources.get(
+            str(arg1.meta.value)
+        ):
             args.syntax_step.meta.value = rsrc
             return True
 
@@ -133,7 +135,9 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
         return True
 
     if isinstance(base_var, graph_model.SyntaxStepSymbolLookup):
-        if var := lookup_var_dcl_by_name(args, base_var.symbol):
+        if (
+            var := lookup_var_dcl_by_name(args, base_var.symbol)
+        ) and isinstance(var, graph_model.SyntaxStepDeclaration):
             method = var.var + "." + args.syntax_step.method
         else:
             method = base_var.symbol + "." + args.syntax_step.method

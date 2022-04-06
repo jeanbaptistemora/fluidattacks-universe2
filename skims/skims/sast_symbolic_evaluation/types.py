@@ -21,6 +21,7 @@ from typing import (
     Dict,
     NamedTuple,
     Optional,
+    Union,
 )
 
 
@@ -56,7 +57,7 @@ class EvaluatorArgs(NamedTuple):
             graph_model.GraphShard,
             str,
         ],
-        graph_model.CurrentInstance,
+        Union[graph_model.CurrentInstance, JavaClassInstance],
     ]
     finding: core_model.FindingEnum
     shard_db: ShardDb
@@ -66,7 +67,9 @@ class EvaluatorArgs(NamedTuple):
     syntax_step: graph_model.SyntaxStep
     syntax_step_index: int
     syntax_steps: graph_model.SyntaxSteps
-    current_instance: Optional[graph_model.CurrentInstance] = None
+    current_instance: Optional[
+        Union[graph_model.CurrentInstance, JavaClassInstance]
+    ] = None
 
 
 Evaluator = Callable[[EvaluatorArgs], None]

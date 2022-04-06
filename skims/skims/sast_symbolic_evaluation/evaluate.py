@@ -12,7 +12,7 @@ from lib_sast.types import (
 )
 from model import (
     core_model,
-    graph_model,
+    graph_model as g_m,
 )
 from more_itertools import (
     mark_ends,
@@ -67,6 +67,7 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 from utils import (
     graph as g,
@@ -85,9 +86,9 @@ from utils.string import (
 
 def eval_constructor(
     args: EvaluatorArgs,
-    method_n_id: graph_model.NId,
-    method_arguments: graph_model.SyntaxSteps,
-    shard: graph_model.GraphShard,
+    method_n_id: g_m.NId,
+    method_arguments: g_m.SyntaxSteps,
+    shard: g_m.GraphShard,
     class_name: str,
 ) -> JavaClassInstance:
     current_instance = JavaClassInstance(fields={}, class_name=class_name)
@@ -104,11 +105,13 @@ def eval_constructor(
     for syntax_steps in possible_syntax_steps.values():
         # Check modified fields
         for syntax_step in syntax_steps:
-            if isinstance(
-                syntax_step, graph_model.SyntaxStepMethodInvocation
-            ) and (
-                syntax_step.method.startswith("this.")
-                or "." not in syntax_step.method
+            if (
+                isinstance(syntax_step, g_m.SyntaxStepMethodInvocation)
+                and (
+                    syntax_step.method.startswith("this.")
+                    or "." not in syntax_step.method
+                )
+                and syntax_step.current_instance
             ):
                 current_instance.fields.update(
                     syntax_step.current_instance.fields,
@@ -119,11 +122,11 @@ def eval_constructor(
 
 def eval_method(
     args: EvaluatorArgs,
-    method_n_id: graph_model.NId,
-    method_arguments: graph_model.SyntaxSteps,
-    shard: graph_model.GraphShard,
+    method_n_id: g_m.NId,
+    method_arguments: g_m.SyntaxSteps,
+    shard: g_m.GraphShard,
     current_instance: Optional[JavaClassInstance] = None,
-) -> Optional[graph_model.SyntaxStep]:
+) -> Optional[g_m.SyntaxStep]:
     possible_syntax_steps = get_possible_syntax_steps_for_n_id(
         args.shard_db,
         args.graph_db,
@@ -138,7 +141,7 @@ def eval_method(
         for syntax_step in reversed(syntax_steps):
             # Attempt to return the dangerous syntax step
             if (
-                isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                isinstance(syntax_step, g_m.SyntaxStepReturn)
                 and syntax_step.meta.danger
             ):
                 return syntax_step
@@ -147,7 +150,7 @@ def eval_method(
         for syntax_step in reversed(syntax_steps):
             # If none of them match attempt to return the one that has value
             if (
-                isinstance(syntax_step, graph_model.SyntaxStepReturn)
+                isinstance(syntax_step, g_m.SyntaxStepReturn)
                 and syntax_step.meta.value is not None
             ):
                 return syntax_step
@@ -155,7 +158,7 @@ def eval_method(
     # If non of them match return whatever one
     for syntax_steps in possible_syntax_steps.values():
         for syntax_step in reversed(syntax_steps):
-            if isinstance(syntax_step, graph_model.SyntaxStepReturn):
+            if isinstance(syntax_step, g_m.SyntaxStepReturn):
                 return syntax_step
 
     # Return a default value
@@ -163,59 +166,55 @@ def eval_method(
 
 
 EVALUATORS: Dict[object, Evaluator] = {
-    graph_model.SyntaxStepAssignment: assignment.evaluate,
-    graph_model.SyntaxStepArrayAccess: array_access.evaluate,
-    graph_model.SyntaxStepArrayInitialization: array_initialization.evaluate,
-    graph_model.SyntaxStepArrayInstantiation: array_instantiation.evaluate,
-    graph_model.SyntaxStepAttributeAccess: attribute_access.evaluate,
-    graph_model.SyntaxStepBinaryExpression: binary_expression.evaluate,
-    graph_model.SyntaxStepCastExpression: cast_expression.evaluate,
-    graph_model.SyntaxStepCatchClause: no_op.evaluate,
-    graph_model.SyntaxStepUnaryExpression: unary_expression.evaluate,
-    graph_model.SyntaxStepParenthesizedExpression: (
-        parenthesized_expression.evaluate
-    ),
-    graph_model.SyntaxStepDeclaration: declaration.evaluate,
-    graph_model.SyntaxStepLoop: loop.evaluate,
-    graph_model.SyntaxStepIf: if_.evaluate,
-    graph_model.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
-    graph_model.SyntaxStepMemberAccessExpression: (
-        member_access_expression.evaluate
-    ),
-    graph_model.SyntaxStepMethodDeclaration: method_declaration.evaluate,
-    graph_model.SyntaxStepSwitch: switch_label.evaluate,
-    graph_model.SyntaxStepSwitchLabelCase: switch_label_case.evaluate,
-    graph_model.SyntaxStepSwitchLabelDefault: no_op.evaluate,
-    graph_model.SyntaxStepLiteral: literal.evaluate,
-    graph_model.SyntaxStepMethodInvocation: method_invocation.evaluate,
-    graph_model.SyntaxStepMethodInvocationChain: (
-        method_invocation_chain.evaluate
-    ),
-    graph_model.SyntaxStepNoOp: no_op.evaluate,
-    graph_model.SyntaxStepObjectInstantiation: object_instantiation.evaluate,
-    graph_model.SyntaxStepPrefixExpression: prefix_expression.evaluate,
-    graph_model.SyntaxStepReturn: return_.evaluate,
-    graph_model.SyntaxStepSymbolLookup: symbol_lookup.evaluate,
-    graph_model.SyntaxStepTernary: ternary.evaluate,
-    graph_model.SyntaxStepThis: no_op.evaluate,
-    graph_model.SyntaxStepLambdaExpression: lambda_expression.evaluate,
-    graph_model.SyntaxStepTemplateString: template_string.evaluate,
-    graph_model.SyntaxStepSubscriptExpression: subscript_expression.evaluate,
+    g_m.SyntaxStepAssignment: assignment.evaluate,
+    g_m.SyntaxStepArrayAccess: array_access.evaluate,
+    g_m.SyntaxStepArrayInitialization: array_initialization.evaluate,
+    g_m.SyntaxStepArrayInstantiation: array_instantiation.evaluate,
+    g_m.SyntaxStepAttributeAccess: attribute_access.evaluate,
+    g_m.SyntaxStepBinaryExpression: binary_expression.evaluate,
+    g_m.SyntaxStepCastExpression: cast_expression.evaluate,
+    g_m.SyntaxStepCatchClause: no_op.evaluate,
+    g_m.SyntaxStepUnaryExpression: unary_expression.evaluate,
+    g_m.SyntaxStepParenthesizedExpression: (parenthesized_expression.evaluate),
+    g_m.SyntaxStepDeclaration: declaration.evaluate,
+    g_m.SyntaxStepLoop: loop.evaluate,
+    g_m.SyntaxStepIf: if_.evaluate,
+    g_m.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
+    g_m.SyntaxStepMemberAccessExpression: (member_access_expression.evaluate),
+    g_m.SyntaxStepMethodDeclaration: method_declaration.evaluate,
+    g_m.SyntaxStepSwitch: switch_label.evaluate,
+    g_m.SyntaxStepSwitchLabelCase: switch_label_case.evaluate,
+    g_m.SyntaxStepSwitchLabelDefault: no_op.evaluate,
+    g_m.SyntaxStepLiteral: literal.evaluate,
+    g_m.SyntaxStepMethodInvocation: method_invocation.evaluate,
+    g_m.SyntaxStepMethodInvocationChain: (method_invocation_chain.evaluate),
+    g_m.SyntaxStepNoOp: no_op.evaluate,
+    g_m.SyntaxStepObjectInstantiation: object_instantiation.evaluate,
+    g_m.SyntaxStepPrefixExpression: prefix_expression.evaluate,
+    g_m.SyntaxStepReturn: return_.evaluate,
+    g_m.SyntaxStepSymbolLookup: symbol_lookup.evaluate,
+    g_m.SyntaxStepTernary: ternary.evaluate,
+    g_m.SyntaxStepThis: no_op.evaluate,
+    g_m.SyntaxStepLambdaExpression: lambda_expression.evaluate,
+    g_m.SyntaxStepTemplateString: template_string.evaluate,
+    g_m.SyntaxStepSubscriptExpression: subscript_expression.evaluate,
 }
 
 
 def eval_syntax_steps(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    graph_db: g_m.GraphDB,
     *,
     finding: core_model.FindingEnum,
-    overriden_syntax_steps: graph_model.SyntaxSteps,
-    shard: graph_model.GraphShard,
-    syntax_steps: graph_model.SyntaxSteps,
-    n_id: graph_model.NId,
-    n_id_next: graph_model.NId,
-    current_instance: Optional[graph_model.CurrentInstance] = None,
-) -> graph_model.SyntaxSteps:
+    overriden_syntax_steps: g_m.SyntaxSteps,
+    shard: g_m.GraphShard,
+    syntax_steps: g_m.SyntaxSteps,
+    n_id: g_m.NId,
+    n_id_next: g_m.NId,
+    current_instance: Optional[
+        Union[g_m.CurrentInstance, JavaClassInstance]
+    ] = None,
+) -> g_m.SyntaxSteps:
     if n_id not in shard.syntax:
         # We were not able to fully understand this node syntax
         raise StopEvaluation(f"Missing Syntax Reader, {shard.path} @ {n_id}")
@@ -267,9 +266,7 @@ def eval_syntax_steps(
     return syntax_steps
 
 
-def _has_already_evaluated(
-    syntax_steps: graph_model.SyntaxSteps, n_id: str
-) -> bool:
+def _has_already_evaluated(syntax_steps: g_m.SyntaxSteps, n_id: str) -> bool:
     for step in reversed(syntax_steps):
         if n_id == step.meta.n_id:
             return True
@@ -279,15 +276,17 @@ def _has_already_evaluated(
 
 def get_possible_syntax_steps_from_path(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    graph_db: g_m.GraphDB,
     *,
     finding: core_model.FindingEnum,
-    overriden_syntax_steps: graph_model.SyntaxSteps,
-    shard: graph_model.GraphShard,
+    overriden_syntax_steps: g_m.SyntaxSteps,
+    shard: g_m.GraphShard,
     path: Tuple[str, ...],
-    current_instance: Optional[graph_model.CurrentInstance] = None,
-) -> graph_model.SyntaxSteps:
-    syntax_steps: graph_model.SyntaxSteps = []
+    current_instance: Optional[
+        Union[g_m.CurrentInstance, JavaClassInstance]
+    ] = None,
+) -> g_m.SyntaxSteps:
+    syntax_steps: g_m.SyntaxSteps = []
 
     path_next = padnone(path)
     next(path_next)
@@ -320,12 +319,12 @@ def get_possible_syntax_steps_from_path(
 
 def get_possible_syntax_steps_from_path_str_multiple_files(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    graph_db: g_m.GraphDB,
     finding: core_model.FindingEnum,
-    shard: graph_model.GraphShard,
+    shard: g_m.GraphShard,
     path_str: str,
-) -> graph_model.SyntaxSteps:
-    syntax_steps: graph_model.SyntaxSteps = []
+) -> g_m.SyntaxSteps:
+    syntax_steps: g_m.SyntaxSteps = []
 
     # The paths have syntax 'node-node-node--shard--node-node...'
     # Split the syntax to know which nodes and which shard we are currently
@@ -375,25 +374,23 @@ def get_possible_syntax_steps_from_path_str_multiple_files(
     return syntax_steps
 
 
-PossibleSyntaxStepsForUntrustedNId = Dict[str, graph_model.SyntaxSteps]
+PossibleSyntaxStepsForUntrustedNId = Dict[str, g_m.SyntaxSteps]
 PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
 PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
 
 
 def get_possible_syntax_steps_from_multiple_go_files(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
-    shard: graph_model.GraphShard,
-    n_id: graph_model.NId,
+    graph_db: g_m.GraphDB,
+    shard: g_m.GraphShard,
+    n_id: g_m.NId,
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxStepsForUntrustedNId:
 
     # Filter imported packages or modules from the same package that
     # have sink functions related to the finding in question
-    imports = shard.metadata.go.imports
-    functions_of_interest: Dict[
-        str, Tuple[int, List[graph_model.SinkFunctions]]
-    ] = {
+    imports = shard.metadata.go.imports if shard.metadata.go else []
+    functions_of_interest: Dict[str, Tuple[int, List[g_m.SinkFunctions]]] = {
         _shard.metadata.go.package: (
             idx,
             _shard.metadata.go.sink_functions[finding.name],
@@ -401,6 +398,7 @@ def get_possible_syntax_steps_from_multiple_go_files(
         for idx, _shard in enumerate(graph_db.shards)
         if (
             _shard != shard
+            and _shard.metadata.go
             and (
                 _shard.metadata.go.package in imports
                 or dirname(shard.path) == dirname(_shard.path)
@@ -409,8 +407,10 @@ def get_possible_syntax_steps_from_multiple_go_files(
         )
     }
     # Build the way the functions are called in the analyzed code
-    current_package = shard.metadata.go.package
-    calls_of_interest: Dict[str, Tuple[int, graph_model.SinkFunctions]] = {
+    current_package = str(
+        shard.metadata.go.package if shard.metadata.go else None
+    )
+    calls_of_interest: Dict[str, Tuple[int, g_m.SinkFunctions]] = {
         f"{pkg}.{fn.name}" if pkg != current_package else fn.name: (_shard, fn)
         for pkg, (_shard, fns) in functions_of_interest.items()
         for fn in fns
@@ -431,7 +431,7 @@ def get_possible_syntax_steps_from_multiple_go_files(
     )
     # Link the node where the function is called with the shard and information
     # where the function is declared
-    methods_called: Dict[str, Tuple[int, graph_model.SinkFunctions]] = {
+    methods_called: Dict[str, Tuple[int, g_m.SinkFunctions]] = {
         fn_call_n_id: calls_of_interest[syntax_step.method]
         for fn_call_n_id in fn_calls_n_ids
         for syntax_step in syntax[fn_call_n_id]
@@ -467,13 +467,15 @@ def get_possible_syntax_steps_from_multiple_go_files(
 
 def get_possible_syntax_steps_for_n_id(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    graph_db: g_m.GraphDB,
     *,
     finding: core_model.FindingEnum,
-    n_id: graph_model.NId,
-    overriden_syntax_steps: Optional[graph_model.SyntaxSteps] = None,
-    shard: graph_model.GraphShard,
-    current_instance: Optional[graph_model.CurrentInstance] = None,
+    n_id: g_m.NId,
+    overriden_syntax_steps: Optional[g_m.SyntaxSteps] = None,
+    shard: g_m.GraphShard,
+    current_instance: Optional[
+        Union[g_m.CurrentInstance, JavaClassInstance]
+    ] = None,
     only_sinks: bool = False,
 ) -> PossibleSyntaxStepsForUntrustedNId:
     log_blocking(
@@ -503,7 +505,7 @@ def get_possible_syntax_steps_for_n_id(
         )
     }
 
-    if shard.metadata.language == graph_model.GraphShardMetadataLanguage.GO:
+    if shard.metadata.language == g_m.GraphShardMetadataLanguage.GO:
         syntax_steps_map.update(
             get_possible_syntax_steps_from_multiple_go_files(
                 shard_db=shard_db,
@@ -519,9 +521,9 @@ def get_possible_syntax_steps_for_n_id(
 
 def get_possible_syntax_steps_for_finding(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    graph_db: g_m.GraphDB,
     finding: core_model.FindingEnum,
-    shard: graph_model.GraphShard,
+    shard: g_m.GraphShard,
 ) -> PossibleSyntaxStepsForFinding:
     syntax_steps_map: PossibleSyntaxStepsForFinding = {}
     inputs = [
@@ -534,8 +536,7 @@ def get_possible_syntax_steps_for_finding(
         )
     ]
     if (
-        shard.metadata.language
-        == graph_model.GraphShardMetadataLanguage.JAVASCRIPT
+        shard.metadata.language == g_m.GraphShardMetadataLanguage.JAVASCRIPT
     ) and inputs:
         syntax_steps_map = {
             "1": get_possible_syntax_steps_for_n_id(
@@ -565,7 +566,7 @@ def get_possible_syntax_steps_for_finding(
 
 def get_all_possible_syntax_steps(
     shard_db: ShardDb,
-    graph_db: graph_model.GraphDB,
+    graph_db: g_m.GraphDB,
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxSteps:
     syntax_steps_map: PossibleSyntaxSteps = {
