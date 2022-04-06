@@ -32,7 +32,7 @@ from jinja2.utils import (
 import logging
 import matplotlib
 from newutils.datetime import (
-    get_from_str,
+    get_datetime_from_iso_str,
     get_now,
 )
 from newutils.reports import (
@@ -202,7 +202,7 @@ class CertificateCreator(CreatorPdf):
         )
         remediation_table = make_remediation_table(context_findings, words)
         group: Group = await loaders.group_typed.load(group_name)
-        start_date: datetime = get_from_str(
+        start_date: datetime = get_datetime_from_iso_str(
             await groups_domain.get_creation_date(loaders, group_name)
         )
         current_date: datetime = get_now()
