@@ -17,6 +17,9 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import (
     ClientError,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb.exceptions import (
     handle_error,
 )
@@ -106,6 +109,21 @@ def _build_query_args(
     if start_key:
         args["ExclusiveStartKey"] = start_key
     return _exclude_none(args=args)
+
+
+def _parse_floats(*, args: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Converts floats into Decimal.
+    Needed as floats are currently unsupported by DynamoDB
+    """
+    return {
+        key: _parse_floats(args=value)
+        if isinstance(value, dict)
+        else Decimal(value)
+        if isinstance(value, float)
+        else value
+        for key, value in args.items()
+    }
 
 
 def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
@@ -206,7 +224,9 @@ async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
             try:
                 await aioextensions.collect(
                     tuple(
-                        batch_writer.put_item(Item=_exclude_none(args=item))
+                        batch_writer.put_item(
+                            Item=_exclude_none(args=_parse_floats(args=item))
+                        )
                         for item in items
                     )
                 )
@@ -291,7 +311,7 @@ async def put_item(
         facet_item = _build_facet_item(facet=facet, item=item, table=table)
         args = {
             "ConditionExpression": condition_expression,
-            "Item": facet_item,
+            "Item": _parse_floats(args=facet_item),
         }
 
         try:
