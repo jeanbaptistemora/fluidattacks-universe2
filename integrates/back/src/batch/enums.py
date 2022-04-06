@@ -25,5 +25,6 @@ class Action(Enum):
     REFRESH_TOE_INPUTS = "refresh_toe_inputs"
     REFRESH_TOE_LINES = "refresh_toe_lines"
     CLONE_ROOTS = "clone_roots"
+    REMOVE_ROOTS = "remove_roots"
     REMOVE_GROUP_RESOURCES = "remove_group_resources"
     EXECUTE_MACHINE = "execute-machine"

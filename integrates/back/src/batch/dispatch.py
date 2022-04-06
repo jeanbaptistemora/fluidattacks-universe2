@@ -7,6 +7,9 @@ from batch.actions.clone_roots import (
 from batch.actions.move_root import (
     move_root,
 )
+from batch.actions.remove_roots import (
+    remove_roots,
+)
 from batch.dal import (
     delete_action,
     get_action,
@@ -73,6 +76,8 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
             await clone_roots(item=item)
         elif action == "remove_group_resources":
             await remove_group_resources(item=item)
+        elif action == "remove_roots":
+            await remove_roots(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(
