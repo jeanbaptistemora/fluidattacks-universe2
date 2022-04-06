@@ -10,6 +10,7 @@ from syntax_cfg.types import (
     SyntaxCfgArgs,
 )
 from typing import (
+    cast,
     Optional,
 )
 from utils import (
@@ -32,5 +33,5 @@ def add_syntax_cfg(graph: Graph) -> Optional[Graph]:
         generic(args=SyntaxCfgArgs(generic, graph, n_id="1", nxt_id=None))
         return graph
     except MissingCfgBuilder as error:
-        logs.log_blocking("warning", error)
+        logs.log_blocking("warning", cast(str, error))
         return None

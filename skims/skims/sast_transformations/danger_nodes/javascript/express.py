@@ -18,6 +18,9 @@ from sast_syntax_readers.utils_generic import (
 from sast_transformations.danger_nodes.utils import (
     append_label_input,
 )
+from typing import (
+    Tuple,
+)
 
 FINDINGS = {
     FindingEnum.F112,
@@ -56,8 +59,8 @@ def mark_requests(
                 )
                 if isinstance(dependencies[1], SyntaxStepLambdaExpression)
             ]:
-                req: SyntaxStepDeclaration
-                res: SyntaxStepDeclaration
+                req: Tuple[int, SyntaxStepDeclaration]
+                res: Tuple[int, SyntaxStepDeclaration]
                 handler_arguments = get_dependencies_with_index(
                     syntax_step_index=handler_index,
                     syntax_steps=syntax_steps,

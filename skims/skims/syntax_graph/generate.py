@@ -11,6 +11,7 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from typing import (
+    cast,
     Optional,
 )
 from utils.logs import (
@@ -41,5 +42,5 @@ def build_syntax_graph(
         )
         return syntax_graph
     except (MissingSyntaxReader, MissingCaseHandling) as error:
-        log_blocking("warning", error)
+        log_blocking("warning", cast(str, error))
         return None

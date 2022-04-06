@@ -191,9 +191,10 @@ async def notify_end(
                 "finding": finding.name,
                 "open": get_ephemeral_store().length(),
                 "modified": (
-                    persisted_results[finding].diff_result.length()
+                    p_result.diff_result.length()
                     if finding in persisted_results
-                    and persisted_results[finding].diff_result
+                    and (p_result := persisted_results[finding])
+                    and p_result.diff_result
                     else 0
                 ),
             }

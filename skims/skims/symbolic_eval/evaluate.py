@@ -30,6 +30,7 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
 )
 from typing import (
+    cast,
     Dict,
     Optional,
 )
@@ -85,5 +86,5 @@ def evaluate(
             )
         )
     except MissingSymbolicEval as error:
-        logs.log_blocking("warning", error)
+        logs.log_blocking("warning", cast(str, error))
         return None

@@ -104,7 +104,7 @@ def _is_vulnerable(
     syntax_step: graph_model.SyntaxStep,
     syntax_step_n_attrs: graph_model.NAttrs,
 ) -> bool:
-    sinks: Set[str] = syntax_step_n_attrs.get("label_sink_type", {})
+    sinks: Set[str] = set(syntax_step_n_attrs.get("label_sink_type", {}))
 
     return syntax_step.meta.danger is True and finding.name in sinks
 

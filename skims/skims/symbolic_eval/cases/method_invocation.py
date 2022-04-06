@@ -18,6 +18,7 @@ from symbolic_eval.utils import (
     iter_backward_paths,
 )
 from typing import (
+    cast,
     Dict,
 )
 from utils import (
@@ -69,7 +70,7 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
                 args.graph, args.evaluation, md_id, mi_id=args.n_id
             )
         except BadMethodInvocation as error:
-            logs.log_blocking("warning", error)
+            logs.log_blocking("warning", cast(str, error))
             invoc_eval = {}
 
         eb_id = args.graph.nodes[md_id]["block_id"]
