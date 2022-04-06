@@ -4,18 +4,23 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
+from typing import (
+    Any,
+    List,
+)
 
 
-def build_interpolation_node(args: SyntaxGraphArgs, identifier_id: NId) -> NId:
+def build_interpolation_node(args: SyntaxGraphArgs, c_ids: List[Any]) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="Interpolation",
     )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(identifier_id)),
-        label_ast="AST",
-    )
+    for c_id in c_ids:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(c_id)),
+            label_ast="AST",
+        )
 
     return args.n_id

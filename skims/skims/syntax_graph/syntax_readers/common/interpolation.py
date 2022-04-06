@@ -8,10 +8,16 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    match_ast_d,
+    adj_ast,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    identifier_id = match_ast_d(args.ast_graph, args.n_id, "identifier")
-    return build_interpolation_node(args, str(identifier_id))
+    _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)
+    c_ids = [
+        _id
+        for _id in c_ids
+        if args.ast_graph.nodes[_id]["label_type"]
+        in {"identifier", "member_access_expression"}
+    ]
+    return build_interpolation_node(args, c_ids)
