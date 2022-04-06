@@ -5,6 +5,8 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
 const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
 
+const urls = require("./redirects.json");
+
 const setTemplate = (template) =>
   path.resolve(`./src/templates/${template}Template.tsx`);
 
@@ -130,8 +132,18 @@ const createAuthorPages = (createPage, posts) => {
   });
 };
 
-exports.createPages = ({ graphql, actions: { createPage } }) => {
+exports.createPages = ({ graphql, actions: { createPage, createRedirect } }) => {
   const pageMaker = PageMaker(createPage);
+
+  // Redirect pages with 404 errors found for SEO
+  urls.paths.map((path) => {
+    createRedirect({
+      fromPath: path,
+      toPath: "/",
+      statusCode: 301,
+    })
+  })
+
   // The “graphql” function allows us to run arbitrary
   // queries against the local Drupal graphql schema. Think of
   // it like the site has a built-in database constructed
