@@ -140,7 +140,7 @@ exports.createPages = ({ graphql, actions: { createPage, createRedirect } }) => 
     createRedirect({
       fromPath: path,
       toPath: "/",
-      statusCode: 301,
+      statusCode: 301
     })
   })
 
