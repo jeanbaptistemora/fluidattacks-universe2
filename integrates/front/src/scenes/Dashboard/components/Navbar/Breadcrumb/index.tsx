@@ -10,11 +10,7 @@ import { AddOrganizationModal } from "./AddOrganizationModal";
 import { MenuItem } from "./MenuItem";
 import { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS } from "./queries";
 import { SplitButton } from "./SplitButton";
-import {
-  BreadcrumbContainer,
-  NavSplitButtonContainer,
-  SplitItems,
-} from "./styles";
+import { BreadcrumbContainer, SplitItems } from "./styles";
 import type { IFindingTitle, IUserOrgs } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
@@ -33,6 +29,22 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     { name: "" },
     localStorage
   );
+  const [lastGroup, setLastGroup] = useStoredState(
+    "group",
+    { name: "" },
+    localStorage
+  );
+
+  function getCurrentGroupList(orgData: IUserOrgs): { name: string }[] {
+    const currentOrg = _.find(orgData.me.organizations, [
+      "name",
+      lastOrganization.name,
+    ]);
+
+    return _.isUndefined(currentOrg)
+      ? [{ name: "" }]
+      : _.sortBy(currentOrg.groups, ["name"]);
+  }
 
   const { data, refetch } = useQuery<IUserOrgs>(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }): void => {
@@ -47,21 +59,23 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   });
   const organizationList =
     data === undefined
-      ? [{ name: "" }]
+      ? [{ groups: [], name: "" }]
       : _.sortBy(data.me.organizations, ["name"]);
+  const groupList =
+    data === undefined ? [{ name: "" }] : getCurrentGroupList(data);
 
-  const [isItemsOpen, setItemsOpen] = useState(false);
-  const showItems = useCallback((): void => {
-    setItemsOpen(true);
+  const [isOrgItemsOpen, setOrgItemsOpen] = useState(false);
+  const showOrgItems = useCallback((): void => {
+    setOrgItemsOpen(true);
   }, []);
-  const hideItems = useCallback((): void => {
-    setItemsOpen(false);
+  const hideOrgItems = useCallback((): void => {
+    setOrgItemsOpen(false);
   }, []);
 
   const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
   const openOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(true);
-    setItemsOpen(false);
+    setOrgItemsOpen(false);
   }, []);
   const closeOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(false);
@@ -74,9 +88,28 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         setLastOrganization({ name: eventKey });
         push(`/orgs/${eventKey}/`);
       }
-      setItemsOpen(false);
+      setOrgItemsOpen(false);
     },
     [lastOrganization.name, push, setLastOrganization]
+  );
+
+  const [isGroupItemsOpen, setGroupItemsOpen] = useState(false);
+  const showGroupItems = useCallback((): void => {
+    setGroupItemsOpen(true);
+  }, []);
+  const hideGroupItems = useCallback((): void => {
+    setGroupItemsOpen(false);
+  }, []);
+
+  const handleGroupChange = useCallback(
+    (eventKey: string): void => {
+      if (eventKey !== lastGroup.name) {
+        setLastGroup({ name: eventKey });
+        push(`/orgs/${lastOrganization.name}/groups/${eventKey}/`);
+      }
+      setGroupItemsOpen(false);
+    },
+    [lastOrganization.name, lastGroup.name, push, setLastGroup]
   );
 
   const path: string = escape(pathname);
@@ -84,6 +117,12 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   const pathOrganization: string = path.includes("/orgs")
     ? pathData[0].toLowerCase()
     : lastOrganization.name;
+  const pathGroup: string = path.includes("/groups/")
+    ? pathData[2].toLowerCase()
+    : "";
+  if (pathGroup !== lastGroup.name) {
+    setLastGroup({ name: pathGroup });
+  }
 
   const pathBreadcrumbItems = pathData.slice(1);
   const findingAlias = ["drafts", "vulns"];
@@ -111,6 +150,32 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     },
   });
 
+  const groupDropdown: JSX.Element = (
+    <li>
+      <SplitButton
+        content={
+          <SplitItems>
+            {groupList.map(
+              (group: { name: string }): JSX.Element => (
+                <MenuItem
+                  eventKey={group.name}
+                  itemContent={capitalize(group.name)}
+                  key={group.name}
+                  onClick={handleGroupChange}
+                />
+              )
+            )}
+          </SplitItems>
+        }
+        id={"groupList"}
+        isOpen={isGroupItemsOpen}
+        onHover={showGroupItems}
+        onLeave={hideGroupItems}
+        title={capitalize(pathGroup)}
+      />
+    </li>
+  );
+
   const breadcrumbItems: JSX.Element[] = pathBreadcrumbItems.map(
     (item: string, index: number): JSX.Element => {
       const [, baseLink] = path.split("/");
@@ -122,6 +187,10 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           ? "-"
           : findingData.finding.title
         : item;
+
+      if (breadcrumbItem === lastGroup.name) {
+        return groupDropdown;
+      }
 
       return (
         <li className={"pv2"} key={index.toString()}>
@@ -137,36 +206,34 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     <React.Fragment>
       <BreadcrumbContainer>
         <li>
-          <NavSplitButtonContainer>
-            <SplitButton
-              content={
-                <SplitItems>
-                  <Can do={"api_mutations_add_organization_mutate"}>
+          <SplitButton
+            content={
+              <SplitItems>
+                <Can do={"api_mutations_add_organization_mutate"}>
+                  <MenuItem
+                    eventKey={""}
+                    itemContent={t("sidebar.newOrganization.text")}
+                    onClick={openOrganizationModal}
+                  />
+                </Can>
+                {organizationList.map(
+                  (organization: { name: string }): JSX.Element => (
                     <MenuItem
-                      eventKey={""}
-                      itemContent={t("sidebar.newOrganization.text")}
-                      onClick={openOrganizationModal}
+                      eventKey={organization.name}
+                      itemContent={capitalize(organization.name)}
+                      key={organization.name}
+                      onClick={handleOrganizationChange}
                     />
-                  </Can>
-                  {organizationList.map(
-                    (organization: { name: string }): JSX.Element => (
-                      <MenuItem
-                        eventKey={organization.name}
-                        itemContent={capitalize(organization.name)}
-                        key={organization.name}
-                        onClick={handleOrganizationChange}
-                      />
-                    )
-                  )}
-                </SplitItems>
-              }
-              id={"organizationList"}
-              isOpen={isItemsOpen}
-              onHover={showItems}
-              onLeave={hideItems}
-              title={capitalize(pathOrganization)}
-            />
-          </NavSplitButtonContainer>
+                  )
+                )}
+              </SplitItems>
+            }
+            id={"organizationList"}
+            isOpen={isOrgItemsOpen}
+            onHover={showOrgItems}
+            onLeave={hideOrgItems}
+            title={capitalize(pathOrganization)}
+          />
         </li>
         {breadcrumbItems}
       </BreadcrumbContainer>
