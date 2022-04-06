@@ -32,6 +32,10 @@ class ErrorFileNameAlreadyExists(_SingleMessageException):
     msg: str = "File name already exists in group files"
 
 
+class ErrorRemovingGroup(_SingleMessageException):
+    msg: str = "Unable to remove group"
+
+
 class ErrorUpdatingGroup(_SingleMessageException):
     msg: str = "Unable to update group"
 

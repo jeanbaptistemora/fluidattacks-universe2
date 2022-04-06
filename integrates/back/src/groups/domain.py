@@ -26,6 +26,7 @@ from contextlib import (
 from custom_exceptions import (
     AlreadyPendingDeletion,
     BillingSubscriptionSameActive,
+    ErrorRemovingGroup,
     ErrorUpdatingGroup,
     GroupNotFound,
     HasActiveRoots,
@@ -56,6 +57,7 @@ from db_model.groups.constants import (
 from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
+    GroupStateRemovalJustification,
     GroupStateStatus,
     GroupStateUpdationJustification,
     GroupSubscriptionType,
@@ -741,9 +743,11 @@ async def remove_group(
     all_resources_removed = True
     if FI_ENVIRONMENT == "development":
         all_resources_removed = await remove_resources(
-            loaders, group_name, user_email
+            loaders=loaders, group_name=group_name, user_email=user_email
         )
-    are_users_removed = await remove_all_users(loaders, group_name)
+    are_users_removed = await remove_all_users(
+        loaders=loaders, group_name=group_name
+    )
     are_policies_revoked = await authz.revoke_cached_group_service_policies(
         group_name
     )
@@ -778,6 +782,64 @@ async def remove_group(
         "deletion_date": today,
     }
     return await update(group_name, new_data)
+
+
+async def remove_group_typed(
+    *,
+    loaders: Any,
+    group_name: str,
+    justification: GroupStateRemovalJustification,
+    user_email: str,
+) -> None:
+    """
+    Update group state to DELETED and update some related resources.
+    For production, remember to remove additional resources
+    (user, findings, vulns ,etc) via the batch action remove_group_resources.
+    """
+    loaders.group_typed.clear(group_name)
+    group: Group = await loaders.group_typed.load(group_name)
+    if group.state.status == GroupStateStatus.DELETED:
+        raise AlreadyPendingDeletion()
+
+    all_resources_removed = True
+    if FI_ENVIRONMENT == "development":
+        all_resources_removed = await remove_resources(
+            loaders=loaders,
+            group_name=group_name,
+            user_email=user_email,
+        )
+    are_users_removed = await remove_all_users(
+        loaders=loaders,
+        group_name=group_name,
+    )
+    are_policies_revoked = await authz.revoke_cached_group_service_policies(
+        group_name
+    )
+    is_removed_from_org = await orgs_domain.remove_group(
+        group_name=group_name,
+        organization_id=await orgs_domain.get_id_for_group(group_name),
+    )
+    if not all(
+        [
+            are_users_removed,
+            all_resources_removed,
+            are_policies_revoked,
+            is_removed_from_org,
+        ]
+    ):
+        raise ErrorRemovingGroup.new()
+
+    await update_state_typed(
+        group_name=group_name,
+        state=group.state._replace(
+            modified_date=datetime_utils.get_iso_date(),
+            has_machine=False,
+            has_squad=False,
+            justification=justification,
+            modified_by=user_email,
+            status=GroupStateStatus.DELETED,
+        ),
+    )
 
 
 async def validate_open_roots(loaders: Any, group_name: str) -> None:
@@ -1364,23 +1426,28 @@ async def remove_file(
     )
 
 
-async def remove_all_users(loaders: Any, group: str) -> bool:
-    """Remove user access to group"""
+async def remove_all_users(
+    *,
+    loaders: Any,
+    group_name: str,
+) -> bool:
+    """Remove user access to group."""
     user_active, user_suspended = await collect(
         [
-            group_access_domain.get_group_users(group, True),
-            group_access_domain.get_group_users(group, False),
+            group_access_domain.get_group_users(group_name, True),
+            group_access_domain.get_group_users(group_name, False),
         ]
     )
     all_users = user_active + user_suspended
     return all(
         await collect(
-            [remove_user(loaders, group, user) for user in all_users]
+            [remove_user(loaders, group_name, user) for user in all_users]
         )
     )
 
 
 async def remove_resources(
+    *,
     loaders: Any,
     group_name: str,
     user_email: str,

@@ -154,20 +154,24 @@ def format_group_historic_state(item: Item) -> tuple[GroupState, ...]:
         == GroupStateStatus.ACTIVE.value
         else GroupStateStatus.DELETED
     )
-    if state_status == GroupStateStatus.DELETED and item.get(
-        "historic_deletion"
-    ):
-        last_state: GroupState = historic_state[-1]
-        last_deletion_state: dict[str, str] = item["historic_deletion"][-1]
-        deletion_requester = last_deletion_state["user"]
-        deletion_date = last_deletion_state["date"]
-        historic_state.append(
-            last_state._replace(
-                status=GroupStateStatus.DELETED,
-                modified_by=deletion_requester,
-                modified_date=convert_to_iso_str(deletion_date),
+    if state_status == GroupStateStatus.DELETED:
+        if item.get("historic_deletion"):
+            last_state: GroupState = historic_state[-1]
+            last_deletion_state: dict[str, str] = item["historic_deletion"][-1]
+            deletion_requester = last_deletion_state["user"]
+            deletion_date = last_deletion_state["date"]
+            historic_state.append(
+                last_state._replace(
+                    modified_by=deletion_requester,
+                    modified_date=convert_to_iso_str(deletion_date),
+                )
             )
-        )
+        historic_state = [
+            *historic_state[:-1],
+            historic_state[-1]._replace(
+                status=GroupStateStatus.DELETED,
+            ),
+        ]
     elif item.get("pending_deletion_date"):
         historic_state = [
             *historic_state[:-1],
