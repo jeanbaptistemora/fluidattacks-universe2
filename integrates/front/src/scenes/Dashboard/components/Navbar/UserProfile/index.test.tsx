@@ -52,7 +52,7 @@ describe("User Profile", (): void => {
   it("should render an delete account modal", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockQueryFalse: MockedResponse[] = [
+    const mockQueryMutation: MockedResponse[] = [
       {
         request: {
           query: REMOVE_STAKEHOLDER_MUTATION,
@@ -69,7 +69,7 @@ describe("User Profile", (): void => {
 
     render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <MockedProvider addTypename={false} mocks={mockQueryFalse}>
+        <MockedProvider addTypename={false} mocks={mockQueryMutation}>
           <UserProfile userRole={"user"} />
         </MockedProvider>
       </MemoryRouter>
@@ -104,6 +104,57 @@ describe("User Profile", (): void => {
         "navbar.deleteAccount.successTitle"
       );
     });
+
+    jest.clearAllMocks();
+  });
+
+  it("should render fail an delete account modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockQueryFalse: MockedResponse[] = [
+      {
+        request: {
+          query: REMOVE_STAKEHOLDER_MUTATION,
+        },
+        result: {
+          data: {
+            removeStakeholder: {
+              success: false,
+            },
+          },
+        },
+      },
+    ];
+
+    render(
+      <MemoryRouter initialEntries={["/orgs/okada"]}>
+        <MockedProvider addTypename={false} mocks={mockQueryFalse}>
+          <UserProfile userRole={"user"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    expect(screen.getAllByRole("button")).toHaveLength(1);
+
+    userEvent.click(screen.getByRole("button"));
+
+    expect(
+      screen.queryByText("navbar.deleteAccount.modal.warning")
+    ).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+
+    expect(
+      screen.queryByText("navbar.deleteAccount.modal.warning")
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
+
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledWith("/home");
+    });
+
+    expect(msgSuccess).toHaveBeenCalledTimes(0);
 
     jest.clearAllMocks();
   });
