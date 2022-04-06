@@ -21,6 +21,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.enums import (
+    GroupStateRemovalJustification,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -31,39 +34,32 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from organizations import (
-    domain as orgs_domain,
-)
-from typing import (
-    List,
-    Tuple,
-)
 
 
 async def _remove_group(
     loaders: Dataloaders,
     group_name: str,
     user_email: str,
-    organization_id: str,
-) -> bool:
-    success = await groups_domain.remove_group(
-        loaders, group_name, user_email, organization_id
+) -> None:
+    await groups_domain.remove_group_typed(
+        loaders=loaders,
+        group_name=group_name,
+        justification=GroupStateRemovalJustification.OTHER,
+        user_email=user_email,
     )
-    if success:
-        await batch_dal.put_action(
-            action=Action.REMOVE_GROUP_RESOURCES,
-            entity=group_name,
-            subject=user_email,
-            additional_info="obsolete_groups",
-            queue="dedicated_later",
-            product_name=Product.INTEGRATES,
-        )
-    return success
+    await batch_dal.put_action(
+        action=Action.REMOVE_GROUP_RESOURCES,
+        entity=group_name,
+        subject=user_email,
+        additional_info="obsolete_groups",
+        queue="dedicated_later",
+        product_name=Product.INTEGRATES,
+    )
 
 
 async def _delete_groups(
-    loaders: Dataloaders, obsolete_groups: List[GroupType]
-) -> bool:
+    loaders: Dataloaders, obsolete_groups: list[GroupType]
+) -> None:
     today = datetime_utils.get_now().date()
     email = "integrates@fluidattacks.com"
     groups_to_delete = [
@@ -77,28 +73,16 @@ async def _delete_groups(
             <= today
         )
     ]
-    groups_to_delete_org_ids = await collect(
+    await collect(
         [
-            orgs_domain.get_id_for_group(get_key_or_fallback(group_to_delete))
-            for group_to_delete in groups_to_delete
+            _remove_group(loaders, get_key_or_fallback(group), email)
+            for group in groups_to_delete
         ]
-    )
-    return all(
-        await collect(
-            [
-                _remove_group(
-                    loaders, get_key_or_fallback(group), email, org_id
-                )
-                for group, org_id in zip(
-                    groups_to_delete, groups_to_delete_org_ids
-                )
-            ]
-        )
     )
 
 
 async def _remove_group_pending_deletion_dates(
-    groups: List[GroupType], obsolete_groups: List[GroupType]
+    groups: list[GroupType], obsolete_groups: list[GroupType]
 ) -> bool:
     groups_to_remove_pending_deletion_date = [
         group
@@ -120,7 +104,7 @@ async def _remove_group_pending_deletion_dates(
 
 
 async def _set_group_pending_deletion_dates(
-    obsolete_groups: List[GroupType],
+    obsolete_groups: list[GroupType],
 ) -> bool:
     group_pending_deletion_date_str = datetime_utils.get_as_str(
         datetime_utils.get_now_plus_delta(weeks=1)
@@ -162,7 +146,7 @@ async def delete_obsolete_groups() -> None:
     inactive_group_names = [
         get_key_or_fallback(group) for group in inactive_groups
     ]
-    inactive_groups_findings: Tuple[
+    inactive_groups_findings: tuple[
         Finding, ...
     ] = await group_findings_loader.load_many(inactive_group_names)
     inactive_groups_stakeholders = await group_stakeholders_loader.load_many(
