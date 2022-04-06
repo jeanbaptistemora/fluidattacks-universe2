@@ -15,7 +15,7 @@ closure:
   gql: 3.0.0a6
   graphql-core: 3.1.7
   idna: "2.10"
-  importlib-metadata: 4.10.1
+  importlib-metadata: 4.11.3
   jmespath: 0.10.0
   joblib: 0.16.0
   lightgbm: 3.2.1
@@ -24,12 +24,11 @@ closure:
   more-itertools: 8.5.0
   multidict: 6.0.2
   mypy-extensions: 0.4.3
-  numpy: 1.22.1
   packaging: "21.3"
   pandas: 1.1.2
   patsy: 0.5.2
   prettytable: 1.0.1
-  protobuf: 3.19.4
+  protobuf: 3.20.0
   protobuf3-to-dict: 0.1.5
   psycopg2: 2.8.4
   pycparser: "2.21"
@@ -41,18 +40,18 @@ closure:
   s3transfer: 0.3.7
   sagemaker: 2.18.0
   scikit-learn: 0.23.2
-  scipy: 1.7.3
+  scipy: 1.8.0
   six: 1.16.0
   smdebug-rulesconfig: 0.1.5
   smmap: 5.0.0
-  statsmodels: 0.13.1
+  statsmodels: 0.13.2
   threadpoolctl: 3.1.0
   tqdm: 4.50.2
   urllib3: 1.25.11
   wcwidth: 0.2.5
   webob: 1.8.7
   yarl: 1.7.2
-  zipp: 3.7.0
+  zipp: 3.8.0
 links:
   - name: attrs-21.4.0-py2.py3-none-any.whl
     sha256: 1d185347kgm169c8fs1i8rmcvv65hx4fj7w5mcv5smks9mwf69rd
@@ -183,12 +182,12 @@ links:
   - name: idna-2.10.tar.gz
     sha256: 1xmk3s92d2vq42684p61wixfmh3qpr2mw762w0n6662vhlpqf1xk
     url: https://files.pythonhosted.org/packages/ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz
-  - name: importlib_metadata-4.10.1-py3-none-any.whl
-    sha256: 1dkpg8wb8x35xg9bw3ba7y7wb9p87mrlbvzyh73ax8f4m102m7l9
-    url: https://files.pythonhosted.org/packages/58/fd/f82049e9b21773188a72bd1bc53530b900392808f8b823e4c778e7c035f0/importlib_metadata-4.10.1-py3-none-any.whl
-  - name: importlib_metadata-4.10.1.tar.gz
-    sha256: 0pp96rym4y48h609vwbrhj91wiazbcl2km21bvdyjq3jbf50s7wm
-    url: https://files.pythonhosted.org/packages/f8/41/8ffb059708359ea14a3ec74a99a2bf0cd44a0c983a0c480d9eb7a69438bb/importlib_metadata-4.10.1.tar.gz
+  - name: importlib_metadata-4.11.3-py3-none-any.whl
+    sha256: 1ipdc8h4npfrrvfzdkniwmsdp8n1afxr3wwadcdcm30am4f4620j
+    url: https://files.pythonhosted.org/packages/92/f2/c48787ca7d1e20daa185e1b6b2d4e16acd2fb5e0320bc50ffc89b91fa4d7/importlib_metadata-4.11.3-py3-none-any.whl
+  - name: importlib_metadata-4.11.3.tar.gz
+    sha256: 0f951zynlh39yicqnhrs3p1qa5p3g6ajjfcggf12y51ppxz5jk7a
+    url: https://files.pythonhosted.org/packages/3e/1d/964b27278cfa369fbe9041f604ab09c6e99556f8b7910781b4584b428c2f/importlib_metadata-4.11.3.tar.gz
   - name: jmespath-0.10.0-py2.py3-none-any.whl
     sha256: 0bxp1hnjrb4vaksa43s2ghjwr3jb5rpv6q8x2hq7fnfc0icm5xnd
     url: https://files.pythonhosted.org/packages/07/cb/5f001272b6faeb23c1c9e0acc04d48eaaf5c862c17709d20e3469c6e0139/jmespath-0.10.0-py2.py3-none-any.whl
@@ -279,24 +278,6 @@ links:
   - name: mypy_extensions-0.4.3.tar.gz
     sha256: 1a04qsk8hd1lqns8w1j7cr0vmvbhg450di5k1i16kqxkbf7q30id
     url: https://files.pythonhosted.org/packages/63/60/0582ce2eaced55f65a4406fc97beba256de4b7a95a0034c6576458c6519f/mypy_extensions-0.4.3.tar.gz
-  - name: numpy-1.22.1-cp38-cp38-macosx_10_9_universal2.whl
-    sha256: 0nqvk8kc8qayn58kszxm6fajr5fp23bp24ysfy9x8692zfpzw3c0
-    url: https://files.pythonhosted.org/packages/c8/1f/7b07ce261b6f0d6859c5ce75be338c78f6960ee55d9d04cd676abaa104c6/numpy-1.22.1-cp38-cp38-macosx_10_9_universal2.whl
-  - name: numpy-1.22.1-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 1lldcha0naxwdayh6bw0bfwa4i0w9p52zl7icgygs0bnk1by5xb5
-    url: https://files.pythonhosted.org/packages/5d/4f/59aaa65b1e2d7bb75600a2c69a59436014f81c83bec50f597151acb7a1f7/numpy-1.22.1-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: numpy-1.22.1-cp38-cp38-macosx_11_0_arm64.whl
-    sha256: 1hk7s9x943xsyrk8nsgyiz89a2iwln8hxvqm9djhbzmhd4jhcbk3
-    url: https://files.pythonhosted.org/packages/63/e3/8f16e19787975933d0f350bdd472da935178fef7dc165385a1a06e82695c/numpy-1.22.1-cp38-cp38-macosx_11_0_arm64.whl
-  - name: numpy-1.22.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 0z2g0zrsjl07cvf47mxddc3pkv8jrp1hhxhkc7rx724iywmml90d
-    url: https://files.pythonhosted.org/packages/34/58/a5e910ad22a701d855396233ccef2642ff1c91ffc3a6cd9f10e6bd8218fe/numpy-1.22.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: numpy-1.22.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 05fh8p74kv6j8z4qvzjxvqiip9064baz72chrq39dbfj36503d16
-    url: https://files.pythonhosted.org/packages/c1/fd/4648328a72f44fc9a463236448ad33a0674b0fc9045814b31b642f72b9e8/numpy-1.22.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: numpy-1.22.1.zip
-    sha256: 0wwrbs5dmh3c8xxkqlp500rkgfqmqaz577dib90gqdajpkswqj73
-    url: https://files.pythonhosted.org/packages/0a/c8/a62767a6b374a0dfb02d2a0456e5f56a372cdd1689dbc6ffb6bf1ddedbc0/numpy-1.22.1.zip
   - name: packaging-21.3-py3-none-any.whl
     sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
     url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl
@@ -327,21 +308,21 @@ links:
   - name: prettytable-1.0.1.tar.gz
     sha256: 0wcpp1nkicrswb353yn6xd2x535cpif62nw5rgz33c1wj0wzbdvb
     url: https://files.pythonhosted.org/packages/69/89/564e58a41c8593be42e2522c43adc29f8a0f387cccec6ea0038c02113f6d/prettytable-1.0.1.tar.gz
-  - name: protobuf-3.19.4-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 1cj9wzbzpxwdv22amzd1ccwy4qy4fhk4cf44hi9bshlrwcwpvnk9
-    url: https://files.pythonhosted.org/packages/34/af/4b3cdb20ac3ee72ad9ed528c8653dbd1cee029f23e44209def0703119270/protobuf-3.19.4-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: protobuf-3.19.4-cp38-cp38-manylinux2014_aarch64.whl
-    sha256: 1cjlbvld6frp3a47b5fx16biyx3m8xnsfb45rk52pqj3z9vkiva8
-    url: https://files.pythonhosted.org/packages/2a/b8/c8282a5ccabc8aa6b4478f38da26d711458638a56b1790008783ad588792/protobuf-3.19.4-cp38-cp38-manylinux2014_aarch64.whl
-  - name: protobuf-3.19.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1rvpg6hd7h0wad955njlzacbz1n1v4csmackc0z5dx64p7gx35dx
-    url: https://files.pythonhosted.org/packages/d5/c8/64de54ef0121a1ff6309f102124c6b5a89260dc584e1871341f5199b7b85/protobuf-3.19.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: protobuf-3.19.4-py2.py3-none-any.whl
-    sha256: 05h6pqghqc4930hggcc2hs1jjbq85wk0l1n9404h1kdziskw6qc9
-    url: https://files.pythonhosted.org/packages/c6/1c/f18d97fc479b4fb6f72bbb0e41188575362e3bbd31014cf294ef0fdec8bf/protobuf-3.19.4-py2.py3-none-any.whl
-  - name: protobuf-3.19.4.tar.gz
-    sha256: 02lx942fl81hqv941hs5rz20cgg1cjysgaa2xmf030ryvw5c3w4x
-    url: https://files.pythonhosted.org/packages/6c/49/f864b9fd6310d9a15ddae5b37d78dff1df0e2e1da476442fee062c6032b2/protobuf-3.19.4.tar.gz
+  - name: protobuf-3.20.0-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 02r2p8mjz193jnc5sczpn7r2ji3kip2x56pc30khhh7kxvbgrli5
+    url: https://files.pythonhosted.org/packages/88/2a/4a0181b7c40fbf6d15c08e1c5cd5790a43032e603ce5e6f4af6cef165d0b/protobuf-3.20.0-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: protobuf-3.20.0-cp38-cp38-manylinux2014_aarch64.whl
+    sha256: 0x3hlwyx50vmphxqdm0mb79914zbhpvmpbj2ikk3bz5xb02vxj48
+    url: https://files.pythonhosted.org/packages/08/3c/ec624f51b5258c59c82d9a48a0dde1bf7e889a6403116e9f0c2723ba86af/protobuf-3.20.0-cp38-cp38-manylinux2014_aarch64.whl
+  - name: protobuf-3.20.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 1y17c8fr431fcpvx9h1y7zp4gl81sh66gs8n9ghlwbl59fvrxz9q
+    url: https://files.pythonhosted.org/packages/88/88/cd55f87e896b82a3aba8e6c0affc077de51f7321cf730622b17ef7b0f69c/protobuf-3.20.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: protobuf-3.20.0-py2.py3-none-any.whl
+    sha256: 10xrip7bqa2cqmf010l3fbcrrxbnr4laa7kbbqw7jj1aksyninjf
+    url: https://files.pythonhosted.org/packages/ae/80/9eaa62a2afcc5407a6b7d2652c208f073df3a5c83b5bff90bf99553fbcf2/protobuf-3.20.0-py2.py3-none-any.whl
+  - name: protobuf-3.20.0.tar.gz
+    sha256: 00i7fmg6yv1nvipz5zsf8izsvcjq68a38s0rr33ixv96rp8w7cki
+    url: https://files.pythonhosted.org/packages/6d/3e/40c56d21154a1f3ababb69f675333d7fb70c8293f9ca42ea3e448327fc50/protobuf-3.20.0.tar.gz
   - name: protobuf3-to-dict-0.1.5.tar.gz
     sha256: 0nibblvj3n20zvq6d73zalbjqjby0w8ji5mim7inhn7vb9dw4hhy
     url: https://files.pythonhosted.org/packages/6b/55/522bb43539fed463275ee803d79851faaebe86d17e7e3dbc89870d0322b9/protobuf3-to-dict-0.1.5.tar.gz
@@ -405,27 +386,27 @@ links:
   - name: scikit-learn-0.23.2.tar.gz
     sha256: 107lgrpny04fbmm6q3pc8jswg4sxf2pdz1s3amagkmkcbr8nyxi0
     url: https://files.pythonhosted.org/packages/aa/f6/75297be19f48b7a8c2577753a3a700f98fc4db49d0e5ed3820dd8dee43d4/scikit-learn-0.23.2.tar.gz
-  - name: scipy-1.7.3-1-cp38-cp38-macosx_12_0_arm64.whl
-    sha256: 0zj6qiffw1lc4fc5z0h007b3vcn9avp5gsjrxp9drmx1c6qaxq5h
-    url: https://files.pythonhosted.org/packages/3c/f3/d22f545d7b760b73b70c965117be26aac07820f35e58978c80d4943b708c/scipy-1.7.3-1-cp38-cp38-macosx_12_0_arm64.whl
-  - name: scipy-1.7.3-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 14zgx851f9x0z5yssb4wgg9884w87lh98wsmk09hg8granzm5gb5
-    url: https://files.pythonhosted.org/packages/5a/87/97375b35bdeb839487575f5eadac107fdfdcdaede6de139042657e1cfd44/scipy-1.7.3-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: scipy-1.7.3-cp38-cp38-macosx_12_0_arm64.whl
-    sha256: 18rlvp4rdsqlgb9ng150dwps9wr8c2yr7awjh5d77bpin5nj17gr
-    url: https://files.pythonhosted.org/packages/e3/c8/1fdbdd0ef6712eddca6911f5130c3eb4fc58912e48bea53014b94033b48f/scipy-1.7.3-cp38-cp38-macosx_12_0_arm64.whl
-  - name: scipy-1.7.3-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 0dl4l71ih57kakjc3bcbhygh9ch9841bszmi84x6pibrjcszqb2z
-    url: https://files.pythonhosted.org/packages/ce/cd/255622ddfc48be44212b91b22616995c9a3051a00fbfb41d7a38bf5f4151/scipy-1.7.3-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: scipy-1.7.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1nlvxrva3d8br9fvvm8aqkdycyh7j4pm7k3sw13r4g6vvg2f4ypb
-    url: https://files.pythonhosted.org/packages/ec/5e/6bfc7e77cf54ba51e5ec8e83ee6fe9c5f1b4b3e2d233925f2c322fa704bd/scipy-1.7.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: scipy-1.7.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 0b37461s7rc7icmlqa2b91a77zsdqrwhb0sqbmqpdyjc0x8d5hlm
-    url: https://files.pythonhosted.org/packages/f8/3d/26a75c8045181c2fab9c76936ca84318a6674707e33e42c727c1d84f1df4/scipy-1.7.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: scipy-1.7.3.tar.gz
-    sha256: 1gxsnw6viz2j3sm8ak2a8l7fcn4b2zm3kzfm8w57xxyyrzx7an5b
-    url: https://files.pythonhosted.org/packages/61/67/1a654b96309c991762ee9bc39c363fc618076b155fe52d295211cf2536c7/scipy-1.7.3.tar.gz
+  - name: scipy-1.8.0-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 1vbrzmjbrim950f28gh99za6zricdzmkl0b9wiqm5djcfav3kaiq
+    url: https://files.pythonhosted.org/packages/0c/a5/dca69d5ddb81da167d434f72b0ecfa10f68bf99b648fc49e4d9db81dff1c/scipy-1.8.0-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: scipy-1.8.0-cp38-cp38-macosx_12_0_arm64.whl
+    sha256: 081716gh4idr3ypbxay0yvry8mv4z0jfsf9g4girzfm50d68m6jm
+    url: https://files.pythonhosted.org/packages/70/ba/82877dfa10828cb585cff9df6d87a66564a0571859c15488d16a9413598a/scipy-1.8.0-cp38-cp38-macosx_12_0_arm64.whl
+  - name: scipy-1.8.0-cp38-cp38-macosx_12_0_universal2.macosx_10_9_x86_64.whl
+    sha256: 1fnx4dsp360py4w8n30pxwbysanhjrfjrb1q77ab4zkrz6wx79pl
+    url: https://files.pythonhosted.org/packages/f4/45/9b57c6fd181f5031d99e1395b3cc3bc83653ff064c614ff211882bd85d50/scipy-1.8.0-cp38-cp38-macosx_12_0_universal2.macosx_10_9_x86_64.whl
+  - name: scipy-1.8.0-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 19wijq89qcp14k76xqj1gypjnfvqyn79lw4mnnphkvc386pw5clj
+    url: https://files.pythonhosted.org/packages/84/d1/74a1e3b528556bdb94a1360e731eb838ffcb05106ea95eb8ba4af85f71e6/scipy-1.8.0-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: scipy-1.8.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 117ly39kglp70z8mhiwph183d3hngp1y5cdip8cfyrj5gxyf4yd2
+    url: https://files.pythonhosted.org/packages/bd/84/6f6218c338e1fa77f715e2db777b162bf1e4535289cf462ee3f002612ed6/scipy-1.8.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: scipy-1.8.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1x3s6i7fjh42rm6qkxcz0zxd5d8ycjlyih4r9zk0ij27j41y8nxd
+    url: https://files.pythonhosted.org/packages/d2/27/b2648569175ba233cb6ad13029f8df4049a581c268156c5dd1db5ca44a8c/scipy-1.8.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: scipy-1.8.0.tar.gz
+    sha256: 1gghkwn93niyasm36333xbqrnn3yiadq9d97wnc9mg14nzbg5m1i
+    url: https://files.pythonhosted.org/packages/b4/a2/4faa34bf0cdbefd5c706625f1234987795f368eb4e97bde9d6f46860843e/scipy-1.8.0.tar.gz
   - name: six-1.16.0-py2.py3-none-any.whl
     sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
     url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
@@ -441,27 +422,21 @@ links:
   - name: smmap-5.0.0.tar.gz
     sha256: 0dh9nghcsgjc67cq0ifxxm45d7f0w95zgjf9n02f4fydb4hfch68
     url: https://files.pythonhosted.org/packages/21/2d/39c6c57032f786f1965022563eec60623bb3e1409ade6ad834ff703724f3/smmap-5.0.0.tar.gz
-  - name: statsmodels-0.13.1-cp38-cp38-macosx_10_15_x86_64.whl
-    sha256: 0hyc20766k1cchfjky2d4nkh7dwx7r2f78ga49iv1dk4fz91jz0q
-    url: https://files.pythonhosted.org/packages/fe/f3/3d45f312d369346d4fe6213bebeb569eafc0a44b9bfe4cf4c09f992970b9/statsmodels-0.13.1-cp38-cp38-macosx_10_15_x86_64.whl
-  - name: statsmodels-0.13.1-cp38-cp38-macosx_10_9_x86_64.whl
-    sha256: 03xm395imd8438ykb1pimrdlg0h2v794hdmi6yw9ymql318s6gvj
-    url: https://files.pythonhosted.org/packages/c8/82/720561143a5590872a06e6eddcc89780a52ea088e4357d42d69fdb0cfe22/statsmodels-0.13.1-cp38-cp38-macosx_10_9_x86_64.whl
-  - name: statsmodels-0.13.1-cp38-cp38-macosx_11_0_arm64.whl
-    sha256: 10vyaabcipapiddhxrqsjfc7v80vlmisj5wsmh305cq09gidrk0c
-    url: https://files.pythonhosted.org/packages/e8/18/dbf9e5ad9695dab7fd6794351f498e37b5c259fb79eabb3b53c890e10b55/statsmodels-0.13.1-cp38-cp38-macosx_11_0_arm64.whl
-  - name: statsmodels-0.13.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 0sggmx6i77nbivx0h6wzfys8nlzny6phk6lf1i9g5i44jfhplrnm
-    url: https://files.pythonhosted.org/packages/15/21/b42093da34a24e9faf43c68e429cda7473495ca69efcfefbe95046559268/statsmodels-0.13.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: statsmodels-0.13.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1k836zhdr0iji1sa0d73arfxs5xwk7pmcmiciydyinqsxnvna3ln
-    url: https://files.pythonhosted.org/packages/05/76/2b2723e7540dce8c7ec30efbb79a1b14215b39908bccb1464523ce0f827d/statsmodels-0.13.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: statsmodels-0.13.1-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 0jlm04g7a222w0qkyqiw10md3v1y0my5b7gabw6s30b6lgvqik6n
-    url: https://files.pythonhosted.org/packages/3d/11/270e6c192f1a8b87dad5040dd90b78898e0c18f1572b7e34968a941397cc/statsmodels-0.13.1-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: statsmodels-0.13.1.tar.gz
-    sha256: 0sbsyxgpzhys5padhkhrj71z4i1q41sm938pz0x8ff6jjvcchvh0
-    url: https://files.pythonhosted.org/packages/e7/86/8c95a2f43d8d66837f52fc0a2d9b4ea491e564789ee94d28f642d9d47ebc/statsmodels-0.13.1.tar.gz
+  - name: statsmodels-0.13.2-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 0hcivbr8dsgcyicl5kbzg2nka2f6a6vh3sprzqg2588vbzr51h2v
+    url: https://files.pythonhosted.org/packages/f0/eb/fc5940beabd88202065efb31b328684aedb01464279380c434fa12826f80/statsmodels-0.13.2-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: statsmodels-0.13.2-cp38-cp38-macosx_11_0_arm64.whl
+    sha256: 0sk24j5igc6z7axjqghn68fz9avcwfzg4f7svckkv3cilf71qss2
+    url: https://files.pythonhosted.org/packages/4a/81/88ec62006b1a5ef308f60340dfba480b354ef8f028b2d25b29f2c00c93a4/statsmodels-0.13.2-cp38-cp38-macosx_11_0_arm64.whl
+  - name: statsmodels-0.13.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1my6ah18bfvpl068az6pvzahz4wqhmxc57gsjcg8nc339an0zf25
+    url: https://files.pythonhosted.org/packages/33/04/b0275d3a8c7894d98a9acd1b7829196b32bbbd1cde257313eaa7fbedc260/statsmodels-0.13.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: statsmodels-0.13.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1wyw2pmmz0a1773am14hl4p1qn5qjnjghraw4hkzcy8g1vn6kvkq
+    url: https://files.pythonhosted.org/packages/9e/35/12b950eba46d6648b0d6e2e895ab0a3821f185e53a9568b86ded87f4efac/statsmodels-0.13.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: statsmodels-0.13.2.tar.gz
+    sha256: 1m77rm3i28vkv8l9j8magm1haswp12fhyxzifsj3dh1rk4n2kp3p
+    url: https://files.pythonhosted.org/packages/e1/4a/0eb4efa49cc352e2721e2aebfe8573264db2add195545ec3979c98040c3b/statsmodels-0.13.2.tar.gz
   - name: threadpoolctl-3.1.0-py3-none-any.whl
     sha256: 0ywh4j89jbrp5vazy89dfwdmdrmjwzn1xx0d51rngssz4vdav6cb
     url: https://files.pythonhosted.org/packages/61/cf/6e354304bcb9c6413c4e02a747b600061c21d38ba51e7e544ac7bc66aecc/threadpoolctl-3.1.0-py3-none-any.whl
@@ -534,10 +509,10 @@ links:
   - name: yarl-1.7.2.tar.gz
     sha256: 1panip1y3jn0yyr80g2xbzpgq290fmb9isb0lhkk698csr39nfa5
     url: https://files.pythonhosted.org/packages/f6/da/46d1b3d69a9a0835dabf9d59c7eb0f1600599edd421a4c5a15ab09f527e0/yarl-1.7.2.tar.gz
-  - name: zipp-3.7.0-py3-none-any.whl
-    sha256: 0xd3r7x445ivgb9zqpham4y8yq0lv9255z58l3b7sazr4kfm0wml
-    url: https://files.pythonhosted.org/packages/52/c5/df7953fe6065185af5956265e3b16f13c2826c2b1ba23d43154f3af453bc/zipp-3.7.0-py3-none-any.whl
-  - name: zipp-3.7.0.tar.gz
-    sha256: 0zdqmz7fnlcw7y32948j2kv03n58klzgscvl4rdx9fcfh93g8l4z
-    url: https://files.pythonhosted.org/packages/94/64/3115548d41cb001378099cb4fc6a6889c64ef43ac1b0e68c9e80b55884fa/zipp-3.7.0.tar.gz
+  - name: zipp-3.8.0-py3-none-any.whl
+    sha256: 16ghbifm4cl9s5jdamw92zjhlazl1x4b1ibwisizfx4fyjxybxn4
+    url: https://files.pythonhosted.org/packages/80/0e/16a7ee38617aab6a624e95948d314097cc2669edae9b02ded53309941cfc/zipp-3.8.0-py3-none-any.whl
+  - name: zipp-3.8.0.tar.gz
+    sha256: 1ba3py07kh9ps2hyp2q7l9yvdksc6zg16zjp9dndn91wp2nqmgsn
+    url: https://files.pythonhosted.org/packages/cc/3c/3e8c69cd493297003da83f26ccf1faea5dd7da7892a0a7c965ac3bcba7bf/zipp-3.8.0.tar.gz
 python: "3.8"

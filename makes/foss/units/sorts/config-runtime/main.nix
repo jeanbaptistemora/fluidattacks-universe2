@@ -36,6 +36,9 @@ in
         (projectPath "/sorts")
         (projectPath "/makes/foss/units/bugsnag-client")
       ];
+      pythonPackage38 = [
+        inputs.nixpkgs.python38Packages.numpy
+      ];
       source = [
         (makeTemplate {
           replace = {

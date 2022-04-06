@@ -1,6 +1,5 @@
 boto3: "1.16.29"
 lightgbm: "3.2.1"
-numpy: "1.22.1"
 pandas: "1.1.2"
 psycopg2: "2.8.4"
 pytest-cov: "2.10.1"
