@@ -2,6 +2,9 @@
 
 
 import argparse
+from code_etl.compute_bills._getter import (
+    get_org,
+)
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
     db_cursor,
@@ -10,23 +13,15 @@ import csv
 from datetime import (
     datetime,
 )
-from functools import (
-    lru_cache,
-)
 import json
 import logging
 from operator import (
     itemgetter,
 )
 import os
-from ratelimiter import (  # type: ignore[import]
-    RateLimiter,
-)
-import requests
 from typing import (
     Any,
     Callable,
-    cast,
     Dict,
     Iterable,
     List,
@@ -47,37 +42,11 @@ SELECT_ALL: str = """
         TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
         AND hash != %(hash)s
 """
+
 LOG = logging.getLogger(__name__)
 
 # Types
 MonthData = Dict[str, Dict[str, List[Any]]]
-
-
-@RateLimiter(max_calls=60, period=60)
-def get_group_org(token: str, group: str) -> Optional[str]:
-    query = """
-        query ObservesGetGroupOrganization($groupName: String!){
-            group(groupName: $groupName){
-                    organization
-            }
-        }
-    """
-    variables = {"groupName": group}
-    json_data = {
-        "query": query,
-        "variables": variables,
-    }
-    result = requests.post(
-        "https://app.fluidattacks.com/api",
-        json=json_data,
-        headers={"Authorization": f"Bearer {token}"},
-    )
-    data = result.json()
-    LOG.debug("Group: %s; \nResponse: %s", group, json.dumps(data, indent=4))
-    if data["data"]["group"]:
-        raw = data["data"]["group"]["organization"]
-        return str(raw) if raw is not None else None
-    return None
 
 
 def get_date_data(year: int, month: int) -> Tuple[MonthData, Set[str]]:
@@ -166,14 +135,11 @@ def create_csv_file(
 
 def main(folder: str, year: int, month: int, integrates_token: str) -> None:
     data, groups = get_date_data(year, month)
-
-    @lru_cache(maxsize=None)
-    def get_org(group: str) -> Optional[str]:
-        return cast(Optional[str], get_group_org(integrates_token, group))
-
     for group in groups:
         LOG.info("Creating bill for: %s", group)
-        create_csv_file(folder, data, group, get_org)
+        create_csv_file(
+            folder, data, group, lambda i: get_org(integrates_token, i)
+        )
 
 
 def cli() -> None:
