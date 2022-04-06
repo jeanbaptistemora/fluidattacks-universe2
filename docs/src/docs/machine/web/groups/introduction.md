@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /machine/web/groups/introduction
+slug: /machine/web/groups
 ---
 
 Each organization on the
