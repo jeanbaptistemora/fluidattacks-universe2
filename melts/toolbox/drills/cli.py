@@ -13,6 +13,9 @@ from toolbox.drills import (
     to_reattack,
     upload_history,
 )
+from typing import (
+    Optional,
+)
 
 
 @command(name="drills", short_help="drills service related tools")
@@ -25,7 +28,7 @@ from toolbox.drills import (
     "--name",
     "o_name",
     help="Specific name of repository",
-    default="*",
+    default=None,
     type=str,
 )
 @option(
@@ -60,7 +63,7 @@ from toolbox.drills import (
 )
 def drills_management(  # pylint: disable=too-many-arguments
     group: str,
-    o_name: str,
+    o_name: Optional[str],
     o_upload_history: bool,
     o_to_reattack: bool,
     o_pull_repos: bool,

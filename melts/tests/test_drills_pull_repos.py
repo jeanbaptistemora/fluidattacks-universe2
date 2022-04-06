@@ -13,8 +13,8 @@ LOCAL_PATH = "continuoustest"
 
 
 def test_drills_pull_repos() -> None:
-    assert pull_repos.main(EXISTING_REPO, "*")
-    assert not pull_repos.main(NON_EXISTING_REPO, "*")
+    assert pull_repos.main(EXISTING_REPO)
+    assert not pull_repos.main(NON_EXISTING_REPO)
 
 
 def test_get_repo_from_url() -> None:

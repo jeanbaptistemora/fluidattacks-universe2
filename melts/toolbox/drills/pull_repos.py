@@ -295,7 +295,7 @@ def pull_repos_s3_to_fusion(
 
 
 @shield(retries=1)
-def main(subs: str, repository_name: str) -> bool:
+def main(subs: str, repository_name: Optional[str] = None) -> bool:
     """
     Clone all repos for a group
 
@@ -307,6 +307,11 @@ def main(subs: str, repository_name: str) -> bool:
         root["id"]: root
         for root in get_git_roots(group=subs)
         if root.get("state") == "ACTIVE"
+        and (
+            root["nickname"] == repository_name
+            if repository_name is not None
+            else True
+        )
     }
     if not roots_dict:
         return False
@@ -324,21 +329,8 @@ def main(subs: str, repository_name: str) -> bool:
         for root in roots_dict.values()
         if root.get("downloadUrl") is not None
     ]
-    pull_roots = (
-        [
-            root
-            for root in roots_dict.values()
-            if root.get("downloadUrl") is None
-        ]
-        if repository_name == "*"
-        else [{"nickname": repository_name}]
-    )
-    if pull_roots:
-        utils.generic.aws_login(f"continuous-{subs}")
 
-    with alive_bar(
-        len(zip_roots) + len(pull_roots), enrich_print=False
-    ) as progress_bar:
+    with alive_bar(len(zip_roots), enrich_print=False) as progress_bar:
         with ThreadPoolExecutor() as executor:
             LOGGER.info("Downloading .tar files")
             passed = (
@@ -355,17 +347,6 @@ def main(subs: str, repository_name: str) -> bool:
                 if zip_roots
                 else True
             )
-
-            LOGGER.info("Sync from s3")
-            pull = list(
-                executor.map(
-                    pull_repos_s3_to_fusion,
-                    [subs for _ in range(len(pull_roots))],
-                    [root["nickname"] for root in pull_roots],
-                    [progress_bar for _ in range(len(pull_roots))],
-                )
-            )
-            passed = passed and all(pull) if pull_roots else True
 
     for root in roots_dict.values():
         if date := root.get("lastCloningStatusUpdate"):
