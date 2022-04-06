@@ -119,7 +119,7 @@ def _parse_floats(*, args: Dict[str, Any]) -> Dict[str, Any]:
     return {
         key: _parse_floats(args=value)
         if isinstance(value, dict)
-        else Decimal(value)
+        else Decimal(str(value))
         if isinstance(value, float)
         else value
         for key, value in args.items()
