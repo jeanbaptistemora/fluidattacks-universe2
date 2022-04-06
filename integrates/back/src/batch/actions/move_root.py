@@ -331,6 +331,7 @@ async def _process_finding(
             for vuln in vulns
             if vuln.state.status != VulnerabilityStateStatus.DELETED
         ),
+        workers=256,
     )
     LOGGER.info(
         "Updating finding indicators",
@@ -585,7 +586,14 @@ async def move_root(*, item: BatchProcessing) -> None:
         )
     user: User = await loaders.user.load(item.subject)
     if Notification.ROOT_MOVED in user.notifications_preferences.email:
-        LOGGER.info("Notifying user", extra={"extra": None})
+        LOGGER.info(
+            "Notifying user",
+            extra={
+                "extra": {
+                    "subject": item.subject,
+                }
+            },
+        )
         await send_mails_async(
             email_to=[item.subject],
             context={
@@ -603,7 +611,11 @@ async def move_root(*, item: BatchProcessing) -> None:
     else:
         LOGGER.info(
             "User disabled this notification. Won't notify",
-            extra={"extra": None},
+            extra={
+                "extra": {
+                    "subject": item.subject,
+                }
+            },
         )
     await delete_action(
         action_name=item.action_name,
