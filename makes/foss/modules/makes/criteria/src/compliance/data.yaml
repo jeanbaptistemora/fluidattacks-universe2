@@ -1301,10 +1301,17 @@
   title: NIST 800-53
   en:
     description: >
-      Security and privacy controls
-      for information systems and organizations.
-      The version used in this section
-      is NIST 800-53 Rev. 5.
+      NIST SP 800-53 defines the standards
+      and guidelines for federal agencies
+      to architect and manage their
+      information security systems.
+      It was established to provide guidance
+      for the protection of agency’s and
+      citizen’s private data.
+      The version used for this section
+      is NIST 800-53,
+      Rev. 5,
+      September 2020.
   es:
     description: __empty__
   definitions:
@@ -1364,8 +1371,14 @@
   title: NIST 800-63B
   en:
     description: >
-      Digital Identity Guidelines.
-      Authentication and Lifecycle Management.
+      NIST Special Publication 800-63B
+      is a digital identity guidelines
+      that provides recommendations on
+      types of authentication processes
+      that may be used at various
+      Authenticator Assurance Levels (AALs).
+      It applies to digital authentication
+      of subjects to systems over a network.
       The version used for this section
       is NIST 800-63B.
   es:
