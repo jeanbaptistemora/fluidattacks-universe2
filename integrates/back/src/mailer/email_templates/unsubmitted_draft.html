@@ -4,7 +4,7 @@
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_finding('Draft Unsubmitted') }}
+  {{ banner_finding('Draft Rejected') }}
 
   <div class="main-content">
     <p>Hello {{ name }},</p>
@@ -17,7 +17,7 @@
       <a href="mailto:{{ analyst_mail }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
         {{ analyst_mail }}
       </a>,
-      to the unsubmitted status.
+      to the not-submitted status.
     </p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
