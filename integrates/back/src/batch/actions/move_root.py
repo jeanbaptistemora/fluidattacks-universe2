@@ -331,7 +331,7 @@ async def _process_finding(
             for vuln in vulns
             if vuln.state.status != VulnerabilityStateStatus.DELETED
         ),
-        workers=256,
+        workers=100,
     )
     LOGGER.info(
         "Updating finding indicators",
@@ -526,6 +526,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             )
             for source_finding_id, vulns in vulns_by_finding
         ),
+        workers=10,
     )
     LOGGER.info("Moving completed", extra={"extra": None})
     target_root: RootItem = await loaders.root.load(
