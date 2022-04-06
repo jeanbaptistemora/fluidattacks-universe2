@@ -41,7 +41,7 @@ import { Alert, ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 interface IUserProfileProps {
   userRole: string | undefined;
@@ -100,17 +100,28 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const [removeStakeholder] = useMutation(REMOVE_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IRemoveStakeholderAttr): void => {
       if (mtResult.removeStakeholder.success) {
-        mixpanel.reset();
-        location.assign("/logout");
+        msgSuccess(
+          t("navbar.deleteAccount.success"),
+          t("navbar.deleteAccount.successTitle")
+        );
+        toggleDropdown();
       } else {
         push("/home");
       }
     },
     onError: (removeError: ApolloError): void => {
       removeError.graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("An error occurred while deleting account", error);
-        msgError(t("groupAlerts.errorTextsad"));
+        if (
+          error.message ===
+          "Exception - The previous invitation to this user was requested less than a minute ago"
+        ) {
+          msgError(t("navbar.deleteAccount.requestedTooSoon"));
+        } else {
+          Logger.error("An error occurred while deleting account", error);
+          msgError(t("groupAlerts.errorTextsad"));
+        }
       });
+      toggleDropdown();
       push("/home");
     },
   });

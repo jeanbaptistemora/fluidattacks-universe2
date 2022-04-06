@@ -13,6 +13,7 @@ from custom_types import (
 )
 from group_access.dal import (
     get_access_by_url_token,
+    get_user_access,
     remove_access as remove_confirm_deletion,
     update,
 )
@@ -143,6 +144,16 @@ async def get_email_from_url_token(
         raise InvalidAuthorization() from ex
 
     return ""
+
+
+async def get_confirm_deletion(
+    *,
+    email: str,
+) -> dict[str, Any]:
+
+    confirm_deletion = await get_user_access(email, "confirm_deletion")
+
+    return confirm_deletion[0] if confirm_deletion else {}
 
 
 async def confirm_deletion_mail(

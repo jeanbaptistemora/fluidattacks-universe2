@@ -3,21 +3,19 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
 import { UserProfile } from "scenes/Dashboard/components/Navbar/UserProfile/index";
 import { REMOVE_STAKEHOLDER_MUTATION } from "scenes/Dashboard/components/Navbar/UserProfile/queries";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
   );
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
@@ -99,14 +97,12 @@ describe("User Profile", (): void => {
     ).toBeInTheDocument();
 
     userEvent.click(screen.getByText("confirmmodal.proceed"));
-    // eslint-disable-next-line fp/no-mutating-methods
-    Object.defineProperty(window, "location", {
-      value: { assign: jest.fn() },
-      writable: true,
-    });
 
     await waitFor((): void => {
-      expect(mixpanel.reset).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "navbar.deleteAccount.success",
+        "navbar.deleteAccount.successTitle"
+      );
     });
 
     jest.clearAllMocks();

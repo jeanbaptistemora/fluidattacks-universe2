@@ -105,7 +105,7 @@ const MobileModal: React.FC<IMobileModalProps> = (
             }
           });
         },
-        refetchQueries: [GET_STAKEHOLDER_PHONE, GET_USER],
+        refetchQueries: [{ query: GET_STAKEHOLDER_PHONE }, { query: GET_USER }],
       }
     );
   const [handleVerifyStakeholder] = useMutation<IVerifyStakeholderResultAttr>(

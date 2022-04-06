@@ -1199,10 +1199,14 @@ export const enTranslations: ResourceKey = {
     deleteAccount: {
       modal: {
         text:
-          "This action will immediately delete the account from ASM. " +
-          "This is a destructive action.",
+          "This is a destructive action. " +
+          "An email will be sent to confirm the deletion.",
         warning: "Warning!",
       },
+      requestedTooSoon:
+        "Please wait a minute before resending a confirm deletion",
+      success: "You'll receive a delete confirmation email shortly",
+      successTitle: "Success",
       text: "Delete Account",
       tooltip: "Delete account from ASM",
     },
