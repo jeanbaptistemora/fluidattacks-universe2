@@ -11,14 +11,12 @@ function main {
   source __argIntegratesBackEnv__/template "${login_env}" \
     && export NODE_OPTIONS='--max_old_space_size=4096' \
     && if test "${env}" == 'prod'; then
-      DAEMON=true integrates-cache \
-        && ensure_gitlab_env_vars \
-          INTEGRATES_API_TOKEN \
-          PROD_SERVICES_AWS_ACCESS_KEY_ID \
-          PROD_SERVICES_AWS_SECRET_ACCESS_KEY
+      ensure_gitlab_env_vars \
+        INTEGRATES_API_TOKEN \
+        PROD_SERVICES_AWS_ACCESS_KEY_ID \
+        PROD_SERVICES_AWS_SECRET_ACCESS_KEY
     elif test "${env}" == 'dev'; then
-      DAEMON=true integrates-cache \
-        && DAEMON=true dynamodb-for-integrates \
+      DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage
     fi \
     && pushd integrates \

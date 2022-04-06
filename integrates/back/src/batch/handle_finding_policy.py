@@ -1,4 +1,3 @@
-import authz
 from batch.dal import (
     delete_action,
 )
@@ -46,23 +45,6 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 
 
-async def is_allowed(
-    *, organization_id: str, status: str, user_email: str
-) -> bool:
-    enforcer = await authz.get_organization_level_enforcer(user_email)
-    if status == "APPROVED":
-        return enforcer(
-            organization_id,
-            "api_mutations_handle_finding_policy_acceptance_mutate",
-        )
-    if status == "INACTIVE":
-        return enforcer(
-            organization_id, "api_mutations_deactivate_finding_policy_mutate"
-        )
-
-    return False
-
-
 async def handle_finding_policy(*, item: BatchProcessing) -> None:
     message = (
         f"Processing handle organization finding policy requested by "
@@ -84,11 +66,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     if finding_policy.state.status in {
         "APPROVED",
         "INACTIVE",
-    } and await is_allowed(
-        organization_id=organization_id.lower(),
-        status=finding_policy.state.status,
-        user_email=item.subject,
-    ):
+    }:
         loaders: Dataloaders = get_new_context()
         groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
             tuple((group, organization_id) for group in organization_groups)

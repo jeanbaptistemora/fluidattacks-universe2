@@ -1,4 +1,3 @@
-import authz
 from batch.dal import (
     delete_action,
     is_action_by_key,
@@ -106,10 +105,7 @@ async def send_report(
         "XLS": "Technical",
     }
     is_in_db = await is_action_by_key(key=item.key)
-    enforcer = await authz.get_group_level_enforcer(item.subject)
-    if is_in_db and enforcer(
-        item.entity, "api_resolvers_query_report__get_url_group_report"
-    ):
+    if is_in_db:
         message = (
             f"Send {report_type} report requested by "
             f"{item.subject} for group {item.entity}"
@@ -139,43 +135,21 @@ async def generate_report(*, item: BatchProcessing) -> None:
         f"{item.subject} for group {item.entity}"
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
-    enforcer = await authz.get_group_level_enforcer(item.subject)
     treatments = {
         VulnerabilityTreatmentStatus[treatment]
         for treatment in additional_info["treatments"]
     }
-    if enforcer(
-        item.entity, "api_resolvers_query_report__get_url_group_report"
-    ):
-        passphrase = get_passphrase(4)
-        report_url = await get_report(
+    passphrase = get_passphrase(4)
+    report_url = await get_report(
+        item=item,
+        passphrase=passphrase,
+        report_type=report_type,
+        treatments=treatments,
+    )
+    if report_url:
+        await send_report(
             item=item,
             passphrase=passphrase,
             report_type=report_type,
-            treatments=treatments,
-        )
-        if report_url:
-            await send_report(
-                item=item,
-                passphrase=passphrase,
-                report_type=report_type,
-                report_url=report_url,
-            )
-    else:
-        LOGGER.error(
-            "Access denied",
-            extra=dict(
-                extra=dict(
-                    action=item.action_name,
-                    group_name=item.entity,
-                    user_email=item.subject,
-                )
-            ),
-        )
-        await delete_action(
-            action_name=item.action_name,
-            additional_info=item.additional_info,
-            entity=item.entity,
-            subject=item.subject,
-            time=item.time,
+            report_url=report_url,
         )
