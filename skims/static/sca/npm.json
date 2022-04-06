@@ -5669,6 +5669,15 @@
   "scroool": {
     "GHSA-p7w2-mc6m-mfx2": "0.1.7"
   },
+  "scryptys": {
+    "GHSA-vrxj-4qhw-5vwq": ">=0"
+  },
+  "scrytsy": {
+    "GHSA-vv7g-pjw9-4qj9": ">=0"
+  },
+  "sdfjghlkfjdshlkjdhsfg": {
+    "GHSA-gcfc-mgg3-8j2c": ">=0"
+  },
   "sds": {
     "CVE-2020-7618": "<=3.2.0"
   },
@@ -5678,6 +5687,12 @@
   },
   "secure-compare": {
     "GMS-2015-38": "<=3.0.0"
+  },
+  "secure_identity_login_module": {
+    "GHSA-59x8-7wx6-4hj9": ">=0"
+  },
+  "seeftl": {
+    "GHSA-4g46-5grc-wq49": "<=0.1.1"
   },
   "selectize-plugin-a11y": {
     "CVE-2019-15482": "<1.1.0"
@@ -5706,6 +5721,9 @@
   "semantic-release": {
     "CVE-2020-26226": "<17.2.3",
     "GHSA-r2j6-p67h-q639": "<17.2.3"
+  },
+  "semantic-ui-search": {
+    "GHSA-p9vv-3945-x93h": ">=0"
   },
   "semver": {
     "CVE-2015-8855": "<4.3.2",
@@ -5740,11 +5758,17 @@
     "GMS-2016-81": "<=2.1.3",
     "GMS-2016-82": "<=1.7.0-alpha2"
   },
+  "sequelize-cli": {
+    "GHSA-3xc7-xg67-pw99": "<=5.4.0"
+  },
   "sequelize-restful": {
     "GMS-2014-28": "<0.3.1"
   },
   "serc.js": {
     "GMS-2017-21": ">=0.0.0-alpha"
+  },
+  "seria-number": {
+    "GHSA-53xj-v576-3ch2": "<=0.0.8"
   },
   "serial-number": {
     "CVE-2019-10804": "<=1.3.0"
@@ -5758,6 +5782,12 @@
     "CVE-2017-5954": "<1.0.0",
     "CVE-2019-16772": "<3.0.1",
     "GHSA-3fjq-93xj-3f3f": "<3.0.1"
+  },
+  "serializes": {
+    "GHSA-j899-348x-h3rq": ">=0"
+  },
+  "serilize": {
+    "GHSA-fw76-p9p2-6pvf": ">=0"
   },
   "serve": {
     "CVE-2018-3712": "<=6.4.8",
