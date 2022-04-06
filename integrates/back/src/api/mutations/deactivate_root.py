@@ -167,7 +167,22 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 subject=user_email,
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
+                dependsOn=[
+                    {
+                        "jobId": (
+                            await batch_dal.put_action(
+                                action=Action.REMOVE_ROOTS,
+                                entity=group_name,
+                                subject=user_email,
+                                additional_info=root.state.nickname,
+                                product_name=Product.INTEGRATES,
+                            )
+                        ).batch_job_id,
+                        "type": "SEQUENTIAL",
+                    },
+                ],
             )
+
         if isinstance(root, (GitRootItem, URLRootItem)):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,

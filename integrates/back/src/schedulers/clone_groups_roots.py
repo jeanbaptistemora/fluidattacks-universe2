@@ -13,9 +13,6 @@ from dataloaders import (
 from groups import (
     domain as groups_domain,
 )
-from schedulers.common import (
-    info,
-)
 from typing import (
     List,
     NamedTuple,
@@ -65,16 +62,12 @@ async def clone_groups_roots() -> None:
     groups: List[str] = await groups_domain.get_active_groups()
 
     for group in groups:
-        result = await _queue_sync_git_roots(
+        await _queue_sync_git_roots(
             loaders=loaders,
             user_email="integrates@fluidattacks.com",
             queue="spot_later",
             group_name=group,
         )
-        if result.success:
-            info(f"Queued clone for group {result.group}")
-        else:
-            info(f"No queued clone for group {result.group}, {result.message}")
 
 
 async def main() -> None:

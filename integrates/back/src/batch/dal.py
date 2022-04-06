@@ -727,8 +727,13 @@ async def put_action(  # pylint: disable=too-many-locals
     if (
         current_action := await get_action(action_dynamo_pk=possible_key)
     ) and (not current_action.running):
+        LOGGER.info(
+            "There is a job that is still in queue for %s",
+            entity,
+            extra={"extra": None},
+        )
         return PutActionResult(
-            success=True,
+            success=False,
             batch_job_id=current_action.batch_job_id,
             dynamo_pk=dynamodb_pk,
         )
@@ -745,6 +750,11 @@ async def put_action(  # pylint: disable=too-many-locals
     )
     dynamo_pk = await put_action_to_dynamodb(
         key=possible_key, **action_dict, batch_job_id=job_id
+    )
+    LOGGER.info(
+        "A job for %s has been queued",
+        entity,
+        extra={"extra": None},
     )
     return PutActionResult(
         success=True,
