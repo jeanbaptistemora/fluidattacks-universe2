@@ -30,6 +30,7 @@ from typing import (
     Optional,
 )
 from urllib.parse import (
+    quote_plus,
     urlparse,
 )
 import uuid
@@ -175,6 +176,8 @@ def _format_https_url(
     password: Optional[str] = None,
     token: Optional[str] = None,
 ) -> str:
+    user = quote_plus(user) if user is not None else user
+    password = quote_plus(password) if password is not None else password
     parsed_url = urlparse(repo_url)
     if token is not None:
         url = repo_url.replace(
