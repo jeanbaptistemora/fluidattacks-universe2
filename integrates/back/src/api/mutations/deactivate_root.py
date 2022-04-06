@@ -104,6 +104,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     )
     last_clone_date: str = "Never cloned"
     last_root_state: str = "Unknow"
+    activated_by = last_status_update.modified_by
 
     if (
         isinstance(root, GitRootItem)
@@ -189,6 +190,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         if Notification.ROOT_MOVED in user.notifications_preferences.email
     ]
     await groups_mail.send_mail_deactivated_root(
+        activated_by=activated_by,
         email_to=users_email,
         group_name=group_name,
         last_clone_date=last_clone_date,

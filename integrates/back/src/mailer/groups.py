@@ -115,6 +115,7 @@ async def send_mail_comment(
 
 async def send_mail_deactivated_root(
     *,
+    activated_by: str,
     email_to: List[str],
     group_name: str,
     last_clone_date: str,
@@ -133,6 +134,7 @@ async def send_mail_deactivated_root(
             if other
             else reason.replace("_", " ").capitalize(),
             "root_age": root_age,
+            "activated_by": activated_by,
             "root_nickname": root_nickname,
             "last_root_state": last_root_state.capitalize(),
             "last_clone_date": last_clone_date,
