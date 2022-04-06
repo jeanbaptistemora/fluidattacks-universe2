@@ -73,7 +73,7 @@ export const Navbar: React.FC<INavbarProps> = ({
           <li>
             <HelpWidget groups={groups} />
           </li>
-          <li>
+          <li id={"navbar-user-profile"}>
             <UserProfile userRole={userRole} />
           </li>
         </NavbarMenu>

@@ -3094,4 +3094,17 @@ export const enTranslations: ResourceKey = {
     validSessionDate: "The session has expired",
     zeroOrPositive: "The number must be either 0 or positive",
   },
+  verifyDialog: {
+    fields: {
+      verificationCode: "Verification code",
+    },
+    title: "Two-step verification",
+    tour: {
+      addMobile: {
+        profile:
+          "Add your mobile to send you verification codes. The mobile can be managed through the user information dropdown menu.",
+      },
+    },
+    verify: "Verify",
+  },
 };

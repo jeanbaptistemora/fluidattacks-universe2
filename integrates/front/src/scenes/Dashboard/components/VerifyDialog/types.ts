@@ -28,8 +28,8 @@ interface IVerifyFormValues {
 }
 
 interface IVerifyDialogProps {
+  isOpen: boolean;
   message?: React.ReactNode;
-  title: string;
   children: (verify: IVerifyFn) => React.ReactNode;
 }
 
