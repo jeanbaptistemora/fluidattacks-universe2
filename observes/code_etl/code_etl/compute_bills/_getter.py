@@ -1,8 +1,23 @@
+from code_etl.compute_bills.contribution import (
+    Contribution,
+)
+from code_etl.objs import (
+    CommitDataId,
+    CommitId,
+    RepoId,
+    User,
+)
+from code_etl.utils import (
+    COMMIT_HASH_SENTINEL,
+)
 from datetime import (
     datetime,
 )
 from fa_purity import (
     Cmd,
+    Maybe,
+    Result,
+    Stream,
 )
 from fa_purity.frozen import (
     freeze,
@@ -19,7 +34,11 @@ from ratelimiter import (  # type: ignore[import]
     RateLimiter,
 )
 from redshift_client.sql_client.core import (
+    RowData,
     SqlClient,
+)
+from redshift_client.sql_client.primitive import (
+    PrimitiveVal,
 )
 from redshift_client.sql_client.query import (
     new_query,
@@ -27,6 +46,7 @@ from redshift_client.sql_client.query import (
 import requests
 from typing import (
     cast,
+    Dict,
     Optional,
 )
 
@@ -72,10 +92,57 @@ def get_commit_first_seen_at(client: SqlClient, fa_hash: str) -> Cmd[datetime]:
     """
     return client.execute(
         new_query(stm), freeze({"fa_hash": fa_hash})
-    ) + client.fetch_one().map(lambda i: i[0] if i else None).map(
-        lambda i: datetime.fromisoformat(i)
-        if isinstance(i, str)
-        else raise_exception(
-            Exception(f"Expected a datetime; got {str(i)} of type {type(i)}")
+    ) + client.fetch_one().map(
+        lambda i: i.map(lambda x: x.data[0])
+        .bind_optional(lambda i: i if isinstance(i, datetime) else None)
+        .to_result()
+        .alt(
+            lambda _: Exception(
+                f"Expected a datetime; got {str(i)} of type {type(i)}"
+            )
         )
+        .alt(raise_exception)
+        .unwrap()
+    )
+
+
+def _assert_str(val: PrimitiveVal) -> str:
+    return Maybe.from_optional(val if isinstance(val, str) else None).unwrap()
+
+
+def get_month_contributions(
+    client: SqlClient, repo: RepoId, date: datetime
+) -> Cmd[Stream[Contribution]]:
+    stm = f"""
+        SELECT
+            author_name,
+            author_email,
+            hash,
+            fa_hash,
+            namespace,
+            repository
+        FROM code.commits
+        WHERE
+            repository = %(repository)s
+        AND namespace = %(namespace)s
+        AND TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
+        AND hash != {COMMIT_HASH_SENTINEL}
+    """
+    args: Dict[str, PrimitiveVal] = {
+        "repository": repo.repository,
+        "namespace": repo.namespace,
+        "seen_at": date.strftime("%Y-%m"),
+    }
+
+    def to_contrib(raw: RowData) -> Contribution:
+        return Contribution(
+            User(_assert_str(raw.data[0]), _assert_str(raw.data[1])),
+            CommitDataId(
+                repo,
+                CommitId(_assert_str(raw.data[2]), _assert_str(raw.data[3])),
+            ),
+        )
+
+    return client.execute(new_query(stm), freeze(args)).map(
+        lambda _: client.data_stream(1000).map(to_contrib)
     )
