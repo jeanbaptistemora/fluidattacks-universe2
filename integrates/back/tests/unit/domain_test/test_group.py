@@ -80,6 +80,8 @@ from groups.domain import (
     get_open_vulnerabilities,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
+    remove_pending_deletion_date,
+    set_pending_deletion_date,
     update_group,
     validate_group_services_config,
     validate_group_tags,
@@ -89,6 +91,10 @@ from names import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from newutils.datetime import (
+    convert_from_iso_str,
+    is_valid_format,
 )
 from newutils.groups import (
     filter_active_groups,
@@ -893,3 +899,39 @@ async def test_get_groups_by_user() -> None:
     assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_org_groups
     )
+
+
+@pytest.mark.changes_db
+async def test_set_pending_deletion_date() -> None:
+    loaders: Dataloaders = get_new_context()
+    group_name = "unittesting"
+    user_email = "integratesmanager@gmail.com"
+    test_date = "2022-04-06T16:46:23+00:00"
+    group: Group = await loaders.group_typed.load(group_name)
+    assert group.state.pending_deletion_date is None
+
+    await set_pending_deletion_date(
+        group=group, modified_by=user_email, pending_deletion_date=test_date
+    )
+    loaders.group_typed.clear(group_name)
+    group_updated: Group = await loaders.group_typed.load(group_name)
+    assert is_valid_format(
+        convert_from_iso_str(group_updated.state.pending_deletion_date)
+    )
+    assert group_updated.state.pending_deletion_date == test_date
+    assert group_updated.state.modified_by == user_email
+
+
+@pytest.mark.changes_db
+async def test_clear_pending_deletion_date() -> None:
+    loaders: Dataloaders = get_new_context()
+    group_name = "unittesting"
+    user_email = "integratesmanager@gmail.com"
+    group: Group = await loaders.group_typed.load(group_name)
+    assert group.state.pending_deletion_date
+
+    await remove_pending_deletion_date(group=group, modified_by=user_email)
+    loaders.group_typed.clear(group_name)
+    group_updated: Group = await loaders.group_typed.load(group_name)
+    assert group_updated.state.pending_deletion_date is None
+    assert group_updated.state.modified_by == user_email

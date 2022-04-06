@@ -24,6 +24,7 @@ from dynamodb import (
 import logging
 import logging.config
 from newutils import (
+    datetime as datetime_utils,
     groups as groups_utils,
 )
 from newutils.utils import (
@@ -263,6 +264,20 @@ async def update_state_typed(
                 *group_item["historic_configuration"],
                 new_state_item,
             ],
+        },
+    ):
+        raise ErrorUpdatingGroup.new()
+
+    # This field is currently outside the group's state
+    # We'll update it independently while the migration is going on
+    if state.pending_deletion_date is not None and not await update(
+        group_name=group_name,
+        data={
+            "pending_deletion_date": datetime_utils.convert_from_iso_str(
+                state.pending_deletion_date
+            )
+            if state.pending_deletion_date
+            else None,
         },
     ):
         raise ErrorUpdatingGroup.new()

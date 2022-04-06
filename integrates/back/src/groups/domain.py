@@ -1499,6 +1499,37 @@ async def update_pending_deletion_date(
     return success
 
 
+async def set_pending_deletion_date(
+    group: Group,
+    modified_by: str,
+    pending_deletion_date: str,
+) -> None:
+    """Update pending deletion date in group's state."""
+    await update_state_typed(
+        group_name=group.name,
+        state=group.state._replace(
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_iso_date(),
+            pending_deletion_date=pending_deletion_date,
+        ),
+    )
+
+
+async def remove_pending_deletion_date(
+    group: Group,
+    modified_by: str,
+) -> None:
+    """Clear pending deletion date in group's state."""
+    await update_state_typed(
+        group_name=group.name,
+        state=group.state._replace(
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_iso_date(),
+            pending_deletion_date="",
+        ),
+    )
+
+
 async def add_tags(
     group: Group,
     tags_to_add: set[str],
