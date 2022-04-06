@@ -1,5 +1,5 @@
-from batch import (
-    roots as batch_roots,
+from batch.actions import (
+    clone_roots,
 )
 from custom_exceptions import (
     CredentialNotFound,
@@ -40,7 +40,7 @@ async def _queue_sync_git_roots(
     message: Optional[str] = None
     try:
         result = await (
-            batch_roots.queue_sync_git_roots(
+            clone_roots.queue_sync_git_roots(
                 loaders=loaders,
                 user_email=user_email,
                 queue=queue,

@@ -1,8 +1,8 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch import (
-    roots as batch_roots,
+from batch.actions import (
+    clone_roots,
 )
 from contextlib import (
     suppress,
@@ -50,7 +50,7 @@ async def mutate(
     )
     if kwargs.get("credentials"):
         with suppress(RootAlreadyCloning):
-            await batch_roots.queue_sync_git_roots(
+            await clone_roots.queue_sync_git_roots(
                 loaders=info.context.loaders,
                 roots=(root,),
                 user_email=user_email,

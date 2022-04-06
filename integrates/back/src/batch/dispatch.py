@@ -1,6 +1,12 @@
 from aioextensions import (
     run,
 )
+from batch.actions.clone_roots import (
+    clone_roots,
+)
+from batch.actions.move_root import (
+    move_root,
+)
 from batch.dal import (
     delete_action,
     get_action,
@@ -14,10 +20,6 @@ from batch.remove_group_resources import (
 )
 from batch.report import (
     generate_report,
-)
-from batch.roots import (
-    clone_roots,
-    move_root,
 )
 from batch.toe_inputs import (
     refresh_toe_inputs,

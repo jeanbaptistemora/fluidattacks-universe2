@@ -1,6 +1,6 @@
 # pylint: disable=import-error
-from batch import (
-    roots,
+from batch.actions import (
+    clone_roots,
 )
 from batch.dal import (
     get_actions_by_name,
@@ -51,7 +51,7 @@ async def test_clone_roots(
     assert root_1.cloning.status == GitCloningStatus.FAILED
     assert root_1.cloning.commit is None
     mocker.patch.object(
-        roots,
+        clone_roots,
         "clone_root",
         return_value=CloneResult(
             success=True,
@@ -71,7 +71,7 @@ async def test_clone_roots(
     )
     assert "README.md" in os.listdir(mock_tmp_repository)
 
-    await roots.clone_roots(item=action)
+    await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
@@ -103,7 +103,7 @@ async def test_clone_roots_failed(
     assert root_1.cloning.status == GitCloningStatus.OK
     assert root_1.cloning.commit == "6d4519f5d5b97235feb65fcbc8af68e8ef9964b3"
     mocker.patch.object(
-        roots,
+        clone_roots,
         "clone_root",
         return_value=CloneResult(success=False),
     )
@@ -119,7 +119,7 @@ async def test_clone_roots_failed(
     )
     assert "README.md" in os.listdir(mock_tmp_repository)
 
-    await roots.clone_roots(item=action)
+    await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
@@ -144,7 +144,7 @@ async def test_clone_roots_real_https(
         queue="spot_soon",
         key="2",
     )
-    await roots.clone_roots(item=action)
+    await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
@@ -170,7 +170,7 @@ async def test_clone_roots_real_ssh(
         key="2",
     )
 
-    await roots.clone_roots(item=action)
+    await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")

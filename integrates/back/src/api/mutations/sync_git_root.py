@@ -1,8 +1,8 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from batch import (
-    roots as batch_roots,
+from batch.actions import (
+    clone_roots,
 )
 from custom_types import (
     SimplePayload,
@@ -48,7 +48,7 @@ async def mutate(
     root: GitRootItem = await loaders.root.load(
         (group_name, kwargs["root_id"])
     )
-    await batch_roots.queue_sync_git_roots(
+    await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         roots=(root,),
         user_email=user_email,
