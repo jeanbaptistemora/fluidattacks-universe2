@@ -362,10 +362,12 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 entity="group1",
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
-                additional_info="nickname1",
+                additional_info=(
+                    "nickname1,nickname2,nickname3,nickname6,nickname8"
+                ),
                 queue="spot_soon",
                 batch_job_id="1",
-                running=True,
+                running=False,
             ),
             BatchProcessing(
                 key="1",
@@ -373,12 +375,10 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 entity="group1",
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
-                additional_info=(
-                    "nickname1,nickname2,nickname3,nickname6,nickname8"
-                ),
+                additional_info="nickname1",
                 queue="spot_soon",
                 batch_job_id="1",
-                running=False,
+                running=True,
             ),
         ),
     )
@@ -442,10 +442,12 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1",
+                    additional_info=(
+                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                    ),
                     queue="spot_soon",
                     batch_job_id="1",
-                    running=True,
+                    running=False,
                 ),
                 BatchProcessing(
                     key="1",
@@ -453,12 +455,10 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info=(
-                        "nickname1,nickname2,nickname3,nickname6,nickname8"
-                    ),
+                    additional_info="nickname1",
                     queue="spot_soon",
                     batch_job_id="1",
-                    running=False,
+                    running=True,
                 ),
             ),
             True,

@@ -215,7 +215,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if not roots:
         raise InactiveRoot()
 
-    roots_with_creds = {
+    credentials_for_roots = {
         root_id: tuple(
             cred
             for cred in tuple(
@@ -227,38 +227,14 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         )
         for root_id in roots_dict.keys()
     }
-    roots_with_creds = {
+    credentials_for_roots = {
         root_id: creds[0]
-        for root_id, creds in roots_with_creds.items()
+        for root_id, creds in credentials_for_roots.items()
         if creds
     }
 
-    if not roots_with_creds:
+    if not credentials_for_roots:
         raise CredentialNotFound()
-
-    if check_existing_jobs and (
-        len(
-            [
-                action
-                for action in current_jobs
-                # Check duplicated job at the root level (selected roots
-                if (
-                    action.entity == group_name
-                    and not action.running
-                    and roots is not None
-                    and sorted(action.additional_info.split(","))
-                    == sorted(
-                        [
-                            roots_dict[root].state.nickname
-                            for root in roots_with_creds
-                        ]
-                    )
-                )
-            ]
-        )
-        > 0
-    ):
-        raise RootAlreadyCloning()
 
     roots_in_current_actions: Set[str] = set()
     current_action = None
@@ -288,10 +264,29 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             )
             await cancel_batch_job(job_id=action.batch_job_id)
 
+    if (
+        check_existing_jobs
+        and current_action
+        and (
+            not current_action.running
+            and sorted(current_action.additional_info.split(","))
+            == sorted(
+                {
+                    *[
+                        roots_dict[root].state.nickname
+                        for root in credentials_for_roots
+                    ],
+                    *roots_in_current_actions,
+                }
+            )
+        )
+    ):
+        raise RootAlreadyCloning()
+
     last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(
             _ls_remote_root(roots_dict[root_id], cred)
-            for root_id, cred in roots_with_creds.items()
+            for root_id, cred in credentials_for_roots.items()
         )
     )
 
@@ -319,7 +314,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             collect(
                 is_in_s3(group_name, root.state.nickname)
                 for root in roots
-                if root.id in roots_with_creds
+                if root.id in credentials_for_roots
             )
         )
     )
