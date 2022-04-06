@@ -28,6 +28,11 @@ from groups import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from remove_user.domain import (
+    complete_deletion,
+    get_confirm_deletion,
+    get_email_from_url_token,
+)
 from typing import (
     Any,
     Dict,
@@ -45,6 +50,22 @@ async def complete_register(
     )
 
     return success
+
+
+async def confirm_deletion(
+    *,
+    email: str,
+) -> bool:
+    deletion = await get_confirm_deletion(email=email)
+    user_email: str = await get_email_from_url_token(
+        url_token=deletion["confirm_deletion"]["url_token"]
+    )
+    if user_email == email:
+        return await complete_deletion(
+            loaders=get_new_context(), user_email=user_email
+        )
+
+    return False
 
 
 async def reject_register(

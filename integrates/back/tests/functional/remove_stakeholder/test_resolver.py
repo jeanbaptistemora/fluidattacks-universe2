@@ -1,7 +1,11 @@
+# pylint: disable=import-error
 from . import (
     get_result_me_query,
     get_result_mutation,
     get_result_stakeholder_query,
+)
+from back.tests.functional.utils import (
+    confirm_deletion,
 )
 from dataloaders import (
     Dataloaders,
@@ -81,6 +85,8 @@ async def test_remove_stakeholder(
     )
     assert "errors" not in result
     assert result["data"]["removeStakeholder"]["success"]
+
+    await confirm_deletion(email=email)
 
     result_me_query = await get_result_me_query(
         user=email, organization_id=organization_id
