@@ -193,6 +193,16 @@ async def process_vuln(
     target_root_id: str,
     item_subject: str,
 ) -> str:
+    LOGGER.info(
+        "Processing vuln",
+        extra={
+            "extra": {
+                "vuln_id": vuln.id,
+                "target_finding_id": target_finding_id,
+                "target_root_id": target_root_id,
+            }
+        },
+    )
     state_loader = loaders.vulnerability_historic_state
     treatment_loader = loaders.vulnerability_historic_treatment
     verification_loader = loaders.vulnerability_historic_verification
@@ -209,6 +219,15 @@ async def process_vuln(
             root_id=target_root_id,
             state=vuln.state,
         ),
+    )
+    LOGGER.info(
+        "Created new vuln",
+        extra={
+            "extra": {
+                "target_finding_id": target_finding_id,
+                "new_id": new_id,
+            }
+        },
     )
     await vulns_model.update_historic(
         finding_id=target_finding_id,
@@ -238,6 +257,15 @@ async def process_vuln(
         modified_by=item_subject,
         source=Source.ASM,
     )
+    LOGGER.info(
+        "Old vuln closed by exclusion",
+        extra={
+            "extra": {
+                "finding_id": vuln.finding_id,
+                "vuln_id": vuln.id,
+            }
+        },
+    )
     return new_id
 
 
@@ -251,6 +279,18 @@ async def process_finding(
     vulns: Tuple[Vulnerability, ...],
     item_subject: str,
 ) -> None:
+    LOGGER.info(
+        "Processing finding",
+        extra={
+            "extra": {
+                "source_group_name": source_group_name,
+                "target_group_name": target_group_name,
+                "target_root_id": target_root_id,
+                "source_finding_id": source_finding_id,
+                "vulns": len(vulns),
+            }
+        },
+    )
     source_finding: Finding = await loaders.finding.load(source_finding_id)
     target_group_findings: Tuple[
         Finding, ...
@@ -266,6 +306,15 @@ async def process_finding(
 
     if target_finding:
         target_finding_id = target_finding.id
+        LOGGER.info(
+            "Found equivalent finding in target_group_findings",
+            extra={
+                "extra": {
+                    "target_group_name": target_group_name,
+                    "target_finding_id": target_finding_id,
+                }
+            },
+        )
     else:
         target_finding_id = str(uuid.uuid4())
         initial_state = FindingState(
@@ -290,6 +339,15 @@ async def process_finding(
                 title=source_finding.title,
                 threat=source_finding.threat,
             )
+        )
+        LOGGER.info(
+            "Equivalent finding not found. Created new one",
+            extra={
+                "extra": {
+                    "target_group_name": target_group_name,
+                    "target_finding_id": target_finding_id,
+                }
+            },
         )
         if source_finding.submission:
             target_submission = source_finding.submission._replace(
@@ -324,6 +382,17 @@ async def process_finding(
             for vuln in vulns
             if vuln.state.status != VulnerabilityStateStatus.DELETED
         ),
+    )
+    LOGGER.info(
+        "Updating finding indicators",
+        extra={
+            "extra": {
+                "source_group_name": source_group_name,
+                "source_finding_id": source_finding_id,
+                "target_group_name": target_group_name,
+                "target_finding_id": target_finding_id,
+            }
+        },
     )
     await collect(
         (
@@ -458,6 +527,8 @@ async def move_root(*, item: BatchProcessing) -> None:
     source_group_name = info["source_group_name"]
     source_root_id = info["source_root_id"]
     loaders: Dataloaders = get_new_context()
+
+    LOGGER.info("Moving root", extra={"extra": info})
     root: RootItem = await loaders.root.load(
         (source_group_name, source_root_id)
     )
@@ -467,6 +538,14 @@ async def move_root(*, item: BatchProcessing) -> None:
     vulns_by_finding = itertools.groupby(
         sorted(root_vulnerabilities, key=attrgetter("finding_id")),
         key=attrgetter("finding_id"),
+    )
+    LOGGER.info(
+        "Root content",
+        extra={
+            "extra": {
+                "vulnerabilities": len(root_vulnerabilities),
+            },
+        },
     )
     await collect(
         tuple(
@@ -482,10 +561,12 @@ async def move_root(*, item: BatchProcessing) -> None:
             for source_finding_id, vulns in vulns_by_finding
         ),
     )
+    LOGGER.info("Moving completed", extra={"extra": None})
     target_root: RootItem = await loaders.root.load(
         (target_group_name, target_root_id)
     )
     if isinstance(root, (GitRootItem, URLRootItem)):
+        LOGGER.info("Updating ToE inputs", extra={"extra": None})
         group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
             GroupToeInputsRequest(group_name=source_group_name)
         )
@@ -513,6 +594,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             product_name=Product.INTEGRATES,
         )
     if isinstance(root, GitRootItem):
+        LOGGER.info("Updating ToE lines", extra={"extra": None})
         repo_toe_lines = await loaders.root_toe_lines.load_nodes(
             RootToeLinesRequest(
                 group_name=source_group_name, root_id=source_root_id
@@ -538,6 +620,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         )
     user: User = await loaders.user.load(item.subject)
     if Notification.ROOT_MOVED in user.notifications_preferences.email:
+        LOGGER.info("Notifying user", extra={"extra": None})
         await send_mails_async(
             email_to=[item.subject],
             context={
@@ -552,6 +635,11 @@ async def move_root(*, item: BatchProcessing) -> None:
             ),
             template_name="root_moved",
         )
+    else:
+        LOGGER.info(
+            "User disabled this notification. Won't notify",
+            extra={"extra": None},
+        )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,
@@ -559,6 +647,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         subject=item.subject,
         time=item.time,
     )
+    LOGGER.info("Task completed successfully.", extra={"extra": None})
 
 
 async def clone_roots(*, item: BatchProcessing) -> None:

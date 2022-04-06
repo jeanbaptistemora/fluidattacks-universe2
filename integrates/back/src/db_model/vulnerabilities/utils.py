@@ -25,6 +25,9 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb.types import (
     Item,
 )
@@ -157,7 +160,11 @@ def format_unreliable_indicators(
     item: Item,
 ) -> VulnerabilityUnreliableIndicators:
     return VulnerabilityUnreliableIndicators(
-        unreliable_efficacy=item.get("unreliable_efficacy", None),
+        unreliable_efficacy=(
+            None
+            if item.get("unreliable_efficacy") is None
+            else Decimal(item["unreliable_efficacy"])
+        ),
         unreliable_last_reattack_date=item.get(
             "unreliable_last_reattack_date", None
         ),
