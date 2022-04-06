@@ -1,8 +1,10 @@
+import _ from "lodash";
 import React, { useState } from "react";
 import Joyride, { ACTIONS, EVENTS, STATUS } from "react-joyride";
 import type { CallBackProps, Step } from "react-joyride";
 
 interface ITourProps {
+  onFinish?: () => void;
   run: boolean;
   steps: Step[];
 }
@@ -24,8 +26,10 @@ const BaseStep: Step = {
   target: "",
 };
 
-const Tour: React.FC<ITourProps> = (props: ITourProps): JSX.Element => {
-  const { run, steps } = props;
+const Tour: React.FC<ITourProps> = (
+  props: Readonly<ITourProps>
+): JSX.Element => {
+  const { run, steps, onFinish } = props;
 
   const [runTour, toggleTour] = useState(run);
   const [tourStep, changeTourStep] = useState(0);
@@ -42,6 +46,9 @@ const Tour: React.FC<ITourProps> = (props: ITourProps): JSX.Element => {
       action === "close"
     ) {
       toggleTour(false);
+      if (!_.isUndefined(onFinish)) {
+        onFinish();
+      }
     }
   }
 
