@@ -101,8 +101,10 @@ describe("Update access token modal", (): void => {
 
     userEvent.click(screen.getByText(resetButtonText));
     await waitFor((): void => {
-      expect(screen.getByText(afterValue)).toBeInTheDocument();
+      expect(screen.queryByText(afterValue)).toBeInTheDocument();
     });
+
+    jest.clearAllMocks();
   });
 
   it("should render an token modal with token", async (): Promise<void> => {
@@ -150,6 +152,8 @@ describe("Update access token modal", (): void => {
 
     expect(screen.getByText(resetButtonText)).not.toBeDisabled();
     expect(screen.getByText(tokenValue)).toBeInTheDocument();
+
+    jest.clearAllMocks();
   });
 
   it("should render an token modal without token", async (): Promise<void> => {
@@ -201,5 +205,7 @@ describe("Update access token modal", (): void => {
     userEvent.click(screen.getByText(closeButtonText));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
+
+    jest.clearAllMocks();
   });
 });

@@ -27,14 +27,15 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
   const { t } = useTranslation();
   const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] =
     useGetAPIToken(groupName);
-  const [updateApiToken] = useUpdateAPIToken();
+  const [updateApiToken] = useUpdateAPIToken(groupName);
 
   const currentToken: string | undefined = getTokenData?.group.forcesToken;
 
-  const handleUpdateAPIToken: () => void = useCallback((): void => {
-    void updateApiToken({ variables: { groupName } });
+  const handleUpdateAPIToken = useCallback(async (): Promise<void> => {
+    await updateApiToken({ variables: { groupName } });
   }, [groupName, updateApiToken]);
-  const handleReveal: () => void = useCallback((): void => {
+
+  const handleReveal = useCallback((): void => {
     getApiToken();
   }, [getApiToken]);
   const handleCopy: () => Promise<void> =

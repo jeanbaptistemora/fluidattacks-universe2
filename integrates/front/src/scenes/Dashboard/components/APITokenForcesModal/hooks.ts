@@ -58,10 +58,11 @@ const useGetAPIToken: (
   return [getForcesApiToken, called, data, loading] as const;
 };
 
-const useUpdateAPIToken: () => readonly [
-  MutationFunction,
-  MutationResult<IUpdateForcesTokenAttr>
-] = (): readonly [MutationFunction, MutationResult<IUpdateForcesTokenAttr>] => {
+const useUpdateAPIToken: (
+  groupName: string
+) => readonly [MutationFunction, MutationResult<IUpdateForcesTokenAttr>] = (
+  groupName: string
+): readonly [MutationFunction, MutationResult<IUpdateForcesTokenAttr>] => {
   const { t } = useTranslation();
 
   // Handle mutation results
@@ -89,7 +90,7 @@ const useUpdateAPIToken: () => readonly [
     {
       onCompleted: handleOnSuccess,
       onError: handleOnError,
-      refetchQueries: [GET_FORCES_TOKEN],
+      refetchQueries: [{ query: GET_FORCES_TOKEN, variables: { groupName } }],
     }
   );
 
