@@ -5313,6 +5313,15 @@
   "require-ports": {
     "GHSA-qj3g-wfr7-3cv7": ">=0"
   },
+  "requset": {
+    "GHSA-w7wg-24g3-2c78": ">=0"
+  },
+  "requst": {
+    "GHSA-8qx4-r7fx-xc4v": ">=0"
+  },
+  "requuest": {
+    "GHSA-frxq-v7fm-m4pv": ">=0"
+  },
   "resolve": {},
   "resolve-from": {},
   "resolve-path": {
@@ -5320,6 +5329,9 @@
   },
   "resourcehacker": {
     "GMS-2017-53": ">=0.0.0-alpha"
+  },
+  "resquel": {
+    "GHSA-crpm-fm48-chj7": ">=0"
   },
   "restafary": {
     "GMS-2016-20": "<1.6.1"
@@ -5331,16 +5343,43 @@
   "restify-paginate": {
     "CVE-2020-27543": "=0.0.5"
   },
+  "restify-swagger-jsdoc": {
+    "GHSA-gvff-25cc-4f66": "<3.2.1"
+  },
+  "retcodelog": {
+    "GHSA-j8hw-49gg-vq3w": ">=0"
+  },
+  "reuest": {
+    "GHSA-r863-p739-275c": ">=0"
+  },
   "reveal.js": {
     "CVE-2020-8127": "<=3.9.1"
   },
+  "rgb2hex": {
+    "GHSA-65p8-3hm4-h9h8": "<0.1.6"
+  },
   "rimraf": {},
+  "rimrafall": {
+    "GHSA-8hq2-fcqm-39hq": ">=0"
+  },
   "riot-compiler": {
     "CVE-2016-10527": "=2.3.21"
+  },
+  "riped160": {
+    "GHSA-rwcq-qpm6-7867": ">=0"
+  },
+  "ripedm160": {
+    "GHSA-9272-59x2-gwf2": ">=0"
+  },
+  "ripmed160": {
+    "GHSA-gmjp-776j-2394": ">=0"
   },
   "ritp": {
     "CVE-2017-16198": ">=1.0.2 <=1.0.5",
     "GMS-2017-293": ">=0.0.0-alpha"
+  },
+  "river-mock": {
+    "GHSA-2h3x-95c6-885r": ">=0"
   },
   "roar-pidusage": {
     "CVE-2021-23380": ">=0"
@@ -5361,8 +5400,20 @@
   "roslib-socketio": {
     "GMS-2017-18": ">=0.0.0-alpha"
   },
+  "rpc-websocket": {
+    "GHSA-x87g-rgrh-r6g3": ">=0.7.7"
+  },
   "rpi": {
     "CVE-2019-10796": "<=0.0.3"
+  },
+  "rqeuest": {
+    "GHSA-pj97-j597-ppm7": ">=0"
+  },
+  "rrequest": {
+    "GHSA-wc7q-qpm4-8pqv": ">=0"
+  },
+  "rrgod": {
+    "GHSA-277p-xwpp-3jf7": ">=0"
   },
   "rs-brightcove": {
     "GMS-2017-23": ">=0.0.0-alpha"
@@ -5375,7 +5426,13 @@
     "CVE-2017-16125": ">=1.0.0 <=1.0.5",
     "GMS-2017-226": ">=0.0.0-alpha"
   },
+  "ruffer-xor": {
+    "GHSA-2mxc-m4c3-wqhq": ">=0"
+  },
   "rxjs": {},
+  "s3asy": {
+    "GHSA-3wjm-33mw-h388": "0.4.8"
+  },
   "safe-buffer": {},
   "safe-eval": {
     "CVE-2017-16088": ">=0.0.0 <=0.3.0",
@@ -5398,6 +5455,9 @@
   },
   "safetydance": {
     "CVE-2020-7737": ">=0"
+  },
+  "sahmat": {
+    "GHSA-83pq-466j-fc6j": ">=0"
   },
   "sails": {
     "CVE-2018-21036": "<1.0.1",
