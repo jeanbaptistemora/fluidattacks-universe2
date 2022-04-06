@@ -15,6 +15,9 @@ from typing import (
 async def resolve(
     parent: GitRoot, _: GraphQLResolveInfo, **__: None
 ) -> Optional[str]:
+    if parent.state == "INACTIVE":
+        return None
+
     return await get_download_url(
         group_name=parent.group_name, root_nickname=parent.nickname
     )
