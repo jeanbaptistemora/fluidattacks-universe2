@@ -914,21 +914,18 @@ async def update_group(
         )
         return
 
-    org_id = await orgs_domain.get_id_for_group(group_name)
-    success = await remove_group(
+    await remove_group_typed(
         loaders=loaders,
         group_name=group_name,
+        justification=justification,
         user_email=user_email,
-        organization_id=org_id,
+    )
+    await notifications_domain.delete_group(
+        deletion_date=datetime_utils.get_now_as_str(),
+        group_name=group_name,
+        requester_email=user_email,
         reason=justification.value,
     )
-    if success:
-        await notifications_domain.delete_group(
-            deletion_date=datetime_utils.get_now_as_str(),
-            group_name=group_name,
-            requester_email=user_email,
-            reason=justification.value,
-        )
 
 
 async def update_group_tier(
