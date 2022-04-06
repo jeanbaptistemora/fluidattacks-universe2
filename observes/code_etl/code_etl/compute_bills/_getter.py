@@ -1,4 +1,4 @@
-from code_etl.compute_bills.contribution import (
+from code_etl.compute_bills.core import (
     Contribution,
 )
 from code_etl.objs import (
@@ -16,7 +16,6 @@ from datetime import (
 from fa_purity import (
     Cmd,
     Maybe,
-    Result,
     Stream,
 )
 from fa_purity.frozen import (
@@ -47,6 +46,7 @@ import requests
 from typing import (
     cast,
     Dict,
+    FrozenSet,
     Optional,
 )
 
@@ -110,6 +110,37 @@ def _assert_str(val: PrimitiveVal) -> str:
     return Maybe.from_optional(val if isinstance(val, str) else None).unwrap()
 
 
+def get_month_repos(
+    client: SqlClient, date: datetime
+) -> Cmd[FrozenSet[RepoId]]:
+    stm = f"""
+        SELECT DISTINCT
+            namespace,
+            repository
+        FROM code.commits
+        WHERE
+            TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
+        AND hash != {COMMIT_HASH_SENTINEL}
+    """
+    return client.execute(
+        new_query(stm),
+        freeze(
+            {
+                "seen_at": date.strftime("%Y-%m"),
+            }
+        ),
+    ) + client.fetch_all().map(
+        lambda l: frozenset(
+            map(
+                lambda r: RepoId(
+                    _assert_str(r.data[0]), _assert_str(r.data[1])
+                ),
+                l,
+            )
+        )
+    )
+
+
 def get_month_contributions(
     client: SqlClient, repo: RepoId, date: datetime
 ) -> Cmd[Stream[Contribution]]:
@@ -118,9 +149,7 @@ def get_month_contributions(
             author_name,
             author_email,
             hash,
-            fa_hash,
-            namespace,
-            repository
+            fa_hash
         FROM code.commits
         WHERE
             repository = %(repository)s
