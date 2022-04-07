@@ -288,8 +288,22 @@ function filterSelectStatus(
   );
 }
 
+function filterSelectIncludesHealthCheck(
+  rows: IGitRootAttr[],
+  currentValue: string
+): IGitRootAttr[] {
+  const isHealthCheckIncluded = currentValue === "true";
+
+  return rows.filter((row: IGitRootAttr): boolean =>
+    _.isEmpty(currentValue)
+      ? true
+      : row.includesHealthCheck === isHealthCheckIncluded
+  );
+}
+
 export {
   filterSelectStatus,
+  filterSelectIncludesHealthCheck,
   GitIgnoreAlert,
   gitModalSchema,
   handleCreationError,

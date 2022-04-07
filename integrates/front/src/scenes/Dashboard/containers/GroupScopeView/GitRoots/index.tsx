@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
 import {
+  filterSelectIncludesHealthCheck,
   filterSelectStatus,
   handleActivationError,
   handleCreationError,
@@ -66,6 +67,7 @@ interface IGitRootsProps {
 
 interface IFilterSet {
   branch: string;
+  includesHealthCheck?: string;
   nickname: string;
   state: string;
   status: string;
@@ -151,6 +153,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       "filterGroupScopeSet",
       {
         branch: "",
+        includesHealthCheck: "",
         nickname: "",
         state: "",
         status: "",
@@ -350,6 +353,23 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [t]
   );
 
+  const includesHealthCheckSelectOptions = Object.fromEntries([
+    ["false", formatBoolean(false)],
+    ["true", formatBoolean(true)],
+  ]);
+
+  const onIncludesHealthCheckChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    event.persist();
+    setFilterGroupScopeTable(
+      (value): IFilterSet => ({
+        ...value,
+        includesHealthCheck: event.target.value,
+      })
+    );
+  };
+
   const filterStateRoots: IGitRootAttr[] = filterSelect(
     roots,
     filterGroupScopeTable.state,
@@ -370,6 +390,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setFilterGroupScopeTable(
       (): IFilterSet => ({
         branch: "",
+        includesHealthCheck: "",
         nickname: "",
         state: "",
         status: "",
@@ -383,10 +404,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     filterGroupScopeTable.status
   );
 
+  const filterHCKRoots: IGitRootAttr[] = filterSelectIncludesHealthCheck(
+    roots,
+    filterGroupScopeTable.includesHealthCheck ?? ""
+  );
+
   const resultExecutions: IGitRootAttr[] = _.intersection(
     filterSearchTextRoots,
     filterNicknameRoots,
     filterBranchRoots,
+    filterHCKRoots,
     filterStateRoots,
     filterStatusRoots
   );
@@ -437,6 +464,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       },
       tooltipId: "group.scope.git.filtersTooltips.status.id",
       tooltipMessage: "group.scope.git.filtersTooltips.status",
+      type: "select",
+    },
+    {
+      defaultValue: filterGroupScopeTable.includesHealthCheck ?? "",
+      onChangeSelect: onIncludesHealthCheckChange,
+      placeholder: t("group.scope.git.filtersTooltips.healthCheck.placeholder"),
+      selectOptions: includesHealthCheckSelectOptions,
+      tooltipId: "group.scope.git.filtersTooltips.healthCheck.id",
+      tooltipMessage: "group.scope.git.filtersTooltips.healthCheck.text",
       type: "select",
     },
   ];

@@ -717,6 +717,10 @@ export const enTranslations: ResourceKey = {
         },
         filtersTooltips: {
           branch: "Filter by branch",
+          healthCheck: {
+            placeholder: "Health Check",
+            text: "Filter if health check is included for existing code",
+          },
           nickname: "Filter by nickname",
           state: "Filter by state",
           status: "Filter by status",
