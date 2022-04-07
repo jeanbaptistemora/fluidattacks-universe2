@@ -14,9 +14,6 @@ const GET_USER_ORGANIZATIONS: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       organizations {
         name
-        groups {
-          name
-        }
       }
       userEmail
     }
