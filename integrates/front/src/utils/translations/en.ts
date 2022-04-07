@@ -492,6 +492,10 @@ export const enTranslations: ResourceKey = {
         True: "Pending",
       },
       report: {
+        alerts: {
+          invalidVerificationCode: "The verification code is invalid",
+          nonVerifiedStakeholder: "Try again in a few minutes",
+        },
         btn: {
           text: "Reports",
           tooltip: "Generate a report of findings and send it to your email",
@@ -1568,7 +1572,7 @@ export const enTranslations: ResourceKey = {
         invalidVerificationCode: "The verification code is invalid",
         nonSentVerificationCode:
           "Check your mobile number and retry in a minute",
-        nonVerifiedStakeholder: "Stakeholder could not be verified",
+        nonVerifiedStakeholder: "Try again in a few minutes",
         requiredMobile: "A mobile number is required",
         requiredVerificationCode: "A verification code is required",
         sameMobile: "The new phone number can not be the current phone number",
@@ -3104,6 +3108,11 @@ export const enTranslations: ResourceKey = {
     zeroOrPositive: "The number must be either 0 or positive",
   },
   verifyDialog: {
+    alerts: {
+      nonSentVerificationCode: "Try again in a few minutes",
+      sendMobileVerificationSuccess:
+        "A verification code has been sent to your mobile",
+    },
     fields: {
       verificationCode: "Verification code",
     },

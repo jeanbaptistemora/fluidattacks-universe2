@@ -21,6 +21,7 @@ import { BaseStep, Tour } from "components/Tour";
 import { Col100, ControlLabel, Row } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 import { required } from "utils/validations";
 
 const VerifyDialog: React.FC<IVerifyDialogProps> = ({
@@ -39,7 +40,33 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
   );
 
   const [handleVerifyStakeholder] = useMutation<IVerifyStakeholderResultAttr>(
-    VERIFY_STAKEHOLDER_MUTATION
+    VERIFY_STAKEHOLDER_MUTATION,
+    {
+      onCompleted: (data: IVerifyStakeholderResultAttr): void => {
+        if (data.verifyStakeholder.success) {
+          msgSuccess(
+            t("verifyDialog.alerts.sendMobileVerificationSuccess"),
+            t("groupAlerts.titleSuccess")
+          );
+        }
+      },
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - Stakeholder verification could not be started":
+              msgError(t("verifyDialog.alerts.nonSentVerificationCode"));
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning(
+                "An error occurred sending a verification code",
+                error
+              );
+          }
+          cancelCallback();
+        });
+      },
+    }
   );
 
   const { data } = useQuery<IGetStakeholderPhoneAttr>(GET_STAKEHOLDER_PHONE, {
