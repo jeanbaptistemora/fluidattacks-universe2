@@ -118,7 +118,7 @@ workflow:
   <<: *common_in_dev_branch
   stage: lint-code
 
-/makes/review-mr:
+/common/review-mr:
   <<: *makes4
   <<: *common_in_mrs
   stage: merge-request
