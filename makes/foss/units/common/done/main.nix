@@ -4,7 +4,7 @@
   ...
 }:
 makeScript {
-  name = "makes-done";
+  name = "common-done";
   searchPaths.source = [
     managePorts
   ];

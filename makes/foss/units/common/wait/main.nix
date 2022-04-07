@@ -4,7 +4,7 @@
   ...
 }:
 makeScript {
-  name = "makes-wait";
+  name = "common-wait";
   searchPaths.source = [managePorts];
   entrypoint = ./entrypoint.sh;
 }

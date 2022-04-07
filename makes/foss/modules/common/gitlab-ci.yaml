@@ -11,7 +11,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /common/criteria/skims-sync
   stage: test-code
@@ -33,7 +33,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /common/criteria/test
   stage: test-code
@@ -55,7 +55,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /common/criteria/unreferenced
   stage: test-code
@@ -76,7 +76,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonCompute
   stage: deploy-infra
@@ -97,7 +97,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonDns
   stage: deploy-infra
@@ -118,7 +118,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonFoss
   stage: deploy-infra
@@ -139,7 +139,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonKubernetes
   stage: deploy-infra
@@ -160,7 +160,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonOkta
   stage: deploy-infra
@@ -181,7 +181,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonStatus
   stage: deploy-infra
@@ -202,7 +202,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonUsers
   stage: deploy-infra
@@ -223,7 +223,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonVpc
   stage: deploy-infra
@@ -244,7 +244,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /deployTerraform/commonVpn
   stage: deploy-infra
@@ -266,7 +266,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /docs/generate/criteria
   stage: build
@@ -288,7 +288,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonCi
   stage: lint-code
@@ -310,7 +310,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonCompute
   stage: lint-code
@@ -332,7 +332,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonDns
   stage: lint-code
@@ -354,7 +354,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonFoss
   stage: lint-code
@@ -376,7 +376,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonKubernetes
   stage: lint-code
@@ -398,7 +398,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonOkta
   stage: lint-code
@@ -420,7 +420,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonStatus
   stage: lint-code
@@ -442,7 +442,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonUsers
   stage: lint-code
@@ -464,7 +464,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonVpc
   stage: lint-code
@@ -486,7 +486,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /lintTerraform/commonVpn
   stage: lint-code
@@ -495,7 +495,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintWithAjv/makes/criteria/compliance:
+/lintWithAjv/common/criteria/compliance:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -508,16 +508,16 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /lintWithAjv/makes/criteria/compliance
+    - m . /lintWithAjv/common/criteria/compliance
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintWithAjv/makes/criteria/requirements:
+/lintWithAjv/common/criteria/requirements:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -530,16 +530,16 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /lintWithAjv/makes/criteria/requirements
+    - m . /lintWithAjv/common/criteria/requirements
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintWithAjv/makes/criteria/vulnerabilities:
+/lintWithAjv/common/criteria/vulnerabilities:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -552,16 +552,16 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /lintWithAjv/makes/criteria/vulnerabilities
+    - m . /lintWithAjv/common/criteria/vulnerabilities
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/pipelineOnGitlab/makes:
+/pipelineOnGitlab/common:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -574,9 +574,9 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /pipelineOnGitlab/makes
+    - m . /pipelineOnGitlab/common
   stage: lint-code
   tags:
     - autoscaling
@@ -590,7 +590,7 @@
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $makes_users_rotate_even == null
+    - if: $common_users_rotate_even == null
       when: never
     - when: always
   script:
@@ -608,7 +608,7 @@
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $makes_users_rotate_odd == null
+    - if: $common_users_rotate_odd == null
       when: never
     - when: always
   script:
@@ -632,7 +632,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonCi
   stage: test-infra
@@ -654,7 +654,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonCompute
   stage: test-infra
@@ -676,7 +676,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonDns
   stage: test-infra
@@ -698,7 +698,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonFoss
   stage: test-infra
@@ -720,7 +720,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonKubernetes
   stage: test-infra
@@ -742,7 +742,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonOkta
   stage: test-infra
@@ -764,7 +764,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonStatus
   stage: test-infra
@@ -786,7 +786,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonUsers
   stage: test-infra
@@ -808,7 +808,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonVpc
   stage: test-infra
@@ -830,7 +830,7 @@
       when: never
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonVpn
   stage: test-infra

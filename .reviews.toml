@@ -3,7 +3,7 @@ platform = 'gitlab'
 
 
 [syntax]
-  regex = '^(airs|all|asserts|common|docs|forces|integrates|makes|melts|observes|reviews|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
+  regex = '^(airs|all|asserts|common|docs|forces|integrates|melts|observes|reviews|skims|sorts|teaches)\\(\w*)\((\w*)\):\s(#[1-9]\d*)(.\d+)?\s(.*)$'
   user_regex = '^[A-Z][a-z]+ [A-Z][a-z]+$'
   [syntax.match_groups]
     product = 1

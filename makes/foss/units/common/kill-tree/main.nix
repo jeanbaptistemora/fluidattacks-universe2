@@ -4,7 +4,7 @@
   ...
 }:
 makeScript {
-  name = "makes-kill-tree";
+  name = "common-kill-tree";
   searchPaths = {
     bin = [
       inputs.nixpkgs.procps

@@ -2,20 +2,20 @@
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
   gitlabBranchMaster = gitlabCi.rules.branch "master";
 
-  gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|makes)";
+  gitlabTitleMatchingCommon = gitlabCi.rules.titleMatching "^(all|common)";
 
   gitlabOnlyMaster = [
     gitlabBranchMaster
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
-    gitlabTitleMatchingMakes
+    gitlabTitleMatchingCommon
   ];
   gitlabOnlyDev = [
     gitlabBranchNotMaster
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
-    gitlabTitleMatchingMakes
+    gitlabTitleMatchingCommon
   ];
 
   gitlabDeployInfra = {
@@ -32,7 +32,7 @@
   gitlabRotateUsersKeys1 = {
     rules = [
       gitlabCi.rules.schedules
-      (gitlabCi.rules.varIsDefined "makes_users_rotate_even")
+      (gitlabCi.rules.varIsDefined "common_users_rotate_even")
       gitlabCi.rules.always
     ];
     stage = "rotation";
@@ -41,7 +41,7 @@
   gitlabRotateUsersKeys2 = {
     rules = [
       gitlabCi.rules.schedules
-      (gitlabCi.rules.varIsDefined "makes_users_rotate_odd")
+      (gitlabCi.rules.varIsDefined "common_users_rotate_odd")
       gitlabCi.rules.always
     ];
     stage = "rotation";
@@ -59,7 +59,7 @@
   };
 in {
   pipelines = {
-    makes = {
+    common = {
       gitlabPath = "/makes/foss/modules/common/gitlab-ci.yaml";
       jobs = [
         {
@@ -147,15 +147,15 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintWithAjv/makes/criteria/compliance";
+          output = "/lintWithAjv/common/criteria/compliance";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintWithAjv/makes/criteria/requirements";
+          output = "/lintWithAjv/common/criteria/requirements";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintWithAjv/makes/criteria/vulnerabilities";
+          output = "/lintWithAjv/common/criteria/vulnerabilities";
           gitlabExtra = gitlabLint;
         }
         {
@@ -171,7 +171,7 @@ in {
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/pipelineOnGitlab/makes";
+          output = "/pipelineOnGitlab/common";
           gitlabExtra = gitlabLint;
         }
         {

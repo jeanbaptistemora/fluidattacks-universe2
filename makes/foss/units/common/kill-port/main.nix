@@ -4,7 +4,7 @@
   ...
 }:
 makeScript {
-  name = "makes-kill-port";
+  name = "common-kill-port";
   searchPaths.source = [
     managePorts
   ];

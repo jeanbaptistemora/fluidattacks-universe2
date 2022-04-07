@@ -7,6 +7,6 @@ makeScript {
   searchPaths = {
     source = [outputs."/reviews/runtime"];
   };
-  name = "makes-review-mr";
+  name = "common-review-mr";
   entrypoint = ./entrypoint.sh;
 }

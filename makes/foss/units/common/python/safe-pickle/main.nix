@@ -4,12 +4,12 @@
   ...
 }:
 makeTemplate {
-  name = "makes-python-safe-pickle";
+  name = "common-python-safe-pickle";
   searchPaths = {
     pythonPackage = [./src];
     source = [
       (makePythonPypiEnvironment {
-        name = "makes-python-safe-pickle";
+        name = "common-python-safe-pickle";
         sourcesYaml = ./pypi-sources.yaml;
       })
     ];
