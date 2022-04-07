@@ -724,13 +724,17 @@ export const enTranslations: ResourceKey = {
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",
           confirm: "Would you like a health check for the existing code?",
+          no: "No",
           rejectA:
             "I accept that Fluid Attacks will not include a revision of the existing code in the repository",
           rejectB:
             "I accept that the existing code contains vulnerabilities that will not be detected",
           rejectC:
             "I accept that the previously defined SLAs do not apply to this repository",
+          tableHeader: "HCK",
           title: "Health Check",
+          titleTooltip: "Health check include for existing code",
+          yes: "Yes",
         },
         manageEnvs: "Manage environments",
         manageEnvsTooltip:

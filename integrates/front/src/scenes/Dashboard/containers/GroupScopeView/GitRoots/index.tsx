@@ -39,6 +39,7 @@ import {
   changeFormatter,
   syncButtonFormatter,
 } from "components/Table/formatters";
+import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { useRowExpand } from "components/Table/hooks/useRowExpand";
 import type { IFilterProps } from "components/Table/types";
 import {
@@ -132,6 +133,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     {
       branch: true,
       "cloningStatus.status": true,
+      includesHealthCheck: false,
       state: true,
       sync: true,
       url: true,
@@ -339,6 +341,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       })
     );
   }
+
+  const formatBoolean = useCallback(
+    (value: boolean): string =>
+      value
+        ? t("group.scope.git.healthCheck.yes")
+        : t("group.scope.git.healthCheck.no"),
+    [t]
+  );
+
   const filterStateRoots: IGitRootAttr[] = filterSelect(
     roots,
     filterGroupScopeTable.state,
@@ -550,6 +561,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
                     width: "105px",
+                  },
+                  {
+                    dataField: "includesHealthCheck",
+                    formatter: formatBoolean,
+                    header: t("group.scope.git.healthCheck.tableHeader"),
+                    headerFormatter: tooltipFormatter,
+                    tooltipDataField: t(
+                      "group.scope.git.healthCheck.titleTooltip"
+                    ),
+                    visible: _.isUndefined(checkedItems.includesHealthCheck)
+                      ? false
+                      : checkedItems.includesHealthCheck,
+                    width: "45px",
                   },
                   {
                     changeFunction: handleSyncClick,
