@@ -29,6 +29,7 @@ from db_model import (
 from db_model.enums import (
     Notification,
     Source,
+    StateRemovalJustification,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -181,7 +182,7 @@ async def _process_vuln(
     await vulns_model.update_historic(
         finding_id=target_finding_id,
         vulnerability_id=new_id,
-        historic=historic_state,
+        historic=historic_state or [vuln.state],
     )
     if historic_treatment:
         await vulns_model.update_historic(
@@ -330,6 +331,7 @@ async def _process_finding(
             )
             for vuln in vulns
             if vuln.state.status != VulnerabilityStateStatus.DELETED
+            and vuln.state.justification != StateRemovalJustification.EXCLUSION
         ),
         workers=100,
     )
