@@ -535,6 +535,14 @@
       "title": "237. Technical information leak - Print Functions"
     }
   },
+  "F239": {
+    "EN": {
+      "title": "239. Technical information leak - Errors"
+    },
+    "ES": {
+      "title": "239. Technical information leak - Errors"
+    }
+  },
   "F246": {
     "EN": {
       "title": "246. Non-encrypted confidential information - DB"
