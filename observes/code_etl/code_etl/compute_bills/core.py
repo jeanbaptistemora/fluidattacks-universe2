@@ -1,5 +1,6 @@
 from code_etl.objs import (
     CommitDataId,
+    GroupId,
     User,
 )
 from dataclasses import (
@@ -7,6 +8,10 @@ from dataclasses import (
 )
 from fa_purity import (
     FrozenDict,
+)
+from typing import (
+    FrozenSet,
+    Tuple,
 )
 
 
@@ -19,3 +24,8 @@ class Contribution:
 @dataclass(frozen=True)
 class ActiveUsersReport:
     data: FrozenDict[User, Contribution]
+
+
+@dataclass(frozen=True)
+class FinalActiveUsersReport:
+    data: FrozenDict[User, Tuple[Contribution, FrozenSet[GroupId]]]
