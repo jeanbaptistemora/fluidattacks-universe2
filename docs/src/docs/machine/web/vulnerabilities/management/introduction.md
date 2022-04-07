@@ -22,6 +22,8 @@ a more specific location.
 
 ![Vulnerability Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1645455490/docs/web/vulnerabilities/management/managmt_vuln_section.png)
 
+## Header of the type of vulnerability
+
 In the **header** there are
 useful global information.
 Above the header, as a title,
