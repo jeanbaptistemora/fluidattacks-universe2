@@ -113,11 +113,11 @@ def upload_repos(
         (Client(ClientFactory().from_creds(db_id, creds), target), p)
         for p in repo_paths
     )
-    pool = ThreadPool()
+    pool = ThreadPool()  # type: ignore[misc]
 
     def _action() -> None:
-        pool.map(
-            lambda i: unsafe_unwrap(upload(i[0], namespace, i[1], mailmap)),
+        pool.map(  # type: ignore[misc]
+            lambda i: unsafe_unwrap(upload(i[0], namespace, i[1], mailmap)),  # type: ignore[misc]
             client_paths,
         )
 

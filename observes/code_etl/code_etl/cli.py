@@ -1,5 +1,3 @@
-# False positive in ci: error implicit return in no-return function
-# ignoring using `type: ignore[misc]`
 import click
 from code_etl import (
     compute_bills as bills,
@@ -75,7 +73,7 @@ def _to_table(pair: Tuple[str, str]) -> TableID:
     return TableID(SchemaID(pair[0]), pair[1])
 
 
-@click.command()
+@click.command()  # type: ignore[misc]
 @click.option("--mailmap", type=mailmap_file)
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
@@ -97,7 +95,7 @@ def amend_authors(
     ).compute()
 
 
-@click.command()
+@click.command()  # type: ignore[misc]
 @click.argument("folder", type=str)
 @click.argument("year", type=int)
 @click.argument("month", type=int)
@@ -113,7 +111,7 @@ def compute_bills(
     )
 
 
-@click.command()
+@click.command()  # type: ignore[misc]
 @click.option("--schema", type=str, required=True)
 @click.option("--table", type=str, required=True)
 @click.option("--namespace", type=str, required=True)
@@ -137,7 +135,7 @@ def upload_code(
     ).compute()
 
 
-@click.command()
+@click.command()  # type: ignore[misc]
 @click.argument("namespace", type=str)
 @click.option("--source", type=(str, str), help="schema-table pair")
 @click.option("--target", type=(str, str), help="schema-table pair")
@@ -153,7 +151,7 @@ def calculate_fa_hash(
     ).compute()
 
 
-@click.group()
+@click.group()  # type: ignore[misc]
 def migration() -> None:
     # migration cli group
     pass
@@ -162,13 +160,13 @@ def migration() -> None:
 migration.add_command(calculate_fa_hash)
 
 
-@click.group()
+@click.group()  # type: ignore[misc]
 @click.option("--db-id", type=click.File("r"), required=True)
 @click.option("--creds", type=click.File("r"), required=True)
 @click.pass_context
-def main(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:
+def main(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:  # type: ignore[misc]
     if "--help" not in click.get_os_args():
-        ctx.obj = CmdContext(
+        ctx.obj = CmdContext(  # type: ignore[misc]
             id_from_str(db_id.read()),
             creds_from_str(creds.read()),
         )

@@ -14,6 +14,11 @@ from typing import (
 
 
 @dataclass(frozen=True)
+class GroupId:
+    name: str
+
+
+@dataclass(frozen=True)
 class RepoId:
     namespace: str
     repository: str

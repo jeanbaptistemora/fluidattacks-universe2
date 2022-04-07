@@ -4,6 +4,7 @@ from code_etl.compute_bills.core import (
 from code_etl.objs import (
     CommitDataId,
     CommitId,
+    GroupId,
     RepoId,
     User,
 )
@@ -112,11 +113,10 @@ def _assert_str(val: PrimitiveVal) -> str:
 
 def get_month_repos(
     client: SqlClient, date: datetime
-) -> Cmd[FrozenSet[RepoId]]:
+) -> Cmd[FrozenSet[GroupId]]:
     stm = f"""
         SELECT DISTINCT
-            namespace,
-            repository
+            namespace
         FROM code.commits
         WHERE
             TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
@@ -132,9 +132,7 @@ def get_month_repos(
     ) + client.fetch_all().map(
         lambda l: frozenset(
             map(
-                lambda r: RepoId(
-                    _assert_str(r.data[0]), _assert_str(r.data[1])
-                ),
+                lambda r: GroupId(_assert_str(r.data[0])),
                 l,
             )
         )
@@ -142,24 +140,23 @@ def get_month_repos(
 
 
 def get_month_contributions(
-    client: SqlClient, repo: RepoId, date: datetime
+    client: SqlClient, group: GroupId, date: datetime
 ) -> Cmd[Stream[Contribution]]:
     stm = f"""
         SELECT
             author_name,
             author_email,
+            repository,
             hash,
             fa_hash
         FROM code.commits
         WHERE
-            repository = %(repository)s
-        AND namespace = %(namespace)s
+            namespace = %(namespace)s
         AND TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
         AND hash != {COMMIT_HASH_SENTINEL}
     """
     args: Dict[str, PrimitiveVal] = {
-        "repository": repo.repository,
-        "namespace": repo.namespace,
+        "namespace": group.name,
         "seen_at": date.strftime("%Y-%m"),
     }
 
@@ -167,8 +164,8 @@ def get_month_contributions(
         return Contribution(
             User(_assert_str(raw.data[0]), _assert_str(raw.data[1])),
             CommitDataId(
-                repo,
-                CommitId(_assert_str(raw.data[2]), _assert_str(raw.data[3])),
+                RepoId(group.name, _assert_str(raw.data[2])),
+                CommitId(_assert_str(raw.data[3]), _assert_str(raw.data[4])),
             ),
         )
 

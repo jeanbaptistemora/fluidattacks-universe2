@@ -29,15 +29,18 @@ from fa_purity.union import (
 from typing import (
     Any,
     Optional,
+    TypeVar,
     Union,
 )
+
+_T = TypeVar("_T")
 
 
 class RawDecodeError(Exception):
     def __init__(
         self,
         target: str,
-        raw: Any,
+        raw: _T,
     ):
         super().__init__(
             f"TypeError when trying to build `{target}` "
