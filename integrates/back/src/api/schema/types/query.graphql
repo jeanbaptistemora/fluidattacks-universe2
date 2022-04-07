@@ -90,6 +90,8 @@ type Query {
     lang: ReportLang,
     "Treatments to include"
     treatments: [VulnerabilityTreatment!]
+    "OTP code to verify the stakeholder"
+    verificationCode: String,
   ): Report
 
   "Get resource metadata from group"

@@ -15,9 +15,11 @@ from batch.types import (
 from custom_exceptions import (
     ReportAlreadyRequested,
     RequestedReportError,
+    RequiredNewPhoneNumber,
 )
 from custom_types import (
     Report,
+    StakeholderPhone,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -41,9 +43,20 @@ from newutils.utils import (
 )
 from typing import (
     Any,
+    cast,
     Dict,
+    Optional,
     Set,
     Tuple,
+)
+from users import (
+    domain as users_domain,
+)
+from users.utils import (
+    get_international_format_phone_number,
+)
+from verify import (
+    operations as verify_operations,
 )
 
 
@@ -68,13 +81,9 @@ async def _get_url_group_report(
     user_email: str,
     group_name: str,
     treatments: Set[VulnerabilityTreatmentStatus],
+    verification_code: Optional[str],
 ) -> bool:
-    additional_info: str = json.dumps(
-        {
-            "report_type": report_type,
-            "treatments": list(sorted(treatments)),
-        }
-    )
+    is_verified: bool = False
     existing_actions: Tuple[
         BatchProcessing, ...
     ] = await batch_dal.get_actions_by_name("report", group_name)
@@ -89,6 +98,26 @@ async def _get_url_group_report(
         )
     ):
         raise ReportAlreadyRequested()
+
+    if verification_code:
+        user = await users_domain.get_by_email(user_email)
+        user_phone = cast(Optional[StakeholderPhone], user["phone"])
+        if not user_phone:
+            raise RequiredNewPhoneNumber()
+
+        await verify_operations.check_verification(
+            phone_number=get_international_format_phone_number(user_phone),
+            code=verification_code,
+        )
+        is_verified = True
+
+    additional_info: str = json.dumps(
+        {
+            "report_type": report_type,
+            "treatments": list(sorted(treatments)),
+            "is_verified": is_verified,
+        }
+    )
 
     success: bool = (
         await batch_dal.put_action(
@@ -117,6 +146,7 @@ async def resolve(
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
+    verification_code: Optional[str] = kwargs.get("verification_code")
     if report_type == "CERT":
         (
             business_id,
@@ -152,5 +182,6 @@ async def resolve(
             user_email,
             group_name=group_name,
             treatments=treatments,
+            verification_code=verification_code,
         )
     }
