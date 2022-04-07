@@ -140,15 +140,15 @@ def _exec_command(cmd: List[str], signal: str = "15") -> Iterator[None]:
         try:
             yield
         finally:
-            _exec_and_wait_command(["makes-kill-tree", signal, f"{sproc.pid}"])
+            _exec_and_wait_command(["common-kill-tree", signal, f"{sproc.pid}"])
 
 
 def _exec_mock_server(
     cmd: List[str], port: str, signal: str = "15", wait_time: str = "5"
 ) -> Iterator[None]:
-    _exec_and_wait_command(["makes-kill-port", port])
+    _exec_and_wait_command(["common-kill-port", port])
     with _exec_command(cmd, signal):
-        _exec_and_wait_command(["makes-wait", wait_time, f"localhost:{port}"])
+        _exec_and_wait_command(["common-wait", wait_time, f"localhost:{port}"])
         yield
 
 
