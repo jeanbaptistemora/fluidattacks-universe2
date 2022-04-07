@@ -2,11 +2,11 @@
 {outputs, ...}: {
   deployTerraform = {
     modules = {
-      makesFoss = {
+      commonFoss = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesFossProd"
-          outputs."/secretsForTerraformFromEnv/makesFoss"
+          outputs."/secretsForEnvFromSops/commonFossProd"
+          outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
         src = "/makes/foss/modules/common/foss/infra";
         version = "1.0";
@@ -15,11 +15,11 @@
   };
   lintTerraform = {
     modules = {
-      makesFoss = {
+      commonFoss = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesFossDev"
-          outputs."/secretsForTerraformFromEnv/makesFoss"
+          outputs."/secretsForEnvFromSops/commonFossDev"
+          outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
         src = "/makes/foss/modules/common/foss/infra";
         version = "1.0";
@@ -27,27 +27,27 @@
     };
   };
   secretsForEnvFromSops = {
-    makesFossDev = {
+    commonFossDev = {
       vars = ["GITHUB_API_TOKEN"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    makesFossProd = {
+    commonFossProd = {
       vars = ["GITHUB_API_TOKEN"];
       manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesFoss = {
+    commonFoss = {
       githubToken = "GITHUB_API_TOKEN";
     };
   };
   testTerraform = {
     modules = {
-      makesFoss = {
+      commonFoss = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesFossDev"
-          outputs."/secretsForTerraformFromEnv/makesFoss"
+          outputs."/secretsForEnvFromSops/commonFossDev"
+          outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
         src = "/makes/foss/modules/common/foss/infra";
         version = "1.0";

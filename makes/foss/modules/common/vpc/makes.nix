@@ -11,12 +11,12 @@
 in {
   deployTerraform = {
     modules = {
-      makesVpc = {
+      commonVpc = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesVpcProd"
-          outputs."/secretsForTerraformFromEnv/makesVpc"
+          outputs."/secretsForEnvFromSops/commonVpcProd"
+          outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
         src = "/makes/foss/modules/common/vpc/infra";
         version = "1.0";
@@ -25,12 +25,12 @@ in {
   };
   lintTerraform = {
     modules = {
-      makesVpc = {
+      commonVpc = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesVpcDev"
-          outputs."/secretsForTerraformFromEnv/makesVpc"
+          outputs."/secretsForEnvFromSops/commonVpcDev"
+          outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
         src = "/makes/foss/modules/common/vpc/infra";
         version = "1.0";
@@ -38,29 +38,29 @@ in {
     };
   };
   secretsForEnvFromSops = {
-    makesVpcDev = {
+    commonVpcDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    makesVpcProd = {
+    commonVpcProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesVpc = {
+    commonVpc = {
       cloudflare_api_key = "CLOUDFLARE_API_KEY";
       cloudflare_email = "CLOUDFLARE_EMAIL";
     };
   };
   testTerraform = {
     modules = {
-      makesVpc = {
+      commonVpc = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesVpcDev"
-          outputs."/secretsForTerraformFromEnv/makesVpc"
+          outputs."/secretsForEnvFromSops/commonVpcDev"
+          outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
         src = "/makes/foss/modules/common/vpc/infra";
         version = "1.0";

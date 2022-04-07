@@ -1,16 +1,16 @@
 {outputs, ...}: {
   secretsForEnvFromSops = {
-    makesUsersDev = {
+    commonUsersDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    makesUsersProd = {
+    commonUsersProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesUsers = {
+    commonUsers = {
       gitlab_token = "PRODUCT_API_TOKEN";
       gitlab_token_services = "SERVICES_API_TOKEN";
       region = "AWS_DEFAULT_REGION";
@@ -18,18 +18,18 @@
   };
   deployTerraform = {
     modules = {
-      makesRolesForProjects = {
+      commonRolesForProjects = {
         setup = [
           outputs."/integrates/back/tools/dump-groups"
         ];
         src = "/makes/foss/modules/common/users/infra_roles";
         version = "1.0";
       };
-      makesUsers = {
+      commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesUsersProd"
-          outputs."/secretsForTerraformFromEnv/makesUsers"
+          outputs."/secretsForEnvFromSops/commonUsersProd"
+          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/makes/foss/modules/common/users/infra";
         version = "1.0";
@@ -38,7 +38,7 @@
   };
   lintTerraform = {
     modules = {
-      makesUsers = {
+      commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
         ];
@@ -49,11 +49,11 @@
   };
   taintTerraform = {
     modules = {
-      makesUsersKeys1 = {
+      commonUsersKeys1 = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesUsersProd"
-          outputs."/secretsForTerraformFromEnv/makesUsers"
+          outputs."/secretsForEnvFromSops/commonUsersProd"
+          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         resources = [
           "module.dev_aws.aws_iam_access_key._1"
@@ -72,11 +72,11 @@
         src = "/makes/foss/modules/common/users/infra";
         version = "1.0";
       };
-      makesUsersKeys2 = {
+      commonUsersKeys2 = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesUsersProd"
-          outputs."/secretsForTerraformFromEnv/makesUsers"
+          outputs."/secretsForEnvFromSops/commonUsersProd"
+          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         resources = [
           "module.dev_aws.aws_iam_access_key._2"
@@ -99,21 +99,21 @@
   };
   testTerraform = {
     modules = {
-      makesRolesForProjects = {
+      commonRolesForProjects = {
         setup = [
           outputs."/integrates/back/tools/dump-groups"
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesUsersDev"
-          outputs."/secretsForTerraformFromEnv/makesUsers"
+          outputs."/secretsForEnvFromSops/commonUsersDev"
+          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/makes/foss/modules/common/users/infra_roles";
         version = "1.0";
       };
-      makesUsers = {
+      commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesUsersDev"
-          outputs."/secretsForTerraformFromEnv/makesUsers"
+          outputs."/secretsForEnvFromSops/commonUsersDev"
+          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/makes/foss/modules/common/users/infra";
         version = "1.0";

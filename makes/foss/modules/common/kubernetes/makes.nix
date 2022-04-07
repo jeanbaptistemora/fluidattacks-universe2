@@ -11,13 +11,13 @@
 in {
   deployTerraform = {
     modules = {
-      makesKubernetes = {
+      commonKubernetes = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesKubernetesProd"
-          outputs."/secretsForKubernetesConfigFromAws/makesKubernetes"
-          outputs."/secretsForTerraformFromEnv/makesKubernetes"
+          outputs."/secretsForEnvFromSops/commonKubernetesProd"
+          outputs."/secretsForKubernetesConfigFromAws/commonKubernetes"
+          outputs."/secretsForTerraformFromEnv/commonKubernetes"
         ];
         src = "/makes/foss/modules/common/kubernetes/infra";
         version = "1.0";
@@ -26,12 +26,12 @@ in {
   };
   lintTerraform = {
     modules = {
-      makesKubernetes = {
+      commonKubernetes = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesKubernetesDev"
-          outputs."/secretsForTerraformFromEnv/makesKubernetes"
+          outputs."/secretsForEnvFromSops/commonKubernetesDev"
+          outputs."/secretsForTerraformFromEnv/commonKubernetes"
         ];
         src = "/makes/foss/modules/common/kubernetes/infra";
         version = "1.0";
@@ -39,7 +39,7 @@ in {
     };
   };
   secretsForEnvFromSops = {
-    makesKubernetesDev = {
+    commonKubernetesDev = {
       vars = [
         "CLOUDFLARE_ACCOUNT_ID"
         "CLOUDFLARE_API_KEY"
@@ -47,7 +47,7 @@ in {
       ];
       manifest = "/makes/secrets/dev.yaml";
     };
-    makesKubernetesProd = {
+    commonKubernetesProd = {
       vars = [
         "CLOUDFLARE_ACCOUNT_ID"
         "CLOUDFLARE_API_KEY"
@@ -57,13 +57,13 @@ in {
     };
   };
   secretsForKubernetesConfigFromAws = {
-    makesKubernetes = {
+    commonKubernetes = {
       cluster = "makes-k8s";
       region = "us-east-1";
     };
   };
   secretsForTerraformFromEnv = {
-    makesKubernetes = {
+    commonKubernetes = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       kubeConfig = "KUBECONFIG";
@@ -71,13 +71,13 @@ in {
   };
   testTerraform = {
     modules = {
-      makesKubernetes = {
+      commonKubernetes = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesKubernetesDev"
-          outputs."/secretsForKubernetesConfigFromAws/makesKubernetes"
-          outputs."/secretsForTerraformFromEnv/makesKubernetes"
+          outputs."/secretsForEnvFromSops/commonKubernetesDev"
+          outputs."/secretsForKubernetesConfigFromAws/commonKubernetes"
+          outputs."/secretsForTerraformFromEnv/commonKubernetes"
         ];
         src = "/makes/foss/modules/common/kubernetes/infra";
         version = "1.0";

@@ -2,11 +2,11 @@
 {outputs, ...}: {
   deployTerraform = {
     modules = {
-      makesDns = {
+      commonDns = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesDnsProd"
-          outputs."/secretsForTerraformFromEnv/makesDns"
+          outputs."/secretsForEnvFromSops/commonDnsProd"
+          outputs."/secretsForTerraformFromEnv/commonDns"
         ];
         src = "/makes/foss/modules/common/dns/infra";
         version = "1.0";
@@ -15,11 +15,11 @@
   };
   lintTerraform = {
     modules = {
-      makesDns = {
+      commonDns = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesDnsDev"
-          outputs."/secretsForTerraformFromEnv/makesDns"
+          outputs."/secretsForEnvFromSops/commonDnsDev"
+          outputs."/secretsForTerraformFromEnv/commonDns"
         ];
         src = "/makes/foss/modules/common/dns/infra";
         version = "1.0";
@@ -27,28 +27,28 @@
     };
   };
   secretsForEnvFromSops = {
-    makesDnsDev = {
+    commonDnsDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    makesDnsProd = {
+    commonDnsProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesDns = {
+    commonDns = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
     };
   };
   testTerraform = {
     modules = {
-      makesDns = {
+      commonDns = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesDnsDev"
-          outputs."/secretsForTerraformFromEnv/makesDns"
+          outputs."/secretsForEnvFromSops/commonDnsDev"
+          outputs."/secretsForTerraformFromEnv/commonDns"
         ];
         src = "/makes/foss/modules/common/dns/infra";
         version = "1.0";

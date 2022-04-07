@@ -223,7 +223,7 @@
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
-    - /taintTerraform/makesUsersKeys1
+    - /taintTerraform/commonUsersKeys1
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
@@ -245,7 +245,7 @@
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs:
-    - /taintTerraform/makesUsersKeys2
+    - /taintTerraform/commonUsersKeys2
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never

@@ -64,7 +64,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesCompute:
+/deployTerraform/commonCompute:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -78,14 +78,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesCompute
+    - m . /deployTerraform/commonCompute
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesDns:
+/deployTerraform/commonDns:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -99,14 +99,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesDns
+    - m . /deployTerraform/commonDns
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesFoss:
+/deployTerraform/commonFoss:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -120,14 +120,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesFoss
+    - m . /deployTerraform/commonFoss
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesKubernetes:
+/deployTerraform/commonKubernetes:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -141,14 +141,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesKubernetes
+    - m . /deployTerraform/commonKubernetes
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesOkta:
+/deployTerraform/commonOkta:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -162,14 +162,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesOkta
+    - m . /deployTerraform/commonOkta
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesStatus:
+/deployTerraform/commonStatus:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -183,14 +183,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesStatus
+    - m . /deployTerraform/commonStatus
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesUsers:
+/deployTerraform/commonUsers:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -204,14 +204,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesUsers
+    - m . /deployTerraform/commonUsers
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesVpc:
+/deployTerraform/commonVpc:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -225,14 +225,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesVpc
+    - m . /deployTerraform/commonVpc
   stage: deploy-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/deployTerraform/makesVpn:
+/deployTerraform/commonVpn:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -246,7 +246,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /deployTerraform/makesVpn
+    - m . /deployTerraform/commonVpn
   stage: deploy-infra
   tags:
     - autoscaling
@@ -275,7 +275,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesCi:
+/lintTerraform/commonCi:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -290,14 +290,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesCi
+    - m . /lintTerraform/commonCi
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesCompute:
+/lintTerraform/commonCompute:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -312,14 +312,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesCompute
+    - m . /lintTerraform/commonCompute
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesDns:
+/lintTerraform/commonDns:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -334,14 +334,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesDns
+    - m . /lintTerraform/commonDns
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesFoss:
+/lintTerraform/commonFoss:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -356,14 +356,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesFoss
+    - m . /lintTerraform/commonFoss
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesKubernetes:
+/lintTerraform/commonKubernetes:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -378,14 +378,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesKubernetes
+    - m . /lintTerraform/commonKubernetes
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesOkta:
+/lintTerraform/commonOkta:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -400,14 +400,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesOkta
+    - m . /lintTerraform/commonOkta
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesStatus:
+/lintTerraform/commonStatus:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -422,14 +422,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesStatus
+    - m . /lintTerraform/commonStatus
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesUsers:
+/lintTerraform/commonUsers:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -444,14 +444,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesUsers
+    - m . /lintTerraform/commonUsers
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesVpc:
+/lintTerraform/commonVpc:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -466,14 +466,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesVpc
+    - m . /lintTerraform/commonVpc
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/makesVpn:
+/lintTerraform/commonVpn:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -488,7 +488,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /lintTerraform/makesVpn
+    - m . /lintTerraform/commonVpn
   stage: lint-code
   tags:
     - autoscaling
@@ -583,7 +583,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersKeys1:
+/taintTerraform/commonUsersKeys1:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -594,14 +594,14 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersKeys1
+    - m . /taintTerraform/commonUsersKeys1
   stage: rotation
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/taintTerraform/makesUsersKeys2:
+/taintTerraform/commonUsersKeys2:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -612,14 +612,14 @@
       when: never
     - when: always
   script:
-    - m . /taintTerraform/makesUsersKeys2
+    - m . /taintTerraform/commonUsersKeys2
   stage: rotation
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesCi:
+/testTerraform/commonCi:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -634,14 +634,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesCi
+    - m . /testTerraform/commonCi
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesCompute:
+/testTerraform/commonCompute:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -656,14 +656,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesCompute
+    - m . /testTerraform/commonCompute
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesDns:
+/testTerraform/commonDns:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -678,14 +678,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesDns
+    - m . /testTerraform/commonDns
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesFoss:
+/testTerraform/commonFoss:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -700,14 +700,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesFoss
+    - m . /testTerraform/commonFoss
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesKubernetes:
+/testTerraform/commonKubernetes:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -722,14 +722,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesKubernetes
+    - m . /testTerraform/commonKubernetes
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesOkta:
+/testTerraform/commonOkta:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -744,14 +744,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesOkta
+    - m . /testTerraform/commonOkta
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesStatus:
+/testTerraform/commonStatus:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -766,14 +766,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesStatus
+    - m . /testTerraform/commonStatus
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesUsers:
+/testTerraform/commonUsers:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -788,14 +788,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesUsers
+    - m . /testTerraform/commonUsers
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesVpc:
+/testTerraform/commonVpc:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -810,14 +810,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesVpc
+    - m . /testTerraform/commonVpc
   stage: test-infra
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/makesVpn:
+/testTerraform/commonVpn:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -832,7 +832,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
   script:
-    - m . /testTerraform/makesVpn
+    - m . /testTerraform/commonVpn
   stage: test-infra
   tags:
     - autoscaling

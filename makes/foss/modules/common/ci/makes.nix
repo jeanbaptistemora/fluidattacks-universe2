@@ -17,13 +17,13 @@
 in {
   deployTerraform = {
     modules = {
-      makesCi = {
+      commonCi = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesCiProd"
-          outputs."/secretsForTerraformFromEnv/makesCi"
-          outputs."/envVarsForTerraform/makesCi"
+          outputs."/secretsForEnvFromSops/commonCiProd"
+          outputs."/secretsForTerraformFromEnv/commonCi"
+          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/makes/foss/modules/common/ci/infra";
         version = "1.0";
@@ -31,19 +31,19 @@ in {
     };
   };
   envVarsForTerraform = {
-    makesCi = {
-      makesCiInit = projectPath "/makes/foss/modules/common/ci/infra/init";
+    commonCi = {
+      ciInit = projectPath "/makes/foss/modules/common/ci/infra/init";
     };
   };
   lintTerraform = {
     modules = {
-      makesCi = {
+      commonCi = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesCiDev"
-          outputs."/secretsForTerraformFromEnv/makesCi"
-          outputs."/envVarsForTerraform/makesCi"
+          outputs."/secretsForEnvFromSops/commonCiDev"
+          outputs."/secretsForTerraformFromEnv/commonCi"
+          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/makes/foss/modules/common/ci/infra";
         version = "1.0";
@@ -51,29 +51,29 @@ in {
     };
   };
   secretsForEnvFromSops = {
-    makesCiProd = {
+    commonCiProd = {
       vars = ["GITLAB_TOKEN_FLUIDATTACKS"];
       manifest = "/makes/secrets/prod.yaml";
     };
-    makesCiDev = {
+    commonCiDev = {
       vars = ["GITLAB_TOKEN_FLUIDATTACKS"];
       manifest = "/makes/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesCi = {
+    commonCi = {
       gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
     };
   };
   testTerraform = {
     modules = {
-      makesCi = {
+      commonCi = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesCiDev"
-          outputs."/secretsForTerraformFromEnv/makesCi"
-          outputs."/envVarsForTerraform/makesCi"
+          outputs."/secretsForEnvFromSops/commonCiDev"
+          outputs."/secretsForTerraformFromEnv/commonCi"
+          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/makes/foss/modules/common/ci/infra";
         version = "1.0";

@@ -71,79 +71,79 @@ in {
           };
         }
         {
-          output = "/deployTerraform/makesCompute";
+          output = "/deployTerraform/commonCompute";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesDns";
+          output = "/deployTerraform/commonDns";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesFoss";
+          output = "/deployTerraform/commonFoss";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesKubernetes";
+          output = "/deployTerraform/commonKubernetes";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesOkta";
+          output = "/deployTerraform/commonOkta";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesStatus";
+          output = "/deployTerraform/commonStatus";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesUsers";
+          output = "/deployTerraform/commonUsers";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesVpc";
+          output = "/deployTerraform/commonVpc";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/makesVpn";
+          output = "/deployTerraform/commonVpn";
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/lintTerraform/makesCi";
+          output = "/lintTerraform/commonCi";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesCompute";
+          output = "/lintTerraform/commonCompute";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesDns";
+          output = "/lintTerraform/commonDns";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesFoss";
+          output = "/lintTerraform/commonFoss";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesKubernetes";
+          output = "/lintTerraform/commonKubernetes";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesOkta";
+          output = "/lintTerraform/commonOkta";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesStatus";
+          output = "/lintTerraform/commonStatus";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesUsers";
+          output = "/lintTerraform/commonUsers";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesVpc";
+          output = "/lintTerraform/commonVpc";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintTerraform/makesVpn";
+          output = "/lintTerraform/commonVpn";
           gitlabExtra = gitlabLint;
         }
         {
@@ -175,55 +175,55 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/taintTerraform/makesUsersKeys1";
+          output = "/taintTerraform/commonUsersKeys1";
           gitlabExtra = gitlabRotateUsersKeys1;
         }
         {
-          output = "/taintTerraform/makesUsersKeys2";
+          output = "/taintTerraform/commonUsersKeys2";
           gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
-          output = "/testTerraform/makesCi";
+          output = "/testTerraform/commonCi";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesCompute";
+          output = "/testTerraform/commonCompute";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesCompute";
+          output = "/testTerraform/commonCompute";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesDns";
+          output = "/testTerraform/commonDns";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesFoss";
+          output = "/testTerraform/commonFoss";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesKubernetes";
+          output = "/testTerraform/commonKubernetes";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesOkta";
+          output = "/testTerraform/commonOkta";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesStatus";
+          output = "/testTerraform/commonStatus";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesUsers";
+          output = "/testTerraform/commonUsers";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesVpc";
+          output = "/testTerraform/commonVpc";
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/makesVpn";
+          output = "/testTerraform/commonVpn";
           gitlabExtra = gitlabTestInfra;
         }
       ];

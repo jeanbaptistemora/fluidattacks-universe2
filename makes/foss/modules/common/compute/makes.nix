@@ -6,9 +6,9 @@
 }: {
   deployTerraform = {
     modules = {
-      makesCompute = {
+      commonCompute = {
         setup = [
-          outputs."/envVarsForTerraform/makesCompute"
+          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/prodMakes"
         ];
         src = "/makes/foss/modules/common/compute/infra";
@@ -18,9 +18,9 @@
   };
   lintTerraform = {
     modules = {
-      makesCompute = {
+      commonCompute = {
         setup = [
-          outputs."/envVarsForTerraform/makesCompute"
+          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/common/compute/infra";
@@ -29,15 +29,15 @@
     };
   };
   envVarsForTerraform = {
-    makesCompute = {
+    commonCompute = {
       skimsQueues = projectPath "/skims/manifests/queues.json";
     };
   };
   testTerraform = {
     modules = {
-      makesCompute = {
+      commonCompute = {
         setup = [
-          outputs."/envVarsForTerraform/makesCompute"
+          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
         ];
         src = "/makes/foss/modules/common/compute/infra";

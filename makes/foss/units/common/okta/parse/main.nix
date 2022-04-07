@@ -12,7 +12,7 @@ makeTemplate {
   searchPaths = {
     bin = [inputs.nixpkgs.python38];
     source = [
-      outputs."/secretsForEnvFromSops/makesOktaData"
+      outputs."/secretsForEnvFromSops/commonOktaData"
     ];
   };
   template = ''

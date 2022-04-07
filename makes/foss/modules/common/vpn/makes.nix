@@ -11,13 +11,13 @@
 in {
   deployTerraform = {
     modules = {
-      makesVpn = {
+      commonVpn = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesVpnProd"
-          outputs."/secretsForEnvFromSops/makesVpnData"
-          outputs."/secretsForTerraformFromEnv/makesVpn"
+          outputs."/secretsForEnvFromSops/commonVpnProd"
+          outputs."/secretsForEnvFromSops/commonVpnData"
+          outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
         src = "/makes/foss/modules/common/vpn/infra";
         version = "1.0";
@@ -26,13 +26,13 @@ in {
   };
   lintTerraform = {
     modules = {
-      makesVpn = {
+      commonVpn = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesVpnDev"
-          outputs."/secretsForEnvFromSops/makesVpnData"
-          outputs."/secretsForTerraformFromEnv/makesVpn"
+          outputs."/secretsForEnvFromSops/commonVpnDev"
+          outputs."/secretsForEnvFromSops/commonVpnData"
+          outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
         src = "/makes/foss/modules/common/vpn/infra";
         version = "1.0";
@@ -40,21 +40,21 @@ in {
     };
   };
   secretsForEnvFromSops = {
-    makesVpnDev = {
+    commonVpnDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    makesVpnProd = {
+    commonVpnProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
-    makesVpnData = {
+    commonVpnData = {
       vars = ["VPN_DATA_RAW"];
       manifest = "/makes/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    makesVpn = {
+    commonVpn = {
       cloudflare_api_key = "CLOUDFLARE_API_KEY";
       cloudflare_email = "CLOUDFLARE_EMAIL";
       vpnDataRaw = "VPN_DATA_RAW";
@@ -62,13 +62,13 @@ in {
   };
   testTerraform = {
     modules = {
-      makesVpn = {
+      commonVpn = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesVpnDev"
-          outputs."/secretsForEnvFromSops/makesVpnData"
-          outputs."/secretsForTerraformFromEnv/makesVpn"
+          outputs."/secretsForEnvFromSops/commonVpnDev"
+          outputs."/secretsForEnvFromSops/commonVpnData"
+          outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
         src = "/makes/foss/modules/common/vpn/infra";
         version = "1.0";

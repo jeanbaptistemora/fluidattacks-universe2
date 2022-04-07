@@ -2,11 +2,11 @@
 {outputs, ...}: {
   deployTerraform = {
     modules = {
-      makesStatus = {
+      commonStatus = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodMakes"
-          outputs."/secretsForEnvFromSops/makesStatusProd"
-          outputs."/secretsForTerraformFromEnv/makesStatus"
+          outputs."/secretsForEnvFromSops/commonStatusProd"
+          outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
         src = "/makes/foss/modules/common/status/infra";
         version = "1.0";
@@ -15,11 +15,11 @@
   };
   lintTerraform = {
     modules = {
-      makesStatus = {
+      commonStatus = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesStatusDev"
-          outputs."/secretsForTerraformFromEnv/makesStatus"
+          outputs."/secretsForEnvFromSops/commonStatusDev"
+          outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
         src = "/makes/foss/modules/common/status/infra";
         version = "1.0";
@@ -27,7 +27,7 @@
     };
   };
   secretsForEnvFromSops = {
-    makesStatusProd = {
+    commonStatusProd = {
       vars = [
         "BITBUCKET_PWD"
         "BITBUCKET_USER"
@@ -38,7 +38,7 @@
       ];
       manifest = "/makes/secrets/prod.yaml";
     };
-    makesStatusDev = {
+    commonStatusDev = {
       vars = [
         "BITBUCKET_PWD"
         "BITBUCKET_USER"
@@ -51,7 +51,7 @@
     };
   };
   secretsForTerraformFromEnv = {
-    makesStatus = {
+    commonStatus = {
       alertChannelUsers = "STATUS_ALERT_CHANNEL_USERS";
       bitbucketPwd = "BITBUCKET_PWD";
       bitbucketUser = "BITBUCKET_USER";
@@ -62,11 +62,11 @@
   };
   testTerraform = {
     modules = {
-      makesStatus = {
+      commonStatus = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/makesStatusDev"
-          outputs."/secretsForTerraformFromEnv/makesStatus"
+          outputs."/secretsForEnvFromSops/commonStatusDev"
+          outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
         src = "/makes/foss/modules/common/status/infra";
         version = "1.0";
