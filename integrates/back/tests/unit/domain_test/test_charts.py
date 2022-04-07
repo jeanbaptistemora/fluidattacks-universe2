@@ -18,7 +18,9 @@ async def test_iterate_organizations_and_groups() -> None:
             "okada": ["continuoustesting", "unittesting"]
         },
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86": {"bulat": []},
-        "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2": {"hajime": []},
+        "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2": {
+            "hajime": ["kurome", "sheele"]
+        },
         "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de": {"tatsumi": ["lubbock"]},
         "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2": {"himura": []},
         "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1": {

@@ -434,10 +434,12 @@ async def test_get_active_group_names() -> None:
         "deleteimamura",
         "gotham",
         "lubbock",
+        "kurome",
         "metropolis",
         "monteria",
         "oneshottest",
         "setpendingdeletion",
+        "sheele",
         "unittesting",
     ]
 

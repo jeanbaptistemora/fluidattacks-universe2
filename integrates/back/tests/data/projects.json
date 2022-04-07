@@ -2052,6 +2052,226 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "language": {
+            "S": "en"
+          },
+          "closed_vulnerabilities": {
+            "N": "0"
+          },
+          "description": {
+            "S": "Integrates group"
+          },
+          "historic_configuration": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-05-20 17:00:00"
+                  },
+                  "has_forces": {
+                    "BOOL": false
+                  },
+                  "has_drills": {
+                    "BOOL": false
+                  },
+                  "has_skims": {
+                    "BOOL": false
+                  },
+                  "requester": {
+                    "S": "unknown"
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "other"
+                  },
+                  "type": {
+                    "S": "continuous"
+                  }
+                }
+              }
+            ]
+          },
+          "files": {
+            "L": []
+          },
+          "last_closing_date": {
+            "N": "0"
+          },
+          "last_closing_vuln_finding": {
+            "S": ""
+          },
+          "max_open_severity": {
+            "N": "4.9"
+          },
+          "max_open_severity_finding": {
+            "S": ""
+          },
+          "mean_remediate": {
+            "N": "100"
+          },
+          "mean_remediate_critical_severity": {
+            "N": "0"
+          },
+          "mean_remediate_high_severity": {
+            "N": "0"
+          },
+          "mean_remediate_low_severity": {
+            "N": "0"
+          },
+          "mean_remediate_medium_severity": {
+            "N": "0"
+          },
+          "open_findings": {
+            "N": "0"
+          },
+          "open_vulnerabilities": {
+            "N": "0"
+          },
+          "project_name": {
+            "S": "kurome"
+          },
+          "project_status": {
+            "S": "ACTIVE"
+          },
+          "remediated_over_time": {
+            "L": []
+          },
+          "tag": {
+            "SS": [
+              "test-groups"
+            ]
+          },
+          "total_treatment": {
+            "M": {
+              "accepted": {
+                "N": "0"
+              },
+              "inProgress": {
+                "N": "0"
+              },
+              "undefined": {
+                "N": "0"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "language": {
+            "S": "en"
+          },
+          "closed_vulnerabilities": {
+            "N": "0"
+          },
+          "description": {
+            "S": "Integrates group"
+          },
+          "historic_configuration": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-05-20 17:00:00"
+                  },
+                  "has_forces": {
+                    "BOOL": false
+                  },
+                  "has_drills": {
+                    "BOOL": false
+                  },
+                  "has_skims": {
+                    "BOOL": false
+                  },
+                  "requester": {
+                    "S": "unknown"
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "tier": {
+                    "S": "other"
+                  },
+                  "type": {
+                    "S": "continuous"
+                  }
+                }
+              }
+            ]
+          },
+          "files": {
+            "L": []
+          },
+          "last_closing_date": {
+            "N": "0"
+          },
+          "last_closing_vuln_finding": {
+            "S": ""
+          },
+          "max_open_severity": {
+            "N": "4.9"
+          },
+          "max_open_severity_finding": {
+            "S": ""
+          },
+          "mean_remediate": {
+            "N": "100"
+          },
+          "mean_remediate_critical_severity": {
+            "N": "0"
+          },
+          "mean_remediate_high_severity": {
+            "N": "0"
+          },
+          "mean_remediate_low_severity": {
+            "N": "0"
+          },
+          "mean_remediate_medium_severity": {
+            "N": "0"
+          },
+          "open_findings": {
+            "N": "0"
+          },
+          "open_vulnerabilities": {
+            "N": "0"
+          },
+          "project_name": {
+            "S": "sheele"
+          },
+          "project_status": {
+            "S": "ACTIVE"
+          },
+          "remediated_over_time": {
+            "L": []
+          },
+          "tag": {
+            "SS": [
+              "test-groups"
+            ]
+          },
+          "total_treatment": {
+            "M": {
+              "accepted": {
+                "N": "0"
+              },
+              "inProgress": {
+                "N": "0"
+              },
+              "undefined": {
+                "N": "0"
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }
