@@ -65,7 +65,7 @@ async def delete_out_of_scope_files(
     group_name: str, *root_nicknames: str
 ) -> bool:
     roots = await get_group_roots(group=group_name)
-    for root in roots:
+    for root in roots if roots else ():
         if root.nickname not in root_nicknames:
             continue
         # Get the expected repo name from the URL
@@ -149,7 +149,7 @@ async def pull_namespace_from_s3(
         )
         _, _stderr = await proc.communicate()
         if _stderr:
-            log_blocking("error", _stderr)
+            log_blocking("error", _stderr.decode("utf-8"))
             return None
 
     try:

@@ -112,9 +112,10 @@ IGNORED_CHARS = str.maketrans(
 def t(  # pylint: disable=invalid-name
     key: str,
     *args: Any,
-    locale: Optional[Enum] = None,
     **kwargs: Any,
 ) -> str:
+    locale: Optional[Enum] = kwargs.get("locale")
+
     return (
         TRANSLATIONS[key][(locale or CTX.config.language).value]
         .format(*args, **kwargs)
