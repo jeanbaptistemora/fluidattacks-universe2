@@ -37,7 +37,7 @@ ORG_TABLE = "fi_organizations"
 async def remove_group(group_name: str, org_id: str) -> bool:
     context = get_new_context()
     email = "integrates@fluidattacks.com"
-    success = await groups_domain.remove_group(
+    success = await groups_domain.remove_group_legacy(
         context, group_name, email, org_id
     )
     print(f"{group_name} was removed")

@@ -720,71 +720,6 @@ async def deactivate_all_roots(
 
 
 async def remove_group(
-    loaders: Any,
-    group_name: str,
-    user_email: str,
-    organization_id: str,
-    reason: Optional[str] = "",
-) -> bool:
-    """
-    Update group state to DELETED and update some related resources.
-    For production, remember to remove additional resources
-    (user, findings, vulns ,etc) via the batch action remove_group_resources.
-    """
-    data = await groups_dal.get_attributes(
-        group_name, ["project_status", "historic_deletion"]
-    )
-    if (
-        get_key_or_fallback(data, "group_status", "project_status")
-        == "DELETED"
-    ):
-        raise AlreadyPendingDeletion()
-
-    all_resources_removed = True
-    if FI_ENVIRONMENT == "development":
-        all_resources_removed = await remove_resources(
-            loaders=loaders, group_name=group_name, user_email=user_email
-        )
-    are_users_removed = await remove_all_users(
-        loaders=loaders, group_name=group_name
-    )
-    are_policies_revoked = await authz.revoke_cached_group_service_policies(
-        group_name
-    )
-    is_removed_from_org = await orgs_domain.remove_group(
-        group_name, organization_id
-    )
-    if not all(
-        [
-            are_users_removed,
-            all_resources_removed,
-            are_policies_revoked,
-            is_removed_from_org,
-        ]
-    ):
-        return False
-
-    today = datetime_utils.get_now_as_str()
-    new_state = {
-        "date": today,
-        "deletion_date": today,
-        "user": user_email.lower(),
-    }
-    historic_deletion = cast(
-        List[Dict[str, str]], data.get("historic_deletion", [])
-    )
-    historic_deletion.append(new_state)
-    new_data: GroupType = {
-        "historic_deletion": historic_deletion,
-        "group_status": "DELETED",
-        "project_status": "DELETED",
-        "reason": reason,
-        "deletion_date": today,
-    }
-    return await update(group_name, new_data)
-
-
-async def remove_group_typed(
     *,
     loaders: Any,
     group_name: str,
@@ -914,7 +849,7 @@ async def update_group(
         )
         return
 
-    await remove_group_typed(
+    await remove_group(
         loaders=loaders,
         group_name=group_name,
         justification=justification,
