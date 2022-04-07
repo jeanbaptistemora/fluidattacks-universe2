@@ -20,6 +20,7 @@ from model.graph_model import (
     GraphShard,
     GraphShardCacheable,
     GraphShardMetadataLanguage,
+    NAttrs,
 )
 import os
 from sast import (
@@ -319,8 +320,8 @@ def _label_calls_to_declaration(graph: Graph) -> None:
     This allows to go deeper inside the CFG analysis.
     """
 
-    def _predicate(n_id: str, label: str) -> bool:
-        return g.pred_has_labels(label_type=label)(n_id)
+    def _predicate(n_attrs: NAttrs, label: str) -> bool:
+        return g.pred_has_labels(label_type=label)(n_attrs)
 
     funcs = g.filter_nodes(
         graph, graph.nodes, partial(_predicate, label="function_declaration")

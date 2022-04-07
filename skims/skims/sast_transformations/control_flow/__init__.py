@@ -1,6 +1,7 @@
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage,
+    NAttrs,
 )
 from sast_transformations.control_flow.generate import (
     generic,
@@ -17,7 +18,7 @@ from utils import (
 
 
 def c_sharp_add(graph: Graph) -> None:
-    def _predicate(n_attrs: str) -> bool:
+    def _predicate(n_attrs: NAttrs) -> bool:
         return (
             g.pred_has_labels(label_type="method_declaration")(n_attrs)
             or g.pred_has_labels(label_type="constructor_declaration")(n_attrs)
@@ -35,10 +36,10 @@ def c_sharp_add(graph: Graph) -> None:
 
 
 def go_add(graph: Graph) -> None:
-    def _predicate(n_id: str) -> bool:
+    def _predicate(n_attrs: NAttrs) -> bool:
         return g.pred_has_labels(label_type="function_declaration")(
-            n_id
-        ) or g.pred_has_labels(label_type="method_declaration")(n_id)
+            n_attrs
+        ) or g.pred_has_labels(label_type="method_declaration")(n_attrs)
 
     language = GraphShardMetadataLanguage.GO
 
@@ -51,12 +52,12 @@ def go_add(graph: Graph) -> None:
 
 
 def java_add(graph: Graph) -> None:
-    def _predicate(n_id: str) -> bool:
+    def _predicate(n_attrs: NAttrs) -> bool:
         return (
             g.pred_has_labels(
                 label_type="method_declaration",
-            )(n_id)
-            or g.pred_has_labels(label_type="constructor_declaration")(n_id)
+            )(n_attrs)
+            or g.pred_has_labels(label_type="constructor_declaration")(n_attrs)
         )
 
     language = GraphShardMetadataLanguage.JAVA
@@ -83,11 +84,11 @@ def javascript_add(graph: Graph) -> None:
 
 
 def kotlin_add(graph: Graph) -> None:
-    def _predicate(n_id: str) -> bool:
+    def _predicate(n_attrs: NAttrs) -> bool:
         return (
-            g.pred_has_labels(label_type="function_declaration")(n_id)
-            or g.pred_has_labels(label_type="class_declaration")(n_id)
-            or g.pred_has_labels(label_type="companion_object")(n_id)
+            g.pred_has_labels(label_type="function_declaration")(n_attrs)
+            or g.pred_has_labels(label_type="class_declaration")(n_attrs)
+            or g.pred_has_labels(label_type="companion_object")(n_attrs)
         )
 
     language = GraphShardMetadataLanguage.KOTLIN

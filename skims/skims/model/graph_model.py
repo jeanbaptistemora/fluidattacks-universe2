@@ -32,6 +32,8 @@ NAttrsPredicateFunction = Callable[[NAttrs], bool]
 NId = str
 NIdPredicateFunction = Callable[[str], bool]
 
+ShardDb = Any
+
 SyntaxStep = Any
 SyntaxSteps = List[SyntaxStep]
 SyntaxStepsLazy = Iterator[SyntaxStep]
@@ -533,8 +535,5 @@ class GraphDB(NamedTuple):
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
-Query = Union[
-    Callable[[Graph], core_model.Vulnerabilities],
-    Callable[[Any, GraphDB], core_model.Vulnerabilities],
-]
+Query = Callable[[ShardDb, GraphDB], core_model.Vulnerabilities]
 Queries = Tuple[Tuple[core_model.FindingEnum, Query], ...]
