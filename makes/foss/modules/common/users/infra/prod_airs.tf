@@ -80,7 +80,7 @@ locals {
         tags = {
           "Name"               = "prod_airs"
           "management:area"    = "cost"
-          "management:product" = "makes"
+          "management:product" = "common"
           "management:type"    = "product"
         }
       }
@@ -97,7 +97,7 @@ module "prod_airs_aws" {
   tags = {
     "Name"               = "prod_airs"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

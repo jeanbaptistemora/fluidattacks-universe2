@@ -28,7 +28,7 @@ resource "aws_iam_role" "aws_ecs_instance_role" {
   tags = {
     "Name"               = "aws_ecs_instance_role"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -64,7 +64,7 @@ resource "aws_iam_role" "aws_batch_service_role" {
   tags = {
     "Name"               = "aws_batch_service_role"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -97,7 +97,7 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
   tags = {
     "Name"               = "aws_batch_compute_environment_security_group"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -116,7 +116,7 @@ resource "aws_launch_template" "batch_instance_regular" {
     tags = {
       "Name"               = "batch_instance_regular"
       "management:area"    = "cost"
-      "management:product" = "makes"
+      "management:product" = "common"
       "management:type"    = "product"
     }
   }
@@ -124,7 +124,7 @@ resource "aws_launch_template" "batch_instance_regular" {
   tags = {
     "Name"               = "batch_instance_regular"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 
@@ -142,7 +142,7 @@ locals {
       tags = {
         "Name"               = "dedicated"
         "management:area"    = "cost"
-        "management:product" = "makes"
+        "management:product" = "common"
         "management:type"    = "product"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
@@ -189,7 +189,7 @@ locals {
       tags = {
         "Name"               = "spot"
         "management:area"    = "cost"
-        "management:product" = "makes"
+        "management:product" = "common"
         "management:type"    = "product"
       }
       launch_template_id      = aws_launch_template.batch_instance_regular.id
@@ -316,7 +316,7 @@ resource "aws_batch_job_definition" "default" {
   tags = {
     "Name"               = "default"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
   type = "container"
@@ -344,7 +344,7 @@ resource "aws_batch_job_definition" "makes" {
   tags = {
     "Name"               = "makes"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -355,7 +355,7 @@ resource "aws_cloudwatch_log_group" "job" {
   tags = {
     "Name"               = "job"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

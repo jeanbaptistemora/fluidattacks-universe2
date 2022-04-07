@@ -7,7 +7,7 @@ resource "aws_iam_user" "clouxter_erika_bayona" {
   tags = {
     "Name"               = "erika.bayona"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -35,7 +35,7 @@ resource "aws_iam_user" "clouxter_michelle_hernandez" {
   tags = {
     "Name"               = "michelle.hernandez"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

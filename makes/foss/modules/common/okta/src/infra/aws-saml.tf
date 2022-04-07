@@ -41,7 +41,7 @@ resource "aws_iam_user" "okta-access-user" {
   tags = {
     "Name"               = "okta-access-user"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -87,7 +87,7 @@ resource "aws_iam_saml_provider" "okta-saml-provider" {
   tags = {
     "Name"               = "okta-saml-provider"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

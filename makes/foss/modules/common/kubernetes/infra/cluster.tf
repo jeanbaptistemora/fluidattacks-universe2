@@ -19,7 +19,7 @@ module "eks" {
     "GithubRepo"         = "terraform-aws-eks"
     "GithubOrg"          = "terraform-aws-modules"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 

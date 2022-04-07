@@ -109,7 +109,7 @@ resource "aws_kms_key" "okta" {
   tags = {
     "Name"               = "makes-okta"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

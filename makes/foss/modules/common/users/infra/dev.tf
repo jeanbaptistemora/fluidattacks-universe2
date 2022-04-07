@@ -150,7 +150,7 @@ locals {
         tags = {
           "Name"               = "dev"
           "management:area"    = "innovation"
-          "management:product" = "makes"
+          "management:product" = "common"
           "management:type"    = "product"
         }
       }
@@ -167,7 +167,7 @@ module "dev_aws" {
   tags = {
     "Name"               = "dev"
     "management:area"    = "innovation"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

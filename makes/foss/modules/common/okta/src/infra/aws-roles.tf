@@ -29,7 +29,7 @@ resource "aws_iam_role" "finance-role" {
   tags = {
     "Name"               = "finance"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
@@ -80,7 +80,7 @@ resource "aws_iam_role" "helpdesk-role" {
   tags = {
     "Name"               = "helpdesk"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

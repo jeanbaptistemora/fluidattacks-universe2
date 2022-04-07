@@ -17,7 +17,7 @@ resource "aws_route53_resolver_endpoint" "main" {
   tags = {
     "Name"               = "vpn"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

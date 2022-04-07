@@ -118,7 +118,7 @@ resource "aws_subnet" "main" {
     {
       "Name"               = each.key
       "management:area"    = "cost"
-      "management:product" = "makes"
+      "management:product" = "common"
       "management:type"    = "product"
     },
     each.value.tags,

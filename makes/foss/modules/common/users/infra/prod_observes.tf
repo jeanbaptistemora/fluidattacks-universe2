@@ -154,7 +154,7 @@ locals {
         tags = {
           "Name"               = "prod_observes"
           "management:area"    = "cost"
-          "management:product" = "makes"
+          "management:product" = "common"
           "management:type"    = "product"
         }
       }
@@ -171,7 +171,7 @@ module "prod_observes_aws" {
   tags = {
     "Name"               = "prod_observes"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }

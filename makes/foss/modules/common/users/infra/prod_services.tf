@@ -81,7 +81,7 @@ module "prod_services_aws" {
   tags = {
     "Name"               = "prod_services"
     "management:area"    = "cost"
-    "management:product" = "makes"
+    "management:product" = "common"
     "management:type"    = "product"
   }
 }
