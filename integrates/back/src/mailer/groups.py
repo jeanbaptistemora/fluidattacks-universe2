@@ -67,15 +67,24 @@ async def send_mail_daily_digest(
 
 
 async def send_mail_group_report(
-    email_to: List[str], context: MailContentType
+    email_to: List[str], context: MailContentType, is_verified: bool
 ) -> None:
-    await send_mails_async(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'{context["filetype"]} report for [{context["groupname"]}]',
-        "group_report",
-    )
+    if is_verified:
+        await send_mails_async(
+            email_to,
+            context,
+            GENERAL_TAG,
+            f'{context["filetype"]} report for [{context["groupname"]}]',
+            "new_group_report",
+        )
+    else:
+        await send_mails_async(
+            email_to,
+            context,
+            GENERAL_TAG,
+            f'{context["filetype"]} report for [{context["groupname"]}]',
+            "group_report",
+        )
 
 
 async def send_mail_comment(

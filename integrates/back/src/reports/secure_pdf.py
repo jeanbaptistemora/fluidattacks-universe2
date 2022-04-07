@@ -57,7 +57,7 @@ class SecurePDF:
         )
 
     async def create_full(
-        self, usermail: str, basic_pdf_name: str, group: str
+        self, usermail: str, basic_pdf_name: str, group: str, is_verified: bool
     ) -> str:
         """Execute the security process in a PDF."""
         self.secure_pdf_usermail = usermail
@@ -66,11 +66,15 @@ class SecurePDF:
             group.lower(), ["historic_configuration"]
         )
         if group_info:
+            if is_verified:
+                return os.path.join(self.result_dir, basic_pdf_name)
             self.secure_pdf_filename = await in_process(
                 self.lock, basic_pdf_name
             )
         else:
             water_pdf_name = await in_process(self.overlays, basic_pdf_name)
+            if is_verified:
+                return os.path.join(self.result_dir, water_pdf_name)
             self.secure_pdf_filename = await in_process(
                 self.lock, water_pdf_name
             )

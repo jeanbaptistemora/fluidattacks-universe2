@@ -24,6 +24,7 @@ async def generate_cert_file(
     lang: str,
     passphrase: str,
     user_email: str,
+    is_verified: bool,
 ) -> str:
     secure_pdf = SecurePDF(passphrase)
     report_filename = ""
@@ -36,6 +37,6 @@ async def generate_cert_file(
             loaders,
         )
     report_filename = await secure_pdf.create_full(
-        user_email, pdf_maker.out_name, group_name
+        user_email, pdf_maker.out_name, group_name, is_verified
     )
     return report_filename

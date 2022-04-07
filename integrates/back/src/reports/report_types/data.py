@@ -84,6 +84,7 @@ async def _append_pdf_report(
     group_description: str,
     passphrase: str,
     requester_email: str,
+    is_verified: bool,
 ) -> None:
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file(
@@ -94,6 +95,7 @@ async def _append_pdf_report(
         lang="en",
         passphrase=passphrase,
         user_email=requester_email,
+        is_verified=is_verified,
     )
     with open(os.path.join(directory, "report.pdf"), mode="wb") as file:
         with open(report_filename, "rb") as report:
@@ -107,6 +109,7 @@ async def _append_xls_report(
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
+    is_verified: bool,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
         loaders,
@@ -114,6 +117,7 @@ async def _append_xls_report(
         group_name=group_name,
         passphrase=passphrase,
         treatments=set(VulnerabilityTreatmentStatus),
+        is_verified=is_verified,
     )
     with open(os.path.join(directory, "report.xls"), mode="wb") as file:
         with open(report_filename, "rb") as report:
@@ -121,9 +125,7 @@ async def _append_xls_report(
 
 
 def _encrypted_zip_file(
-    *,
-    passphrase: str,
-    source_contents: List[str],
+    *, passphrase: str, source_contents: List[str], is_verified: bool
 ) -> str:
     # This value must be sanitized because it needs to be passed as OS command
     if not all(word.isalpha() for word in passphrase.split(" ")):
@@ -141,19 +143,32 @@ def _encrypted_zip_file(
     with tempfile.NamedTemporaryFile() as temp_file:
         target = temp_file.name + f"_{uuid4()}.7z"
 
-    subprocess.run(  # nosec
-        [
-            "7z",
-            "a",
-            f"-p{passphrase}",
-            "-mhe",
-            "-t7z",
-            "--",
-            target,
-            *source_contents,
-        ],
-        check=True,
-    )
+    if is_verified:
+        subprocess.run(  # nosec
+            [
+                "7z",
+                "a",
+                "-t7z",
+                "--",
+                target,
+                *source_contents,
+            ],
+            check=True,
+        )
+    else:
+        subprocess.run(  # nosec
+            [
+                "7z",
+                "a",
+                f"-p{passphrase}",
+                "-mhe",
+                "-t7z",
+                "--",
+                target,
+                *source_contents,
+            ],
+            check=True,
+        )
     return target
 
 
@@ -178,6 +193,7 @@ async def generate(
     group_description: str,
     passphrase: str,
     requester_email: str,
+    is_verified: bool,
 ) -> str:
     with tempfile.TemporaryDirectory() as directory:
         await _append_pdf_report(
@@ -188,6 +204,7 @@ async def generate(
             group_description=group_description,
             passphrase=passphrase,
             requester_email=requester_email,
+            is_verified=is_verified,
         )
         await _append_xls_report(
             loaders=loaders,
@@ -195,6 +212,7 @@ async def generate(
             findings_ord=findings_ord,
             group_name=group,
             passphrase=passphrase,
+            is_verified=is_verified,
         )
         await _append_evidences(
             directory=directory,
@@ -204,4 +222,5 @@ async def generate(
         return _encrypted_zip_file(
             passphrase=passphrase,
             source_contents=_get_directory_contents(directory),
+            is_verified=is_verified,
         )

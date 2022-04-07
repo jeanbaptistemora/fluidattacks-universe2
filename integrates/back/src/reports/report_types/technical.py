@@ -140,6 +140,7 @@ async def generate_pdf_file(
     lang: str,
     passphrase: str,
     user_email: str,
+    is_verified: bool,
 ) -> str:
     secure_pdf = SecurePDF(passphrase)
     report_filename = ""
@@ -158,17 +159,18 @@ async def generate_pdf_file(
             loaders,
         )
     report_filename = await secure_pdf.create_full(
-        user_email, pdf_maker.out_name, group_name
+        user_email, pdf_maker.out_name, group_name, is_verified
     )
     return report_filename
 
 
-async def generate_xls_file(
+async def generate_xls_file(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
     treatments: Set[VulnerabilityTreatmentStatus],
+    is_verified: bool,
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -178,6 +180,9 @@ async def generate_xls_file(
     )
     await it_report.create()
     filepath = it_report.result_filename
+
+    if is_verified:
+        return filepath
 
     cmd = (
         f"cat {filepath} | secure-spreadsheet "

@@ -204,36 +204,54 @@ async def new_group(
     )
 
 
-async def new_password_protected_report(
+async def new_password_protected_report(  # pylint: disable=too-many-arguments
     user_email: str,
     group_name: str,
     passphrase: str,
     file_type: str,
+    is_verified: bool,
     file_link: str = "",
 ) -> None:
     today = datetime_utils.get_now()
     fname = await _get_recipient_first_name_async(user_email)
     subject = f"{file_type} Report for [{group_name}]"
-    await collect(
-        (
-            send_push_notification(
-                user_email, f"{file_type} report passphrase", passphrase
-            ),
-            groups_mail.send_mail_group_report(
-                [user_email],
-                {
-                    "filetype": file_type,
-                    "fname": fname,
-                    "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
-                    "year": datetime_utils.get_as_str(today, "%Y"),
-                    "time": datetime_utils.get_as_str(today, "%H:%M"),
-                    "groupname": group_name,
-                    "subject": subject,
-                    "filelink": file_link,
-                },
-            ),
+    if is_verified:
+        await groups_mail.send_mail_group_report(
+            [user_email],
+            {
+                "filetype": file_type,
+                "fname": fname,
+                "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
+                "year": datetime_utils.get_as_str(today, "%Y"),
+                "time": datetime_utils.get_as_str(today, "%H:%M"),
+                "groupname": group_name,
+                "subject": subject,
+                "filelink": file_link,
+            },
+            is_verified=is_verified,
         )
-    )
+    else:
+        await collect(
+            (
+                send_push_notification(
+                    user_email, f"{file_type} report passphrase", passphrase
+                ),
+                groups_mail.send_mail_group_report(
+                    [user_email],
+                    {
+                        "filetype": file_type,
+                        "fname": fname,
+                        "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
+                        "year": datetime_utils.get_as_str(today, "%Y"),
+                        "time": datetime_utils.get_as_str(today, "%H:%M"),
+                        "groupname": group_name,
+                        "subject": subject,
+                        "filelink": file_link,
+                    },
+                    is_verified=is_verified,
+                ),
+            )
+        )
 
 
 async def request_health_check(
