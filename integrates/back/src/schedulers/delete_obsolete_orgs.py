@@ -12,6 +12,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.groups.enums import (
+    GroupStateRemovalJustification,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -27,21 +30,37 @@ async def _remove_group(
     loaders: Dataloaders,
     group_name: str,
     user_email: str,
-    organization_id: str,
-) -> bool:
-    success = await groups_domain.remove_group(
-        loaders, group_name, user_email, organization_id
+) -> None:
+    await groups_domain.remove_group_typed(
+        loaders=loaders,
+        group_name=group_name,
+        justification=GroupStateRemovalJustification.OTHER,
+        user_email=user_email,
     )
+    await batch_dal.put_action(
+        action=Action.REMOVE_GROUP_RESOURCES,
+        entity=group_name,
+        subject=user_email,
+        additional_info="obsolete_orgs",
+        queue="dedicated_later",
+        product_name=Product.INTEGRATES,
+    )
+
+
+async def _remove_organization(
+    loaders: Dataloaders, organization_id: str, email: str
+) -> None:
+    users = await orgs_domain.get_users(organization_id)
+    users_removed = await collect(
+        orgs_domain.remove_user(loaders, organization_id, user)
+        for user in users
+    )
+    success = all(users_removed) if users else True
+
+    org_groups = await orgs_domain.get_groups(organization_id)
+    await collect(_remove_group(loaders, group, email) for group in org_groups)
     if success:
-        await batch_dal.put_action(
-            action=Action.REMOVE_GROUP_RESOURCES,
-            entity=group_name,
-            subject=user_email,
-            additional_info="obsolete_orgs",
-            queue="dedicated_later",
-            product_name=Product.INTEGRATES,
-        )
-    return success
+        await orgs_domain.remove_organization(organization_id)
 
 
 async def delete_obsolete_orgs() -> None:
@@ -61,7 +80,7 @@ async def delete_obsolete_orgs() -> None:
                     org_pending_deletion_date_str
                 )
                 if org_pending_deletion_date.date() <= today:
-                    await delete_organization(loaders, org_id, email)
+                    await _remove_organization(loaders, org_id, email)
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)
@@ -73,31 +92,6 @@ async def delete_obsolete_orgs() -> None:
             await orgs_domain.update_pending_deletion_date(
                 org_id, org_name, None
             )
-
-
-async def delete_organization(
-    loaders: Dataloaders, organization_id: str, email: str
-) -> bool:
-    users = await orgs_domain.get_users(organization_id)
-    users_removed = await collect(
-        orgs_domain.remove_user(loaders, organization_id, user)
-        for user in users
-    )
-    success = all(users_removed) if users else True
-
-    org_groups = await orgs_domain.get_groups(organization_id)
-    groups_removed = all(
-        await collect(
-            _remove_group(loaders, group, email, organization_id)
-            for group in org_groups
-        )
-    )
-    success = (
-        success
-        and groups_removed
-        and await orgs_domain.remove_organization(organization_id)
-    )
-    return success
 
 
 async def main() -> None:
