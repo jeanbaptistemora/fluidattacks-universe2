@@ -9,7 +9,7 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      The treatment of the following vulnerabilities in finding <strong>{{ finding }}</strong>,
+      The treatment of the following vulnerabilities of the type <strong>{{ finding }}</strong>,
       in group <strong>{{ group }}</strong>, has been changed by <strong>{{ responsible }}</strong>
       to <strong>{{ treatment }}</strong>:
     </p>
@@ -17,7 +17,7 @@
     <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
-    {{ go_to_button('Go to finding', finding_link) }}
+    {{ go_to_button('Go to type of vulnerability', finding_link) }}
     <br />
   </div>
 
