@@ -596,6 +596,48 @@ resource "cloudflare_page_rule" "redirect_resources" {
   }
 }
 
+resource "cloudflare_page_rule" "redirect_dcardona" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/solutions/security-testing/about-us/people/dcardona/"
+  status   = "active"
+  priority = 89
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_choucair" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/solutions/security-testing/partners/choucair/"
+  status   = "active"
+  priority = 88
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_web" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/web/*"
+  status   = "active"
+  priority = 87
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
 # Workers
 
 resource "cloudflare_worker_script" "headers" {
