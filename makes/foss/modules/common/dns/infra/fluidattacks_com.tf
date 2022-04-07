@@ -266,6 +266,15 @@ resource "cloudflare_record" "stripe_bounce" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "mailing_fluidattacks" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "mailing.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "fluidattacks.activehosted.com"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "stripe_dkim" {
   for_each = toset([
     "dyh5er647prfc3gs4euuquiva6xt6ibs",
@@ -363,7 +372,7 @@ resource "cloudflare_record" "spf_allowed" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = cloudflare_zone.fluidattacks_com.zone
   type    = "TXT"
-  value   = "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:transmail.net -all"
+  value   = "v=spf1 include:emsd1.com include:_spf.google.com include:mail.zendesk.com include:spf.mandrillapp.com include:servers.mcsv.net include:transmail.net -all"
   ttl     = 1
   proxied = false
 }
@@ -390,16 +399,25 @@ resource "cloudflare_record" "mail_dmarc" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "_dmarc.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "TXT"
-  value   = "v=DMARC1; p=quarantine; rua=mailto:technology+dmarc@fluidattacks.com"
+  value   = "v=DMARC1; p=none; rua=mailto:technology+dmarc@fluidattacks.com"
   ttl     = 1
   proxied = false
 }
 
-resource "cloudflare_record" "mail_dkim" {
+resource "cloudflare_record" "mail_dkim_google" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "google._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "TXT"
   value   = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoVfDxzz1BbwFFyeQvKe7B4YMSR1HWmjCu4PQzESyAAc9XQDSbtoYQNCHaHisTJNgh4OGEWvgRcpsVljffC5jO3tHcra8xW8ls5O16sClQtfitcKhC1VxNbqYoAnUSNv9FBcsldK96jQgeMrsZUMo6SdldCDOkX7vOjgLzDw6dOMAENSoU3NsMfRwoDaanCf2gkFb+5mOtDUZCHukM5rpj+ePc3GJAzX8bakMdWD7BlZnPT0fRVcSQGOAM1GVcSDYR465hdBkADJg3KM2TdPTC/XLwEQXgqRZXVWMtSu/Rb/DcHILZNmzKxUk/B4eKjXGQDbs9hshgsqsZGYEbhOvrwIDAQAB"
+  ttl     = 1
+  proxied = false
+}
+
+resource "cloudflare_record" "mail_dkim_domainkey" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "dk._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "TXT"
+  value   = "DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDhkOo8s6fh9Byz1uy69tfQ6eUnzi/5P22EWccwI1PdmCpiyNwZcq3vOS2MHbVYB+ZY6wbBlAFym8EHbZY9OTlJ3+dzt8qTUNW5olkNVl4ecDv3XO2ML8q5sxQL+dwQU6UAQiDAAC/ZRWwiXHrSsr90pqH1Q0vhB7Kp6DHrWYJquQIDAQAB"
   ttl     = 1
   proxied = false
 }
