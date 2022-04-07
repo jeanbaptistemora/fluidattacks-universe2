@@ -5969,11 +5969,32 @@
     "CVE-2017-16132": "<=0.0.4",
     "GMS-2017-219": ">=0.0.0-alpha"
   },
+  "simple-server": {
+    "GHSA-rch9-xh7r-mqgw": "<1.1.0"
+  },
   "simplehttpserver": {
     "CVE-2018-16478": "<=0.2.1",
     "CVE-2018-3716": ">=0.0.0",
     "CVE-2018-3787": "<0.2.1",
     "GMS-2018-23": ">=0.0.1"
+  },
+  "simplemde": {
+    "GHSA-wg85-p6j7-gp3w": "<=1.11.2"
+  },
+  "singale": {
+    "GHSA-crfh-jmv2-2f9v": ">=0"
+  },
+  "sj-labc": {
+    "GHSA-4fqg-89cc-5pv5": ">=0"
+  },
+  "sj-tw-abc": {
+    "GHSA-4hfc-fv33-ph9p": ">=0"
+  },
+  "sj-tw-sec": {
+    "GHSA-692h-g37c-qv44": ">=0"
+  },
+  "sj-tw-test-security": {
+    "GHSA-rcv7-4w2m-gj9v": ">=0"
   },
   "slash": {},
   "slashify": {
@@ -6003,9 +6024,21 @@
     "CVE-2017-16117": "<=0.9.1",
     "GMS-2017-215": ">=0.0.0-alpha"
   },
+  "slush-fullstack-framework": {
+    "GHSA-4j54-mmmv-hjpm": "0.9.2"
+  },
   "sly07": {
     "CVE-2017-16189": "=0.1.2",
     "GMS-2017-282": ">=0.0.0-alpha"
+  },
+  "smart-extend": {
+    "GHSA-f8h3-rqrm-47v9": ">=0"
+  },
+  "smartbanner.js": {
+    "GHSA-9mrq-cjgh-32g2": "<1.14.1"
+  },
+  "smartsearchwp": {
+    "GHSA-fgp6-8g62-qx6w": ">=0"
   },
   "smartstore": {
     "CVE-2020-15243": ">=4.0.0 <=4.0.1",
@@ -6017,6 +6050,9 @@
   },
   "snapdragon": {},
   "snapdragon-node": {},
+  "snekserve": {
+    "GHSA-hv4w-jhcj-6wfw": ">=0"
+  },
   "snyk-broker": {
     "CVE-2020-7648": "<4.72.2",
     "CVE-2020-7650": ">=4.72.0 <4.73.1",
@@ -6049,13 +6085,34 @@
     "CVE-2020-7693": "<0.3.20",
     "CVE-2020-8823": "<0.3.0"
   },
+  "soket.io": {
+    "CVE-2020-28481": "<2.4.0"
+  },
+  "soket.js": {
+    "GHSA-x6gq-467r-hwcc": ">=0"
+  },
+  "soletta-dev-app": {
+    "GHSA-8mgg-5x65-m4m4": ">=0"
+  },
+  "sonatype": {
+    "GHSA-w8fh-pvq2-x8c4": ">=0"
+  },
   "source-map": {},
   "source-map-support": {},
+  "sparkies": {
+    "GHSA-c4fm-46gm-4469": ">=0"
+  },
   "spdx-expression-parse": {},
   "spdx-license-ids": {},
   "split-string": {},
   "spritesheet-js": {
     "CVE-2020-7782": ">=0"
+  },
+  "sql": {
+    "GHSA-8f93-rv4p-x4jw": "<=0.78.0"
+  },
+  "sql-injection": {
+    "GHSA-hvxq-j2r4-4jm8": ">=0"
   },
   "sqlite.js": {
     "CVE-2017-16050": ">=0",
@@ -6067,6 +6124,9 @@
   },
   "sqlserver": {
     "CVE-2017-16055": ">=0"
+  },
+  "squel": {
+    "GHSA-4qhx-g9wp-g9m6": "<=5.13.0"
   },
   "squirrelly": {
     "CVE-2021-32819": "=8.0.8"
