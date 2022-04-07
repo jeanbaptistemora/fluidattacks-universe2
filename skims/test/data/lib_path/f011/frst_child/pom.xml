@@ -4,10 +4,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
   <properties>
-    <spring.version>4.2.2.RELEASE</spring.version>
-    <junit.version>4.12</junit.version>
-    <mockito.version>2.0.31-beta</mockito.version>
-    <slf4j.version>1.7.12</slf4j.version>
-    <logback.version>1.1.3</logback.version>
+    <atlassian.maven.version>4.0.4</atlassian.maven.version>
+    <apache.camel.version>2.6.0</apache.camel.version>
+    <buildnumber>0000</buildnumber>
+    <java.version>1.8</java.version>
   </properties>
 </project>
