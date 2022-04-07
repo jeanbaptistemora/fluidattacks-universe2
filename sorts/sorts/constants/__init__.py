@@ -26,8 +26,8 @@ STATIC_DIR: str = environ["SORTS_STATIC_PATH"]
 
 STAT_REGEX: re.Pattern = re.compile(
     r"([0-9]+ files? changed)?"
-    r"(, (?P<insertions>[0-9]+) insertions\(\+\))?"
-    r"(, (?P<deletions>[0-9]+) deletions\(\-\))?"
+    r"(, (?P<insertions>[0-9]+) insertions \(\+\))?"
+    r"(, (?P<deletions>[0-9]+) deletions \(\-\))?"
 )
 RENAME_REGEX: re.Pattern = re.compile(
     r"(?P<pre_path>.*)?"
