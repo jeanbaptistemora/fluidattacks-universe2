@@ -113,7 +113,7 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         users_email,
         mail_context,
         GENERAL_TAG,
-        f"Finding removed [{finding_name}] in [{group_name}]",
+        f"Type of vulnerability removed [{finding_name}] in [{group_name}]",
         "delete_finding",
     )
 
@@ -160,7 +160,7 @@ async def send_mail_new_remediated(
         email_to,
         context,
         GENERAL_TAG,
-        f'Findings to verify ({context["total"]})',
+        f'Types of vulnerabilities to verify ({context["total"]})',
         "new_remediated",
     )
 
