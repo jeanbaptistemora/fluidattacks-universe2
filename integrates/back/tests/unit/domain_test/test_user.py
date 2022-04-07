@@ -28,6 +28,11 @@ from users import (
     domain as users_domain,
 )
 
+# Run async tests
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 @pytest.mark.changes_db
 async def test_add_push_token() -> None:
@@ -64,7 +69,6 @@ async def test_remove_push_token() -> None:
     assert token not in attrs_after["push_tokens"]
 
 
-@pytest.mark.asyncio
 @pytest.mark.changes_db
 async def test_remove_user() -> None:
     organization_id: str = await get_id_by_name(FI_DEFAULT_ORG)
