@@ -1,4 +1,5 @@
 import bs4
+import glob
 from lib_path.common import (
     DependencyType,
     translate_dependencies_to_vulnerabilities,
@@ -10,10 +11,15 @@ from model.core_model import (
 )
 import re
 from typing import (
+    Any,
     Dict,
     Iterator,
+    List,
     Pattern,
     Tuple,
+)
+from utils.fs import (
+    get_file_content_block,
 )
 
 # Constants
@@ -53,12 +59,6 @@ def _get_properties(root: bs4.BeautifulSoup) -> Dict[str, str]:
         for property in properties.children
         if isinstance(property, bs4.element.Tag)
     }
-
-
-def _interpolate(properties: Dict[str, str], value: str) -> str:
-    for var, var_value in properties.items():
-        value = value.replace(f"${{{var}}}", var_value)
-    return value
 
 
 def avoid_cmt(line: str, is_block_cmt: bool) -> Tuple[str, bool]:
@@ -122,11 +122,60 @@ def maven_gradle(content: str, path: str) -> Vulnerabilities:
     )
 
 
+def _is_pom_xml(content: str) -> bool:
+    root = bs4.BeautifulSoup(content, features="html.parser")
+    if root.project:
+        if root.project["xmlns"]:
+            is_pom_xml = (
+                str(root.project["xmlns"])
+                == "http://maven.apache.org/POM/4.0.0"
+            )
+            return is_pom_xml
+    return False
+
+
+def _get_parent_paths(path: str) -> List[str]:
+    paths: List[str] = []
+    split_path: List[str] = path.split("/")
+    for pos in range(1, len(split_path) - 1):
+        paths.append("/".join(split_path[0:pos]))
+    return paths[::-1]
+
+
+def _interpolate(path: str, value: str) -> List[Any]:
+    is_match: bool = False
+    content = get_file_content_block(path)
+
+    if _is_pom_xml(content):
+        root = bs4.BeautifulSoup(content, features="html.parser")
+        properties = _get_properties(root)
+        for var, var_value in properties.items():
+            if re.search(rf"\$\{{{var}\}}", value):
+                is_match = True
+                value = value.replace(f"${{{var}}}", var_value)
+
+    return [is_match, value]
+
+
+def _find_vars(value: str, path: str) -> str:
+    dir_paths = _get_parent_paths(path)
+    interpolated_value = value
+    is_match, interpolated_value = _interpolate(path, value)
+    if is_match:
+        return interpolated_value
+
+    for dir_path in dir_paths:
+        pom_files = glob.glob(f"{dir_path}/*.xml", recursive=False)
+        for pom_file in pom_files:
+            flag, interpolated_value = _interpolate(pom_file, value)
+            if flag:
+                return interpolated_value
+    return interpolated_value
+
+
 def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
         root = bs4.BeautifulSoup(content, features="html.parser")
-
-        properties = _get_properties(root)
 
         for group, artifact, version in [
             (group, artifact, version)
@@ -135,14 +184,14 @@ def maven_pom_xml(content: str, path: str) -> Vulnerabilities:
             for artifact in dependency.find_all("artifactid", limit=1)
             for version in (dependency.find_all("version", limit=1) or [None])
         ]:
-            g_text = _interpolate(properties, group.get_text())
-            a_text = _interpolate(properties, artifact.get_text())
+            g_text = _find_vars(group.get_text(), path)
+            a_text = _find_vars(artifact.get_text(), path)
             if version is None:
-                v_text = _interpolate(properties, "*")
+                v_text = _find_vars("*", path)
                 column = artifact.sourcepos
                 line = artifact.sourceline
             else:
-                v_text = _interpolate(properties, version.get_text())
+                v_text = _find_vars(version.get_text(), path)
                 column = version.sourcepos
                 line = version.sourceline
 
