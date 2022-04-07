@@ -512,6 +512,90 @@ resource "cloudflare_page_rule" "redirect_asserts" {
   }
 }
 
+resource "cloudflare_page_rule" "redirect_courses" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/courses/*"
+  status   = "active"
+  priority = 95
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_defends" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/defends/*"
+  status   = "active"
+  priority = 94
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_oldweb" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/oldweb/*"
+  status   = "active"
+  priority = 93
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_gamma_ingenieros" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/partners/gamma-ingenieros/"
+  status   = "active"
+  priority = 92
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_products" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/products/*"
+  status   = "active"
+  priority = 91
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_resources" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/resources/doc/*"
+  status   = "active"
+  priority = 90
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}"
+      status_code = 301
+    }
+  }
+}
+
 # Workers
 
 resource "cloudflare_worker_script" "headers" {
