@@ -19,7 +19,7 @@ interface IGetStakeholderPhoneAttr {
 interface IVerifyFn {
   (
     verifyCallback: (verificationCode: string) => void,
-    cancelCallback?: () => void
+    cancelCallback: () => void
   ): void;
 }
 

@@ -52,12 +52,10 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
 
   const setVerifyCallbacks: IVerifyFn = (
     verifyFn: (verificationCode: string) => void,
-    cancelFn?: () => void
+    cancelFn: () => void
   ): void => {
     setVerifyCallback((): ((verificationCode: string) => void) => verifyFn);
-    if (cancelFn !== undefined) {
-      setCancelCallback((): (() => void) => cancelFn);
-    }
+    setCancelCallback((): (() => void) => cancelFn);
     void handleVerifyStakeholder();
   };
 
