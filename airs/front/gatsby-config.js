@@ -142,6 +142,5 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-plugin-styled-components",
     "gatsby-transformer-sharp",
-    "gatsby-plugin-meta-redirect",
   ],
 };
