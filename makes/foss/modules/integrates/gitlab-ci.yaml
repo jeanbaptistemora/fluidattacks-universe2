@@ -3602,6 +3602,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/scheduler__prod__schedulers.event_report.main:
+  image: ghcr.io/fluidattacks/makes:22.04
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_event_report == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/scheduler 'prod' 'schedulers.event_report.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/scheduler__prod__schedulers.get_remediated_findings.main:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false

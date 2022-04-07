@@ -639,6 +639,7 @@ in {
             "delete_imamura_stakeholders"
             "delete_obsolete_groups"
             "delete_obsolete_orgs"
+            "event_report"
             "get_remediated_findings"
             "reset_expired_accepted_findings"
             "update_portfolios"
