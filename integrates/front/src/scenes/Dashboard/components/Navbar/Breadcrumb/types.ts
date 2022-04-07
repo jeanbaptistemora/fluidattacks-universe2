@@ -1,6 +1,6 @@
 interface IUserOrgs {
   me: {
-    organizations: { name: string }[];
+    organizations: { name: string; groups: { name: string }[] }[];
     userEmail: string;
   };
 }
