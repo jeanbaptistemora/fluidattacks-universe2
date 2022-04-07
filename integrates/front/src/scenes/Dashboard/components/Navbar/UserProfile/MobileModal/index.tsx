@@ -157,6 +157,9 @@ const MobileModal: React.FC<IMobileModalProps> = (
             case "Exception - Stakeholder verification could not be started":
               msgError(t("profile.mobileModal.alerts.nonSentVerificationCode"));
               break;
+            case "Exception - The new phone number is the current phone number":
+              msgError(t("profile.mobileModal.alerts.sameMobile"));
+              break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning(

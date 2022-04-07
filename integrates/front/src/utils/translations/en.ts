@@ -1571,10 +1571,11 @@ export const enTranslations: ResourceKey = {
         nonVerifiedStakeholder: "Stakeholder could not be verified",
         requiredMobile: "A mobile number is required",
         requiredVerificationCode: "A verification code is required",
+        sameMobile: "The new phone number can not be the current phone number",
         sendCurrentMobileVerificationSuccess:
-          "A verification code has been sent to your mobile.",
+          "A verification code has been sent to your mobile",
         sendNewMobileVerificationSuccess:
-          "A verification code has been sent to your new mobile.",
+          "A verification code has been sent to your new mobile",
       },
       close: "Close",
       edit: "Edit",

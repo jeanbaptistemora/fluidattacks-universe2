@@ -11,6 +11,7 @@ from custom_exceptions import (
     InvalidPushToken,
     RequiredNewPhoneNumber,
     RequiredVerificationCode,
+    SamePhoneNumber,
     SecureAccessException,
 )
 from custom_types import (
@@ -450,6 +451,14 @@ async def verify(
 
     if not phone_to_verify:
         raise RequiredNewPhoneNumber()
+
+    if (
+        user_phone is not None
+        and new_phone is not None
+        and get_international_format_phone_number(user_phone)
+        == get_international_format_phone_number(new_phone)
+    ):
+        raise SamePhoneNumber()
 
     if phone_to_verify is new_phone:
         await verify_operations.validate_mobile(
