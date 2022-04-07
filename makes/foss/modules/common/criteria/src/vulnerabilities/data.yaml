@@ -4747,9 +4747,8 @@
       - Obtain business information
       with valid token.
     recommendation: >
-      The session token does not expire
-      when user closes session
-      and can be reused in future requests.
+      Ensure the expiration of the session token
+      after the user logs out.
     threat: >
       Anonymous attacker from the Internet
       with access to a session token.
@@ -4773,8 +4772,8 @@
       - Obtener información de la empresa con
       el token válido.
     recommendation: >
-      El token de sesión debe caducar
-      cuando se cierra una sesión.
+      Garantizar que el token de sesión
+      expire luego de que un usuario cierre la sesión
     threat: >
       Atacante anónimo desde Internet
       con acceso a un token de sesión.
@@ -24465,7 +24464,10 @@
       con el objetivo de ejecutar código potencialmente dañino,
       aumentando así los posibles vectores de ataque.
     impact: >
-      Ejecutar código malicioso en la aplicación
+      - Ejecutar código malicioso en la aplicación
+
+      - Desplegar una versión corrupta de la aplicación
+      que pueda llevar a la indisponibilidad de la misma
     recommendation: >
       - Establecer el nombre de la organización propietaria
       de la dependencia privada en el archivo del gestor de paquetes.
@@ -24486,7 +24488,7 @@
       availability: "L"
     temporal:
       exploit_code_maturity: "H"
-      remediation_level: "U"
+      remediation_level: "O"
       report_confidence: "C"
   requirements: ["048", "262", "302"]
   metadata:
