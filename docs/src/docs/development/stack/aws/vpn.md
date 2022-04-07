@@ -78,7 +78,7 @@ We use [VPN][VPN] for
   via [Terraform][TERRAFORM],
   visit the [Terraform Guidelines](/development/stack/terraform#guidelines).
 - Infrastructure source code
-  can be found [here](https://gitlab.com/fluidattacks/product/-/tree/master/makes/foss/modules/makes/vpc/infra).
+  can be found [here](https://gitlab.com/fluidattacks/product/-/tree/master/makes/foss/modules/common/vpc/infra).
 - All [VPN][VPN] client configurations
   can be found [here](https://gitlab.com/fluidattacks/product/-/blob/master/makes/secrets/dev.yaml#L22).
   You can use [Sops](/development/stack/sops) do decrypt such values.

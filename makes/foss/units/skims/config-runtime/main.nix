@@ -34,14 +34,14 @@ in
         (projectPath "/makes/foss/units/bugsnag-client")
       ];
       source = [
-        outputs."/makes/python/safe-pickle"
+        outputs."/common/python/safe-pickle"
         outputs."/skims/config-runtime/pypi"
         (makeTemplate {
           replace = {
             __argCriteriaRequirements__ =
-              projectPath "/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
+              projectPath "/makes/foss/modules/common/criteria/src/requirements/data.yaml";
             __argCriteriaVulnerabilities__ =
-              projectPath "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
+              projectPath "/makes/foss/modules/common/criteria/src/vulnerabilities/data.yaml";
             __argSkimsLegal__ =
               projectPath "/skims/LEGAL.md";
             __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";

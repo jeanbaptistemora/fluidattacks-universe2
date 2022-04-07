@@ -45,7 +45,7 @@ in
       ];
       source = [
         pythonRequirements
-        outputs."/makes/python/safe-pickle"
+        outputs."/common/python/safe-pickle"
       ];
     };
   }

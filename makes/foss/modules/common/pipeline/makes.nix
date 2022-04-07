@@ -1,0 +1,232 @@
+{gitlabCi, ...}: let
+  gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
+  gitlabBranchMaster = gitlabCi.rules.branch "master";
+
+  gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|makes)";
+
+  gitlabOnlyMaster = [
+    gitlabBranchMaster
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    gitlabTitleMatchingMakes
+  ];
+  gitlabOnlyDev = [
+    gitlabBranchNotMaster
+    gitlabCi.rules.notMrs
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    gitlabTitleMatchingMakes
+  ];
+
+  gitlabDeployInfra = {
+    resource_group = "$CI_JOB_NAME";
+    rules = gitlabOnlyMaster;
+    stage = "deploy-infra";
+    tags = ["autoscaling"];
+  };
+  gitlabLint = {
+    rules = gitlabOnlyDev;
+    stage = "lint-code";
+    tags = ["autoscaling"];
+  };
+  gitlabRotateUsersKeys1 = {
+    rules = [
+      gitlabCi.rules.schedules
+      (gitlabCi.rules.varIsDefined "makes_users_rotate_even")
+      gitlabCi.rules.always
+    ];
+    stage = "rotation";
+    tags = ["autoscaling"];
+  };
+  gitlabRotateUsersKeys2 = {
+    rules = [
+      gitlabCi.rules.schedules
+      (gitlabCi.rules.varIsDefined "makes_users_rotate_odd")
+      gitlabCi.rules.always
+    ];
+    stage = "rotation";
+    tags = ["autoscaling"];
+  };
+  gitlabTestCode = {
+    rules = gitlabOnlyDev;
+    stage = "test-code";
+    tags = ["autoscaling"];
+  };
+  gitlabTestInfra = {
+    rules = gitlabOnlyDev;
+    stage = "test-infra";
+    tags = ["autoscaling"];
+  };
+in {
+  pipelines = {
+    makes = {
+      gitlabPath = "/makes/foss/modules/common/gitlab-ci.yaml";
+      jobs = [
+        {
+          output = "/docs/generate/criteria";
+          gitlabExtra = {
+            rules = gitlabOnlyDev;
+            stage = "build";
+            tags = ["autoscaling"];
+          };
+        }
+        {
+          output = "/deployTerraform/makesCompute";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesDns";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesFoss";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesKubernetes";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesOkta";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesStatus";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesUsers";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesVpc";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/makesVpn";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/lintTerraform/makesCi";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesCompute";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesDns";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesFoss";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesKubernetes";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesOkta";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesStatus";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesUsers";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesVpc";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesVpn";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintWithAjv/makes/criteria/compliance";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintWithAjv/makes/criteria/requirements";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintWithAjv/makes/criteria/vulnerabilities";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/common/criteria/skims-sync";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
+          output = "/common/criteria/test";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
+          output = "/common/criteria/unreferenced";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
+          output = "/pipelineOnGitlab/makes";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/taintTerraform/makesUsersKeys1";
+          gitlabExtra = gitlabRotateUsersKeys1;
+        }
+        {
+          output = "/taintTerraform/makesUsersKeys2";
+          gitlabExtra = gitlabRotateUsersKeys2;
+        }
+        {
+          output = "/testTerraform/makesCi";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesCompute";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesCompute";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesDns";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesFoss";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesKubernetes";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesOkta";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesStatus";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesUsers";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesVpc";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesVpn";
+          gitlabExtra = gitlabTestInfra;
+        }
+      ];
+    };
+  };
+}

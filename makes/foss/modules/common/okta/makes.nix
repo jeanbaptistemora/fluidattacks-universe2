@@ -1,0 +1,61 @@
+# https://github.com/fluidattacks/makes
+{outputs, ...}: {
+  deployTerraform = {
+    modules = {
+      makesOkta = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/common/okta/parse"
+          outputs."/secretsForEnvFromSops/makesOktaApiToken"
+          outputs."/secretsForTerraformFromEnv/makesOkta"
+        ];
+        src = "/makes/foss/modules/common/okta/src/infra";
+        version = "1.0";
+      };
+    };
+  };
+  lintTerraform = {
+    modules = {
+      makesOkta = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/dev"
+          outputs."/common/okta/parse"
+          outputs."/secretsForEnvFromSops/makesOktaApiToken"
+          outputs."/secretsForTerraformFromEnv/makesOkta"
+        ];
+        src = "/makes/foss/modules/common/okta/src/infra";
+        version = "1.0";
+      };
+    };
+  };
+  secretsForEnvFromSops = {
+    makesOktaData = {
+      vars = ["OKTA_DATA_RAW"];
+      manifest = "/makes/foss/modules/common/okta/src/data.yaml";
+    };
+    makesOktaApiToken = {
+      vars = ["OKTA_API_TOKEN"];
+      manifest = "/makes/foss/modules/common/okta/src/data.yaml";
+    };
+  };
+  secretsForTerraformFromEnv = {
+    makesOkta = {
+      oktaApiToken = "OKTA_API_TOKEN";
+      oktaData = "OKTA_DATA";
+    };
+  };
+  testTerraform = {
+    modules = {
+      makesOkta = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/dev"
+          outputs."/common/okta/parse"
+          outputs."/secretsForEnvFromSops/makesOktaApiToken"
+          outputs."/secretsForTerraformFromEnv/makesOkta"
+        ];
+        src = "/makes/foss/modules/common/okta/src/infra";
+        version = "1.0";
+      };
+    };
+  };
+}

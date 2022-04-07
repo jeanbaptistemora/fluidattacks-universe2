@@ -1,8 +1,8 @@
 include:
   - local: makes/foss/modules/airs/gitlab-ci.yaml
+  - local: makes/foss/modules/common/gitlab-ci.yaml
   - local: makes/foss/modules/forces/gitlab-ci.yaml
   - local: makes/foss/modules/integrates/gitlab-ci.yaml
-  - local: makes/foss/modules/makes/gitlab-ci.yaml
   - local: makes/foss/modules/melts/gitlab-ci.yaml
   - local: makes/foss/modules/observes/gitlab-ci.yaml
   - local: makes/foss/modules/reviews/gitlab-ci.yaml
