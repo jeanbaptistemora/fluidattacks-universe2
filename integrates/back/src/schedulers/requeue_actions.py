@@ -13,6 +13,8 @@ from batch.types import (
     BatchProcessing,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     NamedTuple,
 )
@@ -71,12 +73,8 @@ async def _filter_non_requeueable_actions(
     actions_to_requeue: List[BatchProcessing],
 ) -> List[BatchProcessing]:
     """Filters actions that should not be sent to Batch"""
-    batch_jobs: List[CompleteBatchJob] = [
-        CompleteBatchJob(
-            id=str(job["jobId"]),
-            status=JobStatus(job["status"]),
-            vcpus=int(job["container"]["vcpus"]),
-        )
+    batch_jobs_dict: Dict[str, Dict[str, Any]] = {
+        job["jobId"]: job
         for job in await batch_dal.describe_jobs(
             *[
                 action.batch_job_id
@@ -84,58 +82,63 @@ async def _filter_non_requeueable_actions(
                 if action.batch_job_id is not None  # Check to comply with Mypy
             ]
         )
-    ]
+    }
 
-    running_actions: List[BatchProcessing] = [
-        action
-        for action in actions_to_requeue
-        if action.running and action.batch_job_id
-    ]
     succeeded_keys_to_delete: List[str] = [
         action.key
-        for action in running_actions
-        for batch_job in batch_jobs
-        if action.batch_job_id == batch_job.id
-        and batch_job.status == JobStatus.SUCCEEDED
+        for action in actions_to_requeue
+        if (batch_jobs_dict[action.batch_job_id]["status"] == "SUCCEEDED")
+        # remove false positives jobs failed
+        or (
+            batch_jobs_dict[action.batch_job_id]["status"] == "FAILED"
+            and (
+                # canceled jobs
+                "stoppedAt" not in batch_jobs_dict[action.batch_job_id]
+                # false positive, the job has status FAILED but make ends
+                # in success
+                or "CannotInspectContainerError"
+                in batch_jobs_dict[action.batch_job_id]["container"].get(
+                    "reason", ""
+                )
+            )
+        )
     ]
-    machine_keys_to_delete: List[str] = await _get_machine_keys_to_delete(
-        running_actions, batch_jobs
-    )
-    keys_to_delete: List[str] = (
-        succeeded_keys_to_delete + machine_keys_to_delete
-    )
 
     await collect(
         [
-            batch_dal.cancel_batch_job(job_id=action.batch_job_id)
-            for action in running_actions
-            if action.key in keys_to_delete
+            batch_dal.delete_action(dynamodb_pk=key)
+            for key in succeeded_keys_to_delete
         ]
-    )
-    await collect(
-        [batch_dal.delete_action(dynamodb_pk=key) for key in keys_to_delete]
     )
 
     active_keys: List[str] = [
         action.key
-        for action in running_actions
-        for batch_job in batch_jobs
-        if action.batch_job_id == batch_job.id
-        and batch_job.status not in {JobStatus.FAILED, JobStatus.SUCCEEDED}
+        for action in actions_to_requeue
+        if action.running
+        and batch_jobs_dict[action.batch_job_id]["status"]
+        in [
+            "RUNNING",
+        ]
     ]
     pending_keys: List[str] = [
         action.key
         for action in actions_to_requeue
         if not action.running
-        for batch_job in batch_jobs
-        if action.batch_job_id == batch_job.id
-        and batch_job.status in {JobStatus.PENDING, JobStatus.RUNNABLE}
+        and batch_jobs_dict[action.batch_job_id]["status"]
+        in {
+            "SUBMITTED",
+            "PENDING",
+            "RUNNABLE",
+            "STARTING",
+            "RUNNING",  # makes setup
+        }
     ]
 
     return [
         action
         for action in actions_to_requeue
-        if action.key not in set(active_keys + pending_keys + keys_to_delete)
+        if action.key
+        not in set(active_keys + pending_keys + succeeded_keys_to_delete)
     ]
 
 
@@ -171,11 +174,17 @@ async def requeue_actions() -> bool:
         actions_to_requeue
     )
 
-    report_additional_info = dict(
-        vcpus=4,
-        attempt_duration_seconds=7200,
-        memory=7200,
-    )
+    batch_jobs_dict: Dict[str, Dict[str, Any]] = {
+        job["jobId"]: job
+        for job in await batch_dal.describe_jobs(
+            *[
+                action.batch_job_id
+                for action in actions_to_requeue
+                if action.batch_job_id is not None
+            ]
+        )
+    }
+
     new_batch_jobs_ids = await collect(
         (
             batch_dal.put_action_to_batch(
@@ -188,11 +197,12 @@ async def requeue_actions() -> bool:
                     if action.action_name == "execute-machine"
                     else Product.INTEGRATES
                 ).value,
-                **(
-                    report_additional_info
-                    if action.action_name == "report"
-                    else {}
-                ),
+                memory=batch_jobs_dict[action.batch_job_id]["container"][
+                    "memory"
+                ],
+                vcpus=batch_jobs_dict[action.batch_job_id]["container"][
+                    "vcpus"
+                ],
             )
             for action in actions_to_requeue
         ),
