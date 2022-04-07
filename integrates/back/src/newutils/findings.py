@@ -69,7 +69,7 @@ def get_vulns_file() -> Dict:
     )
     branch_ref: str = "master"
     vulns_file_id = (
-        "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities"
+        "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Fvulnerabilities"
         "%2Fdata.yaml"
     )
     url: str = f"{base_url}/{vulns_file_id}/raw?ref={branch_ref}"
