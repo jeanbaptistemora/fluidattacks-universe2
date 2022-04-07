@@ -80,13 +80,8 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
             await remove_roots(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
-            await delete_action(
-                action_name=item.action_name,
-                additional_info=item.additional_info,
-                entity=item.entity,
-                subject=item.subject,
-                time=item.time,
-            )
+            await delete_action(dynamodb_pk=item.key)
+        await delete_action(dynamodb_pk=item.key)
     except IndexError:
         LOGGER.error("Missing arguments", extra=dict(extra=locals()))
 

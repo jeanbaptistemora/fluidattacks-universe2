@@ -4,9 +4,6 @@ from batch.types import (
 from batch.utils.s3 import (
     upload_cloned_repo_to_s3_tar,
 )
-from contextlib import (
-    suppress,
-)
 from custom_exceptions import (
     InvalidParameter,
 )
@@ -93,11 +90,10 @@ async def clone_root(
         )
 
         if success:
-            with suppress(GitError, AttributeError):
+            try:
                 commit = Repo(
                     folder_to_clone_root, search_parent_directories=True
                 ).head.object
-            if commit:
                 return CloneResult(
                     success=success,
                     commit=commit.hexsha,
@@ -105,4 +101,15 @@ async def clone_root(
                         commit.authored_date
                     ).isoformat(),
                 )
+            except (GitError, AttributeError) as exc:
+                LOGGER.exception(
+                    exc,
+                    extra=dict(
+                        extra={
+                            "group_name": group_name,
+                            "root_nickname": root_nickname,
+                        }
+                    ),
+                )
+
         return CloneResult(success=False)
