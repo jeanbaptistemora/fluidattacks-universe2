@@ -1,6 +1,6 @@
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
@@ -22,10 +22,13 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
     push("/todos");
   }, [push]);
 
-  const allAssigned: number =
-    meVulnerabilitiesAssigned === undefined
-      ? 0
-      : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned.length;
+  const allAssigned: number = useMemo(
+    (): number =>
+      meVulnerabilitiesAssigned === undefined
+        ? 0
+        : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned.length,
+    [meVulnerabilitiesAssigned]
+  );
 
   const limitFormatter = useCallback((assigned: number): string => {
     const maxLimit: number = 99;
@@ -33,23 +36,39 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
     return assigned > maxLimit ? `${maxLimit}+` : `${assigned}`;
   }, []);
 
-  if (allAssigned <= 0) {
+  const undefinedOrEmpty: boolean = useMemo(
+    (): boolean => meVulnerabilitiesAssigned === undefined || allAssigned === 0,
+    [meVulnerabilitiesAssigned, allAssigned]
+  );
+
+  if (meVulnerabilitiesAssigned === undefined) {
     return <div />;
   }
 
   return (
     <React.StrictMode>
-      <TooltipWrapper id={"navbar.task.id"} message={t("navbar.task.tooltip")}>
+      <TooltipWrapper
+        id={"navbar.task.id"}
+        message={t(
+          `navbar.task.tooltip.${
+            undefinedOrEmpty ? "assignedless" : "assigned"
+          }`
+        )}
+      >
         <NavbarButton onClick={onClick}>
           <span className={"fa-layers fa-fw"}>
             <FontAwesomeIcon icon={faTasks} />
             &nbsp;
-            <span
-              className={"fa-layers-counter f2 b light-gray"}
-              data-fa-transform={"shrink-8 down-3"}
-            >
-              {limitFormatter(allAssigned)}
-            </span>
+            {undefinedOrEmpty ? (
+              <div />
+            ) : (
+              <span
+                className={"fa-layers-counter f2 b light-gray"}
+                data-fa-transform={"shrink-8 down-3"}
+              >
+                {limitFormatter(allAssigned)}
+              </span>
+            )}
           </span>
         </NavbarButton>
       </TooltipWrapper>

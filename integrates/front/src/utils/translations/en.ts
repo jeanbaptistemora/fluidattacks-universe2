@@ -1246,7 +1246,10 @@ export const enTranslations: ResourceKey = {
     searchPlaceholder: "Search group",
     task: {
       text: "Todos",
-      tooltip: "To-Do List",
+      tooltip: {
+        assigned: "To-Do List",
+        assignedless: "You don't have any vulnerability assigned",
+      },
     },
     token: {
       text: "API",
