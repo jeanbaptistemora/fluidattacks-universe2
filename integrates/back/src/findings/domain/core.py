@@ -99,7 +99,6 @@ from redshift import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from time import (
     time,
@@ -681,7 +680,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         await collect(map(vulns_domain.request_verification, vulnerabilities))
     )
     if not success:
-        LOGGER.error("An error occurred remediating", **NOEXTRA)
+        LOGGER.error("An error occurred remediating")
         raise NotVerificationRequested()
 
     if any(not check_hold(vuln) for vuln in vulnerabilities):
@@ -837,7 +836,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             vulns_to_close_from_file=vulns_to_close_from_file,
         )
     else:
-        LOGGER.error("An error occurred verifying", **NOEXTRA)
+        LOGGER.error("An error occurred verifying")
     return success
 
 

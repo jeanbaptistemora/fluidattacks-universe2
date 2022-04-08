@@ -72,7 +72,6 @@ from operator import (
 import redshift.vulnerabilities as redshift_vulns
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from time import (
     time,
@@ -182,7 +181,7 @@ async def confirm_vulnerabilities_zero_risk(
         for vuln in vulnerabilities
     )
     if not add_comment[1]:
-        LOGGER.error("An error occurred confirming zero risk vuln", **NOEXTRA)
+        LOGGER.error("An error occurred confirming zero risk vuln")
         return False
     return True
 
@@ -541,7 +540,7 @@ async def reject_vulnerabilities_zero_risk(
         for vuln in vulnerabilities
     )
     if not add_comment[1]:
-        LOGGER.error("An error occurred rejecting zero risk vuln", **NOEXTRA)
+        LOGGER.error("An error occurred rejecting zero risk vuln")
         return False
     return True
 
@@ -624,7 +623,7 @@ async def request_vulnerabilities_zero_risk(
         for vuln in vulnerabilities
     )
     if not add_comment[1]:
-        LOGGER.error("An error occurred requesting zero risk vuln", **NOEXTRA)
+        LOGGER.error("An error occurred requesting zero risk vuln")
         return False
     await notifications_domain.request_vulnerability_zero_risk(
         loaders=loaders,

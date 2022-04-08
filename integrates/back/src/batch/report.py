@@ -34,7 +34,6 @@ from reports import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from typing import (
     Any,
@@ -113,7 +112,7 @@ async def send_report(
             f"Send {report_type} report requested by "
             f"{item.subject} for group {item.entity}"
         )
-        LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
+        LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
         await notifications_domain.new_password_protected_report(
             item.subject,
             item.entity,
@@ -139,7 +138,7 @@ async def generate_report(*, item: BatchProcessing) -> None:
         f"Processing {report_type} report requested by "
         f"{item.subject} for group {item.entity}"
     )
-    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
+    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
     treatments = {
         VulnerabilityTreatmentStatus[treatment]
         for treatment in additional_info["treatments"]

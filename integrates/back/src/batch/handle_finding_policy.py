@@ -25,7 +25,6 @@ from organizations_finding_policies.domain import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from typing import (
     List,
@@ -50,7 +49,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         f"Processing handle organization finding policy requested by "
         f"{item.subject} for organization {item.additional_info}"
     )
-    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
+    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
 
     organization_name: str = item.additional_info
     organization_id: str = await organizations_domain.get_id_by_name(

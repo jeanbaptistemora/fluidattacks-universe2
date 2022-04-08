@@ -10,7 +10,6 @@ from redshift.operations import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -27,7 +26,7 @@ VERIFICATION_VULN_IDS_TABLE: str = (
 
 
 async def _initialize_metadata_table() -> None:
-    LOGGER.info(f"Ensuring {METADATA_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", METADATA_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
@@ -51,7 +50,7 @@ async def _initialize_metadata_table() -> None:
 
 
 async def _initialize_state_table() -> None:
-    LOGGER.info(f"Ensuring {STATE_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", STATE_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {STATE_TABLE} (
@@ -74,7 +73,7 @@ async def _initialize_state_table() -> None:
 
 
 async def _initialize_severity_cvss20_table() -> None:
-    LOGGER.info(f"Ensuring {SEVERITY_CVSS20_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", SEVERITY_CVSS20_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS20_TABLE} (
@@ -105,7 +104,7 @@ async def _initialize_severity_cvss20_table() -> None:
 
 
 async def _initialize_severity_cvss31_table() -> None:
-    LOGGER.info(f"Ensuring {SEVERITY_CVSS31_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", SEVERITY_CVSS31_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {SEVERITY_CVSS31_TABLE} (
@@ -144,7 +143,7 @@ async def _initialize_severity_cvss31_table() -> None:
 
 
 async def _initialize_verification_table() -> None:
-    LOGGER.info(f"Ensuring {VERIFICATION_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", VERIFICATION_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {VERIFICATION_TABLE} (
@@ -164,9 +163,7 @@ async def _initialize_verification_table() -> None:
 
 
 async def _initialize_verification_vuln_ids_table() -> None:
-    LOGGER.info(
-        f"Ensuring {VERIFICATION_VULN_IDS_TABLE} table exists...", **NOEXTRA
-    )
+    LOGGER.info("Ensuring %s table exists...", VERIFICATION_VULN_IDS_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {VERIFICATION_VULN_IDS_TABLE} (

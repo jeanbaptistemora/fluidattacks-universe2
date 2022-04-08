@@ -61,7 +61,6 @@ from organizations import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from subscriptions import (
     dal as subscriptions_dal,
@@ -227,7 +226,7 @@ async def _send_analytics_report(
             ttl=604800,  # seven days
         )
     except SnapshotNotFound as ex:
-        LOGGER_CONSOLE.exception(ex, **NOEXTRA)
+        LOGGER_CONSOLE.exception(ex)
         LOGGER_ERRORS.exception(
             ex,
             extra={

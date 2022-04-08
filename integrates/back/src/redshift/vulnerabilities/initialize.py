@@ -10,7 +10,6 @@ from redshift.operations import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -24,7 +23,7 @@ ZERO_RISK_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_zero_risk"
 
 
 async def _initialize_metadata_table() -> None:
-    LOGGER.info(f"Ensuring {METADATA_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", METADATA_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {METADATA_TABLE} (
@@ -46,7 +45,7 @@ async def _initialize_metadata_table() -> None:
 
 
 async def _initialize_state_table() -> None:
-    LOGGER.info(f"Ensuring {STATE_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", STATE_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {STATE_TABLE} (
@@ -68,7 +67,7 @@ async def _initialize_state_table() -> None:
 
 
 async def _initialize_treatment_table() -> None:
-    LOGGER.info(f"Ensuring {TREATMENT_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", TREATMENT_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {TREATMENT_TABLE} (
@@ -90,7 +89,7 @@ async def _initialize_treatment_table() -> None:
 
 
 async def _initialize_verification_table() -> None:
-    LOGGER.info(f"Ensuring {VERIFICATION_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", VERIFICATION_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {VERIFICATION_TABLE} (
@@ -110,7 +109,7 @@ async def _initialize_verification_table() -> None:
 
 
 async def _initialize_zero_risk_table() -> None:
-    LOGGER.info(f"Ensuring {ZERO_RISK_TABLE} table exists...", **NOEXTRA)
+    LOGGER.info("Ensuring %s table exists...", ZERO_RISK_TABLE)
     await execute(
         f"""
             CREATE TABLE IF NOT EXISTS {ZERO_RISK_TABLE} (

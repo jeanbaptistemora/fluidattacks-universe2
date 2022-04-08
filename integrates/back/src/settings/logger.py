@@ -36,9 +36,11 @@ from logging import (
 )
 import logging.config
 import os
+import re
 import requests  # type: ignore
 from typing import (
     Any,
+    Literal,
 )
 
 # logging
@@ -60,6 +62,24 @@ class RequireDebugFalse(logging.Filter):
         return not DEBUG
 
 
+class ExtraMessageFormatter(logging.Formatter):
+    def __init__(
+        self,
+        fmt: str = "[{levelname}] {message}, extra={extra}",
+        style: Literal["{"] = "{",
+    ) -> None:
+        logging.Formatter.__init__(self, fmt=fmt, style=style)
+
+    def format(self, record: logging.LogRecord) -> str:
+        arg_pattern = re.compile(r"\{(\w+)\}")
+        arg_names = [x.group(1) for x in arg_pattern.finditer(str(self._fmt))]
+        for field in arg_names:
+            if field not in record.__dict__:
+                record.__dict__[field] = None
+
+        return super().format(record)
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -68,8 +88,7 @@ LOGGING = {
     },
     "formatters": {
         "level_message_extra": {
-            "format": "[{levelname}] {message}, extra={extra}",
-            "style": "{",
+            "()": ExtraMessageFormatter,
         },
     },
     "handlers": {
@@ -109,7 +128,6 @@ LOGGING = {
     },
 }
 
-NOEXTRA = {"extra": {"extra": None}}
 
 # Force logging to load the config right away
 # This is important otherwise loggers are not going to work in CI jobs

@@ -12,7 +12,6 @@ import logging
 import logging.config
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from starlette.requests import (
     Request,
@@ -33,4 +32,4 @@ async def cloudwatch_log_async(request: Request, msg: str) -> None:
     info = [str(user_data["user_email"])]
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    schedule(in_thread(LOGGER_TRANSACTIONAL.info, ":".join(info), **NOEXTRA))
+    schedule(in_thread(LOGGER_TRANSACTIONAL.info, ":".join(info)))

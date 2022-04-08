@@ -152,7 +152,6 @@ from roots import (
 import secrets
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from typing import (
     Any,
@@ -1657,7 +1656,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     )
 
     if len(group_vulns) == 0:
-        LOGGER_CONSOLE.info(f"NO vulns at {group_name}", **NOEXTRA)
+        LOGGER_CONSOLE.info("NO vulns at %s", group_name)
         return content
 
     content["vulns_len"] = len(group_vulns)

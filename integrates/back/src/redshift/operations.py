@@ -24,7 +24,6 @@ from psycopg2.extensions import (
 )
 from settings import (
     LOGGING,
-    NOEXTRA,
 )
 from typing import (
     Any,
@@ -62,7 +61,7 @@ def db_cursor() -> Iterator[cursor_cls]:
 
 async def initialize_schema() -> None:
     with db_cursor() as cursor:
-        LOGGER.info(f"Ensuring {SCHEMA_NAME} schema exists...", **NOEXTRA)
+        LOGGER.info("Ensuring %s schema exists...", SCHEMA_NAME)
         await in_thread(
             cursor.execute,
             f"""

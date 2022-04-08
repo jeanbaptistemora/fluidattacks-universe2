@@ -77,7 +77,6 @@ import pytz  # type: ignore
 import random
 from settings import (
     LOGGING,
-    NOEXTRA,
     TIME_ZONE,
 )
 from starlette.datastructures import (
@@ -523,5 +522,5 @@ async def request_vulnerabilities_hold(
     }
     await comments_domain.add(finding_id, comment_data, user_info)
     if not success:
-        LOGGER.error("An error occurred requesting hold", **NOEXTRA)
+        LOGGER.error("An error occurred requesting hold")
         raise NoHoldRequested()
