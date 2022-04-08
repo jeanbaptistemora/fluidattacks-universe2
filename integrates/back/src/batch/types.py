@@ -65,6 +65,7 @@ class CloneResult(NamedTuple):
     success: bool
     commit: Optional[str] = None
     commit_date: Optional[str] = None
+    message: Optional[str] = None
 
 
 class PutActionResult(NamedTuple):

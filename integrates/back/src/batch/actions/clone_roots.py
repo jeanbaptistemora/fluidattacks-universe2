@@ -157,7 +157,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 group_name=group_name,
                 root_id=root.id,
                 status="FAILED",
-                message="Clone failed",
+                message=root_cloned.message or "Clone failed",
             )
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))

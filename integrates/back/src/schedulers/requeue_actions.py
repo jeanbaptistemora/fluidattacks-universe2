@@ -28,7 +28,7 @@ class CompleteBatchJob(NamedTuple):
 
 async def _get_machine_keys_to_delete(
     running_actions: List[BatchProcessing],
-    complete_batch_jobs: List[CompleteBatchJob],
+    complete_batch_jobs: List[Dict[str, Any]],
 ) -> List[str]:
     # Machine executions may fail due to memory consumption.
     # If there is a failed job, requeue the execution using more resources.
@@ -39,9 +39,9 @@ async def _get_machine_keys_to_delete(
         for action in running_actions
         if action.action_name == Action.EXECUTE_MACHINE.value
         for batch_job in complete_batch_jobs
-        if action.batch_job_id == batch_job.id
-        and batch_job.status == JobStatus.FAILED
-        and batch_job.vcpus <= 4
+        if action.batch_job_id == batch_job["jobId"]
+        and batch_job["status"] == JobStatus.FAILED.value
+        and batch_job["container"]["vcpus"] <= 4
     ]
     await collect(
         batch_dal.put_action(
@@ -63,8 +63,8 @@ async def _get_machine_keys_to_delete(
         for action in running_actions
         if action.action_name == Action.EXECUTE_MACHINE.value
         for batch_job in complete_batch_jobs
-        if action.batch_job_id == batch_job.id
-        and batch_job.status == JobStatus.FAILED
+        if action.batch_job_id == batch_job["jobId"]
+        and batch_job["status"] == JobStatus.FAILED.value
     ]
     return machine_keys_to_delete
 
@@ -87,10 +87,18 @@ async def _filter_non_requeueable_actions(
     succeeded_keys_to_delete: List[str] = [
         action.key
         for action in actions_to_requeue
-        if (batch_jobs_dict[action.batch_job_id]["status"] == "SUCCEEDED")
+        if (
+            batch_jobs_dict.get(action.batch_job_id, {"status": None})[
+                "status"
+            ]
+            == "SUCCEEDED"
+        )
         # remove false positives jobs failed
         or (
-            batch_jobs_dict[action.batch_job_id]["status"] == "FAILED"
+            batch_jobs_dict.get(action.batch_job_id, {"status": None})[
+                "status"
+            ]
+            == "FAILED"
             and (
                 # canceled jobs
                 "stoppedAt" not in batch_jobs_dict[action.batch_job_id]
@@ -102,6 +110,15 @@ async def _filter_non_requeueable_actions(
                 )
             )
         )
+    ]
+    succeeded_keys_to_delete = [
+        *succeeded_keys_to_delete,
+        *(
+            await _get_machine_keys_to_delete(
+                [action for action in actions_to_requeue if action.running],
+                list(batch_jobs_dict.values()),
+            )
+        ),
     ]
 
     await collect(
@@ -115,7 +132,9 @@ async def _filter_non_requeueable_actions(
         action.key
         for action in actions_to_requeue
         if action.running
-        and batch_jobs_dict[action.batch_job_id]["status"]
+        and batch_jobs_dict.get(action.batch_job_id, {"status": None})[
+            "status"
+        ]
         in [
             "RUNNING",
         ]
@@ -124,7 +143,9 @@ async def _filter_non_requeueable_actions(
         action.key
         for action in actions_to_requeue
         if not action.running
-        and batch_jobs_dict[action.batch_job_id]["status"]
+        and batch_jobs_dict.get(action.batch_job_id, {"status": None})[
+            "status"
+        ]
         in {
             "SUBMITTED",
             "PENDING",
@@ -197,12 +218,12 @@ async def requeue_actions() -> bool:
                     if action.action_name == "execute-machine"
                     else Product.INTEGRATES
                 ).value,
-                memory=batch_jobs_dict[action.batch_job_id]["container"][
-                    "memory"
-                ],
-                vcpus=batch_jobs_dict[action.batch_job_id]["container"][
-                    "vcpus"
-                ],
+                memory=batch_jobs_dict.get(
+                    action.batch_job_id, {"container": {"memory": 3200}}
+                )["container"]["memory"],
+                vcpus=batch_jobs_dict.get(
+                    action.batch_job_id, {"container": {"vcpus": 2}}
+                )["container"]["vcpus"],
             )
             for action in actions_to_requeue
         ),

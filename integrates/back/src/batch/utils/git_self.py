@@ -48,7 +48,7 @@ async def clone_root(
             cred.metadata.type == CredentialType.SSH
             and cred.state.key is not None
         ):
-            folder_to_clone_root = await newutils.git.ssh_clone(
+            folder_to_clone_root, stderr = await newutils.git.ssh_clone(
                 branch=branch,
                 credential_key=cred.state.key,
                 repo_url=root_url,
@@ -60,7 +60,7 @@ async def clone_root(
                 cred.state.user is not None and cred.state.password is not None
             )
         ):
-            folder_to_clone_root = await newutils.git.https_clone(
+            folder_to_clone_root, stderr = await newutils.git.https_clone(
                 branch=branch,
                 password=cred.state.password,
                 repo_url=root_url,
@@ -81,7 +81,7 @@ async def clone_root(
                     }
                 ),
             )
-            return CloneResult(success=False)
+            return CloneResult(success=False, message=stderr)
 
         success = await upload_cloned_repo_to_s3_tar(
             repo_path=folder_to_clone_root,
@@ -100,6 +100,7 @@ async def clone_root(
                     commit_date=datetime.fromtimestamp(
                         commit.authored_date
                     ).isoformat(),
+                    message=stderr,
                 )
             except (GitError, AttributeError) as exc:
                 LOGGER.exception(
@@ -112,4 +113,4 @@ async def clone_root(
                     ),
                 )
 
-        return CloneResult(success=False)
+        return CloneResult(success=False, message=stderr)

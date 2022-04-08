@@ -28,6 +28,7 @@ import tempfile
 from typing import (
     NamedTuple,
     Optional,
+    Tuple,
 )
 from urllib.parse import (
     quote_plus,
@@ -226,7 +227,7 @@ async def https_ls_remote(
 
 async def ssh_clone(
     *, branch: str, credential_key: str, repo_url: str, temp_dir: str
-) -> Optional[str]:
+) -> Tuple[Optional[str], Optional[str]]:
     raw_root_url = repo_url
     if "source.developers.google" not in raw_root_url:
         raw_root_url = repo_url.replace(f"{urlparse(repo_url).scheme}://", "")
@@ -262,13 +263,13 @@ async def ssh_clone(
     os.remove(ssh_file_name)
 
     if proc.returncode == 0:
-        return folder_to_clone_root
+        return (folder_to_clone_root, None)
 
     LOGGER.error(
         "Repo cloning failed", extra={"extra": {"message": stderr.decode()}}
     )
 
-    return None
+    return (None, stderr.decode("utf-8"))
 
 
 async def https_clone(
@@ -279,7 +280,7 @@ async def https_clone(
     password: Optional[str] = None,
     token: Optional[str] = None,
     user: Optional[str] = None,
-) -> Optional[str]:
+) -> Tuple[Optional[str], Optional[str]]:
     url = _format_https_url(repo_url, user, password, token)
     folder_to_clone_root = f"{temp_dir}/{uuid.uuid4()}"
     proc = await asyncio.create_subprocess_exec(
@@ -297,10 +298,10 @@ async def https_clone(
     _, stderr = await proc.communicate()
 
     if proc.returncode == 0:
-        return folder_to_clone_root
+        return (folder_to_clone_root, None)
 
     LOGGER.error(
         "Repo cloning failed", extra={"extra": {"message": stderr.decode()}}
     )
 
-    return None
+    return (None, stderr.decode("utf-8"))
