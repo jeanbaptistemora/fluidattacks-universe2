@@ -131,6 +131,12 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             root_url=root.state.url,
             cred=root_cred,
         )
+        LOGGER.info(
+            "Cloned success: %s, with commit: %s",
+            root_cloned.success,
+            root_cloned.commit,
+            extra=dict(extra=None),
+        )
         if root_cloned.success and root_cloned.commit is not None:
             await roots_domain.update_root_cloning_status(
                 loaders=dataloaders,
@@ -203,6 +209,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     roots: Optional[Tuple[GitRootItem, ...]] = None,
     check_existing_jobs: bool = True,
     force: bool = False,
+    queue_with_vpn: bool = False,
 ) -> Optional[PutActionResult]:
     current_jobs = sorted(
         await get_actions_by_name("clone_roots", group_name),
@@ -324,7 +331,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         for root_id in (
             root_id
             for root_id, commit in last_commits_dict.items()
-            if roots_dict[root_id].state.use_vpn
+            if (queue_with_vpn and roots_dict[root_id].state.use_vpn)
             or (
                 commit  # if the commite exists the credentials work
                 and (

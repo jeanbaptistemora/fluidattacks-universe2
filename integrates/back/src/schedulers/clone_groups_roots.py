@@ -32,6 +32,7 @@ async def _queue_sync_git_roots(
     user_email: str,
     queue: str = "spot_soon",
     group_name: str,
+    queue_with_vpn: bool = False,
 ) -> QuequeResult:
     success = False
     message: Optional[str] = None
@@ -42,6 +43,7 @@ async def _queue_sync_git_roots(
                 user_email=user_email,
                 queue=queue,
                 group_name=group_name,
+                queue_with_vpn=queue_with_vpn,
             )
         )
         if result is not None:
@@ -56,7 +58,7 @@ async def _queue_sync_git_roots(
     return QuequeResult(success, group_name, message)
 
 
-async def clone_groups_roots() -> None:
+async def clone_groups_roots(queue_with_vpn: bool = False) -> None:
     loaders: Dataloaders = get_new_context()
 
     groups: List[str] = await groups_domain.get_active_groups()
@@ -67,6 +69,7 @@ async def clone_groups_roots() -> None:
             user_email="integrates@fluidattacks.com",
             queue="spot_later",
             group_name=group,
+            queue_with_vpn=queue_with_vpn,
         )
 
 
