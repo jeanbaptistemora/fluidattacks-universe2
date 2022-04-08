@@ -54,9 +54,15 @@ def test_group_reports(
         timeout,
     )
     reports.click()
-    assert utils.wait_for_text(
+    technical_report = utils.wait_for_text(
         driver,
         "Technical",
+        timeout,
+    )
+    technical_report.click()
+    assert utils.wait_for_text(
+        driver,
+        "Verification code",
         timeout,
     )
 
