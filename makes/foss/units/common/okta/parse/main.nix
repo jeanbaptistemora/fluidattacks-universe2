@@ -7,7 +7,7 @@
 }:
 makeTemplate {
   replace = {
-    __argParser__ = projectPath "/makes/foss/modules/common/okta/src/parser/__init__.py";
+    __argParser__ = projectPath "/common/okta/src/parser/__init__.py";
   };
   searchPaths = {
     bin = [inputs.nixpkgs.python38];

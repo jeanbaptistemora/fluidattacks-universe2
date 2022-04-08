@@ -11,7 +11,7 @@
           outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/prodCommon"
         ];
-        src = "/makes/foss/modules/common/compute/infra";
+        src = "/common/compute/infra";
         version = "1.0";
       };
     };
@@ -23,7 +23,7 @@
           outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
         ];
-        src = "/makes/foss/modules/common/compute/infra";
+        src = "/common/compute/infra";
         version = "1.0";
       };
     };
@@ -40,7 +40,7 @@
           outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
         ];
-        src = "/makes/foss/modules/common/compute/infra";
+        src = "/common/compute/infra";
         version = "1.0";
       };
     };

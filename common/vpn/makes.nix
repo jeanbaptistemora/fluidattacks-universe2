@@ -11,58 +11,66 @@
 in {
   deployTerraform = {
     modules = {
-      commonVpc = {
+      commonVpn = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonVpcProd"
-          outputs."/secretsForTerraformFromEnv/commonVpc"
+          outputs."/secretsForEnvFromSops/commonVpnProd"
+          outputs."/secretsForEnvFromSops/commonVpnData"
+          outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
-        src = "/makes/foss/modules/common/vpc/infra";
+        src = "/common/vpn/infra";
         version = "1.0";
       };
     };
   };
   lintTerraform = {
     modules = {
-      commonVpc = {
+      commonVpn = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonVpcDev"
-          outputs."/secretsForTerraformFromEnv/commonVpc"
+          outputs."/secretsForEnvFromSops/commonVpnDev"
+          outputs."/secretsForEnvFromSops/commonVpnData"
+          outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
-        src = "/makes/foss/modules/common/vpc/infra";
+        src = "/common/vpn/infra";
         version = "1.0";
       };
     };
   };
   secretsForEnvFromSops = {
-    commonVpcDev = {
+    commonVpnDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    commonVpcProd = {
+    commonVpnProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
+    commonVpnData = {
+      vars = ["VPN_DATA_RAW"];
+      manifest = "/makes/secrets/dev.yaml";
+    };
   };
   secretsForTerraformFromEnv = {
-    commonVpc = {
+    commonVpn = {
       cloudflare_api_key = "CLOUDFLARE_API_KEY";
       cloudflare_email = "CLOUDFLARE_EMAIL";
+      vpnDataRaw = "VPN_DATA_RAW";
     };
   };
   testTerraform = {
     modules = {
-      commonVpc = {
+      commonVpn = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonVpcDev"
-          outputs."/secretsForTerraformFromEnv/commonVpc"
+          outputs."/secretsForEnvFromSops/commonVpnDev"
+          outputs."/secretsForEnvFromSops/commonVpnData"
+          outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
-        src = "/makes/foss/modules/common/vpc/infra";
+        src = "/common/vpn/infra";
         version = "1.0";
       };
     };

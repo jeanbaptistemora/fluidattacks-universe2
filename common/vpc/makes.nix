@@ -1,56 +1,68 @@
 # https://github.com/fluidattacks/makes
-{outputs, ...}: {
+{
+  inputs,
+  makeSearchPaths,
+  outputs,
+  ...
+}: let
+  searchPaths = makeSearchPaths {
+    bin = [inputs.nixpkgs.git];
+  };
+in {
   deployTerraform = {
     modules = {
-      commonDns = {
+      commonVpc = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonDnsProd"
-          outputs."/secretsForTerraformFromEnv/commonDns"
+          outputs."/secretsForEnvFromSops/commonVpcProd"
+          outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
-        src = "/makes/foss/modules/common/dns/infra";
+        src = "/common/vpc/infra";
         version = "1.0";
       };
     };
   };
   lintTerraform = {
     modules = {
-      commonDns = {
+      commonVpc = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonDnsDev"
-          outputs."/secretsForTerraformFromEnv/commonDns"
+          outputs."/secretsForEnvFromSops/commonVpcDev"
+          outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
-        src = "/makes/foss/modules/common/dns/infra";
+        src = "/common/vpc/infra";
         version = "1.0";
       };
     };
   };
   secretsForEnvFromSops = {
-    commonDnsDev = {
+    commonVpcDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/dev.yaml";
     };
-    commonDnsProd = {
+    commonVpcProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
       manifest = "/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
-    commonDns = {
-      cloudflareApiKey = "CLOUDFLARE_API_KEY";
-      cloudflareEmail = "CLOUDFLARE_EMAIL";
+    commonVpc = {
+      cloudflare_api_key = "CLOUDFLARE_API_KEY";
+      cloudflare_email = "CLOUDFLARE_EMAIL";
     };
   };
   testTerraform = {
     modules = {
-      commonDns = {
+      commonVpc = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonDnsDev"
-          outputs."/secretsForTerraformFromEnv/commonDns"
+          outputs."/secretsForEnvFromSops/commonVpcDev"
+          outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
-        src = "/makes/foss/modules/common/dns/infra";
+        src = "/common/vpc/infra";
         version = "1.0";
       };
     };

@@ -9,7 +9,7 @@
           outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
-        src = "/makes/foss/modules/common/okta/src/infra";
+        src = "/common/okta/src/infra";
         version = "1.0";
       };
     };
@@ -23,7 +23,7 @@
           outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
-        src = "/makes/foss/modules/common/okta/src/infra";
+        src = "/common/okta/src/infra";
         version = "1.0";
       };
     };
@@ -31,11 +31,11 @@
   secretsForEnvFromSops = {
     commonOktaData = {
       vars = ["OKTA_DATA_RAW"];
-      manifest = "/makes/foss/modules/common/okta/src/data.yaml";
+      manifest = "/common/okta/src/data.yaml";
     };
     commonOktaApiToken = {
       vars = ["OKTA_API_TOKEN"];
-      manifest = "/makes/foss/modules/common/okta/src/data.yaml";
+      manifest = "/common/okta/src/data.yaml";
     };
   };
   secretsForTerraformFromEnv = {
@@ -53,7 +53,7 @@
           outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
-        src = "/makes/foss/modules/common/okta/src/infra";
+        src = "/common/okta/src/infra";
         version = "1.0";
       };
     };

@@ -8,7 +8,7 @@
   # Load Data
   criteria = fromYaml (
     builtins.readFile (
-      projectPath "/makes/foss/modules/common/criteria/src/vulnerabilities/data.yaml"
+      projectPath "/common/criteria/src/vulnerabilities/data.yaml"
     )
   );
   skimsManifest = fromJson (

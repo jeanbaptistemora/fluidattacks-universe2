@@ -14,6 +14,7 @@
   };
   extendingMakesDir = "/makes/foss/units";
   imports = [
+    ./common/makes.nix
     ./makes/foss/modules/makes.nix
   ];
   inputs = {

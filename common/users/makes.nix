@@ -22,7 +22,7 @@
         setup = [
           outputs."/integrates/back/tools/dump-groups"
         ];
-        src = "/makes/foss/modules/common/users/infra_roles";
+        src = "/common/users/infra_roles";
         version = "1.0";
       };
       commonUsers = {
@@ -31,7 +31,7 @@
           outputs."/secretsForEnvFromSops/commonUsersProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
-        src = "/makes/foss/modules/common/users/infra";
+        src = "/common/users/infra";
         version = "1.0";
       };
     };
@@ -42,7 +42,7 @@
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
         ];
-        src = "/makes/foss/modules/common/users/infra";
+        src = "/common/users/infra";
         version = "1.0";
       };
     };
@@ -69,7 +69,7 @@
           "module.prod_sorts_aws.aws_iam_access_key._1"
         ];
         reDeploy = true;
-        src = "/makes/foss/modules/common/users/infra";
+        src = "/common/users/infra";
         version = "1.0";
       };
       commonUsersKeys2 = {
@@ -92,7 +92,7 @@
           "module.prod_sorts_aws.aws_iam_access_key._2"
         ];
         reDeploy = true;
-        src = "/makes/foss/modules/common/users/infra";
+        src = "/common/users/infra";
         version = "1.0";
       };
     };
@@ -106,7 +106,7 @@
           outputs."/secretsForEnvFromSops/commonUsersDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
-        src = "/makes/foss/modules/common/users/infra_roles";
+        src = "/common/users/infra_roles";
         version = "1.0";
       };
       commonUsers = {
@@ -115,7 +115,7 @@
           outputs."/secretsForEnvFromSops/commonUsersDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
-        src = "/makes/foss/modules/common/users/infra";
+        src = "/common/users/infra";
         version = "1.0";
       };
     };

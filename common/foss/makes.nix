@@ -8,7 +8,7 @@
           outputs."/secretsForEnvFromSops/commonFossProd"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
-        src = "/makes/foss/modules/common/foss/infra";
+        src = "/common/foss/infra";
         version = "1.0";
       };
     };
@@ -21,7 +21,7 @@
           outputs."/secretsForEnvFromSops/commonFossDev"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
-        src = "/makes/foss/modules/common/foss/infra";
+        src = "/common/foss/infra";
         version = "1.0";
       };
     };
@@ -49,7 +49,7 @@
           outputs."/secretsForEnvFromSops/commonFossDev"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];
-        src = "/makes/foss/modules/common/foss/infra";
+        src = "/common/foss/infra";
         version = "1.0";
       };
     };

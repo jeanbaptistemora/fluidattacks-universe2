@@ -8,7 +8,7 @@
           outputs."/secretsForEnvFromSops/commonStatusProd"
           outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
-        src = "/makes/foss/modules/common/status/infra";
+        src = "/common/status/infra";
         version = "1.0";
       };
     };
@@ -21,7 +21,7 @@
           outputs."/secretsForEnvFromSops/commonStatusDev"
           outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
-        src = "/makes/foss/modules/common/status/infra";
+        src = "/common/status/infra";
         version = "1.0";
       };
     };
@@ -68,7 +68,7 @@
           outputs."/secretsForEnvFromSops/commonStatusDev"
           outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
-        src = "/makes/foss/modules/common/status/infra";
+        src = "/common/status/infra";
         version = "1.0";
       };
     };

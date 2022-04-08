@@ -11,17 +11,17 @@
   # Load data
   compliance = fromYaml (
     builtins.readFile (
-      projectPath "/makes/foss/modules/common/criteria/src/compliance/data.yaml"
+      projectPath "/common/criteria/src/compliance/data.yaml"
     )
   );
   requirements = fromYaml (
     builtins.readFile (
-      projectPath "/makes/foss/modules/common/criteria/src/requirements/data.yaml"
+      projectPath "/common/criteria/src/requirements/data.yaml"
     )
   );
   vulnerabilities = fromYaml (
     builtins.readFile (
-      projectPath "/makes/foss/modules/common/criteria/src/vulnerabilities/data.yaml"
+      projectPath "/common/criteria/src/vulnerabilities/data.yaml"
     )
   );
 

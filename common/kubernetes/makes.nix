@@ -19,7 +19,7 @@ in {
           outputs."/secretsForKubernetesConfigFromAws/commonKubernetes"
           outputs."/secretsForTerraformFromEnv/commonKubernetes"
         ];
-        src = "/makes/foss/modules/common/kubernetes/infra";
+        src = "/common/kubernetes/infra";
         version = "1.0";
       };
     };
@@ -33,7 +33,7 @@ in {
           outputs."/secretsForEnvFromSops/commonKubernetesDev"
           outputs."/secretsForTerraformFromEnv/commonKubernetes"
         ];
-        src = "/makes/foss/modules/common/kubernetes/infra";
+        src = "/common/kubernetes/infra";
         version = "1.0";
       };
     };
@@ -79,7 +79,7 @@ in {
           outputs."/secretsForKubernetesConfigFromAws/commonKubernetes"
           outputs."/secretsForTerraformFromEnv/commonKubernetes"
         ];
-        src = "/makes/foss/modules/common/kubernetes/infra";
+        src = "/common/kubernetes/infra";
         version = "1.0";
       };
     };

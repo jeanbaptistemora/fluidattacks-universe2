@@ -60,7 +60,7 @@
 in {
   pipelines = {
     common = {
-      gitlabPath = "/makes/foss/modules/common/gitlab-ci.yaml";
+      gitlabPath = "/common/gitlab-ci.yaml";
       jobs = [
         {
           output = "/docs/generate/criteria";

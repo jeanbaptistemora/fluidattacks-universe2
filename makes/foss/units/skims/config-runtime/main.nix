@@ -42,9 +42,9 @@ in
         (makeTemplate {
           replace = {
             __argCriteriaRequirements__ =
-              projectPath "/makes/foss/modules/common/criteria/src/requirements/data.yaml";
+              projectPath "/common/criteria/src/requirements/data.yaml";
             __argCriteriaVulnerabilities__ =
-              projectPath "/makes/foss/modules/common/criteria/src/vulnerabilities/data.yaml";
+              projectPath "/common/criteria/src/vulnerabilities/data.yaml";
             __argSkimsLegal__ =
               projectPath "/skims/LEGAL.md";
             __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";

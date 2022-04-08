@@ -25,14 +25,14 @@ in {
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"
         ];
-        src = "/makes/foss/modules/common/ci/infra";
+        src = "/common/ci/infra";
         version = "1.0";
       };
     };
   };
   envVarsForTerraform = {
     commonCi = {
-      ciInit = projectPath "/makes/foss/modules/common/ci/infra/init";
+      ciInit = projectPath "/common/ci/infra/init";
     };
   };
   lintTerraform = {
@@ -45,7 +45,7 @@ in {
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"
         ];
-        src = "/makes/foss/modules/common/ci/infra";
+        src = "/common/ci/infra";
         version = "1.0";
       };
     };
@@ -75,7 +75,7 @@ in {
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"
         ];
-        src = "/makes/foss/modules/common/ci/infra";
+        src = "/common/ci/infra";
         version = "1.0";
       };
     };
