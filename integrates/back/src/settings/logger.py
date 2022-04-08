@@ -116,6 +116,16 @@ NOEXTRA = {"extra": {"extra": None}}
 logging.config.dictConfig(LOGGING)
 
 
+# Change log level of DataDog module so it does not flood Bugsnag with entries
+# At the moment, it did not seem possible to change it
+# with an environmental variable or any other configuration
+# https://gitlab.com/fluidattacks/product/-/issues/6292
+# https://githubhot.com/repo/DataDog/dd-trace-py/issues/3288
+ddtrace_logger = logging.getLogger("ddtrace.internal.logger")
+ddtrace_logger.propagate = False
+ddtrace_logger.setLevel(logging.ERROR)
+
+
 # bugsnag
 bugsnag.configure(
     api_key=FI_BUGSNAG_ACCESS_TOKEN,
