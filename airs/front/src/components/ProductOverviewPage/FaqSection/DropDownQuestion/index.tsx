@@ -52,7 +52,7 @@ const DropDownQuestion: React.FC<IDropDownQuestion> = ({
             return (
               <AnswerItem key={`${answer.answer}`}>{answer.answer}</AnswerItem>
             );
-          })}{" "}
+          })}
         </AnswerContainer>
       ) : (
         <AnswerContainer

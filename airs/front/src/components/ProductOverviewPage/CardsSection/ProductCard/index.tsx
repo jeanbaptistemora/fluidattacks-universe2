@@ -15,7 +15,6 @@ const ProductCard: React.FC<IProductCard> = ({
       <CloudImage
         alt={`card-image-${image}`}
         src={`airs/product-overview/cards-section/${image}`}
-        styles={""}
       />
       <CardTitle>{title}</CardTitle>
       <CardText>{text}</CardText>
