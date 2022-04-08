@@ -31,6 +31,9 @@ from newutils import (
 from organizations import (
     domain as orgs_domain,
 )
+from schedulers.common import (
+    info,
+)
 
 
 async def _remove_group(
@@ -60,7 +63,7 @@ async def _remove_groups(
     user_email: str,
 ) -> None:
     today = datetime_utils.get_now().date()
-    groups_to_delete = [
+    groups_to_remove = [
         group
         for group in obsolete_groups
         if (
@@ -71,12 +74,15 @@ async def _remove_groups(
             <= today
         )
     ]
-    await collect(
-        [
-            _remove_group(loaders, group.name, user_email)
-            for group in groups_to_delete
-        ]
-    )
+    if groups_to_remove:
+        await collect(
+            [
+                _remove_group(loaders, group.name, user_email)
+                for group in groups_to_remove
+            ]
+        )
+        groups_names_to_log = [group.name for group in groups_to_remove]
+        info(f"Removed groups: {groups_names_to_log}")
 
 
 async def _remove_group_pending_deletion_dates(
@@ -92,15 +98,20 @@ async def _remove_group_pending_deletion_dates(
             and group.name not in [group.name for group in obsolete_groups]
         )
     )
-    await collect(
-        [
-            groups_domain.remove_pending_deletion_date(
-                group=group,
-                modified_by=user_email,
-            )
-            for group in groups_to_remove_pending_deletion_date
+    if groups_to_remove_pending_deletion_date:
+        await collect(
+            [
+                groups_domain.remove_pending_deletion_date(
+                    group=group,
+                    modified_by=user_email,
+                )
+                for group in groups_to_remove_pending_deletion_date
+            ]
+        )
+        groups_names_to_log = [
+            group.name for group in groups_to_remove_pending_deletion_date
         ]
-    )
+        info(f"Pending deletion date REMOVED for: {groups_names_to_log}")
 
 
 async def _set_group_pending_deletion_dates(
@@ -115,16 +126,21 @@ async def _set_group_pending_deletion_dates(
         for group in obsolete_groups
         if not group.state.pending_deletion_date
     ]
-    await collect(
-        [
-            groups_domain.set_pending_deletion_date(
-                group=group,
-                modified_by=user_email,
-                pending_deletion_date=pending_deletion_date,
-            )
-            for group in groups_to_set_pending_deletion_date
+    if groups_to_set_pending_deletion_date:
+        await collect(
+            [
+                groups_domain.set_pending_deletion_date(
+                    group=group,
+                    modified_by=user_email,
+                    pending_deletion_date=pending_deletion_date,
+                )
+                for group in groups_to_set_pending_deletion_date
+            ]
+        )
+        groups_names_to_log = [
+            group.name for group in groups_to_set_pending_deletion_date
         ]
-    )
+        info(f"Pending deletion date SET for: {groups_names_to_log}")
 
 
 async def delete_obsolete_groups() -> None:
@@ -135,15 +151,17 @@ async def delete_obsolete_groups() -> None:
     group_findings_loader: DataLoader = loaders.group_findings
     group_stakeholders_loader: DataLoader = loaders.group_stakeholders
     user_email = "integrates@fluidattacks.com"
-    async for _, _, org_groups_names in (
+    async for _, org_name, org_groups_names in (
         orgs_domain.iterate_organizations_and_groups()
     ):
+        info(f"Working on organization {org_name}")
         if not org_groups_names:
             continue
         groups = await loaders.group_typed.load_many(org_groups_names)
         active_groups = groups_utils.filter_active_groups(groups)
         if not active_groups:
             continue
+        info(f"Active groups for {org_name}: {len(active_groups)}")
         no_squad_groups = tuple(
             group for group in active_groups if not group.state.has_squad
         )
