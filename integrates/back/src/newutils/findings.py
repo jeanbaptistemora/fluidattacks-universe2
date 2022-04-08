@@ -67,7 +67,7 @@ def get_vulns_file() -> Dict:
     base_url: str = (
         "https://gitlab.com/api/v4/projects/20741933/repository/files"
     )
-    branch_ref: str = "master"
+    branch_ref: str = "af23ed91d8e7a07fdd64cb4ce0d8d691b19d67db"
     vulns_file_id = (
         "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Fvulnerabilities"
         "%2Fdata.yaml"
