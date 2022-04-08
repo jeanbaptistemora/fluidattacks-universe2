@@ -242,7 +242,7 @@ async def https_ls_remote(
     except asyncio.exceptions.TimeoutError:
         LOGGER.warning(
             "git remote-ls time out",
-            extra={"repo_url": repo_url},
+            extra={"extra": {"repo_url": repo_url}},
         )
         return None
 
