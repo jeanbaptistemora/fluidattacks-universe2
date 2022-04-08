@@ -6,11 +6,11 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import {
   GET_FINDINGS,
   GET_GROUP_VULNS,
-  GET_HAS_MOBILE_APP,
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
@@ -76,16 +76,20 @@ describe("GroupFindingsView", (): void => {
     },
   ];
 
-  const mockMobile: MockedResponse = {
+  const mockStakeholderPhone: MockedResponse = {
     request: {
-      query: GET_HAS_MOBILE_APP,
+      query: GET_STAKEHOLDER_PHONE,
     },
     result: {
       data: {
         me: {
-          hasMobileApp: true,
-          role: "",
-          userEmail: "",
+          __typename: "Me",
+          phone: {
+            callingCountryCode: "1",
+            countryCode: "US",
+            nationalNumber: "1234545",
+          },
+          userEmail: "test@fluidattacks.com",
         },
       },
     },
@@ -185,6 +189,7 @@ describe("GroupFindingsView", (): void => {
       variables: {
         groupName: "testgroup",
         reportType: "PDF",
+        verificationCode: "1234",
       },
     },
     result: {
@@ -230,12 +235,11 @@ describe("GroupFindingsView", (): void => {
       <MemoryRouter initialEntries={["orgs/testorg/groups/testgroup/vulns"]}>
         <MockedProvider
           addTypename={true}
-          mocks={[mockMobile, mockReportError]}
+          mocks={[mockStakeholderPhone, mockReportError]}
         >
           <Route path={"orgs/:organizationName/groups/:groupName/vulns"}>
             <ReportsModal
               filledGroupInfo={true}
-              hasMobileApp={true}
               isOpen={true}
               onClose={handleClose}
               userRole={"user_manager"}
@@ -244,6 +248,9 @@ describe("GroupFindingsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
+    await waitFor((): void => {
+      expect(screen.getByText("group.findings.report.pdf")).toBeInTheDocument();
+    });
 
     // Find buttons
     const buttons: HTMLElement[] = screen.getAllByRole("button", {
@@ -279,6 +286,13 @@ describe("GroupFindingsView", (): void => {
       ).toBeInTheDocument();
     });
     userEvent.click(screen.getByText("group.findings.report.pdf"));
+    userEvent.type(
+      screen.getByRole("textbox", {
+        name: "verificationCode",
+      }),
+      "1234"
+    );
+    userEvent.click(screen.getByText("verifyDialog.verify"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "groupAlerts.reportAlreadyRequested"

@@ -44,7 +44,6 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_FINDINGS,
   GET_GROUP_VULNS,
-  GET_HAS_MOBILE_APP,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 import type {
@@ -59,13 +58,6 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, required } from "utils/validations";
-
-interface IDataResult {
-  me: {
-    hasMobileApp: boolean;
-    userEmail: string;
-  };
-}
 
 interface IFilterSet {
   age: string;
@@ -102,7 +94,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const closeReportsModal: () => void = useCallback((): void => {
     setReportsModalOpen(false);
   }, []);
-  const [hasMobileApp, setHasMobileApp] = useState(false);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -299,19 +290,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     !_.isEmpty(data?.group.description) &&
     !_.isEmpty(data?.group.businessId) &&
     !_.isEmpty(data?.group.businessName);
-
-  const { data: userData } = useQuery<IDataResult>(GET_HAS_MOBILE_APP, {
-    fetchPolicy: "no-cache",
-    onCompleted: (): void => {
-      if (userData?.me.hasMobileApp ?? false) {
-        setHasMobileApp(true);
-      }
-    },
-    onError: (error: ApolloError): void => {
-      msgError(t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred getting user info", error);
-    },
-  });
 
   const findings: IFindingAttr[] =
     data === undefined
@@ -795,7 +773,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       />
       <ReportsModal
         filledGroupInfo={filledGroupInfo}
-        hasMobileApp={hasMobileApp}
         isOpen={isReportsModalOpen}
         onClose={closeReportsModal}
         userRole={data?.group.userRole ?? "user"}

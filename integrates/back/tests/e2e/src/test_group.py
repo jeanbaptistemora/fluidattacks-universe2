@@ -56,7 +56,7 @@ def test_group_reports(
     reports.click()
     assert utils.wait_for_text(
         driver,
-        "Reports are created on-demand",
+        "Technical",
         timeout,
     )
 

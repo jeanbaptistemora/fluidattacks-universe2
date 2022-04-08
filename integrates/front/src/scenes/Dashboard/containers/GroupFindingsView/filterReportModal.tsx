@@ -8,16 +8,14 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React from "react";
-import { Trans, useTranslation } from "react-i18next";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
 import { Button } from "components/Button";
-import { ExternalLink } from "components/ExternalLink";
 import { Modal, ModalFooter } from "components/Modal";
-import AppstoreBadge from "resources/appstore_badge.svg";
-import GoogleplayBadge from "resources/googleplay_badge.svg";
+import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
@@ -25,14 +23,12 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 interface IDeactivationModalProps {
-  hasMobileApp: boolean;
   isOpen: boolean;
   onClose: () => void;
   closeReportsModal: () => void;
 }
 
 const FilterReportModal: React.FC<IDeactivationModalProps> = ({
-  hasMobileApp,
   isOpen,
   onClose,
   closeReportsModal,
@@ -40,8 +36,11 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
 
+  const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
+      setIsVerifyDialogOpen(false);
       closeReportsModal();
       msgSuccess(
         t("groupAlerts.reportRequested"),
@@ -50,21 +49,28 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
     },
     onError: (errors: ApolloError): void => {
       errors.graphQLErrors.forEach((error: GraphQLError): void => {
-        if (
-          error.message ===
-          "Exception - The user already has a requested report for the same group"
-        ) {
-          msgError(t("groupAlerts.reportAlreadyRequested"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred requesting group report", error);
+        switch (error.message) {
+          case "Exception - The user already has a requested report for the same group":
+            msgError(t("groupAlerts.reportAlreadyRequested"));
+            break;
+          case "Exception - Stakeholder could not be verified":
+            msgError(t("group.findings.report.alerts.nonVerifiedStakeholder"));
+            break;
+          case "Exception - The verification code is invalid":
+            msgError(t("group.findings.report.alerts.invalidVerificationCode"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred requesting group report", error);
         }
       });
-      closeReportsModal();
     },
   });
 
-  function handleRequestGroupReport(values: { treatments: string[] }): void {
+  function handleRequestGroupReport(
+    treatments: string[],
+    verificationCode: string
+  ): void {
     const reportType = "XLS";
     mixpanel.track("GroupReportRequest", { reportType });
 
@@ -72,10 +78,10 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       variables: {
         groupName,
         reportType,
-        treatments: values.treatments,
+        treatments,
+        verificationCode,
       },
     });
-    onClose();
   }
 
   const validations = object().shape({
@@ -91,83 +97,78 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
       >
         <div className={"flex flex-wrap"}>
           <Col100>
-            {hasMobileApp ? (
-              <Formik
-                initialValues={{ treatments: [] }}
-                name={"reportTreatments"}
-                onSubmit={handleRequestGroupReport}
-                validationSchema={validations}
-              >
-                <Form>
-                  <Trans>
-                    <p>{t("group.findings.report.techDescription")}</p>
-                  </Trans>
-                  <p>{t("group.findings.report.filterReportDescription")}</p>
-                  <p className={"tl fw8"}>
-                    {t("group.findings.report.treatment")}
-                  </p>
-                  {["NEW", "IN_PROGRESS", "ACCEPTED", "ACCEPTED_UNDEFINED"].map(
-                    (treatment): JSX.Element => (
-                      <Field
-                        component={FormikCheckbox}
-                        key={treatment}
-                        label={t(
-                          `searchFindings.tabDescription.treatment.${_.camelCase(
-                            treatment
-                          )}`
-                        )}
-                        name={"treatments"}
-                        type={"checkbox"}
-                        value={treatment}
-                      />
-                    )
-                  )}
-                  <hr />
-                  <Row>
-                    <ButtonToolbar>
-                      <Button
-                        id={"report-excel"}
-                        type={"submit"}
-                        variant={"primary"}
-                      >
-                        <FontAwesomeIcon icon={faFileExcel} />
-                        &nbsp;{t("group.findings.report.generateXls")}
-                      </Button>
-                    </ButtonToolbar>
-                  </Row>
-                </Form>
-              </Formik>
-            ) : (
-              <React.Fragment>
-                <p>{t("group.findings.report.noMobileAppWarning")}</p>
-                <p>
-                  <ExternalLink
-                    href={
-                      "https://apps.apple.com/us/app/integrates/id1470450298"
+            <VerifyDialog isOpen={isVerifyDialogOpen}>
+              {(setVerifyCallbacks): JSX.Element => {
+                function onRequestReport(values: {
+                  treatments: string[];
+                }): void {
+                  setVerifyCallbacks(
+                    (verificationCode: string): void => {
+                      handleRequestGroupReport(
+                        values.treatments,
+                        verificationCode
+                      );
+                    },
+                    (): void => {
+                      setIsVerifyDialogOpen(false);
                     }
+                  );
+                  setIsVerifyDialogOpen(true);
+                }
+
+                return (
+                  <Formik
+                    initialValues={{ treatments: [] }}
+                    name={"reportTreatments"}
+                    onSubmit={onRequestReport}
+                    validationSchema={validations}
                   >
-                    <img
-                      alt={"App Store"}
-                      height={"40"}
-                      src={AppstoreBadge}
-                      width={"140"}
-                    />
-                  </ExternalLink>
-                  <ExternalLink
-                    href={
-                      "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
-                    }
-                  >
-                    <img
-                      alt={"Google Play"}
-                      height={"40"}
-                      src={GoogleplayBadge}
-                      width={"140"}
-                    />
-                  </ExternalLink>
-                </p>
-              </React.Fragment>
-            )}
+                    <Form>
+                      <p>
+                        {t("group.findings.report.filterReportDescription")}
+                      </p>
+                      <p className={"tl fw8"}>
+                        {t("group.findings.report.treatment")}
+                      </p>
+                      {[
+                        "NEW",
+                        "IN_PROGRESS",
+                        "ACCEPTED",
+                        "ACCEPTED_UNDEFINED",
+                      ].map(
+                        (treatment): JSX.Element => (
+                          <Field
+                            component={FormikCheckbox}
+                            key={treatment}
+                            label={t(
+                              `searchFindings.tabDescription.treatment.${_.camelCase(
+                                treatment
+                              )}`
+                            )}
+                            name={"treatments"}
+                            type={"checkbox"}
+                            value={treatment}
+                          />
+                        )
+                      )}
+                      <hr />
+                      <Row>
+                        <ButtonToolbar>
+                          <Button
+                            id={"report-excel"}
+                            type={"submit"}
+                            variant={"primary"}
+                          >
+                            <FontAwesomeIcon icon={faFileExcel} />
+                            &nbsp;{t("group.findings.report.generateXls")}
+                          </Button>
+                        </ButtonToolbar>
+                      </Row>
+                    </Form>
+                  </Formik>
+                );
+              }}
+            </VerifyDialog>
           </Col100>
         </div>
         <ModalFooter>

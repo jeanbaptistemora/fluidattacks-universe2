@@ -56,30 +56,18 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $groupName: String!
     $lang: ReportLang
     $treatments: [VulnerabilityTreatment!]
+    $verificationCode: String
   ) {
     report(
       reportType: $reportType
       groupName: $groupName
       lang: $lang
       treatments: $treatments
+      verificationCode: $verificationCode
     ) {
       success
     }
   }
 `;
 
-const GET_HAS_MOBILE_APP: DocumentNode = gql`
-  query GetHasMobileApp {
-    me {
-      hasMobileApp
-      userEmail
-    }
-  }
-`;
-
-export {
-  GET_FINDINGS,
-  GET_GROUP_VULNS,
-  GET_HAS_MOBILE_APP,
-  REQUEST_GROUP_REPORT,
-};
+export { GET_FINDINGS, GET_GROUP_VULNS, REQUEST_GROUP_REPORT };

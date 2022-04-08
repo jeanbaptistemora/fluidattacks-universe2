@@ -77,13 +77,20 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
     },
   });
 
+  if (_.isUndefined(data)) {
+    return <div />;
+  }
+  const { phone } = data.me;
+
   const setVerifyCallbacks: IVerifyFn = (
     verifyFn: (verificationCode: string) => void,
     cancelFn: () => void
   ): void => {
     setVerifyCallback((): ((verificationCode: string) => void) => verifyFn);
     setCancelCallback((): (() => void) => cancelFn);
-    void handleVerifyStakeholder();
+    if (!_.isNil(phone)) {
+      void handleVerifyStakeholder();
+    }
   };
 
   function handleClose(): void {
@@ -93,11 +100,6 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
   function handleProceed(values: IVerifyFormValues): void {
     verifyCallback(values.verificationCode);
   }
-
-  if (_.isUndefined(data)) {
-    return <div />;
-  }
-  const { phone } = data.me;
 
   return (
     <React.Fragment>

@@ -13,28 +13,23 @@ import type { GraphQLError } from "graphql";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
-import { ExternalLink } from "components/ExternalLink";
 import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import AppstoreBadge from "resources/appstore_badge.svg";
-import GoogleplayBadge from "resources/googleplay_badge.svg";
+import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const DOCS_URL = "https://docs.fluidattacks.com/machine/web/groups/reports";
-
 interface IDeactivationModalProps {
   filledGroupInfo: boolean;
-  hasMobileApp: boolean;
   isOpen: boolean;
   onClose: () => void;
   userRole: string;
@@ -42,7 +37,6 @@ interface IDeactivationModalProps {
 
 const ReportsModal: React.FC<IDeactivationModalProps> = ({
   filledGroupInfo,
-  hasMobileApp,
   isOpen,
   onClose,
   userRole,
@@ -51,6 +45,8 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   const { t } = useTranslation();
 
   const [isFilterReportModalOpen, setFilterReportModalOpen] = useState(false);
+  const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+
   const openFilterReportModal: () => void = useCallback((): void => {
     setFilterReportModalOpen(true);
   }, []);
@@ -64,40 +60,42 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         t("groupAlerts.reportRequested"),
         t("groupAlerts.titleSuccess")
       );
+      setIsVerifyDialogOpen(false);
+      onClose();
     },
     onError: (errors: ApolloError): void => {
       errors.graphQLErrors.forEach((error: GraphQLError): void => {
-        if (
-          error.message ===
-          "Exception - The user already has a requested report for the same group"
-        ) {
-          msgError(t("groupAlerts.reportAlreadyRequested"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred requesting group report", error);
+        switch (error.message) {
+          case "Exception - The user already has a requested report for the same group":
+            msgError(t("groupAlerts.reportAlreadyRequested"));
+            break;
+          case "Exception - Stakeholder could not be verified":
+            msgError(t("group.findings.report.alerts.nonVerifiedStakeholder"));
+            break;
+          case "Exception - The verification code is invalid":
+            msgError(t("group.findings.report.alerts.invalidVerificationCode"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred requesting group report", error);
         }
       });
     },
   });
 
   function handleRequestGroupReport(
-    event: React.MouseEvent<HTMLElement>
+    reportType: string,
+    verificationCode: string
   ): void {
-    const target: HTMLElement = event.currentTarget as HTMLElement;
-    const icon: SVGElement | null = target.querySelector("svg");
-    if (icon !== null) {
-      const reportType: string = setReportType(icon);
+    mixpanel.track("GroupReportRequest", { reportType });
 
-      mixpanel.track("GroupReportRequest", { reportType });
-
-      requestGroupReport({
-        variables: {
-          groupName,
-          reportType,
-        },
-      });
-      onClose();
-    }
+    requestGroupReport({
+      variables: {
+        groupName,
+        reportType,
+        verificationCode,
+      },
+    });
   }
 
   return (
@@ -107,14 +105,29 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         open={isOpen}
         title={t("group.findings.report.modalTitle")}
       >
-        <div className={"flex flex-wrap tc"}>
-          <Col100>
-            {hasMobileApp ? (
-              <React.Fragment>
-                <Trans>
-                  <p>{t("group.findings.report.techDescription")}</p>
-                </Trans>
-                <br />
+        <Col100>
+          <VerifyDialog isOpen={isVerifyDialogOpen}>
+            {(setVerifyCallbacks): JSX.Element => {
+              function onRequestReport(
+                event: React.MouseEvent<HTMLElement>
+              ): void {
+                const target: HTMLElement = event.currentTarget as HTMLElement;
+                const icon: SVGElement | null = target.querySelector("svg");
+                if (icon !== null) {
+                  const reportType: string = setReportType(icon);
+                  setVerifyCallbacks(
+                    (verificationCode: string): void => {
+                      handleRequestGroupReport(reportType, verificationCode);
+                    },
+                    (): void => {
+                      setIsVerifyDialogOpen(false);
+                    }
+                  );
+                  setIsVerifyDialogOpen(true);
+                }
+              }
+
+              return (
                 <Row>
                   <Col100>
                     <ButtonToolbarCenter>
@@ -126,7 +139,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                           disabled={!filledGroupInfo}
                           hidden={userRole !== "user_manager"}
                           id={"report-cert"}
-                          onClick={handleRequestGroupReport}
+                          onClick={onRequestReport}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileContract} />
@@ -139,7 +152,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       >
                         <Button
                           id={"report-pdf"}
-                          onClick={handleRequestGroupReport}
+                          onClick={onRequestReport}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFilePdf} />
@@ -152,7 +165,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       >
                         <Button
                           id={"report-excel"}
-                          onClick={handleRequestGroupReport}
+                          onClick={onRequestReport}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileExcel} />
@@ -169,7 +182,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                         </Button>
                         <FilterReportModal
                           closeReportsModal={onClose}
-                          hasMobileApp={hasMobileApp}
                           isOpen={isFilterReportModalOpen}
                           onClose={closeFilterReportsModal}
                         />
@@ -180,7 +192,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       >
                         <Button
                           id={"report-zip"}
-                          onClick={handleRequestGroupReport}
+                          onClick={onRequestReport}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faFileArchive} />
@@ -190,48 +202,10 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                     </ButtonToolbarCenter>
                   </Col100>
                 </Row>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <Trans>
-                  <p>{t("group.findings.report.noMobileAppWarning")}</p>
-                </Trans>
-                <p>
-                  <ExternalLink
-                    href={
-                      "https://apps.apple.com/us/app/integrates/id1470450298"
-                    }
-                  >
-                    <img
-                      alt={"App Store"}
-                      height={"40"}
-                      src={AppstoreBadge}
-                      width={"140"}
-                    />
-                  </ExternalLink>
-                  <ExternalLink
-                    href={
-                      "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates"
-                    }
-                  >
-                    <img
-                      alt={"Google Play"}
-                      height={"40"}
-                      src={GoogleplayBadge}
-                      width={"140"}
-                    />
-                  </ExternalLink>
-                </p>
-              </React.Fragment>
-            )}
-            <p>
-              {t("group.findings.report.passphraseOptOut")}&nbsp;
-              <ExternalLink href={`${DOCS_URL}#remove-passphrase`}>
-                {`${DOCS_URL}#remove-passphrase`}
-              </ExternalLink>
-            </p>
-          </Col100>
-        </div>
+              );
+            }}
+          </VerifyDialog>
+        </Col100>
         <ModalFooter>
           <Button onClick={onClose} variant={"secondary"}>
             {t("group.findings.report.modalClose")}
