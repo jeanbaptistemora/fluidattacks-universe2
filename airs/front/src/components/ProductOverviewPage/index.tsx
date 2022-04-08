@@ -2,7 +2,7 @@ import React from "react";
 
 import { CardsSection } from "./CardsSection";
 import { FaqSection } from "./FaqSection";
-import { PlanSection } from "./PlanSection";
+import { MainSection } from "./MainSection";
 import { Portrait } from "./Portrait";
 
 import { PageArticle } from "../../styles/styledComponents";
@@ -16,7 +16,7 @@ const ProductOverviewPage: React.FC<IProps> = ({
 }: IProps): JSX.Element => {
   return (
     <PageArticle>
-      <PlanSection description={description} />
+      <MainSection description={description} />
       <CardsSection />
       <FaqSection />
       <Portrait />

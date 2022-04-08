@@ -20,7 +20,7 @@ interface IProps {
   description: string;
 }
 
-const PlanSection: React.FC<IProps> = ({
+const MainSection: React.FC<IProps> = ({
   description,
 }: IProps): JSX.Element => {
   return (
@@ -44,7 +44,7 @@ const PlanSection: React.FC<IProps> = ({
         </Link>
         <ProductParagraph isSecundary={true}>
           <i>
-            {translate.t("productOverview.planText")}
+            {translate.t("productOverview.mainText")}
             &nbsp;
             <Link className={"c-black-gray"} to={"/plans"}>
               {"here."}
@@ -63,4 +63,4 @@ const PlanSection: React.FC<IProps> = ({
   );
 };
 
-export { PlanSection };
+export { MainSection };

@@ -191,9 +191,35 @@ const pageTexts: ResourceKey = {
         "Can I upgrade from the Continuous Hacking Machine Plan to the Squad Plan?",
     },
     mainButton: "Start your Machine Plan Free Trial",
-    planText:
+    mainText:
       "*This free trial is for Machine Plan. " +
       "See how this compares to our main Squad Plan",
+    plansSection: {
+      description:
+        "Fluid Attacks' plans offer flexibility " +
+        "for your vulnerability management program",
+      plansCards: {
+        item1: "Control of the whole remediation process",
+        item10: "Possibility to talk to an expert via ASM",
+        item2: "Continuous vulnerability reporting",
+        item3: "Attack Surface Manager (GraphQL API)",
+        item4: "Automatic SAST, DAST and SCA",
+        item5: "CI/CD DevSecOps",
+        item6: "Low rates of false positives and false negatives",
+        item7: "Higher severity and more types of vulnerabilities",
+        item8: "Manual SAST, DAST and SCA (Pentesting)",
+        item9: "Optimization of vulnerability search with AI",
+        machineDescription:
+          "For teams that want to discover deterministic " +
+          "vulnerabilities quickly through automated tools.",
+        machineTitle: "Machine",
+        squadDescription:
+          "For teams that want to discover more varied, " +
+          "even more complex vulnerabilities through ethical hacking.",
+        squadTitle: "Squad",
+      },
+      title: "Explore our Plans",
+    },
     portrait: {
       paragraph:
         "Discover the benefits of our comprehensive Continuous Hacking solution which hundreds " +
