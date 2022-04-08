@@ -161,7 +161,18 @@ async def ssh_ls_remote(
                 ),
             },
         )
-        stdout, _ = await proc.communicate()
+        stdout, stderr = await proc.communicate()
+
+        if stderr:
+            LOGGER.error(
+                "failed git ls-remote",
+                extra=dict(
+                    extra={
+                        "error": stderr.decode(),
+                        "repo_url": repo_url,
+                    }
+                ),
+            )
 
         os.remove(ssh_file_name)
 
@@ -207,6 +218,7 @@ async def https_ls_remote(
         "git",
         "-c",
         "http.sslVerify=false",
+        "http.followRedirects=true",
         "ls-remote",
         url,
         branch,
@@ -215,8 +227,22 @@ async def https_ls_remote(
         stdin=asyncio.subprocess.DEVNULL,
     )
     try:
-        stdout, _ = await asyncio.wait_for(proc.communicate(), 4)
+        stdout, _stderr = await asyncio.wait_for(proc.communicate(), 20)
+        if _stderr:
+            LOGGER.error(
+                "failed git ls-remote",
+                extra=dict(
+                    extra={
+                        "error": _stderr.decode(),
+                        "repo_url": repo_url,
+                    }
+                ),
+            )
     except asyncio.exceptions.TimeoutError:
+        LOGGER.warning(
+            "git remote-ls time out",
+            extra={"repo_url": repo_url},
+        )
         return None
 
     if proc.returncode != 0:
@@ -287,6 +313,7 @@ async def https_clone(
         "git",
         "-c",
         "http.sslVerify=false",
+        "http.followRedirects=true",
         "clone",
         "--branch",
         branch,
