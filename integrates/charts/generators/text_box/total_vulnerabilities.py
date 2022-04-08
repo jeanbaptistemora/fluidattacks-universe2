@@ -12,8 +12,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    GroupUnreliableIndicators,
+from groups.domain import (
+    get_closed_vulnerabilities,
+    get_open_vulnerabilities,
 )
 from typing import (
     Tuple,
@@ -23,11 +24,10 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     loaders: Dataloaders = get_new_context()
-    group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group)
+    open_vulnerabilities: int = await get_open_vulnerabilities(loaders, group)
+    closed_vulnerabilities: int = await get_closed_vulnerabilities(
+        loaders, group
     )
-    closed_vulnerabilities = group_indicators.closed_vulnerabilities or 0
-    open_vulnerabilities = group_indicators.open_vulnerabilities or 0
 
     return closed_vulnerabilities + open_vulnerabilities
 
