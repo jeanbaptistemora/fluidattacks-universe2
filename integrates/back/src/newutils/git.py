@@ -265,7 +265,7 @@ async def ssh_clone(
         return folder_to_clone_root
 
     LOGGER.error(
-        "Repo cloning failed, \n%s", stderr.decode(), extra=dict(extra={})
+        "Repo cloning failed", extra={"extra": {"message": stderr.decode()}}
     )
 
     return None
@@ -300,7 +300,7 @@ async def https_clone(
         return folder_to_clone_root
 
     LOGGER.error(
-        "Repo cloning failed, \n%s", stderr.decode(), extra=dict(extra={})
+        "Repo cloning failed", extra={"extra": {"message": stderr.decode()}}
     )
 
     return None
