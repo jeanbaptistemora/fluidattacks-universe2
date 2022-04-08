@@ -4,6 +4,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
 import { TaskInfo } from ".";
+import type { IVulnRowAttr } from "../../Vulnerabilities/types";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 jest.mock("react-router-dom", (): Record<string, unknown> => {
@@ -35,6 +36,61 @@ describe("TaskInfo component", (): void => {
       },
     };
 
+    const mockVuln: IVulnRowAttr = {
+      assigned: "assigned-user-1",
+      currentState: "open",
+      currentStateCapitalized: "Open",
+      externalBugTrackingSystem: null,
+      findingId: "438679960",
+      groupName: "test",
+      historicTreatment: [
+        {
+          acceptanceDate: "",
+          acceptanceStatus: "",
+          assigned: "assigned-user-1",
+          date: "2019-07-05 09:56:40",
+          justification: "test progress justification",
+          treatment: "IN PROGRESS",
+          user: "usertreatment@test.test",
+        },
+      ],
+      id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
+      lastTreatmentDate: "2019-07-05 09:56:40",
+      lastVerificationDate: null,
+      remediated: true,
+      reportDate: "",
+      severity: "3",
+      specific: "specific-1",
+      stream: null,
+      tag: "tag-1, tag-2",
+      treatment: "",
+      treatmentAcceptanceDate: "",
+      treatmentAcceptanceStatus: "",
+      treatmentAssigned: "assigned-user-1",
+      treatmentDate: "2019-07-05 09:56:40",
+      treatmentJustification: "test progress justification",
+      treatmentUser: "usertreatment@test.test",
+      verification: "Requested",
+      vulnerabilityType: "inputs",
+      where: "https://example.com/inputs",
+      zeroRisk: "Requested",
+    };
+
+    const meVulnerabilitiesAssigned = {
+      me: {
+        userEmail: "assigned-user-1",
+        vulnerabilitiesAssigned: [mockVuln],
+      },
+    };
+
+    const upperLimit: number = 101;
+    const meVulnerabilitiesAssignedLimmit = {
+      me: {
+        userEmail: "assigned-user-1",
+        vulnerabilitiesAssigned: Array(upperLimit).fill(mockVuln),
+      },
+    };
+
     const { rerender } = render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <TaskInfo meVulnerabilitiesAssigned={undefined} />
@@ -63,6 +119,41 @@ describe("TaskInfo component", (): void => {
     });
 
     expect(screen.queryByText("0")).not.toBeInTheDocument();
+
+    rerender(
+      <MemoryRouter initialEntries={["/orgs/okada"]}>
+        <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByRole("button")).toBeInTheDocument();
+    expect(
+      screen.queryByText("navbar.task.tooltip.assigned")
+    ).not.toBeInTheDocument();
+
+    userEvent.hover(screen.getByRole("button"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("navbar.task.tooltip.assigned")
+      ).toBeInTheDocument();
+    });
+
+    expect(screen.queryByText("1")).toBeInTheDocument();
+
+    rerender(
+      <MemoryRouter initialEntries={["/orgs/okada"]}>
+        <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssignedLimmit} />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByRole("button")).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button"));
+
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledWith("/todos");
+    });
 
     jest.clearAllMocks();
   });
