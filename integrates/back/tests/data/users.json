@@ -103,6 +103,13 @@
           },
           "registered": {
             "BOOL": true
+          },
+          "phone": {
+            "M": {
+              "national_number": { "S": "1234567894" },
+              "country_code": { "S": "CO" },
+              "calling_country_code": { "S": "57" }
+            }
           }
         }
       }
@@ -169,6 +176,13 @@
           },
           "registered": {
             "BOOL": true
+          },
+          "phone": {
+            "M": {
+              "national_number": { "S": "1234567891" },
+              "country_code": { "S": "CO" },
+              "calling_country_code": { "S": "57" }
+            }
           }
         }
       }
@@ -235,6 +249,13 @@
           },
           "registered": {
             "BOOL": true
+          },
+          "phone": {
+            "M": {
+              "national_number": { "S": "1234567895" },
+              "country_code": { "S": "CO" },
+              "calling_country_code": { "S": "57" }
+            }
           }
         }
       }
@@ -301,6 +322,13 @@
           },
           "registered": {
             "BOOL": true
+          },
+          "phone": {
+            "M": {
+              "national_number": { "S": "1234567893" },
+              "country_code": { "S": "CO" },
+              "calling_country_code": { "S": "57" }
+            }
           }
         }
       }
@@ -334,6 +362,13 @@
           },
           "registered": {
             "BOOL": true
+          },
+          "phone": {
+            "M": {
+              "national_number": { "S": "1234567892" },
+              "country_code": { "S": "CO" },
+              "calling_country_code": { "S": "57" }
+            }
           }
         }
       }
