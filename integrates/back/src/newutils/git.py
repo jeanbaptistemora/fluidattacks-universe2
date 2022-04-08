@@ -163,7 +163,7 @@ async def ssh_ls_remote(
         )
         stdout, stderr = await proc.communicate()
 
-        if stderr:
+        if stderr and proc.returncode != 0:
             LOGGER.error(
                 "failed git ls-remote",
                 extra=dict(
