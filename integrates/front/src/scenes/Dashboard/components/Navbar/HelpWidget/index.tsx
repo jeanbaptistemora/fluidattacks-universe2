@@ -13,6 +13,7 @@ import React, { useCallback, useContext, useState } from "react";
 import { openPopupWidget } from "react-calendly";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
+import { useRouteMatch } from "react-router-dom";
 
 import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
@@ -49,6 +50,9 @@ interface IHelpWidgetProps {
 export const HelpWidget: React.FC<IHelpWidgetProps> = ({
   groups,
 }: IHelpWidgetProps): JSX.Element => {
+  const match = useRouteMatch<{ orgName: string; groupName: string }>(
+    "/orgs/:orgName/groups/:groupName"
+  );
   const { t } = useTranslation();
   const { userEmail, userName } = useContext(authContext);
 
@@ -71,18 +75,31 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
   }, []);
 
   const openCalendly = useCallback((): void => {
-    const squadGroups = groups.filter((group): boolean =>
-      group.serviceAttributes.includes("has_squad")
-    );
+    if (match) {
+      const { groupName } = match.params;
+      const currentGroup = groups.find(
+        (group): boolean => group.name === groupName
+      );
+      const serviceAttributes =
+        currentGroup === undefined ? [] : currentGroup.serviceAttributes;
 
-    if (squadGroups.length > 0) {
-      openPopupWidget({
-        url: "https://calendly.com/fluidattacks/talk-to-an-expert",
-      });
-    } else {
-      setUpgradeOpen(true);
+      if (
+        serviceAttributes.includes("has_squad") &&
+        serviceAttributes.includes("is_continuous")
+      ) {
+        openPopupWidget({
+          prefill: {
+            customAnswers: { a1: groupName },
+            email: userEmail,
+            name: userName,
+          },
+          url: "https://calendly.com/fluidattacks/talk-to-an-expert",
+        });
+      } else {
+        setUpgradeOpen(true);
+      }
     }
-  }, [groups]);
+  }, [groups, match, userEmail, userName]);
 
   const [isButtonEnabled, setButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {
@@ -173,7 +190,7 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
               &nbsp;{t("navbar.help.chat")}
             </DropdownButton>
           </li>
-          {groups.length > 0 ? (
+          {match ? (
             <li>
               <DropdownButton onClick={openCalendly}>
                 <FontAwesomeIcon icon={faHeadset} />
