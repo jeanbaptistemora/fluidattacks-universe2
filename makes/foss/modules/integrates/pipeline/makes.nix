@@ -635,6 +635,7 @@ in {
               };
           })
           [
+            "clone_groups_roots_vpn"
             "clone_groups_roots"
             "delete_imamura_stakeholders"
             "delete_obsolete_groups"
