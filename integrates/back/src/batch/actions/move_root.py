@@ -530,12 +530,12 @@ async def move_root(*, item: BatchProcessing) -> None:
         ),
         workers=10,
     )
-    LOGGER.info("Moving completed", extra={"extra": None})
+    LOGGER.info("Moving completed")
     target_root: RootItem = await loaders.root.load(
         (target_group_name, target_root_id)
     )
     if isinstance(root, (GitRootItem, URLRootItem)):
-        LOGGER.info("Updating ToE inputs", extra={"extra": None})
+        LOGGER.info("Updating ToE inputs")
         group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
             GroupToeInputsRequest(group_name=source_group_name)
         )
@@ -563,7 +563,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             product_name=Product.INTEGRATES,
         )
     if isinstance(root, GitRootItem):
-        LOGGER.info("Updating ToE lines", extra={"extra": None})
+        LOGGER.info("Updating ToE lines")
         repo_toe_lines = await loaders.root_toe_lines.load_nodes(
             RootToeLinesRequest(
                 group_name=source_group_name, root_id=source_root_id
@@ -627,4 +627,4 @@ async def move_root(*, item: BatchProcessing) -> None:
         subject=item.subject,
         time=item.time,
     )
-    LOGGER.info("Task completed successfully.", extra={"extra": None})
+    LOGGER.info("Task completed successfully.")

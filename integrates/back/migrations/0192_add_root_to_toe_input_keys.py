@@ -110,7 +110,7 @@ async def main() -> None:
         group["project_name"]
         for group in await groups_domain.get_all(attributes=["project_name"])
     )
-    LOGGER_CONSOLE.info("Getting inputs", extra={"extra": {}})
+    LOGGER_CONSOLE.info("Getting inputs")
     groups_len = len(group_names)
     for (index, group_name) in zip(range(groups_len), group_names):
         group_toe_input_connection: ToeInputsConnection = (

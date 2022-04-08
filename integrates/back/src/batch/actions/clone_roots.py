@@ -84,7 +84,6 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         "Cloning roots for %s, %s",
         group_name,
         root_nicknames,
-        extra={"extra": None},
     )
 
     dataloaders: Dataloaders = get_new_context()
@@ -107,7 +106,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     )
     cloned_roots_nicknames: Tuple[str, ...] = tuple()
 
-    LOGGER.info("%s roots will be cloned", len(roots), extra={"extra": None})
+    LOGGER.info("%s roots will be cloned", len(roots))
     for root in roots:
         root_cred: Optional[CredentialItem] = next(
             (cred for cred in group_creds if root.id in cred.state.roots), None
@@ -123,7 +122,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             continue
         root_cloned: CloneResult = CloneResult(success=False)
 
-        LOGGER.info("Cloning %s", root.state.nickname, extra={"extra": None})
+        LOGGER.info("Cloning %s", root.state.nickname)
         root_cloned = await clone_root(
             group_name=root.group_name,
             root_nickname=root.state.nickname,
@@ -135,7 +134,6 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             "Cloned success: %s, with commit: %s",
             root_cloned.success,
             root_cloned.commit,
-            extra=dict(extra=None),
         )
         if root_cloned.success and root_cloned.commit is not None:
             await roots_domain.update_root_cloning_status(
@@ -250,7 +248,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             "There are %s jobs in queue for %s",
             len(current_jobs),
             group_name,
-            extra={"extra": None},
         )
         current_action = current_jobs[0]
         current_jobs = current_jobs[1:]
@@ -267,7 +264,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                 "Canceling batch job %s for %s",
                 action.batch_job_id,
                 group_name,
-                extra={"extra": None},
             )
             await cancel_batch_job(job_id=action.batch_job_id)
 

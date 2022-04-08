@@ -131,13 +131,13 @@ async def main() -> None:
         group["project_name"]
         for group in await groups_domain.get_all(attributes=["project_name"])
     )
-    LOGGER_CONSOLE.info("Getting groups", extra={"extra": {}})
+    LOGGER_CONSOLE.info("Getting groups")
     groups: Tuple[Group, ...] = await loaders.group.load_many(group_names)
-    LOGGER_CONSOLE.info("Getting roots", extra={"extra": {}})
+    LOGGER_CONSOLE.info("Getting roots")
     groups_roots: Tuple[
         Tuple[RootItem, ...], ...
     ] = await loaders.group_roots.load_many(group_names)
-    LOGGER_CONSOLE.info("Getting inputs", extra={"extra": {}})
+    LOGGER_CONSOLE.info("Getting inputs")
     groups_toe_input_connections: Tuple[
         ToeInputsConnection, ...
     ] = await loaders.group_toe_inputs.load_many(

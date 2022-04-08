@@ -705,7 +705,6 @@ async def put_action(  # pylint: disable=too-many-locals
         LOGGER.info(
             "There is a job that is still in queue for %s, it will be updated",
             entity,
-            extra={"extra": None},
         )
         success = await update_action_to_dynamodb(
             key=dynamodb_pk,
@@ -730,7 +729,6 @@ async def put_action(  # pylint: disable=too-many-locals
         LOGGER.info(
             "There is a job that is still in queue for %s",
             entity,
-            extra={"extra": None},
         )
         return PutActionResult(
             success=False,
@@ -754,7 +752,6 @@ async def put_action(  # pylint: disable=too-many-locals
     LOGGER.info(
         "A job for %s has been queued",
         entity,
-        extra={"extra": None},
     )
     return PutActionResult(
         success=True,

@@ -317,7 +317,6 @@ async def queue_job_new(
                 LOGGER.info(
                     "There is already a job in queue, %s will be removed",
                     execution.key,
-                    extra={"extra": None},
                 )
                 await delete_action(dynamodb_pk=execution.key)
                 if job_id := execution.batch_job_id:
