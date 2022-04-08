@@ -121,7 +121,7 @@ def delete_out_of_scope_files(group: str) -> bool:
         # Compute what files should be deleted according to the scope rules
         path_to_repo = os.path.join("groups", group, "fusion", nickname)
         with suppress(FileNotFoundError):
-            if not os.listdir(path_to_repo):
+            if root["state"] == "INACTIVE" or not os.listdir(path_to_repo):
                 shutil.rmtree(path_to_repo)
                 continue
 

@@ -439,6 +439,7 @@ class Queries:
                     nickname
                     url
                     gitignore
+                    state
                   }
                 }
               }
