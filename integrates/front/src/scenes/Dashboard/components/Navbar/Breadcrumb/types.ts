@@ -5,10 +5,17 @@ interface IUserOrgs {
   };
 }
 
+interface IUserTags {
+  me: {
+    tags: { name: string }[];
+    userEmail: string;
+  };
+}
+
 interface IFindingTitle {
   finding: {
     title: string;
   };
 }
 
-export { IFindingTitle, IUserOrgs };
+export { IFindingTitle, IUserOrgs, IUserTags };

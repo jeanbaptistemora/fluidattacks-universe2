@@ -23,4 +23,15 @@ const GET_USER_ORGANIZATIONS: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS };
+const GET_USER_TAGS: DocumentNode = gql`
+  query GetUserTags($organizationId: String!) {
+    me(callerOrigin: "FRONT") {
+      tags(organizationId: $organizationId) {
+        name
+      }
+      userEmail
+    }
+  }
+`;
+
+export { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS, GET_USER_TAGS };
