@@ -1,5 +1,5 @@
 locals {
-  prod_makes = {
+  prod_common = {
     policies = {
       aws = {
         Version = "2012-10-17"
@@ -63,13 +63,13 @@ locals {
     }
 
     keys = {
-      prod_makes = {
+      prod_common = {
         admins = [
-          "prod_makes",
+          "prod_common",
         ]
         users = []
         tags = {
-          "Name"               = "prod_makes"
+          "Name"               = "prod_common"
           "management:area"    = "cost"
           "management:product" = "common"
           "management:type"    = "product"
@@ -79,23 +79,23 @@ locals {
   }
 }
 
-module "prod_makes_aws" {
+module "prod_common_aws" {
   source = "./modules/aws"
 
-  name   = "prod_makes"
-  policy = local.prod_makes.policies.aws
+  name   = "prod_common"
+  policy = local.prod_common.policies.aws
 
   tags = {
-    "Name"               = "prod_makes"
+    "Name"               = "prod_common"
     "management:area"    = "cost"
     "management:product" = "common"
     "management:type"    = "product"
   }
 }
 
-module "prod_makes_keys" {
+module "prod_common_keys" {
   source   = "./modules/key"
-  for_each = local.prod_makes.keys
+  for_each = local.prod_common.keys
 
   name   = each.key
   admins = each.value.admins
@@ -103,15 +103,15 @@ module "prod_makes_keys" {
   tags   = each.value.tags
 }
 
-module "prod_makes_publish_credentials" {
+module "prod_common_publish_credentials" {
   source = "./modules/publish_credentials"
 
   providers = {
     gitlab = gitlab.product
   }
 
-  key_1     = module.prod_makes_aws.keys.1
-  key_2     = module.prod_makes_aws.keys.2
-  prefix    = "PROD_MAKES"
+  key_1     = module.prod_common_aws.keys.1
+  key_2     = module.prod_common_aws.keys.2
+  prefix    = "PROD_COMMON"
   protected = true
 }

@@ -72,7 +72,7 @@ locals {
     keys = {
       prod_docs = {
         admins = [
-          "prod_makes",
+          "prod_common",
         ]
         users = [
           "prod_docs",

@@ -20,7 +20,7 @@ in {
       commonCi = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCiProd"
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"

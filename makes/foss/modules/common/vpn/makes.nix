@@ -14,7 +14,7 @@ in {
       commonVpn = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonVpnProd"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"

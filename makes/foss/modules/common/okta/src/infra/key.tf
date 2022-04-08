@@ -21,8 +21,8 @@ data "aws_iam_policy_document" "okta" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_makes",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_common",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_common",
       ]
     }
     actions = [
@@ -53,9 +53,9 @@ data "aws_iam_policy_document" "okta" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_common",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_makes",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_common",
       ]
     }
     actions = [
@@ -77,9 +77,9 @@ data "aws_iam_policy_document" "okta" {
       type = "AWS"
       identifiers = [
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_makes",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/prod_common",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_makes",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/prod_common",
       ]
     }
     actions = [

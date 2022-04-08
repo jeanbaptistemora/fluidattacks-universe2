@@ -14,7 +14,7 @@ in {
       commonVpc = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonVpcProd"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];

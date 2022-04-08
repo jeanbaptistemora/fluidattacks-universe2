@@ -4,7 +4,7 @@
     modules = {
       commonFoss = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonFossProd"
           outputs."/secretsForTerraformFromEnv/commonFoss"
         ];

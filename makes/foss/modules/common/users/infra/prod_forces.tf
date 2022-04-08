@@ -47,7 +47,7 @@ locals {
     keys = {
       prod_forces = {
         admins = [
-          "prod_makes",
+          "prod_common",
         ]
         users = [
           "prod_forces",

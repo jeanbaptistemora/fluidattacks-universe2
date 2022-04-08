@@ -27,7 +27,7 @@
       };
       commonUsers = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonUsersProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -51,17 +51,17 @@
     modules = {
       commonUsersKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonUsersProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         resources = [
           "module.dev_aws.aws_iam_access_key._1"
           "module.prod_airs_aws.aws_iam_access_key._1"
+          "module.prod_common_aws.aws_iam_access_key._1"
           "module.prod_docs_aws.aws_iam_access_key._1"
           "module.prod_forces_aws.aws_iam_access_key._1"
           "module.prod_integrates_aws.aws_iam_access_key._1"
-          "module.prod_makes_aws.aws_iam_access_key._1"
           "module.prod_melts_aws.aws_iam_access_key._1"
           "module.prod_observes_aws.aws_iam_access_key._1"
           "module.prod_services_aws.aws_iam_access_key._1"
@@ -74,17 +74,17 @@
       };
       commonUsersKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonUsersProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         resources = [
           "module.dev_aws.aws_iam_access_key._2"
           "module.prod_airs_aws.aws_iam_access_key._2"
+          "module.prod_common_aws.aws_iam_access_key._2"
           "module.prod_docs_aws.aws_iam_access_key._2"
           "module.prod_forces_aws.aws_iam_access_key._2"
           "module.prod_integrates_aws.aws_iam_access_key._2"
-          "module.prod_makes_aws.aws_iam_access_key._2"
           "module.prod_melts_aws.aws_iam_access_key._2"
           "module.prod_observes_aws.aws_iam_access_key._2"
           "module.prod_services_aws.aws_iam_access_key._2"

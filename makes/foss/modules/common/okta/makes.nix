@@ -4,7 +4,7 @@
     modules = {
       commonOkta = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/common/okta/parse"
           outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"

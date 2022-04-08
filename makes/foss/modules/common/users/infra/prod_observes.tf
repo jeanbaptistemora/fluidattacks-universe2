@@ -146,7 +146,7 @@ locals {
     keys = {
       prod_observes = {
         admins = [
-          "prod_makes",
+          "prod_common",
         ]
         users = [
           "prod_observes",

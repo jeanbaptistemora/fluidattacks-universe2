@@ -9,7 +9,7 @@
       commonCompute = {
         setup = [
           outputs."/envVarsForTerraform/commonCompute"
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
         ];
         src = "/makes/foss/modules/common/compute/infra";
         version = "1.0";

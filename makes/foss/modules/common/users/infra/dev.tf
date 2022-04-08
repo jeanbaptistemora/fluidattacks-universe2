@@ -133,7 +133,7 @@ locals {
     keys = {
       dev = {
         admins = [
-          "prod_makes",
+          "prod_common",
         ]
         users = [
           "dev",

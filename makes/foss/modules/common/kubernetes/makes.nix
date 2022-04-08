@@ -14,7 +14,7 @@ in {
       commonKubernetes = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonKubernetesProd"
           outputs."/secretsForKubernetesConfigFromAws/commonKubernetes"
           outputs."/secretsForTerraformFromEnv/commonKubernetes"

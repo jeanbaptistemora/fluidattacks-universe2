@@ -229,7 +229,7 @@ locals {
     keys = {
       prod_integrates = {
         admins = [
-          "prod_makes",
+          "prod_common",
         ]
         users = [
           "prod_integrates",

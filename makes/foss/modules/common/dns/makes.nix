@@ -4,7 +4,7 @@
     modules = {
       commonDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodMakes"
+          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonDnsProd"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];

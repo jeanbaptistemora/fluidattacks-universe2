@@ -18,7 +18,7 @@ We use several technologies for accomplishing this:
 
 # Contributing
 
-1. In order to be able to open de data file, you need `prod_makes` access.
+1. In order to be able to open de data file, you need `prod_common` access.
 2. All jobs can be normally ran with `m . <job>`.
 
 ## Recommendations
