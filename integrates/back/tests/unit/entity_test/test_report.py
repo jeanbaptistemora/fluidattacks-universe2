@@ -68,7 +68,9 @@ async def test_finding_report() -> None:
             report(
                 groupName: "oneshottest",
                 reportType: PDF,
-                lang: EN) {
+                lang: EN,
+                verificationCode: "123"
+            ) {
                 success
             }
         }
@@ -77,7 +79,10 @@ async def test_finding_report() -> None:
         query test {
             report(
                 groupName: "oneshottest",
-                reportType: XLS, treatments: [ACCEPTED]) {
+                reportType: XLS,
+                treatments: [ACCEPTED],
+                verificationCode: "123"
+            ) {
                 success
             }
         }
@@ -86,7 +91,9 @@ async def test_finding_report() -> None:
         query test {
             report(
                 groupName: "oneshottest",
-                reportType: DATA) {
+                reportType: DATA,
+                verificationCode: "123"
+            ) {
                 success
             }
         }
@@ -95,7 +102,9 @@ async def test_finding_report() -> None:
         query test {
             report(
                 groupName: "unittesting",
-                reportType: DATA) {
+                reportType: DATA,
+                verificationCode: "123"
+            ) {
                 success
             }
         }
@@ -137,7 +146,9 @@ async def test_finding_report() -> None:
         query test {
             report(
                 groupName: "oneshottest",
-                reportType: DATA) {
+                reportType: DATA,
+                verificationCode: "123"
+            ) {
                 success
             }
         }

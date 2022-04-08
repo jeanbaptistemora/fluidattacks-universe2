@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 import pytest
 from typing import (
     Any,
@@ -178,6 +180,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "1111111111",
+                    },
                 },
                 {
                     "email": admin_fluid_email,
@@ -188,6 +195,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "22222222222",
+                    },
                 },
                 {
                     "email": architect_email,
@@ -198,6 +210,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "33333333333",
+                    },
                 },
                 {
                     "email": architect_fluid_email,
@@ -208,6 +225,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "4444444444444",
+                    },
                 },
                 {
                     "email": user_email,
@@ -233,6 +255,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "666666666666",
+                    },
                 },
                 {
                     "email": user_manager_email,
@@ -243,6 +270,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "77777777777777",
+                    },
                 },
                 {
                     "email": user_manager_fluid_email,
@@ -253,6 +285,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "88888888888",
+                    },
                 },
                 {
                     "email": executive_email,
@@ -263,6 +300,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "1",
+                        "country_code": "US",
+                        "national_number": "99999999999",
+                    },
                 },
                 {
                     "email": executive_fluid_email,
@@ -273,6 +315,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "111111111111",
+                    },
                 },
                 {
                     "email": hacker_email,
@@ -298,6 +345,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "222222222222",
+                    },
                 },
                 {
                     "email": resourcer_email,
@@ -308,6 +360,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "33333333333",
+                    },
                 },
                 {
                     "email": reattacker_email,
@@ -318,6 +375,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "4444444444444",
+                    },
                 },
                 {
                     "email": reattacker_fluid_email,
@@ -328,6 +390,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "55555555555",
+                    },
                 },
                 {
                     "email": resourcer_fluid_email,
@@ -338,6 +405,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "66666666666",
+                    },
                 },
                 {
                     "email": reviewer_email,
@@ -348,6 +420,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "7777777777",
+                    },
                 },
                 {
                     "email": reviewer_fluid_email,
@@ -358,6 +435,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "8888888888",
+                    },
                 },
                 {
                     "email": service_forces_email,
@@ -388,6 +470,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "57",
+                        "country_code": "CO",
+                        "national_number": "9999999999999",
+                    },
                 },
                 {
                     "email": vuln_manager_email,
@@ -398,6 +485,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "51",
+                        "country_code": "PE",
+                        "national_number": "1111111111111",
+                    },
                 },
                 {
                     "email": vuln_manager_fluid_email,
@@ -408,6 +500,11 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "legal_remember": False,
                     "push_tokens": [],
                     "registered": True,
+                    "phone": {
+                        "calling_country_code": "51",
+                        "country_code": "PE",
+                        "national_number": "222222222222",
+                    },
                 },
             ],
             "orgs": [

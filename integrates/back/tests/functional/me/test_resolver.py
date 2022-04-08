@@ -15,7 +15,17 @@ from typing import (
 @pytest.mark.parametrize(
     ("email", "role", "permissions", "phone", "groups_length"),
     (
-        ("admin@gmail.com", "admin", 18, None, 0),
+        (
+            "admin@gmail.com",
+            "admin",
+            18,
+            {
+                "callingCountryCode": "1",
+                "countryCode": "US",
+                "nationalNumber": "1111111111",
+            },
+            0,
+        ),
         (
             "user@gmail.com",
             "user",
@@ -27,15 +37,39 @@ from typing import (
             },
             1,
         ),
-        ("user_manager@gmail.com", "user_manager", 0, None, 1),
+        (
+            "user_manager@gmail.com",
+            "user_manager",
+            0,
+            {
+                "callingCountryCode": "1",
+                "countryCode": "US",
+                "nationalNumber": "77777777777777",
+            },
+            1,
+        ),
         (
             "vulnerability_manager@gmail.com",
             "user",
             4,
-            None,
+            {
+                "callingCountryCode": "51",
+                "countryCode": "PE",
+                "nationalNumber": "1111111111111",
+            },
             1,
         ),
-        ("executive@gmail.com", "executive", 0, None, 1),
+        (
+            "executive@gmail.com",
+            "executive",
+            0,
+            {
+                "callingCountryCode": "1",
+                "countryCode": "US",
+                "nationalNumber": "99999999999",
+            },
+            1,
+        ),
         (
             "hacker@gmail.com",
             "hacker",
@@ -47,11 +81,51 @@ from typing import (
             },
             2,
         ),
-        ("reattacker@gmail.com", "reattacker", 0, None, 1),
-        ("resourcer@gmail.com", "resourcer", 0, None, 1),
-        ("reviewer@gmail.com", "reviewer", 0, None, 2),
+        (
+            "reattacker@gmail.com",
+            "reattacker",
+            0,
+            {
+                "callingCountryCode": "57",
+                "countryCode": "CO",
+                "nationalNumber": "4444444444444",
+            },
+            1,
+        ),
+        (
+            "resourcer@gmail.com",
+            "resourcer",
+            0,
+            {
+                "callingCountryCode": "57",
+                "countryCode": "CO",
+                "nationalNumber": "33333333333",
+            },
+            1,
+        ),
+        (
+            "reviewer@gmail.com",
+            "reviewer",
+            0,
+            {
+                "callingCountryCode": "57",
+                "countryCode": "CO",
+                "nationalNumber": "7777777777",
+            },
+            2,
+        ),
         ("service_forces@gmail.com", "service_forces", 0, None, 1),
-        ("customer_manager@fluidattacks.com", "customer_manager", 0, None, 1),
+        (
+            "customer_manager@fluidattacks.com",
+            "customer_manager",
+            0,
+            {
+                "callingCountryCode": "57",
+                "countryCode": "CO",
+                "nationalNumber": "9999999999999",
+            },
+            1,
+        ),
     ),
 )
 async def test_get_me(

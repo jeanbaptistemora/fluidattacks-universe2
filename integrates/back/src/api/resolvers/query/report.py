@@ -81,9 +81,8 @@ async def _get_url_group_report(
     user_email: str,
     group_name: str,
     treatments: Set[VulnerabilityTreatmentStatus],
-    verification_code: Optional[str],
+    verification_code: str,
 ) -> bool:
-    is_verified: bool = False
     existing_actions: Tuple[
         BatchProcessing, ...
     ] = await batch_dal.get_actions_by_name("report", group_name)
@@ -99,17 +98,16 @@ async def _get_url_group_report(
     ):
         raise ReportAlreadyRequested()
 
-    if verification_code:
-        user = await users_domain.get_by_email(user_email)
-        user_phone = cast(Optional[StakeholderPhone], user["phone"])
-        if not user_phone:
-            raise RequiredNewPhoneNumber()
+    user = await users_domain.get_by_email(user_email)
+    user_phone = cast(Optional[StakeholderPhone], user["phone"])
+    if not user_phone:
+        raise RequiredNewPhoneNumber()
 
-        await verify_operations.check_verification(
-            phone_number=get_international_format_phone_number(user_phone),
-            code=verification_code,
-        )
-        is_verified = True
+    await verify_operations.check_verification(
+        phone_number=get_international_format_phone_number(user_phone),
+        code=verification_code,
+    )
+    is_verified = True
 
     additional_info: str = json.dumps(
         {
@@ -140,13 +138,15 @@ async def _get_url_group_report(
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
+    _parent: None,
+    info: GraphQLResolveInfo,
+    verification_code: str,
+    **kwargs: Any,
 ) -> Report:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
-    verification_code: Optional[str] = kwargs.get("verification_code")
     if report_type == "CERT":
         (
             business_id,

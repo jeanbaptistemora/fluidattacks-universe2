@@ -22,7 +22,8 @@ async def get_result(
             report(
                 groupName: "{group_name}",
                 reportType: PDF,
-                lang: EN
+                lang: EN,
+                verificationCode: "123"
             ) {{
                 success
             }}
@@ -57,6 +58,7 @@ async def get_result_treatments(
                 groupName: $groupName
                 lang: $lang
                 treatments: $treatments
+                verificationCode: "123"
             ) {
                 success
             }
