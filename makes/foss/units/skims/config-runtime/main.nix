@@ -22,6 +22,9 @@ in
     };
     name = "skims-config-runtime";
     searchPaths = {
+      pythonMypy = [
+        (projectPath "/skims/skims")
+      ];
       bin = [
         inputs.nixpkgs.gcc
         inputs.nixpkgs.git
