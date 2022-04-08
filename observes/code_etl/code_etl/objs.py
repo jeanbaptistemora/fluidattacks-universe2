@@ -19,6 +19,11 @@ class GroupId:
 
 
 @dataclass(frozen=True)
+class OrgId:
+    name: str
+
+
+@dataclass(frozen=True)
 class RepoId:
     namespace: str
     repository: str
