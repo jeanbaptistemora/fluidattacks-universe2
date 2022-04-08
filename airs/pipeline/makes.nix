@@ -25,7 +25,7 @@
 in {
   pipelines = {
     airs = {
-      gitlabPath = "/makes/foss/modules/airs/gitlab-ci.yaml";
+      gitlabPath = "/airs/gitlab-ci.yaml";
       jobs = [
         {
           output = "/airs/eph";

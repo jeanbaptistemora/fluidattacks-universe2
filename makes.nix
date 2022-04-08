@@ -14,6 +14,7 @@
   };
   extendingMakesDir = "/makes/foss/units";
   imports = [
+    ./airs/makes.nix
     ./common/makes.nix
     ./makes/foss/modules/makes.nix
   ];
