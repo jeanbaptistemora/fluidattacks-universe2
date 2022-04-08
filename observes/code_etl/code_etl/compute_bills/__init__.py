@@ -3,7 +3,7 @@
 
 import argparse
 from code_etl.compute_bills._getter import (
-    get_org,
+    get_org as get_organization,
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
@@ -138,7 +138,10 @@ def main(folder: str, year: int, month: int, integrates_token: str) -> None:
     for group in groups:
         LOG.info("Creating bill for: %s", group)
         create_csv_file(
-            folder, data, group, lambda i: get_org(integrates_token, i)
+            folder,
+            data,
+            group,
+            lambda i: get_organization(integrates_token, i),
         )
 
 

@@ -26,13 +26,9 @@ from code_etl.utils import (
 from dataclasses import (
     dataclass,
 )
-from fa_purity.cmd import (
+from fa_purity import (
     Cmd,
-)
-from fa_purity.maybe import (
     Maybe,
-)
-from fa_purity.pure_iter.core import (
     PureIter,
 )
 from fa_purity.pure_iter.factory import (
