@@ -9,6 +9,12 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.enums import (
+    GroupStateStatus,
+)
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -25,14 +31,12 @@ from findings.domain import (
 from freezegun import (  # type: ignore
     freeze_time,
 )
-from groups import (
-    domain as groups_domain,
-)
 from newutils import (
     datetime as datetime_utils,
+    groups as groups_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
+from organizations import (
+    domain as orgs_domain,
 )
 from organizations.domain import (
     get_id_by_name,
@@ -378,48 +382,43 @@ async def test_remove_imamura_stakeholders() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_obsolete_groups() -> None:
-    group_attributes = {
-        "project_name",
-        "project_status",
-        "pending_deletion_date",
-    }
-    active_groups = await groups_domain.get_active_groups_attributes(
-        group_attributes
-    )
-    assert len(active_groups) == 14
-    expected_groups = [
-        {
-            "project_status": "ACTIVE",
-            "group_name": "setpendingdeletion",
-            "project_name": "setpendingdeletion",
-        },
-        {
-            "group_name": "deletegroup",
-            "project_name": "deletegroup",
-            "project_status": "ACTIVE",
-            "pending_deletion_date": "2020-12-22 14:36:29",
-        },
+    loaders: Dataloaders = get_new_context()
+    test_group_name_1 = "setpendingdeletion"
+    test_group_name_2 = "deletegroup"
+    all_groups_names = []
+    async for _, _, org_group_names in (
+        orgs_domain.iterate_organizations_and_groups()
+    ):
+        all_groups_names.extend(org_group_names)
+    all_groups = await loaders.group_typed.load_many(all_groups_names)
+    all_active_groups_names = [
+        group.name
+        for group in groups_utils.filter_active_groups(tuple(all_groups))
     ]
-    for expected_group in expected_groups:
-        assert expected_group in active_groups
+    assert len(all_active_groups_names) == 14
+    assert test_group_name_1 in all_active_groups_names
+    assert test_group_name_2 in all_active_groups_names
 
     await delete_obsolete_groups.main()
 
-    active_groups = await groups_domain.get_active_groups_attributes(
-        group_attributes
-    )
-    assert len(active_groups) == 13
-    groups = await groups_domain.get_all(group_attributes)
-    setpendingdeletion = [
-        group
-        for group in groups
-        if get_key_or_fallback(group) == "setpendingdeletion"
-    ][0]
-    assert setpendingdeletion["project_status"] == "ACTIVE"
-    assert "pending_deletion_date" in setpendingdeletion
-    deletegroup = [
-        group
-        for group in groups
-        if get_key_or_fallback(group) == "deletegroup"
-    ][0]
-    assert deletegroup["project_status"] == "DELETED"
+    all_groups_names = []
+    async for _, _, org_group_names in (
+        orgs_domain.iterate_organizations_and_groups()
+    ):
+        all_groups_names.extend(org_group_names)
+    all_groups = await loaders.group_typed.load_many(all_groups_names)
+    all_active_groups_names = [
+        group.name
+        for group in groups_utils.filter_active_groups(tuple(all_groups))
+    ]
+    assert len(all_active_groups_names) == 13
+    assert test_group_name_1 in all_active_groups_names
+    assert test_group_name_2 not in all_active_groups_names
+
+    loaders.group_typed.clear_all()
+    test_group_1: Group = await loaders.group_typed.load(test_group_name_1)
+    assert test_group_1.state.status == GroupStateStatus.ACTIVE
+    assert test_group_1.state.pending_deletion_date
+
+    test_group_2: Group = await loaders.group_typed.load(test_group_name_2)
+    assert test_group_2.state.status == GroupStateStatus.DELETED
