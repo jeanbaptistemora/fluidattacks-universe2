@@ -7,7 +7,9 @@ from code_etl.compute_bills._getter import (
 )
 from code_etl.utils import (
     COMMIT_HASH_SENTINEL,
-    db_cursor,
+)
+from contextlib import (
+    contextmanager,
 )
 import csv
 from datetime import (
@@ -19,16 +21,48 @@ from operator import (
     itemgetter,
 )
 import os
+from os import (
+    environ,
+)
+from psycopg2 import (
+    connect,
+)
+from psycopg2.extensions import (
+    cursor as cursor_cls,
+    ISOLATION_LEVEL_AUTOCOMMIT,
+)
 from typing import (
     Any,
     Callable,
     Dict,
     Iterable,
+    Iterator,
     List,
     Optional,
     Set,
     Tuple,
 )
+
+
+@contextmanager
+def db_cursor() -> Iterator[cursor_cls]:
+    connection = connect(
+        dbname=environ["REDSHIFT_DATABASE"],
+        host=environ["REDSHIFT_HOST"],
+        password=environ["REDSHIFT_PASSWORD"],
+        port=environ["REDSHIFT_PORT"],
+        user=environ["REDSHIFT_USER"],
+    )
+    connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    try:
+        cursor: cursor_cls = connection.cursor()
+        try:
+            yield cursor
+        finally:
+            cursor.close()
+    finally:
+        connection.close()
+
 
 # Constants
 SELECT_ALL: str = """
@@ -143,18 +177,3 @@ def main(folder: str, year: int, month: int, integrates_token: str) -> None:
             group,
             lambda i: get_organization(integrates_token, i),
         )
-
-
-def cli() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--folder", required=True)
-    parser.add_argument("--year", type=int, required=True)
-    parser.add_argument("--month", type=int, required=True)
-    parser.add_argument("--integrates-token", type=str, required=True)
-
-    args = parser.parse_args()
-    main(args.folder, args.year, args.month, args.integrates_token)
-
-
-if __name__ == "__main__":
-    cli()
