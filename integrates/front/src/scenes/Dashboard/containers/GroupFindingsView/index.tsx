@@ -247,7 +247,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "openVulnerabilities",
-      header: "Vulnerabilities",
+      header: "Open Vulnerabilities",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
       tooltipDataField: t("group.findings.headersTooltips.locations"),
