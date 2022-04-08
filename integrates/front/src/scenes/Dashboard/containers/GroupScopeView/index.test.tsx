@@ -192,7 +192,7 @@ describe("GroupScopeView", (): void => {
           value={
             new PureAbility([
               { action: "has_service_white" },
-              { action: "is_continuous" },
+              { action: "has_squad" },
             ])
           }
         >
@@ -392,7 +392,7 @@ describe("GroupScopeView", (): void => {
           value={
             new PureAbility([
               { action: "has_service_white" },
-              { action: "is_continuous" },
+              { action: "has_squad" },
             ])
           }
         >
@@ -745,7 +745,7 @@ describe("GroupScopeView", (): void => {
             value={
               new PureAbility([
                 { action: "has_service_white" },
-                { action: "is_continuous" },
+                { action: "has_squad" },
               ])
             }
           >

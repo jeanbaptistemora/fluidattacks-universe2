@@ -114,7 +114,7 @@ describe("GitRoots", (): void => {
     const handleSubmit: jest.Mock = jest.fn();
     render(
       <authzGroupContext.Provider
-        value={new PureAbility([{ action: "is_continuous" }])}
+        value={new PureAbility([{ action: "has_squad" }])}
       >
         <authzPermissionsContext.Provider
           value={

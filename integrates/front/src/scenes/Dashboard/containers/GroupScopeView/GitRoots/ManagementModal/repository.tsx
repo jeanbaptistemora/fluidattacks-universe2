@@ -441,7 +441,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                   </div>
                   <br />
                 </fieldset>
-                <Have I={"is_continuous"}>
+                <Have I={"has_squad"}>
                   <div id={"git-root-add-healthcheck"}>
                     <fieldset className={"bn"}>
                       <legend className={"f3 b"}>

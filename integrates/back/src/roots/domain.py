@@ -185,7 +185,7 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url).rstrip(" /")
 
 
-async def add_git_root(
+async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
@@ -207,9 +207,16 @@ async def add_git_root(
         nickname, await loaders.group_roots.load(group_name)
     )
 
+    includes_health_check = kwargs["includes_health_check"]
+    service_enforcer = await authz.get_group_service_attributes_enforcer(
+        group_name
+    )
+    if includes_health_check and not service_enforcer("has_squad"):
+        raise PermissionDenied()
+
     gitignore = kwargs["gitignore"]
-    enforcer = await authz.get_group_level_enforcer(user_email)
-    if gitignore and not enforcer(group_name, "update_git_root_filter"):
+    group_enforcer = await authz.get_group_level_enforcer(user_email)
+    if gitignore and not group_enforcer(group_name, "update_git_root_filter"):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
@@ -238,7 +245,7 @@ async def add_git_root(
             environment=kwargs["environment"],
             git_environment_urls=[],
             gitignore=gitignore,
-            includes_health_check=kwargs["includes_health_check"],
+            includes_health_check=includes_health_check,
             modified_by=user_email,
             modified_date=modified_date,
             nickname=nickname,
@@ -263,7 +270,7 @@ async def add_git_root(
 
     await roots_model.add(root=root)
 
-    if kwargs["includes_health_check"]:
+    if includes_health_check:
         await _notify_health_check(
             group_name=group_name,
             request=True,
@@ -584,6 +591,24 @@ async def update_git_root(
         ):
             raise RepeatedRoot()
 
+    health_check_changed: bool = (
+        kwargs["includes_health_check"] != root.state.includes_health_check
+    )
+    if health_check_changed:
+        service_enforcer = await authz.get_group_service_attributes_enforcer(
+            group_name
+        )
+        if kwargs["includes_health_check"] and not service_enforcer(
+            "has_squad"
+        ):
+            raise PermissionDenied()
+        await _notify_health_check(
+            group_name=group_name,
+            request=kwargs["includes_health_check"],
+            root=root,
+            user_email=user_email,
+        )
+
     gitignore = kwargs["gitignore"]
     enforcer = await authz.get_group_level_enforcer(user_email)
     if gitignore != root.state.gitignore and not enforcer(
@@ -625,17 +650,6 @@ async def update_git_root(
         root_id=root_id,
         state=new_state,
     )
-
-    health_check_changed: bool = (
-        kwargs["includes_health_check"] != root.state.includes_health_check
-    )
-    if health_check_changed:
-        await _notify_health_check(
-            group_name=group_name,
-            request=kwargs["includes_health_check"],
-            root=root,
-            user_email=user_email,
-        )
 
     return GitRootItem(
         cloning=root.cloning,
