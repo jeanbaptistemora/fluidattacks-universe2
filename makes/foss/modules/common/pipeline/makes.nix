@@ -95,6 +95,10 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/commonUsers";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/commonVpc";
           gitlabExtra = gitlabDeployInfra;
         }
