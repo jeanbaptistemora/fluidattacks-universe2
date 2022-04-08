@@ -229,7 +229,7 @@ async def https_ls_remote(
     )
     try:
         stdout, _stderr = await asyncio.wait_for(proc.communicate(), 20)
-        if _stderr:
+        if _stderr and proc.returncode != 0:
             LOGGER.error(
                 "failed git ls-remote",
                 extra=dict(
