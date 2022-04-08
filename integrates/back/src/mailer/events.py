@@ -74,6 +74,7 @@ async def send_mail_event_report(
     event_type: str,
     description: str,
     is_closed: bool = False,
+    report_date: str,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
@@ -105,6 +106,7 @@ async def send_mail_event_report(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
         ),
+        "report_date": report_date,
         "state": state,
     }
     await send_mails_async(

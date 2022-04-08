@@ -215,6 +215,9 @@ async def add_event(  # pylint: disable=too-many-locals
 
     event_type = event_attrs["event_type"]
     description = event_attrs["detail"]
+    report_date = datetime_utils.get_date_from_iso_str(
+        event_attrs["historic_state"][0]["date"]
+    )
     schedule(
         events_mail.send_mail_event_report(
             loaders=loaders,
@@ -222,6 +225,7 @@ async def add_event(  # pylint: disable=too-many-locals
             event_id=event_id,
             event_type=event_type,
             description=description,
+            report_date=report_date,
         )
     )
 
@@ -361,6 +365,9 @@ async def solve_event(  # pylint: disable=too-many-locals
 
     event_type = event["event_type"]
     description = event["detail"]
+    report_date = datetime_utils.get_date_from_iso_str(
+        event["historic_state"][0]["date"]
+    )
     schedule(
         events_mail.send_mail_event_report(
             loaders=loaders,
@@ -369,6 +376,7 @@ async def solve_event(  # pylint: disable=too-many-locals
             event_type=event_type,
             description=description,
             is_closed=True,
+            report_date=report_date,
         )
     )
 

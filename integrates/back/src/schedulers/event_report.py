@@ -76,12 +76,16 @@ async def send_event_report() -> None:
             group_name = str(get_key_or_fallback(event[0], fallback=""))
             event_type = event[0]["event_type"]
             description = event[0]["detail"]
+            report_date = datetime_utils.get_date_from_iso_str(
+                event[0]["historic_state"][0]["date"]
+            )
             await events_mail.send_mail_event_report(
                 loaders=user_loaders,
                 group_name=group_name,
                 event_id=event[0]["event_id"],
                 event_type=event_type,
                 description=description,
+                report_date=report_date,
             )
     else:
         LOGGER_CONSOLE.info("- event report NOT sent")
