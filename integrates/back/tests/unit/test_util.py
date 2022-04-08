@@ -16,6 +16,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from jwcrypto.jwe import (
+    JWException,
+)
 from newutils import (
     datetime as datetime_utils,
     encodings,
@@ -97,6 +100,31 @@ async def test_payload_encrypt_decrypt() -> None:
         token_utils._encrypt_jwt_payload(payload)
     )
     assert payload == result
+
+
+async def test_payload_encrypt_decrypt_always_check() -> None:
+    payload = {
+        "user_email": "unittest",
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
+        "sub": "starlette_session",
+        "jti": token_utils.calculate_hash_token()["jti"],
+    }
+
+    result = token_utils._decrypt_jwt_payload(
+        token_utils._encrypt_jwt_payload(payload),
+        always_check_ciphertext=True,
+    )
+    assert payload == result
+
+    payload = {
+        "user_email": "unittest",
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
+        "iat": datetime.utcnow().timestamp(),
+        "sub": "starlette_session",
+        "jti": token_utils.calculate_hash_token()["jti"],
+    }
+    with pytest.raises(JWException):
+        token_utils._decrypt_jwt_payload(payload, always_check_ciphertext=True)
 
 
 async def test_decrypt_temp_support_for_nonencrypted() -> None:

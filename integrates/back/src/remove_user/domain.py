@@ -23,6 +23,9 @@ from groups.domain import (
 from jose import (
     JWTError,
 )
+from jwcrypto.jwe import (
+    JWException,
+)
 from mailer.common import (
     send_mail_confirm_deletion,
 )
@@ -136,11 +139,11 @@ async def get_email_from_url_token(
     url_token: str,
 ) -> str:
     try:
-        token_content = decode_jwt(url_token)
+        token_content = decode_jwt(url_token, always_check_ciphertext=True)
         user_email: str = token_content["user_email"]
         if await get_access_by_url_token(url_token, attr="confirm_deletion"):
             return user_email
-    except JWTError as ex:
+    except (JWTError, JWException) as ex:
         raise InvalidAuthorization() from ex
 
     return ""
