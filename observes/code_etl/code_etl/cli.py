@@ -1,10 +1,12 @@
 import click
 from code_etl import (
-    compute_bills as bills,
     upload_repo,
 )
 from code_etl.amend.actions import (
     start as start_amend,
+)
+from code_etl.compute_bills import (
+    legacy as bills,
 )
 from code_etl.mailmap import (
     Mailmap,
