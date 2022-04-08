@@ -55,9 +55,11 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
         )
 
         if not item:
-            raise Exception(
-                f"No jobs were found for the key {action_dynamo_pk}"
+            LOGGER.exception(
+                Exception("No jobs were found"),
+                extra={"extra": {"action_dynamo_pk": action_dynamo_pk}},
             )
+            return None
 
         action = item.action_name
         await update_action_to_dynamodb(key=item.key, running=True)
@@ -84,6 +86,8 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
         await delete_action(dynamodb_pk=item.key)
     except IndexError:
         LOGGER.error("Missing arguments", extra=dict(extra=locals()))
+
+    return None
 
 
 if __name__ == "__main__":
