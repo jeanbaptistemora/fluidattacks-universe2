@@ -13,8 +13,9 @@
         {{ user_email }}
       </a> has
       {% if parent == '0' %} made {% else %} replied to {% endif %}
-      {% if comment_type == 'observation' %} an observation {% else %} a comment {% endif %} on
-      {% if comment_type != 'group' %} finding <strong>{{ finding_name }}</strong> of {% endif %}
+      {% if comment_type == 'observation' %} an observation on type of vulnerability
+      {% else %} a comment on{% endif %}
+      {% if comment_type != 'group' %} <strong>{{ finding_name }}</strong> of {% endif %}
       group <strong>{{ group }}</strong>:
     </p>
     {{ text_area(comment) }}
