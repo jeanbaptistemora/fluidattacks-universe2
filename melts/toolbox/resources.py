@@ -332,6 +332,8 @@ def _http_repo_cloning(
     os.environ["GIT_SSL_NO_VERIFY"] = "False"
     # script does not support vpns atm
     baseurl = git_root["url"]
+    baseurl = baseurl.replace("https://", "https://<user>:<pass>@")
+    baseurl = baseurl.replace("http://", "https://<user>:<pass>@")
     nickname = git_root["nickname"]
 
     branch = git_root["branch"]
