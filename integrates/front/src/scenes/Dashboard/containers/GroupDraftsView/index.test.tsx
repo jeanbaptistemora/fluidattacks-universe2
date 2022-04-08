@@ -24,9 +24,9 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string =
   "https://gitlab.com/api/v4/projects/20741933/repository/files";
-const branchRef: string = "af23ed91d8e7a07fdd64cb4ce0d8d691b19d67db";
+const branchRef: string = "master";
 const vulnsFileId: string =
-  "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+  "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
 mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
   body: {
     "002": {
@@ -62,7 +62,7 @@ mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
   status: 200,
 });
 const requirementsFileId: string =
-  "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+  "common%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
 mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
   body: {
     "029": {

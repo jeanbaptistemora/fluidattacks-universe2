@@ -77,7 +77,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const criteriaIdSlice: number = 3;
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
-  const branchRef: string = "af23ed91d8e7a07fdd64cb4ce0d8d691b19d67db";
+  const branchRef: string = "master";
   const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
   const [reqsList, setReqsList] = useState<string[]>([]);
@@ -125,7 +125,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   useEffect((): void => {
     async function fetchData(): Promise<void> {
       const vulnsFileId: string =
-        "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+        "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
       const vulnsResponseFile: Response = await fetch(
         `${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`
       );
@@ -135,7 +135,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
         : undefined;
 
       const requirementsFileId: string =
-        "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+        "common%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
       const requirementsResponseFile: Response = await fetch(
         `${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`
       );

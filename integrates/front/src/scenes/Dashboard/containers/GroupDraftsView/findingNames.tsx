@@ -144,10 +144,10 @@ async function getFindingNames(
 ): Promise<ISuggestion[]> {
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
-  const branchRef: string = "af23ed91d8e7a07fdd64cb4ce0d8d691b19d67db";
+  const branchRef: string = "master";
 
   const vulnsFileId: string =
-    "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+    "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
   const vulnsResponseFile: Response = await fetch(
     `${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`
   );
@@ -160,7 +160,7 @@ async function getFindingNames(
   }
 
   const requirementsFileId: string =
-    "makes%2Ffoss%2Fmodules%2Fcommon%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+    "common%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
   const requirementsResponseFile: Response = await fetch(
     `${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`
   );
