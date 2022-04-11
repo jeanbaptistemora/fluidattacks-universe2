@@ -227,7 +227,7 @@
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $makes_users_rotate_even == null
+    - if: $common_users_rotate_even == null
       when: never
     - when: always
   script:
@@ -249,7 +249,7 @@
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $makes_users_rotate_odd == null
+    - if: $common_users_rotate_odd == null
       when: never
     - when: always
   script:

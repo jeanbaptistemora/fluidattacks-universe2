@@ -344,7 +344,7 @@ in {
                 needs = ["/taintTerraform/commonUsersKeys1"];
                 rules = [
                   (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "makes_users_rotate_even")
+                  (gitlabCi.rules.varIsDefined "common_users_rotate_even")
                   (gitlabCi.rules.always)
                 ];
               };
@@ -362,7 +362,7 @@ in {
                 needs = ["/taintTerraform/commonUsersKeys2"];
                 rules = [
                   (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "makes_users_rotate_odd")
+                  (gitlabCi.rules.varIsDefined "common_users_rotate_odd")
                   (gitlabCi.rules.always)
                 ];
               };
