@@ -40,8 +40,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
-      setIsVerifyDialogOpen(false);
+      onClose();
       closeReportsModal();
+      setIsVerifyDialogOpen(false);
       msgSuccess(
         t("groupAlerts.reportRequested"),
         t("groupAlerts.titleSuccess")
