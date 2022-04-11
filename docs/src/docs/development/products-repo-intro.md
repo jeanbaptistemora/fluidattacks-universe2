@@ -46,7 +46,7 @@ and is divided across many products.
 1. Install [Makes](https://github.com/fluidattacks/makes) with
 
     ```bash
-    $ curl -L fluidattacks.com/install/m | sh
+    $ nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz
     ```
 
     If everything goes well,

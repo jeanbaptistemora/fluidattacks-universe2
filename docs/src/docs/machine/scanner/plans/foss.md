@@ -61,19 +61,13 @@ in pretty-printed or CSV format:
     x86_64 GNU/Linux
     ```
 
-1. Bash v5, installed as explained in the
-    [Bash's download page](https://www.gnu.org/software/bash/#download).
-
-1. Curl v7, installed as explained in the
-    [Curl's download page](https://curl.se/download.html).
-
 1. Nix v2, installed as explained in the
     [Nix's download page](https://nixos.org/download).
 
 1. Makes, installed like this:
 
     ```bash
-    $ curl -L fluidattacks.com/install/m | sh
+    $ nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz
     ```
 
 ## Using
