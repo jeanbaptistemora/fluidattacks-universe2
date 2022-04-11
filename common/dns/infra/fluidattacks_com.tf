@@ -474,48 +474,6 @@ resource "cloudflare_page_rule" "redirect_www" {
   }
 }
 
-resource "cloudflare_page_rule" "install_profiles" {
-  zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "${cloudflare_zone.fluidattacks_com.zone}/install/*"
-  status   = "active"
-  priority = 99
-
-  actions {
-    forwarding_url {
-      url         = "${local.product_raw}/makes/profiles/$1.sh"
-      status_code = 301
-    }
-  }
-}
-
-resource "cloudflare_page_rule" "install_makes_version" {
-  zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "${cloudflare_zone.fluidattacks_com.zone}/makes/install/*"
-  status   = "active"
-  priority = 98
-
-  actions {
-    forwarding_url {
-      url         = "https://github.com/fluidattacks/makes/archive/$1.tar.gz"
-      status_code = 301
-    }
-  }
-}
-
-resource "cloudflare_page_rule" "install_makes" {
-  zone_id  = cloudflare_zone.fluidattacks_com.id
-  target   = "${cloudflare_zone.fluidattacks_com.zone}/makes/install"
-  status   = "active"
-  priority = 97
-
-  actions {
-    forwarding_url {
-      url         = "https://github.com/fluidattacks/makes/archive/main.tar.gz"
-      status_code = 301
-    }
-  }
-}
-
 resource "cloudflare_page_rule" "redirect_asserts" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/asserts/*"
