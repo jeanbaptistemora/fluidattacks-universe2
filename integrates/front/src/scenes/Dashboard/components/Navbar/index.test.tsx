@@ -2,6 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
@@ -13,6 +14,20 @@ import {
 import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
+
+const mockHistoryPush: jest.Mock = jest.fn();
+jest.mock("react-router-dom", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router-dom");
+
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      push: mockHistoryPush,
+    }),
+  };
+});
 
 describe("Navbar", (): void => {
   it("should return a function", (): void => {
@@ -39,7 +54,13 @@ describe("Navbar", (): void => {
             organizations: [
               {
                 __typename: "Organization",
+                groups: [],
                 name: "okada",
+              },
+              {
+                __typename: "Organization",
+                groups: [],
+                name: "bulat",
               },
             ],
             userEmail: "test@fluidattacks.com",
@@ -90,10 +111,11 @@ describe("Navbar", (): void => {
         },
       },
     };
+    localStorage.setItem("organization", JSON.stringify({ name: "okada" }));
 
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
-        <MemoryRouter initialEntries={["/orgs/okada"]}>
+        <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
           <MockedProvider
             addTypename={true}
             mocks={[organizationsQuery, mocksQueryGroupVulns]}
@@ -140,6 +162,34 @@ describe("Navbar", (): void => {
     });
 
     expect(screen.getAllByRole("button")[0].textContent).toBe("Okada\u00a0");
+    expect(screen.queryByText("bulat")).not.toBeInTheDocument();
+
+    userEvent.hover(screen.getAllByRole("button")[0]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Bulat")).toBeInTheDocument();
+    });
+    userEvent.unhover(screen.getAllByRole("button")[0]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Bulat")).not.toBeInTheDocument();
+    });
+
+    userEvent.click(screen.getAllByRole("button")[0]);
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledTimes(0);
+    });
+    userEvent.hover(screen.getAllByRole("button")[0]);
+    await waitFor((): void => {
+      expect(screen.queryByText("Bulat")).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("Bulat"));
+    await waitFor((): void => {
+      expect(mockHistoryPush).toHaveBeenCalledTimes(1);
+    });
+
+    expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/bulat/groups");
+
+    localStorage.clear();
+    jest.clearAllMocks();
   });
 
   it("should display draft title", async (): Promise<void> => {

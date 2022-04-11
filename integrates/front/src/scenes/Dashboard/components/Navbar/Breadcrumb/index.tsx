@@ -1,8 +1,10 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _, { capitalize } from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -14,6 +16,7 @@ import { BreadcrumbContainer, SplitItems } from "./styles";
 import type { IFindingTitle, IUserOrgs } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
+import { NavbarButton } from "../styles";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -21,7 +24,7 @@ import { msgError } from "utils/notifications";
 
 export const Breadcrumb: React.FC = (): JSX.Element => {
   const { pathname } = useLocation();
-  const { push } = useHistory();
+  const { action, goBack, push } = useHistory();
   const { t } = useTranslation();
 
   const [lastOrganization, setLastOrganization] = useStoredState(
@@ -82,15 +85,24 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     void refetch();
   }, [refetch]);
 
+  const isOrphanPath: boolean = useMemo(
+    (): boolean => _.includes(["/user/config", "/todos"], pathname),
+    [pathname]
+  );
+  const shouldDisplayGoBack: boolean = useMemo(
+    (): boolean => action !== "POP" && isOrphanPath,
+    [action, isOrphanPath]
+  );
+
   const handleOrganizationChange = useCallback(
     (eventKey: string): void => {
-      if (eventKey !== lastOrganization.name) {
+      if (eventKey !== lastOrganization.name || isOrphanPath) {
         setLastOrganization({ name: eventKey });
-        push(`/orgs/${eventKey}/`);
+        push(`/orgs/${eventKey}/groups`);
       }
       setOrgItemsOpen(false);
     },
-    [lastOrganization.name, push, setLastOrganization]
+    [lastOrganization.name, isOrphanPath, push, setLastOrganization]
   );
 
   const [isGroupItemsOpen, setGroupItemsOpen] = useState(false);
@@ -181,6 +193,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         }
         id={"organizationList"}
         isOpen={isOrgItemsOpen}
+        onClick={handleOrganizationChange}
         onHover={showOrgItems}
         onLeave={hideOrgItems}
         title={capitalize(pathOrganization)}
@@ -207,6 +220,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         }
         id={"groupList"}
         isOpen={isGroupItemsOpen}
+        onClick={handleGroupChange}
         onHover={showGroupItems}
         onLeave={hideGroupItems}
         title={capitalize(pathGroup)}
@@ -244,6 +258,13 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
+      {shouldDisplayGoBack ? (
+        <NavbarButton onClick={goBack}>
+          <span className={"fa-layers fa-fw"}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </span>
+        </NavbarButton>
+      ) : undefined}
       <BreadcrumbContainer>{fullBreadcrumb}</BreadcrumbContainer>
       {isOrganizationModalOpen ? (
         <AddOrganizationModal onClose={closeOrganizationModal} open={true} />
