@@ -11151,6 +11151,7 @@
     - "sans25.787"
     - "cmmc.CA_L2-3_12_2"
     - "iec62443.RA-7_1"
+    - "wasc.A_03"
     - "wasc.A_10"
     - "wasc.A_26"
   metadata: {}
