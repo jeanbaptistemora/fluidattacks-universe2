@@ -7,7 +7,7 @@
           outputs."/secretsForEnvFromSops/airsInfraProd"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
-        src = "/airs/infra";
+        src = "/airs/infra/src";
         version = "1.0";
       };
     };
@@ -20,7 +20,7 @@
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
-        src = "/airs/infra";
+        src = "/airs/infra/src";
         version = "1.0";
       };
     };
@@ -49,7 +49,7 @@
           outputs."/secretsForEnvFromSops/airsInfraDev"
           outputs."/secretsForTerraformFromEnv/airsInfra"
         ];
-        src = "/airs/infra";
+        src = "/airs/infra/src";
         version = "1.0";
       };
     };

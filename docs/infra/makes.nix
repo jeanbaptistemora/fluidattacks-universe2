@@ -7,7 +7,7 @@
           outputs."/secretsForEnvFromSops/docsInfraProd"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
-        src = "/docs/infra";
+        src = "/docs/infra/src";
         version = "1.0";
       };
     };
@@ -20,7 +20,7 @@
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
-        src = "/docs/infra";
+        src = "/docs/infra/src";
         version = "1.0";
       };
     };
@@ -49,7 +49,7 @@
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
-        src = "/docs/infra";
+        src = "/docs/infra/src";
         version = "1.0";
       };
     };

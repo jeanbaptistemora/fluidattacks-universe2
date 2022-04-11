@@ -9,7 +9,7 @@ include:
   - local: makes/foss/modules/skims/gitlab-ci.yaml
   - local: makes/foss/modules/sorts/gitlab-ci.yaml
 
-  - local: docs/.gitlab-ci.yml
+  - local: docs/.gitlab-ci.yaml
   - local: forces/.gitlab-ci.yml
 
 stages:

@@ -1,7 +1,6 @@
 {
   imports = [
     ./all/makes.nix
-    ./docs/makes.nix
     ./forces/makes.nix
     ./integrates/makes.nix
     ./melts/makes.nix
