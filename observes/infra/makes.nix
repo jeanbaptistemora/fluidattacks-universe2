@@ -7,7 +7,7 @@
           outputs."/secretsForEnvFromSops/observesProd"
           outputs."/secretsForTerraformFromEnv/observesProd"
         ];
-        src = "/makes/foss/modules/observes/infra/infra";
+        src = "/observes/infra/src";
         version = "1.0";
       };
     };
@@ -16,7 +16,7 @@
     modules = {
       observes = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/makes/foss/modules/observes/infra/infra";
+        src = "/observes/infra/src";
         version = "1.0";
       };
     };
@@ -37,7 +37,7 @@
     modules = {
       observes = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/makes/foss/modules/observes/infra/infra";
+        src = "/observes/infra/src";
         version = "1.0";
       };
     };

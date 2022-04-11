@@ -59,7 +59,7 @@
 in {
   pipelines = {
     observes = {
-      gitlabPath = "/makes/foss/modules/observes/gitlab-ci.yaml";
+      gitlabPath = "/observes/gitlab-ci.yaml";
       jobs = [
         {
           output = "/deployTerraform/observes";
