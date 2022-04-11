@@ -22,6 +22,7 @@ from .utils import (
     format_treatment_summary_item,
     format_unreliable_indicators_item,
     format_verification_item,
+    get_latest_state,
     get_latest_verification,
 )
 from aioextensions import (
@@ -78,6 +79,86 @@ async def update_evidence(
         key=metadata_key,
         table=TABLE,
     )
+
+
+async def update_historic_state(  # pylint: disable=too-many-locals
+    *,
+    group_name: str,
+    finding_id: str,
+    historic_state: tuple[FindingState, ...],
+) -> None:
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_state"],
+        values={"id": finding_id},
+    )
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_historic_state"],),
+        table=TABLE,
+    )
+    current_state_keys = {
+        keys.build_key(
+            facet=TABLE.facets["finding_historic_state"],
+            values={
+                "iso8601utc": item["modified_date"],
+                "id": finding_id,
+            },
+        )
+        for item in response.items
+    }
+    state_items = []
+    state_keys = set()
+    for state in historic_state:
+        state_item = format_state_item(state)
+        state_key = keys.build_key(
+            facet=TABLE.facets["finding_historic_state"],
+            values={
+                "iso8601utc": state.modified_date,
+                "id": finding_id,
+            },
+        )
+        state_keys.add(state_key)
+        state_item = {
+            key_structure.partition_key: state_key.partition_key,
+            key_structure.sort_key: state_key.sort_key,
+            **state_item,
+        }
+        state_items.append(state_item)
+    latest_state = get_latest_state(historic_state)
+    latest_key = keys.build_key(
+        facet=TABLE.facets["finding_state"],
+        values={
+            "group_name": group_name,
+            "id": finding_id,
+        },
+    )
+    latest_item = format_state_item(latest_state)
+    latest_item = {
+        key_structure.partition_key: latest_key.partition_key,
+        key_structure.sort_key: latest_key.sort_key,
+        **latest_item,
+    }
+    state_items.append(latest_item)
+
+    operation_coroutines = [
+        operations.batch_put_item(items=tuple(state_items), table=TABLE)
+    ]
+    states_to_remove = [
+        current_state_key
+        for current_state_key in current_state_keys
+        if current_state_key not in state_keys
+    ]
+    operation_coroutines.append(
+        operations.batch_delete_item(
+            keys=states_to_remove,
+            table=TABLE,
+        )
+    )
+    await collect(operation_coroutines)
 
 
 async def update_historic_verification(  # pylint: disable=too-many-locals

@@ -331,6 +331,13 @@ def format_optional_verification_item(
     return verification_item
 
 
+def get_latest_state(historic_state: tuple[FindingState, ...]) -> FindingState:
+    return max(
+        historic_state,
+        key=lambda state: datetime.fromisoformat(state.modified_date),
+    )
+
+
 def get_latest_verification(
     historic_verification: Tuple[FindingVerification, ...]
 ) -> Optional[FindingVerification]:
