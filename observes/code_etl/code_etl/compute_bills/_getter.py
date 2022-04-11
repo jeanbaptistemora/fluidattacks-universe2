@@ -120,13 +120,14 @@ def get_month_repos(
         FROM code.commits
         WHERE
             TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
-        AND hash != {COMMIT_HASH_SENTINEL}
+        AND hash != %(sentinel)s
     """
     return client.execute(
         new_query(stm),
         freeze(
             {
                 "seen_at": date.strftime("%Y-%m"),
+                "sentinel": COMMIT_HASH_SENTINEL,
             }
         ),
     ) + client.fetch_all().map(
@@ -153,11 +154,12 @@ def get_month_contributions(
         WHERE
             namespace = %(namespace)s
         AND TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
-        AND hash != {COMMIT_HASH_SENTINEL}
+        AND hash != %(sentinel)s
     """
     args: Dict[str, PrimitiveVal] = {
         "namespace": group.name,
         "seen_at": date.strftime("%Y-%m"),
+        "sentinel": COMMIT_HASH_SENTINEL,
     }
 
     def to_contrib(raw: RowData) -> Contribution:

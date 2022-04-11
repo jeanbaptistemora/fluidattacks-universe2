@@ -16,13 +16,13 @@
   };
   redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "refs/tags/v0.6.0";
+    ref = "refs/tags/v0.6.1";
   };
   redshift = import redshift_src {
-    inherit system legacy_pkgs python_version;
+    inherit system legacy_pkgs;
     src = redshift_src;
     others = {
-      fa-purity = purity."${python_version}".pkg;
+      fa-purity = purity;
     };
   };
   utils-logger = import local_lib.utils-logger {
@@ -78,7 +78,7 @@ in
       pythonPkgs = pythonPkgs2;
     };
     postgres-client = postgres-client.pkg;
-    redshift-client = redshift.pkg;
+    redshift-client = redshift."${python_version}".pkg;
     types-click = import ./click/stubs.nix lib;
     utils-logger = utils-logger.pkg;
   }

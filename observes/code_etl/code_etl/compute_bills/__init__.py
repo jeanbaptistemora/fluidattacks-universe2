@@ -23,6 +23,7 @@ from code_etl.objs import (
 from code_etl.utils import (
     DB_CREDS,
     DB_ID,
+    log_info,
 )
 from datetime import (
     datetime,
@@ -68,11 +69,16 @@ def gen_final_reports(
     def process_group(
         group: GroupId,
     ) -> Cmd[Tuple[GroupId, ActiveUsersReport]]:
-        return (
+        start = log_info(LOG, "Generating report for group: %s", group.name)
+        extract = log_info(LOG, "Calculating active users of: %s", group.name)
+        end = log_info(LOG, "Report for %s done!", group.name)
+        return start + (
             get_month_contributions(client, group, date)
-            .map(lambda x: filter_by_fa_hash(client_2, x, date.month))
+            # .map(lambda x: filter_by_fa_hash(client_2, x, date.month))
+            .bind(lambda x: extract + Cmd.from_cmd(lambda: x))
             .bind(extract_active_users)
             .map(lambda u: (group, u))
+            .bind(lambda x: end + Cmd.from_cmd(lambda: x))
         )
 
     reports = tuple(map(process_group, groups))
@@ -106,7 +112,14 @@ def main(token: str, folder: Path, date: datetime) -> Cmd[None]:
     )
     return client_1.bind(
         lambda c1: client_2.bind(
-            lambda c2: get_month_repos(c1, date).bind(
+            lambda c2: get_month_repos(c1, date)
+            .bind(
+                lambda i: log_info(
+                    LOG, "Contributing groups this month: %s", str(i)
+                )
+                + Cmd.from_cmd(lambda: i)
+            )
+            .bind(
                 lambda groups: gen_final_reports(c1, c2, date, groups).bind(
                     lambda d: save_all(token, folder, d)
                 )

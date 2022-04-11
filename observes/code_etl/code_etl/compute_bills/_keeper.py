@@ -51,9 +51,9 @@ class ReportRow:
     groups: FrozenSet[GroupId]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True)  # type: ignore[misc]
 class _ReportKeeper:
-    _writer: DictWriter[str]
+    _writer: DictWriter  # type: ignore[type-arg]
     _get_org: Patch[Callable[[GroupId], Optional[OrgId]]]
 
 
@@ -85,7 +85,7 @@ class ReportKeeper(_ReportKeeper):
                 "repository": row.contrib.commit_id.repo.repository,
             }
             return Cmd.from_cmd(
-                lambda: cast(None, self._writer.writerow(data))
+                lambda: cast(None, self._writer.writerow(data))  # type: ignore[misc]
             ).map(lambda _: None)
         return Cmd.from_cmd(
             lambda: LOG.warning("Skipped group contribution: %s", current.name)
@@ -105,7 +105,7 @@ class ReportKeeper(_ReportKeeper):
 
         write_rows = tuple(map(_write, report.data.items()))
         return Cmd.from_cmd(
-            lambda: cast(None, self._writer.writeheader())
+            lambda: cast(None, self._writer.writeheader())  # type: ignore[misc]
         ) + serial_merge(write_rows).map(lambda _: None)
 
 
