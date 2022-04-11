@@ -4,7 +4,7 @@
     modules = {
       skims = {
         setup = [outputs."/secretsForAwsFromEnv/prodSkims"];
-        src = "/skims/infra";
+        src = "/skims/infra/src";
         version = "1.0";
       };
     };
@@ -13,7 +13,7 @@
     modules = {
       skims = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/skims/infra";
+        src = "/skims/infra/src";
         version = "1.0";
       };
     };
@@ -22,7 +22,7 @@
     modules = {
       skims = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/skims/infra";
+        src = "/skims/infra/src";
         version = "1.0";
       };
     };

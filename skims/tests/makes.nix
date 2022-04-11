@@ -23,7 +23,7 @@ in {
           "NIST-SARD-Test-Suites" = inputs.skimsNistTestSuites;
           "product" = builtins.path {
             name = "product";
-            path = ../../../../..;
+            path = ../..;
           };
           "VulnerableApp" = inputs.skimsVulnerableApp;
           "vulnerable_js_app" = inputs.skimsVulnerableJsApp;
