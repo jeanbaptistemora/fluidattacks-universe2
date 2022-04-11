@@ -6,7 +6,7 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.common.utils_logger.root;
-  pkg = import "${root}/main.nix" fetchNixpkgs;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs;
   env = pkg.env.dev;
 in
   makeTemplate {

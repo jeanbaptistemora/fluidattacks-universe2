@@ -7,7 +7,7 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.service.scheduler.root;
-  pkg = import "${root}/main.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.runtime;
 in
   makeTemplate {

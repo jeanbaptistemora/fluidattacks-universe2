@@ -6,7 +6,7 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.service.db_migration.root;
-  pkg = import "${root}/main.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.dev;
 in
   makeTemplate {
