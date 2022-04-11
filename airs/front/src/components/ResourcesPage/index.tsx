@@ -146,7 +146,7 @@ const ResourcesPage: React.FC<IProps> = ({
         image={"/resources/resource-card14n"}
         language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.reports.report4Title")}`}
-        urlCard={"https://fluidattacks.docsend.com/view/g7zbsrdi8fbnd85m"}
+        urlCard={"https://fluidattacks.docsend.com/view/kp8uj28i8d6us5u5"}
       />
       <ResourcesCard
         buttonText={`${translate.t(
