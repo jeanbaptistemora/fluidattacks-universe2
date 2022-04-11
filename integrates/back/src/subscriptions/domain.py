@@ -74,10 +74,7 @@ from tags import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 from urllib.parse import (
     quote_plus,
@@ -91,7 +88,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def _frequency_to_period(*, frequency: str) -> int:
-    mapping: Dict[str, int] = {
+    mapping: dict[str, int] = {
         "HOURLY": 3600,
         "DAILY": 86400,
         "WEEKLY": 604800,
@@ -101,7 +98,7 @@ def _frequency_to_period(*, frequency: str) -> int:
 
 
 def _period_to_frequency(*, period: NumericType) -> str:
-    mapping: Dict[int, str] = {
+    mapping: dict[int, str] = {
         3600: "HOURLY",
         86400: "DAILY",
         604800: "WEEKLY",
@@ -165,7 +162,7 @@ async def can_subscribe_user_to_entity_report(
 async def get_subscriptions_to_entity_report(
     *,
     audience: str,
-) -> List[Dict[Any, Any]]:
+) -> list[dict[str, Any]]:
     return await subscriptions_dal.get_subscriptions_to_entity_report(
         audience=audience,
     )
@@ -174,7 +171,7 @@ async def get_subscriptions_to_entity_report(
 async def get_user_subscriptions(
     *,
     user_email: str,
-) -> List[Dict[Any, Any]]:
+) -> list[dict[str, Any]]:
     return await subscriptions_dal.get_user_subscriptions(
         user_email=user_email,
     )
@@ -183,7 +180,7 @@ async def get_user_subscriptions(
 async def get_user_subscriptions_to_entity_report(
     *,
     user_email: str,
-) -> List[Dict[str, str]]:
+) -> list[dict[str, str]]:
     return [
         {
             "entity": subscription["sk"]["entity"],
@@ -273,20 +270,20 @@ async def _send_analytics_report(
 async def _send_digest_report(
     *,
     user_email: str,
-    digest_stats: Optional[Tuple[MailContent, ...]] = None,
+    digest_stats: Optional[tuple[MailContent, ...]] = None,
     loaders: Dataloaders = None,
 ) -> None:
-    groups_names: list[str] = await groups_domain.get_groups_by_user(
+    group_names: list[str] = await groups_domain.get_groups_by_user(
         user_email, with_cache=False
     )
 
     if FI_ENVIRONMENT == "production":
         loaders = loaders if loaders else get_new_context()
         user_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
-            groups_names
+            group_names
         )
         groups_filtered = groups_utils.filter_active_groups(user_groups)
-        groups_names = [
+        group_names = [
             group.name
             for group in groups_filtered
             if group.name not in FI_TEST_PROJECTS.split(",")
@@ -296,13 +293,13 @@ async def _send_digest_report(
         mail_contents = tuple(
             group_stats
             for group_stats in digest_stats
-            if group_stats["group"] in groups_names
+            if group_stats["group"] in group_names
         )
     elif loaders:
         mail_contents = await collect(
             tuple(
                 groups_domain.get_group_digest_stats(loaders, group)
-                for group in groups_names
+                for group in group_names
             ),
             workers=2,
         )
@@ -335,7 +332,7 @@ async def _send_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-    digest_stats: Optional[Tuple[MailContent, ...]] = None,
+    digest_stats: Optional[tuple[MailContent, ...]] = None,
     loaders: Dataloaders = None,
 ) -> None:
     if report_entity.lower() == "digest":
@@ -430,50 +427,50 @@ async def unsubscribe_user_to_entity_report(
 
 async def _get_digest_stats(
     loaders: Dataloaders,
-    subscriptions: list[dict[Any, Any]],
+    subscriptions: list[dict[str, Any]],
 ) -> tuple[MailContent, ...]:
     """Process the digest stats for each group with a subscriber."""
     digest_suscribers: list[str] = [
         subscription["pk"]["email"]
         for subscription in subscriptions
-        if subscription["sk"]["entity"].lower() == "digest"
+        if str(subscription["sk"]["entity"]).lower() == "digest"
     ]
 
-    digest_groups_names = await collect(
+    digest_group_names = await collect(
         [
             groups_domain.get_groups_by_user(user_email, with_cache=False)
             for user_email in digest_suscribers
         ],
         workers=1024,
     )
-    digest_groups_names = list(set(chain.from_iterable(digest_groups_names)))
+    digest_group_names = tuple(set(chain.from_iterable(digest_group_names)))
 
     if FI_ENVIRONMENT == "production":
         all_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
-            digest_groups_names
+            digest_group_names
         )
         groups_filtered = groups_utils.filter_active_groups(all_groups)
-        digest_groups_names = [
+        digest_group_names = tuple(
             group.name
             for group in groups_filtered
             if group.name not in FI_TEST_PROJECTS.split(",")
-        ]
+        )
 
     LOGGER_CONSOLE.info(
         "Digest: get stats for groups",
-        extra={"extra": dict(digest_groups=str(digest_groups_names))},
+        extra={"extra": dict(digest_groups=str(digest_group_names))},
     )
     return await collect(
         [
             groups_domain.get_group_digest_stats(loaders, group)
-            for group in digest_groups_names
+            for group in digest_group_names
         ],
         workers=2,
     )
 
 
 async def _validate_subscription(
-    subscription: Dict[Any, Any],
+    subscription: dict[str, Any],
 ) -> bool:
     # A user may be subscribed but now he does not have access to the
     #   group or organization, so let's handle this case
@@ -495,8 +492,8 @@ async def _validate_subscription(
 
 async def _process_subscription(
     *,
-    subscription: Dict[Any, Any],
-    digest_stats: Optional[Tuple[MailContent, ...]] = None,
+    subscription: dict[str, Any],
+    digest_stats: Optional[tuple[MailContent, ...]] = None,
 ) -> None:
     if not await _validate_subscription(subscription):
         LOGGER_CONSOLE.warning(
@@ -597,11 +594,11 @@ async def _get_consult_users(
     group_name: str,
     comment_type: str,
     is_finding_released: bool = True,
-) -> List[str]:
+) -> list[str]:
     recipients = FI_MAIL_REVIEWERS.split(",")
     users = await get_users_to_notify(group_name)
     if comment_type.lower() == "observation" or not is_finding_released:
-        roles: List[str] = await collect(
+        roles: list[str] = await collect(
             [get_group_level_role(email, group_name) for email in users]
         )
         hackers = [
@@ -618,13 +615,13 @@ async def get_users_subscribed_to_consult(
     group_name: str,
     comment_type: str,
     is_finding_released: bool = True,
-) -> List[str]:
-    recipients: List[str] = await _get_consult_users(
+) -> list[str]:
+    recipients: list[str] = await _get_consult_users(
         group_name=group_name,
         comment_type=comment_type,
         is_finding_released=is_finding_released,
     )
-    are_users_subscribed: List[bool] = await collect(
+    are_users_subscribed: list[bool] = await collect(
         [
             is_user_subscribed_to_comments(user_email=recipient)
             for recipient in recipients
