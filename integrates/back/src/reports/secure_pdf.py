@@ -34,8 +34,6 @@ class PDF(FPDF):
 class SecurePDF:
     """Add basic security to PDF."""
 
-    # pylint: disable=too-many-instance-attributes
-    # eight arguments are reasonable (pylnt limit -> 7)
     footer_tpl = ""
     passphrase = ""  # nosec
     result_dir = ""
@@ -44,20 +42,19 @@ class SecurePDF:
     secure_pdf_username = ""
     watermark_tpl = ""
 
-    def __init__(self, passphrase: str):
+    def __init__(self) -> None:
         """Class constructor."""
         self.base = f"{STARTDIR}/integrates/back/src/reports"
         self.footer_tpl = os.path.join(
             self.base, "resources/themes/overlay_footer.pdf"
         )
-        self.passphrase = passphrase
         self.result_dir = os.path.join(self.base, "results/results_pdf/")
         self.watermark_tpl = os.path.join(
             self.base, "resources/themes/watermark_integrates_en.pdf"
         )
 
     async def create_full(
-        self, usermail: str, basic_pdf_name: str, group: str, is_verified: bool
+        self, usermail: str, basic_pdf_name: str, group: str
     ) -> str:
         """Execute the security process in a PDF."""
         self.secure_pdf_usermail = usermail
@@ -66,19 +63,10 @@ class SecurePDF:
             group.lower(), ["historic_configuration"]
         )
         if group_info:
-            if is_verified:
-                return os.path.join(self.result_dir, basic_pdf_name)
-            self.secure_pdf_filename = await in_process(
-                self.lock, basic_pdf_name
-            )
-        else:
-            water_pdf_name = await in_process(self.overlays, basic_pdf_name)
-            if is_verified:
-                return os.path.join(self.result_dir, water_pdf_name)
-            self.secure_pdf_filename = await in_process(
-                self.lock, water_pdf_name
-            )
-        return os.path.join(self.result_dir, self.secure_pdf_filename)
+            return os.path.join(self.result_dir, basic_pdf_name)
+
+        water_pdf_name = await in_process(self.overlays, basic_pdf_name)
+        return os.path.join(self.result_dir, water_pdf_name)
 
     def lock(self, in_filename: str) -> str:
         """Add a passphrase to a PDF."""

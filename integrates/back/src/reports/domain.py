@@ -30,10 +30,8 @@ async def get_group_report_url(
     *,
     report_type: str,
     group_name: str,
-    passphrase: str,
     user_email: str,
     treatments: Set[VulnerabilityTreatmentStatus],
-    is_verified: bool,
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -56,9 +54,7 @@ async def get_group_report_url(
             loaders,
             findings_ord=findings_ord,
             group_name=group_name,
-            passphrase=passphrase,
             treatments=treatments,
-            is_verified=is_verified,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(
@@ -67,9 +63,7 @@ async def get_group_report_url(
             findings_ord=findings_ord,
             group_name=group_name,
             lang="en",
-            passphrase=passphrase,
             user_email=user_email,
-            is_verified=is_verified,
         )
     if report_type == "CERT":
         return await cert_report.generate_cert_file(
@@ -78,9 +72,7 @@ async def get_group_report_url(
             findings_ord=findings_ord,
             group_name=group_name,
             lang=str(group.language.value).lower(),
-            passphrase=passphrase,
             user_email=user_email,
-            is_verified=is_verified,
         )
     if report_type == "DATA":
         return await data_report.generate(
@@ -88,9 +80,7 @@ async def get_group_report_url(
             findings_ord=findings_ord,
             group=group_name,
             group_description=group.description,
-            passphrase=passphrase,
             requester_email=user_email,
-            is_verified=is_verified,
         )
 
     return None

@@ -18,9 +18,6 @@ from decorators import (
 import json
 import logging
 import logging.config
-from newutils.passphrase import (
-    get_passphrase,
-)
 from newutils.reports import (
     sign_url,
     upload_report,
@@ -58,20 +55,16 @@ upload_report_file = retry_on_exceptions(
 async def get_report(
     *,
     item: BatchProcessing,
-    passphrase: str,
     report_type: str,
     treatments: Set[VulnerabilityTreatmentStatus],
-    is_verified: bool,
 ) -> str:
     report_file_name: str = ""
     try:
         report_file_name = await reports_domain.get_group_report_url(
             report_type=report_type,
             group_name=item.entity,
-            passphrase=passphrase,
             user_email=item.subject,
             treatments=treatments,
-            is_verified=is_verified,
         )
         uploaded_file_name = await upload_report_file(report_file_name)
     except ErrorUploadingFileS3 as exc:
@@ -95,10 +88,8 @@ async def get_report(
 async def send_report(
     *,
     item: BatchProcessing,
-    passphrase: str,
     report_type: str,
     report_url: str,
-    is_verified: bool,
 ) -> None:
     translations: Dict[str, str] = {
         "CERT": "Certificate",
@@ -116,9 +107,7 @@ async def send_report(
         await notifications_domain.new_password_protected_report(
             item.subject,
             item.entity,
-            passphrase,
             translations[report_type.upper()],
-            is_verified,
             await sign_url(report_url),
         )
         await delete_action(
@@ -133,7 +122,6 @@ async def send_report(
 async def generate_report(*, item: BatchProcessing) -> None:
     additional_info: Dict[str, Any] = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
-    is_verified: bool = additional_info.get("is_verified", False)
     message = (
         f"Processing {report_type} report requested by "
         f"{item.subject} for group {item.entity}"
@@ -143,19 +131,14 @@ async def generate_report(*, item: BatchProcessing) -> None:
         VulnerabilityTreatmentStatus[treatment]
         for treatment in additional_info["treatments"]
     }
-    passphrase = get_passphrase(4)
     report_url = await get_report(
         item=item,
-        passphrase=passphrase,
         report_type=report_type,
         treatments=treatments,
-        is_verified=is_verified,
     )
     if report_url:
         await send_report(
             item=item,
-            passphrase=passphrase,
             report_type=report_type,
             report_url=report_url,
-            is_verified=is_verified,
         )

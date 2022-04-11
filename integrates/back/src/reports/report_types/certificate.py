@@ -22,11 +22,9 @@ async def generate_cert_file(
     findings_ord: tuple[Finding, ...],
     group_name: str,
     lang: str,
-    passphrase: str,
     user_email: str,
-    is_verified: bool,
 ) -> str:
-    secure_pdf = SecurePDF(passphrase)
+    secure_pdf = SecurePDF()
     report_filename = ""
     with TemporaryDirectory() as tempdir:
         pdf_maker = CertificateCreator(lang, "cert", tempdir)
@@ -37,6 +35,6 @@ async def generate_cert_file(
             loaders,
         )
     report_filename = await secure_pdf.create_full(
-        user_email, pdf_maker.out_name, group_name, is_verified
+        user_email, pdf_maker.out_name, group_name
     )
     return report_filename
