@@ -17,6 +17,7 @@ from context import (
     CI_COMMIT_SHORT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
     FI_AWS_CLOUDWATCH_SECRET_KEY,
+    FI_AWS_SESSION_TOKEN,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_ENVIRONMENT,
     LOG_LEVEL_BUGSNAG,
@@ -51,7 +52,7 @@ AWS_REGION_NAME = "us-east-1"
 BOTO3_SESSION = Session(
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    aws_session_token=os.environ.get("AWS_SESSION_TOKEN"),
+    aws_session_token=FI_AWS_SESSION_TOKEN,
     region_name=AWS_REGION_NAME,
 )
 
@@ -80,6 +81,7 @@ class ExtraMessageFormatter(logging.Formatter):
         return super().format(record)
 
 
+MODULES = os.listdir(os.path.dirname(os.path.dirname(__file__)))
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -121,17 +123,19 @@ LOGGING = {
             "handlers": ["console"],
             "level": "INFO",
         },
-        "back.src": {
-            "handlers": ["bugsnag"],
-            "level": "WARNING",
-        },
         "transactional": {
             "handlers": ["watchtower"],
             "level": "INFO",
         },
+        **{
+            module: {
+                "handlers": ["bugsnag"],
+                "level": "WARNING",
+            }
+            for module in MODULES
+        },
     },
 }
-
 
 # Force logging to load the config right away
 # This is important otherwise loggers are not going to work in CI jobs
