@@ -83,8 +83,7 @@ from urllib.parse import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER_ERRORS = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 
 def _frequency_to_period(*, frequency: str) -> int:
@@ -223,8 +222,8 @@ async def _send_analytics_report(
             ttl=604800,  # seven days
         )
     except SnapshotNotFound as ex:
-        LOGGER_CONSOLE.exception(ex)
-        LOGGER_ERRORS.exception(
+        LOGGER.exception(ex)
+        LOGGER.exception(
             ex,
             extra={
                 "extra": dict(
@@ -261,7 +260,7 @@ async def _send_analytics_report(
             report_subject_percent=quote_plus(report_subject),
         )
 
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "- analytics email sent to user",
         extra={"extra": dict(user_email=user_email)},
     )
@@ -304,7 +303,7 @@ async def _send_digest_report(
             workers=2,
         )
     else:
-        LOGGER_CONSOLE.info(
+        LOGGER.info(
             "- digest email NOT sent to user",
             extra={"extra": dict(user_email=user_email)},
         )
@@ -312,7 +311,7 @@ async def _send_digest_report(
 
     user_stats = groups_domain.process_user_digest_stats(mail_contents)
     if user_stats["groups_len"] == 0:
-        LOGGER_CONSOLE.warning(
+        LOGGER.warning(
             "- NO available info to user",
             extra={"extra": dict(user_email=user_email)},
         )
@@ -398,7 +397,7 @@ async def subscribe_user_to_entity_report(
                 report_subject=report_subject,
                 user_email=user_email,
             )
-            LOGGER_CONSOLE.info(
+            LOGGER.info(
                 "User subscribed correctly",
                 extra={
                     "extra": {
@@ -456,7 +455,7 @@ async def _get_digest_stats(
             if group.name not in FI_TEST_PROJECTS.split(",")
         )
 
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Digest: get stats for groups",
         extra={"extra": dict(digest_groups=str(digest_group_names))},
     )
@@ -496,7 +495,7 @@ async def _process_subscription(
     digest_stats: Optional[tuple[MailContent, ...]] = None,
 ) -> None:
     if not await _validate_subscription(subscription):
-        LOGGER_CONSOLE.warning(
+        LOGGER.warning(
             "- user without access, unsubscribed",
             extra={"extra": {"subscription": subscription}},
         )
@@ -512,9 +511,7 @@ async def _process_subscription(
             digest_stats=digest_stats,
         )
     except UnableToSendMail as ex:
-        LOGGER_ERRORS.exception(
-            ex, extra={"extra": {"subscription": subscription}}
-        )
+        LOGGER.exception(ex, extra={"extra": {"subscription": subscription}})
 
 
 async def trigger_subscriptions_daily_digest() -> None:
@@ -527,7 +524,7 @@ async def trigger_subscriptions_daily_digest() -> None:
         )
         if str(subscription["sk"]["entity"]).lower() == "digest"
     ]
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "- daily digest subscriptions loaded",
         extra={"extra": {"length": len(subscriptions), "period": "DAILY"}},
     )
@@ -552,7 +549,7 @@ async def trigger_subscriptions_analytics() -> None:
     # Monthly: First of month @ 10:00 UTC (5:00 GMT-5)
     frequency: str = str(sys.argv[2]).upper()
     if frequency not in {"DAILY", "HOURLY", "MONTHLY", "WEEKLY"}:
-        LOGGER_ERRORS.error(
+        LOGGER.error(
             "Wrong parameters for trigger", extra={"extra": {"args": sys.argv}}
         )
         raise UnableToProcessSubscription()
@@ -566,7 +563,7 @@ async def trigger_subscriptions_analytics() -> None:
         and str(subscription["sk"]["entity"]).lower() != "digest"
         and _period_to_frequency(period=subscription["period"]) == frequency
     ]
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "- subscriptions loaded",
         extra={"extra": {"length": len(subscriptions), "period": frequency}},
     )

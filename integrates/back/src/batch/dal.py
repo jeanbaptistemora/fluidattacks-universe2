@@ -79,7 +79,7 @@ from urllib.parse import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 OPTIONS = dict(
     service_name="batch",
     aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,

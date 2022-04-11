@@ -32,7 +32,7 @@ import tempfile
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 
 async def clone_root(

@@ -21,7 +21,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def remove_group_resources(*, item: BatchProcessing) -> None:
@@ -30,7 +29,7 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     message = (
         f"Removing resources requested by {user_email} for group {group_name}"
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         ":".join([item.subject, message]), extra={"extra": {"action": item}}
     )
 
@@ -41,7 +40,7 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
         user_email=user_email,
     )
     message = f"Removal result: {success}"
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         ":".join([item.subject, message]),
         extra={"extra": {"action": item, "success": success}},
     )

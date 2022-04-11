@@ -61,13 +61,13 @@ from typing import (
 )
 
 logging.config.dictConfig(LOGGING)
-LOGGER_CONSOLE = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 bugsnag_utils.start_scheduler_session()
 
 
 def _log(msg: str, **extra: Any) -> None:
-    LOGGER_CONSOLE.info(msg, extra={"extra": extra})
+    LOGGER.info(msg, extra={"extra": extra})
 
 
 def _strip_first_dir(where: str) -> Tuple[str, str]:

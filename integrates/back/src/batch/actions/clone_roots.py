@@ -73,7 +73,7 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 
 async def clone_roots(*, item: BatchProcessing) -> None:

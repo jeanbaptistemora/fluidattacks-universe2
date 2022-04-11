@@ -54,7 +54,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 toe_inputs_remove = retry_on_exceptions(
@@ -69,7 +68,7 @@ def get_non_present_toe_inputs_to_update(
     root: Union[GitRootItem, URLRootItem],
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting non present toe inputs to update",
         extra={
             "extra": {
@@ -93,7 +92,7 @@ def get_toe_inputs_to_remove(
     root: Union[GitRootItem, URLRootItem],
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[ToeInput, ...]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting toe inputs to remove",
         extra={
             "extra": {
@@ -112,7 +111,7 @@ def get_present_toe_inputs_to_update(
     root: Union[GitRootItem, URLRootItem],
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting present toe inputs to update",
         extra={
             "extra": {
@@ -135,7 +134,7 @@ async def refresh_active_root_toe_inputs(
     group_name: str,
     root: Union[GitRootItem, URLRootItem],
 ) -> None:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Refreshing active toe inputs",
         extra={
             "extra": {
@@ -164,7 +163,7 @@ async def refresh_active_root_toe_inputs(
             )
         ),
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Finish refreshing active toe inputs",
         extra={
             "extra": {
@@ -179,7 +178,7 @@ async def refresh_inactive_root_toe_inputs(
     group_name: str,
     root: Union[GitRootItem, URLRootItem],
 ) -> None:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Refreshing inactive toe inputs",
         extra={
             "extra": {
@@ -214,7 +213,7 @@ async def refresh_inactive_root_toe_inputs(
             toe_inputs_remove(toe_input) for toe_input in toe_inputs_to_remove
         ),
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Finish refreshing inactive toe inputs",
         extra={
             "extra": {

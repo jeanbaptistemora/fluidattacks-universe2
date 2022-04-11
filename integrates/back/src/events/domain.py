@@ -106,7 +106,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def add_comment(

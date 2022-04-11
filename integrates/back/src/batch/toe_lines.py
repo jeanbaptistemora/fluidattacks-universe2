@@ -78,7 +78,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 CLOC_ENV = os.environ.copy()
@@ -118,7 +117,7 @@ git_get_last_commit_info = retry_on_exceptions(
 async def get_present_filenames(
     group_path: str, repo: Repo, repo_nickname: str
 ) -> Set[str]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting present filenames",
         extra={
             "extra": {
@@ -154,7 +153,7 @@ async def get_present_filenames(
 
 
 async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting ignored files",
         extra={
             "extra": {
@@ -200,7 +199,7 @@ async def get_present_toe_lines_to_add(
     repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[str, ToeLinesAttributesToAdd], ...]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting present toe lines to add",
         extra={
             "extra": {
@@ -254,7 +253,7 @@ async def get_present_toe_lines_to_update(
     repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting present toe lines to update",
         extra={
             "extra": {
@@ -319,7 +318,7 @@ def get_non_present_toe_lines_to_update(
     repo_nickname: str,
     repo_toe_lines: Dict[str, ToeLines],
 ) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting non present toe lines to update",
         extra={
             "extra": {
@@ -368,7 +367,7 @@ async def refresh_active_root_repo_toe_lines(
     group_path: str,
     root_repo: GitRootItem,
 ) -> None:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Refreshing toe lines",
         extra={
             "extra": {
@@ -465,7 +464,7 @@ async def refresh_active_root_repo_toe_lines(
             )
         ),
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Finish refreshing toe lines",
         extra={
             "extra": {
@@ -478,7 +477,7 @@ async def refresh_active_root_repo_toe_lines(
 async def refresh_inactive_root_repo_toe_lines(
     loaders: Dataloaders, group_name: str, root_repo: GitRootItem
 ) -> None:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Refreshing inactive toe lines",
         extra={
             "extra": {
@@ -506,7 +505,7 @@ async def refresh_inactive_root_repo_toe_lines(
             )
         ),
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Finish refreshing inactive toe lines",
         extra={
             "extra": {

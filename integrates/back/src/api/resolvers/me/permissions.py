@@ -7,14 +7,9 @@ from graphql.type.definition import (
 )
 import logging
 import logging.config
-from settings import (
-    LOGGING,
-)
 from typing import (
     Set,
 )
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

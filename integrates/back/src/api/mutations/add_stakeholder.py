@@ -37,11 +37,7 @@ from organizations import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
-from settings import (
-    LOGGING,
-)
 
-logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 

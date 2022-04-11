@@ -17,15 +17,15 @@ from typing import (
 
 # FP: local testing
 logging.config.dictConfig(LOGGING)  # NOSONAR
-LOGGER_CONSOLE = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 
 def info(*args: Any, extra: Any = None) -> None:
-    LOGGER_CONSOLE.info(*args, extra=dict(extra=extra))
+    LOGGER.info(*args, extra=dict(extra=extra))
 
 
 def error(*args: Any, extra: Any = None) -> None:
-    LOGGER_CONSOLE.error(*args, extra=dict(extra=extra))
+    LOGGER.error(*args, extra=dict(extra=extra))
 
 
 def scheduler_send_mail(

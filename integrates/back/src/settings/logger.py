@@ -94,6 +94,7 @@ LOGGING = {
     "handlers": {
         "bugsnag": {
             "extra_fields": {"extra": ["extra"]},
+            "filters": ["require_debug_false"],
             "class": "bugsnag.handlers.BugsnagHandler",
             "level": LOG_LEVEL_BUGSNAG or "WARNING",
         },
@@ -116,13 +117,16 @@ LOGGING = {
         },
     },
     "loggers": {
-        "": {"handlers": ["bugsnag"], "level": "WARNING"},
-        "console": {
+        "": {
             "handlers": ["console"],
             "level": "INFO",
         },
+        "back.src": {
+            "handlers": ["bugsnag"],
+            "level": "WARNING",
+        },
         "transactional": {
-            "handlers": ["console", "watchtower"],
+            "handlers": ["watchtower"],
             "level": "INFO",
         },
     },
@@ -168,14 +172,6 @@ def customize_bugsnag_error_reports(notification: Any) -> bool:
 
     notification.grouping_hash = ex_msg
 
-    # Force Bugsnag to ignore DataDog warnings.
-    # At the moment, there does not seem to be an environmental variable
-    # or a configuration that silences DataDog logs.
-    if type(notification.exception).__name__ == "LogWARNING":
-        if "ddtrace" in notification.metadata.get("extra data", {}).get(
-            "name", ""
-        ):
-            return False
     if isinstance(notification.exception, GraphQLError):
         return False
     if isinstance(notification.exception, UnavailabilityError):

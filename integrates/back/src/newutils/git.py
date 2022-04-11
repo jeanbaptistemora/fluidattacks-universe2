@@ -39,7 +39,7 @@ import uuid
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 
 class CommitInfo(NamedTuple):

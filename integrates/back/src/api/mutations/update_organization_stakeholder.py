@@ -36,14 +36,9 @@ from organizations import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
-from settings import (
-    LOGGING,
-)
 from typing import (
     Any,
 )
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

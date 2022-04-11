@@ -18,7 +18,7 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 SESSION = aioboto3.Session()
 
 

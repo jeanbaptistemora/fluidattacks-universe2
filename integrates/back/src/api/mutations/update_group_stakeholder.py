@@ -36,9 +36,6 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
-from settings import (
-    LOGGING,
-)
 from typing import (
     Any,
     cast,
@@ -47,8 +44,6 @@ from typing import (
 from users import (
     domain as users_domain,
 )
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

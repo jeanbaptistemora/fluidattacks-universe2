@@ -26,9 +26,6 @@ from newutils import (
 from sessions import (
     dal as sessions_dal,
 )
-from settings import (
-    LOGGING,
-)
 from settings.auth import (
     OAUTH,
 )
@@ -44,8 +41,6 @@ from typing import (
     Dict,
 )
 import uuid
-
-logging.config.dictConfig(LOGGING)
 
 LOGGER = logging.getLogger(__name__)
 

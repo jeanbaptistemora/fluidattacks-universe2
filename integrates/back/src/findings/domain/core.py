@@ -127,7 +127,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def _send_to_redshift(
@@ -144,7 +143,7 @@ async def _send_to_redshift(
         historic_state=historic_state,
         historic_verification=historic_verification,
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Finding stored in redshift",
         extra={
             "extra": {
@@ -597,7 +596,7 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
     await findings_model.remove(
         group_name=finding.group_name, finding_id=finding.id
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Finding masked",
         extra={
             "extra": {

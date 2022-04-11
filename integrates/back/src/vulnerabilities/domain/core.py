@@ -96,7 +96,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def _send_to_redshift(
@@ -125,7 +124,7 @@ async def _send_to_redshift(
         historic_verification=historic_verification,
         historic_zero_risk=historic_zero_risk,
     )
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Vulnerability stored in redshift",
         extra={
             "extra": {

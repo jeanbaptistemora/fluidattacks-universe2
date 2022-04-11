@@ -171,7 +171,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def _process_digest_reattacks_requested(
@@ -1647,7 +1646,7 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     )
 
     if len(group_vulns) == 0:
-        LOGGER_CONSOLE.info("NO vulns at %s", group_name)
+        LOGGER.info("NO vulns at %s", group_name)
         return content
 
     content["vulns_len"] = len(group_vulns)

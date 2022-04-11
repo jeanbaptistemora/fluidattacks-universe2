@@ -38,6 +38,7 @@ from bugsnag.asgi import (
     BugsnagMiddleware,
 )
 from context import (
+    DD_PROFILING_ENABLED,
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY,
 )
@@ -450,7 +451,8 @@ STARLETTE_APP = Starlette(
 # APM Config
 patch(aiobotocore=True)
 RuntimeMetrics.enable()
-Profiler().start()
+if DD_PROFILING_ENABLED == "true":
+    Profiler().start()
 
 # ASGI wrappers
 BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)

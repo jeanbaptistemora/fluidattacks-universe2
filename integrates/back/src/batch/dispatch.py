@@ -43,7 +43,7 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 
 
 async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001

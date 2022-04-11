@@ -42,7 +42,6 @@ from newutils import (
     token as token_helper,
 )
 from settings import (
-    LOGGING,
     MOBILE_SESSION_AGE,
 )
 from settings.auth import (
@@ -62,8 +61,6 @@ from typing import (
 from users import (
     domain as users_domain,
 )
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

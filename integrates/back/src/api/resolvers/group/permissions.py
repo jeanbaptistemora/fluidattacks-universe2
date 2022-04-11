@@ -13,17 +13,12 @@ import logging.config
 from newutils import (
     token as token_utils,
 )
-from settings import (
-    LOGGING,
-)
 from typing import (
     Any,
     Dict,
     Set,
     Union,
 )
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)

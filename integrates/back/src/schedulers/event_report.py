@@ -35,7 +35,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def send_event_report() -> None:
@@ -88,7 +87,7 @@ async def send_event_report() -> None:
                 report_date=report_date,
             )
     else:
-        LOGGER_CONSOLE.info("- event report NOT sent")
+        LOGGER.info("- event report NOT sent")
         return
 
 

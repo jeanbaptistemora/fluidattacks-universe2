@@ -33,6 +33,9 @@ function serve {
     esac \
     && recommended_workers=$(python3 -c "import os; print(2 * os.cpu_count() + 1)") \
     && if test "${env}" == 'dev'; then
+      export DD_DOGSTATSD_DISABLE="true"
+      export DD_PROFILING_ENABLED="false"
+      export DD_TRACE_ENABLED="false"
       config+=(
         # SSL certificate file
         --certfile=__argCertsDevelopment__/cert.crt
@@ -65,6 +68,9 @@ function serve {
         --workers "${recommended_workers}"
       )
     elif test "${env}" == 'prod-local'; then
+      export DD_DOGSTATSD_DISABLE="true"
+      export DD_PROFILING_ENABLED="false"
+      export DD_TRACE_ENABLED="false"
       config+=(
         # SSL certificate file
         --certfile=__argCertsDevelopment__/cert.crt

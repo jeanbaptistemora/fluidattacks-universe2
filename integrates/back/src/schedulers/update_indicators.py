@@ -76,7 +76,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_CONSOLE = logging.getLogger("console")
 
 
 class VulnerabilityStatusByTimeRange(NamedTuple):
@@ -808,7 +807,7 @@ async def _get_group_indicators(
 
 
 async def get_group_indicators(group: str) -> Dict[str, object]:
-    LOGGER_CONSOLE.info(
+    LOGGER.info(
         "Getting group indicator", extra={"extra": {"group_name": group}}
     )
     loaders: Dataloaders = get_new_context()

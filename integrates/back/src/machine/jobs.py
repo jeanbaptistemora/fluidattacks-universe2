@@ -77,7 +77,7 @@ def _json_load(path: str) -> Any:
 
 
 logging.config.dictConfig(LOGGING)
-LOGGER = logging.getLogger("console")
+LOGGER = logging.getLogger(__name__)
 QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     os.environ["MACHINE_FINDINGS"]

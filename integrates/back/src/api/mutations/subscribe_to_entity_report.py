@@ -13,17 +13,12 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from settings import (
-    LOGGING,
-)
 from subscriptions import (
     domain as subscriptions_domain,
 )
 from typing import (
     Any,
 )
-
-logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
