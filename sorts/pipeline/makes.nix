@@ -42,7 +42,7 @@
 in {
   pipelines = {
     sorts = {
-      gitlabPath = "/makes/foss/modules/sorts/gitlab-ci.yaml";
+      gitlabPath = "/sorts/gitlab-ci.yaml";
       jobs = [
         {
           output = "/deployTerraform/sorts";

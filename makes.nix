@@ -13,6 +13,47 @@
     };
   };
   extendingMakesDir = "/makes/foss/units";
+  formatBash = {
+    enable = true;
+    targets = ["/"];
+  };
+  formatMarkdown = {
+    enable = true;
+    doctocArgs = ["--title" "# Contents"];
+    targets = ["/skims/LICENSE.md"];
+  };
+  formatNix = {
+    enable = true;
+    targets = ["/"];
+  };
+  formatPython = {
+    enable = true;
+    targets = ["/"];
+  };
+  formatTerraform = {
+    enable = true;
+    targets = ["/"];
+  };
+  lintBash = {
+    enable = true;
+    targets = ["/"];
+  };
+  lintGitCommitMsg = {
+    branch = "master";
+    enable = true;
+    config = "/.lint-git-commit-msg/config.js";
+    parser = "/.lint-git-commit-msg/parser.js";
+  };
+  lintGitMailMap = {
+    enable = true;
+  };
+  lintNix = {
+    enable = true;
+    targets = ["/"];
+  };
+  lintTerraform = {
+    config = "/.lint-terraform.hcl";
+  };
   imports = [
     ./airs/makes.nix
     ./common/makes.nix
@@ -23,7 +64,7 @@
     ./observes/makes.nix
     ./reviews/makes.nix
     ./skims/makes.nix
-    ./makes/foss/modules/makes.nix
+    ./sorts/makes.nix
   ];
   inputs = {
     nixpkgs = fetchNixpkgs {

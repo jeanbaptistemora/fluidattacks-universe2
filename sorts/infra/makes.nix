@@ -3,7 +3,7 @@
     modules = {
       sorts = {
         setup = [outputs."/secretsForAwsFromEnv/prodSorts"];
-        src = "/makes/foss/modules/sorts/infra/infra";
+        src = "/sorts/infra/src";
         version = "1.0";
       };
     };
@@ -12,7 +12,7 @@
     modules = {
       sorts = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/makes/foss/modules/sorts/infra/infra";
+        src = "/sorts/infra/src";
         version = "1.0";
       };
     };
@@ -21,7 +21,7 @@
     modules = {
       sorts = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/makes/foss/modules/sorts/infra/infra";
+        src = "/sorts/infra/src";
         version = "1.0";
       };
     };
