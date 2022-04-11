@@ -74,7 +74,7 @@ def gen_final_reports(
         end = log_info(LOG, "Report for %s done!", group.name)
         return start + (
             get_month_contributions(client, group, date)
-            # .map(lambda x: filter_by_fa_hash(client_2, x, date.month))
+            .map(lambda x: filter_by_fa_hash(client_2, x, date.month))
             .bind(lambda x: extract + Cmd.from_cmd(lambda: x))
             .bind(extract_active_users)
             .map(lambda u: (group, u))
@@ -82,8 +82,12 @@ def gen_final_reports(
         )
 
     reports = tuple(map(process_group, groups))
+    start = log_info(LOG, "Generating final report...")
     return (
-        serial_merge(reports).map(lambda x: freeze(dict(x))).map(final_reports)
+        serial_merge(reports)
+        .map(lambda x: freeze(dict(x)))
+        .bind(lambda x: start + Cmd.from_cmd(lambda: x))
+        .map(final_reports)
     )
 
 
@@ -99,7 +103,9 @@ def save_all(
     def _save(items: Tuple[GroupId, FinalActiveUsersReport]) -> Cmd[None]:
         return Cmd.from_cmd(lambda: _action(items[0], items[1]))
 
-    return serial_merge(tuple(map(_save, data.items()))).map(lambda _: None)
+    start = log_info(LOG, "Saving reports...")
+    end = log_info(LOG, "Saved!")
+    return start + serial_merge(tuple(map(_save, data.items()))) + end
 
 
 def main(token: str, folder: Path, date: datetime) -> Cmd[None]:

@@ -6,7 +6,7 @@ from code_etl.amend.actions import (
     start as start_amend,
 )
 from code_etl.compute_bills import (
-    legacy as bills,
+    main as bill_reports,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -17,6 +17,9 @@ from code_etl.migration import (
 )
 from dataclasses import (
     dataclass,
+)
+from datetime import (
+    datetime,
 )
 from fa_purity.maybe import (
     Maybe,
@@ -104,13 +107,10 @@ def amend_authors(
 @click.argument("integrates_token", type=str)
 def compute_bills(
     folder: str, year: int, month: int, integrates_token: str
-) -> None:
-    bills.main(
-        folder,
-        year,
-        month,
-        integrates_token,
-    )
+) -> NoReturn:
+    bill_reports(
+        integrates_token, Path(folder), datetime(year, month, 1)
+    ).compute()
 
 
 @click.command()  # type: ignore[misc]

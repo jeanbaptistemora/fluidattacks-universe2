@@ -113,7 +113,7 @@ def new_keeper(file: IO[str], token: str) -> ReportKeeper:
     file_columns = frozenset(["actor", "groups", "commit", "repository"])
     writer = DictWriter(
         file,
-        file_columns,
+        sorted(list(file_columns)),
         quoting=QUOTE_NONNUMERIC,
     )
 
