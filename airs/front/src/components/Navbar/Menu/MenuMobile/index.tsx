@@ -23,7 +23,6 @@ import {
   SidebarContainer,
 } from "../../../../styles/styledComponents";
 import { SocialMedia } from "../../../SocialMedia";
-import { DesktopTopbarItem, TopBarButton } from "../../styles/styledComponents";
 
 interface IProps {
   close: () => void;
@@ -35,13 +34,6 @@ const MenuMobile: React.FC<IProps> = ({ close }: IProps): JSX.Element => (
       <LogoContainer>
         <RiCloseFill className={"f2 nl2 pointer c-fluid-bk"} onClick={close} />
       </LogoContainer>
-      <div className={"w-50 flex justify-end"}>
-        <DesktopTopbarItem>
-          <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
-            <TopBarButton>{"Log in"}</TopBarButton>
-          </Link>
-        </DesktopTopbarItem>
-      </div>
     </HeaderContainer>
     <ContentContainer>
       <ContentList>
