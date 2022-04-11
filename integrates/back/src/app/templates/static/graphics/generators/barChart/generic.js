@@ -2,34 +2,57 @@
 
 const defaultPaddingRatio = 0.05;
 
-function render(dataDocument, height, width) {
-  function formatYTick(value) {
-    if (value === 0.0) {
-      return value;
-    }
-    const base = 100.0;
-    const formattedValue = Math.round(Math.pow(2.0, value) * base) / base;
-
-    return formattedValue;
+function formatYTick(value) {
+  if (value % 1 === 0) {
+    return value;
   }
 
+  return '';
+}
+
+function formatLogYTick(value) {
+  if (value === 0.0) {
+    return value;
+  }
+  const base = 100.0;
+
+  return Math.round(Math.pow(2.0, value) * base) / base;
+}
+
+function formatLogLabels(datum, index, maxValueLog, originalValues) {
+  const minValue = 0.10;
+  if (datum / maxValueLog > minValue) {
+    return originalValues[index];
+  }
+
+  return '';
+}
+
+function formatLabels(datum, maxValue) {
+  const minValue = 0.15;
+  if (datum / maxValue > minValue) {
+    return datum;
+  }
+
+  return '';
+}
+
+function render(dataDocument, height, width) {
   if (dataDocument.barChartYTickFormat) {
-    dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
+    dataDocument.axis.y.tick = { format: formatYTick };
   }
 
   if (dataDocument.maxValue) {
-    const minValue = 0.15;
     dataDocument.data.labels = {
-      format: (datum) => (datum / dataDocument.maxValue > minValue ? datum : ''),
+      format: (datum) => formatLabels(datum, dataDocument.maxValue),
     };
   }
 
   if (dataDocument.logarithmic && dataDocument.originalValues && dataDocument.maxValueLog) {
-    const minValue = 0.10;
     const { originalValues } = dataDocument;
-    dataDocument.axis.y.tick = { format: formatYTick };
+    dataDocument.axis.y.tick = { format: formatLogYTick };
     dataDocument.data.labels = {
-      format: (datum, _id, index) => (datum / dataDocument.maxValueLog > minValue ? originalValues[index] : ''),
+      format: (datum, _id, index) => formatLogLabels(datum, index, dataDocument.maxValueLog, originalValues),
     };
   }
 
