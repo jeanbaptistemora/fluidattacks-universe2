@@ -2756,6 +2756,8 @@ export const enTranslations: ResourceKey = {
             "Active root not found for the repo. Verify the nickname in the scope tab",
           invalidStream: "Invalid stream, it must start with 'home' or 'query'",
           key: "Key '{{key}}' is missing or invalid. ",
+          linesPathDoesNotExist:
+            "Path for the new vulnerabilities of lines type must exist on the lines surface",
           value: "Value is invalid, pattern '{{pattern}}'. ",
         },
       },

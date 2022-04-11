@@ -91,7 +91,17 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           msgError(translate.t("groupAlerts.invalidSchema"));
         }
       } else {
-        errorMessageHelper(message);
+        switch (message) {
+          case "Exception - The vulnerability path does not exist in the toe lines":
+            msgError(
+              translate.t(
+                "searchFindings.tabVuln.alerts.uploadFile.linesPathDoesNotExist"
+              )
+            );
+            break;
+          default:
+            errorMessageHelper(message);
+        }
       }
     });
   }
