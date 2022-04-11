@@ -46,7 +46,7 @@ const Header = styled.div.attrs({
 })``;
 
 const Title = styled.p.attrs({
-  className: "ma0 pa0",
+  className: "ma0 pa0 w-100",
 })``;
 
 export { CloseButton, Container, Dialog, Header, IDialogProps, Title };

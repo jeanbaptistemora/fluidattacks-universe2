@@ -8,7 +8,6 @@ import {
   faHourglassHalf,
   faInfoCircle,
   faSyncAlt,
-  faTimes,
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -367,10 +366,11 @@ export const Graphic: React.FC<IGraphicProps> = (
       <Modal
         onClose={frameOnFullScreenExit}
         open={fullScreen}
+        size={"large"}
         title={
-          <div className={"w-100"}>
-            <div className={styles.titleBar}>
-              {currentTitle}
+          <div className={"flex justify-between w-100"}>
+            <div className={`${styles.titleBar} w-50`}>{currentTitle}</div>
+            <div className={"w-50 pr2"}>
               <ButtonToolbar className={"f5"}>
                 <FilterButton
                   changeToAll={changeToAll}
@@ -423,9 +423,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                 <GraphicButton onClick={modalFrameOnRefresh}>
                   <FontAwesomeIcon icon={faSyncAlt} />
                 </GraphicButton>
-                <GraphicButton onClick={frameOnFullScreenExit}>
-                  <FontAwesomeIcon icon={faTimes} />
-                </GraphicButton>
               </ButtonToolbar>
             </div>
           </div>
@@ -454,7 +451,9 @@ export const Graphic: React.FC<IGraphicProps> = (
               }}
             >
               {modalIframeState === "loading" ? (
-                <FontAwesomeIcon icon={faHourglassHalf} />
+                <div className={"pt5"}>
+                  <FontAwesomeIcon icon={faHourglassHalf} />
+                </div>
               ) : (
                 <div />
               )}
