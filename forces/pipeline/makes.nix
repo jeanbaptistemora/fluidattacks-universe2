@@ -41,7 +41,7 @@
 in {
   pipelines = {
     forces = {
-      gitlabPath = "/makes/foss/modules/forces/gitlab-ci.yaml";
+      gitlabPath = "/forces/gitlab-ci.yaml";
       jobs = [
         {
           output = "/deployContainerImage/forcesDev";

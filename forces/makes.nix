@@ -1,13 +1,24 @@
 # https://github.com/fluidattacks/forces
 {
+  makeSearchPaths,
   outputs,
   projectPath,
   ...
 }: {
   imports = [
-    ./dev/makes.nix
     ./pipeline/makes.nix
   ];
+  dev = {
+    forces = {
+      source = [
+        outputs."/forces/config-development"
+        outputs."/forces/config-runtime"
+        (makeSearchPaths {
+          pythonPackage = ["$PWD/forces"];
+        })
+      ];
+    };
+  };
   deployContainerImage = {
     images = {
       forcesDev = {
