@@ -29,11 +29,11 @@
   secretsForEnvFromSops = {
     commonFossDev = {
       vars = ["GITHUB_API_TOKEN"];
-      manifest = "/makes/secrets/dev.yaml";
+      manifest = "/common/secrets/dev.yaml";
     };
     commonFossProd = {
       vars = ["GITHUB_API_TOKEN"];
-      manifest = "/makes/secrets/prod.yaml";
+      manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {

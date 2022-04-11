@@ -80,7 +80,7 @@ We use [VPN][VPN] for
 - Infrastructure source code
   can be found [here](https://gitlab.com/fluidattacks/product/-/tree/master/common/vpc/infra).
 - All [VPN][VPN] client configurations
-  can be found [here](https://gitlab.com/fluidattacks/product/-/blob/master/makes/secrets/dev.yaml#L22).
+  can be found [here](https://gitlab.com/fluidattacks/product/-/blob/master/common/secrets/dev.yaml#L22).
   You can use [Sops](/development/stack/sops) do decrypt such values.
 
 ### Accessing the VPN

@@ -40,11 +40,11 @@ in {
   secretsForEnvFromSops = {
     commonVpcDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/makes/secrets/dev.yaml";
+      manifest = "/common/secrets/dev.yaml";
     };
     commonVpcProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/makes/secrets/prod.yaml";
+      manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {

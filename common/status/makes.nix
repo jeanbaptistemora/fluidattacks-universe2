@@ -36,7 +36,7 @@
         "INTEGRATES_API_TOKEN"
         "STATUS_ALERT_CHANNEL_USERS"
       ];
-      manifest = "/makes/secrets/prod.yaml";
+      manifest = "/common/secrets/prod.yaml";
     };
     commonStatusDev = {
       vars = [
@@ -47,7 +47,7 @@
         "INTEGRATES_API_TOKEN"
         "STATUS_ALERT_CHANNEL_USERS"
       ];
-      manifest = "/makes/secrets/dev.yaml";
+      manifest = "/common/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {

@@ -45,7 +45,7 @@ in {
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
       ];
-      manifest = "/makes/secrets/dev.yaml";
+      manifest = "/common/secrets/dev.yaml";
     };
     commonKubernetesProd = {
       vars = [
@@ -53,7 +53,7 @@ in {
         "CLOUDFLARE_API_KEY"
         "CLOUDFLARE_EMAIL"
       ];
-      manifest = "/makes/secrets/prod.yaml";
+      manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForKubernetesConfigFromAws = {
