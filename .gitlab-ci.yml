@@ -2,7 +2,7 @@ include:
   - local: airs/gitlab-ci.yaml
   - local: common/gitlab-ci.yaml
   - local: forces/gitlab-ci.yaml
-  - local: makes/foss/modules/integrates/gitlab-ci.yaml
+  - local: integrates/gitlab-ci.yaml
   - local: makes/foss/modules/melts/gitlab-ci.yaml
   - local: makes/foss/modules/observes/gitlab-ci.yaml
   - local: makes/foss/modules/reviews/gitlab-ci.yaml

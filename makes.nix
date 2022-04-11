@@ -18,6 +18,7 @@
     ./common/makes.nix
     ./docs/makes.nix
     ./forces/makes.nix
+    ./integrates/makes.nix
     ./makes/foss/modules/makes.nix
   ];
   inputs = {

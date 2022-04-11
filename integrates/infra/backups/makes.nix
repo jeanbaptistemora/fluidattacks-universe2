@@ -1,27 +1,27 @@
 {outputs, ...}: {
   deployTerraform = {
     modules = {
-      integratesCache = {
+      integratesBackups = {
         setup = [outputs."/secretsForAwsFromEnv/prodIntegrates"];
-        src = "/makes/foss/modules/integrates/infra/cache/infra";
+        src = "/integrates/infra/backups/src";
         version = "1.0";
       };
     };
   };
   lintTerraform = {
     modules = {
-      integratesCache = {
+      integratesBackups = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/makes/foss/modules/integrates/infra/cache/infra";
+        src = "/integrates/infra/backups/src";
         version = "1.0";
       };
     };
   };
   testTerraform = {
     modules = {
-      integratesCache = {
+      integratesBackups = {
         setup = [outputs."/secretsForAwsFromEnv/dev"];
-        src = "/makes/foss/modules/integrates/infra/cache/infra";
+        src = "/integrates/infra/backups/src";
         version = "1.0";
       };
     };

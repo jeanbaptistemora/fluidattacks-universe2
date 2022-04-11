@@ -7,7 +7,7 @@
           outputs."/secretsForEnvFromSops/integratesResourcesProd"
           outputs."/secretsForTerraformFromEnv/integratesResources"
         ];
-        src = "/makes/foss/modules/integrates/infra/resources/infra";
+        src = "/integrates/infra/resources/src";
         version = "1.0";
       };
     };
@@ -20,7 +20,7 @@
           outputs."/secretsForEnvFromSops/integratesResourcesDev"
           outputs."/secretsForTerraformFromEnv/integratesResources"
         ];
-        src = "/makes/foss/modules/integrates/infra/resources/infra";
+        src = "/integrates/infra/resources/src";
         version = "1.0";
       };
     };
@@ -49,7 +49,7 @@
           outputs."/secretsForEnvFromSops/integratesResourcesDev"
           outputs."/secretsForTerraformFromEnv/integratesResources"
         ];
-        src = "/makes/foss/modules/integrates/infra/resources/infra";
+        src = "/integrates/infra/resources/src";
         version = "1.0";
       };
     };

@@ -214,7 +214,7 @@
 in {
   pipelines = {
     integrates = {
-      gitlabPath = "/makes/foss/modules/integrates/gitlab-ci.yaml";
+      gitlabPath = "/integrates/gitlab-ci.yaml";
       jobs =
         []
         ++ (builtins.map
