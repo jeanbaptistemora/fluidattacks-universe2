@@ -160,7 +160,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Set,
     Tuple,
     Union,
 )
@@ -960,25 +959,26 @@ async def get_groups_by_user(
     active: bool = True,
     organization_id: str = "",
     with_cache: bool = True,
-) -> List[str]:
-    user_groups: List[str] = []
-    groups = await group_access_domain.get_user_groups(user_email, active)
+) -> list[str]:
+    group_names = list(
+        await filter_groups_with_org(
+            await group_access_domain.get_user_groups(user_email, active)
+        )
+    )
     group_level_roles = await authz.get_group_level_roles(
-        user_email, groups, with_cache=with_cache
+        user_email, group_names, with_cache=with_cache
     )
     if organization_id:
-        org_groups: Set[str] = set(
+        org_groups: set[str] = set(
             await orgs_domain.get_groups(organization_id)
         )
-        groups = [group for group in groups if group in org_groups]
+        group_names = [group for group in group_names if group in org_groups]
 
-    user_groups = [
-        group
-        for role, group in zip(group_level_roles.values(), groups)
+    return [
+        group_name
+        for role, group_name in zip(group_level_roles.values(), group_names)
         if bool(role)
     ]
-
-    return user_groups
 
 
 async def get_vulnerabilities_with_pending_attacks(
@@ -1486,15 +1486,6 @@ async def update_state_typed(
     await groups_dal.update_state_typed(group_name=group_name, state=state)
 
 
-async def update_pending_deletion_date(
-    group_name: str, pending_deletion_date: Optional[str]
-) -> bool:
-    """Update pending deletion date"""
-    values: GroupType = {"pending_deletion_date": pending_deletion_date}
-    success = await update(group_name, values)
-    return success
-
-
 async def set_pending_deletion_date(
     group: Group,
     modified_by: str,
@@ -1844,3 +1835,19 @@ async def get_creation_date(
         GroupState, ...
     ] = await loaders.group_historic_state_typed.load(group_name)
     return historic[0].modified_date
+
+
+async def filter_groups_with_org(
+    group_names: tuple[str, ...]
+) -> tuple[str, ...]:
+    """
+    In current group's data, there are legacy groups with no org assigned.
+    """
+    org_ids = await collect(
+        orgs_domain.get_id_for_group(group_name) for group_name in group_names
+    )
+    return tuple(
+        group_name
+        for group_name, org_id in zip(group_names, org_ids)
+        if org_id
+    )
