@@ -955,7 +955,8 @@ class VulnerabilitySourceEnum(Enum):
 
 
 class VulnerabilityVerificationStateEnum(Enum):
-    NOT_REQUESTED: str = "NOT_REQUESTED"
+    MASKED: str = "MASKED"
+    ON_HOLD: str = "ON_HOLD"
     REQUESTED: str = "REQUESTED"
     VERIFIED: str = "VERIFIED"
 
