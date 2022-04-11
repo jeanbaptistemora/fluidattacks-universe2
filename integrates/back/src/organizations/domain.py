@@ -614,6 +614,7 @@ async def send_mail_policies(
     organization_id: str,
     organization_name: str,
 ) -> None:
+    organization_data = await loaders.organization.load(organization_id)
     policies_format = {
         "max_acceptance_days": "Maximum number of calendar days a finding "
         "can be temporarily accepted",
@@ -631,12 +632,20 @@ async def send_mail_policies(
     for key, val in new_policies.items():
         if "historic_max_number_acceptations" in key:
             number_acceptations = val[-1]["max_number_acceptations"]
+            old_number_acceptations = organization_data[
+                "max_number_acceptations"
+            ]
             policies_content += (
                 "Maximum number of times a finding can be "
-                f"temporarily accepted: {number_acceptations}\n"
+                f"temporarily accepted: from {old_number_acceptations} to "
+                f"{number_acceptations}\n"
             )
         else:
-            policies_content += f"{policies_format[key]}: {val}\n"
+            old_value: Optional[Decimal] = organization_data.get(key)
+            if val is not None and val != old_value:
+                policies_content += (
+                    f"{policies_format[key]}: from {old_value} to {val}\n"
+                )
 
     email_context: Dict[str, Any] = {
         "org_name": organization_name,
