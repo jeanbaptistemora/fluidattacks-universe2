@@ -107,13 +107,11 @@ async def _get_url_group_report(
         phone_number=get_international_format_phone_number(user_phone),
         code=verification_code,
     )
-    is_verified = True
 
     additional_info: str = json.dumps(
         {
             "report_type": report_type,
             "treatments": list(sorted(treatments)),
-            "is_verified": is_verified,
         }
     )
 

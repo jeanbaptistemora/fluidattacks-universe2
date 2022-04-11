@@ -224,7 +224,6 @@ async def new_password_protected_report(
             "subject": subject,
             "filelink": file_link,
         },
-        is_verified=True,
     )
 
 
