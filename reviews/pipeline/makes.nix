@@ -19,7 +19,7 @@
 in {
   pipelines = {
     reviews = {
-      gitlabPath = "/makes/reviews/gitlab-ci.yaml";
+      gitlabPath = "/reviews/gitlab-ci.yaml";
       jobs = [
         {
           output = "/lintPython/dirOfModules/reviews";

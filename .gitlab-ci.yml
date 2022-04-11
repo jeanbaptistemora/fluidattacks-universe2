@@ -5,7 +5,7 @@ include:
   - local: integrates/gitlab-ci.yaml
   - local: melts/gitlab-ci.yaml
   - local: observes/gitlab-ci.yaml
-  - local: makes/foss/modules/reviews/gitlab-ci.yaml
+  - local: reviews/gitlab-ci.yaml
   - local: makes/foss/modules/skims/gitlab-ci.yaml
   - local: makes/foss/modules/sorts/gitlab-ci.yaml
 
