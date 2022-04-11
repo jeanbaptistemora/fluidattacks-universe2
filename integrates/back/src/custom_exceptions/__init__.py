@@ -1343,3 +1343,12 @@ class SamePhoneNumber(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The new phone number is the current phone number"
         super(SamePhoneNumber, self).__init__(msg)
+
+
+class VulnerabilityPathDoesNotExistInToeLines(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - The vulnerability path does not exist in the toe "
+            "lines"
+        )
+        super(VulnerabilityPathDoesNotExistInToeLines, self).__init__(msg)
