@@ -42,15 +42,6 @@ const MainSection: React.FC<IProps> = ({
             {translate.t("productOverview.mainButton")}
           </BigRegularRedButton>
         </Link>
-        <ProductParagraph isSecundary={true}>
-          <i>
-            {translate.t("productOverview.mainText")}
-            &nbsp;
-            <Link className={"c-black-gray"} to={"/plans"}>
-              {"here."}
-            </Link>
-          </i>
-        </ProductParagraph>
       </MainTextContainer>
       <FullWidthContainer>
         <CloudImage

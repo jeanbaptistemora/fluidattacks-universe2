@@ -191,9 +191,6 @@ const pageTexts: ResourceKey = {
         "Can I upgrade from the Continuous Hacking Machine Plan to the Squad Plan?",
     },
     mainButton: "Start your Machine Plan Free Trial",
-    mainText:
-      "*This free trial is for Machine Plan. " +
-      "See how this compares to our main Squad Plan",
     plansSection: {
       description:
         "Fluid Attacks' plans offer flexibility " +

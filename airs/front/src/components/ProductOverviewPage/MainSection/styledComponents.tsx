@@ -29,7 +29,7 @@ const MainTextContainer = styled.div.attrs({
     tc
     w-100
     center
-    mt5
+    mv5
   `,
 })``;
 
