@@ -24,6 +24,7 @@ import {
 } from "./utils";
 
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
+import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { Table } from "components/Table";
@@ -101,6 +102,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "tableSet",
     {
       age: false,
+      closingPercentage: false,
       lastVulnerability: true,
       openVulnerabilities: true,
       remediated: false,
@@ -252,6 +254,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       onSort: onSortState,
       tooltipDataField: t("group.findings.headersTooltips.locations"),
       visible: checkedItems.openVulnerabilities,
+      wrapped: true,
+    },
+    {
+      dataField: "closingPercentage",
+      formatter: formatPercentage,
+      header: t("group.findings.closingPercentage"),
+      headerFormatter: tooltipFormatter,
+      onSort: onSortState,
+      tooltipDataField: t("group.findings.headersTooltips.closingPercentage"),
+      visible: _.isUndefined(checkedItems.closingPercentage)
+        ? false
+        : checkedItems.closingPercentage,
       wrapped: true,
     },
     {

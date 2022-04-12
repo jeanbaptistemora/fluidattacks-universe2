@@ -443,6 +443,7 @@ export const enTranslations: ResourceKey = {
         False: "No",
         True: "Yes",
       },
+      closingPercentage: "Closing %",
       description: {
         exploitable: "Exploitable:",
         firstSeen: "First seen:",
@@ -474,6 +475,8 @@ export const enTranslations: ResourceKey = {
         where: "Filter by text on vulnerability locations",
       },
       headersTooltips: {
+        closingPercentage:
+          "Percentage of closed vulnerabilities, 100% if it was solved",
         lastReport: "Number of days since the last vulnerability was added",
         locations: "Number of instances of the vulnerability",
         reattack: "Current reattack status",

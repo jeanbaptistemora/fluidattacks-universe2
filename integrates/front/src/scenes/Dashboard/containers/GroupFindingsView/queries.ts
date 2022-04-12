@@ -41,6 +41,7 @@ const GET_GROUP_VULNS: DocumentNode = gql`
       findings {
         id
         vulnerabilities {
+          currentState
           id
           where
         }

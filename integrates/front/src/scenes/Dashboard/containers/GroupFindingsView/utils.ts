@@ -58,10 +58,32 @@ ${translate.t("searchFindings.tabDescription.treatment.acceptedUndefined")}: ${
 `
     : "-";
 
+const formatClosingPercentage = (finding: IFindingAttr): number => {
+  const openVulnerabilities: number = (finding.vulnerabilities ?? []).reduce(
+    (previous: number, value: { currentState: string }): number =>
+      value.currentState === "open" ? previous + 1 : previous,
+    0
+  );
+  const closedVulnerabilities: number = (finding.vulnerabilities ?? []).reduce(
+    (previous: number, value: { currentState: string }): number =>
+      value.currentState === "closed" ? previous + 1 : previous,
+    0
+  );
+
+  if (openVulnerabilities + closedVulnerabilities === 0) {
+    const closedPercentage: number = 100;
+
+    return finding.state === "closed" ? closedPercentage : 0;
+  }
+
+  return closedVulnerabilities / (openVulnerabilities + closedVulnerabilities);
+};
+
 const formatFindings = (findings: IFindingAttr[]): IFindingAttr[] =>
   findings.map(
     (finding): IFindingAttr => ({
       ...finding,
+      closingPercentage: formatClosingPercentage(finding),
       remediated: formatRemediated(finding.remediated, finding.verified),
       treatment: formatTreatmentSummary(
         finding.state,

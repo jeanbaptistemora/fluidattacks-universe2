@@ -232,8 +232,14 @@ const formatBePresent = (bePresent: string): boolean | undefined =>
 const formatRootId = (rootId: string): string | undefined =>
   rootId === "" ? undefined : rootId;
 
+const formatPercentage = (value: number): string =>
+  new Intl.NumberFormat("en-IN", {
+    style: "percent",
+  }).format(value);
+
 export {
   formatBePresent,
+  formatPercentage,
   formatRootId,
   getFilteredData,
   getNonSelectable,

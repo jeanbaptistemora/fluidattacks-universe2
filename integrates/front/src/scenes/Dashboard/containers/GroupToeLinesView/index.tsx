@@ -16,6 +16,7 @@ import { ActionButtons } from "./ActionButtons";
 import { HandleEditionModal } from "./HandleEditionModal";
 import {
   formatBePresent,
+  formatPercentage,
   formatRootId,
   getFilteredData,
   getNonSelectable,
@@ -166,10 +167,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
     return moment(date).format("YYYY-MM-DD");
   };
-  const formatPercentage = (value: number): string =>
-    new Intl.NumberFormat("en-IN", {
-      style: "percent",
-    }).format(value);
   const formatBoolean = (value: boolean): string =>
     value ? t("group.toe.lines.yes") : t("group.toe.lines.no");
   const onSort: (dataField: string, order: SortOrder) => void = (
