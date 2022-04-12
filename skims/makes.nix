@@ -65,7 +65,7 @@
     skims = {
       host = "127.0.0.1";
       port = "8022";
-      infra = projectPath "/makes/foss/units/integrates/db/infra";
+      infra = projectPath "/integrates/db/infra";
       data = [
         (projectPath "/skims/test/data/db")
       ];

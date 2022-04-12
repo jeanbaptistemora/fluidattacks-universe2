@@ -22,5 +22,5 @@ makeScript {
       outputs."/utils/sops"
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/coverage/entrypoint.sh";
+  entrypoint = projectPath "/integrates/coverage/entrypoint.sh";
 }

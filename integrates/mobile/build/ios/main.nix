@@ -25,5 +25,5 @@ makeScript {
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/mobile/build/ios/entrypoint.sh";
+  entrypoint = projectPath "/integrates/mobile/build/ios/entrypoint.sh";
 }

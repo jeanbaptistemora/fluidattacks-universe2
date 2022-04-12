@@ -2,7 +2,7 @@
 
 function main {
   local email="${GITLAB_USER_EMAIL:-unknown@gmail.com}"
-  local out="makes/foss/units/integrates/db/.data"
+  local out="integrates/db/.data"
   local i=0
   local included_facets=(
     credentials_metadata

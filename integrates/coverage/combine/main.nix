@@ -19,5 +19,5 @@ makeScript {
       })
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/coverage/combine/entrypoint.sh";
+  entrypoint = projectPath "/integrates/coverage/combine/entrypoint.sh";
 }

@@ -24,8 +24,8 @@
     name = "db";
     host = "127.0.0.1";
     port = "8022";
-    infra = projectPath "/makes/foss/units/integrates/db/infra";
-    data = ["makes/foss/units/integrates/db/.data"];
+    infra = projectPath "/integrates/db/infra";
+    data = ["integrates/db/.data"];
     daemonMode = false;
   };
 in

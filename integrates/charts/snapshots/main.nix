@@ -28,5 +28,5 @@ makeScript {
       outputs."/utils/aws"
     ];
   };
-  entrypoint = projectPath "/makes/foss/units/integrates/charts/snapshots/entrypoint.sh";
+  entrypoint = projectPath "/integrates/charts/snapshots/entrypoint.sh";
 }
