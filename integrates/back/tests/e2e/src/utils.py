@@ -18,9 +18,6 @@ from selenium.webdriver.common.by import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
-from selenium.webdriver.remote.webelement import (
-    WebElement,
-)
 from selenium.webdriver.support import (
     expected_conditions as ec,
 )
@@ -75,18 +72,6 @@ def wait_for_hide_text(
     )
 
 
-def wait_for_hide_class_name(
-    driver: WebDriver, text: str, timeout: int
-) -> WebDriverWait:
-    return WebDriverWait(driver, timeout).until_not(
-        ec.presence_of_element_located((By.CLASS_NAME, text))
-    )
-
-
-def wait_for_url(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
-    return WebDriverWait(driver, timeout).until(ec.url_contains(text))
-
-
 def wait_for_name(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
         ec.presence_of_element_located(
@@ -95,13 +80,6 @@ def wait_for_name(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
                 text,
             )
         )
-    )
-
-
-def move_to_element(driver: WebDriver, element: WebElement) -> None:
-    driver.execute_script(
-        'arguments[0].scrollIntoView({block: "center"});',
-        element,
     )
 
 
