@@ -171,7 +171,6 @@ def _cfn_iam_has_privileges_over_iam_iter_vulns(
 
 def _is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
     wildcard_action: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
-    wildcard_resource: Pattern = re.compile(r"^(\*)$")
     effect = stmt.inner.get("Effect")
     if effect.raw == "Allow":
         if no_action := stmt.inner.get("NotAction"):
@@ -189,9 +188,6 @@ def _is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
         action = stmt.inner.get("Action")
         if action:
             yield from get_wildcard_nodes(action, wildcard_action)
-        resource = stmt.inner.get("Resource")
-        if resource:
-            yield from get_wildcard_nodes(resource, wildcard_resource)
 
 
 def _cfn_iam_is_policy_miss_configured_iter_vulns(
