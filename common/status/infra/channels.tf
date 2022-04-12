@@ -21,7 +21,7 @@ resource "checkly_alert_channel" "emails" {
 resource "checkly_alert_channel" "sms" {
   sms {
     name   = "default"
-    number = "+573207881879"
+    number = var.alertSms
   }
 
   send_recovery = true

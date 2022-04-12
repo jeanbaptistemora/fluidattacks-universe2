@@ -1,6 +1,9 @@
 variable "alertChannelUsers" {
   type = list(string)
 }
+variable "alertSms" {
+  type = string
+}
 variable "bitbucketPwd" {
   sensitive = true
 }

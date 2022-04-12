@@ -35,6 +35,7 @@
         "CHECKLY_API_KEY"
         "INTEGRATES_API_TOKEN"
         "STATUS_ALERT_CHANNEL_USERS"
+        "STATUS_ALERT_SMS"
       ];
       manifest = "/common/secrets/prod.yaml";
     };
@@ -46,6 +47,7 @@
         "CHECKLY_API_KEY"
         "INTEGRATES_API_TOKEN"
         "STATUS_ALERT_CHANNEL_USERS"
+        "STATUS_ALERT_SMS"
       ];
       manifest = "/common/secrets/dev.yaml";
     };
@@ -53,6 +55,7 @@
   secretsForTerraformFromEnv = {
     commonStatus = {
       alertChannelUsers = "STATUS_ALERT_CHANNEL_USERS";
+      alertSms = "STATUS_ALERT_SMS";
       bitbucketPwd = "BITBUCKET_PWD";
       bitbucketUser = "BITBUCKET_USER";
       checklyAccountId = "CHECKLY_ACCOUNT_ID";
