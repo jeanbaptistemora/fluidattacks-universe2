@@ -2,6 +2,9 @@
 from back.tests import (
     db,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
     Source,
@@ -25,6 +28,12 @@ from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
     GitRootState,
+)
+from db_model.toe_inputs.types import (
+    ToeInput,
+)
+from db_model.toe_lines.types import (
+    ToeLines,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -197,6 +206,74 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 type="Git",
+            ),
+        ),
+        "toe_inputs": (
+            ToeInput(
+                attacked_at=datetime.fromisoformat(
+                    "2020-01-02T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=True,
+                be_present_until=None,
+                component="https://example.com",
+                entry_point="phone",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-01-02T05:00:00+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                seen_at=None,
+                seen_first_time_by="",
+                unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+            ),
+        ),
+        "toe_lines": (
+            ToeLines(
+                attacked_at=None,
+                attacked_by="test@test.com",
+                attacked_lines=23,
+                be_present=True,
+                be_present_until=None,
+                comments="",
+                filename="path/to/file1.ext",
+                first_attack_at=None,
+                group_name="group1",
+                has_vulnerabilities=False,
+                last_author="customer1@gmail.com",
+                last_commit="273412t",
+                loc=4324,
+                modified_date=datetime.fromisoformat(
+                    "2020-11-16T15:41:04+00:00"
+                ),
+                root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
+                sorts_risk_level=0,
+            ),
+            ToeLines(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-20T05:00:00+00:00"
+                ),
+                attacked_by="test2@test.com",
+                attacked_lines=4,
+                be_present=True,
+                be_present_until=None,
+                comments="comment 2",
+                filename="test/1",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                last_author="customer2@gmail.com",
+                last_commit="983466z",
+                loc=8,
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
+                root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
+                sorts_risk_level=-1,
             ),
         ),
         "vulnerabilities": [
