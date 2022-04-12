@@ -39,11 +39,13 @@ LOGGER = logging.getLogger(__name__)
 
 async def send_event_report() -> None:
     groups_names = await groups_domain.get_active_groups()
+    loaders = get_new_context()
 
     if FI_ENVIRONMENT == "production":
+        active_groups = await loaders.group_typed.load_many(groups_names)
         groups_names = [
             group.name
-            for group in groups_names
+            for group in active_groups
             if group.name not in FI_TEST_PROJECTS.split(",")
         ]
 
@@ -69,7 +71,6 @@ async def send_event_report() -> None:
         )
     ]
 
-    user_loaders = get_new_context()
     if events_filtered:
         for event in events_filtered:
             group_name = str(get_key_or_fallback(event[0], fallback=""))
@@ -79,7 +80,7 @@ async def send_event_report() -> None:
                 event[0]["historic_state"][0]["date"]
             )
             await events_mail.send_mail_event_report(
-                loaders=user_loaders,
+                loaders=loaders,
                 group_name=group_name,
                 event_id=event[0]["event_id"],
                 event_type=event_type,
