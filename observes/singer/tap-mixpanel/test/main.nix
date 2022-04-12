@@ -17,5 +17,5 @@ makeDerivation {
       outputs."${inputs.observesIndex.tap.mixpanel.env.dev}"
     ];
   };
-  builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";
+  builder = projectPath "/observes/common/tester/test_builder.sh";
 }

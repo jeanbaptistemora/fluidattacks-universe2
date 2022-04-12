@@ -17,5 +17,5 @@ makeDerivation {
       outputs."/observes/common/postgres-client/env/development"
     ];
   };
-  builder = projectPath "/makes/foss/units/observes/common/tester/test_builder.sh";
+  builder = projectPath "/observes/common/tester/test_builder.sh";
 }
