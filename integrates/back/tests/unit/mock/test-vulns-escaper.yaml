@@ -1,7 +1,7 @@
 lines:
 - line: '890'
   commit_hash: fffff9c8eac80d60cfba7322791c0a9b19efffff
-  path: product/path/to/escape.txt
+  path: product/test/test#.config
   state: open
   repo_nickname: product
   source: escape

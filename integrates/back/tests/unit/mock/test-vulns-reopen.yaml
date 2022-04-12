@@ -1,6 +1,6 @@
 lines:
 - line: '123'
   commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-  path: product/path/to/file1.ext
+  path: product/test/test#.config
   state: open
   repo_nickname: product

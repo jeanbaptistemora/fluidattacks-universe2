@@ -12036,7 +12036,7 @@
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "where": {
-                "S": "product/path/to/file1.ext"
+                "S": "product/test/test#.config"
               },
               "pk": {
                 "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
@@ -12144,7 +12144,7 @@
                 "S": "ROOT"
               },
               "where": {
-                "S": "product/path/to/file1.ext"
+                "S": "product/test/test#.config"
               },
               "pk": {
                 "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
@@ -12293,7 +12293,7 @@
                 "S": "ROOT"
               },
               "where": {
-                "S": "product/path/to/file1.ext"
+                "S": "product/test/test#.config"
               },
               "pk": {
                 "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"

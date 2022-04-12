@@ -12,16 +12,16 @@ inputs:
 lines:
 - line: '678'
   commit_hash: 111111111111111111111111111111111111111f
-  path: product/path/to/file678.txt
+  path: product/test/test#.config
   state: open
   repo_nickname: product
 - line: '678'
-  path: product/path/to/file678.txt
+  path: product/test/test#.config
   repo_nickname: product
   state: open
   commit_hash: 000000000000000000000000000000000000000f
 - line: "678"
-  path: product/path/to/file678.txt
+  path: product/test/test#.config
   repo_nickname: product
   state: open
   commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210

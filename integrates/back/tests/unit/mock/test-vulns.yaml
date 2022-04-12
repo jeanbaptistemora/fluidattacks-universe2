@@ -1,14 +1,14 @@
 inputs:
-- field: phone
+- field: '-'
   state: open
   repo_nickname: product
-  url: https://example.com
+  url: https://test.com/test2/test.aspx
   stream: home,blog,articulo
 lines:
 - line: '123'
   commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
   repo_nickname: product
-  path: product/path/to/file1.ext
+  path: product/test/test#.config
   state: closed
   repo_nickname: product
 - line: '345'
