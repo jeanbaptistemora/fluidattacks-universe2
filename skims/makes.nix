@@ -44,7 +44,7 @@
       skimsTestMocksHttp = {
         searchPaths.source = [outputs."/skims/test/mocks/http/env"];
         python = "3.8";
-        src = "/makes/foss/units/skims/test/mocks/http/src";
+        src = "/skims/test/mocks/http/src";
       };
     };
   };
