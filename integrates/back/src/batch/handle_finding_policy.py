@@ -26,10 +26,6 @@ from organizations_finding_policies.domain import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    List,
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -55,7 +51,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     organization_id: str = await organizations_domain.get_id_by_name(
         organization_name
     )
-    organization_groups: List[str] = await organizations_domain.get_groups(
+    organization_groups: list[str] = await organizations_domain.get_groups(
         organization_id
     )
     finding_policy = await get_finding_policy(
@@ -67,11 +63,11 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         "INACTIVE",
     }:
         loaders: Dataloaders = get_new_context()
-        groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
-            tuple((group, organization_id) for group in organization_groups)
+        groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+            tuple((group, organization_name) for group in organization_groups)
         )
         groups_filtered = groups_utils.filter_active_groups(groups)
-        group_names: List[str] = [group.name for group in groups_filtered]
+        group_names: list[str] = [group.name for group in groups_filtered]
         finding_name: str = finding_policy.metadata.name.lower()
         (
             updated_finding_ids,

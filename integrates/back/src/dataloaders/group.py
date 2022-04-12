@@ -30,9 +30,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
-    Awaitable,
     cast,
-    List,
     Optional,
     Union,
 )
@@ -196,16 +194,22 @@ class GroupTypedLoader(DataLoader):
     async def batch_load_fn(
         self, groups_info: Union[tuple[str, ...], tuple[tuple[str, str], ...]]
     ) -> tuple[Group, ...]:
-        groups_names: List[str] = []
-        coro: List[Awaitable] = []
-        for group_info in groups_info:
-            if isinstance(group_info, str):
-                groups_names.append(group_info)
-                coro.append(orgs_domain.get_name_for_group(group_info))
-            else:
-                groups_names.append(group_info[0])
-                coro.append(orgs_domain.get_name_by_id(group_info[1]))
-        organizations_names = await collect(coro)
+        if isinstance(groups_info[0], str):
+            # Given info is tuple[group_name, ...]
+            groups_names: tuple[str, ...] = tuple(
+                str(group_name) for group_name in groups_info
+            )
+            organizations_names = await collect(
+                orgs_domain.get_name_for_group(str(group_name))
+                for group_name in groups_info
+            )
+        else:
+            # Given info is tuple[tuple[group_name, organization_name], ...]
+            groups_names = tuple(group_info[0] for group_info in groups_info)
+            organizations_names = tuple(
+                group_info[1] for group_info in groups_info
+            )
+
         groups_items: list[Item] = await groups_domain.get_many_groups(
             list(groups_names)
         )
