@@ -33,4 +33,14 @@ const MainTextContainer = styled.div.attrs({
   `,
 })``;
 
-export { Container, MainTextContainer, ProductParagraph };
+const GifContainer = styled.div.attrs({
+  className: `
+    flex
+    center
+    mb5
+    w-60-l
+    w-100
+  `,
+})``;
+
+export { Container, GifContainer, MainTextContainer, ProductParagraph };

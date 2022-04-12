@@ -4,6 +4,7 @@ import React from "react";
 
 import {
   Container,
+  GifContainer,
   MainTextContainer,
   ProductParagraph,
 } from "./styledComponents";
@@ -44,11 +45,14 @@ const MainSection: React.FC<IProps> = ({
         </Link>
       </MainTextContainer>
       <FullWidthContainer>
-        <CloudImage
-          alt={"Product Overview"}
-          src={"/airs/product-overview/product-overview-video"}
-          styles={"flex center mb5 w-60-l w-100"}
-        />
+        <GifContainer>
+          <img
+            alt={"Product Overview"}
+            src={
+              "https://res.cloudinary.com/fluid-attacks/image/upload/v1649707384/airs/product-overview/product-overview-video.gif"
+            }
+          />
+        </GifContainer>
       </FullWidthContainer>
     </Container>
   );
