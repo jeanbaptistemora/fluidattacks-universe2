@@ -35,6 +35,7 @@ from settings import (
 from typing import (
     Any,
     Dict,
+    Optional,
     Set,
 )
 
@@ -58,7 +59,7 @@ async def get_report(
     report_type: str,
     treatments: Set[VulnerabilityTreatmentStatus],
 ) -> str:
-    report_file_name: str = ""
+    report_file_name: Optional[str] = None
     try:
         report_file_name = await reports_domain.get_group_report_url(
             report_type=report_type,
@@ -66,7 +67,8 @@ async def get_report(
             user_email=item.subject,
             treatments=treatments,
         )
-        uploaded_file_name = await upload_report_file(report_file_name)
+        if report_file_name is not None:
+            uploaded_file_name = await upload_report_file(report_file_name)
     except ErrorUploadingFileS3 as exc:
         LOGGER.exception(
             exc,
@@ -81,7 +83,7 @@ async def get_report(
     else:
         return uploaded_file_name
     finally:
-        if os.path.exists(report_file_name):
+        if report_file_name and os.path.exists(report_file_name):
             os.unlink(report_file_name)
 
 

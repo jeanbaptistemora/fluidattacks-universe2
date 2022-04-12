@@ -54,7 +54,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union,
 )
 
 
@@ -439,7 +438,7 @@ async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
 
 async def get_upload_url_post(
     group_name: str, root_nickname: str
-) -> Dict[str, Union[str, Dict[str, str]]]:
+) -> Dict[str, Dict[str, str]]:
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     async with aio_client() as client:
         return await client.generate_presigned_post(

@@ -40,7 +40,6 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRootItem,
-    RootItem,
 )
 import logging
 import logging.config
@@ -101,7 +100,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         )
         for nickname in root_nicknames
     )
-    roots: Tuple[RootItem, ...] = tuple(
+    roots: Tuple[GitRootItem, ...] = tuple(
         root for root in group_roots if root.id in root_ids
     )
     cloned_roots_nicknames: Tuple[str, ...] = tuple()
@@ -176,9 +175,9 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
 
 async def _ls_remote_root(
-    root: RootItem, cred: CredentialItem
+    root: GitRootItem, cred: CredentialItem
 ) -> Tuple[str, Optional[str]]:
-    if cred.metadata.type == CredentialType.SSH:
+    if cred.metadata.type == CredentialType.SSH and cred.state.key is not None:
         return (
             root.id,
             await ssh_ls_remote(

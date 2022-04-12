@@ -66,11 +66,11 @@ async def upload_cloned_repo_to_s3_tar(
             async with session.post(
                 response["url"],
                 data=data,
-            ) as response:
-                if response.status not in {200, 204}:
+            ) as upload_response:
+                if upload_response.status not in {200, 204}:
                     LOGGER.error(
                         "Uploading root to S3 failed with error %s",
-                        await response.text(),
+                        await upload_response.text(),
                         extra=dict(extra=locals()),
                     )
                 else:

@@ -51,7 +51,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     organization_id: str = await organizations_domain.get_id_by_name(
         organization_name
     )
-    organization_groups: list[str] = await organizations_domain.get_groups(
+    organization_groups = await organizations_domain.get_groups(
         organization_id
     )
     finding_policy = await get_finding_policy(
@@ -78,7 +78,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
             groups=group_names,
             status=finding_policy.state.status,
             user_email=item.subject,
-            tags=finding_policy.metadata.tags,
+            tags=set(finding_policy.metadata.tags),
         )
         await update_unreliable_indicators_by_deps(
             EntityDependency.handle_finding_policy,
