@@ -99,6 +99,13 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
               )
             );
             break;
+          case "Exception -  The vulnerability URL and field do not exist in the toe inputs":
+            msgError(
+              translate.t(
+                "searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist"
+              )
+            );
+            break;
           default:
             errorMessageHelper(message);
         }
