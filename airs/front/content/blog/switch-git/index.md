@@ -183,7 +183,7 @@ When you integrate security into your pipeline,
 even if only with automated tools,
 you are trusting the work of people
 probably from outside your project
-to review your code for vulnerabilities.
+to [review your code](../../solutions/secure-code-review/) for vulnerabilities.
 This is key.
 If you release your software solution
 and it's got commonly known vulnerabilities,

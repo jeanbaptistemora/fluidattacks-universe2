@@ -53,7 +53,7 @@ automated tools.
 
 ## Software Development Life Cycle (SDLC)
 
-`SDLC` is a series of stages that must be followed for the development
+SDLC is a series of stages that must be followed for the development
 of a specific software product. These stages ensure that the quality,
 functionality, and objectives of the application meet customer
 expectations and development standards.
@@ -71,7 +71,7 @@ Figure 2. Software Development Life Cycle stages via
 
 </div>
 
-During the `SDLC` it is important to use testing methodologies in the
+During the SDLC it is important to use testing methodologies in the
 early stages of development that identify and resolve security
 vulnerabilities quickly, before the application’s release. These
 vulnerabilities can be found on the following websites:
@@ -102,7 +102,7 @@ listed in the previous links' pages.
 
 ## How does SAST work?
 
-`SAST` can be applied manually or through the use of automated tools.
+SAST can be applied manually or through the use of automated tools.
 
 **Manual testing** is done by a team of testers responsible for
 reviewing the code for known security vulnerabilities. Once
@@ -141,7 +141,7 @@ allow us to automatically perform code analysis and provide reports of
 the vulnerabilities discovered during the scanning process. Because
 these tools are more flexible, they can be integrated with development
 environments that include Waterfall scenarios, Continuous Integration
-(`CI/CD`) environments, `Agile/DevOps`, source repositories, and even
+(CI/CD) environments, Agile/DevOps, source repositories, and even
 with other testing tools.
 
 These types of tools use sophisticated functions such as data flow
@@ -207,39 +207,43 @@ says:
 6. **Provide governance and training:** "Proper governance ensures that
     your development teams are employing the scanning tools properly.
     The software security touchpoints should be present within the
-    `SDLC`. `SAST` should be incorporated as part of your application
+    SDLC. SAST should be incorporated as part of your application
     development and deployment process."
 
 ## Benefits
 
-`SAST` can be applied in the early stages of the `SDLC` since it
+SAST can be applied in the early stages of the SDLC since it
 searches for vulnerabilities in the code before it is compiled. This
 ensures the least number of possible security vulnerabilities will make
 it into the application before it is released.
 
-`SAST` can reduce money and time costs by finding and solving
-vulnerabilities in the early stages of the `SDLC` that could cost you
+SAST can reduce money and time costs by finding and solving
+vulnerabilities in the early stages of the SDLC that could cost you
 much more to fix, if discovered, in the later stages.
 
-`SAST` is flexible and can be adapted to any type of project.
+SAST is flexible and can be adapted to any type of project.
 
-`SAST` can be fully integrated with `CI/CD`, Agile, and DevOps
-environments.
+SAST can be fully integrated with CI/CD,
+Agile and DevOps environments ([DevSecOps](../../solutions/devsecops/)).
 
 ## Conclusions
 
-It is important to know the security vulnerabilities to which
-applications are exposed. In order to do so, we must continuously read
-and inform ourselves via resources such as `OWASP` or `CWE`.
+It is important to know the security vulnerabilities
+to which applications are exposed.
+In order to do so,
+we must continuously read and inform ourselves
+via resources such as [OWASP](../../compliance/owasp/)
+or [CWE](../../compliance/cwe/).
 
-Security tests should always be performed on applications to ensure that
-they are able to maintain the confidentiality, integrity, and
-availability of information.
+Security tests should always be performed on applications
+to ensure that
+they are able to maintain the confidentiality,
+integrity and availability of information.
 
 Always perform continuous reviews of an application. Security tests
 should never be performed only once.
 
-Using `SAST` helps programmers reinforce coding standards.
+Using SAST helps programmers reinforce coding standards.
 
 ## References
 

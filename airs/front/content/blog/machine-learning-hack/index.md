@@ -19,8 +19,9 @@ source: https://unsplash.com/photos/iar-afB0QQw
 
 To date the [most](../libssh-bypass-cve/)
 [important](../treacherous-poodle/) [security](../release-the-beast/)
-[vulnerabilities](../my-heart-bleeds/) have been found via laborius code
-auditing. Also, this is the only way vulnerabilities can be found and
+[vulnerabilities](../my-heart-bleeds/) have been found
+via laborius [code auditing](../../solutions/secure-code-review/).
+Also, this is the only way vulnerabilities can be found and
 fixed during development. However, as software production rates
 increase, so does the need for a reliable, automated method for checking
 or classifiying this code in order to prioritize and organize human
@@ -31,21 +32,21 @@ in several other technological fields, how about applying it to our
 bug-finding appetite?
 
 In this and upcoming articles, we are interested in the use of machine
-learning (`ML`) techniques to find security vulnerabilities in source
+learning (ML) techniques to find security vulnerabilities in source
 code. It is important to specify this since, as we will see, there are
 many other related, but different, approaches such as:
 
 - Automatically fixing vulnerabilities
 
-- Vulnerability detection (`VD`) in binary code
+- Vulnerability detection (VD) in binary code
 
-- `ML`-aided dynamic testing
+- ML-aided dynamic testing
 
-- Other automated techniques that don’t involve `ML`
+- Other automated techniques that don’t involve ML
 
 - Exploitability prediction
 
-The idea of using `ML` techniques for `VD` is not new. There are papers
+The idea of using ML techniques for VD is not new. There are papers
 on the matter as old as 2001. Here we’ll try to describe in simple
 terms:
 
@@ -73,10 +74,10 @@ makes more sense, as do Ghaffarian and Shahriari
 ## Anomaly detection approaches
 
 Most of the papers in this category are not security-focused, but their
-ideas can be used for `VD`. Also most of these works revolve around
+ideas can be used for VD. Also most of these works revolve around
 extracting features such as:
 
-- proper `API` usage patterns, v.g. the pair `malloc` and `free`,
+- proper API usage patterns, v.g. the pair malloc and free,
 
 - missing checks, like ensuring a number is non-zero before dividing
   by it,
@@ -92,7 +93,7 @@ The system [Chucky](../anomaly-serial-killer-doll/) by [Yamaguchi et al.
 is the one that interests us the most since it is more compatible with
 our interests, i.e., lightening the burden of manual code auditors;
 also, they achieve both the aforementioned objectives: detecting missing
-checks through security logic (v.g. access control) and secure `API`
+checks through security logic (v.g. access control) and secure API
 usage (v.g. checking buffer size). It uses the
 [bag-of-words](https://en.wikipedia.org/wiki/Bag-of-words_model) model
 to represent the code and the
@@ -130,7 +131,7 @@ summarize them here for the sake of completeness:
 | <p> [Livshits and Zimmermann (2005)](http://www.doc.ic.ac.uk/~livshits/papers/pdf/dynamine_ext.pdf)                       </p> | <p> Commit logs             </p> | <p> App-specific patterns      </p> |
 | <p> [Li and Zhou (2005)](https://www.cs.purdue.edu/homes/xyzhang/fall07/Papers/PRMiner.pdf)                               </p> | <p> Source code             </p> | <p> Implicit coding rules      </p> |
 | <p> [Wasylowski et al. (2007)](https://www.st.cs.uni-saarland.de/edu/recommendation-systems/papers/p35-wasylkowski-1.pdf) </p> | <p> Function call sequences </p> | <p> Object usage models        </p> |
-| <p> [Acharya et al. (2007)](https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf)                                 </p> | <p> `API` usage traces      </p> | <p> `API` usage orderings      </p> |
+| <p> [Acharya et al. (2007)](https://www.cs.sfu.ca/~jpei/publications/APIMining_FSE07.pdf)                                 </p> | <p> API usage traces      </p> | <p> API usage orderings      </p> |
 | <p> [Chang et al. (2008)](https://www.computer.org/csdl/journal/ts/2008/05/tts2008050579/13rRUxAAT2W)                     </p> | <p> Neglected conditions    </p> | <p> Implicit conditional rules </p> |
 | <p> [Thummalapenta et al (2009)](https://link.springer.com/article/10.1007/s10515-011-0086-z)                             </p> | <p> Programming rules       </p> | <p> Alternative patterns       </p> |
 | <p> [Gruska et al (2010)](https://www.st.cs.uni-saarland.de/publications/files/gruska-issta-2010.pdf)                     </p> | <p> Function calls          </p> | <p> Cross-project anomalies    </p> |
@@ -138,7 +139,7 @@ summarize them here for the sake of completeness:
 In general terms, anomaly detection approaches have the following
 limitations:
 
-- they only apply to mature software, where we assume wrong `API`
+- they only apply to mature software, where we assume wrong API
   usage are rare occurrences,
 
 - that particular usage must be relatively infrequent in the codebase
@@ -182,10 +183,10 @@ shallow information and simple methods.
 
 The binary analysis tool [VDiscover](http://www.vdiscover.org/) doesn’t
 exactly fit our definition, but deserves mentioning. They identify each
-trace of a call to the standard `C` library as a text document and
+trace of a call to the standard C library as a text document and
 process them as [n-grams](https://en.wikipedia.org/wiki/N-gram) and
 encode them with [word2vec](https://en.wikipedia.org/wiki/Word2vec).
-They have tested several `ML` techniques such as [logistic
+They have tested several ML techniques such as [logistic
 regression](https://en.wikipedia.org/wiki/Logistic_regression),
 [MLP](../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning)
 and [random forests](https://en.wikipedia.org/wiki/Random_forest).
@@ -201,12 +202,12 @@ source libraries. See our [article on these systems](../deep-hacking).
 
 [Lin et al. (2017)](https://dl.acm.org/citation.cfm?id=3138840) propose
 a different variant which simplifies the feature extraction, going back
-to just `AST` with no semantic information, using [deep
+to just AST with no semantic information, using [deep
 learning](../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning)
 in the form of [bidirectional long short-term memory (BLSTM)
 networks](https://en.wikipedia.org/wiki/Long_short-term_memory), plus a
 completely new element: unlike the vast majority of previous works,
-which work in the within-project domain, `POSTER` involves software
+which work in the within-project domain, POSTER involves software
 metrics (see below) in order to compare to other projects.
 
 However interesting these approaches seem, they are not without
@@ -217,7 +218,7 @@ limitations:
   also means that most do not pinpoint the exact locations of the
   potential flaws.
 
-- Any work in machine learning for `VD` should take into account
+- Any work in machine learning for VD should take into account
   several aspects of the code for richer descriptions, such as syntax,
   semantics and the flow of data and control.
 

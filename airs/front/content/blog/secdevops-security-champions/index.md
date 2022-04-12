@@ -37,14 +37,19 @@ in which Altaz Valani also participated.
 
 ### 1. Insert security into your processes asap
 
-Many companies reflect an urgency for the rapid deployment of new
-features in their apps without considering security. Is software
-security being omitted because it’s assumed to be an obstacle? And in a
-broader context, what about business security? Is business risk
-management being ignored? Within the SecDevOps culture, it’s expected
-that both speed and security are included from the beginning. Don’t
-start building and deploying apps continuously from your company if you
-haven’t assessed the business risks and how they can be avoided.
+Many companies reflect an urgency
+for the rapid deployment of new features in their apps
+without considering security.
+Is software security being omitted
+because it's assumed to be an obstacle?
+And in a broader context,
+what about business security?
+Is business risk management being ignored?
+Within the [SecDevOps](../../solutions/devsecops/) culture,
+it's expected that both speed and security are included from the beginning.
+Don't start building and deploying apps continuously from your company
+if you haven't assessed the business risks
+and how they can be avoided.
 
 ### 2. Set security requirements from the beginning
 

@@ -141,15 +141,20 @@ defense. Our tests are performed constantly, considering the changes
 made in the source code, the deployed applications, and the
 infrastructure.
 
-We aim to find all vulnerabilities that exist across the software
-development lifecycle. Yes, we can start checking for vulnerabilities
-right away when you have just begun developing your software. We employ
-several techniques like static code review, looking for coding practices
-that inject vulnerabilities, and dynamic penetration testing over
-deployed applications and infrastructure. In this last scenario, the
-interaction between infrastructure and application might lead to other
-vulnerabilities not visible in the source code. Thus, it is a
-comprehensive approach.
+We aim to find all vulnerabilities
+that exist across the software development lifecycle.
+Yes,
+we can start checking for vulnerabilities right away
+when you have just begun developing your software.
+We employ several techniques like static [code review](../../solutions/secure-code-review/),
+looking for coding practices that inject vulnerabilities,
+and dynamic [penetration testing](../../solutions/penetration-testing/)
+over deployed applications and infrastructure.
+In this last scenario,
+the interaction between infrastructure and application
+might lead to other vulnerabilities not visible in the source code.
+Thus,
+it is a comprehensive approach.
 
 Organizations of all sizes can benefit from our approach by precisely
 doing what we suggest in this article: closing the "invisible doors."

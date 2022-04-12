@@ -18,8 +18,8 @@ source: https://unsplash.com/photos/exKQ01AmzNA
 ---
 
 In our [last post](../infinite-monkey-fuzzer/), we reproduced the
-discovery of a vulnerability in `libpng`. But that is only a small
-library, you might say, with a very limited scope and only `556 KiB`
+discovery of a vulnerability in libpng. But that is only a small
+library, you might say, with a very limited scope and only 556 KiB
 installed. However, many, many packages depend on it. To see how many
 packages in the Arch Linux repository depend on `libpng` we can use
 `pacgraph` by [Kylee Keen](http://kmkeen.com/pacgraph/):
@@ -36,51 +36,55 @@ Figure 1. `libpng` reverse dependencies in `Arch Linux`
 
 </div>
 
-More than `14 GiB` worth of software depends on `libpng`\! And that is
-only in the `Arch Linux` repositories, which is hardly the most popular
-`Linux` distribution. Also, the library is the official `PNG` reference
+More than 14 GiB worth of software depends on `libpng`\! And that is
+only in the Arch Linux repositories, which is hardly the most popular
+Linux distribution. Also, the library is the official PNG reference
 library and is cross-platform, so certainly many other packages in other
 operating systems depend on it.
 
 Now, back in 2015 when `libpng` had not yet fixed the low-high palette
 bug, all the programs and libraries above were also automatically
 vulnerable to the same issue. Actually this is what happened to
-`Equifax` with a vulnerability in `Apache Struts`. Same with many web
-services that use `OpenSLL` with `Heartbleed`.
+Equifax with a vulnerability in Apache Struts. Same with many web
+services that use OpenSLL with Heartbleed.
 
 If this could happen to such flagships as
 [`bash`](https://www.gnu.org/software/bash/),
 [`qt`](https://www.qt.io/),
 [`TeX`](https://services.math.duke.edu/computing/tex/latex.html) and
 [`xfce`](https://xfce.org/), it could happen to your organisation. In
-fact, this problem is so common that it is part of the 2017 `OWASP` Top
-10: they call it "\`A9\`: Using components with known vulnerabilities."
+fact, this problem is so common
+that it is part of the 2017 [OWASP](../../compliance/owasp/) Top 10:
+they call it "A9: Using components with known vulnerabilities."
 
-Given the rapid adoption of Free and Open Source Software (`FOSS`) by
+Given the rapid adoption of Free and Open Source Software (FOSS) by
 large companies, all of a sudden dependency vulnerability appears to be
 one [hell](https://en.wikipedia.org/wiki/Dependency_hell) of a problem.
-Or rather, as yuppies would like to point out, a \`\`business
-opportunity''?
+Or rather,
+as yuppies would like to point out,
+a "business opportunity"?
 
-Many providers of so-called `` `software composition analysis''
-(`SCA ``) (don’t google it) have since appeared in the security scene.
+Many providers of so-called software composition analysis
+(SCA)
+(don't google it) have since appeared in the security scene.
 Some of them are backed by long-standing companies; most are not. In
 fact this business has gained such momentum, that it is expected to grow
 more than 20% each year from now
 [to 2022](https://www.prnewswire.com/news-releases/the-software-composition-analysis-market-is-expected-to-grow-from-usd-1540-million-in-2017-to-usd-3984-million-by-2022-at-a-compound-annual-growth-rate-cagr-of-209-300595028.html).
 
-What’s worse, it makes the `FOSS`, that all these companies owe to, look
+What’s worse, it makes the FOSS, that all these companies owe to, look
 bad. Yet its adoption is not slowing down and, as we will try to show
 here, it’s not its fault but rather, the dependent app’s; and also that
-it’s not a `FOSS` thing but rather that marketing efforts point towards
+it’s not a FOSS thing but rather that marketing efforts point towards
 it.
 
 Today’s applications use on average 30+ libraries, which represent up to
 80% of the code.[\[2\]](#r2) Think of it as your code being only a thin
-layer upon a building of some tiny, some larger boxes. What `SCA` does
-then is look for vulnerabilities inside those boxes with information
-from external databases, which then become vulnerabilities in your own
-app:
+layer upon a building of some tiny, some larger boxes.
+What SCA does then is look for vulnerabilities
+inside those boxes with information
+from external databases,
+which then become vulnerabilities in your own app:
 
 <div class="imgblock">
 
@@ -99,8 +103,8 @@ problem, let’s do it backwards.
 
 ## The bad
 
-`FOSS` is developed and used by thousands around the world. This can be
-a double-edged blade: on the one hand, according to \`\`Linus’s Law,''
+FOSS is developed and used by thousands around the world. This can be
+a double-edged blade: on the one hand, according to "Linus's Law,"
 bug-finding and patching should be easier as more eyes are involved.
 
 On the other hand, the lack of centralised guiding makes room for bugs.
@@ -111,8 +115,8 @@ restrictions it is 'less likely' that their bugs will become public as
 soon as they would be on the freer side of things. So expect all
 vulnerabilities to be zero-day.
 
-So if the source of the problem is not `FOSS`, what is it? The main
-reasons why so many companies suffer from `A9`:
+So if the source of the problem is not FOSS, what is it? The main
+reasons why so many companies suffer from A9:
 
 - Not knowing used dependencies.
 
@@ -168,7 +172,7 @@ appropriate package manager, like `npm` or `yarn` with `retire`.
 
 A bird’s eye view of how the process should integrate with your
 development flow is depicted by the following diagram provided by
-`Source:Clear`.
+Source:Clear.
 
 <div class="imgblock">
 
@@ -176,7 +180,7 @@ development flow is depicted by the following diagram provided by
 
 <div class="title">
 
-Figure 3. Integrating `SCA` in your development flow. Via [`Source:Clear`](https://www.sourceclear.com/product/).
+Figure 3. Integrating SCA in your development flow. Via [Source:Clear](https://www.sourceclear.com/product/).
 
 </div>
 
@@ -187,7 +191,8 @@ third-party software vulnerabilities and other issues easily identified
 by Static Analysis when code is not available. This is done by following
 this procedure:
 
-1. The `SCA` identifies the dependencies your software is based on.
+1. The [SCA](../../categories/sca/) identifies the dependencies
+   your software is based on.
 
 2. Detect those dependencies versions.
 
@@ -206,24 +211,26 @@ be, since these tools could (and usually do) raise false alarms, so they
 are reviewed by human security experts.
 
 Internally, the process of scanning for third party software is the same
-for both proprietary and `FOSS` software, and it is a simple matter of
+for both proprietary and FOSS software, and it is a simple matter of
 querying the vulnerabilities databases as described above.
 
-Speaking of integration, you may wonder: What if my app is deployed
-inside a container? `` `30% of official images in Docker Hub
-contain high priority security vulnerabilities'',
+Speaking of integration, you may wonder:
+What if my app is deployed inside a container?
+"30% of official images in Docker Hub
+contain high priority security vulnerabilities,"
 according to Pentestit.
 Fortunately, there are tools
 which go into your container and
-perform `SCA `` inside of it (and more), like
+perform SCA inside of it (and more), like
 [Anchore](http://pentestit.com/anchore-open-source-container-inspection-analysis-system/)
 and
 [Dockerscan](http://pentestit.com/dockerscan-docker-security-analysis-suite/).
 
 ## The ugly
 
-I know you did search for \`\`Software Composition Analysis'' when I
-suggested you not to. I just know you did. If you didn’t, good for you\!
+I know you did search for "Software Composition Analysis"
+when I suggested you not to.
+I just know you did. If you didn’t, good for you\!
 Here’s what you’re missing out on:
 
 <div class="imgblock">
@@ -232,7 +239,7 @@ Here’s what you’re missing out on:
 
 <div class="title">
 
-Figure 4. ``Software Composition Analysis'' providers.
+Figure 4. "Software Composition Analysis" providers.
 
 </div>
 
@@ -250,8 +257,10 @@ You could try hiring such a service, and maybe even try to complement it
 with dynamic analysis tools like [fuzzing](../infinite-monkey-fuzzer/)
 and debuggers, but those have their own issues.
 
-But these are no replacement for good old-fashioned human code review.
-At least at the moment. According to [\[3\]](#r3%20),
+But these are no replacement
+for good old-fashioned human [code review](../../solutions/secure-code-review/).
+At least at the moment.
+According to [\[3\]](#r3%20),
 
 > The only way to deal with the risk of unknown vulnerabilities in
 > libraries is to have someone who understands security analyse the
