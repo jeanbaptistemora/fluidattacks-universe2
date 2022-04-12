@@ -1,0 +1,19 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Reminder') }}
+
+  <div class="main-content">
+    <p>Hey {{ name }}!</p>
+    <p>
+      Three weeks have passed since you last remediated a vulnerability. It's time to catch up!
+    </p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
