@@ -175,17 +175,25 @@ figured out.
 
 ## Recommendations to overcome confusion?
 
-A solution to this problem around the SRM for any company could start
-with an education geared towards a cultural shift in which all parties
-involved, all teams, discuss cybersecurity. (Remember, [everyone is
-responsible for 'Sec'](../devsecops-concept/) if you are following the
-DevSecOps approach.) Understanding what the cloud is and which security
-requirements are under your responsibility is of vital importance prior
-to business migration. (If you are already in the cloud, make sure you
-understand this). Keep in mind that it’s never prudent to let a desire
-for rapid migration to the cloud take precedence over security. Don’t
-let cyber-criminals be the ones to make you and your colleagues aware of
-your security obligations with their misdeeds.
+A solution to this problem around the SRM
+for any company
+could start with an education geared towards a cultural shift
+in which all parties involved,
+all teams,
+discuss cybersecurity.
+(Remember, [everyone is responsible for 'Sec'](../devsecops-concept/)
+if you are following the [DevSecOps](../../solutions/devsecops/) approach.)
+Understanding what the cloud is
+and which security requirements are under your responsibility
+is of vital importance prior to business migration.
+(If you are already in the cloud,
+make sure you understand this).
+Keep in mind that it's never prudent
+to let a desire for rapid migration to the cloud
+take precedence over security.
+Don't let cybercriminals be the ones
+to make you and your colleagues aware of your security obligations
+with their misdeeds.
 
 Of course, without hesitation, establish a conversation with your CSP
 whenever necessary. Ask them for detailed guidelines on your security

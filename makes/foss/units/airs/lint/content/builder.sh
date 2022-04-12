@@ -45,7 +45,7 @@ function main {
         && check_md_tag_exists "${path}" 'alt' \
         && check_md_tag_exists "${path}" 'source' \
         && check_md_tag_exists "${path}" 'subtitle' \
-        && check_md_word_count "${path}" '800' '1400' \
+        && check_md_word_count "${path}" '800' '1500' \
         || return 1
     done \
     && touch "${out}" \

@@ -36,12 +36,12 @@ Many of the publications we consulted listed this trend. The discourses
 have little variation: both organizations and criminals, or stated
 differently, defense and attack sides on cybersecurity are using
 automated algorithms to improve their performance. In general, we can
-identify the following advantages by using `ML` and `AI`: for defenses,
+identify the following advantages by using ML and AI: for defenses,
 higher effectiveness (mostly detection), lower impact of human error,
 and acceleration of deployment. For the dark side, the benefits are also
 sizable —for instance, better and automated [phishing](../phishing/)
 attacks, as well as more sophisticated denial of service attacks.
-Moreover, `ML` and `AI` algorithms could be used to spread fake news and
+Moreover, ML and AI algorithms could be used to spread fake news and
 [deep fakes](https://en.wikipedia.org/wiki/Deepfake). Not only that, but
 those algorithms could create appealing malicious offers, which,
 combined with malware, could harm significantly. Remember [Cambridge
@@ -50,8 +50,10 @@ Analytica](https://towardsdatascience.com/how-ai-can-make-you-the-president-4756
 From another perspective, in 2017, [CB
 Insights](https://www.cbinsights.com/research/cybersecurity-artificial-intelligence-startups-market-map/)
 published a brief report listing more than 80 cybersecurity companies
-worldwide using `AI`. All of this shows apparent growth, and hence, it
-is indeed a trend.
+worldwide using AI.
+All of this shows apparent growth,
+and hence,
+it is indeed a trend.
 
 At `Fluid Attacks`, we are working on some initiatives using `ML`/`AI`
 algorithms. See, for example, the post [Understanding Program
@@ -163,16 +165,18 @@ Review](https://hbr.org/2017/05/cybersecurity-has-a-serious-talent-shortage-here
 and [Knowledge @
 Wharton](https://knowledge.wharton.upenn.edu/article/america-plans-close-skills-gap-cybersecurity/)
 have also referred to this issue. Some have blamed academia for this
-shortage of skilled talent. However, it is not that simple. In a
-[previous post](../training-basic/) in which we interviewed a `DevOps`
-engineer, it was discussed that academia, in cybersecurity, is not
-capable of keeping up with the pace of the industry.
+shortage of skilled talent. However, it is not that simple.
+In a [previous post](../training-basic/)
+in which we interviewed a [DevOps](../../solutions/devsecops/) engineer,
+it was discussed that academia,
+in cybersecurity,
+is not capable of keeping up with the pace of the industry.
 
 Some people think innovation in automated tools might be the key to
 compensate for this shortage. "*With as many as [two in three
 organizations
 worldwide](https://www.isc2.org/-/media/ISC2/Research/2018-ISC2-Cybersecurity-Workforce-Study.ashx?la=en)
-reporting a shortage of `IT` security staff, automated security tools
+reporting a shortage of IT security staff, automated security tools
 such as online vulnerability management solutions are fast becoming
 essential to maintaining a good security posture,*” says
 [Netsparker](https://www.netsparker.com/blog/web-security/top-10-cybersecurity-trends-to-look-out-for-in-2020/).
@@ -190,7 +194,7 @@ relevant, yet. Some sources see **mobile 5G technologies** as a big door
 for more vulnerabilities and incidents. Other sources predict
 **multi-factor authentication** schemes will replace two-factor
 authentication. Moreover, some predict that there will be lots of
-**vehicle hacks** and the rise of `IoT` breaches too. To conclude, some
+**vehicle hacks** and the rise of IoT breaches too. To conclude, some
 even predict that in 2020 countries will be destabilized by national
 elections hacking (this implies the use of digital voting systems. Will
 we see that happening?).

@@ -250,7 +250,7 @@ to prevent suffering from cyberattacks.
 
 Follow [this link](../../solutions/ethical-hacking/)
 if you and your company are interested in knowing details
-about Fluid Attacks' Ethical Hacking solution.
+about `Fluid Attacks'` Ethical Hacking solution.
 But if what you'd like is to wear a white hat
 and be an ethical hacker on our red team,
 follow [this one](../../careers/).

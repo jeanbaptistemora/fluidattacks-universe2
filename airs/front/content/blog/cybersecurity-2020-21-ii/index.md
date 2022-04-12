@@ -168,19 +168,29 @@ and limited reports.
 
 ## Cybersecurity implemented from the beginning
 
-It is ideal that today we include security in the DevOps methodology. We
-should do it from the beginning\! And, of course, always with the
-intention that all people involved in business projects understand it
-and apply it. Firms that build and manage software should indeed keep at
-least one [Security Champion](../secdevops-security-champions/) on their
-staff. From there, they could start training other potential talents to
-strengthen their means of prevention and defense (even if they are not
-the ones in charge of looking for vulnerabilities). Besides, many
-organizations should also start educating their other employees about
-behaviors that can pose cybersecurity risks. As we once said, it is
-imperative that everyone working for an organization be responsible for
-cybersecurity within this new culture of
-[DevSecOps](../devsecops-concept/).
+It is ideal that
+today we include [security in the DevOps](../../solutions/devsecops/)
+methodology.
+We should do it from the beginning\!
+And,
+of course,
+always with the intention
+that all people involved in business projects understand it
+and apply it.
+Firms that build and manage software
+should indeed keep at least one [Security Champion](../secdevops-security-champions/)
+on their staff.
+From there,
+they could start training other potential talents
+to strengthen their means of prevention and defense
+(even if they are not the ones in charge of looking for vulnerabilities).
+Besides,
+many organizations should also start educating their other employees
+about behaviors that can pose cybersecurity risks.
+As we once said,
+it is imperative that
+everyone working for an organization be responsible for cybersecurity
+within this new culture of [DevSecOps](../devsecops-concept/).
 
 See you in the [third part](../cybersecurity-2020-21-iii/) of this
 series of posts\!

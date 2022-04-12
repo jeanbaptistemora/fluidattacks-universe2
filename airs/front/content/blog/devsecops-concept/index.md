@@ -16,16 +16,19 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/YV593oyMKmo
 ---
 
-We recently published [a post about DevOps](../devops-concept/). At the
-end of it, we asked about the inclusion of security in this methodology
-of continuous integration and deployment. Consequently, we referred to
-the emergence of the **DevSecOps** concept. But what does this term
-mean?
+We recently published [a post about DevOps](../devops-concept/).
+At the end of it,
+we asked about the inclusion of security
+in this methodology of continuous integration and deployment.
+Consequently,
+we referred to the emergence of the [**DevSecOps**](../../solutions/devsecops/)
+concept.
+But what does this term mean?
 
 ### Definition of DevSecOps
 
 If we search on the Internet for a short definition, we find what is
-said in [Gartner’s
+said in [Gartner's
 glossary](https://www.gartner.com/en/information-technology/glossary/devsecops):
 
 <div class="imgblock">
@@ -197,8 +200,10 @@ Bear in mind that just as in DevOps, there shouldn’t be separate teams
 by function but by product. In the end, everyone must be responsible for
 security.
 
-Companies that decide to implement the DevSecOps approach (or, perhaps
-better said, SecDevOps) will achieve significant benefits, especially in
-the quality and security of their processes and products. Would you like
-some advice on how to do it? [Get in touch with our
-team\!](../../contact-us/)
+Companies that decide to implement the [DevSecOps](../../solutions/devsecops/)
+approach
+(or, perhaps better said, SecDevOps)
+will achieve significant benefits,
+especially in the quality and security of their processes and products.
+Would you like some advice on how to do it?
+[Get in touch with our team\!](../../contact-us/)

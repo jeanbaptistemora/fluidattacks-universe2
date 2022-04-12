@@ -64,8 +64,9 @@ without mincing words, Carlos warns: "if you are not able to convey the
 risks, mitigation, and supporting information in a manner that
 decision-makers can use and comprehend, then you have failed." Finally,
 he adds the importance of learning about new trends and best practices
-in the IT industry (sometimes ignored by practitioners), for example,
-Cloud and DevOps.
+in the IT industry (sometimes ignored by practitioners),
+for example,
+Cloud and [DevOps](../../solutions/devsecops/).
 
 Like other experts whose views have been presented in this series,
 Carlos reminds us that it is unnecessary to engage in illegal activities

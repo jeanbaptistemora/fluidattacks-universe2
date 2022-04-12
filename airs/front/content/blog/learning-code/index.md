@@ -53,15 +53,15 @@ what should they stop doing?**
     end soon.
 
 2. Second, people should start learning to code. Everything is shifting
-    towards coding. We have software-defined networks, infrastructure as
-    code (`IaC`) and many other instances where using code makes
-    everything so much more powerful and flexible. You can see how this
-    is gaining traction in `DevOps` roles in which a single person
-    performs a combination of software development and infrastructure
-    operations. I recommend starting with the `Python` programming
-    language."
+   towards coding. We have software-defined networks, infrastructure as
+   code (IaC) and many other instances where using code makes
+   everything so much more powerful and flexible. You can see how this
+   is gaining traction in [DevOps](../devops-concept/) roles
+   in which a single person performs a combination of software development
+   and infrastructure operations.
+   I recommend starting with the Python programming language."
 
-I’m pleased Ricardo pointed to the suggestion because cybersecurity will
+I'm pleased Ricardo pointed to the suggestion because cybersecurity will
 continue to be increasingly relevant in the global economy and coding is
 crucial. [Everyone should learn to
 code](https://www.inc.com/andrew-medal/everyone-on-the-planet-should-learn-to-code-heres-why-and-how.html).
@@ -81,43 +81,46 @@ start and stop doing?**
     way** instead of being perceived as those saying *‘it can’t be done
     that way’*.
 
-2. `DevOps` teams solve some issues `IT` *siloed* teams usually have.
-    What if `DevOps` teams go further by including security
-    capabilities? One way to achieve that is to have security people
-    working together with `DevOps` engineers. `DevOps` teams usually
-    have some professionals more skilled in coding; others more
-    experienced in infrastructure administration. [Security could be
-    another ingredient to provide solutions within `DevOps`
-    teams.](https://www.redhat.com/en/topics/devops/what-is-devsecops)
-    Old-fashioned developers usually think they finish their job when an
-    application is functionally running. However, from a business
-    perspective, that’s not true if other aspects are still missing,
-    like quality and security. Organizations should start reconfiguring
-    their `IT` teams to create business resources covering everything in
-    synergy: functionality, quality, and security."
+2. DevOps teams solve some issues IT *siloed* teams usually have.
+   What if DevOps teams go further
+   by [including security capabilities](../devsecops-concept/)
+   ([DevSecOps](../../solutions/devsecops/))?
+   One way to achieve that is to have security people
+   working together with DevOps engineers.
+   DevOps teams usually
+   have some professionals more skilled in coding; others more
+   experienced in infrastructure administration. [Security could be
+   another ingredient to provide solutions within DevOps
+   teams.](https://www.redhat.com/en/topics/devops/what-is-devsecops)
+   Old-fashioned developers usually think they finish their job when an
+   application is functionally running. However, from a business
+   perspective, that’s not true if other aspects are still missing,
+   like quality and security. Organizations should start reconfiguring
+   their IT teams to create business resources covering everything in
+   synergy: functionality, quality, and security."
 
 **What cybersecurity providers are doing well? What is not so great?**
 
 1. "I can only say `Fluid Attacks` is doing great stuff, by reinventing
-    themselves. They started talking about `IaC` around four years ago
+    themselves. They started talking about IaC around four years ago
     mentioning the importance of organizations shifting towards it.
     Benefits are so clear that it’s unthinkable for me taking a
-    different path. Here in Australia `IaC` is unnegotiable, it brings
+    different path. Here in Australia IaC is unnegotiable, it brings
     speed to service delivery, to development, to infrastructure
     deployment. `Fluid Attacks` is helping companies to automate the
-    detection of weaknesses, working together with development, `IT`,
-    and `DevOps` teams to infuse security the way I mentioned before. If
-    a cybersecurity firm is not into `IaC`, they will soon lose the
+    detection of weaknesses, working together with development, IT,
+    and DevOps teams to infuse security the way I mentioned before. If
+    a cybersecurity firm is not into IaC, they will soon lose the
     interesting customers."
 
-Indeed, `Fluid Attacks` has a `DevOps` approach. Want to know more?
+Indeed, `Fluid Attacks` has a DevOps approach. Want to know more?
 Visit our [Continuous Hacking](../../services/continuous-hacking/) and
 [One-shot Hacking](../../services/one-shot-hacking/) services.
 
 **Why do you think companies that know their weaknesses,** **do not fix
 them or do it too late?**
 
-1. "I’m pessimistic. Companies fix their weaknesses because they have
+1. "I'm pessimistic. Companies fix their weaknesses because they have
     to comply with some regulations. Most people don’t care that their
     software is unsafe. Those responsible for coding blame other people
     or wash their hands, knowing future issues will be fixed by a
@@ -143,19 +146,19 @@ Lock](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/lea
 **What do you think are relevant misconceptions in cybersecurity?**
 
 1. "A big misconception is that companies should protect primarily from
-    individuals targeting your business: *“the attacker”*, *“the
-    hacker”*, *“the terrorist”*, etc. A real significant threat is
-    malware which works automatically, not necessarily targeted to
-    specific firms or people. It is more an entity trying to enter any
-    small digital breach. You don’t need declared enemies to protect
-    your information and digital assets. It is worrying that there is no
-    concrete solution to malware and ransomware yet. The hope for some
-    people are potential `ML-based` solutions [like those tested at
-    `CERN`](../hack-cern/) by our friend Andrés.
+   individuals targeting your business: *“the attacker”*, *“the
+   hacker”*, *“the terrorist”*, etc. A real significant threat is
+   malware which works automatically, not necessarily targeted to
+   specific firms or people. It is more an entity trying to enter any
+   small digital breach. You don’t need declared enemies to protect
+   your information and digital assets. It is worrying that there is no
+   concrete solution to malware and ransomware yet. The hope for some
+   people are potential ML-based solutions [like those tested at
+   CERN](../hack-cern/) by our friend Andrés.
 
 2. Another misconception is the notion people have about our field.
-    Cybersecurity is not about detecting weaknesses. It is the opposite:
-    to build robust systems, less likely to have flaws.
+   Cybersecurity is not about detecting weaknesses. It is the opposite:
+   to build robust systems, less likely to have flaws.
 
 **Security is a behavioral problem; you and I know that.** **What do you
 think is the most critical challenge in cybersecurity** **from a

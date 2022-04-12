@@ -99,8 +99,9 @@ Granted by Practical DevSecOps.\
 It is a beginner-intermediate certification. If most certificates are
 focused on pentesters who want to be part of a red team, the CDP is
 designed for developers to strengthen their techniques, especially those
-related with Development Security Operations (DevSecOps). The exam to
-obtain it
+related with [Development Security Operations](../devsecops-concept/)
+([DevSecOps](../../solutions/devsecops/)).
+The exam to obtain it
 [requires](https://www.practical-devsecops.com/certified-devsecops-professional/)
 basic knowledge of Linux commands and an understanding of security
 practices such as those of [the OWASP
