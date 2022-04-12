@@ -126,28 +126,24 @@ def format_assigned(
 
 
 def format_data(
-    assigned_data: dict[str, List[Vulnerability]], limit: int = 0
+    assigned_data: dict[str, List[Vulnerability]], limit: int = 20
 ) -> Dict[str, Any]:
     data: Tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user, vulnerabilities)
         for user, vulnerabilities in assigned_data.items()
     )
-    limited_data = (
-        list(
-            sorted(
-                data,
-                key=lambda x: (
-                    x.open_vulnerabilities
-                    / (x.closed_vulnerabilities + x.open_vulnerabilities)
-                    if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
-                    else 0
-                ),
-                reverse=True,
-            )
-        )[:limit]
-        if limit
-        else list(data)
-    )
+    limited_data = list(
+        sorted(
+            data,
+            key=lambda x: (
+                x.open_vulnerabilities
+                / (x.closed_vulnerabilities + x.open_vulnerabilities)
+                if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
+                else 0
+            ),
+            reverse=True,
+        )
+    )[:limit]
     percentage_values = [
         format_percentages(
             {
