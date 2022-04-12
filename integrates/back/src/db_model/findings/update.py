@@ -110,6 +110,8 @@ async def update_historic_state(  # pylint: disable=too-many-locals
         )
         for item in response.items
     }
+
+    # Format historic items
     state_items = []
     state_keys = set()
     for state in historic_state:
@@ -128,6 +130,8 @@ async def update_historic_state(  # pylint: disable=too-many-locals
             **state_item,
         }
         state_items.append(state_item)
+
+    # Format state milestone
     latest_state = get_latest_state(historic_state)
     latest_key = keys.build_key(
         facet=TABLE.facets["finding_state"],
@@ -143,6 +147,72 @@ async def update_historic_state(  # pylint: disable=too-many-locals
         **latest_item,
     }
     state_items.append(latest_item)
+
+    # Format creation milestone
+    creation = next(
+        state
+        for state in historic_state
+        if state.status == FindingStateStatus.CREATED
+    )
+    if creation:
+        creation_item = format_state_item(creation)
+        creation_key = keys.build_key(
+            facet=TABLE.facets["finding_creation"],
+            values={"group_name": group_name, "id": finding_id},
+        )
+        state_items.append(
+            {
+                key_structure.partition_key: creation_key.partition_key,
+                key_structure.sort_key: creation_key.sort_key,
+                **creation_item,
+            }
+        )
+
+    # Format submission milestone, if applies
+    submission = next(
+        (
+            state
+            for state in reversed(historic_state)
+            if state.status == FindingStateStatus.SUBMITTED
+        ),
+        None,
+    )
+    if submission:
+        submission_item = format_state_item(submission)
+        submission_key = keys.build_key(
+            facet=TABLE.facets["finding_submission"],
+            values={"group_name": group_name, "id": finding_id},
+        )
+        state_items.append(
+            {
+                key_structure.partition_key: submission_key.partition_key,
+                key_structure.sort_key: submission_key.sort_key,
+                **submission_item,
+            }
+        )
+
+    # Format approval milestone, if applies
+    approval = next(
+        (
+            state
+            for state in reversed(historic_state)
+            if state.status == FindingStateStatus.APPROVED
+        ),
+        None,
+    )
+    if approval:
+        approval_item = format_state_item(approval)
+        approval_key = keys.build_key(
+            facet=TABLE.facets["finding_approval"],
+            values={"group_name": group_name, "id": finding_id},
+        )
+        state_items.append(
+            {
+                key_structure.partition_key: approval_key.partition_key,
+                key_structure.sort_key: approval_key.sort_key,
+                **approval_item,
+            }
+        )
 
     operation_coroutines = [
         operations.batch_put_item(items=tuple(state_items), table=TABLE)
