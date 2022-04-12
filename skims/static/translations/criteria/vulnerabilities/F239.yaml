@@ -1,0 +1,3 @@
+src.lib_root.f239.csharp_info_leak_errors:
+  en: The error handling configuration of the server allows the visualization of detailed information of its processes through the UseSetting method.
+  es: La configuración de manejo de errores del servidor permite visualización de información detallada de los procesos del mismo por medio del metodo UseSetting

@@ -2501,6 +2501,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_INFO_LEAK_ERRORS = MethodInfo(
+        file_name="csharp",
+        name="csharp_info_leak_errors",
+        module="lib_root",
+        finding=FindingEnum.F239,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CFN_RDS_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_has_unencrypted_storage",
