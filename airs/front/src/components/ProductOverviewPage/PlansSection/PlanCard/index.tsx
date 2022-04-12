@@ -36,7 +36,7 @@ const PlanCard: React.FC<IPlansCard> = ({
         </Link>
       ) : undefined}
       <CardContainer isMachine={isMachine}>
-        <CardTitleContainer>
+        <CardTitleContainer isOpen={isOpen}>
           <CardTitle>
             <CloudImage
               alt={`Plan ${title} Fluid Attacks`}

@@ -26,7 +26,12 @@ const CardTitleContainer = styled.div.attrs({
     mb4
     justify-center
   `,
-})``;
+})<{ isOpen: boolean }>`
+  @media (max-width: 960px) {
+    margin-bottom: ${({ isOpen }): string =>
+      isOpen ? "2rem" : "0"} !important;
+  }
+`;
 
 const OpenButton = styled.button.attrs({
   className: `
@@ -39,7 +44,7 @@ const OpenButton = styled.button.attrs({
     dn
   `,
 })`
-  @media (max-width: 1300px) {
+  @media (max-width: 960px) {
     display: block !important;
   }
 `;
@@ -66,10 +71,17 @@ const CardParagraph = styled.p.attrs({
     ma0
   `,
 })<{ isOpen: boolean }>`
-  min-height: 141px;
   border-bottom: solid 1px #ceced7;
 
-  @media (max-width: 1300px) {
+  @media only screen and (min-width: 1016px) and (max-width: 1332px) {
+    min-height: 141px;
+  }
+
+  @media only screen and (min-width: 961px) and (max-width: 1015px) {
+    min-height: 177px;
+  }
+
+  @media (max-width: 960px) {
     display: ${({ isOpen }): string => (isOpen ? "block" : "none")};
   }
 `;
@@ -81,7 +93,7 @@ const CardItemsContainer = styled.div.attrs({
 })<{ isOpen: boolean }>`
   max-width: 600px;
 
-  @media (max-width: 1300px) {
+  @media (max-width: 960px) {
     display: ${({ isOpen }): string => (isOpen ? "block" : "none")};
   }
 `;

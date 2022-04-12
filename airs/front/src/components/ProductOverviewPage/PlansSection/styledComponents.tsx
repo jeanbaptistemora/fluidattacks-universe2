@@ -18,7 +18,7 @@ const PlansContainer = styled.div.attrs({
 })`
   max-width: 1500px;
 
-  @media (max-width: 1300px) {
+  @media (max-width: 960px) {
     max-width: 800px;
   }
 `;
@@ -44,7 +44,7 @@ const CardsContainer = styled.div.attrs({
 })`
   flex-wrap: nowrap;
 
-  @media (max-width: 1300px) {
+  @media (max-width: 960px) {
     flex-wrap: wrap;
   }
 `;
