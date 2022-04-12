@@ -7,6 +7,9 @@ from symbolic_eval.f021.member_access import (
 from symbolic_eval.f100.member_access import (
     evaluate as evaluate_member_access_f100,
 )
+from symbolic_eval.f239.member_access import (
+    evaluate as evaluate_member_access_f239,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -18,6 +21,7 @@ from typing import (
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F021: evaluate_member_access_f021,
     FindingEnum.F100: evaluate_member_access_f100,
+    FindingEnum.F239: evaluate_member_access_f239,
 }
 
 
