@@ -7,7 +7,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "^7.1.2"
-fa_purity = "^1.10.0"
+fa_purity = "^1.12.0"
 GitPython = "^3.1.14"
 pathos = "^0.2.8"
 postgres-client = "^1.0.0"

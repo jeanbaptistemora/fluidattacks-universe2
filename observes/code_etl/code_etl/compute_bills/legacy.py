@@ -1,7 +1,6 @@
 """Process Redshift data and compute bills for every namespace."""
 
 
-import argparse
 from code_etl.compute_bills._getter import (
     get_org as get_organization,
 )

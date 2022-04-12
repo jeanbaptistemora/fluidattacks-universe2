@@ -1,3 +1,7 @@
+from ._retry import (
+    api_handler,
+    retry_cmd,
+)
 from code_etl.compute_bills.core import (
     Contribution,
 )
@@ -16,11 +20,27 @@ from datetime import (
 )
 from fa_purity import (
     Cmd,
+    JsonObj,
     Maybe,
     Stream,
 )
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
 from fa_purity.frozen import (
     freeze,
+)
+from fa_purity.json.factory import (
+    from_any,
+)
+from fa_purity.json.value.transform import (
+    Unfolder,
+)
+from fa_purity.result.factory import (
+    try_get,
+)
+from fa_purity.union import (
+    inl,
 )
 from fa_purity.utils import (
     raise_exception,
@@ -28,7 +48,6 @@ from fa_purity.utils import (
 from functools import (
     lru_cache,
 )
-import json
 import logging
 from ratelimiter import (  # type: ignore[import]
     RateLimiter,
@@ -45,7 +64,6 @@ from redshift_client.sql_client.query import (
 )
 import requests
 from typing import (
-    cast,
     Dict,
     FrozenSet,
     Optional,
@@ -54,13 +72,57 @@ from typing import (
 LOG = logging.getLogger(__name__)
 
 
-@lru_cache(maxsize=None)
+class UnexpectedResponse(Exception):
+    pass
+
+
+class ApiError(Exception):
+    pass
+
+
+def _from_raw_json(data: JsonObj) -> Optional[str]:
+    errors = (
+        try_get(data, "errors")
+        .alt(lambda _: None)
+        .swap()
+        .alt(lambda m: ApiError(m))
+        .alt(Exception)
+    )
+    group = errors.bind(
+        lambda _: try_get(data, "data").bind(
+            lambda x: Unfolder(x).get("group")
+        )
+    )
+    LOG.debug(data)
+    return (
+        group.map(
+            lambda g: Maybe.from_result(
+                Unfolder(g).get("organization").alt(lambda _: None)
+            )
+            .map(
+                lambda o: Unfolder(o)
+                .to_primitive(str)
+                .map(lambda x: inl(x, type(None)))
+                .lash(
+                    lambda e: Unfolder(o).to_none().map(lambda x: inl(x, str))
+                )
+                .alt(raise_exception)
+                .unwrap()
+            )
+            .to_result()
+            .to_union()
+        )
+        .alt(raise_exception)
+        .unwrap()
+    )
+
+
 @RateLimiter(max_calls=60, period=60)
-def _get_group_org(token: str, group: str) -> Optional[str]:
+def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:
     query = """
         query ObservesGetGroupOrganization($groupName: String!){
             group(groupName: $groupName){
-                    organization
+                organization
             }
         }
     """
@@ -69,21 +131,30 @@ def _get_group_org(token: str, group: str) -> Optional[str]:
         "query": query,
         "variables": variables,
     }
-    result = requests.post(
-        "https://app.fluidattacks.com/api",
-        json=json_data,
-        headers={"Authorization": f"Bearer {token}"},
+
+    def _request() -> requests.Response:
+        result = requests.post(
+            "https://app.fluidattacks.com/api",
+            json=json_data,
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        result.raise_for_status()
+        return result
+
+    req = retry_cmd(
+        api_handler(Cmd.from_cmd(_request)), 10, lambda i: (i + 1) ^ 2
     )
-    data = result.json()
-    LOG.debug("Group: %s; \nResponse: %s", group, json.dumps(data, indent=4))
-    if data["data"]["group"]:
-        raw = data["data"]["group"]["organization"]
-        return str(raw) if raw is not None else None
-    return None
+    return req.map(lambda r: from_any(r.json()).unwrap()).map(_from_raw_json)
+
+
+@lru_cache(maxsize=None)
+def _get_group_org_cached(token: str, group: str) -> Optional[str]:
+    result: Optional[str] = unsafe_unwrap(_get_group_org(token, group))
+    return result
 
 
 def get_org(token: str, group: str) -> Optional[str]:
-    return cast(Optional[str], _get_group_org(token, group))
+    return _get_group_org_cached(token, group)
 
 
 def get_commit_first_seen_at(client: SqlClient, fa_hash: str) -> Cmd[datetime]:
