@@ -50,6 +50,7 @@ locals {
               "sagemaker:*",
               "savingsplans:*",
               "secretsmanager:*",
+              "servicequotas:*",
               "sns:*",
               "sqs:*",
               "ssm:*",
