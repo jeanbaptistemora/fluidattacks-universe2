@@ -176,9 +176,8 @@ async def test_get_me_assigned(
     populate: bool, email: str, length: int
 ) -> None:
     assert populate
-    group_name: str = "group1"
     result: Dict[str, Any] = await get_vulnerabilities(
-        user=email, group=group_name
+        user=email,
     )
     assert "errors" not in result
     assert len(result["data"]["me"]["vulnerabilitiesAssigned"]) == length

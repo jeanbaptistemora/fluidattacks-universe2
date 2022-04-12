@@ -1,4 +1,4 @@
-# pylint: disable=import-error, unused-argument
+# pylint: disable=import-error
 from back.tests.functional.utils import (
     get_graphql_result,
 )
@@ -67,7 +67,6 @@ async def get_result(
 async def get_vulnerabilities(
     *,
     user: str,
-    group: str,
 ) -> Dict[str, Any]:
     query: str = """
         query GetMeAssignedVulnerabilies {
