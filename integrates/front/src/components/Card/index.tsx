@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CardBody } from "./Body";
 import { CardHeader } from "./Header";
 
-const Card = styled.article.attrs({ className: "ba br2 bw0 pa3" })`
+const Card = styled.article.attrs({ className: "ba br2 pa3" })`
   background-color: #f4f4f6;
   border-color: transparent;
   border-width: 2px;
