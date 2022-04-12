@@ -15,7 +15,7 @@ This can be visualized
 in the **Tracking** tab
 available within each type of vulnerability.
 
-![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211884/docs/web/vulnerabilities/management/vulnerabilities_tracking_eivofx.webp)
+![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1649776737/docs/web/vulnerabilities/management/vulnerabilities_tracking.png)
 
 The information
 that can be seen here
