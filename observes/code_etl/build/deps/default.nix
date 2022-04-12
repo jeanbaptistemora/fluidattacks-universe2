@@ -8,7 +8,7 @@
   python_version = "python39";
   purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.9.0";
+    ref = "refs/tags/v1.10.0";
   };
   purity = import purity_src {
     inherit system legacy_pkgs;
