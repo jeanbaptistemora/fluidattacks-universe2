@@ -18,6 +18,7 @@ import { CloudImage } from "../components/CloudImage";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
+import { ServiceSeo } from "../components/ServiceSeo";
 import { ShadowedCard } from "../components/ShadowedCard";
 import {
   BigPageContainer,
@@ -58,6 +59,12 @@ const SolutionIndex: React.FC<IQueryData> = ({
         keywords={keywords}
         title={`${title} | Fluid Attacks`}
         url={slug}
+      />
+      <ServiceSeo
+        description={description}
+        image={image.replace(".webp", ".png")}
+        title={`${title} | Fluid Attacks`}
+        url={`https://fluidattacks.com/${slug}`}
       />
 
       <Layout>

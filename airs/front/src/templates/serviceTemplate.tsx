@@ -18,6 +18,7 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServicePage } from "../components/ServicePage";
+import { ServiceSeo } from "../components/ServiceSeo";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject } from "../utils/utilities";
 
@@ -55,6 +56,12 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
         keywords={keywords}
         title={`${title} | Fluid Attacks`}
         url={slug}
+      />
+      <ServiceSeo
+        description={description}
+        image={image.replace(".webp", ".png")}
+        title={`${title} | Fluid Attacks`}
+        url={`https://fluidattacks.com/${slug}`}
       />
 
       <Layout>

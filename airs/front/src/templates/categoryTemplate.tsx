@@ -17,6 +17,7 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { SastPageFooter } from "../components/SastPageFooter";
 import { Seo } from "../components/Seo";
+import { ServiceSeo } from "../components/ServiceSeo";
 import {
   BannerContainer,
   BigPageContainer,
@@ -57,6 +58,12 @@ const CategoryIndex: React.FC<IQueryData> = ({
         keywords={keywords}
         title={`${title} | Fluid Attacks`}
         url={slug}
+      />
+      <ServiceSeo
+        description={description}
+        image={image.replace(".webp", ".png")}
+        title={`${title} | Fluid Attacks`}
+        url={`https://fluidattacks.com/${slug}`}
       />
 
       <Layout>
