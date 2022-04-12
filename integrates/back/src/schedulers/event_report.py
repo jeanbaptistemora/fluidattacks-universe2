@@ -37,6 +37,14 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+def days_to_date(date: str) -> int:
+    days = (
+        datetime_utils.get_now()
+        - datetime_utils.get_datetime_from_iso_str(date)
+    ).days
+    return days
+
+
 async def send_event_report() -> None:
     groups_names = await groups_domain.get_active_groups()
     loaders = get_new_context()
@@ -54,21 +62,11 @@ async def send_event_report() -> None:
         for group in groups_names
     ]
 
-    # pylint: disable=simplifiable-condition
     events_filtered: List[EventType] = [
         event
         for event in unsolved_events
         if event != []
-        and (
-            (
-                datetime_utils.get_now()
-                - datetime_utils.get_datetime_from_iso_str(
-                    event[0]["historic_state"][-1]["date"]
-                )
-            ).days
-            == 7
-            or 30
-        )
+        and days_to_date(event[0]["historic_state"][-1]["date"]) in [7, 30]
     ]
 
     if events_filtered:
