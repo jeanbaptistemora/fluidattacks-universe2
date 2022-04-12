@@ -959,11 +959,9 @@ async def get_groups_by_user(
     organization_id: str = "",
     with_cache: bool = True,
 ) -> list[str]:
-    group_names = list(
-        await filter_groups_with_org(
-            await group_access_domain.get_user_groups(user_email, active)
-        )
-    )
+    group_names = await group_access_domain.get_user_groups(user_email, active)
+    if not organization_id:
+        group_names = list(await filter_groups_with_org(group_names))
     group_level_roles = await authz.get_group_level_roles(
         user_email, group_names, with_cache=with_cache
     )
