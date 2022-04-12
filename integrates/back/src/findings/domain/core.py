@@ -12,6 +12,9 @@ from botocore.exceptions import (
 from comments import (
     domain as comments_domain,
 )
+from context import (
+    FI_ENVIRONMENT,
+)
 from contextlib import (
     suppress,
 )
@@ -637,7 +640,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         for vuln in vulnerabilities
         if vuln.repo and not check_hold(vuln)
     }
-    if root_nicknames:
+    if root_nicknames and FI_ENVIRONMENT == "production":
         with suppress(ClientError):
             clone_job_id = (
                 await clone_roots_in_batch(finding.group_name, *root_nicknames)
