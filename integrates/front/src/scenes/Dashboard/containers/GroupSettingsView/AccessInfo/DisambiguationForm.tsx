@@ -102,7 +102,12 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
                   }}
                 </Field>
               ) : (
-                <MDEditor.Markdown source={dataset.disambiguation} />
+                <MDEditor.Markdown
+                  // eslint-disable-next-line react/forbid-component-props
+                  className={"bg-lbl-gray"}
+                  prefixCls={""}
+                  source={dataset.disambiguation}
+                />
               )}
             </GroupScopeTextWide>
           ) : (

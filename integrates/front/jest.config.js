@@ -30,6 +30,12 @@ const esModules = [
   "rehype",
   "stringify-entities",
   "decode-named-character-reference",
+  "refractor",
+  "character-reference-invalid",
+  "is-decimal",
+  "is-hexadecimal",
+  "is-alphanumerical",
+  "is-alphabetical",
 ].join("|");
 
 module.exports = {

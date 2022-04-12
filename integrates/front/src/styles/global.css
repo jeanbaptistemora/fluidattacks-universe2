@@ -396,6 +396,11 @@ label {
   color: #2e2e38;
 }
 
+:global .bg-lbl-gray p {
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
 :global .bg-lbl-green {
   background-color: #c2ffd4;
   color: #009245;

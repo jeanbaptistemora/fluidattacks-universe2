@@ -100,6 +100,7 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
                           height={200}
                           highlightEnable={false}
                           onChange={handleMDChange}
+                          // PrefixCls={""}
                           value={values.groupContext}
                         />
                         <ValidationError>
@@ -116,7 +117,12 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
                   }}
                 </Field>
               ) : (
-                <MDEditor.Markdown source={dataset.groupContext} />
+                <MDEditor.Markdown
+                  // eslint-disable-next-line react/forbid-component-props
+                  className={"bg-lbl-gray"}
+                  prefixCls={""}
+                  source={dataset.groupContext}
+                />
               )}
             </GroupScopeTextWide>
           ) : (
