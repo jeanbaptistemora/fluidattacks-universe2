@@ -304,6 +304,27 @@ def iter_aws_security_group(model: Any) -> Iterator[Any]:
         )
 
 
+def iter_aws_sg_ingress_egress(
+    model: Any,
+    ingress: bool = False,
+    egress: bool = False,
+) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "aws_security_group", "aws_security_group_rule"
+    )
+    for bucket in iterator:
+        if (sg_type := get_block_attribute(bucket, "type")) and (
+            (ingress and sg_type.val == "ingress")
+            or (egress and sg_type.val == "egress")
+        ):
+            yield bucket
+            continue
+        if ingress and (ingress_block := get_block_block(bucket, "ingress")):
+            yield ingress_block
+        if egress and (egress_block := get_block_block(bucket, "egress")):
+            yield egress_block
+
+
 def iter_aws_security_group_rule(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_security_group_rule")
     for bucket in iterator:
