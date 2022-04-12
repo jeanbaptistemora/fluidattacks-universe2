@@ -30,7 +30,7 @@ def camelcase_to_snakecase(str_value: str) -> str:
 
 
 async def filter_findings(
-    findings: Finding, filters: Dict[str, Any]
+    findings: Tuple[Finding, ...], filters: Dict[str, Any]
 ) -> Tuple[Finding, ...]:
     """Return filtered findings according to filters."""
 

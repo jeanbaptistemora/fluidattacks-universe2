@@ -59,7 +59,7 @@ async def _resolve_for_group(
         access = await group_access_domain.get_user_access(email, group_name)
         return {
             **stakeholder,
-            "responsibility": access.get("responsibility", ""),
+            "responsibility": str(access.get("responsibility", "")),
             "role": group_role,
         }
     raise StakeholderNotFound()

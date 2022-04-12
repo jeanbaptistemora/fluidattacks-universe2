@@ -27,8 +27,8 @@ from typing import (
 
 async def resolve(
     parent: Stakeholder, info: GraphQLResolveInfo, **_kwargs: None
-) -> List[Group]:
-    email: str = parent["email"]
+) -> Tuple[Group, ...]:
+    email = str(parent["email"])
     active, inactive = await collect(
         [
             groups_domain.get_groups_by_user(email),

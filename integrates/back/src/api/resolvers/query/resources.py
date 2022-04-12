@@ -29,7 +29,7 @@ from typing import (
     Union,
 )
 
-Resource = dict[str, str]
+Resource = dict[str, Optional[str]]
 Resources = dict[str, Union[str, Optional[list[Resource]]]]
 
 

@@ -10,7 +10,6 @@ from db_model.groups.types import (
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     RootToeInputsRequest,
-    ToeInput,
     ToeInputsConnection,
 )
 from decorators import (
@@ -24,7 +23,7 @@ from graphql.type.definition import (
 from typing import (
     Any,
     Dict,
-    Tuple,
+    Optional,
     Union,
 )
 
@@ -34,23 +33,26 @@ from typing import (
     enforce_group_level_auth_async,
     validate_connection,
 )
-async def resolve(
+async def resolve(  # pylint: disable=too-many-arguments
     parent: Union[Group, Dict[str, Any]],
     info: GraphQLResolveInfo,
-    **kwargs: None,
-) -> Tuple[ToeInput, ...]:
+    root_id: Optional[str] = None,
+    after: Optional[str] = None,
+    be_present: Optional[bool] = None,
+    first: Optional[int] = None,
+) -> ToeInputsConnection:
     loaders: Dataloaders = info.context.loaders
     group_name: str = (
         parent["name"] if isinstance(parent, dict) else parent.name
     )
-    if kwargs.get("root_id") is not None:
+    if root_id is not None:
         response: ToeInputsConnection = await loaders.root_toe_inputs.load(
             RootToeInputsRequest(
                 group_name=group_name,
-                root_id=kwargs["root_id"],
-                after=kwargs.get("after"),
-                be_present=kwargs.get("be_present"),
-                first=kwargs.get("first"),
+                root_id=root_id,
+                after=after,
+                be_present=be_present,
+                first=first,
                 paginate=True,
             )
         )
@@ -59,9 +61,9 @@ async def resolve(
     response = await loaders.group_toe_inputs.load(
         GroupToeInputsRequest(
             group_name=group_name,
-            after=kwargs.get("after"),
-            be_present=kwargs.get("be_present"),
-            first=kwargs.get("first"),
+            after=after,
+            be_present=be_present,
+            first=first,
             paginate=True,
         )
     )
