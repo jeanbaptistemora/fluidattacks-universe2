@@ -35,7 +35,7 @@ makeTemplate {
     source = [
       libGit
       outputs."/integrates/back/tools"
-      outputs."/integrates/back/pypi/runtime"
+      outputs."/integrates/back/env/pypi/runtime"
       outputs."/integrates/secrets/list"
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"

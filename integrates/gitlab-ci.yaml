@@ -278,7 +278,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/back/lintPythonIso:
+/integrates/back/lint/pythonIso:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -293,7 +293,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/back/lintPythonIso
+    - m . /integrates/back/lint/pythonIso
   stage: lint-code
   tags:
     - autoscaling
@@ -4209,7 +4209,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintPython/module/integratesBackTests:
+/lintPython/module/integratesBackTest:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -4224,14 +4224,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /lintPython/module/integratesBackTests
+    - m . /lintPython/module/integratesBackTest
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintPython/module/integratesBackTestsE2e:
+/lintPython/module/integratesBackTestE2e:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -4246,7 +4246,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /lintPython/module/integratesBackTestsE2e
+    - m . /lintPython/module/integratesBackTestE2e
   stage: lint-code
   tags:
     - autoscaling

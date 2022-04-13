@@ -3,15 +3,15 @@
     dirsOfModules = {
       integrates = {
         searchPaths.source = [
-          outputs."/integrates/back/pypi/runtime"
-          outputs."/integrates/back/pypi/unit-tests"
+          outputs."/integrates/back/env/pypi/runtime"
+          outputs."/integrates/back/env/pypi/unit-tests"
         ];
         python = "3.9";
         src = "/integrates/back/src";
       };
       integratesBackChartsGenerators = {
         searchPaths.source = [
-          outputs."/integrates/back/pypi/runtime"
+          outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/charts/pypi"
         ];
         python = "3.9";
@@ -27,27 +27,27 @@
     modules = {
       integratesBackDeployPermissionsMatrix = {
         searchPaths.source = [
-          outputs."/integrates/back/pypi/runtime"
+          outputs."/integrates/back/env/pypi/runtime"
         ];
         python = "3.9";
         src = "/integrates/deploy/permissions_matrix";
       };
       integratesBackMigrations = {
         searchPaths.source = [
-          outputs."/integrates/back/pypi/runtime"
+          outputs."/integrates/back/env/pypi/runtime"
         ];
         python = "3.9";
         src = "/integrates/back/migrations";
       };
-      integratesBackTests = {
+      integratesBackTest = {
         searchPaths.source = [
-          outputs."/integrates/back/pypi/unit-tests"
-          outputs."/integrates/back/pypi/runtime"
+          outputs."/integrates/back/env/pypi/unit-tests"
+          outputs."/integrates/back/env/pypi/runtime"
         ];
         python = "3.9";
         src = "/integrates/back/test";
       };
-      integratesBackTestsE2e = {
+      integratesBackTestE2e = {
         searchPaths.source = [
           outputs."/integrates/web/e2e/pypi"
         ];

@@ -22,7 +22,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     execution: str = "18c1e735a73243f2ab1ee0757041f80e"
     path: str = os.path.dirname(os.path.abspath(__file__))
-    filename: str = os.path.join(path, "../../unit/mock/test-log.log")
+    filename: str = os.path.join(path, "../../../unit/src/mock/test-log.log")
     result: Dict[str, Any] = {}
     with open(filename, "rb") as test_file:
         uploaded_file: UploadFile = UploadFile(

@@ -16,7 +16,7 @@ makeScript {
       outputs."/integrates/storage"
     ];
     source = [
-      outputs."/integrates/back/pypi/unit-tests"
+      outputs."/integrates/back/env/pypi/unit-tests"
     ];
   };
   entrypoint = ./entrypoint.sh;

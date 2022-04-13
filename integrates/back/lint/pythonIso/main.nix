@@ -24,7 +24,7 @@ in
     replace = {
       __argIntegratesBackEnv__ = outputs."/integrates/back/env";
       __argIntegratesPackage__ = projectPath "/integrates/back/src";
-      __argSettingsMypy__ = projectPath "/integrates/back/lintPythonIso/settings-mypy.cfg";
+      __argSettingsMypy__ = projectPath "/integrates/back/lint/pythonIso/settings-mypy.cfg";
     };
 
     entrypoint = ./entrypoint.sh;

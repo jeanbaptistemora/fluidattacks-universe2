@@ -762,15 +762,15 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/module/integratesBackTests";
+            output = "/lintPython/module/integratesBackTest";
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/integrates/back/lintPythonIso";
+            output = "/integrates/back/lint/pythonIso";
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/module/integratesBackTestsE2e";
+            output = "/lintPython/module/integratesBackTestE2e";
             gitlabExtra = gitlabLint;
           }
           {
