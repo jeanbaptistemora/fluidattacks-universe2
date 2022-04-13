@@ -103,6 +103,14 @@ class VulnerabilitiesConnection(NamedTuple):
     page_info: PageInfo
 
 
+class FindingVulnerabilitiesRequest(NamedTuple):
+    finding_id: str
+    after: Optional[str] = None
+    first: Optional[int] = None
+    paginate: bool = False
+    status: Optional[VulnerabilityStateStatus] = None
+
+
 class VulnerabilityMetadataToUpdate(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
