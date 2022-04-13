@@ -8951,6 +8951,26 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   117 | }
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ports
+F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13,200,skims,239. Technical information leak - Errors,The error handling configuration of the server allows the visualization of detailed information of its processes through the UseSetting method. in namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,"
+   1 | using System;
+   2 |
+   3 | namespace API
+   4 | {
+   5 |     public class Program
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             BuildWebHost();
+  10 |         }
+  11 |
+  12 |         public static IWebHost BuildWebHost() =>
+> 13 |             WebHost.CreateDefaultBuilder()
+  14 |                    .UseSetting(WebHostDefaults.DetailedErrorsKey, ""true"")
+  15 |                    .Build();
+  16 |     }
+  17 | }
+     ^ Col 0
+",csharp.csharp_info_leak_errors
 F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
