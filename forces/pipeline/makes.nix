@@ -52,16 +52,16 @@ in {
           gitlabExtra = gitlabDeployApp;
         }
         {
-          output = "/forces/process-groups";
+          output = "/forces/process-groups/pass";
           gitlabExtra = {
             only.refs = ["schedules"];
-            only.variables = ["$forces_process_groups"];
+            only.variables = ["$forces_process_groups_pass"];
             stage = "scheduler";
             tags = ["autoscaling"];
           };
         }
         {
-          output = "/forces/process-groups-break";
+          output = "/forces/process-groups/break";
           gitlabExtra = {
             only.refs = ["schedules"];
             only.variables = ["$forces_process_groups_break"];

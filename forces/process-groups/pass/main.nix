@@ -16,6 +16,6 @@ makeScript {
       outputs."/common/utils/sops"
     ];
   };
-  name = "forces-process-groups";
+  name = "forces-process-groups-pass";
   entrypoint = ./entrypoint.sh;
 }

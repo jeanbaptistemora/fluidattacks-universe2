@@ -11,8 +11,8 @@
   dev = {
     forces = {
       source = [
-        outputs."/forces/config-development"
-        outputs."/forces/config-runtime"
+        outputs."/forces/config/development"
+        outputs."/forces/config/runtime"
         (makeSearchPaths {
           pythonPackage = ["$PWD/forces"];
         })
@@ -53,15 +53,15 @@
     modules = {
       forces = {
         searchPaths.source = [
-          outputs."/forces/config-runtime"
+          outputs."/forces/config/runtime"
         ];
         python = "3.8";
         src = "/forces/forces";
       };
       forcesTests = {
         searchPaths.source = [
-          outputs."/forces/config-development"
-          outputs."/forces/config-runtime"
+          outputs."/forces/config/development"
+          outputs."/forces/config/runtime"
         ];
         python = "3.8";
         src = "/forces/test";
