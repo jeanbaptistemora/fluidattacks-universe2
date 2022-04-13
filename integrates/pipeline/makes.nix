@@ -647,6 +647,7 @@ in {
             "requeue_actions"
             "machine_queue_all"
             "machine_queue_re_attacks"
+            "reminder_notification"
             "refresh_toe_lines"
             "report_squad_usage"
             "update_group_toe_vulns"
