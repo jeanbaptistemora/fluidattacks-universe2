@@ -37,7 +37,7 @@ in
         (projectPath "/common/utils/bugsnag/client")
       ];
       source = [
-        outputs."/common/python/safe-pickle"
+        outputs."/common/utils/safe-pickle"
         outputs."/skims/config-runtime/pypi"
         (makeTemplate {
           replace = {
