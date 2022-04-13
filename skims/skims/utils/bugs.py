@@ -23,6 +23,8 @@ def initialize_bugsnag() -> None:
     bugsnag.before_notify(bugsnag_add_batch_metadata)
     bugsnag.before_notify(bugsnag_remove_nix_hash)
     bugsnag.configure(
+        # Ignore multiprocessing SystemExit errors that were flooding Bugsnag
+        ignore_classes=["SystemExit"],
         # Assume development stage if this source file is within repository
         release_stage=guess_environment(),
     )
