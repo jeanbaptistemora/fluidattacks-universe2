@@ -67,7 +67,7 @@ def adjust_historic_dates(
         current_date = datetime.fromisoformat(entry.modified_date)
         comparison_date = datetime.fromisoformat(comparison_date_str)
         elapsed = current_date - comparison_date
-        if current_date > comparison_date and elapsed.seconds > 1:
+        if current_date > comparison_date and elapsed.seconds >= 1:
             comparison_date_str = entry.modified_date
         else:
             fixed_date = datetime.fromisoformat(
@@ -113,22 +113,22 @@ async def process_finding(
     historic_state: tuple[
         FindingState, ...
     ] = await loaders.finding_historic_state.load(finding.id)
-    vulns = await loaders.finding_vulnerabilities_nzr.load(finding.id)
-    vulns_oldest_report_date = await get_oldest_vulnerability_report_date(
-        vulns
-    )
 
     has_report_date_changed = False
-    finding_indicators = finding.unreliable_indicators
-    finding_report_date = datetime.fromisoformat(
-        finding_indicators.unreliable_oldest_vulnerability_report_date
-    )
-    if vulns_oldest_report_date < finding_report_date:
-        historic_state = replace_finding_historic_dates(
-            historic_state=historic_state,
-            vulns_oldest_report_date=vulns_oldest_report_date,
+    vulns = await loaders.finding_vulnerabilities_nzr.load(finding.id)
+    if vulns:
+        vulns_oldest_report_date = await get_oldest_vulnerability_report_date(
+            vulns
         )
-        has_report_date_changed = True
+        finding_approval_date = datetime.fromisoformat(
+            finding.approval.modified_date
+        )
+        if vulns_oldest_report_date < finding_approval_date:
+            historic_state = replace_finding_historic_dates(
+                historic_state=historic_state,
+                vulns_oldest_report_date=vulns_oldest_report_date,
+            )
+            has_report_date_changed = True
 
     has_historic_changed, new_historic_state = adjust_historic_dates(
         historic_state
@@ -140,10 +140,11 @@ async def process_finding(
             finding_id=finding.id,
             historic_state=new_historic_state,
         )
-        await update_unreliable_indicators_by_deps(
-            EntityDependency.move_root,
-            finding_ids=[finding.id],
-        )
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.move_root,
+        finding_ids=[finding.id],
+        vulnerability_ids=[],
+    )
 
 
 async def main() -> None:
