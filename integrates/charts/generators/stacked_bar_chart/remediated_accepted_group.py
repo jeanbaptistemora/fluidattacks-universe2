@@ -13,8 +13,7 @@ from charts.colors import (
     TREATMENT,
 )
 from charts.generators.stacked_bar_chart.utils import (
-    get_percentage,
-    MIN_PERCENTAGE,
+    format_stacked_percentages,
 )
 from decimal import (
     Decimal,
@@ -27,7 +26,6 @@ from typing import (
     Dict,
     List,
     NamedTuple,
-    Tuple,
 )
 
 Treatment = NamedTuple(
@@ -88,63 +86,6 @@ async def get_data_many_groups(groups: List[str]) -> List[Treatment]:
     )
 
 
-def format_percentages(
-    values: Dict[str, Decimal]
-) -> Tuple[Dict[str, str], ...]:
-    if not values:
-        max_percentage_values = {
-            "Closed": "",
-            "Temporarily accepted": "",
-            "Permanently accepted": "",
-            "Open": "",
-        }
-        percentage_values = {
-            "Closed": "0.0",
-            "Temporarily accepted": "0.0",
-            "Permanently accepted": "0.0",
-            "Open": "0.0",
-        }
-
-        return (percentage_values, max_percentage_values)
-
-    total_bar: Decimal = (
-        values["Closed"]
-        + values["Temporarily accepted"]
-        + values["Permanently accepted"]
-        + values["Open"]
-    )
-    total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
-    raw_percentages: List[Decimal] = [
-        values["Closed"] / total_bar,
-        values["Temporarily accepted"] / total_bar,
-        values["Permanently accepted"] / total_bar,
-        values["Open"] / total_bar,
-    ]
-    percentages: List[Decimal] = get_percentage(raw_percentages)
-    max_percentage_values = {
-        "Closed": str(percentages[0])
-        if percentages[0] >= MIN_PERCENTAGE
-        else "",
-        "Temporarily accepted": str(percentages[1])
-        if percentages[1] >= MIN_PERCENTAGE
-        else "",
-        "Permanently accepted": str(percentages[2])
-        if percentages[2] >= MIN_PERCENTAGE
-        else "",
-        "Open": str(percentages[3])
-        if percentages[3] >= MIN_PERCENTAGE
-        else "",
-    }
-    percentage_values = {
-        "Closed": str(percentages[0]),
-        "Temporarily accepted": str(percentages[1]),
-        "Permanently accepted": str(percentages[2]),
-        "Open": str(percentages[3]),
-    }
-
-    return (percentage_values, max_percentage_values)
-
-
 def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
     limited_data = (
         list(
@@ -163,8 +104,8 @@ def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
         else list(data)
     )
     percentage_values = [
-        format_percentages(
-            {
+        format_stacked_percentages(
+            values={
                 "Closed": Decimal(group.closed_vulnerabilities),
                 "Temporarily accepted": Decimal(group.accepted),
                 "Permanently accepted": Decimal(group.accepted_undefined),

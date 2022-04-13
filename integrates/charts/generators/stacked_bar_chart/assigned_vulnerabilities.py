@@ -12,9 +12,9 @@ from charts.colors import (
     RISK,
     TREATMENT,
 )
-from charts.generators.stacked_bar_chart.remediated_accepted_group import (
-    format_percentages,
-    Treatment,
+from charts.generators.stacked_bar_chart.utils import (
+    AssignedFormatted,
+    format_stacked_percentages,
 )
 from collections import (
     defaultdict,
@@ -41,18 +41,8 @@ from typing import (
     Counter,
     Dict,
     List,
-    NamedTuple,
     Tuple,
 )
-
-
-class AssignedFormatted(NamedTuple):
-    accepted: int
-    accepted_undefined: int
-    closed_vulnerabilities: int
-    open_vulnerabilities: int
-    remaining_open_vulnerabilities: int
-    user: str
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -93,7 +83,7 @@ async def get_data_many_groups(
 
 def format_assigned(
     user: str, vulnerabilities: List[Vulnerability]
-) -> Treatment:
+) -> AssignedFormatted:
     status: Counter[str] = Counter(
         vulnerability.treatment.status for vulnerability in vulnerabilities
     )
@@ -145,8 +135,8 @@ def format_data(
         )
     )[:limit]
     percentage_values = [
-        format_percentages(
-            {
+        format_stacked_percentages(
+            values={
                 "Closed": Decimal(group.closed_vulnerabilities),
                 "Temporarily accepted": Decimal(group.accepted),
                 "Permanently accepted": Decimal(group.accepted_undefined),
