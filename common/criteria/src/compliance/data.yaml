@@ -2276,11 +2276,10 @@
       The OWASP Top 10 is a standard
       awareness document for developers
       and web application security.
-      It represents a broad consensus about
-      the most critical security risks
+      It represents a broad consensus
+      about the most critical security risks
       to web applications.
-      The version used in this section
-      is OWASP Top 10:2021.
+      The version used in this section is OWASP Top 10:2021.
   es:
     description: __empty__
   definitions:
@@ -2319,15 +2318,14 @@
   title: PCI DSS
   en:
     description: >
-      PCI DSS is the global data security
-      standard adopted by the payment
-      card brands for all entities that process,
+      PCI DSS is the global data security standard
+      adopted by payment card brands
+      for all entities that process,
       store or transmit cardholder data
       and/or sensitive authentication data.
-      It consists of steps that mirror
-      security best practices.
-      The version used in this section
-      is PCI DSS v3.2.1.
+      It consists of several steps
+      that mirror security best practices.
+      The version used in this section is PCI DSS v3.2.1.
   es:
     description: __empty__
   definitions:
@@ -2814,15 +2812,14 @@
   title: OWASP-M TOP 10
   en:
     description: >
-      OWASP Mobile Security Project is a
-      centralized resource intended to give
-      developers and security teams the
-      resources they need to build and
-      maintain secure mobile applications.
-      OWASP-M Top Ten classify mobile security
-      risks and provide developmental
-      controls to reduce their impact or
-      likelihood of exploitation.
+      OWASP Mobile Security Project is a centralized resource
+      intended to give developers and security teams
+      the resources they need
+      to build and maintain secure mobile applications.
+      OWASP-M Top Ten classifies mobile security risks
+      and provides developmental controls
+      to reduce their impact
+      or likelihood of exploitation.
       The last version reviewed is 2016.
   es:
     description: __empty__
@@ -3572,18 +3569,16 @@
       link: https://attack.mitre.org/mitigations/enterprise/
   metadata: {}
 "padss":
-  title: PA DSS
+  title: PA-DSS
   en:
     description: >
-      The PCI Payment Application Data
-      Security Standard (PA-DSS)
-      Requirements and Security Assessment
-      Procedures define security
-      requirements and assessment
-      procedures for software vendors
-      of payment applications.
-      The version used in this section
-      is PA DSS version 3.0, November 2013.
+      The PCI Payment Application
+      Data Security Standard (PA-DSS)
+      Requirements and Security Assessment Procedures
+      define security requirements and assessment procedures
+      for software vendors of payment applications.
+      The version used in this section is PA-DSS version 3.0,
+      November 2013.
   es:
     description: __empty__
   definitions:
@@ -3857,16 +3852,14 @@
   title: PDPA
   en:
     description: >
-      Singapore’s Personal Data Protection
-      Act (PDPA) regulates the collection,
-      use and disclosure of personal data
-      in Singapore by giving enforceable
-      rights to users, placing the
-      responsibility of lawful data
-      processing on the shoulders of
-      websites, companies and organizations.
-      The version used in this
-      section is PDPA 2020.
+      Singapore's Personal Data Protection Act (PDPA)
+      regulates the collection,
+      use and disclosure of personal data in Singapore
+      by giving enforceable rights to users,
+      placing the responsibility of lawful data processing
+      on the shoulders of websites,
+      companies and organizations.
+      The version used in this section is PDPA 2020.
   es:
     description: __empty__
   definitions:
@@ -3970,16 +3963,14 @@
   title: PDPO
   en:
     description: >
-      The Hong Kong's Personal Data Privacy
-      Ordinance (PDPO) is the main legislation
-      in Hong Kong which aims to protect
-      the privacy of individuals in relation
-      to personal data, and to regulate the
-      collection, holding, processing, or use
-      of personal data based on a set of data
-      protection principles.
-      The version used in this section is
-      PDPO 2021 update.
+      The Personal Data Privacy Ordinance (PDPO)
+      is the main legislation in Hong Kong
+      which aims to protect the privacy of individuals
+      in relation to personal data,
+      and to regulate the collection,
+      holding, processing or use of personal data
+      based on a set of data protection principles.
+      The version used in this section is the PDPO 2021 update.
   es:
     description: __empty__
   definitions:
