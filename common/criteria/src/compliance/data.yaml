@@ -1371,16 +1371,14 @@
   title: NIST 800-63B
   en:
     description: >
-      NIST Special Publication 800-63B
-      is a digital identity guidelines
-      that provides recommendations on
-      types of authentication processes
+      NIST Special Publication 800-63B is a digital identity guideline
+      that provides recommendations
+      on types of authentication processes
       that may be used at various
       Authenticator Assurance Levels (AALs).
-      It applies to digital authentication
-      of subjects to systems over a network.
-      The version used for this section
-      is NIST 800-63B.
+      It applies to the digital authentication of subjects
+      to systems over a network.
+      The version used for this section is NIST 800-63B.
   es:
     description: __empty__
   definitions:
@@ -2622,20 +2620,19 @@
   title: SOC2®
   en:
     description: >
-      These reports are intended
-      to meet the needs of a broad range
-      of users that need detailed information
-      and assurance about the controls
-      at a service organization relevant to security,
-      availability, and processing integrity
-      of the systems the service organization uses
-      to process users’ data and the confidentiality
-      and privacy of the information processed
-      by these systems. The version used
-      in this section is 2017 Trust Services Criteria
+      These reports are intended to meet the needs
+      of a broad range of users
+      that need detailed information and assurance
+      about the controls at a service organization
+      relevant to security,
+      availability, and processing integrity of the systems
+      used by the organization to process users' data,
+      as well as the confidentiality
+      and privacy of the information processed by these systems.
+      The version used in this section is 2017 Trust Services Criteria
       for Security, Availability, Processing Integrity,
-      Confidentiality, and Privacy,
-      last revisions made in March 2020.
+      Confidentiality, and Privacy
+      (last revisions made in March 2020).
   es:
     description: __empty__
   definitions:
@@ -2679,40 +2676,40 @@
       title: Additional criteria for confidentiality
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P1_1":
-      title: Additional criteria for privacy (Related to notice and communication of objectives related to privacy)
+      title: Additional criteria for privacy (related to notice and communication of objectives related to privacy)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P2_1":
-      title: Additional criteria for privacy (Related to choice and consent)
+      title: Additional criteria for privacy (related to choice and consent)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P3_1":
-      title: Additional criteria for privacy (Related to collection)
+      title: Additional criteria for privacy (related to collection)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P3_2":
-      title: Additional criteria for privacy (Related to collection)
+      title: Additional criteria for privacy (related to collection)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P4_1":
-      title: Additional criteria for privacy (Related to use, retention, and disposal)
+      title: Additional criteria for privacy (related to use, retention, and disposal)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P4_2":
-      title: Additional criteria for privacy (Related to use, retention, and disposal)
+      title: Additional criteria for privacy (related to use, retention, and disposal)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P4_3":
-      title: Additional criteria for privacy (Related to use, retention, and disposal)
+      title: Additional criteria for privacy (related to use, retention, and disposal)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P5_2":
-      title: Additional criteria for privacy (Related to access)
+      title: Additional criteria for privacy (related to access)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P6_1":
-      title: Additional criteria for privacy (Related to disclosure and notification)
+      title: Additional criteria for privacy (related to disclosure and notification)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P6_2":
-      title: Additional criteria for privacy (Related to disclosure and notification)
+      title: Additional criteria for privacy (related to disclosure and notification)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P6_3":
-      title: Additional criteria for privacy (Related to disclosure and notification)
+      title: Additional criteria for privacy (related to disclosure and notification)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "P6_5":
-      title: Additional criteria for privacy (Related to disclosure and notification)
+      title: Additional criteria for privacy (related to disclosure and notification)
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
   metadata: {}
 "cwe25":
@@ -3758,17 +3755,14 @@
   title: SANS 25
   en:
     description: >
-      CWE/SANS TOP 25 Most Dangerous
-      Software Errors is a demonstrative
-      list of the most common and impactful
-      issues experienced over the previous
-      two calendar years.
-      Present detailed descriptions of the
-      top 25 Software errors along with
-      authoritative guidance for mitigating
-      and avoiding them.
-      The version used in this section is
-      CWE Top 25 2020.
+      CWE/SANS TOP 25 Most Dangerous Software Errors
+      is a demonstrative list of the most common
+      and impactful issues
+      experienced over the previous two calendar years.
+      It presents detailed descriptions of the top 25 software errors
+      along with authoritative guidance
+      for mitigating and avoiding them.
+      The version used in this section is CWE Top 25 2020.
   es:
     description: __empty__
   definitions:
@@ -3776,7 +3770,7 @@
       title: Improper restriction of operations within the bounds of a memory buffer
       link: https://www.sans.org/top25-software-errors/
     "79":
-      title: Improper neutralization of input during web page generation (Cross-Site Scripting)
+      title: Improper neutralization of input during web page generation (cross-site scripting)
       link: https://www.sans.org/top25-software-errors/
     "20":
       title: Improper input validation
@@ -3797,10 +3791,10 @@
       title: Integer overflow or wraparound
       link: https://www.sans.org/top25-software-errors/
     "352":
-      title: Cross-Site Request Forgery (CSRF)
+      title: Cross-site request forgery (CSRF)
       link: https://www.sans.org/top25-software-errors/
     "22":
-      title: Improper limitation of a pathname to a restricted directory (Path traversal)
+      title: Improper limitation of a pathname to a restricted directory (path traversal)
       link: https://www.sans.org/top25-software-errors/
     "78":
       title: Improper neutralization of special elements used in an OS command (OS command injection)
@@ -3824,7 +3818,7 @@
       title: Improper restriction of XML external entity reference
       link: https://www.sans.org/top25-software-errors/
     "94":
-      title: Improper control of generation of code (Code injection)
+      title: Improper control of generation of code (code injection)
       link: https://www.sans.org/top25-software-errors/
     "798":
       title: Use of hard-coded credentials
@@ -3913,13 +3907,11 @@
   title: POPIA
   en:
     description: >
-      The South Africa's Protection of
-      Personal Information Act (POPIA)
-      aims to promote the protection of
-      personal information processed by
-      public and private bodies and to
-      introduce certain conditions so as
-      to establish minimum requirements
+      South Africa's Protection of Personal Information Act (POPIA)
+      aims to promote the protection of personal information
+      processed by public and private bodies
+      and to introduce certain conditions
+      so as to establish minimum requirements
       for the processing of personal information.
       The version used in this section is POPIA 2021.
   es:
@@ -5130,19 +5122,15 @@
   title: WASSEC
   en:
     description: >
-      The Web Application Security Scanner
-      Evaluation Criteria (WASSEC) is a set
-      of guidelines to evaluate web application
-      scanners on their ability to effectively
-      test web applications and identify
-      vulnerabilities.
+      The Web Application Security Scanner Evaluation Criteria
+      (WASSEC) is a set of guidelines
+      to evaluate web application scanners
+      on their ability to effectively test web applications
+      and identify vulnerabilities.
       It covers areas such as crawling,
-      parsing,
-      session handling,
-      testing,
-      and reporting.
-      The version used in this section is
-      WASSEC version 1.0.
+      parsing, session handling,
+      testing and reporting.
+      The version used in this section is WASSEC version 1.0.
   es:
     description: __empty__
   definitions:
@@ -5195,7 +5183,7 @@
       title: Authentication - Lack of SSL on login pages
       link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
     "6_2_2_1":
-      title: Authorization - Credential/session prediction
+      title: Authorization - Credential/Session prediction
       link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
     "6_2_2_2":
       title: Authorization - Insufficient authorization
@@ -5261,7 +5249,7 @@
       title: Information disclosure - Default web server files
       link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
     "8_4_1":
-      title: Compliance Report
+      title: Compliance report
       link: http://projects.webappsec.org/f/Web+Application+Security+Scanner+Evaluation+Criteria+-+Version+1.0.pdf
   metadata: {}
 "osstmm3":
@@ -5605,17 +5593,13 @@
   title: WASC
   en:
     description: >
-      The WASC Threat Classification is
-      a cooperative effort to clarify
-      and organize the threats to the
-      security of a web site.
-      It outlines the attacks and
-      weaknesses that can lead to
-      the compromise of a website,
-      its data,
-      or its users.
-      The version used in this section
-      is WASC Threat Classification v2.0.
+      The WASC Threat Classification is a cooperative effort
+      to clarify and organize the threats
+      to the security of a website.
+      It outlines the attacks and weaknesses
+      that can lead to the compromise of a website,
+      its data or its users.
+      The version used in this section is WASC Threat Classification v2.0.
   es:
     description: __empty__
   definitions:
@@ -5665,7 +5649,7 @@
       title: Predictable resource location
       link: http://projects.webappsec.org/w/page/13246953/Predictable%20Resource%20Location
     "A_05":
-      title: Remote File Inclusion (RFI)
+      title: Remote file inclusion (RFI)
       link: http://projects.webappsec.org/w/page/13246955/Remote%20File%20Inclusion
     "A_37":
       title: Session fixation
