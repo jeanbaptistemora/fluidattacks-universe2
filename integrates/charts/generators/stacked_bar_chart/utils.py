@@ -765,3 +765,113 @@ def format_stacked_percentages(
     }
 
     return (percentage_values, max_percentage_values)
+
+
+def format_stacked_vulnerabilities_data(
+    *,
+    limited_data: List[AssignedFormatted],
+) -> dict[str, Any]:
+    percentage_values = [
+        format_stacked_percentages(
+            values={
+                "Closed": Decimal(user.closed_vulnerabilities),
+                "Temporarily accepted": Decimal(user.accepted),
+                "Permanently accepted": Decimal(user.accepted_undefined),
+                "Open": Decimal(user.remaining_open_vulnerabilities),
+            }
+        )
+        for user in limited_data
+    ]
+
+    return dict(
+        data=dict(
+            columns=[
+                ["Closed"]
+                + [str(user.closed_vulnerabilities) for user in limited_data],
+                ["Temporarily accepted"]
+                + [str(user.accepted) for user in limited_data],
+                ["Permanently accepted"]
+                + [str(user.accepted_undefined) for user in limited_data],
+                ["Open"]
+                + [
+                    str(user.remaining_open_vulnerabilities)
+                    for user in limited_data
+                ],
+            ],
+            colors={
+                "Closed": RISK.more_passive,
+                "Temporarily accepted": TREATMENT.passive,
+                "Permanently accepted": TREATMENT.more_passive,
+                "Open": RISK.more_agressive,
+            },
+            labels=dict(
+                format=dict(
+                    Closed=None,
+                ),
+            ),
+            type="bar",
+            groups=[
+                [
+                    "Closed",
+                    "Temporarily accepted",
+                    "Permanently accepted",
+                    "Open",
+                ],
+            ],
+            order=None,
+            stack=dict(
+                normalize=True,
+            ),
+        ),
+        legend=dict(
+            position="bottom",
+        ),
+        axis=dict(
+            x=dict(
+                categories=[assigned.user for assigned in limited_data],
+                type="category",
+                tick=dict(rotate=TICK_ROTATION, multiline=False),
+            ),
+        ),
+        tooltip=dict(
+            format=dict(
+                value=None,
+            ),
+        ),
+        percentageValues={
+            "Closed": [
+                percentage_value[0]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            "Temporarily accepted": [
+                percentage_value[0]["Temporarily accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Permanently accepted": [
+                percentage_value[0]["Permanently accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Open": [
+                percentage_value[0]["Open"]
+                for percentage_value in percentage_values
+            ],
+        },
+        maxPercentageValues={
+            "Closed": [
+                percentage_value[1]["Closed"]
+                for percentage_value in percentage_values
+            ],
+            "Temporarily accepted": [
+                percentage_value[1]["Temporarily accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Permanently accepted": [
+                percentage_value[1]["Permanently accepted"]
+                for percentage_value in percentage_values
+            ],
+            "Open": [
+                percentage_value[1]["Open"]
+                for percentage_value in percentage_values
+            ],
+        },
+    )
