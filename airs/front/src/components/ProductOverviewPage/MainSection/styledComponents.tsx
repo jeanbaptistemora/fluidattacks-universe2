@@ -41,6 +41,8 @@ const GifContainer = styled.div.attrs({
     w-60-l
     w-100
   `,
-})``;
+})`
+  box-shadow: 0px 4px 20px 4px rgba(0, 0, 0, 0.07);
+`;
 
 export { Container, GifContainer, MainTextContainer, ProductParagraph };
