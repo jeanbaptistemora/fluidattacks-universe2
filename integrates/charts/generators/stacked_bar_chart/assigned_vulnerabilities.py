@@ -8,13 +8,9 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
-    TREATMENT,
-)
 from charts.generators.stacked_bar_chart.utils import (
     AssignedFormatted,
-    format_stacked_percentages,
+    format_stacked_vulnerabilities_data,
 )
 from collections import (
     defaultdict,
@@ -32,9 +28,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-)
-from decimal import (
-    Decimal,
 )
 from typing import (
     Any,
@@ -134,112 +127,8 @@ def format_data(
             reverse=True,
         )
     )[:limit]
-    percentage_values = [
-        format_stacked_percentages(
-            values={
-                "Closed": Decimal(group.closed_vulnerabilities),
-                "Temporarily accepted": Decimal(group.accepted),
-                "Permanently accepted": Decimal(group.accepted_undefined),
-                "Open": Decimal(group.remaining_open_vulnerabilities),
-            }
-        )
-        for group in limited_data
-    ]
 
-    return dict(
-        data=dict(
-            columns=[
-                ["Closed"]
-                + [
-                    str(group.closed_vulnerabilities) for group in limited_data
-                ],
-                ["Temporarily accepted"]
-                + [str(group.accepted) for group in limited_data],
-                ["Permanently accepted"]
-                + [str(group.accepted_undefined) for group in limited_data],
-                ["Open"]
-                + [
-                    str(group.remaining_open_vulnerabilities)
-                    for group in limited_data
-                ],
-            ],
-            colors={
-                "Closed": RISK.more_passive,
-                "Temporarily accepted": TREATMENT.passive,
-                "Permanently accepted": TREATMENT.more_passive,
-                "Open": RISK.more_agressive,
-            },
-            labels=dict(
-                format=dict(
-                    Closed=None,
-                ),
-            ),
-            type="bar",
-            groups=[
-                [
-                    "Closed",
-                    "Temporarily accepted",
-                    "Permanently accepted",
-                    "Open",
-                ],
-            ],
-            order=None,
-            stack=dict(
-                normalize=True,
-            ),
-        ),
-        legend=dict(
-            position="bottom",
-        ),
-        axis=dict(
-            x=dict(
-                categories=[group.user for group in limited_data],
-                type="category",
-                tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
-            ),
-        ),
-        tooltip=dict(
-            format=dict(
-                value=None,
-            ),
-        ),
-        percentageValues={
-            "Closed": [
-                percentage_value[0]["Closed"]
-                for percentage_value in percentage_values
-            ],
-            "Temporarily accepted": [
-                percentage_value[0]["Temporarily accepted"]
-                for percentage_value in percentage_values
-            ],
-            "Permanently accepted": [
-                percentage_value[0]["Permanently accepted"]
-                for percentage_value in percentage_values
-            ],
-            "Open": [
-                percentage_value[0]["Open"]
-                for percentage_value in percentage_values
-            ],
-        },
-        maxPercentageValues={
-            "Closed": [
-                percentage_value[1]["Closed"]
-                for percentage_value in percentage_values
-            ],
-            "Temporarily accepted": [
-                percentage_value[1]["Temporarily accepted"]
-                for percentage_value in percentage_values
-            ],
-            "Permanently accepted": [
-                percentage_value[1]["Permanently accepted"]
-                for percentage_value in percentage_values
-            ],
-            "Open": [
-                percentage_value[1]["Open"]
-                for percentage_value in percentage_values
-            ],
-        },
-    )
+    return format_stacked_vulnerabilities_data(limited_data=limited_data)
 
 
 async def generate_all() -> None:
