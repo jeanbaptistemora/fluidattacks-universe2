@@ -24608,3 +24608,329 @@
   metadata:
     en:
       details: __empty__
+"413":
+  en:
+    title: Insecure file upload - DLL Injection
+    description: >
+      The application does not properly validate
+      the DLL files, allowing the injection
+      of malicious DLLS
+    impact: >
+      Inject backdoors, virus, or
+      other types of malicious files into the application
+    recommendation: >
+      - Verify with an antivirus that the imported DLLs
+      do not contain virus, backdoors or potentially harmful information
+
+      - Define a white-list of allowed DLLs
+      and their respective integrity hashes
+    threat: >
+      Anonymous attacker from local machine
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: Insecure file upload - DLL Injection
+    description: >
+      La aplicación no valida adecuadamente
+      los archivos DLL permitiendo la inyección
+      de DLLs maliciosos.
+    impact: >
+      Inyectar backdoors, virus u otro tipo de archivos
+      maliciosos en la aplicación.
+    recommendation: >
+      - Verificar con un antivirus que los DLLs importados
+      no contengan virus, backdoors o información potencialmente dañina
+
+      - Definir una lista de DDLs permitidos en la aplicación
+      junto con sus hashes de Integridad
+    threat: >
+      Atacante anónimo desde máquina local
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["040", "041"]
+  metadata:
+    en:
+      details: __empty__
+"414":
+  en:
+    title: Insecure service configuration - Header Checking
+    description: >
+      The application disables the HeaderChecking property,
+      which enables the encoding of newlines and carriage returns,
+      thus allowing the injection of malicious headers
+    impact: >
+      Ease header injection attacks
+      through newlines and carriage returns
+    recommendation: >
+      Set the EnableHeaderChecking property to true,
+      of remove the line that sets the property in false,
+      since its default value is true
+    threat: >
+      Anonymoous attacker from the Internet
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: Insecure service configuration - Header Checking
+    description: >
+      La aplicación deshabilita la propiedad HeaderChecking,
+      la cual codifica saltos de línea y carriage returns,
+      permitiendo la inyección de headers maliciosos
+    impact: >
+      Facilitar vulnerabilidades de inyección de headers
+      por medio de saltos de línea y carriage returns
+    recommendation: >
+      Establecer la propiedad EnableHeaderChecking en true
+      o eliminar la línea donde se establece en false,
+      ya que su valor por defecto es true
+    threat: >
+      Atacante anónimo desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"415":
+  en:
+    title: Insecure service configuration - Container level access policy
+    description: >
+      Container level policy is not set
+      when generating a service Shared Access Signature (SAS).
+      A container-level access policy
+      can be modified or revoked at any time.
+      It provides greater flexibility and control
+      over the permissions that are granted
+    impact: >
+      Create IDORs, excessive privileges,
+      or broken authentication vulnerabilities
+    recommendation: >
+      Specify a valid group policy identifier when generating the service SAS.
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  remediation_time: "50"
+  es:
+    title: Insecure service configuration - Container level access policy
+    description: >
+      Las políticas a nivel de contenedor
+      no se están definiendo cuando se genera
+      una firma de acceso compartido (SAS).
+      Las políticas a nivel de contenedor
+      pueden ser modificadas o revocadas en cualquier momento,
+      y proporcionan más flexibilidad y control
+      sobre los permisos otorgados
+    impact: >
+      Crear vulnerabilidades tipo IDOR,
+      permisos excesivos o Broken Authentication.
+    recommendation: >
+      Especificar un identificador de políticas de grupo válido
+      cuando se genere el servicio SAS.
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "U"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["186"]
+  metadata:
+    en:
+      details: __empty__
+"416":
+  en:
+    title: XAML injection
+    description: >
+      The application does not properly validate user input,
+      allowing XamlReader instances to be manipulated
+      to generate malicious elements
+      that can interact with other system actors
+    impact: >
+      Create malicious elements that can produce
+      more severe vulnerabilities
+    recommendation: >
+      Define length and content validations
+      in all the system imputs
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: XAML injection
+    description: >
+      La aplicación no valida adecuadamente
+      las entradas de usuario,
+      permitiendo manipular instancias de XamlReader
+      para generar elementos maliciosos
+      que pueden interactuar con otros actores del sistema
+    impact: >
+      Crear elementos maliciosos que pueden
+      producir vulnerabilidades más severas
+    recommendation: >
+      Implementar validaciones de longitud y contenido
+      en todas las entradas del sistema
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["173"]
+  metadata:
+    en:
+      details: __empty__
+"417":
+  en:
+    title: Account Takeover
+    description: >
+      By exploiting one or several application vulnerabilities
+      it is possible to take control over a user account
+      and perform action on his behalf
+    impact: >
+      - Affect the traceability and non-repudiation
+      of the user's actions.
+
+      - Deny the access of a legitimate user
+      to its own account
+
+      - Obtain potentially confidential information
+      from the user account
+    recommendation: >
+      Define account recovery mechannisms,
+      validating that the requester is the account owner.
+    threat: >
+      Authenticated attacker from the Internet
+  category: Abuse Functionality
+  remediation_time: "100"
+  es:
+    title: Account Takeover
+    description: >
+      Al explotar una o varias vulnerabilidades presentes en la aplicación,
+      es posible tomar el control de una cuenta de un usuario del sistema
+      y realizar acciones a su nombre
+    impact: >
+      - Afectar la trazabilidad e irrenunciabilidad
+      de las acciones del usuario.
+
+      - Denegar el acceso del usuario legítimo
+      a su propia cuenta
+
+      - Visualizar información potencialmente confidencial
+      de la cuenta del usuario
+    recommendation: >
+      Establecer mecanismos de recuperación de cuentas,
+      validando que quien solicita el acceso es el dueño de la misma
+    threat: >
+      Atacante autenticado desde Internet
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
+    temporal:
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["266", "238"]
+  metadata:
+    en:
+      details: __empty__
+"418":
+  en:
+    title: Insecure service configuration - Docker
+    description: >
+      Using the ADD command to automatically extract files
+      to the destination directory
+      adds the risk of exploiting vulnerabilities
+      such as zip bombs and Zip Slip
+      that could then be activated automatically.
+    impact: >
+      Expose the system to zip-based vulnerabilities
+    recommendation: >
+      Avoid the use of the ADD command
+      unless you need extract a local tar file.
+      Instead, use the COPY command
+    threat: >
+      Authenticated local attacker with access to the container
+  category: Abuse Functionality
+  remediation_time: "20"
+  es:
+    title: Insecure service configuration - Docker
+    description: >
+      El uso de comando ADD para extraer archivos automáticamente
+      al directorio de destino
+      agrega el riesgo de explotar vulnerabilidades como
+      zip bombs y Zip Slip que luego podrían activarse automáticamente.
+    impact: >
+      Exponer el sistema a vulnerabilidades basadas en zip.
+    recommendation: >
+      Evitar el uso del comando ADD
+      a menos que necesite extraer un archivo tar local.
+      En su lugar utilizar el comando COPY.
+    threat: >
+      Atacante local autenticado con acceso al contenedor.
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
