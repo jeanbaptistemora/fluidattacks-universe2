@@ -46,6 +46,7 @@ DISPATCHERS: Dispatchers = (
             "MethodInvocation",
             "ThrowStatement",
             "VariableDeclaration",
+            "ArrowExpressionClause",
         },
         cfg_builder=connect_to_next.build,
     ),
