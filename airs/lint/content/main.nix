@@ -18,7 +18,7 @@ makeDerivation {
       inputs.nixpkgs.gnused
     ];
     source = [
-      outputs."/airs/adoc/linter"
+      outputs."/airs/lint/md"
       outputs."/common/utils/common"
     ];
   };

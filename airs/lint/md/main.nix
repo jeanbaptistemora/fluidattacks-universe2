@@ -7,7 +7,7 @@ makeTemplate {
   replace = {
     __argAcceptedKeywordsFile__ = ./acepted_keywords.lst;
   };
-  name = "airs-adoc-linter";
+  name = "airs-lint-md";
   searchPaths = {
     bin = [
       inputs.nixpkgs.diction
