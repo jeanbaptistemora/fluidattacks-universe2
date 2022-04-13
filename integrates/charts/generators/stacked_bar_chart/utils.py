@@ -96,6 +96,15 @@ class RiskOverTime(NamedTuple):
     yearly: Dict[str, Dict[datetime, float]]
 
 
+class AssignedFormatted(NamedTuple):
+    accepted: Decimal
+    accepted_undefined: Decimal
+    closed_vulnerabilities: Decimal
+    open_vulnerabilities: Decimal
+    remaining_open_vulnerabilities: Decimal
+    user: str
+
+
 def translate_date(date_str: str) -> datetime:
     # No, there is no smarter way because of locales and that weird format
 
@@ -699,3 +708,60 @@ def get_min_date_formatted(date_str: str) -> datetime:
         datetime.now(),
         datetime.min.time(),
     )
+
+
+def format_stacked_percentages(
+    *, values: Dict[str, Decimal]
+) -> Tuple[Dict[str, str], ...]:
+    if not values:
+        max_percentage_values = {
+            "Closed": "",
+            "Temporarily accepted": "",
+            "Permanently accepted": "",
+            "Open": "",
+        }
+        percentage_values = {
+            "Closed": "0.0",
+            "Temporarily accepted": "0.0",
+            "Permanently accepted": "0.0",
+            "Open": "0.0",
+        }
+
+        return (percentage_values, max_percentage_values)
+
+    total_bar: Decimal = (
+        values["Closed"]
+        + values["Temporarily accepted"]
+        + values["Permanently accepted"]
+        + values["Open"]
+    )
+    total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
+    raw_percentages: List[Decimal] = [
+        values["Closed"] / total_bar,
+        values["Temporarily accepted"] / total_bar,
+        values["Permanently accepted"] / total_bar,
+        values["Open"] / total_bar,
+    ]
+    percentages: List[Decimal] = get_percentage(raw_percentages)
+    max_percentage_values = {
+        "Closed": str(percentages[0])
+        if percentages[0] >= MIN_PERCENTAGE
+        else "",
+        "Temporarily accepted": str(percentages[1])
+        if percentages[1] >= MIN_PERCENTAGE
+        else "",
+        "Permanently accepted": str(percentages[2])
+        if percentages[2] >= MIN_PERCENTAGE
+        else "",
+        "Open": str(percentages[3])
+        if percentages[3] >= MIN_PERCENTAGE
+        else "",
+    }
+    percentage_values = {
+        "Closed": str(percentages[0]),
+        "Temporarily accepted": str(percentages[1]),
+        "Permanently accepted": str(percentages[2]),
+        "Open": str(percentages[3]),
+    }
+
+    return (percentage_values, max_percentage_values)
