@@ -71,7 +71,7 @@ def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
 def _is_pom_xml(content: str) -> bool:
     root = bs4.BeautifulSoup(content, features="html.parser")
     if root.project:
-        if root.project["xmlns"]:
+        if root.project.get("xmlns"):
             is_pom_xml = (
                 str(root.project["xmlns"])
                 == "http://maven.apache.org/POM/4.0.0"
