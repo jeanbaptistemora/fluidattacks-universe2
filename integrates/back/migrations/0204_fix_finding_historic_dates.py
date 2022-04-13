@@ -8,8 +8,8 @@ dates being too close on time.
 
 https://gitlab.com/fluidattacks/product/-/issues/6299
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-04-13 at 17:40:04 UTC
+Finalization Time: 2022-04-13 at 17:43:11 UTC
 """
 
 from aioextensions import (
