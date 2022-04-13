@@ -11,4 +11,24 @@ const GET_USER_WELCOME = gql`
   }
 `;
 
-export { GET_USER_WELCOME };
+const GET_NEW_ORGANIZATION_NAME = gql`
+  query GetNewOrganizationName {
+    internalNames(entity: ORGANIZATION) {
+      name
+    }
+  }
+`;
+
+const ADD_ORGANIZATION = gql`
+  mutation AddOrganization($name: String!) {
+    addOrganization(name: $name) {
+      organization {
+        id
+        name
+      }
+      success
+    }
+  }
+`;
+
+export { ADD_ORGANIZATION, GET_NEW_ORGANIZATION_NAME, GET_USER_WELCOME };

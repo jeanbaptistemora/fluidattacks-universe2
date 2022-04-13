@@ -31,7 +31,7 @@ const Welcome: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const organizations = data === undefined ? [] : [{ name: "imamura" }];
+  const organizations = data === undefined ? [] : data.me.organizations;
   const isFirstTimeUser =
     organizations.length === 1 &&
     organizations[0].name.toLowerCase() === "imamura";
