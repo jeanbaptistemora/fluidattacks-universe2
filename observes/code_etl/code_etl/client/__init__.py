@@ -100,37 +100,6 @@ def _fetch(
     return Cmd.from_cmd(lambda: _fetch_action(client, chunk))
 
 
-def _all_data(
-    client: DbClient, table: TableID, namespace: Maybe[str]
-) -> Cmd[Stream[ResultE[CommitTableRow]]]:
-    # pylint: disable=unnecessary-lambda
-    pkg_items = 2000
-    statement = namespace.map(
-        lambda n: query.namespace_data(table, n)
-    ).or_else_call(lambda: query.all_data(table))
-    items = infinite_range(0, 1).map(lambda _: _fetch(client, pkg_items))
-    return client.execute_query(statement).map(
-        lambda _: from_piter(items)
-        .transform(lambda s: until_empty(s))
-        .map(lambda l: from_flist(l))
-        .transform(lambda s: chain(s))
-    )
-
-
-def insert_unique_rows(
-    client: DbClient, table: TableID, rows: FrozenList[CommitTableRow]
-) -> Cmd[None]:
-    msg = Cmd.from_cmd(
-        lambda: LOG.debug("unique inserting %s rows", len(rows))
-    )
-    return msg.bind(
-        lambda _: client.execute_batch(
-            query.insert_unique_row(table),
-            tuple(SqlArgs(to_dict(r)) for r in rows),
-        )
-    )
-
-
 def _fetch_one_result(client: DbClient, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
     return (
         client.fetch_one()
@@ -178,15 +147,43 @@ class RawClient:
             )
         )
 
+    def insert_unique_rows(
+        self, rows: FrozenList[CommitTableRow]
+    ) -> Cmd[None]:
+        msg = Cmd.from_cmd(
+            lambda: LOG.debug("unique inserting %s rows", len(rows))
+        )
+        return msg.bind(
+            lambda _: self._db_client.execute_batch(
+                query.insert_unique_row(self._table),
+                tuple(SqlArgs(to_dict(r)) for r in rows),
+            )
+        )
+
+    def _all_data(
+        self, namespace: Maybe[str]
+    ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+        pkg_items = 2000
+        statement = namespace.map(
+            lambda n: query.namespace_data(self._table, n)
+        ).or_else_call(lambda: query.all_data(self._table))
+        items = infinite_range(0, 1).map(
+            lambda _: _fetch(self._db_client, pkg_items)
+        )
+        return self._db_client.execute_query(statement).map(
+            lambda _: from_piter(items)
+            .transform(lambda s: until_empty(s))
+            .map(lambda l: from_flist(l))
+            .transform(lambda s: chain(s))
+        )
+
     def all_data_raw(self) -> Cmd[Stream[ResultE[CommitTableRow]]]:
-        return _all_data(self._db_client, self._table, Maybe.empty())
+        return self._all_data(Maybe.empty())
 
     def namespace_data(
         self, namespace: str
     ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
-        return _all_data(
-            self._db_client, self._table, Maybe.from_value(namespace)
-        )
+        return self._all_data(Maybe.from_value(namespace))
 
     def delta_update(
         self,
@@ -257,18 +254,14 @@ class Client:
             lambda: LOG.info("register_repos %s", str(reg))
         )
         encoded = tuple(from_reg(r) for r in reg)
-        return log_info.bind(
-            lambda _: insert_unique_rows(self._db_client, self._table, encoded)
-        )
+        return log_info.bind(lambda _: self._raw.insert_unique_rows(encoded))
 
     def insert_stamps(self, stamps: FrozenList[CommitStamp]) -> Cmd[None]:
         log_info = Cmd.from_cmd(
             lambda: LOG.info("inserting %s stamps", len(stamps))
         )
         encoded = tuple(from_stamp(s) for s in stamps)
-        return log_info.bind(
-            lambda _: insert_unique_rows(self._db_client, self._table, encoded)
-        )
+        return log_info.bind(lambda _: self._raw.insert_unique_rows(encoded))
 
     def namespace_data(
         self, namespace: str
