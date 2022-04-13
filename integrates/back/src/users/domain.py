@@ -226,6 +226,11 @@ async def get_by_email(email: str) -> UserType:
         "phone": None,
         "push_tokens": [],
         "is_registered": True,
+        "tours": {
+            "new_group": False,
+            "new_organization": False,
+            "new_root": False,
+        },
     }
     user: UserType = await users_dal.get(email)
     if user:
@@ -245,6 +250,9 @@ async def get_by_email(email: str) -> UserType:
                     national_number=user["phone"]["national_number"],
                 ),
                 "push_tokens": user.get("push_tokens", []),
+                "tours": stakeholder_data["tours"]
+                if user.get("tours") is None
+                else user["tours"],
             }
         )
     else:
@@ -435,6 +443,11 @@ async def update_mobile(
         national_number=new_phone.national_number,
     )
     await users_dal.update(email, {"phone": stakeholder_phone._asdict()})
+
+
+async def update_tours(email: str, tours: Dict[str, bool]) -> bool:
+    """New user workflow acknowledgment"""
+    return await users_dal.update(email, {"tours": tours})
 
 
 async def verify(

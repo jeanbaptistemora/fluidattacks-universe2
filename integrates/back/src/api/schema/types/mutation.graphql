@@ -1124,6 +1124,12 @@ type Mutation {
     sortsRiskLevel: Int
   ): SimplePayload!
 
+  "Update the new user completed workflow"
+  updateTours(
+    "Values for identify the completed new user workflows"
+    tours: ToursInput!
+  ): SimplePayload!
+
   "Updates the treatment of a single Vulnerability"
   updateVulnerabilitiesTreatment(
     "Temporarily accepted until"

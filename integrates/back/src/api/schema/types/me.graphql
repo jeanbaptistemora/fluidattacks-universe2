@@ -30,6 +30,8 @@ type Me {
     "Identifier of the organization to query for tags"
     organizationId: String!
   ): [Tag!]
+  "New users workflow skipping information"
+  tours: Tours
   "Email address of the user"
   userEmail: String!
   "Current user name"

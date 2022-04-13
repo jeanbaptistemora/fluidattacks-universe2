@@ -13,6 +13,7 @@ from api.resolvers.me import (
     role,
     subscriptions_to_entity_report,
     tags,
+    tours,
     vulnerabilities_assigned,
 )
 from ariadne import (
@@ -32,5 +33,6 @@ ME.set_field(
     "subscriptionsToEntityReport", subscriptions_to_entity_report.resolve
 )
 ME.set_field("tags", tags.resolve)
+ME.set_field("tours", tours.resolve)
 ME.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
 ME.set_field("notificationsPreferences", notifications_preferences.resolve)
