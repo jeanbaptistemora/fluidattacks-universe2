@@ -89,7 +89,7 @@ There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-An updated version of Zenario CMS is available at the vendor page..
+An updated version of Zenario CMS is available at the vendor page.
 
 ## Credits
 
