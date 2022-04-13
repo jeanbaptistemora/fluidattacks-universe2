@@ -8,6 +8,7 @@ from .enums import (
 )
 from .types import (
     Vulnerability,
+    VulnerabilityEdge,
     VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
     VulnerabilityState,
@@ -26,7 +27,12 @@ from db_model.enums import (
     StateRemovalJustification,
 )
 from dynamodb.types import (
+    Index,
     Item,
+    Table,
+)
+from dynamodb.utils import (
+    get_cursor,
 )
 from typing import (
     cast,
@@ -122,6 +128,16 @@ def format_vulnerability(item: Item) -> Vulnerability:
         verification=verification,
         where=item["where"],
         zero_risk=zero_risk,
+    )
+
+
+def format_vulnerability_edge(
+    index: Optional[Index],
+    item: Item,
+    table: Table,
+) -> VulnerabilityEdge:
+    return VulnerabilityEdge(
+        node=format_vulnerability(item), cursor=get_cursor(index, item, table)
     )
 
 
