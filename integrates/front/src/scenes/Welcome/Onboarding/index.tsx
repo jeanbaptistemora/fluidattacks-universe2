@@ -1,22 +1,20 @@
-import React, { useCallback } from "react";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import { Container } from "./styles";
 
 import { Card, CardBody, CardHeader } from "components/Card";
 import { Col, Row } from "components/Layout";
 
-const Onboarding: React.FC = (): JSX.Element => {
-  const { push } = useHistory();
+interface IOnboardingProps {
+  goToDemo: () => void;
+  goToTour: () => void;
+}
 
-  const goToTour = useCallback((): void => {
-    push("/welcome/tour");
-  }, [push]);
-
-  const goToDemo = useCallback((): void => {
-    push("/home");
-  }, [push]);
-
+const Onboarding: React.FC<IOnboardingProps> = ({
+  goToDemo,
+  goToTour,
+}: IOnboardingProps): JSX.Element => {
   return (
     <Container>
       <Switch>
@@ -51,6 +49,9 @@ const Onboarding: React.FC = (): JSX.Element => {
               </Row>
             </Col>
           </Row>
+        </Route>
+        <Route exact={true} path={"/welcome/tour"}>
+          <p>{"Work in progress"}</p>
         </Route>
         <Redirect to={"/welcome"} />
       </Switch>
