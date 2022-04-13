@@ -45,14 +45,14 @@
           outputs."/integrates/back/pypi/runtime"
         ];
         python = "3.9";
-        src = "/integrates/back/tests";
+        src = "/integrates/back/test";
       };
       integratesBackTestsE2e = {
         searchPaths.source = [
           outputs."/integrates/web/e2e/pypi"
         ];
         python = "3.9";
-        src = "/integrates/back/tests/e2e/src";
+        src = "/integrates/back/test/e2e/src";
       };
     };
   };

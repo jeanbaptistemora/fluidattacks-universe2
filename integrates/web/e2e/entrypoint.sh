@@ -18,7 +18,7 @@ function main {
           -n "development" \
           --timeout="15m"
     fi \
-    && pushd integrates/back/tests/e2e/src \
+    && pushd integrates/back/test/e2e/src \
     && pkgFirefox='__argFirefox__' \
       pkgGeckoDriver='__argGeckodriver__' \
       PYTHONPATH="${PWD}:${PYTHONPATH:-}" \

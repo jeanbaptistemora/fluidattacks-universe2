@@ -25,7 +25,7 @@ function main {
     && echo "[INFO] Running tests for: ${resolver_test_group}" \
     && pushd integrates \
     && PYTHONPATH="back/src/:back/migrations/:$PYTHONPATH" \
-    && pytest back/tests/functional "${pytest_args[@]}" \
+    && pytest back/test/functional/src "${pytest_args[@]}" \
     && popd \
     || return 1
 }

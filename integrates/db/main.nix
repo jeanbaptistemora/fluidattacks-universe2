@@ -7,7 +7,7 @@
 }: let
   data = makeScript {
     replace = {
-      __argDbData__ = projectPath "/integrates/back/tests/data";
+      __argDbData__ = projectPath "/integrates/back/test/data";
       __argNewDbDesign__ = projectPath "/integrates/arch/database-design.json";
     };
     name = "data-for-db";
