@@ -104,7 +104,9 @@ def _is_scope_comment(comment: CommentType) -> bool:
 
 
 async def add(
-    finding_id: str, comment_data: CommentType, user_info: UserType
+    finding_id: str,
+    comment_data: CommentType,
+    user_info: Union[UserType, Dict[str, str]],
 ) -> Tuple[Union[str, None], bool]:
     today = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_id = str(comment_data["comment_id"])

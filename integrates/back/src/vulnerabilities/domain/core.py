@@ -11,6 +11,7 @@ from custom_exceptions import (
     VulnNotInFinding,
 )
 from custom_types import (
+    Comment,
     User as UserType,
 )
 from db_model import (
@@ -156,7 +157,7 @@ async def confirm_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = str(user_info["user_email"])
-    comment_data = {
+    comment_data: Comment = {
         "comment_type": "zero_risk",
         "content": justification,
         "parent": "0",
@@ -515,7 +516,7 @@ async def reject_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = str(user_info["user_email"])
-    comment_data = {
+    comment_data: Comment = {
         "comment_type": "zero_risk",
         "content": justification,
         "parent": "0",
@@ -598,7 +599,7 @@ async def request_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = user_info["user_email"]
-    comment_data = {
+    comment_data: Comment = {
         "comment_type": "zero_risk",
         "content": justification,
         "parent": "0",

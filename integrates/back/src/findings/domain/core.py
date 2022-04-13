@@ -28,7 +28,6 @@ from custom_exceptions import (
 from custom_types import (
     Comment as CommentType,
     Tracking as TrackingItem,
-    User as UserType,
 )
 from datetime import (
     datetime,
@@ -313,10 +312,9 @@ async def get_last_closed_vulnerability_info(
     ]
     if closing_vuln_dates:
         current_date, date_index = max(
-            (v, i) for i, v in enumerate(closing_vuln_dates)
+            (v, i) for i, v in enumerate(closing_vuln_dates) if v is not None
         )
         last_closed_vuln: Optional[Vulnerability] = closed_vulns[date_index]
-        current_date = max(closing_vuln_dates)
         last_closed_days = Decimal(
             (datetime_utils.get_now().date() - current_date).days
         ).quantize(Decimal("0.1"))
@@ -625,13 +623,13 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         finding_id,
         vulnerability_ids,
     )
-    vulnerabilities = [
+    vulnerabilities = tuple(
         vulns_utils.validate_requested_verification(vuln, is_closing_event)
         for vuln in vulnerabilities
-    ]
-    vulnerabilities = [
+    )
+    vulnerabilities = tuple(
         vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
-    ]
+    )
     if not vulnerabilities:
         raise VulnNotFound()
 
@@ -671,7 +669,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         finding_id=finding.id,
         verification=verification,
     )
-    comment_data = {
+    comment_data: CommentType = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",
@@ -704,7 +702,8 @@ async def update_description(
     validations.validate_fields(
         list(filter(None, description._asdict().values()))
     )
-    findings_utils.is_valid_finding_title(description.title)
+    if description.title:
+        findings_utils.is_valid_finding_title(description.title)
 
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
@@ -730,6 +729,7 @@ async def update_severity(
 ) -> None:
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
+    updated_severity: Union[Finding20Severity, Finding31Severity]
     if isinstance(severity, Finding31Severity):
         privileges = cvss_utils.calculate_privileges(
             float(severity.privileges_required),
@@ -762,7 +762,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     *,
     context: Any,
     finding_id: str,
-    user_info: UserType,
+    user_info: Dict[str, str],
     justification: str,
     open_vulns_ids: List[str],
     closed_vulns_ids: List[str],
@@ -797,7 +797,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 
     comment_id = str(round(time() * 1000))
     today = datetime_utils.get_iso_date()
-    user_email = str(user_info["user_email"])
+    user_email = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified
     verification = FindingVerification(
@@ -814,7 +814,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         verification=verification,
     )
 
-    comment_data = {
+    comment_data: CommentType = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",
@@ -845,7 +845,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 async def get_oldest_no_treatment(
     loaders: Any,
     findings: Tuple[Finding, ...],
-) -> Optional[Dict[str, str]]:
+) -> Optional[Dict[str, Union[int, str]]]:
     """Get the finding with oldest "no treatment" vulnerability."""
     finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     vulns = await finding_vulns_loader.load_many_chained(
@@ -860,6 +860,7 @@ async def get_oldest_no_treatment(
     treatment_dates: List[datetime] = [
         datetime.fromisoformat(vuln.treatment.modified_date)
         for vuln in no_treatment_vulns
+        if vuln.treatment
     ]
     vulns_info = [
         (
@@ -873,8 +874,8 @@ async def get_oldest_no_treatment(
         finding for finding in findings if finding.id == oldest_finding_id
     )
     return {
-        "oldest_name": oldest_finding.title,
-        "oldest_age": (datetime_utils.get_now() - oldest_date).days,
+        "oldest_name": str(oldest_finding.title),
+        "oldest_age": int((datetime_utils.get_now() - oldest_date).days),
     }
 
 
