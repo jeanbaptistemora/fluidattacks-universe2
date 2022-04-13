@@ -46,10 +46,16 @@ class MailmapFactory:
             r"<(?P<alias_email>.*?)>$",
         )
         match = Maybe.from_optional(mailmap_line.match(line))
-        return match.map(lambda m: m.groupdict()).map(
+        return match.map(lambda m: m.groupdict(None)).map(
             lambda i: MailmapItem(
-                User(i["canon_name"], i["canon_email"]),
-                User(i["alias_name"], i["alias_email"]),
+                User(
+                    Maybe.from_optional(i["canon_name"]).unwrap(),
+                    Maybe.from_optional(i["canon_email"]).unwrap(),
+                ),
+                User(
+                    Maybe.from_optional(i["alias_name"]).unwrap(),
+                    Maybe.from_optional(i["alias_email"]).unwrap(),
+                ),
             )
         )
 
