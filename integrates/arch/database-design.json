@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 4, 2022, 3:25 PM",
+    "DateLastModified": "Apr 13, 2022, 03:39 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -589,6 +589,14 @@
         {
           "AttributeName": "notifications_preferences",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "pk_5",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "sk_5",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -1752,15 +1760,15 @@
               "value": {
                 "S": "jane_doe"
               },
-              "description":{
+              "description": {
                 "S": "User name for user management"
               }
             }
           ],
           "NonKeyAttributes": [
+            "description",
             "key",
-            "value",
-            "description"
+            "value"
           ]
         },
         {
@@ -2471,11 +2479,11 @@
             "name",
             "modified_date",
             "modified_by",
-            "roots",
             "key",
             "user",
             "password",
-            "token"
+            "token",
+            "roots"
           ]
         },
         {
@@ -12708,7 +12716,9 @@
             "pk_3",
             "sk_3",
             "pk_4",
-            "sk_4"
+            "sk_4",
+            "pk_5",
+            "sk_5"
           ]
         },
         {
@@ -15057,7 +15067,6 @@
             "queue"
           ]
         }
-
       ],
       "GlobalSecondaryIndexes": [
         {
@@ -15117,6 +15126,22 @@
             },
             "SortKey": {
               "AttributeName": "sk_4",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "gsi_5",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "pk_5",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "sk_5",
               "AttributeType": "S"
             }
           },
