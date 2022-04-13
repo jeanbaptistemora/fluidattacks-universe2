@@ -46,8 +46,8 @@ in {
               searchPaths = {
                 source = [
                   libGit
-                  outputs."/utils/sops"
-                  outputs."/utils/aws"
+                  outputs."/common/utils/sops"
+                  outputs."/common/utils/aws"
                 ];
                 bin = [
                   inputs.nixpkgs.kubectl

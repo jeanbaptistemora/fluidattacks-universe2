@@ -18,9 +18,9 @@ makeScript {
     ];
     source = [
       outputs."/integrates/mobile/tools"
-      outputs."/utils/aws"
-      outputs."/utils/git"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/git"
+      outputs."/common/utils/sops"
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -9,7 +9,7 @@ makeScript {
       outputs."/observes/service/batch-stability/bin"
     ];
     source = [
-      outputs."/utils/aws"
+      outputs."/common/utils/aws"
     ];
   };
   name = "observes-job-batch-stability";

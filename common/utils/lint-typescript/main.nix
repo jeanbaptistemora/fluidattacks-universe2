@@ -5,7 +5,7 @@
 }:
 makeTemplate {
   replace = {
-    __argConfig__ = projectPath "/makes/foss/units/utils/lint-typescript";
+    __argConfig__ = projectPath "/common/utils/lint-typescript";
   };
   name = "utils-bash-lib-lint-typescript";
   template = ./template.sh;

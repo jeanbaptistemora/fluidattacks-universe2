@@ -8,8 +8,8 @@ makeTemplate {
   searchPaths = {
     bin = [outputs."/melts"];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/git"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/git"
     ];
   };
   template = ./template.sh;

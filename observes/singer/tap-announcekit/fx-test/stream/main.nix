@@ -10,8 +10,8 @@ makeScript {
       outputs."${inputs.observesIndex.tap.announcekit.bin}"
     ];
     source = [
-      (outputs."/utils/aws")
-      (outputs."/utils/sops")
+      (outputs."/common/utils/aws")
+      (outputs."/common/utils/sops")
     ];
   };
   name = "observes-singer-tap-announcekit-fx-test-stream";

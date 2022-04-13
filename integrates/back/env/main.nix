@@ -37,8 +37,8 @@ makeTemplate {
       outputs."/integrates/back/tools"
       outputs."/integrates/back/pypi/runtime"
       outputs."/integrates/secrets/list"
-      outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
     ];
   };
   template = ./template.sh;

@@ -41,7 +41,7 @@ in
         "${self_bugsnag}/lib/python3.9/site-packages/"
         (projectPath "/integrates/back/src")
         (projectPath "/integrates")
-        (projectPath "/makes/foss/units/bugsnag-client")
+        (projectPath "/common/bugsnag/client")
       ];
       source = [
         pythonRequirements

@@ -5,17 +5,14 @@
   ...
 }:
 makeTemplate {
-  replace = {
-    __argGit__ = "${inputs.nixpkgs.git}/bin/git";
-  };
-  name = "utils-bash-lib-git";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.git
+      inputs.nixpkgs.awscli
     ];
     source = [
-      outputs."/utils/env"
+      outputs."/common/utils/env"
     ];
   };
+  name = "utils-bash-lib-aws";
   template = ./template.sh;
 }

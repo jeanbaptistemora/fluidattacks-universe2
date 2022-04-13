@@ -18,7 +18,7 @@ in
       bin = [inputs.nixpkgs.kubectl];
       source = [
         inspectorEnvironment
-        outputs."/utils/aws"
+        outputs."/common/utils/aws"
       ];
     };
     entrypoint = ./entrypoint.sh;

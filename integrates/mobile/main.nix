@@ -20,8 +20,8 @@ makeScript {
       inputs.nixpkgs.xdg_utils
     ];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };

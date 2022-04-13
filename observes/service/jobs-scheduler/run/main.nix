@@ -10,7 +10,7 @@ makeScript {
       outputs."${inputs.observesIndex.service.scheduler.bin}"
     ];
     source = [
-      outputs."/utils/aws"
+      outputs."/common/utils/aws"
     ];
   };
   name = "observes-service-jobs-scheduler-run";

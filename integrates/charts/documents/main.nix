@@ -19,8 +19,8 @@ makeScript {
     ];
     source = [
       outputs."/integrates/back/charts/pypi"
-      outputs."/utils/aws"
-      outputs."/utils/common"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/common"
     ];
   };
   entrypoint = ./entrypoint.sh;

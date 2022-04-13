@@ -19,7 +19,7 @@ makeScript {
       inputs.nixpkgs.gnugrep
     ];
     source = [
-      outputs."/utils/aws"
+      outputs."/common/utils/aws"
     ];
   };
   name = "integrates-back-deploy-dev";

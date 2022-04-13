@@ -10,8 +10,8 @@ makeScript {
       outputs."/observes/service/timedoctor-tokens/bin"
     ];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/gitlab"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/gitlab"
       outputs."/observes/common/db-creds"
     ];
   };

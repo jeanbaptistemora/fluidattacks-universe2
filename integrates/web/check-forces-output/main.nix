@@ -17,8 +17,8 @@ makeScript {
       outputs."/forces"
     ];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
     ];
   };
   entrypoint = ./entrypoint.sh;

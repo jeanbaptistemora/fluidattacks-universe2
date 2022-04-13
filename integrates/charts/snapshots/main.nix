@@ -25,7 +25,7 @@ makeScript {
         name = "integrates-charts-snapshots";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/utils/aws"
+      outputs."/common/utils/aws"
     ];
   };
   entrypoint = projectPath "/integrates/charts/snapshots/entrypoint.sh";

@@ -10,7 +10,7 @@ makeTemplate {
       inputs.nixpkgs.jq
     ];
     source = [
-      (outputs."/utils/sops")
+      (outputs."/common/utils/sops")
     ];
   };
   name = "observes-db-creds";

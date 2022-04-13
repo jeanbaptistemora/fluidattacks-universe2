@@ -7,8 +7,8 @@
 makeScript {
   searchPaths = {
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
       outputs."${inputs.observesIndex.service.db_migration.env.runtime}"
     ];
   };

@@ -13,7 +13,7 @@ makeScript {
       outputs."${inputs.observesIndex.target.redshift.bin}"
     ];
     source = [
-      outputs."/utils/aws"
+      outputs."/common/utils/aws"
       outputs."/observes/common/db-creds"
     ];
   };

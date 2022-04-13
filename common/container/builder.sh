@@ -32,8 +32,8 @@ function configure_tmp {
 
 function configure_product {
   mkdir -p "${out}/product" \
-    && mkdir -p "${out}/product/makes/foss/units/utils/shopts" \
-    && mirror "/makes/foss/units/utils/shopts/template.sh"
+    && mkdir -p "${out}/product/common/utils/shopts" \
+    && mirror "/common/utils/shopts/template.sh"
 }
 
 function configure_users {

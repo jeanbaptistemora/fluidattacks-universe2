@@ -9,8 +9,8 @@ makeScript {
       outputs."/observes/service/timedoctor-tokens/bin"
     ];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
     ];
   };
   name = "observes-job-timedoctor-new-grant-code";

@@ -18,8 +18,8 @@ makeScript {
         name = "integrates-coverage";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/utils/aws"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
     ];
   };
   entrypoint = projectPath "/integrates/coverage/entrypoint.sh";

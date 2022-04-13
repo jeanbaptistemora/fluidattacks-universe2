@@ -8,7 +8,7 @@ makeScript {
   searchPaths = {
     bin = [inputs.nixpkgs.kubectl];
     kubeConfig = [".kubernetes"];
-    source = [outputs."/utils/aws"];
+    source = [outputs."/common/utils/aws"];
   };
   name = "integrates-back-destroy-eph";
   entrypoint = ./entrypoint.sh;

@@ -23,7 +23,7 @@ in
         outputs."/integrates/storage"
       ];
       source = [
-        outputs."/utils/sops"
+        outputs."/common/utils/sops"
         pythonRequirements
       ];
     };

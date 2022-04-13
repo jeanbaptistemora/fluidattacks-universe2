@@ -15,8 +15,8 @@ makeScript {
     source = [
       outputs."/forces/config-development"
       outputs."/forces/config-runtime"
-      outputs."/utils/sops"
-      outputs."/utils/aws"
+      outputs."/common/utils/sops"
+      outputs."/common/utils/aws"
     ];
     bin = [
       inputs.nixpkgs.kubectl

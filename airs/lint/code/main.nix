@@ -20,9 +20,9 @@ makeScript {
     source = [
       outputs."/airs/npm/runtime"
       outputs."/airs/npm/env"
-      outputs."/utils/aws"
-      outputs."/utils/lint-typescript"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/lint-typescript"
+      outputs."/common/utils/sops"
     ];
   };
 }

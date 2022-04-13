@@ -9,10 +9,10 @@ makeScript {
     source = [
       outputs."/melts/lib"
       outputs."/sorts/config-runtime"
-      outputs."/utils/aws"
-      outputs."/utils/git"
-      outputs."/utils/sops"
-      outputs."/utils/common"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/git"
+      outputs."/common/utils/sops"
+      outputs."/common/utils/common"
     ];
   };
   entrypoint = ./entrypoint.sh;

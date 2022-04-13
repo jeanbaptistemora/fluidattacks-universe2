@@ -12,10 +12,7 @@
       pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
     };
   };
-  extendingMakesDirs = [
-    "/"
-    "/makes/foss/units"
-  ];
+  extendingMakesDirs = ["/"];
   formatBash = {
     enable = true;
     targets = ["/"];

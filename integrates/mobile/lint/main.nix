@@ -19,7 +19,7 @@ makeDerivation {
       inputs.nixpkgs.nodejs-12_x
     ];
     source = [
-      outputs."/utils/lint-typescript"
+      outputs."/common/utils/lint-typescript"
       outputs."/integrates/mobile/config/dev-runtime-env"
     ];
   };

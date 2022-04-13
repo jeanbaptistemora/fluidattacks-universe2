@@ -11,8 +11,8 @@ makeScript {
       outputs."/melts"
     ];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/git"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/git"
     ];
   };
   name = "observes-etl-code-mirror";

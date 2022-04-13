@@ -18,8 +18,8 @@ makeScript {
     ];
     source = [
       outputs."/secretsForAwsFromEnv/dev"
-      outputs."/utils/sops"
-      outputs."/utils/aws"
+      outputs."/common/utils/sops"
+      outputs."/common/utils/aws"
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -6,7 +6,7 @@
 makeScript {
   searchPaths = {
     source = [
-      outputs."/utils/gitlab"
+      outputs."/common/utils/gitlab"
     ];
   };
   name = "observes-common-update-project-variable-bin";

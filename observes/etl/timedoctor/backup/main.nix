@@ -14,9 +14,9 @@ makeScript {
       outputs."/observes/service/job-last-success/bin"
     ];
     source = [
-      outputs."/utils/aws"
-      outputs."/utils/gitlab"
-      outputs."/utils/sops"
+      outputs."/common/utils/aws"
+      outputs."/common/utils/gitlab"
+      outputs."/common/utils/sops"
       outputs."/observes/common/db-creds"
     ];
   };
