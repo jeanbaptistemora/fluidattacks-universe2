@@ -7,6 +7,7 @@ from .enums import (
     VulnerabilityZeroRiskStatus,
 )
 from .types import (
+    VulnerabilitiesConnection,
     Vulnerability,
     VulnerabilityEdge,
     VulnerabilityHistoric,
@@ -39,6 +40,55 @@ from typing import (
     Optional,
     Tuple,
 )
+
+
+def filter_connection_non_deleted(
+    connection: VulnerabilitiesConnection,
+) -> VulnerabilitiesConnection:
+    return VulnerabilitiesConnection(
+        edges=tuple(
+            edge
+            for edge in connection.edges
+            if edge.node.state.status != VulnerabilityStateStatus.DELETED
+        ),
+        page_info=connection.page_info,
+    )
+
+
+def filter_connection_non_zero_risk(
+    connection: VulnerabilitiesConnection,
+) -> VulnerabilitiesConnection:
+    zr_filter_statuses = {
+        VulnerabilityZeroRiskStatus.CONFIRMED,
+        VulnerabilityZeroRiskStatus.REQUESTED,
+    }
+    return VulnerabilitiesConnection(
+        edges=tuple(
+            edge
+            for edge in connection.edges
+            if not edge.node.zero_risk
+            or edge.node.zero_risk.status not in zr_filter_statuses
+        ),
+        page_info=connection.page_info,
+    )
+
+
+def filter_connection_zero_risk(
+    connection: VulnerabilitiesConnection,
+) -> VulnerabilitiesConnection:
+    zr_filter_statuses = {
+        VulnerabilityZeroRiskStatus.CONFIRMED,
+        VulnerabilityZeroRiskStatus.REQUESTED,
+    }
+    return VulnerabilitiesConnection(
+        edges=tuple(
+            edge
+            for edge in connection.edges
+            if edge.node.zero_risk
+            and edge.node.zero_risk.status in zr_filter_statuses
+        ),
+        page_info=connection.page_info,
+    )
 
 
 def filter_non_deleted(
