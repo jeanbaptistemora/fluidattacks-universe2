@@ -13,6 +13,9 @@ from db_model.enums import (
 from decimal import (
     Decimal,
 )
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     List,
     NamedTuple,
@@ -88,6 +91,16 @@ class Vulnerability(NamedTuple):
     )
     verification: Optional[VulnerabilityVerification] = None
     zero_risk: Optional[VulnerabilityZeroRisk] = None
+
+
+class VulnerabilityEdge(NamedTuple):
+    node: Vulnerability
+    cursor: str
+
+
+class VulnerabilitiesConnection(NamedTuple):
+    edges: Tuple[VulnerabilityEdge, ...]
+    page_info: PageInfo
 
 
 class VulnerabilityMetadataToUpdate(NamedTuple):
