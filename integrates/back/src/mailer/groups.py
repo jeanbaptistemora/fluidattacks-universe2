@@ -158,3 +158,17 @@ async def send_mail_updated_policies(
         f'Policies has been changed in [{context["org_name"]}]',
         "updated_policies",
     )
+
+
+async def send_mail_reminder(
+    *,
+    context: MailContentType,
+    email_to: List[str],
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        tags=GENERAL_TAG,
+        subject="Reminder",
+        context=context,
+        template_name="reminder_notification",
+    )
