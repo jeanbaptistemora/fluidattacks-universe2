@@ -29,6 +29,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     Any,
     Counter,
@@ -78,7 +81,7 @@ def format_assigned(
     user: str, vulnerabilities: List[Vulnerability]
 ) -> AssignedFormatted:
     status: Counter[str] = Counter(
-        vulnerability.treatment.status for vulnerability in vulnerabilities
+        vulnerability.state.status for vulnerability in vulnerabilities
     )
 
     treatment: Counter[str] = Counter(
@@ -92,6 +95,12 @@ def format_assigned(
         }
     )
 
+    remaining_open: Decimal = Decimal(
+        status[VulnerabilityStateStatus.OPEN]
+        - treatment[VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED]
+        - treatment[VulnerabilityTreatmentStatus.ACCEPTED]
+    )
+
     return AssignedFormatted(
         accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
         accepted_undefined=treatment[
@@ -99,11 +108,9 @@ def format_assigned(
         ],
         closed_vulnerabilities=status[VulnerabilityStateStatus.CLOSED],
         open_vulnerabilities=status[VulnerabilityStateStatus.OPEN],
-        remaining_open_vulnerabilities=(
-            status[VulnerabilityStateStatus.OPEN]
-            - treatment[VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED]
-            - treatment[VulnerabilityTreatmentStatus.ACCEPTED]
-        ),
+        remaining_open_vulnerabilities=remaining_open
+        if remaining_open > Decimal("0.0")
+        else Decimal("0.0"),
         user=user,
     )
 
