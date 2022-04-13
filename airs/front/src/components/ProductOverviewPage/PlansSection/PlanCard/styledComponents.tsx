@@ -63,7 +63,7 @@ const CardTitle = styled.p.attrs({
 
 const CardParagraph = styled.p.attrs({
   className: `
-    f3
+    f5
     pb4
     mb3
     c-black-gray
@@ -72,14 +72,6 @@ const CardParagraph = styled.p.attrs({
   `,
 })<{ isOpen: boolean }>`
   border-bottom: solid 1px #ceced7;
-
-  @media only screen and (min-width: 1016px) and (max-width: 1332px) {
-    min-height: 141px;
-  }
-
-  @media only screen and (min-width: 961px) and (max-width: 1015px) {
-    min-height: 177px;
-  }
 
   @media (max-width: 960px) {
     display: ${({ isOpen }): string => (isOpen ? "block" : "none")};
@@ -100,7 +92,7 @@ const CardItemsContainer = styled.div.attrs({
 
 const CardItem = styled.div.attrs({
   className: `
-    f3
+    f5
     flex
     pb3
     mb3
