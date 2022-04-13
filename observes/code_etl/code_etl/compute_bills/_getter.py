@@ -117,8 +117,8 @@ def _from_raw_json(data: JsonObj) -> Optional[str]:
     )
 
 
-@RateLimiter(max_calls=60, period=60)
-def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:
+@RateLimiter(max_calls=60, period=60)  # type: ignore[misc]
+def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:  # type: ignore[misc]
     query = """
         query ObservesGetGroupOrganization($groupName: String!){
             group(groupName: $groupName){
@@ -133,10 +133,11 @@ def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:
     }
 
     def _request() -> requests.Response:
+        headers: Dict[str, str] = {"Authorization": f"Bearer {token}"}
         result = requests.post(
             "https://app.fluidattacks.com/api",
             json=json_data,
-            headers={"Authorization": f"Bearer {token}"},
+            headers=headers,
         )
         result.raise_for_status()
         return result
@@ -144,12 +145,14 @@ def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:
     req = retry_cmd(
         api_handler(Cmd.from_cmd(_request)), 10, lambda i: (i + 1) ^ 2
     )
-    return req.map(lambda r: from_any(r.json()).unwrap()).map(_from_raw_json)
+    return req.map(
+        lambda r: from_any(r.json()).unwrap()  # type: ignore[misc]
+    ).map(_from_raw_json)
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=None)  # type: ignore[misc]
 def _get_group_org_cached(token: str, group: str) -> Optional[str]:
-    result: Optional[str] = unsafe_unwrap(_get_group_org(token, group))
+    result: Optional[str] = unsafe_unwrap(_get_group_org(token, group))  # type: ignore[misc]
     return result
 
 
@@ -185,7 +188,7 @@ def _assert_str(val: PrimitiveVal) -> str:
 def get_month_repos(
     client: SqlClient, date: datetime
 ) -> Cmd[FrozenSet[GroupId]]:
-    stm = f"""
+    stm = """
         SELECT DISTINCT
             namespace
         FROM code.commits
@@ -193,28 +196,27 @@ def get_month_repos(
             TO_CHAR(seen_at, 'YYYY-MM') = %(seen_at)s
         AND hash != %(sentinel)s
     """
-    return client.execute(
-        new_query(stm),
-        freeze(
-            {
-                "seen_at": date.strftime("%Y-%m"),
-                "sentinel": COMMIT_HASH_SENTINEL,
-            }
-        ),
-    ) + client.fetch_all().map(
-        lambda l: frozenset(
-            map(
-                lambda r: GroupId(_assert_str(r.data[0])),
-                l,
-            )
+    args: Dict[str, PrimitiveVal] = {
+        "seen_at": date.strftime("%Y-%m"),
+        "sentinel": COMMIT_HASH_SENTINEL,
+    }
+
+    def _to_group_id(row: RowData) -> GroupId:
+        return GroupId(_assert_str(row.data[0]))
+
+    return (
+        client.execute(
+            new_query(stm),
+            freeze(args),
         )
+        + client.fetch_all().map(lambda l: frozenset(map(_to_group_id, l)))
     )
 
 
 def get_month_contributions(
     client: SqlClient, group: GroupId, date: datetime
 ) -> Cmd[Stream[Contribution]]:
-    stm = f"""
+    stm = """
         SELECT
             author_name,
             author_email,
