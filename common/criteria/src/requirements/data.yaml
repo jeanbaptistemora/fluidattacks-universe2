@@ -538,12 +538,12 @@
       los datos relacionados
       con la sesión del usuario.
     description: >
-      Los toknes de sesión
+      Los tokens de sesión
       tienen permisos asociados
       que permiten a cualquier actor
       que los posea
       realizar acciones en un sistema.
-      Si los toknes de sesión
+      Si los tokens de sesión
       no son removidos del almacenamiento
       del lado del cliente o del servidor,
       se incrementan las posibilidades
@@ -588,13 +588,16 @@
 
       Information sent via URL parameters is:
 
-      - stored in clear text in the browser history.
-      sent to external sites via the referrer HTTP header.
+      - Stored in clear text in the
+      browser history.
 
-      - sent to external sites via the search bar
+      - Sent to external sites via the
+      referrer HTTP header.
+
+      - Sent to external sites via the search bar
       if the browser interprets the URL as a query.
 
-      - visible to scripts running
+      - Visible to scripts running
       on the browser that may belong to third-parties.
 
       Therefore,
@@ -618,18 +621,18 @@
       La información enviada
       mediante parámetros URL es:
 
-      - almacenada en texto claro
+      - Almacenada en texto claro
       en la historia del navegador.
 
-      - enviada a sitios externos
+      - Enviada a sitios externos
       mediante la cabecera HTTP referrer.
 
-      - enviada a sitios externos
+      - Enviada a sitios externos
       mediante la barra de búsqueda
       si el navegador interpreta la URL
       como un query.
 
-      - visible a scripts corriendo
+      - Visible a scripts corriendo
       en el navegador que pueden pertenecer
       a terceros.
 
@@ -712,9 +715,10 @@
       ayuda a cumplir el objetivo
       de reducir la superficie de ataque
       de los sistemas mencionados anteriormente
-      (lya que terceros malintencionados
-      no puede intentar acceder directamente
-      la configuración de administración del sistema),
+      (ya que terceros malintencionados
+      no pueden intentar acceder
+      directamente a la configuración
+      de la administración del sistema),
       e incrementa el nivel de confidencialidad
       y dispnibilidad del sistema.
   category: Authorization
@@ -2391,7 +2395,7 @@
   metadata: {}
 "096":
   en:
-    title: Set users required privileges
+    title: Set user's required privileges
     summary: >
       The privileges required
       by the users who will access
@@ -2723,7 +2727,9 @@
     summary: >
       El sistema debe validar
       que las credenciales entregadas
-      (correo electronico, número de teléfono, etc)
+      (correo electrónico,
+      número de teléfono,
+      etc.)
       realmente pertenecen
       al usuario que reclama
       propiedad sobre ellos.
@@ -4534,12 +4540,19 @@
       (escaping).
     description: >
       Los componentes del sistema
-      usan mensajes estructurados
+      utilizan mensajes estructurados
       para comunicarse con otros
       componentes.
-      Cuando estos mensajes
-      incluyen una entrada de fuentes no confiables
-      y esta entrada no está apropiadamente
+      Cuando estos mensajes incluyen
+      entradas de fuentes no confiables
+      y estas entradas no se escapan
+      adecuadamente,
+      se vuelven propensos a la
+      inserción de comandos maliciosos.
+      Por esta razón,
+      la codificación o el escape
+      deben ocurrir antes de enviar
+      los mensajes.
   category: Source
   supported_in:
     machine: false
@@ -8895,10 +8908,9 @@
   es:
     title: Proveer confirmación de procesamiento
     summary: >
-      El sistema debe proporcionar confirmación
-      a sus usuarios de si o no
-      está almacenando y / o
-      tratamiento de sus datos personales.
+      El sistema debe confirmar a sus
+      usuarios si almacena o trata sus
+      datos personales.
     description: >
       Los sistemas suelen solicitar información
       de sus usuarios,
