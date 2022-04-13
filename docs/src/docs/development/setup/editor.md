@@ -98,7 +98,7 @@ You can configure automatic code formatters like this:
 The Python formatter script can be this one:
 
 ```bash
-#! /usr/bin/env /bash
+#! /usr/bin/env bash
 
 # Replace ${makesSrc} with the git-clone of:
 # https://github.com/fluidattacks/makes
