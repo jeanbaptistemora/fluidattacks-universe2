@@ -356,9 +356,9 @@ async def get_max_open_severity(
 
 
 async def get_newest_vulnerability_report_date(
-    loaders: Any, finding_id: str
+    loaders: Any,
+    finding_id: str,
 ) -> str:
-    finding: Finding = await loaders.finding.load(finding_id)
     finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
@@ -369,13 +369,6 @@ async def get_newest_vulnerability_report_date(
         if report_dates
         else ""
     )
-    if (
-        newest_report_date
-        and finding.approval
-        and datetime.fromisoformat(newest_report_date)
-        < datetime.fromisoformat(finding.approval.modified_date)
-    ):
-        return finding.approval.modified_date
     return newest_report_date
 
 
@@ -883,7 +876,6 @@ async def get_oldest_open_vulnerability_report_date(
     loaders: Any,
     finding_id: str,
 ) -> str:
-    finding: Finding = await loaders.finding.load(finding_id)
     finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
@@ -895,13 +887,6 @@ async def get_oldest_open_vulnerability_report_date(
         if report_dates
         else ""
     )
-    if (
-        oldest_open_report_date
-        and finding.approval
-        and datetime.fromisoformat(oldest_open_report_date)
-        < datetime.fromisoformat(finding.approval.modified_date)
-    ):
-        return finding.approval.modified_date
     return oldest_open_report_date
 
 
@@ -909,7 +894,6 @@ async def get_oldest_vulnerability_report_date(
     loaders: Any,
     finding_id: str,
 ) -> str:
-    finding: Finding = await loaders.finding.load(finding_id)
     finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
     vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
         finding_id
@@ -920,13 +904,6 @@ async def get_oldest_vulnerability_report_date(
         if report_dates
         else ""
     )
-    if (
-        oldest_report_date
-        and finding.approval
-        and datetime.fromisoformat(oldest_report_date)
-        < datetime.fromisoformat(finding.approval.modified_date)
-    ):
-        return finding.approval.modified_date
     return oldest_report_date
 
 
