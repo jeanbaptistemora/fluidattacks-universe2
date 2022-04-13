@@ -1,7 +1,5 @@
 from code_etl.client import (
-    all_data_count,
-    insert_rows,
-    namespace_data,
+    RawClient,
 )
 from code_etl.client.db_client import (
     DbClient,
@@ -89,29 +87,23 @@ def migrate_row(
 
 
 def migration(
-    client: DbClient,
-    client_2: DbClient,
-    source: TableID,
-    target: TableID,
+    source_client: RawClient,
+    source_client_2: RawClient,
+    target_client: RawClient,
     namespace: str,
 ) -> Cmd[None]:
-    # pylint: disable=unnecessary-lambda
-    adjusted_data = namespace_data(client, source, namespace).map(
+    adjusted_data = source_client.namespace_data(namespace).map(
         lambda s: s.map(lambda r: r.bind(migrate_row)).chunked(2000)
     )
     counter = [0]
-    total = all_data_count(client_2, source, namespace).map(
-        lambda i: i.unwrap()
-    )
+    total = source_client_2.all_data_count(namespace).map(lambda i: i.unwrap())
 
     def _emit_action(
-        client: DbClient,
-        target: TableID,
         total_items: int,
         pkg: FrozenList[CommitTableRow],
     ) -> None:
         pkg_len = len(pkg)
-        unsafe_unwrap(insert_rows(client, target, pkg))
+        unsafe_unwrap(target_client.insert_rows(pkg))
         counter[0] = counter[0] + pkg_len
         LOG.info(
             "Migration %s/%s [%s%%]",
@@ -127,17 +119,29 @@ def migration(
                 .map(
                     lambda r: r.map(
                         lambda l: tuple(from_row_obj(i) for i in l)
-                    ).map(
-                        lambda p: Cmd.from_cmd(
-                            lambda: _emit_action(client_2, target, t, p)
-                        )
-                    )
+                    ).map(lambda p: Cmd.from_cmd(lambda: _emit_action(t, p)))
                 )
                 .map(lambda x: x.unwrap())
             )
         )
     )
     return action.bind(consume)
+
+
+def _new_dbclient(
+    db_id: DatabaseID,
+    creds: Credentials,
+) -> Cmd[DbClient]:
+    sql_client = ClientFactory().from_creds(db_id, creds)
+    return Cmd.from_cmd(lambda: DbClient(sql_client))
+
+
+def _new_raw_client(
+    db_id: DatabaseID,
+    creds: Credentials,
+    table: TableID,
+) -> Cmd[RawClient]:
+    return _new_dbclient(db_id, creds).map(lambda c: RawClient(c, table))
 
 
 def start(
@@ -147,8 +151,18 @@ def start(
     target: TableID,
     namespace: str,
 ) -> Cmd[None]:
-    client = DbClient(ClientFactory().from_creds(db_id, creds))
-    client2 = DbClient(ClientFactory().from_creds(db_id, creds))
-    return init_table_2_query(client, target).bind(
-        lambda _: migration(client, client2, source, target, namespace)
+    sql_client = _new_dbclient(db_id, creds)
+    client = _new_raw_client(db_id, creds, source)
+    client2 = _new_raw_client(db_id, creds, source)
+    target_client = _new_raw_client(db_id, creds, target)
+    return sql_client.bind(
+        lambda sql_cli: client.bind(
+            lambda c1: client2.bind(
+                lambda c2: target_client.bind(
+                    lambda ct: init_table_2_query(sql_cli, target).bind(
+                        lambda _: migration(c1, c2, ct, namespace)
+                    )
+                )
+            )
+        )
     )

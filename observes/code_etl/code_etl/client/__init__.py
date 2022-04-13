@@ -100,21 +100,6 @@ def _fetch(
     return Cmd.from_cmd(lambda: _fetch_action(client, chunk))
 
 
-def all_data_count(
-    client: DbClient, table: TableID, namespace: Optional[str]
-) -> Cmd[ResultE[int]]:
-    _query = (
-        query.all_data_count(table, namespace)
-        if namespace
-        else query.all_data_count(table)
-    )
-    return client.execute_query(_query).bind(
-        lambda _: client.fetch_one().map(
-            lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
-        )
-    )
-
-
 def _all_data(
     client: DbClient, table: TableID, namespace: Maybe[str]
 ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
@@ -129,30 +114,6 @@ def _all_data(
         .transform(lambda s: until_empty(s))
         .map(lambda l: from_flist(l))
         .transform(lambda s: chain(s))
-    )
-
-
-def namespace_data(
-    client: DbClient, table: TableID, namespace: str
-) -> Cmd[Stream[ResultE[CommitTableRow]]]:
-    return _all_data(client, table, Maybe.from_value(namespace))
-
-
-def all_data_raw(
-    client: DbClient, table: TableID
-) -> Cmd[Stream[ResultE[CommitTableRow]]]:
-    return _all_data(client, table, Maybe.empty())
-
-
-def insert_rows(
-    client: DbClient, table: TableID, rows: FrozenList[CommitTableRow]
-) -> Cmd[None]:
-    msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
-    return msg.bind(
-        lambda _: client.execute_batch(
-            query.insert_row(table),
-            tuple(SqlArgs(to_dict(r)) for r in rows),
-        )
     )
 
 
@@ -195,6 +156,37 @@ class RawClient:
     # exposes utilities from and to DB using raw objs i.e. CommitTableRow
     _db_client: DbClient
     _table: TableID
+
+    def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
+        _query = (
+            query.all_data_count(self._table, namespace)
+            if namespace
+            else query.all_data_count(self._table)
+        )
+        return self._db_client.execute_query(_query).bind(
+            lambda _: self._db_client.fetch_one().map(
+                lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
+            )
+        )
+
+    def insert_rows(self, rows: FrozenList[CommitTableRow]) -> Cmd[None]:
+        msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
+        return msg.bind(
+            lambda _: self._db_client.execute_batch(
+                query.insert_row(self._table),
+                tuple(SqlArgs(to_dict(r)) for r in rows),
+            )
+        )
+
+    def all_data_raw(self) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+        return _all_data(self._db_client, self._table, Maybe.empty())
+
+    def namespace_data(
+        self, namespace: str
+    ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
+        return _all_data(
+            self._db_client, self._table, Maybe.from_value(namespace)
+        )
 
     def delta_update(
         self,
@@ -241,7 +233,7 @@ class Client:
         object.__setattr__(self, "_raw", _raw)
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
-        return all_data_count(self._db_client, self._table, namespace)
+        return self._raw.all_data_count(namespace)
 
     def get_context(self, repo: RepoId) -> Cmd[RepoContex]:
         last = self._db_client.execute_query(
@@ -281,7 +273,7 @@ class Client:
     def namespace_data(
         self, namespace: str
     ) -> Cmd[Stream[ResultE[Union[CommitStamp, RepoRegistration]]]]:
-        return namespace_data(self._db_client, self._table, namespace).map(
+        return self._raw.namespace_data(namespace).map(
             lambda s: s.map(lambda r: r.bind(decoder.decode_commit_table_row))
         )
 

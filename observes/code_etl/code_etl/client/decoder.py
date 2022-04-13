@@ -27,7 +27,6 @@ from fa_purity.union import (
     inr,
 )
 from typing import (
-    Any,
     Optional,
     TypeVar,
     Union,
