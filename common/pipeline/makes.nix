@@ -159,15 +159,15 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/common/criteria/skims-sync";
+          output = "/common/criteria/test/base";
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/common/criteria/test";
+          output = "/common/criteria/test/skims-sync";
           gitlabExtra = gitlabTestCode;
         }
         {
-          output = "/common/criteria/unreferenced";
+          output = "/common/criteria/test/unreferenced";
           gitlabExtra = gitlabTestCode;
         }
         {

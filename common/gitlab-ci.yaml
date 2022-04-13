@@ -1,4 +1,4 @@
-/common/criteria/skims-sync:
+/common/criteria/test/base:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -13,14 +13,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /common/criteria/skims-sync
+    - m . /common/criteria/test/base
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/common/criteria/test:
+/common/criteria/test/skims-sync:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -35,14 +35,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /common/criteria/test
+    - m . /common/criteria/test/skims-sync
   stage: test-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/common/criteria/unreferenced:
+/common/criteria/test/unreferenced:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: true
   needs: []
@@ -57,7 +57,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
-    - m . /common/criteria/unreferenced
+    - m . /common/criteria/test/unreferenced
   stage: test-code
   tags:
     - autoscaling
