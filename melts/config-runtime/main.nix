@@ -32,7 +32,7 @@ in
       ];
       pythonPackage = [
         (projectPath "/melts")
-        (projectPath "/common/bugsnag/client")
+        (projectPath "/common/utils/bugsnag/client")
       ];
       source = [
         pythonRequirements

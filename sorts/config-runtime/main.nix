@@ -34,7 +34,7 @@ in
       pythonPackage = [
         (projectPath "/sorts/sorts")
         (projectPath "/sorts")
-        (projectPath "/common/bugsnag/client")
+        (projectPath "/common/utils/bugsnag/client")
       ];
       pythonPackage38 = [
         inputs.nixpkgs.python38Packages.numpy

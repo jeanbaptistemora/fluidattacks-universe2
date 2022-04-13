@@ -14,7 +14,7 @@ makeTemplate {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.gnused
-      outputs."/common/announce/bugsnag"
+      outputs."/common/utils/bugsnag/announce"
     ];
     source = [
       libGit

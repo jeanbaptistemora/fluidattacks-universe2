@@ -45,7 +45,7 @@ function deploy {
       app \
       "s3://${base_url}/" \
       --delete \
-    && common-announce-bugsnag "${bugsnag_key}" "${env}" \
+    && bugsnag-announce "${bugsnag_key}" "${env}" \
     && cloudflare_purge_cache \
       "${CLOUDFLARE_API_TOKEN}" \
       "fluidattacks.com" \

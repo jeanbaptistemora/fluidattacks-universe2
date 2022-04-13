@@ -106,7 +106,7 @@ function deploy_eph {
     && compress_files "${src}/public" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "false" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
-    && common-bugsnag-source-map-uploader 6d0d7e66955855de59cfff659e6edf31 \
+    && bugsnag-source-map-uploader 6d0d7e66955855de59cfff659e6edf31 \
       "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "${src}/public" \
     && announce_to_bugsnag ephemeral
 }
@@ -119,7 +119,7 @@ function deploy_prod {
     && compress_files "${src}/public" \
     && sync_files "${src}/public" 's3://fluidattacks.com' "false" \
     && sync_files "${src}/public" 's3://fluidattacks.com' \
-    && common-bugsnag-source-map-uploader 6d0d7e66955855de59cfff659e6edf31 \
+    && bugsnag-source-map-uploader 6d0d7e66955855de59cfff659e6edf31 \
       "https://fluidattacks.com/" "${src}/public/" \
     && announce_to_bugsnag production
 }
@@ -127,7 +127,7 @@ function deploy_prod {
 function announce_to_bugsnag {
   local release_stage="${1}"
 
-  common-announce-bugsnag 6d0d7e66955855de59cfff659e6edf31 "${release_stage}"
+  bugsnag-announce 6d0d7e66955855de59cfff659e6edf31 "${release_stage}"
 }
 
 function main {

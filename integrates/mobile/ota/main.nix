@@ -20,7 +20,7 @@ makeScript {
       inputs.nixpkgs.gnused
       inputs.nixpkgs.nodejs-12_x
       inputs.nixpkgs.openssl
-      outputs."/common/announce/bugsnag"
+      outputs."/common/utils/bugsnag/announce"
     ];
     source = [
       libGit

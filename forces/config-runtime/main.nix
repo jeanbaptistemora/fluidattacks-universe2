@@ -25,7 +25,7 @@ makeTemplate {
       })
     ];
     pythonPackage = [
-      (projectPath "/common/bugsnag/client")
+      (projectPath "/common/utils/bugsnag/client")
       (projectPath "/forces")
     ];
   };

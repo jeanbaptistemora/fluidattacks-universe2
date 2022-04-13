@@ -93,7 +93,7 @@ function main {
       --non-interactive \
       --release-channel "${CI_COMMIT_REF_NAME}" \
     && echo '[INFO] Sending build info to bugsnag' \
-    && common-announce-bugsnag c7b947a293ced0235cdd8edc8c09dad4 "mobile-${env}" \
+    && bugsnag-announce c7b947a293ced0235cdd8edc8c09dad4 "mobile-${env}" \
     && rm -rf .expo google-services.json node_modules \
     && popd \
     || return 1

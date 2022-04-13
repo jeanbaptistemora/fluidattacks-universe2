@@ -34,7 +34,7 @@ in
       pythonPackage = [
         "${self_bugsnag}/lib/python3.8/site-packages/"
         (projectPath "/skims/skims")
-        (projectPath "/common/bugsnag/client")
+        (projectPath "/common/utils/bugsnag/client")
       ];
       source = [
         outputs."/common/python/safe-pickle"

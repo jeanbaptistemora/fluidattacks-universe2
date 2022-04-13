@@ -4,7 +4,7 @@
   ...
 }: let
   nodeJsEnvironment = makeNodeJsEnvironment {
-    name = "common-announce-bugsnag";
+    name = "bugsnag-announce";
     nodeJsVersion = "12";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
@@ -12,6 +12,6 @@
 in
   makeScript {
     entrypoint = ./entrypoint.sh;
-    name = "common-announce-bugsnag";
+    name = "bugsnag-announce";
     searchPaths.source = [nodeJsEnvironment];
   }
