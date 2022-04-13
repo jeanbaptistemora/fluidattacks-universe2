@@ -13,12 +13,16 @@ from ipaddress import (
     IPv4Network,
     IPv6Network,
 )
+import json_parser
 import math
 from metaloaders.model import (
     Node,
 )
 from model import (
     core_model,
+)
+from pyarn import (
+    lockfile,
 )
 from pyparsing import (
     alphanums,
@@ -38,11 +42,15 @@ from sca import (
 from typing import (
     Any,
     Callable,
+    Dict,
     Iterator,
     Set,
     Tuple,
     TypeVar,
     Union,
+)
+from utils.fs import (
+    get_file_content_block,
 )
 from utils.function import (
     shield,
@@ -257,3 +265,46 @@ def translate_dependencies_to_vulnerabilities(
     )
 
     return results
+
+
+def get_subdependencies(current_subdep: str, data: Any) -> Tuple:
+    for yarn in data:
+        if yarn.find(current_subdep) != -1:
+            yarn_dict: Any = data.get(yarn)
+            if "dependencies" in yarn_dict.keys():
+                return yarn_dict.get("dependencies"), yarn_dict.get("version")
+            return {}, yarn_dict.get("version")
+    return {}, None
+
+
+def build_dependencies_tree(  # pylint: disable=too-many-locals
+    path_yarn: str, path_json: str
+) -> Dict[str, Any]:
+    yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
+    package_dict = json_parser.parse(get_file_content_block(path_json))[
+        "dependencies"
+    ]
+    tree: Dict[str, Any] = {}
+    for json_key, json_value in package_dict.items():
+        for yarn_key, yarn_value in yarn_dict.items():
+            dep = json_key + "@" + json_value
+            if dep.find(yarn_key) != -1:
+                tree[dep] = {}
+                if "dependencies" in yarn_value:
+                    subdeps = yarn_value["dependencies"]
+                    aux_dict = {}
+                    while subdeps:
+                        first_key = subdeps[list(subdeps.keys())[0]]
+                        current_subdep = (
+                            list(subdeps.keys())[0] + "@" + first_key
+                        )
+
+                        new_values, version = get_subdependencies(
+                            current_subdep, yarn_dict
+                        )
+                        aux_dict[list(subdeps.keys())[0]] = version
+                        subdeps.pop(list(subdeps.keys())[0])
+                        subdeps = {**subdeps, **new_values}
+
+                    tree[dep] = aux_dict
+    return tree
