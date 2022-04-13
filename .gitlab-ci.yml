@@ -118,10 +118,12 @@ workflow:
   <<: *common_in_dev_branch
   stage: lint-code
 
-/common/review-mr:
+/reviews:
   <<: *makes4
   <<: *common_in_mrs
   stage: merge-request
+  script:
+    - m . /reviews .reviews.toml
   interruptible: false
 
 .nix_get_pkgs: &nix_get_pkgs

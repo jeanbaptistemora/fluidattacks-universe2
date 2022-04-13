@@ -30,9 +30,9 @@ in {
         };
         searchPaths = {
           bin = [
-            outputs."/common/wait"
-            outputs."/common/kill-port"
-            outputs."/common/kill-tree"
+            outputs."/common/utils/wait"
+            outputs."/common/utils/kill/port"
+            outputs."/common/utils/kill/tree"
             outputs."/skims/test/mocks/http"
             outputs."/skims/test/mocks/ssl/safe"
             outputs."/skims/test/mocks/ssl/unsafe"

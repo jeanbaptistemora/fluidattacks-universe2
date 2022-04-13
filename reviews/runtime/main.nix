@@ -19,7 +19,7 @@ makeTemplate {
         name = "reviews-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
-      outputs."/common/commitlint"
+      outputs."/reviews/runtime/commitlint"
     ];
   };
   template = ./template.sh;
