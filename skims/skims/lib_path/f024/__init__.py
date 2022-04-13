@@ -21,6 +21,7 @@ from lib_path.f024.terraform import (
     tfm_aws_ec2_allows_all_outbound_traffic,
     tfm_aws_ec2_cfn_unrestricted_ip_protocols,
     tfm_aws_ec2_unrestricted_cidrs,
+    tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
     tfm_ec2_has_unrestricted_ports,
 )
 from model.core_model import (
@@ -173,6 +174,16 @@ def run_tfm_aws_allows_anyone_to_admin_ports(
 
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
+def run_tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
+        content=content, path=path, model=model
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
 def run_cfn_groups_without_egress(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -254,6 +265,7 @@ def analyze(
                 fun(content, path, model)
                 for fun in (
                     run_tfm_aws_allows_anyone_to_admin_ports,
+                    run_tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
                     run_tfm_aws_ec2_allows_all_outbound_traffic,
                     run_tfm_aws_ec2_cfn_unrestricted_ip_protocols,
                     run_tfm_aws_ec2_unrestricted_cidrs,

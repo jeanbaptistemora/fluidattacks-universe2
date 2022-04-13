@@ -1645,6 +1645,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_has_security_groups_ip_ranges_in_rfc1918",
+        module="lib_path",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_EC2_ALL_TRAFFIC = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ec2_allows_all_outbound_traffic",
