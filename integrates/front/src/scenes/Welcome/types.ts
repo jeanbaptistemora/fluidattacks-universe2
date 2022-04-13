@@ -1,4 +1,4 @@
-interface IOnboardingUserData {
+interface IGetUserWelcomeResult {
   me: {
     userEmail: string;
     organizations: {
@@ -7,4 +7,4 @@ interface IOnboardingUserData {
   };
 }
 
-export type { IOnboardingUserData };
+export type { IGetUserWelcomeResult };

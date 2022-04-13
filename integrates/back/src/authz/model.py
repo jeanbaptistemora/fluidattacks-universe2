@@ -1123,10 +1123,11 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     user=dict(
         actions={
-            "api_resolvers_query_internal_names_resolve",
+            "api_mutations_add_organization_mutate",
             "api_mutations_sign_post_url_requester_mutate",
             "api_mutations_update_stakeholder_phone_mutate",
             "api_mutations_verify_stakeholder_mutate",
+            "api_resolvers_query_internal_names_resolve",
         },
         tags=set(),
     ),
@@ -1161,7 +1162,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *USER_LEVEL_ROLES["user"]["actions"],
             "api_mutations_add_group_mutate",
-            "api_mutations_add_organization_mutate",
             "front_can_use_groups_searchbar",
             "keep_default_organization_access",
             "api_mutations_add_secret_mutate",

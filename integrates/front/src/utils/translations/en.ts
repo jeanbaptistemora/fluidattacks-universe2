@@ -3124,4 +3124,16 @@ export const enTranslations: ResourceKey = {
     },
     verify: "Verify",
   },
+  welcome: {
+    demo: {
+      description: "See ASM in action inside an interactive demo",
+      title: "Browse demo",
+    },
+    subtitle: "Let's get started",
+    title: "Welcome to ASM",
+    tour: {
+      description: "Take our interactive tour to get familiar with ASM",
+      title: "Platform tour",
+    },
+  },
 };

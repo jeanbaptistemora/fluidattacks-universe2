@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { Onboarding } from "./Onboarding";
 import { GET_USER_WELCOME } from "./queries";
-import type { IOnboardingUserData } from "./types";
+import type { IGetUserWelcomeResult } from "./types";
 
 import { Dashboard } from "scenes/Dashboard";
 
@@ -19,7 +19,7 @@ const Welcome: React.FC = (): JSX.Element => {
     push("/welcome/tour");
   }, [push]);
 
-  const { data, loading } = useQuery<IOnboardingUserData>(GET_USER_WELCOME);
+  const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME);
 
   if (loading) {
     return <div />;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import { Container } from "./styles";
@@ -15,6 +16,8 @@ const Onboarding: React.FC<IOnboardingProps> = ({
   goToDemo,
   goToTour,
 }: IOnboardingProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <Switch>
@@ -23,26 +26,24 @@ const Onboarding: React.FC<IOnboardingProps> = ({
             <Col>
               <Row justify={"center"}>
                 <Col>
-                  <h1>{"Welcome to ASM"}</h1>
-                  <h2>{"Let's get started"}</h2>
+                  <h1>{t("welcome.title")}</h1>
+                  <h2>{t("welcome.subtitle")}</h2>
                 </Col>
               </Row>
               <Row justify={"center"}>
                 <Col large={"30"} medium={"30"} small={"30"}>
                   <Card onClick={goToTour}>
-                    <CardHeader>{"Platform tour"}</CardHeader>
+                    <CardHeader>{t("welcome.tour.title")}</CardHeader>
                     <CardBody>
-                      <p>
-                        {"Take our interactive tour to get familiar with ASM"}
-                      </p>
+                      <p>{t("welcome.tour.description")}</p>
                     </CardBody>
                   </Card>
                 </Col>
                 <Col large={"30"} medium={"30"} small={"30"}>
                   <Card onClick={goToDemo}>
-                    <CardHeader>{"Browse demo"}</CardHeader>
+                    <CardHeader>{t("welcome.demo.title")}</CardHeader>
                     <CardBody>
-                      <p>{"See ASM in action inside an interactive demo."}</p>
+                      <p>{t("welcome.demo.description")}</p>
                     </CardBody>
                   </Card>
                 </Col>
