@@ -7,7 +7,7 @@ description: This Disclosure Policy describes the details referring
 keywords: Fluid Attacks, Disclosure, Policy, Vulnerability, CVE, ISO
 ---
 
-#### *This document was last updated on May 3, 2021*
+#### *This document was last updated on April 13, 2022*
 
 This disclosure policy ("Policy") describes how `Fluid Attacks` ("Fluid
 Attacks", "we", "us" or "our") discloses third-party product
@@ -51,7 +51,7 @@ scope of another CNA (CVE Numbering Authority).
 
 The vulnerability types that we would process are the ones defined in
 our [findings classification](https://docs.fluidattacks.com/criteria/vulnerabilities/).
-However, vulnerabilities that don’t fit on this classification will be
+However, vulnerabilities that don't fit on this classification will be
 also reviewed if there is an evidenced risk.
 
 ## Disclosure process
@@ -67,15 +67,19 @@ finds a new unpublished vulnerability, we will proceed as follows:
     Hacking](../../services/one-shot-hacking) services, it will be
     reported only to the affected customer via our Attack Surface
     Manager (ASM).
+    Moreover,
+    if this vulnerability affects a third-party product,
+    we will proceed to ask for the customer's consent
+    to send the report to the product vendor.
 
-3. If the vulnerability is found by our Research Team on a third-party
+3. If the vulnerability is found by our Research Team in a third-party
     product, the report will be sent to the affected vendor.
 
 4. A new advisory draft is created on our [Advisories](../) page
-    containing only the product affected, the report’s current status
+    containing only the affected product, the report's current status
     and the timeline. We will update it at each relevant event around
     the vulnerability (vendor reply, patch availability, proof of
-    concept availability, on-wild exploitation indicators, etc.).
+    concept availability, in-the-wild exploitation indicators, etc.).
 
 5. We will wait up to five (5) days for the vendor to acknowledge the
     report. If there is no response in that time, we will proceed with
@@ -115,10 +119,5 @@ described above. The process is as follows:
 ### Contact
 
 If you would like to contact us to learn more about this Policy or to
-discuss any matter related to it, please send us an email to
-
-<div class="imgblock">
-
-![Help](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_200/v1620228481/airs/advisories/help_usssdq.webp)
-
-</div>
+discuss any matter related to it,
+please send us an email to help@fluidattacks.com.
