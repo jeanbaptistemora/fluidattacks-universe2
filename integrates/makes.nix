@@ -1,9 +1,9 @@
 # https://github.com/fluidattacks/makes
 {
   imports = [
+    ./back/lint/makes.nix
     ./dev/makes.nix
     ./infra/makes.nix
-    ./linters/makes.nix
     ./on-aws-batch/makes.nix
     ./pipeline/makes.nix
     ./security/makes.nix

@@ -552,11 +552,11 @@ in {
               };
           }
           {
-            output = "/integrates/linters/back/schema";
+            output = "/integrates/back/lint/schema";
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/integrates/linters/charts";
+            output = "/integrates/back/lint/charts";
             gitlabExtra = gitlabLint;
           }
           {

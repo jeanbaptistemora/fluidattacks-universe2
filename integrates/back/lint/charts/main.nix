@@ -4,7 +4,7 @@
   projectPath,
   ...
 }: let
-  name = "integrates-charts-lint";
+  name = "integrates-back-lint-charts";
   nodeJsEnvironment = makeNodeJsEnvironment {
     inherit name;
     nodeJsVersion = "14";
