@@ -17,7 +17,7 @@ function main {
 
   source __argIntegratesBackEnv__/template dev \
     && aws_login_dev \
-    && sops_export_vars __argIntegratesSecrets__/secrets-development.yaml \
+    && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \

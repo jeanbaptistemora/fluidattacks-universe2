@@ -25,7 +25,7 @@ function deploy {
 
   "aws_login_${arg_short}" integrates \
     && pushd integrates \
-    && sops_export_vars "secrets-${env}.yaml" \
+    && sops_export_vars "secrets/${env}.yaml" \
       CLOUDFLARE_API_TOKEN \
     && mkdir -p app \
     && copy "__argCompiledFront__/output/app" app \

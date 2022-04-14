@@ -25,7 +25,7 @@
 in
   makeScript {
     replace = {
-      __argDevSecrets__ = projectPath "/integrates/secrets-development.yaml";
+      __argDevSecrets__ = projectPath "/integrates/secrets/development.yaml";
       __argMinioCli__ = chmodX "minio-cli" minioCliSrc;
       __argMinioLocal__ = chmodX "minio-local" minioLocalSrc;
     };

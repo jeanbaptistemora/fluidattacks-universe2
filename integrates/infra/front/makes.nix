@@ -28,11 +28,11 @@
   secretsForEnvFromSops = {
     integratesFrontDev = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
-      manifest = "/integrates/secrets-development.yaml";
+      manifest = "/integrates/secrets/development.yaml";
     };
     integratesFrontProd = {
       vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
-      manifest = "/integrates/secrets-production.yaml";
+      manifest = "/integrates/secrets/production.yaml";
     };
   };
   secretsForTerraformFromEnv = {

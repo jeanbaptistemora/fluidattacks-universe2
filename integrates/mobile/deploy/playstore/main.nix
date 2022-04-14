@@ -7,7 +7,7 @@
 } @ _:
 makeScript {
   replace = {
-    __argSecretsProd__ = projectPath "/integrates/secrets-production.yaml";
+    __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
   };
   name = "integrates-mobile-deploy-playstore";
   searchPaths = {

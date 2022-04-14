@@ -31,7 +31,7 @@ function main {
           -n "development" \
           --timeout="15m"
     fi \
-    && sops_export_vars __argIntegratesSecrets__/secrets-development.yaml \
+    && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
     && resolve_endpoint \
     && echo "[INFO] Running DevSecOps agent check..." \

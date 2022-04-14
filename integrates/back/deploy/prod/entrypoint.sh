@@ -80,7 +80,7 @@ function deploy {
     && B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
-    && sops_export_vars integrates/secrets-production.yaml \
+    && sops_export_vars integrates/secrets/production.yaml \
       CHECKLY_CHECK_ID \
       CHECKLY_TRIGGER_ID \
     && for manifest in __argManifests__/*; do

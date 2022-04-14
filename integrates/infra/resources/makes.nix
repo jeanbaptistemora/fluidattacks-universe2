@@ -28,11 +28,11 @@
   secretsForEnvFromSops = {
     integratesResourcesDev = {
       vars = ["TWILIO_ACCOUNT_SID" "TWILIO_AUTH_TOKEN"];
-      manifest = "/integrates/secrets-development.yaml";
+      manifest = "/integrates/secrets/development.yaml";
     };
     integratesResourcesProd = {
       vars = ["TWILIO_ACCOUNT_SID" "TWILIO_AUTH_TOKEN"];
-      manifest = "/integrates/secrets-production.yaml";
+      manifest = "/integrates/secrets/production.yaml";
     };
   };
   secretsForTerraformFromEnv = {

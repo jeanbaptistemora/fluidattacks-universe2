@@ -8,7 +8,7 @@
 } @ _:
 makeScript {
   replace = {
-    __argSecretsProd__ = projectPath "/integrates/secrets-production.yaml";
+    __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
     __argIntegratesMobileDevRuntime__ =
       outputs."/integrates/mobile/config/dev-runtime";
   };

@@ -8,8 +8,8 @@ makeDerivation {
   env = {
     envConfig = ./config.yaml;
     envYamlSecrets = builtins.map projectPath [
-      "/integrates/secrets-development.yaml"
-      "/integrates/secrets-production.yaml"
+      "/integrates/secrets/development.yaml"
+      "/integrates/secrets/production.yaml"
     ];
   };
   builder = ./builder.sh;

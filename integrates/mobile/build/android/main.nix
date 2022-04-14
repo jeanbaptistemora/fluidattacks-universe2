@@ -15,7 +15,7 @@ makeScript {
       })
       .androidsdk;
     __argJava__ = inputs.nixpkgs.openjdk8_headless;
-    __argSecretsProd__ = projectPath "/integrates/secrets-production.yaml";
+    __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
     __argSetupIntegratesMobileDevRuntime__ =
       outputs."/integrates/mobile/config/dev-runtime";
   };
