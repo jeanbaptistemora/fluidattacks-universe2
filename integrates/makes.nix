@@ -2,9 +2,8 @@
 {
   imports = [
     ./back/makes.nix
-    ./dev/makes.nix
+    ./batch/makes.nix
     ./infra/makes.nix
-    ./on-aws-batch/makes.nix
     ./pipeline/makes.nix
   ];
   secretsForAwsFromEnv = {

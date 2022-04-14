@@ -19,7 +19,7 @@ def create_dataframe(
     html_matrix = dataframe.to_html()
 
     with open(
-        "deploy/permissions_matrix/" + filename + ".html",
+        "back/deploy/permissions_matrix/" + filename + ".html",
         "w",
         encoding="utf-8",
     ) as text_file:

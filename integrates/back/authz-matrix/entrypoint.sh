@@ -3,7 +3,7 @@
 function main {
   source __argIntegratesBackEnv__/template dev \
     && pushd integrates \
-    && python3 deploy/permissions_matrix/matrix.py \
+    && python3 back/deploy/permissions_matrix/matrix.py \
     && popd \
     || return 1
 }

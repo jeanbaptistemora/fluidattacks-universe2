@@ -30,7 +30,7 @@
           outputs."/integrates/back/env/pypi/runtime"
         ];
         python = "3.9";
-        src = "/integrates/deploy/permissions_matrix";
+        src = "/integrates/back/deploy/permissions_matrix";
       };
       integratesBackMigrations = {
         searchPaths.source = [

@@ -17,7 +17,7 @@
       allowDuplicates = false;
       attempts = 1;
       attemptDurationSeconds = 86400;
-      command = ["m" "f" "/integrates/scheduler"];
+      command = ["m" "f" "/integrates/utils/scheduler"];
       definition = "makes";
       includePositionalArgsInName = true;
       environment = ["PRODUCT_API_TOKEN"];

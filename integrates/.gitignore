@@ -8,11 +8,11 @@
 /.Cache
 /.DB
 /.Storage
+/back/deploy/permissions_matrix/**/*.html
 /charts/collector/**/*.png
 /charts/generators/**/*.json
 /app
 /build
-/deploy/permissions_matrix/**/*.html
 /src/reports/tpls/*.tpl
 db/.data/
 expoClient.apk

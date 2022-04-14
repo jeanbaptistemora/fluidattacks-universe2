@@ -303,7 +303,7 @@ in {
               gitlabDeployAppDev
               // {
                 artifacts = {
-                  paths = ["integrates/deploy/permissions_matrix"];
+                  paths = ["integrates/back/deploy/permissions_matrix"];
                   expire_in = "1 day";
                   when = "on_success";
                 };
@@ -622,7 +622,7 @@ in {
         ++ (builtins.map
           (name: {
             args = ["prod" "schedulers.${name}.main"];
-            output = "/integrates/scheduler";
+            output = "/integrates/utils/scheduler";
             gitlabExtra =
               schedulerTemplate
               // {
