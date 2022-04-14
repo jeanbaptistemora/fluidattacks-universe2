@@ -1,12 +1,11 @@
 # https://github.com/fluidattacks/makes
 {
   imports = [
-    ./back/lint/makes.nix
+    ./back/makes.nix
     ./dev/makes.nix
     ./infra/makes.nix
     ./on-aws-batch/makes.nix
     ./pipeline/makes.nix
-    ./security/makes.nix
   ];
   secretsForAwsFromEnv = {
     prodIntegrates = {

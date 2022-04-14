@@ -1,4 +1,7 @@
 {
+  imports = [
+    ./lint/makes.nix
+  ];
   securePythonWithBandit = {
     integratesBack = {
       python = "3.9";
