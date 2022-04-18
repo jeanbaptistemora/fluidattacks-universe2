@@ -16,9 +16,14 @@ type ReattackVulnerabilitiesResult =
   ExecutionResult<IRequestVulnVerificationResult>;
 type VerifyVulnerabilitiesResult = ExecutionResult<IVerifyRequestVulnResult>;
 
+type VerificationResult =
+  | ReattackVulnerabilitiesResult[]
+  | VerifyVulnerabilitiesResult[];
+
 export {
   IRequestVulnVerificationResult,
   IVerifyRequestVulnResult,
   ReattackVulnerabilitiesResult,
+  VerificationResult,
   VerifyVulnerabilitiesResult,
 };

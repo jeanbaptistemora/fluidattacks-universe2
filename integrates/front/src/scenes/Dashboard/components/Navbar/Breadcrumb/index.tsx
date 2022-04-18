@@ -370,7 +370,9 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           </span>
         </NavbarButton>
       ) : undefined}
-      <BreadcrumbContainer>{breadcrumbItems}</BreadcrumbContainer>
+      <BreadcrumbContainer>
+        {breadcrumbItems.length === 0 ? orgDropdown : breadcrumbItems}
+      </BreadcrumbContainer>
       {isOrganizationModalOpen ? (
         <AddOrganizationModal onClose={closeOrganizationModal} open={true} />
       ) : undefined}

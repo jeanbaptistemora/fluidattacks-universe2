@@ -8,6 +8,7 @@ import type {
   IRequestVulnVerificationResult,
   IVerifyRequestVulnResult,
   ReattackVulnerabilitiesResult,
+  VerificationResult,
   VerifyVulnerabilitiesResult,
 } from "scenes/Dashboard/components/UpdateVerificationModal/types";
 import { Logger } from "utils/logger";
@@ -112,7 +113,7 @@ const getAreAllMutationValid = (
 };
 
 const getAreAllChunckedMutationValid = (
-  results: (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
+  results: VerificationResult[]
 ): boolean[] =>
   results
     .map(getAreAllMutationValid)
@@ -231,9 +232,7 @@ const handleAltSubmitHelper = async (
   values: { treatmentJustification: string },
   vulnerabilitiesList: IVulnData[],
   isReattacking: boolean
-): Promise<
-  (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
-> => {
+): Promise<VerificationResult[]> => {
   const vulnerabilitiesByFinding = _.groupBy(
     vulnerabilitiesList,
     (vuln: IVulnData): string => vuln.findingId
@@ -242,12 +241,8 @@ const handleAltSubmitHelper = async (
     ([findingId, chunkedVulnerabilities]: [
         string,
         IVulnData[]
-      ]): (() => Promise<
-        (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
-      >) =>
-      async (): Promise<
-        (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
-      > => {
+      ]): (() => Promise<VerificationResult[]>) =>
+      async (): Promise<VerificationResult[]> => {
         return Promise.all([
           handleSubmitHelper(
             requestVerification,
@@ -263,15 +258,11 @@ const handleAltSubmitHelper = async (
   );
 
   return requestedChunks.reduce(
-    async (
-      previousValue,
-      currentValue
-    ): Promise<
-      (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
-    > => [...(await previousValue), ...(await currentValue())],
-    Promise.resolve<
-      (ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[])[]
-    >([])
+    async (previousValue, currentValue): Promise<VerificationResult[]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<VerificationResult[]>([])
   );
 };
 
