@@ -268,7 +268,7 @@ resource "cloudflare_record" "stripe_bounce" {
 
 resource "cloudflare_record" "mailing_fluidattacks" {
   zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "mailing.${cloudflare_zone.fluidattacks_com.zone}"
+  name    = "email.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "fluidattacks.activehosted.com"
   proxied = false
@@ -417,7 +417,7 @@ resource "cloudflare_record" "mail_dkim_domainkey" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "dk._domainkey.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "TXT"
-  value   = "DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDhkOo8s6fh9Byz1uy69tfQ6eUnzi/5P22EWccwI1PdmCpiyNwZcq3vOS2MHbVYB+ZY6wbBlAFym8EHbZY9OTlJ3+dzt8qTUNW5olkNVl4ecDv3XO2ML8q5sxQL+dwQU6UAQiDAAC/ZRWwiXHrSsr90pqH1Q0vhB7Kp6DHrWYJquQIDAQAB"
+  value   = "v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDhkOo8s6fh9Byz1uy69tfQ6eUnzi/5P22EWccwI1PdmCpiyNwZcq3vOS2MHbVYB+ZY6wbBlAFym8EHbZY9OTlJ3+dzt8qTUNW5olkNVl4ecDv3XO2ML8q5sxQL+dwQU6UAQiDAAC/ZRWwiXHrSsr90pqH1Q0vhB7Kp6DHrWYJquQIDAQAB"
   ttl     = 1
   proxied = false
 }
