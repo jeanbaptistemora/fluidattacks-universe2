@@ -13,6 +13,7 @@ from charts.colors import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
+    limit_data,
     MIN_PERCENTAGE,
     RemediatedStatus,
 )
@@ -98,22 +99,7 @@ def format_percentages(
 def format_data(
     data: List[RemediatedStatus], size_limit: int = 0
 ) -> Dict[str, Any]:
-    limited_data = (
-        list(
-            sorted(
-                data,
-                key=lambda x: (
-                    x.open_vulnerabilities
-                    / (x.closed_vulnerabilities + x.open_vulnerabilities)
-                    if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
-                    else 0
-                ),
-                reverse=True,
-            )
-        )[:size_limit]
-        if size_limit
-        else list(data)
-    )
+    limited_data: List[RemediatedStatus] = limit_data(data, size_limit)
     percentage_values = [
         format_percentages(
             {

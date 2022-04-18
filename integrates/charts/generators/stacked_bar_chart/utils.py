@@ -890,3 +890,21 @@ def format_stacked_vulnerabilities_data(
             ],
         },
     )
+
+
+def limit_data(data: List[Any], size_limit: int) -> List[Any]:
+    if size_limit:
+        return list(
+            sorted(
+                data,
+                key=lambda x: (
+                    x.open_vulnerabilities
+                    / (x.closed_vulnerabilities + x.open_vulnerabilities)
+                    if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
+                    else 0
+                ),
+                reverse=True,
+            )
+        )[:size_limit]
+
+    return data

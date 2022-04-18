@@ -14,6 +14,7 @@ from charts.colors import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     format_stacked_percentages,
+    limit_data,
     RemediatedAccepted,
 )
 from decimal import (
@@ -77,22 +78,7 @@ async def get_data_many_groups(groups: List[str]) -> List[RemediatedAccepted]:
 def format_data(
     data: List[RemediatedAccepted], limit: int = 0
 ) -> Dict[str, Any]:
-    limited_data = (
-        list(
-            sorted(
-                data,
-                key=lambda x: (
-                    x.open_vulnerabilities
-                    / (x.closed_vulnerabilities + x.open_vulnerabilities)
-                    if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
-                    else 0
-                ),
-                reverse=True,
-            )
-        )[:limit]
-        if limit
-        else list(data)
-    )
+    limited_data: List[RemediatedAccepted] = limit_data(data, limit)
     percentage_values = [
         format_stacked_percentages(
             values={
