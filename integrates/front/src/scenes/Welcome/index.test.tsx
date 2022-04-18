@@ -1,6 +1,7 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -14,7 +15,7 @@ describe("Welcome", (): void => {
     expect(typeof Welcome).toStrictEqual("function");
   });
 
-  it("should render welcome menu", async (): Promise<void> => {
+  it("should render welcome menu to new users", async (): Promise<void> => {
     expect.hasAssertions();
 
     const getUserWelcomeMock: MockedResponse = {
@@ -33,7 +34,7 @@ describe("Welcome", (): void => {
 
     render(
       <MemoryRouter initialEntries={["/welcome"]}>
-        <MockedProvider addTypename={true} mocks={[getUserWelcomeMock]}>
+        <MockedProvider addTypename={false} mocks={[getUserWelcomeMock]}>
           <Route component={Welcome} path={"/"} />
         </MockedProvider>
       </MemoryRouter>
@@ -46,6 +47,101 @@ describe("Welcome", (): void => {
 
       expect(options[0].textContent).toContain("tour");
       expect(options[1].textContent).toContain("demo");
+    });
+  });
+
+  it("should render tour", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const getUserWelcomeMock: MockedResponse = {
+      request: {
+        query: GET_USER_WELCOME,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ name: "imamura" }],
+            userEmail: "test@gmail.com",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/welcome"]}>
+        <MockedProvider addTypename={false} mocks={[getUserWelcomeMock]}>
+          <Route component={Welcome} path={"/"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      userEvent.click(screen.getAllByRole("article")[0]);
+
+      expect(screen.getByRole("textbox")).toBeInTheDocument();
+      expect(screen.getAllByRole("button")).toHaveLength(2);
+    });
+  });
+
+  it("should render dashboard when browsing demo", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const getUserWelcomeMock: MockedResponse = {
+      request: {
+        query: GET_USER_WELCOME,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ name: "imamura" }],
+            userEmail: "test@gmail.com",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/welcome"]}>
+        <MockedProvider addTypename={false} mocks={[getUserWelcomeMock]}>
+          <Route component={Welcome} path={"/"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      userEvent.click(screen.getAllByRole("article")[1]);
+
+      expect(screen.getAllByRole("list").length).toBeGreaterThan(1);
+    });
+  });
+
+  it("should render dashboard to old users", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const getUserWelcomeMock: MockedResponse = {
+      request: {
+        query: GET_USER_WELCOME,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ name: "imamura" }, { name: "another" }],
+            userEmail: "test@gmail.com",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/welcome"]}>
+        <MockedProvider addTypename={false} mocks={[getUserWelcomeMock]}>
+          <Route component={Welcome} path={"/"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.getAllByRole("list").length).toBeGreaterThan(1);
     });
   });
 });
