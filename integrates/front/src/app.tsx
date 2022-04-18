@@ -10,8 +10,8 @@ import { ToastContainer } from "react-toastify";
 
 import { Announce } from "components/Announce";
 import { MatomoWrapper } from "components/MatomoWrapper";
-import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
+import { Welcome } from "scenes/Welcome";
 import { ApolloProvider } from "utils/apollo";
 import { authContext } from "utils/auth";
 import {
@@ -62,7 +62,7 @@ const App: React.FC = (): JSX.Element => {
                     <authContext.Provider value={{ ...user, setUser }}>
                       <Switch>
                         <Route component={Login} exact={true} path={"/"} />
-                        <Route component={Dashboard} path={"/"} />
+                        <Route component={Welcome} path={"/"} />
                       </Switch>
                     </authContext.Provider>
                   </secureStoreContext.Provider>
