@@ -19,6 +19,9 @@ from db_model.users.get import (
 from mailer.utils import (
     get_organization_name,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
     Dict,
@@ -66,7 +69,7 @@ async def send_mail_comment(
     )
 
 
-async def send_mail_event_report(
+async def send_mail_event_report(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     group_name: str = "",
@@ -77,6 +80,7 @@ async def send_mail_event_report(
     report_date: str,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
+    event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
         Dict[str, Any], ...
@@ -102,6 +106,7 @@ async def send_mail_event_report(
         "group": group_name,
         "event_type": event_type_format[event_type],
         "description": description,
+        "event_age": event_age,
         "event_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
