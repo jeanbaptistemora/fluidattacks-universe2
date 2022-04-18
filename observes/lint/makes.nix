@@ -21,11 +21,11 @@ in {
                 "/observes/common/utils_logger"
                 "/observes/common/postgres_client"
                 "/observes/common/purity"
-                "/observes/services/batch_stability"
-                "/observes/services/job_last_success"
-                "/observes/services/jobs_scheduler"
-                "/observes/services/migrate_tables"
-                "/observes/services/timedoctor_tokens"
+                "/observes/service/batch-stability/src"
+                "/observes/service/job-last-success/src"
+                "/observes/service/jobs-scheduler/src"
+                "/observes/service/migrate-tables/src"
+                "/observes/service/timedoctor-tokens/src"
                 "/observes/singer/streamer_zoho_crm"
               ]
               ++ (
@@ -100,8 +100,8 @@ in {
         src = inputs.observesIndex.tap.timedoctor.root;
       };
       observesServiceTimedoctorTokens = {
-        config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
-        src = "/observes/services/timedoctor_tokens";
+        config = "/observes/service/timedoctor-tokens/src/timedoctor_tokens/setup.imports.cfg";
+        src = "/observes/service/timedoctor-tokens/src";
       };
     };
     modules = {
@@ -159,28 +159,28 @@ in {
           outputs."/observes/service/job-last-success/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/services/job_last_success/job_last_success";
+        src = "/observes/service/job-last-success/src/job_last_success";
       };
       observesJobLastSuccessTests = {
         searchPaths.source = [
           outputs."/observes/service/job-last-success/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/services/job_last_success/tests";
+        src = "/observes/service/job-last-success/src/tests";
       };
       observesServiceBatchStability = {
         searchPaths.source = [
           outputs."/observes/service/batch-stability/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/services/batch_stability/batch_stability";
+        src = "/observes/service/batch-stability/src/batch_stability";
       };
       observesServiceMigrateTables = {
         searchPaths.source = [
           outputs."/observes/service/migrate-tables/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/services/migrate_tables/migrate_tables";
+        src = "/observes/service/migrate-tables/src/migrate_tables";
       };
       observesStreamerZohoCrm = {
         searchPaths.source = [
@@ -327,7 +327,7 @@ in {
           outputs."/observes/service/timedoctor-tokens/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/services/timedoctor_tokens/timedoctor_tokens";
+        src = "/observes/service/timedoctor-tokens/src/timedoctor_tokens";
       };
     };
   };

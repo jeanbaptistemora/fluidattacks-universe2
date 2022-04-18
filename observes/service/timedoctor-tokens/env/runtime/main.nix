@@ -6,7 +6,7 @@
   projectPath,
   ...
 }: let
-  self = projectPath "/observes/services/timedoctor_tokens";
+  self = projectPath "/observes/service/timedoctor-tokens/src";
 in
   makeTemplate {
     name = "observes-service-timedoctor-tokens-env-runtime";

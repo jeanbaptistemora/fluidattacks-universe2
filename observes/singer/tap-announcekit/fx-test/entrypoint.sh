@@ -3,7 +3,7 @@ export ANNOUNCEKIT_USER
 export ANNOUNCEKIT_PASSWD
 
 aws_login_dev \
-  && sops_export_vars 'observes/secrets-dev.yaml' \
+  && sops_export_vars 'observes/secrets/dev.yaml' \
     "announcekit_user" \
     "announcekit_passwd" \
   && ANNOUNCEKIT_USER="${announcekit_user}" \

@@ -11,7 +11,7 @@ function start_etl {
   db_creds=$(mktemp) \
     && formstack_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_auth_formstack \
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_auth_formstack}" > "${formstack_creds}" \

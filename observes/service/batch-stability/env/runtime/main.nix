@@ -4,7 +4,7 @@
   projectPath,
   ...
 }: let
-  self = projectPath "/observes/services/batch_stability";
+  self = projectPath "/observes/service/batch-stability/src";
 in
   makeTemplate {
     name = "observes-service-batch-stability-env-runtime";

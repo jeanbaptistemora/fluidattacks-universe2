@@ -24,7 +24,7 @@
   secretsForEnvFromSops = {
     observesProd = {
       vars = ["REDSHIFT_USER" "REDSHIFT_PASSWORD"];
-      manifest = "/observes/secrets-prod.yaml";
+      manifest = "/observes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {

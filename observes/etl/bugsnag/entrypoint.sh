@@ -10,7 +10,7 @@ function start_etl {
 
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
       bugsnag_api_key \
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \

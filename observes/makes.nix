@@ -1,9 +1,9 @@
 {projectPath, ...}: {
   imports = [
-    ./compute-on-aws-batch/makes.nix
+    ./batch/makes.nix
     ./dev/makes.nix
     ./infra/makes.nix
-    ./linters/makes.nix
+    ./lint/makes.nix
     ./pipeline/makes.nix
   ];
   inputs = {

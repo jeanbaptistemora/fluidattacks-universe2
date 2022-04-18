@@ -13,7 +13,7 @@ export TARGET_DB_HOST
 export TARGET_DB_PORT
 
 aws_login_prod 'observes' \
-  && sops_export_vars 'observes/secrets-prod.yaml' \
+  && sops_export_vars 'observes/secrets/prod.yaml' \
     REDSHIFT_OLD_USER \
     REDSHIFT_OLD_PASSWORD \
     REDSHIFT_OLD_DATABASE \

@@ -5,7 +5,7 @@
   projectPath,
   ...
 }: let
-  self = projectPath "/observes/services/job_last_success";
+  self = projectPath "/observes/service/job-last-success/src";
 in
   makeTemplate {
     name = "observes-service-job-last-success-env-runtime";

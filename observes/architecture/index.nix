@@ -30,12 +30,12 @@ in {
     db_migration =
       (std_data "/observes/service/db_migration")
       // {
-        root = "/observes/services/db_migration";
+        root = "/observes/service/db-migration/src";
       };
     scheduler =
-      (std_data "/observes/service/jobs_scheduler")
+      (std_data "/observes/service/jobs-scheduler")
       // {
-        root = "/observes/services/jobs_scheduler";
+        root = "/observes/service/jobs-scheduler/src";
       };
   };
   etl = {

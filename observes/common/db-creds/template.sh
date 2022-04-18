@@ -2,7 +2,7 @@
 
 function prod_db {
   local target="${1}"
-  sops_export_vars 'observes/secrets-prod.yaml' \
+  sops_export_vars 'observes/secrets/prod.yaml' \
     REDSHIFT_DATABASE \
     REDSHIFT_HOST \
     REDSHIFT_PORT \
@@ -16,7 +16,7 @@ function prod_db {
 
 function prod_user {
   local target="${1}"
-  sops_export_vars 'observes/secrets-prod.yaml' \
+  sops_export_vars 'observes/secrets/prod.yaml' \
     REDSHIFT_USER \
     REDSHIFT_PASSWORD \
     && jq -n \
@@ -28,7 +28,7 @@ function prod_user {
 
 function json_db_creds {
   local target="${1}"
-  sops_export_vars 'observes/secrets-prod.yaml' \
+  sops_export_vars 'observes/secrets/prod.yaml' \
     REDSHIFT_DATABASE \
     REDSHIFT_HOST \
     REDSHIFT_PORT \

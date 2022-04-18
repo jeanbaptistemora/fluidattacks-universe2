@@ -10,7 +10,7 @@ function start_etl {
 
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
       announcekit_user \
       announcekit_passwd \
       announcekit_fluid_proj \

@@ -21,7 +21,7 @@ function job_timedoctor_backup {
     && wl_file="timedoctor.worklogs.${start_date}.${end_date}.singer" \
     && mkdir ./logs \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_s3_cache_timedoctor \
     && analytics_auth_timedoctor=$(
       get_project_variable \

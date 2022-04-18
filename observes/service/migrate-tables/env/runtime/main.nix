@@ -5,7 +5,7 @@
   projectPath,
   ...
 }: let
-  self = projectPath "/observes/services/migrate_tables";
+  self = projectPath "/observes/service/migrate-tables/src";
 in
   makeTemplate {
     name = "observes-service-migrate-tables-env-runtime";

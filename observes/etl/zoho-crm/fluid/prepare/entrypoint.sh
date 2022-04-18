@@ -9,7 +9,7 @@ function main {
   db_creds=$(mktemp) \
     && zoho_creds=$(mktemp) \
     && aws_login_prod 'observes' \
-    && sops_export_vars 'observes/secrets-prod.yaml' \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
       zoho_crm_bulk_creator_creds \
     && echo '[INFO] Generating secret files' \
     && echo "${zoho_crm_bulk_creator_creds}" > "${zoho_creds}" \
