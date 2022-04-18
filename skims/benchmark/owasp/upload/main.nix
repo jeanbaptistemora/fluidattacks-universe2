@@ -5,10 +5,10 @@
   ...
 }:
 makeScript {
-  name = "skims-owasp-benchmark-and-upload";
+  name = "skims-benchmark-owasp-upload";
   searchPaths = {
     bin = [
-      outputs."/skims/owasp-benchmark"
+      outputs."/skims/benchmark/owasp"
       outputs."${inputs.observesIndex.tap.json.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
     ];

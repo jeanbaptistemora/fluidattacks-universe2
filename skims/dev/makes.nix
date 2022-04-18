@@ -6,7 +6,7 @@
   dev = {
     skims = {
       source = [
-        outputs."/skims/config-runtime"
+        outputs."/skims/config/runtime"
         (makeSearchPaths {
           pythonPackage = ["$PWD/skims/skims"];
         })

@@ -20,7 +20,7 @@ function main {
   local category="${1:-}"
   local extra_flags=("${@:2}")
 
-  skims-owasp-benchmark "${category}" "${extra_flags[@]}" \
+  skims-benchmark-owasp "${category}" "${extra_flags[@]}" \
     && if test -z "${category}"; then
       upload
     fi

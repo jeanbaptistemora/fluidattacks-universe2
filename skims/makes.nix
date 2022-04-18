@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./compute-on-aws-batch/makes.nix
+    ./batch/makes.nix
     ./dev/makes.nix
     ./infra/makes.nix
     ./inputs/makes.nix
@@ -19,7 +19,7 @@
     dirsOfModules = {
       skims = {
         searchPaths.source = [
-          outputs."/skims/config-runtime"
+          outputs."/skims/config/runtime"
           outputs."/skims/env/development"
         ];
         python = "3.8";
@@ -35,7 +35,7 @@
     modules = {
       skimsTest = {
         searchPaths.source = [
-          outputs."/skims/config-runtime"
+          outputs."/skims/config/runtime"
           outputs."/skims/env/development"
         ];
         python = "3.8";

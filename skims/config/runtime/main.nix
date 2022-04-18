@@ -38,7 +38,7 @@ in
       ];
       source = [
         outputs."/common/utils/safe-pickle"
-        outputs."/skims/config-runtime/pypi"
+        outputs."/skims/config/runtime/pypi"
         (makeTemplate {
           replace = {
             __argCriteriaRequirements__ =
@@ -47,10 +47,10 @@ in
               projectPath "/common/criteria/src/vulnerabilities/data.yaml";
             __argSkimsLegal__ =
               projectPath "/skims/LEGAL.md";
-            __argSrcTreeSitterParsers__ = outputs."/skims/config-runtime/parsers";
+            __argSrcTreeSitterParsers__ = outputs."/skims/config/runtime/parsers";
             __argSrcSkimsStatic__ = projectPath "/skims/static";
             __argSrcSkimsToolsSemverMatch__ =
-              outputs."/skims/config-runtime/tools/semver-match";
+              outputs."/skims/config/runtime/tools/semver-match";
             __argSrcSkimsVendor__ = projectPath "/skims/vendor";
           };
           name = "skims-config-context-file";

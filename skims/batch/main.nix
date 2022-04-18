@@ -18,7 +18,7 @@ makeScript {
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/env"
-      outputs."/skims/config-runtime"
+      outputs."/skims/config/runtime"
     ];
   };
   entrypoint = ./entrypoint.sh;

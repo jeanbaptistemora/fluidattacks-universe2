@@ -13,7 +13,7 @@ makeDerivation {
       inputs.nixpkgs.binutils-unwrapped
     ];
     rpath = [inputs.nixpkgs.gcc.cc.lib];
-    source = [outputs."/skims/config-runtime/pypi"];
+    source = [outputs."/skims/config/runtime/pypi"];
   };
   env = {
     envBuildPy = ./build.py;

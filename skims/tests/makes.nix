@@ -39,7 +39,7 @@ in {
           ];
           source = [
             outputs."/secretsForAwsFromEnv/dev"
-            outputs."/skims/config-runtime"
+            outputs."/skims/config/runtime"
             outputs."/skims/env/development"
             (makeTemplate {
               name = "extra";

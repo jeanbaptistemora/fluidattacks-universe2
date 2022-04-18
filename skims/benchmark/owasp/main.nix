@@ -5,7 +5,7 @@
   ...
 }:
 makeScript {
-  name = "skims-owasp-benchmark";
+  name = "skims-benchmark-owasp";
   replace = {
     __argBenchmarkRepo__ = inputs.skimsBenchmarkOwaspRepo;
   };
@@ -14,7 +14,7 @@ makeScript {
       inputs.nixpkgs.python38
       outputs."/skims"
     ];
-    source = [outputs."/skims/config-runtime"];
+    source = [outputs."/skims/config/runtime"];
   };
   entrypoint = ./entrypoint.sh;
 }

@@ -7,6 +7,6 @@ makeScript {
   name = "skims";
   entrypoint = ./entrypoint.sh;
   searchPaths = {
-    source = [outputs."/skims/config-runtime"];
+    source = [outputs."/skims/config/runtime"];
   };
 }
