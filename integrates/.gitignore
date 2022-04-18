@@ -16,3 +16,5 @@
 /src/reports/tpls/*.tpl
 db/.data/
 expoClient.apk
+coverage.xml
+.coverage.*
