@@ -24,6 +24,11 @@ Added Event report
 
 Execution Time: 2022-03-25 at 14:27:37 UTC
 Finalization Time: 2022-03-25 at 14:29:05 UTC
+
+Added Reminder Notification
+
+Execution Time: 2022-04-18 at 19:22:42 UTC
+Finalization Time: 2022-04-18 at 19:24:20 UTC
 """
 
 
