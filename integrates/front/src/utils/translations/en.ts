@@ -1686,6 +1686,10 @@ export const enTranslations: ResourceKey = {
           "a vulnerability fix is reported " +
           "or a specific vulnerability is removed.",
       },
+      REMINDER_NOTIFICATION: {
+        name: "Reminder notifications",
+        tooltip: "Get reminder notifications to use ASM",
+      },
       ROOT_MOVED: {
         name: "Root updates",
         tooltip:

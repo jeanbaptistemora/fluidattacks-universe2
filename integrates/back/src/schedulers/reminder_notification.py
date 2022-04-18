@@ -9,6 +9,12 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.enums import (
+    Notification,
+)
+from db_model.users.types import (
+    User,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -30,6 +36,7 @@ from settings import (
 )
 from typing import (
     List,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -79,10 +86,19 @@ async def send_reminder_notification() -> None:
         key for key, group in groupby(sorted(stakeholders_emails))
     ]
 
-    if stakeholders_emails_filtered:
+    users: Tuple[User, ...] = await loaders.user.load_many(
+        stakeholders_emails_filtered
+    )
+    users_email = [
+        user.email
+        for user in users
+        if Notification.NEW_COMMENT in user.notifications_preferences.email
+    ]
+
+    if users_email:
         await groups_mail.send_mail_reminder(
             context={},
-            email_to=stakeholders_emails_filtered,
+            email_to=users_email,
         )
     else:
         LOGGER.info("- reminder notification NOT sent")

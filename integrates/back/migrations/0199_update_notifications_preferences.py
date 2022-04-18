@@ -56,6 +56,7 @@ async def main() -> None:
                     "NEW_COMMENT",
                     "NEW_DRAFT",
                     "REMEDIATE_FINDING",
+                    "REMINDER_NOTIFICATION",
                     "ROOT_MOVED",
                     "UPDATED_TREATMENT",
                     "VULNERABILITY_ASSIGNED",

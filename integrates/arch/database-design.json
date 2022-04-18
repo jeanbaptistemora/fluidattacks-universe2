@@ -684,6 +684,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "ROOT_MOVED"
                       },
                       {
@@ -734,6 +737,9 @@
                       },
                       {
                         "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
                       },
                       {
                         "S": "ROOT_MOVED"
@@ -788,6 +794,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "ROOT_MOVED"
                       },
                       {
@@ -840,6 +849,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "ROOT_MOVED"
                       },
                       {
@@ -887,6 +899,9 @@
                       },
                       {
                         "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
                       },
                       {
                         "S": "ROOT_MOVED"
@@ -941,6 +956,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "ROOT_MOVED"
                       },
                       {
@@ -991,6 +1009,9 @@
                       },
                       {
                         "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
                       },
                       {
                         "S": "ROOT_MOVED"
@@ -1045,6 +1066,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "ROOT_MOVED"
                       },
                       {
@@ -1097,6 +1121,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "UPDATED_TREATMENT"
                       },
                       {
@@ -1146,6 +1173,9 @@
                         "S": "REMEDIATE_FINDING"
                       },
                       {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
                         "S": "UPDATED_TREATMENT"
                       },
                       {
@@ -1193,6 +1223,9 @@
                       },
                       {
                         "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
                       },
                       {
                         "S": "ROOT_MOVED"

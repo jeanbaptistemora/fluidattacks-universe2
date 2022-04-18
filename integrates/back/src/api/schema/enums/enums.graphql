@@ -437,6 +437,8 @@ enum NotificationsName {
   NEW_DRAFT
   "remediate_finding"
   REMEDIATE_FINDING
+  "reminder_notification"
+  REMINDER_NOTIFICATION
   "root_moved"
   ROOT_MOVED
   "updated_treatment"
