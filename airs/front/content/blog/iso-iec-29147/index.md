@@ -70,7 +70,8 @@ The procedures of receiving reports and distributing remediation
 advisories are only two parts of a broader process. Some of the other
 steps involve different International Standards, e.g., the
 [ISO/IEC 30111](https://www.iso.org/standard/69725.html) for
-vulnerability handling methods, which we may talk about at another time.
+vulnerability handling methods,
+which I talk about [in another blog post](../iso-iec-30111/).
 In broad terms, we could describe that process as follows: First, a
 reporter contacts a vendor about a potential vulnerability. Then, the
 vendor verifies the issue and, if dealing with a genuine exposure,
@@ -87,7 +88,7 @@ set up or enhance their vulnerability disclosure policies and methods.
 
 <div class="title">
 
-Figure 1. Photo by
+Photo by
 [J. A. Barros](https://unsplash.com/@soymeraki?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 on [Unsplash](https://unsplash.com/s/photos/guide?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
 

@@ -110,7 +110,7 @@ phases of verification and repair of flaws.
 
 <div class="title">
 
-Figure 1. Photo by
+Photo by
 [Kovah](https://unsplash.com/@kovah?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 on [Unsplash](https://unsplash.com/photos/MVjTry-e8MQ).
 
