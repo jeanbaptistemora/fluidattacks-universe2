@@ -1605,14 +1605,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CFN_UNRESTRICTED_PORTS = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_unrestricted_ports",
-        module="lib_path",
-        finding=FindingEnum.F024,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     CFN_EC2_OPEN_ALL_PORTS_PUBLIC = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_open_all_ports_to_the_public",

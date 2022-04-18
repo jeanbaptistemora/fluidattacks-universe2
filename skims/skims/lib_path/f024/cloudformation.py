@@ -183,17 +183,6 @@ def _protocol_iter_vulnerabilities(
                 yield rule.inner["IpProtocol"]
 
 
-def _range_port_iter_vulnerabilities(
-    rules_iterator: Iterator[Node],
-) -> Iterator[Node]:
-    for rule in rules_iterator:
-        rule_raw = rule.raw
-        with suppress(ValueError, KeyError):
-            if int(rule_raw["FromPort"]) != int(rule_raw["ToPort"]):
-                yield rule.inner["FromPort"]
-                yield rule.inner["ToPort"]
-
-
 def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
@@ -382,26 +371,6 @@ def cfn_unrestricted_ip_protocols(
         ),
         path=path,
         method=MethodsEnum.CFN_UNRESTRICTED_IP_PROTO,
-    )
-
-
-def cfn_unrestricted_ports(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024_aws.unrestricted_ports",
-        iterator=get_cloud_iterator(
-            _range_port_iter_vulnerabilities(
-                rules_iterator=iter_ec2_ingress_egress(
-                    template=template,
-                    ingress=True,
-                    egress=True,
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_UNRESTRICTED_PORTS,
     )
 
 
