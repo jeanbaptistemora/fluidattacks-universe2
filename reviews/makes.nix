@@ -1,6 +1,6 @@
 {
   imports = [
-    ./linters/makes.nix
+    ./lint/makes.nix
     ./pipeline/makes.nix
   ];
 }
