@@ -3,14 +3,17 @@ from custom_exceptions import (
     InvalidToeInputAttackedBy,
     ToeInputNotPresent,
 )
-from custom_types import (
-    Group,
-)
 from datetime import (
     datetime,
 )
 from db_model import (
     toe_inputs as toe_inputs_model,
+)
+from db_model.groups.enums import (
+    GroupService,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.roots.types import (
     GitRootItem,
@@ -39,7 +42,6 @@ from toe.utils import (
 from typing import (
     Any,
     Optional,
-    Tuple,
 )
 
 
@@ -133,7 +135,7 @@ def _format_component(component: str) -> str:
 
 def _format_unreliable_component(
     root: RootItem, component: str
-) -> Tuple[Optional[RootItem], str]:
+) -> tuple[Optional[RootItem], str]:
     if component.endswith("/"):
         return root, component[:-1]
     return root, component
@@ -147,13 +149,13 @@ def get_reduced_component(component: str, entry_point: str) -> str:
 
 
 def get_unreliable_component(  # pylint: disable=too-many-locals
-    component: str, group_roots: Tuple[RootItem, ...], group: Group
-) -> Tuple[Optional[RootItem], Optional[str]]:
+    component: str, group_roots: tuple[RootItem, ...], group: Group
+) -> tuple[Optional[RootItem], Optional[str]]:
     if not component:
         return None, None
 
-    has_black_service = group["service"] == "BLACK"
-    has_white_service = group["service"] == "WHITE"
+    has_black_service = group.state.service == GroupService.BLACK
+    has_white_service = group.state.service == GroupService.WHITE
     formatted_component = _format_component(component)
     host = _get_host(formatted_component)
     port = _get_port(formatted_component)

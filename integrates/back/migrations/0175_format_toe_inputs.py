@@ -106,7 +106,7 @@ async def process_input(
     group_roots: Tuple[RootItem, ...],
     group: Group,
 ) -> None:
-    root, component = toe_inputs_domain.get_unreliable_component(
+    root, component = toe_inputs_domain.get_unreliable_component_legacy(
         current_toe_input.component, group_roots, group
     )
     new_component = ""
