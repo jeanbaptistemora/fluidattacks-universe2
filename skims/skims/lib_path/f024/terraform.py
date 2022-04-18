@@ -164,6 +164,44 @@ def _tfm_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
             yield from_port
 
 
+def _tfm_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for ec2_res in resource_iterator:
+        public_cidrs = {
+            "::/0",
+            "0.0.0.0/0",
+        }
+        cidr_block = get_attribute(
+            ec2_res.body, "cidr_blocks"
+        ) or get_attribute(ec2_res.body, "ipv6_cidr_blocks")
+        if cidr_block is None:
+            continue
+        cidr_vals = set(
+            cidr_block.val
+            if isinstance(cidr_block.val, list)
+            else [cidr_block.val]
+        )
+        valid_cidrs = filter(is_cidr, cidr_vals)
+        from_port = get_attribute(ec2_res.body, "from_port")
+        to_port = get_attribute(ec2_res.body, "to_port")
+        port_range = (
+            set(
+                range(
+                    int(from_port.val),
+                    int(to_port.val) + 1,
+                )
+            )
+            if from_port and to_port
+            else set()
+        )
+        ftp_range = set(range(20, 22))
+        if public_cidrs.intersection(valid_cidrs) and port_range.intersection(
+            ftp_range
+        ):
+            yield from_port
+
+
 def _tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -377,6 +415,28 @@ def tfm_ec2_has_unrestricted_dns_access(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_UNRESTRICTED_DNS,
+    )
+
+
+def tfm_ec2_has_unrestricted_ftp_access(
+    content: str,
+    path: str,
+    model: Any,
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("src.lib_path.f024.ec2_has_unrestricted_ftp_access"),
+        iterator=get_cloud_iterator(
+            _tfm_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
+                resource_iterator=iter_aws_sg_ingress_egress(
+                    model=model,
+                    ingress=True,
+                    egress=True,
+                ),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_EC2_UNRESTRICTED_FTP,
     )
 
 
