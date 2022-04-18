@@ -1,14 +1,11 @@
 from custom_types import (
-    Me as MeType,
+    Me,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from newutils.token import (
-    get_jwt_content,
 )
 from newutils.vulnerabilities import (
     filter_non_zero_risk,
@@ -20,13 +17,11 @@ from typing import (
 
 
 async def resolve(
-    _parent: MeType, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Me, info: GraphQLResolveInfo
 ) -> Tuple[Vulnerability, ...]:
-    user_data = await get_jwt_content(info.context)
+    email: str = str(parent["user_email"])
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await info.context.loaders.me_vulnerabilities.load(
-        user_data["user_email"]
-    )
+    ] = await info.context.loaders.me_vulnerabilities.load(email)
 
     return filter_non_zero_risk(filter_open_vulns(vulnerabilities))
