@@ -33,9 +33,11 @@ resource "aws_vpn_connection" "main" {
   customer_gateway_id = aws_customer_gateway.main.id
   type                = "ipsec.1"
 
-  static_routes_only       = true
-  local_ipv4_network_cidr  = "0.0.0.0/0"
-  remote_ipv4_network_cidr = var.aws_cidr
+  static_routes_only         = true
+  local_ipv4_network_cidr    = "0.0.0.0/0"
+  remote_ipv4_network_cidr   = var.aws_cidr
+  tunnel1_dpd_timeout_action = "restart"
+  tunnel1_startup_action     = "start"
 
   tags = var.tags
 }
