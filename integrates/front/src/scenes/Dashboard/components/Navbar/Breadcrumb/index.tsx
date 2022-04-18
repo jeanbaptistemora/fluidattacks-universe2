@@ -10,13 +10,19 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 
 import { AddOrganizationModal } from "./AddOrganizationModal";
 import { MenuItem } from "./MenuItem";
-import { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS } from "./queries";
+import {
+  GET_FINDING_TITLE,
+  GET_USER_ORGANIZATIONS,
+  GET_USER_TAGS,
+} from "./queries";
 import { SplitButton } from "./SplitButton";
 import { BreadcrumbContainer, SplitItems } from "./styles";
-import type { IFindingTitle, IUserOrgs } from "./types";
+import type { IFindingTitle, IUserOrgs, IUserTags } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
 import { NavbarButton } from "../styles";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
+import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -37,6 +43,13 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     { name: "" },
     localStorage
   );
+  const [lastPortfolio, setLastPortfolio] = useStoredState(
+    "portfolio",
+    { name: "" },
+    localStorage
+  );
+
+  const path: string = escape(pathname);
 
   function getCurrentGroupList(orgData: IUserOrgs): { name: string }[] {
     const currentOrg = _.find(orgData.me.organizations, [
@@ -60,12 +73,46 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       });
     },
   });
+
+  const { data: basicData } = useQuery<IGetOrganizationId>(
+    GET_ORGANIZATION_ID,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred fetching organization ID", error);
+        });
+      },
+      skip: lastOrganization.name === "",
+      variables: {
+        organizationName: lastOrganization.name.toLowerCase(),
+      },
+    }
+  );
+
+  const { data: portfolioData } = useQuery<IUserTags>(GET_USER_TAGS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred fetching portfolios", error);
+      });
+    },
+    skip: basicData === undefined,
+    variables: {
+      organizationId: basicData?.organizationId.id,
+    },
+  });
+
   const organizationList =
     data === undefined
       ? [{ groups: [], name: "" }]
       : _.sortBy(data.me.organizations, ["name"]);
   const groupList =
     data === undefined ? [{ name: "" }] : getCurrentGroupList(data);
+  const portfolioList =
+    portfolioData === undefined
+      ? [{ name: "" }]
+      : _.sortBy(portfolioData.me.tags, ["name"]);
 
   const [isOrgItemsOpen, setOrgItemsOpen] = useState(false);
   const showOrgItems = useCallback((): void => {
@@ -124,7 +171,25 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     [lastOrganization.name, lastGroup.name, push, setLastGroup]
   );
 
-  const path: string = escape(pathname);
+  const [isPortfolioItemsOpen, setPortfolioItemsOpen] = useState(false);
+  const showPortfolioItems = useCallback((): void => {
+    setPortfolioItemsOpen(true);
+  }, []);
+  const hidePortfolioItems = useCallback((): void => {
+    setPortfolioItemsOpen(false);
+  }, []);
+
+  const handlePortfolioChange = useCallback(
+    (eventKey: string): void => {
+      if (eventKey !== lastPortfolio.name) {
+        setLastPortfolio({ name: eventKey });
+        push(`/orgs/${lastOrganization.name}/portfolios/${eventKey}/`);
+      }
+      setPortfolioItemsOpen(false);
+    },
+    [lastOrganization.name, lastPortfolio.name, push, setLastPortfolio]
+  );
+
   const pathData: string[] = path.split("/").slice(2);
   const pathOrganization: string = path.includes("/orgs")
     ? pathData[0].toLowerCase()
@@ -134,14 +199,23 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
    * it is redirected to the full URL
    */
   const pathGroup: string =
-    path.includes("/orgs/") && path.includes("/groups/")
+    path.includes("/orgs/") &&
+    path.includes("/groups/") &&
+    !path.endsWith("/groups/")
       ? pathData[2].toLowerCase()
       : "";
   if (pathGroup !== lastGroup.name) {
     setLastGroup({ name: pathGroup });
   }
+  const pathPortfolio: string =
+    path.includes("/orgs/") && path.includes("/portfolios/")
+      ? pathData[2].toLowerCase()
+      : "";
+  if (pathPortfolio !== lastPortfolio.name) {
+    setLastPortfolio({ name: pathPortfolio });
+  }
 
-  const pathBreadcrumbItems = pathData.slice(1);
+  const pathBreadcrumbItems = pathData.slice(0);
   const findingAlias = ["drafts", "vulns"];
   const findingId = pathBreadcrumbItems.reduce(
     (id, item, index, arr): string => {
@@ -228,10 +302,37 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     </li>
   );
 
+  const portfolioDropdown: JSX.Element = (
+    <li>
+      <SplitButton
+        content={
+          <SplitItems>
+            {portfolioList.map(
+              (portfolio: { name: string }): JSX.Element => (
+                <MenuItem
+                  eventKey={portfolio.name}
+                  itemContent={capitalize(portfolio.name)}
+                  key={portfolio.name}
+                  onClick={handlePortfolioChange}
+                />
+              )
+            )}
+          </SplitItems>
+        }
+        id={"portfolioList"}
+        isOpen={isPortfolioItemsOpen}
+        onClick={handlePortfolioChange}
+        onHover={showPortfolioItems}
+        onLeave={hidePortfolioItems}
+        title={capitalize(pathPortfolio)}
+      />
+    </li>
+  );
+
   const breadcrumbItems: JSX.Element[] = pathBreadcrumbItems.map(
     (item: string, index: number): JSX.Element => {
       const [, baseLink] = path.split("/");
-      const link: string = pathData.slice(0, index + 2).join("/");
+      const link: string = pathData.slice(0, index + 1).join("/");
       const breadcrumbItem: string = findingAlias.includes(
         pathBreadcrumbItems[index - 1]
       )
@@ -240,8 +341,14 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           : findingData.finding.title
         : item;
 
+      if (breadcrumbItem === lastOrganization.name) {
+        return orgDropdown;
+      }
       if (breadcrumbItem === lastGroup.name) {
         return groupDropdown;
+      }
+      if (breadcrumbItem === lastPortfolio.name) {
+        return portfolioDropdown;
       }
 
       return (
@@ -254,8 +361,6 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     }
   );
 
-  const fullBreadcrumb: JSX.Element[] = [orgDropdown, ...breadcrumbItems];
-
   return (
     <React.Fragment>
       {shouldDisplayGoBack ? (
@@ -265,7 +370,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           </span>
         </NavbarButton>
       ) : undefined}
-      <BreadcrumbContainer>{fullBreadcrumb}</BreadcrumbContainer>
+      <BreadcrumbContainer>{breadcrumbItems}</BreadcrumbContainer>
       {isOrganizationModalOpen ? (
         <AddOrganizationModal onClose={closeOrganizationModal} open={true} />
       ) : undefined}
