@@ -83,7 +83,9 @@ const Tour: React.FC = (): JSX.Element => {
     async (values: { name: string }): Promise<void> => {
       mixpanel.track("AddOrganization");
       await addOrganization({ variables: values });
-      replace(`/orgs/${values.name}/groups`);
+      localStorage.clear();
+      sessionStorage.clear();
+      replace(`/orgs/${values.name.toLowerCase()}/groups`);
     },
     [addOrganization, replace]
   );

@@ -47,6 +47,30 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#continuoushack2@gmail.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+          },
+          "sk": {
+            "S": "USER#integrateshacker@fluidattacks.com"
+          }
+        }
+      }
     }
   ]
 }

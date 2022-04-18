@@ -80,7 +80,6 @@ async def test_add_group(populate: bool, email: str) -> None:
     [
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
-        ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],

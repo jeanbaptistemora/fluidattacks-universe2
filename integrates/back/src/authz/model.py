@@ -980,11 +980,12 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     user_manager=dict(
         actions={
+            "api_mutations_add_group_mutate",
             "api_mutations_add_organization_finding_policy_mutate",
             "api_mutations_deactivate_finding_policy_mutate",
             "api_mutations_deactivate_organization_finding_policy_mutate",
-            "api_mutations_handle_finding_policy_acceptation_mutate",
             "api_mutations_handle_finding_policy_acceptance_mutate",
+            "api_mutations_handle_finding_policy_acceptation_mutate",
             (
                 "api_mutations_handle_organization_finding_policy_acceptation_"
                 "mutate"
@@ -1066,7 +1067,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     user_manager=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["user_manager"]["actions"],
-            "api_mutations_add_group_mutate",
         },
         tags={
             *ORGANIZATION_LEVEL_ROLES["user_manager"]["tags"],
