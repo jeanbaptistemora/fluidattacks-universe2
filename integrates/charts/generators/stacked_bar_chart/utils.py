@@ -105,6 +105,21 @@ class AssignedFormatted(NamedTuple):
     user: str
 
 
+class RemediatedAccepted(NamedTuple):
+    accepted: int
+    accepted_undefined: int
+    closed_vulnerabilities: int
+    group_name: str
+    open_vulnerabilities: int
+    remaining_open_vulnerabilities: int
+
+
+class RemediatedStatus(NamedTuple):
+    closed_vulnerabilities: int
+    group_name: str
+    open_vulnerabilities: int
+
+
 def translate_date(date_str: str) -> datetime:
     # No, there is no smarter way because of locales and that weird format
 

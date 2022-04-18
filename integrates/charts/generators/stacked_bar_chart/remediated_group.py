@@ -14,6 +14,7 @@ from charts.colors import (
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
     MIN_PERCENTAGE,
+    RemediatedStatus,
 )
 from decimal import (
     Decimal,
@@ -25,22 +26,12 @@ from typing import (
     Any,
     Dict,
     List,
-    NamedTuple,
     Tuple,
-)
-
-Status = NamedTuple(
-    "Status",
-    [
-        ("group_name", str),
-        ("closed_vulnerabilities", int),
-        ("open_vulnerabilities", int),
-    ],
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Status:
+async def get_data_one_group(group: str) -> RemediatedStatus:
     item = await groups_domain.get_attributes(
         group,
         [
@@ -49,14 +40,14 @@ async def get_data_one_group(group: str) -> Status:
         ],
     )
 
-    return Status(
+    return RemediatedStatus(
         group_name=group.lower(),
         open_vulnerabilities=item.get("open_vulnerabilities", 0),
         closed_vulnerabilities=item.get("closed_vulnerabilities", 0),
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> List[Status]:
+async def get_data_many_groups(groups: List[str]) -> List[RemediatedStatus]:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
 
     return sorted(
@@ -104,7 +95,9 @@ def format_percentages(
     return (percentage_values, max_percentage_values)
 
 
-def format_data(data: List[Status], size_limit: int = 0) -> Dict[str, Any]:
+def format_data(
+    data: List[RemediatedStatus], size_limit: int = 0
+) -> Dict[str, Any]:
     limited_data = (
         list(
             sorted(

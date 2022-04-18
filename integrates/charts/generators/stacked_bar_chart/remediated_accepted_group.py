@@ -14,6 +14,7 @@ from charts.colors import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     format_stacked_percentages,
+    RemediatedAccepted,
 )
 from decimal import (
     Decimal,
@@ -25,24 +26,11 @@ from typing import (
     Any,
     Dict,
     List,
-    NamedTuple,
-)
-
-Treatment = NamedTuple(
-    "Treatment",
-    [
-        ("accepted", int),
-        ("accepted_undefined", int),
-        ("group_name", str),
-        ("closed_vulnerabilities", int),
-        ("open_vulnerabilities", int),
-        ("remaining_open_vulnerabilities", int),
-    ],
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Treatment:
+async def get_data_one_group(group: str) -> RemediatedAccepted:
     item = await groups_domain.get_attributes(
         group,
         [
@@ -60,7 +48,7 @@ async def get_data_one_group(group: str) -> Treatment:
         open_vulnerabilities - accepted_vulnerabilities
     )
 
-    return Treatment(
+    return RemediatedAccepted(
         group_name=group.lower(),
         accepted=treatment.get("accepted", 0),
         accepted_undefined=treatment.get("acceptedUndefined", 0),
@@ -72,7 +60,7 @@ async def get_data_one_group(group: str) -> Treatment:
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> List[Treatment]:
+async def get_data_many_groups(groups: List[str]) -> List[RemediatedAccepted]:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
 
     return sorted(
@@ -86,7 +74,9 @@ async def get_data_many_groups(groups: List[str]) -> List[Treatment]:
     )
 
 
-def format_data(data: List[Treatment], limit: int = 0) -> Dict[str, Any]:
+def format_data(
+    data: List[RemediatedAccepted], limit: int = 0
+) -> Dict[str, Any]:
     limited_data = (
         list(
             sorted(
