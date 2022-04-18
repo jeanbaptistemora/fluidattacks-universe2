@@ -211,8 +211,8 @@ const pageTexts: ResourceKey = {
           "vulnerabilities quickly through automated tools.",
         machineTitle: "Machine",
         squadDescription:
-          "For teams that want to discover more varied, " +
-          "even more complex vulnerabilities through ethical hacking.",
+          "For teams needing to discover more complex and " +
+          "severe vulnerabilities through ethical hacking",
         squadTitle: "Squad",
       },
       title: "Explore our Plans",
