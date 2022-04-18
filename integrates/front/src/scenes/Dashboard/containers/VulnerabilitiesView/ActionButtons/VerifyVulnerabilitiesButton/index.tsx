@@ -1,6 +1,6 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -41,6 +41,24 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
       return t("searchFindings.tabDescription.markVerified.tooltip");
     }, [isVerifying, t]);
 
+    const DisplayIcon = useCallback((): JSX.Element => {
+      if (isVerifying) {
+        return (
+          <React.Fragment>
+            <FontAwesomeIcon icon={faTimes} />
+            &nbsp;{t("searchFindings.tabDescription.cancelVerified")}
+          </React.Fragment>
+        );
+      }
+
+      return (
+        <React.Fragment>
+          <FluidIcon icon={"verified"} />
+          &nbsp;{t("searchFindings.tabDescription.markVerified.text")}
+        </React.Fragment>
+      );
+    }, [isVerifying, t]);
+
     return (
       <Can do={"api_mutations_verify_vulnerabilities_request_mutate"}>
         {isVerifying ? (
@@ -61,17 +79,7 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
             placement={"top"}
           >
             <Button onClick={onVerify} variant={"secondary"}>
-              {isVerifying ? (
-                <React.Fragment>
-                  <FontAwesomeIcon icon={faTimes} />
-                  &nbsp;{t("searchFindings.tabDescription.cancelVerified")}
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <FluidIcon icon={"verified"} />
-                  &nbsp;{t("searchFindings.tabDescription.markVerified.text")}
-                </React.Fragment>
-              )}
+              <DisplayIcon />
             </Button>
           </TooltipWrapper>
         ) : undefined}
