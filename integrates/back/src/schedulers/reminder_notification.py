@@ -92,7 +92,8 @@ async def send_reminder_notification() -> None:
     users_email = [
         user.email
         for user in users
-        if Notification.NEW_COMMENT in user.notifications_preferences.email
+        if Notification.REMINDER_NOTIFICATION
+        in user.notifications_preferences.email
     ]
 
     if users_email:
