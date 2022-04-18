@@ -2823,51 +2823,40 @@
   metadata: {}
 "126":
   en:
-    title: Set a password regeneration mechanism
+    title: Set a Password Regeneration Mechanism
     summary: >
-      The system must provide
-      a secure mechanism
-      to regenerate a users password.
+      The system must provide a secure mechanism
+      to regenerate a user's password.
     description: >
-      Passwords are identity
-      assertion elements
-      that can be easily lost
-      or forgotten.
+      Passwords are identity assertion elements
+      that can be easily lost or forgotten.
       Additionally,
       they can be leaked
-      as a result of a users actions
+      as a result of a user's actions
       or a breach in the system.
       Thus,
-      systems should have
-      a secure mechanism
-      that allows users
-      to generate a new password
+      systems should have a secure mechanism
+      that allows users to generate a new password
       in either of these scenarios.
       Furthermore,
-      none of these mechanisms
-      should send a recovery secret
-      in plain text nor should they reveal
-      the current password.
+      none of these mechanisms should send a recovery secret
+      in plain text
+      nor should they reveal the current password.
   es:
     title: Establecer un mecanismo de regeneración de contraseñas
     summary: >
-      El sistema debe proveer
-      un mecanismo seguro para regenerar
-      la contraseña de un usuario.
+      El sistema debe proveer un mecanismo seguro
+      para regenerar la contraseña de un usuario.
     description: >
-      Las contraseñas son
-      elementos de afirmación
-      de identidad que pueden ser
-      perdidos u olvidados fácilmente.
+      Las contraseñas son elementos de afirmación de identidad
+      que pueden ser perdidos u olvidados fácilmente.
       Adicionalmente,
-      se pueden fugar como resultado
-      de acciones del usuario o
-      una brecha en el sistema.
+      se pueden fugar
+      como resultado de acciones del usuario
+      o una brecha en el sistema.
       Por lo tanto,
-      los sistemas deberían tener
-      un mecanismo seguro
-      que permita a los usuarios
-      generar una nueva contraseña
+      los sistemas deberían tener un mecanismo seguro
+      que permita a los usuarios generar una nueva contraseña
       en cualquiera de estos escenarios.
   category: Credentials
   supported_in:
@@ -2892,30 +2881,29 @@
   metadata: {}
 "127":
   en:
-    title: Store hashed passwords
+    title: Store Hashed Passwords
     summary: >
       Passwords must be hashed
       before being stored
       using secure hash algorithms
-      such as PBKDF2 and bcrypt.
+      such as `PBKDF2` and `bcrypt`.
     description: >
-      A hash function maps data
-      of arbitrary size to fixed-size values.
+      A hash function maps data of arbitrary size
+      to fixed-size values.
       It conceals sensitive information
       as it is often not possible
       to reverse hashed texts.
       Hashing passwords helps
       to prevent unauthorized actors
-      that may have accessed
-      the storage system from obtaining them.
+      from obtaining them
+      when accessing the storage system.
   es:
     title: Almacenar contraseñas con hash
     summary: >
-      Las contraseñas
-      deben tener un hash
+      Las contraseñas deben tener un hash
       antes de ser almacenadas
       usando algoritmos de hash seguros
-      tales como PBKDF2 y bcrypt.
+      tales como `PBKDF2` y `bcrypt`.
     description: >
       Una función hash mapea los datos
       de tamaño arbitrario
@@ -2923,11 +2911,9 @@
       Oculta información confidencial,
       ya que a menudo no es posible
       revertir el texto hash.
-      El hash de contraseñas
-      ayuda a prevenir que actores
-      no autorizados hayan accedido
-      al sistema de almacenamiento
-      para obtenerlas.
+      El hash de contraseñas ayuda a prevenir
+      que actores no autorizados las obtengan
+      cuando acceden al sistema de almacenamiento.
   category: Credentials
   supported_in:
     machine: false
@@ -2950,18 +2936,16 @@
   metadata: {}
 "128":
   en:
-    title: Define unique data source
+    title: Define Unique Data Source
     summary: >
-      All system passwords
-      must be stored in a unique
-      data source.
+      All system passwords must be stored
+      in a unique data source.
     description: __empty__
   es:
     title: Definir una única fuente de datos
     summary: >
-      Todas las contraseñas
-      deben estar almacenadas en una
-      única fuente de datos.
+      Todas las contraseñas deben estar almacenadas
+      en una única fuente de datos.
     description: __empty__
   category: Credentials
   supported_in:
@@ -2977,24 +2961,22 @@
   metadata: {}
 "129":
   en:
-    title: Validate previous passwords
+    title: Validate Previous Passwords
     summary: >
-      The system must not allow
-      password changes
-      for a user if the new password
-      matches one of the previous
-      5 passwords for the same user.
+      The system must not allow password changes
+      for a user
+      if the new password matches
+      one of the previous 5 passwords
+      of the same user.
     description: __empty__
   es:
     title: Validar contraseñas previas
     summary: >
-      El sistema no debe permitir
-      cambios de contraseñas
+      El sistema no debe permitir cambios de contraseñas
       para un usuario
-      si la nueva contraseña
-      concuerda con alguna
-      de las 5 contraseñas previas
-      para el mismo usuario.
+      si la nueva contraseña concuerda
+      con alguna de las 5 contraseñas previas
+      del mismo usuario.
     description: __empty__
   category: Credentials
   supported_in:
@@ -3010,7 +2992,7 @@
   metadata: {}
 "130":
   en:
-    title: Limit password lifespan
+    title: Limit Password Lifespan
     summary: >
       Passwords must be valid
       for a maximum of 30 days.
@@ -3018,8 +3000,8 @@
   es:
     title: Limitar tiempo de duración de contraseñas
     summary: >
-      Las contraseñas deben ser validas
-      por un maximo de 30 dias.
+      Las contraseñas deben ser válidas
+      por un máximo de 30 días.
     description: __empty__
   category: Credentials
   supported_in:
@@ -3044,7 +3026,7 @@
   metadata: {}
 "131":
   en:
-    title: Deny multiple password changing attempts
+    title: Deny Multiple Password Changing Attempts
     summary: >
       Passwords are not allowed
       to be changed more than once
@@ -3054,8 +3036,7 @@
     title: Denegar múltiples intentos de cambio de contraseña
     summary: >
       No debe ser permitido
-      que las contraseñas
-      sean modificadas más de una vez
+      que las contraseñas sean modificadas más de una vez
       el mismo día.
     description: __empty__
   category: Credentials
