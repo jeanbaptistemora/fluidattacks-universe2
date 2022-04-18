@@ -79,9 +79,6 @@ async def get_result(
                 }}
                 openAge
                 openVulnerabilities
-                portsVulnerabilities {{
-                    specific
-                }}
                 recommendation
                 records
                 releaseDate

@@ -238,9 +238,6 @@ async def test_finding() -> None:
             vulnerabilityType
             zeroRisk
           }
-          portsVulnerabilities {
-              specific
-          }
           __typename
       }
     }"""

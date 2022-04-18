@@ -52,9 +52,6 @@ async def get_result(
                     lastVulnerability
                     openAge
                     openVulnerabilities
-                    portsVulnerabilities {{
-                        specific
-                    }}
                     groupName
                     recommendation
                     records

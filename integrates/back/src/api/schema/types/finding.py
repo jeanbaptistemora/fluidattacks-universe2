@@ -17,7 +17,6 @@ from api.resolvers.finding import (
     observations,
     open_age,
     open_vulnerabilities,
-    ports_vulnerabilities,
     records,
     release_date,
     remediated,
@@ -55,7 +54,6 @@ FINDING.set_field("machineJobs", machine_jobs.resolve)
 FINDING.set_field("observations", observations.resolve)
 FINDING.set_field("openAge", open_age.resolve)
 FINDING.set_field("openVulnerabilities", open_vulnerabilities.resolve)
-FINDING.set_field("portsVulnerabilities", ports_vulnerabilities.resolve)
 FINDING.set_field("records", records.resolve)
 FINDING.set_field("releaseDate", release_date.resolve)
 FINDING.set_field("remediated", remediated.resolve)

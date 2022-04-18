@@ -39,8 +39,6 @@ type Finding {
   openAge: Int
   "Quantity of remaining open vulnerabilities"
   openVulnerabilities: Int!
-  "Ports vulnerabilities"
-  portsVulnerabilities: [Vulnerability!]
   "Recommended course of action to close the vulnerabilities"
   recommendation: String!
   """Information that was compromised or disclosed by exploiting the

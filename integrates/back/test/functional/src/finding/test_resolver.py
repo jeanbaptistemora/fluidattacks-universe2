@@ -94,10 +94,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     hacker: str = "test1@gmail.com"
     current_state: str = "APPROVED"
     verified: bool = False
-    ports_vulnerabilities: List[Any] = [
-        {"specific": "2321"},
-        {"specific": "9999"},
-    ]
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
@@ -191,10 +187,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     ]
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
-    assert (
-        result["data"]["finding"]["portsVulnerabilities"]
-        == ports_vulnerabilities
-    )
     assert result["data"]["finding"]["recommendation"] == recommendation
     assert result["data"]["finding"]["records"] == "[]"
     assert result["data"]["finding"]["releaseDate"] == release_date
@@ -281,10 +273,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     report_date: str = "2018-04-01 00:45:00"
     current_state: str = "APPROVED"
     verified: bool = False
-    ports_vulnerabilities: List[Any] = [
-        {"specific": "2321"},
-        {"specific": "9999"},
-    ]
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
@@ -373,10 +361,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
-    assert (
-        result["data"]["finding"]["portsVulnerabilities"]
-        == ports_vulnerabilities
-    )
     assert result["data"]["finding"]["recommendation"] == recommendation
     assert result["data"]["finding"]["records"] == "[]"
     assert result["data"]["finding"]["releaseDate"] == release_date
