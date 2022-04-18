@@ -121,7 +121,15 @@ describe("Navbar", (): void => {
             mocks={[organizationsQuery, mocksQueryGroupVulns]}
           >
             <authContext.Provider
-              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+              value={{
+                tours: {
+                  newGroup: false,
+                  newOrganization: false,
+                  newRoot: false,
+                },
+                userEmail: "test@fluidattacks.com",
+                userName: "",
+              }}
             >
               <Navbar
                 meVulnerabilitiesAssigned={{
@@ -245,7 +253,15 @@ describe("Navbar", (): void => {
             mocks={[findingTitleQuery, organizationsQuery]}
           >
             <authContext.Provider
-              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+              value={{
+                tours: {
+                  newGroup: false,
+                  newOrganization: false,
+                  newRoot: false,
+                },
+                userEmail: "test@fluidattacks.com",
+                userName: "",
+              }}
             >
               <Navbar
                 meVulnerabilitiesAssigned={undefined}
@@ -318,7 +334,15 @@ describe("Navbar", (): void => {
             mocks={[findingTitleQuery, organizationsQuery]}
           >
             <authContext.Provider
-              value={{ userEmail: "test@fluidattacks.com", userName: "" }}
+              value={{
+                tours: {
+                  newGroup: false,
+                  newOrganization: false,
+                  newRoot: false,
+                },
+                userEmail: "test@fluidattacks.com",
+                userName: "",
+              }}
             >
               <Navbar
                 meVulnerabilitiesAssigned={undefined}

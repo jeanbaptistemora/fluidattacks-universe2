@@ -5,6 +5,11 @@ import { createContext } from "react";
 import { translate } from "utils/translations/translate";
 
 interface IUser {
+  tours: {
+    newGroup: boolean;
+    newOrganization: boolean;
+    newRoot: boolean;
+  };
   userEmail: string;
   userIntPhone?: string;
   userName: string;
@@ -14,7 +19,12 @@ interface IAuthContext extends IUser {
   setUser?: React.Dispatch<React.SetStateAction<IUser>>;
 }
 
-const authContext: React.Context<IAuthContext> = createContext({
+const authContext: React.Context<IAuthContext> = createContext<IAuthContext>({
+  tours: {
+    newGroup: false,
+    newOrganization: false,
+    newRoot: false,
+  },
   userEmail: "",
   userName: "",
 });

@@ -25,6 +25,11 @@ describe("Dashboard", (): void => {
         phone: null,
         remember: false,
         sessionExpiration: "2021-01-20 21:37:37.944176",
+        tours: {
+          newGroup: false,
+          newOrganization: false,
+          newRoot: false,
+        },
         userEmail: "",
         userName: "",
       },

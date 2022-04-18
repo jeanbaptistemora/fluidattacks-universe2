@@ -17,6 +17,11 @@ interface IUser {
     } | null;
     remember: boolean;
     sessionExpiration: string;
+    tours: {
+      newGroup: boolean;
+      newOrganization: boolean;
+      newRoot: boolean;
+    };
     userEmail: string;
     userName: string;
   };

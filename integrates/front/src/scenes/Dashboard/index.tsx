@@ -94,6 +94,15 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const { data } = useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
       user.setUser({
+        tours: {
+          newGroup:
+            me.tours.newGroup && me.userEmail.endsWith("fluidattacks.com"),
+          newOrganization:
+            me.tours.newOrganization &&
+            me.userEmail.endsWith("fluidattacks.com"),
+          newRoot:
+            me.tours.newRoot && me.userEmail.endsWith("fluidattacks.com"),
+        },
         userEmail: me.userEmail,
         userIntPhone: _.isNil(me.phone)
           ? undefined

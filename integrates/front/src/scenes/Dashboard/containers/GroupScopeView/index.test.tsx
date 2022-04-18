@@ -70,7 +70,17 @@ describe("GroupScopeView", (): void => {
     };
 
     render(
-      <authContext.Provider value={{ userEmail: "", userName: "" }}>
+      <authContext.Provider
+        value={{
+          tours: {
+            newGroup: false,
+            newOrganization: false,
+            newRoot: false,
+          },
+          userEmail: "",
+          userName: "",
+        }}
+      >
         <authzGroupContext.Provider
           value={new PureAbility([{ action: "has_service_white" }])}
         >
@@ -187,7 +197,17 @@ describe("GroupScopeView", (): void => {
     };
 
     render(
-      <authContext.Provider value={{ userEmail: "", userName: "" }}>
+      <authContext.Provider
+        value={{
+          tours: {
+            newGroup: false,
+            newOrganization: false,
+            newRoot: false,
+          },
+          userEmail: "",
+          userName: "",
+        }}
+      >
         <authzGroupContext.Provider
           value={
             new PureAbility([
@@ -387,7 +407,17 @@ describe("GroupScopeView", (): void => {
     };
 
     render(
-      <authContext.Provider value={{ userEmail: "", userName: "" }}>
+      <authContext.Provider
+        value={{
+          tours: {
+            newGroup: false,
+            newOrganization: false,
+            newRoot: false,
+          },
+          userEmail: "",
+          userName: "",
+        }}
+      >
         <authzGroupContext.Provider
           value={
             new PureAbility([
@@ -581,7 +611,17 @@ describe("GroupScopeView", (): void => {
     };
 
     render(
-      <authContext.Provider value={{ userEmail: "", userName: "" }}>
+      <authContext.Provider
+        value={{
+          tours: {
+            newGroup: false,
+            newOrganization: false,
+            newRoot: false,
+          },
+          userEmail: "",
+          userName: "",
+        }}
+      >
         <authzGroupContext.Provider
           value={new PureAbility([{ action: "has_service_white" }])}
         >
@@ -740,7 +780,17 @@ describe("GroupScopeView", (): void => {
       };
 
       render(
-        <authContext.Provider value={{ userEmail: "", userName: "" }}>
+        <authContext.Provider
+          value={{
+            tours: {
+              newGroup: false,
+              newOrganization: false,
+              newRoot: false,
+            },
+            userEmail: "",
+            userName: "",
+          }}
+        >
           <authzGroupContext.Provider
             value={
               new PureAbility([

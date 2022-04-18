@@ -28,7 +28,15 @@ import "tachyons-word-break/css/tachyons-word-break.min.css";
 
 const App: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const [user, setUser] = useState({ userEmail: "", userName: "" });
+  const [user, setUser] = useState({
+    tours: {
+      newGroup: false,
+      newOrganization: false,
+      newRoot: false,
+    },
+    userEmail: "",
+    userName: "",
+  });
   const matomoInstance = createInstance({
     siteId: 3,
     urlBase: "https://fluidattacks.matomo.cloud",

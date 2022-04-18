@@ -14,8 +14,6 @@ def load(paths: Tuple[str, ...]) -> Dict[str, Dict[str, str]]:
     for path in paths:
         if path.endswith(".properties"):
             with open(path, encoding="latin-1") as handle:
-                resources[os.path.basename(path)] = load_as_dict(
-                    handle.read()
-                )
+                resources[os.path.basename(path)] = load_as_dict(handle.read())
 
     return resources
