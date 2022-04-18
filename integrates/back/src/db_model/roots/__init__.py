@@ -6,6 +6,7 @@ from .add import (
 from .update import (
     finish_machine_execution,
     remove_secret,
+    start_machine_execution,
     update_git_root_cloning,
     update_root_state,
     update_unreliable_indicators,
@@ -20,4 +21,5 @@ __all__ = [
     "add_secret",
     "finish_machine_execution",
     "update_unreliable_indicators",
+    "start_machine_execution",
 ]

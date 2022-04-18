@@ -697,6 +697,20 @@ type Mutation {
     date: DateTime!
   ): SimplePayload!
 
+  "Registers a machine execution finalization"
+  startMachineExecution(
+    "Full SHA-1 hash of the tested commit"
+    gitCommit: String
+    "Name of the group the root is associated with"
+    groupName: String!
+    "Nickname of the root"
+    rootNickname: String!
+    "Id of the job in aws batch"
+    jobId: ID!
+    "when the job was started"
+    startedAt: DateTime!
+  ): SimplePayload!
+
   "Submits a draft Finding submission for approval"
   submitDraft(
     "Identifier of the draft Finding to be submitted"

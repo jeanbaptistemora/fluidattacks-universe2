@@ -33,6 +33,7 @@ from dynamodb.exceptions import (
 import simplejson as json  # type: ignore
 from typing import (
     List,
+    Optional,
     Union,
 )
 
@@ -204,6 +205,34 @@ async def finish_machine_execution(
             item={
                 "stopped_at": stopped_at,
                 "findings_executed": findings_executed,
+            },
+            key=machine_execution_key,
+            table=TABLE,
+        )
+        return True
+
+    return False
+
+
+async def start_machine_execution(
+    root_id: str,
+    job_id: str,
+    started_at: str,
+    git_commit: Optional[str] = None,
+) -> bool:
+    key_structure = TABLE.primary_key
+    machine_execution_key = keys.build_key(
+        facet=TABLE.facets["machine_git_root_execution"],
+        values={"uuid": root_id, "job_id": job_id},
+    )
+
+    with suppress(botocore.exceptions.ClientError):
+        await operations.update_item(
+            condition_expression=Attr(key_structure.partition_key).exists(),
+            item={
+                "started_at": started_at,
+                "git_commit": git_commit,
+                "status": "RUNNING",
             },
             key=machine_execution_key,
             table=TABLE,
