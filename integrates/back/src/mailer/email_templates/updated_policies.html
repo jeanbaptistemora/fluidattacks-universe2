@@ -9,7 +9,11 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      The policies for <strong>{{ org_name }}</strong> have been changed:
+      The policies for <strong>{{ org_name }}</strong> have been changed by
+      <strong>{{ responsible }}</strong>:
+    </p>
+    <p>
+      <strong>Date</strong>: {{ date }}
     </p>
     {{ text_area(policies) }}
     <p></p>

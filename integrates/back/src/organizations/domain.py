@@ -141,9 +141,9 @@ async def _get_new_policies(
     loaders: Any,
     organization_id: str,
     email: str,
+    date: str,
     values: Dict[str, Optional[Decimal]],
 ) -> Union[OrganizationType, None]:
-    date = datetime_utils.get_now_as_str()
     policies = await collect(
         [
             _add_updated_max_number_acceptances(
@@ -587,13 +587,14 @@ async def update_policies(
 
     if all(valid):
         success = True
+        date = datetime_utils.get_now_as_str()
         # Compatibility for the old API
         if "max_number_acceptances" in values:
             values["max_number_acceptations"] = values.pop(
                 "max_number_acceptances"
             )
         new_policies = await _get_new_policies(
-            loaders, organization_id, email, values
+            loaders, organization_id, email, date, values
         )
         if new_policies:
             await send_mail_policies(
@@ -601,6 +602,8 @@ async def update_policies(
                 new_policies,
                 organization_id,
                 organization_name,
+                email,
+                date,
             )
             success = await orgs_dal.update(
                 organization_id, organization_name, new_policies
@@ -608,11 +611,14 @@ async def update_policies(
     return success
 
 
+# pylint: disable=too-many-arguments, too-many-locals
 async def send_mail_policies(
     loaders: Any,
     new_policies: Dict[str, Any],
     organization_id: str,
     organization_name: str,
+    responsible: str,
+    date: str,
 ) -> None:
     organization_data = await loaders.organization.load(organization_id)
     policies_format = {
@@ -651,6 +657,8 @@ async def send_mail_policies(
         "org_name": organization_name,
         "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
         "policies": policies_content.splitlines(),
+        "responsible": responsible,
+        "date": date,
     }
 
     org_stakeholders_loaders = await loaders.organization_stakeholders.load(
