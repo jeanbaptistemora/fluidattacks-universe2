@@ -7,7 +7,11 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { ADD_ORGANIZATION, GET_NEW_ORGANIZATION_NAME } from "../queries";
+import {
+  ADD_ORGANIZATION,
+  GET_NEW_ORGANIZATION_NAME,
+  GET_USER_WELCOME,
+} from "../queries";
 import type {
   IAddOrganizationResult,
   IGetNewOrganizationNameResult,
@@ -37,7 +41,7 @@ const Tour: React.FC = (): JSX.Element => {
             msgError(t("sidebar.newOrganization.modal.namesUnavailable"));
           } else {
             msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning(
+            Logger.error(
               "An error occurred getting a name for a new organization",
               message
             );
@@ -51,6 +55,7 @@ const Tour: React.FC = (): JSX.Element => {
 
   const [addOrganization, { loading: submitting }] =
     useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
+      awaitRefetchQueries: true,
       onCompleted: (result): void => {
         if (result.addOrganization.success) {
           mixpanel.track("NewOrganization", {
@@ -64,14 +69,14 @@ const Tour: React.FC = (): JSX.Element => {
           if (message === "Access denied") {
             msgError(t("sidebar.newOrganization.modal.invalidName"));
           } else {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning(
+            Logger.error(
               "An error occurred creating new organization",
               message
             );
           }
         });
       },
+      refetchQueries: [GET_USER_WELCOME],
     });
 
   const handleSubmit = useCallback(

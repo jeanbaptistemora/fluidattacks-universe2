@@ -5,7 +5,11 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_USER_WELCOME } from "./queries";
+import {
+  ADD_ORGANIZATION,
+  GET_NEW_ORGANIZATION_NAME,
+  GET_USER_WELCOME,
+} from "./queries";
 
 import { Welcome } from ".";
 
@@ -81,6 +85,102 @@ describe("Welcome", (): void => {
       expect(screen.getByRole("textbox")).toBeInTheDocument();
       expect(screen.getAllByRole("button")).toHaveLength(2);
     });
+  });
+
+  it("should redirect after completing the tour", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const getUserWelcomeBeforeMock: MockedResponse = {
+      request: {
+        query: GET_USER_WELCOME,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ name: "imamura" }],
+            userEmail: "test@gmail.com",
+          },
+        },
+      },
+    };
+    const getNewOrganizationNameMock: MockedResponse = {
+      request: {
+        query: GET_NEW_ORGANIZATION_NAME,
+      },
+      result: {
+        data: {
+          internalNames: {
+            name: "neworg",
+          },
+        },
+      },
+    };
+
+    const addOrganizationMock: MockedResponse = {
+      request: {
+        query: ADD_ORGANIZATION,
+        variables: {
+          name: "NEWORG",
+        },
+      },
+      result: {
+        data: {
+          addOrganization: {
+            organization: {
+              id: "ORG#fbfb803d-3c1a-416a-af25-508028e0f608",
+              name: "neworg",
+            },
+            success: true,
+          },
+        },
+      },
+    };
+    const getUserWelcomeAfterMock: MockedResponse = {
+      request: {
+        query: GET_USER_WELCOME,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ name: "imamura" }, { name: "neworg" }],
+            userEmail: "test@gmail.com",
+          },
+        },
+      },
+    };
+
+    render(
+      <MemoryRouter initialEntries={["/welcome"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            getUserWelcomeBeforeMock,
+            getNewOrganizationNameMock,
+            addOrganizationMock,
+            getUserWelcomeAfterMock,
+          ]}
+        >
+          <Route component={Welcome} path={"/"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      userEvent.click(screen.getAllByRole("article")[0]);
+    });
+
+    const buttons = screen.getAllByRole("button");
+
+    expect(buttons).toHaveLength(2);
+
+    userEvent.click(buttons[1]);
+
+    await waitFor(
+      (): void => {
+        expect(screen.getAllByRole("list").length).toBeGreaterThan(1);
+      },
+      { timeout: 2000 }
+    );
   });
 
   it("should render dashboard when browsing demo", async (): Promise<void> => {

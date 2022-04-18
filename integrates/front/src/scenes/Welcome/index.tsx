@@ -11,6 +11,7 @@ import type { IGetUserWelcomeResult } from "./types";
 import { Card, CardBody, CardHeader } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { Dashboard } from "scenes/Dashboard";
+import { Logger } from "utils/logger";
 
 const Welcome: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -25,16 +26,23 @@ const Welcome: React.FC = (): JSX.Element => {
     push("/welcome/tour");
   }, [push]);
 
-  const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME);
+  const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME, {
+    onError: (error): void => {
+      error.graphQLErrors.forEach(({ message }): void => {
+        Logger.error("An error occurred loading user welcome", message);
+      });
+    },
+  });
 
   if (loading) {
     return <div />;
   }
 
   const organizations = data === undefined ? [] : data.me.organizations;
+  const defaultOrgs = ["imamura", "okada"];
   const isFirstTimeUser =
     organizations.length === 1 &&
-    organizations[0].name.toLowerCase() === "imamura";
+    defaultOrgs.includes(organizations[0].name.toLowerCase());
 
   if (isFirstTimeUser && !browsingDemo) {
     return (
