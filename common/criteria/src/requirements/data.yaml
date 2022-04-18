@@ -200,14 +200,22 @@
       The system must encrypt
       and verify client-side
       session information (ViewState).
-    description: __empty__
+    description: >
+      Using client-side encryption
+      makes it less likely for the data
+      session to be intercepted by hostile
+      third parties.
   es:
     title: Cifrar información de sesión del lado del cliente
     summary: >
       El sistema debe verificar la integridad
       y cifrar los estados de sesión
-      que están al lado del cliente.
-    description: __empty__
+      que están del lado del cliente.
+    description: >
+      El uso de la encriptación del lado
+      del cliente hace menos probable que
+      la sesión de datos sea interceptada
+      por terceros hostiles.
   category: Session
   supported_in:
     machine: false
@@ -237,10 +245,10 @@
     title: Permitir bloqueo de sesión
     summary: >
       El sistema debe proveer
-      a los usuarios, la opción
+      a los usuarios la opción
       de bloquear manualmente
-      de cada recurso protegido
-      por autenticación.
+      su sesión desde cualquier
+      recurso protegido por autenticación.
     description: __empty__
   category: Session
   supported_in:
@@ -288,7 +296,7 @@
     description: >
       Los tokens de sesión
       han asociado permisos
-      que permiten a cada actor
+      que permiten a cualquier actor
       que los posea realizar acciones
       en un sistema.
       Si un usuario deja
@@ -417,7 +425,7 @@
     title: Avoid object reutilization
     summary: >
       The system must guarantee
-      that objects (session id, cookies, etc.) used
+      that objects (session ID, cookies, etc.) used
       in the authentication process
       cannot be reused (replay resistance).
     description: >
@@ -440,7 +448,7 @@
     title: Evitar reutilización de objetos
     summary: >
       Se debe controlar que un objeto
-      (id de sesión, cookie, etc)
+      (id de sesión, cookie, etc.)
       que participe en el proceso de autenticación
       no pueda ser reutilizado.
     description: >
