@@ -18,3 +18,4 @@ db/.data/
 expoClient.apk
 coverage.xml
 .coverage.*
+/front/coverage
