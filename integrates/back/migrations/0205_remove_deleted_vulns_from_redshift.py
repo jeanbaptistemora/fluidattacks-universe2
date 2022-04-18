@@ -4,8 +4,8 @@ Remove from redshift vulns that belong to removed findings.
 This vulns were not marked as DELETED when the finding was removed, so they
 were wrongly migrated to redshift.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-04-18 at 21:28:34 UTC
+Finalization Time: 2022-04-18 at 21:51:53 UTC
 """
 
 from aioextensions import (
