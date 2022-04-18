@@ -260,7 +260,7 @@ async def send_mail_vulnerability_report(
 
     email_context: MailContentType = {
         "finding": finding_title,
-        "group": group_name,
+        "group": group_name.capitalize(),
         "finding_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
             f"{finding_id}/locations"
