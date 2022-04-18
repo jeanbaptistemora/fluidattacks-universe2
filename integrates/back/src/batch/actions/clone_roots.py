@@ -160,6 +160,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
         await queue_job_new(
+            dataloaders=dataloaders,
             group_name=group_name,
             roots=cloned_roots_nicknames,
             finding_codes=findings,

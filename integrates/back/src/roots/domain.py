@@ -1070,7 +1070,11 @@ async def add_machine_execution(
     response = client.describe_jobs(jobs=[job_id])
     jobs = response.get("jobs", [])
 
-    start_date = kwargs.pop("started_at").astimezone(tzn)
+    start_date = (
+        kwargs.pop("started_at").astimezone(tzn)
+        if "started_at" in kwargs
+        else None
+    )
 
     try:
         current_job = jobs[0]
@@ -1087,7 +1091,9 @@ async def add_machine_execution(
         name=current_job["jobName"],
         queue=current_job["jobQueue"].split("/")[-1],
         created_at=datetime_utils.get_as_str(queue_date),
-        started_at=datetime_utils.get_as_str(start_date),
+        started_at=datetime_utils.get_as_str(start_date)
+        if start_date
+        else None,
         findings_executed=kwargs.pop("findings_executed", []),
         commit=kwargs.pop("git_commit", ""),
     )

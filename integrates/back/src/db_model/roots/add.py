@@ -87,6 +87,7 @@ async def add_machine_execution(
         "queue": execution.queue,
         "name": execution.name,
         "commit": execution.commit,
+        "status": "RUNNABLE",
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(

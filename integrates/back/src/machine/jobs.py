@@ -25,6 +25,9 @@ from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
 )
+from datetime import (
+    datetime,
+)
 from dateutil.parser import (  # type: ignore
     parse as date_parse,
 )
@@ -54,6 +57,9 @@ from newutils import (
     datetime as datetime_utils,
 )
 import os
+from roots.domain import (
+    add_machine_execution,
+)
 from roots.types import (
     GitRoot,
 )
@@ -176,9 +182,20 @@ async def list_(  # pylint: disable=too-many-locals
         )
     )
 
+    batch_jobs_dict = {
+        item["job_id"]: item
+        for item in await describe_jobs(
+            *[item.job_id for item in jobs_from_db]
+        )
+    }
     job_items = []
 
     for job_execution in jobs_from_db:
+        if (
+            job_execution.job_id in batch_jobs_dict
+            and "stoppedAt" not in batch_jobs_dict[job_execution.job_id]
+        ):
+            continue
         _vulns = [
             x
             for x in job_execution.findings_executed
@@ -265,6 +282,10 @@ async def queue_job_new(
     dataloaders: Any = None,
     **kwargs: Any,
 ) -> Optional[PutActionResult]:
+    git_roots: List[GitRootItem] = []
+    if dataloaders:
+        git_roots = await dataloaders.group_roots.load(group_name)
+
     if not roots:
         if not dataloaders:
             raise Exception(
@@ -275,7 +296,7 @@ async def queue_job_new(
             )
         roots = list(
             root.state.nickname
-            for root in await dataloaders.group_roots.load(group_name)
+            for root in git_roots
             if isinstance(root, GitRootItem)
             and root.state.status == "ACTIVE"
             and root.cloning.status == GitCloningStatus.OK
@@ -325,7 +346,7 @@ async def queue_job_new(
                     )
                     await batch.cancel_job(jobId=job_id, reason="not required")
 
-    return await put_action(
+    queue_result = await put_action(
         action=Action.EXECUTE_MACHINE,
         vcpus=4,
         product_name=Product.SKIMS,
@@ -343,6 +364,23 @@ async def queue_job_new(
         memory=7200,
         **kwargs,
     )
+
+    if git_roots:
+        await collect(
+            [
+                await add_machine_execution(
+                    root_id=git_root_item.id,
+                    job_id=queue_result.batch_job_id,
+                    createdAt=datetime.now(),
+                    findings_executed=finding_codes,
+                )
+                for git_root_item in git_roots
+                if git_root_item.state.nickname in roots
+                and queue_result.batch_job_id
+            ]
+        )
+
+    return queue_result
 
 
 async def get_active_executions(root: GitRoot) -> LastMachineExecutions:

@@ -81,4 +81,5 @@ async def main() -> None:
                 finding_codes=finding_codes,
                 group_name=group,
                 roots=list(roots_to_reattack),
+                dataloaders=dataloaders,
             )

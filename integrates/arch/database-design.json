@@ -15097,7 +15097,8 @@
             "stopped_at",
             "findings_executed",
             "created_at",
-            "queue"
+            "queue",
+            "status"
           ]
         }
       ],

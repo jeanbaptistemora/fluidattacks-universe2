@@ -72,6 +72,7 @@ async def mutate(
     with suppress(ClientError):
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
         queued_job = await queue_job_new(
+            dataloaders=info.context.loaders,
             finding_codes=[finding_code],
             group_name=group_name,
             roots=list(roots_to_execute),
