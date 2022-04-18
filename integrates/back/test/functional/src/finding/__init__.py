@@ -71,9 +71,6 @@ async def get_result(
                 groupName
                 historicState
                 id
-                inputsVulnerabilities {{
-                    specific
-                }}
                 isExploitable
                 lastVulnerability
                 linesVulnerabilities {{

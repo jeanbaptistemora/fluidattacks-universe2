@@ -11,7 +11,6 @@ from api.resolvers.finding import (
     group_name,
     hacker,
     historic_state,
-    inputs_vulnerabilities,
     is_exploitable,
     last_vulnerability,
     lines_vulnerabilities,
@@ -51,7 +50,6 @@ FINDING.set_field("evidence", evidence.resolve)
 FINDING.set_field("groupName", group_name.resolve)
 FINDING.set_field("hacker", hacker.resolve)
 FINDING.set_field("historicState", historic_state.resolve)
-FINDING.set_field("inputsVulnerabilities", inputs_vulnerabilities.resolve)
 FINDING.set_field("isExploitable", is_exploitable.resolve)
 FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
 FINDING.set_field("linesVulnerabilities", lines_vulnerabilities.resolve)

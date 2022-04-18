@@ -241,9 +241,6 @@ async def test_finding() -> None:
           portsVulnerabilities {
               specific
           }
-          inputsVulnerabilities {
-              specific
-          }
           linesVulnerabilities {
               specific
           }

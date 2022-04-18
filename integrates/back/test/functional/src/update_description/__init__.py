@@ -48,9 +48,6 @@ async def get_result(
                     description
                     historicState
                     id
-                    inputsVulnerabilities {{
-                        specific
-                    }}
                     isExploitable
                     lastVulnerability
                     linesVulnerabilities {{
