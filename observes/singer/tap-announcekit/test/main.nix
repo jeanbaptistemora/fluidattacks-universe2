@@ -9,7 +9,7 @@ makeDerivation {
   name = "observes-singer-tap-announcekit-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.announcekit.root;
-    envTestDir = baseNameOf inputs.observesIndex.tap.announcekit.tests;
+    envTestDir = "tests";
   };
   searchPaths = {
     source = [

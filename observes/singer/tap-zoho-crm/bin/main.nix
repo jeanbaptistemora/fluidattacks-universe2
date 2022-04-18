@@ -6,7 +6,7 @@
 }:
 makeScript {
   entrypoint = ''
-    import_and_run streamer_zoho_crm.cli main "$@"
+    import_and_run tap_zoho_crm.cli main "$@"
   '';
   searchPaths = {
     source = [

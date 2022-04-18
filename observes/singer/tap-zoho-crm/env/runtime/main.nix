@@ -6,7 +6,7 @@
   projectPath,
   ...
 }: let
-  self = projectPath "/observes/singer/streamer_zoho_crm";
+  self = projectPath "/observes/singer/tap-zoho-crm/src";
 in
   makeTemplate {
     name = "observes-singer-tap-zoho-crm-env-runtime";

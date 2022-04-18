@@ -15,7 +15,7 @@ from postgres_client.query import (
 from returns.unsafe import (
     unsafe_perform_io,
 )
-from streamer_zoho_crm.api.bulk import (
+from tap_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )

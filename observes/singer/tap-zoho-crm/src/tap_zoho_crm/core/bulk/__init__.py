@@ -1,4 +1,4 @@
-from streamer_zoho_crm.core.bulk.crud import (
+from tap_zoho_crm.core.bulk.crud import (
     create_bulk_job,
     get_bulk_data,
     update_all,

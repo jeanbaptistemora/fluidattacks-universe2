@@ -14,34 +14,34 @@ from singer_io.singer2.json import (
     JsonObj,
     JsonValue,
 )
-from streamer_zoho_crm import (
+from tap_zoho_crm import (
     api,
     core,
     db,
 )
-from streamer_zoho_crm.api import (
+from tap_zoho_crm.api import (
     ApiClient,
 )
-from streamer_zoho_crm.api.bulk import (
+from tap_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     ModuleName,
 )
-from streamer_zoho_crm.api.common import (
+from tap_zoho_crm.api.common import (
     PageIndex,
 )
-from streamer_zoho_crm.api.users import (
+from tap_zoho_crm.api.users import (
     UsersDataPage,
     UserType,
 )
-from streamer_zoho_crm.auth import (
+from tap_zoho_crm.auth import (
     Credentials,
 )
-from streamer_zoho_crm.core import (
+from tap_zoho_crm.core import (
     CoreClient,
     IBulk as BulkUtils,
 )
-from streamer_zoho_crm.db import (
+from tap_zoho_crm.db import (
     Client as DbClient,
 )
 import tempfile

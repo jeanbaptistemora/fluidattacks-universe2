@@ -9,7 +9,7 @@ makeDerivation {
   name = "observes-singer-zoho-crm-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.zoho_crm.root;
-    envTestDir = baseNameOf inputs.observesIndex.tap.zoho_crm.tests;
+    envTestDir = "tests";
   };
   searchPaths = {
     source = [

@@ -1,23 +1,23 @@
-from streamer_zoho_crm import (
+from tap_zoho_crm import (
     auth,
 )
-from streamer_zoho_crm.api import (
+from tap_zoho_crm.api import (
     bulk,
     users,
 )
-from streamer_zoho_crm.api.bulk import (
+from tap_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     ModuleName,
 )
-from streamer_zoho_crm.api.common import (
+from tap_zoho_crm.api.common import (
     PageIndex,
 )
-from streamer_zoho_crm.api.users import (
+from tap_zoho_crm.api.users import (
     UsersDataPage,
     UserType,
 )
-from streamer_zoho_crm.auth import (
+from tap_zoho_crm.auth import (
     Credentials,
 )
 from typing import (

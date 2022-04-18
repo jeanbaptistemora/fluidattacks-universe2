@@ -17,16 +17,16 @@ in {
               [
                 "/observes/code_etl"
                 "/observes/common/paginator"
-                "/observes/common/singer_io"
-                "/observes/common/utils_logger"
-                "/observes/common/postgres_client"
+                "/observes/common/singer-io/src"
+                "/observes/common/utils-logger/src"
+                "/observes/common/postgres-client/src"
                 "/observes/common/purity"
                 "/observes/service/batch-stability/src"
                 "/observes/service/job-last-success/src"
                 "/observes/service/jobs-scheduler/src"
                 "/observes/service/migrate-tables/src"
                 "/observes/service/timedoctor-tokens/src"
-                "/observes/singer/streamer_zoho_crm"
+                "/observes/singer/tap-zoho-crm/src"
               ]
               ++ (
                 extract_roots inputs.observesIndex.tap
@@ -44,16 +44,16 @@ in {
         src = "/observes/common/paginator";
       };
       observesCommonPostgresClient = {
-        config = "/observes/common/postgres_client/postgres_client/setup.imports.cfg";
-        src = "/observes/common/postgres_client";
+        config = "/observes/common/postgres-client/src/setup.imports.cfg";
+        src = "/observes/common/postgres-client/src";
       };
       observesCommonPurity = {
         config = "/observes/common/purity/purity/setup.imports.cfg";
         src = "/observes/common/purity";
       };
       observesCommonSingerIo = {
-        config = "/observes/common/singer_io/singer_io/setup.imports.cfg";
-        src = "/observes/common/singer_io";
+        config = "/observes/common/singer-io/src/setup.imports.cfg";
+        src = "/observes/common/singer-io/src";
       };
       observesTapAnnounceKit = {
         config = "${inputs.observesIndex.tap.announcekit.src}/setup.imports.cfg";
@@ -117,7 +117,7 @@ in {
           outputs."/observes/common/postgres-client/env/development"
         ];
         python = "3.8";
-        src = "/observes/common/postgres_client/postgres_client";
+        src = "/observes/common/postgres-client/src/postgres_client";
       };
       observesCommonPurity = {
         searchPaths.source = [
@@ -138,21 +138,21 @@ in {
           outputs."/observes/common/postgres-client/env/development"
         ];
         python = "3.8";
-        src = "/observes/common/postgres_client/postgres_client";
+        src = "/observes/common/postgres-client/src/tests";
       };
       observesCommonSingerIo = {
         searchPaths.source = [
           outputs."/observes/common/singer-io/env/development"
         ];
         python = "3.8";
-        src = "/observes/common/singer_io/singer_io";
+        src = "/observes/common/singer-io/src/singer_io";
       };
       observesCommonSingerIoTests = {
         searchPaths.source = [
           outputs."/observes/common/singer-io/env/development"
         ];
         python = "3.8";
-        src = "/observes/common/singer_io/tests";
+        src = "/observes/common/singer-io/src/tests";
       };
       observesJobLastSuccess = {
         searchPaths.source = [

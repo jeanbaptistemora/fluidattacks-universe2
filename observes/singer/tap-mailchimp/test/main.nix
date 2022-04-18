@@ -9,7 +9,7 @@ makeDerivation {
   name = "observes-singer-tap-mailchimp-test";
   env = {
     envSrc = projectPath inputs.observesIndex.tap.mailchimp.root;
-    envTestDir = baseNameOf inputs.observesIndex.tap.mailchimp.tests;
+    envTestDir = "tests";
   };
   searchPaths = {
     source = [

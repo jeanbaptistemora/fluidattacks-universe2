@@ -4,13 +4,13 @@ from ratelimiter import (
     RateLimiter,
 )
 import requests  # type: ignore
-from streamer_zoho_crm.api.bulk.objs import (
+from tap_zoho_crm.api.bulk.objs import (
     BulkData,
     BulkJob,
     BulkJobResult,
     ModuleName,
 )
-from streamer_zoho_crm.api.common import (
+from tap_zoho_crm.api.common import (
     API_URL,
     UnexpectedResponse,
 )

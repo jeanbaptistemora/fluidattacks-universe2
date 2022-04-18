@@ -1,10 +1,10 @@
-from streamer_zoho_crm.api import (
+from tap_zoho_crm.api import (
     ApiClient,
 )
-from streamer_zoho_crm.api.common import (
+from tap_zoho_crm.api.common import (
     PageIndex,
 )
-from streamer_zoho_crm.api.users import (
+from tap_zoho_crm.api.users import (
     UsersDataPage,
     UserType,
 )

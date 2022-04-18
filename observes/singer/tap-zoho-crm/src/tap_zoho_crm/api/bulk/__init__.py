@@ -1,9 +1,9 @@
-from streamer_zoho_crm.api.bulk.crud import (
+from tap_zoho_crm.api.bulk.crud import (
     create_bulk_read_job,
     download_result,
     get_bulk_job,
 )
-from streamer_zoho_crm.api.bulk.objs import (
+from tap_zoho_crm.api.bulk.objs import (
     BulkData,
     BulkJob,
     BulkJobResult,

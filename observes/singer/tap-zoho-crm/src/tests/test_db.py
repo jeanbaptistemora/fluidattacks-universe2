@@ -10,10 +10,10 @@ from postgres_client.query import (
     SqlArgs,
 )
 import pytest
-from streamer_zoho_crm import (
+from tap_zoho_crm import (
     db,
 )
-from streamer_zoho_crm.api.bulk import (
+from tap_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )

@@ -2,33 +2,32 @@ let
   commonPath = "/observes/common";
   singerPath = "/observes/singer";
   etlsPath = "/observes/etl";
-  makes_pkg = builtins.replaceStrings ["_"] ["-"];
+  underscore_pkg = root: builtins.replaceStrings ["-"] ["_"] (baseNameOf root);
   std_data = root: {
-    inherit root;
+    root = "${root}/src";
     env = {
-      runtime = makes_pkg "${root}/env/runtime";
-      dev = makes_pkg "${root}/env/development";
+      runtime = "${root}/env/runtime";
+      dev = "${root}/env/development";
     };
-    bin = makes_pkg "${root}/bin";
-    src = "${root}/${baseNameOf root}";
-    tests = "${root}/tests"; # path of tests
-    lint = makes_pkg "${root}/lint"; # lint job
-    test = makes_pkg "${root}/test"; # test job
+    bin = "${root}/bin";
+    src = "${root}/src/${underscore_pkg root}";
+    tests = "${root}/src/tests";
+    lint = "${root}/lint";
+    test = "${root}/test";
   };
   new_std = root: {
     inherit root;
     env = {
-      runtime = makes_pkg "${root}/env/runtime";
-      dev = makes_pkg "${root}/env/dev";
+      runtime = "${root}/env/runtime";
+      dev = "${root}/env/dev";
     };
-    lint = makes_pkg "${root}/lint";
-    test = makes_pkg "${root}/test";
+    lint = "${root}/lint";
+    test = "${root}/test";
   };
-  streamer_zoho_crm = std_data "${singerPath}/streamer_zoho_crm";
 in {
   service = {
     db_migration =
-      (std_data "/observes/service/db_migration")
+      (std_data "/observes/service/db-migration")
       // {
         root = "/observes/service/db-migration/src";
       };
@@ -55,43 +54,37 @@ in {
   };
   common = {
     paginator = "${commonPath}/paginator";
-    postgresClient = "${commonPath}/postgres_client";
+    postgresClient = "${commonPath}/postgres-client/src";
     purity = "${commonPath}/purity";
     singer_io =
-      std_data "${commonPath}/singer_io"
+      std_data "${commonPath}/singer-io"
       // {
-        env2.dev = makes_pkg "${commonPath}/singer_io/env2/dev";
+        env2.dev = "${commonPath}/singer-io/env2/dev";
       };
     utils_logger =
-      std_data "${commonPath}/utils_logger"
+      std_data "${commonPath}/utils-logger"
       // {
-        new_env.dev = makes_pkg "${commonPath}/utils_logger/new_env/dev";
+        new_env.dev = "${commonPath}/utils-logger/new-env/dev";
       };
   };
   tap = {
-    announcekit = std_data "${singerPath}/tap_announcekit";
-    bugsnag = std_data "${singerPath}/tap_bugsnag";
-    checkly = std_data "${singerPath}/tap_checkly";
-    csv = std_data "${singerPath}/tap_csv";
-    delighted = std_data "${singerPath}/tap_delighted";
-    dynamo = std_data "${singerPath}/tap_dynamo";
-    formstack = std_data "${singerPath}/tap_formstack";
-    git = std_data "${singerPath}/tap_git";
-    gitlab = std_data "${singerPath}/tap_gitlab";
-    json = std_data "${singerPath}/tap_json";
-    mailchimp = std_data "${singerPath}/tap_mailchimp";
-    mixpanel = std_data "${singerPath}/tap_mixpanel";
-    timedoctor = std_data "${singerPath}/tap_timedoctor";
-    zoho_analytics = std_data "${singerPath}/tap_zoho_analytics";
-    zoho_crm =
-      std_data "${singerPath}/tap_zoho_crm"
-      // {
-        root = streamer_zoho_crm.root;
-        src = streamer_zoho_crm.src;
-        tests = streamer_zoho_crm.tests;
-      };
+    announcekit = std_data "${singerPath}/tap-announcekit";
+    bugsnag = std_data "${singerPath}/tap-bugsnag";
+    checkly = std_data "${singerPath}/tap-checkly";
+    csv = std_data "${singerPath}/tap-csv";
+    delighted = std_data "${singerPath}/tap-delighted";
+    dynamo = std_data "${singerPath}/tap-dynamo";
+    formstack = std_data "${singerPath}/tap-formstack";
+    git = std_data "${singerPath}/tap-git";
+    gitlab = std_data "${singerPath}/tap-gitlab";
+    json = std_data "${singerPath}/tap-json";
+    mailchimp = std_data "${singerPath}/tap-mailchimp";
+    mixpanel = std_data "${singerPath}/tap-mixpanel";
+    timedoctor = std_data "${singerPath}/tap-timedoctor";
+    zoho_analytics = std_data "${singerPath}/tap-zoho-analytics";
+    zoho_crm = std_data "${singerPath}/tap-zoho-crm";
   };
   target = {
-    redshift = std_data "${singerPath}/target_redshift";
+    redshift = std_data "${singerPath}/target-redshift";
   };
 }

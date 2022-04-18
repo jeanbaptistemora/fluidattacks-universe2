@@ -4,7 +4,7 @@ from enum import (
 from singer_io.singer2.json import (
     JsonObj,
 )
-from streamer_zoho_crm.api.common import (
+from tap_zoho_crm.api.common import (
     DataPageInfo,
 )
 from typing import (

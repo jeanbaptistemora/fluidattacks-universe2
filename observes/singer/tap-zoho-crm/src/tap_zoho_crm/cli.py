@@ -1,9 +1,9 @@
 import click
-from streamer_zoho_crm import (
+from tap_zoho_crm import (
     auth,
     etl,
 )
-from streamer_zoho_crm.auth import (
+from tap_zoho_crm.auth import (
     Credentials,
 )
 from typing import (

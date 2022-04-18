@@ -1,4 +1,4 @@
-from streamer_zoho_crm.core.users.crud import (
+from tap_zoho_crm.core.users.crud import (
     get_users,
 )
 

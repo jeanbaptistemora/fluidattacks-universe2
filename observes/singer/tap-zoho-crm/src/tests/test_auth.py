@@ -1,9 +1,9 @@
 import json
 import pytest
-from streamer_zoho_crm import (
+from tap_zoho_crm import (
     auth,
 )
-from streamer_zoho_crm.auth import (
+from tap_zoho_crm.auth import (
     Credentials,
 )
 import tempfile

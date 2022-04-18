@@ -7,12 +7,12 @@ from singer_io.singer2.json import (
     JsonEmitter,
     JsonFactory,
 )
-from streamer_zoho_crm.api.common import (
+from tap_zoho_crm.api.common import (
     API_URL,
     DataPageInfo,
     PageIndex,
 )
-from streamer_zoho_crm.api.users.objs import (
+from tap_zoho_crm.api.users.objs import (
     UsersDataPage,
     UserType,
 )
