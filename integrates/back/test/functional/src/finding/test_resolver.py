@@ -98,7 +98,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
         {"specific": "2321"},
         {"specific": "9999"},
     ]
-    lines_vulnerabilities: List[Any] = []
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
@@ -187,10 +186,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["id"] == identifier
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
-    assert (
-        result["data"]["finding"]["linesVulnerabilities"]
-        == lines_vulnerabilities
-    )
     assert result["data"]["finding"]["observations"] == [
         {"content": "This is a test observations"}
     ]
@@ -290,7 +285,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         {"specific": "2321"},
         {"specific": "9999"},
     ]
-    lines_vulnerabilities: List[Any] = []
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
@@ -377,10 +371,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["id"] == identifier
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
-    assert (
-        result["data"]["finding"]["linesVulnerabilities"]
-        == lines_vulnerabilities
-    )
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
     assert (

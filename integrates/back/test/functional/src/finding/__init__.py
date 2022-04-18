@@ -73,9 +73,6 @@ async def get_result(
                 id
                 isExploitable
                 lastVulnerability
-                linesVulnerabilities {{
-                    specific
-                }}
                 minTimeToRemediate
                 observations{{
                     content

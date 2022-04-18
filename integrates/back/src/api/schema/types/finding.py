@@ -13,7 +13,6 @@ from api.resolvers.finding import (
     historic_state,
     is_exploitable,
     last_vulnerability,
-    lines_vulnerabilities,
     machine_jobs,
     observations,
     open_age,
@@ -52,7 +51,6 @@ FINDING.set_field("hacker", hacker.resolve)
 FINDING.set_field("historicState", historic_state.resolve)
 FINDING.set_field("isExploitable", is_exploitable.resolve)
 FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
-FINDING.set_field("linesVulnerabilities", lines_vulnerabilities.resolve)
 FINDING.set_field("machineJobs", machine_jobs.resolve)
 FINDING.set_field("observations", observations.resolve)
 FINDING.set_field("openAge", open_age.resolve)

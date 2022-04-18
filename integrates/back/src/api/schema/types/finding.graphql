@@ -28,8 +28,6 @@ type Finding {
   isExploitable: Boolean!
   "Time in days since the last closed vulnerability in this Finding"
   lastVulnerability: Int
-  "Lines vulnerabilities"
-  linesVulnerabilities: [Vulnerability!]
   "Machine (Skims) checks and tests associated with this Finding"
   machineJobs: [MachineJob!]
   """Minimum time in minutes to remediate a typical vulnerability in this

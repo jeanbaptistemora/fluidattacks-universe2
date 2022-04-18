@@ -50,9 +50,6 @@ async def get_result(
                     id
                     isExploitable
                     lastVulnerability
-                    linesVulnerabilities {{
-                        specific
-                    }}
                     openAge
                     openVulnerabilities
                     portsVulnerabilities {{

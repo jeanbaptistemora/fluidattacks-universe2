@@ -58,7 +58,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         attrs={
             "consulting",
             "historic_state",
-            "lines_vulnerabilities",
             "observations",
             "ports_vulnerabilities",
             "records",
