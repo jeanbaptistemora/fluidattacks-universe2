@@ -12,7 +12,6 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 
-import { EditButton } from "../VulnerabilitiesView/ActionButtons/EditButton";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import type { IFilterProps } from "components/Table/types";
@@ -39,16 +38,13 @@ import type {
   ITasksContent,
 } from "scenes/Dashboard/containers/Tasks/types";
 import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/utils";
+import { EditButton } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/EditButton";
+import type { IModalConfig } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState, useTabTracking } from "utils/hooks";
 import { msgError } from "utils/notifications";
-
-interface IModalConfig {
-  selectedVulnerabilities: IVulnRowAttr[];
-  clearSelected: () => void;
-}
 
 export const TasksContent: React.FC<ITasksContent> = ({
   userData,

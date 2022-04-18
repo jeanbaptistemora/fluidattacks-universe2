@@ -18,10 +18,10 @@ import {
 } from "components/Table/utils";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
-import { setColumnHelper } from "scenes/Dashboard/components/Vulnerabilities//helpers";
-import { UploadVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities//uploadFile";
+import { setColumnHelper } from "scenes/Dashboard/components/Vulnerabilities/helpers";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
+import { UploadVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
 import {
   filterCurrentStatus,
   filterOutVulnerabilities,
@@ -41,6 +41,7 @@ import {
 import type {
   IGetFindingAndGroupInfo,
   IGetFindingVulns,
+  IModalConfig,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
 import { Col100 } from "styles/styledComponents";
@@ -112,19 +113,16 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
   }
 
-  const [remediationModalConfig, setRemediationModalConfig] = useState<{
-    vulnerabilities: IVulnRowAttr[];
-    clearSelected: () => void;
-  }>({
+  const [remediationModal, setRemediationModal] = useState<IModalConfig>({
     clearSelected: (): void => undefined,
-    vulnerabilities: [],
+    selectedVulnerabilities: [],
   });
-  const openRemediationModal: (
-    vulnerabilities: IVulnRowAttr[],
-    clearSelected: () => void
-  ) => void = useCallback(
-    (vulnerabilities: IVulnRowAttr[], clearSelected: () => void): void => {
-      setRemediationModalConfig({ clearSelected, vulnerabilities });
+  const openRemediationModal = useCallback(
+    (
+      selectedVulnerabilities: IVulnRowAttr[],
+      clearSelected: () => void
+    ): void => {
+      setRemediationModal({ clearSelected, selectedVulnerabilities });
     },
     []
   );
@@ -351,8 +349,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     if (isRequestingVerify) {
       setRequestingVerify(!isRequestingVerify);
     } else {
-      const selectedVulnerabilities: IVulnRowAttr[] =
-        remediationModalConfig.vulnerabilities;
+      const { selectedVulnerabilities } = remediationModal;
       const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
         selectedVulnerabilities,
         filterZeroRisk(resultVulnerabilities),
@@ -374,8 +371,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     if (isVerifying) {
       setVerifying(!isVerifying);
     } else {
-      const selectedVulnerabilities: IVulnRowAttr[] =
-        remediationModalConfig.vulnerabilities;
+      const { selectedVulnerabilities } = remediationModal;
       const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
         selectedVulnerabilities,
         filterZeroRisk(resultVulnerabilities),
@@ -515,7 +511,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       vulnerabilities
                     )}
                     areVulnsSelected={
-                      remediationModalConfig.vulnerabilities.length > 0
+                      remediationModal.selectedVulnerabilities.length > 0
                     }
                     isEditing={isEditing}
                     isFindingReleased={isFindingReleased}
@@ -552,13 +548,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
         </div>
         {isOpen ? (
           <UpdateVerificationModal
-            clearSelected={_.get(remediationModalConfig, "clearSelected")}
+            clearSelected={_.get(remediationModal, "clearSelected")}
             handleCloseModal={closeRemediationModal}
             isReattacking={isRequestingVerify}
             isVerifying={isVerifying}
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
-            vulns={remediationModalConfig.vulnerabilities}
+            vulns={remediationModal.selectedVulnerabilities}
           />
         ) : undefined}
         {isHandleAcceptanceModalOpen ? (
@@ -579,12 +575,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
             <UpdateDescription
               findingId={findingId}
               groupName={groupName}
-              handleClearSelected={_.get(
-                remediationModalConfig,
-                "clearSelected"
-              )}
+              handleClearSelected={_.get(remediationModal, "clearSelected")}
               handleCloseModal={handleCloseUpdateModal}
-              vulnerabilities={remediationModalConfig.vulnerabilities}
+              vulnerabilities={remediationModal.selectedVulnerabilities}
             />
           </Modal>
         ) : undefined}

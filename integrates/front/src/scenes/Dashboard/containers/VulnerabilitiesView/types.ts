@@ -44,6 +44,11 @@ interface IFindingVulnsAtrr {
   zeroRisk?: IVulnRowAttr[];
 }
 
+interface IModalConfig {
+  selectedVulnerabilities: IVulnRowAttr[];
+  clearSelected: () => void;
+}
+
 export {
   IFindingAttr,
   IGetFindingVulnInfoAttr,
@@ -51,5 +56,6 @@ export {
   IGetFindingVulns,
   IFindingInfoAttr,
   IFindingVulnsAtrr,
+  IModalConfig,
   IVulnerabilitiesAttr,
 };
