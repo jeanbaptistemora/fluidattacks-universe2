@@ -278,11 +278,13 @@ def get_subdependencies(current_subdep: str, data: Any) -> Tuple:
 
 
 def build_dependencies_tree(  # pylint: disable=too-many-locals
-    path_yarn: str, path_json: str
+    path_yarn: str, path_json: str, dependencies_type: str
 ) -> Dict[str, Any]:
+    # Dependencies type could be "devDependencies" for dev dependencies
+    # or "dependencies" for prod dependencies
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
     package_dict = json_parser.parse(get_file_content_block(path_json))[
-        "dependencies"
+        dependencies_type
     ]
     tree: Dict[str, Any] = {}
     for json_key, json_value in package_dict.items():
