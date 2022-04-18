@@ -16,14 +16,13 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("grant_stakeholder_access")
 @pytest.mark.parametrize(
-    ["email", "stakeholder_email", "confirm"],
+    ["email", "stakeholder_email"],
     [
-        ["admin@gmail.com", "hacker@gmail.com", True],
-        ["admin@gmail.com", "reattacker@gmail.com", False],
+        ["admin@gmail.com", "hacker@gmail.com"],
     ],
 )
-async def test_grant_stakeholder_access(
-    populate: bool, email: str, stakeholder_email: str, confirm: bool
+async def test_grant_stakeholder_access_confirmed(
+    populate: bool, email: str, stakeholder_email: str
 ) -> None:
     assert populate
     group_name: str = "group2"
@@ -52,30 +51,68 @@ async def test_grant_stakeholder_access(
         if stakeholder["email"] == stakeholder_email:
             assert stakeholder["invitationState"] == "PENDING"
 
-    if confirm:
-        await complete_register(stakeholder_email, group_name)
-        stakeholders_after_confirm: dict[str, Any] = await get_stakeholders(
-            user=email, group=group_name
-        )
+    await complete_register(stakeholder_email, group_name)
+    stakeholders_after_confirm: dict[str, Any] = await get_stakeholders(
+        user=email, group=group_name
+    )
 
-        assert "errors" not in stakeholders_after_confirm
-        for stakeholder in stakeholders_after_confirm["data"]["group"][
-            "stakeholders"
-        ]:
-            if stakeholder["email"] == stakeholder_email:
-                assert stakeholder["invitationState"] == "CONFIRMED"
-    else:
-        await reject_register(stakeholder_email, group_name)
-        stakeholders_after_reject: dict[str, Any] = await get_stakeholders(
-            user=email, group=group_name
-        )
+    assert "errors" not in stakeholders_after_confirm
+    for stakeholder in stakeholders_after_confirm["data"]["group"][
+        "stakeholders"
+    ]:
+        if stakeholder["email"] == stakeholder_email:
+            assert stakeholder["invitationState"] == "CONFIRMED"
 
-        assert "errors" not in stakeholders_after_reject
-        for stakeholder in stakeholders_after_reject["data"]["group"][
-            "stakeholders"
-        ]:
-            if stakeholder["email"] == stakeholder_email:
-                assert stakeholder["invitationState"] == "REJECTED"
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("grant_stakeholder_access")
+@pytest.mark.parametrize(
+    ["email", "stakeholder_email"],
+    [
+        ["admin@gmail.com", "reattacker@gmail.com"],
+    ],
+)
+async def test_grant_stakeholder_access_rejected(
+    populate: bool, email: str, stakeholder_email: str
+) -> None:
+    assert populate
+    group_name: str = "group2"
+    stakeholder_responsibility: str = "test"
+    stakeholder_role: str = "EXECUTIVE"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        stakeholder=stakeholder_email,
+        group=group_name,
+        responsibility=stakeholder_responsibility,
+        role=stakeholder_role,
+    )
+    assert "errors" not in result
+    assert result["data"]["grantStakeholderAccess"]["success"]
+    assert (
+        result["data"]["grantStakeholderAccess"]["grantedStakeholder"]["email"]
+        == stakeholder_email
+    )
+
+    stakeholders: dict[str, Any] = await get_stakeholders(
+        user=email, group=group_name
+    )
+
+    assert "errors" not in stakeholders
+    for stakeholder in stakeholders["data"]["group"]["stakeholders"]:
+        if stakeholder["email"] == stakeholder_email:
+            assert stakeholder["invitationState"] == "PENDING"
+
+    await reject_register(stakeholder_email, group_name)
+    stakeholders_after_reject: dict[str, Any] = await get_stakeholders(
+        user=email, group=group_name
+    )
+
+    assert "errors" not in stakeholders_after_reject
+    for stakeholder in stakeholders_after_reject["data"]["group"][
+        "stakeholders"
+    ]:
+        if stakeholder["email"] == stakeholder_email:
+            assert stakeholder["invitationState"] == "REJECTED"
 
 
 @pytest.mark.asyncio
