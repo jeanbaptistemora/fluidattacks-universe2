@@ -32,7 +32,9 @@ JOB_CREATION_DELAY_MULTIPLIER: int = 30
 ON_DEMAND_NEEDED: List[str] = [
     "gradientboostingclassifier",
     "kneighborsclassifier",
+    "logisticregression",
     "mlpclassifier",
+    "randomforestclassifier",
 ]
 
 INCMODELS_S3PATH: str = "s3://sorts/incremental-training-output/"
