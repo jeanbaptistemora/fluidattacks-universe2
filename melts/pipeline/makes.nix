@@ -26,7 +26,7 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/meltsTests";
+          output = "/lintPython/module/meltsTest";
           gitlabExtra = gitlabLint;
         }
         {

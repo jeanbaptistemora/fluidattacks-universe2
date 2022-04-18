@@ -8,8 +8,8 @@ makeScript {
   name = "melts-test";
   searchPaths = {
     source = [
-      outputs."/melts/config-development"
-      outputs."/melts/config-runtime"
+      outputs."/melts/config/development"
+      outputs."/melts/config/runtime"
       outputs."/common/utils/aws"
       outputs."/common/utils/git"
     ];
