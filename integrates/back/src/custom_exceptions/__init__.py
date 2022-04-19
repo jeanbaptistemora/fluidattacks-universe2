@@ -1047,6 +1047,15 @@ class UnexpectedUserRole(CustomBaseException):
         super(UnexpectedUserRole, self).__init__(f"Exception - {msg}")
 
 
+class UserCannotEnrollDemo(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - "
+            "User belongs to existing organizations and cannot enroll to demo"
+        )
+        super(UserCannotEnrollDemo, self).__init__(msg)
+
+
 class UserNotFound(CustomBaseException):
     """Exception to control user data availability"""
 

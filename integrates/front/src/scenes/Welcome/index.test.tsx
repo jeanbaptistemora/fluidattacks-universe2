@@ -7,6 +7,7 @@ import { MemoryRouter, Route } from "react-router-dom";
 
 import {
   ADD_ORGANIZATION,
+  AUTOENROLL_DEMO,
   GET_NEW_ORGANIZATION_NAME,
   GET_USER_WELCOME,
 } from "./queries";
@@ -29,7 +30,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ name: "imamura" }],
+            organizations: [],
             userEmail: "test@gmail.com",
           },
         },
@@ -64,7 +65,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ name: "imamura" }],
+            organizations: [],
             userEmail: "test@gmail.com",
           },
         },
@@ -97,7 +98,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ name: "imamura" }],
+            organizations: [],
             userEmail: "test@gmail.com",
           },
         },
@@ -142,7 +143,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ name: "imamura" }, { name: "neworg" }],
+            organizations: [{ name: "neworg" }],
             userEmail: "test@gmail.com",
           },
         },
@@ -173,14 +174,11 @@ describe("Welcome", (): void => {
 
     expect(buttons).toHaveLength(2);
 
-    userEvent.click(buttons[1]);
+    await waitFor((): void => {
+      userEvent.click(buttons[1]);
 
-    await waitFor(
-      (): void => {
-        expect(screen.getAllByRole("list").length).toBeGreaterThan(1);
-      },
-      { timeout: 2000 }
-    );
+      expect(screen.getAllByRole("list").length).toBeGreaterThan(1);
+    });
   });
 
   it("should render dashboard when browsing demo", async (): Promise<void> => {
@@ -193,7 +191,32 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ name: "imamura" }],
+            organizations: [],
+            userEmail: "test@gmail.com",
+          },
+        },
+      },
+    };
+    const autoenrollDemoMock: MockedResponse = {
+      request: {
+        query: AUTOENROLL_DEMO,
+      },
+      result: {
+        data: {
+          autoenrollDemo: {
+            success: true,
+          },
+        },
+      },
+    };
+    const getUserWelcomeAfterMock: MockedResponse = {
+      request: {
+        query: GET_USER_WELCOME,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [{ name: "okada" }],
             userEmail: "test@gmail.com",
           },
         },
@@ -202,7 +225,14 @@ describe("Welcome", (): void => {
 
     render(
       <MemoryRouter initialEntries={["/welcome"]}>
-        <MockedProvider addTypename={false} mocks={[getUserWelcomeMock]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            getUserWelcomeMock,
+            autoenrollDemoMock,
+            getUserWelcomeAfterMock,
+          ]}
+        >
           <Route component={Welcome} path={"/"} />
         </MockedProvider>
       </MemoryRouter>
@@ -210,7 +240,9 @@ describe("Welcome", (): void => {
 
     await waitFor((): void => {
       userEvent.click(screen.getAllByRole("article")[1]);
+    });
 
+    await waitFor((): void => {
       expect(screen.getAllByRole("list").length).toBeGreaterThan(1);
     });
   });
@@ -225,7 +257,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            organizations: [{ name: "imamura" }, { name: "another" }],
+            organizations: [{ name: "another" }],
             userEmail: "test@gmail.com",
           },
         },

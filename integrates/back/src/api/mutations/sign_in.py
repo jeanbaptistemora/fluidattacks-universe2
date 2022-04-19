@@ -1,16 +1,9 @@
-from aioextensions import (
-    collect,
-)
 import aiohttp
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from authlib.integrations.starlette_client import (
     OAuthError,
-)
-import authz
-from context import (
-    FI_COMMUNITY_PROJECTS,
 )
 from custom_types import (
     SignInPayload as SignInPayloadType,
@@ -23,9 +16,6 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 from groups import (
     domain as groups_domain,
@@ -67,9 +57,6 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def autoenroll_user(email: str) -> None:
-    new_user_user_level_role: str = "user"
-    new_user_group_level_role: str = "user"
-
     await user_model.update_user(
         user_email=email,
         notifications_preferences={
@@ -93,18 +80,10 @@ async def autoenroll_user(email: str) -> None:
 
     await groups_domain.add_without_group(
         email=email,
-        role=new_user_user_level_role,
+        role="user",
+        should_add_default_org=False,
         is_register_after_complete=True,
     )
-    for group in FI_COMMUNITY_PROJECTS.split(","):
-        await collect(
-            [
-                group_access_domain.update_has_access(email, group, True),
-                authz.grant_group_level_role(
-                    email, group, new_user_group_level_role
-                ),
-            ]
-        )
 
     # Enroll new users to Daily Digest by default
     if await subscriptions_domain.subscribe_user_to_entity_report(

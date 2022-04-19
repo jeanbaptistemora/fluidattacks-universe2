@@ -142,13 +142,9 @@ async def app(request: Request) -> HTMLResponse:
         if email:
             if FI_ENVIRONMENT == "production":
                 await users_domain.check_session_web_validity(request)
-
-            if not await orgs_domain.get_user_organizations(email):
-                response = templates.unauthorized(request)
-            else:
-                response = templates.main_app(request)
-                jwt_token = await utils.create_session_token(request.session)
-                utils.set_token_in_response(response, jwt_token)
+            response = templates.main_app(request)
+            jwt_token = await utils.create_session_token(request.session)
+            utils.set_token_in_response(response, jwt_token)
         else:
             response = templates.unauthorized(request)
             response.delete_cookie(key=JWT_COOKIE_NAME)

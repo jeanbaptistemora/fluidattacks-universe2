@@ -13,6 +13,9 @@ from dataloaders import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
+from groups import (
+    domain as groups_domain,
+)
 from organizations.domain import (
     get_id_by_name,
     get_user_organizations,
@@ -74,6 +77,7 @@ async def test_remove_user() -> None:
     organization_id: str = await get_id_by_name(FI_DEFAULT_ORG)
     email: str = "testanewuser@test.test"
     await autoenroll_user(email)
+    await groups_domain.enroll_user_to_demo(email)
     subscriptions = await get_user_subscriptions(user_email=email)
 
     assert await users_domain.get_data(email, "email") == email

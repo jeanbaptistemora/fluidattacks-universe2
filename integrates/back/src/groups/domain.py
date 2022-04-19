@@ -17,6 +17,7 @@ from collections import (
 )
 from context import (
     BASE_URL,
+    FI_COMMUNITY_PROJECTS,
     FI_DEFAULT_ORG,
     FI_ENVIRONMENT,
 )
@@ -35,6 +36,7 @@ from custom_exceptions import (
     InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
+    UserCannotEnrollDemo,
     UserNotInOrganization,
 )
 from custom_types import (
@@ -1848,3 +1850,26 @@ async def filter_groups_with_org(
         for group_name, org_id in zip(group_names, org_ids)
         if org_id
     )
+
+
+async def enroll_user_to_demo(email: str) -> None:
+    user_orgs = await orgs_domain.get_user_organizations(email=email)
+    if len(user_orgs) > 0:
+        raise UserCannotEnrollDemo()
+
+    org = await orgs_domain.get_or_add(organization_name=FI_DEFAULT_ORG)
+    await orgs_domain.add_user(
+        organization_id=str(org["id"]), email=email, role="user"
+    )
+
+    for group in FI_COMMUNITY_PROJECTS.split(","):
+        await collect(
+            [
+                group_access_domain.update_has_access(
+                    user_email=email, group_name=group, access=True
+                ),
+                authz.grant_group_level_role(
+                    email=email, group=group, role="user"
+                ),
+            ]
+        )

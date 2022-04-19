@@ -23,8 +23,15 @@ interface IAddOrganizationResult {
   };
 }
 
+interface IAutoenrollDemoResult {
+  autoenrollDemo: {
+    success: boolean;
+  };
+}
+
 export type {
   IAddOrganizationResult,
+  IAutoenrollDemoResult,
   IGetNewOrganizationNameResult,
   IGetUserWelcomeResult,
 };

@@ -31,4 +31,17 @@ const ADD_ORGANIZATION = gql`
   }
 `;
 
-export { ADD_ORGANIZATION, GET_NEW_ORGANIZATION_NAME, GET_USER_WELCOME };
+const AUTOENROLL_DEMO = gql`
+  mutation AutoenrollDemo {
+    autoenrollDemo {
+      success
+    }
+  }
+`;
+
+export {
+  ADD_ORGANIZATION,
+  AUTOENROLL_DEMO,
+  GET_NEW_ORGANIZATION_NAME,
+  GET_USER_WELCOME,
+};

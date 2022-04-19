@@ -353,6 +353,9 @@ type Mutation {
     draftId: String!
   ): ApproveDraftPayload!
 
+  "Autoenroll user in demo group"
+  autoenrollDemo: SimplePayload!
+
   "Confirms the provided vulnerabilities as zero risk"
   confirmVulnerabilitiesZeroRisk(
     "Identifier of the Finding to be commented"
