@@ -101,7 +101,7 @@ async def get_group_indicators_and_tags(
         else Decimal("0.0")
     )
 
-    filtered_indicators["tag"] = group.tags
+    filtered_indicators["tag"] = group.tags or {}
     filtered_indicators["name"] = group.name
     return filtered_indicators
 
@@ -125,7 +125,11 @@ async def update_organization_indicators(
     ]
     groups_indicators = list(
         await collect(
-            get_group_indicators_and_tags(loaders, group.name, indicator_list)
+            get_group_indicators_and_tags(
+                loaders=loaders,
+                group=group,
+                indicator_list=indicator_list,
+            )
             for group in groups
         )
     )
