@@ -125,11 +125,11 @@ about using the GraphQL API
 to access all of the information
 in the ASM.
 
-And then,
+### The lines yaml format
+
+Then,
 we also have the format
 for reporting line vulnerabilities:
-
-### The lines yaml format
 
 - **Line:**
   This is the specific line or lines
@@ -151,5 +151,4 @@ for reporting line vulnerabilities:
   It can be **open** or **closed**.
 - **Repo_nickname:**
   This field is the same one as in the
-
-[inputs format](/machine/web/vulnerabilities/reporting-vulns#the-inputs-yaml-format).
+  [inputs format](/machine/web/vulnerabilities/reporting-vulns#the-inputs-yaml-format).
