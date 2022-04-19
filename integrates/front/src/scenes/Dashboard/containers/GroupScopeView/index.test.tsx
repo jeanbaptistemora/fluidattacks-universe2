@@ -74,7 +74,6 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: false,
-            newOrganization: false,
             newRoot: false,
           },
           userEmail: "",
@@ -201,7 +200,6 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: false,
-            newOrganization: false,
             newRoot: false,
           },
           userEmail: "",
@@ -411,7 +409,6 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: false,
-            newOrganization: false,
             newRoot: false,
           },
           userEmail: "",
@@ -615,7 +612,6 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: false,
-            newOrganization: false,
             newRoot: false,
           },
           userEmail: "",
@@ -784,7 +780,6 @@ describe("GroupScopeView", (): void => {
           value={{
             tours: {
               newGroup: false,
-              newOrganization: false,
               newRoot: false,
             },
             userEmail: "",

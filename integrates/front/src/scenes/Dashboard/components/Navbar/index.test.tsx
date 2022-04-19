@@ -124,7 +124,6 @@ describe("Navbar", (): void => {
               value={{
                 tours: {
                   newGroup: false,
-                  newOrganization: false,
                   newRoot: false,
                 },
                 userEmail: "test@fluidattacks.com",
@@ -256,7 +255,6 @@ describe("Navbar", (): void => {
               value={{
                 tours: {
                   newGroup: false,
-                  newOrganization: false,
                   newRoot: false,
                 },
                 userEmail: "test@fluidattacks.com",
@@ -337,7 +335,6 @@ describe("Navbar", (): void => {
               value={{
                 tours: {
                   newGroup: false,
-                  newOrganization: false,
                   newRoot: false,
                 },
                 userEmail: "test@fluidattacks.com",

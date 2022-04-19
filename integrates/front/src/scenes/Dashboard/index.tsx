@@ -97,9 +97,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         tours: {
           newGroup:
             me.tours.newGroup && me.userEmail.endsWith("fluidattacks.com"),
-          newOrganization:
-            me.tours.newOrganization &&
-            me.userEmail.endsWith("fluidattacks.com"),
           newRoot:
             me.tours.newRoot && me.userEmail.endsWith("fluidattacks.com"),
         },

@@ -19,7 +19,6 @@ interface IUser {
     sessionExpiration: string;
     tours: {
       newGroup: boolean;
-      newOrganization: boolean;
       newRoot: boolean;
     };
     userEmail: string;

@@ -31,7 +31,6 @@ const App: React.FC = (): JSX.Element => {
   const [user, setUser] = useState({
     tours: {
       newGroup: false,
-      newOrganization: false,
       newRoot: false,
     },
     userEmail: "",

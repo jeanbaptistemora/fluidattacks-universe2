@@ -89,7 +89,6 @@ const GET_USER: DocumentNode = gql`
       sessionExpiration
       tours {
         newGroup
-        newOrganization
         newRoot
       }
       userEmail

@@ -7,7 +7,6 @@ import { translate } from "utils/translations/translate";
 interface IUser {
   tours: {
     newGroup: boolean;
-    newOrganization: boolean;
     newRoot: boolean;
   };
   userEmail: string;
@@ -22,7 +21,6 @@ interface IAuthContext extends IUser {
 const authContext: React.Context<IAuthContext> = createContext<IAuthContext>({
   tours: {
     newGroup: false,
-    newOrganization: false,
     newRoot: false,
   },
   userEmail: "",
