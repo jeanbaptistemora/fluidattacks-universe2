@@ -21,10 +21,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
-    Union,
 )
 
 
@@ -34,7 +31,7 @@ from typing import (
     validate_connection,
 )
 async def resolve(  # pylint: disable=too-many-arguments
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     root_id: Optional[str] = None,
     after: Optional[str] = None,
@@ -42,9 +39,7 @@ async def resolve(  # pylint: disable=too-many-arguments
     first: Optional[int] = None,
 ) -> ToeLinesConnection:
     loaders: Dataloaders = info.context.loaders
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
+    group_name: str = parent.name
     if root_id is not None:
         response: ToeLinesConnection = await loaders.root_toe_lines.load(
             RootToeLinesRequest(

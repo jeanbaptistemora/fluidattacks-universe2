@@ -22,30 +22,22 @@ from newutils.token import (
 from newutils.vulnerabilities import (
     filter_open_vulns,
 )
-from typing import (
-    Any,
-    Dict,
-    Tuple,
-    Union,
-)
 
 
 @require_asm
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Tuple[Vulnerability, ...]:
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
+) -> tuple[Vulnerability, ...]:
+    group_name: str = parent.name
     user_data = await get_jwt_content(info.context)
     loaders: Dataloaders = info.context.loaders
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     finding_ids = [finding.id for finding in findings]
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         finding_ids
