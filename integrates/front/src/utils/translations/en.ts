@@ -2868,7 +2868,7 @@ export const enTranslations: ResourceKey = {
           ports: "infra",
           title: "Type",
         },
-        where: "Locations",
+        where: "Location",
       },
       vulnerabilityInfo: "vulnerability",
     },
