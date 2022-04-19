@@ -306,7 +306,7 @@
       cualquiera con acceso al dispositivo
       será capaz de usar la sesión.
       Por lo tanto,
-      el sistema permitiría a los usuarios
+      el sistema debe permitir a los usuarios
       ver y cerrar cualquier sesión activa.
   category: Session
   supported_in:
@@ -448,7 +448,7 @@
     title: Evitar reutilización de objetos
     summary: >
       Se debe controlar que un objeto
-      (id de sesión, cookie, etc.)
+      (ID de sesión, cookies, etc.)
       que participe en el proceso de autenticación
       no pueda ser reutilizado.
     description: >
@@ -895,14 +895,26 @@
     summary: >
       The system must not deploy temporary files
       to production environments.
-    description: __empty__
+    description: >
+      Temporary files,
+      at production scale,
+      can have a hugely negative impact.
+      Clearing out this files,
+      no mater where they are located,
+      is a good practice.
   es:
     title: No desplegar archivos temporales
     summary: >
       El sistema no debe desplegar
       archivos temporales
       en ambientes de producción.
-    description: __empty__
+    description: .
+      Los archivos temporales,
+      a escala de producción,
+      pueden tener un impacto enormemente negativo.
+      Limpiar estos archivos,
+      sin importar dónde se encuentren,
+      es una buena práctica.
   category: Files
   supported_in:
     machine: false
@@ -1331,7 +1343,7 @@
       que están alojados en otros servidores.
       Estos recursos deben estar alojados
       en dominios controlados por la organización
-      con el fin para prevenir
+      con el fin de prevenir
       varios tipos de ataques por inyección.
   category: Architecture
   supported_in:
@@ -1372,7 +1384,7 @@
     summary: >
       La organización debe almacener
       el código fuente
-      en un repositorio centrl.
+      en un repositorio central.
     description: __empty__
   category: Architecture
   supported_in:
@@ -2229,7 +2241,8 @@
   es:
     title: Utilizar certificados firmados internamente
     summary: >
-      Debe utilizarse certificados firmados
+      La organización
+      debe utilizar certificados firmados
       por entidades certificadoras internas
       válidas cuando estos sean
       para aplicaciones internas.
@@ -2256,7 +2269,8 @@
   es:
     title: Utilizar certificados firmados externamente
     summary: >
-      Debe utilizarse certificados firmados
+      La organización
+      debe utilizar certificados firmados
       por entidades certificadoras
       externas válidas cuando estos
       sean para aplicaciones externas.
