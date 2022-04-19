@@ -68,8 +68,6 @@ input PhoneInput {
 input ToursInput {
   "Add group new user workflow"
   newGroup: Boolean!
-  "Add organization new user workflow"
-  newOrganization: Boolean!
   "Add git roots new user workflow"
   newRoot: Boolean!
 }
