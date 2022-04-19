@@ -17,6 +17,11 @@ from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
     ROOT_INDEX_METADATA,
+    ZR_FILTER_STATUSES,
+    ZR_INDEX_METADATA,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
 )
 from dynamodb import (
     keys,
@@ -33,6 +38,7 @@ async def add(  # pylint: disable=too-many-locals
     gsi_2_index = TABLE.indexes["gsi_2"]
     gsi_3_index = TABLE.indexes["gsi_3"]
     gsi_4_index = TABLE.indexes["gsi_4"]
+    gsi_5_index = TABLE.indexes["gsi_5"]
     vulnerability_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={
@@ -80,6 +86,27 @@ async def add(  # pylint: disable=too-many-locals
             "vuln_id": vulnerability.id,
         },
     )
+    gsi_5_key = keys.build_key(
+        facet=ZR_INDEX_METADATA,
+        values={
+            "finding_id": vulnerability.finding_id,
+            "vuln_id": vulnerability.id,
+            "is_deleted": str(
+                vulnerability.state.status is VulnerabilityStateStatus.DELETED
+            ).lower(),
+            "is_zero_risk": str(
+                bool(
+                    vulnerability.zero_risk
+                    and vulnerability.zero_risk.status in ZR_FILTER_STATUSES
+                )
+            ).lower(),
+            "state_status": str(vulnerability.state.status.value).lower(),
+            "verification_status": str(
+                vulnerability.verification
+                and vulnerability.verification.status.value
+            ).lower(),
+        },
+    )
     vulnerability_item = {
         key_structure.partition_key: vulnerability_key.partition_key,
         key_structure.sort_key: vulnerability_key.sort_key,
@@ -89,6 +116,8 @@ async def add(  # pylint: disable=too-many-locals
         gsi_3_index.primary_key.sort_key: gsi_3_key.sort_key,
         gsi_4_index.primary_key.partition_key: gsi_4_key.partition_key,
         gsi_4_index.primary_key.sort_key: gsi_4_key.sort_key,
+        gsi_5_index.primary_key.partition_key: gsi_5_key.partition_key,
+        gsi_5_index.primary_key.sort_key: gsi_5_key.sort_key,
         **json.loads(json.dumps(vulnerability)),
     }
     items.append(vulnerability_item)
