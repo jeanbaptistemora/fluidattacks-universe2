@@ -21,6 +21,9 @@ from metaloaders.model import (
 from model import (
     core_model,
 )
+from more_itertools import (
+    windowed,
+)
 from pyarn import (
     lockfile,
 )
@@ -44,6 +47,7 @@ from typing import (
     Callable,
     Dict,
     Iterator,
+    List,
     Set,
     Tuple,
     TypeVar,
@@ -272,9 +276,49 @@ def get_subdependencies(current_subdep: str, data: Any) -> Tuple:
         if yarn.find(current_subdep) != -1:
             yarn_dict: Any = data.get(yarn)
             if "dependencies" in yarn_dict.keys():
-                return yarn_dict.get("dependencies"), yarn_dict.get("version")
-            return {}, yarn_dict.get("version")
-    return {}, None
+                return (
+                    build_subdep_name(yarn_dict.get("dependencies")),
+                    yarn_dict.get("version"),
+                    yarn,
+                )
+            return [], yarn_dict.get("version"), yarn
+    return [], None, None
+
+
+def add_lines(
+    windower: Iterator[
+        Tuple[Tuple[int, str], Tuple[int, str]],
+    ],
+    tree: Dict[str, Any],
+) -> Dict[str, Any]:
+
+    for (product_line, product), (version_line, version) in windower:
+        product, version = product.strip(), version.strip()
+        if (
+            product.endswith(":")
+            and not product.startswith(" ")
+            and version.startswith("version")
+        ):
+            product = product.rstrip(":")
+            product = product.strip('"')
+
+            version = version.split(" ", maxsplit=1)[1]
+            version = version.strip('"')
+
+            if tree.get(product) == version:
+                tree[product] = {
+                    "version": version,
+                    "product_line": product_line,
+                    "version_line": version_line,
+                }
+    return tree
+
+
+def build_subdep_name(dependencies: Dict[str, Any]) -> List[str]:
+    dependencies_list: List[str] = []
+    for key, value in dependencies.items():
+        dependencies_list.append(key + "@" + value)
+    return dependencies_list
 
 
 def build_dependencies_tree(  # pylint: disable=too-many-locals
@@ -282,6 +326,13 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
 ) -> Dict[str, Any]:
     # Dependencies type could be "devDependencies" for dev dependencies
     # or "dependencies" for prod dependencies
+    yarn_content = get_file_content_block(path_yarn)
+    windower: Iterator[Tuple[Tuple[int, str], Tuple[int, str]]] = windowed(
+        fillvalue="",
+        n=2,
+        seq=tuple(enumerate(yarn_content.splitlines(), start=1)),
+        step=1,
+    )
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
     package_dict = json_parser.parse(get_file_content_block(path_json))[
         dependencies_type
@@ -291,22 +342,16 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
         for yarn_key, yarn_value in yarn_dict.items():
             dep = json_key + "@" + json_value
             if dep.find(yarn_key) != -1:
-                tree[dep] = {}
+                tree[dep] = yarn_value["version"]
                 if "dependencies" in yarn_value:
-                    subdeps = yarn_value["dependencies"]
-                    aux_dict = {}
+                    subdeps = build_subdep_name(yarn_value["dependencies"])
                     while subdeps:
-                        first_key = subdeps[list(subdeps.keys())[0]]
-                        current_subdep = (
-                            list(subdeps.keys())[0] + "@" + first_key
-                        )
-
-                        new_values, version = get_subdependencies(
+                        current_subdep = subdeps[0]
+                        new_values, version, name = get_subdependencies(
                             current_subdep, yarn_dict
                         )
-                        aux_dict[list(subdeps.keys())[0]] = version
-                        subdeps.pop(list(subdeps.keys())[0])
-                        subdeps = {**subdeps, **new_values}
-
-                    tree[dep] = aux_dict
+                        tree[name] = version
+                        subdeps.remove(current_subdep)
+                        subdeps = subdeps + new_values
+    tree = add_lines(windower, tree)
     return tree
