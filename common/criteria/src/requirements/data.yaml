@@ -3445,21 +3445,19 @@
   metadata: {}
 "141":
   en:
-    title: Force re-authentication
+    title: Force Re-Authentication
     summary: >
       The system must force users
-      to re-authenticate or invalidate
-      their session if the state
-      of their account changes
+      to re-authenticate or invalidate their session
+      if the state of their account changes
       (e.g., password change/recovery,
       lockouts, user deletion, etc.).
     description: __empty__
   es:
     title: Forzar re-autenticación
     summary: >
-      El sistema debe forzar
-      a un usuario a realizar nuevamente
-      el proceso de autenticación
+      El sistema debe forzar a un usuario
+      a realizar nuevamente el proceso de autenticación
       o invalidar la sesión en el sistema
       una vez que haya ocurrido un cambio
       en el estado del usuario
@@ -3485,38 +3483,34 @@
   metadata: {}
 "142":
   en:
-    title: Change system default credentials
+    title: Change System Default Credentials
     summary: >
       The organization must modify
       all default access credentials
       of embedded systems.
     description: >
-      Organizations usually keep
-      default configurations
+      Organizations usually keep default configurations
       of third-party products,
-      since these may adapt
-      to most environments
+      since these may adapt to most environments
       where they are installed
-      and facilitate the deployment
-      to production.
+      and facilitate the deployment to production.
       However,
-      this practice may leave
-      a default open gate
+      this practice may leave a default open gate
       for products and,
       in most cases,
       credentials within provider documentation,
       which can be easily found
       on the Internet.
-      For this reason it is important
-      to check all configurations
+      For this reason
+      it is important to check all configurations
       before deployment
       and remove all default credentials.
   es:
     title: Modificar las credenciales por defecto del sistema
     summary: >
       La organización debe modificar
-      todas las credenciales de acceso
-      por defecto de sistemas empaquetados.
+      todas las credenciales de acceso por defecto
+      de sistemas empaquetados.
     description: >
       Las organizaciones suelen mantener
       configuraciones predeterminadas
@@ -3524,23 +3518,18 @@
       ya que pueden adaptarse
       a la mayoría de los entornos
       donde están instalados
-      y facilitar la implementación
-      en producción.
+      y facilitar la implementación en producción.
       Sin embargo,
       esta práctica puede dejar
       una puerta abierta predeterminada
       para los productos y,
       en la mayoría de los casos,
-      las credenciales dentro
-      de la documentación del proveedor,
-      que se puede encontrar
-      fácilmente en Internet.
+      las credenciales dentro de la documentación del proveedor,
+      que se puede encontrar fácilmente en Internet.
       Por esta razón,
-      es importante verificar
-      todas las configuraciones
+      es importante verificar todas las configuraciones
       antes de la implementación
-      y eliminar todas las credenciales
-      predeterminadas.
+      y eliminar todas las credenciales predeterminadas.
   category: Credentials
   supported_in:
     machine: false
@@ -3572,16 +3561,15 @@
   metadata: {}
 "143":
   en:
-    title: Unique access credentials
+    title: Unique Access Credentials
     summary: >
-      System access credentials
-      must be unique for each actor.
+      System access credentials must be unique
+      for each actor.
     description: __empty__
   es:
     title: Credenciales de acceso únicas
     summary: >
-      Las credenciales de acceso
-      al sistema deben ser únicas
+      Las credenciales de acceso al sistema deben ser únicas
       para cada actor.
     description: __empty__
   category: Credentials
@@ -3606,11 +3594,11 @@
   metadata: {}
 "144":
   en:
-    title: Remove inactive accounts periodically
+    title: Remove Inactive Accounts Periodically
     summary: >
       The organization
-      must remove inactive user
-      accounts periodically (purging).
+      must remove inactive user accounts
+      periodically (purging).
     description: __empty__
   es:
     title: Eliminar cuentas inactivas periódicamente
@@ -10107,36 +10095,31 @@
   metadata: {}
 "332":
   en:
-    title: Prevent the use of breached passwords
+    title: Prevent the Use of Breached Passwords
     summary: >
-      The system must check
-      new passwords against a list
-      of 1000 to 10000 breached passwords.
+      The system must check new passwords
+      against a list of 1,000 to 10,000 breached passwords.
     description: >
       There are various mechanisms
       for cracking passwords
       that use public lists
       containing breached credentials.
-      Systems must check
-      submitted passwords against
-      some of these lists
+      Systems must check submitted passwords
+      against some of these lists
       and prevent account creation
       and password update operations
       that use passwords contained in them.
   es:
     title: Prevenir el uso de contraseñas vulneradas
     summary: >
-      El sistema debe comparar
-      las nuevas contrasenas
-      con una lista de 1000 a 10000
-      contrasenas vulneradas.
+      El sistema debe comparar las nuevas contraseñas
+      con una lista de 1.000 a 10.000 contraseñas vulneradas.
     description: >
       Hay varios mecanismos
       para descifrar contraseñas
       que utilizan listas públicas
       que contienen credenciales vulneradas.
-      Los sistemas deben comparar
-      las contraseñas enviadas
+      Los sistemas deben comparar las contraseñas enviadas
       contra algunas de estas listas
       y evitar que las operaciones
       de la creación de la cuenta
@@ -10163,46 +10146,41 @@
   metadata: {}
 "333":
   en:
-    title: Store salt values separately
+    title: Store Salt Values Separately
     summary: >
-      The salt values used during
-      the password hashing process
+      The salt values used
+      during the password hashing process
       must be stored separately
       from the hashed passwords.
     description: >
-      Adding random salt
-      to a password as part
-      of the hashing process drastically
-      increases the time required
+      Adding random salt to a password
+      as part of the hashing process
+      drastically increases the time required
       to crack that password.
-      Salt values should be stored
-      in a system different
-      from the one in which hashed passwords
-      are stored so that
-      if the hashes are breached,
+      Salt values should be stored in a system
+      different from the one
+      in which hashed passwords are stored
+      so that if the hashes are breached,
       an attacker still has to test
       every possible salt value
       in order to crack a single password.
   es:
     title: Almacenar valores salt en forma separada
     summary: >
-      Los valores de salt
-      utilizados durante el proceso
-      de hashing de contraseña
+      Los valores de salt utilizados
+      durante el proceso de hashing de contraseña
       deben almacenarse por separado
       de las contraseñas con hash.
     description: >
-      Agregar salt aleatorio
-      a una contraseña como parte
-      del proceso de hash,
-      aumenta drásticamente el tiempo
-      requerido para descifrar esa contraseña.
-      Los valores de salt
-      deben almacenarse en un sistema
-      diferente al de la que se almacenan
-      las contraseñas hash de manera
-      que si se rompen los hashes,
-      un atacante aún tiene que probar
+      Agregar salt aleatorio a una contraseña
+      como parte del proceso de hash,
+      aumenta drásticamente el tiempo requerido
+      para descifrar esa contraseña.
+      Los valores de salt deben almacenarse
+      en un sistema diferente
+      a aquel en que se almacenan las contraseñas hash,
+      de manera que si se rompen los hashes,
+      un atacante aún tenga que probar
       cada valor de salt posible
       para descifrar una sola contraseña.
   category: Credentials
@@ -11187,44 +11165,38 @@
   metadata: {}
 "347":
   en:
-    title: Invalidate previous OTPs
+    title: Invalidate Previous OTPs
     summary: >
       The system must invalidate
       previously generated OTPs
-      when the generation of a new one
-      is triggered.
+      when the generation of a new one is triggered.
     description: >
-      One-time passwords (OTP)
-      are secrets used during
-      operations that need added security
+      One-time passwords (OTPs) are secrets
+      used during operations
+      that need added security
       or as part of user enrollment processes.
       Despite their short lifespan,
-      only one OTP should be
-      valid at any given time,
+      only one OTP should be valid
+      at any given time,
       and therefore,
-      all previous OTPs should be
-      invalidated whenever a new one
-      is generated.
+      all previous OTPs should be invalidated
+      whenever a new one is generated.
   es:
     title: Invalidar OTPs previos
     summary: >
-      El sistema debe invalidar
-      OTPs generados previamente
-      cuando la generación de uno nuevo
-      es activdada.
+      El sistema debe invalidar OTPs generados previamente
+      cuando la generación de uno nuevo es activada.
     description: >
-      Las contraseñas de un solo uso (OTP)
-      son secretos utilizados durante
-      las operaciones que necesitan
-      seguridad adicional o como parte
-      de los procesos de inscripción del usuario.
+      Las contraseñas de un solo uso (OTP) son secretos
+      utilizados durante las operaciones
+      que necesitan seguridad adicional
+      o como parte de los procesos de inscripción del usuario.
       A pesar de su vida útil corta,
       solo una OTP debe ser válida
       en un momento dado,
       y por lo tanto,
-      todas las OTP anteriores deben
-      invalidarse cada vez que
-      se genere una nueva.
+      todas las OTP anteriores deben invalidarse
+      cada vez que se genere una nueva.
   category: Credentials
   supported_in:
     machine: false
@@ -11728,18 +11700,16 @@
   metadata: {}
 "358":
   en:
-    title: Notify upcoming expiration dates
+    title: Notify Upcoming Expiration Dates
     summary: >
-      The system must notify the users
-      when their credentials are
-      about to expire.
+      The system must notify users
+      when their credentials are about to expire.
     description: __empty__
   es:
-    title: Notificar fechas de vencimiento proximos
+    title: Notificar próximas fechas de vencimiento
     summary: >
       El sistema debe notificar a los usuarios
-      cuando sus credenciales
-      están a punto de caducar.
+      cuando sus credenciales están a punto de caducar.
     description: __empty__
   category: Credentials
   supported_in:
@@ -12175,7 +12145,7 @@
   metadata: {}
 "367":
   en:
-    title: Proper generation of temporary passwords
+    title: Proper Generation of Temporary Passwords
     summary: >
       Temporary passwords should be
       automatically and randomly generated.
@@ -12183,9 +12153,8 @@
   es:
     title: Generación adecuada de contraseñas temporales
     summary: >
-      Las contraseñas temporales
-      deben generarse de forma automática
-      y aleatoria.
+      Las contraseñas temporales deben generarse
+      de forma automática y aleatoria.
     description: __empty__
   category: Credentials
   supported_in:
@@ -12682,22 +12651,21 @@
   metadata: {}
 "380":
   en:
-    title: Define a password management tool
+    title: Define a Password Management Tool
     summary: >
-      The passwords of high privileged users,
-      must be guarded and managed
-      by the tool defined in the
-      organization to complete this task.
+      The passwords of high privilege users
+      must be guarded and managed by the tool
+      defined by the organization
+      to complete this task.
     description: __empty__
   es:
     title: Definir una herramienta de gestión de contraseñas
     summary: >
-      Las contraseñas de usuarios
-      de alto privilegio,
+      Las contraseñas de usuarios de alto privilegio
       deben ser resguardadas y administradas
-      por la herramienta definida
-      en la organización para
-      completar esta tarea.
+      por la herramienta
+      definida por la organización
+      para completar esta tarea.
     description: __empty__
   category: Credentials
   supported_in:
