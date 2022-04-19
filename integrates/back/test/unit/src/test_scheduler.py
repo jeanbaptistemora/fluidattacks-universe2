@@ -267,7 +267,7 @@ async def test_get_group_indicators() -> None:
         await loaders.group_indicators_typed.load(group_name)
     )
     assert len(test_data) == 26
-    assert test_data.last_closed_vulnerability_days == 945
+    assert test_data.last_closed_vulnerability_days == 946
     assert test_data.last_closed_vulnerability_finding == "457497316"
     assert test_data.max_open_severity == Decimal(6.3).quantize(Decimal("0.1"))
     assert test_data.closed_vulnerabilities == 7

@@ -668,7 +668,7 @@ async def send_mail_policies(
     stakeholders_emails = [
         stakeholder["email"]
         for stakeholder in org_stakeholders_loaders
-        if stakeholder["role"] == "customer_manager"
+        if stakeholder["role"] in ["customer_manager", "user_manager"]
     ]
 
     await groups_mail.send_mail_updated_policies(
