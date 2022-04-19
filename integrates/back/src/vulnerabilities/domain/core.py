@@ -67,9 +67,6 @@ from newutils import (
 from notifications import (
     domain as notifications_domain,
 )
-from operator import (
-    attrgetter,
-)
 import redshift.vulnerabilities as redshift_vulns
 from settings import (
     LOGGING,
@@ -812,18 +809,16 @@ async def update_metadata_and_state(
 async def verify(
     *,
     context: Any,
-    vulnerabilities: List[Vulnerability],
     modified_date: str,
     closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[Vulnerability],
 ) -> bool:
-    list_closed_vulns: List[Vulnerability] = sorted(
-        [
-            [vuln for vuln in vulnerabilities if vuln.id == closed_vuln][0]
-            for closed_vuln in closed_vulns_ids
-        ],
-        key=attrgetter("id"),
-    )
+    for vuln_id in closed_vulns_ids:
+        context.loaders.vulnerability.clear(vuln_id)
+
+    list_closed_vulns: List[
+        Vulnerability
+    ] = await context.loaders.vulnerability.load_many(sorted(closed_vulns_ids))
     source: Source = requests_utils.get_source_new(context)
     user_data = await token_utils.get_jwt_content(context)
     modified_by = str(user_data["user_email"])

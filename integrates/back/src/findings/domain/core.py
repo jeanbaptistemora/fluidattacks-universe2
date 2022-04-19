@@ -825,7 +825,6 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         # Open vulns that were closed must be persisted to the DB as closed
         success = await vulns_domain.verify(
             context=context,
-            vulnerabilities=vulnerabilities,
             modified_date=today,
             closed_vulns_ids=closed_vulns_ids,
             vulns_to_close_from_file=vulns_to_close_from_file,
