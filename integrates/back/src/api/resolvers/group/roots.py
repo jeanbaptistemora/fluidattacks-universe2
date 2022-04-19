@@ -16,23 +16,15 @@ from roots import (
 from roots.types import (
     Root,
 )
-from typing import (
-    Any,
-    Dict,
-    Tuple,
-    Union,
-)
 
 
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Tuple[Root, ...]:
+) -> tuple[Root, ...]:
     loaders: Dataloaders = info.context.loaders
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
-    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    group_name: str = parent.name
+    roots: tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
 
     return tuple(roots_domain.format_root(root) for root in roots)

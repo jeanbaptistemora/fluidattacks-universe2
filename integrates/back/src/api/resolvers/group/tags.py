@@ -5,20 +5,13 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    Any,
-    Dict,
-    List,
     Optional,
-    Union,
 )
 
 
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: Any,
-) -> Optional[List[str]]:
-    if isinstance(parent, dict):
-        return parent["tags"]
-
+    **_kwargs: None,
+) -> Optional[list[str]]:
     return list(parent.tags) if parent.tags else None

@@ -8,21 +8,13 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-    Dict,
-    List,
-    Union,
-)
 
 
 @enforce_group_level_auth_async
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> List[str]:
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
+) -> list[str]:
+    group_name: str = parent.name
     return sorted(await authz.get_group_service_attributes(group_name))
