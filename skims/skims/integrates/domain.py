@@ -13,6 +13,7 @@ from integrates.dal import (
     do_create_draft,
     do_delete_finding,
     do_finish_execution,
+    do_start_execution,
     do_submit_draft,
     do_update_finding_severity,
     do_upload_vulnerabilities,
@@ -309,6 +310,22 @@ async def do_add_skims_execution(  # pylint: disable=too-many-arguments`
         job_id=job_id,
         start_date=start_date.isoformat(),
         findings_executed=findings_executed,
+        commit_hash=commit_hash,
+    )
+
+
+async def do_start_skims_execution(
+    root: str,
+    group_name: str,
+    job_id: str,
+    start_date: datetime,
+    commit_hash: str,
+) -> bool:
+    return await do_start_execution(
+        root=root,
+        group_name=group_name,
+        job_id=job_id,
+        start_date=start_date.isoformat(),
         commit_hash=commit_hash,
     )
 

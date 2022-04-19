@@ -1086,6 +1086,53 @@ async def do_add_execution(
 
 
 @SHIELD
+async def do_start_execution(
+    *,
+    root: str,
+    group_name: str,
+    job_id: str,
+    start_date: str,
+    commit_hash: str,
+    client: Optional[GraphQLClient] = None,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation SkimsDoStartMachineExecution(
+                $root: String!
+                $group_name: String!
+                $job_id: ID!
+                $start_date: DateTime!
+                $commit_hash: String!
+            ) {
+                startMachineExecution(
+                    rootNickname: $root,
+                    groupName: $group_name,
+                    jobId: $job_id,
+                    startedAt: $start_date,
+                    gitCommit: $commit_hash
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SkimsDoStartMachineExecution",
+        variables=dict(
+            root=root,
+            group_name=group_name,
+            job_id=job_id,
+            start_date=start_date,
+            commit_hash=commit_hash,
+        ),
+        client=client,
+    )
+
+    with suppress(AttributeError, KeyError, TypeError):
+        return result["data"]["addMachineExecution"]["success"]
+
+    return False
+
+
+@SHIELD
 async def do_finish_execution(
     *,
     root: str,

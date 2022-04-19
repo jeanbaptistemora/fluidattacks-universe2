@@ -14,8 +14,8 @@ from datetime import (
     datetime,
 )
 from integrates.domain import (
-    do_add_skims_execution,
     do_finish_skims_execution,
+    do_start_skims_execution,
 )
 from integrates.graphql import (
     create_session,
@@ -159,21 +159,12 @@ async def persist_to_integrates(
 
 
 async def notify_start(job_id: str) -> None:
-    await do_add_skims_execution(
+    await do_start_skims_execution(
         root=CTX.config.namespace,
         group_name=CTX.config.group,
         job_id=job_id,
         start_date=datetime.utcnow(),
         commit_hash=get_repo_head_hash(CTX.config.working_dir),
-        findings_executed=tuple(
-            {
-                "finding": finding.name,
-                "open": 0,
-                "modified": 0,
-            }
-            for finding in core_model.FindingEnum
-            if finding in CTX.config.checks
-        ),
     )
 
 
