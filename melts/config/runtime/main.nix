@@ -6,7 +6,7 @@
   ...
 }: let
   pythonRequirements = makePythonPypiEnvironment {
-    name = "melts-development";
+    name = "melts-runtime";
     sourcesYaml = ./pypi-sources.yaml;
     searchPathsRuntime.bin = [inputs.nixpkgs.gcc inputs.nixpkgs.postgresql];
     searchPathsBuild.bin = [inputs.nixpkgs.gcc inputs.nixpkgs.postgresql];
