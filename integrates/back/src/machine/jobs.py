@@ -183,7 +183,7 @@ async def list_(  # pylint: disable=too-many-locals
     )
 
     batch_jobs_dict = {
-        item["job_id"]: item
+        item["jobId"]: item
         for item in await describe_jobs(
             *[item.job_id for item in jobs_from_db]
         )

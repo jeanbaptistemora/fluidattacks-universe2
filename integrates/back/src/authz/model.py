@@ -1076,6 +1076,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_add_machine_execution_mutate",
             "api_mutations_finish_machine_execution_mutate",
+            "api_mutations_start_machine_execution_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_mutate",
             "api_mutations_add_stakeholder_mutate",
