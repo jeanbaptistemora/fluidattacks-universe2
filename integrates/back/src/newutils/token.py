@@ -99,12 +99,15 @@ def _decrypt_jwt_payload(
 ) -> Dict[str, Any]:
     """Returns the decrypted payload of a JWE"""
     if "ciphertext" not in payload and not always_check_ciphertext:
+        LOGGER.warning("Unencrypted payload", extra=dict(extra={}))
         return payload
+
     serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     result = JWE()
     result.deserialize(serialized_payload.encode("utf-8"))
     result.decrypt(key)
+
     return encodings.jwt_payload_decode(result.payload.decode("utf-8"))
 
 
