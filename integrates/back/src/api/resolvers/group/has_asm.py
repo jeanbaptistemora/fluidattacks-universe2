@@ -9,17 +9,12 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Dict,
-    Union,
 )
 
 
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: Any,
 ) -> bool:
-    if isinstance(parent, dict):
-        return parent["has_asm"]
-
     return parent.state.status == GroupStateStatus.ACTIVE

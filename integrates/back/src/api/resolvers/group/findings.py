@@ -1,5 +1,5 @@
-from aiodataloader import (
-    DataLoader,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.types import (
     Finding,
@@ -18,25 +18,20 @@ from newutils import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
-    Tuple,
-    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> Tuple[Finding, ...]:
-    group_findings_loader: DataLoader = info.context.loaders.group_findings
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
-    filters: Optional[Dict[str, Any]] = kwargs.get("filters")
-    findings: Tuple[Finding, ...] = await group_findings_loader.load(
+) -> tuple[Finding, ...]:
+    loaders: Dataloaders = info.context.loaders
+    group_name: str = parent.name
+    filters: Optional[dict[str, Any]] = kwargs.get("filters")
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     if filters:

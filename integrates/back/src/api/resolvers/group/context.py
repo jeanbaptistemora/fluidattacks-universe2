@@ -15,5 +15,4 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: Any,
 ) -> Optional[str]:
-
     return parent.context

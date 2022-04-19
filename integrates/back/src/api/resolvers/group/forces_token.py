@@ -14,9 +14,7 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
-    Union,
 )
 
 
@@ -26,11 +24,8 @@ from typing import (
     enforce_group_level_auth_async,
 )
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: Any,
 ) -> Optional[str]:
-    if isinstance(parent, dict):
-        return parent.get("agent_token")
-
     return parent.agent_token
