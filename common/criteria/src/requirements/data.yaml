@@ -2348,7 +2348,7 @@
       con privilegios root
       o de administrador.
     description: >
-      Los sistemas deberían tener
+      Los sistemas deben tener
       un conjunto de roles con
       diferentes niveles de privilegio
       para acceder a los recursos.
@@ -2425,7 +2425,7 @@
     description: >
       Systems should have
       a set of roles
-      with different levels of privilege
+      with different levels of privileges
       to access resources.
       The privileges of each role
       must be clearly defined
@@ -2440,7 +2440,7 @@
     description: >
       Los sistemas deberían tener
       un conjunto de roles
-      con diferentes niveles de privilegio
+      con diferentes niveles de privilegios
       para acceder a los recursos.
       Los privilegios de cada rol
       debe estar claramente definido
@@ -2528,7 +2528,12 @@
       The system must not allow users
       to authenticate with expired,
       revoked or blocked credentials.
-    description: __empty__
+    description: .
+      Inactive credentials pose a
+      security risk to organizations.
+      Each one of these accounts offers
+      a malicious actor an opportunity
+      to gain access to resources.
   es:
     title: Denegar acceso con credenciales inactivas
     summary: >
@@ -2536,7 +2541,12 @@
       a los usuarios autenticarse
       con credenciales caducadas,
       revocadas o bloqueadas.
-    description: __empty__
+    description: .
+      Las credenciales inactivas suponen un
+      riesgo de seguridad para las organizaciones.
+      Cada una de estas cuentas ofrece a un
+      actor malicioso la oportunidad de
+      acceder a los recursos.
   category: Authorization
   supported_in:
     machine: false
@@ -2650,7 +2660,13 @@
       An anti-malware tool
       must scan files that
       are attached to an email.
-    description: __empty__
+    description: >
+      Malicious emails could
+      include attachments
+      disguised as documents,
+      PDFs,
+      e-files,
+      and voicemails.
   es:
     title: Inspeccionar archivos adjuntos
     summary: >
@@ -2658,7 +2674,14 @@
       los archivos adjuntos
       en un correo con herramientas
       anti-malware.
-    description: __empty__
+    description: >
+      Los correos electrónicos
+      maliciosos pueden incluir
+      archivos adjuntos disfrazados
+      de documentos,
+      PDFs,
+      archivos electrónicos y
+      mensajes de voz.
   category: Emails
   supported_in:
     machine: false
@@ -2716,14 +2739,14 @@
   es:
     title: Garantizar unicidad de los correos electrónicos
     summary: >
-      Sistemas que empleen
-      cuentas de correo
+      Los sistemas que utilizan
+      cuentas de correo electrónico
       para el registro de usuarios
       deben garantizar la unicidad
-      de los correos,
-      siguiendo el estándar
-      de la estructura de dirección
-      de correo RFC822.
+      de los correos electrónicos.
+      Así lo indica el estándar de
+      estructura de direcciones de
+      correo electrónico RFC822.
     description: __empty__
   category: Emails
   supported_in:
@@ -2807,7 +2830,7 @@
       El sistema debe garantizar
       que las direcciones
       de correo electrónico expuestas
-      solo pueden ser leidas por humanos.
+      solo pueden ser leídas por humanos.
     description: >
       A veces,
       los correos electrónicos
@@ -2837,7 +2860,7 @@
   metadata: {}
 "126":
   en:
-    title: Set a Password Regeneration Mechanism
+    title: Set a password regeneration mechanism
     summary: >
       The system must provide a secure mechanism
       to regenerate a user's password.
@@ -2950,7 +2973,7 @@
   metadata: {}
 "128":
   en:
-    title: Define Unique Data Source
+    title: Define unique data source
     summary: >
       All system passwords must be stored
       in a unique data source.
@@ -2975,7 +2998,7 @@
   metadata: {}
 "129":
   en:
-    title: Validate Previous Passwords
+    title: Validate previous passwords
     summary: >
       The system must not allow password changes
       for a user
@@ -3006,7 +3029,7 @@
   metadata: {}
 "130":
   en:
-    title: Limit Password Lifespan
+    title: Limit password lifespan
     summary: >
       Passwords must be valid
       for a maximum of 30 days.
@@ -3040,7 +3063,7 @@
   metadata: {}
 "131":
   en:
-    title: Deny Multiple Password Changing Attempts
+    title: Deny multiple password changing attempts
     summary: >
       Passwords are not allowed
       to be changed more than once
@@ -3050,8 +3073,9 @@
     title: Denegar múltiples intentos de cambio de contraseña
     summary: >
       No debe ser permitido
-      que las contraseñas sean modificadas más de una vez
-      el mismo día.
+      que las contraseñas sean modificadas
+      más de una vez
+      en el mismo día.
     description: __empty__
   category: Credentials
   supported_in:
@@ -3075,7 +3099,7 @@
   metadata: {}
 "132":
   en:
-    title: Passphrases With at Least 4 Words
+    title: Passphrases with at least 4 words
     summary: >
       The system must require passphrases
       to be at least 4 words long
@@ -3096,8 +3120,21 @@
     title: Frase de contraseña con al menos 4 palabras
     summary: >
       Las contraseñas (tipo frase)
-      deben tener al menos 4 palabras de longitud.
-    description: __empty__
+      deben tener al menos 4 palabras de
+      longitud y permitir que tengan 64
+      caracteres o más.
+    description: >
+      Las contraseñas son elementos de
+      afirmación de la identidad que pueden
+      olvidarse fácilmente.
+      Las frases de paso son secuencias de
+      palabras más largas que las contraseñas,
+      pero también son más fáciles de recordar.
+      Por ello,
+      los sistemas deben imponer el uso de
+      frases de contraseña de al menos 4
+      palabras y permitir que tengan 64
+      caracteres o más.
   category: Credentials
   supported_in:
     machine: false
