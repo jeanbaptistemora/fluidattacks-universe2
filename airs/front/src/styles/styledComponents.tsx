@@ -760,7 +760,6 @@ const BannerTitle: StyledComponent<
     f1
     neue
     tc
-    f-5-l
     ma0
   `,
 })``;
@@ -1775,7 +1774,6 @@ const BannerH2Title: StyledComponent<
     f1
     neue
     tc
-    f-5-l
     ma0
   `,
 })``;
