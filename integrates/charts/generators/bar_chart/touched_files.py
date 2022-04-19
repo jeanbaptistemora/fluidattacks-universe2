@@ -144,9 +144,15 @@ def format_data(*, counters: Counter[str]) -> Dict[str, Any]:
                 ),
             ),
         ),
+        barChartXTickFormat=True,
         barChartYTickFormat=True,
         maxValue=format_max_value(
             [(key, Decimal(value)) for key, value in merged_data]
+        ),
+        tooltip=dict(
+            format=dict(
+                value=None,
+            ),
         ),
     )
 
