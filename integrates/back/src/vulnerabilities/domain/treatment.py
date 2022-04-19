@@ -229,7 +229,7 @@ async def add_vulnerability_treatment(
         status=new_status,
     )
     await vulns_model.update_treatment(
-        current_value=vuln.treatment,
+        current_value=vuln,
         finding_id=finding_id,
         vulnerability_id=vuln.id,
         treatment=treatment_to_add,
@@ -315,7 +315,7 @@ async def _handle_vulnerability_acceptance(
             )
 
     if treatments_to_add:
-        current_value = vulnerability.treatment
+        current_value = vulnerability
         # Use for-await as update order is relevant for typed vuln
         for treatment in vulns_model.utils.adjust_historic_dates(
             treatments_to_add
@@ -327,7 +327,7 @@ async def _handle_vulnerability_acceptance(
                     vulnerability_id=vulnerability.id,
                     treatment=treatment,
                 )
-                current_value = treatment
+                current_value = current_value._replace(treatment=treatment)
 
 
 async def handle_vulnerabilities_acceptance(

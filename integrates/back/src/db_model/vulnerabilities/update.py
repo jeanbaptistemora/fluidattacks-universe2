@@ -13,6 +13,7 @@ from .types import (
 from .utils import (
     adjust_historic_dates,
     get_assigned,
+    get_current_entry,
     historic_entry_type_to_str,
 )
 from boto3.dynamodb.conditions import (
@@ -158,13 +159,13 @@ async def update_event_index(
 
 async def update_treatment(
     *,
-    current_value: Optional[VulnerabilityTreatment],
+    current_value: Vulnerability,
     finding_id: str,
     vulnerability_id: str,
     treatment: VulnerabilityTreatment,
 ) -> None:
     await update_historic_entry(
-        current_entry=current_value,
+        current_value=current_value,
         entry=treatment,
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
@@ -172,13 +173,13 @@ async def update_treatment(
     await update_assigned_index(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
-        entry=treatment,
+        entry=current_value.treatment,
     )
 
 
 async def update_historic_entry(
     *,
-    current_entry: Optional[VulnerabilityHistoricEntry],
+    current_value: Vulnerability,
     finding_id: str,
     entry: VulnerabilityHistoricEntry,
     vulnerability_id: str,
@@ -186,6 +187,7 @@ async def update_historic_entry(
     key_structure = TABLE.primary_key
     entry_type = historic_entry_type_to_str(entry)
     entry_item = json.loads(json.dumps(entry))
+    current_entry = get_current_entry(entry, current_value)
 
     try:
         vulnerability_key = keys.build_key(

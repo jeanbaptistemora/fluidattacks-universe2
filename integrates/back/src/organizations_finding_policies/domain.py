@@ -307,7 +307,7 @@ async def _add_accepted_treatment(
     await collect(
         [
             vulns_model.update_treatment(
-                current_value=vuln.treatment,
+                current_value=vuln,
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
                 treatment=acceptance_submitted,
@@ -319,7 +319,7 @@ async def _add_accepted_treatment(
     await collect(
         [
             vulns_model.update_treatment(
-                current_value=acceptance_submitted,
+                current_value=vuln._replace(treatment=acceptance_submitted),
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
                 treatment=acceptance_approved,
@@ -361,7 +361,7 @@ async def _add_new_treatment(
     await collect(
         [
             vulns_model.update_treatment(
-                current_value=vuln.treatment,
+                current_value=vuln,
                 finding_id=vuln.finding_id,
                 vulnerability_id=vuln.id,
                 treatment=VulnerabilityTreatment(

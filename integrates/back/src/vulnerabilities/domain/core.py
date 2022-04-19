@@ -165,7 +165,7 @@ async def confirm_vulnerabilities_zero_risk(
     )
     await collect(
         vulns_model.update_historic_entry(
-            current_entry=vuln.zero_risk,
+            current_value=vuln,
             finding_id=vuln.finding_id,
             vulnerability_id=vuln.id,
             entry=VulnerabilityZeroRisk(
@@ -270,7 +270,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         await vulns_model.update_historic_entry(
-            current_entry=vulnerability.state,
+            current_value=vulnerability,
             entry=VulnerabilityState(
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
@@ -524,7 +524,7 @@ async def reject_vulnerabilities_zero_risk(
     )
     await collect(
         vulns_model.update_historic_entry(
-            current_entry=vuln.zero_risk,
+            current_value=vuln,
             finding_id=vuln.finding_id,
             vulnerability_id=vuln.id,
             entry=VulnerabilityZeroRisk(
@@ -544,7 +544,7 @@ async def reject_vulnerabilities_zero_risk(
 
 async def request_verification(vulnerability: Vulnerability) -> bool:
     await vulns_model.update_historic_entry(
-        current_entry=vulnerability.verification,
+        current_value=vulnerability,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         entry=VulnerabilityVerification(
@@ -562,7 +562,7 @@ async def request_hold(event_id: str, vulnerability: Vulnerability) -> bool:
         status=VulnerabilityVerificationStatus.ON_HOLD,
     )
     await vulns_model.update_historic_entry(
-        current_entry=vulnerability.verification,
+        current_value=vulnerability,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         entry=verification,
@@ -607,7 +607,7 @@ async def request_vulnerabilities_zero_risk(
     )
     await collect(
         vulns_model.update_historic_entry(
-            current_entry=vuln.zero_risk,
+            current_value=vuln,
             finding_id=vuln.finding_id,
             vulnerability_id=vuln.id,
             entry=VulnerabilityZeroRisk(
@@ -766,7 +766,7 @@ async def update_metadata_and_state(
         or vulnerability.state.status != new_state.status
     ):
         await vulns_model.update_historic_entry(
-            current_entry=vulnerability.state,
+            current_value=vulnerability,
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
             entry=new_state,
@@ -786,13 +786,15 @@ async def update_metadata_and_state(
                 )
             )
             await vulns_model.update_treatment(
-                current_value=vulnerability.treatment,
+                current_value=vulnerability,
                 finding_id=vulnerability.finding_id,
                 vulnerability_id=vulnerability.id,
                 treatment=treatment_to_update[0],
             )
             await vulns_model.update_treatment(
-                current_value=treatment_to_update[0],
+                current_value=vulnerability._replace(
+                    treatment=treatment_to_update[0]
+                ),
                 finding_id=vulnerability.finding_id,
                 vulnerability_id=vulnerability.id,
                 treatment=treatment_to_update[1],
@@ -856,7 +858,7 @@ async def verify(
 
 async def verify_vulnerability(vulnerability: Vulnerability) -> bool:
     await vulns_model.update_historic_entry(
-        current_entry=vulnerability.verification,
+        current_value=vulnerability,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
         entry=VulnerabilityVerification(
@@ -877,7 +879,7 @@ async def close_by_exclusion(
         VulnerabilityStateStatus.DELETED,
     }:
         await vulns_model.update_historic_entry(
-            current_entry=vulnerability.state,
+            current_value=vulnerability,
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
             entry=VulnerabilityState(
