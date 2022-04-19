@@ -203,7 +203,7 @@ async def update_historic_entry(
                     current_entry.modified_date
                 )
                 if current_entry
-                else base_condition
+                else base_condition & Attr(entry_type).not_exists()
             ),
             item=vulnerability_item,
             key=vulnerability_key,
