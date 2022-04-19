@@ -194,6 +194,9 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   const pathOrganization: string = path.includes("/orgs")
     ? pathData[0].toLowerCase()
     : lastOrganization.name;
+  if (pathOrganization !== lastOrganization.name) {
+    setLastOrganization({ name: pathOrganization });
+  }
   /*
    * The searchbar can generate URLs with "/groups/" but not "/orgs/" before
    * it is redirected to the full URL
