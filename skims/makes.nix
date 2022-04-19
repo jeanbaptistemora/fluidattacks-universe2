@@ -9,7 +9,7 @@
     ./dev/makes.nix
     ./infra/makes.nix
     ./inputs/makes.nix
-    ./tests/makes.nix
+    ./test/makes.nix
     ./pipeline/makes.nix
   ];
   inputs = {
