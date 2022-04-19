@@ -10,6 +10,9 @@ from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Notification,
 )
@@ -77,7 +80,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     event_type: str,
     description: str,
     is_closed: bool = False,
-    report_date: str,
+    report_date: datetime,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
     event_age: int = (datetime_utils.get_now().date() - report_date).days
