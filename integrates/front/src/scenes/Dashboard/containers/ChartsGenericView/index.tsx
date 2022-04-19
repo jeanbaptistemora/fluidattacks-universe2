@@ -591,6 +591,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               />
             </Col50>
           </RowCenter>
+          <Row>
+            <Col50>
+              <Graphic
+                bsHeight={160}
+                className={"g2"}
+                documentName={"assignedVulnerabilities"}
+                documentType={"pieChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.assignedVulnerabilities")}
+              />
+            </Col50>
+          </Row>
         </div>
       ) : undefined}
       {doesEntityMatch(["group"]) ? (

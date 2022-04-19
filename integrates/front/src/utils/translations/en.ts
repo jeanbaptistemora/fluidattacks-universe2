@@ -2912,6 +2912,7 @@ export const enTranslations: ResourceKey = {
   tagIndicator: {
     acceptedVulnerabilitiesBySeverity: "Accepted vulnerabilities by severity",
     acceptedVulnerabilitiesByUser: "Accepted vulnerabilities by user",
+    assignedVulnerabilities: "Vulnerabilities by assignment",
     findingsGroup: "Types of Vulnerabilities by Group",
     meanRemediate: "Mean (average) days to remediate",
     openFindingsGroup: "Open Types of Vulnerabilities by Group",
