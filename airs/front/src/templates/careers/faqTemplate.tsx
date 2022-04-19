@@ -13,10 +13,13 @@ import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { PageHeader } from "../../components/PageHeader";
 import { Seo } from "../../components/Seo";
-import { FaqContainer, PageArticle } from "../../styles/styledComponents";
+import {
+  CareersFaqContainer,
+  PageArticle,
+} from "../../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../../utils/utilities";
 
-const FaqIndex: React.FC<IQueryData> = ({
+const CareersFaqIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -159,7 +162,7 @@ const FaqIndex: React.FC<IQueryData> = ({
               subtitle={subtitle}
               title={decode(title)}
             />
-            <FaqContainer
+            <CareersFaqContainer
               className={"internal faq-page"}
               dangerouslySetInnerHTML={{
                 __html: data.markdownRemark.html,
@@ -172,7 +175,7 @@ const FaqIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default FaqIndex;
+export default CareersFaqIndex;
 
 export const query: void = graphql`
   query CareersFaqIndex($slug: String!) {

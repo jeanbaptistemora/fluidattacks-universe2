@@ -346,6 +346,12 @@ const PageArticle: StyledComponent<
   `,
 })``;
 
+const FaqPageArticle = styled.article.attrs({
+  className: `
+    bg-gray-244
+  `,
+})``;
+
 const BlogPageArticle: StyledComponent<
   "article",
   Record<string, unknown>
@@ -392,7 +398,7 @@ const ArticleContainer: StyledComponent<
   `,
 })``;
 
-const FaqContainer: StyledComponent<
+const CareersFaqContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
@@ -409,6 +415,28 @@ const FaqContainer: StyledComponent<
     pb5
   `,
 })``;
+
+const FaqContainer = styled.div.attrs({
+  className: `
+    ph-body
+    center
+    roboto
+    bg-gray-244
+    ph4-l
+    ph3
+    pt5-l
+    pt4
+    pb5
+    faq-container
+  `,
+})`
+  max-width: 950px;
+  color: #5c5c70;
+
+  a {
+    color: #5c5c70;
+  }
+`;
 
 const IconContainerSmall: StyledComponent<
   "div",
@@ -990,7 +1018,6 @@ const PhantomRegularRedButton: StyledComponent<
     hv-bd-fluid-dkred
     pointer
     c-dkred
-    hover-white
     f5
     dib
     t-all-3-eio
@@ -1002,6 +1029,10 @@ const PhantomRegularRedButton: StyledComponent<
   `,
 })`
   padding: 10px 16px;
+
+  :hover {
+    color: white;
+  }
 `;
 
 const SquaredCardContainer: StyledComponent<
@@ -1814,6 +1845,7 @@ export {
   CardReadMore,
   CardsContainer,
   CardsContainer1200,
+  CareersFaqContainer,
   CenteredSpacedContainer,
   ComplianceContainer,
   CompliancesGrid,
@@ -1828,6 +1860,7 @@ export {
   ErrorSection,
   ErrorTitle,
   FaqContainer,
+  FaqPageArticle,
   Flex,
   FlexCenterItemsContainer,
   IconContainerSmall,
