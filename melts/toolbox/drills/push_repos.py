@@ -24,8 +24,8 @@ from toolbox.resources import (
     get_head_commit,
 )
 from toolbox.utils import (
-    db_client,
     generic,
+    last_sync,
 )
 from toolbox.utils.function import (
     shield,
@@ -129,14 +129,6 @@ def s3_sync_fusion_to_s3(
     return True
 
 
-def update_last_sync_date(table: str, group: str) -> None:
-    db_state = db_client.make_access_point()
-    try:
-        db_client.confirm_synced_group(db_state, group, table)
-    finally:
-        db_client.drop_access_point(db_state)
-
-
 @shield(retries=1)
 def main(
     subs: str,
@@ -224,7 +216,7 @@ def main(
         LOGGER.info("Update sync date in DB")
         if aws_login:
             generic.aws_login(aws_profile)
-        update_last_sync_date("last_sync_date", subs)
+        last_sync.update_last_sync_date("last_sync_date", subs)
     if passed and subs != TEST_SUBS:
         utils.integrates.refresh_toe_lines(subs)
 

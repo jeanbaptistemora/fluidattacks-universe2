@@ -80,3 +80,11 @@ def confirm_synced_group(state: DbState, group: str, table: str) -> None:
         _create_timestamp_group(state, group, table)
     else:
         _update_timestamp_group(state, group, table)
+
+
+def update_last_sync_date(table: str, group: str) -> None:
+    db_state = make_access_point()
+    try:
+        confirm_synced_group(db_state, group, table)
+    finally:
+        drop_access_point(db_state)

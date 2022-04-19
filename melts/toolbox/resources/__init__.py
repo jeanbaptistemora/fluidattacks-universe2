@@ -14,6 +14,7 @@ from datetime import (
     datetime,
 )
 from fa_purity import (
+    FrozenList,
     Maybe,
     Result,
     ResultE,
@@ -56,8 +57,12 @@ from toolbox.logger import (
 from toolbox.resources.core import (
     FormatRepoProblem,
     GitRoot,
+    LazyCloningResult,
     RepoType,
     RootState,
+)
+from toolbox.utils import (
+    last_sync,
 )
 from toolbox.utils.integrates import (
     get_git_roots,
@@ -412,37 +417,50 @@ def _clone_repo(
     )
 
 
-def action(
+def _lazy_cloning(
     git_root: Dict[str, Any],
     group_name: str,
     progress_bar: Any,
     force: bool = False,
-) -> Optional[Dict[str, Any]]:
+) -> Result[LazyCloningResult, FormatRepoProblem]:
     root = GitRoot.new(git_root)
     # check if current repo is active
     if root.state is not RootState.ACTIVE:
-        return None
+        return Result.success(LazyCloningResult.SKIPPED)
 
-    def _notify() -> ResultE[None]:
+    def _notify() -> ResultE[LazyCloningResult]:
         LOGGER.info(
             "the last version of %s has already in s3",
             root.nickname,
         )
-        return Result.success(None)
+        return Result.success(LazyCloningResult.CACHED)
 
-    problem = (
-        already_in_s3(root)
-        .bind(
-            lambda b: _clone_repo(group_name, root)
-            if (not b) or force
-            else _notify()
+    problem = already_in_s3(root).bind(
+        lambda b: _clone_repo(group_name, root).map(
+            lambda _: LazyCloningResult.UPDATED
         )
-        .to_union()
+        if (not b) or force
+        else _notify()
     )
-    if problem:
-        return problem.raw()
     progress_bar()
-    return None
+    return problem
+
+
+def _report_success(
+    group: str,
+    results: FrozenList[Result[LazyCloningResult, FormatRepoProblem]],
+) -> None:
+    if all(
+        map(
+            lambda r: r.map(
+                lambda v: v
+                in (LazyCloningResult.SKIPPED, LazyCloningResult.CACHED)
+            ).value_or(False),
+            results,
+        )
+    ):
+        last_sync.update_last_sync_date("last_sync_date", group)
+        LOGGER.info("Last sync date of %s updated!", group)
 
 
 def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
@@ -479,12 +497,22 @@ def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
 
     with alive_bar(len(repositories), enrich_print=False) as progress_bar:
         with ThreadPool(processes=cpu_count()) as worker:
-            _problems = worker.map(
-                lambda x: action(x, subs, progress_bar, force=force),
-                repositories,
+            results = tuple(
+                worker.map(
+                    lambda x: _lazy_cloning(
+                        x, subs, progress_bar, force=force
+                    ),
+                    repositories,
+                )
             )
-            problems.extend((problem for problem in _problems if problem))
-
+            problems.extend(
+                (
+                    problem.raw()
+                    for problem in map(lambda r: r.to_union(), results)
+                    if isinstance(problem, FormatRepoProblem)
+                )
+            )
+    _report_success(subs, results)
     if problems:
         LOGGER.error("Some problems occured: \n")
 

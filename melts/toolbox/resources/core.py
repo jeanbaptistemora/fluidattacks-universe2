@@ -27,6 +27,12 @@ class RootState(Enum):
     INACTIVE = "INACTIVE"
 
 
+class LazyCloningResult(Enum):
+    SKIPPED = "SKIPPED"  # is inactive
+    CACHED = "CACHED"  # already on s3
+    UPDATED = "UPDATED"
+
+
 @dataclass(frozen=True)
 class _GitRoot:
     root_id: str
