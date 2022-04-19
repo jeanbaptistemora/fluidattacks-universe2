@@ -10,6 +10,15 @@ function formatYTick(value) {
   return '';
 }
 
+function formatXTick(index, categories) {
+  const slicedSize = -40;
+  if (Math.abs(slicedSize) > categories[index].length) {
+    return categories[index];
+  }
+
+  return `...${ categories[index].slice(slicedSize) }`;
+}
+
 function formatLogYTick(value) {
   if (value === 0.0) {
     return value;
@@ -42,18 +51,24 @@ function render(dataDocument, height, width) {
     dataDocument.axis.y.tick = { format: formatYTick };
   }
 
+  if (dataDocument.barChartXTickFormat) {
+    dataDocument.axis.x.tick.format = (index) => formatXTick(index, dataDocument.axis.x.categories);
+    dataDocument.tooltip.format.title = (_datum, index) => dataDocument.axis.x.categories[index];
+  }
+
   if (dataDocument.maxValue) {
     dataDocument.data.labels = {
       format: (datum) => formatLabels(datum, dataDocument.maxValue),
     };
   }
 
-  if (dataDocument.logarithmic && dataDocument.originalValues && dataDocument.maxValueLog) {
+  if (dataDocument.originalValues && dataDocument.maxValueLog) {
     const { originalValues } = dataDocument;
     dataDocument.axis.y.tick = { format: formatLogYTick };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLogLabels(datum, index, dataDocument.maxValueLog, originalValues),
     };
+    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
   }
 
   c3.generate({
