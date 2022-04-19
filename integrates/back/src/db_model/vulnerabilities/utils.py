@@ -18,6 +18,9 @@ from .types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
+from custom_exceptions import (
+    VulnerabilityEntryNotFound,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -271,6 +274,21 @@ def historic_entry_type_to_str(item: VulnerabilityHistoricEntry) -> str:
     if isinstance(item, VulnerabilityZeroRisk):
         return "zero_risk"
     return ""
+
+
+def get_current_entry(
+    entry: VulnerabilityHistoricEntry, current_value: Vulnerability
+) -> Optional[VulnerabilityHistoricEntry]:
+    if isinstance(entry, VulnerabilityState):
+        return current_value.state
+    if isinstance(entry, VulnerabilityTreatment):
+        return current_value.treatment
+    if isinstance(entry, VulnerabilityVerification):
+        return current_value.verification
+    if isinstance(entry, VulnerabilityZeroRisk):
+        return current_value.zero_risk
+
+    raise VulnerabilityEntryNotFound()
 
 
 def adjust_historic_dates(

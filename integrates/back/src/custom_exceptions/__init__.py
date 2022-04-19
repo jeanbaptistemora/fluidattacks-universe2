@@ -1371,3 +1371,9 @@ class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
             "toe inputs"
         )
         super(VulnerabilityUrlFieldDoNotExistInToeInputs, self).__init__(msg)
+
+
+class VulnerabilityEntryNotFound(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Vulnerability entry not found"
+        super(VulnerabilityEntryNotFound, self).__init__(msg)
