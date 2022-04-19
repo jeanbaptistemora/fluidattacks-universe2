@@ -23,17 +23,13 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
-    Tuple,
-    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     **kwargs: None,
 ) -> Optional[Finding]:
@@ -41,21 +37,19 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="max_severity_finding",
-        name=parent["name"] if isinstance(parent, dict) else parent.name,
+        name=parent.name,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[Finding]:
     loaders: Dataloaders = info.context.loaders
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_name: str = parent.name
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     _, max_severity_finding = max(
