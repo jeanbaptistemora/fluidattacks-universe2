@@ -418,7 +418,7 @@ type Mutation {
     "Findings executed in the job"
     findingsExecuted: [MachineFindingResultInput]
     "Execution finish status"
-    status: String!
+    status: String
   ): SimplePayload!
 
   "Grants a stakeholder access to a Group"
