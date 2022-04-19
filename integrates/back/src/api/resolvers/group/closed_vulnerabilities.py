@@ -12,25 +12,18 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
-    Union,
 )
 
 
 @require_asm
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[int]:
-    if isinstance(parent, dict):
-        return parent["closed_vulnerabilities"]
-
     loaders: Dataloaders = info.context.loaders
-    group_name: str = parent.name
     group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_indicators_typed.load(parent.name)
     )
     return group_indicators.closed_vulnerabilities

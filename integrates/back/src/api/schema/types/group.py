@@ -5,8 +5,6 @@ from api.resolvers.group import (
     consulting,
     context,
     deletion_date,
-    description,
-    disambiguation,
     drafts,
     events,
     findings,
@@ -56,8 +54,6 @@ GROUP.set_field("authors", authors.resolve)
 GROUP.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
 GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("deletionDate", deletion_date.resolve)
-GROUP.set_field("description", description.resolve)
-GROUP.set_field("disambiguation", disambiguation.resolve)
 GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("findings", findings.resolve)

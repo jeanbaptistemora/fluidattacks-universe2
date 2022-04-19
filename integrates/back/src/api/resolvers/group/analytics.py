@@ -15,11 +15,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-    Dict,
-    Union,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -28,13 +23,10 @@ from typing import (
     require_asm,
 )
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     _info: GraphQLResolveInfo,
     **kwargs: str,
 ) -> object:
-    group_name: str = (
-        parent["name"] if isinstance(parent, dict) else parent.name
-    )
     document_name: str = kwargs["document_name"]
     document_type: str = kwargs["document_type"]
 
@@ -42,5 +34,5 @@ async def resolve(
         document_name=document_name,
         document_type=document_type,
         entity="group",
-        subject=group_name,
+        subject=parent.name,
     )
