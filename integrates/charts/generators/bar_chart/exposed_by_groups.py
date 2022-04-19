@@ -132,7 +132,6 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
                 ),
             ),
         ),
-        logarithmic=True,
         maxValue=format_max_value(
             [(group.group_name, Decimal(group.value)) for group in data]
         ),

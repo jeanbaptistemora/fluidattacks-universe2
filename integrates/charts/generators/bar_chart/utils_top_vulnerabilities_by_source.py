@@ -153,7 +153,6 @@ def format_data(
                 ),
             ),
         ),
-        logarithmic=True,
         maxValue=format_max_value(
             [(key, Decimal(value)) for key, value in data]
         ),
