@@ -366,13 +366,21 @@ async def queue_job_new(
     )
 
     if git_roots:
+
         await collect(
             [
                 await add_machine_execution(
                     root_id=git_root_item.id,
                     job_id=queue_result.batch_job_id,
                     createdAt=datetime.now(),
-                    findings_executed=finding_codes,
+                    findings_executed=tuple(
+                        MachineFindingResult(
+                            finding=finding,
+                            open=0,
+                            modified=0,
+                        )
+                        for finding in finding_codes
+                    ),
                 )
                 for git_root_item in git_roots
                 if git_root_item.state.nickname in roots
