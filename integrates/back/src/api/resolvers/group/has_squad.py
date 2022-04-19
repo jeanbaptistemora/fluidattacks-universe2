@@ -4,14 +4,11 @@ from db_model.groups.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-)
 
 
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: Any,
+    **_kwargs: None,
 ) -> bool:
     return parent.state.has_squad

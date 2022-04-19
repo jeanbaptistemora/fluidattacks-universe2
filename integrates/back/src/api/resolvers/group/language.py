@@ -4,19 +4,11 @@ from db_model.groups.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-    Dict,
-    Union,
-)
 
 
 async def resolve(
-    parent: Union[Group, Dict[str, Any]],
+    parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: Any,
+    **_kwargs: None,
 ) -> str:
-    if isinstance(parent, dict):
-        return str(parent["language"]).upper()
-
     return parent.language.value

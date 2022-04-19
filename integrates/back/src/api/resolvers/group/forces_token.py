@@ -13,7 +13,6 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    Any,
     Optional,
 )
 
@@ -26,6 +25,6 @@ from typing import (
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: Any,
+    **_kwargs: None,
 ) -> Optional[str]:
     return parent.agent_token
