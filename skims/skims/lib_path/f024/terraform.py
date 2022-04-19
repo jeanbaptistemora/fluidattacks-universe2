@@ -28,6 +28,7 @@ from parse_hcl2.common import (
     get_block_attribute,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_instance,
     iter_aws_security_group,
     iter_aws_security_group_rule,
     iter_aws_sg_ingress_egress,
@@ -210,6 +211,14 @@ def _tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
             key="egress",
             body=resource.data,
         ):
+            yield resource
+
+
+def _tfm_ec2_instances_without_profile_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if not get_attribute(resource.data, "iam_instance_profile"):
             yield resource
 
 
@@ -457,6 +466,24 @@ def tfm_aws_ec2_allows_all_outbound_traffic(
         ),
         path=path,
         method=MethodsEnum.TFM_AWS_EC2_ALL_TRAFFIC,
+    )
+
+
+def tfm_ec2_instances_without_profile(
+    content: str,
+    path: str,
+    model: Any,
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("src.lib_path.f024_aws.instances_without_profile"),
+        iterator=get_cloud_iterator(
+            _tfm_ec2_instances_without_profile_iterate_vulnerabilities(
+                resource_iterator=iter_aws_instance(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_INST_WITHOUT_PROFILE,
     )
 
 

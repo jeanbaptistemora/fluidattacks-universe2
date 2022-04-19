@@ -1669,6 +1669,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_INST_WITHOUT_PROFILE = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_instances_without_profile",
+        module="lib_path",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_EC2_CFN_UNRESTR_IP_PROT = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ec2_cfn_unrestricted_ip_protocols",

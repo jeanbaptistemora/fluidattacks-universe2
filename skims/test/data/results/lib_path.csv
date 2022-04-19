@@ -1460,6 +1460,56 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   117 | }
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
+F177,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf","
+   7 |   }
+   8 |
+   9 |   filter {
+  10 |     name   = ""virtualization-type""
+  11 |     values = [""hvm""]
+  12 |   }
+  13 |
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+> 17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+  26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+     ^ Col 0
+",terraform.ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,26,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf","
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+  17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+> 26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+  28 |   instance_type = ""t3.micro""
+  29 |
+  30 |   iam_instance_profile = ""profile""
+  31 |   tags = {
+  32 |     Name = ""HelloWorld""
+  33 |   }
+  34 | }
+     ^ Col 0
+",terraform.ec2_use_default_security_group
 F177,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf","
    1 |
@@ -1528,7 +1578,31 @@ F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   32 |   disable_api_termination = true
      ^ Col 0
 ",terraform.ec2_use_default_security_group
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+   7 |   }
+   8 |
+   9 |   filter {
+  10 |     name   = ""virtualization-type""
+  11 |     values = [""hvm""]
+  12 |   }
+  13 |
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+> 17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+  26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+     ^ Col 0
+",terraform.tfm_ec2_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
    3 |     Type: AWS::EC2::Instance
@@ -1552,7 +1626,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           Ref: launchTemplate
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -1576,7 +1650,48 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
+   1 |
+>  2 | resource ""aws_instance"" ""foo"" {
+   3 |   ami           = ""ami-005e54dee72cc1d00""
+   4 |   instance_type = ""t2.micro""
+   5 |
+   6 |   network_interface {
+   7 |     network_interface_id = aws_network_interface.foo.id
+   8 |     device_index         = 0
+   9 |   }
+  10 |
+  11 |   credit_specification {
+  12 |     cpu_credits = ""unlimited""
+  13 |   }
+  14 | }
+     ^ Col 0
+",terraform.tfm_ec2_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,1,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",terraform.tfm_ec2_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   22 |       LaunchTemplateData:
   23 |         InstanceType: t2.micro
   24 |         KeyName: MyKeyPair
@@ -1600,7 +1715,7 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   42 |     Type: AWS::EC2::Instance
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,44,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,44,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   25 |   MyLaunchTemplate4:
   26 |     Type: AWS::EC2::LaunchTemplate
   27 |     Properties:
@@ -1624,7 +1739,7 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   45 |       KeyName: ""testkey""
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,38,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,38,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   25 |   MyLaunchTemplate4:
   26 |     Type: AWS::EC2::LaunchTemplate
   27 |     Properties:
@@ -1648,7 +1763,7 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   45 |       KeyName: ""testkey""
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   33 |       }
   34 |     },
   35 |     ""MyLaunchTemplate4"": {
@@ -1672,7 +1787,7 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   53 |         ""KeyName"": ""testkey"",
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   41 |     ""MyEC2Instance"": {
   42 |       ""Type"": ""AWS::EC2::Instance"",
   43 |       ""Properties"": {
@@ -1696,7 +1811,7 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   61 |         ""KeyName"": ""testkey""
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
   45 |         ""KeyName"": ""testkey"",
   46 |         ""DisableApiTermination"": true
   47 |       }
@@ -1720,7 +1835,7 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   65 | }
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
    1 | Resources:
    2 |   MyEC2Instance:
    3 |     Type: AWS::EC2::Instance
@@ -1744,6 +1859,30 @@ F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   21 |       IamInstanceProfile: iamProfile
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+  12 |   disable_api_termination = true
+  13 |
+  14 |   iam_instance_profile = ""test_profile""
+  15 |
+  16 |   tags = {
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+> 22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+  27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+     ^ Col 0
+",terraform.tfm_ec2_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -2718,6 +2857,294 @@ F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,1
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_aws_ec2_allows_all_outbound_traffic
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+   8 |           IpProtocol: tcp
+   9 |           ToPort: 8888
+  10 |       SecurityGroupEgress:
+  11 |         - CidrIp: 34.229.161.227/16
+  12 |           FromPort: 8080
+  13 |           IpProtocol: ""tcp""
+  14 |           ToPort: 8080
+  15 |     Type: AWS::EC2::SecurityGroup
+  16 |   securityGroup2:
+  17 |     Properties:
+> 18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
+  22 |       GroupDescription: groupDescription1
+  23 |       SecurityGroupIngress:
+  24 |         - CidrIp: 0.0.0.0/0
+  25 |           FromPort: 22
+  26 |           IpProtocol: tcp
+  27 |           ToPort: 22
+  28 |     Type: AWS::EC2::SecurityGroup
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,22,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+  12 |           FromPort: 8080
+  13 |           IpProtocol: ""tcp""
+  14 |           ToPort: 8080
+  15 |     Type: AWS::EC2::SecurityGroup
+  16 |   securityGroup2:
+  17 |     Properties:
+  18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
+> 22 |       GroupDescription: groupDescription1
+  23 |       SecurityGroupIngress:
+  24 |         - CidrIp: 0.0.0.0/0
+  25 |           FromPort: 22
+  26 |           IpProtocol: tcp
+  27 |           ToPort: 22
+  28 |     Type: AWS::EC2::SecurityGroup
+  29 |   securityGroupIngress1:
+  30 |     Properties:
+  31 |       CidrIpv6: ::/0
+  32 |       FromPort: 27017
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+  16 |             ""CidrIp"": ""34.229.161.227/16"",
+  17 |             ""FromPort"": 8080,
+  18 |             ""IpProtocol"": ""tcp"",
+  19 |             ""ToPort"": 8080
+  20 |           }
+  21 |         ]
+  22 |       },
+  23 |       ""Type"": ""AWS::EC2::SecurityGroup""
+  24 |     },
+  25 |     ""securityGroup2"": {
+> 26 |       ""Properties"": {
+  27 |         ""GroupDescription"": ""groupDescription2""
+  28 |       },
+  29 |       ""Type"": ""AWS::EC2::SecurityGroup""
+  30 |     },
+  31 |     ""securityGroup3"": {
+  32 |       ""Properties"": {
+  33 |         ""GroupDescription"": ""groupDescription1"",
+  34 |         ""SecurityGroupIngress"": [
+  35 |           {
+  36 |             ""CidrIp"": ""0.0.0.0/0"",
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,32,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+  22 |       },
+  23 |       ""Type"": ""AWS::EC2::SecurityGroup""
+  24 |     },
+  25 |     ""securityGroup2"": {
+  26 |       ""Properties"": {
+  27 |         ""GroupDescription"": ""groupDescription2""
+  28 |       },
+  29 |       ""Type"": ""AWS::EC2::SecurityGroup""
+  30 |     },
+  31 |     ""securityGroup3"": {
+> 32 |       ""Properties"": {
+  33 |         ""GroupDescription"": ""groupDescription1"",
+  34 |         ""SecurityGroupIngress"": [
+  35 |           {
+  36 |             ""CidrIp"": ""0.0.0.0/0"",
+  37 |             ""FromPort"": 22,
+  38 |             ""IpProtocol"": ""tcp"",
+  39 |             ""ToPort"": 22
+  40 |           }
+  41 |         ]
+  42 |       },
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+   8 |           IpProtocol: ""-1""
+   9 |           ToPort: 443
+  10 |       SecurityGroupEgress:
+  11 |         - CidrIp: 34.229.161.227/16
+  12 |           FromPort: 8080
+  13 |           IpProtocol: ""tcp""
+  14 |           ToPort: 8080
+  15 |     Type: AWS::EC2::SecurityGroup
+  16 |   securityGroup2:
+  17 |     Properties:
+> 18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
+  22 |       GroupDescription: groupDescription1
+  23 |       SecurityGroupIngress:
+  24 |         - CidrIp: 34.229.161.227/16
+  25 |           FromPort: 22
+  26 |           IpProtocol: ""-1""
+  27 |           ToPort: 22
+  28 |       SecurityGroupEgress:
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+   16 |             ""CidrIp"": ""34.229.161.227/16"",
+   17 |             ""FromPort"": 8080,
+   18 |             ""IpProtocol"": ""tcp"",
+   19 |             ""ToPort"": 8080
+   20 |           }
+   21 |         ]
+   22 |       },
+   23 |       ""Type"": ""AWS::EC2::SecurityGroup""
+   24 |     },
+   25 |     ""securityGroup2"": {
+>  26 |       ""Properties"": {
+   27 |         ""GroupDescription"": ""groupDescription2""
+   28 |       },
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
+   30 |     },
+   31 |     ""securityGroup3"": {
+   32 |       ""Properties"": {
+   33 |         ""GroupDescription"": ""groupDescription1"",
+   34 |         ""SecurityGroupIngress"": [
+   35 |           {
+   36 |             ""CidrIp"": ""34.229.161.227/16"",
+      ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml","
+   8 |           IpProtocol: tcp
+   9 |           ToPort: 65535
+  10 |       SecurityGroupEgress:
+  11 |         - CidrIp: 34.229.161.227/16
+  12 |           FromPort: 8080
+  13 |           IpProtocol: ""tcp""
+  14 |           ToPort: 8080
+  15 |     Type: AWS::EC2::SecurityGroup
+  16 |   securityGroup2:
+  17 |     Properties:
+> 18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
+  22 |       GroupDescription: groupDescription1
+  23 |       SecurityGroupIngress:
+  24 |         - CidrIp: 34.229.161.227/16
+  25 |           FromPort: 22
+  26 |           IpProtocol: tcp
+  27 |           ToPort: 22
+  28 |       SecurityGroupEgress:
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json","
+   16 |             ""CidrIp"": ""34.229.161.227/16"",
+   17 |             ""FromPort"": 8080,
+   18 |             ""IpProtocol"": ""tcp"",
+   19 |             ""ToPort"": 8080
+   20 |           }
+   21 |         ]
+   22 |       },
+   23 |       ""Type"": ""AWS::EC2::SecurityGroup""
+   24 |     },
+   25 |     ""securityGroup2"": {
+>  26 |       ""Properties"": {
+   27 |         ""GroupDescription"": ""groupDescription2""
+   28 |       },
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
+   30 |     },
+   31 |     ""securityGroup3"": {
+   32 |       ""Properties"": {
+   33 |         ""GroupDescription"": ""groupDescription1"",
+   34 |         ""SecurityGroupIngress"": [
+   35 |           {
+   36 |             ""CidrIp"": ""34.229.161.227/16"",
+      ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml","
+   5 |       SecurityGroupIngress:
+   6 |         - CidrIp: 34.229.161.227/16
+   7 |           FromPort: 443
+   8 |           IpProtocol: ""tcp""
+   9 |           ToPort: 443
+  10 |       SecurityGroupEgress:
+  11 |         - CidrIp: 34.229.161.227/16
+  12 |           FromPort: 8080
+  13 |           IpProtocol: ""tcp""
+  14 |           ToPort: 8080
+  15 |     Type: AWS::EC2::SecurityGroup
+  16 |   securityGroup2:
+  17 |     Properties:
+> 18 |       GroupDescription: groupDescription1
+  19 |       SecurityGroupIngress:
+  20 |         - CidrIp: 34.229.161.227/16
+  21 |           FromPort: 443
+  22 |           IpProtocol: ""tcp""
+  23 |           ToPort: 443
+  24 |
+  25 |     Type: AWS::EC2::SecurityGroup
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml.json","
+  16 |             ""CidrIp"": ""34.229.161.227/16"",
+  17 |             ""FromPort"": 8080,
+  18 |             ""IpProtocol"": ""tcp"",
+  19 |             ""ToPort"": 8080
+  20 |           }
+  21 |         ]
+  22 |       },
+  23 |       ""Type"": ""AWS::EC2::SecurityGroup""
+  24 |     },
+  25 |     ""securityGroup2"": {
+> 26 |       ""Properties"": {
+  27 |         ""GroupDescription"": ""groupDescription1"",
+  28 |         ""SecurityGroupIngress"": [
+  29 |           {
+  30 |             ""CidrIp"": ""34.229.161.227/16"",
+  31 |             ""FromPort"": 443,
+  32 |             ""IpProtocol"": ""tcp"",
+  33 |             ""ToPort"": 443
+  34 |           }
+  35 |         ]
+  36 |       },
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
+   8 |           IpProtocol: tcp
+   9 |           ToPort: 443
+  10 |       SecurityGroupEgress:
+  11 |         - CidrIp: 34.229.161.227/16
+  12 |           FromPort: 8080
+  13 |           IpProtocol: ""tcp""
+  14 |           ToPort: 8080
+  15 |     Type: AWS::EC2::SecurityGroup
+  16 |   securityGroup2:
+  17 |     Properties:
+> 18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
+  22 |       GroupDescription: groupDescription1
+  23 |       SecurityGroupIngress:
+  24 |         - CidrIp: 0.0.0.0/0
+  25 |           FromPort: 22
+  26 |           IpProtocol: tcp
+  27 |           ToPort: 22
+  28 |       SecurityGroupEgress:
+     ^ Col 0
+",cloudformation.cfn_groups_without_egress
+F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
+   16 |             ""CidrIp"": ""34.229.161.227/16"",
+   17 |             ""FromPort"": 8080,
+   18 |             ""IpProtocol"": ""tcp"",
+   19 |             ""ToPort"": 8080
+   20 |           }
+   21 |         ]
+   22 |       },
+   23 |       ""Type"": ""AWS::EC2::SecurityGroup""
+   24 |     },
+   25 |     ""securityGroup2"": {
+>  26 |       ""Properties"": {
+   27 |         ""GroupDescription"": ""groupDescription2""
+   28 |       },
+   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
+   30 |     },
+   31 |     ""securityGroup3"": {
+   32 |       ""Properties"": {
+   33 |         ""GroupDescription"": ""groupDescription1"",
+   34 |         ""SecurityGroupIngress"": [
+   35 |           {
+   36 |             ""CidrIp"": ""0.0.0.0/0"",
+      ^ Col 0
+",cloudformation.cfn_groups_without_egress
 F333,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,70,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,"
   60 |     http_endpoint               = ""enabled""
   61 |     http_tokens                 = ""required""
@@ -2869,6 +3296,30 @@ F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,
   4 | }
     ^ Col 0
 ",terraform.tfm_aws_efs_unencrypted
+F333,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+   7 |   }
+   8 |
+   9 |   filter {
+  10 |     name   = ""virtualization-type""
+  11 |     values = [""hvm""]
+  12 |   }
+  13 |
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+> 17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+  26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+     ^ Col 0
+",terraform.tfm_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -23860,6 +24311,54 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   21 |   }
      ^ Col 0
 ",cloudformation.cfn_bucket_has_logging_conf_disabled
+F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+   7 |   }
+   8 |
+   9 |   filter {
+  10 |     name   = ""virtualization-type""
+  11 |     values = [""hvm""]
+  12 |   }
+  13 |
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+> 17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+  26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,26,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+  17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+> 26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+  28 |   instance_type = ""t3.micro""
+  29 |
+  30 |   iam_instance_profile = ""profile""
+  31 |   tags = {
+  32 |     Name = ""HelloWorld""
+  33 |   }
+  34 | }
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
    1 |
 >  2 | resource ""aws_instance"" ""foo"" {
