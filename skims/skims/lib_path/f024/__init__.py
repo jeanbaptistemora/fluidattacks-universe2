@@ -20,6 +20,7 @@ from lib_path.f024.terraform import (
     tfm_aws_ec2_allows_all_outbound_traffic,
     tfm_aws_ec2_cfn_unrestricted_ip_protocols,
     tfm_aws_ec2_unrestricted_cidrs,
+    tfm_ec2_has_open_all_ports_to_the_public,
     tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
     tfm_ec2_has_unrestricted_dns_access,
     tfm_ec2_has_unrestricted_ftp_access,
@@ -200,6 +201,16 @@ def run_tfm_ec2_instances_without_profile(
     )
 
 
+# @CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_tfm_ec2_has_open_all_ports_to_the_public(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_ec2_has_open_all_ports_to_the_public(
+        content=content, path=path, model=model
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_groups_without_egress(
@@ -291,6 +302,7 @@ def analyze(
                     run_tfm_ec2_has_unrestricted_dns_access,
                     run_tfm_ec2_has_unrestricted_ftp_access,
                     run_tfm_ec2_instances_without_profile,
+                    run_tfm_ec2_has_open_all_ports_to_the_public,
                 )
             ),
         )

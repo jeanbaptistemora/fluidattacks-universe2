@@ -203,6 +203,36 @@ def _tfm_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
             yield from_port
 
 
+def _tfm_ec2_has_open_all_ports_to_the_public_iter_vulns(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for ec2_res in resource_iterator:
+        public_cidrs = {
+            "::/0",
+            "0.0.0.0/0",
+        }
+        cidr_block = get_attribute(
+            ec2_res.data, "cidr_blocks"
+        ) or get_attribute(ec2_res.data, "ipv6_cidr_blocks")
+        if cidr_block is None:
+            continue
+        cidr_vals = set(
+            cidr_block.val
+            if isinstance(cidr_block.val, list)
+            else [cidr_block.val]
+        )
+        valid_cidrs = filter(is_cidr, cidr_vals)
+        from_port = get_attribute(ec2_res.data, "from_port")
+        to_port = get_attribute(ec2_res.data, "to_port")
+        if (
+            public_cidrs.intersection(valid_cidrs)
+            and from_port
+            and to_port
+            and (int(to_port.val) - int(from_port.val)) >= 65535
+        ):
+            yield from_port
+
+
 def _tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -446,6 +476,30 @@ def tfm_ec2_has_unrestricted_ftp_access(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_UNRESTRICTED_FTP,
+    )
+
+
+def tfm_ec2_has_open_all_ports_to_the_public(
+    content: str,
+    path: str,
+    model: Any,
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f024.ec2_has_open_all_ports_to_the_public"
+        ),
+        iterator=get_cloud_iterator(
+            _tfm_ec2_has_open_all_ports_to_the_public_iter_vulns(
+                resource_iterator=iter_aws_sg_ingress_egress(
+                    model=model,
+                    ingress=True,
+                    egress=True,
+                ),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_EC2_OPEN_ALL_PORTS_PUBLIC,
     )
 
 

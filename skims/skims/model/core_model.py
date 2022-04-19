@@ -1661,6 +1661,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_EC2_OPEN_ALL_PORTS_PUBLIC = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_has_open_all_ports_to_the_public",
+        module="lib_path",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_EC2_ALL_TRAFFIC = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ec2_allows_all_outbound_traffic",

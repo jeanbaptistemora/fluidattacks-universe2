@@ -294,12 +294,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-> 10 |           FromPort: 1
+> 10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -314,12 +314,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-  10 |           FromPort: 1
+  10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-> 15 |           FromPort: 1
+> 15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -343,14 +343,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-> 31 |           FromPort: 1
+> 31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -360,14 +360,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-> 38 |       FromPort: 1
+> 38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -439,7 +439,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
->  13 |             ""FromPort"": 1,
+>  13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -447,7 +447,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
@@ -455,7 +455,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,21,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,"
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
-   13 |             ""FromPort"": 1,
+   13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -463,7 +463,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
->  21 |             ""FromPort"": 1,
+>  21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
    24 |           }
@@ -487,7 +487,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    43 |         ""SecurityGroupEgress"": [
    44 |           {
    45 |             ""IpProtocol"": ""tcp"",
->  46 |             ""FromPort"": 1,
+>  46 |             ""FromPort"": 0,
    47 |             ""ToPort"": 65535,
    48 |             ""CidrIp"": ""0.0.0.0/0""
    49 |           }
@@ -511,7 +511,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
->  57 |         ""FromPort"": 1,
+>  57 |         ""FromPort"": 0,
    58 |         ""ToPort"": 65535,
    59 |         ""CidrIp"": ""0.0.0.0/0"",
    60 |         ""DestinationSecurityGroupId"": {
@@ -1002,6 +1002,54 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admi
   19 |     to_port     = 8000
   20 |     protocol    = ""tcp""
   21 |     cidr_blocks = ""127.0.0.1/32""
+     ^ Col 0
+",terraform.tfm_ec2_has_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,38,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,"
+  28 |     cidr_blocks     = [""127.0.0.1/32""]
+  29 |     prefix_list_ids = [""pl-12c4e678""]
+  30 |   }
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+> 38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+  41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+     ^ Col 0
+",terraform.tfm_ec2_has_unrestricted_ports
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,55,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,"
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+> 55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+  58 |     protocol         = ""-1""
+  59 |     cidr_blocks      = [""0.0.0.0/0""]
+  60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_ports
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,17,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,"
@@ -1894,12 +1942,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-> 10 |           FromPort: 1
+> 10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -1920,14 +1968,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-> 31 |           FromPort: 1
+> 31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -1938,14 +1986,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-> 38 |       FromPort: 1
+> 38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -1970,7 +2018,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
->  13 |             ""FromPort"": 1,
+>  13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -1978,7 +2026,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
@@ -1995,7 +2043,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    43 |         ""SecurityGroupEgress"": [
    44 |           {
    45 |             ""IpProtocol"": ""tcp"",
->  46 |             ""FromPort"": 1,
+>  46 |             ""FromPort"": 0,
    47 |             ""ToPort"": 65535,
    48 |             ""CidrIp"": ""0.0.0.0/0""
    49 |           }
@@ -2020,7 +2068,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
->  57 |         ""FromPort"": 1,
+>  57 |         ""FromPort"": 0,
    58 |         ""ToPort"": 65535,
    59 |         ""CidrIp"": ""0.0.0.0/0"",
    60 |         ""DestinationSecurityGroupId"": {
@@ -2208,6 +2256,31 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admi
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_ftp_access
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+     ^ Col 0
+",terraform.tfm_ec2_has_unrestricted_ftp_access
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf","
   27 |     protocol        = ""udp""
@@ -2319,12 +2392,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-> 10 |           FromPort: 1
+> 10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -2345,14 +2418,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-> 31 |           FromPort: 1
+> 31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -2363,14 +2436,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-> 38 |       FromPort: 1
+> 38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -2395,7 +2468,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
->  13 |             ""FromPort"": 1,
+>  13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -2403,7 +2476,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
@@ -2420,7 +2493,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    43 |         ""SecurityGroupEgress"": [
    44 |           {
    45 |             ""IpProtocol"": ""tcp"",
->  46 |             ""FromPort"": 1,
+>  46 |             ""FromPort"": 0,
    47 |             ""ToPort"": 65535,
    48 |             ""CidrIp"": ""0.0.0.0/0""
    49 |           }
@@ -2445,7 +2518,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
->  57 |         ""FromPort"": 1,
+>  57 |         ""FromPort"": 0,
    58 |         ""ToPort"": 65535,
    59 |         ""CidrIp"": ""0.0.0.0/0"",
    60 |         ""DestinationSecurityGroupId"": {
@@ -2710,6 +2783,31 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ftp_
 ",cloudformation.cfn_ec2_has_unrestricted_dns_access
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admin_ports.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admin_ports.tf","
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+     ^ Col 0
+",terraform.tfm_ec2_has_unrestricted_dns_access
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
   31 |
   32 |   tags = {
   33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
@@ -3937,12 +4035,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-> 10 |           FromPort: 1
+> 10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -3963,14 +4061,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-> 31 |           FromPort: 1
+> 31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -3981,14 +4079,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-> 38 |       FromPort: 1
+> 38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -4013,7 +4111,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
->  13 |             ""FromPort"": 1,
+>  13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -4021,7 +4119,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
@@ -4038,7 +4136,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    43 |         ""SecurityGroupEgress"": [
    44 |           {
    45 |             ""IpProtocol"": ""tcp"",
->  46 |             ""FromPort"": 1,
+>  46 |             ""FromPort"": 0,
    47 |             ""ToPort"": 65535,
    48 |             ""CidrIp"": ""0.0.0.0/0""
    49 |           }
@@ -4063,7 +4161,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
->  57 |         ""FromPort"": 1,
+>  57 |         ""FromPort"": 0,
    58 |         ""ToPort"": 65535,
    59 |         ""CidrIp"": ""0.0.0.0/0"",
    60 |         ""DestinationSecurityGroupId"": {
@@ -4076,6 +4174,106 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    67 |           ""Fn::GetAtt"": [
       ^ Col 0
 ",cloudformation.cfn_ec2_has_open_all_ports_to_the_public
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admin_ports.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+ in namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admin_ports.tf","
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+     ^ Col 0
+",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+     ^ Col 0
+",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf","
+  27 |     protocol        = ""udp""
+  28 |     cidr_blocks     = [""172.16.0.0/12""]
+  29 |     prefix_list_ids = [""pl-12c4e678""]
+  30 |   }
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+     ^ Col 0
+",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_ports.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_ports.tf","
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+     ^ Col 0
+",terraform.tfm_ec2_has_open_all_ports_to_the_public
 F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,16,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
    3 | mespace AspNet5SQLite
    4 |
@@ -4207,12 +4405,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-  10 |           FromPort: 1
+  10 |           FromPort: 0
 > 11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -4232,12 +4430,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-> 10 |           FromPort: 1
+> 10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -4258,7 +4456,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
->  13 |             ""FromPort"": 1,
+>  13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -4266,7 +4464,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
       ^ Col 0
@@ -4282,7 +4480,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
-   13 |             ""FromPort"": 1,
+   13 |             ""FromPort"": 0,
 >  14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -4290,7 +4488,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
    24 |           }
@@ -4573,6 +4771,56 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admi
 ",terraform.tfm_allows_anyone_to_admin_ports
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admin_ports.tf,42,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
  in namespace/skims/test/data/lib_path/f024/tfm_aws_allows_anyone_to_admin_ports.tf","
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+  41 |   from_port         = 0
+> 42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+     ^ Col 0
+",terraform.tfm_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,41,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
+  31 |
+  32 |   tags = {
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+> 41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+     ^ Col 0
+",terraform.tfm_allows_anyone_to_admin_ports
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,42,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
   32 |   tags = {
   33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
   34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
@@ -5371,6 +5619,56 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_cfn_unrestricted_
   60 | }
      ^ Col 0
 ",terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,43,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
+  33 |     method = ""aws.terraform.ec2.allows_all_outbound_traffic""
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+  41 |   from_port         = 0
+  42 |   to_port           = 65535
+> 43 |   protocol          = ""-1""
+  44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+     ^ Col 0
+",terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,58,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf","
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+  55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+> 58 |     protocol         = ""-1""
+  59 |     cidr_blocks      = [""0.0.0.0/0""]
+  60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
+  66 |     protocol        = ""udp""
+  67 |     cidr_blocks     = [""127.0.0.1/32""]
+  68 |     prefix_list_ids = [""pl-12c4e678""]
+     ^ Col 0
+",terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,43,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
  in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf","
   27 |     protocol        = ""udp""
@@ -5903,12 +6201,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-  10 |           FromPort: 1
+  10 |           FromPort: 0
   11 |           ToPort: 65535
 > 12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
   17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -5922,12 +6220,12 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    7 |           Ref: myVPC
    8 |         SecurityGroupIngress:
    9 |         - IpProtocol: tcp
-  10 |           FromPort: 1
+  10 |           FromPort: 0
   11 |           ToPort: 65535
   12 |           CidrIp: 0.0.0.0/0
   13 |         SecurityGroupEgress:
   14 |         - IpProtocol: tcp
-  15 |           FromPort: 1
+  15 |           FromPort: 0
   16 |           ToPort: 65535
 > 17 |           CidrIp: 0.0.0.1/0
   18 |   InstanceSecurityGroup2:
@@ -5956,14 +6254,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
 > 28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,33,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,"
@@ -5975,14 +6273,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   28 |           CidrIp: 0.0.0.0/0
   29 |         SecurityGroupEgress:
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
 > 33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
   39 |       ToPort: 65535
   40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -5992,14 +6290,14 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
 ",cloudformation.cfn_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,40,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,"
   30 |         - IpProtocol: tcp
-  31 |           FromPort: 1
+  31 |           FromPort: 0
   32 |           ToPort: 65535
   33 |           CidrIp: 0.0.0.0/0
   34 |   OutboundRule:
   35 |     Type: AWS::EC2::SecurityGroupEgress
   36 |     Properties:
   37 |       IpProtocol: tcp
-  38 |       FromPort: 1
+  38 |       FromPort: 0
   39 |       ToPort: 65535
 > 40 |       CidrIp: 0.0.0.0/0
   41 |       DestinationSecurityGroupId:
@@ -6023,7 +6321,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    10 |         ""SecurityGroupIngress"": [
    11 |           {
    12 |             ""IpProtocol"": ""tcp"",
-   13 |             ""FromPort"": 1,
+   13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
 >  15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -6031,7 +6329,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
    23 |             ""CidrIp"": ""0.0.0.1/0""
    24 |           }
@@ -6039,7 +6337,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,23,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml.json,"
-   13 |             ""FromPort"": 1,
+   13 |             ""FromPort"": 0,
    14 |             ""ToPort"": 65535,
    15 |             ""CidrIp"": ""0.0.0.0/0""
    16 |           }
@@ -6047,7 +6345,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    18 |         ""SecurityGroupEgress"": [
    19 |           {
    20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 1,
+   21 |             ""FromPort"": 0,
    22 |             ""ToPort"": 65535,
 >  23 |             ""CidrIp"": ""0.0.0.1/0""
    24 |           }
@@ -6079,7 +6377,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    43 |         ""SecurityGroupEgress"": [
    44 |           {
    45 |             ""IpProtocol"": ""tcp"",
-   46 |             ""FromPort"": 1,
+   46 |             ""FromPort"": 0,
    47 |             ""ToPort"": 65535,
    48 |             ""CidrIp"": ""0.0.0.0/0""
    49 |           }
@@ -6095,7 +6393,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    43 |         ""SecurityGroupEgress"": [
    44 |           {
    45 |             ""IpProtocol"": ""tcp"",
-   46 |             ""FromPort"": 1,
+   46 |             ""FromPort"": 0,
    47 |             ""ToPort"": 65535,
 >  48 |             ""CidrIp"": ""0.0.0.0/0""
    49 |           }
@@ -6106,7 +6404,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
-   57 |         ""FromPort"": 1,
+   57 |         ""FromPort"": 0,
    58 |         ""ToPort"": 65535,
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
@@ -6119,7 +6417,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
    54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
    55 |       ""Properties"": {
    56 |         ""IpProtocol"": ""tcp"",
-   57 |         ""FromPort"": 1,
+   57 |         ""FromPort"": 0,
    58 |         ""ToPort"": 65535,
 >  59 |         ""CidrIp"": ""0.0.0.0/0"",
    60 |         ""DestinationSecurityGroupId"": {
@@ -7140,6 +7438,78 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_aws_ec2_unrestricted_cidr
   74 |   prefix_list_ids   = [""pl-12c4e678""]
   75 |
   76 | }
+     ^ Col 0
+",terraform.tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,44,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,"
+  34 |     Name   = ""aws.terraform.allows_all_outbound_traffic""
+  35 |   }
+  36 | }
+  37 |
+  38 | resource ""aws_security_group_rule"" ""vulnerable"" {
+  39 |   security_group_id = ""sg-123456""
+  40 |   type              = ""ingress""
+  41 |   from_port         = 0
+  42 |   to_port           = 65535
+  43 |   protocol          = ""-1""
+> 44 |   cidr_blocks       = ""0.0.0.0/0""
+  45 |   prefix_list_ids   = [""pl-12c4e678""]
+  46 |
+  47 | }
+  48 |
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+     ^ Col 0
+",terraform.tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,59,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,"
+  49 |
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+  55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+  58 |     protocol         = ""-1""
+> 59 |     cidr_blocks      = [""0.0.0.0/0""]
+  60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
+  66 |     protocol        = ""udp""
+  67 |     cidr_blocks     = [""127.0.0.1/32""]
+  68 |     prefix_list_ids = [""pl-12c4e678""]
+  69 |   }
+     ^ Col 0
+",terraform.tfm_aws_ec2_unrestricted_cidrs
+F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,60,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_open_all_ports_to_the_public.tf,"
+  50 | resource ""aws_security_group"" ""vulnerable"" {
+  51 |   name        = ""allow_tls""
+  52 |   description = ""Allow TLS inbound traffic""
+  53 |   vpc_id      = ""someid""
+  54 |
+  55 |   ingress {
+  56 |     from_port        = 443
+  57 |     to_port          = 446
+  58 |     protocol         = ""-1""
+  59 |     cidr_blocks      = [""0.0.0.0/0""]
+> 60 |     ipv6_cidr_blocks = [""::/0""]
+  61 |   }
+  62 |
+  63 |   egress {
+  64 |     from_port       = 8080
+  65 |     to_port         = 8080
+  66 |     protocol        = ""udp""
+  67 |     cidr_blocks     = [""127.0.0.1/32""]
+  68 |     prefix_list_ids = [""pl-12c4e678""]
+  69 |   }
+  70 |
      ^ Col 0
 ",terraform.tfm_aws_ec2_unrestricted_cidrs
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,44,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_ec2_has_security_groups_ip_ranges_in_rfc1918.tf,"

@@ -7,12 +7,12 @@ Resources:
           Ref: myVPC
         SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 1
+          FromPort: 0
           ToPort: 65535
           CidrIp: 0.0.0.0/0
         SecurityGroupEgress:
         - IpProtocol: tcp
-          FromPort: 1
+          FromPort: 0
           ToPort: 65535
           CidrIp: 0.0.0.1/0
   InstanceSecurityGroup2:
@@ -28,14 +28,14 @@ Resources:
           CidrIp: 0.0.0.0/0
         SecurityGroupEgress:
         - IpProtocol: tcp
-          FromPort: 1
+          FromPort: 0
           ToPort: 65535
           CidrIp: 0.0.0.0/0
   OutboundRule:
     Type: AWS::EC2::SecurityGroupEgress
     Properties:
       IpProtocol: tcp
-      FromPort: 1
+      FromPort: 0
       ToPort: 65535
       CidrIp: 0.0.0.0/0
       DestinationSecurityGroupId:

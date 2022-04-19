@@ -198,7 +198,7 @@ def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
         to_port = ec2_res.inner.get("ToPort")
         if not is_public_cidr or not from_port or not to_port:
             continue
-        if float(from_port.raw) == 1 and float(to_port.raw) == 65535:
+        if float(from_port.raw) == 0 and float(to_port.raw) == 65535:
             yield from_port
 
 
