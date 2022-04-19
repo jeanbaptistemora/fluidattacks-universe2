@@ -14,6 +14,7 @@ from decimal import (
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
     NamedTuple,
     Optional,
@@ -31,7 +32,7 @@ ExploitResult = Dict[str, str]
 Historic = List[Dict[str, str]]
 InternalName = Dict[str, str]
 Invitation = Dict[str, Union[str, bool]]
-MailContent = Dict[str, Union[int, str, List[Dict[str, str]]]]
+MailContent = Dict[str, Union[int, str, List[Dict[str, str]], Iterable[str]]]
 Organization = Dict[
     str,
     Union[Decimal, str, List[Dict[str, Union[Optional[Decimal], str]]], None],

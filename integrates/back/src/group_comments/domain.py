@@ -33,7 +33,6 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
-    Dict,
     List,
 )
 from users import (
@@ -41,9 +40,9 @@ from users import (
 )
 
 
-async def _get_fullname(objective_data: Dict[str, str]) -> str:
-    objective_email = objective_data["email"]
-    objective_possible_fullname = objective_data.get("fullname", "")
+async def _get_fullname(objective_data: CommentType) -> str:
+    objective_email = str(objective_data["email"])
+    objective_possible_fullname = str(objective_data.get("fullname", ""))
     real_name = objective_possible_fullname or objective_email
 
     if "@fluidattacks.com" in objective_email:
@@ -52,16 +51,16 @@ async def _get_fullname(objective_data: Dict[str, str]) -> str:
     return real_name
 
 
-async def _fill_comment_data(data: Dict[str, str]) -> CommentType:
+async def _fill_comment_data(data: CommentType) -> CommentType:
     fullname = await _get_fullname(objective_data=data)
     return {
         "content": data["content"],
-        "created": datetime_utils.format_comment_date(data["created"]),
+        "created": datetime_utils.format_comment_date(str(data["created"])),
         "email": data["email"],
         "fullname": fullname if fullname else data["email"],
-        "id": int(data["user_id"]),
-        "modified": datetime_utils.format_comment_date(data["modified"]),
-        "parent": int(data["parent"]),
+        "id": int(str(data["user_id"])),
+        "modified": datetime_utils.format_comment_date(str(data["modified"])),
+        "parent": int(str(data["parent"])),
     }
 
 
@@ -97,12 +96,12 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     return await group_comments_dal.delete_comment(group_name, user_id)
 
 
-async def get_comments(group_name: str) -> List[Dict[str, str]]:
+async def get_comments(group_name: str) -> List[CommentType]:
     comments = await group_comments_dal.get_comments(group_name)
     comments_name_data = await collect(
         [
             users_domain.get_user_name(mail)
-            for mail in set(comment["email"] for comment in comments)
+            for mail in set(str(comment["email"]) for comment in comments)
         ]
     )
     comments_fullnames = {
@@ -138,7 +137,7 @@ async def mask_comments(group_name: str) -> bool:
         await collect(
             [
                 delete_comment(
-                    get_key_or_fallback(comment), comment["user_id"]
+                    get_key_or_fallback(comment), str(comment["user_id"])
                 )
                 for comment in comments
             ]

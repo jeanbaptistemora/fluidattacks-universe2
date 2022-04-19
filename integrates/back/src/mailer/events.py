@@ -16,7 +16,7 @@ from datetime import (
 from db_model.enums import (
     Notification,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from mailer.utils import (
@@ -45,7 +45,7 @@ async def send_mail_comment(
     org_name = await get_organization_name(loaders, group_name)
 
     email_context: MailContentType = {
-        "comment": comment_data["content"].splitlines(),
+        "comment": str(comment_data["content"]).splitlines(),
         "comment_type": "event",
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
@@ -83,7 +83,9 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     report_date: datetime,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
-    event_age: int = (datetime_utils.get_now().date() - report_date).days
+    event_age: int = (
+        datetime_utils.get_now().date() - report_date.date()
+    ).days
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
         Dict[str, Any], ...
@@ -114,7 +116,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
         ),
-        "report_date": report_date,
+        "report_date": str(report_date),
         "state": state,
     }
     await send_mails_async(

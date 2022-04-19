@@ -46,7 +46,7 @@ async def send_mail_updated_treatment(
         if Notification.UPDATED_TREATMENT
         in user.notifications_preferences.email
     ]
-    email_context = {
+    email_context: MailContentType = {
         "group": group_name,
         "responsible": modified_by,
         "treatment": treatment,

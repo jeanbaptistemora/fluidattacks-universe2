@@ -89,7 +89,7 @@ async def send_mail_comment(
     org_name = await get_organization_name(loaders, group_name)
 
     email_context: MailContentType = {
-        "comment": comment_data["content"].splitlines(),
+        "comment": str(comment_data["content"]).splitlines(),
         "comment_type": "group",
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/consulting"

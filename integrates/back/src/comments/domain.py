@@ -170,7 +170,10 @@ async def get_comments(
                 verification.vulnerability_ids,
                 vulns,
             )
-            if comment["id"] == verification.comment_id
+            if (
+                comment["id"] == verification.comment_id
+                and verification.vulnerability_ids
+            )
             else {}
             for comment in reattack_comments
             for verification in verified
@@ -225,7 +228,7 @@ def filter_comments_date(
         comment
         for comment in comments
         if min_date
-        and datetime_utils.get_from_str(comment["created"]) >= min_date
+        and datetime_utils.get_from_str(str(comment["created"])) >= min_date
     ]
 
 

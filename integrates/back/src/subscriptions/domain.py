@@ -33,7 +33,7 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from group_access.domain import (
@@ -270,7 +270,7 @@ async def _send_digest_report(
     *,
     user_email: str,
     digest_stats: Optional[tuple[MailContent, ...]] = None,
-    loaders: Dataloaders = None,
+    loaders: Optional[Dataloaders] = None,
 ) -> None:
     group_names: list[str] = await groups_domain.get_groups_by_user(
         user_email, with_cache=False
@@ -332,7 +332,7 @@ async def _send_user_to_entity_report(
     report_subject: str,
     user_email: str,
     digest_stats: Optional[tuple[MailContent, ...]] = None,
-    loaders: Dataloaders = None,
+    loaders: Optional[Dataloaders] = None,
 ) -> None:
     if report_entity.lower() == "digest":
         await _send_digest_report(

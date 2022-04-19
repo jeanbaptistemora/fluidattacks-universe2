@@ -16,7 +16,7 @@ from db_model.enums import (
     Notification,
     StateRemovalJustification,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from group_access import (
@@ -95,7 +95,7 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         StateRemovalJustification.REPORTING_ERROR: "It is a reporting error",
     }
     recipients = FI_MAIL_REVIEWERS.split(",")
-    mail_context = {
+    mail_context: MailContentType = {
         "hacker_email": discoverer_email,
         "finding_name": finding_name,
         "finding_id": finding_id,
@@ -214,7 +214,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         if Notification.REMEDIATE_FINDING
         in user.notifications_preferences.email
     ]
-    mail_context = {
+    mail_context: MailContentType = {
         "group": group_name.lower(),
         "organization": org_name,
         "finding_name": finding_name,

@@ -55,7 +55,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     return resp
 
 
-async def get_comments(group_name: str) -> List[Dict[str, str]]:
+async def get_comments(group_name: str) -> List[CommentType]:
     """Get comments of a group."""
     key_expression = Key("project_name").eq(group_name)
     query_attrs = {"KeyConditionExpression": key_expression}
