@@ -49,7 +49,7 @@ class GroupUnreliableIndicators(NamedTuple):
     exposed_over_time_cvssf: Optional[RegisterByTime] = None
     exposed_over_time_month_cvssf: Optional[RegisterByTime] = None
     exposed_over_time_year_cvssf: Optional[RegisterByTime] = None
-    last_closed_vulnerability_days: Optional[Decimal] = None
+    last_closed_vulnerability_days: Optional[int] = None
     last_closed_vulnerability_finding: Optional[str] = None
     max_open_severity: Optional[Decimal] = None
     max_open_severity_finding: Optional[str] = None

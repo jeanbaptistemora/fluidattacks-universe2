@@ -203,13 +203,17 @@ def format_group_unreliable_indicators(
     item: Item,
 ) -> GroupUnreliableIndicators:
     return GroupUnreliableIndicators(
-        closed_vulnerabilities=item.get("closed_vulnerabilities"),
+        closed_vulnerabilities=int(item["closed_vulnerabilities"])
+        if "closed_vulnerabilities" in item
+        else None,
         exposed_over_time_cvssf=item.get("exposed_over_time_cvssf"),
         exposed_over_time_month_cvssf=item.get(
             "exposed_over_time_month_cvssf"
         ),
         exposed_over_time_year_cvssf=item.get("exposed_over_time_year_cvssf"),
-        last_closed_vulnerability_days=item.get("last_closing_date"),
+        last_closed_vulnerability_days=int(item["last_closing_date"])
+        if "last_closing_date" in item
+        else None,
         last_closed_vulnerability_finding=item.get(
             "last_closing_vuln_finding"
         ),
@@ -224,8 +228,12 @@ def format_group_unreliable_indicators(
         mean_remediate_medium_severity=item.get(
             "mean_remediate_medium_severity"
         ),
-        open_findings=item.get("open_findings"),
-        open_vulnerabilities=item.get("open_vulnerabilities"),
+        open_findings=int(item["open_findings"])
+        if "open_findings" in item
+        else None,
+        open_vulnerabilities=int(item["open_vulnerabilities"])
+        if "open_vulnerabilities" in item
+        else None,
         remediated_over_time=item.get("remediated_over_time"),
         remediated_over_time_30=item.get("remediated_over_time_30"),
         remediated_over_time_90=item.get("remediated_over_time_90"),

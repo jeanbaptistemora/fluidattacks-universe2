@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collections import (
     OrderedDict,
 )
@@ -14,6 +13,8 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
+    GroupTreatmentSummary,
+    GroupUnreliableIndicators,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -51,10 +52,6 @@ from schedulers import (
     delete_obsolete_orgs,
     update_indicators,
 )
-from typing import (
-    Dict,
-    Tuple,
-)
 from users import (
     dal as users_dal,
 )
@@ -68,13 +65,13 @@ async def test_get_status_vulns_by_time_range() -> None:
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
     vulns = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
-    findings_severity: Dict[str, Decimal] = {
+    findings_severity: dict[str, Decimal] = {
         finding.id: get_severity_score(finding.severity)
         for finding in findings
     }
@@ -133,7 +130,7 @@ def test_create_weekly_date() -> None:
 async def test_get_accepted_vulns() -> None:
     loaders = get_new_context()
     last_day = "2019-06-30 23:59:59"
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         "unittesting"
     )
     vulnerabilities = (
@@ -141,7 +138,7 @@ async def test_get_accepted_vulns() -> None:
             [finding.id for finding in findings]
         )
     )
-    findings_severity: Dict[str, Decimal] = {
+    findings_severity: dict[str, Decimal] = {
         finding.id: get_severity_score(finding.severity)
         for finding in findings
     }
@@ -251,10 +248,11 @@ async def test_get_date_last_vulns() -> None:
     assert test_data == expected_output
 
 
+@pytest.mark.changes_db
 async def test_get_group_indicators() -> None:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     group_name = "unittesting"
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     vulnerabilities = (
@@ -262,20 +260,32 @@ async def test_get_group_indicators() -> None:
             [finding.id for finding in findings]
         )
     )
-    test_data = await update_indicators.get_group_indicators(group_name)
-    over_time = [
-        element[-12:] for element in test_data["remediated_over_time"]
-    ]
+
+    await update_indicators.main()
+
+    test_data: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group_name)
+    )
+    assert len(test_data) == 26
+    assert test_data.last_closed_vulnerability_days == 945
+    assert test_data.last_closed_vulnerability_finding == "457497316"
+    assert test_data.max_open_severity == Decimal(6.3).quantize(Decimal("0.1"))
+    assert test_data.closed_vulnerabilities == 7
+    assert test_data.open_vulnerabilities == 29
+    assert test_data.open_findings == 5
+    assert test_data.mean_remediate == Decimal("790")
+    assert test_data.mean_remediate_critical_severity == Decimal("0")
+    assert test_data.mean_remediate_high_severity == Decimal("0")
+    assert test_data.mean_remediate_low_severity == Decimal("800")
+    assert test_data.mean_remediate_medium_severity == Decimal("748")
+    assert test_data.treatment_summary == GroupTreatmentSummary(
+        accepted=2, accepted_undefined=1, in_progress=1, new=25
+    )
+
+    over_time = [element[-12:] for element in test_data.remediated_over_time]
     found = over_time[0][-1]["y"]
     closed = over_time[1][-1]["y"]
     accepted = over_time[2][-1]["y"]
-
-    assert isinstance(test_data, dict)
-    assert len(test_data) == 26
-    assert test_data["max_open_severity"] == Decimal(6.3).quantize(
-        Decimal("0.1")
-    )
-    assert test_data["open_findings"] == 5
     assert found == len(
         [
             vulnerability
@@ -305,10 +315,10 @@ async def test_get_group_indicators() -> None:
             if vulnerability.state.status == VulnerabilityStateStatus.CLOSED
         ]
     )
-    test_imamura_data = await update_indicators.get_group_indicators(
-        "deleteimamura"
+
+    test_imamura_data: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load("deleteimamura")
     )
-    assert isinstance(test_imamura_data, dict)
     assert len(test_imamura_data) == 26
 
 
@@ -325,7 +335,9 @@ async def test_delete_obsolete_orgs() -> None:
 
     now_str = datetime_utils.get_as_str(datetime_utils.get_now())
     await update_pending_deletion_date(org_id, org_name, now_str)
+
     await delete_obsolete_orgs.main()
+
     new_org_ids = []
     async for organization_id, _ in iterate_organizations():
         new_org_ids.append(organization_id)
