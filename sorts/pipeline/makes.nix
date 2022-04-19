@@ -112,7 +112,7 @@ in {
           };
         }
         {
-          output = "/sorts/train";
+          output = "/sorts/training";
           gitlabExtra = {
             interruptible = false;
             rules = [
@@ -128,7 +128,7 @@ in {
           output = "/sorts/tune";
           gitlabExtra = {
             interruptible = false;
-            needs = ["/sorts/train"];
+            needs = ["/sorts/training"];
             rules = [
               (gitlabCi.rules.schedules)
               (gitlabCi.rules.varIsDefined "sorts_train")

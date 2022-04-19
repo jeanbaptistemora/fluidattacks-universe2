@@ -5,12 +5,12 @@
   ...
 }:
 makeScript {
-  name = "sorts-train";
+  name = "sorts-training";
   searchPaths = {
     bin = [inputs.nixpkgs.python38];
     source = [
-      outputs."/sorts/config-development"
-      outputs."/sorts/config-runtime"
+      outputs."/sorts/config/development"
+      outputs."/sorts/config/runtime"
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];

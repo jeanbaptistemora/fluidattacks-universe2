@@ -1,9 +1,9 @@
 {
   imports = [
     ./infra/makes.nix
-    ./linters/makes.nix
+    ./lint/makes.nix
     ./pipeline/makes.nix
-    ./tests/makes.nix
+    ./test/makes.nix
   ];
   secretsForAwsFromEnv = {
     prodSorts = {

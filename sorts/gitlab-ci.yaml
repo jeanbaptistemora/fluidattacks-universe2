@@ -187,7 +187,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/sorts/train:
+/sorts/training:
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs: []
@@ -198,7 +198,7 @@
       when: never
     - when: always
   script:
-    - m . /sorts/train
+    - m . /sorts/training
   stage: deploy-app
   tags:
     - autoscaling
@@ -209,7 +209,7 @@
   image: ghcr.io/fluidattacks/makes:22.04
   interruptible: false
   needs:
-    - /sorts/train
+    - /sorts/training
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
