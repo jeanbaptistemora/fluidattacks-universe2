@@ -68,8 +68,8 @@ def _tfm_iter_vulnerable_admin_ports(
     unrestricted_ipv6 = IPv6Network("::/0")
     for resource in resource_iterator:
         unrestricted_ip = False
-        cidr_ip = get_attribute(resource.body, "cidr_blocks")
-        cidr_ipv6 = get_attribute(resource.body, "ipv6_cidr_blocks")
+        cidr_ip = get_attribute(resource.data, "cidr_blocks")
+        cidr_ipv6 = get_attribute(resource.data, "ipv6_cidr_blocks")
         with suppress(AddressValueError, KeyError):
             unrestricted_ip = (
                 cidr_ipv6 is not None
@@ -89,8 +89,8 @@ def _tfm_iter_vulnerable_admin_ports(
                 if cidr_ip
                 else unrestricted_ip
             ) or unrestricted_ip
-        from_port = get_attribute(resource.body, "from_port")
-        to_port = get_attribute(resource.body, "to_port")
+        from_port = get_attribute(resource.data, "from_port")
+        to_port = get_attribute(resource.data, "to_port")
         port_range = (
             set(
                 range(
@@ -116,8 +116,8 @@ def _tfm_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
             "192.168.0.0/16",
         }
         cidr_block = get_attribute(
-            ec2_res.body, "cidr_blocks"
-        ) or get_attribute(ec2_res.body, "ipv6_cidr_blocks")
+            ec2_res.data, "cidr_blocks"
+        ) or get_attribute(ec2_res.data, "ipv6_cidr_blocks")
         if cidr_block is None:
             continue
         cidr_vals = set(
@@ -139,8 +139,8 @@ def _tfm_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
             "0.0.0.0/0",
         }
         cidr_block = get_attribute(
-            ec2_res.body, "cidr_blocks"
-        ) or get_attribute(ec2_res.body, "ipv6_cidr_blocks")
+            ec2_res.data, "cidr_blocks"
+        ) or get_attribute(ec2_res.data, "ipv6_cidr_blocks")
         if cidr_block is None:
             continue
         cidr_vals = set(
@@ -149,8 +149,8 @@ def _tfm_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
             else [cidr_block.val]
         )
         valid_cidrs = filter(is_cidr, cidr_vals)
-        from_port = get_attribute(ec2_res.body, "from_port")
-        to_port = get_attribute(ec2_res.body, "to_port")
+        from_port = get_attribute(ec2_res.data, "from_port")
+        to_port = get_attribute(ec2_res.data, "to_port")
         port_range = (
             set(
                 range(
@@ -174,8 +174,8 @@ def _tfm_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
             "0.0.0.0/0",
         }
         cidr_block = get_attribute(
-            ec2_res.body, "cidr_blocks"
-        ) or get_attribute(ec2_res.body, "ipv6_cidr_blocks")
+            ec2_res.data, "cidr_blocks"
+        ) or get_attribute(ec2_res.data, "ipv6_cidr_blocks")
         if cidr_block is None:
             continue
         cidr_vals = set(
@@ -184,8 +184,8 @@ def _tfm_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
             else [cidr_block.val]
         )
         valid_cidrs = filter(is_cidr, cidr_vals)
-        from_port = get_attribute(ec2_res.body, "from_port")
-        to_port = get_attribute(ec2_res.body, "to_port")
+        from_port = get_attribute(ec2_res.data, "from_port")
+        to_port = get_attribute(ec2_res.data, "to_port")
         port_range = (
             set(
                 range(
