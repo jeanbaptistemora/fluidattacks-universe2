@@ -63,8 +63,13 @@ async def get_data_one_group(group: str) -> AssignedVulnerabilities:
                 1
                 for vulnerability in vulnerabilities
                 if vulnerability.state.status == VulnerabilityStateStatus.OPEN
-                and vulnerability.treatment
-                and not vulnerability.treatment.assigned
+                and (
+                    (
+                        vulnerability.treatment
+                        and not vulnerability.treatment.assigned
+                    )
+                    or vulnerability.treatment is None
+                )
             ]
         ),
     )
@@ -93,8 +98,8 @@ def format_data(data: AssignedVulnerabilities) -> dict:
             ],
             "type": "pie",
             "colors": {
-                "Assigned": OTHER.more_passive,
-                "Not assigned": OTHER.more_agressive,
+                "Assigned": OTHER.more_agressive,
+                "Not assigned": OTHER.more_passive,
             },
         },
         "legend": {
