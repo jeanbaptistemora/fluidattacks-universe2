@@ -36,7 +36,7 @@ workflow:
 
 .makes4: &makes4
   tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:22.04
+  image: ghcr.io/fluidattacks/makes:22.05
   needs: []
   interruptible: true
   script:

@@ -48,9 +48,9 @@ in pretty-printed or CSV format:
 
 - CSV results:
 
-| title | what | where | cwe |
-|-------|------|-------|-----|
-| F052. Insecure encryption algorithm | OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | 69 | 310 + 327 |
+| title                               | what                                                                     | where | cwe       |
+| ----------------------------------- | ------------------------------------------------------------------------ | ----- | --------- |
+| F052. Insecure encryption algorithm | OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | 69    | 310 + 327 |
 
 ## Requirements
 
@@ -67,7 +67,7 @@ in pretty-printed or CSV format:
 1. Makes, installed like this:
 
     ```bash
-    $ nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz
+    $ nix-env -if https://github.com/fluidattacks/makes/archive/22.05.tar.gz
     ```
 
 ## Using

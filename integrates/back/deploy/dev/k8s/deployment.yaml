@@ -19,7 +19,7 @@ spec:
         worker_group: development
       containers:
         - name: integrates
-          image: ghcr.io/fluidattacks/makes:22.04
+          image: ghcr.io/fluidattacks/makes:22.05
           imagePullPolicy: Always
           command: [sh]
           args:
@@ -78,7 +78,7 @@ spec:
             failureThreshold: 10
             timeoutSeconds: 60
         - name: db
-          image: ghcr.io/fluidattacks/makes:22.04
+          image: ghcr.io/fluidattacks/makes:22.05
           imagePullPolicy: Always
           command: [m]
           args:
@@ -102,7 +102,7 @@ spec:
             privileged: false
             readOnlyRootFilesystem: false
         - name: cache
-          image: ghcr.io/fluidattacks/makes:22.04
+          image: ghcr.io/fluidattacks/makes:22.05
           imagePullPolicy: Always
           command: [m]
           args:
@@ -126,7 +126,7 @@ spec:
             privileged: false
             readOnlyRootFilesystem: false
         - name: storage
-          image: ghcr.io/fluidattacks/makes:22.04
+          image: ghcr.io/fluidattacks/makes:22.05
           imagePullPolicy: Always
           command: [m]
           args:
