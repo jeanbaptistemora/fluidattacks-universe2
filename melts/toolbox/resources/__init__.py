@@ -13,6 +13,11 @@ from contextlib import (
 from datetime import (
     datetime,
 )
+from fa_purity import (
+    Maybe,
+    Result,
+    ResultE,
+)
 import git
 from git import (
     Repo,
@@ -47,6 +52,12 @@ from toolbox import (
 )
 from toolbox.logger import (
     LOGGER,
+)
+from toolbox.resources.core import (
+    FormatRepoProblem,
+    GitRoot,
+    RepoType,
+    RootState,
 )
 from toolbox.utils.integrates import (
     get_git_roots,
@@ -215,12 +226,12 @@ def repo_url(baseurl: str) -> str:
     return error
 
 
-def _ssh_ls_remote(git_root: Dict[str, str]) -> Optional[str]:
-    baseurl = git_root["url"]
+def _ssh_ls_remote(root: GitRoot) -> Optional[str]:
+    baseurl = root.url
     if "source.developers.google" not in baseurl:
         baseurl = baseurl.replace("ssh://", "")
 
-    branch = urllib.parse.unquote(git_root["branch"])
+    branch = urllib.parse.unquote(root.branch)
 
     with setup_ssh_key() as keyfile:
         command_ls = [
@@ -237,19 +248,18 @@ def _ssh_ls_remote(git_root: Dict[str, str]) -> Optional[str]:
 
 def _ssh_repo_cloning(
     group_name: str,
-    git_root: Dict[str, str],
-) -> Optional[Dict[str, str]]:
+    root: GitRoot,
+) -> ResultE[None]:
     """cloning or updated a repository ssh"""
-    baseurl = git_root["url"]
+    baseurl = root.url
     if "source.developers.google" not in baseurl:
         baseurl = baseurl.replace("ssh://", "")
 
     # handle urls special chars in branch names
-    branch = urllib.parse.unquote(git_root["branch"])
+    branch = urllib.parse.unquote(root.branch)
 
-    problem: Optional[Dict[str, Any]] = None
-
-    nickname = git_root["nickname"]
+    problem: Optional[FormatRepoProblem] = None
+    nickname = root.nickname
 
     folder = nickname
 
@@ -270,7 +280,8 @@ def _ssh_repo_cloning(
 
             cmd = cmd_execute(command, folder)
             if len(cmd[0]) == 0 and "fatal" in cmd[1]:
-                problem = format_repo_problem(nickname, branch, cmd[1])
+                problem = FormatRepoProblem(nickname, branch, cmd[1])
+                problem.log(LOGGER)
         else:
             # Clone repo:
             command = [
@@ -290,26 +301,30 @@ def _ssh_repo_cloning(
 
             cmd = cmd_execute(command)
             if len(cmd[0]) == 0 and "fatal" in cmd[1]:
-                problem = format_repo_problem(nickname, branch, cmd[1])
+                problem = FormatRepoProblem(nickname, branch, cmd[1])
+                problem.log(LOGGER)
 
     if problem:
-        message = format_problem_message(problem["problem"])
+        message = format_problem_message(problem.raw()["problem"])
         utils.integrates.update_root_cloning_status(
             group_name,
-            git_root["id"],
+            root.root_id,
             "FAILED",
             message,
         )
-    return problem
+    return Maybe.from_optional(problem).to_result().swap()
 
 
-def _http_ls_remote(_repo_url: str, git_root: Dict[str, Any]) -> Optional[str]:
-    branch = git_root["branch"]
-    command_ls = ["git", "ls-remote", shq(_repo_url), branch]
-    cmd = cmd_execute(command_ls)
-    if len(cmd[0]) >= 0:
-        return cmd[0].split("\t")[0]
-    return None
+def _http_ls_remote(root: GitRoot) -> Result[Optional[str], FormatRepoProblem]:
+    baseurl = repo_url(root.url)
+    if "fatal" not in baseurl:
+        command_ls = ["git", "ls-remote", shq(baseurl), root.branch]
+        cmd = cmd_execute(command_ls)
+        if len(cmd[0]) >= 0:
+            return Result.success(cmd[0].split("\t")[0])
+        return Result.success(None)
+    problem = FormatRepoProblem(root.nickname, root.branch, baseurl)
+    return Result.failure(problem)
 
 
 def get_head_commit(path_to_repo: str, branch: str) -> Optional[str]:
@@ -325,27 +340,27 @@ def get_head_commit(path_to_repo: str, branch: str) -> Optional[str]:
 
 def _http_repo_cloning(
     group_name: str,
-    git_root: Dict[str, str],
-) -> Optional[Dict[str, str]]:
+    root: GitRoot,
+) -> Result[None, FormatRepoProblem]:
     """cloning or updated a repository https"""
     # Needed to avoid SSL certificate problem
     os.environ["GIT_SSL_NO_VERIFY"] = "False"
     # script does not support vpns atm
-    baseurl = git_root["url"]
+    baseurl = root.url
     baseurl = baseurl.replace("https://", "https://<user>:<pass>@")
     baseurl = baseurl.replace("http://", "https://<user>:<pass>@")
-    nickname = git_root["nickname"]
+    nickname = root.nickname
 
-    branch = git_root["branch"]
+    branch = root.branch
 
-    problem: Optional[Dict[str, Any]] = None
-
+    problem: Optional[FormatRepoProblem] = None
     # check if user has access to current repository
-    baseurl = repo_url(git_root["url"])
+    baseurl = repo_url(root.url)
     if "fatal:" in baseurl:
-        problem = format_repo_problem(nickname, branch, baseurl)
+        problem = FormatRepoProblem(nickname, branch, baseurl)
+        problem.log(LOGGER)
 
-    branch = git_root["branch"]
+    branch = root.branch
     folder = nickname
 
     if os.path.isdir(folder):
@@ -354,7 +369,8 @@ def _http_repo_cloning(
             git_repo = git.Repo(folder, search_parent_directories=True)
             git_repo.remotes.origin.pull()
         except GitError as exc:
-            problem = format_repo_problem(nickname, branch, exc.stderr)
+            problem = FormatRepoProblem(nickname, branch, exc.stderr)
+            problem.log(LOGGER)
     # validate if there is no problem with the baseurl
     elif not problem:
         try:
@@ -364,17 +380,36 @@ def _http_repo_cloning(
                 multi_options=[f"-b {branch}", "--single-branch"],
             )
         except GitError as exc:
-            problem = format_repo_problem(nickname, branch, exc.stderr)
+            problem = FormatRepoProblem(nickname, branch, exc.stderr)
+            problem.log(LOGGER)
 
     if problem:
-        message = format_problem_message(problem["problem"])
+        message = format_problem_message(problem.raw()["problem"])
         utils.integrates.update_root_cloning_status(
             group_name,
-            git_root["id"],
+            root.root_id,
             "FAILED",
             message,
         )
-    return problem
+    return Maybe.from_optional(problem).to_result().swap()
+
+
+def already_in_s3(
+    root: GitRoot,
+) -> Result[bool, FormatRepoProblem]:
+    if root.repo_type is RepoType.SSH:
+        return Result.success(_ssh_ls_remote(root) == root.head_commit)
+    return _http_ls_remote(root).map(lambda c: c == root.head_commit)
+
+
+def _clone_repo(
+    group_name: str, root: GitRoot
+) -> Result[None, FormatRepoProblem]:
+    return (
+        _ssh_repo_cloning(group_name, root)
+        if root.repo_type is RepoType.SSH
+        else _http_repo_cloning(group_name, root)
+    )
 
 
 def action(
@@ -383,41 +418,29 @@ def action(
     progress_bar: Any,
     force: bool = False,
 ) -> Optional[Dict[str, Any]]:
-    repo_type = "ssh" if git_root["url"].startswith("ssh") else "https"
-    problem: Optional[Dict[str, str]] = None
-
+    root = GitRoot.new(git_root)
     # check if current repo is active
-    if git_root.get("state", "") != "ACTIVE":
+    if root.state is not RootState.ACTIVE:
         return None
 
-    current_commit = git_root["cloningStatus"]["commit"]
-    if repo_type == "ssh":
-        if not force and _ssh_ls_remote(git_root) == current_commit:
-            LOGGER.info(
-                "the las version of %s has already in s3",
-                git_root["nickname"],
-            )
-        else:
-            problem = _ssh_repo_cloning(group_name, git_root)
-    else:
-        baseurl = repo_url(git_root["url"])
-        if "fatal" not in baseurl:
-            if (
-                not force
-                and _http_ls_remote(baseurl, git_root) == current_commit
-            ):
-                LOGGER.info(
-                    "the las version of %s has already in s3",
-                    git_root["nickname"],
-                )
-            else:
-                problem = _http_repo_cloning(group_name, git_root)
-        else:
-            problem = format_repo_problem(
-                git_root["nickname"], git_root["branch"], baseurl
-            )
+    def _notify() -> ResultE[None]:
+        LOGGER.info(
+            "the last version of %s has already in s3",
+            root.nickname,
+        )
+        return Result.success(None)
+
+    problem = (
+        already_in_s3(root)
+        .bind(
+            lambda b: _clone_repo(group_name, root)
+            if (not b) or force
+            else _notify()
+        )
+        .to_union()
+    )
     if problem:
-        return problem
+        return problem.raw()
     progress_bar()
     return None
 
