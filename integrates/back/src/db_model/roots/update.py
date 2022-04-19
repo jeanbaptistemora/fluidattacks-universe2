@@ -192,6 +192,7 @@ async def finish_machine_execution(
     job_id: str,
     stopped_at: str,
     findings_executed: List[MachineFindingResult],
+    status: str,
 ) -> bool:
     key_structure = TABLE.primary_key
     machine_execution_key = keys.build_key(
@@ -205,6 +206,7 @@ async def finish_machine_execution(
             item={
                 "stopped_at": stopped_at,
                 "findings_executed": findings_executed,
+                "status": status,
             },
             key=machine_execution_key,
             table=TABLE,
