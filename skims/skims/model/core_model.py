@@ -2421,6 +2421,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_INSECURE_CORS_ORIGIN = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_insecure_cors_origin",
+        module="lib_root",
+        finding=FindingEnum.F134,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_unrestricted_access_network_segments",
