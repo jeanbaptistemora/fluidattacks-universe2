@@ -8,6 +8,7 @@ from decimal import (
     Decimal,
 )
 from typing import (
+    Iterable,
     Sequence,
 )
 
@@ -318,7 +319,7 @@ class IncompleteDraft(CustomBaseException):
 class IncompleteSeverity(CustomBaseException):
     """Exception to control severity fields"""
 
-    def __init__(self, fields: Sequence[str]) -> None:
+    def __init__(self, fields: Iterable[str]) -> None:
         """Constructor"""
         msg = f'Exception - Severity has missing fields: {", ".join(fields)}'
         super(IncompleteSeverity, self).__init__(msg)

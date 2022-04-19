@@ -24,6 +24,9 @@ from starlette.templating import (
     Jinja2Templates,
 )
 import traceback
+from typing import (
+    Optional,
+)
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 
@@ -98,7 +101,7 @@ def graphic_view(
 def invalid_invitation(
     request: Request,
     error: str,
-    group_access: GroupAccessType = None,
+    group_access: Optional[GroupAccessType] = None,
 ) -> HTMLResponse:
     group_name = (
         get_key_or_fallback(group_access, fallback="") if group_access else ""

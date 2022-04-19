@@ -77,7 +77,7 @@ def get_cvss3_basescore(
             basescore = Decimal(
                 math.ceil(
                     min(
-                        (
+                        float(
                             parameters.basescore_factor
                             * (impact + exploitability)
                         ),
@@ -89,7 +89,7 @@ def get_cvss3_basescore(
             )
         else:
             basescore = Decimal(
-                math.ceil(min(impact + exploitability, 10) * 10) / 10
+                math.ceil(min(float(impact + exploitability), 10) * 10) / 10
             )
     resp = basescore.quantize(Decimal("0.1"))
     return resp

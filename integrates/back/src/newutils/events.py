@@ -37,8 +37,8 @@ def format_data(event: EventType) -> EventType:
 
 def event_history(item: Item, history_state: EventStatus) -> EventHistory:
     return EventHistory(
-        affectation=item.get["affectation", ""],
-        date=item.get["date", ""],
+        affectation=item.get("affectation", ""),
+        date=item.get("date", ""),
         state=history_state,
     )
 
@@ -55,7 +55,7 @@ def format_event(item: Item) -> Event:
         detail=item.get("detail", ""),
         evidence_file=item.get("event_id", ""),
         evidence=item.get("event_id", ""),
-        historic_state=EventHistory,
+        historic_state=event_history(item, item["event_status"]),
         id=item.get("event_id", ""),
         subscription=item.get("event_id", ""),
         action_after_blocking=item.get("action_after_blocking", None),

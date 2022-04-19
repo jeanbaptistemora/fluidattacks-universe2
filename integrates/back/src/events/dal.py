@@ -22,7 +22,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    cast,
     List,
 )
 
@@ -82,13 +81,11 @@ async def save_evidence(file_object: object, file_name: str) -> None:
 
 
 async def search_evidence(file_name: str) -> List[str]:
-    return cast(
-        List[str], await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
-    )
+    return await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
 
 
 async def sign_url(file_url: str) -> str:
-    return cast(str, await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET))
+    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
 
 
 async def remove_evidence(file_name: str) -> None:

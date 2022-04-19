@@ -4,7 +4,9 @@ from datetime import (
 from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
+    GroupStateRemovalJustification,
     GroupStateStatus,
+    GroupStateUpdationJustification,
     GroupSubscriptionType,
     GroupTier,
 )
@@ -13,8 +15,6 @@ from db_model.groups.types import (
     GroupFile,
     GroupMetadataToUpdate,
     GroupState,
-    GroupStateRemovalJustification,
-    GroupStateUpdationJustification,
     GroupStatusJustification,
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
@@ -39,6 +39,7 @@ from settings import (
 )
 from typing import (
     Optional,
+    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -92,6 +93,11 @@ def format_state_justification(
 
 
 def format_group_state(state: Item) -> GroupState:
+    justification: (
+        Union[
+            GroupStateUpdationJustification, Optional[GroupStatusJustification]
+        ]
+    )
     has_machine: bool = bool(
         get_key_or_fallback(state, "has_machine", "has_skims", False)
     )
@@ -110,7 +116,7 @@ def format_group_state(state: Item) -> GroupState:
         has_machine=has_machine,
         has_squad=has_squad,
         justification=justification,
-        modified_by=state.get("requester") or state.get("user"),
+        modified_by=str(state.get("requester")) or str(state.get("user")),
         modified_date=convert_to_iso_str(state["date"]),
         service=GroupService[str(state["service"]).upper()]
         if state.get("service")
@@ -337,7 +343,9 @@ def format_group_to_add_item(group: Group) -> Item:
                 "has_drills": group.state.has_squad,
                 "has_forces": True,
                 "requester": group.state.modified_by,
-                "service": group.state.service.value,
+                "service": (
+                    group.state.service.value if group.state.service else None
+                ),
                 "tier": str(group.state.tier.value).lower(),
                 "type": str(group.state.type.value).lower(),
             }

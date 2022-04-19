@@ -223,7 +223,7 @@ async def add_event(  # pylint: disable=too-many-locals
             event_id=event_id,
             event_type=event_type,
             description=description,
-            report_date=report_date,
+            report_date=str(report_date),
         )
     )
 
@@ -247,7 +247,7 @@ async def get_events(event_ids: List[str]) -> List[EventType]:
 async def get_unsolved_events(group_name: str) -> List[str]:
     events_list = await list_group_events(group_name)
     events = await get_events(events_list)
-    unsolved = [
+    unsolved: List[EventType] = [
         event
         for event in events
         if event["historic_state"][-1]["state"] == "CREATED"
@@ -361,8 +361,8 @@ async def solve_event(  # pylint: disable=too-many-locals
                 is_closing_event=True,
             )
 
-    event_type = event["event_type"]
-    description = event["detail"]
+    event_type = str(event["event_type"])
+    description = str(event["detail"])
     report_date = datetime_utils.get_date_from_iso_str(
         event["historic_state"][0]["date"]
     )
@@ -374,7 +374,7 @@ async def solve_event(  # pylint: disable=too-many-locals
             event_type=event_type,
             description=description,
             is_closed=True,
-            report_date=report_date,
+            report_date=str(report_date),
         )
     )
 
@@ -513,7 +513,7 @@ async def request_vulnerabilities_hold(
             for vuln in vulnerabilities
         )
     )
-    comment_data = {
+    comment_data: CommentType = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",

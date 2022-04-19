@@ -53,6 +53,7 @@ from operator import (
 )
 from typing import (
     Any,
+    cast,
     Counter,
     Dict,
     Iterable,
@@ -428,12 +429,20 @@ def ungroup_specific(specific: str) -> List[str]:
     return specific_values
 
 
+def adjust_historic_treatment_dates(
+    historic: Tuple[VulnerabilityTreatment, ...],
+) -> Tuple[VulnerabilityTreatment, ...]:
+    return cast(
+        Tuple[VulnerabilityTreatment, ...], adjust_historic_dates(historic)
+    )
+
+
 def get_treatment_from_org_finding_policy(
     *, modified_date: str, user_email: str
-) -> Tuple[VulnerabilityTreatment, VulnerabilityTreatment]:
+) -> Tuple[VulnerabilityTreatment, ...]:
     treatments: Tuple[
-        VulnerabilityTreatment, VulnerabilityTreatment
-    ] = adjust_historic_dates(
+        VulnerabilityTreatment, ...
+    ] = adjust_historic_treatment_dates(
         (
             VulnerabilityTreatment(
                 acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,
@@ -473,7 +482,8 @@ def get_total_treatment_date(
     for treatment in treatments:
         # Check if any of these states occurred in the period
         status_count.update([treatment.status])
-        acceptance_count.update([treatment.acceptance_status])
+        if treatment.acceptance_status:
+            acceptance_count.update([treatment.acceptance_status])
 
     return {
         "accepted": status_count[VulnerabilityTreatmentStatus.ACCEPTED],
@@ -651,6 +661,8 @@ def _get_vuln_treatment_actions(
                 VulnerabilityAcceptanceStatus.REJECTED,
                 VulnerabilityAcceptanceStatus.SUBMITTED,
             }
+            and treatment.justification
+            and treatment.assigned
         )
     ]
     return list({action.date: action for action in actions}.values())
