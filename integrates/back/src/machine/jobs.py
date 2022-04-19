@@ -373,12 +373,12 @@ async def queue_job_new(
                     root_id=git_root_item.id,
                     job_id=queue_result.batch_job_id,
                     createdAt=datetime.now(),
-                    findings_executed=tuple(
-                        MachineFindingResult(
-                            finding=finding,
-                            open=0,
-                            modified=0,
-                        )
+                    findings_executed=list(
+                        {
+                            "finding": finding,
+                            "open": 0,
+                            "modified": 0,
+                        }
                         for finding in finding_codes
                     ),
                 )
