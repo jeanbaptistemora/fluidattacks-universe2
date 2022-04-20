@@ -311,9 +311,8 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
 
 async def update_historic(
     *,
-    finding_id: str,
+    current_value: Vulnerability,
     historic: VulnerabilityHistoric,
-    vulnerability_id: str,
 ) -> None:
     if not historic:
         raise EmptyHistoric()
@@ -325,7 +324,10 @@ async def update_historic(
     try:
         vulnerability_key = keys.build_key(
             facet=TABLE.facets["vulnerability_metadata"],
-            values={"finding_id": finding_id, "id": vulnerability_id},
+            values={
+                "finding_id": current_value.finding_id,
+                "id": current_value.id,
+            },
         )
         vulnerability_item = {entry_type: json.loads(json.dumps(latest_entry))}
         await operations.update_item(
@@ -339,7 +341,7 @@ async def update_historic(
 
     historic_key = keys.build_key(
         facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
-        values={"id": vulnerability_id},
+        values={"id": current_value.id},
     )
     current_response = await operations.query(
         condition_expression=(
@@ -354,7 +356,7 @@ async def update_historic(
         keys.build_key(
             facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
             values={
-                "id": vulnerability_id,
+                "id": current_value.id,
                 "iso8601utc": item["sk"].split("#")[1],
             },
         )
@@ -365,7 +367,7 @@ async def update_historic(
         keys.build_key(
             facet=TABLE.facets[f"vulnerability_historic_{entry_type}"],
             values={
-                "id": vulnerability_id,
+                "id": current_value.id,
                 "iso8601utc": entry.modified_date,
             },
         )

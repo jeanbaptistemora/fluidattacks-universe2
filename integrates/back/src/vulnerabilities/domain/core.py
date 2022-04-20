@@ -679,7 +679,6 @@ async def should_send_update_treatment(
 async def update_historics_dates(
     *,
     loaders: Any,
-    finding_id: str,
     vulnerability_id: str,
     modified_date: str,
 ) -> None:
@@ -697,9 +696,10 @@ async def update_historics_dates(
             )
         ),
     )
+    loaders.vulnerability.clear(vulnerability_id)
+    vulnerability = await loaders.vulnerability.load(vulnerability_id)
     await vulns_model.update_historic(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
+        current_value=vulnerability,
         historic=historic_state,
     )
 
@@ -716,9 +716,10 @@ async def update_historics_dates(
             )
         ),
     )
+    loaders.vulnerability.clear(vulnerability_id)
+    vulnerability = await loaders.vulnerability.load(vulnerability_id)
     await vulns_model.update_historic(
-        finding_id=finding_id,
-        vulnerability_id=vulnerability_id,
+        current_value=vulnerability,
         historic=historic_treatment,
     )
 

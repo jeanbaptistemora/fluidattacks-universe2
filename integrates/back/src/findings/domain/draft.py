@@ -87,7 +87,6 @@ async def approve_draft(
     await collect(
         vulns_domain.update_historics_dates(
             loaders=loaders,
-            finding_id=finding_id,
             vulnerability_id=vuln.id,
             modified_date=approval_date,
         )

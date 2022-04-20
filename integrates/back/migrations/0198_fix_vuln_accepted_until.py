@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,unexpected-keyword-arg,missing-kwoa
 """
 Search inside vulns' historic treatment for ACCEPTED states with
 "accepted_until" date inferior to "modified_date", according to validations

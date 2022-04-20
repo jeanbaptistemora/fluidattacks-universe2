@@ -10,6 +10,9 @@ from batch.dal import (
 from comments import (
     dal as dal_comment,
 )
+from dataloaders import (
+    get_new_context,
+)
 from db_model import (
     credentials as creds_model,
     findings as findings_model,
@@ -265,47 +268,60 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
             for vulnerability in data
         ]
     )
+    vuln_ids = [item["vulnerability"].id for item in data]
+    loaders = get_new_context()
+    current_vulnerabilities = await loaders.vulnerability.load_many(vuln_ids)
     await collect(
         [
             vulns_model.update_historic(
-                finding_id=vulnerability["vulnerability"].finding_id,
-                vulnerability_id=vulnerability["vulnerability"].id,
+                current_value=current_value,
                 historic=vulnerability["historic_state"],
             )
-            for vulnerability in data
+            for current_value, vulnerability in zip(
+                current_vulnerabilities, data
+            )
             if "historic_state" in vulnerability
         ]
     )
+    loaders = get_new_context()
+    current_vulnerabilities = await loaders.vulnerability.load_many(vuln_ids)
     await collect(
         [
             vulns_model.update_historic(
-                finding_id=vulnerability["vulnerability"].finding_id,
-                vulnerability_id=vulnerability["vulnerability"].id,
+                current_value=current_value,
                 historic=vulnerability["historic_treatment"],
             )
-            for vulnerability in data
+            for current_value, vulnerability in zip(
+                current_vulnerabilities, data
+            )
             if "historic_treatment" in vulnerability
         ]
     )
+    loaders = get_new_context()
+    current_vulnerabilities = await loaders.vulnerability.load_many(vuln_ids)
     await collect(
         [
             vulns_model.update_historic(
-                finding_id=vulnerability["vulnerability"].finding_id,
-                vulnerability_id=vulnerability["vulnerability"].id,
+                current_value=current_value,
                 historic=vulnerability["historic_verification"],
             )
-            for vulnerability in data
+            for current_value, vulnerability in zip(
+                current_vulnerabilities, data
+            )
             if "historic_verification" in vulnerability
         ]
     )
+    loaders = get_new_context()
+    current_vulnerabilities = await loaders.vulnerability.load_many(vuln_ids)
     await collect(
         [
             vulns_model.update_historic(
-                finding_id=vulnerability["vulnerability"].finding_id,
-                vulnerability_id=vulnerability["vulnerability"].id,
+                current_value=current_value,
                 historic=vulnerability["historic_zero_risk"],
             )
-            for vulnerability in data
+            for current_value, vulnerability in zip(
+                current_vulnerabilities, data
+            )
             if "historic_zero_risk" in vulnerability
         ]
     )
