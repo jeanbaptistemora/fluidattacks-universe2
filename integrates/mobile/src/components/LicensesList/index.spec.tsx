@@ -8,7 +8,7 @@ describe("LicensesList", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof LicensesList).toStrictEqual("function");
+    expect(typeof LicensesList).toBe("function");
   });
 
   it("should display licenses_list", (): void => {

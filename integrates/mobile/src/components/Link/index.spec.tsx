@@ -9,7 +9,7 @@ describe("Link", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Link).toStrictEqual("function");
+    expect(typeof Link).toBe("function");
   });
 
   it("should display", (): void => {

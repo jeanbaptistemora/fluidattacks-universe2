@@ -13,7 +13,7 @@ describe("BitbucketButton", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof BitbucketButton).toStrictEqual("function");
+    expect(typeof BitbucketButton).toBe("function");
   });
 
   it("should render", (): void => {

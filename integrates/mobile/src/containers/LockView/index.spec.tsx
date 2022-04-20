@@ -38,7 +38,7 @@ describe("LockView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof LockView).toStrictEqual("function");
+    expect(typeof LockView).toBe("function");
 
     jest.clearAllMocks();
   });

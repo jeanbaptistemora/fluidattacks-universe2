@@ -10,7 +10,7 @@ describe("Licenses", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Licenses).toStrictEqual("function");
+    expect(typeof Licenses).toBe("function");
   });
 
   it("should display licenses", (): void => {
@@ -24,7 +24,7 @@ describe("Licenses", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(
       wrapper.find(LicensesItem).first().find(Text).first().render().text()
-    ).toStrictEqual("@apollo/client");
+    ).toBe("@apollo/client");
 
     const onClose: ReactWrapper<React.ComponentProps<typeof Modal>> =
       wrapper.find(Modal);

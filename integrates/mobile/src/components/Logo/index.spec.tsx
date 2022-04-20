@@ -8,7 +8,7 @@ describe("Logo", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Logo).toStrictEqual("function");
+    expect(typeof Logo).toBe("function");
   });
 
   it("should render", (): void => {

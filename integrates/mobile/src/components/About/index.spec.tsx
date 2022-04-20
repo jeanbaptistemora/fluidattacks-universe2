@@ -12,7 +12,7 @@ describe("About", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof About).toStrictEqual("function");
+    expect(typeof About).toBe("function");
   });
 
   it("should display dialog", (): void => {
@@ -42,7 +42,7 @@ describe("About", (): void => {
     const wrapper: ReactWrapper = mount(<About />);
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
+    expect(wrapper.find(Modal).prop("visible")).toBe(false);
 
     const aboutBtn: ReactWrapper<React.ComponentProps<typeof MaterialIcons>> =
       wrapper.find(MaterialIcons);
@@ -57,13 +57,13 @@ describe("About", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(true);
+    expect(wrapper.find(Modal).prop("visible")).toBe(true);
 
     const onClose: ReactWrapper<React.ComponentProps<typeof Modal>> =
       wrapper.find(Modal);
     (onClose.invoke("onRequestClose") as () => void)();
 
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
+    expect(wrapper.find(Modal).prop("visible")).toBe(false);
 
     jest.clearAllMocks();
   });

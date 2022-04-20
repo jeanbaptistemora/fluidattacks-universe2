@@ -12,7 +12,7 @@ import { i18next } from "../../../utils/translations/translate";
 describe("MicrosoftButton", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof MicrosoftButton).toStrictEqual("function");
+    expect(typeof MicrosoftButton).toBe("function");
   });
 
   it("should render", (): void => {

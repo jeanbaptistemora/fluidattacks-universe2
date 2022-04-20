@@ -40,7 +40,7 @@ describe("Avatar", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Avatar).toStrictEqual("function");
+    expect(typeof Avatar).toBe("function");
   });
 
   it("should render initials and successfully remove account", async (): Promise<void> => {
@@ -86,8 +86,8 @@ describe("Avatar", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.find(PaperAvatar.Text).text()).toStrictEqual("SJ");
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
+    expect(wrapper.find(PaperAvatar.Text).text()).toBe("SJ");
+    expect(wrapper.find(Modal).prop("visible")).toBe(false);
 
     const avatarTouchable: ReactWrapper<
       React.ComponentProps<typeof TouchableOpacity>
@@ -221,8 +221,8 @@ describe("Avatar", (): void => {
     });
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.find(PaperAvatar.Text).text()).toStrictEqual("SJ");
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
+    expect(wrapper.find(PaperAvatar.Text).text()).toBe("SJ");
+    expect(wrapper.find(Modal).prop("visible")).toBe(false);
 
     const avatarTouchable: ReactWrapper<
       React.ComponentProps<typeof TouchableOpacity>
@@ -249,6 +249,6 @@ describe("Avatar", (): void => {
     });
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.find(Modal).prop("visible")).toStrictEqual(false);
+    expect(wrapper.find(Modal).prop("visible")).toBe(false);
   });
 });

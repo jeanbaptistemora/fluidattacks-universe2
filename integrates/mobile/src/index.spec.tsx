@@ -19,7 +19,7 @@ jest.mock(
 describe("App root", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof App).toStrictEqual("function");
+    expect(typeof App).toBe("function");
   });
 
   it("should render", (): void => {
@@ -45,17 +45,13 @@ describe("App root", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    expect(wrapper.find("StatusBar").prop("barStyle")).toStrictEqual(
-      "dark-content"
-    );
+    expect(wrapper.find("StatusBar").prop("barStyle")).toBe("dark-content");
 
     act((): void => {
       wrapper.setProps({});
     });
 
-    expect(wrapper.find("StatusBar").prop("barStyle")).toStrictEqual(
-      "light-content"
-    );
+    expect(wrapper.find("StatusBar").prop("barStyle")).toBe("light-content");
 
     jest.clearAllMocks();
   });

@@ -8,7 +8,7 @@ describe("Preloader", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Preloader).toStrictEqual("function");
+    expect(typeof Preloader).toBe("function");
   });
 
   it("should render", (): void => {

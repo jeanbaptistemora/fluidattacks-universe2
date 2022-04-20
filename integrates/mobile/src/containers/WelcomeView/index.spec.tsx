@@ -33,7 +33,7 @@ jest.mock("react-router-native", (): Record<string, unknown> => {
 describe("WelcomeView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof WelcomeView).toStrictEqual("function");
+    expect(typeof WelcomeView).toBe("function");
   });
 
   it("should render", async (): Promise<void> => {

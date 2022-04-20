@@ -75,10 +75,8 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.find("GoogleButton").at(0).prop("disabled")).toStrictEqual(
-      false
-    );
-    expect(wrapper.find("Dialog").at(0).prop("visible")).toStrictEqual(false);
+    expect(wrapper.find("GoogleButton").at(0).prop("disabled")).toBe(false);
+    expect(wrapper.find("Dialog").at(0).prop("visible")).toBe(false);
 
     jest.clearAllMocks();
     mockedFetch.reset();
@@ -113,7 +111,7 @@ describe("LoginView", (): void => {
 
     const dialog: ReactWrapper = wrapper.find("Dialog");
 
-    expect(dialog.prop("visible")).toStrictEqual(true);
+    expect(dialog.prop("visible")).toBe(true);
 
     const updateBtn: ReactWrapper<React.ComponentProps<typeof Button>> = dialog
       .find<React.ComponentProps<typeof Button>>(Button)

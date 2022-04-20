@@ -13,7 +13,7 @@ describe("GoogleButton", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof GoogleButton).toStrictEqual("function");
+    expect(typeof GoogleButton).toBe("function");
   });
 
   it("should render", (): void => {

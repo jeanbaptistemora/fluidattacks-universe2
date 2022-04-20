@@ -10,7 +10,7 @@ describe("LicensesItem", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof LicensesItem).toStrictEqual("function");
+    expect(typeof LicensesItem).toBe("function");
   });
 
   it("should display and mock open_url", (): void => {

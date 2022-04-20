@@ -73,7 +73,7 @@ describe("LoginView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof LoginView).toStrictEqual("function");
+    expect(typeof LoginView).toBe("function");
 
     jest.clearAllMocks();
   });
@@ -333,7 +333,7 @@ describe("LoginView", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.find("Preloader").prop("visible")).toStrictEqual(false);
+    expect(wrapper.find("Preloader").prop("visible")).toBe(false);
 
     jest.clearAllMocks();
   });

@@ -245,12 +245,19 @@
         "newlines-between": "always"
       }
     ],
-    "jest/lowercase-name": [
-      "error",
-      {
-        "ignoreTopLevelDescribe": true
-      }
-    ],
+    /*
+     * This rule has been deprecated in favor of jest/prefer-lowercase-title
+     * Said rule should be enabled as soon as all eslint versions are upgraded
+     */
+    "jest/lowercase-name": "off",
+    /*
+     * This rule will be turned off until all eslint versions are upgraded
+     */
+    "jest/prefer-lowercase-title": "off",
+    /*
+     * This rule will be turned off until all non compliances are fixed
+     */
+    "jest/require-hook": "off",
     "jest/no-restricted-matchers": [
       "error",
       {

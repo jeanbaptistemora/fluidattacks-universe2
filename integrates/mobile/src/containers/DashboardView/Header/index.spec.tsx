@@ -29,7 +29,7 @@ describe("Header", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Header).toStrictEqual("function");
+    expect(typeof Header).toBe("function");
   });
 
   it("should render", (): void => {

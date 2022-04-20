@@ -42,7 +42,7 @@ describe("DashboardView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof DashboardView).toStrictEqual("function");
+    expect(typeof DashboardView).toBe("function");
 
     jest.clearAllMocks();
   });
