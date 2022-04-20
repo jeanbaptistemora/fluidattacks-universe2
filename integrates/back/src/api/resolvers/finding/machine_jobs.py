@@ -1,6 +1,3 @@
-from batch.enums import (
-    JobStatus,
-)
 from batch.types import (
     Job,
 )
@@ -46,16 +43,6 @@ async def resolve(
     else:
         jobs = await machine.jobs.list_(
             finding_code=finding_code,
-            group_name=parent.group_name,
-            include_non_urgent=True,
-            include_urgent=True,
-            statuses=[
-                JobStatus.RUNNABLE,
-                JobStatus.RUNNING,
-                JobStatus.STARTING,
-                JobStatus.PENDING,
-                JobStatus.SUBMITTED,
-            ],
             group_roots=root_nicknames,
         )
 

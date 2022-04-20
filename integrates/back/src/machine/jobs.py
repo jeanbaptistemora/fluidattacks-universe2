@@ -5,15 +5,11 @@ from aioextensions import (
 from batch.dal import (
     delete_action,
     describe_jobs,
-    get_action,
     get_actions_by_name,
-    list_jobs_by_status,
-    list_log_streams,
     put_action,
 )
 from batch.enums import (
     Action,
-    JobStatus,
     Product,
 )
 from batch.types import (
@@ -49,7 +45,6 @@ from enum import (
 import json
 import logging
 import logging.config
-import more_itertools
 from more_itertools import (
     collapse,
 )
@@ -130,41 +125,11 @@ def get_finding_code_from_title(finding_title: str) -> Optional[str]:
     return None
 
 
-async def list_(  # pylint: disable=too-many-locals
+async def list_(
     *,
     finding_code: str,
-    group_name: str,
-    include_non_urgent: bool = False,
-    include_urgent: bool = False,
-    statuses: List[JobStatus],
     group_roots: Dict[str, str],
 ) -> List[Job]:
-    jobs_runnable_from_batch: Dict[str, Dict[str, Any]] = {
-        item["jobId"]: item
-        for item in more_itertools.flatten(
-            await collect(
-                (
-                    list_jobs_by_status(_queue, status=status)
-                    for _queue in [
-                        *(["skims_all_later"] if include_non_urgent else []),
-                        *(["skims_all_soon"] if include_urgent else []),
-                    ]
-                    for status in (x.name for x in statuses)
-                )
-            )
-        )
-        if item["jobName"].startswith == f"skims-execute-machine-{group_name}"
-    }
-    jobs_details_from_batch = {}
-    for item in await describe_jobs(*jobs_runnable_from_batch.keys()):
-        if action := await get_action(
-            action_dynamo_pk=item["container"]["command"][4]
-        ):
-            if finding_code in json.loads(action.additional_info)["checks"]:
-                jobs_details_from_batch[item["jobId"]] = item
-        else:
-            jobs_details_from_batch[item["jobId"]] = item
-
     jobs_from_db: Tuple[RootMachineExecutionItem, ...] = tuple(
         execution
         for execution in collapse(
@@ -181,19 +146,19 @@ async def list_(  # pylint: disable=too-many-locals
             for find in execution.findings_executed
         )
     )
-
     batch_jobs_dict = {
         item["jobId"]: item
         for item in await describe_jobs(
-            *[item.job_id for item in jobs_from_db]
+            *{item.job_id for item in jobs_from_db}
         )
     }
     job_items = []
 
     for job_execution in jobs_from_db:
-        if (
-            job_execution.job_id in batch_jobs_dict
-            and "stoppedAt" not in batch_jobs_dict[job_execution.job_id]
+        if job_execution.job_id not in batch_jobs_dict or (
+            # prevent terminated job
+            job_execution.status in {"RUNNING", "RUNNABLE"}
+            and batch_jobs_dict[batch_jobs_dict]["status"] == "FAILED"
         ):
             continue
         _vulns = [
@@ -212,61 +177,28 @@ async def list_(  # pylint: disable=too-many-locals
                 name=job_execution.name,
                 root_nickname=group_roots[job_execution.root_id],
                 queue=job_execution.queue,
-                started_at=int(
-                    date_parse(job_execution.started_at).timestamp() * 1000
+                started_at=(
+                    int(
+                        date_parse(job_execution.started_at).timestamp() * 1000
+                    )
+                    if job_execution.stopped_at is not None
+                    else None
                 ),
                 stopped_at=int(
                     date_parse(job_execution.stopped_at).timestamp() * 1000
                 )
                 if job_execution.stopped_at is not None
-                else None,
-                status="SUCCESS" if job_execution.success else "FAILED",
+                else batch_jobs_dict.get(
+                    job_execution.job_id, {"stoppedAt": None}
+                ).get("stoppedAt"),
+                status=job_execution.status
+                or ("SUCCESS" if job_execution.success else "FAILED"),
                 vulnerabilities=VulnerabilitiesSummary(
                     modified=_vulns[0].modified, open=_vulns[0].open
                 ),
             )
         )
-    job_logs_description = (
-        await list_log_streams(group_name, *jobs_runnable_from_batch.keys())
-        if len(jobs_runnable_from_batch.keys()) > 0
-        else []
-    )
 
-    for job_item in job_logs_description:
-        group, job_id, git_root_nickname = str(
-            job_item["logStreamName"]
-        ).split("/")
-        if job_id not in jobs_details_from_batch:
-            continue
-
-        vulns_summary: Optional[VulnerabilitiesSummary] = None
-
-        if git_root_nickname in group_roots.values():
-            job_items.append(
-                Job(
-                    created_at=jobs_details_from_batch[job_id].get(
-                        "createdAt"
-                    ),
-                    exit_code=jobs_details_from_batch[job_id]
-                    .get("container", {})
-                    .get("exitCode"),
-                    exit_reason=jobs_details_from_batch[job_id]
-                    .get("container", {})
-                    .get("reason"),
-                    id=jobs_details_from_batch[job_id]["jobId"],
-                    name=f"skims-process-{group}-{git_root_nickname}",
-                    root_nickname=str(job_item["logStreamName"]).rsplit(
-                        "/", maxsplit=1
-                    )[-1],
-                    queue=jobs_details_from_batch[job_id]["jobQueue"].split(
-                        "/"
-                    )[-1],
-                    started_at=int(job_item.get("firstEventTimestamp", 0)),
-                    stopped_at=int(job_item.get("lastEventTimestamp", 0)),
-                    status=jobs_details_from_batch[job_id]["status"],
-                    vulnerabilities=vulns_summary,
-                )
-            )
     return sorted(
         job_items,
         key=lambda job: job.created_at or 0,
