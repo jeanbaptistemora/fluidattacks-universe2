@@ -17,6 +17,7 @@ let
   };
   new_std = root: {
     inherit root;
+    src = "${root}/${underscore_pkg root}";
     env = {
       runtime = "${root}/env/runtime";
       dev = "${root}/env/dev";
@@ -70,7 +71,7 @@ in {
   tap = {
     announcekit = std_data "${singerPath}/tap-announcekit";
     bugsnag = std_data "${singerPath}/tap-bugsnag";
-    checkly = std_data "${singerPath}/tap-checkly";
+    checkly = new_std "${singerPath}/tap-checkly";
     csv = std_data "${singerPath}/tap-csv";
     delighted = std_data "${singerPath}/tap-delighted";
     dynamo = std_data "${singerPath}/tap-dynamo";
