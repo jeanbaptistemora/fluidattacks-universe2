@@ -363,7 +363,7 @@ def format_group_treatment_summary_item(
         "accepted": treatment_data.accepted,
         "acceptedUndefined": treatment_data.accepted_undefined,
         "inProgress": treatment_data.in_progress,
-        "new": treatment_data.new,
+        "undefined": treatment_data.new,
     }
 
 
@@ -386,7 +386,7 @@ def format_group_unreliable_indicators_item(
         "last_closing_date": getattr(
             indicators, "last_closed_vulnerability_days"
         ),
-        "last_closed_vulnerability_finding": getattr(
+        "last_closing_vuln_finding": getattr(
             indicators, "last_closed_vulnerability_finding"
         ),
         "max_open_severity": getattr(indicators, "max_open_severity"),
@@ -437,7 +437,7 @@ def format_group_unreliable_indicators_item(
         "remediated_over_time_year_cvssf": getattr(
             indicators, "remediated_over_time_year_cvssf"
         ),
-        "treatment_summary": format_group_treatment_summary_item(
+        "total_treatment": format_group_treatment_summary_item(
             indicators.treatment_summary
         )
         if indicators.treatment_summary

@@ -21,6 +21,9 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -52,6 +55,7 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
+    groups as groups_utils,
     vulnerabilities as vulns_utils,
 )
 from pandas import (
@@ -770,125 +774,6 @@ def get_first_dates(
     )
 
 
-async def _get_group_indicators(
-    group: str, loaders: Dataloaders, findings: Tuple[Finding, ...]
-) -> Dict[str, object]:
-    (
-        last_closing_vuln_days,
-        last_closing_vuln,
-    ) = await findings_domain.get_last_closed_vulnerability_info(
-        loaders, findings
-    )
-    (
-        max_open_severity,
-        max_open_severity_finding,
-    ) = await findings_domain.get_max_open_severity(loaders, findings)
-    mean_remediate = await groups_domain.get_mean_remediate_severity(
-        loaders, group, Decimal("0.0"), Decimal("10.0")
-    )
-    closed_vulnerabilities = await groups_domain.get_closed_vulnerabilities(
-        loaders, group
-    )
-    open_findings = await groups_domain.get_open_findings(loaders, group)
-
-    return {
-        "last_closing_date": last_closing_vuln_days,
-        "last_closing_vuln_finding": (
-            last_closing_vuln.finding_id if last_closing_vuln else ""
-        ),
-        "max_open_severity": max_open_severity,
-        "max_open_severity_finding": max_open_severity_finding.id
-        if max_open_severity_finding
-        else "",
-        "closed_vulnerabilities": closed_vulnerabilities,
-        "mean_remediate": mean_remediate,
-        "open_findings": open_findings,
-    }
-
-
-async def get_group_indicators(group: str) -> Dict[str, object]:
-    LOGGER.info(
-        "Getting group indicator", extra={"extra": {"group_name": group}}
-    )
-    loaders: Dataloaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-    _indicators = await _get_group_indicators(group, loaders, findings)
-    remediate_critical = await groups_domain.get_mean_remediate_severity(
-        loaders, group, Decimal("9.0"), Decimal("10.0")
-    )
-    remediate_high = await groups_domain.get_mean_remediate_severity(
-        loaders, group, Decimal("7.0"), Decimal("8.9")
-    )
-    remediate_medium = await groups_domain.get_mean_remediate_severity(
-        loaders, group, Decimal("4.0"), Decimal("6.9")
-    )
-    remediate_low = await groups_domain.get_mean_remediate_severity(
-        loaders, group, Decimal("0.1"), Decimal("3.9")
-    )
-    total_treatment = await findings_domain.get_total_treatment(
-        loaders, findings
-    )
-    remediated_over_time = await create_register_by_week(loaders, group)
-    remediated_over_thirty_days = await create_register_by_week(
-        loaders,
-        group,
-        datetime.combine(
-            datetime_utils.get_now_minus_delta(days=30),
-            datetime.min.time(),
-        ),
-    )
-    remediated_over_ninety_days = await create_register_by_week(
-        loaders,
-        group,
-        datetime.combine(
-            datetime_utils.get_now_minus_delta(days=90),
-            datetime.min.time(),
-        ),
-    )
-    over_time_month: RegisterByTime = await create_register_by_month(
-        loaders=loaders, group=group
-    )
-    indicators = {
-        **_indicators,
-        "mean_remediate_critical_severity": remediate_critical,
-        "mean_remediate_high_severity": remediate_high,
-        "mean_remediate_low_severity": remediate_low,
-        "mean_remediate_medium_severity": remediate_medium,
-        "open_vulnerabilities": (
-            await groups_domain.get_open_vulnerabilities(loaders, group)
-        ),
-        "total_treatment": total_treatment,
-        "remediated_over_time": remediated_over_time.vulnerabilities[-18:],
-        "remediated_over_time_month": over_time_month.vulnerabilities[-80:],
-        "remediated_over_time_year": over_time_month.vulnerabilities_yearly[
-            -18:
-        ],
-        "remediated_over_time_cvssf": (
-            remediated_over_time.vulnerabilities_cvssf[-18:]
-        ),
-        "remediated_over_time_month_cvssf": (
-            over_time_month.vulnerabilities_cvssf[-80:]
-        ),
-        "remediated_over_time_year_cvssf": (
-            over_time_month.vulnerabilities_cvssf_yearly[-18:]
-        ),
-        "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-18:],
-        "exposed_over_time_month_cvssf": over_time_month.exposed_cvssf[-80:],
-        "exposed_over_time_year_cvssf": over_time_month.exposed_cvssf_yearly[
-            -18:
-        ],
-        "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities,
-        "remediated_over_time_cvssf_30": (
-            remediated_over_thirty_days.vulnerabilities_cvssf
-        ),
-        "remediated_over_time_90": remediated_over_ninety_days.vulnerabilities,
-        "remediated_over_time_cvssf_90": (
-            remediated_over_ninety_days.vulnerabilities_cvssf
-        ),
-    }
-    return indicators
-
-
 def get_status_vulns_by_time_range(
     *,
     vulnerabilities: Tuple[Vulnerability, ...],
@@ -1072,16 +957,131 @@ def get_exposed_cvssf(
     )
 
 
+async def get_group_indicators_typed(  # pylint: disable=too-many-locals
+    group_name: str,
+) -> GroupUnreliableIndicators:
+    LOGGER.info(
+        "Getting group indicator", extra={"extra": {"group_name": group_name}}
+    )
+    loaders: Dataloaders = get_new_context()
+    findings = await loaders.group_findings.load(group_name)
+
+    (
+        last_closed_vulnerability_days,
+        last_closed_vulnerability,
+    ) = await findings_domain.get_last_closed_vulnerability_info(
+        loaders, findings
+    )
+    (
+        max_open_severity,
+        max_open_severity_finding,
+    ) = await findings_domain.get_max_open_severity(loaders, findings)
+    mean_remediate = await groups_domain.get_mean_remediate_severity(
+        loaders, group_name, Decimal("0.0"), Decimal("10.0")
+    )
+    closed_vulnerabilities = await groups_domain.get_closed_vulnerabilities(
+        loaders, group_name
+    )
+    open_findings = await groups_domain.get_open_findings(loaders, group_name)
+    open_vulnerabilities = await groups_domain.get_open_vulnerabilities(
+        loaders, group_name
+    )
+
+    remediate_critical = await groups_domain.get_mean_remediate_severity(
+        loaders, group_name, Decimal("9.0"), Decimal("10.0")
+    )
+    remediate_high = await groups_domain.get_mean_remediate_severity(
+        loaders, group_name, Decimal("7.0"), Decimal("8.9")
+    )
+    remediate_medium = await groups_domain.get_mean_remediate_severity(
+        loaders, group_name, Decimal("4.0"), Decimal("6.9")
+    )
+    remediate_low = await groups_domain.get_mean_remediate_severity(
+        loaders, group_name, Decimal("0.1"), Decimal("3.9")
+    )
+    remediated_over_time = await create_register_by_week(loaders, group_name)
+    remediated_over_thirty_days = await create_register_by_week(
+        loaders,
+        group_name,
+        datetime.combine(
+            datetime_utils.get_now_minus_delta(days=30),
+            datetime.min.time(),
+        ),
+    )
+    remediated_over_ninety_days = await create_register_by_week(
+        loaders,
+        group_name,
+        datetime.combine(
+            datetime_utils.get_now_minus_delta(days=90),
+            datetime.min.time(),
+        ),
+    )
+    over_time_month: RegisterByTime = await create_register_by_month(
+        loaders=loaders, group=group_name
+    )
+    treatment_summary = groups_utils.format_group_treatment_summary(
+        await findings_domain.get_total_treatment(loaders, findings)
+    )
+
+    return GroupUnreliableIndicators(
+        last_closed_vulnerability_days=int(last_closed_vulnerability_days),
+        last_closed_vulnerability_finding=(
+            last_closed_vulnerability.finding_id
+            if last_closed_vulnerability
+            else ""
+        ),
+        max_open_severity=max_open_severity,
+        max_open_severity_finding=max_open_severity_finding.id
+        if max_open_severity_finding
+        else "",
+        closed_vulnerabilities=closed_vulnerabilities,
+        mean_remediate=mean_remediate,
+        open_findings=open_findings,
+        mean_remediate_critical_severity=remediate_critical,
+        mean_remediate_high_severity=remediate_high,
+        mean_remediate_low_severity=remediate_low,
+        mean_remediate_medium_severity=remediate_medium,
+        open_vulnerabilities=open_vulnerabilities,
+        remediated_over_time=remediated_over_time.vulnerabilities[-18:],
+        remediated_over_time_month=over_time_month.vulnerabilities[-80:],
+        remediated_over_time_year=over_time_month.vulnerabilities_yearly[-18:],
+        remediated_over_time_cvssf=(
+            remediated_over_time.vulnerabilities_cvssf[-18:]
+        ),
+        remediated_over_time_month_cvssf=(
+            over_time_month.vulnerabilities_cvssf[-80:]
+        ),
+        remediated_over_time_year_cvssf=(
+            over_time_month.vulnerabilities_cvssf_yearly[-18:]
+        ),
+        exposed_over_time_cvssf=remediated_over_time.exposed_cvssf[-18:],
+        exposed_over_time_month_cvssf=over_time_month.exposed_cvssf[-80:],
+        exposed_over_time_year_cvssf=over_time_month.exposed_cvssf_yearly[
+            -18:
+        ],
+        remediated_over_time_30=remediated_over_thirty_days.vulnerabilities,
+        remediated_over_time_cvssf_30=(
+            remediated_over_thirty_days.vulnerabilities_cvssf
+        ),
+        remediated_over_time_90=remediated_over_ninety_days.vulnerabilities,
+        remediated_over_time_cvssf_90=(
+            remediated_over_ninety_days.vulnerabilities_cvssf
+        ),
+        treatment_summary=treatment_summary,
+    )
+
+
 async def update_group_indicators(group_name: str) -> None:
     try:
-        payload_data = {"group_name": group_name}
-        indicators = await get_group_indicators(group_name)
-        response = await groups_domain.update(group_name, indicators)
-        if not response:
-            msg = "Error: An error ocurred updating indicators in the database"
-            LOGGER.error(msg, extra={"extra": payload_data})
+        indicators = await get_group_indicators_typed(group_name)
+        await groups_domain.update_indicators_typed(
+            group_name=group_name, indicators=indicators
+        )
     except (ClientError, TypeError, UnavailabilityError) as ex:
-        LOGGER.exception(ex, extra={"extra": payload_data})
+        msg = "Error: An error ocurred updating indicators in the database"
+        LOGGER.exception(
+            msg, extra={"extra": {"group_name": group_name, "ex": ex}}
+        )
 
 
 async def update_indicators() -> None:
