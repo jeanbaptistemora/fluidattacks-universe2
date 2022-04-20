@@ -135,7 +135,7 @@ def format_data(*, counters: Counter[str]) -> Dict[str, Any]:
             ),
             y=dict(
                 label=dict(
-                    text="# Vulnerabilities",
+                    text="Vulnerabilities",
                     position="inner-top",
                 ),
                 min=0,
