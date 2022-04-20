@@ -10,6 +10,7 @@ from db_model.roots.constants import (
 )
 from db_model.roots.types import (
     GitRootItem,
+    MachineFindingResult,
     RootItem,
     RootMachineExecutionItem,
     Secret,
@@ -77,13 +78,27 @@ async def add_machine_execution(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, "job_id": execution.job_id},
     )
+    if len(execution.findings_executed) > 0 and isinstance(
+        execution.findings_executed[0], MachineFindingResult
+    ):
+        findings = [
+            {
+                "finding": item.finding,
+                "modified": item.modified,
+                "open": item.open,
+            }
+            for item in execution.findings_executed
+        ]
+    else:
+        findings = execution.findings_executed  # type: ignore
+
     machine_exectution = {
         key_structure.partition_key: machine_execution_key.partition_key,
         key_structure.sort_key: machine_execution_key.sort_key,
         "created_at": execution.created_at,
         "started_at": execution.started_at,
         "stopped_at": execution.stopped_at,
-        "findings_executed": execution.findings_executed,
+        "findings_executed": findings,
         "queue": execution.queue,
         "name": execution.name,
         "commit": execution.commit,
