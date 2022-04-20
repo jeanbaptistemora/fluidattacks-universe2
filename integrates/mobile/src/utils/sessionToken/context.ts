@@ -14,4 +14,5 @@ const SessionToken = createContext<ISessionTokenContext>([
 const useSessionToken = (): ISessionTokenContext =>
   useContext<ISessionTokenContext>(SessionToken);
 
-export { SessionToken, ISessionTokenContext, useSessionToken };
+export type { ISessionTokenContext };
+export { SessionToken, useSessionToken };

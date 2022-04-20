@@ -25,4 +25,4 @@ interface IOrgsResult {
   };
 }
 
-export { IOrganization, IOrgsResult };
+export type { IOrganization, IOrgsResult };

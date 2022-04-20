@@ -41,7 +41,7 @@ describe("Microsoft OAuth2 provider", (): void => {
       authWithMicrosoft: () => Promise<IAuthResult>;
     };
 
-    expect(await authWithMicrosoft()).toStrictEqual({
+    await expect(authWithMicrosoft()).resolves.toStrictEqual({
       authProvider: "MICROSOFT",
       authToken: "exchangedIdToken",
       type: "success",
@@ -58,7 +58,7 @@ describe("Microsoft OAuth2 provider", (): void => {
       upn: "business@domain.com",
     });
 
-    expect(await authWithMicrosoft()).toStrictEqual({
+    await expect(authWithMicrosoft()).resolves.toStrictEqual({
       authProvider: "MICROSOFT",
       authToken: "exchangedIdToken",
       type: "success",

@@ -101,7 +101,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
   });
 
   // Side effects
-  let lockTimerId: unknown | undefined;
+  let lockTimerId: unknown;
   let locked: boolean = false;
 
   const handleAppStateChange: (state: AppStateStatus) => void = async (
@@ -157,6 +157,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
 
   const onMount: () => void = (): (() => void) => {
     AppState.addEventListener("change", handleAppStateChange);
+    // eslint-disable-next-line @typescript-eslint/no-type-alias
     type Subscription = ReturnType<typeof addNotificationReceivedListener>;
     const notificationListeners: Subscription[] = [
       addNotificationResponseReceivedListener(

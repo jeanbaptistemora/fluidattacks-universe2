@@ -43,4 +43,5 @@ const GoogleButton: React.FC<IGoogleButtonProps> = (
   );
 };
 
-export { GoogleButton, IGoogleButtonProps };
+export type { IGoogleButtonProps };
+export { GoogleButton };

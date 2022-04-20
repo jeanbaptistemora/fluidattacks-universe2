@@ -120,4 +120,5 @@ const Indicators: React.FC<IIndicatorsProps> = (
   );
 };
 
-export { Indicators, IIndicatorsProps };
+export type { IIndicatorsProps };
+export { Indicators };

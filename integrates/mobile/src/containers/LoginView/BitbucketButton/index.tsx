@@ -43,4 +43,5 @@ const BitbucketButton: React.FC<IBitbucketButtonProps> = (
   );
 };
 
-export { BitbucketButton, IBitbucketButtonProps };
+export type { IBitbucketButtonProps };
+export { BitbucketButton };

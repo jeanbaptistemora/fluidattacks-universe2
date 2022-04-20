@@ -43,4 +43,5 @@ const MicrosoftButton: React.FC<IMicrosoftButtonProps> = (
   );
 };
 
-export { MicrosoftButton, IMicrosoftButtonProps };
+export type { IMicrosoftButtonProps };
+export { MicrosoftButton };

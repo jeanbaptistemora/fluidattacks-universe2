@@ -12,4 +12,4 @@ interface ILicenses {
   licenses: ILicenseItem[];
 }
 
-export { ILicenseItem, ILicenses };
+export type { ILicenseItem, ILicenses };

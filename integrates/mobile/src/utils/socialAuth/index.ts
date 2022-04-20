@@ -56,7 +56,8 @@ const logout: (
   Bugsnag.setUser("", "", "");
 };
 
-export { IUser, IAuthState, IAuthResult, logout };
+export type { IUser, IAuthState, IAuthResult };
+export { logout };
 export { authWithGoogle } from "./providers/google";
 export { authWithMicrosoft } from "./providers/microsoft";
 export { authWithBitbucket } from "./providers/bitbucket";

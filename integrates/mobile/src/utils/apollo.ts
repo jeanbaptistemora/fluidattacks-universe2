@@ -54,6 +54,7 @@ type ErrorHandler = (
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => Observable<FetchResult> | void;
 
+// eslint-disable-next-line @typescript-eslint/no-type-alias
 type History = ReturnType<typeof useHistory>;
 
 const apiHost: string = getEnvironment().url;
@@ -278,6 +279,7 @@ const retryLink: ApolloLink = new RetryLink({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-type-alias
 type ProviderProps = Omit<
   React.ComponentProps<typeof BaseApolloProvider>,
   "client"
