@@ -51,6 +51,7 @@ from schedulers import (
     delete_obsolete_groups,
     delete_obsolete_orgs,
     update_indicators,
+    update_portfolios,
 )
 from users import (
     dal as users_dal,
@@ -321,6 +322,49 @@ async def test_update_group_indicators() -> None:
         await loaders.group_indicators_typed.load("deleteimamura")
     )
     assert len(test_imamura_data) == 27
+
+
+@pytest.mark.changes_db
+@freeze_time("2022-04-20")
+async def test_update_portfolios_indicators() -> None:
+    loaders: Dataloaders = get_new_context()
+    org_name = "okada"
+    expected_tags = [
+        "another-tag",
+        "test-groups",
+        "test-tag",
+        "test-updates",
+    ]
+    org_tags = await loaders.organization_tags.load(org_name)
+    org_tags_names = sorted([tag["tag"] for tag in org_tags])
+    assert org_tags_names == expected_tags
+
+    await update_portfolios.main()
+
+    updated_tags = [
+        "another-tag",
+        "test-groups",
+    ]
+    loaders.organization_tags.clear(org_name)
+    org_tags = await loaders.organization_tags.load(org_name)
+    org_tags_names = sorted([tag["tag"] for tag in org_tags])
+    assert org_tags_names == updated_tags
+
+    tag_test_groups = next(
+        tag for tag in org_tags if tag["tag"] == "test-groups"
+    )
+    assert tag_test_groups["last_closing_date"] == Decimal("946.0")
+    assert tag_test_groups["max_open_severity"] == Decimal("6.3")
+    assert tag_test_groups["max_severity"] == Decimal("6.3")
+    assert tag_test_groups["mean_remediate"] == Decimal("687.0")
+    assert tag_test_groups["mean_remediate_critical_severity"] == Decimal(
+        "0.0"
+    )
+    assert tag_test_groups["mean_remediate_high_severity"] == Decimal("0.0")
+    assert tag_test_groups["mean_remediate_low_severity"] == Decimal("692.0")
+    assert tag_test_groups["mean_remediate_medium_severity"] == Decimal(
+        "374.0"
+    )
 
 
 @pytest.mark.changes_db

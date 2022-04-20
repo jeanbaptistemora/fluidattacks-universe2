@@ -18,7 +18,7 @@ async def test_update() -> None:
     # company, tag, data
     test_1 = (
         "okada",
-        "test-updates",
+        "test-groups",
         {
             "mean_remediate_critical_severity": None,
             "mean_remediate": None,
@@ -27,8 +27,8 @@ async def test_update() -> None:
     )
     original = {
         "mean_remediate_critical_severity": Decimal("0"),
-        "mean_remediate": Decimal("132"),
-        "max_severity": Decimal("6.0"),
+        "mean_remediate": Decimal("687"),
+        "max_severity": Decimal("6.3"),
     }
     attributes = [attr for attr in original]
     assert original == await get_attributes(test_1[0], test_1[1], attributes)
