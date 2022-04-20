@@ -158,7 +158,7 @@ async def list_(
         if job_execution.job_id not in batch_jobs_dict or (
             # prevent terminated job
             job_execution.status in {"RUNNING", "RUNNABLE"}
-            and batch_jobs_dict[batch_jobs_dict]["status"] == "FAILED"
+            and batch_jobs_dict[job_execution.job_id]["status"] == "FAILED"
         ):
             continue
         _vulns = [
