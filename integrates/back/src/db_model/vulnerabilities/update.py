@@ -1,3 +1,9 @@
+from .constants import (
+    ASSIGNED_INDEX_METADATA,
+    EVENT_INDEX_METADATA,
+    ZR_FILTER_STATUSES,
+    ZR_INDEX_METADATA,
+)
 from .enums import (
     VulnerabilityStateStatus,
 )
@@ -6,9 +12,11 @@ from .types import (
     VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
     VulnerabilityMetadataToUpdate,
+    VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityUnreliableIndicatorsToUpdate,
     VulnerabilityVerification,
+    VulnerabilityZeroRisk,
 )
 from .utils import (
     adjust_historic_dates,
@@ -27,10 +35,6 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
-)
-from db_model.vulnerabilities.constants import (
-    ASSIGNED_INDEX_METADATA,
-    EVENT_INDEX_METADATA,
 )
 from decimal import (
     Decimal,
@@ -177,7 +181,7 @@ async def update_treatment(
     )
 
 
-async def update_historic_entry(
+async def update_historic_entry(  # pylint: disable=too-many-locals
     *,
     current_value: Vulnerability,
     finding_id: str,
@@ -188,6 +192,73 @@ async def update_historic_entry(
     entry_type = historic_entry_type_to_str(entry)
     entry_item = json.loads(json.dumps(entry))
     current_entry = get_current_entry(entry, current_value)
+    zr_index = TABLE.indexes["gsi_5"]
+
+    new_zr_index_key = None
+    if isinstance(entry, VulnerabilityState):
+        new_zr_index_key = keys.build_key(
+            facet=ZR_INDEX_METADATA,
+            values={
+                "finding_id": finding_id,
+                "vuln_id": vulnerability_id,
+                "is_deleted": str(
+                    entry.status is VulnerabilityStateStatus.DELETED
+                ).lower(),
+                "is_zero_risk": str(
+                    bool(
+                        current_value.zero_risk
+                        and current_value.zero_risk.status
+                        in ZR_FILTER_STATUSES
+                    )
+                ).lower(),
+                "state_status": str(entry.status.value).lower(),
+                "verification_status": str(
+                    current_value.verification
+                    and current_value.verification.status.value
+                ).lower(),
+            },
+        )
+    if isinstance(entry, VulnerabilityZeroRisk):
+        new_zr_index_key = keys.build_key(
+            facet=ZR_INDEX_METADATA,
+            values={
+                "finding_id": finding_id,
+                "vuln_id": vulnerability_id,
+                "is_deleted": str(
+                    current_value.state.status
+                    is VulnerabilityStateStatus.DELETED
+                ).lower(),
+                "is_zero_risk": str(
+                    entry.status in ZR_FILTER_STATUSES
+                ).lower(),
+                "state_status": str(current_value.state.status.value).lower(),
+                "verification_status": str(
+                    current_value.verification
+                    and current_value.verification.status.value
+                ).lower(),
+            },
+        )
+    if isinstance(entry, VulnerabilityVerification):
+        new_zr_index_key = keys.build_key(
+            facet=ZR_INDEX_METADATA,
+            values={
+                "finding_id": finding_id,
+                "vuln_id": vulnerability_id,
+                "is_deleted": str(
+                    current_value.state.status
+                    is VulnerabilityStateStatus.DELETED
+                ).lower(),
+                "is_zero_risk": str(
+                    bool(
+                        current_value.zero_risk
+                        and current_value.zero_risk.status
+                        in ZR_FILTER_STATUSES
+                    )
+                ).lower(),
+                "state_status": str(current_value.state.status.value).lower(),
+                "verification_status": str(entry.status.value).lower(),
+            },
+        )
 
     try:
         vulnerability_key = keys.build_key(
@@ -195,6 +266,11 @@ async def update_historic_entry(
             values={"finding_id": finding_id, "id": vulnerability_id},
         )
         vulnerability_item = {entry_type: entry_item}
+        if new_zr_index_key:
+            vulnerability_item[
+                zr_index.primary_key.sort_key
+            ] = new_zr_index_key.sort_key
+
         base_condition = Attr(key_structure.partition_key).exists() & Attr(
             "state.status"
         ).ne(VulnerabilityStateStatus.DELETED.value)
