@@ -39,7 +39,7 @@ in {
   };
   etl = {
     dynamo =
-      (std_data "${etlsPath}/dynamo_etl_conf")
+      (new_std "${etlsPath}/dynamo_etl_conf")
       // {
         env = {
           runtime = "/observes/etl/dynamo/conf/env/runtime";
