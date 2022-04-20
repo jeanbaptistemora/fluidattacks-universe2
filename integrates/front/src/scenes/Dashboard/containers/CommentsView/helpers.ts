@@ -10,15 +10,20 @@ const handleAddCommentErrorHelper = (
   type: string
 ): void => {
   addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-    if (message === "Exception - Comment parent is invalid") {
-      msgError(
-        translate.t("validations.invalidCommentParent", {
-          count: 1,
-        })
-      );
-    } else {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning(`An error occurred posting ${type}`, addCommentError);
+    switch (message) {
+      case "Exception - Invalid field length in form":
+        msgError(translate.t("validations.invalidFieldLength"));
+        break;
+      case "Exception - Comment parent is invalid":
+        msgError(
+          translate.t("validations.invalidCommentParent", {
+            count: 1,
+          })
+        );
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning(`An error occurred posting ${type}`, addCommentError);
     }
   });
 };

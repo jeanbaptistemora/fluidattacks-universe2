@@ -1,21 +1,25 @@
+import { Field, Form, Formik } from "formik";
+import type { FormikProps } from "formik";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useTranslation } from "react-i18next";
-import TextArea from "react-textarea-autosize";
+import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentContext } from "scenes/Dashboard/components/Comments/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
-
-import "scenes/Dashboard/components/Comments/index.css";
+import { FormikTextAreaAutosize } from "utils/forms/fields/TextArea";
+import { maxLength } from "utils/validations";
 
 interface ICommentEditorProps {
   id: number;
   onPost: (editorText: string) => void;
 }
 
+const MAX_LENGTH: number = 20000;
+const maxContentLength: ConfigurableValidator = maxLength(MAX_LENGTH);
 const CommentEditor: React.FC<ICommentEditorProps> = ({
   id,
   onPost,
@@ -23,6 +27,7 @@ const CommentEditor: React.FC<ICommentEditorProps> = ({
   const { t } = useTranslation();
   const [editorText, setEditorText] = useState("");
   const { replying, setReplying }: ICommentContext = useContext(commentContext);
+  const formRef = useRef<FormikProps<{ "comment-editor": string }>>(null);
 
   const onChange = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -40,7 +45,7 @@ const CommentEditor: React.FC<ICommentEditorProps> = ({
     }
   }, [id, setReplying]);
 
-  const clickHandler: () => void = useCallback((): void => {
+  const clickHandler = useCallback((): void => {
     if (replying !== id) {
       setEditorText("");
 
@@ -53,36 +58,53 @@ const CommentEditor: React.FC<ICommentEditorProps> = ({
     }
   }, [editorText, id, onPost, replying]);
 
+  const onSubmit = useCallback((): void => {
+    if (formRef.current !== null) {
+      formRef.current.handleSubmit();
+    }
+  }, [formRef]);
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  useHotkeys("ctrl+enter", clickHandler, { enableOnTags: ["TEXTAREA"] });
+  useHotkeys("ctrl+enter", onSubmit, { enableOnTags: ["TEXTAREA"] });
 
   return (
-    <React.Fragment>
-      <TextArea
-        aria-label={"comment-editor"}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus={true}
-        maxRows={8}
-        minRows={2}
-        onChange={onChange}
-        onFocus={onFocus}
-        placeholder={t("comments.editorPlaceholder")}
-        value={editorText}
-      />
-      <div className={"pv2"}>
+    <Formik
+      enableReinitialize={true}
+      initialValues={{ "comment-editor": editorText }}
+      innerRef={formRef}
+      name={"addConsult"}
+      onSubmit={clickHandler}
+    >
+      <Form>
         <Row>
-          <Col100>
-            {editorText !== "" && (
-              <ButtonToolbar>
-                <Button onClick={clickHandler} variant={"primary"}>
-                  {t("comments.send")}
-                </Button>
-              </ButtonToolbar>
-            )}
-          </Col100>
+          <Field
+            component={FormikTextAreaAutosize}
+            maxRows={8}
+            minRows={2}
+            name={"comment-editor"}
+            onFocus={onFocus}
+            onTextChange={onChange}
+            placeholder={t("comments.editorPlaceholder")}
+            rows={"2"}
+            type={"text"}
+            validate={maxContentLength}
+          />
         </Row>
-      </div>
-    </React.Fragment>
+        <div className={"pv2"}>
+          <Row>
+            <Col100>
+              {editorText !== "" && (
+                <ButtonToolbar>
+                  <Button type={"submit"} variant={"primary"}>
+                    {t("comments.send")}
+                  </Button>
+                </ButtonToolbar>
+              )}
+            </Col100>
+          </Row>
+        </div>
+      </Form>
+    </Formik>
   );
 };
 

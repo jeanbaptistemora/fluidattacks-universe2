@@ -166,6 +166,7 @@ async def add_comment(
     param_type = comment_data.get("comment_type")
     parent_comment = str(comment_data["parent"])
     content = str(comment_data["content"])
+    validations.validate_field_length(content, 20000)
 
     await authz.validate_handle_comment_scope(
         content, user_email, group_name, parent_comment, info.context.store
