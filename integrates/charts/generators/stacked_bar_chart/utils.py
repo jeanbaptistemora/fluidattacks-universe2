@@ -785,6 +785,7 @@ def format_stacked_percentages(
 def format_stacked_vulnerabilities_data(
     *,
     limited_data: List[AssignedFormatted],
+    y_label: str,
 ) -> dict[str, Any]:
     percentage_values = [
         format_stacked_percentages(
@@ -846,6 +847,16 @@ def format_stacked_vulnerabilities_data(
                 categories=[assigned.user for assigned in limited_data],
                 type="category",
                 tick=dict(rotate=TICK_ROTATION, multiline=False),
+            ),
+            y=dict(
+                label=dict(
+                    text=y_label,
+                    position="inner-top",
+                ),
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
             ),
         ),
         tooltip=dict(
