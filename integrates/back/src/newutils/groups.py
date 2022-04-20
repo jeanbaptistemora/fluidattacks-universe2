@@ -225,6 +225,7 @@ def format_group_unreliable_indicators(
         ),
         max_open_severity=item.get("max_open_severity"),
         max_open_severity_finding=item.get("max_open_severity_finding"),
+        max_severity=item.get("max_severity"),
         mean_remediate=item.get("mean_remediate"),
         mean_remediate_critical_severity=item.get(
             "mean_remediate_critical_severity"

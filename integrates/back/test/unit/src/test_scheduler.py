@@ -250,7 +250,7 @@ async def test_get_date_last_vulns() -> None:
 
 @pytest.mark.changes_db
 @freeze_time("2022-04-20")
-async def test_get_group_indicators() -> None:
+async def test_update_group_indicators() -> None:
     loaders: Dataloaders = get_new_context()
     group_name = "unittesting"
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
@@ -267,7 +267,7 @@ async def test_get_group_indicators() -> None:
     test_data: GroupUnreliableIndicators = (
         await loaders.group_indicators_typed.load(group_name)
     )
-    assert len(test_data) == 26
+    assert len(test_data) == 27
     assert test_data.last_closed_vulnerability_days == 946
     assert test_data.last_closed_vulnerability_finding == "457497316"
     assert test_data.max_open_severity == Decimal(6.3).quantize(Decimal("0.1"))
@@ -320,7 +320,7 @@ async def test_get_group_indicators() -> None:
     test_imamura_data: GroupUnreliableIndicators = (
         await loaders.group_indicators_typed.load("deleteimamura")
     )
-    assert len(test_imamura_data) == 26
+    assert len(test_imamura_data) == 27
 
 
 @pytest.mark.changes_db

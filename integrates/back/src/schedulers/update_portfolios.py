@@ -16,6 +16,7 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
+    GroupUnreliableIndicators,
 )
 from decimal import (
     Decimal,
@@ -72,19 +73,46 @@ def calculate_tag_indicators(
     return tag_info
 
 
+def format_indicators(
+    indicators: GroupUnreliableIndicators,
+) -> dict[str, Any]:
+    formatted_indicators = {
+        "max_open_severity": getattr(indicators, "max_open_severity"),
+        "max_severity": getattr(indicators, "max_severity"),
+        "mean_remediate": getattr(indicators, "mean_remediate"),
+        "mean_remediate_critical_severity": getattr(
+            indicators, "mean_remediate_critical_severity"
+        ),
+        "mean_remediate_high_severity": getattr(
+            indicators, "mean_remediate_high_severity"
+        ),
+        "mean_remediate_low_severity": getattr(
+            indicators, "mean_remediate_low_severity"
+        ),
+        "mean_remediate_medium_severity": getattr(
+            indicators, "mean_remediate_medium_severity"
+        ),
+        "last_closing_date": Decimal(
+            getattr(indicators, "last_closed_vulnerability_days")
+        )
+        if indicators.last_closed_vulnerability_days
+        else None,
+    }
+    return {
+        key: value
+        for key, value in formatted_indicators.items()
+        if value is not None
+    }
+
+
 async def get_group_indicators_and_tags(
     loaders: Dataloaders,
     group: Group,
-    indicator_list: list[str],
 ) -> dict[str, Any]:
     unreliable_indicators = await loaders.group_indicators_typed.load(
         group.name
     )
-    filtered_indicators = {
-        indicator: getattr(unreliable_indicators, indicator)
-        for indicator in indicator_list
-        if getattr(unreliable_indicators, indicator) is not None
-    }
+    filtered_indicators = format_indicators(unreliable_indicators)
 
     # This one is not present in group's unreliable_indicators
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
@@ -121,14 +149,13 @@ async def update_organization_indicators(
         "mean_remediate_high_severity",
         "mean_remediate_low_severity",
         "mean_remediate_medium_severity",
-        "last_closed_vulnerability_days",
+        "last_closing_date",
     ]
     groups_indicators = list(
         await collect(
             get_group_indicators_and_tags(
                 loaders=loaders,
                 group=group,
-                indicator_list=indicator_list,
             )
             for group in groups
         )

@@ -53,6 +53,7 @@ class GroupUnreliableIndicators(NamedTuple):
     last_closed_vulnerability_finding: Optional[str] = None
     max_open_severity: Optional[Decimal] = None
     max_open_severity_finding: Optional[str] = None
+    max_severity: Optional[Decimal] = None
     mean_remediate: Optional[Decimal] = None
     mean_remediate_critical_severity: Optional[Decimal] = None
     mean_remediate_high_severity: Optional[Decimal] = None

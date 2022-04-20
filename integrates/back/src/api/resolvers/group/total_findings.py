@@ -19,9 +19,6 @@ from graphql.type.definition import (
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
-from typing import (
-    Tuple,
-)
 
 
 @require_asm
@@ -46,7 +43,7 @@ async def resolve_no_cache(
 ) -> int:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     return len(findings)

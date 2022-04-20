@@ -15,9 +15,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Tuple,
-)
 
 
 @concurrent_decorators(
@@ -28,8 +25,8 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Tuple[Finding, ...]:
+) -> tuple[Finding, ...]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group_name)
+    drafts: tuple[Finding, ...] = await loaders.group_drafts.load(group_name)
     return drafts
