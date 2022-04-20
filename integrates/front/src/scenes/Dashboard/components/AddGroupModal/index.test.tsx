@@ -3,6 +3,7 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GROUPS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
@@ -30,14 +31,16 @@ describe("AddGroupModal component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     render(
-      <MockedProvider addTypename={false} mocks={mocksMutation}>
-        <AddGroupModal
-          isOpen={true}
-          onClose={handleOnClose}
-          organization={"okada"}
-          runTour={false}
-        />
-      </MockedProvider>
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
+          <AddGroupModal
+            isOpen={true}
+            onClose={handleOnClose}
+            organization={"okada"}
+            runTour={false}
+          />
+        </MockedProvider>
+      </MemoryRouter>
     );
 
     await waitFor((): void => {
@@ -53,14 +56,16 @@ describe("AddGroupModal component", (): void => {
     expect.hasAssertions();
 
     render(
-      <MockedProvider addTypename={false} mocks={mocksMutation}>
-        <AddGroupModal
-          isOpen={true}
-          onClose={jest.fn()}
-          organization={"okada"}
-          runTour={false}
-        />
-      </MockedProvider>
+      <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
+        <MockedProvider addTypename={false} mocks={mocksMutation}>
+          <AddGroupModal
+            isOpen={true}
+            onClose={jest.fn()}
+            organization={"okada"}
+            runTour={false}
+          />
+        </MockedProvider>
+      </MemoryRouter>
     );
 
     await waitFor((): void => {

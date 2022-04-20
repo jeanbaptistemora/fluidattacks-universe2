@@ -1,12 +1,14 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 
 import {
@@ -21,6 +23,7 @@ import { Modal, ModalFooter } from "components/Modal";
 import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
+import { UPDATE_TOURS } from "components/Tour/queries";
 import {
   ADD_GROUP_MUTATION,
   GROUPS_NAME_QUERY,
@@ -31,6 +34,7 @@ import type {
 } from "scenes/Dashboard/components/AddGroupModal/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { Logger } from "utils/logger";
 import { msgSuccess } from "utils/notifications";
 import {
   alphaNumeric,
@@ -68,6 +72,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   const { onClose, organization, runTour } = props;
   const { t } = useTranslation();
 
+  const { push } = useHistory();
+
   const handleMutationResult = (result: {
     addGroup: { success: boolean };
   }): void => {
@@ -85,8 +91,23 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     onError: handleCreateError,
   });
 
+  const [updateTours] = useMutation(UPDATE_TOURS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("An error occurred while updating tours", error);
+      });
+    },
+  });
+
+  const handleTours = useCallback(
+    (newGroup: boolean, newRoot: boolean): void => {
+      void updateTours({ variables: { newGroup, newRoot } });
+    },
+    [updateTours]
+  );
+
   const handleSubmit = useCallback(
-    (values: {
+    async (values: {
       description: string;
       name: string;
       language: string;
@@ -95,9 +116,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       service: string;
       squad: boolean;
       machine: boolean;
-    }): void => {
+    }): Promise<void> => {
       mixpanel.track("AddGroup");
-      void addGroup({
+      await addGroup({
         variables: {
           description: values.description,
           groupName: values.name,
@@ -109,8 +130,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           subscription: values.type,
         },
       });
+      if (runTour) {
+        handleTours(true, false);
+        push(`/orgs/${organization}/groups/${values.name}/scope`);
+      }
     },
-    [addGroup]
+    [addGroup, handleTours, organization, push, runTour]
   );
 
   function handleGroupNameError({ graphQLErrors }: ApolloError): void {

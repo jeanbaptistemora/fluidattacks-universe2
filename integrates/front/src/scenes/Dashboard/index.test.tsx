@@ -26,8 +26,8 @@ describe("Dashboard", (): void => {
         remember: false,
         sessionExpiration: "2021-01-20 21:37:37.944176",
         tours: {
-          newGroup: false,
-          newRoot: false,
+          newGroup: true,
+          newRoot: true,
         },
         userEmail: "",
         userName: "",

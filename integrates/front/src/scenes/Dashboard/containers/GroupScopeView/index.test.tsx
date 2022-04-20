@@ -73,8 +73,8 @@ describe("GroupScopeView", (): void => {
       <authContext.Provider
         value={{
           tours: {
-            newGroup: false,
-            newRoot: false,
+            newGroup: true,
+            newRoot: true,
           },
           userEmail: "",
           userName: "",
@@ -199,8 +199,8 @@ describe("GroupScopeView", (): void => {
       <authContext.Provider
         value={{
           tours: {
-            newGroup: false,
-            newRoot: false,
+            newGroup: true,
+            newRoot: true,
           },
           userEmail: "",
           userName: "",
@@ -408,8 +408,8 @@ describe("GroupScopeView", (): void => {
       <authContext.Provider
         value={{
           tours: {
-            newGroup: false,
-            newRoot: false,
+            newGroup: true,
+            newRoot: true,
           },
           userEmail: "",
           userName: "",
@@ -611,8 +611,8 @@ describe("GroupScopeView", (): void => {
       <authContext.Provider
         value={{
           tours: {
-            newGroup: false,
-            newRoot: false,
+            newGroup: true,
+            newRoot: true,
           },
           userEmail: "",
           userName: "",
@@ -779,8 +779,8 @@ describe("GroupScopeView", (): void => {
         <authContext.Provider
           value={{
             tours: {
-              newGroup: false,
-              newRoot: false,
+              newGroup: true,
+              newRoot: true,
             },
             userEmail: "",
             userName: "",

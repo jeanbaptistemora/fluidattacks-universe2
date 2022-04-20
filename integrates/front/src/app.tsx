@@ -30,8 +30,8 @@ const App: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const [user, setUser] = useState({
     tours: {
-      newGroup: false,
-      newRoot: false,
+      newGroup: true,
+      newRoot: true,
     },
     userEmail: "",
     userName: "",

@@ -45,8 +45,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const [isGroupModalOpen, setGroupModalOpen] = useState(false);
-  const { tours }: IAuthContext = useContext(authContext);
-  const enableTour = tours.newGroup;
+
+  const user: Required<IAuthContext> = useContext(
+    authContext as React.Context<Required<IAuthContext>>
+  );
+
+  const enableTour =
+    !user.tours.newGroup && user.userEmail.endsWith("fluidattacks.com");
   const [runTour, toggleTour] = useState(enableTour);
 
   const openNewGroupModal: () => void = useCallback((): void => {
@@ -82,9 +87,18 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const closeNewGroupModal: () => void = useCallback((): void => {
+    user.setUser({
+      tours: {
+        newGroup: true,
+        newRoot: false,
+      },
+      userEmail: user.userEmail,
+      userIntPhone: user.userIntPhone,
+      userName: user.userName,
+    });
     setGroupModalOpen(false);
     void refetchGroups();
-  }, [refetchGroups]);
+  }, [refetchGroups, user]);
   // Auxiliary functions
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]

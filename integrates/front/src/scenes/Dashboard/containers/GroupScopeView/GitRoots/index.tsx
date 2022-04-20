@@ -4,6 +4,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -50,6 +51,7 @@ import {
 } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
+import { UPDATE_TOURS } from "components/Tour/queries";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
@@ -57,6 +59,7 @@ import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
+import { Logger } from "utils/logger";
 import { msgSuccess } from "utils/notifications";
 
 interface IGitRootsProps {
@@ -96,8 +99,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isManagingRoot, setManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
-  const { tours }: IAuthContext = useContext(authContext);
-  const enableTour = tours.newRoot;
+
+  const user: Required<IAuthContext> = useContext(
+    authContext as React.Context<Required<IAuthContext>>
+  );
+  const enableTour =
+    !user.tours.newRoot && user.userEmail.endsWith("fluidattacks.com");
   const [runTour, toggleTour] = useState(enableTour);
 
   const openAddModal: () => void = useCallback((): void => {
@@ -108,8 +115,17 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   }, [runTour, toggleTour]);
 
   const closeModal: () => void = useCallback((): void => {
+    user.setUser({
+      tours: {
+        newGroup: true,
+        newRoot: true,
+      },
+      userEmail: user.userEmail,
+      userIntPhone: user.userIntPhone,
+      userName: user.userName,
+    });
     setManagingRoot(false);
-  }, []);
+  }, [user]);
 
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
@@ -166,8 +182,21 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // GraphQL operations
+  const [updateTours] = useMutation(UPDATE_TOURS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("An error occurred while updating tours", error);
+      });
+    },
+  });
+
+  function handleTours(newGroup: boolean, newRoot: boolean): void {
+    void updateTours({ variables: { newGroup, newRoot } });
+  }
+
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (): void => {
+      handleTours(true, true);
       onUpdate();
       closeModal();
     },

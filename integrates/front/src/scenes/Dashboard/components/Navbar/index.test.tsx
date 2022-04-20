@@ -123,8 +123,8 @@ describe("Navbar", (): void => {
             <authContext.Provider
               value={{
                 tours: {
-                  newGroup: false,
-                  newRoot: false,
+                  newGroup: true,
+                  newRoot: true,
                 },
                 userEmail: "test@fluidattacks.com",
                 userName: "",
@@ -254,8 +254,8 @@ describe("Navbar", (): void => {
             <authContext.Provider
               value={{
                 tours: {
-                  newGroup: false,
-                  newRoot: false,
+                  newGroup: true,
+                  newRoot: true,
                 },
                 userEmail: "test@fluidattacks.com",
                 userName: "",
@@ -334,8 +334,8 @@ describe("Navbar", (): void => {
             <authContext.Provider
               value={{
                 tours: {
-                  newGroup: false,
-                  newRoot: false,
+                  newGroup: true,
+                  newRoot: true,
                 },
                 userEmail: "test@fluidattacks.com",
                 userName: "",

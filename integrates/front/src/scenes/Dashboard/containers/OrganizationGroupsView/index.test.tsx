@@ -14,6 +14,7 @@ import {
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
+import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -313,7 +314,19 @@ describe("Organization groups view", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route path={"/orgs/:organizationName/groups"}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <OrganizationGroups organizationId={mockProps.organizationId} />
+              <authContext.Provider
+                value={{
+                  setUser: jest.fn(),
+                  tours: {
+                    newGroup: true,
+                    newRoot: true,
+                  },
+                  userEmail: "",
+                  userName: "",
+                }}
+              >
+                <OrganizationGroups organizationId={mockProps.organizationId} />
+              </authContext.Provider>
             </authzPermissionsContext.Provider>
           </Route>
         </MockedProvider>

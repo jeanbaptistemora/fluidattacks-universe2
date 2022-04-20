@@ -95,10 +95,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
     onCompleted: ({ me }): void => {
       user.setUser({
         tours: {
-          newGroup:
-            me.tours.newGroup && me.userEmail.endsWith("fluidattacks.com"),
-          newRoot:
-            me.tours.newRoot && me.userEmail.endsWith("fluidattacks.com"),
+          newGroup: me.tours.newGroup,
+          newRoot: me.tours.newRoot,
         },
         userEmail: me.userEmail,
         userIntPhone: _.isNil(me.phone)
