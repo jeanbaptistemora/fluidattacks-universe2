@@ -7,6 +7,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
@@ -60,9 +63,10 @@ async def mutate(
     vulnerabilities: List[str],
 ) -> SimplePayload:
     try:
+        loaders: Dataloaders = info.context.loaders
         user_info = await token_utils.get_jwt_content(info.context)
         success = await vulns_domain.request_vulnerabilities_zero_risk(
-            loaders=info.context.loaders,
+            loaders=loaders,
             vuln_ids=set(vulnerabilities),
             finding_id=finding_id,
             user_info=user_info,
@@ -71,7 +75,7 @@ async def mutate(
         email: str = user_info["user_email"]
         reattack_just = "Reattack cancelled due to zero risk request"
         treatment_just = "Treatment change cancelled due to zero risk request"
-        finding_vulns_loader = info.context.loaders.finding_vulnerabilities_all
+        finding_vulns_loader = loaders.finding_vulnerabilities_all
         vulns_info: List[Vulnerability] = [
             vuln
             for vuln in await finding_vulns_loader.load(finding_id)
@@ -98,6 +102,9 @@ async def mutate(
         ]
         if success:
             if reattacked_vulns:
+                loaders.finding_vulnerabilities_all.clear(finding_id)
+                for vuln_id in vulnerabilities:
+                    loaders.vulnerability.clear(vuln_id)
                 await findings_domain.verify_vulnerabilities(
                     context=info.context,
                     finding_id=finding_id,
@@ -108,8 +115,11 @@ async def mutate(
                     vulns_to_close_from_file=[],
                 )
             if treatment_changed_vulns:
+                loaders.finding_vulnerabilities_all.clear(finding_id)
+                for vuln_id in vulnerabilities:
+                    loaders.vulnerability.clear(vuln_id)
                 await vulns_domain.handle_vulnerabilities_acceptance(
-                    loaders=info.context.loaders,
+                    loaders=loaders,
                     accepted_vulns=[],
                     finding_id=finding_id,
                     justification=treatment_just,
