@@ -64,6 +64,36 @@
     "CVE-2015-5237": "<=3.1.0",
     "CVE-2021-22570": "<3.15.0"
   },
+  "adplug": {
+    "CVE-2019-15151": "2.3.1"
+  },
+  "ajaxnetprofessional": {
+    "GHSA-5q7q-qqw2-hjq7": "<=21.12.21.1"
+  },
+  "ajaxpro.2": {
+    "GHSA-5q7q-qqw2-hjq7": "<21.12.22.1"
+  },
+  "apache.avro": {
+    "GHSA-868x-rg4c-cjqg": "<1.11.0"
+  },
+  "auth0-wcf-service-jwt": {
+    "CVE-2019-7644": "<1.0.4"
+  },
+  "auth0.authenticationapi": {
+    "CVE-2019-16929": ">=5.8.0 <6.5.3"
+  },
+  "body-parser-xml-nuget": {
+    "GHSA-2ghc-6v89-pw9j": "<1.0.0"
+  },
+  "cefsharp.common": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.winforms": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.wpf": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
   "gw2sharp": {
     "GHSA-4vr3-9v7h-5f8v": "<0.3.1"
   },
