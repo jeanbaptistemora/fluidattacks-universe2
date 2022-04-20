@@ -1,9 +1,13 @@
 # pylint: disable=too-many-lines
 
+import aioboto3
 import authz
 import base64
 import binascii
-import boto3
+from context import (
+    FI_AWS_BATCH_ACCESS_KEY,
+    FI_AWS_BATCH_SECRET_KEY,
+)
 from custom_exceptions import (
     HasVulns,
     InvalidParameter,
@@ -1064,11 +1068,15 @@ async def add_machine_execution(
     job_id: str,
     **kwargs: Any,
 ) -> bool:
-    client = boto3.client("batch")
     tzn = pytz.timezone(TIME_ZONE)
-
-    response = client.describe_jobs(jobs=[job_id])
-    jobs = response.get("jobs", [])
+    resource_options = dict(
+        service_name="batch",
+        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+    )
+    async with aioboto3.Session().client(**resource_options) as client:
+        response = await client.describe_jobs(jobs=[job_id])
+        jobs = response.get("jobs", [])
 
     start_date = (
         kwargs.pop("started_at").astimezone(tzn)

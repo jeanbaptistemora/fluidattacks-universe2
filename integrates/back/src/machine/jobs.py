@@ -366,10 +366,9 @@ async def queue_job_new(
     )
 
     if git_roots:
-
         await collect(
             [
-                await add_machine_execution(
+                add_machine_execution(
                     root_id=git_root_item.id,
                     job_id=queue_result.batch_job_id,
                     createdAt=datetime.now(),
