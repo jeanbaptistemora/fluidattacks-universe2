@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "singer_io"
+version = "1.0.0"
+description = "legacy lib singer io"
+authors = ["Product Team <development@fluidattacks.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Deprecated = "^1.2.12"
+jsonschema = "^3.2.0"
+pyRFC3339 = "^1.1"
+pytz = "^2021.1"
+returns = "^0.16.0"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
