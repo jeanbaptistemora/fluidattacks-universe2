@@ -15958,7 +15958,7 @@
       exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
@@ -16006,7 +16006,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
@@ -16055,7 +16055,7 @@
       exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
@@ -16109,7 +16109,7 @@
       exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
@@ -16163,7 +16163,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
@@ -16383,7 +16383,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
@@ -17101,7 +17101,7 @@
       exploit_code_maturity: "P"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["148","150","180"]
+  requirements: ["148","150"]
   metadata:
     en:
       details: __empty__
