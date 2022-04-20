@@ -39,11 +39,16 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
     addCommentError: ApolloError
   ): void => {
     addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-      if (message === "Exception - Comment parent is invalid") {
-        msgError(t("validations.invalidCommentParent", { count: 1 }));
-      } else {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.error("An error occurred adding comment", addCommentError);
+      switch (message) {
+        case "Exception - Invalid field length in form":
+          msgError(t("validations.invalidFieldLength"));
+          break;
+        case "Exception - Comment parent is invalid":
+          msgError(t("validations.invalidCommentParent", { count: 1 }));
+          break;
+        default:
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("An error occurred adding comment", addCommentError);
       }
     });
   };

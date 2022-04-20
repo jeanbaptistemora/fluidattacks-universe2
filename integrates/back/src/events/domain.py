@@ -122,6 +122,7 @@ async def add_comment(
     event = await event_loader.load(event_id)
     group_name = get_key_or_fallback(event)
 
+    validations.validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
         content, user_email, group_name, parent_comment, info.context.store
     )

@@ -76,20 +76,22 @@ const EventCommentsView: React.FC = (): JSX.Element => {
     addCommentError: ApolloError
   ): void => {
     addCommentError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-      if (message === "Exception - Comment parent is invalid") {
-        msgError(
-          t("validations.invalidCommentParent", {
-            count: 1,
-          })
-        );
-      } else if (message === "Exception - Invalid characters") {
-        msgError(t("validations.invalidChar"));
-      } else {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.warning(
-          "An error occurred posting event comment",
-          addCommentError
-        );
+      switch (message) {
+        case "Exception - Invalid field length in form":
+          msgError(t("validations.invalidFieldLength"));
+          break;
+        case "Exception - Comment parent is invalid":
+          msgError(t("validations.invalidCommentParent", { count: 1 }));
+          break;
+        case "Exception - Invalid characters":
+          msgError(t("validations.invalidChar"));
+          break;
+        default:
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error(
+            "An error occurred posting event comment",
+            addCommentError
+          );
       }
     });
   };

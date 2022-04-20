@@ -32,6 +32,9 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from newutils.validations import (
+    validate_field_length,
+)
 from typing import (
     List,
 )
@@ -77,6 +80,7 @@ async def add_comment(
     """Add comment in a group."""
     parent_comment = str(comment_data["parent"])
     content = str(comment_data["content"])
+    validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
         content, email, group_name, parent_comment, info.context.store
     )
