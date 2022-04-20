@@ -228,7 +228,6 @@ async def get_by_email(email: str) -> UserType:
         "is_registered": True,
         "tours": {
             "new_group": False,
-            "new_organization": False,
             "new_root": False,
         },
     }
