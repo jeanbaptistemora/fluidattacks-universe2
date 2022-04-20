@@ -249,6 +249,7 @@ async def test_get_date_last_vulns() -> None:
 
 
 @pytest.mark.changes_db
+@freeze_time("2022-04-20")
 async def test_get_group_indicators() -> None:
     loaders: Dataloaders = get_new_context()
     group_name = "unittesting"
