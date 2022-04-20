@@ -31,7 +31,7 @@ template: advisory
 |                       |                                                                                    |
 |-----------------------|------------------------------------------------------------------------------------|
 | **Kind**              | SQL injection                                                                      |
-| **Rule**              | [010. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146)   |
+| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146)   |
 | **Remote**            | Yes                                                                                |
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L                                       |
 | **CVSSv3 Base Score** | 4.7                                                                                |
