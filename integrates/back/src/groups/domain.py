@@ -71,6 +71,7 @@ from db_model.groups.types import (
     GroupMetadataToUpdate,
     GroupState,
     GroupStatusJustification,
+    GroupUnreliableIndicators,
 )
 from db_model.roots.types import (
     RootItem,
@@ -1483,6 +1484,16 @@ async def update_state_typed(
     state: GroupState,
 ) -> None:
     await groups_dal.update_state_typed(group_name=group_name, state=state)
+
+
+async def update_indicators_typed(
+    *,
+    group_name: str,
+    indicators: GroupUnreliableIndicators,
+) -> None:
+    await groups_dal.update_indicators_typed(
+        group_name=group_name, indicators=indicators
+    )
 
 
 async def set_pending_deletion_date(

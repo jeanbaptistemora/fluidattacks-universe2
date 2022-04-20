@@ -17,6 +17,7 @@ from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
     GroupState,
+    GroupUnreliableIndicators,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -280,5 +281,19 @@ async def update_state_typed(
     if not await update(
         group_name=group_name,
         data=item_to_update,
+    ):
+        raise ErrorUpdatingGroup.new()
+
+
+async def update_indicators_typed(
+    *,
+    group_name: str,
+    indicators: GroupUnreliableIndicators,
+) -> None:
+    indicators_item = groups_utils.format_group_unreliable_indicators_item(
+        indicators
+    )
+    if indicators_item and not await update(
+        group_name=group_name, data=indicators_item
     ):
         raise ErrorUpdatingGroup.new()
