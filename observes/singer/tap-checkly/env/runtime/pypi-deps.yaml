@@ -1,3 +1,4 @@
 click: "7.1.2"
 requests: "2.25.1"
-returns: "0.16.0"
+returns: "0.19.0"
+fa_purity: "1.13.0"
