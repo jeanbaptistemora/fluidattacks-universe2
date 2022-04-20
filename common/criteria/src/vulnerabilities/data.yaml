@@ -9938,12 +9938,10 @@
   en:
     title: Excessive privileges - Temporary Files
     description: >
-      Opening temporary files
-      without appropriate measures
-      or controls can leave the file,
-      its contents and any function
-      that consumes it vulnerable
-      to attack.
+      The application creates temporary
+      withouth properly restricting their privileges
+      or access modes, allowing an attacker
+      to craft new attack vectors
     impact: >
       - Get access to the created
       temporary files.
@@ -9957,16 +9955,16 @@
       provided by the Operative system
       and ensure it has 0600 permission mask.
     threat: >
-      Anonymous attacker
+      Authenticated attacker
       with local access to the server.
   es:
     title: Excessive privileges - Temporary Files
     description: >
-      Abrir archivos temporales
-      sin las medidas o controles adecuados
-      puede dejar el archivo, su contenido
-      y cualquier función que lo consuma
-      vulnerable a ataques.
+      La aplicación crea archivos temporales
+      sin limitar adecuadamente los permisos o
+      modos de acceso de los mismos,
+      permitiendo a un atacante
+      generar nuevos vectores de ataque
     impact: >
       - Obtener acceso
       a los archivos temporales creados.
@@ -9980,7 +9978,7 @@
       y asegurar que estos tienen una máscara
       de permisos 0600.
     threat: >
-      Atacante anónimo con acceso local al servidor.
+      Atacante autenticado con acceso local al servidor.
   category: Subvert Access
   remediation_time: "60"
   score:
@@ -15853,7 +15851,7 @@
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "H"
-      user_interaction: "R"
+      user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "N"
