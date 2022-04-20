@@ -14,7 +14,6 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
-    cast,
     Dict,
     Set,
 )
@@ -43,7 +42,7 @@ async def resolve(
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     org_id: str = parent["id"]
-    identifier: str = cast(str, kwargs.get("identifier", org_id))
+    identifier = str(kwargs.get("identifier", org_id))
 
     permissions: Set[str] = await _get_org_permissions(
         user_email, identifier, with_cache=True

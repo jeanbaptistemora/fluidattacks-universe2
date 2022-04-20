@@ -15,7 +15,6 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
-    cast,
     List,
 )
 
@@ -36,11 +35,11 @@ async def resolve(
 async def resolve_no_cache(
     parent: OrganizationType, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[StakeholderType]:
-    org_id: str = parent["id"]
+    org_id = parent["id"]
     organization_stakeholders_loader = (
         info.context.loaders.organization_stakeholders
     )
-    org_stakeholders: List[str] = await organization_stakeholders_loader.load(
-        org_id
-    )
-    return cast(List[StakeholderType], org_stakeholders)
+    org_stakeholders: List[
+        StakeholderType
+    ] = await organization_stakeholders_loader.load(org_id)
+    return org_stakeholders

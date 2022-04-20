@@ -239,7 +239,7 @@ async def get_customer(
 
 
 async def customer_payment_methods(
-    *, org_billing_customer: str, limit: int = 100
+    *, org_billing_customer: Optional[str], limit: int = 100
 ) -> List[PaymentMethod]:
     """Return list of customer's payment methods"""
     # Return empty list if stripe customer does not exist
