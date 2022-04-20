@@ -142,7 +142,7 @@ label {
   flex-wrap: wrap;
 }
 
-:global .breadcrumb > li + li:not(:last-child)::after {
+:global .breadcrumb > li:not(:last-child)::after {
   content: "/";
   padding: 0 4px;
 }

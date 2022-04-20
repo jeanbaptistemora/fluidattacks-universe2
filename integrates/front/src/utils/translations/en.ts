@@ -2896,7 +2896,7 @@ export const enTranslations: ResourceKey = {
         successTitle: "Success",
         title: "Add new organization",
       },
-      text: "New...",
+      text: "New Org...",
       tooltip: "Create new organization",
     },
   },
