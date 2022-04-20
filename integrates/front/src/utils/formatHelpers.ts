@@ -138,6 +138,9 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
 const formatDate: (date: number | string) => string = (
   date: number | string
 ): string => {
+  if (date < 0) {
+    return "-";
+  }
   const dateObj: Date = new Date(date);
 
   const toStringAndPad: (input: number, positions: number) => string = (
