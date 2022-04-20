@@ -11,7 +11,7 @@ from custom_types import (
     MailContent as MailContentType,
 )
 from datetime import (
-    datetime,
+    date,
 )
 from db_model.enums import (
     Notification,
@@ -80,12 +80,10 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     event_type: str,
     description: str,
     is_closed: bool = False,
-    report_date: datetime,
+    report_date: date,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
-    event_age: int = (
-        datetime_utils.get_now().date() - report_date.date()
-    ).days
+    event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
         Dict[str, Any], ...

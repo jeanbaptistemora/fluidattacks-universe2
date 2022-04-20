@@ -20,8 +20,6 @@ async def get_result(
         mutation {{
             addEvent(
                 groupName: "{group}",
-                actionAfterBlocking: TRAINING,
-                actionBeforeBlocking: DOCUMENT_GROUP,
                 accessibility: ENVIRONMENT,
                 context: CLIENT,
                 detail: "hacker create new event",

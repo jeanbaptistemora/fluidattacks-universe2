@@ -1,8 +1,6 @@
 import _ from "lodash";
 
 import {
-  castActionAfterBlocking,
-  castActionBeforeBlocking,
   castAffectedComponents,
   castEventStatus,
   castEventType,
@@ -12,8 +10,6 @@ import { translate } from "utils/translations/translate";
 
 interface IEventConfig {
   accessibility: string;
-  actionAfterBlocking: string;
-  actionBeforeBlocking: string;
   affectedComponents: string;
   eventStatus: string;
   eventType: string;
@@ -31,18 +27,10 @@ const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
     const affectedComponents: string = translate.t(
       castAffectedComponents(event.affectedComponents)
     );
-    const actionBeforeBlocking: string = translate.t(
-      castActionBeforeBlocking(event.actionBeforeBlocking)
-    );
-    const actionAfterBlocking: string = translate.t(
-      castActionAfterBlocking(event.actionAfterBlocking)
-    );
 
     return {
       ...event,
       accessibility,
-      actionAfterBlocking,
-      actionBeforeBlocking,
       affectedComponents,
       eventStatus,
       eventType,

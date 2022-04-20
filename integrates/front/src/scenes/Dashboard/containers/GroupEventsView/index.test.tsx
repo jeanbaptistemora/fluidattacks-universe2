@@ -36,8 +36,6 @@ describe("EventsView", (): void => {
             events: [
               {
                 accessibility: "Repository",
-                actionAfterBlocking: "NONE",
-                actionBeforeBlocking: "NONE",
                 affectedComponents: "",
                 closingDate: "-",
                 detail: "Test description",
@@ -153,12 +151,6 @@ describe("EventsView", (): void => {
       screen.getAllByRole("checkbox", { name: "accessibility" })
     ).toHaveLength(2);
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
-    expect(
-      screen.getAllByRole("combobox", { name: "actionBeforeBlocking" })
-    ).toHaveLength(1);
-    expect(
-      screen.getAllByRole("combobox", { name: "actionAfterBlocking" })
-    ).toHaveLength(1);
     expect(screen.getAllByTestId("file")).toHaveLength(1);
     expect(screen.getAllByTestId("image")).toHaveLength(1);
   });

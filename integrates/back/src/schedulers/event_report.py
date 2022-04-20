@@ -9,7 +9,7 @@ from dataloaders import (
     get_new_context,
 )
 from datetime import (
-    datetime,
+    date as date_type,
 )
 from events import (
     domain as events_domain,
@@ -76,7 +76,7 @@ async def send_event_report() -> None:
             group_name = str(get_key_or_fallback(event, fallback=""))
             event_type = event["event_type"]
             description = event["detail"]
-            report_date: datetime = datetime_utils.get_date_from_iso_str(
+            report_date: date_type = datetime_utils.get_date_from_iso_str(
                 event["historic_state"][0]["date"]
             )
             await events_mail.send_mail_event_report(

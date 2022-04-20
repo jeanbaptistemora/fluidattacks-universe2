@@ -63,8 +63,6 @@ interface IFormValues {
   affectedReattacks: string[];
   eventType: string;
   detail: string;
-  actionBeforeBlocking: string;
-  actionAfterBlocking: string;
   file?: FileList;
   image?: FileList;
   rootId: string;
@@ -139,8 +137,6 @@ const AddModal: React.FC<IAddModalProps> = ({
       <Formik
         initialValues={{
           accessibility: [],
-          actionAfterBlocking: "",
-          actionBeforeBlocking: "",
           affectedComponents: [],
           affectedReattacks: [],
           affectsReattacks: false,
@@ -445,63 +441,6 @@ const AddModal: React.FC<IAddModalProps> = ({
                   />
                 </FormGroup>
               </Col100>
-            </Row>
-            <Row>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>
-                    {t("group.events.form.actionBefore.title")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikDropdown}
-                    name={"actionBeforeBlocking"}
-                    validate={required}
-                  >
-                    <option value={""} />
-                    <option value={"DOCUMENT_GROUP"}>
-                      {t("group.events.form.actionBefore.document")}
-                    </option>
-                    <option value={"TEST_OTHER_PART_TOE"}>
-                      {t("group.events.form.actionBefore.testOther")}
-                    </option>
-                    <option value={"NONE"}>
-                      {t("group.events.form.none")}
-                    </option>
-                    <option value={"OTHER"}>
-                      {t("group.events.form.other")}
-                    </option>
-                  </Field>
-                </FormGroup>
-              </Col50>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>
-                    {t("group.events.form.actionAfter.title")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikDropdown}
-                    name={"actionAfterBlocking"}
-                    validate={required}
-                  >
-                    <option value={""} />
-                    <option value={"EXECUTE_OTHER_GROUP_SAME_CLIENT"}>
-                      {t("group.events.form.actionAfter.otherSame")}
-                    </option>
-                    <option value={"EXECUTE_OTHER_GROUP_OTHER_CLIENT"}>
-                      {t("group.events.form.actionAfter.otherOther")}
-                    </option>
-                    <option value={"TRAINING"}>
-                      {t("group.events.form.actionAfter.training")}
-                    </option>
-                    <option value={"NONE"}>
-                      {t("group.events.form.none")}
-                    </option>
-                    <option value={"OTHER"}>
-                      {t("group.events.form.other")}
-                    </option>
-                  </Field>
-                </FormGroup>
-              </Col50>
             </Row>
             <Row>
               <Col50>

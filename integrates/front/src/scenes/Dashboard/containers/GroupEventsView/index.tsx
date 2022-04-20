@@ -28,8 +28,6 @@ import {
 import {
   accessibilityOptions,
   afectCompsOptions,
-  eventActionsAfterBlocking,
-  eventActionsBeforeBlocking,
   selectOptionType,
 } from "./selectOptions";
 import { UpdateAffectedModal } from "./UpdateAffectedModal";
@@ -66,8 +64,6 @@ interface IEventsDataset {
   group: {
     events: {
       accessibility: string;
-      actionAfterBlocking: string;
-      actionBeforeBlocking: string;
       affectedComponents: string;
       closingDate: string;
       detail: string;
@@ -82,8 +78,6 @@ interface IEventsDataset {
 
 interface IFilterSet {
   accessibility: string;
-  actAfterBlock: string;
-  actBefBlock: string;
   afectComps: string;
   closingDateRange: { max: string; min: string };
   dateRange: { max: string; min: string };
@@ -108,8 +102,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       "filterGroupEventsSet",
       {
         accessibility: "",
-        actAfterBlock: "",
-        actBefBlock: "",
         afectComps: "",
         closingDateRange: { max: "", min: "" },
         dateRange: { max: "", min: "" },
@@ -123,8 +115,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "eventsTableSet",
     {
       accessibility: true,
-      actionAfterBlocking: true,
-      actionBeforeBlocking: true,
       affectedComponents: true,
       closingDate: true,
       detail: true,
@@ -209,22 +199,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.affectedComponents"),
       onSort: onSortState,
       visible: columnItems.affectedComponents,
-      width: "50%",
-      wrapped: true,
-    },
-    {
-      dataField: "actionAfterBlocking",
-      header: t("searchFindings.tabEvents.actionAfterBlocking"),
-      onSort: onSortState,
-      visible: columnItems.actionAfterBlocking,
-      width: "50%",
-      wrapped: true,
-    },
-    {
-      dataField: "actionBeforeBlocking",
-      header: t("searchFindings.tabEvents.actionBeforeBlocking"),
-      onSort: onSortState,
-      visible: columnItems.actionBeforeBlocking,
       width: "50%",
       wrapped: true,
     },
@@ -394,8 +368,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       await addEvent({
         variables: {
           accessibility: selectedAccessibility,
-          actionAfterBlocking: values.actionAfterBlocking,
-          actionBeforeBlocking: values.actionBeforeBlocking,
           affectedComponents: selectedComponents,
           blockingHours: String(values.blockingHours),
           context: values.context,
@@ -550,40 +522,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "closingDate"
   );
 
-  function onActBefBlockChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        actBefBlock: event.target.value,
-      })
-    );
-  }
-  const filterActBefBlockResult: IEventConfig[] = filterSelect(
-    dataset,
-    filterGroupEventsTable.actBefBlock,
-    "actionBeforeBlocking"
-  );
-
-  function onActAfterBlockChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        actAfterBlock: event.target.value,
-      })
-    );
-  }
-  const filterActAfterBlockResult: IEventConfig[] = filterSelect(
-    dataset,
-    filterGroupEventsTable.actAfterBlock,
-    "actionAfterBlocking"
-  );
-
   function onAccessibilityChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
@@ -622,8 +560,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     setFilterGroupEventsTable(
       (): IFilterSet => ({
         accessibility: "",
-        actAfterBlock: "",
-        actBefBlock: "",
         afectComps: "",
         closingDateRange: { max: "", min: "" },
         dateRange: { max: "", min: "" },
@@ -640,10 +576,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterTypeResult,
     filterDateRangeResult,
     filterClosingDateRangeResult,
-    filterActBefBlockResult,
     filterAccessibilityResult,
-    filterAfectCompsResult,
-    filterActAfterBlockResult
+    filterAfectCompsResult
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -675,24 +609,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       selectOptions: afectCompsOptions,
       tooltipId: "group.events.filtersTooltips.affectedComponents.id",
       tooltipMessage: "group.events.filtersTooltips.affectedComponents",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupEventsTable.actAfterBlock,
-      onChangeSelect: onActAfterBlockChange,
-      placeholder: "Action after blocking",
-      selectOptions: eventActionsAfterBlocking,
-      tooltipId: "group.events.filtersTooltips.actAfterBlock.id",
-      tooltipMessage: "group.events.filtersTooltips.actAfterBlock",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupEventsTable.actBefBlock,
-      onChangeSelect: onActBefBlockChange,
-      placeholder: "Action before blocking",
-      selectOptions: eventActionsBeforeBlocking,
-      tooltipId: "group.events.filtersTooltips.actBefBlock.id",
-      tooltipMessage: "group.events.filtersTooltips.actBefBlock",
       type: "select",
     },
     {

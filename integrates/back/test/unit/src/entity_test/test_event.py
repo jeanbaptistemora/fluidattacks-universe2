@@ -95,8 +95,6 @@ async def test_create_event() -> None:
     query = """
         mutation {
             addEvent(groupName: "unittesting",
-                        actionAfterBlocking: TRAINING,
-                        actionBeforeBlocking: DOCUMENT_GROUP,
                         accessibility: ENVIRONMENT,
                         context: CLIENT,
                         detail: "Test",

@@ -35,8 +35,6 @@ describe("Update Affected Modal", (): void => {
         events: [
           {
             accessibility: "Repository",
-            actionAfterBlocking: "NONE",
-            actionBeforeBlocking: "NONE",
             affectedComponents: "",
             closingDate: "-",
             detail: "Test description",
