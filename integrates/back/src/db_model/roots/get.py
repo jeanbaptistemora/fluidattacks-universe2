@@ -328,7 +328,7 @@ async def get_machine_executions(
         RootMachineExecutionItem(
             job_id=item["sk"].split("#")[-1],
             created_at=item["created_at"],
-            started_at=item["started_at"],
+            started_at=item.get("started_at"),
             stopped_at=item.get("stopped_at"),
             name=item["name"],
             root_id=item["pk"].split("#")[-1],
@@ -342,6 +342,7 @@ async def get_machine_executions(
                 for x in item["findings_executed"]
             ],
             commit=item.get("commit"),
+            status=item.get("status"),
         )
         for item in response.items
     )
@@ -387,6 +388,7 @@ async def get_machine_executions_by_job_id(
                 for x in item["findings_executed"]
             ],
             commit=item.get("commit", ""),
+            status=item.get("status"),
         )
         for item in response.items
     )

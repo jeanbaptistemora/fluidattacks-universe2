@@ -1104,6 +1104,7 @@ async def add_machine_execution(
         else None,
         findings_executed=kwargs.pop("findings_executed", []),
         commit=kwargs.pop("git_commit", ""),
+        status=kwargs.pop("status", "RUNNABLE"),
     )
     return await roots_model.add_machine_execution(root_id, execution)
 

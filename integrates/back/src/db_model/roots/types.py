@@ -141,6 +141,7 @@ class RootMachineExecutionItem(NamedTuple):
     stopped_at: Optional[str] = None
     commit: Optional[str] = None
     success: bool = True
+    status: Optional[str] = None
 
 
 class LastMachineExecutions(NamedTuple):
