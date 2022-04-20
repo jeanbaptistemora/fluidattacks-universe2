@@ -321,8 +321,11 @@ def build_subdep_name(dependencies: Dict[str, Any]) -> List[str]:
     return dependencies_list
 
 
-def build_dependencies_tree(  # pylint: disable=too-many-locals
-    path_yarn: str, path_json: str, dependencies_type: str
+def build_dependencies_tree(  # pylint: disable=too-many-locals,
+    # pylint: disable=too-many-nested-blocks
+    path_yarn: str,
+    path_json: str,
+    dependencies_type: str,
 ) -> Dict[str, Any]:
     # Dependencies type could be "devDependencies" for dev dependencies
     # or "dependencies" for prod dependencies
@@ -334,24 +337,24 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
         step=1,
     )
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
-    package_dict = json_parser.parse(get_file_content_block(path_json))[
-        dependencies_type
-    ]
+    package_parser = json_parser.parse(get_file_content_block(path_json))
     tree: Dict[str, Any] = {}
-    for json_key, json_value in package_dict.items():
-        for yarn_key, yarn_value in yarn_dict.items():
-            dep = json_key + "@" + json_value
-            if dep.find(yarn_key) != -1:
-                tree[dep] = yarn_value["version"]
-                if "dependencies" in yarn_value:
-                    subdeps = build_subdep_name(yarn_value["dependencies"])
-                    while subdeps:
-                        current_subdep = subdeps[0]
-                        new_values, version, name = get_subdependencies(
-                            current_subdep, yarn_dict
-                        )
-                        tree[name] = version
-                        subdeps.remove(current_subdep)
-                        subdeps = subdeps + new_values
-    tree = add_lines(windower, tree)
+    if dependencies_type in package_parser:
+        package_dict = package_parser[dependencies_type]
+        for json_key, json_value in package_dict.items():
+            for yarn_key, yarn_value in yarn_dict.items():
+                dep = json_key + "@" + json_value
+                if dep.find(yarn_key) != -1:
+                    tree[dep] = yarn_value["version"]
+                    if "dependencies" in yarn_value:
+                        subdeps = build_subdep_name(yarn_value["dependencies"])
+                        while subdeps:
+                            current_subdep = subdeps[0]
+                            new_values, version, name = get_subdependencies(
+                                current_subdep, yarn_dict
+                            )
+                            tree[name] = version
+                            subdeps.remove(current_subdep)
+                            subdeps = subdeps + new_values
+        tree = add_lines(windower, tree)
     return tree
