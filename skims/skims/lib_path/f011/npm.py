@@ -2,6 +2,7 @@ from frozendict import (  # type: ignore
     frozendict,
 )
 from lib_path.common import (
+    build_dependencies_tree,
     DependencyType,
     translate_dependencies_to_vulnerabilities,
 )
@@ -89,36 +90,60 @@ def npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
 
 def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
-        windower: Iterator[
-            Tuple[Tuple[int, str], Tuple[int, str]],
-        ] = windowed(
-            fillvalue="",
-            n=2,
-            seq=tuple(enumerate(content.splitlines(), start=1)),
-            step=1,
-        )
+        try:
+            json_path = "/".join(path.split("/")[:-1]) + "/package.json"
+            dependencies_tree = build_dependencies_tree(
+                path_yarn=path,
+                path_json=json_path,
+                dependencies_type="dependencies",
+            )
 
-        # ((11479, 'zen-observable@^0.8.21:'), (11480, '  version "0.8.21"'))
-        for (product_line, product), (version_line, version) in windower:
-            product, version = product.strip(), version.strip()
-
-            if (
-                product.endswith(":")
-                and not product.startswith(" ")
-                and version.startswith("version")
-            ):
-                product = product.rstrip(":")
-                product = product.split(",", maxsplit=1)[0]
-                product = product.strip('"')
-                product = product.rsplit("@", maxsplit=1)[0]
-
-                version = version.split(" ", maxsplit=1)[1]
-                version = version.strip('"')
-
+            for key, value in dependencies_tree.items():
                 yield (
-                    {"column": 0, "line": product_line, "item": product},
-                    {"column": 0, "line": version_line, "item": version},
+                    {
+                        "column": 0,
+                        "line": value.get("product_line"),
+                        "item": key.split("@")[:-1][0],
+                    },
+                    {
+                        "column": 0,
+                        "line": value.get("version_line"),
+                        "item": value.get("version"),
+                    },
                 )
+
+        except FileNotFoundError:
+            windower: Iterator[
+                Tuple[Tuple[int, str], Tuple[int, str]],
+            ] = windowed(
+                fillvalue="",
+                n=2,
+                seq=tuple(enumerate(content.splitlines(), start=1)),
+                step=1,
+            )
+
+            # ((11479, 'zen-observable@^0.8.21:'),
+            #  (11480, '  version "0.8.21"'))
+            for (product_line, product), (version_line, version) in windower:
+                product, version = product.strip(), version.strip()
+
+                if (
+                    product.endswith(":")
+                    and not product.startswith(" ")
+                    and version.startswith("version")
+                ):
+                    product = product.rstrip(":")
+                    product = product.split(",", maxsplit=1)[0]
+                    product = product.strip('"')
+                    product = product.rsplit("@", maxsplit=1)[0]
+
+                    version = version.split(" ", maxsplit=1)[1]
+                    version = version.strip('"')
+
+                    yield (
+                        {"column": 0, "line": product_line, "item": product},
+                        {"column": 0, "line": version_line, "item": version},
+                    )
 
     return translate_dependencies_to_vulnerabilities(
         content=content,
