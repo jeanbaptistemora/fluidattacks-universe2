@@ -9,7 +9,9 @@ from model.graph_model import (
     NId,
 )
 from typing import (
+    Any,
     Iterator,
+    Optional,
     Set,
     Tuple,
 )
@@ -139,3 +141,25 @@ def get_object_argument_list(
         "argument",
     )[0]
     return node_to_str(shard.graph, n_args)
+
+
+def get_first_member(
+    shard: graph_model.GraphShard, n_id: str
+) -> Optional[str]:
+    member: Any = g.match_ast(shard.graph, n_id, "member_access_expression")
+    while member.get("member_access_expression"):
+        member = member.get("member_access_expression")
+        member = g.match_ast(shard.graph, member, "member_access_expression")
+    return member["__0__"]
+
+
+def get_var_node_from_obj(
+    shard: graph_model.GraphShard, n_id: str
+) -> Optional[str]:
+    if (
+        (preds := g.pred_ast(shard.graph, n_id, 2))
+        and len(preds) > 1
+        and shard.graph.nodes[preds[1]]["label_type"] == "variable_declarator"
+    ):
+        return g.match_ast_d(shard.graph, preds[1], "identifier")
+    return None
