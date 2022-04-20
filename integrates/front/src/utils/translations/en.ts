@@ -475,6 +475,7 @@ export const enTranslations: ResourceKey = {
         where: "Filter by text on vulnerability locations",
       },
       headersTooltips: {
+        age: "Number of days elapsed since the vulnerability type was opened",
         closingPercentage:
           "Percentage of closed vulnerabilities, 100% if it was solved",
         lastReport: "Number of days since the last vulnerability was added",

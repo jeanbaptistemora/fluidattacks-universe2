@@ -364,6 +364,7 @@ describe("GroupFindingsView", (): void => {
     });
 
     expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Age")).toBeInTheDocument();
     expect(screen.getByText("Last report")).toBeInTheDocument();
     expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
@@ -374,6 +375,7 @@ describe("GroupFindingsView", (): void => {
     expect(
       screen.getByText("038. Business information leak")
     ).toBeInTheDocument();
+    expect(screen.getByText("252")).toBeInTheDocument();
     expect(
       screen.getByText("group.findings.description.value")
     ).toBeInTheDocument();

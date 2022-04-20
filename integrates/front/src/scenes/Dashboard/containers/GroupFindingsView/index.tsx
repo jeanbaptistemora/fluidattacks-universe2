@@ -101,7 +101,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   >(
     "tableSet",
     {
-      age: false,
+      age: true,
       closingPercentage: false,
       lastVulnerability: true,
       openVulnerabilities: true,
@@ -214,6 +214,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       onSort: onSortState,
       tooltipDataField: t("group.findings.headersTooltips.type"),
       visible: checkedItems.title,
+      wrapped: true,
+    },
+    {
+      dataField: "age",
+      header: "Age",
+      headerFormatter: tooltipFormatter,
+      onSort: onSortState,
+      tooltipDataField: t("group.findings.headersTooltips.age"),
+      visible: checkedItems.age,
       wrapped: true,
     },
     {
