@@ -87,18 +87,20 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   // State management
   const closeNewGroupModal: () => void = useCallback((): void => {
-    user.setUser({
-      tours: {
-        newGroup: true,
-        newRoot: false,
-      },
-      userEmail: user.userEmail,
-      userIntPhone: user.userIntPhone,
-      userName: user.userName,
-    });
+    if (enableTour) {
+      user.setUser({
+        tours: {
+          newGroup: true,
+          newRoot: false,
+        },
+        userEmail: user.userEmail,
+        userIntPhone: user.userIntPhone,
+        userName: user.userName,
+      });
+    }
     setGroupModalOpen(false);
     void refetchGroups();
-  }, [refetchGroups, user]);
+  }, [enableTour, refetchGroups, user]);
   // Auxiliary functions
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]

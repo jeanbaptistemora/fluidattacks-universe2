@@ -4,7 +4,6 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -59,7 +58,6 @@ import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
-import { Logger } from "utils/logger";
 import { msgSuccess } from "utils/notifications";
 
 interface IGitRootsProps {
@@ -115,17 +113,19 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   }, [runTour, toggleTour]);
 
   const closeModal: () => void = useCallback((): void => {
-    user.setUser({
-      tours: {
-        newGroup: true,
-        newRoot: true,
-      },
-      userEmail: user.userEmail,
-      userIntPhone: user.userIntPhone,
-      userName: user.userName,
-    });
+    if (enableTour) {
+      user.setUser({
+        tours: {
+          newGroup: true,
+          newRoot: true,
+        },
+        userEmail: user.userEmail,
+        userIntPhone: user.userIntPhone,
+        userName: user.userName,
+      });
+    }
     setManagingRoot(false);
-  }, [user]);
+  }, [enableTour, user]);
 
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
@@ -184,19 +184,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // GraphQL operations
   const [updateTours] = useMutation(UPDATE_TOURS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("An error occurred while updating tours", error);
-      });
+      handleUpdateError(graphQLErrors, "tours");
     },
   });
 
-  function handleTours(newGroup: boolean, newRoot: boolean): void {
-    void updateTours({ variables: { newGroup, newRoot } });
-  }
-
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (): void => {
-      handleTours(true, true);
+      void updateTours({ variables: { newGroup: true, newRoot: true } });
       onUpdate();
       closeModal();
     },

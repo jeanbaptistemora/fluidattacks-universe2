@@ -23,6 +23,22 @@ const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
   });
 };
 
+const handleUpdateError = ({ graphQLErrors }: ApolloError): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    switch (error.message) {
+      case "Exception - Error empty value is not valid":
+        msgError(translate.t("group.scope.git.errors.invalid"));
+        break;
+      case "Exception - Invalid characters":
+        msgError(translate.t("validations.invalidChar"));
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.error(`Couldn't update tours`, error);
+    }
+  });
+};
+
 function handleGroupNameErrorHelper(
   graphQLErrors: readonly GraphQLError[]
 ): void {
@@ -75,7 +91,8 @@ const getSwitchButtonHandlers = (
 };
 
 export {
+  getSwitchButtonHandlers,
   handleCreateError,
   handleGroupNameErrorHelper,
-  getSwitchButtonHandlers,
+  handleUpdateError,
 };

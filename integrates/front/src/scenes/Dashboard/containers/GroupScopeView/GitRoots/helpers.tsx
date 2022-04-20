@@ -103,7 +103,7 @@ const handleCreationError = (graphQLErrors: readonly GraphQLError[]): void => {
 
 const handleUpdateError = (
   graphQLErrors: readonly GraphQLError[],
-  scope: "envs" | "root"
+  scope: "envs" | "root" | "tours"
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
