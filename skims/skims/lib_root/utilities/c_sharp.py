@@ -103,10 +103,16 @@ def yield_shard_object_creation(
         nodes=shard.graph.nodes,
         predicate=g.pred_has_labels(label_type="object_creation_expression"),
     ):
+        if qualified := g.match_ast(shard.graph, member, "qualified_name").get(
+            "qualified_name"
+        ):
+            member = qualified
         match = g.match_ast(shard.graph, member, "identifier")
-        if (identifier := match["identifier"]) and shard.graph.nodes[
-            identifier
-        ]["label_text"] in members:
+        if (
+            match.get("identifier")
+            and (identifier := match["identifier"])
+            and shard.graph.nodes[identifier]["label_text"] in members
+        ):
             yield member
 
 
@@ -156,10 +162,13 @@ def get_first_member(
 def get_var_node_from_obj(
     shard: graph_model.GraphShard, n_id: str
 ) -> Optional[str]:
+    depth = (
+        3 if shard.graph.nodes[n_id]["label_type"] == "qualified_name" else 2
+    )
     if (
-        (preds := g.pred_ast(shard.graph, n_id, 2))
+        (preds := g.pred_ast(shard.graph, n_id, depth))
         and len(preds) > 1
-        and shard.graph.nodes[preds[1]]["label_type"] == "variable_declarator"
+        and shard.graph.nodes[preds[-1]]["label_type"] == "variable_declarator"
     ):
-        return g.match_ast_d(shard.graph, preds[1], "identifier")
+        return g.match_ast_d(shard.graph, preds[-1], "identifier")
     return None
