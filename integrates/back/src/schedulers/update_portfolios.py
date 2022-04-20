@@ -63,12 +63,15 @@ def calculate_tag_indicators(
                 / Decimal(len(tags_dict[tag]))
             ).quantize(Decimal("0.1"))
         else:
-            tag_info[indicator] = Decimal(
-                min(
-                    Decimal(group.get(indicator, Decimal("inf")))
-                    for group in tags_dict[tag]
-                )
-            ).quantize(Decimal("0.1"))
+            min_indicator = min(
+                Decimal(group.get(indicator, Decimal("inf")))
+                for group in tags_dict[tag]
+            )
+            tag_info[indicator] = (
+                Decimal(min_indicator).quantize(Decimal("0.1"))
+                if min_indicator != Decimal("inf")
+                else Decimal("0.0")
+            )
         tag_info["projects"] = [str(group["name"]) for group in tags_dict[tag]]
     return tag_info
 

@@ -1809,11 +1809,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "tag": {
-            "SS": [
-              "test-groups"
-            ]
-          },
           "total_treatment": {
             "M": {
               "accepted": {
@@ -1918,11 +1913,6 @@
           },
           "remediated_over_time": {
             "L": []
-          },
-          "tag": {
-            "SS": [
-              "test-groups"
-            ]
           },
           "total_treatment": {
             "M": {
@@ -2032,11 +2022,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "tag": {
-            "SS": [
-              "test-groups"
-            ]
-          },
           "total_treatment": {
             "M": {
               "accepted": {
@@ -2142,11 +2127,6 @@
           "remediated_over_time": {
             "L": []
           },
-          "tag": {
-            "SS": [
-              "test-groups"
-            ]
-          },
           "total_treatment": {
             "M": {
               "accepted": {
@@ -2251,11 +2231,6 @@
           },
           "remediated_over_time": {
             "L": []
-          },
-          "tag": {
-            "SS": [
-              "test-groups"
-            ]
           },
           "total_treatment": {
             "M": {
