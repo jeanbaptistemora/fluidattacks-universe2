@@ -102,8 +102,11 @@ def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
 def delete_out_of_scope_files(group: str) -> bool:
     expected_repositories: Set[str] = set()
     path_to_fusion: str = os.path.join("groups", group, "fusion")
-
-    for root in get_filter_rules(group):
+    all_roots = get_filter_rules(group)
+    active_roots_nicknames = [
+        root["nickname"] for root in all_roots if root["state"] == "ACTIVE"
+    ]
+    for root in all_roots:
         # Get the expected repo name from the URL
         nickname = root["nickname"]
         expected_repositories.add(nickname)
@@ -121,7 +124,10 @@ def delete_out_of_scope_files(group: str) -> bool:
         # Compute what files should be deleted according to the scope rules
         path_to_repo = os.path.join("groups", group, "fusion", nickname)
         with suppress(FileNotFoundError):
-            if root["state"] == "INACTIVE" or not os.listdir(path_to_repo):
+            if (
+                root["state"] == "INACTIVE"
+                and root["nickname"] not in active_roots_nicknames
+            ) or not os.listdir(path_to_repo):
                 shutil.rmtree(path_to_repo)
                 continue
 
