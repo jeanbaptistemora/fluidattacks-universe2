@@ -1,8 +1,6 @@
 from .constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
-    ZR_FILTER_STATUSES,
-    ZR_INDEX_METADATA,
 )
 from .enums import (
     VulnerabilityStateStatus,
@@ -12,16 +10,15 @@ from .types import (
     VulnerabilityHistoric,
     VulnerabilityHistoricEntry,
     VulnerabilityMetadataToUpdate,
-    VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityUnreliableIndicatorsToUpdate,
     VulnerabilityVerification,
-    VulnerabilityZeroRisk,
 )
 from .utils import (
     adjust_historic_dates,
     get_assigned,
     get_current_entry,
+    get_zr_index_key,
     historic_entry_type_to_str,
 )
 from boto3.dynamodb.conditions import (
@@ -189,76 +186,11 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
     vulnerability_id: str,
 ) -> None:
     key_structure = TABLE.primary_key
+    zr_index = TABLE.indexes["gsi_5"]
     entry_type = historic_entry_type_to_str(entry)
     entry_item = json.loads(json.dumps(entry))
     current_entry = get_current_entry(entry, current_value)
-    zr_index = TABLE.indexes["gsi_5"]
-
-    new_zr_index_key = None
-    if isinstance(entry, VulnerabilityState):
-        new_zr_index_key = keys.build_key(
-            facet=ZR_INDEX_METADATA,
-            values={
-                "finding_id": finding_id,
-                "vuln_id": vulnerability_id,
-                "is_deleted": str(
-                    entry.status is VulnerabilityStateStatus.DELETED
-                ).lower(),
-                "is_zero_risk": str(
-                    bool(
-                        current_value.zero_risk
-                        and current_value.zero_risk.status
-                        in ZR_FILTER_STATUSES
-                    )
-                ).lower(),
-                "state_status": str(entry.status.value).lower(),
-                "verification_status": str(
-                    current_value.verification
-                    and current_value.verification.status.value
-                ).lower(),
-            },
-        )
-    if isinstance(entry, VulnerabilityZeroRisk):
-        new_zr_index_key = keys.build_key(
-            facet=ZR_INDEX_METADATA,
-            values={
-                "finding_id": finding_id,
-                "vuln_id": vulnerability_id,
-                "is_deleted": str(
-                    current_value.state.status
-                    is VulnerabilityStateStatus.DELETED
-                ).lower(),
-                "is_zero_risk": str(
-                    entry.status in ZR_FILTER_STATUSES
-                ).lower(),
-                "state_status": str(current_value.state.status.value).lower(),
-                "verification_status": str(
-                    current_value.verification
-                    and current_value.verification.status.value
-                ).lower(),
-            },
-        )
-    if isinstance(entry, VulnerabilityVerification):
-        new_zr_index_key = keys.build_key(
-            facet=ZR_INDEX_METADATA,
-            values={
-                "finding_id": finding_id,
-                "vuln_id": vulnerability_id,
-                "is_deleted": str(
-                    current_value.state.status
-                    is VulnerabilityStateStatus.DELETED
-                ).lower(),
-                "is_zero_risk": str(
-                    bool(
-                        current_value.zero_risk
-                        and current_value.zero_risk.status
-                        in ZR_FILTER_STATUSES
-                    )
-                ).lower(),
-                "state_status": str(current_value.state.status.value).lower(),
-                "verification_status": str(entry.status.value).lower(),
-            },
-        )
+    new_zr_index_key = get_zr_index_key(current_value, entry)
 
     try:
         vulnerability_key = keys.build_key(
@@ -309,7 +241,7 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
     )
 
 
-async def update_historic(
+async def update_historic(  # pylint: disable=too-many-locals
     *,
     current_value: Vulnerability,
     historic: VulnerabilityHistoric,
@@ -317,9 +249,12 @@ async def update_historic(
     if not historic:
         raise EmptyHistoric()
     key_structure = TABLE.primary_key
+    zr_index = TABLE.indexes["gsi_5"]
     historic = adjust_historic_dates(historic)
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
+    current_entry = get_current_entry(latest_entry, current_value)
+    new_zr_index_key = get_zr_index_key(current_value, latest_entry)
 
     try:
         vulnerability_key = keys.build_key(
@@ -330,8 +265,23 @@ async def update_historic(
             },
         )
         vulnerability_item = {entry_type: json.loads(json.dumps(latest_entry))}
+        if new_zr_index_key:
+            vulnerability_item[
+                zr_index.primary_key.sort_key
+            ] = new_zr_index_key.sort_key
+
+        base_condition = Attr(key_structure.partition_key).exists() & Attr(
+            "state.status"
+        ).ne(VulnerabilityStateStatus.DELETED.value)
         await operations.update_item(
-            condition_expression=Attr(key_structure.partition_key).exists(),
+            condition_expression=(
+                base_condition
+                & Attr(f"{entry_type}.modified_date").eq(
+                    current_entry.modified_date
+                )
+                if current_entry
+                else base_condition & Attr(entry_type).not_exists()
+            ),
             item=vulnerability_item,
             key=vulnerability_key,
             table=TABLE,

@@ -30,9 +30,17 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
+from db_model.vulnerabilities.constants import (
+    ZR_FILTER_STATUSES,
+    ZR_INDEX_METADATA,
+)
+from dynamodb import (
+    keys,
+)
 from dynamodb.types import (
     Index,
     Item,
+    PrimaryKey,
     Table,
 )
 from dynamodb.utils import (
@@ -316,3 +324,75 @@ def get_assigned(*, treatment: Optional[VulnerabilityTreatment]) -> str:
         return ""
 
     return treatment.assigned
+
+
+def get_zr_index_key(
+    current_value: Vulnerability, entry: VulnerabilityHistoricEntry
+) -> Optional[PrimaryKey]:
+    new_zr_index_key = None
+    if isinstance(entry, VulnerabilityState):
+        new_zr_index_key = keys.build_key(
+            facet=ZR_INDEX_METADATA,
+            values={
+                "finding_id": current_value.finding_id,
+                "vuln_id": current_value.id,
+                "is_deleted": str(
+                    entry.status is VulnerabilityStateStatus.DELETED
+                ).lower(),
+                "is_zero_risk": str(
+                    bool(
+                        current_value.zero_risk
+                        and current_value.zero_risk.status
+                        in ZR_FILTER_STATUSES
+                    )
+                ).lower(),
+                "state_status": str(entry.status.value).lower(),
+                "verification_status": str(
+                    current_value.verification
+                    and current_value.verification.status.value
+                ).lower(),
+            },
+        )
+    if isinstance(entry, VulnerabilityZeroRisk):
+        new_zr_index_key = keys.build_key(
+            facet=ZR_INDEX_METADATA,
+            values={
+                "finding_id": current_value.finding_id,
+                "vuln_id": current_value.id,
+                "is_deleted": str(
+                    current_value.state.status
+                    is VulnerabilityStateStatus.DELETED
+                ).lower(),
+                "is_zero_risk": str(
+                    entry.status in ZR_FILTER_STATUSES
+                ).lower(),
+                "state_status": str(current_value.state.status.value).lower(),
+                "verification_status": str(
+                    current_value.verification
+                    and current_value.verification.status.value
+                ).lower(),
+            },
+        )
+    if isinstance(entry, VulnerabilityVerification):
+        new_zr_index_key = keys.build_key(
+            facet=ZR_INDEX_METADATA,
+            values={
+                "finding_id": current_value.finding_id,
+                "vuln_id": current_value.id,
+                "is_deleted": str(
+                    current_value.state.status
+                    is VulnerabilityStateStatus.DELETED
+                ).lower(),
+                "is_zero_risk": str(
+                    bool(
+                        current_value.zero_risk
+                        and current_value.zero_risk.status
+                        in ZR_FILTER_STATUSES
+                    )
+                ).lower(),
+                "state_status": str(current_value.state.status.value).lower(),
+                "verification_status": str(entry.status.value).lower(),
+            },
+        )
+
+    return new_zr_index_key
