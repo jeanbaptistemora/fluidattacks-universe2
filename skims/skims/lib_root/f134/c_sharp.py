@@ -1,3 +1,8 @@
+from lib_root.utilities.c_sharp import (
+    get_first_member,
+    get_var_node_from_obj,
+    yield_object_creation,
+)
 from lib_sast.types import (
     ShardDb,
 )
@@ -23,6 +28,12 @@ from sast_symbolic_evaluation.utils_generic import (
 )
 from sast_syntax_readers.utils_generic import (
     get_dependencies,
+)
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
 )
 from typing import (
     Optional,
@@ -116,6 +127,10 @@ def insecure_cors_origin(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_INSECURE_CORS_ORIGIN
+    finding = method.value.finding
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
@@ -123,6 +138,19 @@ def insecure_cors_origin(
             if shard.syntax_graph is None:
                 continue
 
+            cors_nodes = [
+                member
+                for _, member in yield_object_creation(
+                    graph_db, {"CorsPolicy"}
+                )
+            ]
+            cors_objects = [
+                get_var_node_from_obj(shard, member) for member in cors_nodes
+            ]
+            cors_objects = [
+                shard.graph.nodes[element]["label_text"] if element else None
+                for element in cors_objects
+            ]
             for member in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,
@@ -130,27 +158,23 @@ def insecure_cors_origin(
                     label_type="member_access_expression"
                 ),
             ):
-
-                if "origins.add" in node_to_str(shard.graph, member).lower():
-                    for pred in g.pred_ast_lazy(shard.graph, member):
-                        argument = g.match_ast(
-                            shard.graph, pred, "argument", depth=2
-                        ).get("argument")
-                        argument_value = (
-                            g.match_ast(shard.graph, argument).get("__0__")
-                            if argument
-                            else None
-                        )
-                        if (
-                            argument_value
-                            and shard.graph.nodes[argument_value]["label_text"]
-                            == '"*"'
-                        ):
-                            yield shard, argument_value
+                if (
+                    "Origins.Add" in node_to_str(shard.graph, member)
+                    and (fr_member := get_first_member(shard, member))
+                    and shard.graph.nodes[fr_member]["label_type"]
+                    == "identifier"
+                    and shard.graph.nodes[fr_member]["label_text"]
+                    in cors_objects
+                ):
+                    pred_nid = g.pred_ast(shard.graph, member)[0]
+                    graph = shard.syntax_graph
+                    for path in get_backward_paths(graph, pred_nid):
+                        if evaluate(c_sharp, finding, graph, path, pred_nid):
+                            yield shard, pred_nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f134.cors_policy_allows_any_origin",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=core_model.MethodsEnum.CS_INSECURE_CORS_ORIGIN,
+        method=method,
     )

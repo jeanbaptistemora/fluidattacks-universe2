@@ -4275,28 +4275,28 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
      ^ Col 0
 ",terraform.tfm_ec2_has_open_all_ports_to_the_public
 F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,16,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
-   3 | mespace AspNet5SQLite
-   4 |
-   5 |   public class Startup
-   6 |   {
+   3 | namespace AspNet5SQLite
+   4 | {
+   5 |     public class Startup
+   6 |     {
    7 |
-   8 |       public void ConfigureServices(IServiceCollection services)
-   9 |       {
-  10 |           services.AddCors();
+   8 |         public void ConfigureServices(IServiceCollection services)
+   9 |         {
+  10 |             services.AddCors();
   11 |
-  12 |           var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
+  12 |             var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
   13 |
-  14 |           policy.Headers.Add(""*"");
-  15 |           policy.Methods.Add(""*"");
-> 16 |           policy.Origins.Add(""*"");
-  17 |           policy.SupportsCredentials = true;
+  14 |             policy.Headers.Add(""*"");
+  15 |             policy.Methods.Add(""*"");
+> 16 |             policy.Origins.Add(""*"");
+  17 |             policy.SupportsCredentials = true;
   18 |
-  19 |           services.AddCors(x => x.AddPolicy(""corsGlobalPolicy"", policy));
+  19 |             services.AddCors(x => x.AddPolicy(""corsGlobalPolicy"", policy));
   20 |
-  21 |       }
-  22 |   }
-  23 |
-     ^ Col 2
+  21 |         }
+  22 |     }
+  23 | }
+     ^ Col 0
 ",c_sharp.csharp_insecure_cors_origin
 F134,lines,namespace/skims/test/data/lib_root/f134/test_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/test_cors.cs,"
    4 | {
