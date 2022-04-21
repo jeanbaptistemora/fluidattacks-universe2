@@ -40,6 +40,8 @@ function main {
       # Local environments specific
       CI_COMMIT_SHA="$(get_commit_from_rev . HEAD)"
     fi \
+    && export DD_ENV="${env}" \
+    && export DD_VERSION="${CI_COMMIT_SHA}" \
     && if ! test -e 'integrates'; then
       # Kubernetes specific
       mkdir 'integrates' \

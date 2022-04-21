@@ -30,6 +30,9 @@ from api.validations.query_breadth import (
 from api.validations.query_depth import (
     QueryDepthValidation,
 )
+from ariadne.contrib.tracing.apollotracing import (
+    ApolloTracingExtension,
+)
 from billing.domain import (
     webhook,
 )
@@ -366,6 +369,7 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 exception_handlers = {404: not_found, 500: server_error}
 
 API_EXTENSIONS = [
+    ApolloTracingExtension,
     DatadogTracingExtension,
 ]
 
