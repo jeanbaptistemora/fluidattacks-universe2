@@ -48,9 +48,15 @@ def iterate_resources(
 def iterate_iam_policy_documents(
     template: Node,
 ) -> Iterator[Node]:
-    for _, kind, props in iterate_resources(template, "AWS::IAM"):
+    for _, kind, props in iterate_resources(
+        template, "AWS::IAM", "AWS::S3::BucketPolicy"
+    ):
 
-        if kind.inner in {"AWS::IAM::ManagedPolicy", "AWS::IAM::Policy"}:
+        if kind.inner in {
+            "AWS::IAM::ManagedPolicy",
+            "AWS::IAM::Policy",
+            "AWS::S3::BucketPolicy",
+        }:
             yield from yield_statements_from_policy(props)
 
         if (kind.inner in {"AWS::IAM::Role", "AWS::IAM::User"}) and (

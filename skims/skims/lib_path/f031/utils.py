@@ -1,5 +1,6 @@
 from aws.iam.structure import (
     is_action_permissive,
+    is_public_principal,
     is_resource_permissive,
 )
 from aws.iam.utils import (
@@ -8,6 +9,7 @@ from aws.iam.utils import (
 from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
+    AWSS3BucketPolicy,
 )
 from metaloaders.model import (
     Node,
@@ -16,6 +18,43 @@ from typing import (
     Iterator,
     Union,
 )
+
+
+def _is_s3_action_writeable(actions: Union[AWSS3BucketPolicy, Node]) -> bool:
+    actions_list = actions if isinstance(actions, list) else [actions]
+    action_start_with = [
+        "Copy",
+        "Create",
+        "Delete",
+        "Put",
+        "Restore",
+        "Update",
+        "Upload",
+        "Write",
+    ]
+    for action in actions_list:
+        if any(action.startswith(f"s3:{atw}") for atw in action_start_with):
+            return True
+    return False
+
+
+def bucket_policy_allows_public_access_iterate_vulnerabilities(
+    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    for stmt in statements_iterator:
+        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        effect = stmt_raw.get("Effect", "")
+        principal = stmt_raw.get("Principal", "")
+        actions = stmt_raw.get("Action", [])
+        if (
+            effect == "Allow"
+            and is_public_principal(principal)
+            and _is_s3_action_writeable(actions)
+        ):
+            if isinstance(stmt, Node):
+                yield stmt.inner["Principal"]
+            else:
+                yield stmt
 
 
 def match_iam_passrole(action: str) -> bool:

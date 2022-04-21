@@ -1781,6 +1781,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_BUCKET_ALLOWS_PUBLIC = MethodInfo(
+        file_name="terraform",
+        name="tfm_bucket_policy_allows_public_access",
+        module="lib_path",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_NEGATIVE_STATEMENT = MethodInfo(
         file_name="terraform",
         name="terraform_negative_statement",

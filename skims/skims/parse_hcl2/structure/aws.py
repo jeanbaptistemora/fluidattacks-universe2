@@ -28,6 +28,7 @@ from itertools import (
     chain,
 )
 from parse_hcl2.common import (
+    get_attribute_by_block,
     get_block_attribute,
     get_block_block,
     iterate_resources,
@@ -107,13 +108,16 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
                         attr_alias: "set"
                         for attr, attr_alias in {
                             "condition": "Condition",
-                            "principals": "Principal",
                             "not_principals": "NotPrincipal",
                         }.items()
                         for sub_block in [get_block_block(block, attr)]
                         if sub_block is not None
                     }
                 )
+                if principals := get_attribute_by_block(
+                    block, "principals", "identifiers"
+                ):
+                    data.update({"Principal": principals.val})
 
                 # By default it's Allow in terraform
                 if "Effect" not in data:

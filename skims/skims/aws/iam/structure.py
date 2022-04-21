@@ -1,3 +1,9 @@
+from typing import (
+    List,
+    Union,
+)
+
+
 def is_action_permissive(action: str) -> bool:
     if not isinstance(action, str):
         # A var or syntax error
@@ -20,3 +26,12 @@ def is_resource_permissive(resource: str) -> bool:
         return False
 
     return resource == "*"
+
+
+def is_public_principal(principals: Union[List[str], str]) -> bool:
+    principal_list = (
+        principals if isinstance(principals, list) else [principals]
+    )
+    if "*" in principal_list:
+        return True
+    return False
