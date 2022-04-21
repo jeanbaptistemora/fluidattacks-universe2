@@ -177,13 +177,13 @@ async def list_(
                 name=job_execution.name,
                 root_nickname=group_roots[job_execution.root_id],
                 queue=job_execution.queue,
-                started_at=(
-                    int(
-                        date_parse(job_execution.started_at).timestamp() * 1000
-                    )
-                    if job_execution.stopped_at is not None
-                    else None
-                ),
+                started_at=int(
+                    date_parse(job_execution.started_at).timestamp() * 1000
+                )
+                if job_execution.started_at is not None
+                else batch_jobs_dict.get(
+                    job_execution.job_id, {"startedAt": None}
+                ).get("startedAt"),
                 stopped_at=int(
                     date_parse(job_execution.stopped_at).timestamp() * 1000
                 )
