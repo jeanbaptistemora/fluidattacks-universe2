@@ -2,16 +2,11 @@ from aioextensions import (
     collect,
     in_thread,
 )
-import aiofiles  # type: ignore
-import asyncio
 from batch.dal import (
     delete_action,
 )
 from batch.types import (
     BatchProcessing,
-)
-from context import (
-    FI_TOE_LINES_RULES,
 )
 from custom_exceptions import (
     RepeatedToeLines,
@@ -80,18 +75,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-CLOC_ENV = os.environ.copy()
-CLOC_ENV["LC_ALL"] = "C"
-CLOC_DOC_LANGS = ["Markdown"]
-CLOC_STYLE_LANGS = ["CSS", "SASS", "LESS", "Stylus"]
-CLOC_FORMAT_LANGS = ["XML", "XAML"]
-CLOC_FORCE_LANG_DEF = "--force-lang-def=" + FI_TOE_LINES_RULES
-CLOC_EXCLUDE_LIST = ",".join(
-    CLOC_DOC_LANGS + CLOC_STYLE_LANGS + CLOC_FORMAT_LANGS
-)
-CLOC_EXCLUDE_LANG = "--exclude-lang=" + CLOC_EXCLUDE_LIST
-
-
 toe_lines_add = retry_on_exceptions(
     exceptions=(UnavailabilityError,), sleep_seconds=5
 )(toe_lines_domain.add)
@@ -114,9 +97,7 @@ git_get_last_commit_info = retry_on_exceptions(
 )(git_utils.get_last_commit_info)
 
 
-async def get_present_filenames(
-    group_path: str, repo: Repo, repo_nickname: str
-) -> Set[str]:
+async def get_present_filenames(repo: Repo, repo_nickname: str) -> Set[str]:
     LOGGER.info(
         "Getting present filenames",
         extra={
@@ -126,13 +107,9 @@ async def get_present_filenames(
         },
     )
     trees = repo.head.commit.tree.traverse()
-    ignored_files = await get_ignored_files(group_path, repo_nickname)
     included_head_filenames = tuple(
-        tree.path
-        for tree in trees
-        if tree.type == "blob" and tree.path not in ignored_files
+        tree.path for tree in trees if tree.type == "blob"
     )
-
     file_exists = await collect(
         in_thread(os.path.exists, f"{repo_nickname}/{filename}")
         for filename in included_head_filenames
@@ -150,47 +127,6 @@ async def get_present_filenames(
         )
         if exists and not islink
     }
-
-
-async def get_ignored_files(group_path: str, repo_nickname: str) -> Set[str]:
-    LOGGER.info(
-        "Getting ignored files",
-        extra={
-            "extra": {
-                "repo_nickname": repo_nickname,
-            }
-        },
-    )
-    ignored_filename = f"{group_path}/{repo_nickname}_ignored.txt"
-    ignored_files = set()
-    call_cloc = (
-        "cloc",
-        CLOC_FORCE_LANG_DEF,
-        CLOC_EXCLUDE_LANG,
-        repo_nickname,
-        "--ignored",
-        ignored_filename,
-        "--diff-timeout",
-        "900",
-    )
-    process = await asyncio.create_subprocess_exec(
-        *call_cloc,
-        env=CLOC_ENV,
-        stdout=asyncio.subprocess.DEVNULL,
-        stderr=asyncio.subprocess.STDOUT,
-    )
-    await process.wait()
-    repo_nickname_len = len(repo_nickname) + 1
-    if await in_thread(os.path.exists, ignored_filename):
-        async with aiofiles.open(
-            ignored_filename, "r", encoding="utf8"
-        ) as outfile:
-            lines = await outfile.readlines()
-            ignored_files = {
-                line.split(":  ")[0][repo_nickname_len:] for line in lines
-            }
-
-    return ignored_files
 
 
 async def get_present_toe_lines_to_add(
@@ -364,7 +300,6 @@ def pull_repositories(
 async def refresh_active_root_repo_toe_lines(
     loaders: Dataloaders,
     group_name: str,
-    group_path: str,
     root_repo: GitRootItem,
 ) -> None:
     LOGGER.info(
@@ -418,7 +353,7 @@ async def refresh_active_root_repo_toe_lines(
         present_filenames = set()
     else:
         present_filenames = await get_present_filenames(
-            group_path, repo, root_repo.state.nickname
+            repo, root_repo.state.nickname
         )
 
     repo_toe_lines = {
@@ -523,7 +458,7 @@ async def refresh_inactive_root_repo_toe_lines(
     max_attempts=3,
 )
 async def refresh_root_repo_toe_lines(
-    group_name: str, group_path: str, optional_repo_nickname: Optional[str]
+    group_name: str, optional_repo_nickname: Optional[str]
 ) -> None:
     loaders = get_new_context()
     roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
@@ -555,7 +490,7 @@ async def refresh_root_repo_toe_lines(
     )
     for root_repo in active_root_repos_to_proccess:
         await refresh_active_root_repo_toe_lines(
-            loaders, group_name, group_path, root_repo
+            loaders, group_name, root_repo
         )
     inactive_root_repos_to_proccess = tuple(
         root_repo
@@ -580,9 +515,7 @@ async def refresh_toe_lines(*, item: BatchProcessing) -> None:
         pull_repositories(tmpdir, group_name, optional_repo_nickname)
         group_path = tmpdir + f"/groups/{group_name}"
         os.chdir(f"{group_path}/fusion")
-        await refresh_root_repo_toe_lines(
-            group_name, group_path, optional_repo_nickname
-        )
+        await refresh_root_repo_toe_lines(group_name, optional_repo_nickname)
 
     await delete_action(
         action_name=item.action_name,

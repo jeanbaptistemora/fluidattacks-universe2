@@ -44,18 +44,18 @@ async def test_refresh_toe_lines(
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "",
-                    "lastAuthor": "authoremail@test.com",
                     "filename": "back/mock.py",
                     "firstAttackAt": None,
-                    "loc": 6,
+                    "lastAuthor": "authoremail@test.com",
                     "lastCommit": "6e119ae968656c52bfe85f80329c6b8400fb7921",
+                    "loc": 6,
                     "modifiedDate": "2021-11-10T16:31:38+00:00",
                     "seenAt": "2021-11-10T20:35:20.372236+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjYmFjay9tb2NrLnB5In0=",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjYmFjay9tb2NrLnB5In0=",
             },
             {
                 "node": {
@@ -65,18 +65,18 @@ async def test_refresh_toe_lines(
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "",
-                    "lastAuthor": "authoremail@test.com",
                     "filename": "back/src/mock.py",
                     "firstAttackAt": None,
-                    "loc": 2,
+                    "lastAuthor": "authoremail@test.com",
                     "lastCommit": "6e119ae968656c52bfe85f80329c6b8400fb7921",
+                    "loc": 2,
                     "modifiedDate": "2021-11-10T16:31:38+00:00",
                     "seenAt": "2021-11-10T20:35:20.372236+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjYmFjay9zcmMvbW9jay5weSJ9",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjYmFjay9zcmMvbW9jay5weSJ9",
             },
             {
                 "node": {
@@ -86,18 +86,39 @@ async def test_refresh_toe_lines(
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "",
+                    "filename": "front/mock.css",
+                    "firstAttackAt": None,
                     "lastAuthor": "authoremail@test.com",
+                    "lastCommit": "6e4a6706dff4332a73251e4f2e7fbf67025f369e",
+                    "loc": 1,
+                    "modifiedDate": "2021-11-10T20:40:44+00:00",
+                    "seenAt": "2021-11-10T20:35:20.372236+00:00",
+                    "sortsRiskLevel": -1,
+                },
+                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjZnJvbnQvbW9jay5jc3MifQ==",
+            },
+            {
+                "node": {
+                    "attackedAt": None,
+                    "attackedBy": "",
+                    "attackedLines": 0,
+                    "bePresent": True,
+                    "bePresentUntil": None,
+                    "comments": "",
                     "filename": "front/mock.js",
                     "firstAttackAt": None,
-                    "loc": 4,
+                    "lastAuthor": "authoremail@test.com",
                     "lastCommit": "3ca2ffbfeae4f2df16810359a9363231fabc1750",
+                    "loc": 4,
                     "modifiedDate": "2021-11-10T16:32:24+00:00",
                     "seenAt": "2021-11-10T20:35:20.372236+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjZnJvbnQvbW9jay5qcyJ9",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjZnJvbnQvbW9jay5qcyJ9",
             },
             {
                 "node": {
@@ -107,18 +128,18 @@ async def test_refresh_toe_lines(
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "comment 1",
-                    "lastAuthor": "authoremail@test.com",
                     "filename": "test1/test.sh",
                     "firstAttackAt": "2020-01-19T15:41:04+00:00",
-                    "loc": 4,
+                    "lastAuthor": "authoremail@test.com",
                     "lastCommit": "50a516954a321f95c6fb8baccb640e87d2f5d193",
+                    "loc": 4,
                     "modifiedDate": "2021-11-11T17:41:46+00:00",
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjdGVzdDEvdGVzdC5zaCJ9",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjdGVzdDEvdGVzdC5zaCJ9",
             },
             {
                 "node": {
@@ -128,18 +149,18 @@ async def test_refresh_toe_lines(
                     "bePresent": False,
                     "bePresentUntil": "2021-11-10T20:35:20.372236+00:00",
                     "comments": "comment 3",
-                    "lastAuthor": "customer3@gmail.com",
                     "filename": "test3/test.sh",
                     "firstAttackAt": "2020-01-14T15:41:04+00:00",
-                    "loc": 243,
+                    "lastAuthor": "customer3@gmail.com",
                     "lastCommit": "g545435i",
+                    "loc": 243,
                     "modifiedDate": "2020-11-16T15:41:04+00:00",
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjdGVzdDMvdGVzdC5zaCJ9",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjdGVzdDMvdGVzdC5zaCJ9",
             },
             {
                 "node": {
@@ -149,18 +170,18 @@ async def test_refresh_toe_lines(
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "comment 4",
-                    "lastAuthor": "authoremail@test.com",
                     "filename": "test4/test.sh",
                     "firstAttackAt": "2020-01-14T15:41:04+00:00",
-                    "loc": 4,
+                    "lastAuthor": "authoremail@test.com",
                     "lastCommit": "50a516954a321f95c6fb8baccb640e87d2f5d193",
+                    "loc": 4,
                     "modifiedDate": "2021-11-11T17:41:46+00:00",
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjdGVzdDQvdGVzdC5zaCJ9",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjdGVzdDQvdGVzdC5zaCJ9",
             },
             {
                 "node": {
@@ -170,18 +191,18 @@ async def test_refresh_toe_lines(
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "comment 5",
-                    "lastAuthor": "authoremail@test.com",
                     "filename": "test5/test.sh",
                     "firstAttackAt": None,
-                    "loc": 3,
+                    "lastAuthor": "authoremail@test.com",
                     "lastCommit": "50a516954a321f95c6fb8baccb640e87d2f5d193",
+                    "loc": 3,
                     "modifiedDate": "2021-11-11T17:41:46+00:00",
                     "seenAt": "2019-01-02T15:41:04+00:00",
                     "sortsRiskLevel": -1,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjdGVzdDUvdGVzdC5zaCJ9",
+                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAjRklMRU5B"
+                "TUUjdGVzdDUvdGVzdC5zaCJ9",
             },
             {
                 "node": {
@@ -191,25 +212,25 @@ async def test_refresh_toe_lines(
                     "bePresent": False,
                     "bePresentUntil": "2021-11-10T20:35:20.372236+00:00",
                     "comments": "comment 2",
-                    "lastAuthor": "customer2@gmail.com",
                     "filename": "test2/test#.config",
                     "firstAttackAt": "2020-02-19T15:41:04+00:00",
-                    "loc": 8,
+                    "lastAuthor": "customer2@gmail.com",
                     "lastCommit": "983466z",
+                    "loc": 8,
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
-                "EjRklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
+                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5B"
+                "TUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
             },
         ],
         "pageInfo": {
             "hasNextPage": False,
             "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9P"
-            "VCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEj"
-            "RklMRU5BTUUjdGVzdDIvdGVzdCMuY29uZmlnIn0=",
+            "VCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEjRklMRU5BTUUjd"
+            "GVzdDIvdGVzdCMuY29uZmlnIn0=",
         },
     }
 
