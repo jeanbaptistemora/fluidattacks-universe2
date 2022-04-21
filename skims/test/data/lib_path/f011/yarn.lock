@@ -406,3 +406,8 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+xmldom@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.4.0.tgz#8771e482a333af44587e30ce026f0998c23f3830"
+  integrity sha512-2E93k08T30Ugs+34HBSTQLVtpi6mCddaY8uO+pMNk1pqSjV5vElzn4mmh6KLxN3hki8rNcHSYzILoh3TEWORvA==

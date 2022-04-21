@@ -10,5 +10,8 @@
     "@angular/core": "^13.3.3",
     "script-manager": "0.8.6",
     "slug": "0.9.0"
+  },
+  "devDependencies": {
+    "xmldom": "0.4.0"
   }
 }

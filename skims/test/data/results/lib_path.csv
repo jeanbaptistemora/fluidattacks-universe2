@@ -28536,8 +28536,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (script-manager 
   10 |     ""@angular/core"": ""^13.3.3"",
 > 11 |     ""script-manager"": ""0.8.6"",
   12 |     ""slug"": ""0.9.0""
-  13 |   }
-  14 | }
+  13 |   },
+  14 |   ""devDependencies"": {
+  15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
      ^ Col 0
 ",npm.npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (script-manager v0.8.6) [CVE-2020-8129],316,937,skims,011. Use of software with known vulnerabilities,Use of script-manager at version 0.8.6 with CVE-2020-8129 in namespace/skims/test/data/lib_path/f011/yarn.lock,"
@@ -28577,8 +28580,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (slug v0.9.0) [C
   10 |     ""@angular/core"": ""^13.3.3"",
   11 |     ""script-manager"": ""0.8.6"",
 > 12 |     ""slug"": ""0.9.0""
-  13 |   }
-  14 | }
+  13 |   },
+  14 |   ""devDependencies"": {
+  15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
      ^ Col 0
 ",npm.npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [CVE-2017-16117],332,937,skims,011. Use of software with known vulnerabilities,Use of slug at version 0.9.0 with CVE-2017-16117 in namespace/skims/test/data/lib_path/f011/yarn.lock,"
@@ -28618,8 +28624,11 @@ F011,lines,namespace/skims/test/data/lib_path/f011/package.json (slug v0.9.0) [G
   10 |     ""@angular/core"": ""^13.3.3"",
   11 |     ""script-manager"": ""0.8.6"",
 > 12 |     ""slug"": ""0.9.0""
-  13 |   }
-  14 | }
+  13 |   },
+  14 |   ""devDependencies"": {
+  15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
      ^ Col 0
 ",npm.npm_package_json
 F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [GMS-2017-215],332,937,skims,011. Use of software with known vulnerabilities,Use of slug at version 0.9.0 with GMS-2017-215 in namespace/skims/test/data/lib_path/f011/yarn.lock,"
@@ -28646,3 +28655,83 @@ F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [GMS-
   342 |   integrity sha512-/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==
       ^ Col 0
 ",npm.npm_yarn_lock
+F393,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366],15,937,skims,393. Use of software with known vulnerabilities in development,Use of xmldom at version 0.4.0 with CVE-2021-21366 in namespace/skims/test/data/lib_path/f011/package.json,"
+   1 | {
+   2 |   ""name"": ""test"",
+   3 |   ""version"": ""1.0.0"",
+   4 |   ""description"": ""nothing"",
+   5 |   ""main"": ""index.js"",
+   6 |   ""author"": ""Luis Saavedra"",
+   7 |   ""license"": ""MIT"",
+   8 |   ""private"": false,
+   9 |   ""dependencies"": {
+  10 |     ""@angular/core"": ""^13.3.3"",
+  11 |     ""script-manager"": ""0.8.6"",
+  12 |     ""slug"": ""0.9.0""
+  13 |   },
+  14 |   ""devDependencies"": {
+> 15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
+     ^ Col 0
+",npm.npm_pkg_json
+F393,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-32796],15,937,skims,393. Use of software with known vulnerabilities in development,Use of xmldom at version 0.4.0 with CVE-2021-32796 in namespace/skims/test/data/lib_path/f011/package.json,"
+   1 | {
+   2 |   ""name"": ""test"",
+   3 |   ""version"": ""1.0.0"",
+   4 |   ""description"": ""nothing"",
+   5 |   ""main"": ""index.js"",
+   6 |   ""author"": ""Luis Saavedra"",
+   7 |   ""license"": ""MIT"",
+   8 |   ""private"": false,
+   9 |   ""dependencies"": {
+  10 |     ""@angular/core"": ""^13.3.3"",
+  11 |     ""script-manager"": ""0.8.6"",
+  12 |     ""slug"": ""0.9.0""
+  13 |   },
+  14 |   ""devDependencies"": {
+> 15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
+     ^ Col 0
+",npm.npm_pkg_json
+F393,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [GHSA-5fg8-2547-mr8q],15,937,skims,393. Use of software with known vulnerabilities in development,Use of xmldom at version 0.4.0 with GHSA-5fg8-2547-mr8q in namespace/skims/test/data/lib_path/f011/package.json,"
+   1 | {
+   2 |   ""name"": ""test"",
+   3 |   ""version"": ""1.0.0"",
+   4 |   ""description"": ""nothing"",
+   5 |   ""main"": ""index.js"",
+   6 |   ""author"": ""Luis Saavedra"",
+   7 |   ""license"": ""MIT"",
+   8 |   ""private"": false,
+   9 |   ""dependencies"": {
+  10 |     ""@angular/core"": ""^13.3.3"",
+  11 |     ""script-manager"": ""0.8.6"",
+  12 |     ""slug"": ""0.9.0""
+  13 |   },
+  14 |   ""devDependencies"": {
+> 15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
+     ^ Col 0
+",npm.npm_pkg_json
+F393,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [GHSA-h6q6-9hqw-rwfv],15,937,skims,393. Use of software with known vulnerabilities in development,Use of xmldom at version 0.4.0 with GHSA-h6q6-9hqw-rwfv in namespace/skims/test/data/lib_path/f011/package.json,"
+   1 | {
+   2 |   ""name"": ""test"",
+   3 |   ""version"": ""1.0.0"",
+   4 |   ""description"": ""nothing"",
+   5 |   ""main"": ""index.js"",
+   6 |   ""author"": ""Luis Saavedra"",
+   7 |   ""license"": ""MIT"",
+   8 |   ""private"": false,
+   9 |   ""dependencies"": {
+  10 |     ""@angular/core"": ""^13.3.3"",
+  11 |     ""script-manager"": ""0.8.6"",
+  12 |     ""slug"": ""0.9.0""
+  13 |   },
+  14 |   ""devDependencies"": {
+> 15 |     ""xmldom"": ""0.4.0""
+  16 |   }
+  17 | }
+     ^ Col 0
+",npm.npm_pkg_json
