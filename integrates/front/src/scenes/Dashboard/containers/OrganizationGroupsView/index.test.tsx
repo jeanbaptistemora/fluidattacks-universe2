@@ -357,7 +357,7 @@ describe("Organization groups view", (): void => {
       "Test group"
     );
     await waitFor((): void => {
-      expect(screen.getByDisplayValue("AKAME")).toBeInTheDocument();
+      expect(screen.getByDisplayValue("Akame")).toBeInTheDocument();
     });
     userEvent.selectOptions(screen.getByRole("combobox", { name: "type" }), [
       "CONTINUOUS",

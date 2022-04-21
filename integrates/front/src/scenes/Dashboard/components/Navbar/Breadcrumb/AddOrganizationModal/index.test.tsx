@@ -56,7 +56,7 @@ describe("Add organization modal", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getByRole("textbox")).toHaveAttribute("value", "ESDEATH");
+      expect(screen.getByRole("textbox")).toHaveAttribute("value", "Esdeath");
     });
 
     expect(screen.getByRole("textbox")).toBeDisabled();
@@ -111,7 +111,7 @@ describe("Add organization modal", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getByRole("textbox")).toHaveAttribute("value", "ESDEATH");
+      expect(screen.getByRole("textbox")).toHaveAttribute("value", "Esdeath");
     });
 
     expect(screen.getByRole("textbox")).toBeDisabled();

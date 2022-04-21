@@ -43,6 +43,12 @@ export const FormikText: React.FC<ITextProps> = (
     }
   }
 
+  function capitalize(text: string): string {
+    return name === "email"
+      ? text
+      : text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  }
+
   return (
     <React.Fragment>
       <StyledInput
@@ -60,7 +66,7 @@ export const FormikText: React.FC<ITextProps> = (
         onKeyDown={customKeyDown}
         placeholder={placeholder}
         type={type}
-        value={value}
+        value={disabled ? capitalize(value) : value}
       />
       <ValidationError>
         <ErrorMessage name={name} />

@@ -1383,7 +1383,7 @@ export const enTranslations: ResourceKey = {
           },
           name: "Group name",
           new: {
-            group: "New Group",
+            group: "New group",
             text: "New Group",
             tooltip: "Create a new group",
           },
@@ -2888,14 +2888,14 @@ export const enTranslations: ResourceKey = {
     newOrganization: {
       modal: {
         invalidName: "Name specified for the organization is not allowed",
-        name: "Organization Name",
+        name: "Organization name",
         nameTooltip:
           "Random name that will be assigned to your new organization",
         namesUnavailable:
           "There are no available organization names at the moment",
         success: "Organization {{name}} created successfully",
         successTitle: "Success",
-        title: "Add new organization",
+        title: "New organization",
       },
       text: "New Org...",
       tooltip: "Create new organization",
