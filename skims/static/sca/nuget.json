@@ -137,6 +137,36 @@
   "halibut": {
     "CVE-2021-31819": ">=0 <4.4.7"
   },
+  "messagepack": {
+    "CVE-2020-5234": "<1.9.3 || 2.0.94 || 2.0.110 || 2.0.119 || 2.0.123 || 2.0.204 || 2.0.270 || 2.0.299 || >=2.0.323 <2.1.80"
+  },
+  "messagepack.immutablecollection": {
+    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
+  },
+  "messagepack.reactiveproperty": {
+    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
+  },
+  "messagepack.unityshims": {
+    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
+  },
+  "metadataextractor": {
+    "CVE-2019-14262": "2.1.0"
+  },
+  "microsoft.aspnetcore.app": {
+    "GHSA-j378-6mmw-hqfr": ">=2.1.0 <=2.1.3"
+  },
+  "microsoft.aspnetcore.httpoverrides": {
+    "GHSA-365p-96qv-xr7g": ">=2.0.0 <=2.0.1"
+  },
+  "microsoft.aspnetcore.identity": {
+    "GHSA-vhvh-528q-ff3p": ">=1.0.0 <=1.0.5 || >=1.1.0 <=1.1.5 || >=2.0.0 <=2.0.3 || >=2.1.0 <=2.1.1"
+  },
+  "microsoft.aspnetcore.mvc.abstractions": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.core": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
   "hangfire": {
     "CVE-2021-41238": "1.7.25",
     "SNYK-DOTNET-HANGFIRE-1910224": "1.7.25"
