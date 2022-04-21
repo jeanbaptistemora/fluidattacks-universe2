@@ -6,7 +6,6 @@ from ariadne.utils import (
 )
 from custom_types import (
     SimpleFindingPayload,
-    SimplePayload,
 )
 from db_model.findings.enums import (
     FindingSorts,
@@ -51,7 +50,7 @@ from typing import (
 )
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
-) -> SimplePayload:
+) -> SimpleFindingPayload:
     try:
         finding_loader = info.context.loaders.finding
         old_finding: Finding = await finding_loader.load(finding_id)
@@ -92,5 +91,5 @@ async def mutate(
         raise
 
     finding_loader.clear(finding_id)
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await finding_loader.load(finding_id)
     return SimpleFindingPayload(finding=finding, success=True)

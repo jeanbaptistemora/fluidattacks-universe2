@@ -80,7 +80,9 @@ async def mutate(
             raise StakeholderHasGroupAccess()
         # Too soon to send another email invitation to the same stakeholder
         if "expiration_time" in group_access:
-            validate_new_invitation_time_limit(group_access["expiration_time"])
+            validate_new_invitation_time_limit(
+                int(str(group_access["expiration_time"]))
+            )
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(

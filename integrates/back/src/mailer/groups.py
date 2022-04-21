@@ -27,6 +27,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
     Tuple,
 )
 
@@ -120,11 +121,11 @@ async def send_mail_deactivated_root(
     group_name: str,
     last_clone_date: str,
     last_root_state: str,
-    other: str,
+    other: Optional[str],
     reason: str,
     root_age: int,
     root_nickname: str,
-    **kwargs: Dict[str, str],
+    **kwargs: str,
 ) -> None:
     await send_mails_async(
         email_to=email_to,

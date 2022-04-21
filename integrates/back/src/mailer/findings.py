@@ -19,6 +19,9 @@ from db_model.enums import (
 from db_model.users.types import (
     User,
 )
+from decimal import (
+    Decimal,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -241,7 +244,7 @@ async def send_mail_vulnerability_report(
     group_name: str = "",
     finding_title: str,
     finding_id: str,
-    severity: str,
+    severity: Decimal,
     is_closed: bool = False,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
@@ -265,7 +268,7 @@ async def send_mail_vulnerability_report(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
             f"{finding_id}/locations"
         ),
-        "severity": severity,
+        "severity": str(severity),
         "state": state,
     }
     await send_mails_async(

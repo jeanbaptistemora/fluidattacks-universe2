@@ -7,9 +7,6 @@ from ariadne.utils import (
 from custom_types import (
     SimpleFindingPayload,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -61,5 +58,5 @@ async def mutate(
         raise
     finding_loader = info.context.loaders.finding
     finding_loader.clear(finding_id)
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await finding_loader.load(finding_id)
     return SimpleFindingPayload(finding=finding, success=True)

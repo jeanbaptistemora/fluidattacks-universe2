@@ -10,5 +10,5 @@ async def resolve(
     parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
     if "grace_period" in parent:
-        return parent["grace_period"]
+        return int(str(parent["grace_period"]))
     return 0

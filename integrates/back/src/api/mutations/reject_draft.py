@@ -17,7 +17,7 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from decorators import (

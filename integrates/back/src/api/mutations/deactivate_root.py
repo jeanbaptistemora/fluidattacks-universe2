@@ -30,7 +30,7 @@ from db_model.roots.types import (
     RootItem,
     URLRootItem,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from db_model.vulnerabilities.enums import (
@@ -110,10 +110,10 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         isinstance(root, GitRootItem)
         and root.cloning.status != GitCloningStatus.UNKNOWN
     ):
-        last_clone_date = datetime_utils.get_date_from_iso_str(
-            root.cloning.modified_date
+        last_clone_date = str(
+            datetime_utils.get_date_from_iso_str(root.cloning.modified_date)
         )
-        last_root_state = root.cloning.status
+        last_root_state = root.cloning.status.value
 
     users = await group_access_domain.get_group_users(group_name, active=True)
     user_roles = await collect(
@@ -214,8 +214,8 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         reason=reason,
         root_age=root_age,
         root_nickname=root.state.nickname,
-        sast_vulns=len(sast_vulns),
-        dast_vulns=len(dast_vulns),
+        sast_vulns=str(len(sast_vulns)),
+        dast_vulns=str(len(dast_vulns)),
         responsible=user_email,
     )
 

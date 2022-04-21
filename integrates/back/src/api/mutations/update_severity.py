@@ -11,13 +11,11 @@ from custom_exceptions import (
 )
 from custom_types import (
     SimpleFindingPayload,
-    SimplePayload,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,
 )
 from db_model.findings.types import (
-    Finding,
     Finding20Severity,
     Finding31Severity,
 )
@@ -47,6 +45,7 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
+    Union,
 )
 
 
@@ -59,11 +58,11 @@ from typing import (
 )
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
-) -> SimplePayload:
+) -> SimpleFindingPayload:
     try:
         kwargs["id"] = finding_id
         finding_loader = info.context.loaders.finding
-        finding: Finding = await finding_loader.load(finding_id)
+        finding = await finding_loader.load(finding_id)
         if "cvss_version" not in kwargs:
             raise NotCvssVersion()
         cvss_version = str(kwargs["cvss_version"])
@@ -79,6 +78,7 @@ async def mutate(
             set(cvss_fields.keys()), cvss_version
         )
         validations.validate_update_severity_values(cvss_fields)
+        severity: Union[Finding20Severity, Finding31Severity]
         if cvss_version == FindingCvssVersion.V20.value:
             severity = Finding20Severity(
                 access_complexity=cvss_fields["access_complexity"],

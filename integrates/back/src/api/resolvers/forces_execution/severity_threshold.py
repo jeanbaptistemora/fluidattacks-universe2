@@ -10,5 +10,5 @@ async def resolve(
     parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> float:
     if "severity_threshold" in parent:
-        return parent["severity_threshold"]
+        return float(str(parent["severity_threshold"]))
     return 0.0

@@ -25,7 +25,7 @@ from typing_extensions import (
     TypedDict,
 )
 
-Comment = Dict[str, Union[int, str, object]]
+Comment = Dict[str, Any]
 DynamoQuery = Dict[str, Union[ConditionBase, str]]
 Evidence = Dict[str, Dict[str, str]]
 ExploitResult = Dict[str, str]
@@ -42,9 +42,7 @@ Stakeholder = Dict[
     str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
 ]
 Tag = Dict[str, Union[Decimal, str, List[str]]]
-User = Dict[
-    str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
-]
+User = Dict[str, Any]
 
 Dynamo = Union[str, Organization]
 Event = Dict[str, Union[str, Historic, List[Comment], None]]

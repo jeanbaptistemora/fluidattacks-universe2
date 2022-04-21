@@ -92,13 +92,13 @@ async def mutate(
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,
             finding_ids=[finding_id],
-            vulnerability_ids=processed_vulnerabilities,
+            vulnerability_ids=list(processed_vulnerabilities),
         )
         if finding_policy:
             await update_unreliable_indicators_by_deps(
                 EntityDependency.handle_finding_policy,
                 finding_ids=[finding_id],
-                vulnerability_ids=processed_vulnerabilities,
+                vulnerability_ids=list(processed_vulnerabilities),
             )
         logs_utils.cloudwatch_log(
             info.context,
