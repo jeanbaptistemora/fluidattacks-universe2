@@ -3,8 +3,8 @@
 
 locals {
   schedules = {
-    "common_criteria_test_base" = {
-      cpus    = 1024
+    common_criteria_test_base = {
+      cpu     = 1024
       memory  = 2048
       command = ["m", "f", "/common/criteria/test/base"]
 

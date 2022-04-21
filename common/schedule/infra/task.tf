@@ -2,6 +2,8 @@ resource "aws_ecs_task_definition" "main" {
   family                   = "schedule"
   requires_compatibilities = ["EC2"]
   network_mode             = "host"
+  task_role_arn            = data.aws_iam_role.prod_common.arn
+  execution_role_arn       = data.aws_iam_role.prod_common.arn
 
   container_definitions = jsonencode(
     [
