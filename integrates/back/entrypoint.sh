@@ -25,6 +25,11 @@ function serve {
   # which is important to prevent some 5XX responses
   local load_balancer_timeout=65
 
+  # https://ddtrace.readthedocs.io/en/stable/configuration.html#configuration
+  export DD_ENV="${env}"
+  export DD_PROFILING_ENABLED="true"
+  export DD_VERSION="${CI_COMMIT_SHA}"
+
   source __argIntegratesBackEnv__/template "${env}" \
     && case "${DAEMON:-}" in
       # The granularity of Error log outputs. [info]
@@ -68,9 +73,6 @@ function serve {
         --workers "${recommended_workers}"
       )
     elif test "${env}" == 'prod-local'; then
-      export DD_DOGSTATSD_DISABLE="true"
-      export DD_PROFILING_ENABLED="false"
-      export DD_TRACE_ENABLED="false"
       config+=(
         # SSL certificate file
         --certfile=__argCertsDevelopment__/cert.crt
@@ -84,7 +86,7 @@ function serve {
     fi \
     && pushd integrates \
     && kill_port "${PORT}" \
-    && { gunicorn "${config[@]}" 'app.app:APP' & } \
+    && { ddtrace-run gunicorn "${config[@]}" 'app.app:APP' & } \
     && wait_port 5 "${HOST}:${PORT}" \
     && done_port "${HOST}" 28001 \
     && info Back is ready \
