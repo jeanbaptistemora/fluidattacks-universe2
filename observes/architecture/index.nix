@@ -18,6 +18,10 @@ let
   new_std = root: {
     inherit root;
     src = "${root}/${underscore_pkg root}";
+    check = {
+      arch = "${root}/check/arch";
+      types = "${root}/check/types";
+    };
     env = {
       runtime = "${root}/env/runtime";
       dev = "${root}/env/dev";
