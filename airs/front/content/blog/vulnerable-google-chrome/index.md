@@ -1,6 +1,6 @@
 ---
 slug: vulnerable-google-chrome/
-title: The Vulnerable Google Chrome
+title: A Vulnerable Google Chrome
 date: 2022-04-20
 subtitle: Three strikes already for this web browser in 2022
 category: attacks
