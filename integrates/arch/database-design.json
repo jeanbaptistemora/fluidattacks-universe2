@@ -163,10 +163,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "context",
-          "AttributeType": "S"
-        },
-        {
           "AttributeName": "evidences",
           "AttributeType": "M"
         },
@@ -1663,9 +1659,6 @@
               "type": {
                 "S": "INCORRECT_MISSING_SUPPLIES"
               },
-              "context": {
-                "S": "TELECOMMUTING"
-              },
               "blocking_hours_expected": {
                 "N": "1"
               },
@@ -1680,7 +1673,6 @@
           "NonKeyAttributes": [
             "description",
             "type",
-            "context",
             "blocking_hours_expected",
             "affected_components",
             "accessibility"

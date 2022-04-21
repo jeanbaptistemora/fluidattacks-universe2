@@ -144,9 +144,6 @@ describe("EventsView", (): void => {
     expect(screen.getAllByRole("combobox", { name: "eventType" })).toHaveLength(
       1
     );
-    expect(screen.getAllByRole("combobox", { name: "context" })).toHaveLength(
-      1
-    );
     expect(
       screen.getAllByRole("checkbox", { name: "accessibility" })
     ).toHaveLength(2);

@@ -42,7 +42,6 @@ async def test_get_event(populate: bool, email: str) -> None:
     assert result["data"]["event"]["consulting"] == [
         {"content": "This is a test comment"}
     ]
-    assert result["data"]["event"]["context"] == "FLUID"
     assert result["data"]["event"]["detail"] == "ASM unit test"
     assert result["data"]["event"]["eventDate"] == "2018-06-27 07:00:00"
     assert result["data"]["event"]["eventStatus"] == "CREATED"

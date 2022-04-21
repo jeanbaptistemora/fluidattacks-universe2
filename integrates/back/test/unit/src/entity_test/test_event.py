@@ -96,7 +96,6 @@ async def test_create_event() -> None:
         mutation {
             addEvent(groupName: "unittesting",
                         accessibility: ENVIRONMENT,
-                        context: CLIENT,
                         detail: "Test",
                         eventDate: "2020-02-01T00:00:00Z",
                         eventType: INCORRECT_MISSING_SUPPLIES

@@ -370,7 +370,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           accessibility: selectedAccessibility,
           affectedComponents: selectedComponents,
           blockingHours: String(values.blockingHours),
-          context: values.context,
           detail: values.detail,
           eventDate: values.eventDate,
           eventType: values.eventType,

@@ -57,7 +57,6 @@ const maxFileSize = isValidFileSize(MAX_FILE_SIZE);
 interface IFormValues {
   eventDate: Moment | string;
   blockingHours: number;
-  context: string;
   accessibility: string[];
   affectedComponents: string[];
   affectedReattacks: string[];
@@ -141,7 +140,6 @@ const AddModal: React.FC<IAddModalProps> = ({
           affectedReattacks: [],
           affectsReattacks: false,
           blockingHours: 0,
-          context: "",
           detail: "",
           eventDate: "",
           eventType: "",
@@ -221,35 +219,6 @@ const AddModal: React.FC<IAddModalProps> = ({
               </Col50>
             </Row>
             <Row>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>
-                    {t("group.events.form.context.title")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikDropdown}
-                    name={"context"}
-                    validate={required}
-                  >
-                    <option value={""} />
-                    <option value={"CLIENT"}>
-                      {t("group.events.form.context.client")}
-                    </option>
-                    <option value={"FLUID"}>
-                      {t("group.events.form.context.fluid")}
-                    </option>
-                    <option value={"PLANNING"}>
-                      {t("group.events.form.context.planning")}
-                    </option>
-                    <option value={"TELECOMMUTING"}>
-                      {t("group.events.form.context.telecommuting")}
-                    </option>
-                    <option value={"OTHER"}>
-                      {t("group.events.form.other")}
-                    </option>
-                  </Field>
-                </FormGroup>
-              </Col50>
               <Col50>
                 <FormGroup>
                   <ControlLabel>

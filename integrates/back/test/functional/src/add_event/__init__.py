@@ -21,7 +21,6 @@ async def get_result(
             addEvent(
                 groupName: "{group}",
                 accessibility: ENVIRONMENT,
-                context: CLIENT,
                 detail: "hacker create new event",
                 eventDate: "2020-02-01T00:00:00Z",
                 eventType: INCORRECT_MISSING_SUPPLIES

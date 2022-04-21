@@ -75,7 +75,6 @@ async def test_add_event() -> None:
 async def test_add_event_file_image() -> None:
     attrs = {
         "accessibility": "REPOSITORY",
-        "context": "OTHER",
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
         "event_type": "CLIENT_DETECTS_ATTACK",

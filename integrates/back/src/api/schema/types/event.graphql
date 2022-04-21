@@ -25,7 +25,8 @@ type Event {
   "Comment/consult array regarding the event"
   consulting: [Consult!]
   "Where the hacker physically was when the event happened"
-  context: String
+  context: String @deprecated(reason: """This field will
+    be removed after 2022/10/21.""")
   "Comment laying out or explaining the event"
   detail: String
   "Datetime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"

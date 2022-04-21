@@ -15,9 +15,6 @@
           "closer": {
             "S": "unittest"
           },
-          "context": {
-            "S": "FLUID"
-          },
           "detail": {
             "S": "Integrates unit test"
           },
@@ -86,9 +83,6 @@
           },
           "client_responsible": {
             "S": "aasad@asddd.com"
-          },
-          "context": {
-            "S": "FLUID"
           },
           "detail": {
             "S": "test test test"
@@ -161,9 +155,6 @@
           },
           "closer": {
             "S": "unittest@fluidattacks.com"
-          },
-          "context": {
-            "S": "FLUID"
           },
           "detail": {
             "S": "This is an eventuality with evidence"
@@ -272,9 +263,6 @@
           "closer": {
             "S": "unittest@fluidattacks.com"
           },
-          "context": {
-            "S": "FLUID"
-          },
           "detail": {
             "S": "Test con evidencia."
           },
@@ -364,9 +352,6 @@
           "client_responsible": {
             "S": "test@test.com"
           },
-          "context": {
-            "S": "FLUID"
-          },
           "detail": {
             "S": "Esta eventualidad fue levantada para poder realizar pruebas de unittesting"
           },
@@ -429,9 +414,6 @@
           },
           "closer": {
             "S": "unittest"
-          },
-          "context": {
-            "S": "FLUID"
           },
           "detail": {
             "S": "Oneshot event test"
@@ -499,9 +481,6 @@
           "closer": {
             "S": "unittest"
           },
-          "context": {
-            "S": "FLUID"
-          },
           "detail": {
             "S": "Oneshot event test 2"
           },
@@ -567,9 +546,6 @@
           },
           "closer": {
             "S": "unittest"
-          },
-          "context": {
-            "S": "FLUID"
           },
           "detail": {
             "S": "Continuoustest event test"

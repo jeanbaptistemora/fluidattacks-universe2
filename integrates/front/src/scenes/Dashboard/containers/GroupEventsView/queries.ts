@@ -25,7 +25,6 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
     $accessibility: [EventAccessibility]!
     $affectedComponents: [AffectedComponents]
     $blockingHours: String
-    $context: EventContext!
     $detail: String!
     $eventDate: DateTime!
     $eventType: EventType!
@@ -38,7 +37,6 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
       accessibility: $accessibility
       affectedComponents: $affectedComponents
       blockingHours: $blockingHours
-      context: $context
       detail: $detail
       eventDate: $eventDate
       eventType: $eventType

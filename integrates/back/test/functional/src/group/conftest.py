@@ -539,7 +539,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "client": "Fluid",
                 "client_project": "group1",
                 "closer": "unittest",
-                "context": "FLUID",
                 "detail": "ASM unit test",
                 "event_id": "418900971",
                 "historic_state": [
