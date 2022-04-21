@@ -4,7 +4,10 @@ function main {
   local env="${1:-}"
 
   source __argIntegratesBackEnv__/template "${env}" \
-    && if test "${env}" = 'dev'; then
+    && if test "${env}" = 'prod'; then
+      ensure_gitlab_env_vars \
+        INTEGRATES_API_TOKEN
+    else
       DAEMON=true integrates-cache \
         && DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage
