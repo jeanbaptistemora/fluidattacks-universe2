@@ -496,40 +496,37 @@ export const Graphic: React.FC<IGraphicProps> = (
                           )}
                         />
                         {!_.isUndefined(infoLink) && (
-                          <GraphicButton>
-                            <ExternalLink
-                              className={"g-a"}
-                              href={
-                                infoLink +
-                                getAdditionalInfoLink(
-                                  documentName,
-                                  documentType
-                                )
-                              }
-                            >
-                              <FontAwesomeIcon icon={faInfoCircle} />
-                            </ExternalLink>
-                          </GraphicButton>
-                        )}
-                        <GraphicButton>
                           <ExternalLink
                             className={"g-a"}
-                            download={buildFileName(bigGraphicSize)}
-                            href={buildUrl(
-                              {
-                                ...props,
-                                documentName: currentDocumentName,
-                                subject: subjectName,
-                              },
-                              bigGraphicSize,
-                              subjectName,
-                              currentDocumentName
-                            )}
-                            onClick={track}
+                            href={
+                              infoLink +
+                              getAdditionalInfoLink(documentName, documentType)
+                            }
                           >
-                            <FontAwesomeIcon icon={faDownload} />
+                            <GraphicButton>
+                              <FontAwesomeIcon icon={faInfoCircle} />
+                            </GraphicButton>
                           </ExternalLink>
-                        </GraphicButton>
+                        )}
+                        <ExternalLink
+                          className={"g-a"}
+                          download={buildFileName(bigGraphicSize)}
+                          href={buildUrl(
+                            {
+                              ...props,
+                              documentName: currentDocumentName,
+                              subject: subjectName,
+                            },
+                            bigGraphicSize,
+                            subjectName,
+                            currentDocumentName
+                          )}
+                          onClick={track}
+                        >
+                          <GraphicButton>
+                            <FontAwesomeIcon icon={faDownload} />
+                          </GraphicButton>
+                        </ExternalLink>
                         <GraphicButton onClick={frameOnRefresh}>
                           <FontAwesomeIcon icon={faSyncAlt} />
                         </GraphicButton>
