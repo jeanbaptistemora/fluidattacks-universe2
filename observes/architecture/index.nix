@@ -22,6 +22,7 @@ let
       arch = "${root}/check/arch";
       types = "${root}/check/types";
     };
+    bin = "${root}/bin";
     env = {
       runtime = "${root}/env/runtime";
       dev = "${root}/env/dev";

@@ -1,18 +1,19 @@
 {
+  fetchNixpkgs,
   inputs,
-  makeScript,
-  outputs,
+  makeTemplate,
+  projectPath,
   ...
-}:
-makeScript {
-  entrypoint = ''
-    import_and_run tap_checkly.cli main "$@"
-  '';
-  searchPaths = {
-    source = [
-      outputs."/observes/common/import-and-run"
-      outputs."${inputs.observesIndex.tap.checkly.env.runtime}"
-    ];
-  };
-  name = "observes-singer-tap-checkly-bin";
-}
+}: let
+  root = projectPath inputs.observesIndex.tap.checkly.root;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  env = pkg.env.bin;
+in
+  makeTemplate {
+    name = "observes-singer-tap-checkly-env-bin";
+    searchPaths = {
+      bin = [
+        env
+      ];
+    };
+  }

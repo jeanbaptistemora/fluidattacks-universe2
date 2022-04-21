@@ -34,6 +34,11 @@
         outputs."${inputs.observesIndex.etl.code.env.dev}"
       ];
     };
+    observesTapCheckly = {
+      source = [
+        outputs."${inputs.observesIndex.tap.checkly.env.dev}"
+      ];
+    };
     observesTapDynamo = {
       source = [
         outputs."/observes/singer/tap-dynamo/env/development"

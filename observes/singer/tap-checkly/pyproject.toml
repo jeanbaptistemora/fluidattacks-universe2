@@ -14,6 +14,9 @@ paginator = "^1.0.0"
 purity = "^1.0.0"
 singer-io = "^1.0.0"
 
+[tool.poetry.scripts]
+tap-checkly = 'tap_checkly.cli:main'
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
