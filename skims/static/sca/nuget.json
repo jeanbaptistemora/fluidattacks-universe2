@@ -101,6 +101,39 @@
     "CVE-2020-11005": ">=0 <1.0.4",
     "GHSA-wvpv-ffcv-r6cw": ">=0 <1.0.4"
   },
+  "cefsharp.wpf.hwndhost": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "hangfire.core": {
+    "GHSA-7rq6-7gv8-c37h": "1.7.25"
+  },
+  "identityserver3": {
+    "CVE-2017-12677": ">=2.4.0 <2.6.1"
+  },
+  "inedo.otter.sdk": {
+    "CVE-2017-17086": "<=1.7.4"
+  },
+  "inedo.proget.sdk": {
+    "CVE-2017-15608": "<5.0.4"
+  },
+  "jq.net": {
+    "CVE-2016-4074": "<=1.5"
+  },
+  "jsoftcr_select2": {
+    "CVE-2016-10744": "<=4.0.5"
+  },
+  "libpng": {
+    "CVE-2017-12652": "<1.6.32",
+    "CVE-2018-13785": "1.6.34",
+    "CVE-2018-14550": "1.6.35",
+    "CVE-2019-7317": "1.6.36"
+  },
+  "libxml2": {
+    "CVE-2021-3541": "<2.9.11"
+  },
+  "madskristensen.aspnetcore.miniblog": {
+    "CVE-2019-9845": "<=2019-01-16"
+  },
   "halibut": {
     "CVE-2021-31819": ">=0 <4.4.7"
   },
