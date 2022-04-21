@@ -130,7 +130,7 @@ LOGGING = {
         **{
             module: {
                 "handlers": ["bugsnag"],
-                "level": "WARNING",
+                "level": "INFO",
             }
             for module in MODULES
         },
