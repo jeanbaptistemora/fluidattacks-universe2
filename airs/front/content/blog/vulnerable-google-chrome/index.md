@@ -1,13 +1,13 @@
 ---
 slug: vulnerable-google-chrome/
-title: A Vulnerable Google Chrome
+title: A Highly Vulnerable Google Chrome?
 date: 2022-04-20
 subtitle: Three strikes already for this web browser in 2022
 category: attacks
 tags: cybersecurity, vulnerability, risk, software, exploit, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1650483635/blog/vulnerable-google-chrome/cover_vulnerable_google_chrome.webp
 alt: Photo by Chris Briggs on Unsplash
-description: In this blog post, you can learn about the three zero-day vulnerabilities of at least high severity that have been identified in Google Chrome this year.
+description: In this blog post, you can learn about three zero-day vulnerabilities of at least high severity in Google Chrome that have been exploited this year.
 keywords: Chrome, Google, Zero Day, Vulnerability, Exploit, Web, Browser, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
