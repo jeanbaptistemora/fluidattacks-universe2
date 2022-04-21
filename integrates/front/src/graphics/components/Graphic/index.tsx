@@ -389,37 +389,37 @@ export const Graphic: React.FC<IGraphicProps> = (
                   timeFilter={isDocumentAllowed(documentName, documentType)}
                 />
                 {!_.isUndefined(infoLink) && (
-                  <GraphicButton>
-                    <ExternalLink
-                      className={"g-a"}
-                      href={
-                        infoLink +
-                        getAdditionalInfoLink(documentName, documentType)
-                      }
-                    >
-                      <FontAwesomeIcon icon={faInfoCircle} />
-                    </ExternalLink>
-                  </GraphicButton>
-                )}
-                <GraphicButton>
                   <ExternalLink
                     className={"g-a"}
-                    download={buildFileName(modalSize)}
-                    href={buildUrl(
-                      {
-                        ...props,
-                        documentName: currentDocumentName,
-                        subject: subjectName,
-                      },
-                      modalSize,
-                      subjectName,
-                      currentDocumentName
-                    )}
-                    onClick={track}
+                    href={
+                      infoLink +
+                      getAdditionalInfoLink(documentName, documentType)
+                    }
                   >
-                    <FontAwesomeIcon icon={faDownload} />
+                    <GraphicButton>
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </GraphicButton>
                   </ExternalLink>
-                </GraphicButton>
+                )}
+                <ExternalLink
+                  className={"g-a"}
+                  download={buildFileName(modalSize)}
+                  href={buildUrl(
+                    {
+                      ...props,
+                      documentName: currentDocumentName,
+                      subject: subjectName,
+                    },
+                    modalSize,
+                    subjectName,
+                    currentDocumentName
+                  )}
+                  onClick={track}
+                >
+                  <GraphicButton>
+                    <FontAwesomeIcon icon={faDownload} />
+                  </GraphicButton>
+                </ExternalLink>
                 <GraphicButton onClick={modalFrameOnRefresh}>
                   <FontAwesomeIcon icon={faSyncAlt} />
                 </GraphicButton>
