@@ -1,3 +1,21 @@
+/computeOnAwsBatch/integratesMigration__prod__0187_fix_toe_lines.py:
+  image: ghcr.io/fluidattacks/makes:22.05
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_migration_0187_fix_toe_lines == null
+      when: never
+    - when: always
+  script:
+    - m . /computeOnAwsBatch/integratesMigration 'prod' '0187_fix_toe_lines.py'
+  stage: scheduler
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesMigration__prod__0206_populate_vuln_gsi_5.py:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: false
