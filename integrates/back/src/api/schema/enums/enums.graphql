@@ -157,20 +157,6 @@ enum EventAccessibility {
   REPOSITORY
 }
 
-"Place where the hacker was in when the event happened"
-enum EventContext {
-  "At the client's"
-  CLIENT
-  "Fluid"
-  FLUID
-  "Another place"
-  OTHER
-  "Planning"
-  PLANNING
-  "Telecommuting"
-  TELECOMMUTING
-}
-
 "Types of Event evidence"
 enum EventEvidenceType {
   "File"

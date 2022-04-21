@@ -88,8 +88,6 @@ type Mutation {
     affectedComponents: [AffectedComponents]
     "Amount of time the hacker was blocked by the event, if applicable"
     blockingHours: String
-    "Where the hacker physically was when the event happened"
-    context: EventContext
     "Comment laying out or explaining the event"
     detail: String!
     "DateTime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"

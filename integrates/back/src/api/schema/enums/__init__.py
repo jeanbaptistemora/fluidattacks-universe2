@@ -110,16 +110,6 @@ ENUMS: Tuple[EnumType, ...] = (
         {"ENVIRONMENT": "Ambiente", "REPOSITORY": "Repositorio"},
     ),
     EnumType(
-        "EventContext",
-        {
-            "CLIENT": "CLIENT",
-            "FLUID": "FLUID",
-            "OTHER": "OTHER",
-            "PLANNING": "PLANNING",
-            "TELECOMMUTING": "TELECOMMUTING",
-        },
-    ),
-    EnumType(
         "EventEvidenceType", {"FILE": "evidence_file", "IMAGE": "evidence"}
     ),
     EnumType(
