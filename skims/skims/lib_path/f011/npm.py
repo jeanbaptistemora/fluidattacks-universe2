@@ -97,20 +97,20 @@ def npm_yarn_lock(content: str, path: str) -> Vulnerabilities:
                 path_json=json_path,
                 dependencies_type="dependencies",
             )
-
-            for key, value in dependencies_tree.items():
-                yield (
-                    {
-                        "column": 0,
-                        "line": value.get("product_line"),
-                        "item": key.split("@")[:-1][0],
-                    },
-                    {
-                        "column": 0,
-                        "line": value.get("version_line"),
-                        "item": value.get("version"),
-                    },
-                )
+            if dependencies_tree:
+                for key, value in dependencies_tree.items():
+                    yield (
+                        {
+                            "column": 0,
+                            "line": value.get("product_line"),
+                            "item": key.split("@")[:-1][0],
+                        },
+                        {
+                            "column": 0,
+                            "line": value.get("version_line"),
+                            "item": value.get("version"),
+                        },
+                    )
 
         except FileNotFoundError:
             windower: Iterator[
