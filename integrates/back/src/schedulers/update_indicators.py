@@ -51,8 +51,6 @@ from findings.domain.core import (
 from groups import (
     domain as groups_domain,
 )
-import logging
-import logging.config
 from newutils import (
     datetime as datetime_utils,
     vulnerabilities as vulns_utils,
@@ -60,8 +58,9 @@ from newutils import (
 from pandas import (
     Timestamp,
 )
-from settings import (
-    LOGGING,
+from schedulers.common import (
+    error,
+    info,
 )
 from time import (
     strptime,
@@ -74,11 +73,6 @@ from typing import (
     Tuple,
     Union,
 )
-
-logging.config.dictConfig(LOGGING)
-
-# Constants
-LOGGER = logging.getLogger(__name__)
 
 
 class VulnerabilityStatusByTimeRange(NamedTuple):
@@ -959,9 +953,7 @@ def get_exposed_cvssf(
 async def get_group_indicators_typed(  # pylint: disable=too-many-locals
     group_name: str,
 ) -> GroupUnreliableIndicators:
-    LOGGER.info(
-        "Getting group indicator", extra={"extra": {"group_name": group_name}}
-    )
+    info("Getting group indicator", extra={"group_name": group_name})
     loaders: Dataloaders = get_new_context()
     findings = await loaders.group_findings.load(group_name)
 
@@ -1023,7 +1015,7 @@ async def get_group_indicators_typed(  # pylint: disable=too-many-locals
     )
 
     return GroupUnreliableIndicators(
-        last_closed_vulnerability_days=int(last_closed_vulnerability_days),
+        last_closed_vulnerability_days=last_closed_vulnerability_days,
         last_closed_vulnerability_finding=(
             last_closed_vulnerability.finding_id
             if last_closed_vulnerability
@@ -1078,9 +1070,7 @@ async def update_group_indicators(group_name: str) -> None:
         )
     except (ClientError, TypeError, UnavailabilityError) as ex:
         msg = "Error: An error ocurred updating indicators in the database"
-        LOGGER.exception(
-            msg, extra={"extra": {"group_name": group_name, "ex": ex}}
-        )
+        error(msg, extra={"group_name": group_name, "ex": ex})
 
 
 async def update_indicators() -> None:

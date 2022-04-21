@@ -294,14 +294,14 @@ async def get_finding_open_age(loaders: Any, finding_id: str) -> int:
 
 async def get_last_closed_vulnerability_info(
     loaders: Any,
-    findings: Tuple[Finding, ...],
-) -> Tuple[Decimal, Optional[Vulnerability]]:
-    """Get days since the last closed vulnerability."""
-    finding_vulns_loader: DataLoader = loaders.finding_vulnerabilities_nzr
+    findings: tuple[Finding, ...],
+) -> tuple[int, Optional[Vulnerability]]:
+    """Get days since the last closed vulnerability and its metadata."""
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted(finding)
     ]
-    vulns: Tuple[
+    vulns: tuple[
         Vulnerability, ...
     ] = await finding_vulns_loader.load_many_chained(valid_findings_ids)
     closed_vulns = vulns_utils.filter_closed_vulns(vulns)
@@ -313,11 +313,11 @@ async def get_last_closed_vulnerability_info(
             (v, i) for i, v in enumerate(closing_vuln_dates) if v is not None
         )
         last_closed_vuln: Optional[Vulnerability] = closed_vulns[date_index]
-        last_closed_days = Decimal(
-            (datetime_utils.get_now().date() - current_date).days
-        ).quantize(Decimal("0.1"))
+        last_closed_days = (
+            datetime_utils.get_now().date() - current_date
+        ).days
     else:
-        last_closed_days = Decimal(0)
+        last_closed_days = 0
         last_closed_vuln = None
     return last_closed_days, last_closed_vuln
 

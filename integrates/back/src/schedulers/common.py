@@ -12,7 +12,6 @@ from settings import (
 from typing import (
     Any,
     Callable,
-    List,
 )
 
 # FP: local testing
@@ -30,7 +29,7 @@ def error(*args: Any, extra: Any = None) -> None:
 
 def scheduler_send_mail(
     send_mail_function: Callable,
-    mail_to: List[str],
+    mail_to: list[str],
     mail_context: MailContentType,
 ) -> None:
     schedule(send_mail_function(mail_to, mail_context))
