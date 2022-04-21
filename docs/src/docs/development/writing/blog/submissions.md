@@ -1,8 +1,8 @@
 ---
-id: additional
-title: Additional
-sidebar_label: Additional
-slug: /development/writing/blog/additional
+id: submissions
+title: Submissions
+sidebar_label: Submissions
+slug: /development/writing/blog/submissions
 ---
 
 If you are not part of the `Fluid Attacks` team,

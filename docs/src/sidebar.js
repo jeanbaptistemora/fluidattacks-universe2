@@ -399,7 +399,7 @@ const Development = [
           'development/writing/blog/main',
           'development/writing/blog/code',
           'development/writing/blog/metadata',
-          'development/writing/blog/additional',
+          'development/writing/blog/submissions',
         ]
       },
       {
