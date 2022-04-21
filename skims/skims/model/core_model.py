@@ -2973,6 +2973,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_RESTREPO,
         technique=TechniqueEnum.SCA,
     )
+    NPM_YARN_LOCK_DEV = MethodInfo(
+        file_name="yarn",
+        name="npm_yarn_lock_dev",
+        module="lib_path",
+        finding=FindingEnum.F393,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.SCA,
+    )
     CFN_LOG_NOT_VALIDATED = MethodInfo(
         file_name="cloudformation",
         name="cfn_log_files_not_validated",
