@@ -71,6 +71,7 @@ from db_model.groups.types import (
     GroupMetadataToUpdate,
     GroupState,
     GroupStatusJustification,
+    GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
 from db_model.roots.types import (
@@ -78,6 +79,7 @@ from db_model.roots.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -1884,3 +1886,38 @@ async def enroll_user_to_demo(email: str) -> None:
                 ),
             ]
         )
+
+
+async def get_treatment_summary(
+    loaders: Any,
+    group_name: str,
+) -> GroupTreatmentSummary:
+    """Get the total vulnerability treatment."""
+    findings = await loaders.group_findings.load(group_name)
+    non_deleted_findings = tuple(
+        finding
+        for finding in findings
+        if not findings_domain.is_deleted(finding)
+    )
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    vulns: tuple[
+        Vulnerability, ...
+    ] = await finding_vulns_loader.load_many_chained(
+        [finding.id for finding in non_deleted_findings]
+    )
+    treatment_counter = Counter(
+        vuln.treatment.status
+        for vuln in vulns
+        if vuln.treatment
+        and vuln.state.status == VulnerabilityStateStatus.OPEN
+    )
+    return GroupTreatmentSummary(
+        accepted=treatment_counter[VulnerabilityTreatmentStatus.ACCEPTED],
+        accepted_undefined=treatment_counter[
+            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        ],
+        in_progress=treatment_counter[
+            VulnerabilityTreatmentStatus.IN_PROGRESS
+        ],
+        new=treatment_counter[VulnerabilityTreatmentStatus.NEW],
+    )

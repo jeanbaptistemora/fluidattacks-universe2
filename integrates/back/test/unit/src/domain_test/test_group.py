@@ -30,6 +30,7 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
+    GroupTreatmentSummary,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -50,7 +51,6 @@ from findings.domain import (
     get_last_closed_vulnerability_info,
     get_max_open_severity,
     get_pending_verification_findings,
-    get_total_treatment,
 )
 from freezegun import (  # type: ignore
     freeze_time,
@@ -78,6 +78,7 @@ from groups.domain import (
     get_mean_remediate_severity_cvssf,
     get_open_findings,
     get_open_vulnerabilities,
+    get_treatment_summary,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
     remove_pending_deletion_date,
@@ -365,19 +366,16 @@ async def test_get_mean_remediate_non_treated_cvssf(
     assert mttr_no_treated_cvssf == expected_output
 
 
-async def test_get_total_treatment() -> None:
+async def test_get_treatment_summary() -> None:
     loaders = get_new_context()
-    findings_to_get = ["463558592", "422286126"]
-    findings: Tuple[Finding, ...] = await loaders.finding.load_many(
-        findings_to_get
+    group_name = "unittesting"
+    test_data = await get_treatment_summary(loaders, group_name)
+    expected_output = GroupTreatmentSummary(
+        accepted=2,
+        accepted_undefined=1,
+        in_progress=1,
+        new=25,
     )
-    test_data = await get_total_treatment(loaders, findings)
-    expected_output = {
-        "inProgress": 1,
-        "accepted": 1,
-        "acceptedUndefined": 0,
-        "undefined": 0,
-    }
     assert test_data == expected_output
 
 

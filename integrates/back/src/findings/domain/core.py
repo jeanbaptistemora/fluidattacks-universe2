@@ -52,8 +52,6 @@ from db_model.findings.types import (
     FindingVerification,
 )
 from db_model.vulnerabilities.enums import (
-    VulnerabilityStateStatus,
-    VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
@@ -107,7 +105,6 @@ from time import (
 )
 from typing import (
     Any,
-    Counter,
     Dict,
     List,
     Optional,
@@ -434,38 +431,6 @@ async def get_status(loaders: Any, finding_id: str) -> str:
         vulns
     )
     return "open" if open_vulns else "closed"
-
-
-async def get_total_treatment(
-    loaders: Any,
-    findings: Tuple[Finding, ...],
-) -> Dict[str, int]:
-    """Get the total vulnerability treatment of all the findings."""
-    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
-    non_deleted_findings = tuple(
-        finding for finding in findings if not is_deleted(finding)
-    )
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await finding_vulns_loader.load_many_chained(
-        [finding.id for finding in non_deleted_findings]
-    )
-    treatment_counter = Counter(
-        vuln.treatment.status
-        for vuln in vulns
-        if vuln.treatment
-        and vuln.state.status == VulnerabilityStateStatus.OPEN
-    )
-    return {
-        "accepted": treatment_counter[VulnerabilityTreatmentStatus.ACCEPTED],
-        "acceptedUndefined": treatment_counter[
-            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        ],
-        "inProgress": treatment_counter[
-            VulnerabilityTreatmentStatus.IN_PROGRESS
-        ],
-        "undefined": treatment_counter[VulnerabilityTreatmentStatus.NEW],
-    }
 
 
 def get_tracking_vulnerabilities(

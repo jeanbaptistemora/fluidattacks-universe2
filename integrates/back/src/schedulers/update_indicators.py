@@ -55,7 +55,6 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
-    groups as groups_utils,
     vulnerabilities as vulns_utils,
 )
 from pandas import (
@@ -1019,8 +1018,8 @@ async def get_group_indicators_typed(  # pylint: disable=too-many-locals
     over_time_month: RegisterByTime = await create_register_by_month(
         loaders=loaders, group=group_name
     )
-    treatment_summary = groups_utils.format_group_treatment_summary(
-        await findings_domain.get_total_treatment(loaders, findings)
+    treatment_summary = await groups_domain.get_treatment_summary(
+        loaders, group_name
     )
 
     return GroupUnreliableIndicators(
