@@ -231,11 +231,9 @@ def jwt_has_api_token(token: str) -> bool:
     )
 
 
-def new_encoded_jwt(
-    payload: Dict[str, Any], api: bool = False, encrypt: bool = True
-) -> str:
+def new_encoded_jwt(payload: Dict[str, Any], api: bool = False) -> str:
     """Encrypts the payload into a jwt token and returns its encoded version"""
-    processed_payload = _encrypt_jwt_payload(payload) if encrypt else payload
+    processed_payload = _encrypt_jwt_payload(payload)
     secret = JWT_SECRET_API if api else JWT_SECRET
     token: str = jwt.encode(
         processed_payload,
