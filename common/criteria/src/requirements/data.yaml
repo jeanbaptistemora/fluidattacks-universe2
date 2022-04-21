@@ -2759,7 +2759,7 @@
   metadata: {}
 "122":
   en:
-    title: Validate credential ownership
+    title: Validate Credential Ownership
     summary: >
       The system must validate
       that the given credentials
@@ -2860,7 +2860,7 @@
   metadata: {}
 "126":
   en:
-    title: Set a password regeneration mechanism
+    title: Set a Password Regeneration Mechanism
     summary: >
       The system must provide a secure mechanism
       to regenerate a user's password.
@@ -2973,7 +2973,7 @@
   metadata: {}
 "128":
   en:
-    title: Define unique data source
+    title: Define Unique Data Source
     summary: >
       All system passwords must be stored
       in a unique data source.
@@ -2998,7 +2998,7 @@
   metadata: {}
 "129":
   en:
-    title: Validate previous passwords
+    title: Validate Previous Passwords
     summary: >
       The system must not allow password changes
       for a user
@@ -3029,7 +3029,7 @@
   metadata: {}
 "130":
   en:
-    title: Limit password lifespan
+    title: Limit Password Lifespan
     summary: >
       Passwords must be valid
       for a maximum of 30 days.
@@ -3063,7 +3063,7 @@
   metadata: {}
 "131":
   en:
-    title: Deny multiple password changing attempts
+    title: Deny Multiple Password Changing Attempts
     summary: >
       Passwords are not allowed
       to be changed more than once
@@ -3099,7 +3099,7 @@
   metadata: {}
 "132":
   en:
-    title: Passphrases with at least 4 words
+    title: Passphrases With at Least 4 Words
     summary: >
       The system must require passphrases
       to be at least 4 words long
@@ -4033,7 +4033,7 @@
   metadata: {}
 "153":
   en:
-    title: Out of band transactions
+    title: Out of Band Transactions
     summary: >
       The system must offer
       secure out of band authenticators,
@@ -6622,7 +6622,7 @@
   metadata: {}
 "225":
   en:
-    title: Proper authentication responses
+    title: Proper Authentication Responses
     summary: >
       System responses
       to authentication failures
@@ -6694,7 +6694,7 @@
   metadata: {}
 "226":
   en:
-    title: Avoid account lockouts
+    title: Avoid Account Lockouts
     summary: >
       The system must never block
       a user account after
@@ -6727,7 +6727,7 @@
   metadata: {}
 "227":
   en:
-    title: Display access notification
+    title: Display Access Notification
     summary: >
       The system must notify,
       upon any access attempt,
@@ -6806,7 +6806,7 @@
   metadata: {}
 "228":
   en:
-    title: Authenticate using standard protocols
+    title: Authenticate Using Standard Protocols
     summary: >
       The organization must implement
       the Single Sign On (SSO) process
@@ -6838,7 +6838,7 @@
   metadata: {}
 "229":
   en:
-    title: Request access credentials
+    title: Request Access Credentials
     summary: >
       The system must request
       at least one username
@@ -6925,7 +6925,7 @@
   metadata: {}
 "231":
   en:
-    title: Implement a biometric verification component
+    title: Implement a Biometric Verification Component
     summary: >
       Systems with critical information
       must implement a component
@@ -7005,7 +7005,7 @@
   metadata: {}
 "232":
   en:
-    title: Require equipment identity
+    title: Require Equipment Identity
     summary: >
       A system with critical information
       must require the identification
@@ -7046,7 +7046,7 @@
   metadata: {}
 "235":
   en:
-    title: Define credential interface
+    title: Define Credential Interface
     summary: >
       The authentication must have
       a separate interface
@@ -7074,7 +7074,7 @@
   metadata: {}
 "236":
   en:
-    title: Establish authentication time
+    title: Establish Authentication Time
     summary: >
       The authentication process
       must have a defined time limit
@@ -7099,7 +7099,7 @@
   metadata: {}
 "237":
   en:
-    title: Ascertain human interaction
+    title: Ascertain Human Interaction
     summary: >
       The system must guarantee
       that user actions
@@ -7182,7 +7182,7 @@
   metadata: {}
 "238":
   en:
-    title: Establish safe recovery
+    title: Establish Safe Recovery
     summary: >
       The system must guarantee
       that the person performing
@@ -7907,7 +7907,7 @@
   metadata: {}
 "264":
   en:
-    title: Request authentication
+    title: Request Authentication
     summary: >
       The system must require
       authentication for all resources,
@@ -9275,7 +9275,7 @@
   metadata: {}
 "319":
   en:
-    title: Make authentication options equally secure
+    title: Make Authentication Options Equally Secure
     summary: >
       All of the systems authentication pathways
       and identity management APIs
@@ -9916,7 +9916,7 @@
   metadata: {}
 "328":
   en:
-    title: Request MFA for critical systems
+    title: Request MFA for Critical Systems
     summary: >
       The system must encrypt
       and verify client-side session
@@ -10249,7 +10249,7 @@
   metadata: {}
 "334":
   en:
-    title: Avoid knowledge-based authentication
+    title: Avoid Knowledge-Based Authentication
     summary: >
       Password hints and knowledge-based
       authentication,
@@ -10310,7 +10310,7 @@
   metadata: {}
 "335":
   en:
-    title: Define out of band token lifespan
+    title: Define Out of Band Token Lifespan
     summary: >
       The system must expire
       out of band authentication requests,
@@ -11974,7 +11974,7 @@
   metadata: {}
 "362":
   en:
-    title: Assign MFA mechanisms to a single account
+    title: Assign MFA Mechanisms to a Single Account
     summary: >
       The system must associate
       each secondary authentication
@@ -12224,7 +12224,7 @@
   metadata: {}
 "368":
   en:
-    title: Use of indistinguishable response time
+    title: Use of Indistinguishable Response Time
     summary: >
       Response time of authentication probes
       should be indistinguishable
