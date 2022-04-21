@@ -1,14 +1,19 @@
 {
-  legacy_pkgs,
+  legacyPkgs,
+  localLib,
+  pythonVersion,
   src,
+  system,
 }: let
   metadata = (builtins.fromTOML (builtins.readFile "${src}/pyproject.toml")).tool.poetry;
   lib = {
-    buildEnv = legacy_pkgs.python38.buildEnv.override;
-    buildPythonPackage = legacy_pkgs.python38.pkgs.buildPythonPackage;
-    fetchPypi = legacy_pkgs.python3Packages.fetchPypi;
+    buildEnv = legacyPkgs."${pythonVersion}".buildEnv.override;
+    buildPythonPackage = legacyPkgs."${pythonVersion}".pkgs.buildPythonPackage;
+    fetchPypi = legacyPkgs.python3Packages.fetchPypi;
   };
-  pythonPkgs = legacy_pkgs.python38Packages;
+  pythonPkgs = import ./build/deps {
+    inherit system lib localLib legacyPkgs pythonVersion;
+  };
   self_pkgs = import ./build/pkg {
     inherit src lib metadata pythonPkgs;
   };

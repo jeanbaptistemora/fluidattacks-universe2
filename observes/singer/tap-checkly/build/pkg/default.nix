@@ -4,21 +4,23 @@
   src,
   metadata,
 }: let
-  runtime_deps = [
-    pythonPkgs.click
-    pythonPkgs.requests
-    pythonPkgs.returns
-    pythonPkgs.fa_purity
-    pythonPkgs.types-click
-    pythonPkgs.utils-logger
+  runtime_deps = with pythonPkgs; [
+    click
+    fa-purity
+    legacy-purity
+    legacy-paginator
+    legacy-singer-io
+    requests
+    types-click
+    utils-logger
   ];
-  dev_deps = [
-    pythonPkgs.import-linter
-    pythonPkgs.mypy
-    pythonPkgs.poetry
-    pythonPkgs.pytest
-    pythonPkgs.toml
-    pythonPkgs.types-toml
+  dev_deps = with pythonPkgs; [
+    import-linter
+    mypy
+    poetry
+    pytest
+    toml
+    types-toml
   ];
   pkg = (import ./build.nix) {
     inherit lib src metadata;
