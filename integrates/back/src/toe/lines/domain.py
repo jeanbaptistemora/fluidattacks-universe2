@@ -113,10 +113,11 @@ async def update(
     ):
         raise InvalidToeLinesAttackAt()
 
+    loc = attributes.loc if attributes.loc is not None else current_value.loc
     if (
         is_moving_toe_lines is False
         and attributes.attacked_lines is not None
-        and not (1 <= attributes.attacked_lines <= current_value.loc)
+        and not (1 <= attributes.attacked_lines <= loc)
     ):
         raise InvalidToeLinesAttackedLines()
 
@@ -139,6 +140,8 @@ async def update(
         and last_modified_date <= last_attacked_at
         else 0
     )
+    # Cover the case when loc changes but last_modified_date keeps the value
+    attacked_lines = min(attacked_lines, loc)
     be_present_until = (
         None
         if attributes.be_present is None

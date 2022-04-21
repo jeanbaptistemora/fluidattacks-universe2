@@ -145,7 +145,7 @@ async def test_refresh_toe_lines(
                 "node": {
                     "attackedAt": "2021-12-20T05:00:00+00:00",
                     "attackedBy": "test4@test.com",
-                    "attackedLines": 120,
+                    "attackedLines": 4,
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "comment 4",
