@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 13, 2022, 03:39 PM",
+    "DateLastModified": "Apr 21, 2022, 03:50 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1778,6 +1778,29 @@
             "description",
             "key",
             "value"
+          ]
+        },
+        {
+          "FacetName": "git_root_environment_url",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ROOT#uuid",
+            "SortKeyAlias": "URL#hash"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "URL#fa3489de74100b90cd053ab1bbb2d0e66e50e2d4"
+              },
+              "url": {
+                "S": "https://gitlab.com/fluidattacks"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "url"
           ]
         },
         {
