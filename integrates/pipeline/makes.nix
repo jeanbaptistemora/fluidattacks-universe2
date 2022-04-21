@@ -241,6 +241,7 @@ in {
               };
           })
           [
+            "0206_populate_vuln_gsi_5.py"
           ])
         ++ (builtins.map
           (name: {
