@@ -61,6 +61,6 @@ async def get_lines_count(filename: str) -> int:
 
 
 def _get_num_lines(filename: str) -> int:
-    with open(filename, encoding="latin-1") as content:
+    with open(filename, mode="rb") as content:
         num_lines = len(content.readlines())
     return num_lines
