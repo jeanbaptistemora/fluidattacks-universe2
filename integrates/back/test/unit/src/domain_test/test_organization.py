@@ -15,6 +15,7 @@ from custom_exceptions import (
     UserNotInOrganization,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from decimal import (
@@ -441,3 +442,26 @@ async def test_iterate_organizations_and_groups() -> None:
             expected_organizations_and_groups.pop(org_id)[org_name]
         )
     assert expected_organizations_and_groups == {}
+
+
+async def test_get_all_active_group() -> None:
+    loaders: Dataloaders = get_new_context()
+    test_data = await orgs_domain.get_all_active_groups_typed(loaders)
+    group_names = [group.name for group in test_data]
+    expected_output = [
+        "asgard",
+        "barranquilla",
+        "continuoustesting",
+        "deletegroup",
+        "deleteimamura",
+        "gotham",
+        "lubbock",
+        "kurome",
+        "metropolis",
+        "monteria",
+        "oneshottest",
+        "setpendingdeletion",
+        "sheele",
+        "unittesting",
+    ]
+    assert sorted(group_names) == sorted(expected_output)

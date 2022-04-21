@@ -34,7 +34,6 @@ from freezegun import (  # type: ignore
 )
 from newutils import (
     datetime as datetime_utils,
-    groups as groups_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -442,32 +441,16 @@ async def test_remove_obsolete_groups() -> None:
     loaders: Dataloaders = get_new_context()
     test_group_name_1 = "setpendingdeletion"
     test_group_name_2 = "deletegroup"
-    all_groups_names = []
-    async for _, _, org_group_names in (
-        orgs_domain.iterate_organizations_and_groups()
-    ):
-        all_groups_names.extend(org_group_names)
-    all_groups = await loaders.group_typed.load_many(all_groups_names)
-    all_active_groups_names = [
-        group.name
-        for group in groups_utils.filter_active_groups(tuple(all_groups))
-    ]
+    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    all_active_groups_names = [group.name for group in all_active_groups]
     assert len(all_active_groups_names) == 14
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 in all_active_groups_names
 
     await delete_obsolete_groups.main()
 
-    all_groups_names = []
-    async for _, _, org_group_names in (
-        orgs_domain.iterate_organizations_and_groups()
-    ):
-        all_groups_names.extend(org_group_names)
-    all_groups = await loaders.group_typed.load_many(all_groups_names)
-    all_active_groups_names = [
-        group.name
-        for group in groups_utils.filter_active_groups(tuple(all_groups))
-    ]
+    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    all_active_groups_names = [group.name for group in all_active_groups]
     assert len(all_active_groups_names) == 13
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 not in all_active_groups_names

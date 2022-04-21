@@ -22,6 +22,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.groups.types import (
+    Group,
     GroupUnreliableIndicators,
 )
 from db_model.vulnerabilities.enums import (
@@ -54,6 +55,9 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
     vulnerabilities as vulns_utils,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from pandas import (
     Timestamp,
@@ -947,12 +951,12 @@ def get_exposed_cvssf(
     )
 
 
-async def get_group_indicators_typed(  # pylint: disable=too-many-locals
-    group_name: str,
+async def get_group_indicators(  # pylint: disable=too-many-locals
+    group: Group,
 ) -> GroupUnreliableIndicators:
-    info("Getting group indicator", extra={"group_name": group_name})
+    info("Getting group indicator", extra={"group_name": group.name})
     loaders: Dataloaders = get_new_context()
-    findings = await loaders.group_findings.load(group_name)
+    findings = await loaders.group_findings.load(group.name)
 
     (
         last_closed_vulnerability_days,
@@ -965,32 +969,32 @@ async def get_group_indicators_typed(  # pylint: disable=too-many-locals
         max_open_severity_finding,
     ) = await findings_domain.get_max_open_severity(loaders, findings)
     mean_remediate = await groups_domain.get_mean_remediate_severity(
-        loaders, group_name, Decimal("0.0"), Decimal("10.0")
+        loaders, group.name, Decimal("0.0"), Decimal("10.0")
     )
     closed_vulnerabilities = await groups_domain.get_closed_vulnerabilities(
-        loaders, group_name
+        loaders, group.name
     )
-    open_findings = await groups_domain.get_open_findings(loaders, group_name)
+    open_findings = await groups_domain.get_open_findings(loaders, group.name)
     open_vulnerabilities = await groups_domain.get_open_vulnerabilities(
-        loaders, group_name
+        loaders, group.name
     )
 
     remediate_critical = await groups_domain.get_mean_remediate_severity(
-        loaders, group_name, Decimal("9.0"), Decimal("10.0")
+        loaders, group.name, Decimal("9.0"), Decimal("10.0")
     )
     remediate_high = await groups_domain.get_mean_remediate_severity(
-        loaders, group_name, Decimal("7.0"), Decimal("8.9")
+        loaders, group.name, Decimal("7.0"), Decimal("8.9")
     )
     remediate_medium = await groups_domain.get_mean_remediate_severity(
-        loaders, group_name, Decimal("4.0"), Decimal("6.9")
+        loaders, group.name, Decimal("4.0"), Decimal("6.9")
     )
     remediate_low = await groups_domain.get_mean_remediate_severity(
-        loaders, group_name, Decimal("0.1"), Decimal("3.9")
+        loaders, group.name, Decimal("0.1"), Decimal("3.9")
     )
-    remediated_over_time = await create_register_by_week(loaders, group_name)
+    remediated_over_time = await create_register_by_week(loaders, group.name)
     remediated_over_thirty_days = await create_register_by_week(
         loaders,
-        group_name,
+        group.name,
         datetime.combine(
             datetime_utils.get_now_minus_delta(days=30),
             datetime.min.time(),
@@ -998,17 +1002,17 @@ async def get_group_indicators_typed(  # pylint: disable=too-many-locals
     )
     remediated_over_ninety_days = await create_register_by_week(
         loaders,
-        group_name,
+        group.name,
         datetime.combine(
             datetime_utils.get_now_minus_delta(days=90),
             datetime.min.time(),
         ),
     )
     over_time_month: RegisterByTime = await create_register_by_month(
-        loaders=loaders, group=group_name
+        loaders=loaders, group=group.name
     )
     treatment_summary = await groups_domain.get_treatment_summary(
-        loaders, group_name
+        loaders, group.name
     )
 
     return GroupUnreliableIndicators(
@@ -1059,20 +1063,22 @@ async def get_group_indicators_typed(  # pylint: disable=too-many-locals
     )
 
 
-async def update_group_indicators(group_name: str) -> None:
+async def update_group_indicators(group: Group) -> None:
     try:
-        indicators = await get_group_indicators_typed(group_name)
+        indicators = await get_group_indicators(group)
         await groups_domain.update_indicators_typed(
-            group_name=group_name, indicators=indicators
+            group_name=group.name, indicators=indicators
         )
     except (ClientError, TypeError, UnavailabilityError) as ex:
         msg = "Error: An error ocurred updating indicators in the database"
-        error(msg, extra={"group_name": group_name, "ex": ex})
+        error(msg, extra={"group_name": group.name, "ex": ex})
 
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    groups = sorted(await groups_domain.get_active_groups())
+    groups = await orgs_domain.get_all_active_groups_typed(
+        loaders=get_new_context()
+    )
     await collect(map(update_group_indicators, groups), workers=1)
 
 

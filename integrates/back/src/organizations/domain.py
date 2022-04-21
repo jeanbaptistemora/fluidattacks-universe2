@@ -26,6 +26,9 @@ from custom_types import (
     MailContent as MailContentType,
     Organization as OrganizationType,
 )
+from db_model.groups.types import (
+    Group,
+)
 from decimal import (
     Decimal,
 )
@@ -48,6 +51,7 @@ from names import (
 )
 from newutils import (
     datetime as datetime_utils,
+    groups as groups_utils,
     token,
 )
 from newutils.utils import (
@@ -273,6 +277,16 @@ async def get_access_by_url_token(
     except JWTError:
         InvalidAuthorization()
     return access
+
+
+async def get_all_active_groups_typed(
+    loaders: Any,
+) -> tuple[Group, ...]:
+    all_groups_names: list[str] = []
+    async for _, _, org_group_names in iterate_organizations_and_groups():
+        all_groups_names.extend(org_group_names)
+    all_groups = await loaders.group_typed.load_many(all_groups_names)
+    return groups_utils.filter_active_groups(tuple(all_groups))
 
 
 async def get_by_id(org_id: str) -> OrganizationType:
