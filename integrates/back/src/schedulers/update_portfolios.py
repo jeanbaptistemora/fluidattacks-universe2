@@ -8,9 +8,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.enums import (
     GroupStateStatus,
 )
@@ -21,8 +18,8 @@ from db_model.groups.types import (
 from decimal import (
     Decimal,
 )
-from findings.domain.core import (
-    get_severity_score,
+from groups import (
+    domain as groups_domain,
 )
 from organizations import (
     domain as orgs_domain,
@@ -117,20 +114,10 @@ async def get_group_indicators_and_tags(
     )
     filtered_indicators = format_indicators(unreliable_indicators)
 
-    # This one is not present in group's unreliable_indicators
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.name
-    )
-    filtered_indicators["max_severity"] = (
-        Decimal(
-            max(
-                float(get_severity_score(finding.severity))
-                for finding in group_findings
-            )
-        ).quantize(Decimal("0.1"))
-        if group_findings
-        else Decimal("0.0")
-    )
+    # This indicator could not be present in the group indicators yet
+    filtered_indicators["max_severity"] = filtered_indicators.get(
+        "max_severity"
+    ) or await groups_domain.get_max_severity(loaders, group.name)
 
     filtered_indicators["tag"] = group.tags or {}
     filtered_indicators["name"] = group.name

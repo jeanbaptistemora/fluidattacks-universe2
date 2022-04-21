@@ -270,7 +270,8 @@ async def test_update_group_indicators() -> None:
     assert len(test_data) == 27
     assert test_data.last_closed_vulnerability_days == 946
     assert test_data.last_closed_vulnerability_finding == "457497316"
-    assert test_data.max_open_severity == Decimal(6.3).quantize(Decimal("0.1"))
+    assert test_data.max_open_severity == Decimal("6.3")
+    assert test_data.max_severity == Decimal("6.3")
     assert test_data.closed_vulnerabilities == 7
     assert test_data.open_vulnerabilities == 29
     assert test_data.open_findings == 5

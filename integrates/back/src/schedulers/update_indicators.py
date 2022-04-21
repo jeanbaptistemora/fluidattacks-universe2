@@ -968,6 +968,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
         max_open_severity,
         max_open_severity_finding,
     ) = await findings_domain.get_max_open_severity(loaders, findings)
+    max_severity = await groups_domain.get_max_severity(loaders, group.name)
     mean_remediate = await groups_domain.get_mean_remediate_severity(
         loaders, group.name, Decimal("0.0"), Decimal("10.0")
     )
@@ -1026,6 +1027,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
         max_open_severity_finding=max_open_severity_finding.id
         if max_open_severity_finding
         else "",
+        max_severity=max_severity,
         closed_vulnerabilities=closed_vulnerabilities,
         mean_remediate=mean_remediate,
         open_findings=open_findings,

@@ -1024,6 +1024,25 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
     return cast(List[GroupType], groups)
 
 
+async def get_max_severity(
+    loaders: Any,
+    group_name: str,
+) -> Decimal:
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
+    max_severity: Decimal = max(
+        map(
+            lambda finding: findings_domain.get_severity_score(
+                finding.severity
+            ),
+            findings,
+        ),
+        default=Decimal("0.0"),
+    )
+    return Decimal(max_severity).quantize(Decimal("0.1"))
+
+
 async def get_mean_remediate_severity_cvssf(
     loaders: Any,
     group_name: str,
