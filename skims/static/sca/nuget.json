@@ -1,11 +1,32 @@
 {
+  "adplug": {
+    "CVE-2019-15151": "2.3.1"
+  },
   "ajaxcontroltoolkit": {
     "CVE-2015-4670": "<=15.0"
+  },
+  "ajaxnetprofessional": {
+    "GHSA-5q7q-qqw2-hjq7": "<=21.12.21.1"
+  },
+  "ajaxpro.2": {
+    "GHSA-5q7q-qqw2-hjq7": "<21.12.22.1"
   },
   "angularjs": {
     "CVE-2019-10768": "<1.7.9",
     "CVE-2019-14863": ">=1.0.0 <=1.4.14",
     "CVE-2020-7676": "<1.8.0"
+  },
+  "apache.avro": {
+    "GHSA-868x-rg4c-cjqg": "<1.11.0"
+  },
+  "auth0-wcf-service-jwt": {
+    "CVE-2019-7644": "<1.0.4"
+  },
+  "auth0.authenticationapi": {
+    "CVE-2019-16929": ">=5.8.0 <6.5.3"
+  },
+  "body-parser-xml-nuget": {
+    "GHSA-2ghc-6v89-pw9j": "<1.0.0"
   },
   "bootstrap": {
     "CVE-2016-10735": ">=3.0.0 <3.4.0",
@@ -19,6 +40,18 @@
   "bouncycastle": {
     "SNYK-DOTNET-BOUNCYCASTLE-1296078": "<1.8.7",
     "SNYK-DOTNET-BOUNCYCASTLE-474564": "<1.8.1"
+  },
+  "cefsharp.common": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.winforms": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.wpf": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.wpf.hwndhost": {
+    "GHSA-gvqv-779r-4jgp": "<86.0.241"
   },
   "cleditor": {
     "CVE-2019-1010113": "<1.4.5"
@@ -64,36 +97,6 @@
     "CVE-2015-5237": "<=3.1.0",
     "CVE-2021-22570": "<3.15.0"
   },
-  "adplug": {
-    "CVE-2019-15151": "2.3.1"
-  },
-  "ajaxnetprofessional": {
-    "GHSA-5q7q-qqw2-hjq7": "<=21.12.21.1"
-  },
-  "ajaxpro.2": {
-    "GHSA-5q7q-qqw2-hjq7": "<21.12.22.1"
-  },
-  "apache.avro": {
-    "GHSA-868x-rg4c-cjqg": "<1.11.0"
-  },
-  "auth0-wcf-service-jwt": {
-    "CVE-2019-7644": "<1.0.4"
-  },
-  "auth0.authenticationapi": {
-    "CVE-2019-16929": ">=5.8.0 <6.5.3"
-  },
-  "body-parser-xml-nuget": {
-    "GHSA-2ghc-6v89-pw9j": "<1.0.0"
-  },
-  "cefsharp.common": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
-  },
-  "cefsharp.winforms": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
-  },
-  "cefsharp.wpf": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
-  },
   "gw2sharp": {
     "GHSA-4vr3-9v7h-5f8v": "<0.3.1"
   },
@@ -101,75 +104,15 @@
     "CVE-2020-11005": ">=0 <1.0.4",
     "GHSA-wvpv-ffcv-r6cw": ">=0 <1.0.4"
   },
-  "cefsharp.wpf.hwndhost": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
-  },
-  "hangfire.core": {
-    "GHSA-7rq6-7gv8-c37h": "1.7.25"
-  },
-  "identityserver3": {
-    "CVE-2017-12677": ">=2.4.0 <2.6.1"
-  },
-  "inedo.otter.sdk": {
-    "CVE-2017-17086": "<=1.7.4"
-  },
-  "inedo.proget.sdk": {
-    "CVE-2017-15608": "<5.0.4"
-  },
-  "jq.net": {
-    "CVE-2016-4074": "<=1.5"
-  },
-  "jsoftcr_select2": {
-    "CVE-2016-10744": "<=4.0.5"
-  },
-  "libpng": {
-    "CVE-2017-12652": "<1.6.32",
-    "CVE-2018-13785": "1.6.34",
-    "CVE-2018-14550": "1.6.35",
-    "CVE-2019-7317": "1.6.36"
-  },
-  "libxml2": {
-    "CVE-2021-3541": "<2.9.11"
-  },
-  "madskristensen.aspnetcore.miniblog": {
-    "CVE-2019-9845": "<=2019-01-16"
-  },
   "halibut": {
     "CVE-2021-31819": ">=0 <4.4.7"
-  },
-  "messagepack": {
-    "CVE-2020-5234": "<1.9.3 || 2.0.94 || 2.0.110 || 2.0.119 || 2.0.123 || 2.0.204 || 2.0.270 || 2.0.299 || >=2.0.323 <2.1.80"
-  },
-  "messagepack.immutablecollection": {
-    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
-  },
-  "messagepack.reactiveproperty": {
-    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
-  },
-  "messagepack.unityshims": {
-    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
-  },
-  "metadataextractor": {
-    "CVE-2019-14262": "2.1.0"
-  },
-  "microsoft.aspnetcore.app": {
-    "GHSA-j378-6mmw-hqfr": ">=2.1.0 <=2.1.3"
-  },
-  "microsoft.aspnetcore.httpoverrides": {
-    "GHSA-365p-96qv-xr7g": ">=2.0.0 <=2.0.1"
-  },
-  "microsoft.aspnetcore.identity": {
-    "GHSA-vhvh-528q-ff3p": ">=1.0.0 <=1.0.5 || >=1.1.0 <=1.1.5 || >=2.0.0 <=2.0.3 || >=2.1.0 <=2.1.1"
-  },
-  "microsoft.aspnetcore.mvc.abstractions": {
-    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
-  },
-  "microsoft.aspnetcore.mvc.core": {
-    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
   },
   "hangfire": {
     "CVE-2021-41238": "1.7.25",
     "SNYK-DOTNET-HANGFIRE-1910224": "1.7.25"
+  },
+  "hangfire.core": {
+    "GHSA-7rq6-7gv8-c37h": "1.7.25"
   },
   "hawk.ueditor": {
     "CVE-2021-37271": "1.4.3.3"
@@ -181,15 +124,27 @@
   "i18n": {
     "CVE-2020-7791": ">=0 <2.1.15"
   },
+  "identityserver3": {
+    "CVE-2017-12677": ">=2.4.0 <2.6.1"
+  },
   "identityserver4": {
     "CVE-2018-8899": ">=1.0.0 <=1.5.2 || >=2.0.0 <=2.1.2",
     "CVE-2019-12250": "<=2.4.0",
     "SNYK-DOTNET-IDENTITYSERVER4-174371": ">=1.0.0 <1.5.3 || >=2.0.0 <2.1.3"
   },
+  "inedo.otter.sdk": {
+    "CVE-2017-17086": "<=1.7.4"
+  },
+  "inedo.proget.sdk": {
+    "CVE-2017-15608": "<5.0.4"
+  },
   "itextsharp": {
     "SNYK-DOTNET-ITEXTSHARP-540928": "<5.5.12",
     "SNYK-DOTNET-ITEXTSHARP-541280": "<5.5.13.1",
     "SNYK-DOTNET-ITEXTSHARP-541283": "<5.5.13.1"
+  },
+  "jq.net": {
+    "CVE-2016-4074": "<=1.5"
   },
   "jquery": {
     "CVE-2011-4969": "<=1.6.2",
@@ -210,8 +165,20 @@
   "jquery.validation": {
     "SNYK-DOTNET-JQUERYVALIDATION-1056869": "<1.19.3"
   },
+  "jsoftcr_select2": {
+    "CVE-2016-10744": "<=4.0.5"
+  },
   "kentico.libraries": {
     "CVE-2021-27581": "5.5"
+  },
+  "libpng": {
+    "CVE-2017-12652": "<1.6.32",
+    "CVE-2018-13785": "1.6.34",
+    "CVE-2018-14550": "1.6.35",
+    "CVE-2019-7317": "1.6.36"
+  },
+  "libxml2": {
+    "CVE-2021-3541": "<2.9.11"
   },
   "libxml2.vc140_xp.mt.static.x86": {
     "CVE-2020-24977": "2.9.10",
@@ -224,9 +191,27 @@
     "CVE-2006-0743": "1.2.9-beta",
     "CVE-2018-1285": "<2.0.10"
   },
+  "madskristensen.aspnetcore.miniblog": {
+    "CVE-2019-9845": "<=2019-01-16"
+  },
   "marked": {
     "CVE-2021-21306": ">=1.1.1 <2.0.0",
     "GHSA-4r62-v4vq-hr96": ">=1.1.1 <2.0.0"
+  },
+  "messagepack": {
+    "CVE-2020-5234": "2.0.110 || 2.0.119 || 2.0.123 || 2.0.204 || 2.0.270 || 2.0.299 || 2.0.94 || <1.9.3 || >=2.0.323 <2.1.80"
+  },
+  "messagepack.immutablecollection": {
+    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
+  },
+  "messagepack.reactiveproperty": {
+    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
+  },
+  "messagepack.unityshims": {
+    "GHSA-7q36-4xx7-xcxf": "<1.9.11 || >=2.0.0 <2.1.90"
+  },
+  "metadataextractor": {
+    "CVE-2019-14262": "2.1.0"
   },
   "microsoft.aspnet.mvc": {
     "CVE-2014-4075": "2.0 || 3.0 || 4.0 || 5.0 || 5.1",
@@ -260,9 +245,18 @@
     "SNYK-DOTNET-MICROSOFTASPNETCOREALL-72395": ">=2.1.0 <2.1.4",
     "SNYK-DOTNET-MICROSOFTASPNETCOREALL-72897": " >=2.2.0 <2.2.1 || >=2.1.0 <2.1.7"
   },
+  "microsoft.aspnetcore.app": {
+    "GHSA-j378-6mmw-hqfr": ">=2.1.0 <=2.1.3"
+  },
   "microsoft.aspnetcore.authentication.jwtbearer": {
     "GHSA-q7cg-43mg-qp69": "<2.1.29 || >=3.0.0 <3.1.18 || >=5.0.0 <5.0.9",
     "SNYK-DOTNET-MICROSOFTASPNETCOREAUTHENTICATIONJWTBEARER-1540308": "<2.1.19 || >=3.0.0 <3.1.18 || >=5.0.0 <5.0.9"
+  },
+  "microsoft.aspnetcore.httpoverrides": {
+    "GHSA-365p-96qv-xr7g": ">=2.0.0 <=2.0.1"
+  },
+  "microsoft.aspnetcore.identity": {
+    "GHSA-vhvh-528q-ff3p": ">=1.0.0 <=1.0.5 || >=1.1.0 <=1.1.5 || >=2.0.0 <=2.0.3 || >=2.1.0 <=2.1.1"
   },
   "microsoft.aspnetcore.mvc": {
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVC-60034": "<1.0.1",
@@ -271,6 +265,9 @@
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVC-60039": ">=1 <1.0.4 || >=1.1 <1.1.3",
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVC-60040": ">=1 <1.0.4 || >=1.1 <1.1.3",
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVC-60113": "<1.0.1"
+  },
+  "microsoft.aspnetcore.mvc.abstractions": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
   },
   "microsoft.aspnetcore.mvc.apiexplorer": {
     "CVE-2017-0247": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3",
@@ -282,6 +279,12 @@
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVCAPIEXPLORER-60111": ">=1 <1.0.4 || >=1.1 <1.1.3",
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVCAPIEXPLORER-60112": ">=1 <1.0.4 || >=1.1 <1.1.3"
   },
+  "microsoft.aspnetcore.mvc.core": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.cors": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
   "microsoft.aspnetcore.mvc.dataannotations": {
     "CVE-2017-0247": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3",
     "CVE-2017-0249": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3",
@@ -291,6 +294,33 @@
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVCDATAANNOTATIONS-60098": ">=1 <1.0.4 || >=1.1 <1.1.3",
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVCDATAANNOTATIONS-60099": ">=1 <1.0.4 || >=1.1 <1.1.3",
     "SNYK-DOTNET-MICROSOFTASPNETCOREMVCDATAANNOTATIONS-60100": ">=1 <1.0.4 || >=1.1 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.formatters.json": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.formatters.xml": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.localization": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.razor": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.razor.host": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.taghelpers": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.viewfeatures": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.mvc.webapicompatshim": {
+    "GHSA-j8f4-2w4p-mhjc": ">=1.0.0 <1.0.4 || >=1.1.0 <1.1.3"
+  },
+  "microsoft.aspnetcore.server.kestrel.core": {
+    "GHSA-cgpw-2gph-2r9g": ">=2.0.0 <2.0.4 || >=2.1.0 <2.1.2"
   },
   "microsoft.aspnetcore.signalr": {
     "CVE-2013-5042": "2.0.0 || >=1.1.0 <=1.1.3",
