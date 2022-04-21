@@ -3,9 +3,11 @@ type Event {
   "Where the event was present"
   accessibility: String
   "Actions after getting blocked by an event"
-  actionAfterBlocking: ActionsAfterBlocking
+  actionAfterBlocking: ActionsAfterBlocking @deprecated(reason: """This field will
+    be removed after 2022/10/21.""")
   "Actions before getting blocked by an event"
-  actionBeforeBlocking: ActionsBeforeBlocking
+  actionBeforeBlocking: ActionsBeforeBlocking @deprecated(reason: """This field will
+    be removed after 2022/10/21.""")
   "Time spent solving the Event, in hours"
   affectation: String
   "Components involved or affected by the event, if applicable"

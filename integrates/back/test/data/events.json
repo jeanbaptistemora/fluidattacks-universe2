@@ -3,12 +3,6 @@
     {
       "PutRequest": {
         "Item": {
-          "action_after_blocking": {
-            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-          },
-          "action_before_blocking": {
-            "S": "TEST_OTHER_PART_TOE"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },
@@ -81,12 +75,6 @@
           "accessibility": {
             "S": "Repositorio"
           },
-          "action_after_blocking": {
-            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-          },
-          "action_before_blocking": {
-            "S": "TEST_OTHER_PART_TOE"
-          },
           "affected_components": {
             "S": "CLIENT_STATION"
           },
@@ -155,12 +143,6 @@
         "Item": {
           "accessibility": {
             "S": "Repositorio"
-          },
-          "action_after_blocking": {
-            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-          },
-          "action_before_blocking": {
-            "S": "DOCUMENT_GROUP"
           },
           "affectation": {
             "S": "4"
@@ -272,12 +254,6 @@
     {
       "PutRequest": {
         "Item": {
-          "action_after_blocking": {
-            "S": "NONE"
-          },
-          "action_before_blocking": {
-            "S": "NONE"
-          },
           "affectation": {
             "S": "5"
           },
@@ -379,12 +355,6 @@
           "accessibility": {
             "S": "Ambiente"
           },
-          "action_after_blocking": {
-            "S": "TRAINING"
-          },
-          "action_before_blocking": {
-            "S": "TEST_OTHER_PART_TOE"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },
@@ -448,12 +418,6 @@
     {
       "PutRequest": {
         "Item": {
-          "action_after_blocking": {
-            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-          },
-          "action_before_blocking": {
-            "S": "TEST_OTHER_PART_TOE"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },
@@ -523,12 +487,6 @@
     {
       "PutRequest": {
         "Item": {
-          "action_after_blocking": {
-            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-          },
-          "action_before_blocking": {
-            "S": "TEST_OTHER_PART_TOE"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },
@@ -598,12 +556,6 @@
     {
       "PutRequest": {
         "Item": {
-          "action_after_blocking": {
-            "S": "EXECUTE_OTHER_GROUP_SAME_CLIENT"
-          },
-          "action_before_blocking": {
-            "S": "TEST_OTHER_PART_TOE"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },

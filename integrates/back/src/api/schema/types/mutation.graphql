@@ -82,10 +82,6 @@ type Mutation {
 
   "Reports a blocking event"
   addEvent(
-    "What the hacker did after the event happened"
-    actionAfterBlocking: ActionsAfterBlocking
-    "What the hacker was doing just before the event happened"
-    actionBeforeBlocking: ActionsBeforeBlocking
     "Where the event was present"
     accessibility: [EventAccessibility]!
     "Components involved or affected by the event, if applicable"

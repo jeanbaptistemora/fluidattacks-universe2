@@ -23,8 +23,6 @@ const GET_EVENTS: DocumentNode = gql`
 const ADD_EVENT_MUTATION: DocumentNode = gql`
   mutation AddEventMutation(
     $accessibility: [EventAccessibility]!
-    $actionAfterBlocking: ActionsAfterBlocking
-    $actionBeforeBlocking: ActionsBeforeBlocking
     $affectedComponents: [AffectedComponents]
     $blockingHours: String
     $context: EventContext!
@@ -38,8 +36,6 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
   ) {
     addEvent(
       accessibility: $accessibility
-      actionAfterBlocking: $actionAfterBlocking
-      actionBeforeBlocking: $actionBeforeBlocking
       affectedComponents: $affectedComponents
       blockingHours: $blockingHours
       context: $context

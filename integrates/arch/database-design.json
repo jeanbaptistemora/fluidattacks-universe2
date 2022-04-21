@@ -171,14 +171,6 @@
           "AttributeType": "M"
         },
         {
-          "AttributeName": "action_before_blocking",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "action_after_blocking",
-          "AttributeType": "S"
-        },
-        {
           "AttributeName": "blocking_hours_expected",
           "AttributeType": "N"
         },
@@ -1674,12 +1666,6 @@
               "context": {
                 "S": "TELECOMMUTING"
               },
-              "action_before_blocking": {
-                "S": "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
-              },
-              "action_after_blocking": {
-                "S": "OTHER"
-              },
               "blocking_hours_expected": {
                 "N": "1"
               },
@@ -1695,8 +1681,6 @@
             "description",
             "type",
             "context",
-            "action_before_blocking",
-            "action_after_blocking",
             "blocking_hours_expected",
             "affected_components",
             "accessibility"
