@@ -9,12 +9,11 @@ python = "^3.8"
 aioextensions = "^20.11.1621472"
 Deprecated = "^1.2.12"
 requests = "^2.25.1"
-returns = "^0.16.0"
+returns = ">=0.16.0 <1.0.0"
 ratelimit = "^2.2.1"
-ratelimit-stubs = "^2.2.1"
-types-Deprecated = "^1.2.1"
 pathos = "^0.2.8"
 six = "^1.16.0"
+purity = "1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
