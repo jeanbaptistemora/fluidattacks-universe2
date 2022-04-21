@@ -37,30 +37,27 @@ from schedulers.common import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 
 class RootsByGroup(NamedTuple):
-    roots: List[str]
+    roots: list[str]
     group_name: str
 
 
 class PreparedJob(NamedTuple):
     group_name: str
-    roots: List[str]
+    roots: list[str]
     last_queue: Optional[float] = 0
 
 
 async def _queue_all_checks(
     group: str,
-    finding_codes: Tuple[str, ...],
+    finding_codes: tuple[str, ...],
     dataloaders: Any,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     result = await queue_job_new(
         group_name=group,
         finding_codes=finding_codes,
@@ -82,7 +79,7 @@ def _is_check_available(check: str) -> bool:
     return False
 
 
-async def get_jobs_from_bach(*job_ids: str) -> List[Dict[str, Any]]:
+async def get_jobs_from_bach(*job_ids: str) -> list[dict[str, Any]]:
     jobs = list(job_ids)
     if not jobs:
         return []
@@ -100,7 +97,7 @@ async def get_jobs_from_bach(*job_ids: str) -> List[Dict[str, Any]]:
 
 
 async def _roots_by_group(
-    group: str, group_conf: Dict[Any, Any], dataloaders: Dataloaders
+    group: str, group_conf: dict[Any, Any], dataloaders: Dataloaders
 ) -> RootsByGroup:
     if not get_key_or_fallback(group_conf, "has_machine", "has_skims", False):
         return RootsByGroup(
@@ -120,7 +117,7 @@ async def _roots_by_group(
 async def main() -> None:
     session = aioboto3.Session()
     async with session.client("s3") as s3_client:
-        groups: List[str] = [
+        groups: list[str] = [
             prefix["Prefix"].split("/")[0]
             for response in await collect(
                 s3_client.list_objects(
@@ -141,14 +138,14 @@ async def main() -> None:
         group_data["historic_configuration"][-1] for group_data in groups_data
     ]
     findings = [key for key in FINDINGS.keys() if _is_check_available(key)]
-    _groups_roots: List[RootsByGroup] = await collect(
+    _groups_roots: list[RootsByGroup] = await collect(
         [
             _roots_by_group(group, conf, dataloaders)
             for group, conf in zip(groups, groups_confs)
         ]
     )
 
-    jobs: Dict[str, PreparedJob] = {
+    jobs: dict[str, PreparedJob] = {
         root.group_name: PreparedJob(
             group_name=root.group_name, roots=root.roots
         )
@@ -157,7 +154,7 @@ async def main() -> None:
     }
     info("Computing jobs")
 
-    sorted_jobs: List[PreparedJob] = list(
+    sorted_jobs: list[PreparedJob] = list(
         sorted(
             jobs.values(),
             key=lambda x: x.last_queue or 0,

@@ -34,10 +34,6 @@ from organizations import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    List,
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -65,7 +61,7 @@ async def send_reminder_notification() -> None:
         )
     )
 
-    stakeholders_emails: List[str] = [
+    stakeholders_emails: list[str] = [
         stakeholder["email"]
         for org_id in orgs_ids
         for stakeholder in await loaders.organization_stakeholders.load(org_id)
@@ -82,11 +78,11 @@ async def send_reminder_notification() -> None:
         )
     ]
 
-    stakeholders_emails_filtered: List[str] = [
+    stakeholders_emails_filtered: list[str] = [
         key for key, group in groupby(sorted(stakeholders_emails))
     ]
 
-    users: Tuple[User, ...] = await loaders.user.load_many(
+    users: tuple[User, ...] = await loaders.user.load_many(
         stakeholders_emails_filtered
     )
     users_email = [

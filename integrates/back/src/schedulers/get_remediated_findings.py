@@ -38,12 +38,6 @@ from mailer import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    cast,
-    Dict,
-    List,
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -69,20 +63,22 @@ async def get_remediated_findings() -> None:
     if findings:
         try:
             mail_to = [FI_MAIL_PROJECTS]
-            mail_context: MailContentType = {"findings": [], "total": 0}
-            for finding in findings:
-                cast(List[Dict[str, str]], mail_context["findings"]).append(
-                    {
-                        "finding_name": finding.title,
-                        "finding_url": (
-                            f"{BASE_URL}/groups/{finding.group_name}/"
-                            f"{finding.id}/description"
-                        ),
-                        "group": finding.group_name,
-                    }
-                )
-            mail_context["total"] = len(findings)
-            users: Tuple[User, ...] = await loaders.user.load_many(mail_to)
+            mail_context_findings: list[dict[str, str]] = [
+                {
+                    "finding_name": finding.title,
+                    "finding_url": (
+                        f"{BASE_URL}/groups/{finding.group_name}/"
+                        f"{finding.id}/description"
+                    ),
+                    "group": finding.group_name,
+                }
+                for finding in findings
+            ]
+            mail_context: MailContentType = {
+                "findings": mail_context_findings,
+                "total": len(findings),
+            }
+            users: tuple[User, ...] = await loaders.user.load_many(mail_to)
             users_email = [
                 user.email
                 for user in users

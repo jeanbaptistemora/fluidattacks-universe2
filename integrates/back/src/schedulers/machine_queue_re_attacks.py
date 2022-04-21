@@ -21,11 +21,6 @@ from machine.jobs import (
 from schedulers.common import (
     info,
 )
-from typing import (
-    List,
-    Set,
-    Tuple,
-)
 from vulnerabilities.domain.utils import (
     get_root_nicknames_for_skims,
 )
@@ -34,9 +29,9 @@ from vulnerabilities.domain.utils import (
 async def main() -> None:
     dataloaders: Dataloaders = get_new_context()
 
-    groups: List[str] = await get_active_groups()
-    groups_findings: Tuple[
-        Tuple[Finding, ...], ...
+    groups: list[str] = await get_active_groups()
+    groups_findings: tuple[
+        tuple[Finding, ...], ...
     ] = await dataloaders.group_findings.load_many(groups)
 
     for group, findings in zip(groups, groups_findings):
@@ -44,8 +39,8 @@ async def main() -> None:
         findings_vulns = await dataloaders.finding_vulnerabilities.load_many(
             [finding.id for finding in findings]
         )
-        findings_to_reattack: Set[str] = set()
-        roots_to_reattack: Set[str] = set()
+        findings_to_reattack: set[str] = set()
+        roots_to_reattack: set[str] = set()
         for finding, vulns in zip(findings, findings_vulns):
             vulns_to_reattack = tuple(
                 vuln
@@ -66,7 +61,7 @@ async def main() -> None:
                     )
                 )
 
-        finding_codes: Tuple[str, ...] = tuple(
+        finding_codes: tuple[str, ...] = tuple(
             filter(
                 None,
                 [

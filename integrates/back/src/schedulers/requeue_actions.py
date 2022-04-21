@@ -14,8 +14,6 @@ from batch.types import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
 )
 
@@ -27,14 +25,14 @@ class CompleteBatchJob(NamedTuple):
 
 
 async def _get_machine_keys_to_delete(
-    running_actions: List[BatchProcessing],
-    complete_batch_jobs: List[Dict[str, Any]],
-) -> List[str]:
+    running_actions: list[BatchProcessing],
+    complete_batch_jobs: list[dict[str, Any]],
+) -> list[str]:
     # Machine executions may fail due to memory consumption.
     # If there is a failed job, requeue the execution using more resources.
     # If it still fails, delete it from the DB or else it will be requeued
     # indefinitely
-    machine_actions_to_retry: List[BatchProcessing] = [
+    machine_actions_to_retry: list[BatchProcessing] = [
         action
         for action in running_actions
         if action.action_name == Action.EXECUTE_MACHINE.value
@@ -58,7 +56,7 @@ async def _get_machine_keys_to_delete(
         for action in machine_actions_to_retry
     )
 
-    machine_keys_to_delete: List[str] = [
+    machine_keys_to_delete: list[str] = [
         action.key
         for action in running_actions
         if action.action_name == Action.EXECUTE_MACHINE.value
@@ -70,10 +68,10 @@ async def _get_machine_keys_to_delete(
 
 
 async def _filter_non_requeueable_actions(
-    actions_to_requeue: List[BatchProcessing],
-) -> List[BatchProcessing]:
+    actions_to_requeue: list[BatchProcessing],
+) -> list[BatchProcessing]:
     """Filters actions that should not be sent to Batch"""
-    batch_jobs_dict: Dict[str, Dict[str, Any]] = {
+    batch_jobs_dict: dict[str, dict[str, Any]] = {
         job["jobId"]: job
         for job in await batch_dal.describe_jobs(
             *[
@@ -84,7 +82,7 @@ async def _filter_non_requeueable_actions(
         )
     }
 
-    succeeded_keys_to_delete: List[str] = [
+    succeeded_keys_to_delete: list[str] = [
         action.key
         for action in actions_to_requeue
         if (
@@ -128,7 +126,7 @@ async def _filter_non_requeueable_actions(
         ]
     )
 
-    active_keys: List[str] = [
+    active_keys: list[str] = [
         action.key
         for action in actions_to_requeue
         if action.running
@@ -139,7 +137,7 @@ async def _filter_non_requeueable_actions(
             "RUNNING",
         ]
     ]
-    pending_keys: List[str] = [
+    pending_keys: list[str] = [
         action.key
         for action in actions_to_requeue
         if not action.running
@@ -164,18 +162,18 @@ async def _filter_non_requeueable_actions(
 
 
 def _filter_duplicated_actions(
-    actions_to_requeue: List[BatchProcessing], action_to_filter: Action
-) -> List[BatchProcessing]:
+    actions_to_requeue: list[BatchProcessing], action_to_filter: Action
+) -> list[BatchProcessing]:
     # Prevents that entries with the same action over the same entity
     # are requeued at the same time
-    filtered_unique_actions: List[BatchProcessing] = list(
+    filtered_unique_actions: list[BatchProcessing] = list(
         {
             action.entity: action
             for action in actions_to_requeue
             if action.action_name == action_to_filter.value
         }.values()
     )
-    remaining_actions: List[BatchProcessing] = [
+    remaining_actions: list[BatchProcessing] = [
         action
         for action in actions_to_requeue
         if action.action_name != action_to_filter.value
@@ -184,7 +182,7 @@ def _filter_duplicated_actions(
 
 
 async def requeue_actions() -> bool:
-    actions_to_requeue: List[BatchProcessing] = await batch_dal.get_actions()
+    actions_to_requeue: list[BatchProcessing] = await batch_dal.get_actions()
     actions_to_requeue = _filter_duplicated_actions(
         actions_to_requeue, Action.REFRESH_TOE_INPUTS
     )
@@ -195,7 +193,7 @@ async def requeue_actions() -> bool:
         actions_to_requeue
     )
 
-    batch_jobs_dict: Dict[str, Dict[str, Any]] = {
+    batch_jobs_dict: dict[str, dict[str, Any]] = {
         job["jobId"]: job
         for job in await batch_dal.describe_jobs(
             *[

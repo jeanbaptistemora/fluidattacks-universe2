@@ -30,9 +30,6 @@ from newutils.utils import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    List,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -65,7 +62,7 @@ async def send_event_report() -> None:
         for event in await events_domain.get_unsolved_events(group)
     ]
 
-    events_filtered: List[EventType] = [
+    events_filtered: list[EventType] = [
         event
         for event in unsolved_events
         if days_to_date(event["historic_state"][-1]["date"]) in [7, 30]

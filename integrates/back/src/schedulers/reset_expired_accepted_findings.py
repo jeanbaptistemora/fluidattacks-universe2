@@ -21,10 +21,6 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
 )
-from typing import (
-    Set,
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -39,14 +35,14 @@ from vulnerabilities import (
 async def reset_group_expired_accepted_findings(
     loaders: Dataloaders, group_name: str, today: datetime
 ) -> None:
-    group_findings: Tuple[Finding] = await loaders.group_findings.load(
+    group_findings: tuple[Finding] = await loaders.group_findings.load(
         group_name
     )
     vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
-    updated_finding_ids: Set[str] = set()
-    updated_vuln_ids: Set[str] = set()
+    updated_finding_ids: set[str] = set()
+    updated_vuln_ids: set[str] = set()
 
     for vuln in vulns:
         finding_id = vuln.finding_id

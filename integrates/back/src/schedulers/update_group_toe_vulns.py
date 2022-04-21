@@ -56,8 +56,6 @@ from toe.lines.types import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -70,7 +68,7 @@ def _log(msg: str, **extra: Any) -> None:
     LOGGER.info(msg, extra={"extra": extra})
 
 
-def _strip_first_dir(where: str) -> Tuple[str, str]:
+def _strip_first_dir(where: str) -> tuple[str, str]:
     return (where[0 : where.find("/")], where[where.find("/") + 1 :])
 
 
@@ -91,7 +89,7 @@ async def update_toe_input(
     exceptions=(ToeInputAlreadyUpdated,),
 )
 async def process_toe_inputs(
-    group_name: str, vulnerabilities: Tuple[Vulnerability, ...]
+    group_name: str, vulnerabilities: tuple[Vulnerability, ...]
 ) -> None:
     loaders = get_new_context()
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
@@ -140,8 +138,8 @@ async def update_toe_lines(
 )
 async def process_toe_lines(
     group_name: str,
-    vulnerabilities: Tuple[Vulnerability, ...],
-    root_nicknames: Dict[str, str],
+    vulnerabilities: tuple[Vulnerability, ...],
+    root_nicknames: dict[str, str],
 ) -> None:
     loaders = get_new_context()
     group_toe_lines = await loaders.group_toe_lines.load_nodes(
@@ -177,16 +175,16 @@ async def process_toe_lines(
 async def process_group(group_name: str) -> None:
     loaders = get_new_context()
     _log("group", id=group_name)
-    root_nicknames: Dict[str, str] = {
+    root_nicknames: dict[str, str] = {
         root.id: root.state.nickname
         for root in await loaders.group_roots.load(group_name)
     }
 
-    findings: Tuple[Finding, ...]
+    findings: tuple[Finding, ...]
     findings = await loaders.group_findings.load(group_name)
 
     # pylint: disable=consider-using-generator
-    vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+    vulnerabilities: tuple[Vulnerability, ...] = tuple(
         [
             vuln
             for finding in findings

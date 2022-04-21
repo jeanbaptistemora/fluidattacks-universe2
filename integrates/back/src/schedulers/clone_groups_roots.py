@@ -14,7 +14,6 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    List,
     NamedTuple,
     Optional,
 )
@@ -61,7 +60,7 @@ async def _queue_sync_git_roots(
 async def clone_groups_roots(queue_with_vpn: bool = False) -> None:
     loaders: Dataloaders = get_new_context()
 
-    groups: List[str] = await groups_domain.get_active_groups()
+    groups: list[str] = await groups_domain.get_active_groups()
 
     for group in groups:
         await _queue_sync_git_roots(
