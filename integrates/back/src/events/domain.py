@@ -246,7 +246,7 @@ async def get_events(event_ids: List[str]) -> List[EventType]:
     )
 
 
-async def get_unsolved_events(group_name: str) -> List[str]:
+async def get_unsolved_events(group_name: str) -> List[EventType]:
     events_list = await list_group_events(group_name)
     events = await get_events(events_list)
     unsolved: List[EventType] = [
@@ -476,6 +476,7 @@ async def request_vulnerabilities_hold(
     user_info: Dict[str, str],
     vulnerability_ids: Set[str],
 ) -> None:
+    vulnerabilities: Union[Tuple[Vulnerability, ...], list[Vulnerability]]
     justification: str = (
         f"These reattacks have been put on hold because of Event #{event_id}"
     )

@@ -45,7 +45,7 @@ Tag = Dict[str, Union[Decimal, str, List[str]]]
 User = Dict[str, Any]
 
 Dynamo = Union[str, Organization]
-Event = Dict[str, Union[str, Historic, List[Comment], None]]
+Event = Dict[str, Any]
 ExecutionVulnerabilities = Dict[str, Union[int, List[ExploitResult]]]
 ForcesExecution = Dict[str, Union[str, datetime, ExecutionVulnerabilities]]
 ForcesExecutions = Dict[str, Union[datetime, str, List[ForcesExecution], None]]

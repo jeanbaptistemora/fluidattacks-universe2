@@ -153,8 +153,8 @@ async def _insert_historic_verification_vuln_ids(
             vulnerability_id=vulnerability_id,
         )
         for verification in historic_verification
-        for vulnerability_id in verification.vulnerability_ids
         if verification.vulnerability_ids
+        for vulnerability_id in verification.vulnerability_ids
     ]
     await execute_many(  # nosec
         SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(
@@ -306,8 +306,8 @@ async def insert_batch_verification_vuln_ids(
         )
         for finding_id, historic in zip(finding_ids, historics)
         for verification in historic
-        for vulnerability_id in verification.vulnerability_ids
         if verification.vulnerability_ids
+        for vulnerability_id in verification.vulnerability_ids
     ]
     await execute_batch(  # nosec
         SQL_INSERT_VERIFICATION_VULNS_IDS.substitute(

@@ -224,7 +224,7 @@ async def update_historic_state(  # pylint: disable=too-many-locals
     ]
     operation_coroutines.append(
         operations.batch_delete_item(
-            keys=states_to_remove,
+            keys=tuple(states_to_remove),
             table=TABLE,
         )
     )
@@ -305,7 +305,7 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
     ]
     operation_coroutines.append(
         operations.batch_delete_item(
-            keys=verifications_to_remove,
+            keys=tuple(verifications_to_remove),
             table=TABLE,
         )
     )

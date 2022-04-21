@@ -61,6 +61,7 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from decorators import (
     retry_on_exceptions,
@@ -154,7 +155,9 @@ async def _process_vuln(
     treatment_loader = loaders.vulnerability_historic_treatment
     verification_loader = loaders.vulnerability_historic_verification
     zero_risk_loader = loaders.vulnerability_historic_zero_risk
-    historic_state = await state_loader.load(vuln.id)
+    historic_state: tuple[VulnerabilityState] = await state_loader.load(
+        vuln.id
+    )
     historic_treatment = await treatment_loader.load(vuln.id)
     historic_verification = await verification_loader.load(vuln.id)
     historic_zero_risk = await zero_risk_loader.load(vuln.id)
@@ -179,7 +182,7 @@ async def _process_vuln(
     new_vulnerability = await loaders.vulnerability.load(new_id)
     await vulns_model.update_historic(
         current_value=new_vulnerability,
-        historic=historic_state or [vuln.state],
+        historic=historic_state or tuple(vuln.state),
     )
     if historic_treatment:
         loaders.vulnerability.clear(vuln.id)
@@ -267,12 +270,13 @@ async def _process_finding(
         )
     else:
         target_finding_id = str(uuid.uuid4())
-        initial_state = FindingState(
-            modified_by=source_finding.hacker_email,
-            modified_date=source_finding.creation.modified_date,
-            source=source_finding.state.source,
-            status=FindingStateStatus.CREATED,
-        )
+        if source_finding.creation:
+            initial_state = FindingState(
+                modified_by=source_finding.hacker_email,
+                modified_date=source_finding.creation.modified_date,
+                source=source_finding.state.source,
+                status=FindingStateStatus.CREATED,
+            )
         await findings_model.add(
             finding=Finding(
                 hacker_email=source_finding.hacker_email,

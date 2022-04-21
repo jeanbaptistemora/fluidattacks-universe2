@@ -35,6 +35,10 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 
 async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
@@ -86,7 +90,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "title": finding.title,
         "threat": finding.threat,
     }
-    initial_metadata = {
+    initial_metadata: Dict[str, Any] = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
         **finding_metadata,
