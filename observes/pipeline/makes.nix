@@ -58,6 +58,27 @@
   };
 
   index = inputs.observesIndex;
+  # arch check
+  archCheckTargets = [
+    inputs.observesIndex.tap.checkly
+  ];
+  archCheckJobs =
+    map (x: {
+      output = x.check.arch;
+      gitlabExtra = gitlabLint;
+    })
+    archCheckTargets;
+  # type check
+  typeCheckTargets = [
+    inputs.observesIndex.tap.checkly
+  ];
+  typeCheckJobs =
+    map (x: {
+      output = x.check.types;
+      gitlabExtra = gitlabLint;
+    })
+    typeCheckTargets;
+
   targets = [
     index.etl.code
     index.service.scheduler
@@ -87,6 +108,8 @@ in {
       jobs =
         lintJobs
         ++ testJobs
+        ++ archCheckJobs
+        ++ typeCheckJobs
         ++ [
           {
             output = "/deployTerraform/observes";
@@ -118,10 +141,6 @@ in {
           }
           {
             output = "/lintPython/imports/observesTapBugsnag";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/imports/observesTapCheckly";
             gitlabExtra = gitlabLint;
           }
           {
@@ -214,10 +233,6 @@ in {
           }
           {
             output = "/lintPython/module/observesTapBugsnag";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesTapCheckly";
             gitlabExtra = gitlabLint;
           }
           {

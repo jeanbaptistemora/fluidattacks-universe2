@@ -1,5 +1,5 @@
 import click
-from returns.maybe import (
+from fa_purity import (
     Maybe,
 )
 from tap_checkly import (
@@ -16,7 +16,7 @@ from typing import (
 )
 
 
-@click.command()
+@click.command()  # type: ignore[misc]
 @click.option("--api-user", type=str, required=True)
 @click.option("--api-key", type=str, required=True)
 @click.option("--all-streams", is_flag=True, default=False)
@@ -43,7 +43,7 @@ def stream(
     executor.emit_streams(creds, selection)
 
 
-@click.group()
+@click.group()  # type: ignore[misc]
 def main() -> None:
     # cli group entrypoint
     pass
