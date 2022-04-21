@@ -91,6 +91,10 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/commonSchedule";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/commonStatus";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -128,6 +132,10 @@ in {
         }
         {
           output = "/lintTerraform/commonOkta";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/commonSchedule";
           gitlabExtra = gitlabLint;
         }
         {
@@ -208,6 +216,10 @@ in {
         }
         {
           output = "/testTerraform/commonOkta";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/commonSchedule";
           gitlabExtra = gitlabTestInfra;
         }
         {

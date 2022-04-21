@@ -31,6 +31,8 @@ locals {
               "dynamodb:ListTagsOfResource",
               "ec2:Describe*",
               "ec2:Get*",
+              "ecs:Describe*",
+              "ecs:List*",
               "eks:Describe*",
               "eks:Get*",
               "elasticache:Describe*",
