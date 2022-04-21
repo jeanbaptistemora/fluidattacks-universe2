@@ -680,6 +680,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               />
             </Col100>
           </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"assignedVulnerabilitiesCvssf"}
+                documentType={"stackedBarChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"stackedBarChart"}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.severityByAssignment")}
+              />
+            </Col100>
+          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch(["organization", "portfolio"]) ? (
