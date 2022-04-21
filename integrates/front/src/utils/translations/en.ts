@@ -1373,11 +1373,11 @@ export const enTranslations: ResourceKey = {
           language: {
             EN: "English",
             ES: "Spanish",
-            text: "Report Language",
+            text: "Report language",
             tooltip: "Language in which findings should be reported",
           },
           machine: {
-            text: "Include Machine service?",
+            text: "Include Machine Plan?",
             tooltip:
               "Vulnerability detection tool that scans and reports security issues in your source code",
           },
@@ -1395,11 +1395,11 @@ export const enTranslations: ResourceKey = {
           },
           service: {
             black: "Black",
-            title: "Service type",
+            title: "Type of testing",
             white: "White",
           },
           squad: {
-            text: "Include Squad Service?",
+            text: "Include Squad Plan?",
             tooltip:
               "Squad finds deep and zero-day vulnerabilities during software development",
           },
@@ -1412,7 +1412,7 @@ export const enTranslations: ResourceKey = {
           type: {
             continuous: "Continuous Hacking",
             oneShot: "One-Shot Hacking",
-            title: "Group Type",
+            title: "Type of service",
             tooltip: "Type of subscription",
           },
         },

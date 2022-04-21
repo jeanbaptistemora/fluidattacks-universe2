@@ -83,7 +83,7 @@ describe("AddGroupModal component", (): void => {
       screen.getByRole("combobox", { name: "service" })
     ).toBeInTheDocument();
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
-      2
+      1
     );
     expect(screen.getByText("confirmmodal.proceed")).toBeInTheDocument();
   });

@@ -345,8 +345,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row justify={"space-between"}>
-                    <Col large={"50"} medium={"50"} small={"50"}>
+                  <Row justify={"center"}>
+                    <Col hidden={true} large={"50"} medium={"50"} small={"50"}>
                       <TooltipWrapper
                         id={"organization.tabs.groups.newGroup.machine.tooltip"}
                         message={t(
@@ -377,38 +377,44 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </FormGroup>
                       </TooltipWrapper>
                     </Col>
-                    <Col large={"50"} medium={"50"} small={"50"}>
-                      <TooltipWrapper
-                        id={"organization.tabs.groups.newGroup.squad.tooltip"}
-                        message={t(
-                          "organization.tabs.groups.newGroup.squad.tooltip"
-                        )}
-                        placement={"top"}
-                      >
-                        <FormGroup>
-                          <ControlLabel>
-                            {t("organization.tabs.groups.newGroup.squad.text")}
-                            {" *"}
-                          </ControlLabel>
-                          <Switch
-                            checked={values.squad}
-                            label={{
-                              off: t(
-                                "organization.tabs.groups.newGroup.switch.no"
-                              ),
-                              on: t(
-                                "organization.tabs.groups.newGroup.switch.yes"
-                              ),
-                            }}
-                            name={"squad"}
-                            onChange={handleSquadBtnChange}
-                          />
-                        </FormGroup>
-                      </TooltipWrapper>
-                    </Col>
+                    {values.type === "CONTINUOUS" && (
+                      <Col large={"50"} medium={"50"} small={"50"}>
+                        <TooltipWrapper
+                          id={"organization.tabs.groups.newGroup.squad.tooltip"}
+                          message={t(
+                            "organization.tabs.groups.newGroup.squad.tooltip"
+                          )}
+                          placement={"top"}
+                        >
+                          <FormGroup>
+                            <ControlLabel>
+                              {t(
+                                "organization.tabs.groups.newGroup.squad.text"
+                              )}
+                              {" *"}
+                            </ControlLabel>
+                            <Switch
+                              checked={values.squad}
+                              label={{
+                                off: t(
+                                  "organization.tabs.groups.newGroup.switch.no"
+                                ),
+                                on: t(
+                                  "organization.tabs.groups.newGroup.switch.yes"
+                                ),
+                              }}
+                              name={"squad"}
+                              onChange={handleSquadBtnChange}
+                            />
+                          </FormGroup>
+                        </TooltipWrapper>
+                      </Col>
+                    )}
                   </Row>
-                  {" *"}
-                  {t("organization.tabs.groups.newGroup.extraChargesMayApply")}
+                  {values.type === "CONTINUOUS" &&
+                    `${" *"} ${t(
+                      "organization.tabs.groups.newGroup.extraChargesMayApply"
+                    )}`}
                   <ModalFooter>
                     <Button
                       id={"add-group-cancel"}
