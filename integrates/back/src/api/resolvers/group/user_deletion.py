@@ -15,7 +15,6 @@ from typing import (
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: None,
 ) -> Optional[str]:
     return (
         parent.state.modified_by

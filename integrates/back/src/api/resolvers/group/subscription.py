@@ -9,6 +9,5 @@ from graphql.type.definition import (
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: None,
 ) -> str:
     return str(parent.state.type.value).lower()

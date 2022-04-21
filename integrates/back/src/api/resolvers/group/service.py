@@ -12,7 +12,6 @@ from typing import (
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: None,
 ) -> Optional[str]:
     if parent.state.service:
         return parent.state.service.value

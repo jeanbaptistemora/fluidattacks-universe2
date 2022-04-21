@@ -12,6 +12,5 @@ from graphql.type.definition import (
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-    **_kwargs: None,
 ) -> bool:
     return parent.state.status == GroupStateStatus.ACTIVE
