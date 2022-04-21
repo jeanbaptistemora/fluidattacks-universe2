@@ -1,9 +1,11 @@
 ---
-id: vulnerability-information
-title: Vulnerability information
+id: general
+title: General
 sidebar_label: General
-slug: /machine/web/vulnerabilities/management/vulnerability-information
+slug: /machine/web/vulnerabilities/management/general
 ---
+
+## Vulnerability information
 
 It is helpful for you to learn
 the most relevant information

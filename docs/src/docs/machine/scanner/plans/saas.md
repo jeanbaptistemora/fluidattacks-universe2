@@ -6,7 +6,7 @@ slug: /machine/scanner/plans/saas
 ---
 
 When run as part of
-Fluid Attack's Machine plan or superior
+`Fluid Attack's` Machine plan or superior
 we'll configure everything for you.
 The service will constantly monitor
 the security state of your system,

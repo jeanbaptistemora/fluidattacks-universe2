@@ -1,7 +1,7 @@
 ---
 id: asm-update
 title: ASM Update Information
-sidebar_label: ASM Update
+sidebar_label: ASM update
 slug: /machine/web/asm-update
 ---
 

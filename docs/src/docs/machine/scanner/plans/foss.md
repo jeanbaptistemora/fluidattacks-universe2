@@ -5,7 +5,7 @@ sidebar_label: Free and Open Source
 slug: /machine/scanner/plans/foss
 ---
 
-When run as as a free
+When run as a free
 and Open Source CLI tool,
 you are in charge of
 configuring the tool.
