@@ -218,7 +218,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
           )}
         </Animated.ScrollView>
         <View style={styles.dotsContainer}>
-          {orgs.map((_0: IOrganization, index: number): JSX.Element => {
+          {orgs.map((org: IOrganization, index: number): JSX.Element => {
             const opacityScale: number = 0.3;
             const opacity: Animated.AnimatedInterpolation =
               currentPage.interpolate({
@@ -227,7 +227,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
               });
 
             return (
-              <Animated.View key={index.toString()} style={{ opacity }}>
+              <Animated.View key={org.name} style={{ opacity }}>
                 {/* Needed to properly render the html bullet over the logo*/}
                 {/* eslint-disable-next-line react/jsx-no-literals*/}
                 <Headline>&bull;</Headline>

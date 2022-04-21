@@ -50,8 +50,8 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // State management
-  const [isLoading, setLoading] = useState(true);
-  const [isOutdated, setOutdated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOutdated, setIsOutdated] = useState(false);
 
   // Side effects
   useEffect((): void => {
@@ -59,9 +59,9 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
       const shouldSkip: boolean = Constants.appOwnership === AppOwnership.Expo;
 
       if (!shouldSkip) {
-        setOutdated(await getOutdatedStatus());
+        setIsOutdated(await getOutdatedStatus());
       }
-      setLoading(false);
+      setIsLoading(false);
     };
     checkVersion();
   }, []);
@@ -81,7 +81,7 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
 
   // Event handlers
   const handleBitbucketLogin: () => void = async (): Promise<void> => {
-    setLoading(true);
+    setIsLoading(true);
 
     const result: IAuthResult = await authWithBitbucket();
     if (result.type === "success") {
@@ -93,12 +93,12 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
       await setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleGoogleLogin: () => void = async (): Promise<void> => {
-    setLoading(true);
+    setIsLoading(true);
 
     const result: IAuthResult = await authWithGoogle();
     if (result.type === "success") {
@@ -110,12 +110,12 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
       await setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleMicrosoftLogin: () => void = async (): Promise<void> => {
-    setLoading(true);
+    setIsLoading(true);
 
     const result: IAuthResult = await authWithMicrosoft();
     if (result.type === "success") {
@@ -127,7 +127,7 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
       await setItemAsync("authState", JSON.stringify(result));
       history.replace("/Welcome", result);
     } else {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 

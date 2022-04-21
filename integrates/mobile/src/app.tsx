@@ -57,7 +57,7 @@ const App: React.FunctionComponent = (): JSX.Element => {
   const { t } = useTranslation();
 
   // State management
-  const [isLoggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined);
   const [sessionToken, setSessionToken] = useState<string>("");
   const sessionTokenValue = useMemo(
     (): ISessionTokenContext => [sessionToken, setSessionToken],
@@ -85,9 +85,9 @@ const App: React.FunctionComponent = (): JSX.Element => {
         );
       }
 
-      setLoggedIn(!(_.isNil(token) || _.isNil(authState)));
+      setIsLoggedIn(!(_.isNil(token) || _.isNil(authState)));
     } catch {
-      setLoggedIn(false);
+      setIsLoggedIn(false);
     }
   }, [sessionToken]);
 

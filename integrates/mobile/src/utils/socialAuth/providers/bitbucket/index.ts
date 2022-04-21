@@ -92,7 +92,9 @@ const authWithBitbucket: () => Promise<IAuthResult> =
         const { values: emails }: IEmails =
           (await emailsResponse.json()) as IEmails;
         const { email: primaryEmail } = emails.find(
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           (email: IEmails["values"][0]): boolean => email.is_primary
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         ) as IEmails["values"][0];
 
         return {

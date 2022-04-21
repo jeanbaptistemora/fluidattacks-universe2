@@ -73,6 +73,10 @@
      */
     "no-duplicate-imports": "off",
     /*
+     * Replaced by @typescript-eslint/no-magic-numbers
+     */
+    "no-magic-numbers": "off",
+    /*
      * Rules regarding the ternary op are disabled, as it is common its usage in React
      */
     "no-nested-ternary": "off",
@@ -143,6 +147,10 @@
         "ignore": [-1, 0, 1, 2, 4]
       }
     ],
+    /*
+     * Disabled until the migration to newer versions of eslint is done
+     */
+    "@typescript-eslint/no-misused-promises": "off",
     /*
      * Using non-null assertions cancels the benefits of the strict null-checking mode
      */
@@ -295,6 +303,12 @@
     ],
     "react/jsx-fragments": ["error", "element"],
     "react/jsx-max-depth": "off",
+    "react/jsx-no-bind": [
+      "error",
+      {
+        "allowFunctions": true
+      }
+    ],
     /*
      * "allowedStrings" is not working once the @typescript-eslint@4.15.2
      * plugin is updated. Affected string changed by its Unicode equivalent
