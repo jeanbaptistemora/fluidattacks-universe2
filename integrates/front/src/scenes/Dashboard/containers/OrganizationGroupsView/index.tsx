@@ -44,7 +44,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const { t } = useTranslation();
 
   // State management
-  const [isGroupModalOpen, setGroupModalOpen] = useState(false);
+  const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
 
   const user: Required<IAuthContext> = useContext(
     authContext as React.Context<Required<IAuthContext>>
@@ -52,14 +52,14 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
 
   const enableTour =
     !user.tours.newGroup && user.userEmail.endsWith("fluidattacks.com");
-  const [runTour, toggleTour] = useState(enableTour);
+  const [runTour, setRunTour] = useState(enableTour);
 
   const openNewGroupModal: () => void = useCallback((): void => {
     if (runTour) {
-      toggleTour(false);
+      setRunTour(false);
     }
-    setGroupModalOpen(true);
-  }, [runTour, toggleTour]);
+    setIsGroupModalOpen(true);
+  }, [runTour, setRunTour]);
 
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery<IGetOrganizationGroups>(
@@ -98,7 +98,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         userName: user.userName,
       });
     }
-    setGroupModalOpen(false);
+    setIsGroupModalOpen(false);
     void refetchGroups();
   }, [enableTour, refetchGroups, user]);
   // Auxiliary functions

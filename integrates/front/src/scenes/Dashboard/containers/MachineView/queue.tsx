@@ -26,8 +26,8 @@ const initializeRootNicknames = (
 const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
   const { rootNicknames, onClose, onSubmit } = props;
 
-  const [isJobSubmitted, setJObSubmitted] = useState(false);
-  const [isCheckAll, setCheckAll] = useState(false);
+  const [isJobSubmitted, setIsJobSubmitted] = useState(false);
+  const [isCheckAll, setIsCheckAll] = useState(false);
 
   const availableRoots: Record<string, boolean> = initializeRootNicknames(
     rootNicknames,
@@ -42,7 +42,7 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
     onClose();
   }
   function handleOnCheckAll(): void {
-    setCheckAll(!isCheckAll);
+    setIsCheckAll(!isCheckAll);
     if (isCheckAll) {
       setInitialValues({
         ...initializeRootNicknames(rootNicknames, false),
@@ -56,7 +56,7 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
     }
   }
   async function handleSubmit(values: Record<string, unknown>): Promise<void> {
-    setJObSubmitted(true);
+    setIsJobSubmitted(true);
     const nicknames = Object.keys(values).flatMap(
       (root: string): [] | [string] =>
         rootNicknames.includes(root) && values[root] === true ? [root] : []

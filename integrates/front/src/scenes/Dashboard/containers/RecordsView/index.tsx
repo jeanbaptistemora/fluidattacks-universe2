@@ -47,9 +47,9 @@ const RecordsView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { findingId } = useParams<{ findingId: string }>();
 
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const handleEditClick: () => void = useCallback((): void => {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
   }, [isEditing]);
 
   const handleErrors: (error: ApolloError) => void = ({
@@ -105,7 +105,7 @@ const RecordsView: React.FC = (): JSX.Element => {
 
   const handleSubmit: (values: Record<string, FileList>) => void = useCallback(
     (values: Record<string, FileList>): void => {
-      setEditing(false);
+      setIsEditing(false);
       void updateRecords({
         variables: {
           evidenceId: "RECORDS",
@@ -124,7 +124,7 @@ const RecordsView: React.FC = (): JSX.Element => {
 
   const handleRemoveClick: () => void = useCallback((): void => {
     mixpanel.track("RemoveRecords");
-    setEditing(false);
+    setIsEditing(false);
     void removeRecords({ variables: { evidenceId: "RECORDS", findingId } });
   }, [findingId, removeRecords]);
 

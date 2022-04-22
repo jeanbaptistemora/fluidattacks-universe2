@@ -124,7 +124,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
 
   // State management
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
-  const [isStakeholderModalOpen, setStakeholderModalOpen] = useState(false);
+  const [isStakeholderModalOpen, setIsStakeholderModalOpen] = useState(false);
   const [stakeholderModalAction, setStakeholderModalAction] = useState<
     "add" | "edit"
   >("add");
@@ -132,14 +132,14 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
 
   const openAddStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("add");
-    setStakeholderModalOpen(true);
+    setIsStakeholderModalOpen(true);
   }, []);
   const openEditStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("edit");
-    setStakeholderModalOpen(true);
+    setIsStakeholderModalOpen(true);
   }, []);
   const closeStakeholderModal: () => void = useCallback((): void => {
-    setStakeholderModalOpen(false);
+    setIsStakeholderModalOpen(false);
   }, []);
 
   // GraphQL Operations

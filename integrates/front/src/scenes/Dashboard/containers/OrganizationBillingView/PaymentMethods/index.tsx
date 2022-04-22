@@ -80,14 +80,14 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     );
 
     // Add payment method
-    const [isAddingPaymentMethod, setAddingPaymentMethod] = useState<
+    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState<
       false | { mode: "ADD" }
     >(false);
     const openAddModal = useCallback((): void => {
-      setAddingPaymentMethod({ mode: "ADD" });
+      setIsAddingPaymentMethod({ mode: "ADD" });
     }, []);
     const closeAddModal = useCallback((): void => {
-      setAddingPaymentMethod(false);
+      setIsAddingPaymentMethod(false);
     }, []);
     const [addPaymentMethod] = useMutation(ADD_PAYMENT_METHOD, {
       onCompleted: (): void => {
@@ -203,14 +203,14 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const canUpdate: boolean = permissions.can(
       "api_mutations_update_payment_method_mutate"
     );
-    const [isUpdatingPaymentMethod, setUpdatingPaymentMethod] = useState<
+    const [isUpdatingPaymentMethod, setIsUpdatingPaymentMethod] = useState<
       false | { mode: "UPDATE" }
     >(false);
     const openUpdateModal = useCallback((): void => {
-      setUpdatingPaymentMethod({ mode: "UPDATE" });
+      setIsUpdatingPaymentMethod({ mode: "UPDATE" });
     }, []);
     const closeUpdateModal = useCallback((): void => {
-      setUpdatingPaymentMethod(false);
+      setIsUpdatingPaymentMethod(false);
     }, []);
     const [updatePaymentMethod, { loading: updating }] = useMutation(
       UPDATE_PAYMENT_METHOD,

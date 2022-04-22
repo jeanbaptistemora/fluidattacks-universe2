@@ -82,7 +82,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
   const { groupName } = useParams<{ groupName: string }>();
 
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
     IToeLinesData[]
@@ -436,7 +436,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   }
 
   function toggleEdit(): void {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
   }
 
   const onBasicFilterValueChange = (

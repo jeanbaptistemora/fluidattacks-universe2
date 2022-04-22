@@ -75,7 +75,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     "api_resolvers_finding_zero_risk_resolve"
   );
 
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("locationsCustomFilters", false);
@@ -107,10 +107,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
-  const [isHandleAcceptanceModalOpen, setHandleAcceptanceModalOpen] =
+  const [isHandleAcceptanceModalOpen, setIsHandleAcceptanceModalOpen] =
     useState(false);
   function toggleHandleAcceptanceModal(): void {
-    setHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
+    setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
   }
 
   const [remediationModal, setRemediationModal] = useState<IModalConfig>({
@@ -128,17 +128,17 @@ export const VulnsView: React.FC = (): JSX.Element => {
   );
 
   function closeRemediationModal(): void {
-    setOpen(false);
+    setIsOpen(false);
   }
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   function toggleEdit(): void {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
   }
   function handleCloseUpdateModal(): void {
-    setEditing(false);
+    setIsEditing(false);
   }
-  const [isRequestingVerify, setRequestingVerify] = useState(false);
-  const [isVerifying, setVerifying] = useState(false);
+  const [isRequestingVerify, setIsRequestingVerify] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const { data } = useQuery<IGetFindingAndGroupInfo>(
     GET_FINDING_AND_GROUP_INFO,
@@ -343,11 +343,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
   function toggleModal(): void {
-    setOpen(true);
+    setIsOpen(true);
   }
   function toggleRequestVerify(): void {
     if (isRequestingVerify) {
-      setRequestingVerify(!isRequestingVerify);
+      setIsRequestingVerify(!isRequestingVerify);
     } else {
       const { selectedVulnerabilities } = remediationModal;
       const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
@@ -356,20 +356,20 @@ export const VulnsView: React.FC = (): JSX.Element => {
         getNonSelectableVulnerabilitiesOnReattackIds
       );
       if (selectedVulnerabilities.length > newVulnerabilities.length) {
-        setRequestingVerify(!isRequestingVerify);
+        setIsRequestingVerify(!isRequestingVerify);
         msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
       } else if (selectedVulnerabilities.length > 0) {
-        setOpen(true);
-        setRequestingVerify(!isRequestingVerify);
+        setIsOpen(true);
+        setIsRequestingVerify(!isRequestingVerify);
       } else {
-        setRequestingVerify(!isRequestingVerify);
+        setIsRequestingVerify(!isRequestingVerify);
       }
     }
   }
 
   function toggleVerify(): void {
     if (isVerifying) {
-      setVerifying(!isVerifying);
+      setIsVerifying(!isVerifying);
     } else {
       const { selectedVulnerabilities } = remediationModal;
       const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
@@ -378,13 +378,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
         getNonSelectableVulnerabilitiesOnVerifyIds
       );
       if (selectedVulnerabilities.length > newVulnerabilities.length) {
-        setVerifying(!isVerifying);
+        setIsVerifying(!isVerifying);
         msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
       } else if (selectedVulnerabilities.length > 0) {
-        setOpen(true);
-        setVerifying(!isVerifying);
+        setIsOpen(true);
+        setIsVerifying(!isVerifying);
       } else {
-        setVerifying(!isVerifying);
+        setIsVerifying(!isVerifying);
       }
     }
   }

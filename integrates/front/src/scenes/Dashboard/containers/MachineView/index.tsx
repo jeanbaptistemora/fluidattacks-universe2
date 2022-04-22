@@ -51,20 +51,20 @@ const MachineView: React.FC = (): JSX.Element => {
     stoppedAt: "",
     vulnerabilities: null,
   };
-  const [currentRow, updateRow] = useState(defaultCurrentRow);
-  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
+  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
+  const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
 
   const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
-    setExecutionDetailsModalOpen(false);
+    setIsExecutionDetailsModalOpen(false);
   }, []);
 
   const openSeeExecutionDetailsModal: (
     event: Record<string, unknown>,
     row: IExecution
   ) => void = (_0: Record<string, unknown>, row: IExecution): void => {
-    updateRow(row);
-    setExecutionDetailsModalOpen(true);
+    setCurrentRow(row);
+    setIsExecutionDetailsModalOpen(true);
   };
 
   // GraphQL operations
@@ -129,12 +129,12 @@ const MachineView: React.FC = (): JSX.Element => {
     }
   );
 
-  const [isQueueModalOpen, setQueueModalOpen] = useState(false);
+  const [isQueueModalOpen, setIsQueueModalOpen] = useState(false);
   const closeQueueModal: () => void = useCallback((): void => {
-    setQueueModalOpen(false);
+    setIsQueueModalOpen(false);
   }, []);
   function openQueueModal(): void {
-    setQueueModalOpen(true);
+    setIsQueueModalOpen(true);
   }
 
   const isLoading: boolean =

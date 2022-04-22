@@ -44,7 +44,7 @@ const SeverityView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const formValues = (values: Dictionary<string>): Dictionary<string> => {
     return (({
@@ -73,7 +73,7 @@ const SeverityView: React.FC = (): JSX.Element => {
   });
 
   const handleEditClick: () => void = useCallback((): void => {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
     if (!_.isUndefined(data)) {
       const severityScore: string = Number(
         calcCVSSv3(data.finding.severity)
@@ -131,7 +131,7 @@ const SeverityView: React.FC = (): JSX.Element => {
     useCallback(
       (values: Record<string, unknown>): void => {
         const stringValues = mapSeveritytoStringValues(values);
-        setEditing(false);
+        setIsEditing(false);
         void updateSeverity({
           variables: { findingId, ...stringValues },
         });
@@ -235,7 +235,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                           field.options[field.currentValue];
 
                         return (
-                          <Row key={index.toString()}>
+                          <Row key={field.name}>
                             <EditableField
                               alignField={"horizontal"}
                               component={FormikDropdown}

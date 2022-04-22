@@ -363,16 +363,16 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   ];
 
   // Edit group subscription
-  const [currentRow, updateRow] = useState(defaultCurrentRow);
-  const [isUpdatingSubscription, setUpdatingSubscription] = useState<
+  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
+  const [isUpdatingSubscription, setIsUpdatingSubscription] = useState<
     false | { mode: "UPDATE" }
   >(false);
   const openModal = (_0: Record<string, unknown>, row: IGroupAttr): void => {
-    updateRow(row);
-    setUpdatingSubscription({ mode: "UPDATE" });
+    setCurrentRow(row);
+    setIsUpdatingSubscription({ mode: "UPDATE" });
   };
   const closeModal = useCallback((): void => {
-    setUpdatingSubscription(false);
+    setIsUpdatingSubscription(false);
   }, []);
   const [updateSubscription] = useMutation(UPDATE_SUBSCRIPTION, {
     onCompleted: (): void => {
