@@ -19640,6 +19640,23 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Ins
   28 | }
      ^ Col 0
 ",terraform.tfm_aws_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,10,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,"
+   1 |
+   2 |
+   3 |
+   4 |
+   5 | eService
+   6 |
+   7 |
+   8 | ervice()
+   9 |
+> 10 | ntManager.SecurityProtocol = SecurityProtocolType.Tls;
+  11 |
+  12 |
+  13 |
+  14 |
+     ^ Col 22
+",analyze_headers.c_sharp_weak_protocol
 F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in namespace/skims/test/data/lib_path/f034/Test.java","
    1 |
