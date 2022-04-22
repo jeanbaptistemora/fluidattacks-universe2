@@ -33,7 +33,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
   }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   // GraphQL operations
   const { data: groupData } = useQuery<ILanguageData>(GET_LANGUAGE, {
@@ -99,7 +99,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
 
   const handleDescriptionSubmit = useCallback(
     async (values: IFinding): Promise<void> => {
-      setEditing(false);
+      setIsEditing(false);
       await updateDescription({
         variables: {
           ...values,
@@ -130,7 +130,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
           groupLanguage={groupData?.group.language}
           isDraft={isDraft}
           isEditing={isEditing}
-          setEditing={setEditing}
+          setEditing={setIsEditing}
         />
       </Formik>
     </React.StrictMode>

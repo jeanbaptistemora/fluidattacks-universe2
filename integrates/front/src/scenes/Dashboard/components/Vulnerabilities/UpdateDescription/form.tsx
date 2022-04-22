@@ -112,9 +112,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const canDeleteVulnsTags: boolean = permissions.can(
     "api_mutations_remove_vulnerability_tags_mutate"
   );
-  const [isRunning, setRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
-  const [vulnerabilitiesList] = useState(vulnerabilities);
 
   const {
     dirty,
@@ -165,7 +164,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
-            findingId: vulnerabilitiesList[0].findingId,
+            findingId: vulnerabilities[0].findingId,
           },
         },
         { query: GET_ME_VULNERABILITIES_ASSIGNED },
@@ -226,7 +225,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         query: GET_FINDING_VULNS,
         variables: {
           canRetrieveZeroRisk,
-          findingId: vulnerabilitiesList[0].findingId,
+          findingId: vulnerabilities[0].findingId,
         },
       },
       { query: GET_ME_VULNERABILITIES_ASSIGNED },
@@ -243,7 +242,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     } else {
       dataTreatmentTrackHelper(dataTreatment);
       try {
-        setRunning(true);
+        setIsRunning(true);
         const results = await getAllResults(
           updateVuln,
           vulnerabilities,
@@ -283,7 +282,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       } catch (updateError: unknown) {
         handleUpdateVulnTreatmentError(updateError);
       } finally {
-        setRunning(false);
+        setIsRunning(false);
       }
     }
   };
@@ -293,7 +292,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   async function handleDeletion(tag: string): Promise<void> {
     await deleteTagVuln({
       variables: {
-        findingId: vulnerabilitiesList[0].findingId,
+        findingId: vulnerabilities[0].findingId,
         tag,
         vulnerabilities: vulnerabilities.map(
           (vuln: IVulnDataTypeAttr): string => vuln.id
@@ -321,21 +320,21 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId: vulnerabilitiesList[0].findingId,
+            findingId: vulnerabilities[0].findingId,
           },
         },
         {
           query: GET_FINDING_VULNS,
           variables: {
             canRetrieveZeroRisk,
-            findingId: vulnerabilitiesList[0].findingId,
+            findingId: vulnerabilities[0].findingId,
           },
         },
         {
           query: GET_FINDING_HEADER,
           variables: {
             canGetHistoricState,
-            findingId: vulnerabilitiesList[0].findingId,
+            findingId: vulnerabilities[0].findingId,
           },
         },
         { query: GET_ME_VULNERABILITIES_ASSIGNED },

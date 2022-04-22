@@ -47,9 +47,9 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   // State management
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const handleEditClick: () => void = useCallback((): void => {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
   }, [isEditing]);
 
   const [lightboxIndex, setLightboxIndex] = useState(-1);
@@ -100,7 +100,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
 
   const handleUpdate: (values: Record<string, unknown>) => void = useCallback(
     async (values: Record<string, unknown>): Promise<void> => {
-      setEditing(false);
+      setIsEditing(false);
 
       const updateChanges = getUpdateChanges(eventId, updateEvidence);
 
@@ -118,12 +118,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   }, [isEditing, isRefetching]);
 
   const removeImage = useCallback(async (): Promise<void> => {
-    setEditing(false);
+    setIsEditing(false);
     await removeEvidence({ variables: { eventId, evidenceType: "IMAGE" } });
   }, [eventId, removeEvidence]);
 
   const removeFile = useCallback(async (): Promise<void> => {
-    setEditing(false);
+    setIsEditing(false);
     await removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
   }, [eventId, removeEvidence]);
 

@@ -61,12 +61,12 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const { eventId } = useParams<{ eventId: string }>();
 
   // State management
-  const [isSolvingModalOpen, setSolvingModalOpen] = useState(false);
+  const [isSolvingModalOpen, setIsSolvingModalOpen] = useState(false);
   const openSolvingModal: () => void = useCallback((): void => {
-    setSolvingModalOpen(true);
+    setIsSolvingModalOpen(true);
   }, []);
   const closeSolvingModal: () => void = useCallback((): void => {
-    setSolvingModalOpen(false);
+    setIsSolvingModalOpen(false);
   }, []);
 
   const handleErrors: (error: ApolloError) => void = useCallback(

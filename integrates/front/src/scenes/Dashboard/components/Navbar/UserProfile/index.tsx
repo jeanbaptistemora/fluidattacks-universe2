@@ -54,21 +54,21 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const { t } = useTranslation();
   const { push } = useHistory();
 
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = useCallback((): void => {
-    setDropdownOpen((currentValue): boolean => !currentValue);
+    setIsDropdownOpen((currentValue): boolean => !currentValue);
   }, []);
   const ref = useDetectClickOutside({
     onTriggered: (event): void => {
       // Exclude clicks in portals to prevent modals from closing the dropdown
       if (!clickedPortal(event)) {
-        setDropdownOpen(false);
+        setIsDropdownOpen(false);
       }
     },
   });
 
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
-  const [isTokenModalOpen, setTokenModalOpen] = useState(false);
+  const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
   const openMobileModal = useCallback((): void => {
     setIsMobileModalOpen(true);
   }, []);
@@ -76,10 +76,10 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     setIsMobileModalOpen(false);
   }, []);
   const openTokenModal = useCallback((): void => {
-    setTokenModalOpen(true);
+    setIsTokenModalOpen(true);
   }, []);
   const closeTokenModal = useCallback((): void => {
-    setTokenModalOpen(false);
+    setIsTokenModalOpen(false);
   }, []);
 
   const [addStakeholder, isStakeholderModalOpen, setStakeholderModalOpen] =

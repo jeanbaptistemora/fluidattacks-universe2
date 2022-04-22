@@ -66,8 +66,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   const { t } = useTranslation();
 
   // State management
-  const [vulnerabilitiesList, setVulnerabilities] = useState(vulns);
-  const [isOpen, setOpen] = useState(true);
+  const [vulnerabilitiesList, setVulnerabilitiesList] = useState(vulns);
+  const [isOpen, setIsOpen] = useState(true);
   const closeRemediationModal: () => void = useCallback((): void => {
     handleCloseModal();
   }, [handleCloseModal]);
@@ -162,14 +162,14 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   }
 
   const handleOnChange = useCallback((): void => {
-    setOpen((currentValue: boolean): boolean => {
+    setIsOpen((currentValue: boolean): boolean => {
       const newVulnList: IVulnData[] = vulnerabilitiesList.map(
         (vuln: IVulnData): IVulnData => ({
           ...vuln,
           currentState: currentValue ? "closed" : "open",
         })
       );
-      setVulnerabilities([...newVulnList]);
+      setVulnerabilitiesList([...newVulnList]);
 
       return !currentValue;
     });
@@ -188,7 +188,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
               }
             : vuln
       );
-      setVulnerabilities([...newVulnList]);
+      setVulnerabilitiesList([...newVulnList]);
     };
     const vulnsHeader: IHeaderConfig[] = [
       {
@@ -282,4 +282,5 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   );
 };
 
-export { UpdateVerificationModal, IUpdateVerificationModal, IVulnData };
+export type { IUpdateVerificationModal, IVulnData };
+export { UpdateVerificationModal };

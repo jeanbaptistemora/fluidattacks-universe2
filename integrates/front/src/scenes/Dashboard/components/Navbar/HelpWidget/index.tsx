@@ -56,22 +56,22 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
   const { t } = useTranslation();
   const { userEmail, userName } = useContext(authContext);
 
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = useCallback((): void => {
-    setDropdownOpen((currentValue): boolean => !currentValue);
+    setIsDropdownOpen((currentValue): boolean => !currentValue);
   }, []);
   const ref = useDetectClickOutside({
     onTriggered: (event): void => {
       // Exclude clicks in portals to prevent modals from closing the dropdown
       if (!clickedPortal(event)) {
-        setDropdownOpen(false);
+        setIsDropdownOpen(false);
       }
     },
   });
 
-  const [isUpgradeOpen, setUpgradeOpen] = useState(false);
+  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
   const closeUpgradeModal = useCallback((): void => {
-    setUpgradeOpen(false);
+    setIsUpgradeOpen(false);
   }, []);
 
   const openCalendly = useCallback((): void => {
@@ -96,18 +96,18 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
           url: "https://calendly.com/fluidattacks/talk-to-an-expert",
         });
       } else {
-        setUpgradeOpen(true);
+        setIsUpgradeOpen(true);
       }
     }
   }, [groups, match, userEmail, userName]);
 
-  const [isButtonEnabled, setButtonEnabled] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {
-    setButtonEnabled(true);
+    setIsButtonEnabled(true);
   }, []);
 
   const enableButton: () => void = useCallback((): void => {
-    setButtonEnabled(false);
+    setIsButtonEnabled(false);
   }, []);
 
   const [uploadFile] = useMutation(SIGN_POST_URL_REQUESTER_MUTATION, {
@@ -123,12 +123,12 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
     },
   });
 
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const openAddModal: () => void = useCallback((): void => {
-    setAddModalOpen(true);
+    setIsAddModalOpen(true);
   }, []);
   const closeAddModal: () => void = useCallback((): void => {
-    setAddModalOpen(false);
+    setIsAddModalOpen(false);
   }, []);
 
   async function handleUpload(values: { file: FileList }): Promise<void> {
