@@ -3376,7 +3376,9 @@
       sobre sistemas
       cuya futura integridad puede no ser garantizada
       por el sistema que las creó.
-      Por lot
+      Por lo tanto,
+      el sistema debe descartarlos o
+      inutilizarlos después de 120 minutos.
   category: Credentials
   supported_in:
     machine: false
@@ -3655,8 +3657,8 @@
     title: Eliminar cuentas inactivas periódicamente
     summary: >
       La organización
-      debe purgar las cuentas de usuario
-      periódicamente.
+      debe remover las cuentas de usuario
+      inactivas periódicamente (purging).
     description: __empty__
   category: Credentials
   supported_in:
@@ -3786,7 +3788,7 @@
     title: Eliminar llaves criptográficas de la memoria RAM
     summary: >
       Las llaves criptográficas
-      no deberían permanecer
+      no deben permanecer
       en la memoria RAM por más
       de 5 segundos.
     description: __empty__
@@ -3848,7 +3850,7 @@
       estas funciones deben estar
       basados en mecanismos seguros
       pre-existentes, probados,
-      y aprovados.
+      y aprobados.
   category: Cryptography
   supported_in:
     machine: false
@@ -3988,7 +3990,7 @@
     title: Separar llaves para cifrado y firmas
     summary: >
       El sistema debe utilizar
-      criptografía asimétricas
+      criptografía asimétrica
       con llaves separadas
       para el cifrado y las firmas.
     description: __empty__
@@ -4375,7 +4377,7 @@
       La organización
       debería establecer sus parsers,
       linters, compiladores
-      e intérpretes para ejecutar
+      e intérpretes para ejecutarlos
       en modo estricto.
     description: __empty__
   category: Source
@@ -4478,7 +4480,7 @@
     summary: >
       El código fuente
       debe estar ofuscado
-      en ambiente de producción.
+      en ambientes de producción.
     description: __empty__
   category: Source
   supported_in:
