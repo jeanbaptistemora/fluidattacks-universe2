@@ -1389,6 +1389,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.DAST,
     )
+    CS_WEAK_PROTOCOL = MethodInfo(
+        file_name="analyze_headers",
+        name="c_sharp_weak_protocol",
+        module="lib_root",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_insecure_protocols",
@@ -2451,7 +2459,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F134,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     CS_INSECURE_CORS_ORIGIN = MethodInfo(
         file_name="c_sharp",
