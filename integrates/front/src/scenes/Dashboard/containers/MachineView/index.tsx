@@ -260,7 +260,7 @@ const MachineView: React.FC = (): JSX.Element => {
             exportCsv={false}
             headers={headers}
             id={"tblMachineJobs"}
-            pageSize={1000}
+            pageSize={30}
             rowEvents={{ onClick: openSeeExecutionDetailsModal }}
             search={false}
           />

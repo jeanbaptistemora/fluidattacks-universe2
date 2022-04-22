@@ -35,6 +35,11 @@ class Secret(NamedTuple):
     description: Optional[str] = None
 
 
+class EnvironmentUrl(NamedTuple):
+    url: str
+    id: str
+
+
 class GitRootState(NamedTuple):
     branch: str
     environment: str

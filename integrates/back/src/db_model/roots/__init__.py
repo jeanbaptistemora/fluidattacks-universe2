@@ -1,10 +1,12 @@
 from .add import (
     add,
+    add_environment_url,
     add_machine_execution,
     add_secret,
 )
 from .update import (
     finish_machine_execution,
+    remove_environment_url,
     remove_secret,
     start_machine_execution,
     update_git_root_cloning,
@@ -22,4 +24,6 @@ __all__ = [
     "finish_machine_execution",
     "update_unreliable_indicators",
     "start_machine_execution",
+    "add_environment_url",
+    "remove_environment_url",
 ]

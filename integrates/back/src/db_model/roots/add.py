@@ -9,6 +9,7 @@ from db_model.roots.constants import (
     ORG_INDEX_METADATA,
 )
 from db_model.roots.types import (
+    EnvironmentUrl,
     GitRootItem,
     MachineFindingResult,
     RootItem,
@@ -122,7 +123,7 @@ async def add_secret(
         facet=TABLE.facets["git_root_secret"],
         values={"uuid": root_id, "key": secret.key},
     )
-    machine_exectution = {
+    secret_item = {
         key_structure.partition_key: secret_key.partition_key,
         key_structure.sort_key: secret_key.sort_key,
         "key": secret.key,
@@ -130,9 +131,28 @@ async def add_secret(
         "description": secret.description,
     }
     with suppress(botocore.exceptions.ClientError):
-        await operations.batch_put_item(
-            items=(machine_exectution,), table=TABLE
-        )
+        await operations.batch_put_item(items=(secret_item,), table=TABLE)
+        return True
+
+    return False
+
+
+async def add_environment_url(
+    root_id: str,
+    url: EnvironmentUrl,
+) -> bool:
+    key_structure = TABLE.primary_key
+    url_key = keys.build_key(
+        facet=TABLE.facets["git_root_environment_url"],
+        values={"uuid": root_id, "hash": url.id},
+    )
+    url_item = {
+        key_structure.partition_key: url_key.partition_key,
+        key_structure.sort_key: url_key.sort_key,
+        "url": url.url,
+    }
+    with suppress(botocore.exceptions.ClientError):
+        await operations.batch_put_item(items=(url_item,), table=TABLE)
         return True
 
     return False

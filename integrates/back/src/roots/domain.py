@@ -1,6 +1,9 @@
 # pylint: disable=too-many-lines
 
 import aioboto3
+from aioextensions import (
+    collect,
+)
 import authz
 import base64
 import binascii
@@ -36,6 +39,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.roots.types import (
+    EnvironmentUrl,
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
@@ -50,6 +54,7 @@ from db_model.roots.types import (
     URLRootItem,
     URLRootState,
 )
+import hashlib
 from itertools import (
     groupby,
 )
@@ -487,7 +492,18 @@ async def update_git_environments(
     )
     if not is_valid:
         raise InvalidParameter()
-
+    await collect(
+        [
+            remove_environment_url(root_id, url)
+            for url in root.state.environment_urls
+        ]
+    )
+    await collect(
+        [
+            add_environment_url(loaders, group_name, root_id, url)
+            for url in environment_urls
+        ]
+    )
     await roots_model.update_root_state(
         current_value=root.state,
         group_name=group_name,
@@ -1120,6 +1136,22 @@ async def add_secret(  # pylint: disable=too-many-arguments
     await loaders.root.load((group_name, root_id))
     secret = Secret(key=key, value=value, description=description)
     return await roots_model.add_secret(root_id, secret)
+
+
+async def add_environment_url(
+    loaders: Any, group_name: str, root_id: str, url: str
+) -> bool:
+    await loaders.root.load((group_name, root_id))
+    environment = EnvironmentUrl(
+        id=hashlib.sha1(url.encode()).hexdigest(), url=url  # nosec
+    )
+    return await roots_model.add_environment_url(root_id, url=environment)
+
+
+async def remove_environment_url(root_id: str, url: str) -> None:
+    await roots_model.remove_environment_url(
+        root_id, url_id=hashlib.sha1(url.encode()).hexdigest()  # nosec
+    )
 
 
 async def remove_secret(root_id: str, secret_key: str) -> None:
