@@ -86,9 +86,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     IVulnRowAttr[]
   >([]);
   const [vulnerabilityId, setVulnerabilityId] = useState("");
-  const [isDeleteVulnOpen, setDeleteVulnOpen] = useState(false);
-  const [isAdditionalInfoOpen, setAdditionalInfoOpen] = useState(false);
-  const [currentRow, updateRow] = useState<IVulnRowAttr>();
+  const [isDeleteVulnOpen, setIsDeleteVulnOpen] = useState(false);
+  const [isAdditionalInfoOpen, setIsAdditionalInfoOpen] = useState(false);
+  const [currentRow, setCurrentRow] = useState<IVulnRowAttr>();
   const previousIsEditing = usePreviousProps(isEditing);
   const previousIsRequestingReattack = usePreviousProps(isRequestingReattack);
   const previousIsVerifyingRequest = usePreviousProps(isVerifyingRequest);
@@ -100,19 +100,19 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     if (changePermissions !== undefined) {
       changePermissions(vulnerability.groupName);
     }
-    updateRow(vulnerability);
+    setCurrentRow(vulnerability);
     mixpanel.track("ViewVulnerability", { groupName: vulnerability.groupName });
-    setAdditionalInfoOpen(true);
+    setIsAdditionalInfoOpen(true);
   }
   const closeAdditionalInfoModal: () => void = useCallback((): void => {
-    setAdditionalInfoOpen(false);
+    setIsAdditionalInfoOpen(false);
   }, []);
   const handleCloseDeleteModal: () => void = useCallback((): void => {
-    setDeleteVulnOpen(false);
+    setIsDeleteVulnOpen(false);
   }, []);
   function onDeleteVulnResult(removeVulnResult: IRemoveVulnAttr): void {
     onRemoveVulnResultHelper(removeVulnResult, t);
-    setDeleteVulnOpen(false);
+    setIsDeleteVulnOpen(false);
   }
   function handleDeleteVulnerability(
     vulnInfo: Record<string, string> | undefined
@@ -120,8 +120,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     handleDeleteVulnerabilityHelper(
       vulnInfo,
       setVulnerabilityId,
-      setDeleteVulnOpen,
-      updateRow,
+      setIsDeleteVulnOpen,
+      setCurrentRow,
       vulnerabilities
     );
   }

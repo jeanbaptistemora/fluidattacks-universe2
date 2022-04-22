@@ -75,12 +75,12 @@ const FindingContent: React.FC = (): JSX.Element => {
   useTabTracking("Finding");
 
   // State management
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
-    setDeleteModalOpen(true);
+    setIsDeleteModalOpen(true);
   }, []);
   const closeDeleteModal: () => void = useCallback((): void => {
-    setDeleteModalOpen(false);
+    setIsDeleteModalOpen(false);
   }, []);
 
   // GraphQL operations

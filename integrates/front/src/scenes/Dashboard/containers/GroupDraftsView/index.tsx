@@ -67,15 +67,15 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     push(`${url}/${rowInfo.id}/locations`);
   };
 
-  const [isDraftModalOpen, setDraftModalOpen] = useState(false);
+  const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const openNewDraftModal: () => void = useCallback((): void => {
-    setDraftModalOpen(true);
+    setIsDraftModalOpen(true);
   }, []);
 
   const closeNewDraftModal: () => void = useCallback((): void => {
-    setDraftModalOpen(false);
+    setIsDraftModalOpen(false);
   }, []);
 
   const onSortState: (dataField: string, order: SortOrder) => void = (

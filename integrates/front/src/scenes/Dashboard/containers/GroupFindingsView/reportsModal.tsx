@@ -44,14 +44,14 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
 
-  const [isFilterReportModalOpen, setFilterReportModalOpen] = useState(false);
+  const [isFilterReportModalOpen, setIsFilterReportModalOpen] = useState(false);
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
 
   const openFilterReportModal: () => void = useCallback((): void => {
-    setFilterReportModalOpen(true);
+    setIsFilterReportModalOpen(true);
   }, []);
   const closeFilterReportsModal: () => void = useCallback((): void => {
-    setFilterReportModalOpen(false);
+    setIsFilterReportModalOpen(false);
   }, []);
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {

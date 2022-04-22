@@ -70,8 +70,8 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     },
   };
 
-  const [currentRow, updateRow] = useState(defaultCurrentRow);
-  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
+  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
+  const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
@@ -162,12 +162,12 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     event: Record<string, unknown>,
     row: IExecution
   ) => void = (_0: Record<string, unknown>, row: IExecution): void => {
-    updateRow(row);
-    setExecutionDetailsModalOpen(true);
+    setCurrentRow(row);
+    setIsExecutionDetailsModalOpen(true);
   };
 
   const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
-    setExecutionDetailsModalOpen(false);
+    setIsExecutionDetailsModalOpen(false);
   }, []);
 
   const handleQryErrors: (error: ApolloError) => void = ({

@@ -88,12 +88,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   // State management
-  const [isReportsModalOpen, setReportsModalOpen] = useState(false);
+  const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
   const openReportsModal: () => void = useCallback((): void => {
-    setReportsModalOpen(true);
+    setIsReportsModalOpen(true);
   }, []);
   const closeReportsModal: () => void = useCallback((): void => {
-    setReportsModalOpen(false);
+    setIsReportsModalOpen(false);
   }, []);
 
   const [checkedItems, setCheckedItems] = useStoredState<
@@ -116,7 +116,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("findingsCustomFilters", false);
-  const [isRunning, setRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
@@ -143,12 +143,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     { currentStatus: "open" },
     localStorage
   );
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const openDeleteModal: () => void = useCallback((): void => {
-    setDeleteModalOpen(true);
+    setIsDeleteModalOpen(true);
   }, []);
   const closeDeleteModal: () => void = useCallback((): void => {
-    setDeleteModalOpen(false);
+    setIsDeleteModalOpen(false);
   }, []);
 
   const handleChange: (columnName: string) => void = useCallback(
@@ -580,7 +580,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       } catch (updateError: unknown) {
         handleRemoveFindingsError(updateError);
       } finally {
-        setRunning(false);
+        setIsRunning(false);
       }
     }
   };

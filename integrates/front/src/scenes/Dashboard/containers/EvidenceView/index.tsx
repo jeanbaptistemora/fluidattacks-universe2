@@ -56,9 +56,9 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   // State management
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const handleEditClick: () => void = useCallback((): void => {
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
   }, [isEditing]);
 
   const [lightboxIndex, setLightboxIndex] = useState(-1);
@@ -134,7 +134,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const handleUpdate: (values: Dictionary<IEvidenceItem>) => void = async (
     values: Dictionary<IEvidenceItem>
   ): Promise<void> => {
-    setEditing(false);
+    setIsEditing(false);
 
     const updateChanges: (
       evidence: IEvidenceItem & { file?: FileList },
@@ -220,7 +220,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                       const evidence: IEvidenceItem = evidenceImages[name];
                       const handleRemove = async (): Promise<void> => {
                         mixpanel.track("RemoveEvidence");
-                        setEditing(false);
+                        setIsEditing(false);
                         await removeEvidence({
                           variables: {
                             evidenceId: name.toUpperCase(),
@@ -283,4 +283,5 @@ const EvidenceView: React.FC = (): JSX.Element => {
   );
 };
 
-export { EvidenceView, IEvidenceItem };
+export type { IEvidenceItem };
+export { EvidenceView };

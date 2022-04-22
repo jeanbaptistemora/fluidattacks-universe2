@@ -272,21 +272,21 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   // State Management
   const [selectedReattacks, setSelectedReattacks] = useState({});
 
-  const [isEventModalOpen, setEventModalOpen] = useState(false);
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const openNewEventModal: () => void = useCallback((): void => {
-    setEventModalOpen(true);
+    setIsEventModalOpen(true);
   }, []);
   const closeNewEventModal: () => void = useCallback((): void => {
-    setEventModalOpen(false);
+    setIsEventModalOpen(false);
   }, []);
 
-  const [isUpdateAffectedModalOpen, setUpdateAffectedModalOpen] =
+  const [isUpdateAffectedModalOpen, setIsUpdateAffectedModalOpen] =
     useState(false);
   const openUpdateAffectedModal: () => void = useCallback((): void => {
-    setUpdateAffectedModalOpen(true);
+    setIsUpdateAffectedModalOpen(true);
   }, []);
   const closeUpdateAffectedModal: () => void = useCallback((): void => {
-    setUpdateAffectedModalOpen(false);
+    setIsUpdateAffectedModalOpen(false);
   }, []);
 
   const { data, refetch } = useQuery(GET_EVENTS, {
@@ -736,4 +736,5 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { GroupEventsView, IEventsDataset };
+export type { IEventsDataset };
+export { GroupEventsView };
