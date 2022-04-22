@@ -139,7 +139,7 @@ async def get_email_from_url_token(
     url_token: str,
 ) -> str:
     try:
-        token_content = decode_jwt(url_token, always_check_ciphertext=True)
+        token_content = decode_jwt(url_token)
         user_email: str = token_content["user_email"]
         if await get_access_by_url_token(url_token, attr="confirm_deletion"):
             return user_email

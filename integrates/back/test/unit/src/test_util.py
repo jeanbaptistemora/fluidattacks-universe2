@@ -17,6 +17,7 @@ from datetime import (
     timedelta,
 )
 from jwcrypto.jwe import (
+    InvalidJWEData,
     JWException,
 )
 from newutils import (
@@ -112,7 +113,6 @@ async def test_payload_encrypt_decrypt_always_check() -> None:
 
     result = token_utils._decrypt_jwt_payload(
         token_utils._encrypt_jwt_payload(payload),
-        always_check_ciphertext=True,
     )
     assert payload == result
 
@@ -124,7 +124,7 @@ async def test_payload_encrypt_decrypt_always_check() -> None:
         "jti": token_utils.calculate_hash_token()["jti"],
     }
     with pytest.raises(JWException):
-        token_utils._decrypt_jwt_payload(payload, always_check_ciphertext=True)
+        token_utils._decrypt_jwt_payload(payload)
 
 
 async def test_decrypt_temp_support_for_nonencrypted() -> None:
@@ -135,8 +135,8 @@ async def test_decrypt_temp_support_for_nonencrypted() -> None:
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
-    result = token_utils._decrypt_jwt_payload(payload)
-    assert payload == result
+    with pytest.raises(InvalidJWEData):
+        token_utils._decrypt_jwt_payload(payload)
 
 
 async def test_get_jwt_content() -> None:

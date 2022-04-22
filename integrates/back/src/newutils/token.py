@@ -94,14 +94,8 @@ def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     return encodings.jwt_payload_decode(claims)
 
 
-def _decrypt_jwt_payload(
-    payload: Dict[str, Any], always_check_ciphertext: bool = False
-) -> Dict[str, Any]:
+def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     """Returns the decrypted payload of a JWE"""
-    if "ciphertext" not in payload and not always_check_ciphertext:
-        LOGGER.warning("Unencrypted payload", extra=dict(extra={}))
-        return payload
-
     serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     result = JWE()
@@ -131,15 +125,11 @@ def calculate_hash_token() -> Dict[str, str]:
     }
 
 
-def decode_jwt(
-    jwt_token: str, api: bool = False, always_check_ciphertext: bool = False
-) -> Dict[str, Any]:
+def decode_jwt(jwt_token: str, api: bool = False) -> Dict[str, Any]:
     """Decodes a jwt token and returns its decrypted payload"""
     secret = JWT_SECRET_API if api else JWT_SECRET
     content = jwt.decode(token=jwt_token, key=secret, algorithms=["HS512"])
-    return _decrypt_jwt_payload(
-        content, always_check_ciphertext=always_check_ciphertext
-    )
+    return _decrypt_jwt_payload(content)
 
 
 async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
