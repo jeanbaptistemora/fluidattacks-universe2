@@ -23,8 +23,6 @@ makeTemplate {
       inputs.nixpkgs.gcc.cc.lib
     ];
     bin = [
-      # The binary to compute lines of code
-      inputs.nixpkgs.cloc
       # The binary for pypi://GitPython
       inputs.nixpkgs.git
       # The binary for ssh
