@@ -18,6 +18,7 @@ from lib_path.f031.terraform import (
     terraform_open_passrole,
     terraform_permissive_policy,
     tfm_bucket_policy_allows_public_access,
+    tfm_iam_user_missing_role_based_security,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -143,8 +144,17 @@ def run_terraform_admin_policy_attached(
 def run_tfm_bucket_policy_allows_public_access(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
-    # cfn_nag W43 IAM role should not have AdministratorAccess policy
     return tfm_bucket_policy_allows_public_access(
+        content=content, path=path, model=model
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_tfm_iam_user_missing_role_based_security(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_iam_user_missing_role_based_security(
         content=content, path=path, model=model
     )
 
@@ -235,6 +245,7 @@ def analyze(
                 for fun in (
                     run_terraform_admin_policy_attached,
                     run_tfm_bucket_policy_allows_public_access,
+                    run_tfm_iam_user_missing_role_based_security,
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,
                     run_terraform_permissive_policy,

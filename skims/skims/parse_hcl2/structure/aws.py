@@ -13,6 +13,7 @@ from aws.model import (
     AWSEfsFileSystem,
     AWSElb,
     AWSFsxWindowsFileSystem,
+    AWSIamManagedPolicy,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSInstance,
@@ -141,6 +142,16 @@ def _yield_statements_from_policy_document_attribute(
                 data=stmt,
                 line=data.line,
             )
+
+
+def iter_iam_user_policy(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_iam_user_policy")
+    for resource in iterator:
+        yield AWSIamManagedPolicy(
+            data=resource.body,
+            column=resource.column,
+            line=resource.line,
+        )
 
 
 def iterate_managed_policy_arns(

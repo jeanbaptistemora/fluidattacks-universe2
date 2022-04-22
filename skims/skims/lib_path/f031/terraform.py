@@ -13,13 +13,26 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
+from parse_hcl2.common import (
+    get_attribute,
+)
 from parse_hcl2.structure.aws import (
+    iter_iam_user_policy,
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
 )
 from typing import (
     Any,
+    Iterator,
 )
+
+
+def _tfm_iam_user_missing_role_based_security_iterate_vulnerabilities(
+    resource_iterator: Iterator[Any],
+) -> Iterator[Any]:
+    for resource in resource_iterator:
+        if attr := get_attribute(resource.data, "name"):
+            yield attr
 
 
 def terraform_admin_policy_attached(
@@ -55,6 +68,24 @@ def tfm_bucket_policy_allows_public_access(
         ),
         path=path,
         method=MethodsEnum.TFM_BUCKET_ALLOWS_PUBLIC,
+    )
+
+
+def tfm_iam_user_missing_role_based_security(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f031.iam_user_missing_role_based_security"
+        ),
+        iterator=get_cloud_iterator(
+            _tfm_iam_user_missing_role_based_security_iterate_vulnerabilities(
+                resource_iterator=(iter_iam_user_policy(model=model))
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_IAM_MISSING_SECURITY,
     )
 
 

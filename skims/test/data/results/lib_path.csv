@@ -12392,6 +12392,30 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   58 |                     {
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_user_missing_role_based_security.tf,15,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_user_missing_role_based_security.tf,"
+   5 |   tags = {
+   6 |     tag-key = ""tag-value""
+   7 |   }
+   8 | }
+   9 |
+  10 | resource ""aws_iam_access_key"" ""lb"" {
+  11 |   user = aws_iam_user.lb.name
+  12 | }
+  13 |
+  14 | resource ""aws_iam_user_policy"" ""lb_ro"" {
+> 15 |   name = ""test""
+  16 |   user = aws_iam_user.lb.name
+  17 |
+  18 |   policy = <<EOF
+  19 |   {
+  20 |     ""Version"": ""2012-10-17"",
+  21 |     ""Statement"": [
+  22 |       {
+  23 |         ""Action"": [
+  24 |           ""ec2:Describe*""
+  25 |         ],
+     ^ Col 0
+",terraform.tfm_iam_user_missing_role_based_security
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,19,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    9 |               - Action:
