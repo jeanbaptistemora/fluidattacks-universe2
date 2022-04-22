@@ -106,16 +106,17 @@ LOGGING = {
             "formatter": "level_message_extra",
         },
         "watchtower": {
-            "boto3_session": BOTO3_SESSION,
+            "boto3_client": BOTO3_SESSION.client("logs"),
             "class": "watchtower.CloudWatchLogHandler",
-            "level": LOG_LEVEL_WATCHTOWER or "INFO",
-            "log_group": "FLUID",
-            "filters": ["require_debug_false"],
-            "stream_name": "FLUIDIntegrates",
             # Since LogGroup already exists, it was causing a
             # ThrottlingException error that resulted in 'unable to configure
             # watchtower'
             "create_log_group": False,
+            "create_log_stream": False,
+            "filters": ["require_debug_false"],
+            "level": LOG_LEVEL_WATCHTOWER or "INFO",
+            "log_group_name": "FLUID",
+            "log_stream_name": "FLUIDIntegrates",
         },
     },
     "loggers": {

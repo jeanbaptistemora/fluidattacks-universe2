@@ -65,5 +65,5 @@ uvicorn:
   version: 0.17.4
   extras:
     - standard
-watchtower: 0.7.3
+watchtower: 3.0.0
 zenpy: 2.0.24

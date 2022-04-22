@@ -71,7 +71,7 @@ closure:
   packaging: "21.3"
   pandas: 1.3.4
   pillow: 9.1.0
-  protobuf: 3.20.0
+  protobuf: 3.20.1
   psycopg2: 2.9.3
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
@@ -117,7 +117,7 @@ closure:
   uvicorn: 0.17.4
   uvloop: 0.16.0
   watchgod: 0.8.2
-  watchtower: 0.7.3
+  watchtower: 3.0.0
   webencodings: 0.5.1
   websockets: "10.3"
   wrapt: 1.14.0
@@ -820,21 +820,15 @@ links:
   - name: Pillow-9.1.0.tar.gz
     sha256: 15zvfl6yji2s4g8zfy6ksc4ijv2g3bdn7k0c2pg1lphmpcmys0gl
     url: https://files.pythonhosted.org/packages/4b/83/090146d7871d90a2643d469c319c1d014e41b315ab5cf0f8b4b6a764ef31/Pillow-9.1.0.tar.gz
-  - name: protobuf-3.20.0-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1yr13vhnjvw4vv1bbd3ljfz32cqzs270rhn1iwxhdw0h4cfch90x
-    url: https://files.pythonhosted.org/packages/78/6f/2b5478f2da9e94e9ac2a455cb8035e04708e3c3fcf2b7925589715a9bf49/protobuf-3.20.0-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: protobuf-3.20.0-cp39-cp39-manylinux2014_aarch64.whl
-    sha256: 0cvxbgi0sa8r0f2c0q70b4yl9w6r8q8dvnychmg9kzk6mf8kmr4b
-    url: https://files.pythonhosted.org/packages/41/2a/030f4aeef8574fb6e04a3d5aeeec948f9dfafbb553121a44dbc4688cf5ed/protobuf-3.20.0-cp39-cp39-manylinux2014_aarch64.whl
-  - name: protobuf-3.20.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-    sha256: 0qw28cqjlvrnav863ilk3q9lyaadfm16dx4pngxxpf97ah1x8lvs
-    url: https://files.pythonhosted.org/packages/7f/d9/6b9e97c6498a29c5e99badce383a8711c4f0ff586a464851b3f8b06cc66d/protobuf-3.20.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-  - name: protobuf-3.20.0-py2.py3-none-any.whl
-    sha256: 10xrip7bqa2cqmf010l3fbcrrxbnr4laa7kbbqw7jj1aksyninjf
-    url: https://files.pythonhosted.org/packages/ae/80/9eaa62a2afcc5407a6b7d2652c208f073df3a5c83b5bff90bf99553fbcf2/protobuf-3.20.0-py2.py3-none-any.whl
-  - name: protobuf-3.20.0.tar.gz
-    sha256: 00i7fmg6yv1nvipz5zsf8izsvcjq68a38s0rr33ixv96rp8w7cki
-    url: https://files.pythonhosted.org/packages/6d/3e/40c56d21154a1f3ababb69f675333d7fb70c8293f9ca42ea3e448327fc50/protobuf-3.20.0.tar.gz
+  - name: protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1drzm60fzak3xjfg63wj2w7rg80lv4w1cnx8v0jkdlm328an0l3g
+    url: https://files.pythonhosted.org/packages/0b/db/2b07ad1542511b0b2b2c1796c316c5063f9724b86240f5e6accc1fde5e5f/protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
+    sha256: 13xpqsb6wf326hjjnx61cjaqzfrn78jfnmp9sx17b2bw42k8ckr8
+    url: https://files.pythonhosted.org/packages/9f/b0/bf25cdbab8841d9111f0f13578150d232339a6483383589648592fe84f4b/protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
+  - name: protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 1yc2i58c1p8ajcx2h0jsi803fmjp28zb52xac40x94h9dlgr80vl
+    url: https://files.pythonhosted.org/packages/98/d9/63b47f719d3cc0f29b36e870ad1d9447b8eef398c2a7b548e67298d9f652/protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
   - name: psycopg2-2.9.3.tar.gz
     sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
     url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
@@ -1102,12 +1096,12 @@ links:
   - name: watchgod-0.8.2.tar.gz
     sha256: 0l4lgplm2viybwsnydx1plpz4xpvslibdqr8v2abmvvvcmkgy4fb
     url: https://files.pythonhosted.org/packages/e8/6e/3904af0715e03fc5b2636cb8cf8b0eabc45b1f2cf6e4cf8453ddb6d23042/watchgod-0.8.2.tar.gz
-  - name: watchtower-0.7.3-py2.py3-none-any.whl
-    sha256: 1lpqci9yjldihkn572l4di54sc43lh358c7wpf25r0lr14syivl2
-    url: https://files.pythonhosted.org/packages/e1/ad/a891df8edb54720c981b1f696611292ce24c8e02a20898f32efcb9d1f5ff/watchtower-0.7.3-py2.py3-none-any.whl
-  - name: watchtower-0.7.3.tar.gz
-    sha256: 09lqbzjq1fdnrhc48r3pwl7m30xk1z3gx6x8h297341lcf028pki
-    url: https://files.pythonhosted.org/packages/9f/8e/b7f0bf9288c15ac113a203e2f01c17ff33f84f1bb1773111deb9655381a0/watchtower-0.7.3.tar.gz
+  - name: watchtower-3.0.0-py3-none-any.whl
+    sha256: 0k5zmkn6y725jvgw8pn117qfrasvms7sdsaca38alsvk9qd42lbz
+    url: https://files.pythonhosted.org/packages/ad/bc/fd5d97ba3b65060f3526549b99c106ef0442a7c196fe3c71cd9cd9e54c0f/watchtower-3.0.0-py3-none-any.whl
+  - name: watchtower-3.0.0.tar.gz
+    sha256: 0a1wlpqdrw6gdjsnagcghxsr3vylv9829cb5fpfz28mgnkpq6qn6
+    url: https://files.pythonhosted.org/packages/0e/0f/19227a14da782c597aca3ef10bf6bb7b0af7a60ea97c87a60484cf8b7169/watchtower-3.0.0.tar.gz
   - name: webencodings-0.5.1-py2.py3-none-any.whl
     sha256: 0y2aa53jkkcszhbbx59z817ywjvy3ah3lavym6bn88n2yc9i5bx0
     url: https://files.pythonhosted.org/packages/f4/24/2a3e3df732393fed8b3ebf2ec078f05546de641fe1b667ee316ec1dcf3b7/webencodings-0.5.1-py2.py3-none-any.whl
