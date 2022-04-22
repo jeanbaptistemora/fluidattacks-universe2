@@ -13,14 +13,15 @@ that shows your face clearly.
 We will include this picture at the end of the blog post,
 along with your name.
 
-You must send the text in *.adoc* and *.pdf*,
+You must send the text in *.md* and *.pdf*,
 your picture
 and the [images](/development/writing/blog/main#images)
 for the blog post
-to fruiz@fluidattacks.com.
-Our editor will review these files
+to fruiz@fluidattacks.com
+and jchavarria@fluidattacks.com\.
+Our editors will review these files
 to determine and let you know
-whether or not we will publish your writing on our website.
+whether or not we will publish your submission on our website.
 
 ## Terms and conditions
 
@@ -39,5 +40,6 @@ whether or not we will publish your writing on our website.
   to make changes to that draft, if necessary,
   without the author's consent or notification.
 
-* We do not pay for articles accepted for publication
+* We do not offer monetary compensation/benefits
+  for articles accepted for publication
   on [our blog](https://fluidattacks.com/blog/).
