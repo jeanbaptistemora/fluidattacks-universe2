@@ -5,14 +5,18 @@ sidebar_label: Submissions
 slug: /development/writing/blog/submissions
 ---
 
+You are welcome to post on our blog.
 If you are not part of the `Fluid Attacks` team,
 *do not* forget to send with your piece of writing
-an image that represents you (preferably, a picture of yourself).
-We will include this image at the end of the blog post,
+a picture of yourself
+that shows your face clearly.
+We will include this picture at the end of the blog post,
 along with your name.
 
-You must send the text in *.adoc* and *.pdf*
-and the images for the blog post
+You must send the text in *.adoc* and *.pdf*,
+your picture
+and the [images](/development/writing/blog/main#images)
+for the blog post
 to fruiz@fluidattacks.com.
 Our editor will review these files
 to determine and let you know
