@@ -16,6 +16,9 @@ from db_model.enums import (
     Notification,
     StateRemovalJustification,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.users.types import (
     User,
 )
@@ -48,6 +51,8 @@ async def send_mail_comment(
     is_finding_released: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
+    group: Group = await loaders.group_typed.load(group_name)
+    has_machine: bool = group.state.has_machine
     type_ = str(comment_data["comment_type"])
     email_context: MailContentType = {
         "comment": str(comment_data["content"]).splitlines(),
@@ -61,6 +66,7 @@ async def send_mail_comment(
         "finding_name": finding_title,
         "parent": str(comment_data["parent"]),
         "group": group_name,
+        "has_machine": has_machine,
         "user_email": user_mail,
     }
 

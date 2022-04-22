@@ -22,7 +22,7 @@
     <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
-    {{ go_to_button('Go to comment', comment_url) }}
+    {% if not has_machine %} {{ go_to_button('Go to comment', comment_url) }} {% endif %}
     <br />
   </div>
 
