@@ -23,6 +23,33 @@ const allowedDocumentNames: string[] = [
 ];
 const allowedDocumentTypes: string[] = ["barChart", "stackedBarChart"];
 const mergedDocuments: Record<string, IMergedCharts> = {
+  assignedVulnerabilitiesCvssf: {
+    alt: [
+      {
+        documentName: "assignedVulnerabilities",
+        label: "Vulns",
+        title: translate.t(
+          "analytics.stackedBarChart.assignedVulnerabilities.altTitle"
+        ),
+        tooltip: translate.t(
+          "analytics.stackedBarChart.assignedVulnerabilities.tooltip.vulnerabilities"
+        ),
+        url: "",
+      },
+    ],
+    default: {
+      documentName: "assignedVulnerabilitiesCvssf",
+      label: "Severity",
+      title: translate.t(
+        "analytics.stackedBarChart.assignedVulnerabilities.title"
+      ),
+      tooltip: translate.t(
+        "analytics.stackedBarChart.assignedVulnerabilities.tooltip.cvssf"
+      ),
+      url: "",
+    },
+    documentType: "stackedBarChart",
+  },
   distributionOverTimeCvssf: {
     alt: [
       {

@@ -137,6 +137,14 @@ export const enTranslations: ResourceKey = {
       },
     },
     stackedBarChart: {
+      assignedVulnerabilities: {
+        altTitle: "Vulnerabilities by assignment",
+        title: "Severity by assignment",
+        tooltip: {
+          cvssf: "Severity",
+          vulnerabilities: "Vulnerabilities",
+        },
+      },
       cvssfBenchmarking: {
         title: "Remediation Rate Benchmarking",
       },
@@ -2917,7 +2925,6 @@ export const enTranslations: ResourceKey = {
     remediatedAcceptedVuln:
       "How many vulnerabilities are remediated and accepted?",
     remediatedVuln: "How many vulnerabilities are remediated (closed)?",
-    severityByAssignment: "Severity by assignment",
     topOldestFindings: "Top Oldest Types of Vulnerabilities",
     undefinedTitle: "Undefined Treatment by Group",
     vulnerabilitiesByLevel: "Vulnerabilities by level",

@@ -692,7 +692,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 generatorType={"stackedBarChart"}
                 reportMode={reportMode}
                 subject={subject}
-                title={t("tagIndicator.severityByAssignment")}
+                title={t(
+                  "analytics.stackedBarChart.assignedVulnerabilities.title"
+                )}
               />
             </Col100>
           </RowCenter>
