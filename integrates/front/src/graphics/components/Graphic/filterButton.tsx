@@ -3,7 +3,7 @@
   We need className to override default styles
   Needed to declare various small helpers components
 */
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IDocumentValues } from "./ctx";
@@ -50,13 +50,17 @@ const GButton: React.FC<IGButton> = ({
   }
 
   return (
-    <GraphicButton className={styles.buttonSize} onClick={onClick}>
-      <DocumentMerged
-        isEqual={alternative.documentName === currentDocumentName}
-        label={alternative.label}
-        tooltip={alternative.tooltip}
-      />
-    </GraphicButton>
+    <TooltipWrapper
+      id={alternative.tooltip.split(" ").join("_")}
+      message={alternative.tooltip}
+    >
+      <GraphicButton className={styles.buttonSize} onClick={onClick}>
+        <DocumentMerged
+          isEqual={alternative.documentName === currentDocumentName}
+          label={alternative.label}
+        />
+      </GraphicButton>
+    </TooltipWrapper>
   );
 };
 
@@ -113,19 +117,25 @@ const TypeFilterButton: React.FC<ITypeFilterButton> = ({
   changeToAlternative,
   changeToDefault,
 }: ITypeFilterButton): JSX.Element => {
+  const tooltip: string = useMemo(
+    (): string => mergedDocuments[documentName].default.tooltip,
+    [documentName]
+  );
+
   if (!documentNameFilter) {
     return <React.StrictMode />;
   }
 
   return (
     <React.StrictMode>
-      <GraphicButton className={styles.buttonSize} onClick={changeToDefault}>
-        <DocumentMerged
-          isEqual={documentName === currentDocumentName}
-          label={mergedDocuments[documentName].default.label}
-          tooltip={mergedDocuments[documentName].default.tooltip}
-        />
-      </GraphicButton>
+      <TooltipWrapper id={tooltip.split(" ").join("_")} message={tooltip}>
+        <GraphicButton className={styles.buttonSize} onClick={changeToDefault}>
+          <DocumentMerged
+            isEqual={documentName === currentDocumentName}
+            label={mergedDocuments[documentName].default.label}
+          />
+        </GraphicButton>
+      </TooltipWrapper>
       {mergedDocuments[documentName].alt.map(
         (alternative: IDocumentValues, index: number): JSX.Element => (
           <GButton

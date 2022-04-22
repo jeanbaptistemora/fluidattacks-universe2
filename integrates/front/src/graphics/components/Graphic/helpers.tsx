@@ -1,7 +1,6 @@
 /* eslint-disable react/no-multi-comp  -- Needed to declare various small helpers components */
 import React from "react";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { translate } from "utils/translations/translate";
 
 interface IDaysLabelProps {
@@ -27,17 +26,13 @@ const DaysLabel: React.FC<IDaysLabelProps> = ({
 interface IDocumentMergedProps {
   label: string;
   isEqual: boolean;
-  tooltip: string;
 }
 
 const DocumentMerged: React.FC<IDocumentMergedProps> = ({
   isEqual,
   label,
-  tooltip,
 }: IDocumentMergedProps): JSX.Element => (
-  <TooltipWrapper id={tooltip.split(" ").join("_")} message={tooltip}>
-    <div className={"dark-red pointer"}>{isEqual ? <b>{label}</b> : label}</div>
-  </TooltipWrapper>
+  <div className={"dark-red pointer"}>{isEqual ? <b>{label}</b> : label}</div>
 );
 
 export { DaysLabel, DocumentMerged };
