@@ -5,6 +5,9 @@ take into account the loc.
 
 Execution Time:     2022-02-18 at 15:25:41 UTC
 Finalization Time:  2022-02-18 at 15:29:33 UTC
+
+Execution Time:     2022-04-21 at 19:53:58 UTC
+Finalization Time:  2022-04-21 at 19:58:39 UTC
 """
 
 from aioextensions import (

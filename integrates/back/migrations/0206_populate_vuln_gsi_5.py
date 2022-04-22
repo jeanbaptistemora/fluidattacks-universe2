@@ -2,7 +2,7 @@
 """
 Populate the zero risk index in vulnerabilities.
 
-Execution Time: 2022-04-21 at 17:49:53 UTC
+Execution Time:    2022-04-21 at 17:49:53 UTC
 Finalization Time: 2022-04-21 at 20:35:32 UTC
 """
 
