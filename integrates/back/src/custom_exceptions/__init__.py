@@ -70,6 +70,10 @@ class InvalidCannotModifyNicknameWhenClosing(_SingleMessageException):
     msg: str = "Invalid, you cannot change the nickname while closing"
 
 
+class InvalidGroupName(_SingleMessageException):
+    msg = "Exception - Error invalid group name"
+
+
 class InvalidNewVulnState(_SingleMessageException):
     msg: str = "Invalid, only New vulnerabilities with Open state are allowed"
 
@@ -551,15 +555,6 @@ class InvalidFieldChange(CustomBaseException):
             f"  Reason: {reason}"
         )
         super(InvalidFieldChange, self).__init__(msg)
-
-
-class InvalidGroupName(CustomBaseException):
-    """Exception to control invalid group name"""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = "Exception - Error invalid group name"
-        super(InvalidGroupName, self).__init__(msg)
 
 
 class InvalidGroupServicesConfig(CustomBaseException):

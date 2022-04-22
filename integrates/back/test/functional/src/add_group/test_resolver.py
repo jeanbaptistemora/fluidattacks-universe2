@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    InvalidGroupName,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -71,6 +74,29 @@ async def test_add_group(populate: bool, email: str) -> None:
     # Admins are not granted access to the group
     group_users = await group_access_domain.get_group_users(group_name)
     assert email not in group_users
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_group")
+@pytest.mark.parametrize(
+    ["email", "group_name"],
+    [
+        ["admin@gmail.com", "group1"],
+        ["admin@gmail.com", "group2"],
+        ["admin@gmail.com", "group3"],
+        ["admin@gmail.com", "group4"],
+    ],
+)
+async def test_add_group_invalid_name_fail(
+    populate: bool, email: str, group_name: str
+) -> None:
+    assert populate
+    org_name: str = "orgtest"
+    result: dict[str, Any] = await get_result(
+        user=email, org=org_name, group=group_name
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == InvalidGroupName.msg
 
 
 @pytest.mark.asyncio

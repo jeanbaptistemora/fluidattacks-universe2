@@ -606,7 +606,7 @@ async def add_group(  # pylint: disable=too-many-locals
         ]
     )
     if not is_group_avail or group_exists:
-        raise InvalidGroupName()
+        raise InvalidGroupName.new()
 
     await groups_dal.add_typed(
         group=Group(

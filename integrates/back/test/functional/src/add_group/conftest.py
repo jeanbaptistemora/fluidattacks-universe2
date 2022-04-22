@@ -24,10 +24,46 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "name": "orgtest",
                 "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 "users": [],
-                "groups": [],
+                "groups": [
+                    "group2",
+                    "group3",
+                ],
                 "policy": {},
             },
         ],
-        "groups": [],
+        "groups": [
+            {
+                "project_name": "group2",
+                "description": "-",
+                "language": "en",
+                "historic_configuration": [
+                    {
+                        "date": "2020-05-20 17:00:00",
+                        "has_drills": True,
+                        "has_forces": True,
+                        "requester": "unknown",
+                        "service": "BLACK",
+                        "type": "oneshot",
+                    }
+                ],
+                "project_status": "ACTIVE",
+            },
+            {
+                "project_name": "group3",
+                "description": "-",
+                "language": "en",
+                "historic_configuration": [
+                    {
+                        "date": "2020-05-20 17:00:00",
+                        "has_drills": False,
+                        "has_forces": True,
+                        "requester": "unknown",
+                        "service": "BLACK",
+                        "type": "oneshot",
+                    }
+                ],
+                "project_status": "DELETED",
+            },
+        ],
     }
     return await db.populate({**generic_data["db_data"], **data})
