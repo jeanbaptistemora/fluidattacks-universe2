@@ -36,6 +36,9 @@ from db_model.groups.types import (
 from db_model.users.types import (
     User,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from group_access.domain import (
     get_users_to_notify,
 )
@@ -325,6 +328,11 @@ async def _send_digest_report(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(UnableToSendMail,),
+    max_attempts=3,
+    sleep_seconds=1.0,
+)
 async def _send_user_to_entity_report(
     *,
     event_frequency: str,
