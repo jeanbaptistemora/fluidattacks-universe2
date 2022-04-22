@@ -147,7 +147,7 @@ async def exists(org_name: str) -> bool:
 async def get_access_by_url_token(
     organization_id: str,
     user_email: str,
-) -> Dict[str, Dict[str, Any]]:
+) -> Dict[str, Any]:
     """Get user access of a organization by the url token"""
     key = {"pk": organization_id, "sk": f"USER#{user_email}"}
     get_attrs = {"Key": cast(ConditionBase, key)}

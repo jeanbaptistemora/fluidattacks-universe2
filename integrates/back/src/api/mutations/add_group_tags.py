@@ -10,9 +10,6 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -63,7 +60,7 @@ async def mutate(
         raise ErrorUpdatingGroup.new()
 
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group_typed.load(group_name)
+    group = await loaders.group_typed.load(group_name)
     await groups_domain.add_tags(group, set(tags))
 
     loaders.group_typed.clear(group_name)

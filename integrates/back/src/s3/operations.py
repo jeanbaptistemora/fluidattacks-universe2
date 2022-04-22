@@ -127,7 +127,7 @@ async def upload_memory_file(
 
 async def sing_upload_url(
     file_name: str, expire_mins: float, bucket: str
-) -> Dict[str, str]:
+) -> Dict[str, Dict[str, str]]:
     params = {
         "conditions": [
             {"acl": "private"},

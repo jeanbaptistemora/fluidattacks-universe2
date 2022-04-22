@@ -67,7 +67,7 @@ async def mutate(
         # Too soon to send another email invitation to the same stakeholder
         if "expiration_time" in organization_access:
             validate_new_invitation_time_limit(
-                organization_access["expiration_time"]
+                int(str(organization_access["expiration_time"]))
             )
 
     allowed_roles_to_grant = (

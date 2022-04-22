@@ -10,9 +10,6 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -53,7 +50,7 @@ async def mutate(
 ) -> SimpleGroupPayload:
     group_name = group_name.lower()
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group_typed.load(group_name)
+    group = await loaders.group_typed.load(group_name)
 
     if await groups_domain.is_valid(group_name) and group.tags:
         await groups_domain.remove_tag(group=group, tag_to_remove=tag)

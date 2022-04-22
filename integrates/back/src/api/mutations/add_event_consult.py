@@ -42,6 +42,7 @@ from time import (
 )
 from typing import (
     Dict,
+    Optional,
 )
 
 
@@ -81,7 +82,7 @@ async def mutate(
 ) -> AddConsultPayload:
     validations.validate_fields([content])
 
-    comment_id = str(round(time() * 1000))
+    comment_id: Optional[str] = str(round(time() * 1000))
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email = str(user_info["user_email"])
     comment_data = {

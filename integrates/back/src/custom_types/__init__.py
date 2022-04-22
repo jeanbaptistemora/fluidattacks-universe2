@@ -51,7 +51,7 @@ ForcesExecution = Dict[str, Union[str, datetime, ExecutionVulnerabilities]]
 ForcesExecutions = Dict[str, Union[datetime, str, List[ForcesExecution], None]]
 Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]
 GroupAccess = Dict[str, Union[bool, int, str, Invitation, None]]
-SignedUrl = Dict[str, str]
+SignedUrl = Dict[str, Dict[str, str]]
 
 Action = NamedTuple(
     "Action",

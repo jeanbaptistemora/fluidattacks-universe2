@@ -5,7 +5,7 @@ from s3 import (
     operations as s3_ops,
 )
 from typing import (
-    Union,
+    Dict,
 )
 
 
@@ -17,7 +17,7 @@ async def download_file(file_info: str, group_name: str) -> str:
 
 async def upload_file(
     file_info: str, group_name: str
-) -> dict[str, Union[str, str]]:
+) -> Dict[str, Dict[str, str]]:
     group_name = group_name.lower()
     file_url = f"{group_name}/{file_info}"
     return await s3_ops.sing_upload_url(
