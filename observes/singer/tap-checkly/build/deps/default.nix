@@ -8,7 +8,7 @@
   pythonPkgs = legacyPkgs."${pythonVersion}Packages";
   purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.13.0";
+    ref = "refs/tags/v1.14.0";
   };
   purity = import purity_src {
     inherit system;
@@ -22,6 +22,7 @@
   };
   legacy = import ./legacy {
     inherit legacyPkgs localLib pythonVersion system;
+    purity = purity."${pythonVersion}".pkg;
   };
   pythonPkgs2 =
     pythonPkgs
