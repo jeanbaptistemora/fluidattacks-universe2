@@ -2,6 +2,9 @@ import aioboto3
 from aioextensions import (
     collect,
 )
+from batch.types import (
+    PutActionResult,
+)
 from botocore.exceptions import (
     ClientError,
 )
@@ -57,7 +60,7 @@ async def _queue_all_checks(
     group: str,
     finding_codes: tuple[str, ...],
     dataloaders: Any,
-) -> dict[str, Any]:
+) -> Optional[PutActionResult]:
     result = await queue_job_new(
         group_name=group,
         finding_codes=finding_codes,

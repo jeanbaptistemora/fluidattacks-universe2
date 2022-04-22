@@ -18,7 +18,7 @@ from dataloaders import (
 from db_model.enums import (
     Notification,
 )
-from db_model.users.get import (
+from db_model.users.types import (
     User,
 )
 from findings import (

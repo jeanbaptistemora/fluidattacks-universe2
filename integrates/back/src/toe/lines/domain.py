@@ -102,16 +102,16 @@ async def update(
     ):
         raise ToeLinesNotPresent()
 
-    condition = is_moving_toe_lines is False and (
+    if not is_moving_toe_lines and (
         attributes.attacked_at is not None
         and current_value.attacked_at is not None
-    )
-    if condition and (
-        attributes.attacked_at <= current_value.attacked_at
-        or attributes.attacked_at > datetime_utils.get_utc_now()
-        or attributes.attacked_at < current_value.seen_at
     ):
-        raise InvalidToeLinesAttackAt()
+        if (
+            attributes.attacked_at <= current_value.attacked_at
+            or attributes.attacked_at > datetime_utils.get_utc_now()
+            or attributes.attacked_at < current_value.seen_at
+        ):
+            raise InvalidToeLinesAttackAt()
 
     loc = attributes.loc if attributes.loc is not None else current_value.loc
     if (

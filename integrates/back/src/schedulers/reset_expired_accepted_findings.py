@@ -63,7 +63,11 @@ async def reset_group_expired_accepted_findings(
             )
             <= today
         )
-        if is_accepted_expired or is_undefined_accepted_expired:
+        if (
+            vuln.treatment
+            and vuln.treatment.modified_by
+            and (is_accepted_expired or is_undefined_accepted_expired)
+        ):
             updated_values = {"treatment": "NEW"}
             await vulns_domain.add_vulnerability_treatment(
                 finding_id=finding_id,
@@ -76,8 +80,8 @@ async def reset_group_expired_accepted_findings(
 
     await update_unreliable_indicators_by_deps(
         EntityDependency.reset_expired_accepted_findings,
-        finding_ids=updated_finding_ids,
-        vulnerability_ids=updated_vuln_ids,
+        finding_ids=list(updated_finding_ids),
+        vulnerability_ids=list(updated_vuln_ids),
     )
 
 

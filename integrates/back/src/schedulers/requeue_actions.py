@@ -85,6 +85,7 @@ async def _filter_non_requeueable_actions(
     succeeded_keys_to_delete: list[str] = [
         action.key
         for action in actions_to_requeue
+        if action.batch_job_id
         if (
             batch_jobs_dict.get(action.batch_job_id, {"status": None})[
                 "status"
@@ -130,6 +131,7 @@ async def _filter_non_requeueable_actions(
         action.key
         for action in actions_to_requeue
         if action.running
+        and action.batch_job_id
         and batch_jobs_dict.get(action.batch_job_id, {"status": None})[
             "status"
         ]
@@ -141,6 +143,7 @@ async def _filter_non_requeueable_actions(
         action.key
         for action in actions_to_requeue
         if not action.running
+        and action.batch_job_id
         and batch_jobs_dict.get(action.batch_job_id, {"status": None})[
             "status"
         ]
@@ -224,6 +227,7 @@ async def requeue_actions() -> bool:
                 )["container"]["vcpus"],
             )
             for action in actions_to_requeue
+            if action.batch_job_id
         ),
         workers=20,
     )

@@ -134,7 +134,7 @@ def _format_component(component: str) -> str:
 
 
 def _format_unreliable_component(
-    root: RootItem, component: str
+    root: Optional[RootItem], component: str
 ) -> tuple[Optional[RootItem], str]:
     if component.endswith("/"):
         return root, component[:-1]
