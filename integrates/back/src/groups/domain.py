@@ -36,6 +36,7 @@ from custom_exceptions import (
     InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
+    UnavailabilityError,
     UserCannotEnrollDemo,
     UserNotInOrganization,
 )
@@ -570,6 +571,7 @@ async def reject_register_for_group_invitation(
 
 async def add_group(  # pylint: disable=too-many-locals
     *,
+    loaders: Any,
     description: str,
     group_name: str,
     organization_name: str,
@@ -602,7 +604,7 @@ async def add_group(  # pylint: disable=too-many-locals
     is_group_avail, group_exists = await collect(
         [
             names_domain.exists(group_name, "group"),
-            groups_dal.exists(group_name),
+            exists(loaders, group_name),
         ]
     )
     if not is_group_avail or group_exists:
@@ -1281,6 +1283,17 @@ async def invite_to_group(
         }
         schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success
+
+
+async def exists(
+    loaders: Any,
+    group_name: str,
+) -> bool:
+    try:
+        await loaders.group_typed.load(group_name)
+        return True
+    except UnavailabilityError:
+        return False
 
 
 async def is_valid(

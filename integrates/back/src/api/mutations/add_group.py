@@ -5,6 +5,9 @@ import authz
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
@@ -47,6 +50,7 @@ async def mutate(
     language: str = "en",
     **kwargs: Any,
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     group_name: str = str(kwargs["group_name"]).lower()
     has_squad: bool = kwargs.get("has_squad", False)
     has_machine: bool = kwargs.get("has_machine", False)
@@ -64,6 +68,7 @@ async def mutate(
     user_role = await authz.get_user_level_role(user_email)
 
     await groups_domain.add_group(
+        loaders=loaders,
         description=description,
         group_name=group_name,
         has_machine=has_machine,

@@ -673,6 +673,7 @@ async def test_create_group_not_user_admin() -> None:
     user_email = "integratesuser@gmail.com"
     user_role = "user_manager"
     await add_group(
+        loaders=get_new_context(),
         description="This is a new group",
         group_name="newavailablename",
         has_machine=True,
