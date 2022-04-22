@@ -1,4 +1,6 @@
 from .types import (
+    FindingVulnerabilitiesZrRequest,
+    VulnerabilitiesConnection,
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTreatment,
@@ -13,6 +15,7 @@ from .utils import (
     format_treatment,
     format_verification,
     format_vulnerability,
+    format_vulnerability_edge,
     format_zero_risk,
 )
 from aiodataloader import (
@@ -34,6 +37,11 @@ from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
     ROOT_INDEX_METADATA,
+    ZR_INDEX_METADATA,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityVerificationStatus,
 )
 from dynamodb import (
     keys,
@@ -174,6 +182,61 @@ async def _get_finding_vulnerabilities(
     )
 
     return tuple(format_vulnerability(item) for item in response.items)
+
+
+async def _get_finding_vulnerabilities_zr(
+    is_zero_risk: bool,
+    request: FindingVulnerabilitiesZrRequest,
+) -> VulnerabilitiesConnection:
+    gsi_5_index = TABLE.indexes["gsi_5"]
+    key_values = {
+        "finding_id": request.finding_id,
+        "is_deleted": "false",
+        "is_zero_risk": str(is_zero_risk).lower(),
+    }
+    if isinstance(request.state_status, VulnerabilityStateStatus):
+        key_values["state_status"] = request.state_status.value.lower()
+    if isinstance(
+        request.verification_status, VulnerabilityVerificationStatus
+    ):
+        if request.state_status is None:
+            raise Exception("state_status is mandatory")
+        key_values["verification_status"] = str(
+            request.verification_status.value
+        ).lower()
+    primary_key = keys.build_key(
+        facet=ZR_INDEX_METADATA,
+        values=key_values,
+    )
+
+    key_structure = gsi_5_index.primary_key
+    sort_key = (
+        primary_key.sort_key
+        if isinstance(
+            request.verification_status, VulnerabilityVerificationStatus
+        )
+        else primary_key.sort_key.replace("#VERIF", "")
+    )
+    response = await operations.query(
+        after=request.after,
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_metadata"],),
+        index=gsi_5_index,
+        limit=request.first,
+        paginate=request.paginate,
+        table=TABLE,
+    )
+
+    return VulnerabilitiesConnection(
+        edges=tuple(
+            format_vulnerability_edge(gsi_5_index, item, TABLE)
+            for item in response.items
+        ),
+        page_info=response.page_info,
+    )
 
 
 async def _get_root_vulnerabilities(

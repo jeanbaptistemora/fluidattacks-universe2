@@ -103,14 +103,6 @@ class VulnerabilitiesConnection(NamedTuple):
     page_info: PageInfo
 
 
-class FindingVulnerabilitiesRequest(NamedTuple):
-    finding_id: str
-    after: Optional[str] = None
-    first: Optional[int] = None
-    paginate: bool = False
-    status: Optional[VulnerabilityStateStatus] = None
-
-
 class VulnerabilityMetadataToUpdate(NamedTuple):
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
@@ -151,3 +143,19 @@ class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_report_date: Optional[str] = None
     unreliable_source: Optional[Source] = None
     unreliable_treatment_changes: Optional[int] = None
+
+
+class FindingVulnerabilitiesZrRequest(NamedTuple):
+    finding_id: str
+    after: Optional[str] = None
+    first: Optional[int] = None
+    paginate: bool = False
+    state_status: Optional[VulnerabilityStateStatus] = None
+    verification_status: Optional[VulnerabilityVerificationStatus] = None
+
+
+class FindingVulnerabilitiesToReattackRequest(NamedTuple):
+    finding_id: str
+    after: Optional[str] = None
+    first: Optional[int] = None
+    paginate: bool = False
