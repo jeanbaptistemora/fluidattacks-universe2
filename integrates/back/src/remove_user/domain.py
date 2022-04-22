@@ -187,6 +187,7 @@ async def confirm_deletion_mail(
         email_context: MailContent = {
             "email": email,
             "confirm_deletion_url": confirm_access_url,
+            "empty_notification_notice": True,
         }
         schedule(send_mail_confirm_deletion(mail_to, email_context))
 

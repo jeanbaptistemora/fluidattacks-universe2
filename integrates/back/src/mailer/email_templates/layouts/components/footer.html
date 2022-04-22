@@ -1,12 +1,14 @@
-<div class="main-content" style="font-size: 15px !important; margin-bottom: 0 !important;">
-	<strong>Manage your notifications</strong><br>
-	<p style="font-size: 15px !important; margin-bottom: 0 !important; text-align: justify; line-height: 100%;">
-    	Notifications are an excellent way for you to have an up-to-date understanding of the activity concerning
-      your system's vulnerabilities and your groups on the ASM. You can manage your notifications preferences from
-      <a href="https://app.fluidattacks.com/user/config" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">here</a>.
-      There you can press the On/Off button to accept or reject the delivery of each notification to your registered email.
-    </p>
-</div>
+{% if not empty_notification_notice %}
+  <div class="main-content" style="font-size: 15px !important; margin-bottom: 0 !important;">
+    <strong>Manage your notifications</strong><br>
+    <p style="font-size: 15px !important; margin-bottom: 0 !important; text-align: justify; line-height: 100%;">
+        Notifications are an excellent way for you to have an up-to-date understanding of the activity concerning
+        your system's vulnerabilities and your groups on the ASM. You can manage your notifications preferences from
+        <a href="https://app.fluidattacks.com/user/config" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">here</a>.
+        There you can press the On/Off button to accept or reject the delivery of each notification to your registered email.
+      </p>
+  </div>
+  {% endif %}
 <br>
 <div class="pa1 flex w-70 justify-center" style="font-size: 15px !important; text-align: center !important;">
   <a class="pa1 justify-center" href="https://www.linkedin.com/company/fluidattacks/" target="_blank"
