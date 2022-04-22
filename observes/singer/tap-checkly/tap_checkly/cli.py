@@ -14,6 +14,9 @@ from tap_checkly.streams import (
 from typing import (
     Optional,
 )
+from utils_logger.v2 import (
+    start_session,
+)
 
 
 @click.command()  # type: ignore[misc]
@@ -45,8 +48,7 @@ def stream(
 
 @click.group()  # type: ignore[misc]
 def main() -> None:
-    # cli group entrypoint
-    pass
+    start_session()
 
 
 main.add_command(stream)
