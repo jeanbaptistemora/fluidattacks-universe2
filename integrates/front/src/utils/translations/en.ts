@@ -421,12 +421,9 @@ export const enTranslations: ResourceKey = {
         root: "Root",
         rootPlaceholder: "Search by nickname...",
         type: {
-          detectsAttack: "Client detects the attack",
-          highAvailability: "High availability approval",
           missingSupplies: "Incorrect or missing supplies",
           specialAttack: "Authorization for special attack",
           title: "Type",
-          toeChange: "Client approves ToE change",
           toeDiffers: "ToE different than agreed upon",
         },
         wrongFileType: "Evidence files must have .pdf, .zip or .csv extension",
@@ -2134,10 +2131,7 @@ export const enTranslations: ResourceKey = {
       tableAdvice: "Click on an event to see more details",
       type: "Type",
       typeValues: {
-        approvChange: "Client approves the change of ToE",
         authAttack: "Authorization for special attack",
-        detAttack: "Client detects an attack",
-        highApproval: "High availability approval",
         inaccAmbient: "Inaccessible environment",
         incorSupplies: "Incorrect or missing supplies",
         other: "Other",

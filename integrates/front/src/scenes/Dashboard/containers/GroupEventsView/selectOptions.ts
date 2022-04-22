@@ -5,15 +5,6 @@ const selectOptionType = {
   [translate.t("group.events.form.type.specialAttack")]: translate.t(
     castEventType("AUTHORIZATION_SPECIAL_ATTACK")
   ),
-  [translate.t("group.events.form.type.toeChange")]: translate.t(
-    castEventType("CLIENT_APPROVES_CHANGE_TOE")
-  ),
-  [translate.t(castEventType("CLIENT_DETECTS_ATTACK"))]: translate.t(
-    castEventType("CLIENT_DETECTS_ATTACK")
-  ),
-  [translate.t("group.events.form.type.highAvailability")]: translate.t(
-    castEventType("HIGH_AVAILABILITY_APPROVAL")
-  ),
   [translate.t("group.events.form.type.missingSupplies")]: translate.t(
     castEventType("INCORRECT_MISSING_SUPPLIES")
   ),

@@ -48,11 +48,6 @@ const castEventType: (field: string) => string = (field: string): string => {
       "searchFindings.tabEvents.typeValues.authAttack",
     "Ambiente inestable": "searchFindings.tabEvents.typeValues.unsAmbient",
     "Ambiente no accesible": "searchFindings.tabEvents.typeValues.inaccAmbient",
-    CLIENT_APPROVES_CHANGE_TOE:
-      "searchFindings.tabEvents.typeValues.approvChange",
-    CLIENT_DETECTS_ATTACK: "searchFindings.tabEvents.typeValues.detAttack",
-    HIGH_AVAILABILITY_APPROVAL:
-      "searchFindings.tabEvents.typeValues.highApproval",
     INCORRECT_MISSING_SUPPLIES:
       "searchFindings.tabEvents.typeValues.incorSupplies",
     OTHER: "searchFindings.tabEvents.typeValues.other",

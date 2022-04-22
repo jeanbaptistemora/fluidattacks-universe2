@@ -196,15 +196,6 @@ const AddModal: React.FC<IAddModalProps> = ({
                     <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
                       {t("group.events.form.type.specialAttack")}
                     </option>
-                    <option value={"CLIENT_APPROVES_CHANGE_TOE"}>
-                      {t("group.events.form.type.toeChange")}
-                    </option>
-                    <option value={"CLIENT_DETECTS_ATTACK"}>
-                      {t("group.events.form.type.detectsAttack")}
-                    </option>
-                    <option value={"HIGH_AVAILABILITY_APPROVAL"}>
-                      {t("group.events.form.type.highAvailability")}
-                    </option>
                     <option value={"INCORRECT_MISSING_SUPPLIES"}>
                       {t("group.events.form.type.missingSupplies")}
                     </option>

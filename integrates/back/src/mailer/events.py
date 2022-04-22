@@ -97,9 +97,6 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     ]
     event_type_format = {
         "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for special attack",
-        "CLIENT_APPROVES_CHANGE_TOE": "Client approves ToE change",
-        "CLIENT_DETECTS_ATTACK": "Client detects the attack",
-        "HIGH_AVAILABILITY_APPROVAL": "High availability approval",
         "INCORRECT_MISSING_SUPPLIES": "Incorrect or missing supplies",
         "OTHER": "Other",
         "TOE_DIFFERS_APPROVED": "ToE different than agreed upon",
