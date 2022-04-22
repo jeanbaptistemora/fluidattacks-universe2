@@ -37,6 +37,12 @@
     "CVE-2018-20677": "<3.4.0",
     "CVE-2019-8331": "<3.4.1 || >=4.3.0 <4.3.1"
   },
+  "bootstrap.less": {
+    "GHSA-fxwm-579q-49qq": ">=3.0.0 <3.4.1"
+  },
+  "bootstrap.sass": {
+    "GHSA-fxwm-579q-49qq": "<4.3.1"
+  },
   "bouncycastle": {
     "SNYK-DOTNET-BOUNCYCASTLE-1296078": "<1.8.7",
     "SNYK-DOTNET-BOUNCYCASTLE-474564": "<1.8.1"
@@ -585,5 +591,8 @@
   },
   "yamldotnet": {
     "CVE-2018-1000210": ">=0 <5.0.0"
+  },
+  "yamldotnet.signed": {
+    "GHSA-rpch-cqj9-h65r": "<=4.3.2"
   }
 }
