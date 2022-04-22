@@ -13,6 +13,7 @@ fa-purity = "^1.13.0"
 paginator = "^1.0.0"
 purity = "^1.0.0"
 singer-io = "^1.0.0"
+types-requests = "^2.27.20"
 
 [tool.poetry.scripts]
 tap-checkly = 'tap_checkly.cli:main'

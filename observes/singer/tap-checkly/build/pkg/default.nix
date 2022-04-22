@@ -12,6 +12,7 @@
     legacy-singer-io
     requests
     types-click
+    types-requests
     utils-logger
   ];
   dev_deps = with pythonPkgs; [

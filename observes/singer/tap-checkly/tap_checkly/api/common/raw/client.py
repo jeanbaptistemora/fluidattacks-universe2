@@ -3,7 +3,7 @@ from __future__ import (
 )
 
 import logging
-import requests  # type: ignore
+import requests
 from returns.curry import (
     partial,
 )

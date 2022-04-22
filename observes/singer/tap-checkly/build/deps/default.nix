@@ -39,11 +39,11 @@
       );
       types-requests = pythonPkgs.types-requests.overridePythonAttrs (
         old: rec {
-          version = "2.27.16";
+          version = "2.27.20";
           src = lib.fetchPypi {
             inherit version;
             pname = old.pname;
-            sha256 = "yAEMGLKRp++2CxRS2+ElMLwlaT3WV+cMYoA/zcS//ps=";
+            sha256 = "YzRFc83mxO/UTYZ8AVjZ+35r65VyHL6YgvP4V+6KU5g=";
           };
         }
       );

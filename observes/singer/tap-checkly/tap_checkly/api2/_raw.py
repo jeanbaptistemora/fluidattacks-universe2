@@ -12,7 +12,7 @@ from fa_purity.json.transform import (
     to_raw,
 )
 import logging
-import requests  # type: ignore[import]
+import requests
 
 LOG = logging.getLogger(__name__)
 
@@ -38,15 +38,15 @@ class RawClient:
         def _action() -> JsonObj:
             target = self._full_endpoint(endpoint)
             LOG.debug("API call: %s\nparams = %s", target, params)
-            response = requests.get(  # type: ignore[misc]
+            response = requests.get(
                 target,
-                headers={
+                headers={  # type: ignore[misc]
                     "X-Checkly-Account": self._auth.account,
                     "Authorization": f"Bearer {self._auth.api_key}",
                 },
                 params=to_raw(params),  # type: ignore[misc]
             )
-            response.raise_for_status()  # type: ignore[misc]
+            response.raise_for_status()
             return from_any(response.json()).unwrap()  # type: ignore[misc]
 
         return Cmd.from_cmd(_action)
