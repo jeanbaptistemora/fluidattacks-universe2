@@ -94,7 +94,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     .map((root): string => root.nickname);
 
   // State management
-  const [isManagingRoot, setManagingRoot] = useState<
+  const [isManagingRoot, setIsManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
 
@@ -103,14 +103,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   );
   const enableTour =
     !user.tours.newRoot && user.userEmail.endsWith("fluidattacks.com");
-  const [runTour, toggleTour] = useState(enableTour);
+  const [runTour, setRunTour] = useState(enableTour);
 
   const openAddModal: () => void = useCallback((): void => {
     if (runTour) {
-      toggleTour(false);
+      setRunTour(false);
     }
-    setManagingRoot({ mode: "ADD" });
-  }, [runTour, toggleTour]);
+    setIsManagingRoot({ mode: "ADD" });
+  }, [runTour, setRunTour]);
 
   const closeModal: () => void = useCallback((): void => {
     if (enableTour) {
@@ -124,7 +124,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         userName: user.userName,
       });
     }
-    setManagingRoot(false);
+    setIsManagingRoot(false);
   }, [enableTour, user]);
 
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
@@ -256,7 +256,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
       if (row.state === "ACTIVE") {
         setCurrentRow(row);
-        setManagingRoot({ mode: "EDIT" });
+        setIsManagingRoot({ mode: "EDIT" });
       }
     },
     []

@@ -58,12 +58,12 @@ export const TasksContent: React.FC<ITasksContent> = ({
     "api_resolvers_vulnerability_hacker_resolve"
   );
 
-  const [isEditing, setEditing] = useState(false);
-  const [iscurrentOpen, setCurrentOpen] = useState<boolean[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [iscurrentOpen, setIscurrentOpen] = useState<boolean[]>([]);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [searchGroupName, setSearchGroupName] = useState("");
-  const [isReattacking, setReattacking] = useState(false);
-  const [isOpen, setOpen] = useState(false);
+  const [isReattacking, setIsReattacking] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("todosLocationsCustomFilters", false);
   const [filterVulnerabilitiesTable, setFilterVulnerabilitiesTable] =
@@ -112,7 +112,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
     [meVulnerabilitiesAssigned, userData]
   );
 
-  const vulnerabilitesGroupName: string[] = useMemo(
+  const vulnerabilitiesGroupName: string[] = useMemo(
     (): string[] =>
       Array.from(
         new Set(
@@ -181,7 +181,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
           ): IOrganizationGroups["groups"] => [
             ...previousValue,
             ...currentValue.groups.filter((group): boolean =>
-              vulnerabilitesGroupName.includes(group.name.toLowerCase())
+              vulnerabilitiesGroupName.includes(group.name.toLowerCase())
             ),
           ],
           []
@@ -227,7 +227,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
     attributesContext,
     permissionsContext,
     userData,
-    vulnerabilitesGroupName,
+    vulnerabilitiesGroupName,
     setUserRole,
   ]);
 
@@ -506,7 +506,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const toggleEdit = useCallback((): void => {
-    setCurrentOpen(
+    setIscurrentOpen(
       Object.entries(
         _.groupBy(
           modalConfig.selectedVulnerabilities,
@@ -514,12 +514,12 @@ export const TasksContent: React.FC<ITasksContent> = ({
         )
       ).map((__, index: number): boolean => index === 0)
     );
-    setEditing(!isEditing);
+    setIsEditing(!isEditing);
   }, [isEditing, modalConfig.selectedVulnerabilities]);
 
   const handleCloseUpdateModal = useCallback(
     (index: number): void => {
-      setCurrentOpen((current: boolean[]): boolean[] => {
+      setIscurrentOpen((current: boolean[]): boolean[] => {
         const newCurrent = current.map(
           (isCurrentOpen: boolean, currentIndex: number): boolean =>
             currentIndex === index
@@ -531,7 +531,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
         if (
           newCurrent.every((isCurrentOpen: boolean): boolean => !isCurrentOpen)
         ) {
-          setEditing(false);
+          setIsEditing(false);
           modalConfig.clearSelected();
         }
 
@@ -542,14 +542,14 @@ export const TasksContent: React.FC<ITasksContent> = ({
   );
 
   const toggleModal = useCallback((): void => {
-    setOpen(true);
+    setIsOpen(true);
   }, []);
   const closeRemediationModal = useCallback((): void => {
-    setOpen(false);
+    setIsOpen(false);
   }, []);
   const onReattack = useCallback((): void => {
     if (isReattacking) {
-      setReattacking(!isReattacking);
+      setIsReattacking(!isReattacking);
     } else {
       const { selectedVulnerabilities } = modalConfig;
       const validVulnerabilitiesId: string[] =
@@ -566,13 +566,13 @@ export const TasksContent: React.FC<ITasksContent> = ({
         )
       );
       if (selectedVulnerabilities.length > newValidVulnerabilities.length) {
-        setReattacking(!isReattacking);
+        setIsReattacking(!isReattacking);
         msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
       } else if (selectedVulnerabilities.length > 0) {
-        setOpen(true);
-        setReattacking(!isReattacking);
+        setIsOpen(true);
+        setIsReattacking(!isReattacking);
       } else {
-        setReattacking(!isReattacking);
+        setIsReattacking(!isReattacking);
       }
     }
   }, [groups, isReattacking, modalConfig, t]);

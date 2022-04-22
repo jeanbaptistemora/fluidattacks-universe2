@@ -79,13 +79,13 @@ const Repository: React.FC<IRepositoryProps> = ({
     return nicknames.includes(repoName) && initialNickname !== repoName;
   };
 
-  const [isGitAccessible, changeGitAccessibility] = useState(true);
-  const [credExists, deleteExistingCred] = useState(
+  const [isGitAccessible, setIsGitAccessible] = useState(true);
+  const [credExists, setCredExists] = useState(
     initialValues.credentials.id !== ""
   );
 
   const deleteCredential: () => void = useCallback((): void => {
-    deleteExistingCred(false);
+    setCredExists(false);
   }, []);
 
   const requireNickname: FieldValidator = useCallback(
@@ -111,7 +111,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     isEditing ? initialValues.includesHealthCheck : null
   );
-  const [isHttpsCredentialsTypeUser, setHttpsCredentialsTypeUser] =
+  const [isHttpsCredentialsTypeUser, setIsHttpsCredentialsTypeUser] =
     useState(false);
 
   const [isCheckedHealthCheck, setIsCheckedHealthCheck] = useState(isEditing);
@@ -127,7 +127,7 @@ const Repository: React.FC<IRepositoryProps> = ({
 
   const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
     onCompleted: (): void => {
-      changeGitAccessibility(true);
+      setIsGitAccessible(true);
       msgSuccess(
         t("group.scope.git.repo.credentials.checkAccess.success"),
         t("group.scope.git.repo.credentials.checkAccess.successTitle")
@@ -145,7 +145,7 @@ const Repository: React.FC<IRepositoryProps> = ({
           Logger.error("Couldn't activate root", error);
         }
       });
-      changeGitAccessibility(false);
+      setIsGitAccessible(false);
     },
   });
 
@@ -355,7 +355,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                           initialState={"Access Token"}
                           labels={["User and Password", "Access Token"]}
                           name={"httpsCredentialsType"}
-                          onSelect={setHttpsCredentialsTypeUser}
+                          onSelect={setIsHttpsCredentialsTypeUser}
                           type={"Radio"}
                           validate={selected}
                         />

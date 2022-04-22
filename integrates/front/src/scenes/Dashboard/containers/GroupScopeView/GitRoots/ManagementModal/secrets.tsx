@@ -45,7 +45,7 @@ const Secrets: React.FC<ISecretsProps> = ({
     "api_mutations_add_secret_mutate"
   );
   const defaultCurrentRow: ISecret = { description: "", key: "", value: "" };
-  const [currentRow, updateRow] = useState(defaultCurrentRow);
+  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isUpdate, setIsUpdate] = useState(false);
 
   const [addSecretModalOpen, setAddSecretModalOpen] = useState(false);
@@ -62,7 +62,7 @@ const Secrets: React.FC<ISecretsProps> = ({
     value: string,
     description: string
   ): void {
-    updateRow({ description, key, value });
+    setCurrentRow({ description, key, value });
     setIsUpdate(true);
     setAddSecretModalOpen(true);
   }
@@ -87,7 +87,7 @@ const Secrets: React.FC<ISecretsProps> = ({
         });
   function closeModal(): void {
     setIsUpdate(false);
-    updateRow(defaultCurrentRow);
+    setCurrentRow(defaultCurrentRow);
     setAddSecretModalOpen(false);
   }
   function openModal(): void {

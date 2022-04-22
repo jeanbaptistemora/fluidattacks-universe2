@@ -37,14 +37,14 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
 }: IIPRootsProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [isManagingRoot, setManagingRoot] = useState<false | { mode: "ADD" }>(
+  const [isManagingRoot, setIsManagingRoot] = useState<false | { mode: "ADD" }>(
     false
   );
   const openAddModal = useCallback((): void => {
-    setManagingRoot({ mode: "ADD" });
+    setIsManagingRoot({ mode: "ADD" });
   }, []);
   const closeModal = useCallback((): void => {
-    setManagingRoot(false);
+    setIsManagingRoot(false);
   }, []);
 
   const [addIpRoot] = useMutation(ADD_IP_ROOT, {
