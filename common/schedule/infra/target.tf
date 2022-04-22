@@ -24,8 +24,13 @@ resource "aws_cloudwatch_event_target" "main" {
   ecs_target {
     task_count          = 1
     task_definition_arn = aws_ecs_task_definition.main.arn
-    launch_type         = "EC2"
+    launch_type         = "FARGATE"
     propagate_tags      = "TASK_DEFINITION"
+
+    network_configuration {
+      subnets          = [data.aws_subnet.common.id]
+      assign_public_ip = true
+    }
 
     tags = {
       "Name"               = each.key
