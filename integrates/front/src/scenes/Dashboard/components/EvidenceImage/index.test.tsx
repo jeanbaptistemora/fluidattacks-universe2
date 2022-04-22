@@ -9,7 +9,7 @@ import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 describe("Evidence image", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof EvidenceImage).toStrictEqual("function");
+    expect(typeof EvidenceImage).toBe("function");
   });
 
   it("should render img", (): void => {

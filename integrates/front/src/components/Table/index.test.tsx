@@ -10,7 +10,7 @@ import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/For
 describe("Table", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Table).toStrictEqual("function");
+    expect(typeof Table).toBe("function");
   });
 
   it("should render an empty table", (): void => {

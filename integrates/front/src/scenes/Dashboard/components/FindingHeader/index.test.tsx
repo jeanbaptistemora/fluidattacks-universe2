@@ -6,7 +6,7 @@ import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 describe("FindingHeader", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FindingHeader).toStrictEqual("function");
+    expect(typeof FindingHeader).toBe("function");
   });
 
   it("should render finding header", (): void => {

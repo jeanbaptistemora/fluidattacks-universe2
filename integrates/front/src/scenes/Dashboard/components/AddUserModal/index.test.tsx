@@ -131,7 +131,7 @@ describe("Add user modal", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof AddUserModal).toStrictEqual("function");
+    expect(typeof AddUserModal).toBe("function");
   });
 
   it("should handle errors when auto fill data", async (): Promise<void> => {

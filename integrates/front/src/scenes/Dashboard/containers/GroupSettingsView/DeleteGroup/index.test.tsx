@@ -10,7 +10,7 @@ describe("DeleteGroup", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof DeleteGroup).toStrictEqual("function");
+    expect(typeof DeleteGroup).toBe("function");
   });
 
   it("should render", async (): Promise<void> => {

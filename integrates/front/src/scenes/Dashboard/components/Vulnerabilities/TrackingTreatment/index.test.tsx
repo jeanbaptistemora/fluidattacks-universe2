@@ -120,7 +120,7 @@ describe("TrackingTreatment", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof TreatmentTracking).toStrictEqual("function");
+    expect(typeof TreatmentTracking).toBe("function");
   });
 
   it("should render in treatment tracking 1", async (): Promise<void> => {

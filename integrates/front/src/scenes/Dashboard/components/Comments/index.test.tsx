@@ -25,7 +25,7 @@ describe("Comments section", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Comments).toStrictEqual("function");
+    expect(typeof Comments).toBe("function");
   });
 
   it("should render an empty comment section", (): void => {

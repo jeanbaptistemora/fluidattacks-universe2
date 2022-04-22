@@ -21,7 +21,7 @@ describe("Update access token modal", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof APITokenForcesModal).toStrictEqual("function");
+    expect(typeof APITokenForcesModal).toBe("function");
   });
 
   it("should render an token modal with token and reset", async (): Promise<void> => {

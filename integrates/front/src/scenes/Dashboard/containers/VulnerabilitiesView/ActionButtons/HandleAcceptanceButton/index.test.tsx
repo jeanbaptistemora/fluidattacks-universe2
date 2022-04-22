@@ -9,7 +9,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("HandleAcceptanceButtons", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof HandleAcceptanceButton).toStrictEqual("function");
+    expect(typeof HandleAcceptanceButton).toBe("function");
   });
 
   it("should render a component", (): void => {

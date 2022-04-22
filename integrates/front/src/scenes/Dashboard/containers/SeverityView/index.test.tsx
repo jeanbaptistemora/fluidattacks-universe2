@@ -84,7 +84,7 @@ describe("SeverityView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof SeverityView).toStrictEqual("function");
+    expect(typeof SeverityView).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

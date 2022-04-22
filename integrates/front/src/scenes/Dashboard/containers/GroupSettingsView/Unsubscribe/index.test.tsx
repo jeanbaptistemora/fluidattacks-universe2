@@ -22,7 +22,7 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("Unsubscribe from group", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Unsubscribe).toStrictEqual("function");
+    expect(typeof Unsubscribe).toBe("function");
   });
 
   it("should unsubscribe from a group", async (): Promise<void> => {

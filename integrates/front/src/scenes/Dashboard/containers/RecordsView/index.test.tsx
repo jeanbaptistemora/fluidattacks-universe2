@@ -43,7 +43,7 @@ describe("FindingRecordsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof RecordsView).toStrictEqual("function");
+    expect(typeof RecordsView).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

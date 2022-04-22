@@ -106,7 +106,7 @@ describe("Group stakeholders view", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupStakeholdersView).toStrictEqual("function");
+    expect(typeof GroupStakeholdersView).toBe("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {

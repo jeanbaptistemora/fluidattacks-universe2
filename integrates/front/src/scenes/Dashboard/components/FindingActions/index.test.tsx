@@ -8,7 +8,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("FindingActions", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FindingActions).toStrictEqual("function");
+    expect(typeof FindingActions).toBe("function");
   });
 
   it("should render no actions", (): void => {

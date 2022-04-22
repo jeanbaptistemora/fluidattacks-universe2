@@ -78,7 +78,7 @@ describe("CommentsView", (): void => {
 
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof CommentsView).toStrictEqual("function");
+    expect(typeof CommentsView).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

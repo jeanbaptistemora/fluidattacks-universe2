@@ -46,7 +46,7 @@ jest.mock("react-router-dom", (): Record<string, unknown> => {
 describe("User Profile", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof UserProfile).toStrictEqual("function");
+    expect(typeof UserProfile).toBe("function");
   });
 
   it("should render an delete account modal", async (): Promise<void> => {

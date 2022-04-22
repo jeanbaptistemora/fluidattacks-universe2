@@ -3,6 +3,6 @@ import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupVi
 describe("ChartsForGroupView", (): void => {
   it("should return an function", (): void => {
     expect.hasAssertions();
-    expect(typeof ChartsForGroupView).toStrictEqual("function");
+    expect(typeof ChartsForGroupView).toBe("function");
   });
 });

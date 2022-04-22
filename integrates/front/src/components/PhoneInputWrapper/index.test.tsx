@@ -6,7 +6,7 @@ import { PhoneInputWrapper } from ".";
 describe("PhoneInputWrapper", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof PhoneInputWrapper).toStrictEqual("function");
+    expect(typeof PhoneInputWrapper).toBe("function");
   });
 
   it("should render phone input", (): void => {

@@ -33,7 +33,7 @@ describe("Custom utility hooks", (): void => {
 
     it("should return a function", (): void => {
       expect.hasAssertions();
-      expect(typeof useStoredState).toStrictEqual("function");
+      expect(typeof useStoredState).toBe("function");
     });
 
     it("should render with fallback value", (): void => {
@@ -97,7 +97,7 @@ describe("Custom utility hooks", (): void => {
 
     it("should return a function", (): void => {
       expect.hasAssertions();
-      expect(typeof useTabTracking).toStrictEqual("function");
+      expect(typeof useTabTracking).toBe("function");
     });
 
     it("should trigger on route change", async (): Promise<void> => {
@@ -141,7 +141,7 @@ describe("Custom utility hooks", (): void => {
 
     it("should return a function", (): void => {
       expect.hasAssertions();
-      expect(typeof useWindowSize).toStrictEqual("function");
+      expect(typeof useWindowSize).toBe("function");
     });
 
     it("should trigger on size change", async (): Promise<void> => {

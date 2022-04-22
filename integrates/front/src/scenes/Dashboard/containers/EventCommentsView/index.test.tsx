@@ -48,7 +48,7 @@ describe("EventCommentsView", (): void => {
 
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof EventCommentsView).toStrictEqual("function");
+    expect(typeof EventCommentsView).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

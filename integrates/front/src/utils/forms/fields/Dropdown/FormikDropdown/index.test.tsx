@@ -8,7 +8,7 @@ import { FormikDropdown } from ".";
 describe("Dropdown Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikDropdown).toStrictEqual("function");
+    expect(typeof FormikDropdown).toBe("function");
   });
 
   it("should render dropdown component", (): void => {

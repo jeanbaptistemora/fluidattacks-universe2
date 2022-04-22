@@ -8,7 +8,7 @@ describe("Confirm dialog", (): void => {
   it("should return an function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof EditableField).toStrictEqual("function");
+    expect(typeof EditableField).toBe("function");
   });
 
   it("should render a horizontal wide editable field", (): void => {

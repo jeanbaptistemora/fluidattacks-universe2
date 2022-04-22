@@ -7,7 +7,7 @@ import { Button } from "components/Button";
 describe("Button", (): void => {
   it("should return an object", (): void => {
     expect.hasAssertions();
-    expect(typeof Button).toStrictEqual("object");
+    expect(typeof Button).toBe("object");
   });
 
   it("should render a button", (): void => {

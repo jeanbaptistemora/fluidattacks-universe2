@@ -12,7 +12,7 @@ import { Button } from "components/Button";
 describe("VerifyDialog", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof VerifyDialog).toStrictEqual("function");
+    expect(typeof VerifyDialog).toBe("function");
   });
 
   it("should handle stakeholder verification", async (): Promise<void> => {

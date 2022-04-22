@@ -149,7 +149,7 @@ describe("GroupDraftsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupDraftsView).toStrictEqual("function");
+    expect(typeof GroupDraftsView).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

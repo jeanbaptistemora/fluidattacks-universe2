@@ -9,7 +9,7 @@ const list: string[] = [];
 describe("DropdownButton", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof MenuItem).toStrictEqual("function");
+    expect(typeof MenuItem).toBe("function");
   });
 
   it("should render a button", (): void => {

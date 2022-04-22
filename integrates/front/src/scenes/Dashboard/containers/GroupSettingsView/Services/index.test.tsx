@@ -180,7 +180,7 @@ describe("Services", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Services).toStrictEqual("function");
+    expect(typeof Services).toBe("function");
   });
 
   [

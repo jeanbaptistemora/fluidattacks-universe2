@@ -8,7 +8,7 @@ describe("Delete Group Modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof DeleteGroupModal).toStrictEqual("function");
+    expect(typeof DeleteGroupModal).toBe("function");
   });
 
   it("should render", async (): Promise<void> => {

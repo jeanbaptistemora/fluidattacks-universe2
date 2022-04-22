@@ -9,7 +9,7 @@ import { FormikText } from "utils/forms/fields";
 describe("Array field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikArrayField).toStrictEqual("function");
+    expect(typeof FormikArrayField).toBe("function");
   });
 
   it("should add and remove fields", async (): Promise<void> => {

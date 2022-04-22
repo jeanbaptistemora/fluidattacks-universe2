@@ -143,7 +143,7 @@ describe("VulnComponent", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof VulnComponent).toStrictEqual("function");
+    expect(typeof VulnComponent).toBe("function");
   });
 
   it("should render in vulnerabilities", (): void => {

@@ -36,7 +36,7 @@ describe("Info", (): void => {
 
   it("should return a function group info", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupInformation).toStrictEqual("function");
+    expect(typeof GroupInformation).toBe("function");
   });
 
   it("should show group info", async (): Promise<void> => {

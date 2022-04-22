@@ -6,7 +6,7 @@ import { Modal } from "components/Modal";
 describe("Modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Modal).toStrictEqual("function");
+    expect(typeof Modal).toBe("function");
   });
 
   it("should render modal title", (): void => {

@@ -16,7 +16,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("EventEvidenceView", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof EventEvidenceView).toStrictEqual("function");
+    expect(typeof EventEvidenceView).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

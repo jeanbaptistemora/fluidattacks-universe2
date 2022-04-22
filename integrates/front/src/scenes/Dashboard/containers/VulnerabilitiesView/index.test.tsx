@@ -171,7 +171,7 @@ describe("VulnerabilitiesView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof VulnsView).toStrictEqual("function");
+    expect(typeof VulnsView).toBe("function");
   });
 
   it("should render container", async (): Promise<void> => {

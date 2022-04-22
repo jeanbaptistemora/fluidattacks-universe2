@@ -7,7 +7,7 @@ import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 describe("Sidebar", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Sidebar).toStrictEqual("function");
+    expect(typeof Sidebar).toBe("function");
   });
 
   it("should render a sidebar", (): void => {

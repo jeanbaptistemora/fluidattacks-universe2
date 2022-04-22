@@ -8,7 +8,7 @@ import { FormikTextArea } from ".";
 describe("TextArea Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikTextArea).toStrictEqual("function");
+    expect(typeof FormikTextArea).toBe("function");
   });
 
   it("should render textarea component", (): void => {

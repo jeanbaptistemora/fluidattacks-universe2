@@ -3,6 +3,6 @@ import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsFor
 describe("ChartsForOrganizationView", (): void => {
   it("should return an function", (): void => {
     expect.hasAssertions();
-    expect(typeof ChartsForOrganizationView).toStrictEqual("function");
+    expect(typeof ChartsForOrganizationView).toBe("function");
   });
 });

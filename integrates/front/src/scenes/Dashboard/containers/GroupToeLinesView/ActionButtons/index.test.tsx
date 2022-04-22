@@ -8,7 +8,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("ToelinesActionButtons", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ActionButtons).toStrictEqual("function");
+    expect(typeof ActionButtons).toBe("function");
   });
 
   it("should not display the edition button without permissions", (): void => {

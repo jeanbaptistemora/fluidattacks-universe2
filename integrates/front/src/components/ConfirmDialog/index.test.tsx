@@ -8,7 +8,7 @@ import { ConfirmDialog } from "components/ConfirmDialog";
 describe("ConfirmDialog", (): void => {
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof ConfirmDialog).toStrictEqual("function");
+    expect(typeof ConfirmDialog).toBe("function");
   });
 
   it("should handle cancel", async (): Promise<void> => {

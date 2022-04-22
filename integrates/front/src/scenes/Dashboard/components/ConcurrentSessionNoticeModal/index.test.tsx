@@ -6,7 +6,7 @@ import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentS
 describe("Concurrent session notice modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ConcurrentSessionNotice).toStrictEqual("function");
+    expect(typeof ConcurrentSessionNotice).toBe("function");
   });
 
   it("should be rendered", (): void => {

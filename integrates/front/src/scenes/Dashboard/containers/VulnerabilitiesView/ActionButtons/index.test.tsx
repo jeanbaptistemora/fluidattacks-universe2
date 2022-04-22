@@ -19,7 +19,7 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 describe("ActionButtons", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ActionButtons).toStrictEqual("function");
+    expect(typeof ActionButtons).toBe("function");
   });
 
   it("should render a component without permissions", (): void => {

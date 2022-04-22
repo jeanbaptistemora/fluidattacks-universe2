@@ -12,7 +12,7 @@ const FormikDateSchema = object().shape({
 describe("Date Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikDate).toStrictEqual("function");
+    expect(typeof FormikDate).toBe("function");
   });
 
   it("should render date component", (): void => {

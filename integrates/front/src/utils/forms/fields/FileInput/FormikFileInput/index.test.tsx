@@ -8,7 +8,7 @@ import { FormikFileInput } from "utils/forms/fields/FileInput/FormikFileInput";
 describe("FileInput Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikFileInput).toStrictEqual("function");
+    expect(typeof FormikFileInput).toBe("function");
   });
 
   it("should render fileinput component", (): void => {

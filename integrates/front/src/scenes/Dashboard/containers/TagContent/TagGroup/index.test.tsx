@@ -76,7 +76,7 @@ describe("Portfolio Groups", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof TagsGroup).toStrictEqual("function");
+    expect(typeof TagsGroup).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

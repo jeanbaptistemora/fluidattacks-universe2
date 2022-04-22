@@ -6,7 +6,7 @@ import { Notification } from "components/Notification";
 describe("Notification", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Notification).toStrictEqual("function");
+    expect(typeof Notification).toBe("function");
   });
 
   it("should render a notification", (): void => {

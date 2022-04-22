@@ -12,7 +12,7 @@ const FormikTextSchema = object().shape({
 describe("Text Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Text).toStrictEqual("function");
+    expect(typeof Text).toBe("function");
   });
 
   it("should render text component", (): void => {

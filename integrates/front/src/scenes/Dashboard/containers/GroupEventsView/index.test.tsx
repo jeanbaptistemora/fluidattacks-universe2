@@ -69,7 +69,7 @@ describe("EventsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupEventsView).toStrictEqual("function");
+    expect(typeof GroupEventsView).toBe("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {

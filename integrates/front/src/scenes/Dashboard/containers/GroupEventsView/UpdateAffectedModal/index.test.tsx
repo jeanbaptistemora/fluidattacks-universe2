@@ -9,7 +9,7 @@ import type { IFinding } from "../AffectedReattackAccordion/types";
 describe("Update Affected Modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof UpdateAffectedModal).toStrictEqual("function");
+    expect(typeof UpdateAffectedModal).toBe("function");
   });
 
   it("should render modal component", (): void => {

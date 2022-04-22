@@ -7,7 +7,7 @@ import { FormikPhone } from ".";
 describe("Phone Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikPhone).toStrictEqual("function");
+    expect(typeof FormikPhone).toBe("function");
   });
 
   it("should render phone field", (): void => {

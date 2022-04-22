@@ -28,7 +28,7 @@ jest.mock("../../../../../../utils/notifications", (): Dictionary => {
 describe("Mobile modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof MobileModal).toStrictEqual("function");
+    expect(typeof MobileModal).toBe("function");
   });
 
   it("should close the mobile modal", async (): Promise<void> => {

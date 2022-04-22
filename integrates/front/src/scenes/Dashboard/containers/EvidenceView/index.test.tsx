@@ -40,7 +40,7 @@ describe("FindingEvidenceView", (): void => {
 
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof EvidenceView).toStrictEqual("function");
+    expect(typeof EvidenceView).toBe("function");
   });
 
   it("should render empty UI", async (): Promise<void> => {

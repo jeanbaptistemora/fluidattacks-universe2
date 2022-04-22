@@ -7,7 +7,7 @@ import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 describe("Remediation modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof RemediationModal).toStrictEqual("function");
+    expect(typeof RemediationModal).toBe("function");
   });
 
   it("should render", async (): Promise<void> => {

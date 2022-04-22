@@ -6,7 +6,7 @@ import { FluidIcon } from "components/FluidIcon";
 describe("FluidIcon", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FluidIcon).toStrictEqual("function");
+    expect(typeof FluidIcon).toBe("function");
   });
 
   it("should render an icon", (): void => {

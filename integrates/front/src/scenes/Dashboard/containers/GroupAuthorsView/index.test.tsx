@@ -73,7 +73,7 @@ describe("AuthorsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupAuthorsView).toStrictEqual("function");
+    expect(typeof GroupAuthorsView).toBe("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {
@@ -203,14 +203,14 @@ describe("AuthorsView", (): void => {
         "group.authors.invitationState.confirmed",
       ].join("")
     );
-    expect(screen.getAllByRole("cell")[0].textContent).toStrictEqual("test");
+    expect(screen.getAllByRole("cell")[0].textContent).toBe("test");
     expect(screen.getAllByRole("cell")[1].textContent).toStrictEqual(
       "test, test2"
     );
-    expect(screen.getAllByRole("cell")[2].textContent).toStrictEqual("123");
+    expect(screen.getAllByRole("cell")[2].textContent).toBe("123");
     expect(
       screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2].textContent
-    ).toStrictEqual("test_repository");
+    ).toBe("test_repository");
     expect(
       within(screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2]).queryByText(
         "group.authors.sendInvitation"

@@ -52,7 +52,7 @@ describe("GroupSettingsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupSettingsView).toStrictEqual("function");
+    expect(typeof GroupSettingsView).toBe("function");
   });
 
   it("should render tags component", (): void => {

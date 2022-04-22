@@ -17,7 +17,7 @@ import { Welcome } from ".";
 describe("Welcome", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Welcome).toStrictEqual("function");
+    expect(typeof Welcome).toBe("function");
   });
 
   it("should render welcome menu to new users", async (): Promise<void> => {

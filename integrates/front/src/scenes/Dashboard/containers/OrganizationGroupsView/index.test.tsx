@@ -35,7 +35,7 @@ describe("Organization groups view", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof OrganizationGroups).toStrictEqual("function");
+    expect(typeof OrganizationGroups).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

@@ -25,7 +25,7 @@ describe("ChartsGenericView", (): void => {
 
   it("should return an function", (): void => {
     expect.hasAssertions();
-    expect(typeof ChartsGenericView).toStrictEqual("function");
+    expect(typeof ChartsGenericView).toBe("function");
   });
 
   it("should render a component and number of graphics of entity", async (): Promise<void> => {

@@ -90,7 +90,7 @@ describe("AdditionalInfo", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof AdditionalInfo).toStrictEqual("function");
+    expect(typeof AdditionalInfo).toBe("function");
   });
 
   it("should render in vulnerabilities", async (): Promise<void> => {

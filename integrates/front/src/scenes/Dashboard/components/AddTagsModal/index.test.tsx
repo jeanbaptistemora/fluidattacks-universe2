@@ -9,7 +9,7 @@ const functionMock: () => void = (): void => undefined;
 describe("Add Tags modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof AddTagsModal).toStrictEqual("function");
+    expect(typeof AddTagsModal).toBe("function");
   });
 
   it("should render", (): void => {

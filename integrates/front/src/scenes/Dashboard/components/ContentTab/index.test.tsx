@@ -7,7 +7,7 @@ import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 describe("ContentTab", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ContentTab).toStrictEqual("function");
+    expect(typeof ContentTab).toBe("function");
   });
 
   it("should render a component", (): void => {

@@ -51,7 +51,7 @@ describe("EventContent", (): void => {
 
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof EventContent).toStrictEqual("function");
+    expect(typeof EventContent).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

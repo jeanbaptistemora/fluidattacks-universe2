@@ -12,7 +12,7 @@ import type { IUser } from "scenes/Dashboard/types";
 describe("Dashboard", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Dashboard).toStrictEqual("function");
+    expect(typeof Dashboard).toBe("function");
   });
 
   it("should render dashboard component", async (): Promise<void> => {

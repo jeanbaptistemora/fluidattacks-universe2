@@ -47,7 +47,7 @@ describe("TrackingView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof TrackingView).toStrictEqual("function");
+    expect(typeof TrackingView).toBe("function");
   });
 
   it("should render", async (): Promise<void> => {

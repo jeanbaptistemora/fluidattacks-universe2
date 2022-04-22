@@ -34,7 +34,7 @@ describe("Update access token modal", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof APITokenModal).toStrictEqual("function");
+    expect(typeof APITokenModal).toBe("function");
   });
 
   it("should render an add access token modal", (): void => {

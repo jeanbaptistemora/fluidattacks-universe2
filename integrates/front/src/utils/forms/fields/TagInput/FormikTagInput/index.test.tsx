@@ -7,7 +7,7 @@ import { FormikTagInput } from "utils/forms/fields/TagInput/FormikTagInput";
 describe("FormikTagInput Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikTagInput).toStrictEqual("function");
+    expect(typeof FormikTagInput).toBe("function");
   });
 
   it("should render formiktaginput component", (): void => {

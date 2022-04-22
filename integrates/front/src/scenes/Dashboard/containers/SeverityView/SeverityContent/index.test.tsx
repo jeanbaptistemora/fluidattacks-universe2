@@ -9,7 +9,7 @@ import { userInteractionBgColor, userInteractionOptions } from "../utils";
 describe("SeverityTile", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof SeverityTile).toStrictEqual("function");
+    expect(typeof SeverityTile).toBe("function");
   });
 
   it("should render a tile", (): void => {

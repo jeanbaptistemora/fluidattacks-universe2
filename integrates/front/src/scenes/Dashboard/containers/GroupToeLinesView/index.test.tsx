@@ -13,7 +13,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("GroupToeLinesView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupToeLinesView).toStrictEqual("function");
+    expect(typeof GroupToeLinesView).toBe("function");
   });
 
   it("should display group toe lines", async (): Promise<void> => {

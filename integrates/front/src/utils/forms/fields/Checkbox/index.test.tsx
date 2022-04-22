@@ -12,7 +12,7 @@ const FormikCheckboxSchema = object().shape({
 describe("Checkbox Field", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof FormikCheckbox).toStrictEqual("function");
+    expect(typeof FormikCheckbox).toBe("function");
   });
 
   it("should render checkbox component", (): void => {

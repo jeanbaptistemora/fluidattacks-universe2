@@ -76,7 +76,7 @@ describe("Files", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Files).toStrictEqual("function");
+    expect(typeof Files).toBe("function");
   });
 
   it("should add a file", async (): Promise<void> => {

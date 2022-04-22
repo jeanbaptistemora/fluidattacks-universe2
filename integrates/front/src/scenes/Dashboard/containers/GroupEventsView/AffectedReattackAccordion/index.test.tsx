@@ -10,7 +10,7 @@ import { AffectedReattackAccordion } from ".";
 describe("Affected Reattack accordion", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof AffectedReattackAccordion).toStrictEqual("function");
+    expect(typeof AffectedReattackAccordion).toBe("function");
   });
 
   it("should render accordion component", (): void => {

@@ -7,7 +7,7 @@ import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader"
 describe("EventHeader", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof EventHeader).toStrictEqual("function");
+    expect(typeof EventHeader).toBe("function");
   });
 
   it("should render event header with evidence", (): void => {

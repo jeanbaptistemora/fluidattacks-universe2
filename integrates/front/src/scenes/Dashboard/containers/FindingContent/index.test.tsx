@@ -195,7 +195,7 @@ describe("FindingContent", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof FindingContent).toStrictEqual("function");
+    expect(typeof FindingContent).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

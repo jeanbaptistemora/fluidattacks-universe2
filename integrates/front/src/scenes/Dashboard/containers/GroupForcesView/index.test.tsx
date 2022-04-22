@@ -124,7 +124,7 @@ describe("ForcesView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupForcesView).toStrictEqual("function");
+    expect(typeof GroupForcesView).toBe("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {

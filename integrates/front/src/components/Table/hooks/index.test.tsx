@@ -40,7 +40,7 @@ describe("Table hooks", (): void => {
 
     it("should return a function", (): void => {
       expect.hasAssertions();
-      expect(typeof useRowExpand).toStrictEqual("function");
+      expect(typeof useRowExpand).toBe("function");
     });
 
     it("should expand", async (): Promise<void> => {

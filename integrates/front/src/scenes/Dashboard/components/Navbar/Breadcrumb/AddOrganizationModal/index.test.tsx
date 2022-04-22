@@ -28,7 +28,7 @@ jest.mock("react-router-dom", (): Dictionary => {
 describe("Add organization modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof AddOrganizationModal).toStrictEqual("function");
+    expect(typeof AddOrganizationModal).toBe("function");
   });
 
   it("should render component", async (): Promise<void> => {

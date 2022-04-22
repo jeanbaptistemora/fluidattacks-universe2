@@ -22,7 +22,7 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 describe("GroupScopeView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupScopeView).toStrictEqual("function");
+    expect(typeof GroupScopeView).toBe("function");
   });
 
   it("should render git roots", async (): Promise<void> => {

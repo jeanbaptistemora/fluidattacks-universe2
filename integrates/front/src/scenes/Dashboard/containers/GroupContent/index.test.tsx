@@ -10,7 +10,7 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 describe("GroupContent", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupContent).toStrictEqual("function");
+    expect(typeof GroupContent).toBe("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {

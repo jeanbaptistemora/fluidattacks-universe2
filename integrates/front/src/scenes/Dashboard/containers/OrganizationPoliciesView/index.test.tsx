@@ -36,7 +36,7 @@ describe("Organization policies view", (): void => {
   it("should return a  function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof OrganizationPolicies).toStrictEqual("function");
+    expect(typeof OrganizationPolicies).toBe("function");
   });
 
   it("should render component with default values", async (): Promise<void> => {

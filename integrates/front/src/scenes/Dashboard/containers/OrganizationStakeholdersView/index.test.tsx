@@ -35,7 +35,7 @@ describe("Organization users view", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof OrganizationStakeholders).toStrictEqual("function");
+    expect(typeof OrganizationStakeholders).toBe("function");
   });
 
   it("should render component", async (): Promise<void> => {

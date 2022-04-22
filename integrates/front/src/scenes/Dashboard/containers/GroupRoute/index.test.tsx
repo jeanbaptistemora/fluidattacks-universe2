@@ -61,7 +61,7 @@ describe("GroupRoute", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GroupRoute).toStrictEqual("function");
+    expect(typeof GroupRoute).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

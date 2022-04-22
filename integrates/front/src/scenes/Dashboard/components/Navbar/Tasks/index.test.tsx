@@ -23,7 +23,7 @@ jest.mock("react-router-dom", (): Record<string, unknown> => {
 describe("TaskInfo component", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof TaskInfo).toStrictEqual("function");
+    expect(typeof TaskInfo).toBe("function");
   });
 
   it("should render component", async (): Promise<void> => {

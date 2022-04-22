@@ -7,7 +7,7 @@ import { AddFilesBasicModal } from "scenes/Dashboard/components/AddFilesBasicMod
 describe("Add Files modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof AddFilesBasicModal).toStrictEqual("function");
+    expect(typeof AddFilesBasicModal).toBe("function");
   });
 
   it("should render", (): void => {

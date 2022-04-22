@@ -68,7 +68,7 @@ describe("Portfolio", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof Portfolio).toStrictEqual("function");
+    expect(typeof Portfolio).toBe("function");
   });
 
   it("should add a tag", async (): Promise<void> => {

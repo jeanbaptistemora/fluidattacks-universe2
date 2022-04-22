@@ -14,8 +14,8 @@ describe("Authorization", (): void => {
   it("should return functions", (): void => {
     expect.hasAssertions();
 
-    expect(typeof Can).toStrictEqual("function");
-    expect(typeof Have).toStrictEqual("function");
+    expect(typeof Can).toBe("function");
+    expect(typeof Have).toBe("function");
   });
 
   it("should render", (): void => {

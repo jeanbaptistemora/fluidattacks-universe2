@@ -14,7 +14,7 @@ import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 describe("GitRoots", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof GitRoots).toStrictEqual("function");
+    expect(typeof GitRoots).toBe("function");
   });
 
   it("should render tables", async (): Promise<void> => {

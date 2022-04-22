@@ -42,7 +42,7 @@ describe("Validations", (): void => {
 
     const severity: number = 6;
 
-    expect(severityBetween(severity)).toStrictEqual(
+    expect(severityBetween(severity)).toBe(
       "This value must be between 0 and 5"
     );
   });
@@ -53,7 +53,7 @@ describe("Validations", (): void => {
     const max: number = 10;
     const length: ConfigurableValidator = maxLength(max);
 
-    expect(length("testmaxlength")).toStrictEqual(
+    expect(length("testmaxlength")).toBe(
       "This field requires less than 10 characters"
     );
   });
@@ -64,9 +64,7 @@ describe("Validations", (): void => {
     const min: number = 4;
     const length: ConfigurableValidator = minLength(min);
 
-    expect(length("4")).toStrictEqual(
-      "This field requires at least 4 characters"
-    );
+    expect(length("4")).toBe("This field requires at least 4 characters");
   });
 
   it("should raise validation", (): void => {
@@ -125,7 +123,7 @@ describe("Validations", (): void => {
 
     const validFile: boolean = isValidFileSize(maxSize)([file]) === undefined;
 
-    expect(validFile).toStrictEqual(true);
+    expect(validFile).toBe(true);
   });
 
   it("shouldn't be a valid size .gif file", (): void => {
@@ -147,7 +145,7 @@ describe("Validations", (): void => {
     };
     const validFile: boolean = isValidFileSize(maxSize)([file]) === undefined;
 
-    expect(validFile).toStrictEqual(false);
+    expect(validFile).toBe(false);
   });
 
   it("should be a valid size .png file", (): void => {
@@ -167,7 +165,7 @@ describe("Validations", (): void => {
     };
     const validFile: boolean = isValidFileSize(2)([file]) === undefined;
 
-    expect(validFile).toStrictEqual(true);
+    expect(validFile).toBe(true);
   });
 
   it("shouldn't be a valid size .png file", (): void => {
@@ -187,7 +185,7 @@ describe("Validations", (): void => {
     };
     const validFile: boolean = isValidFileSize(2)([file]) === undefined;
 
-    expect(validFile).toStrictEqual(false);
+    expect(validFile).toBe(false);
   });
 
   it("should be a valid size .py file", (): void => {
@@ -207,7 +205,7 @@ describe("Validations", (): void => {
     };
     const validFile: boolean = isValidFileSize(1)([file]) === undefined;
 
-    expect(validFile).toStrictEqual(true);
+    expect(validFile).toBe(true);
   });
 
   it("shouldn't be a valid size .py file", (): void => {
@@ -227,7 +225,7 @@ describe("Validations", (): void => {
     };
     const validFile: boolean = isValidFileSize(1)([file]) === undefined;
 
-    expect(validFile).toStrictEqual(false);
+    expect(validFile).toBe(false);
   });
 
   it("should be a valid .gif evidence", (): void => {
@@ -247,7 +245,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(true);
+    expect(evidenceValidType).toBe(true);
   });
 
   it("shouldn't be a valid .gif evidence", (): void => {
@@ -267,7 +265,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(false);
+    expect(evidenceValidType).toBe(false);
   });
 
   it("should be a valid .png evidence", (): void => {
@@ -287,7 +285,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(true);
+    expect(evidenceValidType).toBe(true);
   });
 
   // Exception: WF(This function must contain explicit assert)
@@ -309,7 +307,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validEvidenceImage([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(false);
+    expect(evidenceValidType).toBe(false);
   });
 
   it("should be a valid .py evidence", (): void => {
@@ -329,7 +327,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validExploitFile([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(true);
+    expect(evidenceValidType).toBe(true);
   });
 
   it("shouldn't be a valid .py evidence", (): void => {
@@ -349,7 +347,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validExploitFile([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(false);
+    expect(evidenceValidType).toBe(false);
   });
 
   it("should be a valid .csv evidence", (): void => {
@@ -369,7 +367,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validRecordsFile([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(true);
+    expect(evidenceValidType).toBe(true);
   });
 
   it("shouldn't be a valid .csv evidence", (): void => {
@@ -389,7 +387,7 @@ describe("Validations", (): void => {
     };
     const evidenceValidType: boolean = validRecordsFile([file]) === undefined;
 
-    expect(evidenceValidType).toStrictEqual(false);
+    expect(evidenceValidType).toBe(false);
   });
 
   it("should be a valid email", (): void => {
@@ -405,7 +403,7 @@ describe("Validations", (): void => {
 
     const email: string | undefined = validEmail("usertest.com");
 
-    expect(email).toStrictEqual("The email format is not valid");
+    expect(email).toBe("The email format is not valid");
   });
 
   it("should be a valid text field", (): void => {
@@ -423,13 +421,13 @@ describe("Validations", (): void => {
     const feedbackApos: string | undefined = validTextField("testf'ield");
     const feedbackLessThan: string | undefined = validTextField("<testfield");
 
-    expect(feedbackEqual).toStrictEqual(
+    expect(feedbackEqual).toBe(
       "Field cannot begin with the following character: '='"
     );
-    expect(feedbackApos).toStrictEqual(
+    expect(feedbackApos).toBe(
       "Field cannot contain the following characters: '''"
     );
-    expect(feedbackLessThan).toStrictEqual(
+    expect(feedbackLessThan).toBe(
       "Field cannot contain the following characters: '<'"
     );
   });
@@ -450,10 +448,10 @@ describe("Validations", (): void => {
     const feedbackInvalidChar: string | undefined =
       validUrlField("test/url/fiéld");
 
-    expect(feedbackMissChar).toStrictEqual(
+    expect(feedbackMissChar).toBe(
       "URL value cannot contain the following characters: ' '"
     );
-    expect(feedbackInvalidChar).toStrictEqual(
+    expect(feedbackInvalidChar).toBe(
       "URL value cannot contain the following characters: 'é'"
     );
   });
@@ -471,7 +469,7 @@ describe("Validations", (): void => {
 
     const tag: string | undefined = validTag("test.1");
 
-    expect(tag).toStrictEqual(
+    expect(tag).toBe(
       "This field can only contain alphanumeric characters and dashes"
     );
   });
@@ -515,7 +513,7 @@ describe("Validations", (): void => {
     };
     const fileName: string | undefined = isValidFileName([file]);
 
-    expect(typeof fileName).toStrictEqual("string");
+    expect(typeof fileName).toBe("string");
   });
 
   it("should be a valid file size", (): void => {
@@ -557,7 +555,7 @@ describe("Validations", (): void => {
     };
     const fileSize: string | undefined = isValidFileSize(2)([file]);
 
-    expect(typeof fileSize).toStrictEqual("string");
+    expect(typeof fileSize).toBe("string");
   });
 
   it("should be a valid date", (): void => {

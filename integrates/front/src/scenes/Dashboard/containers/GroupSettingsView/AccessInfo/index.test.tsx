@@ -32,7 +32,7 @@ describe("AccessInfo", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof AccessInfo).toStrictEqual("function");
+    expect(typeof AccessInfo).toBe("function");
   });
 
   it("should render a component", async (): Promise<void> => {

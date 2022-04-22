@@ -7,7 +7,7 @@ import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeMo
 describe("Compulsory notice modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof CompulsoryNotice).toStrictEqual("function");
+    expect(typeof CompulsoryNotice).toBe("function");
   });
 
   it("should be rendered", (): void => {

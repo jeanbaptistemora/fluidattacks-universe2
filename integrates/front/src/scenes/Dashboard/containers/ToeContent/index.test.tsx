@@ -10,7 +10,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("ToeContent", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ToeContent).toStrictEqual("function");
+    expect(typeof ToeContent).toBe("function");
   });
 
   it("should display toe tabs", async (): Promise<void> => {

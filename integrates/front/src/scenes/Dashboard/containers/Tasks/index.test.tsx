@@ -134,7 +134,7 @@ describe("VulnerabilitiesView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof TasksContent).toStrictEqual("function");
+    expect(typeof TasksContent).toBe("function");
   });
 
   it("should handle reattack button basic", async (): Promise<void> => {
