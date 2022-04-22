@@ -20,6 +20,7 @@ let
     src = "${root}/${underscore_pkg root}";
     check = {
       arch = "${root}/check/arch";
+      tests = "${root}/check/tests";
       types = "${root}/check/types";
     };
     bin = "${root}/bin";

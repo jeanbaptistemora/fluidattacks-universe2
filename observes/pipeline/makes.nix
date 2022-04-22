@@ -58,26 +58,25 @@
   };
 
   index = inputs.observesIndex;
-  # arch check
-  archCheckTargets = [
+
+  pkgTargets = [
     inputs.observesIndex.tap.checkly
   ];
-  archCheckJobs =
-    map (x: {
-      output = x.check.arch;
+  genPkgJobs = pkg: [
+    {
+      output = pkg.check.arch;
       gitlabExtra = gitlabLint;
-    })
-    archCheckTargets;
-  # type check
-  typeCheckTargets = [
-    inputs.observesIndex.tap.checkly
+    }
+    {
+      output = pkg.check.types;
+      gitlabExtra = gitlabLint;
+    }
+    {
+      output = pkg.check.tests;
+      gitlabExtra = gitlabTestCode;
+    }
   ];
-  typeCheckJobs =
-    map (x: {
-      output = x.check.types;
-      gitlabExtra = gitlabLint;
-    })
-    typeCheckTargets;
+  pkgsJobs = builtins.concatLists (map genPkgJobs pkgTargets);
 
   targets = [
     index.etl.code
@@ -108,8 +107,7 @@ in {
       jobs =
         lintJobs
         ++ testJobs
-        ++ archCheckJobs
-        ++ typeCheckJobs
+        ++ pkgsJobs
         ++ [
           {
             output = "/deployTerraform/observes";

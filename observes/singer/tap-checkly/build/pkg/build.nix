@@ -15,6 +15,7 @@ lib.buildPythonPackage rec {
   installCheckPhase = [
     ''
       source ${type_check} \
+      && source ${test_check} \
       && source ${arch_check}
     ''
   ];
