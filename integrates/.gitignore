@@ -19,3 +19,4 @@ expoClient.apk
 coverage.xml
 .coverage.*
 /front/coverage
+/back/test/e2e/src/.coverage
