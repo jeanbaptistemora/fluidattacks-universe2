@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, red-team, vulnerability, risk, software, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1650288075/blog/security-advisories/cover_advisories.webp
 alt: Photo by Bank Phrom on Unsplash
-description: In this blog post we explain what out Advisories are and, in the process, share some information on how the Fluid Attacks Research Team works.
+description: In this blog post we explain what our Advisories are and, in the process, share some information on how the Fluid Attacks Research Team works.
 keywords: Advisory, Zero Day, Cve, Vulnerability, Research, Responsible Disclosure, Cve Numbering Authority, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
