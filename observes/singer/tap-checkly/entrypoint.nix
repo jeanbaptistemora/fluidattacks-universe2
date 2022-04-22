@@ -12,7 +12,7 @@ fetchNixpkgs: projectPath: observesIndex: let
   out = import ./. {
     inherit legacyPkgs localLib;
     system = "x86_64-linux";
-    pythonVersion = "python38";
+    pythonVersion = "python310";
     src = ./.;
   };
 in
