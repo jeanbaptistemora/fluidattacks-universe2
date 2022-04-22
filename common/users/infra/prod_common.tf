@@ -87,6 +87,17 @@ module "prod_common_aws" {
   name   = "prod_common"
   policy = local.prod_common.policies.aws
 
+  extra_assume_role_policies = [
+    {
+      Sid    = "EcsAssumeRolePolicy",
+      Effect = "Allow",
+      Principal = {
+        Service = "ecs-tasks.amazonaws.com",
+      },
+      Action = "sts:AssumeRole",
+    },
+  ]
+
   tags = {
     "Name"               = "prod_common"
     "management:area"    = "cost"
