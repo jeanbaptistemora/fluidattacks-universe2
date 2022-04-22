@@ -655,9 +655,7 @@ describe("GroupScopeView", (): void => {
     expect(
       screen.queryByText("group.scope.common.confirm")
     ).not.toBeInTheDocument();
-    expect(
-      screen.getByRole<HTMLInputElement>("checkbox").checked
-    ).toStrictEqual(false);
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(false);
 
     userEvent.click(screen.getByRole("checkbox"));
     await waitFor((): void => {
@@ -667,9 +665,7 @@ describe("GroupScopeView", (): void => {
     });
     userEvent.click(screen.getByText("confirmmodal.proceed"));
     await waitFor((): void => {
-      expect(
-        screen.getByRole<HTMLInputElement>("checkbox").checked
-      ).toStrictEqual(true);
+      expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(true);
     });
   });
 
@@ -829,9 +825,7 @@ describe("GroupScopeView", (): void => {
       expect(
         screen.queryByText("group.scope.common.confirm")
       ).not.toBeInTheDocument();
-      expect(
-        screen.getByRole<HTMLInputElement>("checkbox").checked
-      ).toStrictEqual(true);
+      expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(true);
 
       userEvent.click(screen.getByRole("checkbox"));
       await waitFor((): void => {
@@ -862,9 +856,9 @@ describe("GroupScopeView", (): void => {
       });
       userEvent.click(screen.getAllByText("confirmmodal.proceed")[1]);
       await waitFor((): void => {
-        expect(
-          screen.getByRole<HTMLInputElement>("checkbox").checked
-        ).toStrictEqual(false);
+        expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(
+          false
+        );
       });
     }
   );

@@ -31,8 +31,8 @@ const Tour: React.FC<ITourProps> = (
 ): JSX.Element => {
   const { run, steps, onFinish } = props;
 
-  const [runTour, toggleTour] = useState(run);
-  const [tourStep, changeTourStep] = useState(0);
+  const [runTour, setRunTour] = useState(run);
+  const [tourStep, setTourStep] = useState(0);
 
   function handleJoyrideCallback(tourState: CallBackProps): void {
     const { action, index, status, type } = tourState;
@@ -40,12 +40,12 @@ const Tour: React.FC<ITourProps> = (
     if (
       ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)
     ) {
-      changeTourStep(index + (action === ACTIONS.PREV ? -1 : 1));
+      setTourStep(index + (action === ACTIONS.PREV ? -1 : 1));
     } else if (
       ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status) ||
       action === "close"
     ) {
-      toggleTour(false);
+      setRunTour(false);
       if (!_.isUndefined(onFinish)) {
         onFinish();
       }

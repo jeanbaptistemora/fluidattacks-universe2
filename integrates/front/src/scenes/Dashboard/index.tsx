@@ -88,8 +88,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
     authContext as React.Context<Required<IAuthContext>>
   );
 
-  const [isCtSessionModalOpen, setCtSessionModalOpen] = useState(false);
-  const [isLegalModalOpen, setLegalModalOpen] = useState(false);
+  const [isCtSessionModalOpen, setIsCtSessionModalOpen] = useState(false);
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
 
   const { data } = useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
@@ -125,9 +125,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
         Logger.error("Empty permissions", JSON.stringify(me.permissions));
       }
       if (me.isConcurrentSession) {
-        setCtSessionModalOpen(true);
+        setIsCtSessionModalOpen(true);
       } else if (!me.remember && checkLoginReferrer()) {
-        setLegalModalOpen(true);
+        setIsLegalModalOpen(true);
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -191,16 +191,16 @@ export const Dashboard: React.FC = (): JSX.Element => {
   });
 
   const handleConcurrent: () => void = useCallback((): void => {
-    setCtSessionModalOpen(false);
+    setIsCtSessionModalOpen(false);
     if (!(data?.me.remember ?? false) && checkLoginReferrer()) {
-      setLegalModalOpen(true);
+      setIsLegalModalOpen(true);
     }
     void acknowledgeConcurrent();
   }, [data?.me.remember, checkLoginReferrer, acknowledgeConcurrent]);
 
   const handleAccept: (remember: boolean) => void = useCallback(
     (remember: boolean): void => {
-      setLegalModalOpen(false);
+      setIsLegalModalOpen(false);
       void acceptLegal({ variables: { remember } });
     },
     [acceptLegal]

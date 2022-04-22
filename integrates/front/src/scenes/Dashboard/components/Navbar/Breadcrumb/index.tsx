@@ -114,21 +114,21 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       ? [{ name: "" }]
       : _.sortBy(portfolioData.me.tags, ["name"]);
 
-  const [isOrgItemsOpen, setOrgItemsOpen] = useState(false);
+  const [isOrgItemsOpen, setIsOrgItemsOpen] = useState(false);
   const showOrgItems = useCallback((): void => {
-    setOrgItemsOpen(true);
+    setIsOrgItemsOpen(true);
   }, []);
   const hideOrgItems = useCallback((): void => {
-    setOrgItemsOpen(false);
+    setIsOrgItemsOpen(false);
   }, []);
 
-  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
+  const [isOrganizationModalOpen, setIsOrganizationModalOpen] = useState(false);
   const openOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(true);
-    setOrgItemsOpen(false);
+    setIsOrganizationModalOpen(true);
+    setIsOrgItemsOpen(false);
   }, []);
   const closeOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(false);
+    setIsOrganizationModalOpen(false);
     void refetch();
   }, [refetch]);
 
@@ -147,17 +147,17 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         setLastOrganization({ name: eventKey });
         push(`/orgs/${eventKey}/groups`);
       }
-      setOrgItemsOpen(false);
+      setIsOrgItemsOpen(false);
     },
     [lastOrganization.name, isOrphanPath, push, setLastOrganization]
   );
 
-  const [isGroupItemsOpen, setGroupItemsOpen] = useState(false);
+  const [isGroupItemsOpen, setIsGroupItemsOpen] = useState(false);
   const showGroupItems = useCallback((): void => {
-    setGroupItemsOpen(true);
+    setIsGroupItemsOpen(true);
   }, []);
   const hideGroupItems = useCallback((): void => {
-    setGroupItemsOpen(false);
+    setIsGroupItemsOpen(false);
   }, []);
 
   const handleGroupChange = useCallback(
@@ -166,17 +166,17 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         setLastGroup({ name: eventKey });
         push(`/orgs/${lastOrganization.name}/groups/${eventKey}/`);
       }
-      setGroupItemsOpen(false);
+      setIsGroupItemsOpen(false);
     },
     [lastOrganization.name, lastGroup.name, push, setLastGroup]
   );
 
-  const [isPortfolioItemsOpen, setPortfolioItemsOpen] = useState(false);
+  const [isPortfolioItemsOpen, setIsPortfolioItemsOpen] = useState(false);
   const showPortfolioItems = useCallback((): void => {
-    setPortfolioItemsOpen(true);
+    setIsPortfolioItemsOpen(true);
   }, []);
   const hidePortfolioItems = useCallback((): void => {
-    setPortfolioItemsOpen(false);
+    setIsPortfolioItemsOpen(false);
   }, []);
 
   const handlePortfolioChange = useCallback(
@@ -185,7 +185,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         setLastPortfolio({ name: eventKey });
         push(`/orgs/${lastOrganization.name}/portfolios/${eventKey}/`);
       }
-      setPortfolioItemsOpen(false);
+      setIsPortfolioItemsOpen(false);
     },
     [lastOrganization.name, lastPortfolio.name, push, setLastPortfolio]
   );
@@ -355,7 +355,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       }
 
       return (
-        <li className={"pv2"} key={index.toString()}>
+        <li className={"pv2"} key={breadcrumbItem}>
           <Link to={`/${baseLink}/${link}`}>
             {stylizeBreadcrumbItem(breadcrumbItem)}
           </Link>

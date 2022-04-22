@@ -23,7 +23,7 @@ export const useAddStakeholder: () => readonly [
   const { t } = useTranslation();
 
   // Handle modal state
-  const [isOpen, toggle] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Handle mutation results
   const handleOnSuccess: (mtResult: IAddStakeholderAttr) => void = (
@@ -31,7 +31,7 @@ export const useAddStakeholder: () => readonly [
   ): void => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.addStakeholder.success) {
-        toggle(false);
+        setIsOpen(false);
         msgSuccess(
           t("userModal.success", {
             email: mtResult.addStakeholder.email,
@@ -55,5 +55,5 @@ export const useAddStakeholder: () => readonly [
     onError: handleOnError,
   });
 
-  return [addStakeholder, isOpen, toggle] as const;
+  return [addStakeholder, isOpen, setIsOpen] as const;
 };

@@ -12,4 +12,4 @@ interface IPhoneData {
   nationalNumber: string;
 }
 
-export { IPhoneNumberProps, IPhoneData };
+export type { IPhoneNumberProps, IPhoneData };

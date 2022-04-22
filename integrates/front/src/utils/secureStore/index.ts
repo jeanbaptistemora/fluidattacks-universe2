@@ -146,4 +146,5 @@ const secureStore: ISecureStoreConfig = {
 const secureStoreContext: React.Context<ISecureStoreConfig> =
   createContext(secureStore);
 
-export { ISecureStoreConfig, secureStore, secureStoreContext };
+export type { ISecureStoreConfig };
+export { secureStore, secureStoreContext };
