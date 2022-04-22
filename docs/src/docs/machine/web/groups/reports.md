@@ -5,107 +5,96 @@ sidebar_label: Reports
 slug: /machine/web/groups/reports
 ---
 
-In the **Vulnerabilities** tab,
-you can also request various
-vulnerability reports by clicking
-on the **Reports** button shown
-in the following image:
+In the
+**Vulnerabilities** subsection,
+you can request vulnerability
+reports by clicking on the
+**Reports** button that
+appears at the top left,
+as you can see in the
+following screenshot:
 
-![Reports Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1644945001/docs/web/groups/reports/reports_button.png)
+![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_vul_subsection.png)
 
-**Reports** helps you to create
-a document with either summarized
-or complete information about the
-vulnerabilities in that
-specific group.
-When you click on the button, the
-following window will appear:
+The available report options
+have either summarized and
+easy-to-read information or
+complete and technical
+information about the
+vulnerabilities that have
+been reported in a specific group.
+When you click on
+the Reports button,
+you can see the following
+options:
 
-![Reports Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1644945001/docs/web/groups/reports/reports_info_window.png)
+![Reports Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_options.png)
 
-To create a report, you must download
-the app on your mobile device because
-there you will be receiving One Time
-Password (OTP) passphrases to open
-reports.
-You must remember that you will receive
-them through a push notification in
-the Fluid Attacks mobile app.
-
-![Reports Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1644945001/docs/web/groups/reports/reports_3options.png)
-
+- **Certificate:**
+  This option generates
+  a security testing
+  certification.
 - **Executive:**
-  This will give you a summarized
-  report of all vulnerabilities
-  in line with necessary knowledge
-  from a management perspective.
+  This option creates a
+  summarized report in PDF
+  of all vulnerabilities
+  reported in the group,
+  tailored to a management
+  perspective.
 - **Technical:**
-  This will give you a much more
-  in-depth look at all the group's
-  vulnerabilities, suitable for
-  those who want all the technical
-  details.
+  This option generates a
+  much more in-depth report
+  in XLSX of all vulnerabilities
+  reported in the group,
+  or filtered by treatment,
+  suitable for those who want
+  all the technical details.
 - **Export:**
-  This will give you a ZIP file with
-  an export of all vulnerabilities
-  in the group.
+  This option creates a ZIP
+  file with an export of all
+  vulnerabilities reported
+  in the group (includes the
+  previous reports and files
+  of compromised records
+  and evidence).
 
-After you order to download
-the report, you need to check
-your email.
-You will receive a message in a
-couple of minutes that will
-allow you to download the
-report by clicking on the
-button **Go to report**.
-It is important to keep in
-mind that the access granted
-will be available for one hour
-only; after that, you will
-get Access Denied.
+When you select the
+desired report option,
+if you have not yet registered
+your mobile phone
+number in the ASM,
+you will see a message
+asking you to do so.
+You just have to go to the
+[user information drop-down menu](/machine/web/user-information)
+and select the Mobile option.
+A verification code will
+be sent via SMS to the
+number you provide.
+Once you have
+registered your number,
+in order to obtain
+the requested report,
+you must enter another
+verification code that
+will be sent to your mobile,
+as you can see below:
 
-![Reports Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1644945001/docs/web/groups/reports/reports_availability_email.png)
+![Verification Code](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_verification.png)
 
-The downloaded file will be
-protected with a passphrase
-that we will send to your
-mobile device.
-When you open the file, you
-will be asked for the passphrase.
-Type the passphrase and you’ll
-have your report!
+As immediately announced
+by a message in the ASM,
+it will send you an email
+with a link to the report
+in a couple of minutes.
+Once you receive it,
+clicking on the
+**Go to report** button
+will allow you to download
+the report to your device.
+It is essential to note
+that the access granted
+through the link is only
+available for one hour.
 
-## Remove passphrase
-
-To remove the passphrase from the PDF
-file, you can use one of the follow instructions.
-
-- Print to PDF: After opening the
-  encrypted PDF file, you can print
-  the file in PDF format.
-  This will create a new file without
-  passphrase protection.
-
-![Print Pdf](https://res.cloudinary.com/fluid-attacks/image/upload/v1645213317/docs/web/groups/reports/remove_passphrase_print_pdf.png)
-
-- Remove security method using Adobe
-  Acrobat PRO.
-  In security settings, you can disable
-  or change the security method.
-  Selecting “No security” you will
-  remove protection.
-
-![Document Properties](https://res.cloudinary.com/fluid-attacks/image/upload/v1645213461/docs/web/groups/reports/remove_passphrase_doc_properties.png)
-
-To remove the passphrase from the XLS file,
-you can follow these instructions.
-
-- Open XLS file with passphrase provided
-  in the Fluid Attacks mobile application.
-- In the File tab, you will find Info.
-- Look for Encrypt with password in Protect
-  Workbook drop-down menu.
-
-![Properties Xls](https://res.cloudinary.com/fluid-attacks/image/upload/v1645213462/docs/web/groups/reports/remove_passphrase_xls.png)
-
-- Delete passphrase and save the file.
+![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_announcement.png)
