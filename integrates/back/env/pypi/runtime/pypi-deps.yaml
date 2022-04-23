@@ -3,6 +3,7 @@ aiobotocore: 1.0.4
 aiodataloader: 0.2.0
 aioextensions: 21.7.2261349
 aiofiles: 0.7.0
+aiohttp: 3.8.1
 ariadne:
   version: 0.14.1
   extras:
