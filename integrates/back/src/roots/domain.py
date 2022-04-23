@@ -1127,6 +1127,16 @@ async def add_secret(  # pylint: disable=too-many-arguments
     return await roots_model.add_secret(root_id, secret)
 
 
+async def add_git_environment_secret(
+    url_id: str,
+    key: str,
+    value: str,
+    description: Optional[str] = None,
+) -> bool:
+    secret = Secret(key=key, value=value, description=description)
+    return await roots_model.add_git_environment_secret(url_id, secret)
+
+
 async def add_environment_url(
     loaders: Any, group_name: str, root_id: str, url: str
 ) -> bool:

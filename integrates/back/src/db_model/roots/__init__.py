@@ -1,6 +1,7 @@
 from .add import (
     add,
     add_environment_url,
+    add_git_environment_secret,
     add_machine_execution,
     add_secret,
 )
@@ -26,4 +27,5 @@ __all__ = [
     "start_machine_execution",
     "add_environment_url",
     "remove_environment_url",
+    "add_git_environment_secret",
 ]

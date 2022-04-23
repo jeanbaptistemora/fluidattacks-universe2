@@ -137,6 +137,29 @@ async def add_secret(
     return False
 
 
+async def add_git_environment_secret(
+    url_id: str,
+    secret: Secret,
+) -> bool:
+    key_structure = TABLE.primary_key
+    secret_key = keys.build_key(
+        facet=TABLE.facets["git_environment_secret"],
+        values={"hash": url_id, "key": secret.key},
+    )
+    secret_item = {
+        key_structure.partition_key: secret_key.partition_key,
+        key_structure.sort_key: secret_key.sort_key,
+        "key": secret.key,
+        "value": secret.value,
+        "description": secret.description,
+    }
+    with suppress(botocore.exceptions.ClientError):
+        await operations.batch_put_item(items=(secret_item,), table=TABLE)
+        return True
+
+    return False
+
+
 async def add_environment_url(
     root_id: str,
     url: GitEnvironmentUrl,

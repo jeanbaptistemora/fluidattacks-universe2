@@ -1781,6 +1781,37 @@
           ]
         },
         {
+          "FacetName": "git_environment_secret",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "URL#hash",
+            "SortKeyAlias": "ENVIRONMENT_SECRET#key"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "URL#fa3489de74100b90cd053ab1bbb2d0e66e50e2d4"
+              },
+              "sk": {
+                "S": "ENVIRONMENT_SECRET#user_name"
+              },
+              "key": {
+                "S": "username"
+              },
+              "value": {
+                "S": "jane_doe"
+              },
+              "description": {
+                "S": "User name for user management"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "description",
+            "key",
+            "value"
+          ]
+        },
+        {
           "FacetName": "git_root_environment_url",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",

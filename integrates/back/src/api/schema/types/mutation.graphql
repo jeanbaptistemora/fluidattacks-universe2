@@ -169,6 +169,18 @@ type Mutation {
     vulnerabilities: ExecutionVulnerabilitiesInput!
   ): SimplePayload!
 
+  "Adds a machine execution to git root"
+  addGitEnvironmentSecret(
+    "Description of secret"
+    description: String
+    "Secret key"
+    key: String!
+    "Id of the root to put secret"
+    urlId: String!
+    "Secret value"
+    value: String!
+  ): SimplePayload!
+
   """
   Adds a new root to be analyzed and tested
   """
