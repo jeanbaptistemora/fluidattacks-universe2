@@ -45,7 +45,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     environment="production",
                     environment_urls=["https://test.com"],
                     git_environment_urls=[
-                        GitEnvironmentUrl(url="https://test.com")
+                        GitEnvironmentUrl(
+                            url="https://test.com",
+                            id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                        )
                     ],
                     gitignore=["bower_components/*", "node_modules/*"],
                     includes_health_check=True,

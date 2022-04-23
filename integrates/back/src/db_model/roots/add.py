@@ -9,7 +9,7 @@ from db_model.roots.constants import (
     ORG_INDEX_METADATA,
 )
 from db_model.roots.types import (
-    EnvironmentUrl,
+    GitEnvironmentUrl,
     GitRootItem,
     MachineFindingResult,
     RootItem,
@@ -139,7 +139,7 @@ async def add_secret(
 
 async def add_environment_url(
     root_id: str,
-    url: EnvironmentUrl,
+    url: GitEnvironmentUrl,
 ) -> bool:
     key_structure = TABLE.primary_key
     url_key = keys.build_key(

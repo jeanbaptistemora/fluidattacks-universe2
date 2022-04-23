@@ -20,6 +20,8 @@ type GitRootCloningStatus {
 
 "Git Root environment url definition"
 type GitEnvironmentUrl {
+  "GitRoot environment url"
+  id: String!
   "Environment url"
   url: String!
 }

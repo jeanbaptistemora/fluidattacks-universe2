@@ -39,7 +39,6 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.roots.types import (
-    EnvironmentUrl,
     GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
@@ -512,9 +511,7 @@ async def update_git_environments(
             branch=root.state.branch,
             environment_urls=environment_urls,
             environment=root.state.environment,
-            git_environment_urls=[
-                GitEnvironmentUrl(url=item) for item in environment_urls
-            ],
+            git_environment_urls=[],
             gitignore=root.state.gitignore,
             includes_health_check=root.state.includes_health_check,
             modified_by=user_email,
@@ -648,9 +645,7 @@ async def update_git_root(
         branch=branch,
         environment=kwargs["environment"],
         environment_urls=root.state.environment_urls,
-        git_environment_urls=[
-            GitEnvironmentUrl(url=item) for item in root.state.environment_urls
-        ],
+        git_environment_urls=[],
         gitignore=gitignore,
         includes_health_check=kwargs["includes_health_check"],
         modified_by=user_email,
@@ -736,10 +731,7 @@ async def activate_root(
                     branch=root.state.branch,
                     environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
-                    git_environment_urls=[
-                        GitEnvironmentUrl(url=item)
-                        for item in root.state.environment_urls
-                    ],
+                    git_environment_urls=[],
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=user_email,
@@ -832,10 +824,7 @@ async def deactivate_root(
                     branch=root.state.branch,
                     environment=root.state.environment,
                     environment_urls=root.state.environment_urls,
-                    git_environment_urls=[
-                        GitEnvironmentUrl(url=item)
-                        for item in root.state.environment_urls
-                    ],
+                    git_environment_urls=[],
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=user_email,
@@ -1142,7 +1131,7 @@ async def add_environment_url(
     loaders: Any, group_name: str, root_id: str, url: str
 ) -> bool:
     await loaders.root.load((group_name, root_id))
-    environment = EnvironmentUrl(
+    environment = GitEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(), url=url  # nosec
     )
     return await roots_model.add_environment_url(root_id, url=environment)

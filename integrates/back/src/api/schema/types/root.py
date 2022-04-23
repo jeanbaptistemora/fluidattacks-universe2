@@ -1,6 +1,7 @@
 from api.resolvers.git_root import (
     credentials,
     download_url,
+    git_environment_urls,
     last_machine_executions,
     secrets,
     upload_url,
@@ -14,6 +15,7 @@ GITROOT: ObjectType = ObjectType("GitRoot")
 GITROOT.set_field("credentials", credentials.resolve)
 GITROOT.set_field("lastMachineExecutions", last_machine_executions.resolve)
 GITROOT.set_field("secrets", secrets.resolve)
+GITROOT.set_field("gitEnvironmentUrls", git_environment_urls.resolve)
 GITROOT.set_field("downloadUrl", download_url.resolve)
 GITROOT.set_field("uploadUrl", upload_url.resolve)
 GITROOT.set_field("vulnerabilities", vulnerabilities.resolve)

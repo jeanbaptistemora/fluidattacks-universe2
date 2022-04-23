@@ -27,17 +27,13 @@ class GitRootCloning(NamedTuple):
 
 class GitEnvironmentUrl(NamedTuple):
     url: str
+    id: str
 
 
 class Secret(NamedTuple):
     key: str
     value: str
     description: Optional[str] = None
-
-
-class EnvironmentUrl(NamedTuple):
-    url: str
-    id: str
 
 
 class GitRootState(NamedTuple):

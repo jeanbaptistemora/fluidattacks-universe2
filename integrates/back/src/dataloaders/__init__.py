@@ -36,6 +36,7 @@ from db_model.findings.get import (
     GroupFindingsLoader,
 )
 from db_model.roots.get import (
+    GitEnvironmentUrlsLoader,
     GroupRootsLoader,
     OrganizationRootsLoader,
     RootLoader,
@@ -111,6 +112,7 @@ class Dataloaders(NamedTuple):
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_secrets: RootSecretsLoader
+    git_environment_urls: GitEnvironmentUrlsLoader
     root_states: RootStatesLoader
     root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
@@ -193,6 +195,7 @@ def get_new_context() -> Dataloaders:
         root_machine_executions=RootMachineExecutionsLoader(),
         root_states=RootStatesLoader(),
         root_secrets=RootSecretsLoader(),
+        git_environment_urls=GitEnvironmentUrlsLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),

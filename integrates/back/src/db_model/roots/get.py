@@ -94,10 +94,7 @@ def _format_root(*, item: Item) -> RootItem:
                 branch=state["branch"],
                 environment_urls=state["environment_urls"],
                 environment=state["environment"],
-                git_environment_urls=[
-                    GitEnvironmentUrl(url=item)
-                    for item in state["environment_urls"]
-                ],
+                git_environment_urls=[],
                 gitignore=state["gitignore"],
                 includes_health_check=state["includes_health_check"],
                 modified_by=state["modified_by"],
@@ -485,6 +482,40 @@ async def get_secrets(
     )
 
 
+async def get_git_environment_urls(
+    *, root_id: str, secret_key: Optional[str] = None
+) -> Tuple[GitEnvironmentUrl, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_environment_url"],
+        values={
+            "uuid": root_id,
+            **({"hash": secret_key} if secret_key else {}),
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & (
+                Key(key_structure.sort_key).eq(primary_key.sort_key)
+                if secret_key
+                else Key(key_structure.sort_key).begins_with(
+                    primary_key.sort_key
+                )
+            )
+        ),
+        facets=(TABLE.facets["git_root_environment_url"],),
+        table=TABLE,
+    )
+    return tuple(
+        GitEnvironmentUrl(
+            url=item["url"],
+            id=item["sk"].split("URL#")[-1],
+        )
+        for item in response.items
+    )
+
+
 class RootSecretsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -492,4 +523,14 @@ class RootSecretsLoader(DataLoader):
     ) -> Tuple[Tuple[Secret, ...], ...]:
         return await collect(
             get_secrets(root_id=root_id) for root_id in root_ids
+        )
+
+
+class GitEnvironmentUrlsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[str]
+    ) -> Tuple[Tuple[GitEnvironmentUrl, ...], ...]:
+        return await collect(
+            get_git_environment_urls(root_id=root_id) for root_id in root_ids
         )
