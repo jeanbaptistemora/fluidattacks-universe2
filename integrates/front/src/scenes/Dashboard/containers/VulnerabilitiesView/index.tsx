@@ -455,7 +455,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     {
       defaultValue: "",
-      placeholder: "Report date (Range)",
+      placeholder: "Report date (range)",
       rangeProps: {
         defaultValue: filterVulnerabilitiesTable.reportDateRange,
         onChangeMax: onReportDateMaxChange,

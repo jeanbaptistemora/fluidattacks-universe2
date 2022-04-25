@@ -363,7 +363,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: "",
-      placeholder: "Date (Range)",
+      placeholder: "Date (range)",
       rangeProps: {
         defaultValue: filterGroupForcesTable.dateRange,
         onChangeMax: onDateMaxChange,

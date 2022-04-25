@@ -2937,7 +2937,7 @@ export const enTranslations: ResourceKey = {
   taskContainer: {
     filters: {
       dateRange: {
-        placeholder: "Report date (Range)",
+        placeholder: "Report date (range)",
       },
       groupName: {
         placeholder: "Group Name",

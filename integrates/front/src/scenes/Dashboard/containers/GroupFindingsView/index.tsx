@@ -697,7 +697,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       defaultValue: "",
-      placeholder: "Release date (Range)",
+      placeholder: "Release date (range)",
       rangeProps: {
         defaultValue: filterGroupFindingsTable.releaseDate,
         onChangeMax: onReleaseDateMaxChange,

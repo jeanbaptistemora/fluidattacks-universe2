@@ -582,7 +582,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: "",
-      placeholder: "Date (Range)",
+      placeholder: "Date (range)",
       rangeProps: {
         defaultValue: filterGroupEventsTable.dateRange,
         onChangeMax: onDateMaxChange,
@@ -633,7 +633,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       defaultValue: "",
-      placeholder: "Closing date (Range)",
+      placeholder: "Closing date (range)",
       rangeProps: {
         defaultValue: filterGroupEventsTable.closingDateRange,
         onChangeMax: onClosingDateMaxChange,
