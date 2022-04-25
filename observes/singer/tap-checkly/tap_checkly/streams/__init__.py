@@ -1,8 +1,29 @@
+from fa_purity import (
+    Stream,
+)
+from fa_purity.pure_iter.factory import (
+    from_flist,
+    infinite_range,
+)
+from fa_purity.stream.factory import (
+    from_piter,
+)
+from fa_purity.stream.transform import (
+    chain,
+    until_none,
+)
 from paginator import (
     AllPages,
 )
 from returns.io import (
     IO,
+)
+from tap_checkly.api2.checks import (
+    CheckId,
+    ChecksClient,
+)
+from tap_checkly.api2.checks.core import (
+    CheckResult,
 )
 from tap_checkly.api import (
     ApiClient,
@@ -88,6 +109,35 @@ def all_snippets(api: ApiClient) -> None:
     _stream_data(
         SupportedStreams.SNIPPETS,
         api.snippets.list_snippets(ALL),
+    )
+
+
+def all_check_ids(client: ChecksClient) -> Stream[CheckId]:
+    data = (
+        infinite_range(1, 1)
+        .map(client.list_checks)
+        .transform(lambda x: from_piter(x))
+        .map(lambda i: i if bool(i) else None)
+        .transform(lambda x: until_none(x))
+    )
+    return chain(data.map(lambda x: from_flist(x)))
+
+
+def all_check_results_of(
+    client: ChecksClient, chk_id: CheckId
+) -> Stream[CheckResult]:
+    data = (
+        infinite_range(1, 1)
+        .map(lambda p: client.list_check_results(chk_id, p))
+        .transform(lambda x: from_piter(x))
+        .map(lambda x: from_flist(x))
+    )
+    return chain(data)
+
+
+def all_check_results(client: ChecksClient) -> Stream[CheckResult]:
+    return all_check_ids(client).bind(
+        lambda c: all_check_results_of(client, c)
     )
 
 
