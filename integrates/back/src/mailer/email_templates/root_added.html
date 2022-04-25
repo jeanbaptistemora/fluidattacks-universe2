@@ -1,0 +1,25 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Root Added') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      The root with the nickname <strong>{{ root_nickname }}</strong>
+      from the group <strong>{{ group }}</strong> has been added
+      by <strong>{{ responsible }}</strong>.<br>
+      <strong>Date</strong>: {{ date }}.<br>
+      <strong>Environment</strong>: {{ environment }}.<br>
+      <strong>Branch</strong>: {{ branch }}.<br>
+    </p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}

@@ -122,6 +122,32 @@ async def send_mail_comment(
     )
 
 
+async def send_mail_added_root(
+    *,
+    branch: str,
+    email_to: List[str],
+    environment: str,
+    group_name: str,
+    root_nickname: str,
+    responsible: str,
+    modified_date: str,
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "branch": branch.capitalize(),
+            "environment": environment.capitalize(),
+            "group": group_name,
+            "root_nickname": root_nickname,
+            "responsible": responsible,
+            "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
+        },
+        tags=GENERAL_TAG,
+        subject=f"Root added in [{group_name}]",
+        template_name="root_added",
+    )
+
+
 async def send_mail_deactivated_root(
     *,
     activated_by: str,
