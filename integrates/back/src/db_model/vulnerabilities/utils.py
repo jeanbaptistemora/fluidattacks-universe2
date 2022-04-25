@@ -326,7 +326,31 @@ def get_assigned(*, treatment: Optional[VulnerabilityTreatment]) -> str:
     return treatment.assigned
 
 
-def get_zr_index_key(
+def get_zr_index_key(current_value: Vulnerability) -> PrimaryKey:
+    return keys.build_key(
+        facet=ZR_INDEX_METADATA,
+        values={
+            "finding_id": current_value.finding_id,
+            "vuln_id": current_value.id,
+            "is_deleted": str(
+                current_value.state.status is VulnerabilityStateStatus.DELETED
+            ).lower(),
+            "is_zero_risk": str(
+                bool(
+                    current_value.zero_risk
+                    and current_value.zero_risk.status in ZR_FILTER_STATUSES
+                )
+            ).lower(),
+            "state_status": str(current_value.state.status.value).lower(),
+            "verification_status": str(
+                current_value.verification
+                and current_value.verification.status.value
+            ).lower(),
+        },
+    )
+
+
+def get_new_zr_index_key(
     current_value: Vulnerability, entry: VulnerabilityHistoricEntry
 ) -> Optional[PrimaryKey]:
     new_zr_index_key = None

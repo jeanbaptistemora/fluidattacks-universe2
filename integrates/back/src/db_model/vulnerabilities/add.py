@@ -3,6 +3,7 @@ from .types import (
 )
 from .utils import (
     get_assigned,
+    get_zr_index_key,
 )
 from boto3.dynamodb.conditions import (
     Key,
@@ -17,11 +18,6 @@ from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
     ROOT_INDEX_METADATA,
-    ZR_FILTER_STATUSES,
-    ZR_INDEX_METADATA,
-)
-from db_model.vulnerabilities.enums import (
-    VulnerabilityStateStatus,
 )
 from dynamodb import (
     keys,
@@ -86,27 +82,7 @@ async def add(  # pylint: disable=too-many-locals
             "vuln_id": vulnerability.id,
         },
     )
-    gsi_5_key = keys.build_key(
-        facet=ZR_INDEX_METADATA,
-        values={
-            "finding_id": vulnerability.finding_id,
-            "vuln_id": vulnerability.id,
-            "is_deleted": str(
-                vulnerability.state.status is VulnerabilityStateStatus.DELETED
-            ).lower(),
-            "is_zero_risk": str(
-                bool(
-                    vulnerability.zero_risk
-                    and vulnerability.zero_risk.status in ZR_FILTER_STATUSES
-                )
-            ).lower(),
-            "state_status": str(vulnerability.state.status.value).lower(),
-            "verification_status": str(
-                vulnerability.verification
-                and vulnerability.verification.status.value
-            ).lower(),
-        },
-    )
+    gsi_5_key = get_zr_index_key(vulnerability)
     vulnerability_item = {
         key_structure.partition_key: vulnerability_key.partition_key,
         key_structure.sort_key: vulnerability_key.sort_key,

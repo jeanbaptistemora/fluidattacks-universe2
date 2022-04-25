@@ -18,6 +18,7 @@ from .utils import (
     adjust_historic_dates,
     get_assigned,
     get_current_entry,
+    get_new_zr_index_key,
     get_zr_index_key,
     historic_entry_type_to_str,
 )
@@ -190,7 +191,8 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
     entry_type = historic_entry_type_to_str(entry)
     entry_item = json.loads(json.dumps(entry))
     current_entry = get_current_entry(entry, current_value)
-    new_zr_index_key = get_zr_index_key(current_value, entry)
+    current_zr_index_key = get_zr_index_key(current_value)
+    new_zr_index_key = get_new_zr_index_key(current_value, entry)
 
     try:
         vulnerability_key = keys.build_key(
@@ -203,9 +205,13 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
                 zr_index.primary_key.sort_key
             ] = new_zr_index_key.sort_key
 
-        base_condition = Attr(key_structure.partition_key).exists() & Attr(
-            "state.status"
-        ).ne(VulnerabilityStateStatus.DELETED.value)
+        base_condition = (
+            Attr(key_structure.partition_key).exists()
+            & Attr("state.status").ne(VulnerabilityStateStatus.DELETED.value)
+            & Attr(zr_index.primary_key.sort_key).eq(
+                current_zr_index_key.sort_key
+            )
+        )
         await operations.update_item(
             condition_expression=(
                 base_condition
@@ -254,7 +260,7 @@ async def update_historic(  # pylint: disable=too-many-locals
     latest_entry = historic[-1]
     entry_type = historic_entry_type_to_str(latest_entry)
     current_entry = get_current_entry(latest_entry, current_value)
-    new_zr_index_key = get_zr_index_key(current_value, latest_entry)
+    new_zr_index_key = get_new_zr_index_key(current_value, latest_entry)
 
     try:
         vulnerability_key = keys.build_key(
