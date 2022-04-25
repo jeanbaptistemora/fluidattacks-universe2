@@ -1302,6 +1302,17 @@ async def is_valid(
     return await groups_dal.is_valid(group, pre_computed_group_data)
 
 
+async def is_valid_typed(
+    loaders: Any,
+    group_name: str,
+) -> bool:
+    if await exists(loaders, group_name):
+        group: Group = await loaders.group_typed.load(group_name)
+        if group.state.status == GroupStateStatus.ACTIVE:
+            return True
+    return False
+
+
 async def mask_files(
     loaders: Any,
     group_name: str,

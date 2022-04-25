@@ -43,9 +43,10 @@ async def mutate(
     group_name: str,
     tags: list[str],
 ) -> SimpleGroupPayload:
+    loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
 
-    if not await groups_domain.is_valid(group_name):
+    if not await groups_domain.is_valid_typed(loaders, group_name):
         logs_utils.cloudwatch_log(
             info.context,
             "Security: Attempted to add tags without the allowed validations",
@@ -59,7 +60,6 @@ async def mutate(
         )
         raise ErrorUpdatingGroup.new()
 
-    loaders: Dataloaders = info.context.loaders
     group = await loaders.group_typed.load(group_name)
     await groups_domain.add_tags(group, set(tags))
 

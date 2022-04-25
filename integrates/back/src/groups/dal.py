@@ -73,7 +73,7 @@ async def add_typed(
         raise ErrorAddingGroup.new()
 
 
-async def exists(
+async def _exists(
     group_name: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
     group = group_name.lower()
@@ -190,7 +190,7 @@ async def is_valid(
     """Validate if a group exist and is not deleted."""
     group_name = group_name.lower()
     is_valid_group: bool = True
-    if await exists(group_name, pre_computed_group_data):
+    if await _exists(group_name, pre_computed_group_data):
         group_data = pre_computed_group_data or await get_attributes(
             group_name, ["deletion_date", "project_status"]
         )

@@ -81,6 +81,7 @@ from groups.domain import (
     get_treatment_summary,
     get_vulnerabilities_with_pending_attacks,
     is_valid,
+    is_valid_typed,
     remove_pending_deletion_date,
     set_pending_deletion_date,
     update_group,
@@ -154,6 +155,12 @@ async def test_validate_tags() -> None:
 async def test_is_valid() -> None:
     assert await is_valid("unittesting")
     assert not await is_valid("nonexistent_group")
+
+
+async def test_is_valid_typed() -> None:
+    loaders: Dataloaders = get_new_context()
+    assert await is_valid_typed(loaders, "unittesting")
+    assert not await is_valid_typed(loaders, "nonexistent_group")
 
 
 async def test_get_vulnerabilities_with_pending_attacks() -> None:
