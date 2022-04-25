@@ -6690,8 +6690,29 @@
   "vmd": {
     "CVE-2021-33041": "<=1.34.0"
   },
+  "vp-toolkit": {
+    "GHSA-p94w-42g3-f7h4": "<0.2.2"
+  },
+  "vue-backbone": {
+    "GHSA-5635-9mvj-r6hp": "0.1.2"
+  },
+  "vue-moment": {
+    "GHSA-hrpp-f84w-xhfg": "<4.1.0"
+  },
   "vuelidate": {
     "CVE-2021-3794": "<2.0.0-alpha.22"
+  },
+  "w-zip": {
+    "CVE-2022-0401": "<1.0.12"
+  },
+  "wallet-address-vaildator": {
+    "GHSA-m6q2-9pfm-2wvr": ">=0"
+  },
+  "wallet-address-validtaor": {
+    "GHSA-pc7q-c837-3wjq": ">=0"
+  },
+  "wangeditor": {
+    "GHSA-g7mw-5cq6-fv82": ">=0"
   },
   "wangguojing123": {
     "CVE-2017-16150": "<=1.3.0",
@@ -6703,8 +6724,17 @@
   "waterline-sequel": {
     "GMS-2016-77": "0.5.0"
   },
+  "wazuh": {
+    "GHSA-w36g-q975-37rg": ">=4.0.0 <=4.0.3"
+  },
+  "wbe3": {
+    "GHSA-hg7w-2pf7-mxm2": ">=0"
+  },
   "wc-cmd": {
     "CVE-2020-28431": ">=0"
+  },
+  "we3b": {
+    "GHSA-36r8-9qq7-mh43": ">=0"
   },
   "weather.swlyons": {
     "CVE-2017-16110": ">=0.1.1 <=0.1.6",
