@@ -7,6 +7,9 @@ from custom_exceptions import (
 from custom_types import (
     Tag,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     require_login,
 )
@@ -25,23 +28,19 @@ from organizations import (
 from tags import (
     domain as tags_domain,
 )
-from typing import (
-    Dict,
-    List,
-)
 
 
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Tag:
+    loaders: Dataloaders = info.context.loaders
     tag_name: str = kwargs["tag"].lower()
-
-    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
-    user_groups: List[str] = await groups_domain.get_groups_by_user(user_email)
+    user_groups: list[str] = await groups_domain.get_groups_by_user(user_email)
     are_valid_groups = await collect(
-        tuple(groups_domain.is_valid(group) for group in user_groups)
+        tuple(groups_domain.is_valid(loaders, group) for group in user_groups)
     )
     groups_filtered = [
         group
@@ -53,7 +52,7 @@ async def resolve(
         org_id: str = await orgs_domain.get_id_for_group(groups_filtered[0])
         org_name: str = await orgs_domain.get_name_by_id(org_id)
 
-        allowed_tags: List[str] = await tags_domain.filter_allowed_tags(
+        allowed_tags: list[str] = await tags_domain.filter_allowed_tags(
             org_name, groups_filtered
         )
         if tag_name in allowed_tags:

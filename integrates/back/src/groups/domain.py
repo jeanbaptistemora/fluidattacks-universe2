@@ -1297,12 +1297,6 @@ async def exists(
 
 
 async def is_valid(
-    group: str, pre_computed_group_data: Optional[GroupType] = None
-) -> bool:
-    return await groups_dal.is_valid(group, pre_computed_group_data)
-
-
-async def is_valid_typed(
     loaders: Any,
     group_name: str,
 ) -> bool:

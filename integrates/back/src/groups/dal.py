@@ -73,16 +73,6 @@ async def add_typed(
         raise ErrorAddingGroup.new()
 
 
-async def _exists(
-    group_name: str, pre_computed_group_data: Optional[GroupType] = None
-) -> bool:
-    group = group_name.lower()
-    group_data = pre_computed_group_data or await get_attributes(
-        group, ["project_name"]
-    )
-    return bool(group_data)
-
-
 async def get_active_groups() -> List[str]:
     """Get active groups names in DynamoDB."""
     filtering_exp = (
@@ -182,25 +172,6 @@ async def get_groups_with_forces() -> List[str]:
         )
     ]
     return groups
-
-
-async def is_valid(
-    group_name: str, pre_computed_group_data: Optional[GroupType] = None
-) -> bool:
-    """Validate if a group exist and is not deleted."""
-    group_name = group_name.lower()
-    is_valid_group: bool = True
-    if await _exists(group_name, pre_computed_group_data):
-        group_data = pre_computed_group_data or await get_attributes(
-            group_name, ["deletion_date", "project_status"]
-        )
-        if get_key_or_fallback(
-            group_data, "group_status", "project_status"
-        ) != "ACTIVE" or group_data.get("deletion_date"):
-            is_valid_group = False
-    else:
-        is_valid_group = False
-    return is_valid_group
 
 
 async def update(group_name: str, data: GroupType) -> bool:

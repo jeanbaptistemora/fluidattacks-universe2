@@ -52,7 +52,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group = await loaders.group_typed.load(group_name)
 
-    if await groups_domain.is_valid(group_name) and group.tags:
+    if await groups_domain.is_valid(loaders, group_name) and group.tags:
         await groups_domain.remove_tag(group=group, tag_to_remove=tag)
         redis_del_by_deps_soon("remove_group_tag", group_name=group_name)
         logs_utils.cloudwatch_log(

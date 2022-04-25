@@ -8,6 +8,9 @@ from custom_types import (
     Me as MeType,
     Tag as TagType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     require_organization_access,
 )
@@ -19,17 +22,19 @@ from groups import (
 )
 from typing import (
     cast,
-    List,
 )
 
 
 @convert_kwargs_to_snake_case
 @require_organization_access
 async def resolve(
-    parent: MeType, info: GraphQLResolveInfo, **kwargs: str
-) -> List[TagType]:
-    organization_loader = info.context.loaders.organization
-    organization_tags_loader = info.context.loaders.organization_tags
+    parent: MeType,
+    info: GraphQLResolveInfo,
+    **kwargs: str,
+) -> list[TagType]:
+    loaders: Dataloaders = info.context.loaders
+    organization_loader = loaders.organization
+    organization_tags_loader = loaders.organization_tags
     user_email = str(parent["user_email"])
     organization_id: str = kwargs["organization_id"]
 
@@ -39,7 +44,7 @@ async def resolve(
         user_email, organization_id=organization_id
     )
     are_valid_groups = await collect(
-        tuple(groups_domain.is_valid(group) for group in user_groups)
+        tuple(groups_domain.is_valid(loaders, group) for group in user_groups)
     )
     groups_filtered = [
         group
@@ -56,6 +61,6 @@ async def resolve(
         for tag in org_tags
         if any(
             group in groups_filtered
-            for group in cast(List[str], tag["groups"])
+            for group in cast(list[str], tag["groups"])
         )
     ]
