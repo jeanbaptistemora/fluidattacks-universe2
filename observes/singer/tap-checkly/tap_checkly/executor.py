@@ -1,3 +1,13 @@
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
+from fa_purity.stream.transform import (
+    consume,
+)
+from fa_singer_io.singer import (
+    emitter,
+    SingerRecord,
+)
 import logging
 from purity.v1 import (
     FrozenList,
@@ -5,14 +15,22 @@ from purity.v1 import (
 from returns.io import (
     IO,
 )
+import sys
 from tap_checkly import (
     streams,
 )
-from tap_checkly.api import (
-    ApiClient,
+from tap_checkly.api2 import (
     Credentials,
 )
+from tap_checkly.api2.checks import (
+    ChecksClient,
+)
+from tap_checkly.api import (
+    ApiClient,
+    Credentials as LegacyCreds,
+)
 from tap_checkly.streams import (
+    encoder,
     SupportedStreams,
 )
 from typing import (
@@ -38,9 +56,21 @@ _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
 def emit_streams(
     creds: Credentials, targets: FrozenList[SupportedStreams]
 ) -> IO[None]:
-    api = ApiClient.new(creds)
-
+    api = ApiClient.new(LegacyCreds(creds.account, creds.api_key))
+    chks_client = ChecksClient.new(creds, 100)
     for selection in targets:
         LOG.info("Executing stream: %s", selection)
+        if selection is SupportedStreams.CHECK_RESULTS:
+            emissions = (
+                streams.all_check_results(chks_client)
+                .map(encoder.encode_result)
+                .map(
+                    lambda j: SingerRecord(
+                        SupportedStreams.CHECK_RESULTS.value, j, None
+                    )
+                )
+                .map(lambda s: emitter.emit(sys.stdout, s))
+            )
+            unsafe_unwrap(consume(emissions))
         _stream_executor[selection](api)
     return IO(None)

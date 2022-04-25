@@ -1,3 +1,7 @@
+from __future__ import (
+    annotations,
+)
+
 from dataclasses import (
     dataclass,
 )
@@ -19,6 +23,7 @@ from fa_purity.json.value.transform import (
     Unfolder,
 )
 from tap_checkly.api2._raw import (
+    Credentials,
     RawClient,
 )
 from tap_checkly.api2.checks.core import (
@@ -76,3 +81,7 @@ class ChecksClient:
             "/v1/check-results/" + check.id_str,
             from_prim_dict({"limit": self._per_page, "page": page}),
         ).map(lambda l: tuple(map(_check_result_from_raw, l)))
+
+    @staticmethod
+    def new(auth: Credentials, per_page: int) -> ChecksClient:
+        return ChecksClient(RawClient(auth), per_page)

@@ -5,7 +5,7 @@ from fa_purity import (
 from tap_checkly import (
     executor,
 )
-from tap_checkly.api import (
+from tap_checkly.api2 import (
     Credentials,
 )
 from tap_checkly.streams import (
