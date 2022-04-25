@@ -68,6 +68,7 @@ from .resource import (
     RESOURCE,
 )
 from .root import (
+    ENVIRONMENT_URL,
     GITROOT,
     IPROOT,
     URLROOT,
@@ -126,6 +127,7 @@ TYPES: Tuple[ObjectType, ...] = (
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,
     GITROOT,
+    ENVIRONMENT_URL,
     GROUP,
     GROUP_FILE,
     INTERNAL_NAME,

@@ -22,6 +22,8 @@ type GitRootCloningStatus {
 type GitEnvironmentUrl {
   "GitRoot environment url"
   id: String!
+  "Environment secrets"
+  secrets: [Secret]
   "Environment url"
   url: String!
 }
