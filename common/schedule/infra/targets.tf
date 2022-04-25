@@ -1,3 +1,45 @@
+resource "aws_security_group" "main" {
+  name   = "schedule"
+  vpc_id = data.aws_vpc.main.id
+
+  # It is unknown what source port, protocol or ip
+  # will access the machine
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    "Name"               = "schedule"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
+}
+
+resource "aws_cloudwatch_event_rule" "main" {
+  for_each = local.schedules
+
+  name                = each.key
+  is_enabled          = each.value.enabled
+  schedule_expression = each.value.schedule_expression
+
+  tags = {
+    "Name"               = each.key
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
+}
 
 resource "aws_cloudwatch_event_target" "main" {
   for_each = local.schedules

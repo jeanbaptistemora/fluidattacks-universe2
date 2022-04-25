@@ -61,6 +61,8 @@ locals {
               "route53domains:List*",
               "route53resolver:Get*",
               "route53resolver:List*",
+              "sns:Get*",
+              "sns:List*",
               "ssm:Describe*",
               "ssm:Get*",
               "ssm:List*",

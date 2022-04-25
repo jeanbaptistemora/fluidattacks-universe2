@@ -4,11 +4,12 @@
 locals {
   schedules = {
     common_criteria_test_base = {
-      cpu     = 1024
-      memory  = 2048
       command = ["m", "f", "/common/criteria/test/base"]
 
       schedule_expression = "cron(0/5 * * * ? *)"
+      cpu                 = 1024
+      memory              = 2048
+      enabled             = true
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken

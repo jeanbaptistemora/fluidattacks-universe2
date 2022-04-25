@@ -12,11 +12,10 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode(
     [
       {
-        name      = "makes"
-        image     = "ghcr.io/fluidattacks/makes:22.05"
-        cpu       = 2048
-        memory    = 4096
-        essential = true
+        name   = "makes"
+        image  = "ghcr.io/fluidattacks/makes:22.05"
+        cpu    = 2048
+        memory = 4096
 
         logConfiguration = {
           logDriver = "awslogs"

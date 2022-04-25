@@ -3,6 +3,7 @@ variable "region" {
   default = "us-east-1"
 }
 
+data "aws_caller_identity" "main" {}
 data "aws_iam_role" "prod_common" {
   name = "prod_common"
 }
