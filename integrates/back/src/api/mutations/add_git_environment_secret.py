@@ -16,6 +16,7 @@ from roots.domain import (
     add_git_environment_secret,
 )
 from typing import (
+    Any,
     Optional,
 )
 
@@ -32,6 +33,7 @@ async def mutate(
     value: str,
     url_id: str,
     description: Optional[str] = None,
+    **_kwargs: Any,
 ) -> SimplePayload:
     result = await add_git_environment_secret(url_id, key, value, description)
 

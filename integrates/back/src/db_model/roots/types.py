@@ -25,15 +25,16 @@ class GitRootCloning(NamedTuple):
     commit_date: Optional[str] = None
 
 
-class GitEnvironmentUrl(NamedTuple):
-    url: str
-    id: str
-
-
 class Secret(NamedTuple):
     key: str
     value: str
     description: Optional[str] = None
+
+
+class GitEnvironmentUrl(NamedTuple):
+    url: str
+    id: str
+    secrets: list[Secret] = []
 
 
 class GitRootState(NamedTuple):

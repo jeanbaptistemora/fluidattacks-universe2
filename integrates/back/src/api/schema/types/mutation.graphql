@@ -173,6 +173,8 @@ type Mutation {
   addGitEnvironmentSecret(
     "Description of secret"
     description: String
+    "Group to add secret"
+    groupName: String!
     "Secret key"
     key: String!
     "Id of the root to put secret"

@@ -482,6 +482,41 @@ async def get_secrets(
     )
 
 
+async def get_environment_secrets(
+    *, url_id: str, secret_key: Optional[str] = None
+) -> Tuple[Secret, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_environment_secret"],
+        values={
+            "hash": url_id,
+            **({"key": secret_key} if secret_key else {}),
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & (
+                Key(key_structure.sort_key).eq(primary_key.sort_key)
+                if secret_key
+                else Key(key_structure.sort_key).begins_with(
+                    primary_key.sort_key
+                )
+            )
+        ),
+        facets=(TABLE.facets["git_environment_secret"],),
+        table=TABLE,
+    )
+    return tuple(
+        Secret(
+            key=item["key"],
+            value=item["value"],
+            description=item.get("description"),
+        )
+        for item in response.items
+    )
+
+
 async def get_git_environment_urls(
     *, root_id: str, secret_key: Optional[str] = None
 ) -> Tuple[GitEnvironmentUrl, ...]:
@@ -523,6 +558,16 @@ class RootSecretsLoader(DataLoader):
     ) -> Tuple[Tuple[Secret, ...], ...]:
         return await collect(
             get_secrets(root_id=root_id) for root_id in root_ids
+        )
+
+
+class GitEnvironmentSecretsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, urls_ids: List[str]
+    ) -> Tuple[Tuple[Secret, ...], ...]:
+        return await collect(
+            get_environment_secrets(url_id=url_id) for url_id in urls_ids
         )
 
 

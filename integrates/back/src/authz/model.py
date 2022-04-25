@@ -739,6 +739,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
             "api_mutations_add_secret_mutate",
+            "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
         },
         tags={
@@ -794,6 +795,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
             "api_mutations_add_secret_mutate",
+            "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
         },
         tags={
@@ -845,6 +847,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
             "api_mutations_add_secret_mutate",
+            "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
         },
         tags={
@@ -876,6 +879,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
             "api_mutations_add_secret_mutate",
+            "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
         },
         tags={
@@ -1126,6 +1130,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *USER_LEVEL_ROLES["admin"]["actions"],
             "keep_default_organization_access",
             "api_mutations_add_secret_mutate",
+            "api_mutations_add_git_environment_secret_mutate",
         },
         tags={
             *USER_LEVEL_ROLES["admin"]["tags"],
@@ -1151,6 +1156,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_use_groups_searchbar",
             "keep_default_organization_access",
             "api_mutations_add_secret_mutate",
+            "api_mutations_add_git_environment_secret_mutate",
         },
         tags={
             *USER_LEVEL_ROLES["user"]["tags"],
