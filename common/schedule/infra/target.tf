@@ -11,11 +11,14 @@ resource "aws_cloudwatch_event_target" "main" {
     {
       containerOverrides = [
         {
-          name        = "makes"
-          command     = each.value.command
-          cpu         = each.value.cpu
-          memory      = each.value.memory
-          environment = each.value.environment
+          name    = "makes"
+          command = each.value.command
+          cpu     = each.value.cpu
+          memory  = each.value.memory
+
+          environment = [
+            for k, v in each.value.environment : { name = k, value = v }
+          ]
         }
       ]
     }

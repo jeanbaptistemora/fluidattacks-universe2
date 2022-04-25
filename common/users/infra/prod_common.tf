@@ -89,18 +89,13 @@ module "prod_common_aws" {
 
   extra_assume_role_policies = [
     {
-      Sid    = "EcsAssumeRolePolicy",
+      Sid    = "AssumeRolePolicy",
       Effect = "Allow",
       Principal = {
-        Service = "ecs-tasks.amazonaws.com",
-      },
-      Action = "sts:AssumeRole",
-    },
-    {
-      Sid    = "EventsAssumeRolePolicy",
-      Effect = "Allow",
-      Principal = {
-        Service = "events.amazonaws.com",
+        Service = [
+          "ecs-tasks.amazonaws.com",
+          "events.amazonaws.com",
+        ],
       },
       Action = "sts:AssumeRole",
     },
