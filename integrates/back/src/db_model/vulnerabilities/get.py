@@ -1,4 +1,5 @@
 from .types import (
+    FindingVulnerabilitiesToReattackRequest,
     FindingVulnerabilitiesZrRequest,
     VulnerabilitiesConnection,
     Vulnerability,
@@ -28,6 +29,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
+    RequiredStateStatus,
     VulnNotFound,
 )
 from db_model import (
@@ -200,7 +202,7 @@ async def _get_finding_vulnerabilities_zr(
         request.verification_status, VulnerabilityVerificationStatus
     ):
         if request.state_status is None:
-            raise Exception("state_status is mandatory")
+            raise RequiredStateStatus()
         key_values["verification_status"] = str(
             request.verification_status.value
         ).lower()
@@ -423,6 +425,31 @@ class FindingVulnerabilitiesOnlyZeroRiskConnectionLoader(DataLoader):
         return await collect(
             tuple(
                 _get_finding_vulnerabilities_zr(True, request)
+                for request in requests
+            )
+        )
+
+
+class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: Tuple[FindingVulnerabilitiesToReattackRequest, ...]
+    ) -> Tuple[VulnerabilitiesConnection, ...]:
+        return await collect(
+            tuple(
+                _get_finding_vulnerabilities_zr(
+                    False,
+                    FindingVulnerabilitiesZrRequest(
+                        finding_id=request.finding_id,
+                        after=request.after,
+                        first=request.first,
+                        paginate=request.paginate,
+                        state_status=VulnerabilityStateStatus.OPEN,
+                        verification_status=(
+                            VulnerabilityVerificationStatus.REQUESTED
+                        ),
+                    ),
+                )
                 for request in requests
             )
         )

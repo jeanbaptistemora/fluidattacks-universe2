@@ -1372,3 +1372,9 @@ class VulnerabilityEntryNotFound(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Vulnerability entry not found"
         super(VulnerabilityEntryNotFound, self).__init__(msg)
+
+
+class RequiredStateStatus(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - State status is required"
+        super(RequiredStateStatus, self).__init__(msg)
