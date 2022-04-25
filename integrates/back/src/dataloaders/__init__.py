@@ -63,6 +63,7 @@ from db_model.vulnerabilities.get import (
     EventVulnerabilitiesLoader,
     FindingVulnerabilitiesLoader,
     FindingVulnerabilitiesNonDeletedLoader,
+    FindingVulnerabilitiesNonZeroRiskConnectionLoader,
     FindingVulnerabilitiesNonZeroRiskLoader,
     FindingVulnerabilitiesOnlyZeroRiskLoader,
     RootVulnerabilitiesLoader,
@@ -92,6 +93,9 @@ class Dataloaders(NamedTuple):
     finding_vulnerabilities: FindingVulnerabilitiesNonDeletedLoader
     finding_vulnerabilities_all: FindingVulnerabilitiesLoader
     finding_vulnerabilities_nzr: FindingVulnerabilitiesNonZeroRiskLoader
+    finding_vulnerabilities_nzr_c: (
+        FindingVulnerabilitiesNonZeroRiskConnectionLoader
+    )
     finding_vulnerabilities_zr: FindingVulnerabilitiesOnlyZeroRiskLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     group: GroupLoader
@@ -175,6 +179,9 @@ def get_new_context() -> Dataloaders:
         finding_vulnerabilities=finding_vulns_non_deleted_loader,
         finding_vulnerabilities_all=finding_vulnerabilities_loader,
         finding_vulnerabilities_nzr=finding_vulnerabilities_nzr_loader,
+        finding_vulnerabilities_nzr_c=(
+            FindingVulnerabilitiesNonZeroRiskConnectionLoader()
+        ),
         finding_vulnerabilities_zr=finding_vulnerabilities_zr_loader,
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         group=GroupLoader(),
