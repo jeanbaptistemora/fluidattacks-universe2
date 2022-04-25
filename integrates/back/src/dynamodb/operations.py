@@ -23,6 +23,7 @@ from dynamodb.exceptions import (
     handle_error,
 )
 from dynamodb.resource import (
+    get_resource,
     RESOURCE_OPTIONS,
     SESSION,
 )
@@ -304,18 +305,18 @@ async def put_item(
     item: Item,
     table: Table,
 ) -> None:
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
-        facet_item = _build_facet_item(facet=facet, item=item, table=table)
-        args = {
-            "ConditionExpression": condition_expression,
-            "Item": _parse_floats(args=facet_item),
-        }
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
+    facet_item = _build_facet_item(facet=facet, item=item, table=table)
+    args = {
+        "ConditionExpression": condition_expression,
+        "Item": _parse_floats(args=facet_item),
+    }
 
-        try:
-            await table_resource.put_item(**_exclude_none(args=args))
-        except ClientError as error:
-            handle_error(error=error)
+    try:
+        await table_resource.put_item(**_exclude_none(args=args))
+    except ClientError as error:
+        handle_error(error=error)
 
 
 async def query(  # pylint: disable=too-many-locals

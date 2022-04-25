@@ -1,5 +1,9 @@
 import asyncio
 import authz
+from dynamodb.resource import (
+    dynamo_shutdown,
+    dynamo_startup,
+)
 import logging
 import pytest
 from settings import (
@@ -23,6 +27,13 @@ async def load_enforcers() -> None:
 def disable_logging() -> None:
     """Disable logging in all tests."""
     logging.disable(logging.INFO)
+
+
+@pytest.fixture(autouse=True, scope="function")
+async def dynamo_resource() -> AsyncGenerator:
+    await dynamo_startup()
+    yield
+    await dynamo_shutdown()
 
 
 @pytest.yield_fixture(scope="session")

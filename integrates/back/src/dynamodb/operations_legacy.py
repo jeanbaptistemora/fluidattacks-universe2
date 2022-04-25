@@ -16,6 +16,7 @@ from decimal import (
     Decimal,
 )
 from dynamodb.resource import (
+    get_resource,
     RESOURCE_OPTIONS,
     SESSION,
 )
@@ -47,10 +48,10 @@ async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
 
 async def put_item(table: str, item: Dict[str, Any]) -> bool:
     success: bool = False
-    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        dynamo_table = await dynamodb_resource.Table(table)
-        response = await dynamo_table.put_item(Item=item)
-        success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
+    dynamodb_resource = await get_resource()
+    dynamo_table = await dynamodb_resource.Table(table)
+    response = await dynamo_table.put_item(Item=item)
+    success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
     return success
 
 

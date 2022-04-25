@@ -1,8 +1,13 @@
 # pylint: disable=too-many-lines
 
+from dynamodb.resource import (
+    dynamo_shutdown,
+    dynamo_startup,
+)
 import pytest
 from typing import (
     Any,
+    AsyncGenerator,
     Dict,
     Set,
 )
@@ -1013,6 +1018,13 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
             ],
         },
     }
+
+
+@pytest.fixture(autouse=True, scope="function")
+async def dynamo_resource() -> AsyncGenerator:
+    await dynamo_startup()
+    yield
+    await dynamo_shutdown()
 
 
 def pytest_addoption(parser: Any) -> None:
