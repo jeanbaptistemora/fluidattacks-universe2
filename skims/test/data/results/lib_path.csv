@@ -8160,6 +8160,23 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    89 |       },
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
+F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f066/has_console_functions.cs,"
+   1 | using System;
+   2 |
+   3 | namespace Example
+   4 | {
+   5 |     public class Example
+   6 |     {
+   7 |         public Test()
+   8 |         {
+   9 |             var text_str = ""hello world"";
+> 10 |             Console.WriteLine($""String: {text_str}"");
+  11 |
+  12 |         }
+  13 |     }
+  14 | }
+     ^ Col 0
+",c_sharp.c_sharp_has_console_functions
 F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13,200,skims,239. Technical information leak - Errors,The error handling configuration of the server allows the visualization of detailed information of its processes through the UseSetting method. in namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,"
    1 | using System;
    2 |
