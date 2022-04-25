@@ -210,27 +210,27 @@ async def batch_get_item(
 
 
 async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
 
-        async with PatchedBatchWriter(
-            table_resource.name,
-            table_resource.meta.client,
-            flush_amount=25,
-            overwrite_by_pkeys=None,
-            on_exit_loop_sleep=0,
-        ) as batch_writer:
-            try:
-                await aioextensions.collect(
-                    tuple(
-                        batch_writer.put_item(
-                            Item=_exclude_none(args=_parse_floats(args=item))
-                        )
-                        for item in items
+    async with PatchedBatchWriter(
+        table_resource.name,
+        table_resource.meta.client,
+        flush_amount=25,
+        overwrite_by_pkeys=None,
+        on_exit_loop_sleep=0,
+    ) as batch_writer:
+        try:
+            await aioextensions.collect(
+                tuple(
+                    batch_writer.put_item(
+                        Item=_exclude_none(args=_parse_floats(args=item))
                     )
+                    for item in items
                 )
-            except ClientError as error:
-                handle_error(error=error)
+            )
+        except ClientError as error:
+            handle_error(error=error)
 
 
 async def delete_item(
