@@ -73,4 +73,5 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
   );
 };
 
-export { MixedCheckBoxButton, ICheckBoxProps };
+export type { ICheckBoxProps };
+export { MixedCheckBoxButton };

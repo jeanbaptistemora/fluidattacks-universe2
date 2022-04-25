@@ -20,7 +20,7 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
   message,
 }: Readonly<IConfirmDialogProps>): JSX.Element => {
   const { t } = useTranslation();
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [confirmCallback, setConfirmCallback] = useState(
     (): (() => void) => (): void => undefined
   );
@@ -32,7 +32,7 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
     confirmFn: () => void,
     cancelFn?: () => void
   ): void => {
-    setOpen(true);
+    setIsOpen(true);
     setConfirmCallback((): (() => void) => confirmFn);
     if (cancelFn !== undefined) {
       setCancelCallback((): (() => void) => cancelFn);
@@ -40,12 +40,12 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
   };
 
   function handleClose(): void {
-    setOpen(false);
+    setIsOpen(false);
     cancelCallback();
   }
 
   function handleProceed(): void {
-    setOpen(false);
+    setIsOpen(false);
     confirmCallback();
   }
 
@@ -75,4 +75,5 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
   );
 };
 
-export { ConfirmDialog, IConfirmDialogProps, IConfirmFn };
+export type { IConfirmDialogProps, IConfirmFn };
+export { ConfirmDialog };

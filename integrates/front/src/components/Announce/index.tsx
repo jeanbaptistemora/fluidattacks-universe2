@@ -19,4 +19,5 @@ const Announce: React.FC<IAnnounceProps> = ({
   );
 };
 
-export { Announce, IAnnounceProps };
+export type { IAnnounceProps };
+export { Announce };

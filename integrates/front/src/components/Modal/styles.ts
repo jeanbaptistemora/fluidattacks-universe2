@@ -49,4 +49,5 @@ const Title = styled.p.attrs({
   className: "ma0 pa0 w-100",
 })``;
 
-export { CloseButton, Container, Dialog, Header, IDialogProps, Title };
+export type { IDialogProps };
+export { CloseButton, Container, Dialog, Header, Title };

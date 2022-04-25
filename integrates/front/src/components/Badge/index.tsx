@@ -37,4 +37,5 @@ const Badge = styled.span<IBadgeProps>`
   padding: 4px 12px;
 `;
 
-export { Badge, IBadgeProps };
+export type { IBadgeProps };
+export { Badge };

@@ -62,4 +62,5 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
   return <MenuItem>{listItems}</MenuItem>;
 };
 
-export { RadioGroup, IRadioGroupProps };
+export type { IRadioGroupProps };
+export { RadioGroup };

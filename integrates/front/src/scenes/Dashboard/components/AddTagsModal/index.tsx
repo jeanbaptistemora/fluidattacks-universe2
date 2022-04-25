@@ -86,4 +86,5 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = ({
   );
 };
 
-export { AddTagsModal, IAddTagsModalProps };
+export type { IAddTagsModalProps };
+export { AddTagsModal };

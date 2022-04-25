@@ -13,9 +13,10 @@ const config: Meta = {
 
 const Template: Story<ISwitchProps> = (props: ISwitchProps): JSX.Element => {
   const [, setArgs] = useArgs();
+  const { checked } = props;
   const handleChange = useCallback((): void => {
-    setArgs({ checked: !props.checked });
-  }, [props, setArgs]);
+    setArgs({ checked: !checked });
+  }, [checked, setArgs]);
 
   return <Switch {...props} onChange={handleChange} />;
 };

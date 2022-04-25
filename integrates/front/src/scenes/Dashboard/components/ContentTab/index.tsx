@@ -26,4 +26,4 @@ const ContentTab: React.FC<IContentTabProps> = (
   );
 };
 
-export { ContentTab, IContentTabProps };
+export { ContentTab };

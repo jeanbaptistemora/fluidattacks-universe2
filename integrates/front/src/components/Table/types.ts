@@ -111,7 +111,7 @@ interface ITableWrapperProps {
   toolkitProps: ToolkitContextType;
 }
 
-export {
+export type {
   ICustomFiltersProps,
   ICustomSearchProps,
   ICustomToggleProps,

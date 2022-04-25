@@ -55,4 +55,5 @@ const Button = styled.button.attrs<IButtonProps>(
   }
 `;
 
-export { Button, IButtonProps };
+export type { IButtonProps };
+export { Button };

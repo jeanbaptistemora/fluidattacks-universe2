@@ -222,9 +222,5 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   },
 };
 
-export {
-  mergedDocuments,
-  allowedDocumentNames,
-  allowedDocumentTypes,
-  IDocumentValues,
-};
+export type { IDocumentValues };
+export { mergedDocuments, allowedDocumentNames, allowedDocumentTypes };

@@ -13,4 +13,5 @@ const ExternalLink = styled.a.attrs<ExternalLinkProps>({
   target: "_blank",
 })``;
 
-export { ExternalLink, ExternalLinkProps };
+export type { ExternalLinkProps };
+export { ExternalLink };

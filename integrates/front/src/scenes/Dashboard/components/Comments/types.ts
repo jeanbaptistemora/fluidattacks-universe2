@@ -30,7 +30,7 @@ interface ICommentContext {
   setReplying?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export {
+export type {
   ICommentStructure,
   ICommentContext,
   ICommentsProps,

@@ -57,4 +57,5 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = ({
   );
 };
 
-export { EventHeader, IEventHeaderProps };
+export type { IEventHeaderProps };
+export { EventHeader };

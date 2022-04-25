@@ -133,4 +133,5 @@ const NestedComment: React.FC<INestedCommentProps> = ({
   );
 };
 
-export { NestedComment, INestedCommentProps };
+export type { INestedCommentProps };
+export { NestedComment };
