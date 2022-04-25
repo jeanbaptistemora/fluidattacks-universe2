@@ -11,7 +11,7 @@ locals {
       schedule_expression = "cron(0/5 * * * ? *)"
 
       environment = {
-        "PRODUCT_API_TOKEN" = var.productApiToken
+        PRODUCT_API_TOKEN = var.productApiToken
       }
     }
   }

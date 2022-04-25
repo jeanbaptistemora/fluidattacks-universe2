@@ -12,10 +12,20 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode(
     [
       {
-        name   = "makes"
-        image  = "ghcr.io/fluidattacks/makes:22.05"
-        cpu    = 2048
-        memory = 4096
+        name      = "makes"
+        image     = "ghcr.io/fluidattacks/makes:22.05"
+        cpu       = 2048
+        memory    = 4096
+        essential = true
+
+        logConfiguration = {
+          logDriver = "awslogs"
+          Options = {
+            awslogs-region        = var.region
+            awslogs-group         = aws_cloudwatch_log_group.main.name
+            awslogs-stream-prefix = "schedule"
+          }
+        }
       }
     ]
   )
