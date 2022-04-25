@@ -6,28 +6,17 @@
   system,
 }: let
   pythonPkgs = legacyPkgs."${pythonVersion}Packages";
-  purity_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.15.0";
-  };
-  purity = import purity_src {
-    inherit system;
-    legacy_pkgs = legacyPkgs;
-    src = purity_src;
-  };
   utils-logger = import localLib.utils-logger {
     src = localLib.utils-logger;
     legacy_pkgs = legacyPkgs;
     python_version = pythonVersion;
   };
   legacy = import ./legacy {
-    inherit legacyPkgs localLib pythonVersion system;
-    purity = purity."${pythonVersion}".pkg;
+    inherit legacyPkgs localLib pythonPkgs pythonVersion system;
   };
   pythonPkgs2 =
     pythonPkgs
     // {
-      fa-purity = purity."${pythonVersion}".pkg;
       click = pythonPkgs.click.overridePythonAttrs (
         old: rec {
           version = "7.1.2";

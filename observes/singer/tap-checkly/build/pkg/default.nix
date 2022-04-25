@@ -7,6 +7,7 @@
   runtime_deps = with pythonPkgs; [
     click
     fa-purity
+    fa-singer-io
     legacy-purity
     legacy-paginator
     legacy-singer-io

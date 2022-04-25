@@ -1,7 +1,7 @@
 {
   legacyPkgs,
   localLib,
-  purity,
+  pythonPkgs,
   pythonVersion,
   system,
 }: let
@@ -13,7 +13,7 @@
     old: {
       propagatedBuildInputs = map (x:
         if x.pname == "fa_purity"
-        then purity
+        then pythonPkgs.fa-purity
         else x)
       old.propagatedBuildInputs;
     }
