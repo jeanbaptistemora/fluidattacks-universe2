@@ -7,7 +7,9 @@ import _ from "lodash";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import LoadingOverlay from "react-loading-overlay";
 import { useHistory } from "react-router-dom";
+import FadeLoader from "react-spinners/FadeLoader";
 import type { ConfigurableValidator } from "revalidate";
 
 import {
@@ -177,6 +179,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
 
             return (
               <React.Fragment>
+                <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
                   <Row justify={"space-between"}>
                     <Col large={"33"} medium={"33"} small={"33"}>
