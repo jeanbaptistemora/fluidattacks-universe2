@@ -22,7 +22,11 @@ RESOURCE_OPTIONS = {
     "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
     "aws_session_token": FI_AWS_SESSION_TOKEN,
     "config": AioConfig(
+        # The time in seconds till a timeout exception is thrown when
+        # attempting to make a connection. [60]
         connect_timeout=15,
+        # The time in seconds till a timeout exception is thrown when
+        # attempting to read from a connection. [60]
         read_timeout=30,
     ),
     "endpoint_url": (

@@ -30,6 +30,10 @@ from batch.toe_inputs import (
 from batch.toe_lines import (
     refresh_toe_lines,
 )
+from dynamodb.resource import (
+    dynamo_shutdown,
+    dynamo_startup,
+)
 import logging
 import logging.config
 from settings import (
@@ -46,7 +50,9 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
+async def dispatch(  # noqa: MC0001
+    action_dynamo_pk: Optional[str] = None,
+) -> None:
     try:
         action_dynamo_pk = action_dynamo_pk or sys.argv[1]
 
@@ -88,6 +94,14 @@ async def main(action_dynamo_pk: Optional[str] = None) -> None:  # noqa: MC0001
         LOGGER.error("Missing arguments", extra=dict(extra=locals()))
 
     return None
+
+
+async def main(action_dynamo_pk: Optional[str] = None) -> None:
+    await dynamo_startup()
+    try:
+        await dispatch(action_dynamo_pk)
+    finally:
+        await dynamo_shutdown()
 
 
 if __name__ == "__main__":

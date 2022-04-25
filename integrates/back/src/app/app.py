@@ -61,6 +61,10 @@ from ddtrace import (
 from decorators import (
     authenticate_session,
 )
+from dynamodb.resource import (
+    dynamo_shutdown,
+    dynamo_startup,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -380,6 +384,8 @@ API_VALIDATIONS = [
 
 STARLETTE_APP = Starlette(
     debug=DEBUG,
+    on_startup=[dynamo_startup],
+    on_shutdown=[dynamo_shutdown],
     routes=[
         Route("/", templates.login),
         Route(
