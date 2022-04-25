@@ -1,3 +1,4 @@
+import aioboto3
 from aiobotocore.config import (
     AioConfig,
 )
@@ -8,6 +9,12 @@ from context import (
     FI_DYNAMODB_HOST,
     FI_DYNAMODB_PORT,
     FI_ENVIRONMENT,
+)
+from contextlib import (
+    AsyncExitStack,
+)
+from typing import (
+    Any,
 )
 
 RESOURCE_OPTIONS = {
@@ -29,3 +36,29 @@ RESOURCE_OPTIONS = {
     "use_ssl": True,
     "verify": True,
 }
+SESSION = aioboto3.Session()
+CONTEXT_STACK = None
+RESOURCE = None
+
+
+async def dynamo_startup() -> None:
+    # pylint: disable=global-statement
+    global CONTEXT_STACK, RESOURCE
+
+    stack = AsyncExitStack()
+    RESOURCE = await stack.enter_async_context(
+        SESSION.resource(**RESOURCE_OPTIONS)
+    )
+    CONTEXT_STACK = stack
+
+
+async def dynamo_shutdown() -> None:
+    if CONTEXT_STACK:
+        await CONTEXT_STACK.aclose()
+
+
+async def get_resource() -> Any:
+    if RESOURCE is None:
+        await dynamo_startup()
+
+    return RESOURCE

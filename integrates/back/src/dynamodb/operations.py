@@ -2,7 +2,6 @@ from .utils import (
     get_cursor,
     get_key_from_cursor,
 )
-import aioboto3
 from aioboto3.dynamodb.table import (
     BatchWriter,
     CustomTableResource,
@@ -23,8 +22,9 @@ from decimal import (
 from dynamodb.exceptions import (
     handle_error,
 )
-from dynamodb.settings import (
+from dynamodb.resource import (
     RESOURCE_OPTIONS,
+    SESSION,
 )
 from dynamodb.types import (
     Facet,
@@ -48,8 +48,6 @@ from typing import (
     Optional,
     Tuple,
 )
-
-SESSION = aioboto3.Session()
 
 
 # Fix for https://github.com/boto/boto3/pull/2867

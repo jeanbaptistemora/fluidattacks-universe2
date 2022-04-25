@@ -15,8 +15,9 @@ from custom_types import (
 from decimal import (
     Decimal,
 )
-from dynamodb.settings import (
+from dynamodb.resource import (
     RESOURCE_OPTIONS,
+    SESSION,
 )
 import logging
 from typing import (
@@ -27,7 +28,6 @@ from typing import (
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-SESSION = aioboto3.Session()
 
 
 @asynccontextmanager
