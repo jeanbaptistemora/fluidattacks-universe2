@@ -38,6 +38,7 @@ resource "aws_cloudwatch_event_target" "main" {
 
     network_configuration {
       subnets          = [data.aws_subnet.common.id]
+      security_groups  = [aws_security_group.main.id]
       assign_public_ip = true
     }
 
