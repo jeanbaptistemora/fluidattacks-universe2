@@ -6740,11 +6740,20 @@
     "CVE-2017-16110": ">=0.1.1 <=0.1.6",
     "GMS-2017-208": ">=0.0.0-alpha"
   },
+  "web3": {
+    "GHSA-27v7-qhfv-rqq8": "<=1.5.2"
+  },
+  "web3-eht": {
+    "GHSA-29fh-xcjr-p7rx": ">=0"
+  },
   "webdriver-launcher": {
     "GMS-2017-48": ">=0.0.0-alpha"
   },
   "webdrvr": {
     "GMS-2017-98": ">=0.0.0-alpha"
+  },
+  "webpack-bundle-analyzer": {
+    "GHSA-pgr8-jg6h-8gw6": "<3.3.2"
   },
   "webpack-dev-server": {
     "CVE-2018-14732": "<3.1.6",
@@ -6766,12 +6775,18 @@
     "CVE-2020-7662": "<0.1.4",
     "GHSA-g78m-2chm-r7qv": "<0.1.4"
   },
+  "webtorrent": {
+    "CVE-2019-15782": "<0.107.6"
+  },
   "welcomyzt": {
     "CVE-2017-16123": "<=1.1.0",
     "GMS-2017-228": ">=0.0.0-alpha"
   },
   "wenluhong1": {
     "GMS-2017-326": ">=0.0.0-alpha"
+  },
+  "wepack-cli": {
+    "GHSA-fpw3-x4xq-6vxq": ">=0"
   },
   "wffserve": {
     "CVE-2017-16168": "=1.0.0",
@@ -6789,8 +6804,17 @@
     "CVE-2017-16174": "=0.1.0",
     "GMS-2017-277": ">=0.0.0-alpha"
   },
+  "whiteproject": {
+    "GHSA-8j7x-pr59-m5h8": ">=0"
+  },
   "wifiscanner": {
     "CVE-2020-15362": "=1.0.1"
+  },
+  "wiki-plugin-datalog": {
+    "GHSA-pm52-wwrw-c282": "<0.1.6"
+  },
+  "wincred": {
+    "GHSA-v85c-hgq5-7pfw": "<=1.0.2"
   },
   "wind-mvc": {
     "CVE-2017-16220": "<=0.0.6",
@@ -6829,6 +6853,9 @@
     "CVE-2016-10663": "<=1.0.0",
     "GMS-2017-36": ">=0.0.0-alpha"
   },
+  "wizard-syncronizer": {
+    "GHSA-wgw3-gf4p-62xc": ">=0"
+  },
   "worksmith": {
     "CVE-2020-7725": ">=0"
   },
@@ -6841,6 +6868,12 @@
     "GHSA-6fc8-4gx4-v693": ">=5.0.0 <6.2.2 || >=7.0.0 <7.4.6",
     "npm:ws:20160920": "<1.1.2",
     "npm:ws:20171108": "<1.1.5 || >=2.0.0 <3.3.1"
+  },
+  "wxchangba": {
+    "GHSA-j6v9-xgvh-f796": ">=0"
+  },
+  "x-assign": {
+    "CVE-2021-23452": "<=0.1.4"
   },
   "xcode": {
     "CVE-2015-3187": "<7.2.1"
