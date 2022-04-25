@@ -96,6 +96,14 @@ module "prod_common_aws" {
       },
       Action = "sts:AssumeRole",
     },
+    {
+      Sid    = "EventsAssumeRolePolicy",
+      Effect = "Allow",
+      Principal = {
+        Service = "events.amazonaws.com",
+      },
+      Action = "sts:AssumeRole",
+    },
   ]
 
   tags = {
