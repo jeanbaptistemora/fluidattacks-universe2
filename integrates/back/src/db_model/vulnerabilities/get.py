@@ -415,6 +415,19 @@ class FindingVulnerabilitiesOnlyZeroRiskLoader(DataLoader):
         )
 
 
+class FindingVulnerabilitiesOnlyZeroRiskConnectionLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: Tuple[FindingVulnerabilitiesZrRequest, ...]
+    ) -> Tuple[VulnerabilitiesConnection, ...]:
+        return await collect(
+            tuple(
+                _get_finding_vulnerabilities_zr(True, request)
+                for request in requests
+            )
+        )
+
+
 class RootVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
