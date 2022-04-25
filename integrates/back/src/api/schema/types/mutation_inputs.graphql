@@ -15,7 +15,7 @@ input ExploitResultInput {
   "Execution kind"
   kind: String
   "Vulnerability state"
-  state: VulnerabilityState
+  state: VulnerabilityExploitState
   "Vulnerability where"
   where: String
   "Execution specific"

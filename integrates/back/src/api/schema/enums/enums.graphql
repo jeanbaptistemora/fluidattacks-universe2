@@ -475,8 +475,8 @@ enum UpdateClientDescriptionTreatment {
   IN_PROGRESS
 }
 
-"Vulnerability state"
-enum VulnerabilityState {
+"Vulnerability exploit state"
+enum VulnerabilityExploitState {
   "Accepted"
   ACCEPTED
   "Closed/Solved"

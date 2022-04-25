@@ -239,7 +239,7 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
-        "VulnerabilityState",
+        "VulnerabilityExploitState",
         {
             "ACCEPTED": "ACCEPTED",
             "CLOSED": "CLOSED",
