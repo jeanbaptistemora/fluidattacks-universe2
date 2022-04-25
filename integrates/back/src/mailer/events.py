@@ -48,6 +48,7 @@ async def send_mail_comment(
     org_name = await get_organization_name(loaders, group_name)
     group: Group = await loaders.group_typed.load(group_name)
     has_machine: bool = group.state.has_machine
+    has_squad: bool = group.state.has_squad
 
     email_context: MailContentType = {
         "comment": str(comment_data["content"]).splitlines(),
@@ -61,6 +62,7 @@ async def send_mail_comment(
         "parent": str(comment_data["parent"]),
         "group": group_name,
         "has_machine": has_machine,
+        "has_squad": has_squad,
         "user_email": user_mail,
     }
     users: Tuple[User, ...] = await loaders.user.load_many(recipients)
