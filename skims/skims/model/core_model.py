@@ -2172,6 +2172,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.DAST,
     )
+    CS_HAS_CONSOLE_FUNCTIONS = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_has_console_functions",
+        module="lib_root",
+        finding=FindingEnum.F066,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_uses_insecure_security_policy",
