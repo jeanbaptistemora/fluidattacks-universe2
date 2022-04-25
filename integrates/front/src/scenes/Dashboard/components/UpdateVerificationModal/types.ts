@@ -20,7 +20,7 @@ type VerificationResult =
   | ReattackVulnerabilitiesResult[]
   | VerifyVulnerabilitiesResult[];
 
-export {
+export type {
   IRequestVulnVerificationResult,
   IVerifyRequestVulnResult,
   ReattackVulnerabilitiesResult,

@@ -93,4 +93,4 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
   );
 };
 
-export { FileOptionsModal, IFileOptionsModalProps };
+export { FileOptionsModal };

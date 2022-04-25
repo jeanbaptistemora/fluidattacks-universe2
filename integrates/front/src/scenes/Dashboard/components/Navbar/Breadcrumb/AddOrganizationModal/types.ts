@@ -19,7 +19,7 @@ interface IAddOrganizationMtProps {
   };
 }
 
-export {
+export type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
   IAddOrganizationQryProps,

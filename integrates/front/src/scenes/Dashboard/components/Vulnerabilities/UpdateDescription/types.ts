@@ -74,7 +74,7 @@ interface IUpdateVulnDescriptionResultAttr {
   };
 }
 
-export {
+export type {
   IRemoveTagAttr,
   IRemoveTagResultAttr,
   IGroupUsersAttr,

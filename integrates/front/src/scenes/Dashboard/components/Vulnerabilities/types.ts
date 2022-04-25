@@ -101,7 +101,7 @@ interface IVulnerabilityModalValues
   1: React.Dispatch<React.SetStateAction<IUpdateTreatmentVulnerabilityForm>>;
 }
 
-export {
+export type {
   IVulnRowAttr,
   IUploadVulnerabilitiesResultAttr,
   IDownloadVulnerabilitiesResultAttr,

@@ -33,7 +33,7 @@ interface IVerifyDialogProps {
   children: (verify: IVerifyFn) => React.ReactNode;
 }
 
-export {
+export type {
   IPhoneAttr,
   IGetStakeholderPhoneAttr,
   IVerifyDialogProps,

@@ -287,4 +287,5 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   );
 };
 
-export { UploadVulnerabilities, IErrorInfoAttr };
+export type { IErrorInfoAttr };
+export { UploadVulnerabilities };

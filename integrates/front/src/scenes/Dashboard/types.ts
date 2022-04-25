@@ -74,7 +74,7 @@ interface IGroupRootIdsAttr {
   group: { name: string; roots: IRootIdAttr[] };
 }
 
-export {
+export type {
   IAddStakeholderAttr,
   IAssignedVulnerabilitiesContext,
   IGetMeVulnerabilitiesAssigned,

@@ -11,16 +11,16 @@ interface IEvidenceLightboxProps {
 const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
   props: IEvidenceLightboxProps
 ): JSX.Element => {
-  const { index, evidenceImages } = props;
+  const { index, evidenceImages, onChange } = props;
   const nextIndex: number = (index + 1) % evidenceImages.length;
   const moveNext: () => void = useCallback((): void => {
-    props.onChange(nextIndex);
-  }, [props, nextIndex]);
+    onChange(nextIndex);
+  }, [onChange, nextIndex]);
   const previousIndex: number =
     (index + evidenceImages.length - 1) % evidenceImages.length;
   const movePrevious: () => void = useCallback((): void => {
-    props.onChange(previousIndex);
-  }, [props, previousIndex]);
+    onChange(previousIndex);
+  }, [onChange, previousIndex]);
 
   const adjustZoom: () => void = useCallback((): void => {
     /**
@@ -36,8 +36,8 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
 
   const closeImage: () => void = useCallback((): void => {
     document.body.style.removeProperty("overflow");
-    props.onChange(-1);
-  }, [props]);
+    onChange(-1);
+  }, [onChange]);
 
   return index > -1 ? (
     <Lightbox

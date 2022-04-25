@@ -58,7 +58,7 @@ interface IMobileModalProps {
   onClose: () => void;
 }
 
-export {
+export type {
   IAdditionFormValues,
   IPhoneAttr,
   IHandleAdditionModalFormProps,
