@@ -6,7 +6,7 @@ import { CategoriesList } from "../../components/CategoriesList";
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
-import { PageArticle } from "../../styles/styledComponents";
+import { InternalContainer, PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
 const categoriesIndex: React.FC<IQueryData> = ({
@@ -34,8 +34,10 @@ const categoriesIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle className={"internal"}>
-            <CategoriesList />
+          <PageArticle bgColor={"#f9f9f9"}>
+            <InternalContainer>
+              <CategoriesList />
+            </InternalContainer>
           </PageArticle>
         </div>
       </Layout>

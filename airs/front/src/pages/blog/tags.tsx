@@ -6,7 +6,7 @@ import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
 import { TagsList } from "../../components/TagsList";
-import { PageArticle } from "../../styles/styledComponents";
+import { InternalContainer, PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
 const tagsIndex: React.FC<IQueryData> = ({
@@ -34,8 +34,10 @@ const tagsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle className={"internal"}>
-            <TagsList />
+          <PageArticle bgColor={"#f9f9f9"}>
+            <InternalContainer>
+              <TagsList />
+            </InternalContainer>
           </PageArticle>
         </div>
       </Layout>

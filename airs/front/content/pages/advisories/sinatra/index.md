@@ -7,6 +7,7 @@ codename: sinatra
 product: ThinVNC 1.0b1
 date: 2022-04-06 10:00 COT
 cveid: CVE-2022-25226
+severity: 10.0
 description: ThinVNC version 1.0b1 - Authentication Bypass to RCE
 keywords: Fluid Attacks, Security, Vulnerabilities, VNC, Auth Bypass
 banner: advisories-bg

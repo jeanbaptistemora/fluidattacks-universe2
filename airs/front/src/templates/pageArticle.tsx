@@ -77,7 +77,7 @@ const MdDefaultPage: React.FC<IQueryData> = ({
             )}
           />
 
-          <PageArticle>
+          <PageArticle bgColor={"#f9f9f9"}>
             <PageHeader
               banner={banner}
               pageWithBanner={hasBanner}

@@ -7,6 +7,7 @@ codename: jagger
 product: Money Transfer Management System 1.0
 date: 2022-03-15 12:00 COT
 cveid: CVE-2022-25223
+severity: 4.3
 description: Money Transfer Management System 1.0 - SQL Injection
 keywords: Fluid Attacks, Security, Vulnerabilities, MTMS, SQL
 banner: advisories-bg

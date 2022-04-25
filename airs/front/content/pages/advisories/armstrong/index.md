@@ -7,6 +7,7 @@ codename: armstrong
 product: PeTeReport 0.5
 date: 2022-02-18 10:00 COT
 cveid: CVE-2022-25220
+severity: 4.8
 description: PeTeReport 0.5 - Stored XSS (Markdown)
 keywords: Fluid Attacks, Security, Vulnerabilities, PeTeReport
 banner: advisories-bg

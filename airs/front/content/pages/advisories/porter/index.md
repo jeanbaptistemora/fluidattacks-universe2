@@ -7,6 +7,7 @@ codename: porter
 product: CyberArk Identity
 date: 2022-02-15 12:00 COT
 cveid: CVE-2022-22700
+severity: 5.3
 description: CyberArk Identity 22.1 User Enumeration
 keywords: Fluid Attacks, Security, Vulnerabilities, CyberArk, Identity
 banner: advisories-bg

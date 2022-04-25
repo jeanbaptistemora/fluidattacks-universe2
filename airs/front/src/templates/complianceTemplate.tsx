@@ -57,7 +57,7 @@ const ComplianceIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle>
+          <PageArticle bgColor={"#f9f9f9"}>
             <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>

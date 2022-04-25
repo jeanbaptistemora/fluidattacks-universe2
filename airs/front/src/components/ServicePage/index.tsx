@@ -70,7 +70,7 @@ const ServicePage: React.FC<IProps> = ({
   }
 
   return (
-    <PageArticle>
+    <PageArticle bgColor={"#f9f9f9"}>
       <BannerContainer className={banner}>
         <FullWidthContainer>
           <LittleBannerTitle>{title}</LittleBannerTitle>

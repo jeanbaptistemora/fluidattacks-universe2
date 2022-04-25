@@ -26,6 +26,7 @@ import {
   BlogArticleSubtitle,
   BlogArticleTitle,
   FullWidthContainer,
+  InternalContainer,
   PageArticle,
 } from "../styles/styledComponents";
 import {
@@ -88,56 +89,60 @@ const BlogsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle className={"internal"}>
-            <BlogArticleBannerContainer>
-              <FullWidthContainer>
-                <div className={"w-100"}>
-                  <img alt={alt} className={"w-100 db"} src={image} />
+          <PageArticle bgColor={"#f9f9f9"}>
+            <InternalContainer>
+              <BlogArticleBannerContainer>
+                <FullWidthContainer>
+                  <div className={"w-100"}>
+                    <img alt={alt} className={"w-100 db"} src={image} />
+                  </div>
+                </FullWidthContainer>
+              </BlogArticleBannerContainer>
+              <BlogArticleContainer>
+                <BlogArticleTitle>{decode(title)}</BlogArticleTitle>
+                <BlogArticleSubtitle>{decode(subtitle)}</BlogArticleSubtitle>
+                <div className={"pv3"}>
+                  <p className={"f5"}>
+                    {"By"}&nbsp;
+                    <Link to={`/blog/authors/${stringToUri(author)}`}>
+                      {author}
+                    </Link>
+                    {` | ${fDate} | `}
+                    <Link to={"/blog/categories/"}>{"Category:"}</Link>{" "}
+                    <Link
+                      to={`/blog/categories/${category.toLocaleLowerCase()}`}
+                    >
+                      {capitalizeDashedString(category)}
+                    </Link>
+                  </p>
                 </div>
-              </FullWidthContainer>
-            </BlogArticleBannerContainer>
-            <BlogArticleContainer>
-              <BlogArticleTitle>{decode(title)}</BlogArticleTitle>
-              <BlogArticleSubtitle>{decode(subtitle)}</BlogArticleSubtitle>
-              <div className={"pv3"}>
-                <p className={"f5"}>
-                  {"By"}&nbsp;
-                  <Link to={`/blog/authors/${stringToUri(author)}`}>
-                    {author}
-                  </Link>
-                  {` | ${fDate} | `}
-                  <Link to={"/blog/categories/"}>{"Category:"}</Link>{" "}
-                  <Link to={`/blog/categories/${category.toLocaleLowerCase()}`}>
-                    {capitalizeDashedString(category)}
-                  </Link>
-                </p>
-              </div>
-              <div
-                className={"lh-2"}
-                dangerouslySetInnerHTML={{
-                  __html: data.markdownRemark.html,
-                }}
-              />
-              <div className={"pt3"}>
-                <p className={"f5"}>
-                  <Link to={"/blog/tags/"}>{"Tags:"}</Link>
-                  {taglist.map(
-                    (tag: string): JSX.Element => (
-                      <Link
-                        className={
-                          "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
-                        }
-                        key={tag}
-                        to={`/blog/tags/${tag}`}
-                      >
-                        {capitalizeDashedString(tag)}
-                      </Link>
-                    )
-                  )}
-                </p>
-              </div>
-              <BlogFooter author={author} slug={slug} writer={writer} />
-            </BlogArticleContainer>
+                <div
+                  className={"lh-2"}
+                  dangerouslySetInnerHTML={{
+                    __html: data.markdownRemark.html,
+                  }}
+                />
+                <div className={"pt3"}>
+                  <p className={"f5"}>
+                    <Link to={"/blog/tags/"}>{"Tags:"}</Link>
+                    {taglist.map(
+                      (tag: string): JSX.Element => (
+                        <Link
+                          className={
+                            "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
+                          }
+                          key={tag}
+                          to={`/blog/tags/${tag}`}
+                        >
+                          {capitalizeDashedString(tag)}
+                        </Link>
+                      )
+                    )}
+                  </p>
+                </div>
+                <BlogFooter author={author} slug={slug} writer={writer} />
+              </BlogArticleContainer>
+            </InternalContainer>
           </PageArticle>
         </div>
       </Layout>

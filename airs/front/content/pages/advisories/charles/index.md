@@ -7,6 +7,7 @@ codename: charles
 product: Money Transfer Management System 1.0
 date: 2022-03-15 12:00 COT
 cveid: CVE-2022-25221
+severity: 4.3
 description: Money Transfer Management System 1.0 - DOM-Based XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, MTMS, XSS
 banner: advisories-bg

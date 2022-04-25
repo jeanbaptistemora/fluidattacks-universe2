@@ -39,7 +39,7 @@ const BlogIndex: React.FC<IQueryData> = ({
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
-          <PageArticle>
+          <PageArticle bgColor={"#dddde3"}>
             <BlogsList />
           </PageArticle>
         </div>

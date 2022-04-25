@@ -7,6 +7,7 @@ codename: hendrix
 product: PartKeepr v1.4.0
 date: 2022-01-04 14:00 COT
 cveid: CVE-2022-22701
+severity: 6.5
 description: PartKeepr v1.4.0 url attachment 'add parts' - LFI
 keywords: Fluid Attacks, Security, Vulnerabilities, PartKeepr
 banner: advisories-bg

@@ -178,6 +178,7 @@ interface IData {
             partner: string;
             partnerlogo: string;
             product: string;
+            severity: string;
             slug: string;
             spanish: string;
             subtitle: string;

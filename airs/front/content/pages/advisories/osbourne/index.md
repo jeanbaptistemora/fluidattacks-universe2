@@ -7,6 +7,7 @@ codename: osbourne
 product: phpIPAM 1.4.4
 date: 2022-01-07 10:00 COT
 cveid: CVE-2022-23045
+severity: 4.8
 description: phpIPAM 1.4.4 - Stored XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, phpIPAM
 banner: advisories-bg

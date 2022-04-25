@@ -7,6 +7,7 @@ codename: jett
 product: PeTeReport 0.5
 date: 2022-02-09 12:00 COT
 cveid: CVE-2022-23052
+severity: 4.3
 description: PeTeReport 0.5 - Cross-site request forgery
 keywords: Fluid Attacks, Security, Vulnerabilities, PeTeReport
 banner: advisories-bg

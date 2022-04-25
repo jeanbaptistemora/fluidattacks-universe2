@@ -7,6 +7,7 @@ codename: joplin
 product: PartKeepr v1.4.0
 date: 2022-01-04 14:00 COT
 cveid: CVE-2022-22702
+severity: 4.3
 description: PartKeepr v1.4.0 url attachment 'add parts' - SSRF
 keywords: Fluid Attacks, Security, Vulnerabilities, PartKeepr
 banner: advisories-bg

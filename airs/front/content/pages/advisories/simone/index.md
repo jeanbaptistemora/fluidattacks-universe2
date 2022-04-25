@@ -7,6 +7,7 @@ codename: simone
 product: Zenario CMS 9.2
 date: 2022-01-14 11:00 COT
 cveid: CVE-2022-23043
+severity: 9.1
 description: Zenario CMS 9.2 - Insecure file upload (RCE)
 keywords: Fluid Attacks, Security, Vulnerabilities, Zenario CMS
 banner: advisories-bg

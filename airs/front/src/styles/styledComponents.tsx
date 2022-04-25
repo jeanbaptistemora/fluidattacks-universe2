@@ -337,18 +337,13 @@ const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs({
   `,
 })``;
 
-const PageArticle: StyledComponent<
-  "article",
-  Record<string, unknown>
-> = styled.article.attrs({
-  className: `
-    bg-lightgray
-  `,
-})``;
+const PageArticle = styled.article<{ bgColor: string }>`
+  background-color: ${({ bgColor }): string => `${bgColor}`};
+`;
 
-const FaqPageArticle = styled.article.attrs({
+const InternalContainer = styled.article.attrs({
   className: `
-    bg-gray-244
+    internal
   `,
 })``;
 
@@ -1858,7 +1853,6 @@ export {
   ErrorSection,
   ErrorTitle,
   FaqContainer,
-  FaqPageArticle,
   Flex,
   FlexCenterItemsContainer,
   IconContainerSmall,
@@ -1878,6 +1872,7 @@ export {
   InnerContentList,
   InnerListContainer,
   InnerListItem,
+  InternalContainer,
   ListItem,
   ListItemLabel,
   LittleBannerContainer,

@@ -7,6 +7,7 @@ codename: franklin
 product: Exponent CMS 2.6.0 patch2
 date: 2022-01-24 12:00 COT
 cveid: CVE-2022-23047
+severity: 4.8
 description: Exponent CMS 2.6.0 patch2 - Stored XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, Exponent CMS
 banner: advisories-bg

@@ -7,6 +7,7 @@ codename: dylan
 product: Exponent CMS 2.6.0 patch2
 date: 2022-01-24 12:00 COT
 cveid: CVE-2022-23048
+severity: 9.1
 description: Exponent CMS 2.6.0 patch2 - Insecure file upload (RCE)
 keywords: Fluid Attacks, Security, Vulnerabilities, Exponent CMS
 banner: advisories-bg

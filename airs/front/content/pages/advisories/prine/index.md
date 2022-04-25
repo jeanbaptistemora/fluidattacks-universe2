@@ -7,6 +7,7 @@ codename: prine
 product: DupScout Enterprise
 date: 2020-12-15 14:00 COT
 cveid: CVE-2020-29659
+severity: 9.8
 description: DupScout Enterprise 10.0.18 'sid' Buffer Overflow
 keywords: Fluid Attacks, Security, Vulnerabilities, DupScout
 banner: advisories-bg

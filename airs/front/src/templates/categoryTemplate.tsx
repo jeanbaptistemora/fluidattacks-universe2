@@ -75,7 +75,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle>
+          <PageArticle bgColor={"#f9f9f9"}>
             <BannerContainer className={banner}>
               <FullWidthContainer>
                 <LittleBannerTitle>{title}</LittleBannerTitle>

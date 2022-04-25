@@ -7,6 +7,7 @@ codename: morrison
 product: Squid Cache
 date: 2021-02-16 14:00 COT
 cveid: Pending
+severity: 6.4
 description: Squid Cache vulnerability
 keywords: Fluid Attacks, Security, Vulnerabilities, Squid
 banner: advisories-bg

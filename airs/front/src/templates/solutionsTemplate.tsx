@@ -77,7 +77,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle>
+          <PageArticle bgColor={"#f9f9f9"}>
             <MarkedTitleContainer>
               <div className={"ph-body"}>
                 <RedMark>

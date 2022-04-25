@@ -6,7 +6,7 @@ import { AuthorsList } from "../../components/AuthorsList";
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
-import { PageArticle } from "../../styles/styledComponents";
+import { InternalContainer, PageArticle } from "../../styles/styledComponents";
 import { capitalizeObject } from "../../utils/utilities";
 
 const authorsIndex: React.FC<IQueryData> = ({
@@ -34,8 +34,10 @@ const authorsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle className={"internal"}>
-            <AuthorsList />
+          <PageArticle bgColor={"#f9f9f9"}>
+            <InternalContainer>
+              <AuthorsList />
+            </InternalContainer>
           </PageArticle>
         </div>
       </Layout>

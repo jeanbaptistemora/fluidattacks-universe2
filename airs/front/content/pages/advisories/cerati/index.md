@@ -7,6 +7,7 @@ codename: cerati
 product: ManageEngine AppManager15
 date: 2022-02-09 12:00 COT
 cveid: CVE-2022-23050
+severity: 4.1
 description: ManageEngine AppManager15 (Build No:15510) - DLL Hijacking
 keywords: Fluid Attacks, Security, Vulnerabilities, ManageEngine, AppManager
 banner: advisories-bg

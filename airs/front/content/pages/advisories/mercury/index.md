@@ -7,6 +7,7 @@ codename: mercury
 product: phpIPAM 1.4.4
 date: 2022-01-07 14:00 COT
 cveid: CVE-2022-23046
+severity: 4.7
 description: phpIPAM 1.4.4 - SQL Injection
 keywords: Fluid Attacks, Security, Vulnerabilities, phpIPAM
 banner: advisories-bg

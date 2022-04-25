@@ -7,6 +7,7 @@ codename: gilmour
 product: PHP Server Monitor v3.5.2
 date: 2022-01-11 15:00 COT
 cveid: CVE-2022-23044
+severity: 4.8
 description: PHP Server Monitor v3.5.2 - Stored XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, PHP Server Monitor
 banner: advisories-bg

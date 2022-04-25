@@ -43,6 +43,7 @@ const PageHeader: React.FC<IProps> = ({
       <BannerContainer className={banner}>
         <FullWidthContainer>
           <BannerTitle>{title}</BannerTitle>
+          {subtitle ? <BannerSubtitle>{subtitle}</BannerSubtitle> : undefined}
         </FullWidthContainer>
       </BannerContainer>
     );

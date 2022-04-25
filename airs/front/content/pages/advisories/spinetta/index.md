@@ -7,6 +7,7 @@ codename: spinetta
 product: Network Olympus 1.8.0
 date: 2022-02-23 10:00 COT
 cveid: CVE-2022-25225
+severity: 9.1
 description: Network Olympus 1.8.0 - SQL Injection
 keywords: Fluid Attacks, Security, Vulnerabilities, Network Olympus
 banner: advisories-bg

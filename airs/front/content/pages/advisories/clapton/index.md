@@ -7,6 +7,7 @@ codename: clapton
 product: Thinfinity VNC v4.0.0.1
 date: 2022-04-11 11:00 COT
 cveid: CVE-2022-25227
+severity: 8.3
 description: Thinfinity VNC v4.0.0.1 - CORS Misconfiguration to RCE
 keywords: Fluid Attacks, Security, Vulnerabilities, VNC, Thinfinity
 banner: advisories-bg

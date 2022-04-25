@@ -7,6 +7,7 @@ codename: cobain
 product: Exponent CMS 2.6.0 patch2
 date: 2022-01-25 12:00 COT
 cveid: CVE-2022-23049
+severity: 5.4
 description: Exponent CMS 2.6.0 patch2 - Stored XSS (User-Agent)
 keywords: Fluid Attacks, Security, Vulnerabilities, Exponent CMS
 banner: advisories-bg

@@ -16,7 +16,7 @@ const ProductOverviewPage: React.FC<IProps> = ({
   description,
 }: IProps): JSX.Element => {
   return (
-    <PageArticle>
+    <PageArticle bgColor={"#f9f9f9"}>
       <MainSection description={description} />
       <CardsSection />
       <PlansSection />

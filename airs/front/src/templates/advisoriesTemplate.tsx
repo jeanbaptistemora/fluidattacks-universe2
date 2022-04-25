@@ -61,7 +61,7 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle>
+          <PageArticle bgColor={"#dddde3"}>
             <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>

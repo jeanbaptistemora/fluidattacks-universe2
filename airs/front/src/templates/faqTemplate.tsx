@@ -24,7 +24,7 @@ import { Seo } from "../components/Seo";
 import {
   CenteredSpacedContainer,
   FaqContainer,
-  FaqPageArticle,
+  PageArticle,
   PhantomRegularRedButton,
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -89,7 +89,7 @@ const FaqIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <FaqPageArticle>
+          <PageArticle bgColor={"#f4f4f6"}>
             <PageHeader
               banner={banner}
               pageWithBanner={hasBanner}
@@ -119,7 +119,7 @@ const FaqIndex: React.FC<IQueryData> = ({
                 </PhantomRegularRedButton>
               </CenteredSpacedContainer>
             </FaqContainer>
-          </FaqPageArticle>
+          </PageArticle>
         </div>
       </Layout>
     </React.Fragment>

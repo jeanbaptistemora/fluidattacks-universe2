@@ -7,6 +7,7 @@ codename: brown
 product: PeTeReport 0.5
 date: 2022-02-09 12:00 COT
 cveid: CVE-2022-23051
+severity: 4.8
 description: PeTeReport 0.5 - Stored XSS (Attack Tree)
 keywords: Fluid Attacks, Security, Vulnerabilities, PeTeReport
 banner: advisories-bg

@@ -7,6 +7,7 @@ codename: jackson
 product: CandidATS Version 3.0.0 Beta (Pilava Beta)
 date: 2022-04-20 10:00 COT
 cveid: CVE-2022-25228
+severity: 6.3
 description: CandidATS Version 3.0.0 - Authenticated SQL Injection
 keywords: Fluid Attacks, Security, Vulnerabilities, Candidats, SQLi
 banner: advisories-bg
