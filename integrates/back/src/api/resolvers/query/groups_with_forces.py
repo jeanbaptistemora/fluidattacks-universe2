@@ -1,22 +1,25 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login,
 )
+from functools import (
+    partial,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups import (
-    domain as groups_domain,
+from organizations import (
+    domain as orgs_domain,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
-)
-from typing import (
-    List,
 )
 
 
@@ -27,16 +30,20 @@ from typing import (
 )
 async def resolve(
     _: None,
-    __: GraphQLResolveInfo,
-) -> List[str]:
-    response: List[str] = await redis_get_or_set_entity_attr(
-        resolve_no_cache,
+    info: GraphQLResolveInfo,
+) -> list[str]:
+    response: list[str] = await redis_get_or_set_entity_attr(
+        partial(resolve_no_cache, info),
         entity="groups",
         attr="forces",
     )
     return response
 
 
-async def resolve_no_cache() -> List[str]:
-    groups = await groups_domain.get_groups_with_forces()
-    return groups
+async def resolve_no_cache(
+    info: GraphQLResolveInfo,
+) -> list[str]:
+    loaders: Dataloaders = info.context.loaders
+    # All active groups have 'forces' enabled
+    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    return [group.name for group in all_active_groups]

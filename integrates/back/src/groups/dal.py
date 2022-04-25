@@ -152,28 +152,6 @@ async def get_group(
     return response.get("Item", {})
 
 
-async def get_groups_with_forces() -> List[str]:
-    filtering_exp = Attr("project_status").eq("ACTIVE")
-    query_attrs = {
-        "ProjectionExpression": "#name,#h_config",
-        "FilterExpression": filtering_exp,
-        "ExpressionAttributeNames": {
-            "#name": "project_name",
-            "#h_config": "historic_configuration",
-        },
-    }
-    response = await dynamodb_ops.scan(TABLE_NAME, query_attrs)
-    groups: List[str] = [
-        get_key_or_fallback(group)
-        for group in response
-        if (
-            group.get("historic_configuration") is not None
-            and group["historic_configuration"][-1]["has_forces"]
-        )
-    ]
-    return groups
-
-
 async def update(group_name: str, data: GroupType) -> bool:
     success = False
     set_expression = ""
