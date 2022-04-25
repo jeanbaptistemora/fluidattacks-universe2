@@ -29,6 +29,7 @@ from api.resolvers.finding import (
     treatment_summary,
     verified,
     vulnerabilities,
+    vulnerabilities_connection,
     vulnerabilities_to_reattack,
     where,
     zero_risk,
@@ -66,6 +67,9 @@ FINDING.set_field("tracking", tracking.resolve)
 FINDING.set_field("treatmentSummary", treatment_summary.resolve)
 FINDING.set_field("verified", verified.resolve)
 FINDING.set_field("vulnerabilities", vulnerabilities.resolve)
+FINDING.set_field(
+    "vulnerabilitiesConnection", vulnerabilities_connection.resolve
+)
 FINDING.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )

@@ -6,12 +6,20 @@ enum ActionsAfterBlocking {
   EXECUTE_OTHER_GROUP_SAME_CLIENT
   "The hacker started working on another group from another client"
   EXECUTE_OTHER_PROJECT_OTHER_CLIENT
-    @deprecated(reason: """This enum field  will be removed
-    after 2022/01/13. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.""")
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/01/13. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.
+      """
+    )
   "The hacker started working on another group from the same client"
   EXECUTE_OTHER_PROJECT_SAME_CLIENT
-    @deprecated(reason: """This enum field  will be removed
-    after 2022/01/13. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.""")
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/01/13. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.
+      """
+    )
   "The hacker stopped their work"
   NONE
   "The hacker started doing something else"
@@ -25,8 +33,13 @@ enum ActionsBeforeBlocking {
   "Document group"
   DOCUMENT_GROUP
   "Document group"
-  DOCUMENT_PROJECT @deprecated(reason: """This enum field  will
-    be removed after 2022/01/13. Use `DOCUMENT_GROUP` instead.""")
+  DOCUMENT_PROJECT
+    @deprecated(
+      reason: """
+      This enum field  will
+      be removed after 2022/01/13. Use `DOCUMENT_GROUP` instead.
+      """
+    )
   "None"
   NONE
   "Other"
@@ -286,11 +299,21 @@ enum OrganizationFindingPolicyStatus {
 "Organization stakeholder role enum definition"
 enum OrganizationRole {
   "User"
-  CUSTOMER @deprecated(reason: """This enum field  will be removed
-    after 2022/08/08. Use `USER` instead.""")
+  CUSTOMER
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/08/08. Use `USER` instead.
+      """
+    )
   "User Manager"
-  CUSTOMERADMIN @deprecated(reason: """This enum field  will be removed
-    after 2022/08/07. Use `USER_MANAGER` instead.""")
+  CUSTOMERADMIN
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/08/07. Use `USER_MANAGER` instead.
+      """
+    )
   "Customer Manager"
   CUSTOMER_MANAGER
   "User"
@@ -370,11 +393,21 @@ enum StakeholderRole {
   "Architect"
   ARCHITECT
   "User"
-  CUSTOMER @deprecated(reason: """This enum field  will be removed
-    after 2022/08/08. Use `USER` instead.""")
+  CUSTOMER
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/08/08. Use `USER` instead.
+      """
+    )
   "User Manager"
-  CUSTOMERADMIN @deprecated(reason: """This enum field  will be removed
-    after 2022/08/07. Use `USER_MANAGER` instead.""")
+  CUSTOMERADMIN
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/08/07. Use `USER_MANAGER` instead.
+      """
+    )
   "Customer Manager"
   CUSTOMER_MANAGER
   "Executive"
@@ -473,6 +506,14 @@ enum UpdateClientDescriptionTreatment {
   ACCEPTED_UNDEFINED
   "In progress"
   IN_PROGRESS
+}
+
+"Vulnerability state"
+enum VulnerabilityState {
+  "Closed"
+  CLOSED
+  "Open"
+  OPEN
 }
 
 "Vulnerability exploit state"

@@ -75,6 +75,15 @@ type Finding {
     "Filter vulnerabilities by their current state"
     state: String
   ): [Vulnerability!]
+  "Vulnerabilities associated with the Finding"
+  vulnerabilitiesConnection(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of vulnerabilities to return"
+    first: Int
+    "Filter vulnerabilities by their current state"
+    state: VulnerabilityState
+  ): VulnerabilitiesConnection!
   "Vulnerabilities that have been requested for a reattack"
   vulnerabilitiesToReattack: [Vulnerability!]
   """General locations of the Vulnerabilities, can be files, URLs or IPs.
