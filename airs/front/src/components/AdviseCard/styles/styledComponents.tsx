@@ -16,7 +16,7 @@ const AdvisoryCardContainer = styled.div.attrs({
 
 const CardTitle = styled.p.attrs({
   className: `
-    f3
+    f4
     c-fluid-bk
     roboto
     b
@@ -24,7 +24,7 @@ const CardTitle = styled.p.attrs({
     mb0
   `,
 })`
-  min-height: 108px;
+  min-height: 60px;
 `;
 
 const CardSubtitle = styled.p.attrs({
