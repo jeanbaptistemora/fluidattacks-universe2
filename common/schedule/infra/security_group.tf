@@ -2,7 +2,7 @@ resource "aws_security_group" "main" {
   name   = "schedule"
   vpc_id = data.aws_vpc.main.id
 
-  # AWS manage this things and it's unknown what source port, protocol or ip
+  # It is unknown what source port, protocol or ip
   # will access the machine
   ingress {
     from_port   = 0

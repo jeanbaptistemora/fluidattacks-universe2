@@ -16,15 +16,6 @@ resource "aws_cloudwatch_event_target" "main" {
           cpu         = each.value.cpu
           memory      = each.value.memory
           environment = each.value.environment
-
-          logConfiguration = {
-            logDriver = "awslogs"
-            Options = {
-              awslogs-region        = var.region
-              awslogs-group         = aws_cloudwatch_log_group.main.name
-              awslogs-stream-prefix = each.key
-            }
-          }
         }
       ]
     }
