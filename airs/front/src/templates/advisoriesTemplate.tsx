@@ -21,10 +21,11 @@ import {
   AdvisoriesContainer,
   AdvisoriesGrid,
   BannerContainer,
+  BannerSubtitle,
   BannerTitle,
   FullWidthContainer,
+  NewRegularRedButton,
   PageArticle,
-  RegularRedButton,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -37,7 +38,7 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { banner, description, keywords, slug, title } =
+  const { banner, description, keywords, slug, subtitle, title } =
     data.markdownRemark.frontmatter;
 
   return (
@@ -65,21 +66,22 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
             <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>
+                <BannerSubtitle>{subtitle}</BannerSubtitle>
               </FullWidthContainer>
             </BannerContainer>
-            <div className={"flex"}>
-              <AdvisoriesGrid>
-                <AdviseCard />
-              </AdvisoriesGrid>
-            </div>
+            <AdvisoriesGrid>
+              <AdviseCard />
+            </AdvisoriesGrid>
             <AdvisoriesContainer>
-              <h4 className={"f3 roboto"}>{`${translate.t(
+              <h4 className={"f3 c-fluid-bk roboto"}>{`${translate.t(
                 "advisories.disclosurePhrase"
               )} `}</h4>
               <Link to={"/advisories/policy"}>
-                <RegularRedButton>{`${translate.t(
+                <NewRegularRedButton
+                  className={"w-30-ns w-100"}
+                >{`${translate.t(
                   "advisories.buttonPhrase"
-                )} `}</RegularRedButton>
+                )} `}</NewRegularRedButton>
               </Link>
             </AdvisoriesContainer>
           </PageArticle>
@@ -104,6 +106,7 @@ export const query: void = graphql`
         keywords
         slug
         title
+        subtitle
       }
     }
   }

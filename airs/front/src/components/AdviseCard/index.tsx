@@ -1,20 +1,17 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
+/* eslint react/forbid-component-props: 0 */
 import { Link, graphql, useStaticQuery } from "gatsby";
 import React from "react";
 
 import {
-  AdvisoriesCardBack,
-  AdvisoriesCardBackItem,
-  AdvisoriesCardBackList,
-  AdvisoriesCardFront,
-  AdvisoriesCardFrontAuthorContainer,
-  AdvisoriesCardFrontDesc,
-  AdvisoriesCardFrontTitle,
-  AdvisoriesShadowBoxContainer,
+  AdvisoryCardContainer,
+  CardDescription,
+  CardDescriptionContainer,
+  CardSubtitle,
+  CardTitle,
 } from "./styles/styledComponents";
 
-import { RegularRedButton } from "../../styles/styledComponents";
-import { CloudImage } from "../CloudImage";
+import { Badge, PhantomRegularRedButton } from "../../styles/styledComponents";
 
 const AdviseCard: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -32,10 +29,9 @@ const AdviseCard: React.FC = (): JSX.Element => {
               cveid
               date
               description
-              product
               slug
               title
-              writer
+              severity
             }
           }
         }
@@ -50,55 +46,27 @@ const AdviseCard: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       {adviseInfo.map((advisePage): JSX.Element => {
-        const {
-          authors,
-          codename,
-          cveid,
-          date,
-          description,
-          product,
-          slug,
-          writer,
-        } = advisePage.node.frontmatter;
+        const { authors, codename, cveid, date, severity, slug, title } =
+          advisePage.node.frontmatter;
 
         return (
-          <AdvisoriesShadowBoxContainer key={date}>
-            <AdvisoriesCardFront>
-              <AdvisoriesCardFrontTitle>
-                {"VULNERABILITY"}
-              </AdvisoriesCardFrontTitle>
-              <AdvisoriesCardFrontDesc>{description}</AdvisoriesCardFrontDesc>
-              <br />
-              <AdvisoriesCardFrontAuthorContainer>
-                <CloudImage
-                  alt={"Author picture"}
-                  src={`authors/${writer}`}
-                  styles={"br-100 mr3 w-10"}
-                />
-                <p className={"roboto"}>{authors}</p>
-                <br />
-              </AdvisoriesCardFrontAuthorContainer>
-            </AdvisoriesCardFront>
-            <AdvisoriesCardBack>
-              <AdvisoriesCardBackList>
-                <AdvisoriesCardBackItem>
-                  {`Code name: ${codename}`}
-                </AdvisoriesCardBackItem>
-                <AdvisoriesCardBackItem>
-                  {`Product: ${product}`}
-                </AdvisoriesCardBackItem>
-                <AdvisoriesCardBackItem>
-                  {`Release date: ${date}`}
-                </AdvisoriesCardBackItem>
-                <AdvisoriesCardBackItem>
-                  {`CVE ID(s): ${cveid}`}
-                </AdvisoriesCardBackItem>
-              </AdvisoriesCardBackList>
-              <Link to={`/${slug}`}>
-                <RegularRedButton>{"Read More"}</RegularRedButton>
-              </Link>
-            </AdvisoriesCardBack>
-          </AdvisoriesShadowBoxContainer>
+          <AdvisoryCardContainer key={codename}>
+            <Badge
+              bgColor={"#dddde3"}
+              color={"#2e2e38"}
+            >{`Severity ${severity}`}</Badge>
+            <CardTitle>{title}</CardTitle>
+            <CardSubtitle>{cveid}</CardSubtitle>
+            <CardDescriptionContainer>
+              <CardDescription>{`Published: ${date}`}</CardDescription>
+              <CardDescription>{`Discovered by ${authors}`}</CardDescription>
+            </CardDescriptionContainer>
+            <Link to={`/${slug}`}>
+              <PhantomRegularRedButton className={"w-100"}>
+                {"Read More"}
+              </PhantomRegularRedButton>
+            </Link>
+          </AdvisoryCardContainer>
         );
       })}
     </React.StrictMode>

@@ -279,6 +279,20 @@ const GrayDash: StyledComponent<
   `,
 })``;
 
+const Badge = styled.span.attrs({
+  className: `
+    f7
+    br4
+    pv2
+    ph3
+    ma0
+    roboto
+  `,
+})<{ bgColor: string; color: string }>`
+  background-color: ${({ bgColor }): string => bgColor};
+  color: ${({ color }): string => color};
+`;
+
 const BreadcrumbContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -384,7 +398,6 @@ const ArticleContainer: StyledComponent<
     ph-body
     center
     roboto
-    bg-white
     ph4-l
     ph3
     pt5-l
@@ -402,7 +415,6 @@ const CareersFaqContainer: StyledComponent<
     ph-body
     center
     roboto
-    bg-white
     ph4-l
     ph3
     pt5-l
@@ -1052,9 +1064,7 @@ const BannerSubtitle: StyledComponent<
 > = styled.h2.attrs({
   className: `
     white
-    f3-l
-    f5-m
-    f6
+    f5
     fw4
     roboto
     tc
@@ -1095,7 +1105,6 @@ const MarkedTitleContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    bg-lightgray
     center
     flex
     flex-wrap
@@ -1352,7 +1361,6 @@ const CardsContainer1200: StyledComponent<
     mw-1200
     center
     roboto
-    bg-lightgray
     ph4-l
     ph3
     pt5-l
@@ -1361,25 +1369,28 @@ const CardsContainer1200: StyledComponent<
   `,
 })``;
 
-const AdvisoriesGrid: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const AdvisoriesGrid = styled.div.attrs({
   className: `
-    advisories-grid
-    center
-    grid
+    flex
     mt4
+    flex-wrap
+    justify-center
+    center
   `,
-})``;
+})`
+  max-width: 1300px;
+`;
+
 const AdvisoriesContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-100
+    mw-1200
+    center
     tc
-    mb4
+    pb4
+    ph-body
   `,
 })``;
 
@@ -1394,7 +1405,6 @@ const AdvisoryContainer: StyledComponent<
     mw-900
     ml-auto
     mr-auto
-    bg-white
     ph4-l
     ph3
     pt5-l
@@ -1516,7 +1526,6 @@ const PlansContainer: StyledComponent<
     ml-auto
     mr-auto
     roboto
-    bg-white
     ph4-l
     ph3
     pt5-l
@@ -1803,6 +1812,7 @@ export {
   AdvisoryContainer,
   ArticleContainer,
   ArticleTitle,
+  Badge,
   BlogArticleBannerContainer,
   BlogArticleContainer,
   BlogArticleSubtitle,

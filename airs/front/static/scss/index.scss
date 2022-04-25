@@ -256,7 +256,6 @@ $gray-36: rgba(36, 37, 45, 1);
 
 // Big screen sizes
 @media screen and (min-width: 60em) {
-  .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
   .f-375-l { font-size: 3.75rem; }
   .f-error { font-size: 17rem; }
   .bg-banner-sz { background-size: 100% 100%; }
