@@ -24,3 +24,15 @@ In the [Policies section](/machine/web/organization/policies)
 on the ASM, you can select and configure
 the conditions or policies that the agent
 must validate for breaking the build.
+
+## Export button
+
+In the DevSecOps section,
+there is the Export button
+on the top left.
+Clicking on this button,
+you can download a CVS
+(comma-separated values)
+file containing all the
+information in the table
+of this section.
