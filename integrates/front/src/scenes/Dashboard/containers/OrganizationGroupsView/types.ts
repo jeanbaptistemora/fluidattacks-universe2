@@ -25,4 +25,4 @@ interface IGetOrganizationGroups {
   };
 }
 
-export { IGroupData, IOrganizationGroupsProps, IGetOrganizationGroups };
+export type { IGroupData, IOrganizationGroupsProps, IGetOrganizationGroups };

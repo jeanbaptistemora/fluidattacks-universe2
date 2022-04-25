@@ -22,4 +22,4 @@ interface IGetVulnAdditionalInfoAttr {
   vulnerability: IVulnInfoAttr;
 }
 
-export { IGetVulnAdditionalInfoAttr, IVulnInfoAttr };
+export type { IGetVulnAdditionalInfoAttr, IVulnInfoAttr };

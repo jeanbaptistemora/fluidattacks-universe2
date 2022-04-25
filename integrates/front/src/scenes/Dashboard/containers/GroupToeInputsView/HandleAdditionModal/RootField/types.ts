@@ -4,4 +4,4 @@ interface IRootFieldProps {
   roots: Root[];
 }
 
-export { IRootFieldProps };
+export type { IRootFieldProps };

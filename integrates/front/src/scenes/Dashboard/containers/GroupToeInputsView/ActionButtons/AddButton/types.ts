@@ -3,4 +3,4 @@ interface IAddButtonProps {
   onAdd: () => void;
 }
 
-export { IAddButtonProps };
+export type { IAddButtonProps };

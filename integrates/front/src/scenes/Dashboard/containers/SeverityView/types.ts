@@ -71,4 +71,4 @@ interface ISeverityField {
   tooltip?: string;
 }
 
-export { ISeverityAttr, IUpdateSeverityAttr, ISeverityField };
+export type { ISeverityAttr, IUpdateSeverityAttr, ISeverityField };

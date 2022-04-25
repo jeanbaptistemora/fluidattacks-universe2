@@ -66,18 +66,18 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
   // State management
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
-  const [isUserModalOpen, setUserModalOpen] = useState(false);
-  const [userModalAction, setuserModalAction] = useState<"add" | "edit">("add");
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [userModalAction, setUserModalAction] = useState<"add" | "edit">("add");
   const openAddUserModal: () => void = useCallback((): void => {
-    setuserModalAction("add");
-    setUserModalOpen(true);
+    setUserModalAction("add");
+    setIsUserModalOpen(true);
   }, []);
   const openEditUserModal: () => void = useCallback((): void => {
-    setuserModalAction("edit");
-    setUserModalOpen(true);
+    setUserModalAction("edit");
+    setIsUserModalOpen(true);
   }, []);
   const closeUserModal: () => void = useCallback((): void => {
-    setUserModalOpen(false);
+    setIsUserModalOpen(false);
   }, []);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
@@ -205,7 +205,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         mtResult: IUpdateGroupStakeholderAttr
       ): Promise<void> => {
         if (mtResult.updateGroupStakeholder.success) {
-          setuserModalAction("add");
+          setUserModalAction("add");
           await refetch();
 
           mixpanel.track("EditUserAccess");
@@ -277,7 +277,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     await removeStakeholderAccess({
       variables: { groupName, userEmail: currentRow.email },
     });
-    setuserModalAction("add");
+    setUserModalAction("add");
   }, [currentRow.email, groupName, removeStakeholderAccess]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -295,7 +295,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           ...stakeholder,
           role: stakeholder.role.toUpperCase(),
         };
-        setuserModalAction("add");
+        setUserModalAction("add");
         await handleSubmit(resendStakeholder);
       }
       const isPending = stakeholder.invitationState === "PENDING";

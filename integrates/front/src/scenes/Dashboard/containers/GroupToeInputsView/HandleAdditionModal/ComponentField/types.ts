@@ -2,4 +2,4 @@ interface IComponentFieldProps {
   host: string | undefined;
 }
 
-export { IComponentFieldProps };
+export type { IComponentFieldProps };

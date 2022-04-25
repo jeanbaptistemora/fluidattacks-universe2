@@ -119,4 +119,5 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
   );
 };
 
-export { IAPITokenForcesModalProps, APITokenForcesModal };
+export type { IAPITokenForcesModalProps };
+export { APITokenForcesModal };

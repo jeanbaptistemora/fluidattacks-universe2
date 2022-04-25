@@ -18,4 +18,4 @@ interface IFindingTitle {
   };
 }
 
-export { IFindingTitle, IUserOrgs, IUserTags };
+export type { IFindingTitle, IUserOrgs, IUserTags };

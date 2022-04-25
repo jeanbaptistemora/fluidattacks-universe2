@@ -16,4 +16,4 @@ interface ISubscriptionsNames {
   };
 }
 
-export { ISubscriptionName, ISubscriptionsNames };
+export type { ISubscriptionName, ISubscriptionsNames };

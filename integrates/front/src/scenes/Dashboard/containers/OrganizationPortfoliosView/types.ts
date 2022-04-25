@@ -13,4 +13,4 @@ interface IPortfoliosTable {
   portfolio: string;
 }
 
-export { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable };
+export type { IOrganizationPortfoliosProps, IPortfolios, IPortfoliosTable };

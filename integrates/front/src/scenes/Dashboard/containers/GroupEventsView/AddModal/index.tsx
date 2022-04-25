@@ -479,4 +479,5 @@ const AddModal: React.FC<IAddModalProps> = ({
   );
 };
 
-export { IFormValues, AddModal };
+export type { IFormValues };
+export { AddModal };

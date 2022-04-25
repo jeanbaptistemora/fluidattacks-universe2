@@ -17,4 +17,4 @@ interface IGetTagsQuery {
   };
 }
 
-export { IGetFilesQuery, IGetTagsQuery, IGroupFileAttr };
+export type { IGetFilesQuery, IGetTagsQuery, IGroupFileAttr };

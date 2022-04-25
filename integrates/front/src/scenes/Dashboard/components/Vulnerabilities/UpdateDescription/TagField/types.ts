@@ -6,4 +6,4 @@ interface ITagFieldProps {
   isInProgressSelected: boolean;
 }
 
-export { ITagFieldProps };
+export type { ITagFieldProps };

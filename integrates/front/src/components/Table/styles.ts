@@ -50,4 +50,5 @@ const ToggleLabel = styled.h4.attrs({ className: "mv2" })`
   font-size: 20px;
 `;
 
-export { ITableContainerProps, TableContainer, ToggleContainer, ToggleLabel };
+export type { ITableContainerProps };
+export { TableContainer, ToggleContainer, ToggleLabel };

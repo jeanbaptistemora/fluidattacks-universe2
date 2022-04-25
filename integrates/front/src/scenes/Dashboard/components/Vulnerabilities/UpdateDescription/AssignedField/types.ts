@@ -8,4 +8,4 @@ interface IAssignedFieldProps {
   userEmails: string[];
 }
 
-export { IAssignedFieldProps };
+export type { IAssignedFieldProps };

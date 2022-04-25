@@ -9,4 +9,4 @@ interface IGroupNameProps {
   internalNames: { name: string };
 }
 
-export { IAddGroupModalProps, IGroupNameProps };
+export type { IAddGroupModalProps, IGroupNameProps };

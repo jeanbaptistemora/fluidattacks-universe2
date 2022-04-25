@@ -5,4 +5,4 @@ interface IJustificationFieldProps {
   lastTreatment: IHistoricTreatment;
 }
 
-export { IJustificationFieldProps };
+export type { IJustificationFieldProps };

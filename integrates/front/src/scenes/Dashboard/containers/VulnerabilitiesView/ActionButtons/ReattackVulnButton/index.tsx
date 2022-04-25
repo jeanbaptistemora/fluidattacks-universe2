@@ -90,4 +90,5 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
   );
 };
 
-export { IReattackVulnButtonProps, ReattackVulnButton };
+export type { IReattackVulnButtonProps };
+export { ReattackVulnButton };

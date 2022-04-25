@@ -3,4 +3,4 @@ interface IJustificationFieldProps {
   isRejectZeroRiskSelected: boolean;
 }
 
-export { IJustificationFieldProps };
+export type { IJustificationFieldProps };

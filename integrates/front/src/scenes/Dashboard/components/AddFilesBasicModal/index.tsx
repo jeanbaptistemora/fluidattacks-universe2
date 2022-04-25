@@ -7,7 +7,7 @@ import { mixed, object } from "yup";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
-import { IAddFilesBasicModalProps } from "scenes/Dashboard/components/AddFilesBasicModal/types";
+import type { IAddFilesBasicModalProps } from "scenes/Dashboard/components/AddFilesBasicModal/types";
 import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput } from "utils/forms/fields";
 import { isValidFileSize } from "utils/validations";
@@ -107,4 +107,5 @@ const AddFilesBasicModal: React.FC<IAddFilesBasicModalProps> = ({
   );
 };
 
-export { IAddFilesBasicModalProps, AddFilesBasicModal };
+export type { IAddFilesBasicModalProps };
+export { AddFilesBasicModal };

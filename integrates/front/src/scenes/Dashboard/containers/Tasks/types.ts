@@ -30,4 +30,4 @@ interface IFilterTodosSet {
   verification?: string;
 }
 
-export { IAction, IFilterTodosSet, IGroupAction, ITasksContent };
+export type { IAction, IFilterTodosSet, IGroupAction, ITasksContent };

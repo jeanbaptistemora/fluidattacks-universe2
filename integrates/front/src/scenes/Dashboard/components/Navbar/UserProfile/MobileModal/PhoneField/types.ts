@@ -5,4 +5,4 @@ interface IPhoneFieldProps {
   name?: string;
 }
 
-export { IPhoneFieldProps };
+export type { IPhoneFieldProps };

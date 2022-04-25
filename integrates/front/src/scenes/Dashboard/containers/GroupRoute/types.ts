@@ -10,4 +10,4 @@ interface IGroupRoute {
   setUserRole: (userRole: string | undefined) => void;
 }
 
-export { IGroupData, IGroupRoute };
+export type { IGroupData, IGroupRoute };

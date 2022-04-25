@@ -5,4 +5,4 @@ interface IAcceptanceDateFieldProps {
   lastTreatment: IHistoricTreatment;
 }
 
-export { IAcceptanceDateFieldProps };
+export type { IAcceptanceDateFieldProps };
