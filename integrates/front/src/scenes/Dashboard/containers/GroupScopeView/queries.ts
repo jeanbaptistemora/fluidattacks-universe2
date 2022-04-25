@@ -19,6 +19,15 @@ const GET_ROOTS: DocumentNode = gql`
           }
           environment
           environmentUrls
+          gitEnvironmentUrls {
+            url
+            id
+            secrets {
+              description
+              key
+              value
+            }
+          }
           gitignore
           id
           includesHealthCheck
@@ -55,6 +64,15 @@ const GET_ROOT: DocumentNode = gql`
           description
           key
           value
+        }
+        gitEnvironmentUrls {
+          url
+          id
+          secrets {
+            value
+            key
+            description
+          }
         }
       }
     }
@@ -134,6 +152,25 @@ const ADD_SECRET: DocumentNode = gql`
       value: $value
       groupName: $groupName
       description: $description
+    ) {
+      success
+    }
+  }
+`;
+const ADD_ENVIRONMENT_SECRET: DocumentNode = gql`
+  mutation AddSecret(
+    $urlId: ID!
+    $key: String!
+    $value: String!
+    $groupName: String!
+    $description: String
+  ) {
+    addGitEnvironmentSecret(
+      urlId: $urlId
+      key: $key
+      value: $value
+      description: $description
+      groupName: $groupName
     ) {
       success
     }
@@ -328,6 +365,7 @@ const VALIDATE_GIT_ACCESS: DocumentNode = gql`
 
 export {
   ACTIVATE_ROOT,
+  ADD_ENVIRONMENT_SECRET,
   ADD_GIT_ROOT,
   ADD_IP_ROOT,
   ADD_SECRET,

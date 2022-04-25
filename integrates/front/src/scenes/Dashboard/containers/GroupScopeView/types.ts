@@ -1,3 +1,13 @@
+interface ISecret {
+  description: string;
+  key: string;
+  value: string;
+}
+interface IEnvironmentUrl {
+  id: string;
+  url: string;
+  secrets: ISecret[];
+}
 interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
@@ -16,15 +26,12 @@ interface IGitRootAttr {
   };
   environment: string;
   environmentUrls: string[];
+  gitEnvironmentUrls: IEnvironmentUrl[];
   gitignore: string[];
   includesHealthCheck: boolean | null;
   id: string;
   nickname: string;
-  secrets: {
-    description: string;
-    key: string;
-    value: string;
-  }[];
+  secrets: ISecret[];
   state: "ACTIVE" | "INACTIVE";
   url: string;
   useVpn: boolean;
@@ -52,4 +59,11 @@ interface IURLRootAttr {
 
 type Root = IGitRootAttr | IIPRootAttr | IURLRootAttr;
 
-export type { Root, IGitRootAttr, IIPRootAttr, IURLRootAttr };
+export type {
+  Root,
+  IGitRootAttr,
+  IIPRootAttr,
+  IURLRootAttr,
+  IEnvironmentUrl,
+  ISecret,
+};
