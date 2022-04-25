@@ -7,4 +7,4 @@ interface IAcceptanceUserFieldProps {
   lastTreatment: IHistoricTreatment;
 }
 
-export { IAcceptanceUserFieldProps };
+export type { IAcceptanceUserFieldProps };

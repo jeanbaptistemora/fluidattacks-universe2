@@ -3,4 +3,4 @@ interface IVerificationCodeFieldProps {
   name?: string;
 }
 
-export { IVerificationCodeFieldProps };
+export type { IVerificationCodeFieldProps };

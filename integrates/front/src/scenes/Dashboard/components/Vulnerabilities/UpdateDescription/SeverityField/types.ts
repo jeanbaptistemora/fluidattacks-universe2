@@ -6,4 +6,4 @@ interface ISeverityFieldProps {
   level: string;
 }
 
-export { ISeverityFieldProps };
+export type { ISeverityFieldProps };

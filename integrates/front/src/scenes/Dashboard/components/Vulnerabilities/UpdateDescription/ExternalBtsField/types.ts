@@ -8,4 +8,4 @@ interface IExternalBtsFieldProps {
   vulnerabilities: IVulnDataTypeAttr[];
 }
 
-export { IExternalBtsFieldProps };
+export type { IExternalBtsFieldProps };

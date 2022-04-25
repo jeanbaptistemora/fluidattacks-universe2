@@ -12,4 +12,4 @@ interface IGetEntityOrganization {
   };
 }
 
-export { IGetEntityOrganization, IOrganizationRedirectProps };
+export type { IGetEntityOrganization, IOrganizationRedirectProps };

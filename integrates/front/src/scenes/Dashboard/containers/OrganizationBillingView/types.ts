@@ -26,4 +26,4 @@ interface IPaymentMethodAttr {
   expirationYear: string;
 }
 
-export { IGroupAttr, IPaymentMethodAttr };
+export type { IGroupAttr, IPaymentMethodAttr };

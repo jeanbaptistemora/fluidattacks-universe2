@@ -26,4 +26,8 @@ interface IOrganizationPoliciesData {
   };
 }
 
-export { IOrganizationPolicies, IOrganizationPoliciesData, IPoliciesFormData };
+export type {
+  IOrganizationPolicies,
+  IOrganizationPoliciesData,
+  IPoliciesFormData,
+};

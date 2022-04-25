@@ -8,7 +8,7 @@ import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
-import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
+import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import {
@@ -135,4 +135,5 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
   );
 };
 
-export { IAddFilesModalProps, AddFilesModal };
+export type { IAddFilesModalProps };
+export { AddFilesModal };

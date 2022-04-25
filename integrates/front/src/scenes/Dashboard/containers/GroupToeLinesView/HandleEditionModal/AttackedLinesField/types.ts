@@ -4,4 +4,4 @@ interface IAttackedLinesFieldProps {
   selectedToeLinesDatas: IToeLinesData[];
 }
 
-export { IAttackedLinesFieldProps };
+export type { IAttackedLinesFieldProps };

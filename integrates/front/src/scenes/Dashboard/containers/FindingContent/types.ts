@@ -23,4 +23,4 @@ interface IRemoveFindingResultAttr {
   };
 }
 
-export { IHeaderQueryResult, IRemoveFindingResultAttr };
+export type { IHeaderQueryResult, IRemoveFindingResultAttr };

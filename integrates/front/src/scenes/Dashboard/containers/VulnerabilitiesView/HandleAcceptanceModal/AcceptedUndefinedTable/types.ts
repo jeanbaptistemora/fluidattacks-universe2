@@ -6,4 +6,4 @@ interface IAcceptedUndefinedTableProps {
   setAcceptanceVulns: (vulns: IVulnDataAttr[]) => void;
 }
 
-export { IAcceptedUndefinedTableProps };
+export type { IAcceptedUndefinedTableProps };

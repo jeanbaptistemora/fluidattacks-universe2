@@ -13,4 +13,4 @@ interface IUpdateAffectedModalProps {
   onSubmit: (values: IUpdateAffectedValues) => Promise<void>;
 }
 
-export { IUpdateAffectedValues, IUpdateAffectedModalProps };
+export type { IUpdateAffectedValues, IUpdateAffectedModalProps };

@@ -7,4 +7,4 @@ interface IActionButtonsProps {
   onEdit: () => void;
 }
 
-export { IActionButtonsProps };
+export type { IActionButtonsProps };

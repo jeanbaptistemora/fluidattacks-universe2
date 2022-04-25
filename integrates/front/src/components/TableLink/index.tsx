@@ -21,4 +21,5 @@ const TableLink: React.FC<ITableLinkProps> = ({
   );
 };
 
-export { ITableLinkProps, TableLink };
+export type { ITableLinkProps };
+export { TableLink };

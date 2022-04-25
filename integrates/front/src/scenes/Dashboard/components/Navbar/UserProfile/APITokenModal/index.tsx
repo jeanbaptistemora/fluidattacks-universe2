@@ -188,4 +188,5 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
   );
 };
 
-export { IAPITokenModalProps, APITokenModal };
+export type { IAPITokenModalProps };
+export { APITokenModal };

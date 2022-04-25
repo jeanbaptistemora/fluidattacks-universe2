@@ -20,4 +20,4 @@ interface IAddStakeholderModalProps {
   onSubmit: (values: any) => void;
 }
 
-export { IAddStakeholderModalProps, IStakeholderAttrs };
+export type { IAddStakeholderModalProps, IStakeholderAttrs };

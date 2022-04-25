@@ -11,4 +11,4 @@ interface IGroupContext {
   url: string;
 }
 
-export { IEventsDataset, IGroupContext };
+export type { IEventsDataset, IGroupContext };

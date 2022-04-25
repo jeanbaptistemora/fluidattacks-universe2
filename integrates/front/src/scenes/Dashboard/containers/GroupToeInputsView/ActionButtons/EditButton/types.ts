@@ -3,4 +3,4 @@ interface IEditButtonProps {
   onEdit: () => void;
 }
 
-export { IEditButtonProps };
+export type { IEditButtonProps };

@@ -125,4 +125,5 @@ const TrackingView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ITracking as IClosing, IGetFindingTrackingAttr, TrackingView };
+export type { ITracking as IClosing, IGetFindingTrackingAttr };
+export { TrackingView };

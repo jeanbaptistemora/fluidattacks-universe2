@@ -4,4 +4,4 @@ interface IEnvironmentUrlFieldProps {
   selectedRoot: Root | undefined;
 }
 
-export { IEnvironmentUrlFieldProps };
+export type { IEnvironmentUrlFieldProps };

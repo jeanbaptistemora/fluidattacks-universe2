@@ -11,4 +11,4 @@ interface IGetForcesTokenAttr {
   };
 }
 
-export { IUpdateForcesTokenAttr, IGetForcesTokenAttr };
+export type { IUpdateForcesTokenAttr, IGetForcesTokenAttr };

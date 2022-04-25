@@ -5,4 +5,4 @@ interface ITreatmentFieldProps {
   lastTreatment: IHistoricTreatment;
 }
 
-export { ITreatmentFieldProps };
+export type { ITreatmentFieldProps };

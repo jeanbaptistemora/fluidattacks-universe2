@@ -8,4 +8,4 @@ interface IGetVulnTreatmentAttr {
   vulnerability: IVulnTreatmentAttr;
 }
 
-export { IGetVulnTreatmentAttr };
+export type { IGetVulnTreatmentAttr };

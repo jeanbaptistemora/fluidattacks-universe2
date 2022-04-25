@@ -52,4 +52,5 @@ const Switch: React.FC<ISwitchProps> = ({
   );
 };
 
-export { ISwitchProps, Switch };
+export type { ISwitchProps };
+export { Switch };

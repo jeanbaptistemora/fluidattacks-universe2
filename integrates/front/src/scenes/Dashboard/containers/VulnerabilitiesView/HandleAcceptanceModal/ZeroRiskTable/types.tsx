@@ -6,4 +6,4 @@ interface IZeroRiskTableProps {
   setAcceptanceVulns: (vulns: IVulnDataAttr[]) => void;
 }
 
-export { IZeroRiskTableProps };
+export type { IZeroRiskTableProps };

@@ -115,4 +115,5 @@ const SeverityTile: React.FC<ISeverityTile> = ({
   );
 };
 
-export { ISeverityTile, SeverityTile, severityImages };
+export type { ISeverityTile };
+export { SeverityTile, severityImages };
