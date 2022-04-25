@@ -1,6 +1,11 @@
 resource "aws_ecs_cluster" "main" {
   name = "schedule"
 
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
   configuration {
     execute_command_configuration {
       logging = "OVERRIDE"
