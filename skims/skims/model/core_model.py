@@ -1836,6 +1836,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_IAM_FULL_ACCESS_SSM = MethodInfo(
+        file_name="terraform",
+        name="tfm_iam_has_full_access_to_ssm",
+        module="lib_path",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_EC2_NO_IAM = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_has_not_an_iam_instance_profile",

@@ -9812,6 +9812,78 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   52 |   }
      ^ Col 0
 ",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,5,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""ssm:*""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
+     ^ Col 0
+",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""Deny"",
+  44 |           ""autoscaling:*"",
+  45 |           ""ssm:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,56,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+  48 |         ""Effect"": ""Allow""
+  49 |       }
+  50 |     ]
+  51 |   }
+  52 |   EOF
+  53 | }
+  54 |
+  55 | data ""aws_iam_policy_document"" ""example"" {
+> 56 |   statement {
+  57 |     actions = [
+  58 |       ""ec2:*"",
+  59 |       ""autoscaling:*"",
+  60 |       ""eks:*""
+  61 |     ]
+  62 |
+  63 |     resources = [
+  64 |       ""*"",
+  65 |     ]
+  66 |   }
+     ^ Col 0
+",terraform.terraform_permissive_policy
 F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   33 |             Principal:
   34 |               Service:
@@ -13148,6 +13220,78 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   43 |               ""Action"": ""ssm:*"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,5,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""ssm:*""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
+     ^ Col 0
+",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""Deny"",
+  44 |           ""autoscaling:*"",
+  45 |           ""ssm:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+  58 |       ""ec2:*"",
+  59 |       ""autoscaling:*"",
+  60 |       ""eks:*""
+  61 |     ]
+  62 |
+  63 |     resources = [
+  64 |       ""*"",
+  65 |     ]
+  66 |   }
+  67 |
+> 68 |   statement {
+  69 |     sid    = ""Enable IAM User Permissions""
+  70 |     effect = ""Allow""
+  71 |     principals {
+  72 |       type        = ""AWS""
+  73 |       identifiers = [""arn:aws:iam::${data.aws_caller_identity.current.account_id}:root""]
+  74 |     }
+  75 |     actions = [
+  76 |       ""ssm:*""
+  77 |     ]
+  78 |     resources = [
+     ^ Col 0
+",terraform.terraform_permissive_policy
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
   15 |   CreateTestDBPolicy:

@@ -1,3 +1,6 @@
+from aws.model import (
+    AWSIamPolicyStatement,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -8,6 +11,9 @@ from lib_path.f031.utils import (
     negative_statement_iterate_vulnerabilities,
     open_passrole_iterate_vulnerabilities,
     permissive_policy_iterate_vulnerabilities,
+)
+from metaloaders.model import (
+    Node,
 )
 from model.core_model import (
     MethodsEnum,
@@ -24,6 +30,8 @@ from parse_hcl2.structure.aws import (
 from typing import (
     Any,
     Iterator,
+    List,
+    Union,
 )
 
 
@@ -33,6 +41,25 @@ def _tfm_iam_user_missing_role_based_security_iterate_vulnerabilities(
     for resource in resource_iterator:
         if attr := get_attribute(resource.data, "name"):
             yield attr
+
+
+def action_has_full_access_to_ssm(actions: Union[str, List[str]]) -> bool:
+    actions_list = actions if isinstance(actions, list) else [actions]
+    for action in actions_list:
+        if action == "ssm:*":
+            return True
+    return False
+
+
+def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
+    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
+) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    for stmt in statements_iterator:
+        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        effect = stmt_raw.get("Effect", "")
+        actions = stmt_raw.get("Action", [])
+        if effect == "Allow" and action_has_full_access_to_ssm(actions):
+            yield stmt
 
 
 def terraform_admin_policy_attached(
@@ -133,6 +160,24 @@ def terraform_permissive_policy(
         description_key="src.lib_path.f031_aws.permissive_policy",
         iterator=get_cloud_iterator(
             permissive_policy_iterate_vulnerabilities(
+                statements_iterator=terraform_iterate_iam_policy_documents(
+                    model=model,
+                )
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_PERMISSIVE_POLICY,
+    )
+
+
+def tfm_iam_has_full_access_to_ssm(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f031.iam_has_full_access_to_ssm",
+        iterator=get_cloud_iterator(
+            _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
                 statements_iterator=terraform_iterate_iam_policy_documents(
                     model=model,
                 )
