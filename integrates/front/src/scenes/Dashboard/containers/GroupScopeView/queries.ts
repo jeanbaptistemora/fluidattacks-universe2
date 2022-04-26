@@ -159,7 +159,7 @@ const ADD_SECRET: DocumentNode = gql`
 `;
 const ADD_ENVIRONMENT_SECRET: DocumentNode = gql`
   mutation AddSecret(
-    $urlId: ID!
+    $urlId: String!
     $key: String!
     $value: String!
     $groupName: String!

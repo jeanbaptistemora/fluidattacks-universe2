@@ -25,7 +25,6 @@ interface ISecretsProps {
   urlId: string;
   secretValue: string;
   closeModal: () => void;
-  handleSubmitSecret: () => void;
   isDuplicated: (key: string) => boolean;
 }
 
@@ -65,7 +64,6 @@ const AddSecret: React.FC<ISecretsProps> = ({
   secretValue,
   closeModal,
   isDuplicated,
-  handleSubmitSecret,
 }: ISecretsProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canAddSecret: boolean = permissions.can(
@@ -84,7 +82,6 @@ const AddSecret: React.FC<ISecretsProps> = ({
         t("group.scope.git.repo.credentials.secrets.success"),
         t("group.scope.git.repo.credentials.secrets.successTitle")
       );
-      handleSubmitSecret();
       closeModal();
     },
     onError: ({ graphQLErrors }): void => {
