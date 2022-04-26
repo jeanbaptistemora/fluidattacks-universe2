@@ -607,7 +607,7 @@ export const enTranslations: ResourceKey = {
       tableAdvice: "Click on an execution to see more details",
       tabs: {
         log: {
-          text: "Execution Log",
+          text: "Execution log",
           tooltip:
             "Log record of the DevSecOps execution in rich console format",
         },
