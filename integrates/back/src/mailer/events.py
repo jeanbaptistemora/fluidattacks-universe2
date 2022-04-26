@@ -113,7 +113,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     email_context: MailContentType = {
         "group": group_name.capitalize(),
         "event_type": event_type_format[event_type],
-        "description": description,
+        "description": description.strip("."),
         "event_age": event_age,
         "event_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
