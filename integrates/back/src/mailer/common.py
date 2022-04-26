@@ -17,6 +17,9 @@ from custom_exceptions import (
 from custom_types import (
     MailContent as MailContentType,
 )
+from http.client import (
+    RemoteDisconnected,
+)
 from jinja2 import (
     Environment,
     FileSystemLoader,
@@ -136,7 +139,7 @@ async def send_mail_async(
                 }
             },
         )
-    except (ApiClientError, JSONDecodeError) as ex:
+    except (ApiClientError, JSONDecodeError, RemoteDisconnected) as ex:
         LOGGER_ERRORS.exception(
             ex,
             extra={
