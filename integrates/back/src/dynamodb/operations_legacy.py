@@ -58,19 +58,19 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
 async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
     try:
-        async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-            dynamo_table = await dynamodb_resource.Table(table)
+        dynamodb_resource = await get_resource()
+        dynamo_table = await dynamodb_resource.Table(table)
+        response = await dynamo_table.query(**query_attrs)
+        response_items = response.get("Items", [])
+        while response.get("LastEvaluatedKey") and (
+            not query_attrs.get("Limit")
+            or len(response_items) < int(query_attrs["Limit"])
+        ):
+            query_attrs.update(
+                {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
+            )
             response = await dynamo_table.query(**query_attrs)
-            response_items = response.get("Items", [])
-            while response.get("LastEvaluatedKey") and (
-                not query_attrs.get("Limit")
-                or len(response_items) < int(query_attrs["Limit"])
-            ):
-                query_attrs.update(
-                    {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
-                )
-                response = await dynamo_table.query(**query_attrs)
-                response_items += response.get("Items", [])
+            response_items += response.get("Items", [])
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return response_items
