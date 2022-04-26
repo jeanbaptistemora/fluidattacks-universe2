@@ -90,16 +90,16 @@ async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
 
 async def scan(table: str, scan_attrs: DynamoQueryType) -> List[Any]:
     response_items: List[Any]
-    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        dynamo_table = await dynamodb_resource.Table(table)
+    dynamodb_resource = await get_resource()
+    dynamo_table = await dynamodb_resource.Table(table)
+    response = await dynamo_table.scan(**scan_attrs)
+    response_items = response.get("Items", [])
+    while response.get("LastEvaluatedKey"):
+        scan_attrs.update(
+            {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
+        )
         response = await dynamo_table.scan(**scan_attrs)
-        response_items = response.get("Items", [])
-        while response.get("LastEvaluatedKey"):
-            scan_attrs.update(
-                {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
-            )
-            response = await dynamo_table.scan(**scan_attrs)
-            response_items += response.get("Items", [])
+        response_items += response.get("Items", [])
     return response_items
 
 
