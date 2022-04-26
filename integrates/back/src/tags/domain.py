@@ -8,14 +8,11 @@ from contextlib import (
 from custom_types import (
     Tag as TagType,
 )
+from db_model.groups.types import (
+    Group,
+)
 from decimal import (
     Decimal,
-)
-from groups import (
-    domain as groups_domain,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from organizations import (
     domain as orgs_domain,
@@ -24,30 +21,32 @@ from tags import (
     dal as tags_dal,
 )
 from typing import (
-    cast,
-    Dict,
-    List,
+    Any,
     Optional,
     Union,
 )
 
 
-async def delete(organization: str, tag: str) -> bool:
-    return await tags_dal.delete(organization, tag)
+async def delete(organization_name: str, tag: str) -> bool:
+    return await tags_dal.delete(organization_name, tag)
 
 
 async def filter_allowed_tags(
-    organization: str, user_groups: List[str]
-) -> List[str]:
-    groups = await collect(
-        groups_domain.get_attributes(group, ["tag", "project_name"])
-        for group in user_groups
+    loaders: Any,
+    organization_name: str,
+    user_group_names: list[str],
+) -> list[str]:
+    groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        user_group_names
     )
     all_tags = {
-        str(tag.lower()) for group in groups for tag in group.get("tag", [])
+        str(tag).lower()
+        for group in groups
+        if group.tags
+        for tag in group.tags
     }
     are_tags_allowed = await collect(
-        is_tag_allowed(groups, organization, tag) for tag in all_tags
+        is_tag_allowed(groups, organization_name, tag) for tag in all_tags
     )
     tags = [
         tag
@@ -58,24 +57,25 @@ async def filter_allowed_tags(
 
 
 async def get_attributes(
-    organization: str, tag: str, attributes: Optional[List[str]] = None
-) -> Dict[str, Union[List[str], str]]:
+    organization: str, tag: str, attributes: Optional[list[str]] = None
+) -> dict[str, Union[list[str], str]]:
     return await tags_dal.get_attributes(organization, tag, attributes)
 
 
 async def get_tags(
-    organization: str, attributes: Optional[List[str]] = None
-) -> List[TagType]:
+    organization: str, attributes: Optional[list[str]] = None
+) -> list[TagType]:
     return await tags_dal.get_tags(organization, attributes)
 
 
 async def has_user_access(email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
-        org_name = await orgs_domain.get_name_by_id(org_id)
+        organization_name = await orgs_domain.get_name_by_id(org_id)
         portfolio_info = await get_attributes(
-            org_name, portfolio, ["projects"]
+            organization_name, portfolio, ["projects"]
         )
+        portfolio_groups: list[str] = list(portfolio_info.get("projects", []))
         org_access, group_access = await collect(
             (
                 orgs_domain.has_user_access(
@@ -83,7 +83,7 @@ async def has_user_access(email: str, subject: str) -> bool:
                 ),
                 authz.get_group_level_roles(
                     email=email,
-                    groups=cast(List[str], portfolio_info.get("projects", [])),
+                    groups=portfolio_groups,
                 ),
             )
         )
@@ -92,23 +92,25 @@ async def has_user_access(email: str, subject: str) -> bool:
 
 
 async def is_tag_allowed(
-    user_groups: List[Dict[str, Union[str, List[str]]]],
-    organization: str,
+    user_groups: tuple[Group, ...],
+    organization_name: str,
     tag: str,
 ) -> bool:
-    all_groups_tag = await get_attributes(organization, tag, ["projects"])
+    all_groups_tag = await get_attributes(organization_name, tag, ["projects"])
     user_groups_tag = [
-        str(get_key_or_fallback(group, fallback="")).lower()
+        group.name
         for group in user_groups
-        if tag in [p_tag.lower() for p_tag in group.get("tag", [])]
+        if group.tags and tag in [p_tag.lower() for p_tag in group.tags]
     ]
     return any(
-        group.lower() in user_groups_tag
+        group in user_groups_tag
         for group in all_groups_tag.get("projects", [])
     )
 
 
 async def update(
-    organization: str, tag: str, data: Dict[str, Union[List[str], Decimal]]
+    organization_name: str,
+    tag: str,
+    data: dict[str, Union[list[str], Decimal]],
 ) -> bool:
-    return await tags_dal.update(organization, tag, data)
+    return await tags_dal.update(organization_name, tag, data)
