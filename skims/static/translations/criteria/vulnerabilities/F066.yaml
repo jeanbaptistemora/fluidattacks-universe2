@@ -1,0 +1,11 @@
+lib_root.f066.has_console_functions:
+  en: >
+    Technical information about the application is obtained due to the use of the Console.WriteLine()
+    function whose outputs are normally displayed on stdout (standard output).
+    In a development environment it is acceptable to use this function to see errors (Debug),
+    but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
+  es: >
+    Se obtiene información técnica de la aplicación debido al uso de la función Console.WriteLine()
+    cuya salidas normalmentese muestran en el stdout (salida estándar).
+    En ambiente de desarrollo es aceptable utilizar esta función para ver errores (Debug),
+    pero utilizarla en ambiente de producción es igual a exponerse a mostrar información sensible de la aplicación.

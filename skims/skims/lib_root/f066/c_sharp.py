@@ -60,7 +60,7 @@ def has_console_functions(
                         yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f016.serves_content_over_insecure_protocols",
+        desc_key="lib_root.f066.has_console_functions",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

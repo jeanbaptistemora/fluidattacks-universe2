@@ -8160,7 +8160,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    89 |       },
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f066/has_console_functions.cs,"
+F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
+ in namespace/skims/test/data/lib_root/f066/has_console_functions.cs","
    1 | using System;
    2 |
    3 | namespace Example
