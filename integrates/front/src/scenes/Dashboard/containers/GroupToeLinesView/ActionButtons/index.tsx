@@ -23,4 +23,5 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   ) : null;
 };
 
-export { ActionButtons, IActionButtonsProps };
+export type { IActionButtonsProps };
+export { ActionButtons };

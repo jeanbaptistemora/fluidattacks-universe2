@@ -204,9 +204,7 @@ describe("AuthorsView", (): void => {
       ].join("")
     );
     expect(screen.getAllByRole("cell")[0].textContent).toBe("test");
-    expect(screen.getAllByRole("cell")[1].textContent).toStrictEqual(
-      "test, test2"
-    );
+    expect(screen.getAllByRole("cell")[1].textContent).toBe("test, test2");
     expect(screen.getAllByRole("cell")[2].textContent).toBe("123");
     expect(
       screen.getAllByRole("cell")[TEST_COLUMN_LENGTH - 2].textContent

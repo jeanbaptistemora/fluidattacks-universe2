@@ -67,13 +67,13 @@ const Files: React.FC<IFilesProps> = ({
       setIsOptionsModalOpen(true);
     };
 
-  const [isButtonEnabled, setButtonEnabled] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {
-    setButtonEnabled(true);
+    setIsButtonEnabled(true);
   }, []);
 
   const enableButton: () => void = useCallback((): void => {
-    setButtonEnabled(false);
+    setIsButtonEnabled(false);
   }, []);
 
   // GraphQL operations

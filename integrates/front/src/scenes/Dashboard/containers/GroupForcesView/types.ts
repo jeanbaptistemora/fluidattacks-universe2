@@ -52,7 +52,7 @@ interface IGetForcesExecution {
   };
 }
 
-export {
+export type {
   IExploitResult,
   IFoundVulnerabilities,
   IVulnerabilities,

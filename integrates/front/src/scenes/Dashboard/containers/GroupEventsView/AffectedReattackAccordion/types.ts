@@ -41,7 +41,7 @@ interface IRequestVulnerabilitiesHold {
 type RequestVulnerabilitiesHoldResult =
   ExecutionResult<IRequestVulnerabilitiesHold>;
 
-export {
+export type {
   IAffectedAccordionProps,
   IReattackVuln,
   IFinding,

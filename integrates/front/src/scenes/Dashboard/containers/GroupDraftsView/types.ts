@@ -104,7 +104,7 @@ interface IRequirementData {
   metadata: Record<string, unknown>;
 }
 
-export {
+export type {
   IDraftVariables,
   IAddDraftMutationResult,
   IAddDraftMutationVariables,

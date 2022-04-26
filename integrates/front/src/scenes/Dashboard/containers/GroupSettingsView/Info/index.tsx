@@ -32,12 +32,13 @@ const GroupInformation: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
-  const [isGroupSettingsModalOpen, setGroupSettingsModalOpen] = useState(false);
+  const [isGroupSettingsModalOpen, setIsGroupSettingsModalOpen] =
+    useState(false);
   const openEditGroupInformationModal: () => void = useCallback((): void => {
-    setGroupSettingsModalOpen(true);
+    setIsGroupSettingsModalOpen(true);
   }, []);
   const closeEditGroupInformationModal: () => void = useCallback((): void => {
-    setGroupSettingsModalOpen(false);
+    setIsGroupSettingsModalOpen(false);
   }, []);
 
   const attributeMapper = (attribute: string): string => {
@@ -113,7 +114,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           language: values.language,
         },
       });
-      setGroupSettingsModalOpen(false);
+      setIsGroupSettingsModalOpen(false);
     },
     [editGroupInfo, groupName]
   );

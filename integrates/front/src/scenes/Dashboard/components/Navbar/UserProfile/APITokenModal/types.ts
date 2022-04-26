@@ -26,7 +26,7 @@ interface IGetAccessTokenDictAttr {
   issuedAt: string;
 }
 
-export {
+export type {
   IInvalidateAccessTokenAttr,
   IUpdateAccessTokenAttr,
   IAccessTokenAttr,

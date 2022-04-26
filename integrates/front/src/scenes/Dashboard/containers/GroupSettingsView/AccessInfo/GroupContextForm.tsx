@@ -148,4 +148,5 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
   );
 };
 
-export { GroupContextForm, IFieldProps };
+export type { IFieldProps };
+export { GroupContextForm };

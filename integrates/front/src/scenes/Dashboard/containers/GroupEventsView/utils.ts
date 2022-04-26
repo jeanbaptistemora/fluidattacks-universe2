@@ -80,4 +80,5 @@ function formatReattacks(reattacks: string[]): Record<string, string[]> {
   return {};
 }
 
-export { filterClosingDate, formatEvents, formatReattacks, IEventConfig };
+export type { IEventConfig };
+export { filterClosingDate, formatEvents, formatReattacks };

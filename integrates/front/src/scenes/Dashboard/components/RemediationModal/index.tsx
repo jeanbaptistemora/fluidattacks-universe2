@@ -114,4 +114,5 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
   );
 };
 
-export { RemediationModal, IAddRemediationProps };
+export type { IAddRemediationProps };
+export { RemediationModal };

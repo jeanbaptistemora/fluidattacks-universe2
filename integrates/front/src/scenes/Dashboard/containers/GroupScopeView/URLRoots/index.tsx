@@ -37,14 +37,14 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 }: IURLRootsProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [isManagingRoot, setManagingRoot] = useState<false | { mode: "ADD" }>(
+  const [isManagingRoot, setIsManagingRoot] = useState<false | { mode: "ADD" }>(
     false
   );
   const openAddModal = useCallback((): void => {
-    setManagingRoot({ mode: "ADD" });
+    setIsManagingRoot({ mode: "ADD" });
   }, []);
   const closeModal = useCallback((): void => {
-    setManagingRoot(false);
+    setIsManagingRoot(false);
   }, []);
 
   const [addUrlRoot] = useMutation(ADD_URL_ROOT, {

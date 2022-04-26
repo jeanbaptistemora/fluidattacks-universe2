@@ -68,7 +68,7 @@ interface IRequestGroupReportResult {
   };
 }
 
-export {
+export type {
   IGroupFindingsAttr,
   IFindingAttr,
   IFindingData,

@@ -37,12 +37,12 @@ const Portfolio: React.FC<IPortfolioProps> = ({
   const { t } = useTranslation();
 
   // State management
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const openAddModal: () => void = useCallback((): void => {
-    setAddModalOpen(true);
+    setIsAddModalOpen(true);
   }, []);
   const closeAddModal: () => void = useCallback((): void => {
-    setAddModalOpen(false);
+    setIsAddModalOpen(false);
   }, []);
 
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
@@ -240,4 +240,5 @@ const Portfolio: React.FC<IPortfolioProps> = ({
   );
 };
 
-export { Portfolio, IPortfolioProps };
+export type { IPortfolioProps };
+export { Portfolio };

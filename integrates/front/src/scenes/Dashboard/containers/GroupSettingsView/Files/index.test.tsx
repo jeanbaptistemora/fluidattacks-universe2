@@ -224,7 +224,7 @@ describe("Files", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(NUMBER_OF_ROWS);
     });
 
-    expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
+    expect(screen.queryAllByRole("row")[1].textContent).toBe(
       "test.zipTest2019-03-01 15:21"
     );
 
@@ -239,7 +239,7 @@ describe("Files", (): void => {
       })
     );
     await waitFor((): void => {
-      expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
+      expect(screen.queryAllByRole("row")[1].textContent).toBe(
         "shell.exeshell2019-04-24 14:56"
       );
     });

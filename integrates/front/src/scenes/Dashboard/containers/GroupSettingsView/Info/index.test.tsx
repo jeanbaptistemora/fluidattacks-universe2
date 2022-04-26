@@ -59,8 +59,6 @@ describe("Info", (): void => {
     expect(
       screen.queryByText("table.noDataIndication")
     ).not.toBeInTheDocument();
-    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
-      "LanguageEnglish"
-    );
+    expect(screen.getAllByRole("row")[1].textContent).toBe("LanguageEnglish");
   });
 });

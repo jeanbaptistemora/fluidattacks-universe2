@@ -28,8 +28,9 @@ interface IGroupAccessInfo {
 const AccessInfo: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { groupName } = useParams<{ groupName: string }>();
-  const [isEditingGroupAccessInfo, setEditingGroupAccessInfo] = useState(false);
-  const [isEditingDisambiguation, setEditingDisambiguation] = useState(false);
+  const [isEditingGroupAccessInfo, setIsEditingGroupAccessInfo] =
+    useState(false);
+  const [isEditingDisambiguation, setIsEditingDisambiguation] = useState(false);
 
   const { data, refetch } = useQuery<IGroupAccessInfo>(GET_GROUP_ACCESS_INFO, {
     fetchPolicy: "no-cache",
@@ -98,7 +99,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
 
   const handleGroupAccessInfoSubmit = useCallback(
     async (values): Promise<void> => {
-      setEditingGroupAccessInfo(false);
+      setIsEditingGroupAccessInfo(false);
       await updateGroupAccessInfo({
         variables: {
           ...values,
@@ -111,7 +112,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
 
   const handleDisambiguationSubmit = useCallback(
     async (values): Promise<void> => {
-      setEditingDisambiguation(false);
+      setIsEditingDisambiguation(false);
       await updateGroupDisambiguation({
         variables: {
           ...values,
@@ -139,7 +140,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
         <GroupContextForm
           data={data}
           isEditing={isEditingGroupAccessInfo}
-          setEditing={setEditingGroupAccessInfo}
+          setEditing={setIsEditingGroupAccessInfo}
         />
       </Formik>
       <Can do={"api_resolvers_group_disambiguation_resolve"}>
@@ -153,7 +154,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
           <DisambiguationForm
             data={data}
             isEditing={isEditingDisambiguation}
-            setEditing={setEditingDisambiguation}
+            setEditing={setIsEditingDisambiguation}
           />
         </Formik>
       </Can>
@@ -161,4 +162,5 @@ const AccessInfo: React.FC = (): JSX.Element => {
   );
 };
 
-export { AccessInfo, IGroupAccessInfo };
+export type { IGroupAccessInfo };
+export { AccessInfo };

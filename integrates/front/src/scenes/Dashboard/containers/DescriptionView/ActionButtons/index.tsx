@@ -72,4 +72,5 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   );
 };
 
-export { ActionButtons, IActionButtonsProps };
+export type { IActionButtonsProps };
+export { ActionButtons };
