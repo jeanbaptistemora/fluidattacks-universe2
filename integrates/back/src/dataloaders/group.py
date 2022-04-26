@@ -189,26 +189,30 @@ class GroupLoader(DataLoader):
         return await _batch_load_fn(groups_names, parent_org_id)
 
 
+async def get_org_names(group: str, organization: Optional[str]) -> str:
+    if organization:
+        return organization
+
+    return await orgs_domain.get_name_for_group(group)
+
+
 class GroupTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, groups_info: Union[tuple[str, ...], tuple[tuple[str, str], ...]]
+        self, groups_info: tuple[Union[str, tuple[str, str]], ...]
     ) -> tuple[Group, ...]:
-        if isinstance(groups_info[0], str):
-            # Given info is tuple[group_name, ...]
-            groups_names: tuple[str, ...] = tuple(
-                str(group_name) for group_name in groups_info
-            )
-            organizations_names = await collect(
-                orgs_domain.get_name_for_group(str(group_name))
-                for group_name in groups_info
-            )
-        else:
-            # Given info is tuple[tuple[group_name, organization_name], ...]
-            groups_names = tuple(group_info[0] for group_info in groups_info)
-            organizations_names = tuple(
-                group_info[1] for group_info in groups_info
-            )
+        groups_names = tuple(
+            group_info if isinstance(group_info, str) else group_info[0]
+            for group_info in groups_info
+        )
+        provided_org_names = tuple(
+            None if isinstance(group_info, str) else group_info[1]
+            for group_info in groups_info
+        )
+        organizations_names = await collect(
+            get_org_names(group, organization)
+            for group, organization in zip(groups_names, provided_org_names)
+        )
 
         groups_items: list[Item] = await groups_domain.get_many_groups(
             list(groups_names)
