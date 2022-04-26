@@ -41,6 +41,62 @@ resource "aws_cloudwatch_event_rule" "main" {
   }
 }
 
+resource "aws_ecs_task_definition" "main" {
+  for_each = local.schedules
+
+  family                   = "schedule_${each.key}"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+
+  task_role_arn      = data.aws_iam_role.prod_common.arn
+  execution_role_arn = data.aws_iam_role.prod_common.arn
+
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "X86_64"
+  }
+
+  cpu    = each.value.cpu
+  memory = each.value.memory
+  ephemeral_storage {
+    size_in_gib = each.value.storage
+  }
+
+  container_definitions = jsonencode(
+    [
+      {
+        name    = "makes"
+        image   = "ghcr.io/fluidattacks/makes:22.05"
+        command = each.value.command
+
+        cpu    = each.value.cpu
+        memory = each.value.memory
+
+        environment = [
+          for k, v in each.value.environment : { name = k, value = v }
+        ]
+
+        logConfiguration = {
+          logDriver = "awslogs"
+          Options = {
+            awslogs-region        = var.region
+            awslogs-group         = aws_cloudwatch_log_group.main.name
+            awslogs-stream-prefix = "schedule"
+          }
+        }
+      }
+    ]
+  )
+
+  tags = {
+    "Name"               = "schedule"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
+}
+
+
 resource "aws_cloudwatch_event_target" "main" {
   for_each = local.schedules
 
@@ -49,26 +105,9 @@ resource "aws_cloudwatch_event_target" "main" {
   arn       = aws_ecs_cluster.main.arn
   role_arn  = data.aws_iam_role.prod_common.arn
 
-  input = jsonencode(
-    {
-      containerOverrides = [
-        {
-          name    = "makes"
-          command = each.value.command
-          cpu     = each.value.cpu
-          memory  = each.value.memory
-
-          environment = [
-            for k, v in each.value.environment : { name = k, value = v }
-          ]
-        }
-      ]
-    }
-  )
-
   ecs_target {
     task_count          = 1
-    task_definition_arn = aws_ecs_task_definition.main.arn
+    task_definition_arn = aws_ecs_task_definition.main[each.key].arn
     launch_type         = "FARGATE"
     propagate_tags      = "TASK_DEFINITION"
 

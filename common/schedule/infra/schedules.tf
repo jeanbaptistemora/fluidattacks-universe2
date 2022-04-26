@@ -10,6 +10,7 @@ locals {
       schedule_expression = "cron(0/5 * * * ? *)"
       cpu                 = 1024
       memory              = 2048
+      storage             = 25
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
