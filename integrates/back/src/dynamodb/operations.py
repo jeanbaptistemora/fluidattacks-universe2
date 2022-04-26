@@ -24,8 +24,6 @@ from dynamodb.exceptions import (
 )
 from dynamodb.resource import (
     get_resource,
-    RESOURCE_OPTIONS,
-    SESSION,
 )
 from dynamodb.types import (
     Facet,
@@ -323,41 +321,41 @@ async def query(  # pylint: disable=too-many-locals
     paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
-        start_key = None
-        if after:
-            start_key = get_key_from_cursor(after, index, table)
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
+    start_key = None
+    if after:
+        start_key = get_key_from_cursor(after, index, table)
 
-        query_args = _build_query_args(
-            condition_expression=condition_expression,
-            facets=facets,
-            filter_expression=filter_expression,
-            index=index,
-            limit=limit,
-            start_key=start_key,
-            table=table,
-        )
+    query_args = _build_query_args(
+        condition_expression=condition_expression,
+        facets=facets,
+        filter_expression=filter_expression,
+        index=index,
+        limit=limit,
+        start_key=start_key,
+        table=table,
+    )
 
-        try:
-            response = await table_resource.query(**query_args)
-            items: List[Item] = response.get("Items", [])
-            if paginate:
-                cursor = get_cursor(
-                    index, items[-1] if items else start_key, table
+    try:
+        response = await table_resource.query(**query_args)
+        items: List[Item] = response.get("Items", [])
+        if paginate:
+            cursor = get_cursor(
+                index, items[-1] if items else start_key, table
+            )
+            has_next_page = bool(response.get("LastEvaluatedKey"))
+        else:
+            while response.get("LastEvaluatedKey"):
+                response = await table_resource.query(
+                    **query_args,
+                    ExclusiveStartKey=response.get("LastEvaluatedKey"),
                 )
-                has_next_page = bool(response.get("LastEvaluatedKey"))
-            else:
-                while response.get("LastEvaluatedKey"):
-                    response = await table_resource.query(
-                        **query_args,
-                        ExclusiveStartKey=response.get("LastEvaluatedKey"),
-                    )
-                    items += response.get("Items", [])
-                cursor = get_cursor(index, None, table)
-                has_next_page = False
-        except ClientError as error:
-            handle_error(error=error)
+                items += response.get("Items", [])
+            cursor = get_cursor(index, None, table)
+            has_next_page = False
+    except ClientError as error:
+        handle_error(error=error)
 
     return QueryResponse(
         items=tuple(items),
