@@ -52,7 +52,7 @@ resource "aws_sns_topic" "alert" {
 
 resource "aws_sns_topic_subscription" "alert" {
   protocol  = "email"
-  endpoint  = "dsalazar@fluidattacks.com"
+  endpoint  = "development@fluidattacks.com"
   topic_arn = aws_sns_topic.alert.arn
 }
 
@@ -86,4 +86,25 @@ resource "aws_cloudwatch_event_target" "alert" {
   rule      = aws_cloudwatch_event_rule.alert.name
   target_id = "SendToSNS"
   arn       = aws_sns_topic.alert.arn
+
+  input_transformer {
+    input_paths = {
+      startedBy = "$.detail.startedBy"
+      taskArn   = "$.detail.taskArn"
+      startedAt = "$.detail.startedAt"
+      stoppedAt = "$.detail.stoppedAt"
+    }
+    input_template = <<-EOF
+      {
+        "reason": "Schedule container finished with failed exit code",
+        "schedule": <startedBy>,
+        "taskArn": <taskArn>,
+        "startedAt": <startedAt>,
+        "stoppedAt": <stoppedAt>,
+        "urls": "You can access the following urls by replacing {{taskId}} with the ID in {{taskArn}}",
+        "taskUrl": "https://us-east-1.console.aws.amazon.com/ecs/home?region=us-east-1#/clusters/schedule/tasks/{{taskId}}/details",
+        "logsUrl": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/schedule/log-events/schedule$252Fmakes$252F{{taskId}}"
+      }
+    EOF
+  }
 }
