@@ -159,10 +159,7 @@ from typing import (
     Any,
     Awaitable,
     cast,
-    Dict,
-    List,
     Optional,
-    Tuple,
     Union,
 )
 from users import (
@@ -176,7 +173,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _process_digest_reattacks_requested(
-    reattacks_requested: int, groups_stats: Tuple[MailContentType, ...]
+    reattacks_requested: int, groups_stats: tuple[MailContentType, ...]
 ) -> MailContentType:
     """Process digest reattacks requested sub-section"""
     requested: MailContentType = {
@@ -234,7 +231,7 @@ def _process_digest_reattacks_executed(
     reattacks_executed: int,
     reattacks_executed_total: int,
     effective_reattacks_total: int,
-    groups_stats: Tuple[MailContentType, ...],
+    groups_stats: tuple[MailContentType, ...],
 ) -> MailContentType:
     """Process digest reattacks executed sub-section"""
     executed: MailContentType = {
@@ -291,7 +288,7 @@ def _process_digest_reattacks_executed(
 
 
 def _process_digest_reattacks_pending(
-    groups_stats: Tuple[MailContentType, ...],
+    groups_stats: tuple[MailContentType, ...],
 ) -> MailContentType:
     """Process digest pending reattacks sub-section"""
     pending: MailContentType = {
@@ -314,9 +311,9 @@ def _process_digest_reattacks_pending(
 
 
 def _process_digest_reattacks(
-    groups_stats: Tuple[MailContentType, ...],
+    groups_stats: tuple[MailContentType, ...],
 ) -> MailContentType:
-    """Process digest reattacks section"""
+    """Process digest reattacks section."""
     reattacks_count: Counter = Counter()
     for stat in groups_stats:
         reattacks_count.update(stat["reattacks"])
@@ -348,9 +345,9 @@ def _process_digest_reattacks(
 
 
 def _process_digest_treatments(
-    groups_stats: Tuple[MailContentType, ...],
+    groups_stats: tuple[MailContentType, ...],
 ) -> MailContentType:
-    """Process digest treatments section"""
+    """Process digest treatments section."""
     treatments_count: Counter = Counter()
     for stat in groups_stats:
         treatments_count.update(stat["treatments"])
@@ -433,7 +430,7 @@ def _process_digest_treatments(
     return treatments
 
 
-async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
+async def _has_repeated_tags(group_name: str, tags: list[str]) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
         group_info = await get_attributes(group_name.lower(), ["tag"])
@@ -446,16 +443,16 @@ async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
 async def complete_register_for_group_invitation(
     group_access: GroupAccessType,
 ) -> bool:
-    coroutines: List[Awaitable[bool]] = []
+    coroutines: list[Awaitable[bool]] = []
     success: bool = False
     invitation = cast(InvitationType, group_access["invitation"])
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = cast(str, get_key_or_fallback(group_access))
-    responsibility = cast(str, invitation["responsibility"])
-    role = cast(str, invitation["role"])
-    user_email = cast(str, group_access["user_email"])
+    group_name = get_key_or_fallback(group_access)
+    responsibility = invitation["responsibility"]
+    role = str(invitation["role"])
+    user_email = str(group_access["user_email"])
     updated_invitation = invitation.copy()
     updated_invitation["is_used"] = True
 
@@ -500,7 +497,7 @@ async def complete_register_for_group_invitation(
 
 
 async def complete_register_for_organization_invitation(
-    organization_access: Dict[str, Any]
+    organization_access: dict[str, Any]
 ) -> bool:
     success: bool = False
     invitation = organization_access["invitation"]
@@ -556,8 +553,8 @@ async def reject_register_for_group_invitation(
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = cast(str, get_key_or_fallback(group_access))
-    user_email = cast(str, group_access["user_email"])
+    group_name = get_key_or_fallback(group_access)
+    user_email = str(group_access["user_email"])
     success = await group_access_domain.remove_access(
         loaders, user_email, group_name
     )
@@ -778,7 +775,7 @@ async def remove_group(
 
 
 async def validate_open_roots(loaders: Any, group_name: str) -> None:
-    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    roots: tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
     if next((root for root in roots if root.state.status == "ACTIVE"), None):
         raise HasActiveRoots()
 
@@ -912,35 +909,35 @@ async def update_group_tier(
     await update_group(**data)
 
 
-async def get_active_groups() -> List[str]:
+async def get_active_groups() -> list[str]:
     groups = await groups_dal.get_active_groups()
     return groups
 
 
-async def get_all(attributes: Optional[List[str]] = None) -> List[GroupType]:
+async def get_all(attributes: Optional[list[str]] = None) -> list[GroupType]:
     data_attr = ",".join(attributes or [])
     return await groups_dal.get_all(data_attr=data_attr)
 
 
 async def get_active_groups_attributes(
-    attributes: Optional[List[str]] = None,
-) -> List[GroupType]:
+    attributes: Optional[list[str]] = None,
+) -> list[GroupType]:
     data_attr = ",".join(attributes or [])
     groups = await groups_dal.get_active_groups_attributes(data_attr)
     return groups
 
 
 async def get_attributes(
-    group_name: str, attributes: List[str]
-) -> Dict[str, Union[str, List[str]]]:
+    group_name: str, attributes: list[str]
+) -> dict[str, Union[str, list[str]]]:
     return await groups_dal.get_attributes(group_name, attributes)
 
 
 async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns: Tuple[
+    findings_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in group_findings]
@@ -950,7 +947,7 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     return last_approved_status.count(VulnerabilityStateStatus.CLOSED)
 
 
-async def get_group_info(group_name: str) -> Tuple[str, str, str]:
+async def get_group_info(group_name: str) -> tuple[str, str, str]:
     """Returns the description, business_id, and business_name attrs
     of a Group"""
     return await groups_dal.get_group_info(group_name)
@@ -986,10 +983,10 @@ async def get_vulnerabilities_with_pending_attacks(
     loaders: Any,
     group_name: str,
 ) -> int:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in findings]
@@ -1005,16 +1002,18 @@ async def get_vulnerabilities_with_pending_attacks(
     )
 
 
-async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
+async def get_many_groups(groups_name: list[str]) -> list[GroupType]:
     resource = await get_resource()
     table = await resource.Table(groups_dal.TABLE_NAME)
-    groups = await collect(
-        tuple(
-            groups_dal.get_group(group_name, table)
-            for group_name in groups_name
+    groups: list[GroupType] = list(
+        await collect(
+            tuple(
+                groups_dal.get_group(group_name, table)
+                for group_name in groups_name
+            )
         )
     )
-    return cast(List[GroupType], groups)
+    return groups
 
 
 async def get_max_severity(
@@ -1044,10 +1043,10 @@ async def get_mean_remediate_severity_cvssf(
     min_date: Optional[date] = None,
 ) -> Decimal:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
-    group_findings_ids: List[str] = [
+    group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
         if (
@@ -1056,13 +1055,13 @@ async def get_mean_remediate_severity_cvssf(
             <= max_severity
         )
     ]
-    finding_cvssf: Dict[str, Decimal] = {
+    finding_cvssf: dict[str, Decimal] = {
         finding.id: vulns_utils.get_cvssf(
             findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings
     }
-    findings_vulns: Tuple[
+    findings_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
@@ -1082,10 +1081,10 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     min_date: Optional[date] = None,
 ) -> Decimal:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
-    group_findings_ids: List[str] = [
+    group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
         if (
@@ -1094,13 +1093,13 @@ async def get_mean_remediate_non_treated_severity_cvssf(
             <= max_severity
         )
     ]
-    finding_cvssf: Dict[str, Decimal] = {
+    finding_cvssf: dict[str, Decimal] = {
         finding.id: vulns_utils.get_cvssf(
             findings_domain.get_severity_score(finding.severity)
         )
         for finding in group_findings
     }
-    findings_vulns: Tuple[
+    findings_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
@@ -1130,10 +1129,10 @@ async def get_mean_remediate_severity(
     """Get mean time to remediate"""
     group_findings_loader = loaders.group_findings
 
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
-    group_findings_ids: List[str] = [
+    group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
         if (
@@ -1142,7 +1141,7 @@ async def get_mean_remediate_severity(
             <= max_severity
         )
     ]
-    findings_vulns: Tuple[
+    findings_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
@@ -1160,10 +1159,10 @@ async def get_mean_remediate_non_treated_severity(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name.lower()
     )
-    group_findings_ids: List[str] = [
+    group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
         if (
@@ -1172,7 +1171,7 @@ async def get_mean_remediate_non_treated_severity(
             <= max_severity
         )
     ]
-    findings_vulns: Tuple[
+    findings_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
@@ -1193,7 +1192,7 @@ async def get_mean_remediate_non_treated_severity(
 
 async def get_open_findings(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
     finding_status = await collect(
@@ -1210,10 +1209,10 @@ async def get_open_vulnerabilities(
     loaders: Any,
     group_name: str,
 ) -> int:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns: Tuple[
+    findings_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         [finding.id for finding in group_findings]
@@ -1676,12 +1675,12 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         "vulns_len": 0,
     }
 
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     findings_ids = [finding.id for finding in findings]
 
-    group_vulns: Tuple[
+    group_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         findings_ids
@@ -1717,11 +1716,12 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         loaders, group_name
     )
 
-    historic_config = (
-        await get_attributes(group_name, ["historic_configuration"])
-    )["historic_configuration"]
+    group_attrs: dict[str, Any] = await get_attributes(
+        group_name, ["historic_configuration"]
+    )
+    historic_config: HistoricType = group_attrs["historic_configuration"]
     historic_config_date = datetime_utils.get_from_str(
-        cast(HistoricType, historic_config)[0]["date"]
+        historic_config[0]["date"]
     )
     group_age = (datetime_utils.get_now() - historic_config_date).days
     content["main"]["group_age"] = group_age
@@ -1751,11 +1751,11 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
 
 
 def process_user_digest_stats(
-    group_stats_all: Tuple[MailContentType, ...],
+    group_stats_all: tuple[MailContentType, ...],
 ) -> MailContentType:
-    """Consolidate several groups stats with precalculated data"""
+    """Consolidate several groups stats with precalculated data."""
     # Filter out those groups with no vulns
-    groups_stats: Tuple[MailContentType, ...] = tuple(
+    groups_stats: tuple[MailContentType, ...] = tuple(
         group for group in group_stats_all if group["vulns_len"] > 0
     )
 
@@ -1904,14 +1904,14 @@ async def enroll_user_to_demo(email: str) -> None:
         organization_id=str(org["id"]), email=email, role="user"
     )
 
-    for group in FI_COMMUNITY_PROJECTS.split(","):
+    for group_name in FI_COMMUNITY_PROJECTS.split(","):
         await collect(
             [
                 group_access_domain.update_has_access(
-                    user_email=email, group_name=group, access=True
+                    user_email=email, group_name=group_name, access=True
                 ),
                 authz.grant_group_level_role(
-                    email=email, group=group, role="user"
+                    email=email, group=group_name, role="user"
                 ),
             ]
         )
