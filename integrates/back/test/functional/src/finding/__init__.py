@@ -134,11 +134,44 @@ async def get_result(
                 vulnerabilities {{
                     id
                 }}
+                vulnerabilitiesConnection {{
+                    edges {{
+                        node {{
+                            id
+                        }}
+                    }}
+                    pageInfo {{
+                        endCursor
+                        hasNextPage
+                    }}
+                }}
                 vulnerabilitiesToReattack {{
                     id
                 }}
+                vulnerabilitiesToReattackConnection {{
+                    edges {{
+                        node {{
+                            id
+                        }}
+                    }}
+                    pageInfo {{
+                        endCursor
+                        hasNextPage
+                    }}
+                }}
                 zeroRisk {{
                     id
+                }}
+                zeroRiskConnection {{
+                    edges {{
+                        node {{
+                            id
+                        }}
+                    }}
+                    pageInfo {{
+                        endCursor
+                        hasNextPage
+                    }}
                 }}
                 where
                 __typename
