@@ -39,6 +39,27 @@ export const enTranslations: ResourceKey = {
         },
       },
     },
+    buttonToolbar: {
+      download: {
+        tooltip: "Download the chart as a .html file",
+      },
+      expand: {
+        id: "expand_button_tooltip",
+        tooltip: "View the chart in a pop-up window",
+      },
+      filter: {
+        id: "filter_button_tooltip",
+        tooltip: "Limit information to the selected variable",
+      },
+      information: {
+        id: "information_button_tooltip",
+        tooltip: "Go to information corresponding to the chart",
+      },
+      refresh: {
+        id: "refresh_button_tooltip",
+        tooltip: "Reload the default chart",
+      },
+    },
     disjointForceDirectedGraph: {
       whereToFindings: {
         title: "Systems Risk",
