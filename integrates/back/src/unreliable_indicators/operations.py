@@ -53,6 +53,7 @@ from roots import (
     domain as roots_domain,
 )
 from typing import (
+    Any,
     cast,
     List,
     Optional,
@@ -374,7 +375,7 @@ async def update_vulnerability_unreliable_indicators(
 
 
 async def update_unreliable_indicators_by_deps(
-    dependency: EntityDependency, **args: List[str]
+    dependency: EntityDependency, **args: List[Any]
 ) -> None:
     entities_to_update = (
         unreliable_indicators_model.get_entities_to_update_by_dependency(
