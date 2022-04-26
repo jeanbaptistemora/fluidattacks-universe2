@@ -156,7 +156,7 @@ async def generate_pdf_file(
             loaders,
         )
     report_filename = await secure_pdf.create_full(
-        user_email, pdf_maker.out_name, group_name
+        loaders, user_email, pdf_maker.out_name, group_name
     )
     return report_filename
 

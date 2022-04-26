@@ -9,11 +9,14 @@ from aioextensions import (
 from context import (
     STARTDIR,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from fpdf import (
     FPDF,
 )
 from groups import (
-    dal as groups_dal,
+    domain as groups_domain,
 )
 import os
 
@@ -54,15 +57,16 @@ class SecurePDF:
         )
 
     async def create_full(
-        self, usermail: str, basic_pdf_name: str, group: str
+        self,
+        loaders: Dataloaders,
+        usermail: str,
+        basic_pdf_name: str,
+        group_name: str,
     ) -> str:
         """Execute the security process in a PDF."""
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split("@")[0]
-        group_info = await groups_dal.get_attributes(
-            group.lower(), ["historic_configuration"]
-        )
-        if group_info:
+        if await groups_domain.exists(loaders, group_name.lower()):
             return os.path.join(self.result_dir, basic_pdf_name)
 
         water_pdf_name = await in_process(self.overlays, basic_pdf_name)
