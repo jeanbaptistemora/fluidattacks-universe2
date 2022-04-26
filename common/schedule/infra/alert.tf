@@ -1,7 +1,46 @@
 resource "aws_sns_topic" "alert" {
-  name              = "schedule_alert"
-  fifo_topic        = false
-  kms_master_key_id = "alias/aws/sns"
+  name       = "schedule_alert"
+  fifo_topic = false
+
+  policy = jsonencode(
+    {
+      Version = "2008-10-17"
+      Statement = [
+        {
+          Sid    = "default"
+          Effect = "Allow"
+          Principal = {
+            AWS = "*"
+          }
+          Action = [
+            "sns:GetTopicAttributes",
+            "sns:SetTopicAttributes",
+            "sns:AddPermission",
+            "sns:RemovePermission",
+            "sns:DeleteTopic",
+            "sns:Subscribe",
+            "sns:ListSubscriptionsByTopic",
+            "sns:Publish",
+          ]
+          Resource = ["*"]
+          Condition = {
+            StringEquals = {
+              "AWS:SourceOwner" = "205810638802"
+            }
+          }
+        },
+        {
+          Sid    = "eventsSns",
+          Effect = "Allow",
+          Principal = {
+            Service = ["events.amazonaws.com"]
+          },
+          Action   = ["sns:Publish"]
+          Resource = ["*"]
+        },
+      ]
+    }
+  )
 
   tags = {
     "Name"               = "schedule_alert"
@@ -13,7 +52,7 @@ resource "aws_sns_topic" "alert" {
 
 resource "aws_sns_topic_subscription" "alert" {
   protocol  = "email"
-  endpoint  = "development@fluidattacks.com"
+  endpoint  = "dsalazar@fluidattacks.com"
   topic_arn = aws_sns_topic.alert.arn
 }
 
@@ -25,6 +64,7 @@ resource "aws_cloudwatch_event_rule" "alert" {
       source      = ["aws.ecs"]
       detail-type = ["ECS Task State Change"]
       detail = {
+        clusterArn    = [aws_ecs_cluster.main.arn]
         lastStatus    = ["STOPPED"]
         stoppedReason = ["Essential container in task exited"]
       }

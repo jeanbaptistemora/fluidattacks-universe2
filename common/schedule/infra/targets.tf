@@ -29,7 +29,7 @@ resource "aws_security_group" "main" {
 resource "aws_cloudwatch_event_rule" "main" {
   for_each = local.schedules
 
-  name                = each.key
+  name                = "schedule_${each.key}"
   is_enabled          = each.value.enabled
   schedule_expression = each.value.schedule_expression
 
