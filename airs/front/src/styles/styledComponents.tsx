@@ -1092,8 +1092,8 @@ const MarkedTitle: StyledComponent<
 > = styled.h1.attrs({
   className: `
     c-fluid-bk
-    f1-s
-    f-375
+    f1-ns
+    f2
     neue
     ml3
   `,
@@ -1107,7 +1107,7 @@ const MarkedTitleContainer: StyledComponent<
     center
     flex
     flex-wrap
-    mw-1200
+    mw-900
   `,
 })``;
 

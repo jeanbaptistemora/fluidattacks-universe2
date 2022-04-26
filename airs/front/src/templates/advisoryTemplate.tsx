@@ -18,10 +18,10 @@ import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
   AdvisoryContainer,
-  BannerContainer,
-  BannerTitle,
-  FullWidthContainer,
+  MarkedTitle,
+  MarkedTitleContainer,
   PageArticle,
+  RedMark,
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
@@ -33,7 +33,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { banner, description, keywords, slug, title } =
+  const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
   const { html } = data.markdownRemark;
 
@@ -59,11 +59,13 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle bgColor={"#f4f4f6"}>
-            <BannerContainer className={banner}>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
+            <MarkedTitleContainer>
+              <div className={"ph-body"}>
+                <RedMark>
+                  <MarkedTitle>{title}</MarkedTitle>
+                </RedMark>
+              </div>
+            </MarkedTitleContainer>
             <AdvisoryContainer
               dangerouslySetInnerHTML={{
                 __html: html,
@@ -87,7 +89,6 @@ export const query: void = graphql`
       }
       frontmatter {
         description
-        banner
         keywords
         slug
         title
