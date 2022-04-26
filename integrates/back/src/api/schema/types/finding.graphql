@@ -30,8 +30,10 @@ type Finding {
   lastVulnerability: Int
   "Machine (Skims) checks and tests associated with this Finding"
   machineJobs: [MachineJob!]
-  """Minimum time in minutes to remediate a typical vulnerability in this
-  Finding"""
+  """
+  Minimum time in minutes to remediate a typical vulnerability in this
+  Finding
+  """
   minTimeToRemediate: Int
   "Consults/Comments about the Finding"
   observations: [Consult]
@@ -41,8 +43,10 @@ type Finding {
   openVulnerabilities: Int!
   "Recommended course of action to close the vulnerabilities"
   recommendation: String!
-  """Information that was compromised or disclosed by exploiting the
-  vulnerability"""
+  """
+  Information that was compromised or disclosed by exploiting the
+  vulnerability
+  """
   records: JSONString
   "Approval date"
   releaseDate: String
@@ -86,11 +90,22 @@ type Finding {
   ): VulnerabilitiesConnection!
   "Vulnerabilities that have been requested for a reattack"
   vulnerabilitiesToReattack: [Vulnerability!]
-  """General locations of the Vulnerabilities, can be files, URLs or IPs.
-  It is limited to 20 locations."""
+  "Vulnerabilities that have been requested for a reattack"
+  vulnerabilitiesToReattackConnection(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of vulnerabilities to return"
+    first: Int
+  ): VulnerabilitiesConnection!
+  """
+  General locations of the Vulnerabilities, can be files, URLs or IPs.
+  It is limited to 20 locations.
+  """
   where: String
-  """List of requested and confirmed zero-risk vulnerabilities within the
-  Finding"""
+  """
+  List of requested and confirmed zero-risk vulnerabilities within the
+  Finding
+  """
   zeroRisk(
     "Filter vulnerabilities by their current state"
     state: String

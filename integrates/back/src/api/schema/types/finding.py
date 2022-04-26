@@ -31,6 +31,7 @@ from api.resolvers.finding import (
     vulnerabilities,
     vulnerabilities_connection,
     vulnerabilities_to_reattack,
+    vulnerabilities_to_reattack_connection,
     where,
     zero_risk,
     zero_risk_connection,
@@ -73,6 +74,10 @@ FINDING.set_field(
 )
 FINDING.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
+)
+FINDING.set_field(
+    "vulnerabilitiesToReattackConnection",
+    vulnerabilities_to_reattack_connection.resolve,
 )
 FINDING.set_field("where", where.resolve)
 FINDING.set_field("zeroRisk", zero_risk.resolve)
