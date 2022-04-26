@@ -7,7 +7,7 @@ from fa_purity.frozen import (
 from fa_purity.json.factory import (
     from_unfolded_dict,
 )
-from tap_checkly.api2.checks.core import (
+from tap_checkly.api2.checks.results import (
     CheckResult,
 )
 

@@ -22,7 +22,7 @@ from tap_checkly.api2.checks import (
     CheckId,
     ChecksClient,
 )
-from tap_checkly.api2.checks.core import (
+from tap_checkly.api2.checks.results import (
     CheckResult,
 )
 from tap_checkly.api import (

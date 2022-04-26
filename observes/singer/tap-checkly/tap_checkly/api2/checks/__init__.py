@@ -2,21 +2,17 @@ from __future__ import (
     annotations,
 )
 
+from . import (
+    results,
+)
+from .results import (
+    CheckResult,
+)
 from dataclasses import (
     dataclass,
 )
-from datetime import (
-    datetime,
-)
-from dateutil.parser import (
-    isoparse,
-)
-from decimal import (
-    Decimal,
-)
 from fa_purity import (
     Cmd,
-    FrozenDict,
     FrozenList,
     JsonObj,
 )
@@ -32,40 +28,12 @@ from tap_checkly.api2._raw import (
 )
 from tap_checkly.api2.checks.core import (
     CheckId,
-    CheckResult,
-    CheckRunId,
 )
 
 
 def _check_id_from_raw(raw: JsonObj) -> CheckId:
     _id = Unfolder(raw["id"]).to_primitive(str).unwrap()
     return CheckId(_id)
-
-
-def _check_result_from_raw(raw: JsonObj) -> CheckResult:
-    return CheckResult(
-        Unfolder(raw["apiCheckResult"]).to_json().unwrap(),
-        Unfolder(raw["browserCheckResult"])
-        .to_json()
-        .lash(
-            lambda _: Unfolder(raw["browserCheckResult"])
-            .to_none()
-            .map(lambda _: FrozenDict({}))
-        )
-        .unwrap(),
-        Unfolder(raw["attempts"]).to_primitive(int).unwrap(),
-        Unfolder(raw["checkRunId"]).to_primitive(int).map(CheckRunId).unwrap(),
-        Unfolder(raw["created_at"]).to_primitive(str).map(isoparse).unwrap(),
-        Unfolder(raw["hasErrors"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["hasFailures"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["isDegraded"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["name"]).to_primitive(str).unwrap(),
-        Unfolder(raw["overMaxResponseTime"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["responseTime"]).to_primitive(int).unwrap(),
-        Unfolder(raw["runLocation"]).to_primitive(str).unwrap(),
-        Unfolder(raw["startedAt"]).to_primitive(str).map(isoparse).unwrap(),
-        Unfolder(raw["stoppedAt"]).to_primitive(str).map(isoparse).unwrap(),
-    )
 
 
 @dataclass(frozen=True)
@@ -82,11 +50,15 @@ class ChecksClient:
     def list_check_results(
         self, check: CheckId, page: int
     ) -> Cmd[FrozenList[CheckResult]]:
-        return self._raw.get_list(
-            "/v1/check-results/" + check.id_str,
-            from_prim_dict({"limit": self._per_page, "page": page}),
-        ).map(lambda l: tuple(map(_check_result_from_raw, l)))
+        return results.list_check_results(
+            self._raw, check, page, self._per_page
+        )
 
     @staticmethod
     def new(auth: Credentials, per_page: int) -> ChecksClient:
         return ChecksClient(RawClient(auth), per_page)
+
+
+__all__ = [
+    "CheckId",
+]
