@@ -137,33 +137,32 @@ async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
 
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
-
-        async with PatchedBatchWriter(
-            table_resource.name,
-            table_resource.meta.client,
-            flush_amount=25,
-            overwrite_by_pkeys=None,
-            on_exit_loop_sleep=0,
-        ) as batch_writer:
-            try:
-                await aioextensions.collect(
-                    tuple(
-                        batch_writer.delete_item(
-                            Key={
-                                key_structure.partition_key: (
-                                    primary_key.partition_key
-                                ),
-                                key_structure.sort_key: primary_key.sort_key,
-                            }
-                        )
-                        for primary_key in keys
+    async with PatchedBatchWriter(
+        table_resource.name,
+        table_resource.meta.client,
+        flush_amount=25,
+        overwrite_by_pkeys=None,
+        on_exit_loop_sleep=0,
+    ) as batch_writer:
+        try:
+            await aioextensions.collect(
+                tuple(
+                    batch_writer.delete_item(
+                        Key={
+                            key_structure.partition_key: (
+                                primary_key.partition_key
+                            ),
+                            key_structure.sort_key: primary_key.sort_key,
+                        }
                     )
+                    for primary_key in keys
                 )
-            except ClientError as error:
-                handle_error(error=error)
+            )
+        except ClientError as error:
+            handle_error(error=error)
 
 
 async def batch_get_item(
