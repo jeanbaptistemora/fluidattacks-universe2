@@ -21,6 +21,12 @@ from custom_types import (
     Report,
     StakeholderPhone,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
@@ -31,9 +37,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups.domain import (
-    get_group_info,
-)
 import json
 from newutils import (
     token as token_utils,
@@ -43,11 +46,7 @@ from newutils.utils import (
 )
 from typing import (
     Any,
-    cast,
-    Dict,
     Optional,
-    Set,
-    Tuple,
 )
 from users import (
     domain as users_domain,
@@ -63,9 +62,9 @@ from verify import (
 def _filter_unique_report(
     old_additional_info: str,
     new_type: str,
-    new_treatments: Set[VulnerabilityTreatmentStatus],
+    new_treatments: set[VulnerabilityTreatmentStatus],
 ) -> bool:
-    additional_info: Dict[str, Any] = json.loads(old_additional_info)
+    additional_info: dict[str, Any] = json.loads(old_additional_info)
     if new_type == "XLS":
         return new_type == additional_info.get("report_type") and list(
             sorted(new_treatments)
@@ -80,10 +79,10 @@ async def _get_url_group_report(
     report_type: str,
     user_email: str,
     group_name: str,
-    treatments: Set[VulnerabilityTreatmentStatus],
+    treatments: set[VulnerabilityTreatmentStatus],
     verification_code: str,
 ) -> bool:
-    existing_actions: Tuple[
+    existing_actions: tuple[
         BatchProcessing, ...
     ] = await batch_dal.get_actions_by_name("report", group_name)
 
@@ -99,7 +98,7 @@ async def _get_url_group_report(
         raise ReportAlreadyRequested()
 
     user = await users_domain.get_by_email(user_email)
-    user_phone = cast(Optional[StakeholderPhone], user["phone"])
+    user_phone: Optional[StakeholderPhone] = user["phone"]
     if not user_phone:
         raise RequiredNewPhoneNumber()
 
@@ -141,17 +140,16 @@ async def resolve(
     verification_code: str,
     **kwargs: Any,
 ) -> Report:
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    loaders: Dataloaders = info.context.loaders
+    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
     if report_type == "CERT":
-        (
-            business_id,
-            business_name,
-            description,
-        ) = await get_group_info(group_name)
-        if not (business_id and business_name and description):
+        group: Group = await loaders.group_typed.load(group_name)
+        if not (
+            group.business_id and group.business_name and group.description
+        ):
             raise RequestedReportError(
                 expr=(
                     "Lacking required group information to generate the"

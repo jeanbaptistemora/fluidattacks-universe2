@@ -947,12 +947,6 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     return last_approved_status.count(VulnerabilityStateStatus.CLOSED)
 
 
-async def get_group_info(group_name: str) -> tuple[str, str, str]:
-    """Returns the description, business_id, and business_name attrs
-    of a Group"""
-    return await groups_dal.get_group_info(group_name)
-
-
 async def get_groups_by_user(
     user_email: str,
     active: bool = True,
@@ -966,10 +960,14 @@ async def get_groups_by_user(
         user_email, group_names, with_cache=with_cache
     )
     if organization_id:
-        org_groups: set[str] = set(
+        org_group_names: set[str] = set(
             await orgs_domain.get_groups(organization_id)
         )
-        group_names = [group for group in group_names if group in org_groups]
+        group_names = [
+            group_name
+            for group_name in group_names
+            if group_name in org_group_names
+        ]
 
     return [
         group_name

@@ -39,11 +39,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    cast,
-    Dict,
-    List,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -73,22 +69,23 @@ async def add_typed(
         raise ErrorAddingGroup.new()
 
 
-async def get_active_groups() -> List[str]:
+async def get_active_groups() -> list[str]:
     """Get active groups names in DynamoDB."""
     filtering_exp = (
         Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
     )
     groups = await get_all(filtering_exp, "project_name")
-    return cast(List[str], [get_key_or_fallback(group) for group in groups])
+    active_groups = [get_key_or_fallback(group) for group in groups]
+    return active_groups
 
 
-async def get_active_groups_attributes(data_attr: str = "") -> List[GroupType]:
+async def get_active_groups_attributes(data_attr: str = "") -> list[GroupType]:
     """Get active groups attributes in DynamoDB."""
     filtering_exp = Attr("project_status").eq("ACTIVE")
-    groups: List[GroupType] = await get_all(filtering_exp, data_attr)
+    groups: list[GroupType] = await get_all(filtering_exp, data_attr)
     # Compatibility with old API
     if "project_name" in groups[0]:
-        groups_with_gn: List[GroupType] = [
+        groups_with_gn: list[GroupType] = [
             duplicate_dict_keys(group, "group_name", "project_name")
             for group in groups
         ]
@@ -98,22 +95,22 @@ async def get_active_groups_attributes(data_attr: str = "") -> List[GroupType]:
 
 async def get_all(
     filtering_exp: object = "", data_attr: str = ""
-) -> List[GroupType]:
+) -> list[GroupType]:
     """Get all groups."""
     scan_attrs = {}
     if filtering_exp:
         scan_attrs["FilterExpression"] = filtering_exp
     if data_attr:
         scan_attrs["ProjectionExpression"] = data_attr
-    items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
-    return cast(List[GroupType], items)
+    items: list[GroupType] = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
+    return items
 
 
 async def get_attributes(
     group_name: str,
-    attributes: Optional[List[str]] = None,
+    attributes: Optional[list[str]] = None,
     table: aioboto3.session.Session.client = None,
-) -> Dict[str, Union[str, List[str]]]:
+) -> dict[str, Union[str, list[str]]]:
     response = {}
     query_attrs = {
         "KeyConditionExpression": Key("project_name").eq(group_name),
@@ -132,17 +129,6 @@ async def get_attributes(
     if response_items:
         response = response_items[0]
     return response
-
-
-async def get_group_info(group_name: str) -> Tuple[str, str, str]:
-    """Get the information section of a group."""
-    info = await get_attributes(
-        group_name, ["description", "business_id", "business_name"]
-    )
-    business_id = str(info.get("business_id", "")) if info else ""
-    business_name = str(info.get("business_name", "")) if info else ""
-    group_description = str(info.get("description", "")) if info else ""
-    return (business_id, business_name, group_description)
 
 
 async def get_group(
