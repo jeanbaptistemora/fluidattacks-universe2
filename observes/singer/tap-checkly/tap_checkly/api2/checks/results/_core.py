@@ -9,6 +9,7 @@ from decimal import (
 )
 from fa_purity import (
     JsonObj,
+    Maybe,
 )
 
 
@@ -31,7 +32,7 @@ class TimingPhases:
     wait: Decimal
     dns: Decimal
     tcp: Decimal
-    firstByte: Decimal
+    first_byte: Decimal
     download: Decimal
     total: Decimal
 
@@ -39,15 +40,16 @@ class TimingPhases:
 @dataclass(frozen=True)
 class CheckResultApi:
     status: int
-    statusText: str
+    status_text: str
     href: str
     timings: Timings
+    timing_phases: TimingPhases
 
 
 @dataclass(frozen=True)
 class CheckResult:
-    api_result: JsonObj
-    browser_result: JsonObj
+    api_result: Maybe[CheckResultApi]
+    browser_result: Maybe[JsonObj]
     attempts: int
     run_id: CheckRunId
     created_at: datetime
