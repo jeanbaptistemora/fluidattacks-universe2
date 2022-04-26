@@ -67,6 +67,9 @@ resource "aws_cloudwatch_event_rule" "alert" {
         clusterArn    = [aws_ecs_cluster.main.arn]
         lastStatus    = ["STOPPED"]
         stoppedReason = ["Essential container in task exited"]
+        containers = {
+          exitCode = [{ anything-but = 0 }]
+        }
       }
     }
   )
