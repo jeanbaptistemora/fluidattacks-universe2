@@ -1,4 +1,7 @@
 import asyncio
+from asyncio import (
+    AbstractEventLoop,
+)
 import authz
 from dynamodb.resource import (
     dynamo_shutdown,
@@ -29,10 +32,13 @@ def disable_logging() -> None:
     logging.disable(logging.INFO)
 
 
-@pytest.fixture(autouse=True, scope="function")
-async def dynamo_resource() -> AsyncGenerator:
+@pytest.fixture(autouse=True, scope="session")
+async def dynamo_resource(
+    event_loop: AbstractEventLoop,  # pylint: disable=redefined-outer-name
+) -> AsyncGenerator:
+    assert event_loop
     await dynamo_startup()
-    yield
+    yield True
     await dynamo_shutdown()
 
 

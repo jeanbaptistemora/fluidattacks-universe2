@@ -78,7 +78,7 @@ async def get_result(
             "pull_repositories",
             mocked_pull_repositories,
         )
-        await dispatch.main()
+        await dispatch.dispatch()
     return result
 
 

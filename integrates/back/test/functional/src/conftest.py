@@ -1,5 +1,9 @@
 # pylint: disable=too-many-lines
 
+import asyncio
+from asyncio import (
+    AbstractEventLoop,
+)
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
@@ -9,6 +13,7 @@ from typing import (
     Any,
     AsyncGenerator,
     Dict,
+    Generator,
     Set,
 )
 
@@ -120,7 +125,10 @@ TEST_GROUPS: Set[str] = {
 
 
 @pytest.fixture(autouse=True, scope="session")
-def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
+def generic_data(  # pylint: disable=too-many-locals
+    dynamo_resource: bool,  # pylint: disable=redefined-outer-name
+) -> Dict[str, Any]:
+    assert dynamo_resource
     admin_email: str = "admin@gmail.com"
     admin_fluid_email: str = "admin@fluidattacks.com"
     architect_email: str = "architect@gmail.com"
@@ -1020,10 +1028,20 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     }
 
 
-@pytest.fixture(autouse=True, scope="function")
-async def dynamo_resource() -> AsyncGenerator:
+@pytest.fixture(scope="session")
+def event_loop() -> Generator:
+    loop = asyncio.get_event_loop()
+    yield loop
+    loop.close()
+
+
+@pytest.fixture(autouse=True, scope="session")
+async def dynamo_resource(
+    event_loop: AbstractEventLoop,  # pylint: disable=redefined-outer-name
+) -> AsyncGenerator:
+    assert event_loop
     await dynamo_startup()
-    yield
+    yield True
     await dynamo_shutdown()
 
 

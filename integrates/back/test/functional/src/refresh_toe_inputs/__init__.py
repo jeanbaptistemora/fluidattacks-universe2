@@ -48,7 +48,7 @@ async def refresh_toe_inputs(
             batch_action.key,
         ],
     )
-    await dispatch.main()
+    await dispatch.dispatch()
 
 
 async def query_get(
