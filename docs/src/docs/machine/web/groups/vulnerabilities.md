@@ -5,100 +5,186 @@ sidebar_label: Vulnerabilities
 slug: /machine/web/groups/vulnerabilities
 ---
 
-The tab of **Vulnerabilities** is the first one
-you will see
-when clicking on a group.
-In this tab,
-you will find a table
-listing all the vulnerabilities in the group
-and the **Reports** button,
-which you can use
-to request one of several types of reports
-on all the vulnerabilities present there.
+The **Vulnerabilities** section is
+the first one you see when clicking
+on one of your group's names.
 
-## Table of vulnerabilities
+## Vulnerabilities Table
 
-In this table,
-you will find the vulnerabilities
-categorized by their **type**
-and you can organize them
-by clicking on the various columns
-described here:
+In the **Vulnerabilities** section,
+you find a table containing all
+the types of vulnerabilities
+reported in the selected group.
+This table has nine columns,
+which you can choose to show
+and hide as described below in
+**Filtering your vulnerabilities table**.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/vulns_table_1h_m2j4au.webp)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/vulns_table_1h_m2j4au.png)
 
-- **Age (days):**
-  The number of days elapsed
-  since we first identified
-  that specific type of vulnerability.
-- **Open age (days):**
-  The number of days passed
-  since the oldest
-  of all the open vulnerabilities
-  was found,
-  thus,
-  if the vulnerability is closed,
-  this number will be 0.
-- **Last report (days):**
-  The number of days passed
-  since we found a vulnerability
+- **Type:** The name of the
+  type of vulnerability from
+  our standardized set whose
+  characteristics are met by
+  the vulnerability found in
+  your system.
+- **Age:** The number of days
+  elapsed since the type of
+  vulnerability was found in
+  your system for the first
+  time.
+- **Last report:** The number
+  of days elapsed since
+  we found a vulnerability
   of that specific type,
-  regardless of its open/closed status.
-- **Type:**
-  Depending on several characteristics
-  of a single vulnerability,
-  we can categorize them
-  into various groups.
-  This column represents
-  such categorization.
-- **Description:**
-  A brief explanation
-  of what that type of vulnerability does.
-- **Severity:**
-  This is the score given
-  to that type of vulnerability.
-  We use the CVSS
-  (Common Vulnerability Scoring System)
-  standard to assign each score.
-
-![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.webp)
-
-- **Open:**
-  This column shows the number of vulnerabilities
-  that have not been resolved.
-- **Status:**
-  This column tells you "Open"
-  if at least one vulnerability
-  has not yet been resolved;
+  regardless of its open
+  or closed status.
+- **Status:** The condition of
+  the type of vulnerability,
+  which is Open if at least
+  one vulnerability has not
+  yet been remediated;
   otherwise,
-  it will tell you "Closed."
-- **Treatment:**
-  This column shows you the treatments
-  that can be given
-  to a vulnerability.
-  Each treatment has a number in front of it
-  That represents the number of vulnerabilities
-  receiving it.
-- **Verification:**
-  This column shows you
-  if there is at least one vulnerability
-  that is still in the process
-  of being reattacked for verification.
-- **Exploitable:**
-  This column tells you
-  whether the vulnerability can be exploited
-  or not
-  according to the score given
-  to the specific type.
-- **Where:**
-  This column shows you
-  several specific locations of vulnerabilities.
-  However,
-  if there are too many vulnerabilities
-  of the same type,
+  it is Closed.
+- **Severity:** The CVSS
+  (Common Vulnerability Scoring
+  System) base score given to
+  the type of vulnerability.
+- **Open vulnerabilities:**
+  The number of files where
+  the type of vulnerability
+  was found and is still
+  open; that is,
+  not yet remediated.
+- **Locations:** The name of
+  one specific file where the
+  type of vulnerability was found.
+  (However,
+  if this type was found
+  in several files,
   you should click on it
-  and access the **Location** tab
-  to see them all.
+  to see a complete locations
+  table.)
+- **Reattack:** The status of
+  the reattacks for the type
+  of vulnerability,
+  which is Pending if at least
+  one requested reattack is
+  due to one of the vulnerabilities
+  of this type; otherwise,
+  it is just a hyphen.
+
+There is also a downward-facing
+arrow on the left of the
+Type column,
+which,
+upon click,
+will unfold the description for
+each type of vulnerability
+shown in the table,
+along with extra information.
+Namely,
+whether the type of vulnerability
+is exploitable and the number of
+files grouped by the treatment
+option that has been defined
+for them.
+
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.png)
+
+### Filtering your vulnerabilities table
+
+Above the table showing your
+types of vulnerabilities,
+there are three buttons:
+two for filtering and one for
+[generating reports](/machine/web/groups/reports).
+
+One way of filtering the
+table is by hiding or
+showing columns.
+To do this,
+you need to click the
+Columns button.
+This will cause a pop-up
+window to appear,
+from which you can enable
+and disable columns.
+
+![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_columns.png)
+
+The other way of filtering
+is accessible after clicking
+the **Filters** button.
+This action will make several
+filter options appear,
+corresponding to the variables
+that give columns their names.
+
+![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_button.png)
+
+The field **Last report** lets
+you filter by the amount of days
+passed since the last time the
+type of vulnerability was detected.
+
+![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_last_report.png)
+
+The field **Type** lets you
+filter by the type of vulnerability.
+The available types are the
+ones listed in the table.
+
+![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_type.png)
+
+The field **Status** lets you
+filter vulnerabilities by their
+open or closed status.
+Last in that first row is the field
+[Treatment](/machine/web/vulnerabilities/management/treatments),
+which lets you filter by
+treatment options,
+as shown in the
+following screenshot:
+
+![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/filtering_status.png)
+
+The option called
+**Severity (range)**
+offers two fields,
+one for a minimum and the
+other for a maximum value,
+where you can set a range
+of CVSS scores (that go
+from 0 to 10) by which to
+filter the vulnerabilities.
+
+The field **Age** lets you
+filter based on the days
+elapsed since the type of
+vulnerability was found for
+the first time in your system.
+Next is the field **Locations**,
+which lets you filter by the
+names of the exact locations
+in the repository where the
+vulnerabilities were found.
+Another option is to use
+the field **Reattack**,
+thanks to which you can
+filter vulnerabilities to
+see only either those that
+have a pending reattack or
+those that do not.
+
+Lastly,
+the option called
+**Release date (range)** offers
+two fields to set a date range
+by which to filter the types of
+vulnerabilities that were
+reported within that time
+at least once.
 
 ## Tracking tab
 
