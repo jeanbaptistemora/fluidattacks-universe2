@@ -49,6 +49,18 @@ interface IModalConfig {
   clearSelected: () => void;
 }
 
+interface IVulnerabilityEdge {
+  node: IVulnRowAttr;
+}
+
+interface IVulnerabilitiesConnection {
+  edges: IVulnerabilityEdge[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string;
+  };
+}
+
 export type {
   IFindingAttr,
   IGetFindingVulnInfoAttr,
@@ -58,4 +70,6 @@ export type {
   IFindingVulnsAtrr,
   IModalConfig,
   IVulnerabilitiesAttr,
+  IVulnerabilityEdge,
+  IVulnerabilitiesConnection,
 };
