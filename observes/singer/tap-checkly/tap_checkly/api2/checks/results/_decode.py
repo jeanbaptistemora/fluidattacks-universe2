@@ -24,22 +24,22 @@ from fa_purity.json.value.transform import (
 
 def _decode_timings(raw: JsonObj) -> Timings:
     return Timings(
-        Unfolder(raw["socket"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["lookup"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["connect"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["response"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["end"]).to_primitive(Decimal).unwrap(),
+        Unfolder(raw["socket"]).to_primitive(float).unwrap(),
+        Unfolder(raw["lookup"]).to_primitive(float).unwrap(),
+        Unfolder(raw["connect"]).to_primitive(float).unwrap(),
+        Unfolder(raw["response"]).to_primitive(float).unwrap(),
+        Unfolder(raw["end"]).to_primitive(float).unwrap(),
     )
 
 
 def _decode_timing_phases(raw: JsonObj) -> TimingPhases:
     return TimingPhases(
-        Unfolder(raw["wait"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["dns"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["tcp"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["firstByte"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["download"]).to_primitive(Decimal).unwrap(),
-        Unfolder(raw["total"]).to_primitive(Decimal).unwrap(),
+        Unfolder(raw["wait"]).to_primitive(float).unwrap(),
+        Unfolder(raw["dns"]).to_primitive(float).unwrap(),
+        Unfolder(raw["tcp"]).to_primitive(float).unwrap(),
+        Unfolder(raw["firstByte"]).to_primitive(float).unwrap(),
+        Unfolder(raw["download"]).to_primitive(float).unwrap(),
+        Unfolder(raw["total"]).to_primitive(float).unwrap(),
     )
 
 

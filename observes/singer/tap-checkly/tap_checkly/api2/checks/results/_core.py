@@ -4,9 +4,6 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from decimal import (
-    Decimal,
-)
 from fa_purity import (
     JsonObj,
     Maybe,
@@ -20,21 +17,21 @@ class CheckRunId:
 
 @dataclass(frozen=True)
 class Timings:
-    socket: Decimal
-    lookup: Decimal
-    connect: Decimal
-    response: Decimal
-    end: Decimal
+    socket: float
+    lookup: float
+    connect: float
+    response: float
+    end: float
 
 
 @dataclass(frozen=True)
 class TimingPhases:
-    wait: Decimal
-    dns: Decimal
-    tcp: Decimal
-    first_byte: Decimal
-    download: Decimal
-    total: Decimal
+    wait: float
+    dns: float
+    tcp: float
+    first_byte: float
+    download: float
+    total: float
 
 
 @dataclass(frozen=True)

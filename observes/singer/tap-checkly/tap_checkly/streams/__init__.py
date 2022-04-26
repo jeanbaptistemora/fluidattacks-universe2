@@ -130,6 +130,8 @@ def all_check_results_of(
         infinite_range(1, 1)
         .map(lambda p: client.list_check_results(chk_id, p))
         .transform(lambda x: from_piter(x))
+        .map(lambda i: i if bool(i) else None)
+        .transform(lambda x: until_none(x))
         .map(lambda x: from_flist(x))
     )
     return chain(data)
