@@ -7,8 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -16,7 +14,7 @@ async def get_result(
     *,
     user: str,
     group_name: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         query {{
             report(
@@ -29,7 +27,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(
@@ -44,8 +42,8 @@ async def get_result_treatments(
     user: str,
     group_name: str,
     report_type: str,
-    treatments: List[str],
-) -> Dict[str, Any]:
+    treatments: list[str],
+) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(
             $reportType: ReportType!
@@ -64,7 +62,7 @@ async def get_result_treatments(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "reportType": report_type,

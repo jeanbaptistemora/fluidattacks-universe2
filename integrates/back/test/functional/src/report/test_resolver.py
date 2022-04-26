@@ -8,8 +8,6 @@ from custom_exceptions import (
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -28,7 +26,7 @@ from typing import (
 async def test_get_report(populate: bool, email: str) -> None:
     assert populate
     group: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name=group,
     )
@@ -52,7 +50,7 @@ async def test_get_report(populate: bool, email: str) -> None:
 async def test_get_report_fail(populate: bool, email: str) -> None:
     assert populate
     group: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name=group,
     )
@@ -75,7 +73,7 @@ async def test_get_report_fail(populate: bool, email: str) -> None:
 async def test_get_report_second_time_fail(populate: bool, email: str) -> None:
     assert populate
     group: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name=group,
     )
@@ -96,11 +94,11 @@ async def test_get_report_second_time_fail(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_report_treatments(
-    populate: bool, email: str, treatments: List[str]
+    populate: bool, email: str, treatments: list[str]
 ) -> None:
     assert populate
     group: str = "group1"
-    result_xls: Dict[str, Any] = await get_result_treatments(
+    result_xls: dict[str, Any] = await get_result_treatments(
         user=email,
         group_name=group,
         report_type="XLS",
@@ -109,7 +107,7 @@ async def test_get_report_treatments(
     assert "success" in result_xls["data"]["report"]
     assert result_xls["data"]["report"]["success"]
 
-    result_data: Dict[str, Any] = await get_result_treatments(
+    result_data: dict[str, Any] = await get_result_treatments(
         user=email,
         group_name=group,
         report_type="DATA",
@@ -117,6 +115,33 @@ async def test_get_report_treatments(
     )
     assert "success" in result_data["data"]["report"]
     assert result_data["data"]["report"]["success"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["user_manager@gmail.com"],
+        ["vulnerability_manager@gmail.com"],
+        ["hacker@gmail.com"],
+        ["customer_manager@fluidattacks.com"],
+    ],
+)
+async def test_get_report_business_info_fail(
+    populate: bool, email: str
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_cert: dict[str, Any] = await get_result_treatments(
+        user=email,
+        group_name=group,
+        report_type="CERT",
+        treatments=[],
+    )
+    assert "errors" in result_cert
+    assert "Error - " in result_cert["errors"][0]["message"]
 
 
 @pytest.mark.asyncio
@@ -141,11 +166,11 @@ async def test_get_report_treatments(
     ],
 )
 async def test_get_report_treatments_second_time_fail(
-    populate: bool, email: str, treatments: List[str], should_fail: bool
+    populate: bool, email: str, treatments: list[str], should_fail: bool
 ) -> None:
     assert populate
     group: str = "group1"
-    result_xls: Dict[str, Any] = await get_result_treatments(
+    result_xls: dict[str, Any] = await get_result_treatments(
         user=email,
         group_name=group,
         report_type="XLS",
@@ -160,7 +185,7 @@ async def test_get_report_treatments_second_time_fail(
         assert "success" in result_xls["data"]["report"]
         assert result_xls["data"]["report"]["success"]
 
-    result_data: Dict[str, Any] = await get_result_treatments(
+    result_data: dict[str, Any] = await get_result_treatments(
         user=email,
         group_name=group,
         report_type="DATA",
