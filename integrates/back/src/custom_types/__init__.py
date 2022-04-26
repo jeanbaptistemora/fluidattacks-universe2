@@ -32,7 +32,7 @@ ExploitResult = Dict[str, str]
 Historic = List[Dict[str, str]]
 InternalName = Dict[str, str]
 Invitation = Dict[str, Union[str, bool]]
-MailContent = Dict[str, Union[int, str, List[Dict[str, str]], Iterable[str]]]
+MailContent = Dict[str, Any]
 Organization = Dict[str, Any]
 Group = Dict[
     str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]

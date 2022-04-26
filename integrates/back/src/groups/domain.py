@@ -57,7 +57,6 @@ from db_model.groups.constants import (
 from db_model.groups.enums import (
     GroupLanguage,
     GroupService,
-    GroupStateRemovalJustification,
     GroupStateStatus,
     GroupStateUpdationJustification,
     GroupSubscriptionType,
@@ -577,9 +576,9 @@ async def add_group(  # pylint: disable=too-many-locals
     user_role: str,
     has_machine: bool = False,
     has_squad: bool = False,
-    language: str = GroupLanguage.EN,
-    subscription: str = GroupSubscriptionType.CONTINUOUS,
-    tier: str = GroupTier.FREE,
+    language: GroupLanguage = GroupLanguage.EN,
+    subscription: GroupSubscriptionType = GroupSubscriptionType.CONTINUOUS,
+    tier: GroupTier = GroupTier.FREE,
 ) -> None:
     validate_group_name(group_name)
     validate_fields([description])
@@ -724,7 +723,7 @@ async def remove_group(
     *,
     loaders: Any,
     group_name: str,
-    justification: GroupStateRemovalJustification,
+    justification: GroupStatusJustification,
     user_email: str,
 ) -> None:
     """
@@ -965,7 +964,7 @@ async def get_groups_by_user(
 ) -> list[str]:
     group_names = await group_access_domain.get_user_groups(user_email, active)
     if not organization_id:
-        group_names = list(await filter_groups_with_org(group_names))
+        group_names = list(await filter_groups_with_org(tuple(group_names)))
     group_level_roles = await authz.get_group_level_roles(
         user_email, group_names, with_cache=with_cache
     )
@@ -1575,13 +1574,14 @@ async def remove_tag(
     group: Group,
     tag_to_remove: str,
 ) -> None:
-    group.tags.remove(tag_to_remove)
-    await update_metadata_typed(
-        group_name=group.name,
-        metadata=GroupMetadataToUpdate(
-            tags=group.tags,
-        ),
-    )
+    if group.tags:
+        group.tags.remove(tag_to_remove)
+        await update_metadata_typed(
+            group_name=group.name,
+            metadata=GroupMetadataToUpdate(
+                tags=group.tags,
+            ),
+        )
 
 
 def validate_group_services_config(
