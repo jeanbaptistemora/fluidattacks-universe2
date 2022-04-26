@@ -10,7 +10,6 @@ from tap_checkly.api.checks import (
     CheckGroupsPage,
     CheckId,
     CheckReportsPage,
-    CheckResultsPage,
     ChecksApi,
     ChecksPage,
 )
@@ -45,7 +44,6 @@ ApiPage = Union[
     AlertChsPage,
     CheckGroupsPage,
     CheckReportsPage,
-    CheckResultsPage,
     ChecksPage,
     DashboardsPage,
     EnvVarsPage,
