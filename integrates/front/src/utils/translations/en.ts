@@ -560,7 +560,7 @@ export const enTranslations: ResourceKey = {
           text: "Columns",
           tooltip: "Choose the fields you want to display",
         },
-        modalTitle: "Columns Filter",
+        modalTitle: "Columns filter",
       },
     },
     forces: {

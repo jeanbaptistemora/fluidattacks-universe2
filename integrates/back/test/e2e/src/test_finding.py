@@ -37,7 +37,7 @@ def test_finding_description(
     columns_button.click()
     assert utils.wait_for_text(
         driver,
-        "Columns Filter",
+        "Columns filter",
         timeout,
     )
     checkboxes = driver.find_elements_by_css_selector(
@@ -58,7 +58,7 @@ def test_finding_description(
 
     assert utils.wait_for_hide_text(
         driver,
-        "Columns Filter",
+        "Columns filter",
         timeout,
     )
     assert "Locations" in driver.page_source
