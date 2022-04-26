@@ -120,6 +120,38 @@ async def test_get_report_treatments(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report")
 @pytest.mark.parametrize(
+    ["email", "should_fail"],
+    [
+        ["admin@gmail.com", True],
+        ["user_manager@gmail.com", False],
+        ["vulnerability_manager@gmail.com", True],
+        ["hacker@gmail.com", True],
+        ["customer_manager@fluidattacks.com", True],
+    ],
+)
+async def test_get_report_cert_user_managers(
+    populate: bool, email: str, should_fail: bool
+) -> None:
+    assert populate
+    group_name: str = "group1"
+    result_cert: dict[str, Any] = await get_result_treatments(
+        user=email,
+        group_name=group_name,
+        report_type="CERT",
+        treatments=["ACCEPTED", "IN_PROGRESS"],
+    )
+
+    if should_fail:
+        assert "errors" in result_cert
+        assert "Error - Only" in result_cert["errors"][0]["message"]
+    else:
+        assert "success" in result_cert["data"]["report"]
+        assert result_cert["data"]["report"]["success"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
     ["email"],
     [
         ["admin@gmail.com"],
@@ -133,7 +165,7 @@ async def test_get_report_business_info_fail(
     populate: bool, email: str
 ) -> None:
     assert populate
-    group: str = "group1"
+    group: str = "group2"
     result_cert: dict[str, Any] = await get_result_treatments(
         user=email,
         group_name=group,
