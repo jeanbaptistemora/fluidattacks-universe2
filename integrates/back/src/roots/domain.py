@@ -53,9 +53,15 @@ from db_model.roots.types import (
     URLRootItem,
     URLRootState,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 import hashlib
 from itertools import (
     groupby,
+)
+from mailer import (
+    groups as groups_mail,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -666,6 +672,8 @@ async def update_git_root(
         state=new_state,
     )
 
+    await send_mail_updated_root(group_name, root, new_state, user_email)
+
     return GitRootItem(
         cloning=root.cloning,
         group_name=root.group_name,
@@ -674,6 +682,45 @@ async def update_git_root(
         state=new_state,
         type=root.type,
         unreliable_indicators=root.unreliable_indicators,
+    )
+
+
+async def send_mail_updated_root(
+    group_name: str,
+    root: RootItem,
+    new_state: GitRootState,
+    user_email: str,
+) -> None:
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    root_content: str = ""
+    old_state: Dict[str, Any] = root.state._asdict()
+    for key, value in new_state._asdict().items():
+        old_value: str = old_state[key]
+        if old_value != value and key not in ["modified_by", "modified_date"]:
+            root_content += (
+                f"\n{key.replace('_', ' ').capitalize()}: from {old_value} to "
+                f"{value}"
+            )
+
+    await groups_mail.send_mail_updated_root(
+        email_to=email_list,
+        group_name=group_name,
+        responsible=user_email,
+        root_content=root_content,
+        root_nickname=new_state.nickname,
+        modified_date=new_state.modified_date,
     )
 
 

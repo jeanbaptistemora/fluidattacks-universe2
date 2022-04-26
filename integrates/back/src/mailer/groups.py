@@ -148,6 +148,30 @@ async def send_mail_added_root(
     )
 
 
+async def send_mail_updated_root(
+    *,
+    email_to: List[str],
+    group_name: str,
+    responsible: str,
+    root_content: str,
+    root_nickname: str,
+    modified_date: str,
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "group_name": group_name,
+            "responsible": responsible,
+            "root_content": root_content.splitlines(),
+            "root_nickname": root_nickname,
+            "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
+        },
+        tags=GENERAL_TAG,
+        subject=f"Root have been changed in [{group_name}]",
+        template_name="updated_root",
+    )
+
+
 async def send_mail_deactivated_root(
     *,
     activated_by: str,

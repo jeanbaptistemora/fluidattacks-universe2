@@ -1,0 +1,26 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_finding('Root Updated') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      The root with the nickname <strong>{{ root_nickname }}</strong>
+      from the group <strong>{{ group_name }}</strong> have been changed by
+      <strong>{{ responsible }}</strong>:
+    </p>
+    <p>
+      <strong>Date</strong>: {{ date }}
+    </p>
+    {{ text_area(root_content) }}
+    <p></p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
