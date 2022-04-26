@@ -1,4 +1,5 @@
 import React from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 
 interface IPaginator {
@@ -17,15 +18,15 @@ export const Pagination: React.FC<IPaginator> = ({
     breakLinkClassName={"page-link"}
     containerClassName={"pagination-container"}
     nextClassName={"page-item"}
-    nextLabel={">"}
+    nextLabel={<FiChevronRight />}
     nextLinkClassName={"page-link"}
     onPageChange={onChange}
     pageClassName={"page-item"}
     pageCount={pageCount}
     pageLinkClassName={"page-link"}
-    pageRangeDisplayed={2}
+    pageRangeDisplayed={5}
     previousClassName={"page-item"}
-    previousLabel={"<"}
+    previousLabel={<FiChevronLeft />}
     previousLinkClassName={"page-link"}
   />
 );

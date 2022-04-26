@@ -1021,7 +1021,6 @@ const PhantomRegularRedButton: StyledComponent<
     bg-transparent
     bc-hovered-red
     hv-bg-fluid-rd
-    hv-bd-fluid-dkred
     pointer
     c-dkred
     f5
@@ -1368,18 +1367,6 @@ const CardsContainer1200: StyledComponent<
     pb5
   `,
 })``;
-
-const AdvisoriesGrid = styled.div.attrs({
-  className: `
-    flex
-    mt4
-    flex-wrap
-    justify-center
-    center
-  `,
-})`
-  max-width: 1300px;
-`;
 
 const AdvisoriesContainer: StyledComponent<
   "div",
@@ -1808,7 +1795,6 @@ const TitleContainer = styled.div.attrs({
 
 export {
   AdvisoriesContainer,
-  AdvisoriesGrid,
   AdvisoryContainer,
   ArticleContainer,
   ArticleTitle,

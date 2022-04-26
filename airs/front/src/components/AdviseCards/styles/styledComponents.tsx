@@ -54,7 +54,20 @@ const CardDescription = styled.p.attrs({
   color: #787891;
 `;
 
+const AdvisoriesGrid = styled.div.attrs({
+  className: `
+    flex
+    mt4
+    flex-wrap
+    justify-center
+    center
+  `,
+})`
+  max-width: 1300px;
+`;
+
 export {
+  AdvisoriesGrid,
   AdvisoryCardContainer,
   CardDescription,
   CardDescriptionContainer,

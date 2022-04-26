@@ -13,13 +13,12 @@ import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { AdviseCard } from "../components/AdviseCard";
+import { AdviseCards } from "../components/AdviseCards";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
   AdvisoriesContainer,
-  AdvisoriesGrid,
   BannerContainer,
   BannerSubtitle,
   BannerTitle,
@@ -69,16 +68,14 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
                 <BannerSubtitle>{subtitle}</BannerSubtitle>
               </FullWidthContainer>
             </BannerContainer>
-            <AdvisoriesGrid>
-              <AdviseCard />
-            </AdvisoriesGrid>
+            <AdviseCards />
             <AdvisoriesContainer>
               <h4 className={"f3 c-fluid-bk roboto"}>{`${translate.t(
                 "advisories.disclosurePhrase"
               )} `}</h4>
               <Link to={"/advisories/policy"}>
                 <NewRegularRedButton
-                  className={"w-30-ns w-100"}
+                  className={"w-auto-ns w-100"}
                 >{`${translate.t(
                   "advisories.buttonPhrase"
                 )} `}</NewRegularRedButton>
