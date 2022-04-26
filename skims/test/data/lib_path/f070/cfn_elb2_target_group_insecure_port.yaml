@@ -1,0 +1,27 @@
+Resources:
+  MyTargetGroup1:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      TargetType: lambda
+  MyTargetGroup2:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      TargetType: ip
+  MyTargetGroup3:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      Port: 80
+      TargetType: ip
+  MyTargetGroup4:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: false
+      Name: MyTargets
+      Port: 443
+      TargetType: ip

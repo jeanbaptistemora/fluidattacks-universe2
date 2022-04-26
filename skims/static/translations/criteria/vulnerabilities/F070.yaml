@@ -1,6 +1,6 @@
 src.lib_path.f070.elb2_uses_insecure_security_policy:
   en: Listener uses unsafe security policy
   es: El Listener usa una política de seguridad insegura
-lib_path.f070.tfm_lb_target_group_insecure_port:
-  en: Property port is either missing or misconfigured
-  es: La propiedad puerto falta o está mal configurada
+src.lib_path.f070.elb2_target_group_insecure_port:
+  en: Port property must have a secure value (443)
+  es: La propiedad Port debe tener un valor seguro (443)

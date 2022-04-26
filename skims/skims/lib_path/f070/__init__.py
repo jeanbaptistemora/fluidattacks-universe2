@@ -4,6 +4,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f070.cloudformation import (
+    cfn_elb2_target_group_insecure_port,
     cfn_elb2_uses_insecure_security_policy,
 )
 from lib_path.f070.terraform import (
@@ -38,6 +39,16 @@ def run_cfn_elb2_uses_insecure_security_policy(
     )
 
 
+# @CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_cfn_elb2_target_group_insecure_port(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_elb2_target_group_insecure_port(
+        content=content, file_ext=file_ext, path=path, template=template
+    )
+
+
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_lb_target_group_insecure_port(
@@ -57,27 +68,29 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
+    content = content_generator()
     if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
-        results = (
-            *results,
-            *(
-                run_cfn_elb2_uses_insecure_security_policy(
-                    content, file_extension, path, template
-                )
-                for template in load_templates_blocking(
-                    content, fmt=file_extension
-                )
-            ),
-        )
+        for template in load_templates_blocking(content, fmt=file_extension):
+            results = (
+                *results,
+                *(
+                    fun(content, file_extension, path, template)
+                    for fun in (
+                        run_cfn_elb2_uses_insecure_security_policy,
+                        run_cfn_elb2_target_group_insecure_port,
+                    )
+                ),
+            )
 
-    if file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
+    elif file_extension in EXTENSIONS_TERRAFORM:
         model = load_terraform(stream=content, default=[])
 
         results = (
             *results,
-            run_tfm_lb_target_group_insecure_port(content, path, model),
+            *(
+                fun(content, path, model)
+                for fun in (run_tfm_lb_target_group_insecure_port,)
+            ),
         )
 
     return results
