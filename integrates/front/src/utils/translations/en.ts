@@ -1410,7 +1410,7 @@ export const enTranslations: ResourceKey = {
           name: "Group name",
           new: {
             group: "New group",
-            text: "New Group",
+            text: "New Project",
             tooltip: "Create a new group",
           },
           noGroupName: "There are no group names available at the moment",
