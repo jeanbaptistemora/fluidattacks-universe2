@@ -1,10 +1,14 @@
+import type { ApolloError } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { GraphQLError } from "graphql";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddSecret } from "./addSecret";
 
+import { GET_ENVIRONMENT_URL } from "../../queries";
 import type { IEnvironmentUrl, ISecret } from "../../types";
 import { renderSecretsDescription } from "../ManagementModal/secretDescription";
 import { SecretValue } from "../ManagementModal/secretValue";
@@ -12,6 +16,7 @@ import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import { authzPermissionsContext } from "utils/authz/config";
+import { Logger } from "utils/logger";
 
 interface ISecretItem {
   description: string;
@@ -22,21 +27,22 @@ interface ISecretItem {
 
 interface IManagementModalProps {
   closeModal: () => void;
-  environmentUrl: IEnvironmentUrl;
+  urlId: string;
   groupName: string;
   isOpen: boolean;
 }
 const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
   groupName,
   isOpen,
-  environmentUrl,
   closeModal,
+  urlId,
 }: IManagementModalProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canAddSecret: boolean = permissions.can(
     "api_mutations_add_secret_mutate"
   );
+
   const defaultCurrentRow: ISecret = useMemo((): ISecret => {
     return { description: "", key: "", value: "" };
   }, []);
@@ -44,7 +50,17 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
   const [isUpdate, setIsUpdate] = useState(false);
 
   const [addSecretModalOpen, setAddSecretModalOpen] = useState(false);
-
+  const { data, refetch } = useQuery<{ environmentUrl: IEnvironmentUrl }>(
+    GET_ENVIRONMENT_URL,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load secrets", error);
+        });
+      },
+      variables: { groupName, urlId },
+    }
+  );
   function editCurrentRow(
     key: string,
     value: string,
@@ -55,23 +71,24 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
     setAddSecretModalOpen(true);
   }
 
-  const secretsDataSet = environmentUrl.secrets.map(
-    (item: ISecret): ISecretItem => {
-      return {
-        description: item.description,
-        element: (
-          <SecretValue
-            onEdit={editCurrentRow}
-            secretDescription={item.description}
-            secretKey={item.key}
-            secretValue={item.value}
-          />
-        ),
-        key: item.key,
-        value: item.value,
-      };
-    }
-  );
+  const secretsDataSet =
+    data === undefined
+      ? []
+      : data.environmentUrl.secrets.map((item: ISecret): ISecretItem => {
+          return {
+            description: item.description,
+            element: (
+              <SecretValue
+                onEdit={editCurrentRow}
+                secretDescription={item.description}
+                secretKey={item.key}
+                secretValue={item.value}
+              />
+            ),
+            key: item.key,
+            value: item.value,
+          };
+        });
   function closeAddModal(): void {
     setIsUpdate(false);
     setCurrentRow(defaultCurrentRow);
@@ -100,12 +117,13 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
           <AddSecret
             closeModal={closeAddModal}
             groupName={groupName}
+            handleSubmitSecret={refetch}
             isDuplicated={isSecretDuplicated}
             isUpdate={isUpdate}
             secretDescription={currentRow.description}
             secretKey={currentRow.key}
             secretValue={currentRow.value}
-            urlId={environmentUrl.id}
+            urlId={urlId}
           />
         </Modal>
         <Table

@@ -307,6 +307,19 @@ const GET_GROUPS: DocumentNode = gql`
     }
   }
 `;
+const GET_ENVIRONMENT_URL: DocumentNode = gql`
+  query GetEnvironmentUrl($groupName: String!, $urlId: String!) {
+    environmentUrl(groupName: $groupName, urlId: $urlId) {
+      id
+      url
+      secrets {
+        key
+        value
+        description
+      }
+    }
+  }
+`;
 
 const GET_ROOTS_VULNS: DocumentNode = gql`
   query GetRootsVulns($groupName: String!) {
@@ -374,6 +387,7 @@ export {
   GET_GIT_ROOT_DETAILS,
   GET_GROUPS,
   GET_ROOTS_VULNS,
+  GET_ENVIRONMENT_URL,
   GET_ROOT,
   GET_ROOTS,
   MOVE_ROOT,
