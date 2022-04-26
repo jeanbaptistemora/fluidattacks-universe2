@@ -95,4 +95,16 @@ type Finding {
     "Filter vulnerabilities by their current state"
     state: String
   ): [Vulnerability]
+  """
+  List of requested and confirmed zero-risk vulnerabilities within the
+  Finding
+  """
+  zeroRiskConnection(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of vulnerabilities to return"
+    first: Int
+    "Filter vulnerabilities by their current state"
+    state: VulnerabilityState
+  ): VulnerabilitiesConnection!
 }

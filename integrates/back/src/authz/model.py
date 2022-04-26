@@ -78,6 +78,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_finding_observations_resolve",
             "api_resolvers_finding_sorts_resolve",
             "api_resolvers_finding_zero_risk_resolve",
+            "api_resolvers_finding_zero_risk_connection_resolve",
             "api_resolvers_group_analytics_resolve",
             "api_resolvers_group_authors_resolve",
             "api_resolvers_group_consulting_resolve",
@@ -545,6 +546,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_finding_historic_state_resolve",
             "api_resolvers_finding_observations_resolve",
             "api_resolvers_finding_zero_risk_resolve",
+            "api_resolvers_finding_zero_risk_connection_resolve",
             "api_resolvers_group_analytics_resolve",
             "api_resolvers_group_consulting_resolve",
             "api_resolvers_group_drafts_resolve",
@@ -616,6 +618,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_finding_observations_resolve",
             "api_resolvers_finding_sorts_resolve",
             "api_resolvers_finding_zero_risk_resolve",
+            "api_resolvers_finding_zero_risk_connection_resolve",
             "api_resolvers_group_analytics_resolve",
             "api_resolvers_group_consulting_resolve",
             "api_resolvers_group_drafts_resolve",
@@ -975,14 +978,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_deactivate_organization_finding_policy_mutate",
             "api_mutations_handle_finding_policy_acceptance_mutate",
             "api_mutations_handle_finding_policy_acceptation_mutate",
-            (
-                "api_mutations_handle_organization_finding_policy_acceptation_"
-                "mutate"
-            ),
-            (
-                "api_mutations_handle_organization_finding_policy_acceptance_"
-                "mutate"
-            ),
+            "api_mutations_handle_organization_finding_policy_acceptation_"
+            "mutate",
+            "api_mutations_handle_organization_finding_policy_acceptance_"
+            "mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
@@ -1003,14 +1002,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_deactivate_organization_finding_policy_mutate",
             "api_mutations_handle_finding_policy_acceptation_mutate",
             "api_mutations_handle_finding_policy_acceptance_mutate",
-            (
-                "api_mutations_handle_organization_finding_policy_acceptation_"
-                "mutate"
-            ),
-            (
-                "api_mutations_handle_organization_finding_policy_acceptance_"
-                "mutate"
-            ),
+            "api_mutations_handle_organization_finding_policy_acceptation_"
+            "mutate",
+            "api_mutations_handle_organization_finding_policy_acceptance_"
+            "mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",

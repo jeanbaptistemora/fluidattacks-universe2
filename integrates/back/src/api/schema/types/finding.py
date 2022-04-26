@@ -33,6 +33,7 @@ from api.resolvers.finding import (
     vulnerabilities_to_reattack,
     where,
     zero_risk,
+    zero_risk_connection,
 )
 from ariadne import (
     ObjectType,
@@ -75,3 +76,4 @@ FINDING.set_field(
 )
 FINDING.set_field("where", where.resolve)
 FINDING.set_field("zeroRisk", zero_risk.resolve)
+FINDING.set_field("zeroRiskConnection", zero_risk_connection.resolve)
