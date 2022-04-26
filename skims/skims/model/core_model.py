@@ -2204,6 +2204,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_ELB2_INSECURE_SEC_POLICY = MethodInfo(
+        file_name="terraform",
+        name="tfm_elb2_uses_insecure_security_policy",
+        module="lib_path",
+        finding=FindingEnum.F070,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     REFERRER_POLICY = MethodInfo(
         file_name="analyze_headers",
         name="referrer_policy",

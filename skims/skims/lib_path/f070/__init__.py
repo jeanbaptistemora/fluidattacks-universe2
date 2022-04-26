@@ -8,6 +8,7 @@ from lib_path.f070.cloudformation import (
     cfn_elb2_uses_insecure_security_policy,
 )
 from lib_path.f070.terraform import (
+    tfm_elb2_uses_insecure_security_policy,
     tfm_lb_target_group_insecure_port,
 )
 from model.core_model import (
@@ -32,20 +33,30 @@ from typing import (
 @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb2_uses_insecure_security_policy(
-    content: str, file_ext: str, path: str, template: Any
+    content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_elb2_uses_insecure_security_policy(
-        content=content, file_ext=file_ext, path=path, template=template
+        content=content, path=path, template=template
     )
 
 
-# @CACHE_ETERNALLY
+@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb2_target_group_insecure_port(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_elb2_target_group_insecure_port(
         content=content, file_ext=file_ext, path=path, template=template
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_tfm_elb2_uses_insecure_security_policy(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_elb2_uses_insecure_security_policy(
+        content=content, path=path, model=model
     )
 
 
@@ -74,11 +85,12 @@ def analyze(
             results = (
                 *results,
                 *(
+                    fun(content, path, template)
+                    for fun in (run_cfn_elb2_uses_insecure_security_policy,)
+                ),
+                *(
                     fun(content, file_extension, path, template)
-                    for fun in (
-                        run_cfn_elb2_uses_insecure_security_policy,
-                        run_cfn_elb2_target_group_insecure_port,
-                    )
+                    for fun in (run_cfn_elb2_target_group_insecure_port,)
                 ),
             )
 
@@ -89,7 +101,10 @@ def analyze(
             *results,
             *(
                 fun(content, path, model)
-                for fun in (run_tfm_lb_target_group_insecure_port,)
+                for fun in (
+                    run_tfm_elb2_uses_insecure_security_policy,
+                    run_tfm_lb_target_group_insecure_port,
+                )
             ),
         )
 
