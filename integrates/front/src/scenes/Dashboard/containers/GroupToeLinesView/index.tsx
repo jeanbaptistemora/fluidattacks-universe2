@@ -482,10 +482,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         toeLinesData.extension,
         toeLinesData.extension,
       ])
-      .map(([key, val]): (string | unknown)[] => [
-        key,
-        val === NOEXTENSION ? "" : val,
-      ])
+      // Can also be string[] but the unknown type overrides it
+      .map(([key, val]): unknown[] => [key, val === NOEXTENSION ? "" : val])
   );
   const rootSelectOptions = Object.fromEntries(
     roots.map((root: IRootIdAttr): string[] => [

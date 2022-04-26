@@ -40,7 +40,7 @@ interface ILanguageData {
   };
 }
 
-export {
+export type {
   IHistoricTreatment,
   IFinding,
   IFindingDescriptionData,

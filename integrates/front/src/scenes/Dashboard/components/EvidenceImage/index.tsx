@@ -2,7 +2,6 @@
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field } from "formik";
-import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,7 +34,11 @@ interface IEvidenceImageProps {
   isEditing: boolean;
   isRemovable?: boolean;
   name: string;
-  validate?: FieldValidator | FieldValidator[] | unknown;
+  /*
+   * Can also be of types FieldValidator | FieldValidator[] from the Formik
+   * library but the unknown type overrides it
+   */
+  validate?: unknown;
   onClick: () => void;
   onDelete?: () => void;
 }

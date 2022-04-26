@@ -67,4 +67,5 @@ const FormikArrayField: React.FC<IArrayProps> = ({
   );
 };
 
-export { FormikArrayField, IArrayProps };
+export type { IArrayProps };
+export { FormikArrayField };

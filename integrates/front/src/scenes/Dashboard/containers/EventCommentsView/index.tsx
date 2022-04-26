@@ -115,7 +115,8 @@ const EventCommentsView: React.FC = (): JSX.Element => {
       }
       mixpanel.track("AddEventComment", { eventId });
       await addComment({ variables: { eventId, ...comment } }).then(
-        (mtResult: unknown | null): void => {
+        // Can also have the null type but unknown overrides it
+        (mtResult: unknown): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)
             .data;
           if (result.addEventConsult.success) {

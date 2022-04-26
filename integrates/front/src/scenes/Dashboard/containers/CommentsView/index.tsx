@@ -117,7 +117,8 @@ const CommentsView: React.FC = (): JSX.Element => {
           type: type.toUpperCase(),
           ...comment,
         },
-      }).then((mtResult: unknown | null): void => {
+        // Can also have the null type but unknown overrides it
+      }).then((mtResult: unknown): void => {
         const result: IMutationResult["data"] = (mtResult as IMutationResult)
           .data;
         if (result.addFindingConsult.success) {

@@ -25,7 +25,7 @@ interface ISubscriptionsToEntityReport {
   };
 }
 
-export {
+export type {
   EntityType,
   FrequencyType,
   IChartsGenericViewProps,
