@@ -45,7 +45,7 @@ and its exploitability,
 status and location,
 among others.
 
-![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1650912288/docs/machine/agent/agent_devsecops_table.png)
+![DevSevOps Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1650912288/docs/machine/agent/agent_devsecops_table.png)
 
 ## Filters
 
@@ -61,7 +61,7 @@ range of dates during
 which our DevSecOps agent
 was executed in your pipeline.
 
-![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_date_range.png)
+![DevSevOps Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_date_range.png)
 
 The second filter
 is **Status**,
@@ -75,7 +75,7 @@ The **Secure** status is given
 when there is no open vulnerability
 affecting the transition to production.
 
-![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_status.png)
+![DevSevOps Second Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_status.png)
 
 The third filter
 is **Strictness**,
@@ -95,7 +95,7 @@ open vulnerabilities
 in the pipeline,
 allowing deployment to production.
 
-![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_strictness.png)
+![DevSevOps Third Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_strictness.png)
 
 The fourth filter is
 **Type**,
@@ -108,7 +108,7 @@ as the techniques with which
 vulnerabilities were detected,
 ALL being with both SAST and DAST.
 
-![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_type.png)
+![DevSevOps Type Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1650914016/docs/machine/agent/filters_type.png)
 
 The final filter is
 **Git repository**.

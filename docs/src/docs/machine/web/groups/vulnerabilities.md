@@ -90,7 +90,7 @@ files grouped by the treatment
 option that has been defined
 for them.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.png)
 
 ### Filtering your vulnerabilities table
 
@@ -111,7 +111,7 @@ window to appear,
 from which you can enable
 and disable columns.
 
-![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_columns.png)
+![Filtering Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_columns.png)
 
 The other way of filtering
 is accessible after clicking
@@ -121,21 +121,21 @@ filter options appear,
 corresponding to the variables
 that give columns their names.
 
-![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_button.png)
+![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_button.png)
 
 The field **Last report** lets
 you filter by the amount of days
 passed since the last time the
 type of vulnerability was detected.
 
-![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_last_report.png)
+![Filter Last Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_last_report.png)
 
 The field **Type** lets you
 filter by the type of vulnerability.
 The available types are the
 ones listed in the table.
 
-![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_type.png)
+![Filters Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984610/docs/web/groups/vulnerabilities/filtering_type.png)
 
 The field **Status** lets you
 filter vulnerabilities by their
@@ -147,7 +147,7 @@ treatment options,
 as shown in the
 following screenshot:
 
-![.](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/filtering_status.png)
+![Filters Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1650984611/docs/web/groups/vulnerabilities/filtering_status.png)
 
 The option called
 **Severity (range)**
