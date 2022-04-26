@@ -3,6 +3,14 @@ type Query {
   "Billing entity"
   billing: Billing
 
+  "Environment URL entity"
+  environmentUrl(
+    "Name of the group to query"
+    groupName: String!
+    "Id of url"
+    urlId: String!
+  ): GitEnvironmentUrl
+
   "Event entity"
   event(
     "ID of the event to query"

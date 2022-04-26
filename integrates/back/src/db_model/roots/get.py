@@ -560,6 +560,45 @@ async def get_git_environment_urls(
     )
 
 
+async def get_git_environment_url_by_id(
+    *, url_id: str, root_id: Optional[str] = None
+) -> Optional[GitEnvironmentUrl]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_environment_url"],
+        values={
+            "hash": url_id,
+            **({"uuid": root_id} if root_id else {}),
+        },
+    )
+    index = TABLE.indexes["inverted_index"]
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.sort_key).eq(primary_key.sort_key)
+            & (
+                Key(key_structure.partition_key).eq(primary_key.partition_key)
+                if root_id
+                else Key(key_structure.partition_key).begins_with(
+                    primary_key.partition_key
+                )
+            )
+        ),
+        facets=(TABLE.facets["git_root_environment_url"],),
+        table=TABLE,
+        index=index,
+    )
+    if not response.items:
+        return None
+    item = response.items[0]
+    return GitEnvironmentUrl(
+        url=item["url"],
+        id=item["sk"].split("URL#")[-1],
+        created_at=datetime.fromisoformat(item["created_at"])
+        if "created_at" in item
+        else None,
+    )
+
+
 class RootSecretsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(

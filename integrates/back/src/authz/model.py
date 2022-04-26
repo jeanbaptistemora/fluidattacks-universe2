@@ -744,6 +744,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_secret_mutate",
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
+            "api_resolvers_query_environment_url_resolve",
         },
         tags={
             *GROUP_LEVEL_ROLES["admin"]["tags"],
@@ -773,6 +774,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "see_internal_toe",
             "see_toe_lines_coverage",
             "see_toe_lines_days_to_attack",
+            "api_resolvers_git_root_environment_secrets_resolve",
+            "api_resolvers_query_environment_url_resolve",
         },
         tags={
             *GROUP_LEVEL_ROLES["hacker"]["tags"],
@@ -786,6 +789,8 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
+            "api_resolvers_git_root_environment_secrets_resolve",
+            "api_resolvers_query_environment_url_resolve",
         },
         tags={
             *GROUP_LEVEL_ROLES["reattacker"]["tags"],
@@ -884,6 +889,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_secret_mutate",
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
+            "api_resolvers_query_environment_url_resolve",
         },
         tags={
             *GROUP_LEVEL_ROLES["resourcer"]["tags"],

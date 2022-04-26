@@ -1,5 +1,6 @@
 from api.resolvers.query import (
     billing,
+    environment_url,
     event,
     events,
     finding,
@@ -47,3 +48,4 @@ QUERY.set_field("vulnerability", vulnerability.resolve)
 QUERY.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )
+QUERY.set_field("environmentUrl", environment_url.resolve)
