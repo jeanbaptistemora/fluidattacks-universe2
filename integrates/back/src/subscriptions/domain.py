@@ -30,6 +30,9 @@ from dataloaders import (
 from db_model.enums import (
     Notification,
 )
+from db_model.groups.enums import (
+    GroupStateStatus,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -208,6 +211,7 @@ async def _send_analytics_report(
     loaders: Dataloaders = get_new_context()
     try:
         if await _should_not_send_report(
+            loaders=loaders,
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
@@ -359,15 +363,15 @@ async def _send_user_to_entity_report(
 
 async def _should_not_send_report(
     *,
+    loaders: Any,
     report_entity: str,
     report_subject: str,
     user_email: str,
 ) -> bool:
     if report_entity.lower() == "group":
-        group_data = await groups_domain.get_attributes(
-            report_subject.lower(), ["project_status"]
-        )
-        if group_data["project_status"] == "DELETED":
+        group_name = report_subject.lower()
+        group: Group = await loaders.group_typed.load(group_name)
+        if group.state.status == GroupStateStatus.DELETED:
             await unsubscribe_user_to_entity_report(
                 report_entity=report_entity,
                 report_subject=report_subject,
