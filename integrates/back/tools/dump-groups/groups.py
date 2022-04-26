@@ -1,30 +1,26 @@
 import asyncio
-from groups import (
-    domain as groups_domain,
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
 )
 import json
-from newutils.groups import (
-    format_group,
+from organizations import (
+    domain as orgs_domain,
 )
 import sys
 
 
 async def main() -> None:
     file_path = sys.argv[1]
-    groups_items = await groups_domain.get_many_groups(
-        await groups_domain.get_active_groups()
-    )
-    groups = tuple(
-        format_group(item=group, organization_name="")
-        for group in groups_items
-    )
-    groups = [
+    loaders: Dataloaders = get_new_context()
+    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    group_names = [
         group.name
-        for group in groups
-        if group.state.has_machine or group.state.has_machine
+        for group in all_active_groups
+        if group.state.has_machine or group.state.has_squad
     ]
     with open(file_path, "w") as handler:
-        json.dump(groups, handler)
+        json.dump(group_names, handler)
 
 
 if __name__ == "__main__":
