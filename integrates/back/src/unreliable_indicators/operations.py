@@ -126,7 +126,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
 ) -> None:
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
-    indicators = {}
+    indicators: dict[EntityAttr, Any] = {}
     group_name = finding.group_name
     severity_score = findings_domain.get_severity_score(finding.severity)
 
@@ -313,7 +313,7 @@ async def update_vulnerability_unreliable_indicators(
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
-    indicators = {}
+    indicators: dict[EntityAttr, Any] = {}
 
     if EntityAttr.efficacy in attrs_to_update:
         indicators[EntityAttr.efficacy] = vulns_domain.get_efficacy(
@@ -353,7 +353,7 @@ async def update_vulnerability_unreliable_indicators(
         ] = vulns_domain.get_treatment_changes(loaders, vulnerability)
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
-    indicators = VulnerabilityUnreliableIndicatorsToUpdate(
+    indicators_to_udpate = VulnerabilityUnreliableIndicatorsToUpdate(
         unreliable_efficacy=result.get(EntityAttr.efficacy),
         unreliable_last_reattack_date=result.get(
             EntityAttr.last_reattack_date
@@ -370,7 +370,7 @@ async def update_vulnerability_unreliable_indicators(
     )
     await vulns_model.update_unreliable_indicators(
         current_value=vulnerability,
-        indicators=indicators,
+        indicators=indicators_to_udpate,
     )
 
 
