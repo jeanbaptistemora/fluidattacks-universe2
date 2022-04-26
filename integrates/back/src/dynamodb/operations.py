@@ -240,21 +240,20 @@ async def delete_item(
     table: Table,
 ) -> None:
     key_structure = table.primary_key
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
+    args = {
+        "ConditionExpression": condition_expression,
+        "Key": {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+        },
+    }
 
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
-        args = {
-            "ConditionExpression": condition_expression,
-            "Key": {
-                key_structure.partition_key: key.partition_key,
-                key_structure.sort_key: key.sort_key,
-            },
-        }
-
-        try:
-            await table_resource.delete_item(**_exclude_none(args=args))
-        except ClientError as error:
-            handle_error(error=error)
+    try:
+        await table_resource.delete_item(**_exclude_none(args=args))
+    except ClientError as error:
+        handle_error(error=error)
 
 
 def _build_get_item_args(

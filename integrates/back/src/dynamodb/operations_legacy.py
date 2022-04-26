@@ -39,10 +39,10 @@ async def client() -> aioboto3.session.Session.client:
 
 async def delete_item(table: str, delete_attrs: DynamoDeleteType) -> bool:
     success: bool = False
-    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        dynamo_table = await dynamodb_resource.Table(table)
-        response = await dynamo_table.delete_item(**delete_attrs._asdict())
-        success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
+    dynamodb_resource = await get_resource()
+    dynamo_table = await dynamodb_resource.Table(table)
+    response = await dynamo_table.delete_item(**delete_attrs._asdict())
+    success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
     return success
 
 
