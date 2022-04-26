@@ -24,8 +24,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    Dict,
-    List,
     Optional,
     Union,
 )
@@ -37,10 +35,10 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME = "fi_portfolios"
 
 
-async def delete(organization: str, tag: str) -> bool:
+async def delete(organization_name: str, tag: str) -> bool:
     success: bool = False
     item = DynamoDeleteType(
-        Key={"organization": organization.lower(), "tag": tag.lower()}
+        Key={"organization": organization_name.lower(), "tag": tag.lower()}
     )
     try:
         success = await dynamodb_ops.delete_item(TABLE_NAME, item)
@@ -50,12 +48,12 @@ async def delete(organization: str, tag: str) -> bool:
 
 
 async def get_attributes(
-    organization: str, tag: str, attributes: Optional[List[str]] = None
-) -> Dict[str, Union[List[str], str]]:
+    organization_name: str, tag: str, attributes: Optional[list[str]] = None
+) -> dict[str, Union[list[str], str]]:
     response = {}
     item_attrs: DynamoQueryType = {
         "KeyConditionExpression": (
-            Key("organization").eq(organization.lower())
+            Key("organization").eq(organization_name.lower())
             & Key("tag").eq(tag.lower())
         ),
     }
@@ -68,11 +66,11 @@ async def get_attributes(
 
 
 async def get_tags(
-    organization: str, attributes: Optional[List[str]]
-) -> List[TagType]:
-    tags: List[TagType] = []
+    organization_name: str, attributes: Optional[list[str]]
+) -> list[TagType]:
+    tags: list[TagType] = []
     query_attrs = {
-        "KeyConditionExpression": Key("organization").eq(organization)
+        "KeyConditionExpression": Key("organization").eq(organization_name)
     }
     if attributes:
         projection = ",".join(attributes)
@@ -85,7 +83,9 @@ async def get_tags(
 
 
 async def update(
-    organization: str, tag: str, data: Dict[str, Union[List[str], Decimal]]
+    organization_name: str,
+    tag: str,
+    data: dict[str, Union[list[str], Decimal]],
 ) -> bool:
     success = False
     set_expression = ""
@@ -106,7 +106,7 @@ async def update(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
     update_attrs = {
-        "Key": {"organization": organization, "tag": tag},
+        "Key": {"organization": organization_name, "tag": tag},
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
 
