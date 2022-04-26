@@ -1,3 +1,6 @@
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     GitCloningStatus,
 )
@@ -29,12 +32,14 @@ class Secret(NamedTuple):
     key: str
     value: str
     description: Optional[str] = None
+    created_at: Optional[datetime] = None
 
 
 class GitEnvironmentUrl(NamedTuple):
     url: str
     id: str
     secrets: list[Secret] = []
+    created_at: Optional[datetime] = None
 
 
 class GitRootState(NamedTuple):

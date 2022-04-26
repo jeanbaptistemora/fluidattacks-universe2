@@ -1808,7 +1808,8 @@
           "NonKeyAttributes": [
             "description",
             "key",
-            "value"
+            "value",
+            "created_at"
           ]
         },
         {
@@ -1831,7 +1832,8 @@
             }
           ],
           "NonKeyAttributes": [
-            "url"
+            "url",
+            "created_at"
           ]
         },
         {

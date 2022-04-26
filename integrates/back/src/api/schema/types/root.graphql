@@ -20,6 +20,8 @@ type GitRootCloningStatus {
 
 "Git Root environment url definition"
 type GitEnvironmentUrl {
+  "Date of creation"
+  createdAt: DateTime
   "GitRoot environment url"
   id: String!
   "Environment secrets"

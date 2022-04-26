@@ -1133,7 +1133,12 @@ async def add_git_environment_secret(
     value: str,
     description: Optional[str] = None,
 ) -> bool:
-    secret = Secret(key=key, value=value, description=description)
+    secret = Secret(
+        key=key,
+        value=value,
+        description=description,
+        created_at=datetime.now(),
+    )
     return await roots_model.add_git_environment_secret(url_id, secret)
 
 
@@ -1142,7 +1147,9 @@ async def add_environment_url(
 ) -> bool:
     await loaders.root.load((group_name, root_id))
     environment = GitEnvironmentUrl(
-        id=hashlib.sha1(url.encode()).hexdigest(), url=url  # nosec
+        id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
+        created_at=datetime.now(),
+        url=url,
     )
     return await roots_model.add_environment_url(root_id, url=environment)
 

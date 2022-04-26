@@ -152,6 +152,9 @@ async def add_git_environment_secret(
         "key": secret.key,
         "value": secret.value,
         "description": secret.description,
+        "created_at": secret.created_at.isoformat()
+        if secret.created_at is not None
+        else None,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(items=(secret_item,), table=TABLE)
@@ -173,6 +176,9 @@ async def add_environment_url(
         key_structure.partition_key: url_key.partition_key,
         key_structure.sort_key: url_key.sort_key,
         "url": url.url,
+        "created_at": url.created_at.isoformat()
+        if url.created_at is not None
+        else None,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(items=(url_item,), table=TABLE)

@@ -13,6 +13,9 @@ from context import (
 from custom_exceptions import (
     RootNotFound,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     TABLE,
 )
@@ -512,6 +515,9 @@ async def get_environment_secrets(
             key=item["key"],
             value=item["value"],
             description=item.get("description"),
+            created_at=datetime.fromisoformat(item["created_at"])
+            if "created_at" in item
+            else None,
         )
         for item in response.items
     )
@@ -546,6 +552,9 @@ async def get_git_environment_urls(
         GitEnvironmentUrl(
             url=item["url"],
             id=item["sk"].split("URL#")[-1],
+            created_at=datetime.fromisoformat(item["created_at"])
+            if "created_at" in item
+            else None,
         )
         for item in response.items
     )
