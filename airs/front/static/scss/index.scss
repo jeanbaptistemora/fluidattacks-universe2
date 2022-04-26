@@ -408,6 +408,35 @@ $gray-36: rgba(36, 37, 45, 1);
 
 // Custom elements
 
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+
+  .page-item {
+    background-color: #e9e9ed;
+    border-radius: 4px;
+    color: $fluid-black;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px 1px;
+  }
+
+  .page-link {
+    padding: 20px;
+  }
+
+  .active {
+    background-color: #b0b0bf;
+  }
+}
+
 .check-icon {
   height: 24px;
   width: 24px;
