@@ -23,7 +23,7 @@ interface IHandleEditionModalProps {
   setSelectedToeInputDatas: (selectedToeInputDatas: IToeInputData[]) => void;
 }
 
-export {
+export type {
   IFormValues,
   IHandleEditionModalProps,
   IHandleEditionModalFormProps,

@@ -54,7 +54,7 @@ interface IURLRootAttr {
 
 type Root = IGitRootAttr | IIPRootAttr | IURLRootAttr;
 
-export {
+export type {
   IFormValues,
   IHandleAdditionModalProps,
   IHandleAdditionModalFormProps,

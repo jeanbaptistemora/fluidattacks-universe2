@@ -49,7 +49,7 @@ interface IModalConfig {
   clearSelected: () => void;
 }
 
-export {
+export type {
   IFindingAttr,
   IGetFindingVulnInfoAttr,
   IGetFindingAndGroupInfo,

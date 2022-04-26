@@ -79,4 +79,5 @@ const EditButton: React.FC<IEditButtonProps> = ({
   );
 };
 
-export { EditButton, IEditButtonProps };
+export type { IEditButtonProps };
+export { EditButton };
