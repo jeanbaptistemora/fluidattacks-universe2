@@ -21,9 +21,6 @@ from context import (
     FI_DEFAULT_ORG,
     FI_ENVIRONMENT,
 )
-from contextlib import (
-    AsyncExitStack,
-)
 from custom_exceptions import (
     AlreadyPendingDeletion,
     BillingSubscriptionSameActive,
@@ -89,8 +86,8 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from dynamodb.operations_legacy import (
-    start_context,
+from dynamodb.resource import (
+    get_resource,
 )
 from events import (
     domain as events_domain,
@@ -1010,15 +1007,14 @@ async def get_vulnerabilities_with_pending_attacks(
 
 
 async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
-    async with AsyncExitStack() as stack:
-        resource = await stack.enter_async_context(start_context())
-        table = await resource.Table(groups_dal.TABLE_NAME)
-        groups = await collect(
-            tuple(
-                groups_dal.get_group(group_name, table)
-                for group_name in groups_name
-            )
+    resource = await get_resource()
+    table = await resource.Table(groups_dal.TABLE_NAME)
+    groups = await collect(
+        tuple(
+            groups_dal.get_group(group_name, table)
+            for group_name in groups_name
         )
+    )
     return cast(List[GroupType], groups)
 
 

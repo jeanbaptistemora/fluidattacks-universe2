@@ -282,18 +282,15 @@ async def get_item(
     *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
 ) -> Optional[Item]:
     item: Optional[Item] = None
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
+    get_item_args = _build_get_item_args(key=key, facets=facets, table=table)
 
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
-        get_item_args = _build_get_item_args(
-            key=key, facets=facets, table=table
-        )
-
-        try:
-            response = await table_resource.get_item(**get_item_args)
-            item = response.get("Item")
-        except ClientError as error:
-            handle_error(error=error)
+    try:
+        response = await table_resource.get_item(**get_item_args)
+        item = response.get("Item")
+    except ClientError as error:
+        handle_error(error=error)
 
     return item
 

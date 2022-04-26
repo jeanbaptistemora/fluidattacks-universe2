@@ -79,10 +79,10 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
 async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
     response_items: Dict[str, Any]
     try:
-        async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-            dynamo_table = await dynamodb_resource.Table(table)
-            response = await dynamo_table.get_item(**query_attrs)
-            response_items = response.get("Item", {})
+        dynamodb_resource = await get_resource()
+        dynamo_table = await dynamodb_resource.Table(table)
+        response = await dynamo_table.get_item(**query_attrs)
+        response_items = response.get("Item", {})
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return response_items
@@ -116,12 +116,6 @@ def serialize(object_: Any) -> Any:
     else:
         return object_
     return object_
-
-
-@asynccontextmanager
-async def start_context() -> aioboto3.session.Session.resource:
-    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        yield dynamodb_resource
 
 
 async def update_item(table: str, update_attrs: Dict[str, Any]) -> bool:
