@@ -120,10 +120,10 @@ def serialize(object_: Any) -> Any:
 
 async def update_item(table: str, update_attrs: Dict[str, Any]) -> bool:
     success: bool = False
-    async with SESSION.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
-        dynamo_table = await dynamodb_resource.Table(table)
-        response = await dynamo_table.update_item(**update_attrs)
-        success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
+    dynamodb_resource = await get_resource()
+    dynamo_table = await dynamodb_resource.Table(table)
+    response = await dynamo_table.update_item(**update_attrs)
+    success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
     return success
 
 

@@ -402,30 +402,29 @@ async def update_item(
         for attr, value in item.items()
         if value is None
     )
+    resource = await get_resource()
+    table_resource: CustomTableResource = await resource.Table(table.name)
+    base_args: Dict[str, Any] = {
+        "ConditionExpression": condition_expression,
+        "ExpressionAttributeNames": attr_names,
+        "Key": {
+            key_structure.partition_key: key.partition_key,
+            key_structure.sort_key: key.sort_key,
+        },
+        "UpdateExpression": " ".join(
+            (
+                f"SET {attrs_to_update}" if attrs_to_update else "",
+                f"REMOVE {attrs_to_remove}" if attrs_to_remove else "",
+            )
+        ),
+    }
+    args = (
+        {**base_args, "ExpressionAttributeValues": attr_values}
+        if attrs_to_update
+        else base_args
+    )
 
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
-        table_resource: CustomTableResource = await resource.Table(table.name)
-        base_args: Dict[str, Any] = {
-            "ConditionExpression": condition_expression,
-            "ExpressionAttributeNames": attr_names,
-            "Key": {
-                key_structure.partition_key: key.partition_key,
-                key_structure.sort_key: key.sort_key,
-            },
-            "UpdateExpression": " ".join(
-                (
-                    f"SET {attrs_to_update}" if attrs_to_update else "",
-                    f"REMOVE {attrs_to_remove}" if attrs_to_remove else "",
-                )
-            ),
-        }
-        args = (
-            {**base_args, "ExpressionAttributeValues": attr_values}
-            if attrs_to_update
-            else base_args
-        )
-
-        try:
-            await table_resource.update_item(**_exclude_none(args=args))
-        except ClientError as error:
-            handle_error(error=error)
+    try:
+        await table_resource.update_item(**_exclude_none(args=args))
+    except ClientError as error:
+        handle_error(error=error)
