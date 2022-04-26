@@ -171,40 +171,38 @@ async def batch_get_item(
 ) -> Tuple[Item, ...]:
     key_structure = table.primary_key
     items: List[Item] = []
+    resource = await get_resource()
 
-    async with SESSION.resource(**RESOURCE_OPTIONS) as resource:
+    async def _get_chunk(chunk_keys: List[PrimaryKey]) -> Tuple[Item, ...]:
+        response = await resource.batch_get_item(
+            RequestItems={
+                table.name: {
+                    "Keys": [
+                        {
+                            key_structure.partition_key: (
+                                primary_key.partition_key
+                            ),
+                            key_structure.sort_key: primary_key.sort_key,
+                        }
+                        for primary_key in chunk_keys
+                    ]
+                }
+            },
+        )
+        return response["Responses"][table.name]
 
-        async def _get_chunk(chunk_keys: List[PrimaryKey]) -> Tuple[Item, ...]:
-            response = await resource.batch_get_item(
-                RequestItems={
-                    table.name: {
-                        "Keys": [
-                            {
-                                key_structure.partition_key: (
-                                    primary_key.partition_key
-                                ),
-                                key_structure.sort_key: primary_key.sort_key,
-                            }
-                            for primary_key in chunk_keys
-                        ]
-                    }
-                },
+    try:
+        items = [
+            item
+            for items_chunk in await collect(
+                tuple(
+                    _get_chunk(keys_chunk) for keys_chunk in chunked(keys, 100)
+                ),
             )
-            return response["Responses"][table.name]
-
-        try:
-            items = [
-                item
-                for items_chunk in await collect(
-                    tuple(
-                        _get_chunk(keys_chunk)
-                        for keys_chunk in chunked(keys, 100)
-                    ),
-                )
-                for item in items_chunk
-            ]
-        except ClientError as error:
-            handle_error(error=error)
+            for item in items_chunk
+        ]
+    except ClientError as error:
+        handle_error(error=error)
 
     return tuple(items)
 
