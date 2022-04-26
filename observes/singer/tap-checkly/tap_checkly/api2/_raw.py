@@ -1,3 +1,6 @@
+from . import (
+    _retry,
+)
 from dataclasses import (
     dataclass,
 )
@@ -7,6 +10,7 @@ from fa_purity import (
     JsonObj,
     Maybe,
     Result,
+    ResultE,
 )
 from fa_purity.json.factory import (
     from_any,
@@ -39,17 +43,18 @@ class Credentials:
 @dataclass(frozen=True)
 class RawClient:
     _auth: Credentials
+    _max_retries: int = 10
     _api_url: str = "https://api.checklyhq.com"
 
     def _full_endpoint(self, endpoint: str) -> str:
         return self._api_url + endpoint
 
-    def get(
+    def _unhandled_get(
         self, endpoint: str, params: JsonObj
     ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
         def _action() -> FrozenList[JsonObj] | JsonObj:
             target = self._full_endpoint(endpoint)
-            LOG.debug("API call: %s\nparams = %s", target, params)
+            LOG.info("API call: %s\nparams = %s", target, params)
             response = requests.get(
                 target,
                 headers={  # type: ignore[misc]
@@ -65,6 +70,12 @@ class RawClient:
             return result.unwrap()
 
         return Cmd.from_cmd(_action)
+
+    def get(
+        self, endpoint: str, params: JsonObj
+    ) -> Cmd[JsonObj | FrozenList[JsonObj]]:
+        handled = _retry.api_handler(self._unhandled_get(endpoint, params))
+        return _retry.retry_cmd(handled, self._max_retries, lambda i: i ^ 2)
 
     def get_list(
         self, endpoint: str, params: JsonObj
