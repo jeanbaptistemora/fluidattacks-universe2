@@ -19,7 +19,7 @@ def encode_result(result: CheckResult) -> JsonObj:
                 "api_result": result.api_result,
                 "browser_result": result.browser_result,
                 "attempts": result.attempts,
-                "run_id": result.run_id.id_str,
+                "run_id": result.run_id.id_num,
                 "created_at": result.created_at.isoformat(),
                 "has_errors": result.has_errors,
                 "has_failures": result.has_failures,

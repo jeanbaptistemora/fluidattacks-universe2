@@ -8,11 +8,15 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from dateutil.parser import (
+    isoparse,
+)
 from decimal import (
     Decimal,
 )
 from fa_purity import (
     Cmd,
+    FrozenDict,
     FrozenList,
     JsonObj,
 )
@@ -41,25 +45,26 @@ def _check_id_from_raw(raw: JsonObj) -> CheckId:
 def _check_result_from_raw(raw: JsonObj) -> CheckResult:
     return CheckResult(
         Unfolder(raw["apiCheckResult"]).to_json().unwrap(),
-        Unfolder(raw["browserCheckResult"]).to_json().unwrap(),
+        Unfolder(raw["browserCheckResult"])
+        .to_json()
+        .lash(
+            lambda _: Unfolder(raw["browserCheckResult"])
+            .to_none()
+            .map(lambda _: FrozenDict({}))
+        )
+        .unwrap(),
         Unfolder(raw["attempts"]).to_primitive(int).unwrap(),
-        CheckRunId(Unfolder(raw["checkRunId"]).to_primitive(str).unwrap()),
-        datetime.fromisoformat(
-            Unfolder(raw["created_at"]).to_primitive(str).unwrap()
-        ),
+        Unfolder(raw["checkRunId"]).to_primitive(int).map(CheckRunId).unwrap(),
+        Unfolder(raw["created_at"]).to_primitive(str).map(isoparse).unwrap(),
         Unfolder(raw["hasErrors"]).to_primitive(bool).unwrap(),
         Unfolder(raw["hasFailures"]).to_primitive(bool).unwrap(),
         Unfolder(raw["isDegraded"]).to_primitive(bool).unwrap(),
         Unfolder(raw["name"]).to_primitive(str).unwrap(),
         Unfolder(raw["overMaxResponseTime"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["responseTime"]).to_primitive(Decimal).unwrap(),
+        Unfolder(raw["responseTime"]).to_primitive(int).unwrap(),
         Unfolder(raw["runLocation"]).to_primitive(str).unwrap(),
-        datetime.fromisoformat(
-            Unfolder(raw["startedAt"]).to_primitive(str).unwrap()
-        ),
-        datetime.fromisoformat(
-            Unfolder(raw["stoppedAt"]).to_primitive(str).unwrap()
-        ),
+        Unfolder(raw["startedAt"]).to_primitive(str).map(isoparse).unwrap(),
+        Unfolder(raw["stoppedAt"]).to_primitive(str).map(isoparse).unwrap(),
     )
 
 

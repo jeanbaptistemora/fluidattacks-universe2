@@ -6,6 +6,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+python-dateutil = "^2.8.2"
 click = "^7.1.2"
 requests = "^2.25.1"
 returns = "^0.19.0"
@@ -15,6 +16,7 @@ paginator = "^1.0.0"
 purity = "^1.0.0"
 singer-io = "^1.0.0"
 types-requests = "^2.27.20"
+types-python-dateutil = "^2.8.12"
 
 [tool.poetry.scripts]
 tap-checkly = 'tap_checkly.cli:main'

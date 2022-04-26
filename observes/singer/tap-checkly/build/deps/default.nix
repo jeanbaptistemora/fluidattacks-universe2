@@ -46,6 +46,7 @@ in
       pythonPkgs = pythonPkgs2;
     };
     types-click = import ./click/stubs.nix lib;
+    types-python-dateutil = import ./dateutil/stubs.nix lib;
     utils-logger = utils-logger.pkg;
   }
   // legacy

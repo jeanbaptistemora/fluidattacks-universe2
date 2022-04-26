@@ -19,7 +19,7 @@ class CheckId:
 
 @dataclass(frozen=True)
 class CheckRunId:
-    id_str: str
+    id_num: int
 
 
 @dataclass(frozen=True)
@@ -34,7 +34,7 @@ class CheckResult:
     is_degraded: bool
     name: str
     over_max_response_time: bool
-    response_time: Decimal
+    response_time: int
     run_location: str
     started_at: datetime
     stopped_at: datetime
