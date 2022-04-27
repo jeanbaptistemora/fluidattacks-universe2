@@ -13,55 +13,66 @@ from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
     slice_groups,
 )
-from groups import (
-    domain as groups_domain,
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
 )
-from typing import (
-    List,
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_group(group: str) -> PortfoliosGroupsInfo:
-    item = await groups_domain.get_attributes(
-        group,
-        [
-            "open_vulnerabilities",
-            "closed_vulnerabilities",
-        ],
+async def get_data_group(
+    loaders: Dataloaders,
+    group_name: str,
+) -> PortfoliosGroupsInfo:
+    indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group_name)
     )
-
+    open_vulns = indicators.open_vulnerabilities or 0
+    closed_vulns = indicators.closed_vulnerabilities or 0
     return PortfoliosGroupsInfo(
-        group_name=group.lower(),
-        value=item.get("open_vulnerabilities", 0)
-        + item.get("closed_vulnerabilities", 0),
+        group_name=group_name,
+        value=open_vulns + closed_vulns,
     )
 
 
-async def get_data_groups(groups: List[str]) -> List[PortfoliosGroupsInfo]:
-    groups_data = await collect(map(get_data_group, groups), workers=32)
+async def get_data_groups(
+    loaders: Dataloaders,
+    group_names: list[str],
+) -> list[PortfoliosGroupsInfo]:
+    groups_data = await collect(
+        [get_data_group(loaders, group_name) for group_name in group_names],
+        workers=32,
+    )
     total_vulnerabilities = sum([group.value for group in groups_data])
 
     return slice_groups(groups_data, total_vulnerabilities)
 
 
 async def generate_all() -> None:
-    async for org_id, _, org_groups in (
+    loaders: Dataloaders = get_new_context()
+    async for org_id, _, org_group_names in (
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
             document=format_data(
-                groups_data=await get_data_groups(list(org_groups)),
+                groups_data=await get_data_groups(
+                    loaders, list(org_group_names)
+                ),
             ),
             entity="organization",
             subject=org_id,
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+        for portfolio, group_names in await utils.get_portfolios_groups(
+            org_name
+        ):
             utils.json_dump(
                 document=format_data(
-                    groups_data=await get_data_groups(groups),
+                    groups_data=await get_data_groups(loaders, group_names),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
