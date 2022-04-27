@@ -524,13 +524,13 @@ async def get_environment_secrets(
 
 
 async def get_git_environment_urls(
-    *, root_id: str, secret_key: Optional[str] = None
+    *, root_id: str, url_id: Optional[str] = None
 ) -> Tuple[GitEnvironmentUrl, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_environment_url"],
         values={
             "uuid": root_id,
-            **({"hash": secret_key} if secret_key else {}),
+            **({"hash": url_id} if url_id else {}),
         },
     )
     key_structure = TABLE.primary_key
@@ -539,7 +539,7 @@ async def get_git_environment_urls(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & (
                 Key(key_structure.sort_key).eq(primary_key.sort_key)
-                if secret_key
+                if url_id
                 else Key(key_structure.sort_key).begins_with(
                     primary_key.sort_key
                 )

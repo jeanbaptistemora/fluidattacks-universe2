@@ -163,7 +163,7 @@ async def add_git_environment_secret(
     return False
 
 
-async def add_environment_url(
+async def add_git_environment_url(
     root_id: str,
     url: GitEnvironmentUrl,
 ) -> bool:

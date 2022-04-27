@@ -500,13 +500,16 @@ async def update_git_environments(
     await collect(
         [
             remove_environment_url(root_id, url)
-            for url in root.state.environment_urls
+            for url in set(root.state.environment_urls).difference(
+                set(environment_urls)
+            )
         ]
     )
     await collect(
         [
-            add_environment_url(loaders, group_name, root_id, url)
+            add_git_environment_url(loaders, group_name, root_id, url)
             for url in environment_urls
+            if url not in root.state.environment_urls
         ]
     )
     await roots_model.update_root_state(
@@ -1190,7 +1193,7 @@ async def add_git_environment_secret(
     return await roots_model.add_git_environment_secret(url_id, secret)
 
 
-async def add_environment_url(
+async def add_git_environment_url(
     loaders: Any, group_name: str, root_id: str, url: str
 ) -> bool:
     await loaders.root.load((group_name, root_id))
@@ -1199,7 +1202,7 @@ async def add_environment_url(
         created_at=datetime.now(),
         url=url,
     )
-    return await roots_model.add_environment_url(root_id, url=environment)
+    return await roots_model.add_git_environment_url(root_id, url=environment)
 
 
 async def remove_environment_url(root_id: str, url: str) -> None:
