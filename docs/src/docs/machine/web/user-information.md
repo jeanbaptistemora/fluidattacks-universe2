@@ -20,16 +20,21 @@ role are shown as well.
 
 ![User Drop Down Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_dropdown_menu.png)
 
-The first information on this menu
-is your username and email address
-with which you signed in.
-Your privileges are attached to this
+The first information on
+this menu is your username,
+email address with which
+you signed in and your
+mobile phone number which
+one you subscribe to the ASM.
+Remember your privileges
+are attached to this
 email address.
-Differences in access privileges
-are managed depending on your role
-on the ASM, which is also shown
-on this menu.
-You can find out more about roles
+Differences in access
+privileges are managed depending
+on your role on the ASM,
+which is also shown on this menu.
+You can find out
+more about roles
 [here](/machine/web/groups/roles).
 (Be sure to check out the
 [role table](/machine/web/groups/roles/#roles-table).)
@@ -54,15 +59,37 @@ When you click on it,
 you will see the
 **Notifications** matrix
 that shows you all the
-reports that our ASM
-generates.
-There you can press the
-On/Off button to accept
-or reject the sending of
-each notification to your
-registered email.
+reports and alerts that
+our ASM generates.
+There you can toggle the
+on/off button to enable
+or disable the delivery
+of each notification to
+your registered email.
 
-![Select Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
+![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
+
+The next option
+is **Mobile**,
+which allows you to
+register your mobile
+phone number to the ASM.
+This registration is
+required to access
+the ASM reports.
+
+![Mobile Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1651073721/docs/web/web_asm-user_mobile_menu.png)
+
+When you click on
+the Mobile option,
+you will see a window
+where you must add your
+number and then enter
+the verification code
+sent to you via SMS to
+complete the registration.
+
+![Enter Mobile](https://res.cloudinary.com/fluid-attacks/image/upload/v1651073722/docs/web/web_asm-user_mobile_window.png)
 
 Next on the menu is the
 **Delete account** option.
@@ -78,6 +105,6 @@ to restore your account afterward.
 
 ![Delete Account](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_delete_account.png)
 
-Last but not least, the **Log out**
+Lastly, the **Log out**
 option will allow you to end
 your session on the ASM.
