@@ -40,7 +40,6 @@ from custom_exceptions import (
 from custom_types import (
     Group as GroupType,
     GroupAccess as GroupAccessType,
-    Historic as HistoricType,
     Invitation as InvitationType,
     MailContent as MailContentType,
     User as UserType,
@@ -430,12 +429,14 @@ def _process_digest_treatments(
     return treatments
 
 
-async def _has_repeated_tags(group_name: str, tags: list[str]) -> bool:
+async def _has_repeated_tags(
+    loaders: Any, group_name: str, tags: list[str]
+) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
-        group_info = await get_attributes(group_name.lower(), ["tag"])
-        existing_tags = group_info.get("tag", [])
-        all_tags = list(existing_tags) + tags
+        group: Group = await loaders.group_typed.load(group_name)
+        existing_tags = group.tags
+        all_tags = list(existing_tags or {}) + tags
         has_repeated_tags = len(all_tags) != len(set(all_tags))
     return has_repeated_tags
 
@@ -1597,10 +1598,12 @@ def validate_group_services_config(
             )
 
 
-async def validate_group_tags(group_name: str, tags: list[str]) -> list[str]:
+async def validate_group_tags(
+    loaders: Any, group_name: str, tags: list[str]
+) -> list[str]:
     """Validate tags array."""
     pattern = re.compile("^[a-z0-9]+(?:-[a-z0-9]+)*$")
-    if await _has_repeated_tags(group_name, tags):
+    if await _has_repeated_tags(loaders, group_name, tags):
         raise RepeatedValues()
     return [tag for tag in tags if pattern.match(tag)]
 
@@ -1638,7 +1641,7 @@ async def get_remediation_rate(
     return remediation_rate
 
 
-async def get_group_digest_stats(  # pylint: disable=too-many-locals
+async def get_group_digest_stats(
     loaders: Any, group_name: str
 ) -> MailContentType:
     content: MailContentType = {
@@ -1714,14 +1717,10 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         loaders, group_name
     )
 
-    group_attrs: dict[str, Any] = await get_attributes(
-        group_name, ["historic_configuration"]
+    group_creation_date = datetime_utils.get_datetime_from_iso_str(
+        await get_creation_date(loaders, group_name)
     )
-    historic_config: HistoricType = group_attrs["historic_configuration"]
-    historic_config_date = datetime_utils.get_from_str(
-        historic_config[0]["date"]
-    )
-    group_age = (datetime_utils.get_now() - historic_config_date).days
+    group_age = (datetime_utils.get_now() - group_creation_date).days
     content["main"]["group_age"] = group_age
     treatments = vulns_utils.get_total_treatment_date(group_vulns, last_day)
     content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)

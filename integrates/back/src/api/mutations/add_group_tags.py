@@ -53,7 +53,7 @@ async def mutate(
         )
         raise ErrorUpdatingGroup.new()
 
-    if not await groups_domain.validate_group_tags(group_name, tags):
+    if not await groups_domain.validate_group_tags(loaders, group_name, tags):
         logs_utils.cloudwatch_log(
             info.context,
             "Security: Attempted to add tags without allowed structure",

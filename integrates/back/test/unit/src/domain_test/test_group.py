@@ -131,24 +131,27 @@ def test_validate_group_services_config() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_access() -> None:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     assert await remove_access(loaders, "unittest", "unittesting")
     assert not await remove_access(loaders, "", "")
 
 
 async def test_validate_tags() -> None:
+    loaders: Dataloaders = get_new_context()
     assert await validate_group_tags(
-        "unittesting", ["testtag", "this-is-ok", "th15-4l50"]
+        loaders, "unittesting", ["testtag", "this-is-ok", "th15-4l50"]
     )
     assert await validate_group_tags(
-        "unittesting", ["this-tag-is-valid", "but this is not"]
+        loaders, "unittesting", ["this-tag-is-valid", "but this is not"]
     ) == ["this-tag-is-valid"]
     with pytest.raises(RepeatedValues):
         assert await validate_group_tags(
-            "unittesting", ["same-name", "same-name", "another-one"]
+            loaders, "unittesting", ["same-name", "same-name", "another-one"]
         )
     with pytest.raises(RepeatedValues):
-        assert await validate_group_tags("unittesting", ["test-groups"])
+        assert await validate_group_tags(
+            loaders, "unittesting", ["test-groups"]
+        )
 
 
 async def test_is_valid() -> None:
