@@ -41,7 +41,7 @@ describe("VulnerabilitiesView", (): void => {
       query: GET_FINDING_NZR_VULNS,
       variables: {
         findingId: "422286126",
-        first: 300,
+        first: 100,
       },
     },
     result: {
@@ -143,7 +143,7 @@ describe("VulnerabilitiesView", (): void => {
       variables: {
         canRetrieveZeroRisk: true,
         findingId: "422286126",
-        first: 300,
+        first: 100,
       },
     },
     result: {

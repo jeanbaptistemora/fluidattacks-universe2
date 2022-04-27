@@ -89,7 +89,7 @@ describe("Update Description component", (): void => {
         variables: {
           canRetrieveZeroRisk: false,
           findingId: "422286126",
-          first: 300,
+          first: 100,
         },
       },
       result: {
@@ -105,7 +105,7 @@ describe("Update Description component", (): void => {
         query: GET_FINDING_NZR_VULNS,
         variables: {
           findingId: "422286126",
-          first: 300,
+          first: 100,
         },
       },
       result: {

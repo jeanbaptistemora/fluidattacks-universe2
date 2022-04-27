@@ -45,7 +45,7 @@ describe("update verification component", (): void => {
         variables: {
           canRetrieveZeroRisk: false,
           findingId: "",
-          first: 300,
+          first: 100,
         },
       },
       result: {
@@ -61,7 +61,7 @@ describe("update verification component", (): void => {
         query: GET_FINDING_NZR_VULNS,
         variables: {
           findingId: "",
-          first: 300,
+          first: 100,
         },
       },
       result: {

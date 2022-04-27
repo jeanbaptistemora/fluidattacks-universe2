@@ -177,7 +177,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     variables: {
       findingId,
-      first: 300,
+      first: 100,
     },
   });
   const vulnerabilitiesConnection =
@@ -214,7 +214,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     variables: {
       canRetrieveZeroRisk,
       findingId,
-      first: 300,
+      first: 100,
     },
   });
   const zeroRiskConnection =
