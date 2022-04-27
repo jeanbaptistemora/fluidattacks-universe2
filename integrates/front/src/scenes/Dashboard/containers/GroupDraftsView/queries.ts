@@ -16,6 +16,7 @@ const GET_DRAFTS_AND_FINDING_TITLES: DocumentNode = gql`
         currentState
       }
       findings {
+        id
         title
       }
       language
