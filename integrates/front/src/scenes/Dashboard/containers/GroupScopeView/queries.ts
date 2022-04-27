@@ -178,6 +178,21 @@ const REMOVE_SECRET: DocumentNode = gql`
     }
   }
 `;
+const REMOVE_ENVIRONMENT_URL_SECRET: DocumentNode = gql`
+  mutation RemoveEnvironmentUrlSecret(
+    $urlId: String!
+    $key: String!
+    $groupName: String!
+  ) {
+    removeEnvironmentUrlSecret(
+      urlId: $urlId
+      key: $key
+      groupName: $groupName
+    ) {
+      success
+    }
+  }
+`;
 
 const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
   mutation UpdateGitEnvironments(
@@ -391,4 +406,5 @@ export {
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
   VALIDATE_GIT_ACCESS,
+  REMOVE_ENVIRONMENT_URL_SECRET,
 };

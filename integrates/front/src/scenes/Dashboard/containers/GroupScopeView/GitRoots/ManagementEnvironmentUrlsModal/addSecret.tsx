@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
@@ -8,9 +10,13 @@ import { useTranslation } from "react-i18next";
 import { lazy, object, string } from "yup";
 import type { BaseSchema } from "yup";
 
-import { ADD_ENVIRONMENT_SECRET } from "../../queries";
+import {
+  ADD_ENVIRONMENT_SECRET,
+  REMOVE_ENVIRONMENT_URL_SECRET,
+} from "../../queries";
 import { Button } from "components/Button";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -94,7 +100,22 @@ const AddSecret: React.FC<ISecretsProps> = ({
       });
     },
   });
-
+  const [removeSecret] = useMutation(REMOVE_ENVIRONMENT_URL_SECRET, {
+    onCompleted: (): void => {
+      msgSuccess(
+        t("group.scope.git.repo.credentials.secrets.removed"),
+        t("group.scope.git.repo.credentials.secrets.successTitle")
+      );
+      handleSubmitSecret();
+      closeModal();
+    },
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.error("Couldn't remove secret", error);
+      });
+    },
+  });
   const handleSecretSubmit = useCallback(
     async ({
       description,
@@ -111,6 +132,10 @@ const AddSecret: React.FC<ISecretsProps> = ({
     },
     [addSecret, groupName, urlId]
   );
+
+  function handleRemoveClick(): void {
+    void removeSecret({ variables: { groupName, key: secretKey, urlId } });
+  }
 
   return (
     <div>
@@ -173,6 +198,19 @@ const AddSecret: React.FC<ISecretsProps> = ({
                   >
                     {t("confirmmodal.proceed")}
                   </Button>
+                  {isUpdate ? (
+                    <Can
+                      do={"api_mutations_remove_environment_url_secret_mutate"}
+                    >
+                      <Button
+                        id={"git-root-remove-secret"}
+                        onClick={handleRemoveClick}
+                        variant={"secondary"}
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </Button>
+                    </Can>
+                  ) : undefined}
                   <Button
                     id={"git-root-add-secret-cancel"}
                     onClick={closeModal}
