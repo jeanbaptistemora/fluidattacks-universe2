@@ -346,7 +346,7 @@ async def get_max_open_severity(
             (v, i) for i, v in enumerate(total_severity)
         )
         max_severity = Decimal(severity).quantize(Decimal("0.1"))
-        max_severity_finding = open_findings[severity_index]
+        max_severity_finding: Optional[Finding] = open_findings[severity_index]
     else:
         max_severity = Decimal(0).quantize(Decimal("0.1"))
         max_severity_finding = None

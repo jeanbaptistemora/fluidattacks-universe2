@@ -1,11 +1,20 @@
-{outputs, ...}: {
+{
+  outputs,
+  projectPath,
+  ...
+}: {
   lintPython = {
     dirsOfModules = {
       integrates = {
-        searchPaths.source = [
-          outputs."/integrates/back/env/pypi/runtime"
-          outputs."/integrates/back/env/pypi/unit-tests"
-        ];
+        searchPaths = {
+          pythonMypy = [
+            (projectPath "/integrates/back/src")
+          ];
+          source = [
+            outputs."/integrates/back/env/pypi/runtime"
+            outputs."/integrates/back/env/pypi/unit-tests"
+          ];
+        };
         python = "3.9";
         src = "/integrates/back/src";
       };
