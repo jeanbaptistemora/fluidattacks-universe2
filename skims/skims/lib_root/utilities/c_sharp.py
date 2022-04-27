@@ -11,6 +11,7 @@ from model.graph_model import (
 from typing import (
     Any,
     Iterator,
+    List,
     Optional,
     Set,
     Tuple,
@@ -172,3 +173,19 @@ def get_var_node_from_obj(
     ):
         return g.match_ast_d(shard.graph, preds[-1], "identifier")
     return None
+
+
+def get_object_identifiers(
+    shard: graph_model.GraphShard, graph_db: GraphDB, obj_names: Set[str]
+) -> List[str]:
+    obj_nodes = [
+        member for _, member in yield_object_creation(graph_db, obj_names)
+    ]
+    ident_objects = [
+        get_var_node_from_obj(shard, member) for member in obj_nodes
+    ]
+    ident_objects = [
+        shard.graph.nodes[element]["label_text"] if element else None
+        for element in ident_objects
+    ]
+    return list(filter(None, ident_objects))

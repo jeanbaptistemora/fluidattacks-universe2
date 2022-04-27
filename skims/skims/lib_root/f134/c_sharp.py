@@ -1,7 +1,6 @@
 from lib_root.utilities.c_sharp import (
     get_first_member,
-    get_var_node_from_obj,
-    yield_object_creation,
+    get_object_identifiers,
 )
 from lib_sast.types import (
     ShardDb,
@@ -138,19 +137,9 @@ def insecure_cors_origin(
             if shard.syntax_graph is None:
                 continue
 
-            cors_nodes = [
-                member
-                for _, member in yield_object_creation(
-                    graph_db, {"CorsPolicy"}
-                )
-            ]
-            cors_objects = [
-                get_var_node_from_obj(shard, member) for member in cors_nodes
-            ]
-            cors_objects = [
-                shard.graph.nodes[element]["label_text"] if element else None
-                for element in cors_objects
-            ]
+            cors_objects = get_object_identifiers(
+                shard, graph_db, {"CorsPolicy"}
+            )
             for member in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,
