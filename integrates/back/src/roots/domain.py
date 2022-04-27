@@ -714,14 +714,15 @@ async def send_mail_updated_root(
                 f"{value}"
             )
 
-    await groups_mail.send_mail_updated_root(
-        email_to=email_list,
-        group_name=group_name,
-        responsible=user_email,
-        root_content=root_content,
-        root_nickname=new_state.nickname,
-        modified_date=new_state.modified_date,
-    )
+    if root_content != "":
+        await groups_mail.send_mail_updated_root(
+            email_to=email_list,
+            group_name=group_name,
+            responsible=user_email,
+            root_content=root_content,
+            root_nickname=new_state.nickname,
+            modified_date=new_state.modified_date,
+        )
 
 
 async def update_root_cloning_status(  # pylint: disable=too-many-arguments
