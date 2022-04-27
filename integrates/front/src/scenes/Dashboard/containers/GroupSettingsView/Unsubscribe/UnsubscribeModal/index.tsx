@@ -90,4 +90,5 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
   );
 };
 
-export { UnsubscribeModal, IUnsubscribeModalProps };
+export type { IUnsubscribeModalProps };
+export { UnsubscribeModal };

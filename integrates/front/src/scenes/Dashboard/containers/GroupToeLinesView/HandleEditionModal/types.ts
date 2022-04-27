@@ -24,7 +24,7 @@ interface IHandleEditionModalProps {
   setSelectedToeLinesDatas: (selectedToeLinesDatas: IToeLinesData[]) => void;
 }
 
-export {
+export type {
   IFormValues,
   IHandleEditionModalProps,
   IHandleEditionModalFormProps,

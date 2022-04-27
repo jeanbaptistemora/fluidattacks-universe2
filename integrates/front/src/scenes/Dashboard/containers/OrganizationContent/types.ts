@@ -28,7 +28,7 @@ interface IGetUserPortfolios {
   };
 }
 
-export {
+export type {
   IGetOrganizationId,
   IGetUserPortfolios,
   IOrganizationContent,

@@ -52,7 +52,7 @@ interface IRejectZeroRiskVulnResultAttr {
   };
 }
 
-export {
+export type {
   IConfirmVulnZeroRiskResultAttr,
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalFormProps,

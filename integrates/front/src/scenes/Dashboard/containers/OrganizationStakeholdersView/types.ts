@@ -59,7 +59,7 @@ interface IStakeholderDataSet {
   role: string;
 }
 
-export {
+export type {
   IAddStakeholderAttrs,
   IGetOrganizationStakeholders,
   IUpdateStakeholderAttrs,

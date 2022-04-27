@@ -35,4 +35,5 @@ const setupSessionCheck: (expDate: string) => void = (expDate): void => {
   }, utc(expDate).diff(utc()));
 };
 
-export { authContext, IAuthContext, setupSessionCheck };
+export type { IAuthContext };
+export { authContext, setupSessionCheck };

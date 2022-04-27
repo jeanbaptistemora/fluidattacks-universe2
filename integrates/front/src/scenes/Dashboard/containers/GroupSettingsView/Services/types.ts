@@ -49,7 +49,7 @@ interface IServicesDataSet {
   service: string;
 }
 
-export {
+export type {
   IFormData,
   IGroupData,
   IServicesDataSet,

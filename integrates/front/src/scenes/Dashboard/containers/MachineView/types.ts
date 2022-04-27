@@ -70,7 +70,7 @@ interface IQueue {
   ) => Promise<FetchResult<ISubmitMachineJobResult>>;
 }
 
-export {
+export type {
   IExecution,
   IFindingMachineJob,
   IFindingMachineJobs,
