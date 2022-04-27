@@ -22,6 +22,7 @@ const GET_ROOTS: DocumentNode = gql`
           gitEnvironmentUrls {
             url
             id
+            createdAt
           }
           gitignore
           id
@@ -322,6 +323,7 @@ const GET_ENVIRONMENT_URL: DocumentNode = gql`
     environmentUrl(groupName: $groupName, urlId: $urlId) {
       id
       url
+      createdAt
       secrets {
         key
         value

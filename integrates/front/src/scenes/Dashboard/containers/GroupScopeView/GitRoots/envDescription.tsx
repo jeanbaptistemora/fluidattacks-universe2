@@ -2,16 +2,25 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Row } from "styles/styledComponents";
+import { formatDate } from "utils/formatHelpers";
 
 interface IDescriptionProps {
   repositoryUrls: string[];
+  createdAt: string;
 }
 
-const Description = ({ repositoryUrls }: IDescriptionProps): JSX.Element => {
+const Description = ({
+  repositoryUrls,
+  createdAt,
+}: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
     <div>
+      <h3>{t("group.scope.git.envUrl")}</h3>
+      <Row>
+        <ul>{`${t("group.scope.git.createdAt")} ${formatDate(createdAt)}`}</ul>
+      </Row>
       <h3>{t("group.scope.git.title")}</h3>
       <Row>
         <ul>
@@ -27,5 +36,8 @@ const Description = ({ repositoryUrls }: IDescriptionProps): JSX.Element => {
 };
 
 export const renderEnvDescription = (props: IDescriptionProps): JSX.Element => (
-  <Description repositoryUrls={props.repositoryUrls} />
+  <Description
+    createdAt={props.createdAt}
+    repositoryUrls={props.repositoryUrls}
+  />
 );

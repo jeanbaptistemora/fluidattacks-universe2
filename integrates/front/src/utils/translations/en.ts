@@ -719,6 +719,8 @@ export const enTranslations: ResourceKey = {
       },
       git: {
         confirmBranch: "Make sure the new branch is equivalent to the old one",
+        createdAt: "Creation date",
+        envUrl: "Environment URL",
         envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",

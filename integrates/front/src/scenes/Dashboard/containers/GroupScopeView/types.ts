@@ -7,6 +7,7 @@ interface IEnvironmentUrl {
   id: string;
   url: string;
   secrets: ISecret[];
+  createdAt: string;
 }
 interface IGitRootAttr {
   __typename: "GitRoot";
