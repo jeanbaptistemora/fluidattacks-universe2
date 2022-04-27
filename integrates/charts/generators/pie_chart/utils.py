@@ -23,13 +23,11 @@ from typing import (
     Tuple,
 )
 
-PortfoliosGroupsInfo = NamedTuple(
-    "PortfoliosGroupsInfo",
-    [
-        ("group_name", str),
-        ("value", Decimal),
-    ],
-)
+
+class PortfoliosGroupsInfo(NamedTuple):
+    group_name: str
+    value: Decimal
+
 
 MAX_GROUPS_DISPLAYED = 4
 
