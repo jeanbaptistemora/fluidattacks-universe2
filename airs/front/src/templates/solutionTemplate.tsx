@@ -14,7 +14,6 @@ import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { CloudImage } from "../components/CloudImage";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -78,10 +77,10 @@ const SolutionIndex: React.FC<IQueryData> = ({
 
           <PageArticle bgColor={"#f9f9f9"}>
             <BigPageContainer>
-              <CloudImage
-                alt={"Solution Image"}
-                src={`/airs/solutions/solution-${image}`}
-                styles={"ml-solution"}
+              <img
+                alt={"Fluid Solution"}
+                className={"ml-solution"}
+                src={image}
               />
               <RedMark className={"ml-solution"}>
                 <MarkedTitle>{title}</MarkedTitle>
