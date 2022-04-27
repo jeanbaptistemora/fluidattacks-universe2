@@ -22,10 +22,7 @@ import type {
   IUploadVulnerabilitiesResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import {
-  GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import {
   ButtonToolbarLeft,
   Col33,
@@ -42,6 +39,7 @@ import { composeValidators, isValidVulnsFile } from "utils/validations";
 
 interface IUploadVulnProps {
   findingId: string;
+  refetchData: () => void;
 }
 
 interface IErrorInfoAttr {
@@ -52,6 +50,7 @@ interface IErrorInfoAttr {
 
 const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   findingId,
+  refetchData,
 }: IUploadVulnProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
@@ -122,6 +121,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
               translate.t("groupAlerts.fileUpdated"),
               translate.t("groupAlerts.titleSuccess")
             );
+            refetchData();
           }
         }
       },
@@ -130,15 +130,6 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId,
-          },
-        },
-        {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: permissions.can(
-              "api_resolvers_finding_zero_risk_resolve"
-            ),
             findingId,
           },
         },

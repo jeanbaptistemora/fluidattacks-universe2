@@ -45,17 +45,17 @@ const Files: React.FC<IFilesProps> = ({
   const { t } = useTranslation();
 
   // State management
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
   const openAddModal: () => void = useCallback((): void => {
-    setIsAddModalOpen(true);
+    setAddModalOpen(true);
   }, []);
   const closeAddModal: () => void = useCallback((): void => {
-    setIsAddModalOpen(false);
+    setAddModalOpen(false);
   }, []);
 
-  const [isOptionsModalOpen, setIsOptionsModalOpen] = useState(false);
+  const [isOptionsModalOpen, setOptionsModalOpen] = useState(false);
   const closeOptionsModal: () => void = useCallback((): void => {
-    setIsOptionsModalOpen(false);
+    setOptionsModalOpen(false);
   }, []);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
@@ -64,7 +64,7 @@ const Files: React.FC<IFilesProps> = ({
   const handleRowClick: (_0: React.FormEvent, row: Dictionary<string>) => void =
     (_0: React.FormEvent, row: Dictionary<string>): void => {
       setCurrentRow(row);
-      setIsOptionsModalOpen(true);
+      setOptionsModalOpen(true);
     };
 
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
@@ -401,5 +401,4 @@ const Files: React.FC<IFilesProps> = ({
   );
 };
 
-export type { IFilesProps };
-export { Files };
+export { Files, IFilesProps };

@@ -318,6 +318,13 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
       Root: ["GitRoot", "IPRoot", "URLRoot"],
     },
     typePolicies: {
+      Finding: {
+        fields: {
+          vulnerabilitiesConnection: relayStylePagination(),
+          zeroRiskConnection: relayStylePagination(),
+        },
+        keyFields: ["id"],
+      },
       Group: {
         fields: {
           toeInputs: relayStylePagination(),

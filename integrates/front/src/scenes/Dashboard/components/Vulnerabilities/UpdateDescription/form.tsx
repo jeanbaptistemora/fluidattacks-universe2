@@ -65,10 +65,7 @@ import {
   hasNewTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-import {
-  GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
@@ -92,14 +89,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   vulnerabilities,
   handleClearSelected,
   handleCloseModal,
+  refetchData,
   setConfigFn,
 }: IUpdateTreatmentModalProps): JSX.Element => {
   const { t } = useTranslation();
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRetrieveZeroRisk: boolean = permissions.can(
-    "api_resolvers_finding_zero_risk_resolve"
-  );
   const canGetHistoricState: boolean = permissions.can(
     "api_resolvers_finding_historic_state_resolve"
   );
@@ -159,16 +154,15 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
 
   const [updateVuln, { loading: updatingVuln }] =
     useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
-      refetchQueries: [
-        {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk,
-            findingId: vulnerabilities[0].findingId,
-          },
-        },
-        { query: GET_ME_VULNERABILITIES_ASSIGNED },
-      ],
+      onCompleted: (data: IUpdateVulnDescriptionResultAttr): void => {
+        if (
+          !_.isUndefined(data.updateVulnerabilitiesTreatment) &&
+          data.updateVulnerabilitiesTreatment.success
+        ) {
+          refetchData();
+        }
+      },
+      refetchQueries: [{ query: GET_ME_VULNERABILITIES_ASSIGNED }],
     });
 
   const [sendNotification] = useMutation<ISendNotificationResultAttr>(
@@ -210,6 +204,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   >(REMOVE_TAGS_MUTATION, {
     onCompleted: (result: IRemoveTagResultAttr): void => {
       deleteTagVulnHelper(result);
+      refetchData();
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach((error: GraphQLError): void => {
@@ -220,16 +215,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
       });
     },
-    refetchQueries: [
-      {
-        query: GET_FINDING_VULNS,
-        variables: {
-          canRetrieveZeroRisk,
-          findingId: vulnerabilities[0].findingId,
-        },
-      },
-      { query: GET_ME_VULNERABILITIES_ASSIGNED },
-    ],
+    refetchQueries: [{ query: GET_ME_VULNERABILITIES_ASSIGNED }],
   });
 
   const handleUpdateVulnTreatment = async (
@@ -310,6 +296,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         requestZeroRiskHelper(
           handleClearSelected,
           handleCloseModal,
+          refetchData,
           requestZeroRiskVulnResult
         );
       },
@@ -320,13 +307,6 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_AND_GROUP_INFO,
           variables: {
-            findingId: vulnerabilities[0].findingId,
-          },
-        },
-        {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk,
             findingId: vulnerabilities[0].findingId,
           },
         },

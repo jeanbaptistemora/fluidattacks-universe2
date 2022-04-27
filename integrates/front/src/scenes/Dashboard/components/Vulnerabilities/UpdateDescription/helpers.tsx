@@ -320,6 +320,7 @@ const handleUpdateVulnTreatmentError = (updateError: unknown): void => {
 const requestZeroRiskHelper = (
   handleClearSelected: () => void,
   handleCloseModal: () => void,
+  refetchData: () => void,
   requestZeroRiskVulnResult: IRequestVulnZeroRiskResultAttr
 ): void => {
   if (requestZeroRiskVulnResult.requestVulnerabilitiesZeroRisk.success) {
@@ -329,6 +330,7 @@ const requestZeroRiskHelper = (
     );
     handleClearSelected();
     handleCloseModal();
+    refetchData();
   }
 };
 
@@ -372,7 +374,8 @@ const handleSubmitHelper = async (
   isTreatmentPristine: boolean
   // Exception: FP(parameters are necessary)
   // eslint-disable-next-line
-): Promise<void> => { // NOSONAR
+): Promise<void> => {
+  // NOSONAR
   if (changedToRequestZeroRisk) {
     await requestZeroRisk({
       variables: {
@@ -387,7 +390,12 @@ const handleSubmitHelper = async (
     confirm((): void => {
       // Exception: FP(void operator is necessary)
       // eslint-disable-next-line
-      void handleUpdateVulnTreatment(values, isEditPristine, isTreatmentPristine); //NOSONAR
+      // NOSONAR
+      void handleUpdateVulnTreatment(
+        values,
+        isEditPristine,
+        isTreatmentPristine
+      );
     });
   } else {
     await handleUpdateVulnTreatment(

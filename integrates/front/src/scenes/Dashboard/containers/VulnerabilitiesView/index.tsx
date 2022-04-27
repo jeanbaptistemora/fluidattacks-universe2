@@ -4,7 +4,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -36,12 +36,14 @@ import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/A
 import { HandleAcceptanceModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal";
 import {
   GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
+  GET_FINDING_NZR_VULNS,
+  GET_FINDING_ZR_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type {
   IGetFindingAndGroupInfo,
-  IGetFindingVulns,
   IModalConfig,
+  IVulnerabilitiesConnection,
+  IVulnerabilityEdge,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
 import { Col100 } from "styles/styledComponents";
@@ -72,7 +74,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
     "api_resolvers_vulnerability_hacker_resolve"
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
-    "api_resolvers_finding_zero_risk_resolve"
+    "api_resolvers_finding_zero_risk_connection_resolve"
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -155,34 +157,104 @@ export const VulnsView: React.FC = (): JSX.Element => {
     }
   );
 
-  const { data: vulnsData, refetch: refetchVulnsData } =
-    useQuery<IGetFindingVulns>(GET_FINDING_VULNS, {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred loading finding", error);
+  const {
+    data: nzrVulnsData,
+    fetchMore: nzrFetchMore,
+    refetch: nzrRefetch,
+  } = useQuery<{
+    finding: { vulnerabilitiesConnection: IVulnerabilitiesConnection };
+  }>(GET_FINDING_NZR_VULNS, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred loading finding non zero risk vulnerabilities",
+          error
+        );
+      });
+    },
+    variables: {
+      findingId,
+      first: 300,
+    },
+  });
+  const vulnerabilitiesConnection =
+    nzrVulnsData === undefined
+      ? undefined
+      : nzrVulnsData.finding.vulnerabilitiesConnection;
+
+  const nzrVulnsPageInfo =
+    vulnerabilitiesConnection === undefined
+      ? undefined
+      : vulnerabilitiesConnection.pageInfo;
+  const nzrVulnsEdges: IVulnerabilityEdge[] =
+    vulnerabilitiesConnection === undefined
+      ? []
+      : vulnerabilitiesConnection.edges;
+  const {
+    data: zrVulnsData,
+    fetchMore: zrFetchMore,
+    refetch: zrRefetch,
+  } = useQuery<{
+    finding: { zeroRiskConnection: IVulnerabilitiesConnection | undefined };
+  }>(GET_FINDING_ZR_VULNS, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred loading finding zero risk vulnerabilities",
+          error
+        );
+      });
+    },
+    variables: {
+      canRetrieveZeroRisk,
+      findingId,
+      first: 300,
+    },
+  });
+  const zeroRiskConnection =
+    zrVulnsData === undefined
+      ? undefined
+      : zrVulnsData.finding.zeroRiskConnection;
+  const zrVulnsPageInfo =
+    zeroRiskConnection === undefined ? undefined : zeroRiskConnection.pageInfo;
+  const zrVulnsEdges: IVulnerabilityEdge[] =
+    zeroRiskConnection === undefined ? [] : zeroRiskConnection.edges;
+
+  const unformattedVulns: IVulnRowAttr[] = zrVulnsEdges
+    .concat(nzrVulnsEdges)
+    .map(
+      (vulnerabilityEdge: IVulnerabilityEdge): IVulnRowAttr =>
+        vulnerabilityEdge.node
+    );
+
+  useEffect((): void => {
+    if (!_.isUndefined(nzrVulnsPageInfo)) {
+      if (nzrVulnsPageInfo.hasNextPage) {
+        void nzrFetchMore({
+          variables: { after: nzrVulnsPageInfo.endCursor, first: 1200 },
         });
-      },
-      variables: {
-        canRetrieveZeroRisk,
-        findingId,
-      },
-    });
+      }
+    }
+  }, [nzrVulnsPageInfo, nzrFetchMore]);
+  useEffect((): void => {
+    if (!_.isUndefined(zrVulnsPageInfo)) {
+      if (zrVulnsPageInfo.hasNextPage) {
+        void zrFetchMore({
+          variables: { after: zrVulnsPageInfo.endCursor, first: 1200 },
+        });
+      }
+    }
+  }, [zrVulnsPageInfo, zrFetchMore]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <React.StrictMode />;
   }
-
-  if (_.isUndefined(vulnsData) || _.isEmpty(vulnsData)) {
-    return <React.StrictMode />;
-  }
-
-  const zeroRiskVulns: IVulnRowAttr[] = vulnsData.finding.zeroRisk
-    ? vulnsData.finding.zeroRisk
-    : [];
-
-  const unformattedVulns: IVulnRowAttr[] =
-    vulnsData.finding.vulnerabilities.concat(zeroRiskVulns);
 
   const vulnerabilities: IVulnRowAttr[] = formatVulnerabilitiesTreatment(
     unformattedVulns.map(
@@ -389,6 +461,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
     }
   }
 
+  function refetchVulnsData(): void {
+    void nzrRefetch();
+    void zrRefetch();
+  }
+
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: filterVulnerabilitiesTable.treatment,
@@ -471,7 +548,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
     return (
       <Col100>
         <Can do={"api_mutations_upload_file_mutate"}>
-          <UploadVulnerabilities findingId={findingId} />
+          <UploadVulnerabilities
+            findingId={findingId}
+            refetchData={refetchVulnsData}
+          />
         </Can>
       </Col100>
     );
@@ -534,6 +614,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 isRequestingReattack={isRequestingVerify}
                 isVerifyingRequest={isVerifying}
                 onVulnSelect={openRemediationModal}
+                refetchData={refetchVulnsData}
                 vulnerabilities={
                   isRequestingVerify
                     ? filterZeroRisk(
@@ -552,6 +633,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             handleCloseModal={closeRemediationModal}
             isReattacking={isRequestingVerify}
             isVerifying={isVerifying}
+            refetchData={refetchVulnsData}
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
             vulns={remediationModal.selectedVulnerabilities}
@@ -577,6 +659,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
               groupName={groupName}
               handleClearSelected={_.get(remediationModal, "clearSelected")}
               handleCloseModal={handleCloseUpdateModal}
+              refetchData={refetchVulnsData}
               vulnerabilities={remediationModal.selectedVulnerabilities}
             />
           </Modal>

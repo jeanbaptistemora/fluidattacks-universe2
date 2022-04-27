@@ -63,6 +63,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   isFindingReleased,
   isRequestingReattack,
   isVerifyingRequest,
+  refetchData,
   nonValidOnReattackVulnerabilities,
   vulnerabilities,
   onVulnSelect,
@@ -111,6 +112,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     setIsDeleteVulnOpen(false);
   }, []);
   function onDeleteVulnResult(removeVulnResult: IRemoveVulnAttr): void {
+    refetchData();
     onRemoveVulnResultHelper(removeVulnResult, t);
     setIsDeleteVulnOpen(false);
   }
@@ -337,6 +339,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           groupName={groupName}
           isAdditionalInfoOpen={isAdditionalInfoOpen}
           isFindingReleased={isFindingReleased}
+          refetchData={refetchData}
         />
       ) : undefined}
     </React.StrictMode>

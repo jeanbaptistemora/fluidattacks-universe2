@@ -29,6 +29,7 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
   vulnerabilities,
   handleClearSelected,
   handleCloseModal,
+  refetchData,
 }: IUpdateDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
   const lastTreatment: IHistoricTreatment = {
@@ -154,6 +155,7 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                 groupName={groupName}
                 handleClearSelected={handleClearSelected}
                 handleCloseModal={handleCloseModal}
+                refetchData={refetchData}
                 setConfigFn={setConfigFn}
                 vulnerabilities={vulnerabilities}
               />

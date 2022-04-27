@@ -44,7 +44,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       "api_resolvers_finding_historic_state_resolve"
     );
     const canRetrieveZeroRisk: boolean = permissions.can(
-      "api_resolvers_finding_zero_risk_resolve"
+      "api_resolvers_finding_zero_risk_connection_resolve"
     );
     const canHandleVulnsAcceptance: boolean = permissions.can(
       "api_mutations_handle_vulnerabilities_acceptance_mutate"

@@ -13,6 +13,7 @@ interface IUpdateDescriptionProps {
   vulnerabilities: IVulnDataTypeAttr[];
   handleClearSelected: () => void;
   handleCloseModal: () => void;
+  refetchData: () => void;
 }
 
 interface ISendNotificationResultAttr {

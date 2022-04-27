@@ -149,6 +149,7 @@ describe("VulnComponent", (): void => {
   it("should render in vulnerabilities", (): void => {
     expect.hasAssertions();
 
+    const handleRefetchData: jest.Mock = jest.fn();
     const { rerender } = render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
@@ -160,6 +161,7 @@ describe("VulnComponent", (): void => {
           isRequestingReattack={false}
           isVerifyingRequest={false}
           onVulnSelect={jest.fn()}
+          refetchData={handleRefetchData}
           vulnerabilities={mocks}
         />
       </authzPermissionsContext.Provider>
@@ -184,6 +186,7 @@ describe("VulnComponent", (): void => {
           isRequestingReattack={true}
           isVerifyingRequest={false}
           onVulnSelect={jest.fn()}
+          refetchData={handleRefetchData}
           vulnerabilities={mocks}
         />
       </authzPermissionsContext.Provider>
@@ -195,11 +198,13 @@ describe("VulnComponent", (): void => {
     expect(
       within(screen.getAllByRole("row")[2]).getByRole("checkbox")
     ).toBeDisabled();
+    expect(handleRefetchData).not.toHaveBeenCalled();
   });
 
   it("should render in vulnerabilities in draft", (): void => {
     expect.hasAssertions();
 
+    const handleRefetchData: jest.Mock = jest.fn();
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <VulnComponent
@@ -211,6 +216,7 @@ describe("VulnComponent", (): void => {
           isRequestingReattack={false}
           isVerifyingRequest={false}
           onVulnSelect={jest.fn()}
+          refetchData={handleRefetchData}
           vulnerabilities={mocks}
         />
       </authzPermissionsContext.Provider>
@@ -222,5 +228,6 @@ describe("VulnComponent", (): void => {
     ).not.toBeInTheDocument();
     expect(screen.queryAllByRole("button")).toHaveLength(0);
     expect(screen.queryAllByRole("checkbox")).toHaveLength(0);
+    expect(handleRefetchData).not.toHaveBeenCalled();
   });
 });

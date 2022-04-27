@@ -662,6 +662,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
               )
             )}
             onVulnSelect={openRemediationModal}
+            refetchData={refetchVulnerabilitiesAssigned}
             vulnerabilities={resultVulnerabilities}
           />
         </div>
@@ -672,6 +673,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
           handleCloseModal={closeRemediationModal}
           isReattacking={isReattacking}
           isVerifying={false}
+          refetchData={refetchVulnerabilitiesAssigned}
           setRequestState={onReattack}
           setVerifyState={onReattack}
           vulns={modalConfig.selectedVulnerabilities}
@@ -709,6 +711,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
                     handleClearSelected={_.get(modalConfig, "clearSelected")}
                     handleCloseModal={onClose}
                     isOpen={iscurrentOpen[index]}
+                    refetchData={refetchVulnerabilitiesAssigned}
                     vulnerabilities={vulnerabilitiesToUpdated}
                   />
                 </Modal>

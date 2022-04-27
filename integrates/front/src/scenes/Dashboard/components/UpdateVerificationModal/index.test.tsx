@@ -13,7 +13,8 @@ import {
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import {
   GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
+  GET_FINDING_NZR_VULNS,
+  GET_FINDING_ZR_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 
@@ -40,16 +41,39 @@ describe("update verification component", (): void => {
     },
     {
       request: {
-        query: GET_FINDING_VULNS,
+        query: GET_FINDING_ZR_VULNS,
         variables: {
           canRetrieveZeroRisk: false,
           findingId: "",
+          first: 300,
         },
       },
       result: {
         data: {
           finding: {
-            vulnerabilities: [],
+            zeroRiskConnection: undefined,
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_FINDING_NZR_VULNS,
+        variables: {
+          findingId: "",
+          first: 300,
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            vulnerabilitiesConnection: {
+              edges: [],
+              pageInfo: {
+                endCursor: "test-cursor=",
+                hasNextPage: false,
+              },
+            },
           },
         },
       },
@@ -76,6 +100,7 @@ describe("update verification component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -100,6 +125,7 @@ describe("update verification component", (): void => {
           handleCloseModal={handleOnClose}
           isReattacking={true}
           isVerifying={false}
+          refetchData={handleRefetchData}
           setRequestState={handleRequestState}
           setVerifyState={jest.fn()}
           vulns={[
@@ -126,6 +152,7 @@ describe("update verification component", (): void => {
     });
 
     expect(handleRequestState).toHaveBeenCalledTimes(1);
+    expect(handleRefetchData).toHaveBeenCalledTimes(1);
   });
 
   it("should handle request verification error", async (): Promise<void> => {
@@ -135,6 +162,7 @@ describe("update verification component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -167,6 +195,7 @@ describe("update verification component", (): void => {
           handleCloseModal={handleOnClose}
           isReattacking={true}
           isVerifying={false}
+          refetchData={handleRefetchData}
           setRequestState={handleRequestState}
           setVerifyState={jest.fn()}
           vulns={[
@@ -194,6 +223,7 @@ describe("update verification component", (): void => {
     });
 
     expect(handleRequestState).not.toHaveBeenCalled();
+    expect(handleRefetchData).not.toHaveBeenCalled();
   });
 
   it("should handle verify a request", async (): Promise<void> => {
@@ -203,6 +233,7 @@ describe("update verification component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleVerifyState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -251,6 +282,7 @@ describe("update verification component", (): void => {
           handleCloseModal={handleOnClose}
           isReattacking={false}
           isVerifying={true}
+          refetchData={handleRefetchData}
           setRequestState={jest.fn()}
           setVerifyState={handleVerifyState}
           vulns={[
@@ -279,6 +311,7 @@ describe("update verification component", (): void => {
     });
 
     expect(handleVerifyState).toHaveBeenCalledTimes(1);
+    expect(handleRefetchData).toHaveBeenCalledTimes(1);
   });
 
   it("should handle verify a request error", async (): Promise<void> => {
@@ -286,6 +319,7 @@ describe("update verification component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleVerifyState: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -314,6 +348,7 @@ describe("update verification component", (): void => {
           handleCloseModal={handleOnClose}
           isReattacking={false}
           isVerifying={true}
+          refetchData={handleRefetchData}
           setRequestState={jest.fn()}
           setVerifyState={handleVerifyState}
           vulns={[
@@ -339,5 +374,6 @@ describe("update verification component", (): void => {
     });
 
     expect(handleVerifyState).not.toHaveBeenCalled();
+    expect(handleRefetchData).not.toHaveBeenCalled();
   });
 });

@@ -74,6 +74,7 @@ interface IVulnComponentProps {
   isEditing: boolean;
   isRequestingReattack: boolean;
   isVerifyingRequest: boolean;
+  refetchData: () => void;
   nonValidOnReattackVulnerabilities?: IVulnRowAttr[];
   vulnerabilities: IVulnRowAttr[];
   onVulnSelect: (

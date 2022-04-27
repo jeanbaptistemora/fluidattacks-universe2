@@ -23,7 +23,8 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Description
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import {
   GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
+  GET_FINDING_NZR_VULNS,
+  GET_FINDING_ZR_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -84,32 +85,57 @@ describe("Update Description component", (): void => {
     },
     {
       request: {
-        query: GET_FINDING_VULNS,
+        query: GET_FINDING_ZR_VULNS,
         variables: {
           canRetrieveZeroRisk: false,
-          id: "422286126",
+          findingId: "422286126",
+          first: 300,
         },
       },
       result: {
         data: {
           finding: {
-            vulnerabilities: [
-              {
-                currentState: "open",
-                externalBugTrackingSystem: null,
-                findingId: "422286126",
-                id: "",
-                remediated: false,
-                reportDate: "",
-                severity: null,
-                specific: "",
-                tag: "",
-                verification: null,
-                vulnerabilityType: "",
-                where: "",
-                zeroRisk: null,
+            zeroRiskConnection: undefined,
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_FINDING_NZR_VULNS,
+        variables: {
+          findingId: "422286126",
+          first: 300,
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            vulnerabilitiesConnection: {
+              edges: [
+                {
+                  node: {
+                    currentState: "open",
+                    externalBugTrackingSystem: null,
+                    findingId: "422286126",
+                    id: "",
+                    remediated: false,
+                    reportDate: "",
+                    severity: null,
+                    specific: "",
+                    tag: "",
+                    verification: null,
+                    vulnerabilityType: "",
+                    where: "",
+                    zeroRisk: null,
+                  },
+                },
+              ],
+              pageInfo: {
+                endCursor: "test-cursor=",
+                hasNextPage: false,
               },
-            ],
+            },
           },
         },
       },
@@ -214,6 +240,7 @@ describe("Update Description component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     render(
       <MockedProvider addTypename={false} mocks={[]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -222,6 +249,7 @@ describe("Update Description component", (): void => {
             groupName={""}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
             vulnerabilities={vulns}
           />
         </authzPermissionsContext.Provider>
@@ -260,6 +288,8 @@ describe("Update Description component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
+
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -285,6 +315,7 @@ describe("Update Description component", (): void => {
             groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
             vulnerabilities={vulns}
           />
         </authzPermissionsContext.Provider>
@@ -322,6 +353,7 @@ describe("Update Description component", (): void => {
 
     expect(handleClearSelected).toHaveBeenCalledWith();
     expect(handleOnClose).toHaveBeenCalledWith();
+    expect(handleRefetchData).toHaveBeenCalledTimes(1);
   });
 
   it("should handle request zero risk error", async (): Promise<void> => {
@@ -331,6 +363,8 @@ describe("Update Description component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
+
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -365,6 +399,7 @@ describe("Update Description component", (): void => {
             groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
             vulnerabilities={vulns}
           />
         </authzPermissionsContext.Provider>
@@ -402,6 +437,7 @@ describe("Update Description component", (): void => {
 
     expect(handleClearSelected).not.toHaveBeenCalled();
     expect(handleOnClose).not.toHaveBeenCalled();
+    expect(handleRefetchData).not.toHaveBeenCalled();
     expect(msgError).toHaveBeenNthCalledWith(
       2,
       translate.t("validations.invalidFieldLength")
@@ -415,6 +451,7 @@ describe("Update Description component", (): void => {
 
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResultAttr = {
       updateVulnerabilitiesTreatment: { success: true },
       updateVulnerabilityTreatment: { success: true },
@@ -507,6 +544,7 @@ describe("Update Description component", (): void => {
             groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
             vulnerabilities={vulnsToUpdate}
           />
         </authzPermissionsContext.Provider>
@@ -561,6 +599,8 @@ describe("Update Description component", (): void => {
 
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
+    const handleRefetchData: jest.Mock = jest.fn();
+
     const mocksError: MockedResponse = {
       request: {
         query: UPDATE_DESCRIPTION_MUTATION,
@@ -611,6 +651,7 @@ describe("Update Description component", (): void => {
             groupName={"testgroupname"}
             handleClearSelected={handleClearSelected}
             handleCloseModal={handleOnClose}
+            refetchData={handleRefetchData}
             vulnerabilities={vulnsToUpdate}
           />
         </authzPermissionsContext.Provider>
@@ -659,5 +700,6 @@ describe("Update Description component", (): void => {
     });
 
     expect(handleOnClose).not.toHaveBeenCalled();
+    expect(handleRefetchData).not.toHaveBeenCalled();
   });
 });

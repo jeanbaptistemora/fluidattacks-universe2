@@ -12,6 +12,10 @@ import {
   handleVerifyRequest,
   handleVerifyRequestError,
 } from "./helpers";
+import type {
+  IRequestVulnVerificationResult,
+  IVerifyRequestVulnResult,
+} from "./types";
 
 import { Switch } from "components/Switch";
 import { Table } from "components/Table";
@@ -24,10 +28,7 @@ import {
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import {
-  GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -47,6 +48,7 @@ interface IUpdateVerificationModal {
   handleCloseModal: () => void;
   setRequestState: () => void;
   setVerifyState: () => void;
+  refetchData: () => void;
 }
 
 const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
@@ -57,6 +59,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   handleCloseModal,
   setRequestState,
   setVerifyState,
+  refetchData,
 }: IUpdateVerificationModal): JSX.Element => {
   const MAX_JUSTIFICATION_LENGTH = 10000;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -73,33 +76,34 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
   }, [handleCloseModal]);
 
   // GraphQL operations
-  const [requestVerification, { loading: submittingRequest }] = useMutation(
-    REQUEST_VULNERABILITIES_VERIFICATION,
-    {
-      refetchQueries: [
-        {
-          query: GET_FINDING_AND_GROUP_INFO,
-          variables: {
-            findingId: vulnerabilitiesList[0].findingId,
-          },
+  const [requestVerification, { loading: submittingRequest }] =
+    useMutation<IRequestVulnVerificationResult>(
+      REQUEST_VULNERABILITIES_VERIFICATION,
+      {
+        onCompleted: (data: IRequestVulnVerificationResult): void => {
+          if (data.requestVulnerabilitiesVerification.success) {
+            refetchData();
+          }
         },
-        {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: permissions.can(
-              "api_resolvers_finding_zero_risk_resolve"
-            ),
-            findingId: vulnerabilitiesList[0].findingId,
+        refetchQueries: [
+          {
+            query: GET_FINDING_AND_GROUP_INFO,
+            variables: {
+              findingId: vulnerabilitiesList[0].findingId,
+            },
           },
-        },
-        { query: GET_ME_VULNERABILITIES_ASSIGNED },
-      ],
-    }
-  );
+          { query: GET_ME_VULNERABILITIES_ASSIGNED },
+        ],
+      }
+    );
 
-  const [verifyRequest, { loading: submittingVerify }] = useMutation(
-    VERIFY_VULNERABILITIES,
-    {
+  const [verifyRequest, { loading: submittingVerify }] =
+    useMutation<IVerifyRequestVulnResult>(VERIFY_VULNERABILITIES, {
+      onCompleted: (data: IVerifyRequestVulnResult): void => {
+        if (data.verifyVulnerabilitiesRequest.success) {
+          refetchData();
+        }
+      },
       refetchQueries: [
         {
           query: GET_FINDING_HEADER,
@@ -114,18 +118,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
             findingId: vulnerabilitiesList[0].findingId,
           },
         },
-        {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: permissions.can(
-              "api_resolvers_finding_zero_risk_resolve"
-            ),
-            findingId: vulnerabilitiesList[0].findingId,
-          },
-        },
       ],
-    }
-  );
+    });
 
   async function handleSubmit(values: {
     treatmentJustification: string;
