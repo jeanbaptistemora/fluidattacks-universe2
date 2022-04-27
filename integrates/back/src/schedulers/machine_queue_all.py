@@ -19,9 +19,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from groups.domain import (
-    get_active_groups,
-    get_attributes,
+from db_model.groups.types import (
+    Group,
 )
 from machine.availability import (
     is_check_available,
@@ -31,8 +30,8 @@ from machine.jobs import (
     queue_job_new,
     SkimsBatchQueue,
 )
-from newutils.utils import (
-    get_key_or_fallback,
+from organizations import (
+    domain as orgs_domain,
 )
 from schedulers.common import (
     error,
@@ -57,22 +56,24 @@ class PreparedJob(NamedTuple):
 
 
 async def _queue_all_checks(
-    group: str,
+    loaders: Dataloaders,
+    group_name: str,
     finding_codes: tuple[str, ...],
-    dataloaders: Any,
 ) -> Optional[PutActionResult]:
     result = await queue_job_new(
-        group_name=group,
+        dataloaders=loaders,
+        group_name=group_name,
         finding_codes=finding_codes,
         queue=SkimsBatchQueue.LOW,
-        dataloaders=dataloaders,
     )
     if result:
         info(
-            "Queued %s with the follow identifier %s", group, result.dynamo_pk
+            "Queued %s with the follow identifier %s",
+            group_name,
+            result.dynamo_pk,
         )
     else:
-        error("A queuing error has occurred %s", group)
+        error("A queuing error has occurred %s", group_name)
     return result
 
 
@@ -100,18 +101,19 @@ async def get_jobs_from_bach(*job_ids: str) -> list[dict[str, Any]]:
 
 
 async def _roots_by_group(
-    group: str, group_conf: dict[Any, Any], dataloaders: Dataloaders
+    loaders: Dataloaders,
+    group: Group,
 ) -> RootsByGroup:
-    if not get_key_or_fallback(group_conf, "has_machine", "has_skims", False):
+    if group.state.has_machine:
         return RootsByGroup(
-            group_name=group,
+            group_name=group.name,
             roots=[],
         )
     return RootsByGroup(
-        group_name=group,
+        group_name=group.name,
         roots=[
             root.state.nickname
-            for root in await dataloaders.group_roots.load(group)
+            for root in await loaders.group_roots.load(group.name)
             if root.state.status == "ACTIVE"
         ],
     )
@@ -119,32 +121,29 @@ async def _roots_by_group(
 
 async def main() -> None:
     session = aioboto3.Session()
+    loaders: Dataloaders = get_new_context()
     async with session.client("s3") as s3_client:
-        groups: list[str] = [
+        all_active_groups = await orgs_domain.get_all_active_groups_typed(
+            loaders
+        )
+        group_names: list[str] = [
             prefix["Prefix"].split("/")[0]
             for response in await collect(
                 s3_client.list_objects(
                     Bucket="continuous-repositories",
-                    Prefix=group,
+                    Prefix=group.name,
                     Delimiter="/",
                     MaxKeys=1,
                 )
-                for group in await get_active_groups()
+                for group in all_active_groups
             )
             for prefix in response.get("CommonPrefixes", [])
         ]
-    dataloaders: Dataloaders = get_new_context()
-    groups_data = await collect(
-        get_attributes(group, ["historic_configuration"]) for group in groups
-    )
-    groups_confs = [
-        group_data["historic_configuration"][-1] for group_data in groups_data
-    ]
     findings = [key for key in FINDINGS.keys() if _is_check_available(key)]
     _groups_roots: list[RootsByGroup] = await collect(
         [
-            _roots_by_group(group, conf, dataloaders)
-            for group, conf in zip(groups, groups_confs)
+            _roots_by_group(loaders, group)
+            for group in await loaders.group_typed.load_many(group_names)
         ]
     )
 
@@ -165,9 +164,9 @@ async def main() -> None:
     )
     all_job_futures = [
         _queue_all_checks(
-            group=prepared_job.group_name,
+            loaders=loaders,
+            group_name=prepared_job.group_name,
             finding_codes=tuple(findings),
-            dataloaders=dataloaders,
         )
         for prepared_job in sorted_jobs
         if len(prepared_job.roots) > 0
