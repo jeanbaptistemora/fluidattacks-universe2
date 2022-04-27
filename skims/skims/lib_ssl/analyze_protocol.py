@@ -454,6 +454,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+# pylint: disable=too-many-arguments
 def _get_weak_enabled_suites_as_vuln(
     ctx: SSLContext,
     v_id: SSLVersionId,
@@ -463,7 +464,7 @@ def _get_weak_enabled_suites_as_vuln(
     cipher_names: List[str],
     hash_names: List[str],
     extensions: Optional[List[int]] = None,
-) -> core_model.Vulnerabilities:
+) -> List[SSLVulnerability]:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
     for suite in cipher_suites:
@@ -481,7 +482,12 @@ def _get_weak_enabled_suites_as_vuln(
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if response is not None and response.handshake is not None:
+        if (
+            response is not None
+            and response.handshake is not None
+            and response.handshake.cipher_suite is not None
+        ):
+            cipher_iana_name = response.handshake.cipher_suite.iana_name
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     ssl_settings=SSLSettings(
@@ -495,7 +501,7 @@ def _get_weak_enabled_suites_as_vuln(
                     method=getattr(core_model.MethodsEnum, method_name),
                     check_kwargs={
                         "v_name": ssl_id2ssl_name(v_id),
-                        "insecure_cipher": response.handshake.cipher_suite.iana_name,
+                        "insecure_cipher": cipher_iana_name,
                     },
                 )
             )
