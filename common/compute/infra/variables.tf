@@ -38,3 +38,6 @@ data "aws_subnet" "batch_main" {
     values = ["batch_main"]
   }
 }
+data "aws_iam_role" "prod_common" {
+  name = "prod_common"
+}

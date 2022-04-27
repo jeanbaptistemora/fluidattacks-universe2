@@ -117,7 +117,6 @@ locals {
 }
 
 resource "aws_batch_compute_environment" "default" {
-  # https://forums.aws.amazon.com/thread.jspa?threadID=289427
   for_each = local.compute_environments
 
   compute_environment_name_prefix = "${each.key}_"
@@ -153,4 +152,55 @@ resource "aws_batch_compute_environment" "default" {
     create_before_destroy = true
   }
   tags = each.value.tags
+}
+
+locals {
+  environments = {
+    fargate = {
+      unlimited_spot = {
+        max_vcpus = 10000
+        type      = "FARGATE_SPOT"
+      }
+      unlimited_dedicated = {
+        max_vcpus = 10000
+        type      = "FARGATE"
+      }
+      limited_spot = {
+        max_vcpus = 10
+        type      = "FARGATE_SPOT"
+      }
+      limited_dedicated = {
+        max_vcpus = 10
+        type      = "FARGATE"
+      }
+    }
+  }
+}
+
+resource "aws_batch_compute_environment" "fargate" {
+  for_each = local.environments.fargate
+
+  compute_environment_name = "fargate_${each.key}"
+
+  service_role = data.aws_iam_role.prod_common.arn
+  state        = "ENABLED"
+  type         = "MANAGED"
+
+  compute_resources {
+    max_vcpus = each.value.max_vcpus
+    type      = each.value.type
+
+    security_group_ids = [aws_security_group.aws_batch_compute_environment_security_group.id]
+    subnets = [
+      data.aws_subnet.batch_clone.id,
+      data.aws_subnet.batch_main.id,
+    ]
+  }
+
+  tags = {
+    "Name"               = "fargate_${each.key}"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
 }

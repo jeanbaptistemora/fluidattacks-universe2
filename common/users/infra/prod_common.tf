@@ -93,6 +93,7 @@ module "prod_common_aws" {
       Effect = "Allow",
       Principal = {
         Service = [
+          "batch.amazonaws.com",
           "ecs-tasks.amazonaws.com",
           "events.amazonaws.com",
         ],
