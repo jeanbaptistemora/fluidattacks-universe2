@@ -2404,6 +2404,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_EC2_DEFAULT_SEC_GROUP = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_use_default_security_group",
+        module="lib_path",
+        finding=FindingEnum.F109,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_DB_INSIDE_SUBNET = MethodInfo(
         file_name="terraform",
         name="tfm_db_cluster_inside_subnet",

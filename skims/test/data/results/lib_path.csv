@@ -1715,6 +1715,102 @@ F024,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skim
   14 | }
      ^ Col 0
 ",terraform.tfm_ec2_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+> 32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+> 25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,34,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+> 34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+  44 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,44,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+> 44 |       ""Properties"": {
+  45 |         ""ImageId"": ""ami-79fd7eee"",
+  46 |         ""KeyName"": ""testkey""
+  47 |       }
+  48 |     }
+  49 |   }
+  50 | }
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,1,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
 >  1 | resource ""aws_instance"" ""project-iac"" {
    2 |   ami                         = lookup(var.awsprops, ""ami"")
@@ -3483,6 +3579,102 @@ F333,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skim
   14 | }
      ^ Col 0
 ",terraform.tfm_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,31,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,24,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+> 24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,34,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+> 34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+  44 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,44,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+> 44 |       ""Properties"": {
+  45 |         ""ImageId"": ""ami-79fd7eee"",
+  46 |         ""KeyName"": ""testkey""
+  47 |       }
+  48 |     }
+  49 |   }
+  50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f247/test_ec2.tf,1,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f247/test_ec2.tf,"
 >  1 | resource ""aws_instance"" ""project-iac"" {
    2 |   ami                         = lookup(var.awsprops, ""ami"")
@@ -20480,6 +20672,246 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   36 |               ""LatestVersionNumber""
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,6,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+   1 | Resources:
+   2 |   MyLaunchTemplate:
+   3 |     Type: AWS::EC2::LaunchTemplate
+   4 |     Properties:
+   5 |       LaunchTemplateName: MyLaunchTemplate
+>  6 |       LaunchTemplateData:
+   7 |         InstanceType: t2.micro
+   8 |         KeyName: MyKeyPair
+   9 |         SecurityGroupIds:
+  10 |           - sg-083cd3bfb8example
+  11 |   MyLaunchTemplate2:
+  12 |     Type: AWS::EC2::LaunchTemplate
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,15,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+   5 |       LaunchTemplateName: MyLaunchTemplate
+   6 |       LaunchTemplateData:
+   7 |         InstanceType: t2.micro
+   8 |         KeyName: MyKeyPair
+   9 |         SecurityGroupIds:
+  10 |           - sg-083cd3bfb8example
+  11 |   MyLaunchTemplate2:
+  12 |     Type: AWS::EC2::LaunchTemplate
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+> 15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,20,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  10 |           - sg-083cd3bfb8example
+  11 |   MyLaunchTemplate2:
+  12 |     Type: AWS::EC2::LaunchTemplate
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+> 20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,31,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,24,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+> 24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,7,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyLaunchTemplate"": {
+   4 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+   5 |       ""Properties"": {
+   6 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+>  7 |         ""LaunchTemplateData"": {
+   8 |           ""InstanceType"": ""t2.micro"",
+   9 |           ""KeyName"": ""MyKeyPair"",
+  10 |           ""SecurityGroupIds"": [
+  11 |             ""sg-083cd3bfb8example""
+  12 |           ]
+  13 |         }
+  14 |       }
+  15 |     },
+  16 |     ""MyLaunchTemplate2"": {
+  17 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,20,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  10 |           ""SecurityGroupIds"": [
+  11 |             ""sg-083cd3bfb8example""
+  12 |           ]
+  13 |         }
+  14 |       }
+  15 |     },
+  16 |     ""MyLaunchTemplate2"": {
+  17 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+> 20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+  22 |           ""KeyName"": ""MyKeyPair""
+  23 |         }
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,28,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+  22 |           ""KeyName"": ""MyKeyPair""
+  23 |         }
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+> 28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,34,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+> 34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+  44 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,44,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+> 44 |       ""Properties"": {
+  45 |         ""ImageId"": ""ami-79fd7eee"",
+  46 |         ""KeyName"": ""testkey""
+  47 |       }
+  48 |     }
+  49 |   }
+  50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,17,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
    7 |        InstanceType: t2.micro
    8 |        KeyName: MyKeyPair
@@ -22996,6 +23428,631 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   69 |     },
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_protocol
+F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml","
+   1 | Resources:
+   2 |   EC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,15,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml","
+   5 |       LaunchTemplateName: MyLaunchTemplate
+   6 |       LaunchTemplateData:
+   7 |         InstanceType: t2.micro
+   8 |         KeyName: MyKeyPair
+   9 |         SecurityGroupIds:
+  10 |           - sg-083cd3bfb8example
+  11 |   MyLaunchTemplate2:
+  12 |     Type: AWS::EC2::LaunchTemplate
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+> 15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,20,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml","
+  10 |           - sg-083cd3bfb8example
+  11 |   MyLaunchTemplate2:
+  12 |     Type: AWS::EC2::LaunchTemplate
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+> 20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,31,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml","
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,20,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json","
+  10 |           ""SecurityGroupIds"": [
+  11 |             ""sg-083cd3bfb8example""
+  12 |           ]
+  13 |         }
+  14 |       }
+  15 |     },
+  16 |     ""MyLaunchTemplate2"": {
+  17 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+> 20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+  22 |           ""KeyName"": ""MyKeyPair""
+  23 |         }
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,28,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json","
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+  22 |           ""KeyName"": ""MyKeyPair""
+  23 |         }
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+> 28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,44,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json","
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+> 44 |       ""Properties"": {
+  45 |         ""ImageId"": ""ami-79fd7eee"",
+  46 |         ""KeyName"": ""testkey""
+  47 |       }
+  48 |     }
+  49 |   }
+  50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,6,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+   1 | Resources:
+   2 |   MyLaunchTemplate:
+   3 |     Type: AWS::EC2::LaunchTemplate
+   4 |     Properties:
+   5 |       LaunchTemplateName: MyLaunchTemplate
+>  6 |       LaunchTemplateData:
+   7 |         InstanceType: t2.micro
+   8 |         KeyName: MyKeyPair
+   9 |         DisableApiTermination: true
+  10 |   MyLaunchTemplate2:
+  11 |     Type: AWS::EC2::LaunchTemplate
+  12 |     Properties:
+  13 |       LaunchTemplateName: MyLaunchTemplate
+  14 |       LaunchTemplateData:
+  15 |         InstanceType: t2.micro
+  16 |         KeyName: MyKeyPair
+  17 |         DisableApiTermination: False
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,14,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+   4 |     Properties:
+   5 |       LaunchTemplateName: MyLaunchTemplate
+   6 |       LaunchTemplateData:
+   7 |         InstanceType: t2.micro
+   8 |         KeyName: MyKeyPair
+   9 |         DisableApiTermination: true
+  10 |   MyLaunchTemplate2:
+  11 |     Type: AWS::EC2::LaunchTemplate
+  12 |     Properties:
+  13 |       LaunchTemplateName: MyLaunchTemplate
+> 14 |       LaunchTemplateData:
+  15 |         InstanceType: t2.micro
+  16 |         KeyName: MyKeyPair
+  17 |         DisableApiTermination: False
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,22,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+  12 |     Properties:
+  13 |       LaunchTemplateName: MyLaunchTemplate
+  14 |       LaunchTemplateData:
+  15 |         InstanceType: t2.micro
+  16 |         KeyName: MyKeyPair
+  17 |         DisableApiTermination: False
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+> 22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,27,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+  17 |         DisableApiTermination: False
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+> 27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,43,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+> 43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,37,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml","
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+> 37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,7,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyLaunchTemplate"": {
+   4 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+   5 |       ""Properties"": {
+   6 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+>  7 |         ""LaunchTemplateData"": {
+   8 |           ""InstanceType"": ""t2.micro"",
+   9 |           ""KeyName"": ""MyKeyPair"",
+  10 |           ""DisableApiTermination"": true
+  11 |         }
+  12 |       }
+  13 |     },
+  14 |     ""MyLaunchTemplate2"": {
+  15 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  16 |       ""Properties"": {
+  17 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  18 |         ""LaunchTemplateData"": {
+  19 |           ""InstanceType"": ""t2.micro"",
+  20 |           ""KeyName"": ""MyKeyPair"",
+  21 |           ""DisableApiTermination"": false
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,18,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+   8 |           ""InstanceType"": ""t2.micro"",
+   9 |           ""KeyName"": ""MyKeyPair"",
+  10 |           ""DisableApiTermination"": true
+  11 |         }
+  12 |       }
+  13 |     },
+  14 |     ""MyLaunchTemplate2"": {
+  15 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  16 |       ""Properties"": {
+  17 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+> 18 |         ""LaunchTemplateData"": {
+  19 |           ""InstanceType"": ""t2.micro"",
+  20 |           ""KeyName"": ""MyKeyPair"",
+  21 |           ""DisableApiTermination"": false
+  22 |         }
+  23 |       }
+  24 |     },
+  25 |     ""MyLaunchTemplate3"": {
+  26 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  27 |       ""Properties"": {
+  28 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,29,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+  19 |           ""InstanceType"": ""t2.micro"",
+  20 |           ""KeyName"": ""MyKeyPair"",
+  21 |           ""DisableApiTermination"": false
+  22 |         }
+  23 |       }
+  24 |     },
+  25 |     ""MyLaunchTemplate3"": {
+  26 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  27 |       ""Properties"": {
+  28 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+> 29 |         ""LaunchTemplateData"": {
+  30 |           ""InstanceType"": ""t2.micro"",
+  31 |           ""KeyName"": ""MyKeyPair""
+  32 |         }
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,37,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+  27 |       ""Properties"": {
+  28 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  29 |         ""LaunchTemplateData"": {
+  30 |           ""InstanceType"": ""t2.micro"",
+  31 |           ""KeyName"": ""MyKeyPair""
+  32 |         }
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+> 37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+> 43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+> 51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+  59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json","
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+> 59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+  62 |       }
+  63 |     }
+  64 |   }
+  65 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml","
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,18,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml","
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+> 18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+  22 |       BlockDeviceMappings:
+  23 |       - DeviceName: ""/dev/sdm""
+  24 |         Ebs:
+  25 |           VolumeType: ""io1""
+  26 |           Iops: ""200""
+  27 |           DeleteOnTermination: ""false""
+  28 |           VolumeSize: ""20""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""IamInstanceProfile"": ""iamProfile"",
+   9 |         ""BlockDeviceMappings"": [
+  10 |           {
+  11 |             ""DeviceName"": ""/dev/sdm"",
+  12 |             ""Ebs"": {
+  13 |               ""VolumeType"": ""io1"",
+  14 |               ""Iops"": ""200"",
+  15 |               ""DeleteOnTermination"": ""false"",
+  16 |               ""VolumeSize"": ""20""
+  17 |             }
+  18 |           },
+  19 |           {
+  20 |             ""DeviceName"": ""/dev/sdk"",
+  21 |             ""NoDevice"": {}
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
 F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = true
