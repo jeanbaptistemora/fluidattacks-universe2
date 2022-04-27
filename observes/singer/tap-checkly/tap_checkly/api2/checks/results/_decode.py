@@ -8,11 +8,7 @@ from ._core import (
 from dateutil.parser import (
     isoparse,
 )
-from decimal import (
-    Decimal,
-)
 from fa_purity import (
-    FrozenDict,
     JsonObj,
     JsonValue,
     Maybe,
