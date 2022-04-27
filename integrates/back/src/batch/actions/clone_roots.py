@@ -220,7 +220,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if not roots:
         raise InactiveRoot()
 
-    credentials_for_roots = {
+    credentials_for_roots_tupled: dict[str, tuple[CredentialItem, ...]] = {
         root_id: tuple(
             cred
             for cred in tuple(
@@ -232,9 +232,9 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         )
         for root_id in roots_dict.keys()
     }
-    credentials_for_roots = {
+    credentials_for_roots: dict[str, CredentialItem] = {
         root_id: creds[0]
-        for root_id, creds in credentials_for_roots.items()
+        for root_id, creds in credentials_for_roots_tupled.items()
         if creds
     }
 
