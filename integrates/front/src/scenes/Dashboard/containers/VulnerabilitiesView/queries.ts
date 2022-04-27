@@ -40,20 +40,6 @@ const GET_FINDING_AND_GROUP_INFO: DocumentNode = gql`
   }
 `;
 
-const GET_FINDING_VULNS: DocumentNode = gql`
-  query GetFindingVulns($canRetrieveZeroRisk: Boolean!, $findingId: String!) {
-    finding(identifier: $findingId) {
-      vulnerabilities {
-        ...vulnFields
-      }
-      zeroRisk @include(if: $canRetrieveZeroRisk) {
-        ...vulnFields
-      }
-    }
-  }
-  ${VULNS_FRAGMENT}
-`;
-
 const GET_FINDING_NZR_VULNS: DocumentNode = gql`
   query GetFindingNzrVulns(
     $after: String
@@ -110,7 +96,6 @@ const GET_FINDING_ZR_VULNS: DocumentNode = gql`
 export {
   VULNS_FRAGMENT,
   GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
   GET_FINDING_NZR_VULNS,
   GET_FINDING_ZR_VULNS,
 };

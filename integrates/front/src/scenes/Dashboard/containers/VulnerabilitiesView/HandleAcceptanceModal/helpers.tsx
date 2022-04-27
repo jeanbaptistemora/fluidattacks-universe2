@@ -18,10 +18,7 @@ import type {
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/types";
-import {
-  GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -48,7 +45,6 @@ const onTreatmentChangeHelper = (
 const acceptanceProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  canRetrieveZeroRisk: boolean,
   findingId: string,
   groupName: string
 ): MutationHookOptions => {
@@ -93,13 +89,6 @@ const acceptanceProps = (
           groupName,
         },
       },
-      {
-        query: GET_FINDING_VULNS,
-        variables: {
-          canRetrieveZeroRisk,
-          findingId,
-        },
-      },
     ],
   };
 };
@@ -107,7 +96,6 @@ const acceptanceProps = (
 const confirmZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  canRetrieveZeroRisk: boolean,
   findingId: string,
   groupName: string,
   canGetHistoricState: boolean
@@ -145,13 +133,6 @@ const confirmZeroRiskProps = (
         },
       },
       {
-        query: GET_FINDING_VULNS,
-        variables: {
-          canRetrieveZeroRisk,
-          findingId,
-        },
-      },
-      {
         query: GET_FINDING_HEADER,
         variables: {
           canGetHistoricState,
@@ -165,7 +146,6 @@ const confirmZeroRiskProps = (
 const rejectZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  canRetrieveZeroRisk: boolean,
   findingId: string,
   groupName: string,
   canGetHistoricState: boolean
@@ -200,13 +180,6 @@ const rejectZeroRiskProps = (
         variables: {
           findingId,
           groupName,
-        },
-      },
-      {
-        query: GET_FINDING_VULNS,
-        variables: {
-          canRetrieveZeroRisk,
-          findingId,
         },
       },
       {

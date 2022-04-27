@@ -43,9 +43,6 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const canGetHistoricState: boolean = permissions.can(
       "api_resolvers_finding_historic_state_resolve"
     );
-    const canRetrieveZeroRisk: boolean = permissions.can(
-      "api_resolvers_finding_zero_risk_connection_resolve"
-    );
     const canHandleVulnsAcceptance: boolean = permissions.can(
       "api_mutations_handle_vulnerabilities_acceptance_mutate"
     );
@@ -80,20 +77,13 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     // GraphQL operations
     const [handleAcceptance, { loading: handlingAcceptance }] = useMutation(
       HANDLE_VULNS_ACCEPTANCE,
-      acceptanceProps(
-        refetchData,
-        handleCloseModal,
-        canRetrieveZeroRisk,
-        findingId,
-        groupName
-      )
+      acceptanceProps(refetchData, handleCloseModal, findingId, groupName)
     );
     const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
       CONFIRM_VULNERABILITIES_ZERO_RISK,
       confirmZeroRiskProps(
         refetchData,
         handleCloseModal,
-        canRetrieveZeroRisk,
         findingId,
         groupName,
         canGetHistoricState
@@ -104,7 +94,6 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       rejectZeroRiskProps(
         refetchData,
         handleCloseModal,
-        canRetrieveZeroRisk,
         findingId,
         groupName,
         canGetHistoricState

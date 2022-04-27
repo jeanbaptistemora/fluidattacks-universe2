@@ -14,10 +14,7 @@ import {
   HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/queries";
-import {
-  GET_FINDING_AND_GROUP_INFO,
-  GET_FINDING_VULNS,
-} from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
+import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -79,22 +76,6 @@ describe("handle vulns acceptance modal", (): void => {
             group: {
               name: "",
               subscription: "",
-            },
-          },
-        },
-      },
-      {
-        request: {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: false,
-            findingId: "1",
-          },
-        },
-        result: {
-          data: {
-            finding: {
-              vulnerabilities: [],
             },
           },
         },
@@ -322,22 +303,6 @@ describe("handle vulns acceptance modal", (): void => {
           },
         },
       },
-      {
-        request: {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: false,
-            findingId: "422286126",
-          },
-        },
-        result: {
-          data: {
-            finding: {
-              vulnerabilities: [],
-            },
-          },
-        },
-      },
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
@@ -494,22 +459,6 @@ describe("handle vulns acceptance modal", (): void => {
           },
         },
       },
-      {
-        request: {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: false,
-            findingId: "422286126",
-          },
-        },
-        result: {
-          data: {
-            finding: {
-              vulnerabilities: [],
-            },
-          },
-        },
-      },
     ];
     const mokedVulns: IVulnerabilitiesAttr[] = [
       {
@@ -662,22 +611,6 @@ describe("handle vulns acceptance modal", (): void => {
             group: {
               groupName: "group_name",
               subscription: "",
-            },
-          },
-        },
-      },
-      {
-        request: {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: false,
-            findingId: "422286126",
-          },
-        },
-        result: {
-          data: {
-            finding: {
-              vulnerabilities: [],
             },
           },
         },
@@ -839,22 +772,6 @@ describe("handle vulns acceptance modal", (): void => {
             group: {
               groupName: "group_name",
               subscription: "",
-            },
-          },
-        },
-      },
-      {
-        request: {
-          query: GET_FINDING_VULNS,
-          variables: {
-            canRetrieveZeroRisk: false,
-            findingId: "422286126",
-          },
-        },
-        result: {
-          data: {
-            finding: {
-              vulnerabilities: [],
             },
           },
         },
