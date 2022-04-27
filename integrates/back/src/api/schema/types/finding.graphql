@@ -79,6 +79,12 @@ type Finding {
     "Filter vulnerabilities by their current state"
     state: String
   ): [Vulnerability!]
+    @deprecated(
+      reason: """
+      This field will be removed after 2022/10/27. Use
+      `vulnerabilitiesConnection` instead.
+      """
+    )
   "Vulnerabilities associated with the Finding"
   vulnerabilitiesConnection(
     "The cursor for the forward pagination"
@@ -90,6 +96,12 @@ type Finding {
   ): VulnerabilitiesConnection!
   "Vulnerabilities that have been requested for a reattack"
   vulnerabilitiesToReattack: [Vulnerability!]
+    @deprecated(
+      reason: """
+      This field will be removed after 2022/10/27. Use
+      `vulnerabilitiesToReattackConnection` instead.
+      """
+    )
   "Vulnerabilities that have been requested for a reattack"
   vulnerabilitiesToReattackConnection(
     "The cursor for the forward pagination"
@@ -110,6 +122,12 @@ type Finding {
     "Filter vulnerabilities by their current state"
     state: String
   ): [Vulnerability]
+    @deprecated(
+      reason: """
+      This field will be removed after 2022/10/27. Use `zeroRiskConnection`
+      instead.
+      """
+    )
   """
   List of requested and confirmed zero-risk vulnerabilities within the
   Finding
