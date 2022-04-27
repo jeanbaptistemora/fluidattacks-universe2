@@ -5,10 +5,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { AddOrganizationModal } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal";
-import {
-  ADD_NEW_ORGANIZATION,
-  GET_AVAILABLE_ORGANIZATION_NAME,
-} from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
+import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
@@ -34,20 +31,7 @@ describe("Add organization modal", (): void => {
   it("should render component", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: GET_AVAILABLE_ORGANIZATION_NAME,
-        },
-        result: {
-          data: {
-            internalNames: {
-              name: "ESDEATH",
-            },
-          },
-        },
-      },
-    ];
+    const mocks: MockedResponse[] = [];
 
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -55,11 +39,7 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    await waitFor((): void => {
-      expect(screen.getByRole("textbox")).toHaveAttribute("value", "Esdeath");
-    });
-
-    expect(screen.getByRole("textbox")).toBeDisabled();
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
 
     userEvent.click(screen.getByText("confirmmodal.cancel"));
 
@@ -72,18 +52,6 @@ describe("Add organization modal", (): void => {
     expect.hasAssertions();
 
     const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: GET_AVAILABLE_ORGANIZATION_NAME,
-        },
-        result: {
-          data: {
-            internalNames: {
-              name: "ESDEATH",
-            },
-          },
-        },
-      },
       {
         request: {
           query: ADD_NEW_ORGANIZATION,
@@ -110,11 +78,9 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    await waitFor((): void => {
-      expect(screen.getByRole("textbox")).toHaveAttribute("value", "Esdeath");
-    });
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
 
-    expect(screen.getByRole("textbox")).toBeDisabled();
+    userEvent.type(screen.getByRole("textbox"), "esdeath");
 
     userEvent.click(screen.getByText("confirmmodal.proceed"));
 

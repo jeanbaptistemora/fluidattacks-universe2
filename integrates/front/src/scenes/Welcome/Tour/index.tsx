@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -6,16 +6,10 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import { object, string } from "yup";
 
-import {
-  ADD_ORGANIZATION,
-  GET_NEW_ORGANIZATION_NAME,
-  GET_USER_WELCOME,
-} from "../queries";
-import type {
-  IAddOrganizationResult,
-  IGetNewOrganizationNameResult,
-} from "../types";
+import { ADD_ORGANIZATION, GET_USER_WELCOME } from "../queries";
+import type { IAddOrganizationResult } from "../types";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -27,31 +21,6 @@ import { msgError } from "utils/notifications";
 const Tour: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { goBack, replace } = useHistory();
-
-  const { data, loading } = useQuery<IGetNewOrganizationNameResult>(
-    GET_NEW_ORGANIZATION_NAME,
-    {
-      fetchPolicy: "no-cache",
-      onError: (error): void => {
-        error.graphQLErrors.forEach(({ message }): void => {
-          if (
-            message ===
-            "Exception - There are no organization names available at the moment"
-          ) {
-            msgError(t("sidebar.newOrganization.modal.namesUnavailable"));
-          } else {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error(
-              "An error occurred getting a name for a new organization",
-              message
-            );
-          }
-        });
-      },
-    }
-  );
-  const organizationName =
-    data === undefined ? "" : data.internalNames.name.toUpperCase();
 
   const [addOrganization, { loading: submitting }] =
     useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
@@ -82,7 +51,7 @@ const Tour: React.FC = (): JSX.Element => {
   const handleSubmit = useCallback(
     async (values: { name: string }): Promise<void> => {
       mixpanel.track("AddOrganization");
-      await addOrganization({ variables: values });
+      await addOrganization({ variables: { name: values.name.toUpperCase() } });
       localStorage.clear();
       sessionStorage.clear();
       replace(`/orgs/${values.name.toLowerCase()}/groups`);
@@ -90,13 +59,20 @@ const Tour: React.FC = (): JSX.Element => {
     [addOrganization, replace]
   );
 
+  const validations = object().shape({
+    name: string()
+      .required()
+      .matches(/^[a-zA-Z]{4,10}$/u),
+  });
+
   return (
     <div>
       <Formik
         enableReinitialize={true}
-        initialValues={{ name: organizationName }}
+        initialValues={{ name: "" }}
         name={"newOrganization"}
         onSubmit={handleSubmit}
+        validationSchema={validations}
       >
         <Form>
           <Row justify={"center"} key={0}>
@@ -110,12 +86,7 @@ const Tour: React.FC = (): JSX.Element => {
                   message={t("sidebar.newOrganization.modal.nameTooltip")}
                   placement={"top"}
                 >
-                  <Field
-                    component={FormikText}
-                    disabled={true}
-                    name={"name"}
-                    type={"text"}
-                  />
+                  <Field component={FormikText} name={"name"} type={"text"} />
                 </TooltipWrapper>
               </FormGroup>
             </Col>
@@ -123,11 +94,7 @@ const Tour: React.FC = (): JSX.Element => {
           <Button onClick={goBack} variant={"secondary"}>
             {t("confirmmodal.cancel")}
           </Button>
-          <Button
-            disabled={loading || submitting}
-            type={"submit"}
-            variant={"primary"}
-          >
+          <Button disabled={submitting} type={"submit"} variant={"primary"}>
             {t("confirmmodal.proceed")}
           </Button>
         </Form>

@@ -1,26 +1,22 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import { object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import {
-  ADD_NEW_ORGANIZATION,
-  GET_AVAILABLE_ORGANIZATION_NAME,
-} from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
+import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 import type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
-  IAddOrganizationQryProps,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
 import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields/";
@@ -36,29 +32,6 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
   const { push } = useHistory();
 
   // GraphQL Operations
-  const { data, loading } = useQuery<IAddOrganizationQryProps>(
-    GET_AVAILABLE_ORGANIZATION_NAME,
-    {
-      onError: (error: ApolloError): void => {
-        onClose();
-        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          if (
-            message ===
-            "Exception - There are no organization names available at the moment"
-          ) {
-            msgError(t("sidebar.newOrganization.modal.namesUnavailable"));
-          } else {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred creating an organization",
-              message
-            );
-          }
-        });
-      },
-    }
-  );
-
   const [addOrganization, { loading: submitting }] = useMutation(
     ADD_NEW_ORGANIZATION,
     {
@@ -99,11 +72,14 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
 
   function handleSubmit(values: { name: string }): void {
     mixpanel.track("AddOrganization");
-    void addOrganization({ variables: { name: values.name } });
+    void addOrganization({ variables: { name: values.name.toUpperCase() } });
   }
 
-  const organizationName: string =
-    _.isUndefined(data) || _.isEmpty(data) ? "" : data.internalNames.name;
+  const validations = object().shape({
+    name: string()
+      .required()
+      .matches(/^[a-zA-Z]{4,10}$/u),
+  });
 
   // Render Elements
   return (
@@ -115,9 +91,10 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
       >
         <Formik
           enableReinitialize={true}
-          initialValues={{ name: organizationName.toUpperCase() }}
+          initialValues={{ name: "" }}
           name={"newOrganization"}
           onSubmit={handleSubmit}
+          validationSchema={validations}
         >
           <Form>
             <Row>
@@ -130,12 +107,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
                   message={t("sidebar.newOrganization.modal.nameTooltip")}
                   placement={"top"}
                 >
-                  <Field
-                    component={FormikText}
-                    disabled={true}
-                    name={"name"}
-                    type={"text"}
-                  />
+                  <Field component={FormikText} name={"name"} type={"text"} />
                 </TooltipWrapper>
               </FormGroup>
             </Row>
@@ -143,11 +115,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
               <Button onClick={onClose} variant={"secondary"}>
                 {t("confirmmodal.cancel")}
               </Button>
-              <Button
-                disabled={loading || submitting}
-                type={"submit"}
-                variant={"primary"}
-              >
+              <Button disabled={submitting} type={"submit"} variant={"primary"}>
                 {t("confirmmodal.proceed")}
               </Button>
             </ModalFooter>

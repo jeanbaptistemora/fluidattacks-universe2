@@ -11,14 +11,6 @@ const GET_USER_WELCOME = gql`
   }
 `;
 
-const GET_NEW_ORGANIZATION_NAME = gql`
-  query GetNewOrganizationName {
-    internalNames(entity: ORGANIZATION) {
-      name
-    }
-  }
-`;
-
 const ADD_ORGANIZATION = gql`
   mutation AddOrganization($name: String!) {
     addOrganization(name: $name) {
@@ -39,9 +31,4 @@ const AUTOENROLL_DEMO = gql`
   }
 `;
 
-export {
-  ADD_ORGANIZATION,
-  AUTOENROLL_DEMO,
-  GET_NEW_ORGANIZATION_NAME,
-  GET_USER_WELCOME,
-};
+export { ADD_ORGANIZATION, AUTOENROLL_DEMO, GET_USER_WELCOME };

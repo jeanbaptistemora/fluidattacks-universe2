@@ -46,9 +46,6 @@ import logging.config
 from mailer import (
     groups as groups_mail,
 )
-from names import (
-    domain as names_domain,
-)
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
@@ -63,6 +60,7 @@ from newutils.validations import (
 from organizations import (
     dal as orgs_dal,
 )
+import re
 from settings import (
     LOGGING,
 )
@@ -216,13 +214,14 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
 
 
 async def add_organization(name: str, email: str) -> OrganizationType:
-    new_organization: OrganizationType = {}
+    if not re.match(r"^[a-zA-Z]{4,10}$", name):
+        raise InvalidOrganization()
 
-    if not await names_domain.exists(name, "organization"):
+    org = await orgs_dal.get_by_name(name, ["id"])
+    if org:
         raise InvalidOrganization()
 
     new_organization = await get_or_add(name, email)
-    await names_domain.remove(name, "organization")
     return new_organization
 
 

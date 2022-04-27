@@ -2914,8 +2914,7 @@ export const enTranslations: ResourceKey = {
       modal: {
         invalidName: "Name specified for the organization is not allowed",
         name: "Organization name",
-        nameTooltip:
-          "Random name that will be assigned to your new organization",
+        nameTooltip: "Name that will be assigned to your new organization",
         namesUnavailable:
           "There are no available organization names at the moment",
         success: "Organization {{name}} created successfully",

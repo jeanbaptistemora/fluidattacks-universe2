@@ -5,12 +5,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import {
-  ADD_ORGANIZATION,
-  AUTOENROLL_DEMO,
-  GET_NEW_ORGANIZATION_NAME,
-  GET_USER_WELCOME,
-} from "./queries";
+import { ADD_ORGANIZATION, AUTOENROLL_DEMO, GET_USER_WELCOME } from "./queries";
 
 import { Welcome } from ".";
 
@@ -104,18 +99,6 @@ describe("Welcome", (): void => {
         },
       },
     };
-    const getNewOrganizationNameMock: MockedResponse = {
-      request: {
-        query: GET_NEW_ORGANIZATION_NAME,
-      },
-      result: {
-        data: {
-          internalNames: {
-            name: "neworg",
-          },
-        },
-      },
-    };
 
     const addOrganizationMock: MockedResponse = {
       request: {
@@ -156,7 +139,6 @@ describe("Welcome", (): void => {
           addTypename={false}
           mocks={[
             getUserWelcomeBeforeMock,
-            getNewOrganizationNameMock,
             addOrganizationMock,
             getUserWelcomeAfterMock,
           ]}
@@ -169,6 +151,8 @@ describe("Welcome", (): void => {
     await waitFor((): void => {
       userEvent.click(screen.getAllByRole("article")[0]);
     });
+
+    userEvent.type(screen.getByRole("textbox"), "neworg");
 
     const buttons = screen.getAllByRole("button");
 

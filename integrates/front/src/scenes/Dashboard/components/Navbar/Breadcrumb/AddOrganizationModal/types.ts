@@ -3,12 +3,6 @@ interface IAddOrganizationModalProps {
   onClose: () => void;
 }
 
-interface IAddOrganizationQryProps {
-  internalNames: {
-    name: string;
-  };
-}
-
 interface IAddOrganizationMtProps {
   addOrganization: {
     organization: {
@@ -19,8 +13,4 @@ interface IAddOrganizationMtProps {
   };
 }
 
-export type {
-  IAddOrganizationModalProps,
-  IAddOrganizationMtProps,
-  IAddOrganizationQryProps,
-};
+export type { IAddOrganizationModalProps, IAddOrganizationMtProps };

@@ -7,12 +7,6 @@ interface IGetUserWelcomeResult {
   };
 }
 
-interface IGetNewOrganizationNameResult {
-  internalNames: {
-    name: string;
-  };
-}
-
 interface IAddOrganizationResult {
   addOrganization: {
     organization: {
@@ -32,6 +26,5 @@ interface IAutoenrollDemoResult {
 export type {
   IAddOrganizationResult,
   IAutoenrollDemoResult,
-  IGetNewOrganizationNameResult,
   IGetUserWelcomeResult,
 };
