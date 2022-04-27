@@ -149,7 +149,7 @@ class FindingEnum(Enum):
         requirements=[169],
     )
     F004: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
+        auto_approve=False,
         code="F004",
         cwe=78,
         execution_queue=ExecutionQueue.injection,
@@ -1194,6 +1194,14 @@ class MethodsEnum(Enum):
         module="sast",
         finding=FindingEnum.F004,
         developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    CS_REMOTE_COMMAND_EXECUTION = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_remote_command_execution",
+        module="lib_root",
+        finding=FindingEnum.F004,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
     QUERY_F008 = MethodInfo(
