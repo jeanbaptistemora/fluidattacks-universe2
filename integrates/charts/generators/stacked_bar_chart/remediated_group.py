@@ -17,39 +17,47 @@ from charts.generators.stacked_bar_chart.utils import (
     MIN_PERCENTAGE,
     RemediatedStatus,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
+)
 from decimal import (
     Decimal,
 )
-from groups import (
-    domain as groups_domain,
-)
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> RemediatedStatus:
-    item = await groups_domain.get_attributes(
-        group,
-        [
-            "open_vulnerabilities",
-            "closed_vulnerabilities",
-        ],
+async def get_data_one_group(
+    loaders: Dataloaders,
+    group_name: str,
+) -> RemediatedStatus:
+    indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group_name)
     )
-
     return RemediatedStatus(
-        group_name=group.lower(),
-        open_vulnerabilities=item.get("open_vulnerabilities", 0),
-        closed_vulnerabilities=item.get("closed_vulnerabilities", 0),
+        group_name=group_name,
+        open_vulnerabilities=indicators.open_vulnerabilities or 0,
+        closed_vulnerabilities=indicators.closed_vulnerabilities or 0,
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> List[RemediatedStatus]:
-    groups_data = await collect(map(get_data_one_group, groups), workers=32)
+async def get_data_many_groups(
+    loaders: Dataloaders,
+    group_names: list[str],
+) -> list[RemediatedStatus]:
+    groups_data = await collect(
+        [
+            get_data_one_group(loaders, group_name)
+            for group_name in group_names
+        ],
+        workers=32,
+    )
 
     return sorted(
         groups_data,
@@ -63,8 +71,8 @@ async def get_data_many_groups(groups: List[str]) -> List[RemediatedStatus]:
 
 
 def format_percentages(
-    values: Dict[str, Decimal]
-) -> Tuple[Dict[str, str], ...]:
+    values: dict[str, Decimal]
+) -> tuple[dict[str, str], ...]:
     if not values:
         max_percentage_values = dict(
             Closed="",
@@ -79,11 +87,11 @@ def format_percentages(
 
     total_bar: Decimal = values["Closed"] + values["Open"]
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
-    raw_percentages: List[Decimal] = [
+    raw_percentages: list[Decimal] = [
         values["Closed"] / total_bar,
         values["Open"] / total_bar,
     ]
-    percentages: List[Decimal] = get_percentage(raw_percentages)
+    percentages: list[Decimal] = get_percentage(raw_percentages)
     max_percentage_values = dict(
         Closed=str(percentages[0]) if percentages[0] >= MIN_PERCENTAGE else "",
         Open=str(percentages[1]) if percentages[1] >= MIN_PERCENTAGE else "",
@@ -97,9 +105,9 @@ def format_percentages(
 
 
 def format_data(
-    data: List[RemediatedStatus], size_limit: int = 0
-) -> Dict[str, Any]:
-    limited_data: List[RemediatedStatus] = limit_data(data, size_limit)
+    data: list[RemediatedStatus], size_limit: int = 0
+) -> dict[str, Any]:
+    limited_data: list[RemediatedStatus] = limit_data(data, size_limit)
     percentage_values = [
         format_percentages(
             {
@@ -177,12 +185,15 @@ def format_data(
 
 
 async def generate_all() -> None:
-    async for org_id, _, org_groups in (
+    loaders: Dataloaders = get_new_context()
+    async for org_id, _, org_group_names in (
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
             document=format_data(
-                data=await get_data_many_groups(list(org_groups)),
+                data=await get_data_many_groups(
+                    loaders, list(org_group_names)
+                ),
                 size_limit=18,
             ),
             entity="organization",
@@ -190,10 +201,12 @@ async def generate_all() -> None:
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+        for portfolio, group_names in await utils.get_portfolios_groups(
+            org_name
+        ):
             utils.json_dump(
                 document=format_data(
-                    data=await get_data_many_groups(groups),
+                    data=await get_data_many_groups(loaders, group_names),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
