@@ -128,7 +128,7 @@ In the DevSecOps section,
 there is the Export button
 on the top left.
 Clicking on this button,
-you can download a CVS
+you can download a CSV
 (comma-separated values)
 file containing all the
 information in the table
