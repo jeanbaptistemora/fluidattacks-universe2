@@ -50,14 +50,29 @@
   "cefsharp.common": {
     "GHSA-gvqv-779r-4jgp": "<86.0.241"
   },
+  "cefsharp.common.netcore": {
+    "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
+  },
+  "cefsharp.offscreen": {
+    "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
+  },
+  "cefsharp.offscreen.netcore": {
+    "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
+  },
   "cefsharp.winforms": {
     "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.winforms.netcore": {
+    "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
   },
   "cefsharp.wpf": {
     "GHSA-gvqv-779r-4jgp": "<86.0.241"
   },
   "cefsharp.wpf.hwndhost": {
     "GHSA-gvqv-779r-4jgp": "<86.0.241"
+  },
+  "cefsharp.wpf.netcore": {
+    "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
   },
   "cleditor": {
     "CVE-2019-1010113": "<1.4.5"
@@ -452,6 +467,9 @@
   },
   "powershell": {
     "CVE-2020-1108": "7.0"
+  },
+  "razorengine": {
+    "CVE-2021-46703": "<4.5.1"
   },
   "recurly-api-client": {
     "CVE-2017-0907": ">=1.0.0 <=1.8.0"
