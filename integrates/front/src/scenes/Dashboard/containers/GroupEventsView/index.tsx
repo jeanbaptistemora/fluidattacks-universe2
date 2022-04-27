@@ -685,7 +685,9 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             position: "right",
           }}
           dataset={resultDataset}
-          defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}
+          defaultSorted={JSON.parse(
+            _.get(sessionStorage, "eventSort", "{}") as string
+          )}
           exportCsv={true}
           extraButtons={
             <Row>

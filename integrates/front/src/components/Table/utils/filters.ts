@@ -22,7 +22,10 @@ function filterText<T extends Record<string, any>>(
   return rows.filter((row: T): boolean =>
     _.isEmpty(searchText)
       ? true
-      : _.includes(row[columnKey].toLowerCase(), searchText.toLowerCase())
+      : _.includes(
+          (row[columnKey] as string).toLowerCase(),
+          searchText.toLowerCase()
+        )
   );
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,7 +37,7 @@ function filterDate<T extends Record<string, any>>(
   const selectedDate = new Date(currentDate);
 
   return rows.filter((row: T): boolean => {
-    const reportDate = new Date(row[dateColumnKey]);
+    const reportDate = new Date(row[dateColumnKey] as string);
 
     return _.isEmpty(currentDate)
       ? true
@@ -112,7 +115,7 @@ function filterDateRange<T extends Record<string, any>>(
   const selectedMaxDate = new Date(currentRange.max);
 
   return rows.filter((row: T): boolean => {
-    const releaseDate = new Date(row[columnKey]);
+    const releaseDate = new Date(row[columnKey] as string);
     const minRange = _.isEmpty(currentRange.min)
       ? true
       : releaseDate >= selectedMinDate;

@@ -442,7 +442,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         }}
         dataset={resultExecutions}
         defaultSorted={JSON.parse(
-          _.get(sessionStorage, "forcesSort", initialSort)
+          _.get(sessionStorage, "forcesSort", initialSort) as string
         )}
         exportCsv={true}
         headers={headersExecutionTable}

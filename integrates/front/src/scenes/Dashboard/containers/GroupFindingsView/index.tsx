@@ -732,7 +732,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         }}
         dataset={resultFindings}
         defaultSorted={JSON.parse(
-          _.get(sessionStorage, "findingSort", initialSort)
+          _.get(sessionStorage, "findingSort", initialSort) as string
         )}
         expandRow={{
           expandByColumnOnly: true,

@@ -516,7 +516,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
         }}
         dataset={filteredData}
         defaultSorted={JSON.parse(
-          _.get(sessionStorage, "toeInputsSort", initialSort)
+          _.get(sessionStorage, "toeInputsSort", initialSort) as string
         )}
         exportCsv={true}
         extraButtonsRight={

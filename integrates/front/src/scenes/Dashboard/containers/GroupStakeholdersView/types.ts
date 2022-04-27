@@ -57,7 +57,7 @@ interface IUpdateGroupStakeholderAttr {
   };
 }
 
-export {
+export type {
   IRemoveStakeholderAttr,
   IAddStakeholderAttr,
   IGetStakeholdersAttrs,

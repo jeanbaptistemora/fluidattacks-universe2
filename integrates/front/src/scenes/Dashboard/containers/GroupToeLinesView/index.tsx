@@ -642,7 +642,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         }}
         dataset={filteredData}
         defaultSorted={JSON.parse(
-          _.get(sessionStorage, "toeLinesSort", initialSort)
+          _.get(sessionStorage, "toeLinesSort", initialSort) as string
         )}
         exportCsv={true}
         extraButtonsRight={

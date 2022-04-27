@@ -212,7 +212,7 @@ const Portfolio: React.FC<IPortfolioProps> = ({
           <Table
             dataset={tagsDataset}
             defaultSorted={JSON.parse(
-              _.get(sessionStorage, "portfolioSort", "{}")
+              _.get(sessionStorage, "portfolioSort", "{}") as string
             )}
             exportCsv={false}
             headers={tableHeaders}

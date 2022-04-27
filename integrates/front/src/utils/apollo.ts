@@ -117,7 +117,7 @@ const xhrWrapper: WindowOrWorkerGlobalScope["fetch"] = async (
 
       if (options.headers !== undefined) {
         Object.keys(options.headers).forEach((key: string): void => {
-          xhr.setRequestHeader(key, _.get(options.headers, key));
+          xhr.setRequestHeader(key, _.get(options.headers, key) as string);
         });
       }
 

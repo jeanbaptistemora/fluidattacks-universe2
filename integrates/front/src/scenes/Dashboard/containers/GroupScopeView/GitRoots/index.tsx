@@ -98,7 +98,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isManagingRoot, setIsManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
-  const [isEnvironmentModalOpen, setEnvironmentModalOpen] = useState(false);
+  const [isEnvironmentModalOpen, setIsEnvironmentModalOpen] = useState(false);
 
   const user: Required<IAuthContext> = useContext(
     authContext as React.Context<Required<IAuthContext>>
@@ -132,7 +132,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
   );
-  const [currentRowUrl, setCurrentUrlRow] = useState<
+  const [currentRowUrl, setCurrentRowUrl] = useState<
     IEnvironmentUrl | undefined
   >(undefined);
 
@@ -268,13 +268,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   );
   const handleRowUrlClick = useCallback(
     (_0: React.SyntheticEvent, row: IEnvironmentUrl): void => {
-      setCurrentUrlRow(row);
-      setEnvironmentModalOpen(true);
+      setCurrentRowUrl(row);
+      setIsEnvironmentModalOpen(true);
     },
     []
   );
   function closeEnvironmentModal(): void {
-    setEnvironmentModalOpen(false);
+    setIsEnvironmentModalOpen(false);
   }
 
   const handleGitSubmit = useGitSubmit(

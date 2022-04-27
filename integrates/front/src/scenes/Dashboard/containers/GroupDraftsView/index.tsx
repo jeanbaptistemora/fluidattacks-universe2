@@ -368,7 +368,9 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           position: "right",
         }}
         dataset={filterSearchtextResult}
-        defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
+        defaultSorted={JSON.parse(
+          _.get(sessionStorage, "draftSort", "{}") as string
+        )}
         exportCsv={true}
         extraButtons={
           <Row>
