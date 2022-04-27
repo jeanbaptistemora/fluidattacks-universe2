@@ -207,6 +207,33 @@ async def send_mail_deactivated_root(
     )
 
 
+async def send_mail_environment_report(
+    *,
+    email_to: List[str],
+    group_name: str,
+    responsible: str,
+    git_root: str,
+    root_url: str,
+    is_removed: bool = False,
+    date: str,
+) -> None:
+    state: str = "removed" if is_removed else "added"
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "group_name": group_name,
+            "responsible": responsible,
+            "git_root": git_root,
+            "root_url": root_url,
+            "state": state,
+            "report_date": str(datetime_utils.get_date_from_iso_str(date)),
+        },
+        tags=GENERAL_TAG,
+        subject=f"Environment have been {state} in [{group_name}]",
+        template_name="environment_report",
+    )
+
+
 async def send_mail_updated_policies(
     *, email_to: List[str], context: Dict[str, Any]
 ) -> None:

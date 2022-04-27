@@ -1,0 +1,27 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Environment Alert') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      An environment has been <strong>{{ state }}</strong> in group
+      <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>
+    </p>
+    <p>
+      <strong>Git Root</strong>: {{ git_root }}<br>
+      <strong>Url</strong>: {{ root_url }}<br/>
+      <strong>Date</strong>: {{ report_date }}
+    </p>
+    <p></p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
