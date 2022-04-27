@@ -22,11 +22,6 @@ const GET_ROOTS: DocumentNode = gql`
           gitEnvironmentUrls {
             url
             id
-            secrets {
-              description
-              key
-              value
-            }
           }
           gitignore
           id

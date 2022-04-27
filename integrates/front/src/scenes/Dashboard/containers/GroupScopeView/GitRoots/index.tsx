@@ -19,6 +19,7 @@ import {
   hasCheckedItem,
   useGitSubmit,
 } from "./helpers";
+import { ManagementEnvironmentUrlsModal } from "./ManagementEnvironmentUrlsModal";
 import { ManagementModal } from "./ManagementModal";
 import { renderRepoDescription } from "./repoDescription";
 import { Container } from "./styles";
@@ -32,7 +33,7 @@ import {
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 } from "../queries";
-import type { IGitRootAttr } from "../types";
+import type { IEnvironmentUrl, IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
@@ -97,6 +98,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [isManagingRoot, setIsManagingRoot] = useState<
     false | { mode: "ADD" | "EDIT" }
   >(false);
+  const [isEnvironmentModalOpen, setEnvironmentModalOpen] = useState(false);
 
   const user: Required<IAuthContext> = useContext(
     authContext as React.Context<Required<IAuthContext>>
@@ -130,6 +132,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
   );
+  const [currentRowUrl, setCurrentUrlRow] = useState<
+    IEnvironmentUrl | undefined
+  >(undefined);
 
   const [deactivationModal, setDeactivationModal] = useState({
     open: false,
@@ -261,6 +266,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
     []
   );
+  const handleRowUrlClick = useCallback(
+    (_0: React.SyntheticEvent, row: IEnvironmentUrl): void => {
+      setCurrentUrlRow(row);
+      setEnvironmentModalOpen(true);
+    },
+    []
+  );
+  function closeEnvironmentModal(): void {
+    setEnvironmentModalOpen(false);
+  }
 
   const handleGitSubmit = useGitSubmit(
     addGitRoot,
@@ -295,16 +310,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const rootsGroupedByEnvs = roots
     .filter(
       (root): boolean =>
-        root.state === "ACTIVE" && root.environmentUrls.length > 0
+        root.state === "ACTIVE" && root.gitEnvironmentUrls.length > 0
     )
     .reduce<Record<string, string[]>>(
       (previousValue, currentValue): Record<string, string[]> => ({
         ...previousValue,
         ...Object.fromEntries(
-          currentValue.environmentUrls.map((envUrl): [string, string[]] => [
-            envUrl,
+          currentValue.gitEnvironmentUrls.map((envUrl): [string, string[]] => [
+            envUrl.id,
             [
-              ...(envUrl in previousValue ? previousValue[envUrl] : []),
+              ...(envUrl.url in previousValue ? previousValue[envUrl.url] : []),
               currentValue.url,
             ],
           ])
@@ -508,8 +523,31 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       repositoryUrls,
     })
   );
-  const filterEnvSearchTextDataset: Record<string, unknown>[] =
-    filterSearchText(envDataset, searchEnvsTextFilter);
+  const envUrlsDataSet: {
+    id: string;
+    url: string;
+    repositoryUrls: string[];
+  }[] = roots
+    .filter(
+      (root): boolean =>
+        root.state === "ACTIVE" && root.gitEnvironmentUrls.length > 0
+    )
+    .map((root): IEnvironmentUrl[] => root.gitEnvironmentUrls)
+    .flatMap((envUrls): IEnvironmentUrl[] => envUrls)
+    .map(
+      (
+        envUrl
+      ): {
+        id: string;
+        url: string;
+        repositoryUrls: string[];
+      } => {
+        return {
+          ...envUrl,
+          repositoryUrls: rootsGroupedByEnvs[envUrl.id],
+        };
+      }
+    );
 
   return (
     <React.Fragment>
@@ -665,7 +703,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 onUpdateCustomSearch: onSearchEnvsTextChange,
                 position: "right",
               }}
-              dataset={filterEnvSearchTextDataset}
+              dataset={envUrlsDataSet}
               expandRow={{
                 expandByColumnOnly: true,
                 renderer: renderEnvDescription,
@@ -674,15 +712,30 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               exportCsv={false}
               headers={[
                 {
-                  dataField: "environmentUrl",
+                  dataField: "url",
                   header: t("group.scope.git.repo.url"),
                 },
               ]}
               id={"tblGitRootEnvs"}
               pageSize={10}
+              rowEvents={
+                permissions.can("api_resolvers_query_environment_url_resolve")
+                  ? { onClick: handleRowUrlClick }
+                  : {}
+              }
               search={false}
             />
           </div>
+          <Can do={"api_resolvers_query_environment_url_resolve"}>
+            {_.isUndefined(currentRowUrl) ? undefined : (
+              <ManagementEnvironmentUrlsModal
+                closeModal={closeEnvironmentModal}
+                groupName={groupName}
+                isOpen={isEnvironmentModalOpen}
+                urlId={currentRowUrl.id}
+              />
+            )}
+          </Can>
         </React.Fragment>
       )}
       {isManagingRoot === false ? undefined : (

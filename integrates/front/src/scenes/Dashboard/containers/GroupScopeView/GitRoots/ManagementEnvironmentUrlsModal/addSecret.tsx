@@ -69,7 +69,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
 }: ISecretsProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canAddSecret: boolean = permissions.can(
-    "api_mutations_add_secret_mutate"
+    "api_mutations_add_git_environment_secret_mutate"
   );
   const initialValues = {
     description: secretDescription,

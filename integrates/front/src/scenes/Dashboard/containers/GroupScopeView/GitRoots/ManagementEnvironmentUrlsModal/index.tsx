@@ -1,7 +1,5 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,7 +13,7 @@ import { SecretValue } from "../ManagementModal/secretValue";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
-import { authzPermissionsContext } from "utils/authz/config";
+import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 
 interface ISecretItem {
@@ -38,10 +36,6 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
   urlId,
 }: IManagementModalProps): JSX.Element => {
   const { t } = useTranslation();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canAddSecret: boolean = permissions.can(
-    "api_mutations_add_secret_mutate"
-  );
 
   const defaultCurrentRow: ISecret = useMemo((): ISecret => {
     return { description: "", key: "", value: "" };
@@ -148,14 +142,11 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
           pageSize={10}
           search={false}
         />
-        <Button
-          disabled={!canAddSecret}
-          id={"add-secret"}
-          onClick={openModal}
-          variant={"secondary"}
-        >
-          {"Add secret"}
-        </Button>
+        <Can do={"api_mutations_add_git_environment_secret_mutate"}>
+          <Button id={"add-secret"} onClick={openModal} variant={"secondary"}>
+            {"Add secret"}
+          </Button>
+        </Can>
       </Modal>
     </React.StrictMode>
   );

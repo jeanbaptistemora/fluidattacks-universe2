@@ -39,7 +39,13 @@ describe("GitRoots", (): void => {
         },
         environment: "",
         environmentUrls: ["https://app.fluidattacks.com"],
-        gitEnvironmentUrls: [],
+        gitEnvironmentUrls: [
+          {
+            id: "3f6eb6274ec7dc2855451c0fbb4ff9485360be5b",
+            secrets: [],
+            url: "https://app.fluidattacks.com",
+          },
+        ],
         gitignore: [],
         id: "",
         includesHealthCheck: false,
@@ -198,7 +204,13 @@ describe("GitRoots", (): void => {
       },
       environment: "",
       environmentUrls: [""],
-      gitEnvironmentUrls: [],
+      gitEnvironmentUrls: [
+        {
+          id: "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc",
+          secrets: [],
+          url: "",
+        },
+      ],
       gitignore: [],
       id: "",
       includesHealthCheck: false,
