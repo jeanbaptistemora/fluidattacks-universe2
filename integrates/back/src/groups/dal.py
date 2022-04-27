@@ -32,7 +32,6 @@ from newutils import (
     groups as groups_utils,
 )
 from newutils.utils import (
-    duplicate_dict_keys,
     get_key_or_fallback,
 )
 from settings import (
@@ -77,20 +76,6 @@ async def get_active_groups() -> list[str]:
     groups = await get_all(filtering_exp, "project_name")
     active_groups = [get_key_or_fallback(group) for group in groups]
     return active_groups
-
-
-async def get_active_groups_attributes(data_attr: str = "") -> list[GroupType]:
-    """Get active groups attributes in DynamoDB."""
-    filtering_exp = Attr("project_status").eq("ACTIVE")
-    groups: list[GroupType] = await get_all(filtering_exp, data_attr)
-    # Compatibility with old API
-    if "project_name" in groups[0]:
-        groups_with_gn: list[GroupType] = [
-            duplicate_dict_keys(group, "group_name", "project_name")
-            for group in groups
-        ]
-        return groups_with_gn
-    return groups
 
 
 async def get_all(

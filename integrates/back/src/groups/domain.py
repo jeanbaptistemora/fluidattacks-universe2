@@ -920,14 +920,6 @@ async def get_all(attributes: Optional[list[str]] = None) -> list[GroupType]:
     return await groups_dal.get_all(data_attr=data_attr)
 
 
-async def get_active_groups_attributes(
-    attributes: Optional[list[str]] = None,
-) -> list[GroupType]:
-    data_attr = ",".join(attributes or [])
-    groups = await groups_dal.get_active_groups_attributes(data_attr)
-    return groups
-
-
 async def get_attributes(
     group_name: str, attributes: list[str]
 ) -> dict[str, Union[str, list[str]]]:
