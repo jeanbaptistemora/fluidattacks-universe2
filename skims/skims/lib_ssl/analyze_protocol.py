@@ -454,14 +454,17 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-def _get_weak_enabled_suites(
+def _get_weak_enabled_suites_as_vuln(
     ctx: SSLContext,
     v_id: SSLVersionId,
     cipher_suites: List[SSLSuiteInfo],
     intention: Dict[core_model.LocalesEnum, str],
+    method_name: str,
+    cipher_names: List[str],
+    hash_names: List[str],
     extensions: Optional[List[int]] = None,
-) -> List[str]:
-    weaksuitesnames: List[str] = []
+) -> core_model.Vulnerabilities:
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
     for suite in cipher_suites:
         sock = tcp_connect(
@@ -478,23 +481,55 @@ def _get_weak_enabled_suites(
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if (
-            response is not None
-            and response.handshake is not None
-            and response.handshake.cipher_suite is not None
-        ):
-            weaksuitesnames.append(response.handshake.cipher_suite.iana_name)
+        if response is not None and response.handshake is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        tls_version=v_id,
+                        cipher_names=cipher_names,
+                        hash_names=hash_names,
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    method=getattr(core_model.MethodsEnum, method_name),
+                    check_kwargs={
+                        "v_name": ssl_id2ssl_name(v_id),
+                        "insecure_cipher": response.handshake.cipher_suite.iana_name,
+                    },
+                )
+            )
 
         sock.close()
 
-    return weaksuitesnames
+    return ssl_vulnerabilities
 
 
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuiteInfo] = list(get_weak_suites())
+
+    method_name: str = "WEAK_CIPHERS_ALLOWED"
+
+    cipher_names: List[str] = [
+        "NULL",
+        "RC2",
+        "RC4",
+        "DES",
+        "DES3",
+        "SM3",
+        "SM4",
+        "CBC",
+    ]
+
+    hash_names: List[str] = [
+        "SHA",
+        "MD5",
+        "SM3",
+    ]
 
     en_intention = (
         "Perform a {v_name} request offering only weak cipher suites and\n"
@@ -517,69 +552,32 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
             ),
         }
 
-        sock = tcp_connect(
-            ctx.host,
-            ctx.port,
-            intention[core_model.LocalesEnum.EN],
+        ssl_vulnerabilities += _get_weak_enabled_suites_as_vuln(
+            ctx, v_id, suites, intention, method_name, cipher_names, hash_names
         )
-
-        if sock is None:
-            continue
-
-        package = get_client_hello_package(v_id, suites)
-        sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
-
-        weaksuitesnames = _get_weak_enabled_suites(
-            ctx, v_id, suites, intention
-        )
-        cipher_str = ", ".join(weaksuitesnames)
-
-        if response is not None and response.handshake is not None:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    ssl_settings=SSLSettings(
-                        context=ctx,
-                        tls_version=v_id,
-                        cipher_names=[
-                            "NULL",
-                            "RC2",
-                            "RC4",
-                            "DES",
-                            "DES3",
-                            "SM3",
-                            "SM4",
-                            "CBC",
-                        ],
-                        hash_names=[
-                            "SHA",
-                            "MD5",
-                            "SM3",
-                        ],
-                        intention=intention,
-                    ),
-                    server_response=response,
-                    method=core_model.MethodsEnum.WEAK_CIPHERS_ALLOWED,
-                    check_kwargs={
-                        "v_name": ssl_id2ssl_name(v_id),
-                        "insecure_cipher": cipher_str,
-                    },
-                )
-            )
-
-        sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuiteInfo] = list(get_suites_with_cbc())
 
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
+
+    method_name: str = "CBC_ENABLED"
+
+    cipher_names: List[str] = [
+        "CBC",
+    ]
+
+    hash_names: List[str] = [
+        "ANY",
+    ]
 
     en_intention = (
         "Perform a {v_name} request offering any cipher suite \n"
@@ -605,43 +603,16 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ),
         }
 
-        sock = tcp_connect(
-            ctx.host,
-            ctx.port,
-            intention[core_model.LocalesEnum.EN],
+        ssl_vulnerabilities += _get_weak_enabled_suites_as_vuln(
+            ctx,
+            v_id,
+            suites,
+            intention,
+            method_name,
+            cipher_names,
+            hash_names,
+            extensions,
         )
-
-        if sock is None:
-            return tuple()
-
-        package = get_client_hello_package(v_id, suites, extensions)
-        sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
-
-        weaksuitesnames = _get_weak_enabled_suites(
-            ctx, v_id, suites, intention, extensions
-        )
-        cipher_str = ", ".join(weaksuitesnames)
-
-        if response is not None and response.handshake is not None:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    ssl_settings=SSLSettings(
-                        context=ctx,
-                        tls_version=v_id,
-                        cipher_names=["CBC"],
-                        intention=intention,
-                    ),
-                    server_response=response,
-                    method=core_model.MethodsEnum.CBC_ENABLED,
-                    check_kwargs={
-                        "v_name": ssl_id2ssl_name(v_id),
-                        "insecure_cipher": cipher_str,
-                    },
-                )
-            )
-
-        sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
