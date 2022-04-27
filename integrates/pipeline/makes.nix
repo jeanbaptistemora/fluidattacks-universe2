@@ -768,10 +768,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/integrates/back/lint/pythonIso";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintPython/module/integratesBackTestE2e";
             gitlabExtra = gitlabLint;
           }
