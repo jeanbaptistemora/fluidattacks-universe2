@@ -744,6 +744,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_secret_mutate",
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
+            "api_mutations_remove_environment_url_secret_mutate",
             "api_resolvers_query_environment_url_resolve",
         },
         tags={
@@ -857,6 +858,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_secret_mutate",
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
+            "api_mutations_remove_environment_url_secret_mutate",
         },
         tags={
             *GROUP_LEVEL_ROLES["customer_manager"]["tags"],
@@ -889,6 +891,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_secret_mutate",
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_secret_mutate",
+            "api_mutations_remove_environment_url_secret_mutate",
             "api_resolvers_query_environment_url_resolve",
         },
         tags={

@@ -8,6 +8,7 @@ from .add import (
 from .update import (
     finish_machine_execution,
     remove_environment_url,
+    remove_environment_url_secret,
     remove_secret,
     start_machine_execution,
     update_git_root_cloning,
@@ -28,4 +29,5 @@ __all__ = [
     "add_environment_url",
     "remove_environment_url",
     "add_git_environment_secret",
+    "remove_environment_url_secret",
 ]

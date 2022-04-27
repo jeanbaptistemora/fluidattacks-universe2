@@ -1211,6 +1211,10 @@ async def remove_secret(root_id: str, secret_key: str) -> None:
     await roots_model.remove_secret(root_id, secret_key)
 
 
+async def remove_environment_url_secret(url_id: str, secret_key: str) -> None:
+    await roots_model.remove_environment_url_secret(url_id, secret_key)
+
+
 async def finish_machine_execution(
     root_id: str,
     job_id: str,

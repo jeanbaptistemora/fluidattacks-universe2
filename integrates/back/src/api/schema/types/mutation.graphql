@@ -514,6 +514,16 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Remove a git environment secret"
+  removeEnvironmentUrlSecret(
+    "Group name"
+    groupName: String!
+    "Secret key"
+    key: String!
+    "Id of the url to remove secret"
+    urlId: String!
+  ): SimplePayload!
+
   "Removes evidence from an Event"
   removeEventEvidence(
     "Identifier of the event to which the Evidence belongs"
