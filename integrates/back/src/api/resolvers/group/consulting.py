@@ -1,6 +1,3 @@
-from custom_types import (
-    Comment,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -25,6 +22,10 @@ from newutils import (
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @concurrent_decorators(
@@ -34,8 +35,8 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **kwargs: None,
-) -> list[Comment]:
-    response: list[Comment] = await redis_get_or_set_entity_attr(
+) -> list[Dict[str, Any]]:
+    response: list[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="consulting",
@@ -48,7 +49,7 @@ async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> list[Comment]:
+) -> list[Dict[str, Any]]:
     group_name: str = parent.name
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]

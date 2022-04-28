@@ -7,7 +7,6 @@ from context import (
     BASE_URL,
 )
 from custom_types import (
-    Comment as CommentType,
     MailContent as MailContentType,
 )
 from datetime import (
@@ -39,7 +38,7 @@ from typing import (
 async def send_mail_comment(
     *,
     loaders: Any,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
     event_id: str,
     recipients: List[str],
     group_name: str,

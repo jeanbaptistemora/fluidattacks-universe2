@@ -21,7 +21,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     AddEventPayload,
-    Comment as CommentType,
     Event as EventType,
 )
 from datetime import (
@@ -112,7 +111,7 @@ LOGGER = logging.getLogger(__name__)
 async def add_comment(
     info: GraphQLResolveInfo,
     user_email: str,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
     event_id: str,
     parent_comment: str,
 ) -> Tuple[Union[str, None], bool]:
@@ -516,7 +515,7 @@ async def request_vulnerabilities_hold(
             for vuln in vulnerabilities
         )
     )
-    comment_data: CommentType = {
+    comment_data: Dict[str, Any] = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",

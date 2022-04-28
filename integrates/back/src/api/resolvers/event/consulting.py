@@ -2,7 +2,6 @@ from comments import (
     domain as comments_domain,
 )
 from custom_types import (
-    Comment,
     Event,
 )
 from functools import (
@@ -31,7 +30,7 @@ async def resolve_no_cache(
     parent: Event,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> List[Comment]:
+) -> List[Dict[str, Any]]:
     event_id = str(parent["id"])
     group_name: str = get_key_or_fallback(parent)
 
@@ -47,8 +46,8 @@ async def resolve(
     parent: Event,
     info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> List[Comment]:
-    response: List[Comment] = await redis_get_or_set_entity_attr(
+) -> List[Dict[str, Any]]:
+    response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="event",
         attr="consulting",

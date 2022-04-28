@@ -9,7 +9,6 @@ from context import (
     FI_MAIL_REVIEWERS,
 )
 from custom_types import (
-    Comment as CommentType,
     MailContent as MailContentType,
 )
 from db_model.enums import (
@@ -42,7 +41,7 @@ from typing import (
 async def send_mail_comment(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
     user_mail: str,
     finding_id: str,
     finding_title: str,

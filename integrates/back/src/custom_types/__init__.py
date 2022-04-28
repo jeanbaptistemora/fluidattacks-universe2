@@ -25,7 +25,6 @@ from typing_extensions import (
     TypedDict,
 )
 
-Comment = Dict[str, Any]
 DynamoQuery = Dict[str, Union[ConditionBase, str]]
 Evidence = Dict[str, Dict[str, str]]
 ExploitResult = Dict[str, str]

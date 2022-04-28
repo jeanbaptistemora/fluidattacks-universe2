@@ -5,7 +5,6 @@ from botocore.exceptions import (
     ClientError,
 )
 from custom_types import (
-    Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )
 from dynamodb import (
@@ -17,6 +16,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
@@ -30,7 +30,7 @@ TABLE_NAME: str = "fi_project_comments"
 
 
 async def add_comment(
-    group_name: str, email: str, comment_data: CommentType
+    group_name: str, email: str, comment_data: Dict[str, Any]
 ) -> bool:
     """Add a comment in a group."""
     resp = False
@@ -55,7 +55,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     return resp
 
 
-async def get_comments(group_name: str) -> List[CommentType]:
+async def get_comments(group_name: str) -> List[Dict[str, Any]]:
     """Get comments of a group."""
     key_expression = Key("project_name").eq(group_name)
     query_attrs = {"KeyConditionExpression": key_expression}

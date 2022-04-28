@@ -11,9 +11,6 @@ from comments.domain import (
 from custom_exceptions import (
     InvalidCommentParent,
 )
-from custom_types import (
-    Comment as CommentType,
-)
 from datetime import (
     datetime,
 )
@@ -36,6 +33,8 @@ from newutils.validations import (
     validate_field_length,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 from users import (
@@ -43,7 +42,7 @@ from users import (
 )
 
 
-async def _get_fullname(objective_data: CommentType) -> str:
+async def _get_fullname(objective_data: Dict[str, Any]) -> str:
     objective_email = str(objective_data["email"])
     objective_possible_fullname = str(objective_data.get("fullname", ""))
     real_name = objective_possible_fullname or objective_email
@@ -54,7 +53,7 @@ async def _get_fullname(objective_data: CommentType) -> str:
     return real_name
 
 
-async def _fill_comment_data(data: CommentType) -> CommentType:
+async def _fill_comment_data(data: Dict[str, Any]) -> Dict[str, Any]:
     fullname = await _get_fullname(objective_data=data)
     return {
         "content": data["content"],
@@ -67,7 +66,7 @@ async def _fill_comment_data(data: CommentType) -> CommentType:
     }
 
 
-def _is_scope_comment(comment: CommentType) -> bool:
+def _is_scope_comment(comment: Dict[str, Any]) -> bool:
     return str(comment["content"]).strip() not in {"#external", "#internal"}
 
 
@@ -75,7 +74,7 @@ async def add_comment(
     info: GraphQLResolveInfo,
     group_name: str,
     email: str,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
 ) -> bool:
     """Add comment in a group."""
     parent_comment = str(comment_data["parent"])
@@ -100,7 +99,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     return await group_comments_dal.delete_comment(group_name, user_id)
 
 
-async def get_comments(group_name: str) -> List[CommentType]:
+async def get_comments(group_name: str) -> List[Dict[str, Any]]:
     comments = await group_comments_dal.get_comments(group_name)
     comments_name_data = await collect(
         [
@@ -120,7 +119,9 @@ async def get_comments(group_name: str) -> List[CommentType]:
     return comments
 
 
-async def list_comments(group_name: str, user_email: str) -> List[CommentType]:
+async def list_comments(
+    group_name: str, user_email: str
+) -> List[Dict[str, Any]]:
     enforcer = await authz.get_group_level_enforcer(user_email)
     comments = await collect(
         [

@@ -8,7 +8,6 @@ from context import (
     BASE_URL,
 )
 from custom_types import (
-    Comment as CommentType,
     MailContent as MailContentType,
 )
 from db_model.enums import (
@@ -85,7 +84,7 @@ async def send_mail_group_report(
 async def send_mail_comment(
     *,
     loaders: Any,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
     user_mail: str,
     recipients: List[str],
     group_name: str = "",

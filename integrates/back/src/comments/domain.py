@@ -6,7 +6,6 @@ from comments import (
     dal as comments_dal,
 )
 from custom_types import (
-    Comment as CommentType,
     User as UserType,
 )
 from datetime import (
@@ -39,7 +38,7 @@ def _fill_vuln_info(
     comment: Dict[str, str],
     vulns_ids: Set[str],
     vulns: Tuple[Vulnerability, ...],
-) -> CommentType:
+) -> Dict[str, Any]:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack"""
     selected_vulns = [
@@ -57,10 +56,10 @@ def _fill_vuln_info(
         ] = f"Regarding vulnerabilities: \n{wheres}\n\n" + comment.get(
             "content", ""
         )
-    return cast(CommentType, comment)
+    return comment
 
 
-async def _fill_comment_data(data: Dict[str, str]) -> CommentType:
+async def _fill_comment_data(data: Dict[str, str]) -> Dict[str, Any]:
     fullname = await _get_fullname(objective_data=data)
     return {
         "content": data["content"],
@@ -76,7 +75,7 @@ async def _fill_comment_data(data: Dict[str, str]) -> CommentType:
 async def _get_comments(
     comment_type: str,
     finding_id: str,
-) -> List[CommentType]:
+) -> List[Dict[str, Any]]:
     comments = await collect(
         [
             _fill_comment_data(cast(Dict[str, str], comment))
@@ -99,13 +98,13 @@ async def _get_fullname(objective_data: Dict[str, str]) -> str:
     return real_name
 
 
-def _is_scope_comment(comment: CommentType) -> bool:
+def _is_scope_comment(comment: Dict[str, Any]) -> bool:
     return str(comment["content"]).strip() not in {"#external", "#internal"}
 
 
 async def add(
     finding_id: str,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
     user_info: Union[UserType, Dict[str, str]],
 ) -> Tuple[Union[str, None], bool]:
     today = datetime_utils.get_as_str(datetime_utils.get_now())
@@ -131,7 +130,7 @@ async def delete(comment_id: str, finding_id: str) -> bool:
     return await comments_dal.delete(comment_id, finding_id)
 
 
-async def get(comment_type: str, element_id: str) -> List[CommentType]:
+async def get(comment_type: str, element_id: str) -> List[Dict[str, Any]]:
     return await comments_dal.get_comments(comment_type, element_id)
 
 
@@ -140,7 +139,7 @@ async def get_comments(
     group_name: str,
     finding_id: str,
     user_email: str,
-) -> Tuple[CommentType, ...]:
+) -> Tuple[Dict[str, Any], ...]:
     historic_verification_loader = loaders.finding_historic_verification
     finding_vulns_loader = loaders.finding_vulnerabilities
     comments = await _get_comments("comment", finding_id)
@@ -194,10 +193,10 @@ async def get_comments(
 
 async def get_event_comments(
     group_name: str, finding_id: str, user_email: str
-) -> List[CommentType]:
+) -> List[Dict[str, Any]]:
     comments = await _get_comments("event", finding_id)
 
-    new_comments: List[CommentType] = []
+    new_comments: List[Dict[str, Any]] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
         new_comments = comments
@@ -208,10 +207,10 @@ async def get_event_comments(
 
 async def get_observations(
     group_name: str, finding_id: str, user_email: str
-) -> List[CommentType]:
+) -> List[Dict[str, Any]]:
     observations = await _get_comments("observation", finding_id)
 
-    new_observations: List[CommentType] = []
+    new_observations: List[Dict[str, Any]] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
         new_observations = observations
@@ -221,9 +220,9 @@ async def get_observations(
 
 
 def filter_comments_date(
-    comments: List[CommentType],
+    comments: List[Dict[str, Any]],
     min_date: datetime,
-) -> List[CommentType]:
+) -> List[Dict[str, Any]]:
     return [
         comment
         for comment in comments
@@ -233,14 +232,14 @@ def filter_comments_date(
 
 
 def filter_reattack_comments(
-    comments: List[CommentType],
+    comments: List[Dict[str, Any]],
     verification_comment_ids: Set[str],
-) -> Tuple[List[CommentType], List[CommentType]]:
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     """Returns the comment list of a finding filtered on whether the comment
     answers a solicited reattack or not. Comments that do this will be within
     the first element of the tuple while the others will be in the second"""
 
-    def filter_func(comment: CommentType) -> bool:
+    def filter_func(comment: Dict[str, Any]) -> bool:
         return str(comment["id"]) in verification_comment_ids
 
     return list(filter(filter_func, comments)), list(

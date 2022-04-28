@@ -26,7 +26,6 @@ from custom_exceptions import (
     VulnNotFound,
 )
 from custom_types import (
-    Comment as CommentType,
     Tracking as TrackingItem,
 )
 from datetime import (
@@ -156,7 +155,7 @@ async def _send_to_redshift(
 async def add_comment(
     info: GraphQLResolveInfo,
     user_email: str,
-    comment_data: CommentType,
+    comment_data: Dict[str, Any],
     finding_id: str,
     group_name: str,
 ) -> bool:
@@ -639,7 +638,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         finding_id=finding.id,
         verification=verification,
     )
-    comment_data: CommentType = {
+    comment_data: Dict[str, Any] = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",
@@ -784,7 +783,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         verification=verification,
     )
 
-    comment_data: CommentType = {
+    comment_data: Dict[str, Any] = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",

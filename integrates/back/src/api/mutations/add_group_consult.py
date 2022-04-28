@@ -6,7 +6,6 @@ from ariadne import (
 )
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
-    Comment,
 )
 from decorators import (
     concurrent_decorators,
@@ -38,13 +37,14 @@ from subscriptions.domain import (
 import time
 from typing import (
     Any,
+    Dict,
 )
 
 
 async def send_group_consult_mail(
     *,
     info: GraphQLResolveInfo,
-    comment_data: Comment,
+    comment_data: Dict[str, Any],
     user_email: str,
     group_name: str,
 ) -> None:

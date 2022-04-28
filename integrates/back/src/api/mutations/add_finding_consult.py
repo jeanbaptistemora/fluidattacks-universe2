@@ -9,7 +9,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
-    Comment,
 )
 from db_model.findings.types import (
     Finding,
@@ -48,6 +47,7 @@ from time import (
 )
 from typing import (
     Any,
+    Dict,
     Tuple,
 )
 
@@ -55,7 +55,7 @@ from typing import (
 async def send_finding_consult_mail(
     *,
     info: GraphQLResolveInfo,
-    comment_data: Comment,
+    comment_data: Dict[str, Any],
     user_email: str,
     group_name: str,
     finding_id: str,

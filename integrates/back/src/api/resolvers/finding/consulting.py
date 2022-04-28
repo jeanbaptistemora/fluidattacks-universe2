@@ -1,9 +1,6 @@
 from comments import (
     domain as comments_domain,
 )
-from custom_types import (
-    Comment,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -26,6 +23,8 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Tuple,
 )
@@ -36,8 +35,8 @@ from typing import (
 )
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **kwargs: None
-) -> List[Comment]:
-    response: List[Comment] = await redis_get_or_set_entity_attr(
+) -> List[Dict[str, Any]]:
+    response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding",
         attr="consulting",
@@ -48,7 +47,7 @@ async def resolve(
 
 async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
-) -> Tuple[Comment, ...]:
+) -> Tuple[Dict[str, Any], ...]:
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     return await comments_domain.get_comments(

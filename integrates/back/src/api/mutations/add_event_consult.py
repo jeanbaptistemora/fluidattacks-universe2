@@ -6,7 +6,6 @@ from ariadne.utils import (
 )
 from custom_types import (
     AddConsultPayload,
-    Comment,
 )
 from decorators import (
     concurrent_decorators,
@@ -41,6 +40,7 @@ from time import (
     time,
 )
 from typing import (
+    Any,
     Dict,
     Optional,
 )
@@ -49,7 +49,7 @@ from typing import (
 async def send_event_consult_mail(
     *,
     info: GraphQLResolveInfo,
-    comment_data: Comment,
+    comment_data: Dict[str, Any],
     event_id: str,
     user_email: str,
     group_name: str,

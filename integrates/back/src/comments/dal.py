@@ -9,7 +9,6 @@ from botocore.exceptions import (
     ClientError,
 )
 from custom_types import (
-    Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )
 from dynamodb import (
@@ -24,6 +23,8 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
@@ -35,7 +36,7 @@ TABLE_NAME: str = "fi_finding_comments"
 
 
 async def create(
-    comment_id: str, comment_attributes: CommentType, finding_id: str
+    comment_id: str, comment_attributes: Dict[str, Any], finding_id: str
 ) -> bool:
     success = False
     try:
@@ -67,7 +68,7 @@ async def delete(comment_id: str, finding_id: str) -> bool:
 
 async def get_comments(
     comment_type: str, finding_id: str
-) -> List[CommentType]:
+) -> List[Dict[str, Any]]:
     """Get comments of the given finding"""
     key_exp = Key("finding_id").eq(finding_id)
     comment_type = comment_type.lower()
@@ -91,7 +92,7 @@ async def get_comments(
 async def get_comments_for_ids(
     comment_type: str,
     finding_ids: List[str],
-) -> List[CommentType]:
+) -> List[Dict[str, Any]]:
     """Retrieve comments for several ids"""
     comments = await collect(
         tuple(
