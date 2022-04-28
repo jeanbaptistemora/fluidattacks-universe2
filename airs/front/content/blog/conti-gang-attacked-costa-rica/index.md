@@ -7,7 +7,7 @@ category: attacks
 tags: cybersecurity, social, risk, vulnerability, hacking, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1651093427/blog/conti-gang-attacked-costa-rica/cover_conti_costa_rica.webp
 alt: Photo by Alexander Aguero on Unsplash
-description: It's been almost two weeks since the beginning of the Conti gang's new wave of cyberattacks against Costa Rican organizations. Find out what has happened here.
+description: It's been almost two weeks since the beginning of the Conti gang's new wave of cyberattacks against Costa Rican organizations. Find out here what has happened.
 keywords: Conti, Costa Rica, Government, Cyberattack, Ransomware, Companies, Ethical Hacking, Pentesting
 author: Felipe Ruiz
 writer: fruiz
