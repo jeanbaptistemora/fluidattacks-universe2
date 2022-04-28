@@ -30,8 +30,7 @@ template: advisory
 |                       |                                                                  |
 |-----------------------|------------------------------------------------------------------|
 | **Kind**              | DLL Hijacking                                                    |
-| **Rule**              | [413. Insecure file upload - DLL Injection
-](https://docs.fluidattacks.com/criteria/vulnerabilities/413)   |
+| **Rule**              | [413. Insecure file upload - DLL Injection](https://docs.fluidattacks.com/criteria/vulnerabilities/413)   |
 | **Remote**            | Yes                                                              |
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
 | **CVSSv3 Base Score** | 9.1                                                              |
