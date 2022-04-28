@@ -15,6 +15,7 @@ from custom_exceptions import (
     InvalidCommentParent,
     InvalidFileSize,
     InvalidFileType,
+    UnsanitizedInputFound,
 )
 from custom_types import (
     AddEventPayload,
@@ -191,6 +192,42 @@ async def test_update_evidence() -> None:
     expected_output = True
     assert isinstance(test_data, bool)
     assert test_data == expected_output
+
+
+async def test_update_evidence_invalid_id() -> None:
+    event_id = "=malicious-code-here"
+    evidence_type = "records"
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, "text/csv"
+        )
+        with pytest.raises(UnsanitizedInputFound):
+            await events_domain.update_evidence(
+                event_id,
+                evidence_type,
+                uploaded_file,
+                datetime_utils.get_now(),
+            )
+
+
+async def test_update_evidence_invalid_filename() -> None:
+    event_id = "418900978"
+    evidence_type = "records"
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "malicious;-code,-here.csv", test_file, "text/csv"
+        )
+        with pytest.raises(UnsanitizedInputFound):
+            await events_domain.update_evidence(
+                event_id,
+                evidence_type,
+                uploaded_file,
+                datetime_utils.get_now(),
+            )
 
 
 async def test_validate_evidence_invalid_image_type() -> None:

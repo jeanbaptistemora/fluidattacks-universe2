@@ -404,6 +404,7 @@ async def update_evidence(
     file: UploadFile,
     update_date: datetime,
 ) -> bool:
+    validations.validate_sanitized_csv_input(event_id)
     event = await get_event(event_id)
     if (
         cast(List[Dict[str, str]], event.get("historic_state", []))[-1].get(
@@ -425,6 +426,8 @@ async def update_evidence(
     }.get(file.content_type, "")
     evidence_id = f"{group_name}-{event_id}-{evidence_type}{extension}"
     full_name = f"{group_name}/{event_id}/{evidence_id}"
+    validations.validate_sanitized_csv_input(full_name)
+    validations.validate_sanitized_csv_input(file.filename, file.content_type)
 
     await events_dal.save_evidence(file, full_name)
     return await events_dal.update(

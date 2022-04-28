@@ -19,6 +19,7 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
+    validations,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -49,6 +50,15 @@ async def mutate(
     """Resolve add_event mutation."""
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
+
+    if file is not None:
+        validations.validate_sanitized_csv_input(
+            file.filename, file.content_type
+        )
+    if image is not None:
+        validations.validate_sanitized_csv_input(
+            image.filename, image.content_type
+        )
     event_payload = await events_domain.add_event(
         info.context.loaders,
         hacker_email=hacker_email,
