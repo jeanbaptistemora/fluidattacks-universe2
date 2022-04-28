@@ -1,6 +1,6 @@
 ---
 slug: conti-gang-attacked-costa-rica/
-title: Costa Rica's List of Victims Grows!
+title: Wave of Attacks Against Costa Rica!
 date: 2022-04-27
 subtitle: Conti gang relentlessly lashes their vulnerable systems
 category: attacks
