@@ -6,13 +6,6 @@ function serve_daemon {
     && wait_port 300 localhost:28001
 }
 
-function disable_datadog {
-  export DD_DOGSTATSD_DISABLE="true"
-  export DD_PROFILING_ENABLED="false"
-  export DD_RUNTIME_METRICS_ENABLED="false"
-  export DD_TRACE_ENABLED="false"
-}
-
 function serve {
   local env="${1:-}"
   # https://docs.gunicorn.org/en/latest/design.html#how-many-workers
@@ -32,12 +25,6 @@ function serve {
   # which is important to prevent some 5XX responses
   local load_balancer_timeout=65
 
-  # https://ddtrace.readthedocs.io/en/stable/configuration.html#configuration
-  export DD_DOGSTATSD_DISABLE="false"
-  export DD_PROFILING_ENABLED="true"
-  export DD_RUNTIME_METRICS_ENABLED="true"
-  export DD_TRACE_ENABLED="true"
-
   source __argIntegratesBackEnv__/template "${env}" \
     && case "${DAEMON:-}" in
       # The granularity of Error log outputs. [info]
@@ -46,7 +33,6 @@ function serve {
     esac \
     && recommended_workers=$(python3 -c "import os; print(2 * os.cpu_count() + 1)") \
     && if test "${env}" == 'dev'; then
-      disable_datadog
       config+=(
         # SSL certificate file
         --certfile=__argCertsDevelopment__/cert.crt
@@ -56,7 +42,6 @@ function serve {
         --workers 1
       )
     elif test "${env}" == 'dev-mobile'; then
-      disable_datadog
       config+=(
         # The number of worker processes for handling requests
         --workers 1
@@ -80,7 +65,6 @@ function serve {
         --workers "${recommended_workers}"
       )
     elif test "${env}" == 'prod-local'; then
-      disable_datadog
       config+=(
         # SSL certificate file
         --certfile=__argCertsDevelopment__/cert.crt
@@ -94,7 +78,7 @@ function serve {
     fi \
     && pushd integrates \
     && kill_port "${PORT}" \
-    && { ddtrace-run gunicorn "${config[@]}" 'app.app:APP' & } \
+    && { gunicorn "${config[@]}" 'app.app:APP' & } \
     && wait_port 5 "${HOST}:${PORT}" \
     && done_port "${HOST}" 28001 \
     && info Back is ready \

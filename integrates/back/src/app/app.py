@@ -18,9 +18,6 @@ from aioextensions import (
 from api import (
     IntegratesAPI,
 )
-from api.extensions.datadog import (
-    DatadogTracingExtension,
-)
 from api.schema import (
     SCHEMA,
 )
@@ -54,9 +51,6 @@ from custom_types import (
 )
 from dataloaders import (
     get_new_context,
-)
-from ddtrace import (
-    patch,
 )
 from decorators import (
     authenticate_session,
@@ -374,7 +368,6 @@ exception_handlers = {404: not_found, 500: server_error}
 
 API_EXTENSIONS = [
     ApolloTracingExtension,
-    DatadogTracingExtension,
 ]
 
 API_VALIDATIONS = [
@@ -446,9 +439,6 @@ STARLETTE_APP = Starlette(
     ],
     exception_handlers=exception_handlers,
 )
-
-# APM Config
-patch(aiobotocore=True)
 
 # ASGI wrappers
 BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)

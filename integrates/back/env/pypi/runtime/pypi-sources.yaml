@@ -25,12 +25,11 @@ closure:
   cffi: 1.15.0
   chardet: 4.0.0
   charset-normalizer: 2.0.12
-  click: 8.1.2
+  click: 8.1.3
   colorama: 0.4.4
   convertdate: 2.4.0
   cryptography: 3.3.2
   cycler: 0.11.0
-  ddtrace: 1.0.1
   defusedxml: 0.7.1
   docopt: 0.6.2
   docutils: 0.15.2
@@ -71,7 +70,6 @@ closure:
   packaging: "21.3"
   pandas: 1.3.4
   pillow: 9.1.0
-  protobuf: 3.20.1
   psycopg2: 2.9.3
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
@@ -108,7 +106,6 @@ closure:
   social-auth-core: 3.3.3
   starlette: 0.17.1
   stripe: 2.63.0
-  tenacity: 8.0.1
   twilio: 7.7.0
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
@@ -325,12 +322,12 @@ links:
   - name: charset-normalizer-2.0.12.tar.gz
     sha256: 15r5hf9p6v7s3h3zplz6dvwrg9ni942j78vwrm1bhkfky2gy4mr8
     url: https://files.pythonhosted.org/packages/56/31/7bcaf657fafb3c6db8c787a865434290b726653c912085fbd371e9b92e1c/charset-normalizer-2.0.12.tar.gz
-  - name: click-8.1.2-py3-none-any.whl
-    sha256: 07kz4bnzl0xzwqpk05nrp2g8s67j3n6216rn26a2kxjvxjls9q94
-    url: https://files.pythonhosted.org/packages/a0/66/c8196ad693d62384d8e800e5bd27434a64c0057fe169b61c69a73f1614a8/click-8.1.2-py3-none-any.whl
-  - name: click-8.1.2.tar.gz
-    sha256: 0whs38a2i0561kwbgigs6vic9r0a1887m2v1aw3rmv6r2kz0g5s7
-    url: https://files.pythonhosted.org/packages/42/e1/4cb2d3a2416bcd871ac93f12b5616f7755a6800bccae05e5a99d3673eb69/click-8.1.2.tar.gz
+  - name: click-8.1.3-py3-none-any.whl
+    sha256: 0j6vn6ayxq1bqs1v64r90sarg05hj6rxj4w29vs0k9hmrcrq2kdv
+    url: https://files.pythonhosted.org/packages/c2/f1/df59e28c642d583f7dacffb1e0965d0e00b218e0186d7858ac5233dce840/click-8.1.3-py3-none-any.whl
+  - name: click-8.1.3.tar.gz
+    sha256: 13kvp8visj5xh9d43brnda6q0kc1s40flxa5cw0p0a9hzf5dr0kn
+    url: https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz
   - name: colorama-0.4.4-py2.py3-none-any.whl
     sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
     url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
@@ -364,33 +361,6 @@ links:
   - name: cycler-0.11.0.tar.gz
     sha256: 0bvpkkmdqhz0fyns3hgfy4b9zxpmsgz1if5k6zl9d5m175c411ww
     url: https://files.pythonhosted.org/packages/34/45/a7caaacbfc2fa60bee42effc4bcc7d7c6dbe9c349500e04f65a861c15eb9/cycler-0.11.0.tar.gz
-  - name: ddtrace-1.0.1-cp39-cp39-macosx_10_9_universal2.whl
-    sha256: 19gk128bllqb9ch72sa49v1qb3yq2y7ygl3gz7ayhza5qwy9cjdl
-    url: https://files.pythonhosted.org/packages/49/92/d37606e3f028e97a83d877e144a881c4010b22b0827e8e58b3a36ad689b9/ddtrace-1.0.1-cp39-cp39-macosx_10_9_universal2.whl
-  - name: ddtrace-1.0.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1w8fzbv02raqlrxd39a2vpalvr0ld7nzv5nviplznpl5d3gq20ca
-    url: https://files.pythonhosted.org/packages/2a/92/f98fe5b612d3e084c7837951172e94f97d06a0043cfc1f3cd162286ce138/ddtrace-1.0.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: ddtrace-1.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 07hvpmja7zmkwwxzqbwyirsbczpr38h1051adqfbgp4nhrgjkq50
-    url: https://files.pythonhosted.org/packages/ce/fa/8106ea32089a7ef8d5ea18f5a33bfddd8eede7f2d268a7bf1af6ebd90de7/ddtrace-1.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: ddtrace-1.0.1-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 1llskpsn7a38c1vi59dcszf4v6iq63yki5ys92pdd55w7va6prsc
-    url: https://files.pythonhosted.org/packages/9c/ec/41c7f7513d0872f7af965b3e20c87fa51523c185b2ae55dd603cf8b7026f/ddtrace-1.0.1-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: ddtrace-1.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 07lyb1y2x4jw8kf560d4zxailh0aj5y8sln9ma0my3m8lq35wsw8
-    url: https://files.pythonhosted.org/packages/b7/d2/630e928f5618ab9cc6f9a5937736c4458fc5f5eac8228d774871e9f0b21a/ddtrace-1.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: ddtrace-1.0.1-cp39-cp39-musllinux_1_1_aarch64.whl
-    sha256: 1pw897qqabq56ibk5ykhq4dl7riqqm64sqivfzgyn2yb144lqcxa
-    url: https://files.pythonhosted.org/packages/96/e0/8412519318f6058d8c15f3e4d8136dcf15f1f0d75b70557b3788cc2ef29a/ddtrace-1.0.1-cp39-cp39-musllinux_1_1_aarch64.whl
-  - name: ddtrace-1.0.1-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 01492gi6wr4p8f4mji8la82j3dzjjj0j6b2pyjmzgmw11h5zdjzs
-    url: https://files.pythonhosted.org/packages/40/1a/9ad8b408baf77e13acd7e3548577043c8949b869049246db5ddd1f625474/ddtrace-1.0.1-cp39-cp39-musllinux_1_1_i686.whl
-  - name: ddtrace-1.0.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 113jphkx991bp0z6w17l7gyha9i221gqryf6qzyz1f7zr9xahi0y
-    url: https://files.pythonhosted.org/packages/48/ca/d262a37fedb6df1ef566336463cd02827aed3432d38eb53d3e9d643ba2c0/ddtrace-1.0.1-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: ddtrace-1.0.1.tar.gz
-    sha256: 01409w6y04zhmx17x5qdzdg6ibri7bpbl1655yjqcl75s6v2sqsy
-    url: https://files.pythonhosted.org/packages/c4/f3/90c5a29c96175f8a4a50e549b7007df50278bc1101e1fbc61c3365725a4d/ddtrace-1.0.1.tar.gz
   - name: defusedxml-0.7.1-py2.py3-none-any.whl
     sha256: 0qca37v5iv0304hrl9pzad4jpnxfrnv449cyi768c0kp53jfflm3
     url: https://files.pythonhosted.org/packages/07/6c/aa3f2f849e01cb6a001cd8554a88d4c77c5c1a31c95bdf1cf9301e6d9ef4/defusedxml-0.7.1-py2.py3-none-any.whl
@@ -820,21 +790,6 @@ links:
   - name: Pillow-9.1.0.tar.gz
     sha256: 15zvfl6yji2s4g8zfy6ksc4ijv2g3bdn7k0c2pg1lphmpcmys0gl
     url: https://files.pythonhosted.org/packages/4b/83/090146d7871d90a2643d469c319c1d014e41b315ab5cf0f8b4b6a764ef31/Pillow-9.1.0.tar.gz
-  - name: protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1drzm60fzak3xjfg63wj2w7rg80lv4w1cnx8v0jkdlm328an0l3g
-    url: https://files.pythonhosted.org/packages/0b/db/2b07ad1542511b0b2b2c1796c316c5063f9724b86240f5e6accc1fde5e5f/protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
-    sha256: 13xpqsb6wf326hjjnx61cjaqzfrn78jfnmp9sx17b2bw42k8ckr8
-    url: https://files.pythonhosted.org/packages/9f/b0/bf25cdbab8841d9111f0f13578150d232339a6483383589648592fe84f4b/protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
-  - name: protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-    sha256: 1yc2i58c1p8ajcx2h0jsi803fmjp28zb52xac40x94h9dlgr80vl
-    url: https://files.pythonhosted.org/packages/98/d9/63b47f719d3cc0f29b36e870ad1d9447b8eef398c2a7b548e67298d9f652/protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-  - name: protobuf-3.20.1-py2.py3-none-any.whl
-    sha256: 126394l6282qjja9shqm2crarw0qxx79d4y74kym133zkkv6rz5d
-    url: https://files.pythonhosted.org/packages/ef/c8/2e7f7feaf804b7206e6cc8fa3f0f49834a78f7cb127813d2c45e42d5f7bf/protobuf-3.20.1-py2.py3-none-any.whl
-  - name: protobuf-3.20.1.tar.gz
-    sha256: 1ja2vpk9nklllmsirmil2s4l7ni9yfqvbvj47zz5xx17s1k1bhxd
-    url: https://files.pythonhosted.org/packages/19/96/1283259c25bc48a6df98fa096f66fc568b40137b93806ef5ff66a2d166b1/protobuf-3.20.1.tar.gz
   - name: psycopg2-2.9.3.tar.gz
     sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
     url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
@@ -1039,12 +994,6 @@ links:
   - name: stripe-2.63.0.tar.gz
     sha256: 1q8sp0zd5jyl5j43dgd11q0gkg82hwp6cb1nwjlkf9yq65g96v41
     url: https://files.pythonhosted.org/packages/5b/11/29d7575edba08379b21d7ea443049fb802c30cd0660bffed444b6f1fc114/stripe-2.63.0.tar.gz
-  - name: tenacity-8.0.1-py3-none-any.whl
-    sha256: 0jl4xgih46a7f13ilchv332vyxqjq2lc47f151kw1aqg3fl4x3zp
-    url: https://files.pythonhosted.org/packages/f2/a5/f86bc8d67c979020438c8559cc70cfe3a1643fd160d35e09c9cca6a09189/tenacity-8.0.1-py3-none-any.whl
-  - name: tenacity-8.0.1.tar.gz
-    sha256: 0bwkvjpjfyi9dgszzad9aww2vc00w3bczjnbifi92cp7wch2l923
-    url: https://files.pythonhosted.org/packages/2c/f5/04748914f5c78f7418b803226bd56cdddd70ac369b936b3e24f5158017f1/tenacity-8.0.1.tar.gz
   - name: twilio-7.7.0-py2.py3-none-any.whl
     sha256: 0dfqcdwry91n908rl050z267gqfaza9x9cf39c6lsbmiayskvgsp
     url: https://files.pythonhosted.org/packages/58/ab/1b8dc84bf6593e247b18b59ef582d24f3632e5bd43a864342ff29a120cf8/twilio-7.7.0-py2.py3-none-any.whl
