@@ -11,6 +11,9 @@ from back.test.unit.src.utils import (
 from dataloaders import (
     apply_context_attrs,
 )
+from datetime import (
+    datetime,
+)
 import json
 from names.domain import (
     get_name,
@@ -932,6 +935,211 @@ async def test_update_git_environments() -> None:
 
     assert "errors" not in result
     assert result["data"]["updateGitEnvironments"]["success"]
+
+    query_changes = """
+      query {
+        root(
+          groupName: "unittesting"
+          rootId: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+        ) {
+          ... on GitRoot {
+            environmentUrls
+            gitEnvironmentUrls {
+              url
+              id
+              createdAt
+              secrets {
+                value
+                key
+                description
+              }
+            }
+          }
+        }
+      }
+    """
+    result = await _get_result_async({"query": query_changes})
+    assert len(result["data"]["root"]["gitEnvironmentUrls"]) > 0
+    assert (
+        result["data"]["root"]["gitEnvironmentUrls"][0]["id"]
+        == "e6118eb4696e04e882362cf2159baf240687256f"
+    )
+    assert (
+        result["data"]["root"]["gitEnvironmentUrls"][0]["url"]
+        == result["data"]["root"]["environmentUrls"][0]
+    )
+    assert (
+        datetime.fromisoformat(
+            result["data"]["root"]["gitEnvironmentUrls"][0]["createdAt"]
+        ).day
+        == datetime.now().day
+    )
+
+
+@pytest.mark.changes_db
+async def test_update_git_environments_delete() -> None:
+    query = """
+      mutation {
+        updateGitEnvironments(
+          groupName: "unittesting"
+          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          environmentUrls: [
+            "https://app.fluidattacks.com/"
+            "https://app.fluidattacks.com/a"
+            "https://app.fluidattacks.com/b"
+          ]
+        ) {
+          success
+        }
+      }
+    """
+    result = await _get_result_async({"query": query})
+
+    assert "errors" not in result
+    assert result["data"]["updateGitEnvironments"]["success"]
+
+    query_changes = """
+      query {
+        root(
+          groupName: "unittesting"
+          rootId: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+        ) {
+          ... on GitRoot {
+            environmentUrls
+            gitEnvironmentUrls {
+              url
+              id
+              createdAt
+            }
+          }
+        }
+      }
+    """
+    result = await _get_result_async({"query": query_changes})
+    assert len(result["data"]["root"]["gitEnvironmentUrls"]) == 3
+
+    query = """
+      mutation {
+        updateGitEnvironments(
+          groupName: "unittesting"
+          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          environmentUrls: [
+            "https://app.fluidattacks.com/"
+          ]
+        ) {
+          success
+        }
+      }
+    """
+    await _get_result_async({"query": query})
+
+    query_changes = """
+      query {
+        root(
+          groupName: "unittesting"
+          rootId: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+        ) {
+          ... on GitRoot {
+            environmentUrls
+            gitEnvironmentUrls {
+              url
+              id
+              createdAt
+            }
+          }
+        }
+      }
+    """
+    result = await _get_result_async({"query": query_changes})
+    assert len(result["data"]["root"]["gitEnvironmentUrls"]) == 1
+
+
+@pytest.mark.changes_db
+async def test_add_environment_url_secret() -> None:
+    query = """
+      mutation {
+        addGitEnvironmentSecret(
+          groupName: "unittesting"
+          urlId: "e6118eb4696e04e882362cf2159baf240687256f"
+          key: "user"
+          value: "jane_doe"
+          description: "user acces for prod"
+        ) {
+          success
+        }
+      }
+    """
+    result = await _get_result_async(
+        {"query": query}, user="integratesuser@gmail.com"
+    )
+
+    assert "errors" not in result
+    assert result["data"]["addGitEnvironmentSecret"]["success"]
+
+    query_secrets = """
+      query {
+        environmentUrl(
+          groupName: "unittesting"
+          urlId: "e6118eb4696e04e882362cf2159baf240687256f"
+        ) {
+          url
+          id
+          secrets {
+            key
+            value
+          }
+        }
+      }
+    """
+    result_secrets = await _get_result_async(
+        {"query": query_secrets}, user="integrateshacker@fluidattacks.com"
+    )
+    secrets = result_secrets["data"]["environmentUrl"]["secrets"]
+    assert len(secrets) > 0
+    assert secrets[0]["key"] == "user"
+    assert secrets[0]["value"] == "jane_doe"
+
+
+@pytest.mark.changes_db
+async def test_remove_environment_url_secret() -> None:
+    query = """
+      mutation {
+        removeEnvironmentUrlSecret(
+          key: "user"
+          groupName: "unittesting"
+          urlId: "e6118eb4696e04e882362cf2159baf240687256f"
+        ) {
+          success
+        }
+      }
+    """
+    result = await _get_result_async(
+        {"query": query}, user="integratesuser@gmail.com"
+    )
+
+    assert "errors" not in result
+    assert result["data"]["removeEnvironmentUrlSecret"]["success"]
+
+    query_secrets = """
+      query {
+        environmentUrl(
+          groupName: "unittesting"
+          urlId: "e6118eb4696e04e882362cf2159baf240687256f"
+        ) {
+          url
+          id
+          secrets {
+            key
+            value
+          }
+        }
+      }
+    """
+    result_secrets = await _get_result_async(
+        {"query": query_secrets}, user="integrateshacker@fluidattacks.com"
+    )
+    secrets = result_secrets["data"]["environmentUrl"]["secrets"]
+    assert len(secrets) == 0
 
 
 @pytest.mark.changes_db

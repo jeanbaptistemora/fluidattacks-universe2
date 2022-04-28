@@ -358,6 +358,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "update_git_root_filter",
             "valid_assigned",
             "request_group_upgrade",
+            "api_mutations_add_git_environment_secret_mutate",
+            "api_mutations_remove_environment_url_secret_mutate",
         },
         tags=set(),
     ),
@@ -817,6 +819,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
+            "api_mutations_add_git_environment_secret_mutate",
         },
         tags={
             *GROUP_LEVEL_ROLES["user_manager"]["tags"],
