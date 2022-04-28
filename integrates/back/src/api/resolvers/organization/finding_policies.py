@@ -1,6 +1,3 @@
-from custom_types import (
-    Organization,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -11,12 +8,14 @@ from organizations_finding_policies.types import (
     OrgFindingPolicy,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
 )
 
 
 async def resolve(
-    parent: Organization, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[OrgFindingPolicy, ...]:
     finding_policies: Tuple[OrgFindingPolicy, ...] = await get_org_policies(
         org_name=parent["name"]

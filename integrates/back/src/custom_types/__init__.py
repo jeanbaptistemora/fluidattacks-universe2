@@ -32,7 +32,6 @@ Historic = List[Dict[str, str]]
 InternalName = Dict[str, str]
 Invitation = Dict[str, Union[str, bool]]
 MailContent = Dict[str, Any]
-Organization = Dict[str, Any]
 Group = Dict[
     str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]
 ]
@@ -43,7 +42,7 @@ Stakeholder = Dict[
 Tag = Dict[str, Union[Decimal, str, List[str]]]
 User = Dict[str, Any]
 
-Dynamo = Union[str, Organization]
+Dynamo = Union[str, Dict[str, Any]]
 Event = Dict[str, Any]
 ExecutionVulnerabilities = Dict[str, Union[int, List[ExploitResult]]]
 ForcesExecution = Dict[str, Union[str, datetime, ExecutionVulnerabilities]]
@@ -152,7 +151,7 @@ ApproveDraftPayload = NamedTuple(
 )
 AddOrganizationPayload = NamedTuple(
     "AddOrganizationPayload",
-    [("success", bool), ("organization", Organization)],
+    [("success", bool), ("organization", Dict[str, Any])],
 )
 DownloadFilePayload = NamedTuple(
     "DownloadFilePayload",

@@ -17,7 +17,6 @@ from custom_types import (
     Dynamo as DynamoType,
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
-    Organization as OrganizationType,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
@@ -60,7 +59,7 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     return mapped_attrs
 
 
-def _map_keys_to_domain(org: OrganizationType) -> OrganizationType:
+def _map_keys_to_domain(org: Dict[str, Any]) -> Dict[str, Any]:
     """
     Map DynamoDB keys to a human-readable form
     """
@@ -95,7 +94,7 @@ async def add_user(organization_id: str, email: str) -> bool:
 async def create(
     organization_name: str,
     organization_id: str = "",
-) -> OrganizationType:
+) -> Dict[str, Any]:
     """
     Create an organization and returns its key
     """
@@ -106,7 +105,7 @@ async def create(
     organization_id = (
         str(uuid.uuid4()) if organization_id == "" else organization_id
     )
-    new_item: OrganizationType = {
+    new_item: Dict[str, Any] = {
         "pk": f"ORG#{organization_id}",
         "sk": f"INFO#{organization_name.lower().strip()}",
     }
@@ -157,11 +156,11 @@ async def get_access_by_url_token(
 
 async def get_by_id(
     organization_id: str, attributes: Optional[List[str]] = None
-) -> OrganizationType:
+) -> Dict[str, Any]:
     """
     Use the organization ID to fetch general information about it
     """
-    organization: OrganizationType = {}
+    organization: Dict[str, Any] = {}
     query_attrs = {
         "KeyConditionExpression": (
             Key("pk").eq(organization_id) & Key("sk").begins_with("INFO#")
@@ -186,12 +185,12 @@ async def get_by_id(
 
 async def get_by_name(
     org_name: str, attributes: Optional[List[str]] = None
-) -> OrganizationType:
+) -> Dict[str, Any]:
     """
     Get an organization info given its name
     Return specified attributes or all if not setted
     """
-    organization: OrganizationType = {}
+    organization: Dict[str, Any] = {}
     query_attrs = {
         "KeyConditionExpression": (
             Key("sk").eq(f"INFO#{org_name.lower().strip()}")
@@ -281,12 +280,12 @@ async def get_ids_for_user(email: str) -> List[str]:
 
 async def get_many_by_id(
     organization_ids: List[str], attributes: Optional[List[str]] = None
-) -> List[OrganizationType]:
+) -> List[Dict[str, Any]]:
     """
     Use the organization ID to fetch general information about it
     """
     return cast(
-        List[OrganizationType],
+        List[Dict[str, Any]],
         await collect(
             get_by_id(org_id, attributes) for org_id in organization_ids
         ),
@@ -400,7 +399,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
 
 
 async def update(
-    organization_id: str, organization_name: str, values: OrganizationType
+    organization_id: str, organization_name: str, values: Dict[str, Any]
 ) -> bool:
     """
     Updates the attributes of an organization
@@ -408,7 +407,7 @@ async def update(
     success: bool = False
     set_expression: str = ""
     remove_expression: str = ""
-    expression_values: OrganizationType = {}
+    expression_values: Dict[str, Any] = {}
     for attr, value in values.items():
         if value is None:
             remove_expression += f"{attr}, "
@@ -443,7 +442,7 @@ async def update(
 
 
 async def update_group(
-    organization_id: str, group_name: str, values: OrganizationType
+    organization_id: str, group_name: str, values: Dict[str, Any]
 ) -> bool:
     """
     Updates the attributes of a group in an organization
@@ -451,7 +450,7 @@ async def update_group(
     success: bool = False
     set_expression: str = ""
     remove_expression: str = ""
-    expression_values: OrganizationType = {}
+    expression_values: Dict[str, Any] = {}
     for attr, value in values.items():
         if value is None:
             remove_expression += f"{attr}, "

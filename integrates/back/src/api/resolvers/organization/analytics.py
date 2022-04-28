@@ -4,21 +4,22 @@ from analytics import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    Organization,
-)
 from decorators import (
     enforce_organization_level_auth_async,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: Organization, _info: GraphQLResolveInfo, **kwargs: str
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **kwargs: str
 ) -> object:
     document_name: str = kwargs["document_name"]
     document_type: str = kwargs["document_type"]

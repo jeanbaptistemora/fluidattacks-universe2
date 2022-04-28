@@ -1,6 +1,5 @@
 from custom_types import (
     AddOrganizationPayload,
-    Organization,
 )
 from decorators import (
     require_login,
@@ -17,6 +16,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Any,
     Dict,
 )
 
@@ -36,7 +36,7 @@ async def mutate(
         user_email,
         name,
     )
-    organization: Organization = await orgs_domain.add_organization(
+    organization: Dict[str, Any] = await orgs_domain.add_organization(
         name, user_email
     )
     TRANSACTIONS_LOGGER.info(

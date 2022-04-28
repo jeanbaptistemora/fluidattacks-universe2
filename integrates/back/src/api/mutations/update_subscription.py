@@ -5,7 +5,6 @@ from billing import (
     domain as billing_domain,
 )
 from custom_types import (
-    Organization,
     SimplePayload,
 )
 from dataloaders import (
@@ -27,6 +26,7 @@ from organizations import (
 )
 from typing import (
     Any,
+    Dict,
 )
 
 
@@ -43,7 +43,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group_typed.load(kwargs["group_name"])
     org_id: str = await orgs_domain.get_id_by_name(group.organization_name)
-    org: Organization = await loaders.organization.load(org_id)
+    org: Dict[str, Any] = await loaders.organization.load(org_id)
 
     # Update subscription
     result: bool = await billing_domain.update_subscription(

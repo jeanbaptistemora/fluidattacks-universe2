@@ -1,9 +1,6 @@
 from billing import (
     domain as billing_domain,
 )
-from custom_types import (
-    Organization,
-)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -16,6 +13,7 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
+    Any,
     Dict,
     Optional,
 )
@@ -26,7 +24,7 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def resolve(
-    parent: Organization, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     org_id: str = parent["id"]
     org_name: str = parent["name"]

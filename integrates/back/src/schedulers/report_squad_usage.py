@@ -4,9 +4,6 @@ from aioextensions import (
 from billing import (
     domain as billing_domain,
 )
-from custom_types import (
-    Organization,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -25,6 +22,10 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 bugsnag_utils.start_scheduler_session()
@@ -47,7 +48,7 @@ async def main() -> None:
             for group in squad_groups
         )
     )
-    squad_orgs: list[Organization] = await loaders.organization.load_many(
+    squad_orgs: list[Dict[str, Any]] = await loaders.organization.load_many(
         squad_orgs_ids
     )
     await collect(

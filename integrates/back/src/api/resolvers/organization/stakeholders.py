@@ -1,5 +1,4 @@
 from custom_types import (
-    Organization as OrganizationType,
     Stakeholder as StakeholderType,
 )
 from decorators import (
@@ -15,13 +14,15 @@ from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
 
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: OrganizationType, info: GraphQLResolveInfo, **kwargs: None
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **kwargs: None
 ) -> List[StakeholderType]:
     response: List[StakeholderType] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
@@ -33,7 +34,7 @@ async def resolve(
 
 
 async def resolve_no_cache(
-    parent: OrganizationType, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[StakeholderType]:
     org_id = parent["id"]
     organization_stakeholders_loader = (

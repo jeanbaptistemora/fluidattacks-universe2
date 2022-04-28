@@ -4,9 +4,6 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Organization as OrganizationType,
-)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -14,6 +11,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Any,
     Dict,
     List,
 )
@@ -21,8 +19,8 @@ from typing import (
 
 async def _batch_load_fn(
     organization_ids: List[str],
-) -> List[OrganizationType]:
-    organizations: Dict[str, OrganizationType] = {}
+) -> List[Dict[str, Any]]:
+    organizations: Dict[str, Dict[str, Any]] = {}
     organizations_by_id = await collect(
         [
             orgs_domain.get_by_id(organization_id)
@@ -61,5 +59,5 @@ class OrganizationLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_ids: List[str]
-    ) -> List[OrganizationType]:
+    ) -> List[Dict[str, Any]]:
         return await _batch_load_fn(organization_ids)

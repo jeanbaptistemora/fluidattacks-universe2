@@ -4,9 +4,6 @@ from billing import (
 from billing.types import (
     PaymentMethod,
 )
-from custom_types import (
-    Organization,
-)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -16,6 +13,8 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Optional,
 )
@@ -26,7 +25,7 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def resolve(
-    parent: Organization, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[PaymentMethod]:
     org_billing_customer: Optional[str] = parent.get("billing_customer", None)
 

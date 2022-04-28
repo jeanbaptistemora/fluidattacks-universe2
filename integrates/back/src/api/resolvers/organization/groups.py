@@ -1,6 +1,3 @@
-from custom_types import (
-    Organization,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -21,12 +18,14 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
 )
 
 
 async def resolve(
-    parent: Organization, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[Group, ...]:
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]

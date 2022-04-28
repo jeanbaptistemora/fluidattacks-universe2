@@ -1,7 +1,4 @@
 import authz
-from custom_types import (
-    Organization,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -9,12 +6,13 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
+    Any,
     Dict,
 )
 
 
 async def resolve(
-    parent: Organization, info: GraphQLResolveInfo, **kwargs: Dict[str, str]
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **kwargs: Dict[str, str]
 ) -> str:
     identifier = str(kwargs.get("identifier", parent["id"]))
 

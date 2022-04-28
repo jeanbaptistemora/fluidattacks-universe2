@@ -24,7 +24,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     MailContent as MailContentType,
-    Organization as OrganizationType,
 )
 from db_model.groups.types import (
     Group,
@@ -92,7 +91,7 @@ async def _add_updated_values(
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
     value_to_update: str,
-) -> OrganizationType:
+) -> Dict[str, Any]:
     """Generic method to update org policies and reuse typical validation
     logic"""
     new_value = values.get(value_to_update)
@@ -109,7 +108,7 @@ async def _add_updated_max_number_acceptances(
     values: Dict[str, Optional[Decimal]],
     email: str,
     date: str,
-) -> OrganizationType:
+) -> Dict[str, Any]:
     new_max_number_acceptances = get_key_or_fallback(
         values, "max_number_acceptances", "max_number_acceptations"
     )
@@ -145,7 +144,7 @@ async def _get_new_policies(
     email: str,
     date: str,
     values: Dict[str, Optional[Decimal]],
-) -> Union[OrganizationType, None]:
+) -> Union[Dict[str, Any], None]:
     policies = await collect(
         [
             _add_updated_max_number_acceptances(
@@ -168,7 +167,7 @@ async def _get_new_policies(
             ),
         ]
     )
-    new_policies: OrganizationType = {
+    new_policies: Dict[str, Any] = {
         key: val for item in policies for key, val in item.items()
     }
     return new_policies or None
@@ -213,7 +212,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
     return success
 
 
-async def add_organization(name: str, email: str) -> OrganizationType:
+async def add_organization(name: str, email: str) -> Dict[str, Any]:
     if not re.match(r"^[a-zA-Z]{4,10}$", name):
         raise InvalidOrganization()
 
@@ -231,7 +230,7 @@ async def remove_organization(organization_id: str) -> bool:
     return success
 
 
-def format_organization(organization: OrganizationType) -> OrganizationType:
+def format_organization(organization: Dict[str, Any]) -> Dict[str, Any]:
     historic_policies: List[Dict[str, Decimal]] = cast(
         List[Dict[str, Decimal]],
         organization.get("historic_max_number_acceptations", []),
@@ -288,15 +287,15 @@ async def get_all_active_groups_typed(
     return groups_utils.filter_active_groups(tuple(all_groups))
 
 
-async def get_by_id(org_id: str) -> OrganizationType:
-    organization: OrganizationType = await orgs_dal.get_by_id(org_id)
+async def get_by_id(org_id: str) -> Dict[str, Any]:
+    organization: Dict[str, Any] = await orgs_dal.get_by_id(org_id)
     if organization:
         return format_organization(organization)
     raise OrganizationNotFound()
 
 
-async def get_by_name(name: str) -> OrganizationType:
-    organization: OrganizationType = await orgs_dal.get_by_name(name.lower())
+async def get_by_name(name: str) -> Dict[str, Any]:
+    organization: Dict[str, Any] = await orgs_dal.get_by_name(name.lower())
     if organization:
         return format_organization(organization)
     raise OrganizationNotFound()
@@ -308,7 +307,7 @@ async def get_groups(organization_id: str) -> Tuple[str, ...]:
 
 
 async def get_id_by_name(organization_name: str) -> str:
-    result: OrganizationType = await orgs_dal.get_by_name(
+    result: Dict[str, Any] = await orgs_dal.get_by_name(
         organization_name.lower(), ["id"]
     )
     if not result:
@@ -326,7 +325,7 @@ async def get_name_for_group(group_name: str) -> str:
 
 
 async def get_name_by_id(organization_id: str) -> str:
-    result: OrganizationType = await orgs_dal.get_by_id(
+    result: Dict[str, Any] = await orgs_dal.get_by_id(
         organization_id, ["name"]
     )
     if not result:
@@ -336,7 +335,7 @@ async def get_name_by_id(organization_id: str) -> str:
 
 async def get_or_add(
     organization_name: str, email: str = ""
-) -> OrganizationType:
+) -> Dict[str, Any]:
     """
     Return an organization, even if it does not exists,
     in which case it will be added
@@ -459,7 +458,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
 
 async def remove_group(group_name: str, organization_id: str) -> bool:
     today = datetime_utils.get_now()
-    values: OrganizationType = {
+    values: Dict[str, Any] = {
         "deletion_date": datetime_utils.get_as_str(today)
     }
     return await orgs_dal.update_group(organization_id, group_name, values)
@@ -541,7 +540,7 @@ async def update_pending_deletion_date(
     pending_deletion_date: Optional[str],
 ) -> bool:
     """Update pending deletion date"""
-    values: OrganizationType = {"pending_deletion_date": pending_deletion_date}
+    values: Dict[str, Any] = {"pending_deletion_date": pending_deletion_date}
     success = await orgs_dal.update(organization_id, organization_name, values)
     return success
 
@@ -552,7 +551,7 @@ async def update_billing_customer(
     org_billing_customer: str,
 ) -> bool:
     """Update Stripe billing customer"""
-    values: OrganizationType = {"billing_customer": org_billing_customer}
+    values: Dict[str, Any] = {"billing_customer": org_billing_customer}
     success = await orgs_dal.update(org_id, org_name, values)
     return success
 
