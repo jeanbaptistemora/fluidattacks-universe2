@@ -1,5 +1,3 @@
-import { redirectMap } from "./redirectMap";
-
 let securityHeaders = {
   "Content-Security-Policy" : "script-src "
                               + "'self' "
@@ -87,21 +85,4 @@ async function addHeaders(req) {
     statusText: response.statusText,
     headers: newHdrs
   })
-}
-
-// Redirect 404 pages
-addEventListener('fetch', async event => {
-  event.respondWith(bulkRedirects(event.request));
-});
-
-async function bulkRedirects(request) {
-  const requestURL = new URL(request.url);
-  const path = requestURL.pathname.split('.com')[1];
-  const location = redirectMap.get(path);
-
-  if (location) {
-    return Response.redirect(location, 301);
-  }
-  // If request not in map, return the original request
-  return fetch(request);
 }
