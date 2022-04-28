@@ -46,6 +46,7 @@ describe("update verification component", (): void => {
           canRetrieveZeroRisk: false,
           findingId: "",
           first: 100,
+          state: "OPEN",
         },
       },
       result: {
@@ -62,6 +63,7 @@ describe("update verification component", (): void => {
         variables: {
           findingId: "",
           first: 100,
+          state: "OPEN",
         },
       },
       result: {

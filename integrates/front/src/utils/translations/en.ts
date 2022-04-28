@@ -2848,7 +2848,7 @@ export const enTranslations: ResourceKey = {
       searchText: "Search Text",
       status: "Status",
       statusTooltip:
-        "Filter vulnerabilities based on their open / closed status",
+        "Filter vulnerabilities based on their open / closed status (It limits the total results)",
       tabTitle: "Locations",
       tagTooltip: "Filter vulnerabilities based on their tag",
       tooltip: "Open / Closed vulnerabilities",
@@ -2932,7 +2932,10 @@ export const enTranslations: ResourceKey = {
     clearFilters: "Clear Filters",
     filters: "Filters",
     noDataIndication: "There is no data to display",
-    results: "Showing {{matches}} matching results out of {{total}}",
+    results: {
+      text: "Showing {{matches}} matching results out of {{total}}",
+      tooltip: "The total result is a partial amount until loading all data",
+    },
     search: "Search",
     tooltip: "Search filters for the table",
   },

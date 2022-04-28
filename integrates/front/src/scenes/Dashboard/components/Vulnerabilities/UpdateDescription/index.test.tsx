@@ -90,6 +90,7 @@ describe("Update Description component", (): void => {
           canRetrieveZeroRisk: false,
           findingId: "422286126",
           first: 100,
+          state: "OPEN",
         },
       },
       result: {
@@ -106,6 +107,7 @@ describe("Update Description component", (): void => {
         variables: {
           findingId: "422286126",
           first: 100,
+          state: "OPEN",
         },
       },
       result: {

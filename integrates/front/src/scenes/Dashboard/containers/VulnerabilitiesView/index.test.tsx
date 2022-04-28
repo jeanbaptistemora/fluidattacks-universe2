@@ -42,6 +42,7 @@ describe("VulnerabilitiesView", (): void => {
       variables: {
         findingId: "422286126",
         first: 100,
+        state: "OPEN",
       },
     },
     result: {

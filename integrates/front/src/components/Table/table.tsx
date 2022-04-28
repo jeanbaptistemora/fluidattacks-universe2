@@ -262,12 +262,17 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         )}
       </div>
       {resultSize && shoulShowResults && (
-        <p>
-          {t("table.results", {
-            matches: resultSize.current,
-            total: resultSize.total,
-          })}
-        </p>
+        <TooltipWrapper
+          id={"tableResultTooltip"}
+          message={t("table.results.tooltip")}
+        >
+          <p>
+            {t("table.results.text", {
+              matches: resultSize.current,
+              total: resultSize.total,
+            })}
+          </p>
+        </TooltipWrapper>
       )}
       <TableContainer
         isRowFunctional={rowEvents !== undefined}

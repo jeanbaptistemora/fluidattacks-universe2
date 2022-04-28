@@ -178,6 +178,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
     variables: {
       findingId,
       first: 100,
+      state: _.isEmpty(filterGroupFindingsCurrentStatus.currentStatus)
+        ? undefined
+        : filterGroupFindingsCurrentStatus.currentStatus.toUpperCase(),
     },
   });
   const vulnerabilitiesConnection =
@@ -342,11 +345,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterSelect(
-    vulnerabilities,
-    filterGroupFindingsCurrentStatus.currentStatus,
-    "currentState"
-  );
 
   function onTreatmentStatusChange(
     event: React.ChangeEvent<HTMLSelectElement>
@@ -407,7 +405,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     filterSearchTextVulnerabilities,
     filterTreatmentCurrentStatusVulnerabilities,
     filterTreatmentVulnerabilities,
-    filterCurrentStatusVulnerabilities,
     filterVerificationVulnerabilities,
     filterReportDateRangeVulnerabilities,
     filterTagVulnerabilities
