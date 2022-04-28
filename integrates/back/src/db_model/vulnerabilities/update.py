@@ -175,7 +175,7 @@ async def update_treatment(
     await update_assigned_index(
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
-        entry=current_value.treatment,
+        entry=treatment,
     )
 
 
