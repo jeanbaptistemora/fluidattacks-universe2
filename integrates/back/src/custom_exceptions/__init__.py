@@ -1378,3 +1378,12 @@ class RequiredStateStatus(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - State status is required"
         super(RequiredStateStatus, self).__init__(msg)
+
+
+class UnsanitizedInputFound(CustomBaseException):
+    """Exception to control unsanitized input"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Unsanitized input found"
+        super(UnsanitizedInputFound, self).__init__(msg)

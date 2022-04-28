@@ -11,6 +11,7 @@ from custom_exceptions import (
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
     InvalidSeverityUpdateValues,
+    UnsanitizedInputFound,
 )
 from db_model.findings.enums import (
     FindingCvssVersion,
@@ -286,3 +287,24 @@ def check_and_set_min_time_to_remediate(
         raise InvalidMinTimeToRemediate()
     except ValueError as error:
         raise InvalidMinTimeToRemediate() from error
+
+
+def validate_sanitized_csv_input(raw_text: str) -> bool:
+    """Checks for the presence of any character that could be interpreted as
+    the start of a formula by a spreadsheet editor according to
+    https://owasp.org/www-community/attacks/CSV_Injection"""
+    forbidden_characters: Tuple[str, ...] = ("=", "+", "@", "\t", "\r")
+    split_text: List[str] = [*raw_text]
+    if any(character in split_text for character in forbidden_characters):
+        raise UnsanitizedInputFound()
+    # As it isn't unusual to find the "-" character, we check for it separately
+    separators: Tuple[str, ...] = ('"', "'", ",", ";")
+    minus_locations: List[int] = [
+        match.start() for match in re.finditer("-", raw_text)
+    ]
+    for location in minus_locations:
+        if location == 0 or any(
+            separator in raw_text[location - 1] for separator in separators
+        ):
+            raise UnsanitizedInputFound()
+    return True
