@@ -1023,7 +1023,6 @@ const redirectMap = new Map([
   ["/solutions/security-testing/partners/choucair/", homeURL],
   ["/solutions/security-testing/about-us/people/dcardona/", homeURL],
   ["/partners/gamma-ingenieros/", homeURL],
-  [""]
 ]);
 
 export { redirectMap };
