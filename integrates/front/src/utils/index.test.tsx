@@ -418,14 +418,10 @@ describe("Validations", (): void => {
     expect.hasAssertions();
 
     const feedbackEqual: string | undefined = validTextField("=testfield");
-    const feedbackApos: string | undefined = validTextField("testf'ield");
     const feedbackLessThan: string | undefined = validTextField("<testfield");
 
     expect(feedbackEqual).toBe(
       "Field cannot begin with the following character: '='"
-    );
-    expect(feedbackApos).toBe(
-      "Field cannot contain the following characters: '''"
     );
     expect(feedbackLessThan).toBe(
       "Field cannot contain the following characters: '<'"
