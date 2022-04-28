@@ -3,8 +3,8 @@
 Update vuln treatment assigned index for all vulns.
 The related vms index is gsi_3.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2022-04-28 at 23:06:39 UTC
+Finalization Time:  2022-04-28 at 23:12:09 UTC
 """
 
 from aioextensions import (
