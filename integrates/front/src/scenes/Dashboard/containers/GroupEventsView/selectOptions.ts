@@ -18,7 +18,6 @@ const accessibilityOptions: Record<string, string> = {
     "group.events.form.accessibility.environment",
   [translate.t("group.events.form.accessibility.repository")]:
     "group.events.form.accessibility.repository",
-  "-": "-",
 };
 const afectCompsOptions: Record<string, string> = {
   [translate.t(
@@ -72,7 +71,6 @@ const afectCompsOptions: Record<string, string> = {
   [translate.t(
     "searchFindings.tabEvents.affectedComponentsValues.vpnConnection"
   )]: "searchFindings.tabEvents.affectedComponentsValues.vpnConnection",
-  "-": "-",
 };
 
 export { accessibilityOptions, afectCompsOptions, selectOptionType };
