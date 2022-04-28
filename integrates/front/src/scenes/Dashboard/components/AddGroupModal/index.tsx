@@ -1,5 +1,8 @@
+/* eslint-disable react/forbid-component-props, fp/no-mutating-methods */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -7,6 +10,7 @@ import _ from "lodash";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import type { Step } from "react-joyride";
 import LoadingOverlay from "react-loading-overlay";
 import { useHistory } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -20,6 +24,7 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
 import { Switch } from "components/Switch";
@@ -177,11 +182,102 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
               "squad"
             );
 
+            const isContinuous = values.type === "CONTINUOUS";
+
+            const steps: Step[] = [
+              {
+                ...BaseStep,
+                content: (
+                  <React.Fragment>
+                    {t("tours.addGroup.intro")}
+                    <ExternalLink
+                      className={"g-a"}
+                      href={
+                        "https://docs.fluidattacks.com/machine/web/groups/general"
+                      }
+                    >
+                      <FontAwesomeIcon border={true} icon={faCircleInfo} />
+                    </ExternalLink>
+                  </React.Fragment>
+                ),
+                placement: "center",
+                target: "#add-group-plan",
+                title: t("organization.tabs.groups.newGroup.new.group"),
+              },
+              {
+                ...BaseStep,
+                content: (
+                  <React.Fragment>
+                    {t("tours.addGroup.groupDescription.start")}
+                    <strong>{t("tours.addGroup.groupDescription.end")}</strong>
+                  </React.Fragment>
+                ),
+                hideBackButton: true,
+                hideFooter: values.description.length === 0,
+                target: "#add-group-description-tour",
+              },
+              {
+                ...BaseStep,
+                content: (
+                  <React.Fragment>
+                    {t("tours.addGroup.serviceType")}
+                    <ExternalLink
+                      className={"g-a"}
+                      href={"https://fluidattacks.com/services/comparative/"}
+                    >
+                      <FontAwesomeIcon border={true} icon={faCircleInfo} />
+                    </ExternalLink>
+                  </React.Fragment>
+                ),
+                target: "#add-group-service-type",
+              },
+              {
+                ...BaseStep,
+                content: t("tours.addGroup.testingType"),
+                target: "#add-group-testing-type",
+              },
+              {
+                ...BaseStep,
+                content: t("tours.addGroup.reportLanguage"),
+                target: "#add-group-report-language",
+              },
+              {
+                ...BaseStep,
+                content: (
+                  <React.Fragment>
+                    {t("tours.addGroup.squadPlan")}
+                    <ExternalLink
+                      className={"g-a"}
+                      href={"https://fluidattacks.com/plans/"}
+                    >
+                      <FontAwesomeIcon border={true} icon={faCircleInfo} />
+                    </ExternalLink>
+                  </React.Fragment>
+                ),
+                target: "#add-group-plan",
+              },
+              {
+                ...BaseStep,
+                content: t("tours.addGroup.proceedButton"),
+                spotlightClicks: true,
+                target: "#add-group-proceed",
+              },
+            ];
+
+            const planStep = 5;
+
+            if (!isContinuous) {
+              steps.splice(planStep, 1);
+            }
+
             return (
               <React.Fragment>
                 <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
-                  <Row justify={"space-between"}>
+                  <Row
+                    id={"add-group-description-tour"}
+                    justify={"space-between"}
+                  >
                     <Col large={"33"} medium={"33"} small={"33"}>
                       <FormGroup>
                         <ControlLabel>
@@ -215,7 +311,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </FormGroup>
                     </Col>
                     <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup id={"add-group-name-tour"}>
+                      <FormGroup>
                         <ControlLabel>
                           {t("organization.tabs.groups.newGroup.name")}
                         </ControlLabel>
@@ -235,7 +331,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </FormGroup>
                     </Col>
                     <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup id={"add-group-description-tour"}>
+                      <FormGroup>
                         <ControlLabel>
                           {t(
                             "organization.tabs.groups.newGroup.description.text"
@@ -268,7 +364,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </Col>
                   </Row>
                   <Row justify={"space-between"}>
-                    <Col large={"33"} medium={"33"} small={"33"}>
+                    <Col
+                      id={"add-group-service-type"}
+                      large={"33"}
+                      medium={"33"}
+                      small={"33"}
+                    >
                       <FormGroup>
                         <ControlLabel>
                           {t("organization.tabs.groups.newGroup.type.title")}
@@ -297,7 +398,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </TooltipWrapper>
                       </FormGroup>
                     </Col>
-                    <Col large={"33"} medium={"33"} small={"33"}>
+                    <Col
+                      id={"add-group-testing-type"}
+                      large={"33"}
+                      medium={"33"}
+                      small={"33"}
+                    >
                       <FormGroup>
                         <ControlLabel>
                           {t("organization.tabs.groups.newGroup.service.title")}
@@ -316,7 +422,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </Field>
                       </FormGroup>
                     </Col>
-                    <Col large={"33"} medium={"33"} small={"33"}>
+                    <Col
+                      id={"add-group-report-language"}
+                      large={"33"}
+                      medium={"33"}
+                      small={"33"}
+                    >
                       <FormGroup>
                         <ControlLabel>
                           {t("organization.tabs.groups.newGroup.language.text")}
@@ -380,8 +491,13 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </FormGroup>
                       </TooltipWrapper>
                     </Col>
-                    {values.type === "CONTINUOUS" && (
-                      <Col large={"50"} medium={"50"} small={"50"}>
+                    {isContinuous && (
+                      <Col
+                        id={"add-group-plan"}
+                        large={"50"}
+                        medium={"50"}
+                        small={"50"}
+                      >
                         <TooltipWrapper
                           id={"organization.tabs.groups.newGroup.squad.tooltip"}
                           message={t(
@@ -414,7 +530,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </Col>
                     )}
                   </Row>
-                  {values.type === "CONTINUOUS" &&
+                  {isContinuous &&
                     `${" *"} ${t(
                       "organization.tabs.groups.newGroup.extraChargesMayApply"
                     )}`}
@@ -436,28 +552,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </Button>
                   </ModalFooter>
                 </Form>
-                <Tour
-                  run={runTour}
-                  steps={[
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGroup.groupName"),
-                      target: "#add-group-name-tour",
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGroup.groupDescription"),
-                      hideFooter: values.description.length === 0,
-                      target: "#add-group-description-tour",
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGroup.proceedButton"),
-                      hideFooter: true,
-                      target: "#add-group-proceed",
-                    },
-                  ]}
-                />
+                <Tour run={runTour} steps={steps} />
               </React.Fragment>
             );
           }}
