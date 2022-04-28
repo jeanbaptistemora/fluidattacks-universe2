@@ -1,9 +1,10 @@
-/* eslint-disable complexity */
+/* eslint-disable complexity, react/forbid-component-props */
 import { Buffer } from "buffer";
 
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
+  faCircleInfo,
   faQuestionCircle,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +20,7 @@ import { VALIDATE_GIT_ACCESS } from "../../queries";
 import type { IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour";
@@ -256,7 +258,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                   {isDuplicated(values.url) ? (
                     <React.Fragment>
                       <div className={"flex"}>
-                        <div className={"w-100"}>
+                        <div className={"w-100"} id={"git-root-add-nickname"}>
                           <ControlLabel>
                             <RequiredField>{"*"}&nbsp;</RequiredField>
                             {t("group.scope.git.repo.nickname")}
@@ -410,28 +412,29 @@ const Repository: React.FC<IRepositoryProps> = ({
                         )}
                       </React.Fragment>
                     ) : undefined}
+                    {
+                      <div className={"mt2 tr"}>
+                        <Button
+                          disabled={submittableCredentials(values)}
+                          id={"checkAccessBtn"}
+                          onClick={handleCheckAccessClick}
+                          variant={"secondary"}
+                        >
+                          {t(
+                            "group.scope.git.repo.credentials.checkAccess.text"
+                          )}
+                        </Button>
+                      </div>
+                    }
                   </div>
-                  {
-                    <div className={"mt2 tr"}>
-                      <Button
-                        disabled={submittableCredentials(values)}
-                        id={"checkAccessBtn"}
-                        onClick={handleCheckAccessClick}
-                        variant={"secondary"}
-                      >
-                        {t("group.scope.git.repo.credentials.checkAccess.text")}
-                      </Button>
-                    </div>
-                  }
                   <div className={"flex mt3"}>
-                    <div className={"w-100"}>
+                    <div className={"w-100"} id={"git-root-add-env"}>
                       <ControlLabel>
                         <RequiredField>{"*"}&nbsp;</RequiredField>
                         {t("group.scope.git.repo.environment")}
                       </ControlLabel>
                       <Field
                         component={FormikText}
-                        id={"git-root-add-env"}
                         name={"environment"}
                         placeholder={t("group.scope.git.repo.environmentHint")}
                         type={"text"}
@@ -442,8 +445,8 @@ const Repository: React.FC<IRepositoryProps> = ({
                   <br />
                 </fieldset>
                 <Have I={"has_squad"}>
-                  <div id={"git-root-add-healthcheck"}>
-                    <fieldset className={"bn"}>
+                  <fieldset className={"bn"}>
+                    <div id={"git-root-add-health-check"}>
                       <legend className={"f3 b"}>
                         {t("group.scope.git.healthCheck.title")}
                       </legend>
@@ -468,6 +471,15 @@ const Repository: React.FC<IRepositoryProps> = ({
                             uncheck={setIsCheckedHealthCheck}
                             validate={selected}
                           />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className={"flex"}>
+                        <div
+                          className={"w-100"}
+                          id={"git-root-add-health-check-confirm"}
+                        >
                           {[values.url, values.branch].join("") === isRootChange
                             ? undefined
                             : rootChanged(values)}
@@ -525,8 +537,8 @@ const Repository: React.FC<IRepositoryProps> = ({
                           )}
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
+                    </div>
+                  </fieldset>
                 </Have>
                 <Can do={"update_git_root_filter"}>
                   <fieldset className={"bn"}>
@@ -580,6 +592,25 @@ const Repository: React.FC<IRepositoryProps> = ({
                 steps={[
                   {
                     ...BaseStep,
+                    content: (
+                      <React.Fragment>
+                        {t("tours.addGitRoot.intro")}
+                        <ExternalLink
+                          className={"g-a"}
+                          href={
+                            "https://docs.fluidattacks.com/machine/web/groups/scope/roots"
+                          }
+                        >
+                          <FontAwesomeIcon border={true} icon={faCircleInfo} />
+                        </ExternalLink>
+                      </React.Fragment>
+                    ),
+                    placement: "center",
+                    target: "#git-root-add-use-vpn",
+                    title: t("group.scope.common.add"),
+                  },
+                  {
+                    ...BaseStep,
                     content: t("tours.addGitRoot.rootUrl"),
                     hideFooter: values.url.length === 0,
                     target: "#git-root-add-repo-url",
@@ -592,16 +623,74 @@ const Repository: React.FC<IRepositoryProps> = ({
                   },
                   {
                     ...BaseStep,
-                    content: t("tours.addGitRoot.rootCredentials"),
+                    content: t("tours.addGitRoot.vpn"),
+                    target: "#git-root-add-use-vpn",
+                  },
+                  {
+                    ...BaseStep,
+                    content: t("tours.addGitRoot.nickname"),
+                    hideFooter: values.nickname.length === 0,
+                    target: "#git-root-add-nickname",
+                  },
+                  {
+                    ...BaseStep,
+                    content: (
+                      <React.Fragment>
+                        {t("tours.addGitRoot.rootCredentials.content")}
+                        <ExternalLink
+                          className={"g-a"}
+                          href={
+                            "https://docs.fluidattacks.com/machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key"
+                          }
+                        >
+                          <FontAwesomeIcon border={true} icon={faCircleInfo} />
+                        </ExternalLink>
+                        <ul>
+                          {values.credentials.type === "" && (
+                            <li>
+                              {t("tours.addGitRoot.rootCredentials.type")}
+                            </li>
+                          )}
+                          {values.credentials.name === "" && (
+                            <li>
+                              {t("tours.addGitRoot.rootCredentials.name")}
+                            </li>
+                          )}
+                          {values.credentials.type === "HTTPS" &&
+                            isHttpsCredentialsTypeUser &&
+                            (values.credentials.user === "" ||
+                              values.credentials.password === "") && (
+                              <li>
+                                {t("tours.addGitRoot.rootCredentials.user")}
+                              </li>
+                            )}
+                          {values.credentials.type === "HTTPS" &&
+                            !isHttpsCredentialsTypeUser &&
+                            values.credentials.token === "" && (
+                              <li>
+                                {t("tours.addGitRoot.rootCredentials.token")}
+                              </li>
+                            )}
+                          {values.credentials.type === "SSH" &&
+                            values.credentials.key === "" && (
+                              <li>
+                                {t("tours.addGitRoot.rootCredentials.key")}
+                              </li>
+                            )}
+                        </ul>
+                      </React.Fragment>
+                    ),
                     hideFooter:
                       values.credentials.type === "" ||
                       values.credentials.name.length === 0 ||
                       (!_.isUndefined(values.credentials.key) &&
                         !_.isUndefined(values.credentials.token) &&
                         values.credentials.key.length === 0 &&
-                        values.credentials.token.length === 0 &&
-                        (values.credentials.user.length === 0 ||
-                          values.credentials.password.length === 0)),
+                        ((!isHttpsCredentialsTypeUser &&
+                          values.credentials.token.length === 0) ||
+                          (isHttpsCredentialsTypeUser &&
+                            (values.credentials.user.length === 0 ||
+                              values.credentials.password.length === 0)))),
                     placement: "left",
                     target: "#git-root-add-credentials",
                   },
@@ -613,10 +702,29 @@ const Repository: React.FC<IRepositoryProps> = ({
                   },
                   {
                     ...BaseStep,
-                    content: t("tours.addGitRoot.rootHasHealthcheck"),
+                    content: (
+                      <React.Fragment>
+                        {t("tours.addGitRoot.rootHasHealthCheck")}
+                        <ExternalLink
+                          className={"g-a"}
+                          href={
+                            "https://docs.fluidattacks.com/about/faq#what-if-i-want-the-squad-plan-but-not-the-health-check"
+                          }
+                        >
+                          <FontAwesomeIcon border={true} icon={faCircleInfo} />
+                        </ExternalLink>
+                      </React.Fragment>
+                    ),
                     hideFooter: values.includesHealthCheck === null,
                     placement: "left",
-                    target: "#git-root-add-healthcheck",
+                    target: "#git-root-add-health-check",
+                  },
+                  {
+                    ...BaseStep,
+                    content: t("tours.addGitRoot.healthCheckConditions"),
+                    hideFooter: values.includesHealthCheck === null,
+                    placement: "left",
+                    target: "#git-root-add-health-check-confirm",
                   },
                   {
                     ...BaseStep,

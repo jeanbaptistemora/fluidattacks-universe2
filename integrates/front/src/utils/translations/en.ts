@@ -2979,15 +2979,36 @@ export const enTranslations: ResourceKey = {
   tours: {
     addGitRoot: {
       addButton: "Let's set up your repositories so we can analyze your code",
+      healthCheckConditions:
+        "Check all the conditions that apply to your Health Check selection. ",
+      intro:
+        "Now, before you start the test service in your project, there is the git root setup. " +
+        "In this section you can add and edit the repositories and environments to include in the test service. ",
+      nickname:
+        "Due to your repository name are equal to another existent in your organization, " +
+        "please enter a nickname to differentiate it. ",
       proceedButton:
-        "Great! Press the button to start cloning and analyzing your code",
-      rootBranch: "Fill the branch of the code repository to analyze",
-      rootCredentials:
-        "Fill the credentials that will be used to clone the repository",
-      rootEnvironment: "Name the type of environment that the code refers to",
-      rootHasHealthcheck:
-        "For currently on-going repositories, decide if we are going to analyze the existing code or only the new work from this point forward",
-      rootUrl: "Fill the url of the code repository to analyze",
+        "Great! Press the button to start cloning and analyzing your code. ",
+      rootBranch:
+        "Now for the repository, enter the branch you want to analyze. For example: master",
+      rootCredentials: {
+        content:
+          "Fill the credentials that will be used to clone the repository. ",
+        key: "Paste a valid SSH key",
+        name: "Enter a credential name",
+        token: "Enter a valid repository token",
+        type: "Select a credential type",
+        user: "Enter a valid user and password",
+      },
+      rootEnvironment:
+        "Name the type of environment that the code refers to. For example: Production",
+      rootHasHealthCheck:
+        "For currently on-going repositories, decide if we are going to analyze " +
+        "the existing code or only the new work from this point forward. ",
+      rootUrl:
+        "Start by entering a valid URL of the code repository you need to analyze. " +
+        "For example: https://gitlab.com/fluidattacks/product",
+      vpn: "Check if access to the repository is done through a VPN. ",
     },
     addGroup: {
       addButton:

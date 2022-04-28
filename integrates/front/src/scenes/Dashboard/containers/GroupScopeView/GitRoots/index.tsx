@@ -748,7 +748,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           onClose={closeModal}
           onSubmitEnvs={handleEnvsSubmit}
           onSubmitRepo={handleGitSubmit}
-          runTour={enableTour}
+          runTour={isManagingRoot.mode === "EDIT" ? false : enableTour}
         />
       )}
       {deactivationModal.open ? (
