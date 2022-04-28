@@ -8,24 +8,36 @@ from async_lru import (
 from charts import (
     utils,
 )
-from groups import (
-    domain as groups_domain,
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
 )
-from typing import (
-    Tuple,
+from db_model.groups.types import (
+    GroupUnreliableIndicators,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def generate_one(group: str) -> int:
-    item = await groups_domain.get_attributes(group, ["total_treatment"])
+async def generate_one(
+    loaders: Dataloaders,
+    group_name: str,
+) -> int:
+    indicators: GroupUnreliableIndicators = (
+        await loaders.group_indicators_typed.load(group_name)
+    )
 
-    return item.get("total_treatment", {}).get("undefined", 0)
+    return (
+        indicators.treatment_summary.new if indicators.treatment_summary else 0
+    )
 
 
-async def get_undefined_count_many_groups(groups: Tuple[str, ...]) -> int:
+async def get_undefined_count_many_groups(
+    loaders: Dataloaders,
+    group_names: tuple[str, ...],
+) -> int:
     groups_undefined_vulns = await collect(
-        map(generate_one, groups), workers=32
+        [generate_one(loaders, group_name) for group_name in group_names],
+        workers=32,
     )
 
     return sum(groups_undefined_vulns)
@@ -39,22 +51,23 @@ def format_data(undefined_count: int) -> dict:
 
 
 async def generate_all() -> None:
-    async for group in utils.iterate_groups():
+    loaders: Dataloaders = get_new_context()
+    async for group_name in utils.iterate_groups():
         utils.json_dump(
             document=format_data(
-                undefined_count=await generate_one(group),
+                undefined_count=await generate_one(loaders, group_name),
             ),
             entity="group",
-            subject=group,
+            subject=group_name,
         )
 
-    async for org_id, _, org_groups in (
+    async for org_id, _, org_group_names in (
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
             document=format_data(
                 undefined_count=await get_undefined_count_many_groups(
-                    org_groups
+                    loaders, org_group_names
                 ),
             ),
             entity="organization",
@@ -62,11 +75,13 @@ async def generate_all() -> None:
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
+        for portfolio, group_names in await utils.get_portfolios_groups(
+            org_name
+        ):
             utils.json_dump(
                 document=format_data(
                     undefined_count=await get_undefined_count_many_groups(
-                        groups
+                        loaders, group_names
                     ),
                 ),
                 entity="portfolio",
