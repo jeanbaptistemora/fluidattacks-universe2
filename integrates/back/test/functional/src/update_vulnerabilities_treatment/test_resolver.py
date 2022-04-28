@@ -1,6 +1,7 @@
 # pylint: disable=too-many-arguments
 from . import (
     get_stakeholders,
+    get_vulnerabilities_assigned,
     get_vulnerability,
     grant_stakeholder,
     put_mutation,
@@ -94,6 +95,12 @@ async def test_update_vulnerabilities_treatment(
         ]["treatment"]
         == treatment
     )
+
+    result = await get_vulnerabilities_assigned(user=assigned)
+    vuln_ids = [
+        vuln["id"] for vuln in result["data"]["me"]["vulnerabilitiesAssigned"]
+    ]
+    assert vulnerability in vuln_ids
 
 
 @pytest.mark.asyncio

@@ -106,7 +106,7 @@ async def get_vulnerabilities(
     group: str,
 ) -> Dict[str, Any]:
     query: str = """
-        query GetGroupVulnerabilies($groupName: String!) {
+        query GetGroupVulnerabilities($groupName: String!) {
             group(groupName: $groupName) {
                 name
                 vulnerabilitiesAssigned {

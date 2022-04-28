@@ -6,7 +6,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -139,7 +138,7 @@ async def test_get_me(
     assert populate
     org_name: str = "orgtest"
     organization: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         org_id=organization,
     )
@@ -176,7 +175,7 @@ async def test_get_me_assigned(
     populate: bool, email: str, length: int
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_vulnerabilities(
+    result: dict[str, Any] = await get_vulnerabilities(
         user=email,
     )
     assert "errors" not in result

@@ -90,6 +90,29 @@ async def get_vulnerability(
     )
 
 
+async def get_vulnerabilities_assigned(
+    *,
+    user: str,
+) -> dict[str, Any]:
+    query: str = """
+        query GetMeAssignedVulnerabilities {
+            me {
+                vulnerabilitiesAssigned {
+                    id
+                }
+                userEmail
+                __typename
+            }
+        }
+    """
+    data: dict[str, Any] = {"query": query}
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
 async def grant_stakeholder(
     *,
     user: str,

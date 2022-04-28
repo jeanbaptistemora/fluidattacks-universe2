@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -15,7 +14,7 @@ async def get_result(
     *,
     user: str,
     org_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""{{
         me(callerOrigin: "API") {{
             accessToken
@@ -54,7 +53,7 @@ async def get_result(
             __typename
         }}
     }}"""
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(
@@ -67,9 +66,9 @@ async def get_result(
 async def get_vulnerabilities(
     *,
     user: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
-        query GetMeAssignedVulnerabilies {
+        query GetMeAssignedVulnerabilities {
             me {
                 vulnerabilitiesAssigned {
                     id
@@ -82,7 +81,7 @@ async def get_vulnerabilities(
             }
         }
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,
