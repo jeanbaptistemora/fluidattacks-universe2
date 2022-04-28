@@ -477,7 +477,7 @@ resource "cloudflare_page_rule" "redirect_www" {
 resource "cloudflare_page_rule" "redirect_asserts" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/asserts/*"
-  status   = "active"
+  status   = "disabled"
   priority = 96
 
   actions {
@@ -491,7 +491,7 @@ resource "cloudflare_page_rule" "redirect_asserts" {
 resource "cloudflare_page_rule" "redirect_courses" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/courses/*"
-  status   = "active"
+  status   = "disabled"
   priority = 95
 
   actions {
@@ -505,7 +505,7 @@ resource "cloudflare_page_rule" "redirect_courses" {
 resource "cloudflare_page_rule" "redirect_defends" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/defends/*"
-  status   = "active"
+  status   = "disabled"
   priority = 94
 
   actions {
@@ -519,7 +519,7 @@ resource "cloudflare_page_rule" "redirect_defends" {
 resource "cloudflare_page_rule" "redirect_oldweb" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/oldweb/*"
-  status   = "active"
+  status   = "disabled"
   priority = 93
 
   actions {
@@ -533,7 +533,7 @@ resource "cloudflare_page_rule" "redirect_oldweb" {
 resource "cloudflare_page_rule" "redirect_gamma_ingenieros" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/partners/gamma-ingenieros/"
-  status   = "active"
+  status   = "disabled"
   priority = 92
 
   actions {
@@ -547,7 +547,7 @@ resource "cloudflare_page_rule" "redirect_gamma_ingenieros" {
 resource "cloudflare_page_rule" "redirect_products" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/products/*"
-  status   = "active"
+  status   = "disabled"
   priority = 91
 
   actions {
@@ -561,7 +561,7 @@ resource "cloudflare_page_rule" "redirect_products" {
 resource "cloudflare_page_rule" "redirect_resources" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/resources/doc/*"
-  status   = "active"
+  status   = "disabled"
   priority = 90
 
   actions {
@@ -575,7 +575,7 @@ resource "cloudflare_page_rule" "redirect_resources" {
 resource "cloudflare_page_rule" "redirect_dcardona" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/solutions/security-testing/about-us/people/dcardona/"
-  status   = "active"
+  status   = "disabled"
   priority = 89
 
   actions {
@@ -589,7 +589,7 @@ resource "cloudflare_page_rule" "redirect_dcardona" {
 resource "cloudflare_page_rule" "redirect_choucair" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/solutions/security-testing/partners/choucair/"
-  status   = "active"
+  status   = "disabled"
   priority = 88
 
   actions {
@@ -603,7 +603,7 @@ resource "cloudflare_page_rule" "redirect_choucair" {
 resource "cloudflare_page_rule" "redirect_web" {
   zone_id  = cloudflare_zone.fluidattacks_com.id
   target   = "${cloudflare_zone.fluidattacks_com.zone}/web/*"
-  status   = "active"
+  status   = "disabled"
   priority = 87
 
   actions {
