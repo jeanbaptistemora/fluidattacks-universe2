@@ -1,13 +1,13 @@
 ---
 slug: advisories/cerati/
 title: ManageEngine AppManager15 (Build No:15510) - DLL Hijacking
-authors: Oscar Uribe
+authors: Andres Roldan & Oscar Uribe
 writer: ouribe
 codename: cerati
 product: ManageEngine AppManager15
 date: 2022-02-09 12:00 COT
 cveid: CVE-2022-23050
-severity: 4.1
+severity: 9.1
 description: ManageEngine AppManager15 (Build No:15510) - DLL Hijacking
 keywords: Fluid Attacks, Security, Vulnerabilities, ManageEngine, AppManager
 banner: advisories-bg
@@ -30,7 +30,8 @@ template: advisory
 |                       |                                                                  |
 |-----------------------|------------------------------------------------------------------|
 | **Kind**              | DLL Hijacking                                                    |
-| **Rule**              | [375. Security controls bypass or absence - Tampering Protection](https://docs.fluidattacks.com/criteria/vulnerabilities/375)   |
+| **Rule**              | [413. Insecure file upload - DLL Injection
+](https://docs.fluidattacks.com/criteria/vulnerabilities/413)   |
 | **Remote**            | Yes                                                              |
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
 | **CVSSv3 Base Score** | 9.1                                                              |
@@ -40,22 +41,22 @@ template: advisory
 ## Description
 
 This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+[Responsible Disclosure Policy](../policy/).
 
 ## Proof of Concept
 
 This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+[Responsible Disclosure Policy](../policy/).
 
 ## Exploit
 
 This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+[Responsible Disclosure Policy](../policy/).
 
 ## Mitigation
 
 This information will be released later according to our
-[Responsible Disclosure Policy](https://fluidattacks.com/advisories/policy/).
+[Responsible Disclosure Policy](../policy/).
 
 ## Credits
 
