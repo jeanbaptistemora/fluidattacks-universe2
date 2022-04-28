@@ -52,6 +52,42 @@ let removeHeaders = [
   "Public-Key-Pins",
 ]
 
+addEventListener('fetch', event => {
+  event.respondWith(addHeaders(event.request))
+})
+
+async function addHeaders(req) {
+  let response = await fetch(req)
+  let newHdrs = new Headers(response.headers)
+
+  if (newHdrs.has("Content-Type") && !newHdrs.get("Content-Type").includes("text/html")) {
+    return new Response(response.body , {
+      status: response.status,
+      statusText: response.statusText,
+      headers: newHdrs
+    })
+  }
+
+  Object.keys(securityHeaders).forEach((name) => {
+    newHdrs.set(name, securityHeaders[name]);
+  });
+
+  Object.keys(sanitiseHeaders).forEach((name) => {
+    newHdrs.set(name, sanitiseHeaders[name]);
+  });
+
+  removeHeaders.forEach(function(name){
+    newHdrs.delete(name)
+  })
+
+  return new Response(response.body , {
+    status: response.status,
+    statusText: response.statusText,
+    headers: newHdrs
+  })
+}
+
+//redirect 404 pages
 const homeURL = 'https://fluidattacks.com/';
 const redirectMap = new Map([
   ["/products/defends/apache/desactivar-http-trace/", homeURL],
@@ -1078,43 +1114,18 @@ const redirectMap = new Map([
   ["/partners/gamma-ingenieros/", homeURL],
 ]);
 
-addEventListener('fetch', event => {
-  event.respondWith(addHeaders(event.request))
-})
-
-async function addHeaders(req) {
-  let response = await fetch(req)
-  let newHdrs = new Headers(response.headers)
-
+async function handleRequest(request) {
   const requestURL = new URL(request.url);
   const path = requestURL.pathname;
   const location = redirectMap.get(path);
 
   if (location) {
-    return new Response.redirect(location, 301);
-  } else if (newHdrs.has("Content-Type") && !newHdrs.get("Content-Type").includes("text/html")) {
-    return new Response(response.body , {
-      status: response.status,
-      statusText: response.statusText,
-      headers: newHdrs
-    })
+    return Response.redirect(location, 301);
   }
-
-  Object.keys(securityHeaders).forEach((name) => {
-    newHdrs.set(name, securityHeaders[name]);
-  });
-
-  Object.keys(sanitiseHeaders).forEach((name) => {
-    newHdrs.set(name, sanitiseHeaders[name]);
-  });
-
-  removeHeaders.forEach(function(name){
-    newHdrs.delete(name)
-  })
-
-  return new Response(response.body , {
-    status: response.status,
-    statusText: response.statusText,
-    headers: newHdrs
-  })
+  // If request not in map, return the original request
+  return fetch(request);
 }
+
+addEventListener('fetch', async event => {
+  event.respondWith(handleRequest(event.request));
+});
