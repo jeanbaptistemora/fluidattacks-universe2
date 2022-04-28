@@ -411,6 +411,17 @@ def get_report_days(report_date: str) -> int:
     return days
 
 
+def get_severity_level(severity: Decimal) -> str:
+    if severity <= 3.9:
+        return "low"
+    if 4 <= severity <= 6.9:
+        return "medium"
+    if 7 <= severity <= 8.9:
+        return "high"
+
+    return "critical"
+
+
 def get_severity_score(
     severity: Union[Finding20Severity, Finding31Severity]
 ) -> Decimal:

@@ -37,6 +37,9 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityUnreliableIndicatorsToUpdate,
 )
+from decimal import (
+    Decimal,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -128,7 +131,10 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     finding: Finding = await loaders.finding.load(finding_id)
     indicators: dict[EntityAttr, Any] = {}
     group_name = finding.group_name
-    severity_score = findings_domain.get_severity_score(finding.severity)
+    severity_score: Decimal = findings_domain.get_severity_score(
+        finding.severity
+    )
+    severity_level: str = findings_domain.get_severity_level(severity_score)
 
     if EntityAttr.closed_vulnerabilities in attrs_to_update:
         indicators[
@@ -221,7 +227,8 @@ async def update_finding_unreliable_indicators(  # noqa: C901
                     group_name=group_name,
                     finding_title=finding.title,
                     finding_id=finding_id,
-                    severity=severity_score,
+                    severity_score=severity_score,
+                    severity_level=severity_level,
                     is_closed=True,
                 )
             )

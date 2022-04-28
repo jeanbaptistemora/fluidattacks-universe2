@@ -19,6 +19,9 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decimal import (
+    Decimal,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -74,8 +77,16 @@ async def mutate(
         vulnerabilities: Tuple[
             Vulnerability, ...
         ] = await loaders.finding_vulnerabilities_all.load(finding_id)
-        severity_score = findings_domain.get_severity_score(finding.severity)
+        severity_score: Decimal = findings_domain.get_severity_score(
+            finding.severity
+        )
+        severity_level: str = findings_domain.get_severity_level(
+            severity_score
+        )
         group_name = finding.group_name
+        group_findings: Tuple[
+            Finding, ...
+        ] = await loaders.group_findings.load(group_name)
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft(
@@ -86,14 +97,15 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name,
         )
-        if severity_score >= 7.0:
+        if severity_score >= 7.0 or not group_findings:
             schedule(
                 findings_mail.send_mail_vulnerability_report(
                     loaders=loaders,
                     group_name=group_name,
                     finding_title=finding.title,
                     finding_id=finding_id,
-                    severity=severity_score,
+                    severity_score=severity_score,
+                    severity_level=severity_level,
                 )
             )
         logs_utils.cloudwatch_log(
