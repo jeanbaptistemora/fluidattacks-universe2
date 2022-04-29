@@ -1,8 +1,5 @@
 import asyncio
 import contextlib
-from custom_types import (
-    ForcesExecutions,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -70,7 +67,7 @@ MAX_WITH_DECIMALS = Decimal("10.0")
 
 async def get_all_time_forces_executions(
     group_name: str,
-) -> ForcesExecutions:
+) -> dict[str, Any]:
     executions: list[dict[str, Union[str, int]]] = []
     executions = [
         execution

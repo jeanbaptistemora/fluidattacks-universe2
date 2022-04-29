@@ -1,7 +1,3 @@
-from custom_types import (
-    ExecutionVulnerabilities,
-    ForcesExecution as ForcesExecutionType,
-)
 from datetime import (
     datetime,
 )
@@ -43,7 +39,6 @@ import tempfile
 from typing import (
     Any,
     AsyncIterable,
-    cast,
     Dict,
     Union,
 )
@@ -128,7 +123,7 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     return success
 
 
-def format_execution(execution: Any) -> ForcesExecutionType:
+def format_execution(execution: Any) -> Dict[str, Any]:
     for _, vulnerabilities in execution.get("vulnerabilities", {}).items():
         if not isinstance(vulnerabilities, list):
             continue
@@ -142,7 +137,7 @@ def format_execution(execution: Any) -> ForcesExecutionType:
                 "1": "High",
             }.get(str(vuln.get("exploitability", 0)), "-")
             vuln["exploitability"] = explot
-    return cast(ForcesExecutionType, execution)
+    return execution
 
 
 def format_forces_user_email(group_name: str) -> str:
@@ -153,7 +148,7 @@ async def get_execution(
     *,
     group_name: str,
     execution_id: str,
-) -> ForcesExecutionType:
+) -> Dict[str, Any]:
     execution = await forces_dal.get_execution(group_name, execution_id)
     return format_execution(execution)
 
@@ -164,7 +159,7 @@ async def get_executions(
     group_name: str,
     to_date: datetime,
     group_name_key: str,
-) -> AsyncIterable[ForcesExecutionType]:
+) -> AsyncIterable[Dict[str, Any]]:
     async for execution in forces_dal.yield_executions(
         group_name=group_name,
         group_name_key=group_name_key,
@@ -180,11 +175,8 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
 
 async def get_vulns_execution(
     group_name: str, execution_id: str
-) -> ExecutionVulnerabilities:
-    return cast(
-        ExecutionVulnerabilities,
-        await forces_dal.get_vulns_execution(group_name, execution_id),
-    )
+) -> Dict[str, Any]:
+    return await forces_dal.get_vulns_execution(group_name, execution_id)
 
 
 def is_forces_user(email: str) -> bool:
@@ -193,7 +185,7 @@ def is_forces_user(email: str) -> bool:
     return bool(re.match(pattern, email))
 
 
-def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
+def match_fields(my_dict: Dict[str, Any]) -> Dict[str, Any]:
     """Replace fields from response according to schema."""
     replace_tuple = (
         ("mocked_exploits", "integrates_exploits"),

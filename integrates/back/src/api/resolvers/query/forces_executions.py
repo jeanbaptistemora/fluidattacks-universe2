@@ -1,10 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    ForcesExecution,
-    ForcesExecutions,
-)
 from datetime import (
     datetime,
 )
@@ -29,6 +25,7 @@ from newutils.utils import (
 )
 from typing import (
     Any,
+    Dict,
     List,
 )
 
@@ -41,7 +38,7 @@ from typing import (
 )
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **kwargs: Any
-) -> ForcesExecutions:
+) -> Dict[str, Any]:
     # Compatibility with old API
     group_name: str = get_key_or_fallback(kwargs).lower()
     group_name_key: str = get_present_key(kwargs)
@@ -54,7 +51,7 @@ async def resolve(
         datetime_utils.get_now(zone="UTC"),
     )
 
-    executions: List[ForcesExecution] = []
+    executions: List[Dict[str, Any]] = []
     limit = 100
     counter = 0
     async for execution in forces_domain.get_executions(
