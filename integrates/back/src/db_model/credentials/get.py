@@ -196,10 +196,10 @@ async def _get_historic_state(
 
     return tuple(
         CredentialState(
-            key=state.get("key"),
-            user=state.get("user"),
-            password=state.get("password"),
-            token=state.get("token"),
+            key=state.get("key") or None,
+            user=state.get("user") or None,
+            password=state.get("password") or None,
+            token=state.get("token") or None,
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
             name=state["name"],

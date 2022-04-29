@@ -467,11 +467,11 @@ def _format_root_credential(
         metadata=CredentialMetadata(type=credential_type),
         state=CredentialState(
             key=_format_credential_key(credential_type, credentials["key"])
-            if "key" in credentials
+            if "key" in credentials and credentials["key"]
             else None,
-            user=credentials.get("user"),
-            password=credentials.get("password"),
-            token=credentials.get("token"),
+            user=credentials.get("user") or None,
+            password=credentials.get("password") or None,
+            token=credentials.get("token") or None,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             name=credential_name,
@@ -593,10 +593,10 @@ async def update_root_credentials(
                 group_name=group_name,
                 credential_id=existing_credential.id,
                 state=CredentialState(
-                    key=existing_credential.state.key,
-                    user=existing_credential.state.user,
-                    password=existing_credential.state.password,
-                    token=existing_credential.state.token,
+                    key=existing_credential.state.key or None,
+                    user=existing_credential.state.user or None,
+                    password=existing_credential.state.password or None,
+                    token=existing_credential.state.token or None,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     name=new_credential_name,
