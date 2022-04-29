@@ -215,6 +215,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     sessionStorage.setItem("toeInputsSort", JSON.stringify(newSorted));
   };
 
+  const formatCsvEntrypoint = (value: string): string =>
+    `'${value.trim().replace('"', '""')}`;
+
   const headersToeInputsTable: IHeaderConfig[] = [
     {
       dataField: "rootNickname",
@@ -229,6 +232,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
       visible: checkedItems.component,
     },
     {
+      csvFormatter: formatCsvEntrypoint,
       dataField: "entryPoint",
       header: t("group.toe.inputs.entryPoint"),
       onSort,

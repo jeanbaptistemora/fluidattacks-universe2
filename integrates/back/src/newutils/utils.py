@@ -157,3 +157,8 @@ def map_roles(
     if role.lower() == "customeradmin":
         return "user_manager"
     return role
+
+
+def escape_csv_field(raw_text: str) -> str:
+    partially_escaped_str: str = raw_text.strip().replace('"', '""')
+    return f"'{partially_escaped_str}"
