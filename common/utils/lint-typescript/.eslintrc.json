@@ -144,7 +144,11 @@
     "@typescript-eslint/no-magic-numbers": [
       "error",
       {
-        "ignore": [-1, 0, 1, 2, 4]
+        "ignore": [-1, 0, 1, 2, 4],
+        /*
+         * We need type indexes to retrieve specific objects in interface lists
+         */
+        "ignoreTypeIndexes": true
       }
     ],
     /*
@@ -163,14 +167,16 @@
     "@typescript-eslint/no-type-alias": [
       "error",
       {
-        "allowAliases": "always"
+        "allowAliases": "always",
+        "allowGenerics": "always"
       }
     ],
     /*
      * Since we are working with external libraries that use any in there type
-     * definitions. We need to disable the NEXT rule, until they update to the
-     * new unknown type
+     * definitions. We need to disable the NEXT couple of rules, until they
+     * update to the new unknown type
      */
+    "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -259,13 +265,13 @@
      */
     "jest/lowercase-name": "off",
     /*
-     * This rule will be turned off until all eslint versions are upgraded
+     * This rule is turned off until all eslint versions are upgraded
      */
     "jest/prefer-lowercase-title": "off",
     /*
-     * This rule will be turned off until all non compliances are fixed
+     * This rule is turned off until all eslint versions are upgraded
      */
-    "jest/require-hook": "off",
+    "jest/no-conditional-in-test": "off",
     "jest/no-restricted-matchers": [
       "error",
       {
@@ -277,6 +283,16 @@
      * This rule has been deprecated in favor of jest/no-restricted-matchers
      */
     "jest/no-truthy-falsy": "off",
+    /*
+     * This rule is turned off as we don't want to go back to setup/cleanup hooks
+     */
+    "jest/require-hook": "off",
+    /*
+     * In the functional react world, you likely will never have a function that
+     * actually cares about the this context. Refer to:
+     * https://github.com/typescript-eslint/typescript-eslint/issues/2245#issuecomment-648712540
+     */
+    "jest/unbound-method": "off",
     /*
      * This rule has been deprecated in favor of
      * jsx-a11y/label-has-associated-control
@@ -309,6 +325,11 @@
         "allowFunctions": true
       }
     ],
+    /*
+     * Turned off until an easy way to exclude context provider values in
+     * tests is found
+     */
+    "react/jsx-no-constructed-context-values": "off",
     /*
      * "allowedStrings" is not working once the @typescript-eslint@4.15.2
      * plugin is updated. Affected string changed by its Unicode equivalent
