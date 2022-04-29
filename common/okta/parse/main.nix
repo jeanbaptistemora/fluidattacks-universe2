@@ -11,6 +11,7 @@ makeTemplate {
   };
   searchPaths = {
     bin = [
+      inputs.nixpkgs.jq
       inputs.nixpkgs.python39
       inputs.nixpkgs.sops
     ];
