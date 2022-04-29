@@ -10,9 +10,6 @@ from custom_exceptions import (
     VulnNotFound,
     VulnNotInFinding,
 )
-from custom_types import (
-    User as UserType,
-)
 from db_model import (
     vulnerabilities as vulns_model,
 )
@@ -137,7 +134,7 @@ async def confirm_vulnerabilities_zero_risk(
     loaders: Any,
     vuln_ids: Set[str],
     finding_id: str,
-    user_info: UserType,
+    user_info: Dict[str, Any],
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
@@ -496,7 +493,7 @@ async def reject_vulnerabilities_zero_risk(
     loaders: Any,
     vuln_ids: Set[str],
     finding_id: str,
-    user_info: UserType,
+    user_info: Dict[str, Any],
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)
@@ -579,7 +576,7 @@ async def request_vulnerabilities_zero_risk(
     loaders: Any,
     vuln_ids: Set[str],
     finding_id: str,
-    user_info: UserType,
+    user_info: Dict[str, Any],
     justification: str,
 ) -> bool:
     vulns_utils.validate_justification_length(justification)

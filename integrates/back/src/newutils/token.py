@@ -19,9 +19,6 @@ from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
 )
-from custom_types import (
-    User as UserType,
-)
 from datetime import (
     datetime,
     timedelta,
@@ -198,7 +195,7 @@ def get_request_store(context: Any) -> collections.defaultdict:
     return context.store if hasattr(context, "store") else context.state.store
 
 
-def is_api_token(user_data: UserType) -> bool:
+def is_api_token(user_data: Dict[str, Any]) -> bool:
     return user_data.get("sub") == (
         "api_token" if "sub" in user_data else "jti" in user_data
     )

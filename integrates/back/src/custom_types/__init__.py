@@ -14,10 +14,8 @@ from decimal import (
 from typing import (
     Any,
     Dict,
-    Iterable,
     List,
     NamedTuple,
-    Optional,
     Set,
     Union,
 )
@@ -40,8 +38,6 @@ Stakeholder = Dict[
     str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
 ]
 Tag = Dict[str, Union[Decimal, str, List[str]]]
-User = Dict[str, Any]
-
 Dynamo = Union[str, Dict[str, Any]]
 Event = Dict[str, Any]
 Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]

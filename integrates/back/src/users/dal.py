@@ -14,7 +14,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-    User as UserType,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -25,6 +24,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
     Dict,
     List,
 )
@@ -39,7 +39,7 @@ ACCESS_TABLE_NAME = "FI_project_access"
 USERS_TABLE_NAME = "FI_users"
 
 
-async def create(email: str, data: UserType) -> bool:
+async def create(email: str, data: Dict[str, Any]) -> bool:
     resp = False
     try:
         data.update({"email": email})
@@ -59,7 +59,7 @@ async def delete(email: str) -> bool:
     return resp
 
 
-async def get(email: str) -> UserType:
+async def get(email: str) -> Dict[str, Any]:
     response = {}
     query_attrs = {
         "KeyConditionExpression": Key("email").eq(email.lower()),
@@ -73,7 +73,7 @@ async def get(email: str) -> UserType:
 
 async def get_all(
     filter_exp: object, data_attr: str = ""
-) -> List[Dict[str, UserType]]:
+) -> List[Dict[str, Dict[str, Any]]]:
     scan_attrs = {}
     scan_attrs["FilterExpression"] = filter_exp
     if data_attr:
@@ -82,7 +82,7 @@ async def get_all(
     return items
 
 
-async def get_attributes(email: str, attributes: List[str]) -> UserType:
+async def get_attributes(email: str, attributes: List[str]) -> Dict[str, Any]:
     items = {}
     try:
         query_attrs = {"KeyConditionExpression": Key("email").eq(email)}
@@ -99,7 +99,7 @@ async def get_attributes(email: str, attributes: List[str]) -> UserType:
     return items
 
 
-async def get_platform_users() -> List[Dict[str, UserType]]:
+async def get_platform_users() -> List[Dict[str, Dict[str, Any]]]:
     filter_exp = (
         Attr("has_access").eq(True)
         & Not(Attr("user_email").contains("@fluidattacks.com"))
@@ -109,7 +109,7 @@ async def get_platform_users() -> List[Dict[str, UserType]]:
     return await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
 
 
-async def update(email: str, data: UserType) -> bool:
+async def update(email: str, data: Dict[str, Any]) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""

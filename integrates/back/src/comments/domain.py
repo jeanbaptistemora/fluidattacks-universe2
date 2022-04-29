@@ -5,9 +5,6 @@ import authz
 from comments import (
     dal as comments_dal,
 )
-from custom_types import (
-    User as UserType,
-)
 from datetime import (
     datetime,
 )
@@ -105,7 +102,7 @@ def _is_scope_comment(comment: Dict[str, Any]) -> bool:
 async def add(
     finding_id: str,
     comment_data: Dict[str, Any],
-    user_info: Union[UserType, Dict[str, str]],
+    user_info: Union[Dict[str, Any], Dict[str, str]],
 ) -> Tuple[Union[str, None], bool]:
     today = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_id = str(comment_data["comment_id"])

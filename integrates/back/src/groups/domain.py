@@ -42,7 +42,6 @@ from custom_types import (
     GroupAccess as GroupAccessType,
     Invitation as InvitationType,
     MailContent as MailContentType,
-    User as UserType,
 )
 from datetime import (
     date,
@@ -158,6 +157,7 @@ from typing import (
     Any,
     Awaitable,
     cast,
+    Dict,
     Optional,
     Union,
 )
@@ -673,7 +673,7 @@ async def add_without_group(
 ) -> bool:
     success = False
     if validate_email_address(email):
-        new_user_data: UserType = {}
+        new_user_data: Dict[str, Any] = {}
         new_user_data["email"] = email
         if is_register_after_complete:
             new_user_data["registered"] = True

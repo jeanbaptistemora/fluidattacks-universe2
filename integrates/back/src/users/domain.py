@@ -20,7 +20,6 @@ from custom_types import (
     Stakeholder as StakeholderType,
     StakeholderPhone,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
-    User as UserType,
 )
 from datetime import (
     datetime,
@@ -123,7 +122,7 @@ async def check_session_web_validity(request: Request) -> None:
         raise SecureAccessException() from None
 
 
-async def create(email: str, data: UserType) -> bool:
+async def create(email: str, data: Dict[str, Any]) -> bool:
     return await users_dal.create(email, data)
 
 
@@ -206,17 +205,17 @@ async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
     }
 
 
-async def get(email: str) -> UserType:
+async def get(email: str) -> Dict[str, Any]:
     return await users_dal.get(email)
 
 
-async def get_attributes(email: str, data: List[str]) -> UserType:
+async def get_attributes(email: str, data: List[str]) -> Dict[str, Any]:
     """Get attributes of a user."""
     return await users_dal.get_attributes(email, data)
 
 
-async def get_by_email(email: str) -> UserType:
-    stakeholder_data: UserType = {
+async def get_by_email(email: str) -> Dict[str, Any]:
+    stakeholder_data: Dict[str, Any] = {
         "email": email,
         "first_login": "",
         "first_name": "",
@@ -231,7 +230,7 @@ async def get_by_email(email: str) -> UserType:
             "new_root": False,
         },
     }
-    user: UserType = await users_dal.get(email)
+    user: Dict[str, Any] = await users_dal.get(email)
     if user:
         stakeholder_data.update(
             {
@@ -259,10 +258,10 @@ async def get_by_email(email: str) -> UserType:
     return stakeholder_data
 
 
-async def get_data(email: str, attr: str) -> UserType:
+async def get_data(email: str, attr: str) -> Dict[str, Any]:
     data_attr = await get_attributes(email, [attr])
     if data_attr and attr in data_attr:
-        return cast(UserType, data_attr[attr])
+        return data_attr[attr]
     return {}
 
 
@@ -294,7 +293,7 @@ async def get_stakeholders(
     return group_stakeholders
 
 
-async def get_user_name(mail: str) -> Dict[str, UserType]:
+async def get_user_name(mail: str) -> Dict[str, Dict[str, Any]]:
     return {mail: await get_attributes(mail, ["last_name", "first_name"])}
 
 
@@ -416,7 +415,7 @@ async def update_invited_stakeholder(
 
 
 async def update_multiple_user_attributes(
-    email: str, data_dict: UserType
+    email: str, data_dict: Dict[str, Any]
 ) -> bool:
     return await users_dal.update(email, data_dict)
 

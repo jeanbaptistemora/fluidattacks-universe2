@@ -7,7 +7,6 @@ from authlib.integrations.starlette_client import (
 )
 from custom_types import (
     SignInPayload as SignInPayloadType,
-    User,
 )
 from db_model import (
     users as user_model,
@@ -214,7 +213,7 @@ async def log_user_in(user: Dict[str, str]) -> None:
     email = user["email"].lower()
 
     today = datetime_utils.get_now_as_str()
-    data_dict: User = {
+    data_dict = {
         "first_name": first_name,
         "last_login": today,
         "last_name": last_name,
