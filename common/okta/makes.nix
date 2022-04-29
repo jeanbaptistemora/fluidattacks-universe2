@@ -6,7 +6,6 @@
         setup = [
           outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/common/okta/parse"
-          outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
         src = "/common/okta/src/infra";
@@ -20,7 +19,6 @@
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/common/okta/parse"
-          outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
         src = "/common/okta/src/infra";
@@ -29,12 +27,11 @@
     };
   };
   secretsForEnvFromSops = {
-    commonOktaData = {
-      vars = ["OKTA_DATA_RAW"];
-      manifest = "/common/okta/src/data.yaml";
-    };
-    commonOktaApiToken = {
-      vars = ["OKTA_API_TOKEN"];
+    commonOkta = {
+      vars = [
+        "OKTA_API_TOKEN"
+        "OKTA_DATA_RAW"
+      ];
       manifest = "/common/okta/src/data.yaml";
     };
   };
@@ -50,7 +47,6 @@
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/common/okta/parse"
-          outputs."/secretsForEnvFromSops/commonOktaApiToken"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
         src = "/common/okta/src/infra";
