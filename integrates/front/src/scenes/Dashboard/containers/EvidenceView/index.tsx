@@ -253,7 +253,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           isDescriptionEditable={true}
                           isEditing={isEditing}
                           isRemovable={!_.isEmpty(evidence.url)}
-                          key={index.toString()}
+                          key={name}
                           name={name}
                           // Next annotations needed due to nested callbacks
                           onClick={openImage} // eslint-disable-line react/jsx-no-bind

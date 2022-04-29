@@ -28,7 +28,10 @@ const generateSecrets = (): void => {
 setInterval(generateSecrets, secretsLifespanInMiliseconds);
 
 const decrypt = (ciphertext: string): string => {
-  return sjclDecrypt(secretKey, JSON.parse(ciphertext));
+  return sjclDecrypt(
+    secretKey,
+    JSON.parse(ciphertext) as sjcl.SjclCipherEncrypted
+  );
 };
 
 const encrypt = (plaintext: string): string => {

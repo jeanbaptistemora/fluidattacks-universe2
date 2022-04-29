@@ -528,6 +528,8 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
             {dateRange.map(
               (date: Date, index: number): JSX.Element => (
                 <option
+                  // Dates have no unique components unfortunately
+                  // eslint-disable-next-line react/no-array-index-key
                   key={index.toString()}
                   selected={date.toISOString() === billingDate}
                   value={date.toISOString()}

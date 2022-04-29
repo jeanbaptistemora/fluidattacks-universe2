@@ -44,7 +44,7 @@ declare type iFrameReferenceType =
 
 // Implementation
 const decrypt: (ciphertext: string) => string = (ciphertext: string): string =>
-  sjclDecrypt(secretKey, JSON.parse(ciphertext));
+  sjclDecrypt(secretKey, JSON.parse(ciphertext) as sjcl.SjclCipherEncrypted);
 
 const encrypt: (plaintext: string) => string = (plaintext: string): string =>
   JSON.stringify(sjclEncrypt(secretKey, plaintext));
