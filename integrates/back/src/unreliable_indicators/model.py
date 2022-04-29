@@ -35,6 +35,7 @@ ENTITIES = {
                     EntityDependency.move_root,
                     EntityDependency.reject_vulnerabilities_zero_risk,
                     EntityDependency.remove_vulnerability,
+                    EntityDependency.request_vulnerabilities_hold,
                     EntityDependency.request_vulnerabilities_verification,
                     EntityDependency.request_vulnerabilities_zero_risk,
                     EntityDependency.upload_file,
