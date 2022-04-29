@@ -4,6 +4,8 @@ from . import (
 from ._core import (
     CheckResult,
     CheckResultApi,
+    CheckResultId,
+    CheckResultObj,
     CheckRunId,
     TimingPhases,
     Timings,
@@ -35,7 +37,7 @@ def list_check_results(
     page: int,
     per_page: int,
     date_range: DateRange,
-) -> Cmd[FrozenList[CheckResult]]:
+) -> Cmd[FrozenList[CheckResultObj]]:
     return client.get_list(
         "/v1/check-results/" + check.id_str,
         from_prim_dict(
@@ -46,13 +48,15 @@ def list_check_results(
                 "to": str(int(datetime.timestamp(date_range.to_date))),
             }
         ),
-    ).map(lambda l: tuple(map(_decode.from_raw, l)))
+    ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
 
 
 __all__ = [
     "CheckRunId",
+    "CheckResultId",
     "Timings",
     "TimingPhases",
     "CheckResultApi",
     "CheckResult",
+    "CheckResultObj",
 ]

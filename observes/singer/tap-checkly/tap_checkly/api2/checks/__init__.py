@@ -6,7 +6,7 @@ from . import (
     results,
 )
 from .results import (
-    CheckResult,
+    CheckResultObj,
 )
 from .results.time_range import (
     date_ranges_dsc,
@@ -49,10 +49,6 @@ from tap_checkly.api2._raw import (
 from tap_checkly.api2.checks.core import (
     CheckId,
 )
-from typing import (
-    Iterable,
-    TypeVar,
-)
 
 
 def _check_id_from_raw(raw: JsonObj) -> CheckId:
@@ -78,7 +74,7 @@ class ChecksClient:
 
     def _list_check_results(
         self, check: CheckId, dr: DateRange
-    ) -> Stream[CheckResult]:
+    ) -> Stream[CheckResultObj]:
         data = (
             infinite_range(1, 1)
             .map(
@@ -94,7 +90,7 @@ class ChecksClient:
         )
         return data
 
-    def list_check_results(self, chk_id: CheckId) -> Stream[CheckResult]:
+    def list_check_results(self, chk_id: CheckId) -> Stream[CheckResultObj]:
         return (
             self.date_ranges()
             .map(lambda dr: self._list_check_results(chk_id, dr))

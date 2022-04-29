@@ -8,11 +8,19 @@ from fa_purity import (
     JsonObj,
     Maybe,
 )
+from tap_checkly.api2.id_objs import (
+    IndexedObj,
+)
 
 
 @dataclass(frozen=True)
 class CheckRunId:
     id_num: int
+
+
+@dataclass(frozen=True)
+class CheckResultId:
+    id_str: str
 
 
 @dataclass(frozen=True)
@@ -59,3 +67,6 @@ class CheckResult:
     run_location: str
     started_at: datetime
     stopped_at: datetime
+
+
+CheckResultObj = IndexedObj[CheckResultId, CheckResult]

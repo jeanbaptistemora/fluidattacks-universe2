@@ -23,7 +23,7 @@ from tap_checkly.api2.checks import (
     ChecksClient,
 )
 from tap_checkly.api2.checks.results import (
-    CheckResult,
+    CheckResultObj,
 )
 from tap_checkly.api2.id_objs import (
     IndexedObj,
@@ -128,7 +128,7 @@ def all_check_ids(client: ChecksClient) -> Stream[CheckId]:
 
 def all_check_results(
     client: ChecksClient,
-) -> Stream[IndexedObj[CheckId, CheckResult]]:
+) -> Stream[IndexedObj[CheckId, CheckResultObj]]:
     return all_check_ids(client).bind(
         lambda c: client.list_check_results(c).map(lambda r: IndexedObj(c, r))
     )

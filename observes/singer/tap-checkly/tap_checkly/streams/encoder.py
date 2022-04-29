@@ -11,8 +11,8 @@ from tap_checkly.api2.checks.core import (
     CheckId,
 )
 from tap_checkly.api2.checks.results import (
-    CheckResult,
     CheckResultApi,
+    CheckResultObj,
     TimingPhases,
     Timings,
 )
@@ -66,27 +66,28 @@ def encode_result_api(result: CheckResultApi) -> JsonObj:
     )
 
 
-def encode_result(result: IndexedObj[CheckId, CheckResult]) -> JsonObj:
+def encode_result(result: IndexedObj[CheckId, CheckResultObj]) -> JsonObj:
     return from_unfolded_dict(
         freeze(
             {
                 "check_id": result.id_obj.id_str,
-                "api_result": result.obj.api_result.map(
+                "result_id": result.obj.id_obj.id_str,
+                "api_result": result.obj.obj.api_result.map(
                     encode_result_api
                 ).value_or(None),
-                "browser_result": result.obj.browser_result.value_or(None),
-                "attempts": result.obj.attempts,
-                "run_id": result.obj.run_id.id_num,
-                "created_at": result.obj.created_at.isoformat(),
-                "has_errors": result.obj.has_errors,
-                "has_failures": result.obj.has_failures,
-                "is_degraded": result.obj.is_degraded,
-                "name": result.obj.name,
-                "over_max_response_time": result.obj.over_max_response_time,
-                "response_time": result.obj.response_time,
-                "run_location": result.obj.run_location,
-                "started_at": result.obj.started_at.isoformat(),
-                "stopped_at": result.obj.stopped_at.isoformat(),
+                "browser_result": result.obj.obj.browser_result.value_or(None),
+                "attempts": result.obj.obj.attempts,
+                "run_id": result.obj.obj.run_id.id_num,
+                "created_at": result.obj.obj.created_at.isoformat(),
+                "has_errors": result.obj.obj.has_errors,
+                "has_failures": result.obj.obj.has_failures,
+                "is_degraded": result.obj.obj.is_degraded,
+                "name": result.obj.obj.name,
+                "over_max_response_time": result.obj.obj.over_max_response_time,
+                "response_time": result.obj.obj.response_time,
+                "run_location": result.obj.obj.run_location,
+                "started_at": result.obj.obj.started_at.isoformat(),
+                "stopped_at": result.obj.obj.stopped_at.isoformat(),
             }
         )
     )

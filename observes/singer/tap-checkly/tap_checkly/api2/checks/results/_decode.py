@@ -1,6 +1,8 @@
 from ._core import (
     CheckResult,
     CheckResultApi,
+    CheckResultId,
+    CheckResultObj,
     CheckRunId,
     TimingPhases,
     Timings,
@@ -15,6 +17,9 @@ from fa_purity import (
 )
 from fa_purity.json.value.transform import (
     Unfolder,
+)
+from tap_checkly.api2.id_objs import (
+    IndexedObj,
 )
 
 
@@ -62,7 +67,7 @@ def _to_maybe(obj: JsonValue) -> Maybe[JsonValue]:
     )
 
 
-def from_raw(raw: JsonObj) -> CheckResult:
+def from_raw_result(raw: JsonObj) -> CheckResult:
     return CheckResult(
         _to_maybe(raw["apiCheckResult"]).map(
             lambda x: Unfolder(x).to_json().map(_decode_result_api).unwrap()
@@ -83,3 +88,8 @@ def from_raw(raw: JsonObj) -> CheckResult:
         Unfolder(raw["startedAt"]).to_primitive(str).map(isoparse).unwrap(),
         Unfolder(raw["stoppedAt"]).to_primitive(str).map(isoparse).unwrap(),
     )
+
+
+def from_raw_obj(raw: JsonObj) -> CheckResultObj:
+    _id = Unfolder(raw["id"]).to_primitive(str).map(CheckResultId).unwrap()
+    return IndexedObj(_id, from_raw_result(raw))
