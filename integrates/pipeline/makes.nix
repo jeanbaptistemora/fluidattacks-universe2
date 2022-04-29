@@ -241,7 +241,6 @@ in {
               };
           })
           [
-            "0211_update_finding_unreliable_is_verified.py"
           ])
         ++ (builtins.map
           (name: {

@@ -1,21 +1,3 @@
-/computeOnAwsBatch/integratesMigration__prod__0211_update_finding_unreliable_is_verified.py:
-  image: ghcr.io/fluidattacks/makes:22.05
-  interruptible: false
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $integrates_migration_0211_update_finding_unreliable_is_verified == null
-      when: never
-    - when: always
-  script:
-    - m . /computeOnAwsBatch/integratesMigration 'prod' '0211_update_finding_unreliable_is_verified.py'
-  stage: scheduler
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /computeOnAwsBatch/integratesScheduler__prod__schedulers.update_indicators.main:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: false
