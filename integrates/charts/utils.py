@@ -3,11 +3,15 @@ import contextlib
 from custom_types import (
     ForcesExecutions,
 )
-from dataloaders.group import (
-    GroupLoader,
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
 )
 from datetime import (
     datetime,
+)
+from db_model.groups.enums import (
+    GroupSubscriptionType,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -26,9 +30,6 @@ from frozendict import (  # type: ignore
     frozendict,
 )
 import functools
-from groups import (
-    domain as groups_domain,
-)
 import json
 import math
 from newutils.encodings import (
@@ -48,12 +49,8 @@ from typing import (
     Any,
     AsyncIterator,
     Callable,
-    Dict,
-    List,
     NamedTuple,
     Optional,
-    Set,
-    Tuple,
     Type,
     Union,
 )
@@ -61,27 +58,25 @@ from urllib.parse import (
     urlparse,
 )
 
-PortfoliosGroups = NamedTuple(
-    "PortfoliosGroups",
-    [
-        ("portfolio", str),
-        ("groups", List[str]),
-    ],
-)
+
+class PortfoliosGroups(NamedTuple):
+    portfolio: str
+    groups: list[str]
+
 
 TICK_ROTATION = 20  # rotation displayed for group name and vulnerability type
 MAX_WITH_DECIMALS = Decimal("10.0")
 
 
 async def get_all_time_forces_executions(
-    group: str,
+    group_name: str,
 ) -> ForcesExecutions:
-    executions: List[Dict[str, Union[str, int]]] = []
+    executions: list[dict[str, Union[str, int]]] = []
     executions = [
         execution
         async for execution in forces_domain.get_executions(
             from_date=datetime.utcfromtimestamp(1),
-            group_name=group,
+            group_name=group_name,
             group_name_key="project_name",
             to_date=datetime.utcnow(),
         )
@@ -90,7 +85,7 @@ async def get_all_time_forces_executions(
     return executions
 
 
-def get_finding_name(item: List[str]) -> str:
+def get_finding_name(item: list[str]) -> str:
     return item[0].split("/")[-1]
 
 
@@ -129,7 +124,7 @@ def get_vulnerability_source(vulnerability: Vulnerability) -> str:
     return root
 
 
-async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
+async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
     portfolios = await tags_domain.get_tags(org_name, ["tag", "projects"])
 
     return [
@@ -142,23 +137,27 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
 
 
 async def iterate_groups() -> AsyncIterator[str]:
-    for group in sorted(await groups_domain.get_active_groups(), reverse=True):
-        log_info(f"Working on group: {group}")
+    loaders: Dataloaders = get_new_context()
+    active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    active_groups_names = [group.name for group in active_groups]
+    for group_name in sorted(active_groups_names, reverse=True):
+        log_info(f"Working on group: {group_name}")
         # Exception: WF(AsyncIterator is subtype of iterator)
-        yield group  # NOSONAR
+        yield group_name  # NOSONAR
 
 
 async def iterate_organizations_and_groups() -> AsyncIterator[
-    Tuple[str, str, Tuple[str, ...]],
+    tuple[str, str, tuple[str, ...]],
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
-    active_groups: Set[str] = set(
-        sorted(await groups_domain.get_active_groups())
+    loaders: Dataloaders = get_new_context()
+    active_groups = sorted(
+        await orgs_domain.get_all_active_groups_typed(loaders)
     )
-    groups: Set[str] = {
-        group["name"]
-        for group in await GroupLoader().load_many(active_groups)
-        if group["subscription"] == "continuous"
+    group_names: set[str] = {
+        group.name
+        for group in active_groups
+        if group.state.type == GroupSubscriptionType.CONTINUOUS
     }
     async for org_id, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
@@ -168,7 +167,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
         yield (  # NOSONAR
             org_id,
             org_name,
-            tuple(groups.intersection(org_groups)),
+            tuple(group_names.intersection(org_groups)),
         )
 
 
@@ -216,7 +215,7 @@ def log_info(*args: Any, **kwargs: Any) -> None:
 def retry_on_exceptions(
     *,
     default_value: Any,
-    exceptions: Tuple[Type[Exception], ...],
+    exceptions: tuple[Type[Exception], ...],
     retry_times: int,
 ) -> Callable[..., Any]:
     def decorator(function: Callable[..., Any]) -> Callable[..., Any]:
