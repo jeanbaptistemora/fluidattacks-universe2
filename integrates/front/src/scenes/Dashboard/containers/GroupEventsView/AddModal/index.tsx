@@ -10,7 +10,7 @@ import { array, object, string } from "yup";
 import { GET_ROOTS } from "../../GroupScopeView/queries";
 import type { Root } from "../../GroupScopeView/types";
 import { AffectedReattackAccordion } from "../AffectedReattackAccordion";
-import { GET_REATTACK_VULNS } from "../AffectedReattackAccordion/queries";
+import { GET_VERIFIED_FINDING_INFO } from "../AffectedReattackAccordion/queries";
 import type {
   IFinding,
   IFindingsQuery,
@@ -81,14 +81,17 @@ const AddModal: React.FC<IAddModalProps> = ({
 }: IAddModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const { data: findingsData } = useQuery<IFindingsQuery>(GET_REATTACK_VULNS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load reattack vulns", error);
-      });
-    },
-    variables: { groupName },
-  });
+  const { data: findingsData } = useQuery<IFindingsQuery>(
+    GET_VERIFIED_FINDING_INFO,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load reattack vulns", error);
+        });
+      },
+      variables: { groupName },
+    }
+  );
   const findings =
     findingsData === undefined ? [] : findingsData.group.findings;
   const hasReattacks = findings.some(

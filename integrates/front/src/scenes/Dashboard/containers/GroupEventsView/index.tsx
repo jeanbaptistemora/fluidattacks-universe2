@@ -14,7 +14,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import type { IFormValues } from "./AddModal";
 import { AddModal } from "./AddModal";
-import { GET_REATTACK_VULNS } from "./AffectedReattackAccordion/queries";
+import { GET_VERIFIED_FINDING_INFO } from "./AffectedReattackAccordion/queries";
 import type {
   IFinding,
   IFindingsQuery,
@@ -296,7 +296,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   });
 
   const { data: findingsData, refetch: refetchReattacks } =
-    useQuery<IFindingsQuery>(GET_REATTACK_VULNS, {
+    useQuery<IFindingsQuery>(GET_VERIFIED_FINDING_INFO, {
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           Logger.error("Couldn't load reattack vulns", error);
@@ -307,7 +307,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const findings =
     findingsData === undefined ? [] : findingsData.group.findings;
   const hasReattacks = findings.some(
-    (finding: IFinding): boolean => finding.vulnerabilitiesToReattack.length > 0
+    (finding: IFinding): boolean => !finding.verified
   );
 
   const [requestHold] = useMutation(REQUEST_VULNS_HOLD_MUTATION, {

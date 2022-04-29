@@ -1,12 +1,13 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const GET_REATTACK_VULNS: DocumentNode = gql`
-  query GetReattackVulns($groupName: String!) {
+const GET_VERIFIED_FINDING_INFO: DocumentNode = gql`
+  query GetVerifiedFindingInfo($groupName: String!) {
     group(groupName: $groupName) {
       findings {
         id
         title
+        verified
         vulnerabilitiesToReattack {
           findingId
           id
@@ -19,4 +20,4 @@ const GET_REATTACK_VULNS: DocumentNode = gql`
   }
 `;
 
-export { GET_REATTACK_VULNS };
+export { GET_VERIFIED_FINDING_INFO };

@@ -20,6 +20,7 @@ describe("Affected Reattack accordion", (): void => {
       {
         id: "test-finding-id",
         title: "038. Business information leak",
+        verified: false,
         vulnerabilitiesToReattack: [
           {
             findingId: "test-finding-id",

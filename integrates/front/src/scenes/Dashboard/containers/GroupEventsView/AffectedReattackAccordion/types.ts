@@ -11,6 +11,7 @@ interface IReattackVuln {
 interface IFinding {
   id: string;
   title: string;
+  verified: boolean;
   vulnerabilitiesToReattack: IReattackVuln[];
 }
 
