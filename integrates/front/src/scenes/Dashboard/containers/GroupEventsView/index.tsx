@@ -341,6 +341,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         }
       }
       await refetch();
+      await refetchReattacks();
     }
   };
 
