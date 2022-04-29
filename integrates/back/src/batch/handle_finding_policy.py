@@ -47,13 +47,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
 
-    organization_name: str = item.additional_info
-    organization_id: str = await organizations_domain.get_id_by_name(
-        organization_name
-    )
-    organization_groups = await organizations_domain.get_groups(
-        organization_id
-    )
+    organization_name = item.additional_info
     finding_policy = await get_finding_policy(
         org_name=organization_name, finding_policy_id=item.entity
     )
@@ -63,19 +57,22 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         "INACTIVE",
     }:
         loaders: Dataloaders = get_new_context()
-        groups: tuple[Group, ...] = await loaders.group_typed.load_many(
-            tuple((group, organization_name) for group in organization_groups)
+        organization_id: str = await organizations_domain.get_id_by_name(
+            organization_name
         )
-        groups_filtered = groups_utils.filter_active_groups(groups)
-        group_names: list[str] = [group.name for group in groups_filtered]
+        groups: tuple[Group, ...] = await loaders.organization_groups.load(
+            organization_id
+        )
+        active_groups = groups_utils.filter_active_groups(groups)
+        active_group_names = [group.name for group in active_groups]
         finding_name: str = finding_policy.metadata.name.lower()
         (
             updated_finding_ids,
             updated_vuln_ids,
         ) = await update_finding_policy_in_groups(
-            finding_name=finding_name,
             loaders=loaders,
-            groups=group_names,
+            finding_name=finding_name,
+            group_names=active_group_names,
             status=finding_policy.state.status,
             user_email=item.subject,
             tags=set(finding_policy.metadata.tags),
