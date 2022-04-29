@@ -55,6 +55,7 @@ import newutils.git
 from newutils.git import (
     ssh_ls_remote,
 )
+import os
 from roots import (
     domain as roots_domain,
 )
@@ -75,7 +76,9 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def clone_roots(*, item: BatchProcessing) -> None:
+async def clone_roots(  # pylint: disable=too-many-locals
+    *, item: BatchProcessing
+) -> None:
     group_name: str = item.entity
     root_nicknames: List[str] = item.additional_info.split(",")
 
@@ -159,12 +162,18 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
+        queue_name = os.environ.get("AWS_BATCH_JQ_NAME")
+        queue = (
+            SkimsBatchQueue.HIGH
+            if queue_name == "skims_all_soon"
+            else SkimsBatchQueue.LOW
+        )
         await queue_job_new(
             dataloaders=dataloaders,
             group_name=group_name,
             roots=cloned_roots_nicknames,
             finding_codes=findings,
-            queue=SkimsBatchQueue.LOW,
+            queue=queue,
         )
     await delete_action(
         action_name=item.action_name,

@@ -8,6 +8,13 @@ import authz
 from batch.actions import (
     clone_roots,
 )
+from batch.dal import (
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
 from custom_types import (
     AddRootPayload,
 )
@@ -25,6 +32,14 @@ from graphql.type.definition import (
 )
 from group_access import (
     domain as group_access_domain,
+)
+from machine.availability import (
+    is_check_available,
+)
+from machine.jobs import (
+    FINDINGS,
+    queue_job_new,
+    SkimsBatchQueue,
 )
 from mailer import (
     groups as groups_mail,
@@ -70,12 +85,48 @@ async def mutate(
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
 
-    if kwargs.get("credentials"):
-        await clone_roots.queue_sync_git_roots(
-            loaders=info.context.loaders,
-            roots=(root,),
-            user_email=user_email,
+    if (
+        kwargs.get("credentials")
+        and (
+            result_queue_sync := await clone_roots.queue_sync_git_roots(
+                loaders=info.context.loaders,
+                roots=(root,),
+                user_email=user_email,
+                group_name=root.group_name,
+                queue="spot_soon",
+            )
+        )
+        and (
+            result_refresh := await put_action(
+                action=Action.REFRESH_TOE_LINES,
+                additional_info="*",
+                entity=root.group_name,
+                product_name=Product.INTEGRATES,
+                subject="integrates@fluidattacks.com",
+                queue="spot_soon",
+                dependsOn=[
+                    {
+                        "jobId": result_queue_sync.batch_job_id,
+                        "type": "SEQUENTIAL",
+                    },
+                ],
+            )
+        )
+    ):
+        await queue_job_new(
             group_name=root.group_name,
+            finding_codes=tuple(
+                key for key in FINDINGS.keys() if is_check_available(key)
+            ),
+            queue=SkimsBatchQueue.HIGH,
+            roots=[root.state.nickname],
+            dataloaders=info.context.loaders,
+            dependsOn=[
+                {
+                    "jobId": result_refresh.batch_job_id,
+                    "type": "SEQUENTIAL",
+                },
+            ],
         )
 
     await groups_mail.send_mail_added_root(
