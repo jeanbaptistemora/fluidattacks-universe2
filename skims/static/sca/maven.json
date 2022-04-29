@@ -16,6 +16,9 @@
   "br.com.ingenieux.jenkins.plugins:awseb-deployment-plugin": {
     "CVE-2020-2174": ">=0 <=0.3.19"
   },
+  "by.dev.madhead.doktor:doktor": {
+    "GHSA-64q9-f38h-9mwx": "<=0.4.1"
+  },
   "ca.juliusdavies:not-yet-commons-ssl": {
     "CVE-2014-3604": ">=0 <=0.3.13"
   },
@@ -55,6 +58,9 @@
   "cn.hutool:hutool-core": {
     "CVE-2018-17297": "<4.1.12"
   },
+  "cn.hutool:hutool-http": {
+    "GHSA-p7w9-8mxw-p3g7": "<5.7.19"
+  },
   "cn.hutool:hutool-parent": {
     "CVE-2018-17297": "<4.1.12"
   },
@@ -79,6 +85,9 @@
     "CVE-2021-29441": "<1.4.1",
     "CVE-2021-29442": "<1.4.1",
     "GHSA-qf76-pr7x-h7r4": "<1.2.0"
+  },
+  "com.alibaba:dubbo": {
+    "GHSA-qmfc-6www-fjqw": ">=2.5.0 <2.6.9"
   },
   "com.alibaba:fastjson": {
     "CVE-2017-18349": ">=0 <1.2.25"
@@ -156,6 +165,9 @@
     "CVE-2021-39194": ">=0 <0.35.3",
     "GHSA-fmm9-3gv8-58f4": ">=0 <0.35.3"
   },
+  "com.convertigo.jenkins.plugins:convertigo-mobile-platform": {
+    "CVE-2022-25210": "<=1.1"
+  },
   "com.coravy.hudson.plugins.github:github": {
     "CVE-2018-1000183": ">=0 <=1.29.0",
     "CVE-2018-1000184": ">=0 <=1.29.0",
@@ -174,6 +186,9 @@
   "com.datadoghq:datadog-api-client": {
     "CVE-2021-21331": "1.0.0",
     "GHSA-2cxf-6567-7pp6": "1.0.0"
+  },
+  "com.datapipe.jenkins.plugins:hashicorp-vault-plugin": {
+    "GHSA-fm6q-97gw-c4wh": "<=3.8.0"
   },
   "com.datomic:datomic-free": {
     "CVE-2018-10054": ">=0 <0.9.5697"
@@ -195,6 +210,9 @@
   },
   "com.diffplug.spotless:spotless-plugin-maven": {
     "CVE-2019-9843": "<1.20.0"
+  },
+  "com.drewnoakes:metadata-extractor": {
+    "CVE-2022-24614": "<=2.16.0"
   },
   "com.dubture.jenkins:digitalocean-plugin": {
     "CVE-2020-2126": ">=0 <=1.1"
@@ -441,6 +459,9 @@
   "com.kitfox.svg:svg-salamander": {
     "GHSA-h3wv-47xm-4mg6": "<1.1.2"
   },
+  "com.liferay.portal:release.dxp.bom": {
+    "GHSA-c7f6-4vx5-4263": "<=7.1.10.fp17 || >=7.2.1 <=7.2.10.fp5"
+  },
   "com.liferay.portal:release.portal.bom": {
     "GHSA-mg53-xr8m-86hw": "<7.3.3"
   },
@@ -473,11 +494,17 @@
   "com.moded.extendedchoiceparameter:dynamic_extended_choice_parameter": {
     "CVE-2020-2124": ">=0 <=1.0.1"
   },
+  "com.monitorjbl:xlsx-streamer": {
+    "GHSA-xvm2-9xvc-hx7f": "<2.1.0"
+  },
   "com.mtvi.plateng.hudson:ldapemail": {
     "CVE-2019-10434": ">=0 <=0.8"
   },
   "com.neovisionaries:nv-websocket-client": {
     "CVE-2017-1000209": ">=0 <=2.2"
+  },
+  "com.netflix.conductor:conductor-core": {
+    "CVE-2020-9296": "<=2.25.3"
   },
   "com.netflix.hollow:hollow": {
     "CVE-2021-28099": ">=0"
@@ -536,6 +563,9 @@
   },
   "com.paul8620.jenkins.plugins:pipeline-aggregator-view": {
     "CVE-2019-16564": ">=0 <=1.8"
+  },
+  "com.predic8:soa-model-core": {
+    "GHSA-pv39-qp28-4mgh": "<1.6.4"
   },
   "com.puppycrawl.tools:checkstyle": {
     "CVE-2019-10782": "<8.29",
