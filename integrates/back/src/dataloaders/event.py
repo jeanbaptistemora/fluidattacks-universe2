@@ -6,7 +6,6 @@ from collections import (
     defaultdict,
 )
 from custom_types import (
-    Event as EventType,
     Historic,
 )
 from events import (
@@ -16,6 +15,7 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     Iterable,
@@ -24,9 +24,9 @@ from typing import (
 )
 
 
-async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
+async def _batch_load_fn(event_ids: List[str]) -> List[Dict[str, Any]]:
     """Batch the data load requests within the same execution fragment."""
-    events: Dict[str, EventType] = defaultdict(EventType)
+    events: Dict[str, Dict[str, Any]] = defaultdict(Dict[str, Any])
 
     evnts = await events_domain.get_events(event_ids)
     for event in evnts:
@@ -72,7 +72,9 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
 
 class EventLoader(DataLoader):
     # pylint: disable=no-self-use
-    async def batch_load_fn(self, event_ids: List[str]) -> List[EventType]:
+    async def batch_load_fn(
+        self, event_ids: List[str]
+    ) -> List[Dict[str, Any]]:
         return await _batch_load_fn(event_ids)
 
 

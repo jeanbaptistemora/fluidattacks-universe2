@@ -39,7 +39,6 @@ Stakeholder = Dict[
 ]
 Tag = Dict[str, Union[Decimal, str, List[str]]]
 Dynamo = Union[str, Dict[str, Any]]
-Event = Dict[str, Any]
 Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]
 GroupAccess = Dict[str, Union[bool, int, str, Invitation, None]]
 SignedUrl = Dict[str, Dict[str, str]]

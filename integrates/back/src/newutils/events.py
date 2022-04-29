@@ -1,6 +1,3 @@
-from custom_types import (
-    Event as EventType,
-)
 from datetime import (
     datetime,
 )
@@ -18,13 +15,14 @@ from newutils import (
     datetime as datetime_utils,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
 )
 
 
-def format_data(event: EventType) -> EventType:
+def format_data(event: Dict[str, Any]) -> Dict[str, Any]:
     historic_state = cast(
         List[Dict[str, str]], event.get("historic_state", [{}, {}])
     )
@@ -66,9 +64,9 @@ def format_event(item: Item) -> Event:
 
 
 async def filter_events_date(
-    events: List[EventType],
+    events: List[Dict[str, Any]],
     min_date: datetime,
-) -> List[EventType]:
+) -> List[Dict[str, Any]]:
     return [
         event
         for event in events

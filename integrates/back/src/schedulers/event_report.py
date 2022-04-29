@@ -2,9 +2,6 @@ from context import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
 )
-from custom_types import (
-    Event as EventType,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -29,6 +26,10 @@ from newutils.utils import (
 )
 from settings import (
     LOGGING,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -62,7 +63,7 @@ async def send_event_report() -> None:
         for event in await events_domain.get_unsolved_events(group)
     ]
 
-    events_filtered: list[EventType] = [
+    events_filtered: list[Dict[str, Any]] = [
         event
         for event in unsolved_events
         if days_to_date(event["historic_state"][-1]["date"]) in [7, 30]

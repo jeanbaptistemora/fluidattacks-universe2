@@ -1,6 +1,3 @@
-from custom_types import (
-    Event,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -18,6 +15,10 @@ from events import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @concurrent_decorators(
@@ -28,10 +29,10 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> list[Event]:
+) -> list[Dict[str, Any]]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     event_ids = await events_domain.list_group_events(group_name)
-    events: list[Event] = await loaders.event.load_many(event_ids)
+    events: list[Dict[str, Any]] = await loaders.event.load_many(event_ids)
 
     return events

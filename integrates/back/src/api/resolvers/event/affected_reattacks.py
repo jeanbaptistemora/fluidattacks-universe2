@@ -1,9 +1,6 @@
 from aiodataloader import (
     DataLoader,
 )
-from custom_types import (
-    Event,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -11,12 +8,14 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
 
 async def resolve(
-    parent: Event,
+    parent: Dict[str, Any],
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[Vulnerability]:

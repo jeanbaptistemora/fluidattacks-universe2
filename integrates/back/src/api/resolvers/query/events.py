@@ -4,9 +4,6 @@ from aiodataloader import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    Event,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -23,6 +20,8 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
@@ -35,11 +34,11 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> List[Event]:
+) -> List[Dict[str, Any]]:
     # Compatibility with old API
     group_name: str = get_key_or_fallback(kwargs).lower()
     event_ids = await events_domain.list_group_events(group_name.lower())
     event_loader: DataLoader = info.context.loaders.event
-    events: List[Event] = await event_loader.load_many(event_ids)
+    events: List[Dict[str, Any]] = await event_loader.load_many(event_ids)
 
     return events

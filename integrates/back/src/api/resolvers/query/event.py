@@ -4,9 +4,6 @@
 from aiodataloader import (
     DataLoader,
 )
-from custom_types import (
-    Event,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -16,6 +13,10 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 
@@ -28,9 +29,9 @@ from graphql.type.definition import (
 @rename_kwargs({"event_id": "identifier"})
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Event:
+) -> Dict[str, Any]:
     event_id: str = kwargs["identifier"]
     event_loader: DataLoader = info.context.loaders.event
-    event: Event = await event_loader.load(event_id)
+    event: Dict[str, Any] = await event_loader.load(event_id)
 
     return event

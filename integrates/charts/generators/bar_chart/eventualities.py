@@ -17,9 +17,6 @@ from charts.generators.bar_chart.exposed_by_groups import (
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
-from custom_types import (
-    Event,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -46,7 +43,9 @@ async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
     event_ids = await list_group_events(group)
-    group_events: Tuple[Event, ...] = await loaders.event.load_many(event_ids)
+    group_events: Tuple[Dict[str, Any], ...] = await loaders.event.load_many(
+        event_ids
+    )
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

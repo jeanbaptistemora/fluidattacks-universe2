@@ -7,9 +7,6 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_S3_BUCKET,
 )
-from custom_types import (
-    Event as EventType,
-)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -22,6 +19,8 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
@@ -33,7 +32,7 @@ TABLE_NAME = "fi_events"
 
 
 async def create(
-    event_id: str, group_name: str, event_attributes: EventType
+    event_id: str, group_name: str, event_attributes: Dict[str, Any]
 ) -> bool:
     success = False
     try:
@@ -46,7 +45,7 @@ async def create(
     return success
 
 
-async def get_event(event_id: str) -> EventType:
+async def get_event(event_id: str) -> Dict[str, Any]:
     """Retrieve all attributes from an event"""
     response = {}
     query_attrs = {
@@ -92,7 +91,7 @@ async def remove_evidence(file_name: str) -> None:
     await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
-async def update(event_id: str, data: EventType) -> bool:
+async def update(event_id: str, data: Dict[str, Any]) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""

@@ -21,7 +21,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     AddEventPayload,
-    Event as EventType,
 )
 from datetime import (
     date as date_type,
@@ -231,24 +230,24 @@ async def add_event(  # pylint: disable=too-many-locals
     return AddEventPayload(event_id, success)
 
 
-async def get_event(event_id: str) -> EventType:
+async def get_event(event_id: str) -> Dict[str, Any]:
     event = await events_dal.get_event(event_id)
     if not event:
         raise EventNotFound()
     return events_utils.format_data(event)
 
 
-async def get_events(event_ids: List[str]) -> List[EventType]:
+async def get_events(event_ids: List[str]) -> List[Dict[str, Any]]:
     return cast(
-        List[EventType],
+        List[Dict[str, Any]],
         await collect(get_event(event_id) for event_id in event_ids),
     )
 
 
-async def get_unsolved_events(group_name: str) -> List[EventType]:
+async def get_unsolved_events(group_name: str) -> List[Dict[str, Any]]:
     events_list = await list_group_events(group_name)
     events = await get_events(events_list)
-    unsolved: List[EventType] = [
+    unsolved: List[Dict[str, Any]] = [
         event
         for event in events
         if event["historic_state"][-1]["state"] == "CREATED"

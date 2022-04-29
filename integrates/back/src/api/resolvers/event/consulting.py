@@ -1,9 +1,6 @@
 from comments import (
     domain as comments_domain,
 )
-from custom_types import (
-    Event,
-)
 from functools import (
     partial,
 )
@@ -27,7 +24,7 @@ from typing import (
 
 
 async def resolve_no_cache(
-    parent: Event,
+    parent: Dict[str, Any],
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[Dict[str, Any]]:
@@ -43,7 +40,7 @@ async def resolve_no_cache(
 
 
 async def resolve(
-    parent: Event,
+    parent: Dict[str, Any],
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> List[Dict[str, Any]]:
