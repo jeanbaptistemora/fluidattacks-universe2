@@ -1415,7 +1415,7 @@
       System configuration is essential
       when it comes to security issues.
       The system must follow
-      the industry’s standard configurations
+      the industry's standard configurations
       that prevent all known vulnerabilities.
       These settings also contribute
       to ensuring the ongoing
@@ -1535,7 +1535,7 @@
     description: >
       Response time
       is a relevant measure
-      of a system’s availability
+      of a system's availability
       and adaptability to stress.
       It is also important
       when it comes to usability
@@ -1893,7 +1893,7 @@
       modifications or alterations.
     description: >
       Logs are used to analyze
-      a system’s behavior.
+      a system's behavior.
       They help detect errors
       and suspicious activity,
       and often hold very sensitive information.
@@ -2810,7 +2810,7 @@
     description: >
       Sometimes,
       corporate email addresses
-      are exposed on the company’s website
+      are exposed on the company's website
       or another overly public medium.
       These emails
       should only be visible
@@ -6432,11 +6432,11 @@
   en:
     title: Uniform distribution in random numbers
     summary: >
-      The system’s random numbers
+      The system's random numbers
       must be generated
       using a uniform distribution.
     description: >
-      The system’s cryptographic keys
+      The system's cryptographic keys
       are essential for maintaining
       the confidentiality
       and integrity of transactions
@@ -6509,7 +6509,7 @@
       (e.g., ID generation, code mapping,
       cryptographic keys).
     description: >
-      The system’s cryptographic keys
+      The system's cryptographic keys
       are essential for maintaining
       the confidentiality and integrity
       of transactions and communications.
@@ -7355,7 +7355,7 @@
       The management
       of wireless access points
       must be enabled
-      for only one of the equipment’s
+      for only one of the equipment's
       physical ports.
     description: __empty__
   es:
@@ -8109,7 +8109,7 @@
       should be disabled
       or otherwise controlled
       to prevent them from compromising
-      the system’s security.
+      the system's security.
       Furthermore,
       the system must enforce
       those controls on trusted
@@ -9341,7 +9341,7 @@
       The system must enforce
       access controls
       on trusted enforcement points,
-      which are not on the client’s side.
+      which are not on the client's side.
     description: >
       Systems must enforce
       access controls
@@ -9774,7 +9774,7 @@
       Rooting is a process
       that grants mobile device users
       privileged control
-      over the device’s system.
+      over the device's system.
       Applications running
       on such devices are susceptible
       to technical information leaks
@@ -9839,7 +9839,7 @@
       from a single host.
       For instance,
       it is possible to exhaust
-      a server’s connection pool
+      a server's connection pool
       with a single machine
       by using asynchronous requests,
       effectively causing
@@ -11162,7 +11162,7 @@
       nonces and other single use numbers
       only once with a given encryption key.
     description: >
-      The system’s cryptographic keys
+      The system's cryptographic keys
       are essential for maintaining
       the confidentiality and integrity
       of transactions and communications.
@@ -11502,7 +11502,7 @@
     summary: >
       Developers should implement
       and enable trusted execution
-      if it is available on the device’s
+      if it is available on the device's
       System-on-Chip (SoC) or CPU.
     description: __empty__
   es:
@@ -11911,7 +11911,7 @@
   en:
     title: Replace cryptographic keys
     summary: >
-      The system’s cryptographic keys
+      The system's cryptographic keys
       must be replaced after
       a defined period of time,
       after having produced a certain
@@ -11922,7 +11922,7 @@
       or when it is believed
       to have been compromised.
     description: >
-      The system’s cryptographic keys
+      The system's cryptographic keys
       are essential for maintaining
       the confidentiality and integrity
       of transactions and communications.

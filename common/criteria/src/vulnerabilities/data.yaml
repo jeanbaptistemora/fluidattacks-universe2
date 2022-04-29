@@ -805,7 +805,7 @@
       that are coming from a not secure source
       in the Java Persistence API,
       the values should be sanitized
-      so they can’t contain any wildcards
+      so they can't contain any wildcards
       and thereby allow attackers
       to select more data
       than they should be able to.
@@ -3521,7 +3521,7 @@
       - Use technique to exhaust all
       available server resources.
 
-      - Exhaust the victim’s network
+      - Exhaust the victim's network
       and hardware resources when
       requesting large amounts of data.
     recommendation: >
@@ -4005,7 +4005,7 @@
       The application
       does not disable caching of input fields,
       thus the information will be stored
-      in the browser’s cache.
+      in the browser's cache.
     impact: Obtain valid users of the application.
     recommendation: >
       The data cache to browsers level
@@ -4483,7 +4483,7 @@
   en:
     title: Duplicate code
     description: >
-      The application’s source code
+      The application's source code
       has duplicate code,
       which may cause unexpected behaviors.
     impact: >
@@ -4590,7 +4590,7 @@
   en:
     title: Commented-out code
     description: >
-      The application’s production
+      The application's production
       source code contains commented-out code.
       This increases the chances
       that it will be uncommented
@@ -4870,7 +4870,7 @@
     title: Insecurely generated token
     description: >
       It is possible
-      to crack the token’s hash
+      to crack the token's hash
       and obtain the information it is masking
       because it is not generated
       using a secure cryptographic mechanism.
@@ -5038,7 +5038,7 @@
       are not protected by a multi-factor
       authentication mechanism.
       This makes it easier for an attacker
-      who has compromised a user’s account
+      who has compromised a user's account
       to access those resources.
     impact: >
       Multi-factor authentication is flawed to
@@ -5154,7 +5154,7 @@
     title: XML injection (XXE)
     description: >
       It is possible to inject XML code
-      into the application’s requests,
+      into the application's requests,
       which is then interpreted by the server.
       This could allow an attacker
       to perform data exfiltration
@@ -6188,7 +6188,7 @@
     title: Server-side request forgery (SSRF)
     description: >
       It is possible
-      to induce the application’s server
+      to induce the application's server
       into making requests
       to an arbitrary domain.
     impact: >
@@ -6992,7 +6992,7 @@
       no specific type is declared for them.
       This can be inefficient,
       as it becomes necessary
-      to identify the variable’s data type
+      to identify the variable's data type
       and cast it every time it is used.
     impact: >
       Result in modification of that resource
@@ -13382,7 +13382,7 @@
     title: Business information leak - Network Unit
     description: >
       Different network units are used to identify
-      the vulnerabilities present in the organization’s network.
+      the vulnerabilities present in the organization's network.
     impact: >
       - Leverage breaches or security bottlenecks
       to cause a leakage of information.
@@ -13866,7 +13866,7 @@
     impact: >
       - Lead to compromise the Kubernetes clusters,
       thus providing attackers with full control over
-      other Azure customers’ containers.
+      other Azure customers' containers.
 
       - The vulnerability could have allowed users to
       access other customers information in the service.
@@ -14453,7 +14453,7 @@
     recommendation: >
       - Eliminar del código fuente
       las funciones que imprimen información técnica
-      como  PrintStacktrace 
+      como  PrintStacktrace
 
       - Manejar los errores con excepciones tipificadas
       y almacenarlas en logs debidamente protegidos

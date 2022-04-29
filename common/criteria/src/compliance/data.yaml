@@ -1306,8 +1306,8 @@
       to architect and manage their
       information security systems.
       It was established to provide guidance
-      for the protection of agency’s and
-      citizen’s private data.
+      for the protection of agency's and
+      citizen's private data.
       The version used for this section
       is NIST 800-53,
       Rev. 5,
@@ -2331,7 +2331,7 @@
       title: A hosting provider must fulfill these requirements
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "A1_2":
-      title: Restrict each entity’s access and privileges
+      title: Restrict each entity's access and privileges
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "A1_3":
       title: Ensure logging and audit trails
@@ -3664,7 +3664,7 @@
       title: Invalid logical access attempts
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "4_2_5":
-      title: Changes to the application’s identification and authentication mechanisms with root or administrative privileges
+      title: Changes to the application's identification and authentication mechanisms with root or administrative privileges
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "4_2_6":
       title: Initialization, stopping, or pausing of the application audit logs
@@ -3673,7 +3673,7 @@
       title: Creation and deletion of system-level objects
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "4_3":
-      title: Payment application’s audit log settings and audit log output
+      title: Payment application's audit log settings and audit log output
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "4_4":
       title: Facilitate centralized logging
@@ -3739,7 +3739,7 @@
       title: Unique authentication credential must be used for each customer environment
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "10_2_3":
-      title: Remote access to customer’s payment applications must be implemented securely
+      title: Remote access to customer's payment applications must be implemented securely
       link: https://www.pcisecuritystandards.org/minisite/en/docs/PA-DSS_v3.pdf
     "11_1":
       title: Use of strong cryptography and security protocols to safeguard sensitive cardholder data during transmission
