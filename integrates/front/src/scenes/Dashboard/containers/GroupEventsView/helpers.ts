@@ -32,6 +32,9 @@ const handleCreationError: (creationError: ApolloError) => void = (
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
         break;
+      case "Exception - Unsanitized input found":
+        msgError(translate.t("validations.unsanitizedInputFound"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(

@@ -3177,6 +3177,9 @@ export const enTranslations: ResourceKey = {
     stakeholderHasGroupAccess:
       "The stakeholder has been granted access to the group previously",
     tags: "This field can only contain alphanumeric characters and dashes",
+    unsanitizedInputFound:
+      "Invalid characters, avoid the use of =, +, @, commas, semicolons," +
+      "tabs + or carriage returns in sensitive fields",
     userIsNotFromFluidAttacks:
       "This role can only be granted to Fluid Attacks users",
     validDate: "The date must be below six months",

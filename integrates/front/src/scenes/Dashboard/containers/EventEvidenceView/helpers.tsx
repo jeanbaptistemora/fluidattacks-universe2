@@ -22,6 +22,9 @@ const handleUpdateEvidenceError = (updateError: ApolloError): void => {
       case "Exception - Invalid File Type: EVENT_FILE":
         msgError(translate.t("group.events.form.wrongFileType"));
         break;
+      case "Exception - Unsanitized input found":
+        msgError(translate.t("validations.unsanitizedInputFound"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(
