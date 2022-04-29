@@ -1,23 +1,26 @@
 import json
 import os
+import sys
 from typing import (
     Any,
-    Dict,
-    List,
-    Set,
 )
 
-OKTA_DATA: Dict[str, Any] = json.loads(os.environ["OKTA_DATA_RAW"])
+OKTA_DATA_RAW: dict[str, Any] = {
+    "apps": json.loads(os.environ["OKTA_DATA_RAW_APPS"]),
+    "groups": json.loads(os.environ["OKTA_DATA_RAW_GROUPS"]),
+    "rules": json.loads(os.environ["OKTA_DATA_RAW_RULES"]),
+    "users": json.loads(os.environ["OKTA_DATA_RAW_USERS"]),
+}
 
 
-def to_dict(*, item: str) -> Dict[str, Any]:
-    return {x["id"]: x for x in OKTA_DATA[item]}
+def to_dict(*, item: str) -> dict[str, Any]:
+    return {x["id"]: x for x in OKTA_DATA_RAW[item]}
 
 
-def app_groups() -> List[Dict[str, str]]:
-    result: List[Dict[str, str]] = []
-    for app in OKTA_DATA["apps"]:
-        for group in OKTA_DATA["groups"]:
+def app_groups() -> list[dict[str, str]]:
+    result: list[dict[str, str]] = []
+    for app in OKTA_DATA_RAW["apps"]:
+        for group in OKTA_DATA_RAW["groups"]:
             if app["id"] in group["apps"]:
                 result.append(
                     {
@@ -29,10 +32,10 @@ def app_groups() -> List[Dict[str, str]]:
     return result
 
 
-def app_users() -> List[Dict[str, str]]:
-    result: List[Dict[str, str]] = []
-    for app in OKTA_DATA["apps"]:
-        for user in OKTA_DATA["users"]:
+def app_users() -> list[dict[str, str]]:
+    result: list[dict[str, str]] = []
+    for app in OKTA_DATA_RAW["apps"]:
+        for user in OKTA_DATA_RAW["users"]:
             if app["id"] in user["apps"]:
                 result.append(
                     {
@@ -44,10 +47,10 @@ def app_users() -> List[Dict[str, str]]:
     return result
 
 
-def aws_app_roles(*, apps: List[str]) -> Dict[str, List[str]]:
-    aws_apps: List[str] = [app for app in apps if "/" in app]
-    aws_app_ids: Set[str] = {app.split("/")[0] for app in aws_apps}
-    result: Dict[str, List[str]] = {
+def aws_app_roles(*, apps: list[str]) -> dict[str, list[str]]:
+    aws_apps: list[str] = [app for app in apps if "/" in app]
+    aws_app_ids: set[str] = {app.split("/")[0] for app in aws_apps}
+    result: dict[str, list[str]] = {
         aws_app_id: [] for aws_app_id in aws_app_ids
     }
     for aws_app_id in aws_app_ids:
@@ -58,9 +61,9 @@ def aws_app_roles(*, apps: List[str]) -> Dict[str, List[str]]:
     return result
 
 
-def aws_group_roles() -> List[Dict[str, Any]]:
-    result: List[Dict[str, Any]] = []
-    for group in OKTA_DATA["groups"]:
+def aws_group_roles() -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for group in OKTA_DATA_RAW["groups"]:
         for app, roles in aws_app_roles(apps=group["apps"]).items():
             result.append(
                 {
@@ -72,9 +75,9 @@ def aws_group_roles() -> List[Dict[str, Any]]:
     return result
 
 
-def aws_user_roles() -> List[Dict[str, Any]]:
-    result: List[Dict[str, Any]] = []
-    for user in OKTA_DATA["users"]:
+def aws_user_roles() -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for user in OKTA_DATA_RAW["users"]:
         for app, roles in aws_app_roles(apps=user["apps"]).items():
             result.append(
                 {
@@ -86,22 +89,16 @@ def aws_user_roles() -> List[Dict[str, Any]]:
     return result
 
 
-def main() -> None:
-    print(
-        json.dumps(
-            {
-                "apps": to_dict(item="apps"),
-                "groups": to_dict(item="groups"),
-                "rules": to_dict(item="rules"),
-                "users": to_dict(item="users"),
-                "app_groups": app_groups(),
-                "app_users": app_users(),
-                "aws_group_roles": aws_group_roles(),
-                "aws_user_roles": aws_user_roles(),
-            }
-        )
-    )
+def main(type: str) -> None:
+    response: Any = None
+
+    if type in ["apps", "groups", "rules", "users"]:
+        response = to_dict(item=type)
+    else:
+        response = globals()[type]()
+
+    print(json.dumps(response))
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])

@@ -26,19 +26,17 @@
       };
     };
   };
-  secretsForEnvFromSops = {
-    commonOkta = {
-      vars = [
-        "OKTA_API_TOKEN"
-        "OKTA_DATA_RAW"
-      ];
-      manifest = "/common/okta/src/data.yaml";
-    };
-  };
   secretsForTerraformFromEnv = {
     commonOkta = {
       oktaApiToken = "OKTA_API_TOKEN";
-      oktaData = "OKTA_DATA";
+      oktaDataApps = "OKTA_DATA_APPS";
+      oktaDataGroups = "OKTA_DATA_GROUPS";
+      oktaDataRules = "OKTA_DATA_RULES";
+      oktaDataUsers = "OKTA_DATA_USERS";
+      oktaDataAppGroups = "OKTA_DATA_APP_GROUPS";
+      oktaDataAppUsers = "OKTA_DATA_APP_USERS";
+      oktaDataAwsGroupRoles = "OKTA_DATA_AWS_GROUP_ROLES";
+      oktaDataAwsUserRoles = "OKTA_DATA_AWS_USER_ROLES";
     };
   };
   testTerraform = {

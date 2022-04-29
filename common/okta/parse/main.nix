@@ -1,24 +1,20 @@
 {
   inputs,
   makeTemplate,
-  outputs,
   projectPath,
   ...
 }:
 makeTemplate {
   replace = {
     __argParser__ = projectPath "/common/okta/src/parser/__init__.py";
+    __argSopsData__ = projectPath "/common/okta/src/data.yaml";
   };
   searchPaths = {
     bin = [
-      inputs.nixpkgs.jq
       inputs.nixpkgs.python39
+      inputs.nixpkgs.sops
     ];
-    source = [outputs."/secretsForEnvFromSops/commonOkta"];
   };
-  template = ''
-    export OKTA_DATA=$(python __argParser__ | jq -rc .) \
-      && unset OKTA_DATA_RAW
-  '';
+  template = ./template.sh;
   name = "okta-parse";
 }
