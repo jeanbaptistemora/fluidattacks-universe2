@@ -7,6 +7,7 @@ from .group import (
     GroupIndicatorsTypedLoader,
     GroupLoader,
     GroupTypedLoader,
+    OrganizationGroupsLoader,
 )
 from .group_stakeholders import (
     GroupStakeholdersLoader,
@@ -119,6 +120,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_typed: GroupTypedLoader
     organization: OrganizationLoader
+    organization_groups: OrganizationGroupsLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
@@ -211,6 +213,7 @@ def get_new_context() -> Dataloaders:
         group_toe_lines=GroupToeLinesLoader(),
         group_typed=GroupTypedLoader(),
         organization=OrganizationLoader(),
+        organization_groups=OrganizationGroupsLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),

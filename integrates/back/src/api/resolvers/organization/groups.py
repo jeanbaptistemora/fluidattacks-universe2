@@ -14,29 +14,25 @@ from newutils import (
     groups as groups_utils,
     token as token_utils,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
-) -> Tuple[Group, ...]:
+    parent: dict[str, Any],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
+) -> tuple[Group, ...]:
+    loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    org_id: str = parent["id"]
-    user_groups: list[str] = await groups_domain.get_groups_by_user(
-        user_email, organization_id=org_id
+    organization_id: str = parent["id"]
+    user_group_names: list[str] = await groups_domain.get_groups_by_user(
+        user_email, organization_id=organization_id
+    )
+    user_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        user_group_names
     )
 
-    loaders: Dataloaders = info.context.loaders
-    org_name: str = await orgs_domain.get_name_by_id(org_id)
-    groups: tuple[Group, ...] = await loaders.group_typed.load_many(
-        tuple((group, org_name) for group in user_groups)
-    )
-    return groups_utils.filter_active_groups(groups)
+    return groups_utils.filter_active_groups(user_groups)
