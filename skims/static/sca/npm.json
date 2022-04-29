@@ -6394,6 +6394,9 @@
     "CVE-2021-32696": "<3.2.0",
     "GHSA-qxg5-2qff-p49r": "<3.2.0"
   },
+  "strong-nginx-controller": {
+    "GHSA-4v9w-pvwr-38h3": "<=1.0.2"
+  },
   "subtext": {
     "SNYK-JS-SUBTEXT-467257": "<=6.0.12",
     "www.npmjs.com/advisories/1168": "<=6.0.12",
@@ -6412,6 +6415,9 @@
   },
   "superhappyfuntime": {
     "GHSA-6qgx-f452-7699": ">=0"
+  },
+  "superjson": {
+    "GHSA-5888-ffcr-r425": "<1.8.1"
   },
   "supermixer": {
     "GHSA-7prf-vw4p-qr59": "<1.0.5"
@@ -6449,6 +6455,9 @@
   },
   "syntax-error": {
     "CVE-2014-7192": "<1.1.1"
+  },
+  "sysend": {
+    "CVE-2022-24762": "<1.10.0"
   },
   "systeminformation": {
     "CVE-2020-26245": "<4.30.5",
@@ -6755,6 +6764,9 @@
     "CVE-2021-27516": "<1.19.6",
     "CVE-2021-3647": "<1.19.7",
     "GHSA-3329-pjwv-fjpg": "<1.19.4"
+  },
+  "url-js": {
+    "CVE-2022-25839": "<2.1.0"
   },
   "url-parse": {
     "CVE-2018-3774": "<1.4.3",
