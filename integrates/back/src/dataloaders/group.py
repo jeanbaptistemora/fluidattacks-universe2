@@ -223,6 +223,25 @@ class GroupTypedLoader(DataLoader):
         )
 
 
+async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
+    group_names = await orgs_domain.get_groups(organization_id)
+    group_items = await groups_domain.get_many_groups(list(group_names))
+    return tuple(
+        format_group(item=group, organization_id=organization_id)
+        for group, organization_id in zip(group_items, organization_id)
+    )
+
+
+class OrganizationGroupsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_ids: tuple[str, ...]
+    ) -> tuple[Group, ...]:
+        return await collect(
+            tuple(map(_get_organization_groups, organization_ids))
+        )
+
+
 class GroupIndicatorsTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(

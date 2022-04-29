@@ -620,6 +620,7 @@ async def add_group(  # pylint: disable=too-many-locals
                 type=subscription,
             ),
             organization_name=organization_name,
+            organization_id="",
         )
     )
     await collect(
@@ -993,14 +994,14 @@ async def get_vulnerabilities_with_pending_attacks(
     )
 
 
-async def get_many_groups(groups_name: list[str]) -> list[GroupType]:
+async def get_many_groups(group_names: list[str]) -> list[GroupType]:
     resource = await get_resource()
     table = await resource.Table(groups_dal.TABLE_NAME)
     groups: list[GroupType] = list(
         await collect(
             tuple(
                 groups_dal.get_group(group_name, table)
-                for group_name in groups_name
+                for group_name in group_names
             )
         )
     )
