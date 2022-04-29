@@ -243,7 +243,6 @@ in {
           [
             "0206_populate_vuln_gsi_5.py"
             "0187_fix_toe_lines.py"
-            "0208_fix_treatment_assigned.py"
           ])
         ++ (builtins.map
           (name: {
