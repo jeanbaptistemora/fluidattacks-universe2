@@ -25,6 +25,9 @@ from tap_checkly.api2.checks import (
 from tap_checkly.api2.checks.results import (
     CheckResult,
 )
+from tap_checkly.api2.id_objs import (
+    IndexedObj,
+)
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
@@ -123,8 +126,12 @@ def all_check_ids(client: ChecksClient) -> Stream[CheckId]:
     return chain(data.map(lambda x: from_flist(x)))
 
 
-def all_check_results(client: ChecksClient) -> Stream[CheckResult]:
-    return all_check_ids(client).bind(lambda c: client.list_check_results(c))
+def all_check_results(
+    client: ChecksClient,
+) -> Stream[IndexedObj[CheckId, CheckResult]]:
+    return all_check_ids(client).bind(
+        lambda c: client.list_check_results(c).map(lambda r: IndexedObj(c, r))
+    )
 
 
 __all__ = [

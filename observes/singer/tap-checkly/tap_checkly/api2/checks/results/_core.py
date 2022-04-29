@@ -38,9 +38,9 @@ class TimingPhases:
 class CheckResultApi:
     status: int
     status_text: str
-    href: str
-    timings: Timings
-    timing_phases: TimingPhases
+    href: Maybe[str]
+    timings: Maybe[Timings]
+    timing_phases: Maybe[TimingPhases]
 
 
 @dataclass(frozen=True)

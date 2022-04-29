@@ -59,7 +59,7 @@ def date_ranges_dsc(
         infinite_range(0, 6)
         .map(
             lambda h: DateRange.new(
-                _lower_limit(to_date + timedelta(hours=h - 6), from_date),
+                _lower_limit(to_date - timedelta(hours=h + 6), from_date),
                 to_date - timedelta(hours=h),
             ).unwrap()
         )

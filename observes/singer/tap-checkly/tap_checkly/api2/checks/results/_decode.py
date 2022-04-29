@@ -44,12 +44,15 @@ def _decode_result_api(api_result: JsonObj) -> CheckResultApi:
     return CheckResultApi(
         Unfolder(response["status"]).to_primitive(int).unwrap(),
         Unfolder(response["statusText"]).to_primitive(str).unwrap(),
-        Unfolder(response["href"]).to_primitive(str).unwrap(),
-        Unfolder(response["timings"]).to_json().map(_decode_timings).unwrap(),
-        Unfolder(response["timingPhases"])
-        .to_json()
-        .map(_decode_timing_phases)
-        .unwrap(),
+        Maybe.from_optional(response.get("href")).map(
+            lambda j: Unfolder(j).to_primitive(str).unwrap()
+        ),
+        Maybe.from_optional(response.get("timings")).map(
+            lambda j: Unfolder(j).to_json().map(_decode_timings).unwrap(),
+        ),
+        Maybe.from_optional(response.get("timingPhases")).map(
+            lambda j: Unfolder(j).to_json().map(_decode_timing_phases).unwrap()
+        ),
     )
 
 
