@@ -63,6 +63,6 @@ def date_ranges_dsc(
                 to_date - timedelta(hours=h),
             ).unwrap()
         )
-        .map(lambda dr: None if dr.from_date > to_date else dr)
+        .map(lambda dr: None if dr.to_date <= from_date else dr)
         .transform(lambda x: piter_transform.until_none(x))
     )

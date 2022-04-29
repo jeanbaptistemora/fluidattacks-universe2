@@ -12,7 +12,6 @@ from dateutil.parser import (
 )
 from fa_purity import (
     JsonObj,
-    JsonValue,
     Maybe,
 )
 from fa_purity.json.value.transform import (
@@ -61,20 +60,16 @@ def _decode_result_api(api_result: JsonObj) -> CheckResultApi:
     )
 
 
-def _to_maybe(obj: JsonValue) -> Maybe[JsonValue]:
-    return Maybe.from_optional(
-        Unfolder(obj).to_none().alt(lambda _: obj).to_union()
-    )
-
-
 def from_raw_result(raw: JsonObj) -> CheckResult:
     return CheckResult(
-        _to_maybe(raw["apiCheckResult"]).map(
-            lambda x: Unfolder(x).to_json().map(_decode_result_api).unwrap()
-        ),
-        _to_maybe(raw["browserCheckResult"]).map(
-            lambda x: Unfolder(x).to_json().unwrap()
-        ),
+        Unfolder(raw["apiCheckResult"])
+        .to_optional(lambda j: j.to_json())
+        .map(lambda x: Maybe.from_optional(x).map(_decode_result_api))
+        .unwrap(),
+        Unfolder(raw["browserCheckResult"])
+        .to_optional(lambda j: j.to_json())
+        .map(lambda x: Maybe.from_optional(x))
+        .unwrap(),
         Unfolder(raw["attempts"]).to_primitive(int).unwrap(),
         Unfolder(raw["checkRunId"]).to_primitive(int).map(CheckRunId).unwrap(),
         Unfolder(raw["created_at"]).to_primitive(str).map(isoparse).unwrap(),

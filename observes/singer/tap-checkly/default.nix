@@ -7,7 +7,7 @@
 }: let
   purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.16.0";
+    ref = "refs/tags/v1.17.0";
   };
   purity = import purity_src {
     inherit system;
