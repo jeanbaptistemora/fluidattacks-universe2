@@ -193,9 +193,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
+  function finishTour(): void {
+    void updateTours({ variables: { newGroup: true, newRoot: true } });
+    closeModal();
+  }
+
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (): void => {
-      void updateTours({ variables: { newGroup: true, newRoot: true } });
+      finishTour();
       onUpdate();
       closeModal();
     },
@@ -740,6 +745,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       )}
       {isManagingRoot === false ? undefined : (
         <ManagementModal
+          finishTour={finishTour}
           groupName={groupName}
           initialValues={
             isManagingRoot.mode === "EDIT" ? currentRow : undefined

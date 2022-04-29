@@ -24,6 +24,7 @@ interface IManagementModalProps {
   onSubmitEnvs: (values: IGitRootAttr) => Promise<void>;
   onSubmitRepo: (values: IGitRootAttr) => Promise<void>;
   runTour: boolean;
+  finishTour: () => void;
 }
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
@@ -61,6 +62,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   onSubmitEnvs,
   onSubmitRepo,
   runTour,
+  finishTour,
 }: IManagementModalProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateRootState: boolean = permissions.can(
@@ -133,6 +135,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
 
                   return (
                     <Repository
+                      finishTour={finishTour}
                       groupName={groupName}
                       initialValues={initialValues}
                       isEditing={isEditing}

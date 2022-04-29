@@ -59,6 +59,7 @@ interface IRepositoryProps {
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
   runTour: boolean;
+  finishTour: () => void;
 }
 
 const Repository: React.FC<IRepositoryProps> = ({
@@ -69,6 +70,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   onClose,
   onSubmit,
   runTour,
+  finishTour,
 }: IRepositoryProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -588,6 +590,7 @@ const Repository: React.FC<IRepositoryProps> = ({
             </Form>
             {runTour ? (
               <Tour
+                onFinish={finishTour}
                 run={runTour}
                 steps={[
                   {

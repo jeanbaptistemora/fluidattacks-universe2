@@ -118,6 +118,7 @@ describe("GitRoots", (): void => {
   it("should render git modal", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const finishTour: jest.Mock = jest.fn();
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
     render(
@@ -135,6 +136,7 @@ describe("GitRoots", (): void => {
         >
           <MockedProvider>
             <ManagementModal
+              finishTour={finishTour}
               groupName={""}
               initialValues={undefined}
               nicknames={[]}
@@ -185,6 +187,7 @@ describe("GitRoots", (): void => {
   it("should render envs modal", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const finishTour: jest.Mock = jest.fn();
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
     const initialValues: IGitRootAttr = {
@@ -234,6 +237,7 @@ describe("GitRoots", (): void => {
       >
         <MockedProvider>
           <ManagementModal
+            finishTour={finishTour}
             groupName={""}
             initialValues={initialValues}
             nicknames={[]}

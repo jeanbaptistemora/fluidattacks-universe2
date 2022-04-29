@@ -14,6 +14,7 @@ const BaseStep: Step = {
   disableBeacon: true,
   hideCloseButton: false,
   placement: "bottom",
+  showSkipButton: true,
   styles: {
     options: {
       zIndex: 9999,

@@ -1,4 +1,5 @@
 :local .tooltip {
   width: 300px !important;
   padding: 5px !important;
+  z-index: 10000 !important;
 }

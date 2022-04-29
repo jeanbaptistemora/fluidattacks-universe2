@@ -101,6 +101,11 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     onError: handleUpdateError,
   });
 
+  const finishTour = useCallback((): void => {
+    void updateTours({ variables: { newGroup: true, newRoot: false } });
+    onClose();
+  }, [onClose, updateTours]);
+
   const handleSubmit = useCallback(
     async (values: {
       description: string;
@@ -126,11 +131,11 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
         },
       });
       if (runTour) {
-        void updateTours({ variables: { newGroup: true, newRoot: false } });
+        finishTour();
         push(`/orgs/${organization}/groups/${values.name}/scope`);
       }
     },
-    [addGroup, organization, push, runTour, updateTours]
+    [addGroup, organization, push, runTour, finishTour]
   );
 
   function handleGroupNameError({ graphQLErrors }: ApolloError): void {
@@ -552,7 +557,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </Button>
                   </ModalFooter>
                 </Form>
-                <Tour run={runTour} steps={steps} />
+                <Tour onFinish={finishTour} run={runTour} steps={steps} />
               </React.Fragment>
             );
           }}
