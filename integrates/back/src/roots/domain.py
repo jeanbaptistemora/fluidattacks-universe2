@@ -488,6 +488,7 @@ async def update_git_environments(
     environment_urls: List[str],
 ) -> None:
     root: RootItem = await loaders.root.load((group_name, root_id))
+    modified_date: str = datetime_utils.get_iso_date()
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -497,21 +498,40 @@ async def update_git_environments(
     )
     if not is_valid:
         raise InvalidParameter()
+
+    # pylint: disable=unnecessary-comprehension
+    urls_deleted: List[str] = [
+        url
+        for url in set(root.state.environment_urls).difference(
+            set(environment_urls)
+        )
+    ]
+    urls_added: List[str] = [
+        url
+        for url in environment_urls
+        if url not in root.state.environment_urls
+    ]
+
     await collect(
-        [
-            remove_environment_url(root_id, url)
-            for url in set(root.state.environment_urls).difference(
-                set(environment_urls)
-            )
-        ]
+        [remove_environment_url(root_id, url) for url in urls_deleted]
     )
     await collect(
         [
             add_git_environment_url(loaders, group_name, root_id, url)
-            for url in environment_urls
-            if url not in root.state.environment_urls
+            for url in urls_added
         ]
     )
+
+    if urls_added or urls_deleted:
+        await send_mail_environment(
+            date=modified_date,
+            group_name=group_name,
+            git_root=root.state.nickname,
+            urls_added=urls_added,
+            urls_deleted=urls_deleted,
+            user_email=user_email,
+        )
+
     await roots_model.update_root_state(
         current_value=root.state,
         group_name=group_name,
@@ -524,7 +544,7 @@ async def update_git_environments(
             gitignore=root.state.gitignore,
             includes_health_check=root.state.includes_health_check,
             modified_by=user_email,
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=modified_date,
             nickname=root.state.nickname,
             other=None,
             reason=None,
@@ -712,10 +732,12 @@ async def send_mail_updated_root(
     for key, value in new_state._asdict().items():
         old_value: str = old_state[key]
         if old_value != value and key not in ["modified_by", "modified_date"]:
-            root_content += (
-                f"\n{key.replace('_', ' ').capitalize()}: from {old_value} to "
-                f"{value}"
+            subtitle: str = (
+                "Exclusions"
+                if key == "gitignore"
+                else key.replace("_", " ").capitalize()
             )
+            root_content += f"\n{subtitle}: from {old_value} to " f"{value}"
 
     if root_content != "":
         await groups_mail.send_mail_updated_root(
@@ -1208,6 +1230,39 @@ async def add_git_environment_url(
 async def remove_environment_url(root_id: str, url: str) -> None:
     await roots_model.remove_environment_url(
         root_id, url_id=hashlib.sha1(url.encode()).hexdigest()  # nosec
+    )
+
+
+async def send_mail_environment(  # pylint: disable=too-many-arguments
+    date: str,
+    group_name: str,
+    git_root: str,
+    urls_added: List[str],
+    urls_deleted: List[str],
+    user_email: str,
+) -> None:
+
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await groups_mail.send_mail_environment_report(
+        email_to=email_list,
+        group_name=group_name,
+        responsible=user_email,
+        git_root=git_root,
+        urls_added=urls_added,
+        urls_deleted=urls_deleted,
+        date=date,
     )
 
 

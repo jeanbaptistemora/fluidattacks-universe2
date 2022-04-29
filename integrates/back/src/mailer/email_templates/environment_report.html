@@ -9,12 +9,13 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      An environment has been <strong>{{ state }}</strong> in group
+      An environment has been modified in group
       <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>
     </p>
     <p>
       <strong>Git Root</strong>: {{ git_root }}<br>
-      <strong>Url</strong>: {{ root_url }}<br/>
+      {% if urls_added %} <strong>URLs Added</strong>: {{ ", ".join(urls_added) }}<br> {% endif %}
+      {% if urls_deleted %} <strong>URLs Deleted</strong>: {{ ", ".join(urls_deleted) }}<br> {% endif %}
       <strong>Date</strong>: {{ report_date }}
     </p>
     <p></p>
