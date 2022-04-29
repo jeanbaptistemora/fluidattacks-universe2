@@ -1,3 +1,7 @@
+from datetime import (
+    datetime,
+    timezone,
+)
 from fa_purity.cmd import (
     unsafe_unwrap,
 )
@@ -51,13 +55,15 @@ _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
     SupportedStreams.REPORTS: streams.all_chk_reports,
     SupportedStreams.SNIPPETS: streams.all_snippets,
 }
+OLD_DATE = datetime(1970, 1, 1, tzinfo=timezone.utc)
+NOW = datetime.now(tz=timezone.utc)
 
 
 def emit_streams(
     creds: Credentials, targets: FrozenList[SupportedStreams]
 ) -> IO[None]:
     api = ApiClient.new(LegacyCreds(creds.account, creds.api_key))
-    chks_client = ChecksClient.new(creds, 100)
+    chks_client = ChecksClient.new(creds, 100, OLD_DATE, NOW)
     for selection in targets:
         LOG.info("Executing stream: %s", selection)
         if selection is SupportedStreams.CHECK_RESULTS:

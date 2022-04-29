@@ -123,24 +123,8 @@ def all_check_ids(client: ChecksClient) -> Stream[CheckId]:
     return chain(data.map(lambda x: from_flist(x)))
 
 
-def all_check_results_of(
-    client: ChecksClient, chk_id: CheckId
-) -> Stream[CheckResult]:
-    data = (
-        infinite_range(1, 1)
-        .map(lambda p: client.list_check_results(chk_id, p))
-        .transform(lambda x: from_piter(x))
-        .map(lambda i: i if bool(i) else None)
-        .transform(lambda x: until_none(x))
-        .map(lambda x: from_flist(x))
-    )
-    return chain(data)
-
-
 def all_check_results(client: ChecksClient) -> Stream[CheckResult]:
-    return all_check_ids(client).bind(
-        lambda c: all_check_results_of(client, c)
-    )
+    return all_check_ids(client).bind(lambda c: client.list_check_results(c))
 
 
 __all__ = [
