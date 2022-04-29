@@ -125,7 +125,7 @@ class CredentialLoader(DataLoader):
         )
 
 
-async def _get_credentials(*, group_name: str) -> Tuple[CredentialItem, ...]:
+async def get_credentials(*, group_name: str) -> Tuple[CredentialItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["credentials_metadata"],
         values={"name": group_name},
@@ -171,7 +171,7 @@ class GroupCredentialsLoader(DataLoader):
         self, group_names: List[str]
     ) -> Tuple[Tuple[CredentialItem, ...], ...]:
         return await collect(
-            _get_credentials(group_name=group_name)
+            get_credentials(group_name=group_name)
             for group_name in group_names
         )
 

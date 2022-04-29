@@ -8,6 +8,9 @@ from custom_exceptions import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.credentials.get import (
+    get_credentials,
+)
 import pytest
 from typing import (
     Any,
@@ -71,3 +74,10 @@ async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     root = await loaders.root.load((group_name, root_id))
     assert root.cloning.status.value == "FAILED"
     assert root.cloning.reason == "Credentials does not work"
+
+    all_credentials = await get_credentials(group_name="group1")
+    assert len(all_credentials) > 0
+    for cred in all_credentials:
+        assert cred.state.password is None
+        assert cred.state.user is None
+        assert cred.state.token is None
