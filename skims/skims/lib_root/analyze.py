@@ -9,6 +9,7 @@ from ctx import (
 )
 from lib_root import (
     f001,
+    f004,
     f009,
     f012,
     f016,
@@ -58,6 +59,7 @@ from utils.logs import (
 
 QUERIES: graph_model.Queries = (
     *f001.QUERIES,
+    *f004.QUERIES,
     *f009.QUERIES,
     *f012.QUERIES,
     *f016.QUERIES,

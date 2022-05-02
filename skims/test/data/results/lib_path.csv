@@ -27649,6 +27649,66 @@ F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remo
   25 | }
      ^ Col 0
 ",query.query_f004
+F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+ in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+> 11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+  13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",query.query_f004
+F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,13,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+  11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+> 13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,11,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+> 11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+  13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
 F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
  in namespace/skims/test/data/lib_root/f008/test.cs","
    1 | namespace Controllers
