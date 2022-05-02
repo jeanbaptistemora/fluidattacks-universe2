@@ -9,7 +9,6 @@
     ./kubernetes/makes.nix
     ./okta/makes.nix
     ./pipeline/makes.nix
-    ./schedule/makes.nix
     ./status/makes.nix
     ./users/makes.nix
     ./vpc/makes.nix
