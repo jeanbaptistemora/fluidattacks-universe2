@@ -567,6 +567,9 @@
   "com.predic8:soa-model-core": {
     "GHSA-pv39-qp28-4mgh": "<1.6.4"
   },
+  "com.predic8:soa-model-parent": {
+    "GHSA-pv39-qp28-4mgh": "<1.6.4"
+  },
   "com.puppycrawl.tools:checkstyle": {
     "CVE-2019-10782": "<8.29",
     "CVE-2019-9658": "<8.18"
@@ -674,6 +677,9 @@
   "com.synopsys.jenkinsci:ownership": {
     "CVE-2018-1000107": ">=0 <=0.11.0"
   },
+  "com.taoensso:nippy": {
+    "CVE-2020-24164": "<2.14.2"
+  },
   "com.thoughtworks.xstream:xstream": {
     "CVE-2013-7285": ">=0 <=1.4.6",
     "CVE-2017-7957": ">=0 <=1.4.9",
@@ -743,6 +749,9 @@
   "com.twitter:twitter-server": {
     "CVE-2020-35774": ">=0 <20.12.0"
   },
+  "com.twitter:twitter-server_2.12": {
+    "GHSA-3mqv-8gxg-pfm4": "<20.12.0"
+  },
   "com.typesafe.akka:akka-actor": {
     "CVE-2017-1000034": "2.5 || >=0 <=2.4.16"
   },
@@ -764,6 +773,13 @@
   "com.typesafe.akka:akka-http-core_2.12": {
     "GHSA-9qgc-p27w-3hjg": ">=10.1.0 <10.1.4",
     "GHSA-gfx6-ph4q-q54q": "<10.0.6"
+  },
+  "com.typesafe.play:play": {
+    "GHSA-h48w-c35p-6m8x": ">=2.6.0 <2.7.6 || >=2.8.0 <2.8.3",
+    "GHSA-v9mf-jgq3-c28h": ">=2.8.0 <2.8.5"
+  },
+  "com.typesafe.play:play-java": {
+    "GHSA-h48w-c35p-6m8x": ">=2.6.0 <2.7.6 || >=2.8.0 <2.8.3"
   },
   "com.typesafe.play:play-ws_2.12": {
     "CVE-2018-13864": ">=2.6.12 <=2.6.15",
@@ -844,6 +860,12 @@
   },
   "com.vaadin:vaadin-text-field-flow": {
     "CVE-2021-31405": ">=2.0.4 <=2.3.2 || >=3.0.0 <=4.0.2"
+  },
+  "com.walmartlabs.concord.docker:concord-common": {
+    "GHSA-6566-9526-52v6": "<1.44.0"
+  },
+  "com.wire:avs": {
+    "GHSA-2j6v-xpf3-xvrv": "<7.1.12"
   },
   "com.xuxueli:xxl-conf": {
     "CVE-2018-20094": "1.6.0"
@@ -940,6 +962,9 @@
   "hudson.plugins.sctmexecutor:sctmexecutor": {
     "CVE-2019-16568": ">=0 <=2.2"
   },
+  "info.magnolia:magnolia-core": {
+    "GHSA-m4hg-5p2m-fm5m": "<6.2.12"
+  },
   "io.alauda.jenkins.plugins:alauda-kubernetes-support": {
     "CVE-2019-16575": ">=0 <=2.3.0",
     "CVE-2019-16576": ">=0 <=2.3.0"
@@ -1018,6 +1043,9 @@
   },
   "io.jenkins.plugins:electricflow": {
     "CVE-2021-21647": ">=0 <=1.1.21"
+  },
+  "io.jenkins.plugins:folder-auth": {
+    "GHSA-5vjc-qx43-r747": "<1.4"
   },
   "io.jenkins.plugins:fstrigger": {
     "CVE-2021-21657": ">=0 <=0.40"
@@ -1152,6 +1180,9 @@
   "io.projectreactor.netty:reactor-netty": {
     "CVE-2020-5403": ">=0.9.3 <=0.9.4",
     "CVE-2020-5404": ">=0.8.0 <=0.8.15 || >=0.9.0 <=0.9.4"
+  },
+  "io.projectreactor.netty:reactor-netty-http": {
+    "GHSA-gpch-h32j-gx6x": ">=0.8.0 <0.8.16 || >=0.9.0 <0.9.5"
   },
   "io.ratpack:ratpack-core": {
     "CVE-2019-10770": ">=0.9.10 <1.7.6",
