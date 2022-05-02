@@ -7,6 +7,10 @@ resource "aws_batch_job_definition" "makes" {
     # Will be overridden on job submission
     memory = 1800
     vcpus  = 1
+    healthCheck = {
+      timeout = 69
+      retries = 6
+    }
   })
 
   tags = {
