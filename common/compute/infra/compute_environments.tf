@@ -154,30 +154,39 @@ resource "aws_batch_compute_environment" "default" {
   tags = each.value.tags
 }
 
-locals {
-  environments = {
-    unlimited_spot = {
-      max_vcpus = 10000
-      type      = "SPOT"
-    }
-    unlimited_dedicated = {
-      max_vcpus = 10000
-      type      = "EC2"
-    }
-    limited_spot = {
-      max_vcpus = 10
-      type      = "SPOT"
-    }
-    limited_dedicated = {
-      max_vcpus = 10
-      type      = "EC2"
-    }
-  }
-}
-
 resource "aws_iam_instance_profile" "main" {
   name = "compute"
   role = data.aws_iam_role.prod_common.name
+}
+
+resource "aws_launch_template" "main" {
+  name     = "compute"
+  key_name = "gitlab"
+
+  block_device_mappings {
+    device_name  = "/dev/xvdcz"
+    virtual_name = "ephemeral0"
+  }
+
+  tag_specifications {
+    resource_type = "volume"
+
+    tags = {
+      "Name"               = "compute"
+      "management:area"    = "cost"
+      "management:product" = "common"
+      "management:type"    = "product"
+    }
+  }
+
+  tags = {
+    "Name"               = "compute"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
+
+  user_data = filebase64("${path.module}/aws_batch_user_data")
 }
 
 resource "aws_batch_compute_environment" "main" {
@@ -219,8 +228,8 @@ resource "aws_batch_compute_environment" "main" {
     }
 
     launch_template {
-      launch_template_id = aws_launch_template.batch_instance_regular.id
-      version            = aws_launch_template.batch_instance_regular.latest_version
+      launch_template_id = aws_launch_template.main.id
+      version            = aws_launch_template.main.latest_version
     }
   }
 

@@ -20,6 +20,27 @@ variable "terraform_state_lock_arn" {
   default = "arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"
 }
 
+locals {
+  environments = {
+    unlimited_spot = {
+      max_vcpus = 10000
+      type      = "SPOT"
+    }
+    unlimited_dedicated = {
+      max_vcpus = 10000
+      type      = "EC2"
+    }
+    limited_spot = {
+      max_vcpus = 10
+      type      = "SPOT"
+    }
+    limited_dedicated = {
+      max_vcpus = 10
+      type      = "EC2"
+    }
+  }
+}
+
 # Reused infrastructure
 
 data "aws_vpc" "main" {
