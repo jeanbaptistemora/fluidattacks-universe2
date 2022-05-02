@@ -499,12 +499,17 @@ async def test_reattack_comments_open_and_closed_vulnerability(
 
     finding_consult = await get_finding_consult(finding_id=finding_id)
 
-    assert re.search(
-        closed_vulns_comment, finding_consult[0].get("content")
-    ) or re.search(closed_vulns_comment, finding_consult[1].get("content"))
-    assert re.search(
-        open_vulns_comment, finding_consult[0].get("content")
-    ) or re.search(open_vulns_comment, finding_consult[1].get("content"))
+    comment_1 = finding_consult[0].get("content")
+    comment_2 = finding_consult[1].get("content")
+
+    assert comment_1 is not None
+    assert comment_2 is not None
+    assert re.search(closed_vulns_comment, comment_1) or re.search(
+        closed_vulns_comment, comment_2
+    )
+    assert re.search(open_vulns_comment, comment_1) or re.search(
+        open_vulns_comment, comment_2
+    )
 
 
 @pytest.mark.asyncio
@@ -541,9 +546,9 @@ async def test_integrates_group_is_pristine_check(
 async def test_integrates_group_has_required_roots(
     test_group: str,
 ) -> None:
-    roots: Set[str] = {
-        result.nickname for result in await get_group_roots(group=test_group)
-    }
+    group_res = await get_group_roots(group=test_group)
+    assert group_res is not None
+    roots: Set[str] = {result.nickname for result in group_res}
 
     for namespace in ("namespace", "namespace2"):
         if namespace in roots:

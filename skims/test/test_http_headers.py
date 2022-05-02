@@ -162,6 +162,7 @@ def test_content_security_policy() -> None:
             "localhost:* cdn.announcekit.app  ;"
         )
     )
+    assert header is not None
     assert header.directives == {
         "script-src": [
             "'self'",
@@ -172,6 +173,7 @@ def test_content_security_policy() -> None:
     }
 
     header = parse("Content-Security-Policy: upgrade-insecure-requests;")
+    assert header is not None
     assert header.directives == {"upgrade-insecure-requests": []}
 
 
@@ -203,9 +205,11 @@ def test_referrer_policy() -> None:
     parse = referrer_policy.parse
 
     header = parse("  referrer-pOlicy  :  no-referreR,wrong,, strict-origin ")
+    assert header is not None
     assert header.values == ["no-referrer", "wrong", "strict-origin"]
 
     header = parse("referrer-policy:")
+    assert header is not None
     assert header.values == []
 
     header = parse("wrong:")
@@ -322,16 +326,19 @@ def test_strict_transport_security() -> None:
     parse = strict_transport_security.parse
 
     header = parse("  strict-transport-security  :  max-age  =  123  ")
+    assert header is not None
     assert not header.include_sub_domains
     assert header.max_age == 123
     assert not header.preload
 
     header = parse("Strict-Transport-Security: max-age=123; includeSubDomains")
+    assert header is not None
     assert header.include_sub_domains
     assert header.max_age == 123
     assert not header.preload
 
     header = parse("Strict-Transport-Security:max-age=123;preload")
+    assert header is not None
     assert not header.include_sub_domains
     assert header.max_age == 123
     assert header.preload
@@ -381,6 +388,7 @@ def test_x_content_type_options() -> None:
     parse = x_content_type_options.parse
 
     header = parse("  x-content-type-options  :  VALUE  ")
+    assert header is not None
     assert header.value == "value"
 
     header = parse("  x-content-tpe-options  :  VALUE  ")
@@ -393,4 +401,5 @@ def test_x_frame_options() -> None:
     parse = x_frame_options.parse
 
     header = parse("  x-frame-options  :  deny  ")
+    assert header is not None
     assert header.value == "deny"

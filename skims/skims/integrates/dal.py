@@ -1229,7 +1229,7 @@ async def get_finding_consult(
     *,
     finding_id: str,
     client: Optional[GraphQLClient] = None,
-) -> str:
+) -> List[Dict[str, str]]:
     result = await _execute(
         query="""
             query SkimsGetFindingConsult(
@@ -1248,7 +1248,10 @@ async def get_finding_consult(
         ),
         client=client,
     )
+
     with suppress(AttributeError, KeyError, TypeError):
-        solution: str = result["data"]["finding"]["consulting"]
+        solution: List[Dict[str, str]] = result["data"]["finding"][
+            "consulting"
+        ]
 
     return solution

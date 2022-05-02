@@ -76,7 +76,7 @@ async def test_graph_generation(
     suffix_out: str,
 ) -> None:
     # Test the GraphDB
-    paths = Paths(include=files_to_test, exclude=[])
+    paths = Paths(include=files_to_test, exclude=())
     paths.set_lang()
     shard_db = ShardDb(paths)
 

@@ -1,10 +1,11 @@
 from typing import (
+    Any,
     List,
     Union,
 )
 
 
-def is_action_permissive(action: str) -> bool:
+def is_action_permissive(action: Any) -> bool:
     if not isinstance(action, str):
         # A var or syntax error
         return False

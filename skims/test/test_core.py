@@ -5,6 +5,9 @@ from core.vulnerabilities import (
     get_vulnerability_justification,
     vulns_with_reattack_requested,
 )
+from datetime import (
+    datetime,
+)
 from model import (
     core_model,
 )
@@ -172,11 +175,15 @@ async def test_reattacked_store() -> None:
     common_where = "file"
     common_reattack_requested = core_model.VulnerabilityVerification(
         state=core_model.VulnerabilityVerificationStateEnum.REQUESTED,
-        date="2020-01-01T00:45:12+00:00",
+        date=datetime.strptime(
+            "2020-01-01T00:45:12+0000", "%Y-%m-%dT%H:%M:%S%z"
+        ),
     )
     common_verified_status = core_model.VulnerabilityVerification(
         state=core_model.VulnerabilityVerificationStateEnum.VERIFIED,
-        date="2020-01-01T00:45:12+00:00",
+        date=datetime.strptime(
+            "2020-01-01T00:45:12+0000", "%Y-%m-%dT%H:%M:%S%z"
+        ),
     )
 
     # Vulnerability with a reattack requested
@@ -257,6 +264,7 @@ async def test_reattacked_store() -> None:
 
     reattacked_store = vulns_with_reattack_requested(integrates_store)
     reattacked_store_2 = vulns_with_reattack_requested(integrates_store_2)
+    assert reattacked_store is not None
     assert False not in [
         bool(
             vuln.integrates_metadata.source
@@ -284,14 +292,18 @@ async def test_vulnerability_justification() -> None:
     common_kind = core_model.VulnerabilityKindEnum.LINES
     common_reattack_requested = core_model.VulnerabilityVerification(
         state=core_model.VulnerabilityVerificationStateEnum.REQUESTED,
-        date="2020-01-01T00:45:12+00:00",
+        date=datetime.strptime(
+            "2020-01-01T00:45:12+0000", "%Y-%m-%dT%H:%M:%S%z"
+        ),
     )
     common_verified_status = core_model.VulnerabilityVerification(
         state=core_model.VulnerabilityVerificationStateEnum.VERIFIED,
-        date="2020-01-01T00:45:12+00:00",
+        date=datetime.strptime(
+            "2020-01-01T00:45:12+0000", "%Y-%m-%dT%H:%M:%S%z"
+        ),
     )
     common_skims_metadata = core_model.SkimsVulnerabilityMetadata(
-        cwe=16,
+        cwe=(16,),
         description="Description",
         snippet="> Vulnerable line 1 \n \
                 > Vulnerable lines 2 \n \
@@ -477,14 +489,18 @@ async def test_comment_to_dast_methods() -> None:
     common_kind = core_model.VulnerabilityKindEnum.LINES
     common_reattack_requested = core_model.VulnerabilityVerification(
         state=core_model.VulnerabilityVerificationStateEnum.REQUESTED,
-        date="2020-01-01T00:45:12+00:00",
+        date=datetime.strptime(
+            "2020-01-01T00:45:12+0000", "%Y-%m-%dT%H:%M:%S%z"
+        ),
     )
     common_verified_status = core_model.VulnerabilityVerification(
         state=core_model.VulnerabilityVerificationStateEnum.VERIFIED,
-        date="2020-01-01T00:45:12+00:00",
+        date=datetime.strptime(
+            "2020-01-01T00:45:12+0000", "%Y-%m-%dT%H:%M:%S%z"
+        ),
     )
     common_skims_metadata = core_model.SkimsVulnerabilityMetadata(
-        cwe=16,
+        cwe=(16,),
         description="Description",
         snippet="> Vulnerable line 1 \n \
                 > Vulnerable lines 2 \n \
