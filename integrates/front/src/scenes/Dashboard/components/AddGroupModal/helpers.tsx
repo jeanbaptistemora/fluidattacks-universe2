@@ -8,8 +8,8 @@ import { translate } from "utils/translations/translate";
 const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
-      case "Exception - There are no group names available at the moment":
-        msgError(translate.t("organization.tabs.groups.newGroup.noGroupName"));
+      case "Exception - Error invalid group name":
+        msgError(translate.t("organization.tabs.groups.newGroup.invalidName"));
         break;
       case "Exception - User is not a member of the target organization":
         msgError(

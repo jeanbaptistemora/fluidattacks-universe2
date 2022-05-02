@@ -1398,6 +1398,7 @@ export const enTranslations: ResourceKey = {
             tooltip: "There are open eventualities that may affect tests.",
           },
           extraChargesMayApply: "Extra charges may apply",
+          invalidName: "Name specified for the group is not allowed",
           language: {
             EN: "English",
             ES: "Spanish",
@@ -1415,7 +1416,6 @@ export const enTranslations: ResourceKey = {
             text: "New Group",
             tooltip: "Create a new group",
           },
-          noGroupName: "There are no group names available at the moment",
           organization: {
             text: "Organization",
             tooltip:
@@ -3019,8 +3019,7 @@ export const enTranslations: ResourceKey = {
         end: "Please add a description to help you recognize which group is associated with one of your projects. ",
         start:
           "We have added the name of the currently selected organization. " +
-          "The name of the group that will identify your project is automatically generated, " +
-          "so you don't need to rack your brains over the names ;). ",
+          "Now, add a name for the group that will identify your project",
       },
       intro:
         "Next, we are ready to create a new group. Each organization in the ASM has different groups. " +
