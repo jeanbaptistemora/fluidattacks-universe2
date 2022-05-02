@@ -22,6 +22,7 @@ from fa_purity import (
     Cmd,
     FrozenList,
     JsonObj,
+    Maybe,
     PureIter,
     Stream,
 )
@@ -40,6 +41,7 @@ from fa_purity.stream.factory import (
 )
 from fa_purity.stream.transform import (
     chain,
+    until_empty,
     until_none,
 )
 from tap_checkly.api2._raw import (
@@ -74,27 +76,35 @@ class ChecksClient:
 
     def _list_check_results(
         self, check: CheckId, dr: DateRange
-    ) -> Stream[CheckResultObj]:
-        data = (
-            infinite_range(1, 1)
-            .map(
-                lambda p: results.list_check_results(
-                    self._raw, check, p, self._per_page, dr
-                )
-            )
-            .transform(lambda x: from_piter(x))
-            .map(lambda i: i if bool(i) else None)
-            .transform(lambda x: until_none(x))
-            .map(lambda x: from_flist(x))
-            .transform(lambda x: chain(x))
+    ) -> Cmd[Maybe[Stream[CheckResultObj]]]:
+        first = results.list_check_results(
+            self._raw, check, 1, self._per_page, dr
         )
-        return data
+        return first.map(
+            lambda i: Maybe.from_optional(i if bool(i) else None).map(
+                lambda f: infinite_range(1, 1)
+                .map(
+                    lambda p: results.list_check_results(
+                        self._raw, check, p, self._per_page, dr
+                    )
+                    if p > 1
+                    else Cmd.from_cmd(lambda: f)
+                )
+                .transform(lambda x: from_piter(x))
+                .map(lambda i: i if bool(i) else None)
+                .transform(lambda x: until_none(x))
+                .map(lambda x: from_flist(x))
+                .transform(lambda x: chain(x))
+            )
+        )
 
     def list_check_results(self, chk_id: CheckId) -> Stream[CheckResultObj]:
         return (
             self.date_ranges()
             .map(lambda dr: self._list_check_results(chk_id, dr))
-            .transform(lambda x: chain(x))
+            .transform(lambda x: from_piter(x))
+            .transform(lambda x: until_empty(x))
+            .bind(lambda s: s)
         )
 
     @staticmethod

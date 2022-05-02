@@ -55,9 +55,7 @@ _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
     SupportedStreams.REPORTS: streams.all_chk_reports,
     SupportedStreams.SNIPPETS: streams.all_snippets,
 }
-OLD_DATE = datetime(
-    2022, 1, 1, tzinfo=timezone.utc
-)  # temp date until perf fix
+OLD_DATE = datetime(1970, 1, 1, tzinfo=timezone.utc)
 NOW = datetime.now(tz=timezone.utc)
 
 
