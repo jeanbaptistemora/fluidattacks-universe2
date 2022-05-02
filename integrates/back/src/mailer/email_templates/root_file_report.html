@@ -1,0 +1,27 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('File Alert') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      A file has been {{ state }} in group
+      <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>.
+    </p>
+    <p>
+      <strong>File</strong>: {{ file_name }}<br>
+      <strong>Description</strong>: {{ file_description }}.<br>
+      <strong>Date</strong>: {{ report_date }}
+    </p>
+    <p></p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
