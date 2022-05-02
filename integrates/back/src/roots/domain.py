@@ -1272,7 +1272,7 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
         git_root=git_root,
         urls_added=urls_added,
         urls_deleted=urls_deleted,
-        date=date,
+        modified_date=date,
     )
 
 

@@ -10,6 +10,9 @@ from context import (
 from custom_types import (
     MailContent as MailContentType,
 )
+from datetime import (
+    date,
+)
 from db_model.enums import (
     Notification,
 )
@@ -50,7 +53,9 @@ async def send_mail_access_granted(
 async def send_mail_daily_digest(
     loaders: Any, email_to: List[str], context: MailContentType
 ) -> None:
-    date = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d")
+    report_date = datetime_utils.get_as_str(
+        datetime_utils.get_now(), "%Y/%m/%d"
+    )
     # Unique number needed to avoid the email client generating unwanted html
     # code in the template
     context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
@@ -64,7 +69,7 @@ async def send_mail_daily_digest(
         users_email,
         context,
         DIGEST_TAG,
-        f"Daily Digest ({date})",
+        f"Daily Digest ({report_date})",
         "daily_digest",
     )
 
@@ -206,6 +211,33 @@ async def send_mail_deactivated_root(
     )
 
 
+async def send_mail_root_file_report(
+    *,
+    group_name: str,
+    responsible: str,
+    is_added: bool = False,
+    file_name: str,
+    file_description: str,
+    report_date: date,
+    email_to: List[str],
+) -> None:
+    state_format: str = "added" if is_added else "deleted"
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "state": state_format,
+            "group_name": group_name,
+            "responsible": responsible,
+            "file_name": file_name,
+            "file_description": file_description,
+            "report_date": report_date,
+        },
+        tags=GENERAL_TAG,
+        subject=(f"Root file {state_format}"),
+        template_name="root_file_report",
+    )
+
+
 async def send_mail_environment_report(
     *,
     email_to: List[str],
@@ -214,7 +246,7 @@ async def send_mail_environment_report(
     git_root: str,
     urls_added: List[str],
     urls_deleted: List[str],
-    date: str,
+    modified_date: str,
 ) -> None:
     await send_mails_async(
         email_to=email_to,
@@ -224,7 +256,9 @@ async def send_mail_environment_report(
             "git_root": git_root,
             "urls_added": urls_added,
             "urls_deleted": urls_deleted,
-            "report_date": str(datetime_utils.get_date_from_iso_str(date)),
+            "report_date": str(
+                datetime_utils.get_date_from_iso_str(modified_date)
+            ),
         },
         tags=GENERAL_TAG,
         subject=f"Environment have been modified in [{group_name}]",
