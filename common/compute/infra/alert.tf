@@ -65,9 +65,6 @@ resource "aws_cloudwatch_event_rule" "alert" {
       detail-type = ["Batch Job State Change"]
       detail = {
         status = ["FAILED"]
-        container = {
-          exitCode = [{ anything-but = 0 }]
-        }
       }
     }
   )
@@ -87,27 +84,19 @@ resource "aws_cloudwatch_event_target" "alert" {
 
   input_transformer {
     input_paths = {
-      createdAt    = "$.detail.createdAt"
-      jobArn       = "$.detail.jobArn"
+      jobId        = "$.detail.jobId"
       jobName      = "$.detail.jobName"
       jobQueue     = "$.detail.jobQueue"
-      startedAt    = "$.detail.startedAt"
-      stoppedAt    = "$.detail.stoppedAt"
       status       = "$.detail.status"
       statusReason = "$.detail.statusReason"
     }
     input_template = <<-EOF
       {
         "jobName": <jobName>,
-        "jobArn": <jobArn>,
         "jobQueue": <jobQueue>,
+        "jobUrl": "https://us-east-1.console.aws.amazon.com/batch/home?region=us-east-1#jobs/detail/<jobId>",
         "status": <status>,
-        "statusReason": <statusReason>,
-        "createdAt": <createdAt>,
-        "startedAt": <startedAt>,
-        "stoppedAt": <stoppedAt>,
-        "urls": "You can access the following urls by replacing {{jobId}} with the ID in {{jobArn}}",
-        "jobUrl": "https://us-east-1.console.aws.amazon.com/batch/home?region=us-east-1#jobs/detail/{{jobId}}"
+        "statusReason": <statusReason>
       }
     EOF
   }
