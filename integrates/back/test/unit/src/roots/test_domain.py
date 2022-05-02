@@ -69,3 +69,34 @@ def test_format_root_credential() -> None:
         ),
         CredentialItem,
     )
+
+
+@pytest.mark.parametrize(
+    "url_input,expected",
+    [
+        (
+            (
+                "https://mycompany@dev.azure.com/"
+                "mycompany/myproject/_git/myproject"
+            ),
+            "https://dev.azure.com/mycompany/myproject/_git/myproject",
+        ),
+        (
+            (
+                "https://mycompany@dev.azure.com:30/"
+                "mycompany/myproject/_git/myproject"
+            ),
+            "https://dev.azure.com:30/mycompany/myproject/_git/myproject",
+        ),
+        (
+            "ssh://git@ssh.dev.azure.com:v3/fluidattacks-product/demo/demo",
+            "ssh://git@ssh.dev.azure.com:v3/fluidattacks-product/demo/demo",
+        ),
+        (
+            "https://dev.azure.com/mycompany/myproject/_git/myproject",
+            "https://dev.azure.com/mycompany/myproject/_git/myproject",
+        ),
+    ],
+)
+def test_format_url(url_input: str, expected: str):
+    assert roots_domain.format_git_repo_url(url_input) == expected

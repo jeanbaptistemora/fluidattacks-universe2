@@ -186,16 +186,17 @@ async def _notify_health_check(
         )
 
 
-def _format_git_repo_url(raw_url: str) -> str:
+def format_git_repo_url(raw_url: str) -> str:
     is_ssh: bool = raw_url.startswith("ssh://") or bool(
         re.match(r"^\w+@.*", raw_url)
     )
+    if not is_ssh:
+        raw_url = str(parse_url(raw_url)._replace(auth=None))
     url = (
         f"ssh://{raw_url}"
         if is_ssh and not raw_url.startswith("ssh://")
         else raw_url
     )
-
     return unquote(url).rstrip(" /")
 
 
@@ -206,7 +207,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> GitRootItem:
     group_name = str(kwargs["group_name"]).lower()
-    url: str = _format_git_repo_url(kwargs["url"])
+    url: str = format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
 
@@ -1315,7 +1316,7 @@ async def start_machine_execution(
 
 
 async def validate_git_access(**kwargs: Any) -> None:
-    url: str = _format_git_repo_url(kwargs["url"])
+    url: str = format_git_repo_url(kwargs["url"])
     cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])
     if key := kwargs["credentials"].get("key"):
         kwargs["credentials"]["key"] = _format_credential_key(cred_type, key)
