@@ -20,14 +20,6 @@ describe("Update Affected Modal", (): void => {
         id: "test-finding-id",
         title: "038. Business information leak",
         verified: false,
-        vulnerabilitiesToReattack: [
-          {
-            findingId: "test-finding-id",
-            id: "test-vuln-id",
-            specific: "9999",
-            where: "vulnerable entrance",
-          },
-        ],
       },
     ];
 

@@ -8,12 +8,6 @@ const GET_VERIFIED_FINDING_INFO: DocumentNode = gql`
         id
         title
         verified
-        vulnerabilitiesToReattack {
-          findingId
-          id
-          where
-          specific
-        }
       }
       name
     }
