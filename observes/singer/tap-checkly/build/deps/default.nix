@@ -1,18 +1,17 @@
 {
+  extras,
   legacyPkgs,
   lib,
-  localLib,
   pythonVersion,
-  system,
 }: let
-  pythonPkgs = legacyPkgs."${pythonVersion}Packages";
-  utils-logger = import localLib.utils-logger {
-    src = localLib.utils-logger;
-    legacy_pkgs = legacyPkgs;
-    python_version = pythonVersion;
-  };
+  pythonPkgs =
+    legacyPkgs."${pythonVersion}Packages"
+    // {
+      fa-purity = extras.purity."${pythonVersion}".pkg;
+      fa-singer-io = extras.singer-io."${pythonVersion}".pkg;
+    };
   legacy = import ./legacy {
-    inherit legacyPkgs localLib pythonPkgs pythonVersion system;
+    inherit extras pythonPkgs pythonVersion;
   };
   pythonPkgs2 =
     pythonPkgs
@@ -47,6 +46,6 @@ in
     };
     types-click = import ./click/stubs.nix lib;
     types-python-dateutil = import ./dateutil/stubs.nix lib;
-    utils-logger = utils-logger.pkg;
+    utils-logger = extras.utils-logger."${pythonVersion}".pkg;
   }
   // legacy
