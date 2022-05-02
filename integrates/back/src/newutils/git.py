@@ -30,6 +30,9 @@ from typing import (
     Optional,
     Tuple,
 )
+from urllib3.util.url import (
+    parse_url,
+)
 from urllib.parse import (
     quote_plus,
     urlparse,
@@ -190,15 +193,11 @@ def _format_https_url(
 ) -> str:
     user = quote_plus(user) if user is not None else user
     password = quote_plus(password) if password is not None else password
-    parsed_url = urlparse(repo_url)
+    parsed_url = parse_url(repo_url)
     if token is not None:
-        url = repo_url.replace(
-            parsed_url.netloc, f"{token}@{parsed_url.netloc}"
-        )
+        url = str(parsed_url._replace(auth=token))
     elif user is not None and password is not None:
-        url = repo_url.replace(
-            parsed_url.netloc, f"{user}:{password}@{parsed_url.netloc}"
-        )
+        url = str(parsed_url._replace(auth=f"{user}:{password}"))
     else:
         raise InvalidParameter()
 
