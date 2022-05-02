@@ -10,6 +10,7 @@
         setup = [
           outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/prodCommon"
+          outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
         src = "/common/compute/infra";
         version = "1.0";
@@ -22,6 +23,7 @@
         setup = [
           outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
         src = "/common/compute/infra";
         version = "1.0";
@@ -33,12 +35,18 @@
       skimsQueues = projectPath "/skims/manifests/queues.json";
     };
   };
+  secretsForTerraformFromEnv = {
+    commonCompute = {
+      productApiToken = "PRODUCT_API_TOKEN";
+    };
+  };
   testTerraform = {
     modules = {
       commonCompute = {
         setup = [
           outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
         src = "/common/compute/infra";
         version = "1.0";

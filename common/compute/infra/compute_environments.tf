@@ -156,51 +156,82 @@ resource "aws_batch_compute_environment" "default" {
 
 locals {
   environments = {
-    fargate = {
-      unlimited_spot = {
-        max_vcpus = 10000
-        type      = "FARGATE_SPOT"
-      }
-      unlimited_dedicated = {
-        max_vcpus = 10000
-        type      = "FARGATE"
-      }
-      limited_spot = {
-        max_vcpus = 10
-        type      = "FARGATE_SPOT"
-      }
-      limited_dedicated = {
-        max_vcpus = 10
-        type      = "FARGATE"
-      }
+    unlimited_spot = {
+      max_vcpus = 10000
+      type      = "SPOT"
+    }
+    unlimited_dedicated = {
+      max_vcpus = 10000
+      type      = "EC2"
+    }
+    limited_spot = {
+      max_vcpus = 10
+      type      = "SPOT"
+    }
+    limited_dedicated = {
+      max_vcpus = 10
+      type      = "EC2"
     }
   }
 }
 
-resource "aws_batch_compute_environment" "fargate" {
-  for_each = local.environments.fargate
+resource "aws_iam_instance_profile" "main" {
+  name = "compute"
+  role = data.aws_iam_role.prod_common.name
+}
 
-  compute_environment_name = "fargate_${each.key}"
+resource "aws_batch_compute_environment" "main" {
+  for_each = local.environments
+
+  compute_environment_name_prefix = "${each.key}_"
 
   service_role = data.aws_iam_role.prod_common.arn
   state        = "ENABLED"
   type         = "MANAGED"
 
   compute_resources {
-    max_vcpus = each.value.max_vcpus
-    type      = each.value.type
+    bid_percentage = 100
+    image_id       = "ami-0c09d65d2051ada93"
+    type           = each.value.type
 
-    security_group_ids = [aws_security_group.aws_batch_compute_environment_security_group.id]
+    max_vcpus = each.value.max_vcpus
+    min_vcpus = 0
+
+    instance_role       = aws_iam_instance_profile.main.arn
+    spot_iam_fleet_role = data.aws_iam_role.prod_common.arn
+
+    instance_type = [
+      "c5ad.large",
+      "c5ad.xlarge",
+      "c5ad.2xlarge",
+    ]
+    security_group_ids = [aws_security_group.main.id]
     subnets = [
       data.aws_subnet.batch_clone.id,
       data.aws_subnet.batch_main.id,
     ]
+
+    tags = {
+      "Name"               = each.key
+      "management:area"    = "cost"
+      "management:product" = "common"
+      "management:type"    = "product"
+    }
+
+    launch_template {
+      launch_template_id = aws_launch_template.batch_instance_regular.id
+      version            = aws_launch_template.batch_instance_regular.latest_version
+    }
   }
 
   tags = {
-    "Name"               = "fargate_${each.key}"
+    "Name"               = each.key
     "management:area"    = "cost"
     "management:product" = "common"
     "management:type"    = "product"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }

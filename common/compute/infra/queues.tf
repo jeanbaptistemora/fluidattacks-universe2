@@ -20,16 +20,16 @@ resource "aws_batch_job_queue" "default" {
   tags     = each.value.tags
 }
 
-resource "aws_batch_job_queue" "fargate" {
-  for_each = local.environments.fargate
+resource "aws_batch_job_queue" "main" {
+  for_each = local.environments
 
-  name                 = "fargate_${each.key}"
+  name                 = each.key
   state                = "ENABLED"
   priority             = 1
-  compute_environments = [aws_batch_compute_environment.fargate[each.key].arn]
+  compute_environments = [aws_batch_compute_environment.main[each.key].arn]
 
   tags = {
-    "Name"               = "fargate_${each.key}"
+    "Name"               = each.key
     "management:area"    = "cost"
     "management:product" = "common"
     "management:type"    = "product"

@@ -4,7 +4,7 @@
 locals {
   schedules = {
     common_criteria_test_base = {
-      enabled = true
+      enabled = false
       command = ["m", "f", "/common/criteria/test/base"]
 
       schedule_expression = "cron(0/5 * * * ? *)"

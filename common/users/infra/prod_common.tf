@@ -94,8 +94,9 @@ module "prod_common_aws" {
       Principal = {
         Service = [
           "batch.amazonaws.com",
-          "ecs-tasks.amazonaws.com",
+          "ec2.amazonaws.com",
           "events.amazonaws.com",
+          "spotfleet.amazonaws.com",
         ],
       },
       Action = "sts:AssumeRole",
