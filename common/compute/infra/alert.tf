@@ -84,11 +84,12 @@ resource "aws_cloudwatch_event_target" "alert" {
 
   input_transformer {
     input_paths = {
-      jobId        = "$.detail.jobId"
-      jobName      = "$.detail.jobName"
-      jobQueue     = "$.detail.jobQueue"
-      status       = "$.detail.status"
-      statusReason = "$.detail.statusReason"
+      containerReason = "$.detail.container.reason"
+      jobId           = "$.detail.jobId"
+      jobName         = "$.detail.jobName"
+      jobQueue        = "$.detail.jobQueue"
+      status          = "$.detail.status"
+      statusReason    = "$.detail.statusReason"
     }
     input_template = <<-EOF
       {
@@ -96,7 +97,8 @@ resource "aws_cloudwatch_event_target" "alert" {
         "jobQueue": <jobQueue>,
         "jobUrl": "https://us-east-1.console.aws.amazon.com/batch/home?region=us-east-1#jobs/detail/<jobId>",
         "status": <status>,
-        "statusReason": <statusReason>
+        "statusReason": <statusReason>,
+        "containerReason": <containerReason>
       }
     EOF
   }

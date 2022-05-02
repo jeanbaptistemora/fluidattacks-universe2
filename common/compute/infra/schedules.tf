@@ -55,21 +55,18 @@ resource "aws_cloudwatch_event_target" "main" {
 
   input = jsonencode(
     {
-      containerOverrides = [
-        {
-          name    = "makes"
-          command = each.value.command
+      containerOverrides = {
+        command = each.value.command
 
-          resourceRequirements = [
-            { type = "VCPU", "value" = each.value.cpu },
-            { type = "MEMORY", "value" = each.value.memory },
-          ]
+        resourceRequirements = [
+          { type = "VCPU", "value" = each.value.cpu },
+          { type = "MEMORY", "value" = each.value.memory },
+        ]
 
-          environment = [
-            for k, v in each.value.environment : { name = k, value = v }
-          ]
-        }
-      ]
+        environment = [
+          for k, v in each.value.environment : { name = k, value = v }
+        ]
+      }
 
       retryStrategy = {
         attempts = each.value.attempts
