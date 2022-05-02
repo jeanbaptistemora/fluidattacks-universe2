@@ -34,6 +34,7 @@
     "plugin:jsx-a11y/strict",
     "plugin:prettier/recommended",
     "plugin:react/all",
+    "plugin:storybook/recommended",
     "prettier"
   ],
   "settings": {
@@ -141,8 +142,11 @@
      * @typescript-eslint/typedef that checks for all variables to be typed
      */
     "@typescript-eslint/no-inferrable-types": "off",
+    /*
+     * Disabled until the migration to newer versions of eslint is done
+     */
     "@typescript-eslint/no-magic-numbers": [
-      "error",
+      "off",
       {
         "ignore": [-1, 0, 1, 2, 4],
         /*
@@ -267,7 +271,12 @@
     /*
      * This rule is turned off until all eslint versions are upgraded
      */
-    "jest/prefer-lowercase-title": "off",
+    "jest/prefer-lowercase-title": [
+      "off",
+      {
+        "ignoreTopLevelDescribe": true
+      }
+    ],
     /*
      * This rule is turned off until all eslint versions are upgraded
      */
