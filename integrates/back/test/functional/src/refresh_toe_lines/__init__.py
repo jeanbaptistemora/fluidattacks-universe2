@@ -10,7 +10,7 @@ from batch import (
     dispatch,
 )
 from batch.actions import (
-    toe_lines,
+    refresh_toe_lines,
 )
 from dataloaders import (
     get_new_context,
@@ -76,7 +76,7 @@ async def get_result(
             ],
         )
         monkeypatch.setattr(
-            toe_lines,
+            refresh_toe_lines,
             "pull_repositories",
             mocked_pull_repositories,
         )
