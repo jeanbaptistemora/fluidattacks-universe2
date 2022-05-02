@@ -39,9 +39,6 @@ Stakeholder = Dict[
 ]
 Tag = Dict[str, Union[Decimal, str, List[str]]]
 Dynamo = Union[str, Dict[str, Any]]
-Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]
-GroupAccess = Dict[str, Union[bool, int, str, Invitation, None]]
-SignedUrl = Dict[str, Dict[str, str]]
 
 Action = NamedTuple(
     "Action",
@@ -224,7 +221,7 @@ UpdateAccessTokenPayload = NamedTuple(
 )
 
 SignPostUrlsPayload = NamedTuple(
-    "SignPostUrlsPayload", [("success", bool), ("url", SignedUrl)]
+    "SignPostUrlsPayload", [("success", bool), ("url", Dict[str, Any])]
 )
 
 

@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Me,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -19,7 +16,7 @@ from typing import (
 
 
 async def resolve(
-    parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[str, Any]]:
     user_email = str(parent["user_email"])
     org_ids: List[str] = await orgs_domain.get_user_organizations(user_email)

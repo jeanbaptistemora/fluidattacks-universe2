@@ -5,9 +5,6 @@ import authz
 from custom_exceptions import (
     RequestedInvitationTooSoon,
 )
-from custom_types import (
-    GroupAccess as GroupAccessType,
-)
 from datetime import (
     datetime,
     timedelta,
@@ -31,6 +28,7 @@ from newutils.datetime import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Set,
     Tuple,
@@ -43,9 +41,9 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
     ) and await authz.grant_group_level_role(email, group, role)
 
 
-async def get_access_by_url_token(url_token: str) -> GroupAccessType:
+async def get_access_by_url_token(url_token: str) -> Dict[str, Any]:
     access: List[
-        GroupAccessType
+        Dict[str, Any]
     ] = await group_access_dal.get_access_by_url_token(url_token)
     return access[0] if access else {}
 
@@ -78,8 +76,8 @@ async def get_managers(group_name: str) -> List[str]:
     ]
 
 
-async def get_user_access(user_email: str, group_name: str) -> GroupAccessType:
-    access: List[GroupAccessType] = await group_access_dal.get_user_access(
+async def get_user_access(user_email: str, group_name: str) -> Dict[str, Any]:
+    access: List[Dict[str, Any]] = await group_access_dal.get_user_access(
         user_email, group_name
     )
     return access[0] if access else {}
@@ -142,7 +140,7 @@ async def remove_access(
 
 
 async def update(
-    user_email: str, group_name: str, data: GroupAccessType
+    user_email: str, group_name: str, data: Dict[str, Any]
 ) -> bool:
     return await group_access_dal.update(user_email, group_name, data)
 

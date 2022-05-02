@@ -7,7 +7,6 @@ from botocore.exceptions import (
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-    GroupAccess as GroupAccessType,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -24,6 +23,8 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 
@@ -37,7 +38,7 @@ TABLE_NAME: str = "FI_project_access"
 async def get_access_by_url_token(
     url_token: str,
     attr: str = "invitation",
-) -> List[GroupAccessType]:
+) -> List[Dict[str, Any]]:
     """Get user access of a group by the url token"""
     filter_exp = Attr(attr).exists() & Attr(f"{attr}.url_token").eq(url_token)
     scan_attrs = {"FilterExpression": filter_exp}
@@ -80,7 +81,7 @@ async def get_group_users(group: str, active: bool = True) -> List[str]:
 
 async def get_user_access(
     user_email: str, group_name: str
-) -> List[GroupAccessType]:
+) -> List[Dict[str, Any]]:
     """Get user access of a group"""
     user_email = user_email.lower()
     group_name = group_name.lower()
@@ -131,7 +132,7 @@ async def remove_access(user_email: str, group_name: str) -> bool:
 
 
 async def update(
-    user_email: str, group_name: str, data: GroupAccessType
+    user_email: str, group_name: str, data: Dict[str, Any]
 ) -> bool:
     """Update group access attributes."""
     success = False

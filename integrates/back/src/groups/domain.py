@@ -39,7 +39,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Group as GroupType,
-    GroupAccess as GroupAccessType,
     Invitation as InvitationType,
     MailContent as MailContentType,
 )
@@ -442,7 +441,7 @@ async def _has_repeated_tags(
 
 
 async def complete_register_for_group_invitation(
-    group_access: GroupAccessType,
+    group_access: Dict[str, Any],
 ) -> bool:
     coroutines: list[Awaitable[bool]] = []
     success: bool = False
@@ -547,7 +546,7 @@ async def complete_register_for_organization_invitation(
 
 async def reject_register_for_group_invitation(
     loaders: Any,
-    group_access: GroupAccessType,
+    group_access: Dict[str, Any],
 ) -> bool:
     success: bool = False
     invitation = cast(InvitationType, group_access["invitation"])
@@ -1602,7 +1601,7 @@ async def validate_group_tags(
 
 
 async def after_complete_register(
-    loaders: Any, group_access: GroupAccessType
+    loaders: Any, group_access: Dict[str, Any]
 ) -> None:
     group_name: str = str(get_key_or_fallback(group_access))
     user_email: str = str(group_access["user_email"])

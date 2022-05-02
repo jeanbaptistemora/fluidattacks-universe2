@@ -1,10 +1,9 @@
-from custom_types import (
-    Me,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 from users import (
@@ -13,7 +12,7 @@ from users import (
 
 
 async def resolve(
-    parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
     has_mobile_app: bool = False
     user_email = str(parent["user_email"])

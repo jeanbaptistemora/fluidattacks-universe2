@@ -3,7 +3,6 @@
 
 from custom_types import (
     GraphicParameters,
-    GroupAccess as GroupAccessType,
 )
 import json
 from newutils.utils import (
@@ -25,6 +24,8 @@ from starlette.templating import (
 )
 import traceback
 from typing import (
+    Any,
+    Dict,
     Optional,
 )
 
@@ -101,7 +102,7 @@ def graphic_view(
 def invalid_invitation(
     request: Request,
     error: str,
-    group_access: Optional[GroupAccessType] = None,
+    group_access: Optional[Dict[str, Any]] = None,
 ) -> HTMLResponse:
     group_name = (
         get_key_or_fallback(group_access, fallback="") if group_access else ""
@@ -151,7 +152,7 @@ def unauthorized(request: Request) -> HTMLResponse:
 
 
 async def valid_invitation(
-    request: Request, group_access: GroupAccessType
+    request: Request, group_access: Dict[str, Any]
 ) -> HTMLResponse:
     group_name = (
         get_key_or_fallback(group_access, fallback="") if group_access else ""
@@ -191,7 +192,7 @@ def invalid_confirm_deletion(
 
 
 async def reject_invitation(
-    request: Request, group_access: GroupAccessType
+    request: Request, group_access: Dict[str, Any]
 ) -> HTMLResponse:
     group_name = (
         get_key_or_fallback(group_access, fallback="") if group_access else ""

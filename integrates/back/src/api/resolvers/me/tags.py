@@ -5,7 +5,6 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    Me as MeType,
     Tag as TagType,
 )
 from dataloaders import (
@@ -21,14 +20,16 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
+    Any,
     cast,
+    Dict,
 )
 
 
 @convert_kwargs_to_snake_case
 @require_organization_access
 async def resolve(
-    parent: MeType,
+    parent: Dict[str, Any],
     info: GraphQLResolveInfo,
     **kwargs: str,
 ) -> list[TagType]:

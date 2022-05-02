@@ -1,9 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    Me,
-)
 from decorators import (
     require_login,
 )
@@ -14,6 +11,7 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
+    Any,
     Dict,
 )
 
@@ -22,7 +20,7 @@ from typing import (
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Me:
+) -> Dict[str, Any]:
     caller_origin: str = kwargs.get("caller_origin", "API")
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     return {

@@ -1,11 +1,9 @@
-from custom_types import (
-    Me,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import json
 from typing import (
+    Any,
     cast,
     Dict,
     Optional,
@@ -16,7 +14,7 @@ from users import (
 
 
 async def resolve(
-    parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     user_email = str(parent["user_email"])
     access_token: Optional[Dict[str, str]] = cast(

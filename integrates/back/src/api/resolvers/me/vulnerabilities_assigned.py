@@ -1,6 +1,3 @@
-from custom_types import (
-    Me,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -12,12 +9,14 @@ from newutils.vulnerabilities import (
     filter_open_vulns,
 )
 from typing import (
+    Any,
+    Dict,
     Tuple,
 )
 
 
 async def resolve(
-    parent: Me, info: GraphQLResolveInfo
+    parent: Dict[str, Any], info: GraphQLResolveInfo
 ) -> Tuple[Vulnerability, ...]:
     email: str = str(parent["user_email"])
     vulnerabilities: Tuple[

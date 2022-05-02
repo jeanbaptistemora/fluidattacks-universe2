@@ -1,13 +1,12 @@
 import authz
-from custom_types import (
-    Me,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import logging
 import logging.config
 from typing import (
+    Any,
+    Dict,
     Set,
 )
 
@@ -23,7 +22,7 @@ async def _get_user_permissions(user_email: str, with_cache: bool) -> Set[str]:
 
 
 async def resolve(
-    parent: Me, _info: GraphQLResolveInfo, **_kwargs: str
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: str
 ) -> Set[str]:
     user_email = str(parent["user_email"])
 

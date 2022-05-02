@@ -1,6 +1,3 @@
-from custom_types import (
-    Me,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -8,13 +5,14 @@ from subscriptions import (
     domain as subscriptions_domain,
 )
 from typing import (
+    Any,
     Dict,
     List,
 )
 
 
 async def resolve(
-    parent: Me, _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[str, str]]:
     user_email = str(parent["user_email"])
 
