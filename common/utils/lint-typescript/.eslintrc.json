@@ -169,7 +169,7 @@
      */
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/no-type-alias": [
-      "error",
+      "off",
       {
         "allowAliases": "always",
         "allowGenerics": "always"
