@@ -95,7 +95,7 @@ const AddModal: React.FC<IAddModalProps> = ({
   const findings =
     findingsData === undefined ? [] : findingsData.group.findings;
   const hasReattacks = findings.some(
-    (finding: IFinding): boolean => finding.vulnerabilitiesToReattack.length > 0
+    (finding: IFinding): boolean => !finding.verified
   );
 
   const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
