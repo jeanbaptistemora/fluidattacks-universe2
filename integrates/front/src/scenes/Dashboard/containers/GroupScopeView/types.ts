@@ -29,6 +29,7 @@ interface IGitRootAttr {
   environmentUrls: string[];
   gitEnvironmentUrls: IEnvironmentUrl[];
   gitignore: string[];
+  healthCheckConfirm: string[];
   includesHealthCheck: boolean | null;
   id: string;
   nickname: string;

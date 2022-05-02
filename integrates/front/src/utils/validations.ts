@@ -502,9 +502,6 @@ const isLowerDate: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
-const checked: Validator = (value: unknown): string | undefined =>
-  value === true ? undefined : translate.t("validations.required");
-
 const excludeFormat: Validator = (
   value: string,
   allValues: Record<string, string>
@@ -543,7 +540,6 @@ const selected: Validator = (value: unknown): string | undefined =>
 
 export {
   composeValidators,
-  checked,
   required,
   someRequired,
   validEvidenceDescription,

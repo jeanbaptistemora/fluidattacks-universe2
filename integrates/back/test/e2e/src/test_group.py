@@ -201,22 +201,14 @@ def test_group_scope_repositories(
     reject_health_check.click()
     reject_health_a = utils.wait_for_name(
         driver,
-        "rejectHealthCheckA",
+        "healthCheckConfirm",
         timeout,
     )
     reject_health_a.click()
-    reject_health_b = utils.wait_for_name(
-        driver,
-        "rejectHealthCheckB",
-        timeout,
-    )
-    reject_health_b.click()
-    reject_health_c = utils.wait_for_name(
-        driver,
-        "rejectHealthCheckC",
-        timeout,
-    )
-    reject_health_c.click()
+    checkboxes = driver.find_elements_by_css_selector("input[type='checkbox']")
+    for checkbox in checkboxes[1:]:
+        if not checkbox.is_selected():
+            checkbox.click()
     proceed = utils.wait_for_id(
         driver,
         "git-root-add-proceed",

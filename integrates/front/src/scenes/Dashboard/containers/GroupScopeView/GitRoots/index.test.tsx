@@ -48,6 +48,7 @@ describe("GitRoots", (): void => {
           },
         ],
         gitignore: [],
+        healthCheckConfirm: [],
         id: "",
         includesHealthCheck: false,
         nickname: "",
@@ -162,14 +163,14 @@ describe("GitRoots", (): void => {
 
     // Health Check
     expect(
-      screen.queryAllByRole("checkbox", { name: "includesHealthCheckA" })
+      screen.queryAllByRole("checkbox", { name: "healthCheckConfirm" })
     ).toHaveLength(0);
 
     userEvent.click(screen.getByRole("radio", { name: "Yes" }));
 
     await waitFor((): void => {
       expect(
-        screen.queryAllByRole("checkbox", { name: "includesHealthCheckA" })
+        screen.queryAllByRole("checkbox", { name: "healthCheckConfirm" })
       ).toHaveLength(1);
     });
 
@@ -217,6 +218,7 @@ describe("GitRoots", (): void => {
         },
       ],
       gitignore: [],
+      healthCheckConfirm: [],
       id: "",
       includesHealthCheck: false,
       nickname: "",

@@ -44,7 +44,6 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import {
-  checked,
   composeValidators,
   hasSshFormat,
   required,
@@ -178,7 +177,6 @@ const Repository: React.FC<IRepositoryProps> = ({
     }
   }
 
-  const checkedValidation = isCheckedHealthCheck ? undefined : checked;
   function rootChanged(values: IGitRootAttr): null {
     setIsRootChange([values.url, values.branch].join(""));
     if (
@@ -201,6 +199,23 @@ const Repository: React.FC<IRepositoryProps> = ({
             ? !values.credentials.user || !values.credentials.password
             : !values.credentials.token);
   };
+
+  function checkedValidation(list: string[]): string | undefined {
+    if (isCheckedHealthCheck) {
+      return undefined;
+    }
+    if (
+      ((confirmHealthCheck ?? false) && list.includes("includeA")) ||
+      (!(confirmHealthCheck ?? true) &&
+        list.includes("rejectA") &&
+        list.includes("rejectB") &&
+        list.includes("rejectC"))
+    ) {
+      return undefined;
+    }
+
+    return t("validations.required");
+  }
 
   return (
     <div>
@@ -491,9 +506,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikCheckbox}
                                 isChecked={isCheckedHealthCheck}
                                 label={""}
-                                name={"includesHealthCheckA"}
+                                name={"healthCheckConfirm"}
                                 type={"checkbox"}
                                 validate={checkedValidation}
+                                value={"includeA"}
                               >
                                 {t("group.scope.git.healthCheck.accept")}
                                 <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -506,9 +522,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikCheckbox}
                                 isChecked={isCheckedHealthCheck}
                                 label={""}
-                                name={"rejectHealthCheckA"}
+                                name={"healthCheckConfirm"}
                                 type={"checkbox"}
-                                validate={checkedValidation}
+                                value={"rejectA"}
                               >
                                 {t("group.scope.git.healthCheck.rejectA")}
                                 <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -517,9 +533,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikCheckbox}
                                 isChecked={isCheckedHealthCheck}
                                 label={""}
-                                name={"rejectHealthCheckB"}
+                                name={"healthCheckConfirm"}
                                 type={"checkbox"}
-                                validate={checkedValidation}
+                                value={"rejectB"}
                               >
                                 {t("group.scope.git.healthCheck.rejectB")}
                                 <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -528,9 +544,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 component={FormikCheckbox}
                                 isChecked={isCheckedHealthCheck}
                                 label={""}
-                                name={"rejectHealthCheckC"}
+                                name={"healthCheckConfirm"}
                                 type={"checkbox"}
                                 validate={checkedValidation}
+                                value={"rejectC"}
                               >
                                 {t("group.scope.git.healthCheck.rejectC")}
                                 <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -725,7 +742,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                   {
                     ...BaseStep,
                     content: t("tours.addGitRoot.healthCheckConditions"),
-                    hideFooter: values.includesHealthCheck === null,
+                    hideFooter:
+                      checkedValidation(values.healthCheckConfirm) !==
+                      undefined,
                     placement: "left",
                     target: "#git-root-add-health-check-confirm",
                   },

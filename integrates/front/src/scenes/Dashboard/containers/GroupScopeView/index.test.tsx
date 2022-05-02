@@ -272,15 +272,9 @@ describe("GroupScopeView", (): void => {
         screen.queryAllByRole("checkbox", { checked: false })
       ).toHaveLength(numberOfRejectionCheckbox);
     });
-    userEvent.click(
-      screen.getByRole("checkbox", { name: "rejectHealthCheckA" })
-    );
-    userEvent.click(
-      screen.getByRole("checkbox", { name: "rejectHealthCheckB" })
-    );
-    userEvent.click(
-      screen.getByRole("checkbox", { name: "rejectHealthCheckC" })
-    );
+    userEvent.click(screen.getByDisplayValue("rejectA"));
+    userEvent.click(screen.getByDisplayValue("rejectB"));
+    userEvent.click(screen.getByDisplayValue("rejectC"));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
@@ -480,9 +474,7 @@ describe("GroupScopeView", (): void => {
         screen.queryAllByRole("checkbox", { checked: false })
       ).toHaveLength(2);
     });
-    userEvent.click(
-      screen.getByRole("checkbox", { name: "includesHealthCheckA" })
-    );
+    userEvent.click(screen.getByDisplayValue("includeA"));
     await waitFor((): void => {
       expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
         1

@@ -49,6 +49,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     environmentUrls: [],
     gitEnvironmentUrls: [],
     gitignore: [],
+    healthCheckConfirm: [],
     id: "",
     includesHealthCheck: null,
     nickname: "",

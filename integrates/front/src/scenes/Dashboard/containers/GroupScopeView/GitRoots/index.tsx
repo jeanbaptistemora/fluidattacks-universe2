@@ -616,21 +616,21 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                           <FontAwesomeIcon icon={faPlus} />
                           &nbsp;{t("group.scope.common.add")}
                         </Button>
-                        {runTour ? (
-                          <Tour
-                            run={true}
-                            steps={[
-                              {
-                                ...BaseStep,
-                                content: t("tours.addGitRoot.addButton"),
-                                disableBeacon: true,
-                                hideFooter: true,
-                                target: "#git-root-add",
-                              },
-                            ]}
-                          />
-                        ) : undefined}
                       </TooltipWrapper>
+                      {runTour ? (
+                        <Tour
+                          run={true}
+                          steps={[
+                            {
+                              ...BaseStep,
+                              content: t("tours.addGitRoot.addButton"),
+                              disableBeacon: true,
+                              hideFooter: true,
+                              target: "#git-root-add",
+                            },
+                          ]}
+                        />
+                      ) : undefined}
                     </Can>
                     <InternalSurfaceButton />
                   </Row>
