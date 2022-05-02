@@ -3,7 +3,7 @@ from itertools import (
 )
 from lib_root.utilities.c_sharp import (
     get_variable_attribute,
-    yield_object_creation,
+    yield_shard_object_creation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -30,6 +30,8 @@ def check_hashes_salt(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
+
     directory_object = {
         "Rfc2898DeriveBytes",
     }
@@ -42,22 +44,23 @@ def check_hashes_salt(
         ("System", "Text", "Encoding", "UTF32", "GetBytes"),
     ]
 
-    def n_ids() -> graph_model.GraphShardNodes:
-
-        danger_methods = set(
-            chain.from_iterable(
-                build_attr_paths(*method) for method in possible_methods
-            )
+    danger_methods = set(
+        chain.from_iterable(
+            build_attr_paths(*method) for method in possible_methods
         )
+    )
 
-        for shard, member in chain(
-            yield_object_creation(graph_db, directory_object),
-        ):
-            parameters = g.get_ast_childs(
-                shard.graph, member, "argument", depth=2
-            )
-            if len(parameters) > 1:
-                node_param = g.match_ast(shard.graph, parameters[1])["__0__"]
+    def n_ids() -> graph_model.GraphShardNodes:
+        for shard in graph_db.shards_by_language(c_sharp):
+            for member in yield_shard_object_creation(shard, directory_object):
+                parameters = g.get_ast_childs(
+                    shard.graph, member, "argument", depth=2
+                )
+                node_param = (
+                    g.match_ast(shard.graph, parameters[1])["__0__"]
+                    if len(parameters) > 1
+                    else None
+                )
                 if (
                     shard.graph.nodes[node_param].get("label_type")
                     == "identifier"
