@@ -590,9 +590,9 @@ async def add_group(  # pylint: disable=too-many-locals
     if not description.strip() or not group_name.strip():
         raise InvalidParameter()
 
-    org_id = await orgs_domain.get_id_by_name(organization_name)
-    if not await orgs_domain.has_user_access(org_id, user_email):
-        raise UserNotInOrganization(org_id)
+    organization_id = await orgs_domain.get_id_by_name(organization_name)
+    if not await orgs_domain.has_user_access(organization_id, user_email):
+        raise UserNotInOrganization(organization_id)
 
     is_group_avail, group_exists = await collect(
         [
@@ -618,13 +618,13 @@ async def add_group(  # pylint: disable=too-many-locals
                 tier=tier,
                 type=subscription,
             ),
+            organization_id=organization_id,
             organization_name=organization_name,
-            organization_id="",
         )
     )
     await collect(
         (
-            orgs_domain.add_group(org_id, group_name),
+            orgs_domain.add_group(organization_id, group_name),
             names_domain.remove(group_name, "group"),
         )
     )

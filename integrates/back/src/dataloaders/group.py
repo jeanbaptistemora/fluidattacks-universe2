@@ -189,46 +189,45 @@ class GroupLoader(DataLoader):
         return await _batch_load_fn(groups_names, parent_org_id)
 
 
-async def get_org_names(group: str, organization: Optional[str]) -> str:
-    if organization:
-        return organization
-
-    return await orgs_domain.get_name_for_group(group)
-
-
 class GroupTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, groups_info: tuple[Union[str, tuple[str, str]], ...]
+        self, group_names: tuple[str, ...]
     ) -> tuple[Group, ...]:
-        groups_names = tuple(
-            group_info if isinstance(group_info, str) else group_info[0]
-            for group_info in groups_info
+        organization_ids = await collect(
+            orgs_domain.get_id_for_group(group_name)
+            for group_name in group_names
         )
-        provided_org_names = tuple(
-            None if isinstance(group_info, str) else group_info[1]
-            for group_info in groups_info
+        organization_names = await collect(
+            orgs_domain.get_name_by_id(organization_id)
+            for organization_id in organization_ids
         )
-        organizations_names = await collect(
-            get_org_names(group, organization)
-            for group, organization in zip(groups_names, provided_org_names)
-        )
-
         groups_items: list[Item] = await groups_domain.get_many_groups(
-            list(groups_names)
+            list(group_names)
         )
         return tuple(
-            format_group(item=group, organization_name=organization)
-            for group, organization in zip(groups_items, organizations_names)
+            format_group(
+                item=group,
+                organization_id=organization_id,
+                organization_name=organization_name,
+            )
+            for group, organization_id, organization_name in zip(
+                groups_items, organization_ids, organization_names
+            )
         )
 
 
 async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
+    organization_name = await orgs_domain.get_name_by_id(organization_id)
     group_names = await orgs_domain.get_groups(organization_id)
     group_items = await groups_domain.get_many_groups(list(group_names))
     return tuple(
-        format_group(item=group, organization_id=organization_id)
-        for group, organization_id in zip(group_items, organization_id)
+        format_group(
+            item=group,
+            organization_id=organization_id,
+            organization_name=organization_name,
+        )
+        for group in group_items
     )
 
 

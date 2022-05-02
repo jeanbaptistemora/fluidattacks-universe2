@@ -43,8 +43,9 @@ from typing import (
 )
 async def test_add_group(populate: bool, email: str) -> None:
     assert populate
-    org_name: str = "orgtest"
-    group_name: str = "group1"
+    org_name = "orgtest"
+    org_id = await orgs_domain.get_id_by_name(org_name)
+    group_name = "group1"
     result: dict[str, Any] = await get_result(
         user=email, org=org_name, group=group_name
     )
@@ -58,7 +59,7 @@ async def test_add_group(populate: bool, email: str) -> None:
     group: Group = await loaders.group_typed.load(group_name)
     assert group.agent_token is None
     assert group.language == GroupLanguage.EN
-    assert group.organization_name == org_name
+    assert group.organization_id == org_id
     assert group.state.has_machine is True
     assert group.state.has_squad is True
     assert group.state.modified_by == email
@@ -67,7 +68,6 @@ async def test_add_group(populate: bool, email: str) -> None:
     assert group.state.tier == GroupTier.FREE
     assert group.state.type == GroupSubscriptionType.CONTINUOUS
 
-    org_id = await orgs_domain.get_id_by_name(org_name)
     org_groups: tuple[str, ...] = await orgs_domain.get_groups(org_id)
     assert group_name in org_groups
     assert await orgs_domain.has_user_access(org_id, email)
