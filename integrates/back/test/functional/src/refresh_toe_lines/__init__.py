@@ -8,6 +8,8 @@ from back.test.functional.src.utils import (
 )
 from batch import (
     dispatch,
+)
+from batch.actions import (
     toe_lines,
 )
 from dataloaders import (
