@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
-    yield_member_access,
-    yield_object_creation,
+    yield_shard_member_access,
     yield_shard_object_creation,
 )
 from lib_sast.types import (
@@ -229,6 +228,8 @@ def c_sharp_insecure_cipher(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
     insecure_ciphers = {
         "AesFastEngine",
         "DES",
@@ -243,8 +244,12 @@ def c_sharp_insecure_cipher(
     }
 
     def n_ids() -> GraphShardNodes:
-        yield from yield_member_access(graph_db, insecure_ciphers)
-        yield from yield_object_creation(graph_db, insecure_ciphers)
+        for shard in graph_db.shards_by_language(c_sharp):
+            for member in [
+                *yield_shard_member_access(shard, insecure_ciphers),
+                *yield_shard_object_creation(shard, insecure_ciphers),
+            ]:
+                yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
@@ -258,6 +263,8 @@ def c_sharp_insecure_hash(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
     insecure_ciphers = {
         "HMACMD5",
         "HMACRIPEMD160",
@@ -276,8 +283,12 @@ def c_sharp_insecure_hash(
     }
 
     def n_ids() -> GraphShardNodes:
-        yield from yield_member_access(graph_db, insecure_ciphers)
-        yield from yield_object_creation(graph_db, insecure_ciphers)
+        for shard in graph_db.shards_by_language(c_sharp):
+            for member in [
+                *yield_shard_member_access(shard, insecure_ciphers),
+                *yield_shard_object_creation(shard, insecure_ciphers),
+            ]:
+                yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_hash.description",
