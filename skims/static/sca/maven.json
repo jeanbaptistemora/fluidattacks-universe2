@@ -3173,6 +3173,9 @@
     "CVE-2021-37759": ">=0.20.0 <4.1.2",
     "CVE-2021-37760": ">=2.1.1 <4.1.2"
   },
+  "org.graylog:graylog-parent": {
+    "GHSA-3gg9-f3vh-866f": "<3.3.3"
+  },
   "org.hamcrest:hamcrest-all": {},
   "org.hammerlab.guacamole:guacamole": {
     "CVE-2018-1340": ">=0 <=0.9.14"
@@ -3269,6 +3272,9 @@
   "org.infinispan:infinispan-core": {
     "GHSA-6x3v-rw2q-9gx7": "<10.0.0"
   },
+  "org.infinispan:infinispan-hibernate-cache-v53": {
+    "GHSA-8grg-q944-cch5": "<5.3.18 || >=5.4.0 <5.4.18 || >=5.5.0.alpha1 <=5.5.0.beta1"
+  },
   "org.jamesframework:james": {
     "CVE-2021-40525": "<3.6.1",
     "CVE-2022-22931": "3.6.1"
@@ -3338,6 +3344,9 @@
     "CVE-2020-27782": "6.0.0 || 7.0.0",
     "CVE-2021-20218": "7.0.0",
     "CVE-2021-3642": "7.0.0"
+  },
+  "org.jboss.remoting:jboss-remoting": {
+    "GHSA-p6j8-hgv5-m35g": "<=5.0.19.final"
   },
   "org.jboss.resteasy:resteasy-bom": {
     "GHSA-29qj-rvv6-qrmv": "<=3.11.0.final || >=4.0.0 <=4.5.2.final",
@@ -3553,6 +3562,9 @@
   "org.jenkins-ci.plugin:svn-partial-release-mgr": {
     "CVE-2020-2199": ">=0 <=1.0.1"
   },
+  "org.jenkins-ci.plugins.workflow:workflow-multibranch": {
+    "GHSA-2m9w-9xh2-wxc3": "<=2.16"
+  },
   "org.jenkins-ci.plugins:absint-astree": {
     "CVE-2018-1000189": ">=0 <=1.0.5"
   },
@@ -3672,6 +3684,9 @@
     "CVE-2020-2240": ">=0 <=1.6",
     "CVE-2020-2241": ">=0 <=1.6",
     "CVE-2020-2242": ">=0 <=1.6"
+  },
+  "org.jenkins-ci.plugins:dbcharts": {
+    "CVE-2022-25206": "<=0.5.2"
   },
   "org.jenkins-ci.plugins:delivery-pipeline": {
     "CVE-2017-1000404": ">=0 <=1.0.7"
@@ -4026,6 +4041,9 @@
   "org.jenkins-ci.plugins:sidebar-link": {
     "CVE-2017-1000088": ">=0 <=1.8"
   },
+  "org.jenkins-ci.plugins:sinatra-chef-builder": {
+    "GHSA-38w8-h222-wrpp": "<=1.2.0"
+  },
   "org.jenkins-ci.plugins:slack-uploader": {
     "CVE-2020-2208": ">=0 <=1.7"
   },
@@ -4125,6 +4143,9 @@
   "org.jenkins-ci.plugins:workflow-cps-global-lib": {
     "CVE-2019-10357": ">=0 <=2.14"
   },
+  "org.jenkins-ci.plugins:xcode-plugin": {
+    "GHSA-wfxp-4qgw-qp3c": "<2.0.15"
+  },
   "org.jenkins-ci.plugins:xray-connector": {
     "GHSA-5557-j87h-cvf4": "<2.4.1"
   },
@@ -4145,6 +4166,9 @@
   "org.jgroups:jgroups": {
     "CVE-2013-4112": ">=3.0.11.final <3.1-alpha0 || >=3.1.0.final <3.2-alpha0 || >=3.2-alpha0 <=3.2.9.final || >=3.3-alpha0 <=3.3.2.final",
     "CVE-2016-2141": ">=0 <4.0"
+  },
+  "org.jodd:jodd-all": {
+    "GHSA-jrg3-qq99-35g7": "<5.0.4"
   },
   "org.jodd:jodd-json": {
     "CVE-2018-21234": ">=0 <5.0.4"
@@ -4324,6 +4348,9 @@
   },
   "org.ldaptive:ldaptive": {
     "CVE-2014-3607": ">=0 <=1.0.4"
+  },
+  "org.liquibase:liquibase-core": {
+    "CVE-2022-0839": "<4.8.0"
   },
   "org.lucee:lucee": {
     "CVE-2021-21307": ">=5.3.5.00 <5.3.5.96 || >=5.3.6.00 <5.3.6.68 || >=5.3.7.00 <5.3.7.47",
@@ -4620,6 +4647,9 @@
   },
   "org.springframework.boot:spring-boot-starter-undertow": {},
   "org.springframework.boot:spring-boot-starter-web": {},
+  "org.springframework.boot:spring-boot-starter-webflux": {
+    "GHSA-36p3-wjmg-h94x": "<2.5.12 || >=2.6.0 <2.6.6"
+  },
   "org.springframework.boot:spring-boot-starter-websocket": {},
   "org.springframework.boot:spring-boot-starter-ws": {},
   "org.springframework.cloud:spring-cloud-config-server": {
