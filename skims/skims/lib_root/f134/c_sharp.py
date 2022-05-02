@@ -137,9 +137,7 @@ def insecure_cors_origin(
             if shard.syntax_graph is None:
                 continue
 
-            cors_objects = get_object_identifiers(
-                shard, graph_db, {"CorsPolicy"}
-            )
+            cors_objects = get_object_identifiers(shard, {"CorsPolicy"})
             for member in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,

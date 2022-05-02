@@ -41,9 +41,7 @@ def remote_command_execution(
             if shard.syntax_graph is None:
                 continue
 
-            executors_objs = get_object_identifiers(
-                shard, graph_db, {"Executor"}
-            )
+            executors_objs = get_object_identifiers(shard, {"Executor"})
             syntax_graph = shard.syntax_graph
             executors = list(
                 search_method_invocation_naive(syntax_graph, {"Execute"})
