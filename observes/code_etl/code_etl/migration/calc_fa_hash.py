@@ -1,4 +1,5 @@
 from code_etl.client import (
+    LegacyAdapters,
     RawClient,
 )
 from code_etl.client.db_client import (
@@ -55,6 +56,14 @@ from postgres_client.connection import (
 )
 from postgres_client.ids import (
     TableID,
+)
+from redshift_client.sql_client.connection import (
+    connect,
+    DbConnection,
+    IsolationLvl,
+)
+from redshift_client.sql_client.core import (
+    new_client,
 )
 from typing import (
     Union,
@@ -132,16 +141,48 @@ def _new_dbclient(
     db_id: DatabaseID,
     creds: Credentials,
 ) -> Cmd[DbClient]:
-    sql_client = ClientFactory().from_creds(db_id, creds)
-    return Cmd.from_cmd(lambda: DbClient(sql_client))
+    db_client = ClientFactory().from_creds(db_id, creds)
+    return Cmd.from_cmd(lambda: DbClient(db_client))
 
 
-def _new_raw_client(
+def _start(
+    connection: DbConnection,
     db_id: DatabaseID,
     creds: Credentials,
-    table: TableID,
-) -> Cmd[RawClient]:
-    return _new_dbclient(db_id, creds).map(lambda c: RawClient(c, table))
+    source: TableID,
+    target: TableID,
+    namespace: str,
+) -> Cmd[None]:
+    sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
+    sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
+    sql_client_target = new_client(
+        connection, LOG.getChild("sql_client_target")
+    )
+    db_client_init = _new_dbclient(db_id, creds)
+    db_client_1 = _new_dbclient(db_id, creds)
+    db_client_2 = _new_dbclient(db_id, creds)
+    db_client_target = _new_dbclient(db_id, creds)
+
+    client = sql_client_1.bind(
+        lambda q: db_client_1.map(lambda d: RawClient(d, q, source))
+    )
+    client2 = sql_client_2.bind(
+        lambda q: db_client_2.map(lambda d: RawClient(d, q, source))
+    )
+    target_client = sql_client_target.bind(
+        lambda q: db_client_target.map(lambda d: RawClient(d, q, target))
+    )
+    return db_client_init.bind(
+        lambda db_cli: client.bind(
+            lambda c1: client2.bind(
+                lambda c2: target_client.bind(
+                    lambda ct: init_table_2_query(db_cli, target).bind(
+                        lambda _: migration(c1, c2, ct, namespace)
+                    )
+                )
+            )
+        )
+    )
 
 
 def start(
@@ -151,18 +192,20 @@ def start(
     target: TableID,
     namespace: str,
 ) -> Cmd[None]:
-    sql_client = _new_dbclient(db_id, creds)
-    client = _new_raw_client(db_id, creds, source)
-    client2 = _new_raw_client(db_id, creds, source)
-    target_client = _new_raw_client(db_id, creds, target)
-    return sql_client.bind(
-        lambda sql_cli: client.bind(
-            lambda c1: client2.bind(
-                lambda c2: target_client.bind(
-                    lambda ct: init_table_2_query(sql_cli, target).bind(
-                        lambda _: migration(c1, c2, ct, namespace)
-                    )
-                )
-            )
-        )
+    connection = connect(
+        LegacyAdapters.db_id(db_id),
+        LegacyAdapters.db_creds(creds),
+        False,
+        IsolationLvl.AUTOCOMMIT,
     )
+
+    def _action() -> None:
+        conn = unsafe_unwrap(connection)
+        try:
+            unsafe_unwrap(
+                _start(conn, db_id, creds, source, target, namespace)
+            )
+        finally:
+            unsafe_unwrap(conn.close())
+
+    return Cmd.from_cmd(_action)

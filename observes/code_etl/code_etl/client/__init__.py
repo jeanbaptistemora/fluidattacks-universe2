@@ -30,25 +30,19 @@ from code_etl.utils import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity import (
+    FrozenList,
+    Maybe,
+    ResultE,
+    Stream,
+)
 from fa_purity.cmd import (
     Cmd,
     unsafe_unwrap,
 )
-from fa_purity.frozen import (
-    FrozenList,
-)
-from fa_purity.maybe import (
-    Maybe,
-)
 from fa_purity.pure_iter.factory import (
     from_flist,
     infinite_range,
-)
-from fa_purity.result import (
-    ResultE,
-)
-from fa_purity.stream.core import (
-    Stream,
 )
 from fa_purity.stream.factory import (
     from_piter,
@@ -61,6 +55,10 @@ import logging
 from postgres_client.client import (
     Client as RawDbClient,
 )
+from postgres_client.connection import (
+    Credentials as LegacyCredentials,
+    DatabaseID,
+)
 from postgres_client.ids import (
     TableID,
 )
@@ -68,6 +66,13 @@ from postgres_client.query import (
     SqlArgs,
 )
 import psycopg2
+from redshift_client.sql_client.connection import (
+    Credentials,
+    DatabaseId,
+)
+from redshift_client.sql_client.core import (
+    SqlClient,
+)
 from typing import (
     Optional,
     Type,
@@ -124,6 +129,7 @@ def _delta_fields(old: CommitTableRow, new: CommitTableRow) -> FrozenList[str]:
 class RawClient:
     # exposes utilities from and to DB using raw objs i.e. CommitTableRow
     _db_client: DbClient
+    _sql_client: SqlClient
     _table: TableID
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
@@ -222,9 +228,11 @@ class Client:
     _table: TableID
     _raw: RawClient
 
-    def __init__(self, _db_client: RawDbClient, _table: TableID) -> None:
+    def __init__(
+        self, _db_client: RawDbClient, _sql_client: SqlClient, _table: TableID
+    ) -> None:
         _client = DbClient(_db_client)
-        _raw = RawClient(_client, _table)
+        _raw = RawClient(_client, _sql_client, _table)
         object.__setattr__(self, "_db_client", _client)
         object.__setattr__(self, "_table", _table)
         object.__setattr__(self, "_raw", _raw)
@@ -285,3 +293,14 @@ class Client:
                 )
             )
         return Cmd.from_cmd(lambda: LOG.debug("no changes"))
+
+
+@dataclass(frozen=True)
+class LegacyAdapters:
+    @staticmethod
+    def db_id(db_id: DatabaseID) -> DatabaseId:
+        return DatabaseId(db_id.db_name, db_id.host, db_id.port)
+
+    @staticmethod
+    def db_creds(creds: LegacyCredentials) -> Credentials:
+        return Credentials(creds.user, creds.password)

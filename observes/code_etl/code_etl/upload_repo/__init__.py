@@ -1,5 +1,6 @@
 from code_etl.client import (
     Client,
+    LegacyAdapters,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -50,6 +51,14 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
+from redshift_client.sql_client.connection import (
+    connect,
+    DbConnection,
+    IsolationLvl,
+)
+from redshift_client.sql_client.core import (
+    new_client,
+)
 
 LOG = logging.getLogger(__name__)
 
@@ -97,6 +106,41 @@ def upload(
     ).value_or(report)
 
 
+def _upload_repos(
+    connection: DbConnection,
+    db_id: DatabaseID,
+    creds: Credentials,
+    target: TableID,
+    namespace: str,
+    repo_paths: FrozenList[Path],
+    mailmap: Maybe[Mailmap],
+) -> Cmd[None]:
+    LOG.info(
+        "Uploading repos data into %s.%s", target.schema, target.table_name
+    )
+
+    def _new_client(path: Path) -> Cmd[Client]:
+        return new_client(connection, LOG.getChild(str(path))).map(
+            lambda c: Client(
+                ClientFactory().from_creds(db_id, creds), c, target
+            )
+        )
+
+    client_paths = tuple(
+        _new_client(p).map(lambda c: (c, p)) for p in repo_paths
+    )
+    pool = ThreadPool()  # type: ignore[misc]
+
+    def _action() -> None:
+        pool.map(  # type: ignore[misc]
+            lambda i: unsafe_unwrap(i.map(lambda t: upload(t[0], namespace, t[1], mailmap))),  # type: ignore[misc]
+            client_paths,
+        )
+
+    jobs = Cmd.from_cmd(_action)
+    return jobs
+
+
 def upload_repos(
     db_id: DatabaseID,
     creds: Credentials,
@@ -106,20 +150,22 @@ def upload_repos(
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
     # pylint: disable=too-many-arguments
-    LOG.info(
-        "Uploading repos data into %s.%s", target.schema, target.table_name
+    connection = connect(
+        LegacyAdapters.db_id(db_id),
+        LegacyAdapters.db_creds(creds),
+        False,
+        IsolationLvl.AUTOCOMMIT,
     )
-    client_paths = tuple(
-        (Client(ClientFactory().from_creds(db_id, creds), target), p)
-        for p in repo_paths
-    )
-    pool = ThreadPool()  # type: ignore[misc]
 
     def _action() -> None:
-        pool.map(  # type: ignore[misc]
-            lambda i: unsafe_unwrap(upload(i[0], namespace, i[1], mailmap)),  # type: ignore[misc]
-            client_paths,
-        )
+        conn = unsafe_unwrap(connection)
+        try:
+            unsafe_unwrap(
+                _upload_repos(
+                    conn, db_id, creds, target, namespace, repo_paths, mailmap
+                )
+            )
+        finally:
+            unsafe_unwrap(conn.close())
 
-    jobs = Cmd.from_cmd(_action)
-    return jobs
+    return Cmd.from_cmd(_action)

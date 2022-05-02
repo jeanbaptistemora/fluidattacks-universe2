@@ -3,6 +3,7 @@ from code_etl.amend.core import (
 )
 from code_etl.client import (
     Client,
+    LegacyAdapters,
 )
 from code_etl.mailmap import (
     Mailmap,
@@ -13,6 +14,7 @@ from code_etl.objs import (
 )
 from fa_purity.cmd import (
     Cmd,
+    unsafe_unwrap,
 )
 from fa_purity.maybe import (
     Maybe,
@@ -30,6 +32,14 @@ from postgres_client.connection import (
 )
 from postgres_client.ids import (
     TableID,
+)
+from redshift_client.sql_client.connection import (
+    connect,
+    DbConnection,
+    IsolationLvl,
+)
+from redshift_client.sql_client.core import (
+    new_client,
 )
 from typing import (
     Union,
@@ -70,6 +80,27 @@ def amend_users(
     return mutation_msg.bind(lambda _: result)
 
 
+def _start(
+    connection: DbConnection,
+    db_id: DatabaseID,
+    creds: Credentials,
+    table: TableID,
+    namespace: str,
+    mailmap: Maybe[Mailmap],
+) -> Cmd[None]:
+    db_client_1 = ClientFactory().from_creds(db_id, creds)
+    db_client_2 = ClientFactory().from_creds(db_id, creds)
+    sql_client_1 = new_client(connection, LOG.getChild("sql_client_1"))
+    sql_client_2 = new_client(connection, LOG.getChild("sql_client_2"))
+    client = sql_client_1.map(lambda q: Client(db_client_1, q, table))
+    client2 = sql_client_2.map(lambda q: Client(db_client_2, q, table))
+    return client.bind(
+        lambda c1: client2.bind(
+            lambda c2: amend_users(c1, c2, namespace, mailmap)
+        )
+    )
+
+
 def start(
     db_id: DatabaseID,
     creds: Credentials,
@@ -77,6 +108,20 @@ def start(
     namespace: str,
     mailmap: Maybe[Mailmap],
 ) -> Cmd[None]:
-    client = Client(ClientFactory().from_creds(db_id, creds), table)
-    client2 = Client(ClientFactory().from_creds(db_id, creds), table)
-    return amend_users(client, client2, namespace, mailmap)
+    connection = connect(
+        LegacyAdapters.db_id(db_id),
+        LegacyAdapters.db_creds(creds),
+        False,
+        IsolationLvl.AUTOCOMMIT,
+    )
+
+    def _action() -> None:
+        conn = unsafe_unwrap(connection)
+        try:
+            unsafe_unwrap(
+                _start(conn, db_id, creds, table, namespace, mailmap)
+            )
+        finally:
+            unsafe_unwrap(conn.close())
+
+    return Cmd.from_cmd(_action)
