@@ -5,25 +5,25 @@ import React from "react";
 import { RiCloseFill } from "react-icons/ri";
 
 import { NavbarList } from "../../../styles/styledComponents";
-import { CloudImage } from "../../CloudImage";
 import {
   BannerButton,
   BannerItem,
   BannerSubtitle,
   BannerTitle,
+  CloseContainer,
 } from "../styles/styledComponents";
 
 interface IProps {
+  buttonText: string;
   close: () => void;
-  image: string;
   subtitle: string;
   title: string;
   url: string;
 }
 
 const InformativeBannerItems: React.FC<IProps> = ({
+  buttonText,
   close,
-  image,
   subtitle,
   title,
   url,
@@ -32,21 +32,17 @@ const InformativeBannerItems: React.FC<IProps> = ({
     <RiCloseFill className={"f2 ma2 dn-l pointer white"} onClick={close} />
     <div className={"w-auto flex-l flex-wrap center"}>
       <BannerItem>
-        <BannerTitle>{title}</BannerTitle>
+        <BannerTitle>{title} &nbsp;</BannerTitle>
         <BannerSubtitle>{subtitle}</BannerSubtitle>
       </BannerItem>
-      <li>
-        <CloudImage alt={"banner-image"} src={`${image}`} styles={"mr3 pv2"} />
-      </li>
       <BannerItem>
-        <Link to={`${url}`}>
-          <BannerButton>{"BOOK A MEETING"}</BannerButton>
+        <Link to={url}>
+          <BannerButton>{buttonText}</BannerButton>
         </Link>
       </BannerItem>
-
-      <BannerItem className={"dn db-l"}>
+      <CloseContainer>
         <RiCloseFill className={"f2 pointer white"} onClick={close} />
-      </BannerItem>
+      </CloseContainer>
     </div>
   </NavbarList>
 );

@@ -5,14 +5,16 @@ import { InformativeBannerItems } from "./InformativeBannerItems";
 import { InformativeBannerContainer } from "./styles/styledComponents";
 
 interface IProps {
-  image: string;
+  bgColor: string;
+  buttonText: string;
   subtitle: string;
   title: string;
   url: string;
 }
 
 export const InformativeBanner: React.FC<IProps> = ({
-  image,
+  bgColor,
+  buttonText,
   subtitle,
   title,
   url,
@@ -24,11 +26,11 @@ export const InformativeBanner: React.FC<IProps> = ({
   }
 
   return (
-    <InformativeBannerContainer className={isClose ? "dn" : ""}>
+    <InformativeBannerContainer bgColor={bgColor} isClose={isClose}>
       <InformativeBannerItems
         /* eslint-disable-next-line react/jsx-no-bind */
+        buttonText={buttonText}
         close={close}
-        image={image}
         subtitle={subtitle}
         title={title}
         url={url}
