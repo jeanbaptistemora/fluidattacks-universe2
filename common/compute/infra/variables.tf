@@ -5,6 +5,9 @@ data "aws_ec2_instance_type" "instance" {
 data "aws_ec2_instance_type" "instance_large" {
   instance_type = "c5ad.2xlarge"
 }
+data "local_file" "skims_queues" {
+  filename = var.skimsQueues
+}
 
 variable "region" {
   default = "us-east-1"
