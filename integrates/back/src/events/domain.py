@@ -69,9 +69,6 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 import pytz  # type: ignore
 import random
 from settings import (
@@ -154,7 +151,6 @@ async def add_event(  # pylint: disable=too-many-locals
 
     group: Group = await loaders.group_typed.load(group_name)
     subscription = group.state.type
-    org_id = await orgs_domain.get_id_by_name(group.organization_name)
 
     root: RootItem = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
@@ -169,7 +165,7 @@ async def add_event(  # pylint: disable=too-many-locals
         {
             "accessibility": " ".join(list(set(event_attrs["accessibility"]))),
             "analyst": hacker_email,
-            "client": org_id,
+            "client": group.organization_id,
             "historic_state": [
                 {
                     "analyst": hacker_email,

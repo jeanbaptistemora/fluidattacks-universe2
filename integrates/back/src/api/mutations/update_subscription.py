@@ -21,12 +21,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -42,8 +38,9 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group_typed.load(kwargs["group_name"])
-    org_id: str = await orgs_domain.get_id_by_name(group.organization_name)
-    org: Dict[str, Any] = await loaders.organization.load(org_id)
+    org: dict[str, Any] = await loaders.organization.load(
+        group.organization_id
+    )
 
     # Update subscription
     result: bool = await billing_domain.update_subscription(

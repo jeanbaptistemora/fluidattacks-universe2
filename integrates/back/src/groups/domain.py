@@ -1448,15 +1448,16 @@ async def remove_user(
         return False
 
     group: Group = await loaders.group_typed.load(group_name)
-    org_id: str = await orgs_domain.get_id_by_name(group.organization_name)
-
+    organization_id = group.organization_id
     has_org_access, user_groups_names = await collect(
         (
-            orgs_domain.has_user_access(org_id, email),
+            orgs_domain.has_user_access(organization_id, email),
             get_groups_by_user(email),
         )
     )
-    org_groups_names: set[str] = set(await orgs_domain.get_groups(org_id))
+    org_groups_names: set[str] = set(
+        await orgs_domain.get_groups(organization_id)
+    )
     user_org_groups_names: tuple[str, ...] = tuple(
         group_name
         for group_name in user_groups_names
@@ -1469,7 +1470,9 @@ async def remove_user(
         groups_utils.filter_active_groups(user_org_groups)
     )
     if has_org_access and not has_groups_in_org:
-        success = await orgs_domain.remove_user(loaders, org_id, email)
+        success = await orgs_domain.remove_user(
+            loaders, organization_id, email
+        )
 
     if not success:
         return False

@@ -40,9 +40,6 @@ from newutils import (
 from newutils.utils import (
     duplicate_dict_keys,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
@@ -77,9 +74,6 @@ async def mutate(
         finding: Finding = await loaders.finding.load(finding_id)
         group_name: str = finding.group_name
         group: Group = await loaders.group_typed.load(group_name)
-        organization_id: str = await orgs_domain.get_id_by_name(
-            group.organization_name
-        )
         severity_score = findings_domain.get_severity_score(finding.severity)
         if parameters.get("treatment_manager"):
             parameters = duplicate_dict_keys(
@@ -90,7 +84,7 @@ async def mutate(
             loaders=loaders,
             finding_id=finding_id,
             updated_values=parameters,
-            organization_id=organization_id,
+            organization_id=group.organization_id,
             finding_severity=float(severity_score),
             user_email=user_email,
             vulnerability_id=vulnerability_id,

@@ -32,6 +32,9 @@ from newutils import (
     files as files_utils,
     logs as logs_utils,
 )
+from organizations import (
+    domain as orgs_domain,
+)
 from organizations_finding_policies import (
     domain as policies_domain,
 )
@@ -70,8 +73,11 @@ async def mutate(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )
         group: Group = await loaders.group_typed.load(finding.group_name)
+        organization_name = await orgs_domain.get_name_by_id(
+            group.organization_id
+        )
         finding_policy = await policies_domain.get_finding_policy_by_name(
-            org_name=group.organization_name,
+            org_name=organization_name,
             finding_name=finding.title.lower(),
         )
         if file_input and allowed_mime_type:
