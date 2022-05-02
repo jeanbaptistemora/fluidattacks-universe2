@@ -1,46 +1,9 @@
 {
+  extras,
   lib,
-  system,
-  local_lib,
-  legacy_pkgs,
   pythonPkgs,
 }: let
   python_version = "python39";
-  purity_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.12.0";
-  };
-  purity = import purity_src {
-    inherit system legacy_pkgs;
-    src = purity_src;
-  };
-  redshift_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "refs/tags/v0.6.1";
-  };
-  redshift = import redshift_src {
-    inherit system legacy_pkgs;
-    src = redshift_src;
-    others = {
-      fa-purity = purity;
-    };
-  };
-  utils-logger = import local_lib.utils-logger {
-    src = local_lib.utils-logger;
-    inherit python_version legacy_pkgs;
-  };
-  postgres-client = import local_lib.postgres-client {
-    src = local_lib.postgres-client;
-    legacy_pkgs =
-      legacy_pkgs
-      // {
-        python39Packages =
-          legacy_pkgs.python39Packages
-          // {
-            utils-logger = utils-logger.pkg;
-          };
-      };
-  };
   pythonPkgs2 =
     pythonPkgs
     // {
@@ -68,7 +31,7 @@
 in
   pythonPkgs2
   // {
-    fa-purity = purity."${python_version}".pkg;
+    fa-purity = extras.purity."${python_version}".pkg;
     import-linter = import ./import-linter {
       inherit lib;
       pythonPkgs = pythonPkgs2;
@@ -77,8 +40,8 @@ in
       inherit lib;
       pythonPkgs = pythonPkgs2;
     };
-    postgres-client = postgres-client.pkg;
-    redshift-client = redshift."${python_version}".pkg;
+    postgres-client = extras.postgres-client."${python_version}".pkg;
+    redshift-client = extras.redshift-client."${python_version}".pkg;
     types-click = import ./click/stubs.nix lib;
-    utils-logger = utils-logger.pkg;
+    utils-logger = extras.utils-logger."${python_version}".pkg;
   }
