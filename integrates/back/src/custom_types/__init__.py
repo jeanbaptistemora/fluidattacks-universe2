@@ -37,8 +37,6 @@ Report = Dict[str, bool]
 Stakeholder = Dict[
     str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
 ]
-Tag = Dict[str, Union[Decimal, str, List[str]]]
-Dynamo = Union[str, Dict[str, Any]]
 
 Action = NamedTuple(
     "Action",

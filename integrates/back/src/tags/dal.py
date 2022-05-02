@@ -10,7 +10,6 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
-    Tag as TagType,
 )
 from decimal import (
     Decimal,
@@ -24,6 +23,8 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
+    Dict,
     Optional,
     Union,
 )
@@ -67,8 +68,8 @@ async def get_attributes(
 
 async def get_tags(
     organization_name: str, attributes: Optional[list[str]]
-) -> list[TagType]:
-    tags: list[TagType] = []
+) -> list[Dict[str, Any]]:
+    tags: list[Dict[str, Any]] = []
     query_attrs = {
         "KeyConditionExpression": Key("organization").eq(organization_name)
     }

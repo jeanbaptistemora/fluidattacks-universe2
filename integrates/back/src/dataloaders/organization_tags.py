@@ -7,9 +7,6 @@ from aioextensions import (
 from collections import (
     defaultdict,
 )
-from custom_types import (
-    Tag as TagType,
-)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -17,13 +14,16 @@ from tags import (
     domain as tags_domain,
 )
 from typing import (
+    Any,
     Dict,
     List,
 )
 
 
-async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
-    tags: Dict[str, List[TagType]] = defaultdict(List[TagType])
+async def _batch_load_fn(
+    organization_names: List[str],
+) -> List[List[Dict[str, Any]]]:
+    tags: Dict[str, List[Dict[str, Any]]] = defaultdict(List[Dict[str, Any]])
     organizations_tags = await collect(
         tags_domain.get_tags(organization_name)
         for organization_name in organization_names
@@ -67,5 +67,5 @@ class OrganizationTagsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_names: List[str]
-    ) -> List[List[TagType]]:
+    ) -> List[List[Dict[str, Any]]]:
         return await _batch_load_fn(organization_names)

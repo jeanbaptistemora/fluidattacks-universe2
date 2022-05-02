@@ -5,9 +5,6 @@ import authz
 from contextlib import (
     suppress,
 )
-from custom_types import (
-    Tag as TagType,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -22,6 +19,7 @@ from tags import (
 )
 from typing import (
     Any,
+    Dict,
     Optional,
     Union,
 )
@@ -64,7 +62,7 @@ async def get_attributes(
 
 async def get_tags(
     organization: str, attributes: Optional[list[str]] = None
-) -> list[TagType]:
+) -> list[Dict[str, Any]]:
     return await tags_dal.get_tags(organization, attributes)
 
 

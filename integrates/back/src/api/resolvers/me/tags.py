@@ -4,9 +4,6 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_types import (
-    Tag as TagType,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -32,7 +29,7 @@ async def resolve(
     parent: Dict[str, Any],
     info: GraphQLResolveInfo,
     **kwargs: str,
-) -> list[TagType]:
+) -> list[Dict[str, Any]]:
     loaders: Dataloaders = info.context.loaders
     organization_loader = loaders.organization
     organization_tags_loader = loaders.organization_tags

@@ -1,6 +1,3 @@
-from custom_types import (
-    Tag,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -17,13 +14,15 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Tuple,
 )
 
 
 async def resolve(
-    parent: Tag, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[Group, ...]:
     group_names: List[str] = get_key_or_fallback(parent, "groups", "projects")
     loaders: Dataloaders = info.context.loaders

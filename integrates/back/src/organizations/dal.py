@@ -14,7 +14,6 @@ from custom_exceptions import (
     UnavailabilityError,
 )
 from custom_types import (
-    Dynamo as DynamoType,
     DynamoDelete as DynamoDeleteType,
     DynamoQuery as DynamoQueryType,
 )
@@ -422,7 +421,7 @@ async def update(
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
     try:
-        update_attrs: Dict[str, DynamoType] = {
+        update_attrs: Dict[str, Any] = {
             "Key": {
                 "pk": organization_id,
                 "sk": f"INFO#{organization_name.lower().strip()}",
@@ -465,7 +464,7 @@ async def update_group(
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
     try:
-        update_attrs: Dict[str, DynamoType] = {
+        update_attrs: Dict[str, Any] = {
             "Key": {
                 "pk": organization_id,
                 "sk": f"GROUP#{group_name.lower().strip()}",

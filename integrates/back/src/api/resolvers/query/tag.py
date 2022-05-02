@@ -4,9 +4,6 @@ from aioextensions import (
 from custom_exceptions import (
     TagNotFound,
 )
-from custom_types import (
-    Tag,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -28,12 +25,16 @@ from organizations import (
 from tags import (
     domain as tags_domain,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Tag:
+) -> Dict[str, Any]:
     loaders: Dataloaders = info.context.loaders
     tag_name: str = kwargs["tag"].lower()
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
