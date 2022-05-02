@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from context import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -28,9 +25,6 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from settings import (
     LOGGING,
 )
@@ -54,12 +48,7 @@ async def send_reminder_notification() -> None:
         ]
 
     groups = await loaders.group_typed.load_many(group_names)
-    orgs_ids: set = set(
-        await collect(
-            orgs_domain.get_id_by_name(group.organization_name)
-            for group in groups
-        )
-    )
+    orgs_ids: set[str] = set(group.organization_id for group in groups)
 
     stakeholders_emails: list[str] = [
         stakeholder["email"]

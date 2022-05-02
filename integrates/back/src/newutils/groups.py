@@ -176,8 +176,8 @@ def format_group_historic_state(item: Item) -> tuple[GroupState, ...]:
 
 def format_group(
     item: Item,
-    organization_name: str = "",
-    organization_id: str = "",
+    organization_name: str,
+    organization_id: str,
 ) -> Group:
     historic_state = format_group_historic_state(item)
     return Group(

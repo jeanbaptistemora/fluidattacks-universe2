@@ -20,12 +20,8 @@ from groups import (
 from newutils import (
     bugsnag as bugsnag_utils,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from typing import (
     Any,
-    Dict,
 )
 
 bugsnag_utils.start_scheduler_session()
@@ -42,13 +38,10 @@ async def main() -> None:
     squad_groups: tuple[Group, ...] = tuple(
         group for group in active_groups if group.state.tier == GroupTier.SQUAD
     )
-    squad_orgs_ids: list[str] = list(
-        await collect(
-            orgs_domain.get_id_by_name(group.organization_name)
-            for group in squad_groups
-        )
-    )
-    squad_orgs: list[Dict[str, Any]] = await loaders.organization.load_many(
+    squad_orgs_ids: list[str] = [
+        group.organization_id for group in squad_groups
+    ]
+    squad_orgs: list[dict[str, Any]] = await loaders.organization.load_many(
         squad_orgs_ids
     )
     await collect(

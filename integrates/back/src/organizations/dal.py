@@ -237,7 +237,7 @@ async def get_groups(organization_id: str) -> List[str]:
 
 async def get_id_for_group(group_name: str) -> str:
     """
-    Return the ID of the organization a group belongs to
+    Return the ID of the organization a group belongs to.
     """
     organization_id: str = ""
     query_attrs: DynamoQueryType = {

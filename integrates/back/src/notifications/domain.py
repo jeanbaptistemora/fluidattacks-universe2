@@ -2,6 +2,7 @@ from aiodataloader import (
     DataLoader,
 )
 from aioextensions import (
+    collect,
     in_thread,
 )
 from context import (
@@ -314,14 +315,20 @@ async def request_groups_upgrade(
     user_email: str,
     groups: tuple[Group, ...],
 ) -> None:
-    organization_names = set(group.organization_name for group in groups)
+    organization_ids = set(group.organization_id for group in groups)
+    organization_names: tuple[str, ...] = await collect(
+        orgs_domain.get_name_by_id(id) for id in organization_ids
+    )
     organizations_message = "".join(
         f"""
             - Organization {organization_name}:
                 {', '.join(
                     group.name
                     for group in groups
-                    if group.organization_name == organization_name)}
+                    if await orgs_domain.get_name_by_id(
+                        group.organization_id,
+                    ) == organization_name)
+                }
         """
         for organization_name in organization_names
     )

@@ -236,10 +236,11 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise InvalidRootExclusion()
 
     group: Group = await loaders.group_typed.load(group_name)
+    organization_name = await orgs_domain.get_name_by_id(group.organization_id)
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
         branch,
-        await loaders.organization_roots.load(group.organization_name),
+        await loaders.organization_roots.load(organization_name),
     ):
         raise RepeatedRoot()
 
@@ -252,7 +253,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         ),
         group_name=group_name,
         id=str(uuid4()),
-        organization_name=group.organization_name,
+        organization_name=organization_name,
         state=GitRootState(
             branch=branch,
             environment_urls=[],
@@ -312,10 +313,11 @@ async def add_ip_root(
         raise InvalidParameter()
 
     group: Group = await loaders.group_typed.load(group_name)
+    organization_name = await orgs_domain.get_name_by_id(group.organization_id)
     if ensure_org_uniqueness and not validations.is_ip_unique(
         address,
         port,
-        await loaders.organization_roots.load(group.organization_name),
+        await loaders.organization_roots.load(organization_name),
     ):
         raise RepeatedRoot()
 
@@ -330,7 +332,7 @@ async def add_ip_root(
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        organization_name=group.organization_name,
+        organization_name=organization_name,
         state=IPRootState(
             address=address,
             modified_by=user_email,
@@ -351,7 +353,7 @@ async def add_ip_root(
     return root.id
 
 
-async def add_url_root(
+async def add_url_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
@@ -377,12 +379,13 @@ async def add_url_root(
     protocol: str = url_attributes.scheme.upper()
 
     group: Group = await loaders.group_typed.load(group_name)
+    organization_name = await orgs_domain.get_name_by_id(group.organization_id)
     if ensure_org_uniqueness and not validations.is_url_unique(
         host,
         path,
         port,
         protocol,
-        await loaders.organization_roots.load(group.organization_name),
+        await loaders.organization_roots.load(organization_name),
     ):
         raise RepeatedRoot()
 
@@ -396,7 +399,7 @@ async def add_url_root(
     root = URLRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        organization_name=group.organization_name,
+        organization_name=organization_name,
         state=URLRootState(
             host=host,
             modified_by=user_email,
@@ -605,8 +608,10 @@ async def update_root_credentials(
             )
 
 
-async def update_git_root(
-    loaders: Any, user_email: str, **kwargs: Any
+async def update_git_root(  # pylint: disable=too-many-locals
+    loaders: Any,
+    user_email: str,
+    **kwargs: Any,
 ) -> RootItem:
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
@@ -630,10 +635,13 @@ async def update_git_root(
         ):
             raise HasVulns()
         group: Group = await loaders.group_typed.load(group_name)
+        organization_name = await orgs_domain.get_name_by_id(
+            group.organization_id
+        )
         if not validations.is_git_unique(
             url,
             branch,
-            await loaders.organization_roots.load(group.organization_name),
+            await loaders.organization_roots.load(organization_name),
         ):
             raise RepeatedRoot()
 
@@ -786,9 +794,10 @@ async def activate_root(
 
     if root.state.status != new_status:
         group: Group = await loaders.group_typed.load(group_name)
-        org_roots = await loaders.organization_roots.load(
-            group.organization_name
+        organization_name = await orgs_domain.get_name_by_id(
+            group.organization_id
         )
+        org_roots = await loaders.organization_roots.load(organization_name)
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(
