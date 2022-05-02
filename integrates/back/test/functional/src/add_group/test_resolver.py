@@ -21,9 +21,6 @@ from db_model.groups.types import (
 from group_access import (
     domain as group_access_domain,
 )
-from names import (
-    domain as names_domain,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -52,8 +49,6 @@ async def test_add_group(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert "success" in result["data"]["addGroup"]
     assert result["data"]["addGroup"]["success"]
-
-    assert await names_domain.exists(group_name, "group") is False
 
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group_typed.load(group_name)
@@ -84,7 +79,6 @@ async def test_add_group(populate: bool, email: str) -> None:
         ["admin@gmail.com", "group1"],
         ["admin@gmail.com", "group2"],
         ["admin@gmail.com", "group3"],
-        ["admin@gmail.com", "group4"],
     ],
 )
 async def test_add_group_invalid_name_fail(

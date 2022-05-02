@@ -75,10 +75,14 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
     void addOrganization({ variables: { name: values.name.toUpperCase() } });
   }
 
+  const minLenth = 4;
+  const maxLength = 10;
   const validations = object().shape({
     name: string()
       .required()
-      .matches(/^[a-zA-Z]{4,10}$/u),
+      .min(minLenth)
+      .max(maxLength)
+      .matches(/^[a-zA-Z]+$/u),
   });
 
   // Render Elements

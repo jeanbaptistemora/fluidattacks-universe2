@@ -5,8 +5,4 @@ interface IAddGroupModalProps {
   runTour: boolean;
 }
 
-interface IGroupNameProps {
-  internalNames: { name: string };
-}
-
-export type { IAddGroupModalProps, IGroupNameProps };
+export type { IAddGroupModalProps };

@@ -110,9 +110,6 @@ import logging.config
 from mailer import (
     groups as groups_mail,
 )
-from names import (
-    domain as names_domain,
-)
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
@@ -562,7 +559,7 @@ async def reject_register_for_group_invitation(
     return success
 
 
-async def add_group(  # pylint: disable=too-many-locals
+async def add_group(
     *,
     loaders: Any,
     description: str,
@@ -594,13 +591,7 @@ async def add_group(  # pylint: disable=too-many-locals
     if not await orgs_domain.has_user_access(organization_id, user_email):
         raise UserNotInOrganization(organization_id)
 
-    is_group_avail, group_exists = await collect(
-        [
-            names_domain.exists(group_name, "group"),
-            exists(loaders, group_name),
-        ]
-    )
-    if not is_group_avail or group_exists:
+    if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
     await groups_dal.add_typed(
@@ -622,12 +613,7 @@ async def add_group(  # pylint: disable=too-many-locals
             organization_name=organization_name,
         )
     )
-    await collect(
-        (
-            orgs_domain.add_group(organization_id, group_name),
-            names_domain.remove(group_name, "group"),
-        )
-    )
+    await orgs_domain.add_group(organization_id, group_name)
 
     success: bool = False
     # Admins are not granted access to the group

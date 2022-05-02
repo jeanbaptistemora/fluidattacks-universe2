@@ -1,10 +1,8 @@
 /* eslint-disable react/forbid-component-props, fp/no-mutating-methods */
-import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
-import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -19,7 +17,6 @@ import type { ConfigurableValidator } from "revalidate";
 import {
   getSwitchButtonHandlers,
   handleCreateError,
-  handleGroupNameErrorHelper,
   handleUpdateError,
 } from "./helpers";
 
@@ -31,14 +28,8 @@ import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
-import {
-  ADD_GROUP_MUTATION,
-  GROUPS_NAME_QUERY,
-} from "scenes/Dashboard/components/AddGroupModal/queries";
-import type {
-  IAddGroupModalProps,
-  IGroupNameProps,
-} from "scenes/Dashboard/components/AddGroupModal/types";
+import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
+import type { IAddGroupModalProps } from "scenes/Dashboard/components/AddGroupModal/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { msgSuccess } from "utils/notifications";
@@ -121,7 +112,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       await addGroup({
         variables: {
           description: values.description,
-          groupName: values.name,
+          groupName: values.name.toUpperCase(),
           hasMachine: values.machine,
           hasSquad: values.squad,
           language: values.language,
@@ -138,19 +129,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     [addGroup, organization, push, runTour, finishTour]
   );
 
-  function handleGroupNameError({ graphQLErrors }: ApolloError): void {
-    onClose();
-    handleGroupNameErrorHelper(graphQLErrors);
-  }
-
-  const { data } = useQuery<IGroupNameProps>(GROUPS_NAME_QUERY, {
-    fetchPolicy: "no-cache",
-    onError: handleGroupNameError,
-  });
-
-  const groupName: string =
-    _.isUndefined(data) || _.isEmpty(data) ? "" : data.internalNames.name;
-
   return (
     <React.StrictMode>
       <Modal
@@ -165,7 +143,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
             description: "",
             language: "EN",
             machine: true,
-            name: groupName.toUpperCase(),
+            name: "",
             organization: organization.toUpperCase(),
             service: "WHITE",
             squad: true,
@@ -322,7 +300,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </ControlLabel>
                         <Field
                           component={FormikText}
-                          disabled={true}
                           id={"add-group-name"}
                           name={"name"}
                           type={"text"}

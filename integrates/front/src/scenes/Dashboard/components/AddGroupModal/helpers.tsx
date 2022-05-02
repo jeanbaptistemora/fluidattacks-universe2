@@ -39,22 +39,6 @@ const handleUpdateError = ({ graphQLErrors }: ApolloError): void => {
   });
 };
 
-function handleGroupNameErrorHelper(
-  graphQLErrors: readonly GraphQLError[]
-): void {
-  graphQLErrors.forEach((error: GraphQLError): void => {
-    if (
-      error.message ===
-      "Exception - There are no group names available at the moment"
-    ) {
-      msgError(translate.t("organization.tabs.groups.newGroup.noGroupName"));
-    } else {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred adding access token", error);
-    }
-  });
-}
-
 const getSwitchButtonHandlers = (
   values: {
     squad: boolean;
@@ -90,9 +74,4 @@ const getSwitchButtonHandlers = (
   return handleSquadBtnChange;
 };
 
-export {
-  getSwitchButtonHandlers,
-  handleCreateError,
-  handleGroupNameErrorHelper,
-  handleUpdateError,
-};
+export { getSwitchButtonHandlers, handleCreateError, handleUpdateError };

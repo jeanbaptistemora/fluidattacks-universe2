@@ -7,10 +7,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import {
-  ADD_GROUP_MUTATION,
-  GROUPS_NAME_QUERY,
-} from "scenes/Dashboard/components/AddGroupModal/queries";
+import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type { IOrganizationGroupsProps } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
@@ -219,18 +216,6 @@ describe("Organization groups view", (): void => {
       },
       {
         request: {
-          query: GROUPS_NAME_QUERY,
-        },
-        result: {
-          data: {
-            internalNames: {
-              name: "AKAME",
-            },
-          },
-        },
-      },
-      {
-        request: {
           query: ADD_GROUP_MUTATION,
           variables: {
             description: "Test group",
@@ -352,13 +337,11 @@ describe("Organization groups view", (): void => {
 
     expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
+    userEvent.type(screen.getByRole("textbox", { name: "name" }), "AKAME");
     userEvent.type(
       screen.getByRole("textbox", { name: "description" }),
       "Test group"
     );
-    await waitFor((): void => {
-      expect(screen.getByDisplayValue("Akame")).toBeInTheDocument();
-    });
     userEvent.selectOptions(screen.getByRole("combobox", { name: "type" }), [
       "CONTINUOUS",
     ]);

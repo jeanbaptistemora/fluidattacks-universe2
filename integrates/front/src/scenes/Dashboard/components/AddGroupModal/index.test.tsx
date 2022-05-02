@@ -6,23 +6,9 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
-import { GROUPS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
 
 describe("AddGroupModal component", (): void => {
-  const mocksMutation: MockedResponse[] = [
-    {
-      request: {
-        query: GROUPS_NAME_QUERY,
-      },
-      result: {
-        data: {
-          internalNames: {
-            name: "",
-          },
-        },
-      },
-    },
-  ];
+  const mocksMutation: MockedResponse[] = [];
 
   it("should render add group modal", async (): Promise<void> => {
     expect.hasAssertions();

@@ -79,6 +79,7 @@ def test_org_groups(
     utils.login(driver, asm_endpoint, credentials)
 
     # Add group
+    group_name = "akame"
     group_description: str = "test-group-description"
     driver.get(f"{asm_endpoint}/orgs/okada/groups")
     add_group = utils.wait_for_id(
@@ -87,6 +88,8 @@ def test_org_groups(
         timeout,
     )
     add_group.click()
+    name = utils.wait_for_id(driver, "add-group-name", timeout)
+    name.send_keys(group_name)
     description = utils.wait_for_id(driver, "add-group-description", timeout)
     description.send_keys(group_description)
     proceed = utils.wait_for_id(

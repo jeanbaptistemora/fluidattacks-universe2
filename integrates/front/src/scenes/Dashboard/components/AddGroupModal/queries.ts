@@ -1,14 +1,6 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const GROUPS_NAME_QUERY: DocumentNode = gql`
-  query InternalGroupName {
-    internalNames(entity: GROUP) {
-      name
-    }
-  }
-`;
-
 const ADD_GROUP_MUTATION: DocumentNode = gql`
   mutation AddGroupMutation(
     $description: String!
@@ -35,4 +27,4 @@ const ADD_GROUP_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { ADD_GROUP_MUTATION, GROUPS_NAME_QUERY };
+export { ADD_GROUP_MUTATION };
