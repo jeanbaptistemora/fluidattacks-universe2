@@ -1,7 +1,6 @@
-import itertools
 from lib_root.utilities.c_sharp import (
-    yield_member_access,
-    yield_object_creation,
+    yield_shard_member_access,
+    yield_shard_object_creation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -83,15 +82,17 @@ def jwt_signed(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
+    c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
     object_name = {"JwtBuilder"}
 
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard, member in itertools.chain(
-            yield_member_access(graph_db, object_name),
-            yield_object_creation(graph_db, object_name),
-        ):
-            if not check_pred(shard.graph, elem_jwt=member):
-                yield shard, member
+        for shard in graph_db.shards_by_language(c_sharp):
+            for member in [
+                *yield_shard_member_access(shard, object_name),
+                *yield_shard_object_creation(shard, object_name),
+            ]:
+                if not check_pred(shard.graph, elem_jwt=member):
+                    yield shard, member
 
     def check_pred(
         graph: graph_model.Graph, depth: int = 1, elem_jwt: str = "0"
