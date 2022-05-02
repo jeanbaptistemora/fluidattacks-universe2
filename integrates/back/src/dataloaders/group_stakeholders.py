@@ -4,11 +4,10 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Stakeholder as StakeholderType,
-)
 from typing import (
+    Any,
     cast,
+    Dict,
     List,
     Tuple,
 )
@@ -23,9 +22,9 @@ class GroupStakeholdersLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
-    ) -> Tuple[List[StakeholderType], ...]:
+    ) -> Tuple[List[Dict[str, Any]], ...]:
         return cast(
-            Tuple[List[StakeholderType], ...],
+            Tuple[List[Dict[str, Any]], ...],
             await collect(
                 tuple(
                     users_domain.get_stakeholders(group_name)

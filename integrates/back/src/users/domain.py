@@ -17,7 +17,6 @@ from custom_exceptions import (
 from custom_types import (
     Invitation as InvitationType,
     Phone,
-    Stakeholder as StakeholderType,
     StakeholderPhone,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
@@ -173,7 +172,7 @@ async def ensure_user_exists(email: str) -> bool:
 
 
 def get_invitation_state(
-    invitation: InvitationType, stakeholder: StakeholderType
+    invitation: InvitationType, stakeholder: Dict[str, Any]
 ) -> str:
     if invitation and not invitation["is_used"]:
         return "PENDING"
@@ -182,7 +181,7 @@ def get_invitation_state(
     return "CONFIRMED"
 
 
-async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
+async def format_stakeholder(email: str, group_name: str) -> Dict[str, Any]:
     group_access, stakeholder = await collect(
         (
             group_access_domain.get_user_access(email, group_name),
@@ -267,7 +266,7 @@ async def get_data(email: str, attr: str) -> Dict[str, Any]:
 
 async def get_stakeholders(
     group_name: str,
-) -> List[StakeholderType]:
+) -> List[Dict[str, Any]]:
     group_stakeholders_emails = cast(
         List[str],
         list(
@@ -282,7 +281,7 @@ async def get_stakeholders(
         ),
     )
     group_stakeholders = cast(
-        List[StakeholderType],
+        List[Dict[str, Any]],
         await collect(
             tuple(
                 format_stakeholder(email, group_name)

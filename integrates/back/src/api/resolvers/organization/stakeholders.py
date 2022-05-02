@@ -1,6 +1,3 @@
-from custom_types import (
-    Stakeholder as StakeholderType,
-)
 from decorators import (
     enforce_organization_level_auth_async,
 )
@@ -23,8 +20,8 @@ from typing import (
 @enforce_organization_level_auth_async
 async def resolve(
     parent: Dict[str, Any], info: GraphQLResolveInfo, **kwargs: None
-) -> List[StakeholderType]:
-    response: List[StakeholderType] = await redis_get_or_set_entity_attr(
+) -> List[Dict[str, Any]]:
+    response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
         attr="stakeholders",
@@ -35,12 +32,12 @@ async def resolve(
 
 async def resolve_no_cache(
     parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
-) -> List[StakeholderType]:
+) -> List[Dict[str, Any]]:
     org_id = parent["id"]
     organization_stakeholders_loader = (
         info.context.loaders.organization_stakeholders
     )
     org_stakeholders: List[
-        StakeholderType
+        Dict[str, Any]
     ] = await organization_stakeholders_loader.load(org_id)
     return org_stakeholders

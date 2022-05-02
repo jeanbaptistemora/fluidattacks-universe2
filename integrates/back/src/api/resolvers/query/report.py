@@ -18,7 +18,6 @@ from custom_exceptions import (
     RequiredNewPhoneNumber,
 )
 from custom_types import (
-    Report,
     StakeholderPhone,
 )
 from dataloaders import (
@@ -46,6 +45,7 @@ from newutils.utils import (
 )
 from typing import (
     Any,
+    Dict,
     Optional,
 )
 from users import (
@@ -139,7 +139,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     verification_code: str,
     **kwargs: Any,
-) -> Report:
+) -> Dict[str, Any]:
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]

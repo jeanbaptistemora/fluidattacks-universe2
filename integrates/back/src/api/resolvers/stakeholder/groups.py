@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Stakeholder,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -20,13 +17,15 @@ from newutils import (
     groups as groups_utils,
 )
 from typing import (
+    Any,
+    Dict,
     List,
     Tuple,
 )
 
 
 async def resolve(
-    parent: Stakeholder, info: GraphQLResolveInfo, **_kwargs: None
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[Group, ...]:
     email = str(parent["email"])
     active, inactive = await collect(

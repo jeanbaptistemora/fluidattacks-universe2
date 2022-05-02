@@ -6,9 +6,6 @@ from custom_exceptions import (
     InvalidParameter,
     StakeholderNotFound,
 )
-from custom_types import (
-    Stakeholder,
-)
 from decorators import (
     enforce_group_level_auth_async,
     enforce_organization_level_auth_async,
@@ -24,6 +21,8 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from typing import (
+    Any,
+    Dict,
     List,
 )
 from users import (
@@ -36,8 +35,8 @@ async def _resolve_for_organization(
     _info: GraphQLResolveInfo,
     email: str,
     organization_id: str,
-) -> Stakeholder:
-    stakeholder: Stakeholder = await stakeholders_domain.get_by_email(email)
+) -> Dict[str, Any]:
+    stakeholder: Dict[str, Any] = await stakeholders_domain.get_by_email(email)
     org_role: str = await authz.get_organization_level_role(
         email, organization_id
     )
@@ -51,8 +50,8 @@ async def _resolve_for_group(
     _info: GraphQLResolveInfo,
     email: str,
     group_name: str,
-) -> Stakeholder:
-    stakeholder: Stakeholder = await stakeholders_domain.get_by_email(email)
+) -> Dict[str, Any]:
+    stakeholder: Dict[str, Any] = await stakeholders_domain.get_by_email(email)
     group_role: str = await authz.get_group_level_role(email, group_name)
 
     if group_role:
@@ -69,7 +68,7 @@ async def _resolve_for_group(
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Stakeholder:
+) -> Dict[str, Any]:
     group_entities: List[str] = ["GROUP", "PROJECT"]
     entity: str = kwargs["entity"]
     email: str = kwargs["user_email"]

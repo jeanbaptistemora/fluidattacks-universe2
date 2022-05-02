@@ -33,10 +33,6 @@ MailContent = Dict[str, Any]
 Group = Dict[
     str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]
 ]
-Report = Dict[str, bool]
-Stakeholder = Dict[
-    str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
-]
 
 Action = NamedTuple(
     "Action",
@@ -152,7 +148,7 @@ UpdateStakeholderPayload = NamedTuple(
     "UpdateStakeholderPayload",
     [
         ("success", bool),
-        ("modified_stakeholder", Stakeholder),
+        ("modified_stakeholder", Dict[str, Any]),
     ],
 )
 ExecuteMachinePayload = NamedTuple(
@@ -166,7 +162,7 @@ GrantStakeholderAccessPayload = NamedTuple(
     "GrantStakeholderAccessPayload",
     [
         ("success", bool),
-        ("granted_stakeholder", Stakeholder),
+        ("granted_stakeholder", Dict[str, Any]),
     ],
 )
 RemoveStakeholderAccessPayload = NamedTuple(

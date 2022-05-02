@@ -5,9 +5,6 @@ from aioextensions import (
     collect,
 )
 import authz
-from custom_types import (
-    Stakeholder as StakeholderType,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -24,7 +21,7 @@ from users import (
 
 
 def get_invitation_state(
-    invitation: Dict[str, Any], stakeholder: StakeholderType
+    invitation: Dict[str, Any], stakeholder: Dict[str, Any]
 ) -> str:
     if invitation and not invitation["is_used"]:
         return "PENDING"
@@ -33,7 +30,7 @@ def get_invitation_state(
     return "CONFIRMED"
 
 
-async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
+async def _get_stakeholder(email: str, org_id: str) -> Dict[str, Any]:
     organization_access, stakeholder = await collect(
         (
             orgs_domain.get_user_access(org_id, email),
@@ -57,7 +54,7 @@ async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
 
 async def get_stakeholders_by_organization(
     organization_id: str,
-) -> Tuple[StakeholderType, ...]:
+) -> Tuple[Dict[str, Any], ...]:
     org_stakeholders_emails: List[str] = await orgs_domain.get_users(
         organization_id
     )
@@ -74,9 +71,9 @@ class OrganizationStakeholdersLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_names: List[str]
-    ) -> Tuple[Tuple[StakeholderType, ...], ...]:
+    ) -> Tuple[Tuple[Dict[str, Any], ...], ...]:
         return cast(
-            Tuple[Tuple[StakeholderType, ...], ...],
+            Tuple[Tuple[Dict[str, Any], ...], ...],
             await collect(
                 get_stakeholders_by_organization(organization_name)
                 for organization_name in organization_names
