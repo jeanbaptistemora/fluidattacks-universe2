@@ -2692,6 +2692,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_ELB2_NOT_DELETION_PROTEC = MethodInfo(
+        file_name="terraform",
+        name="tfm_elb2_has_not_deletion_protection",
+        module="lib_path",
+        finding=FindingEnum.F247,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="cloudformation",
         name="cfn_fsx_has_unencrypted_volumes",

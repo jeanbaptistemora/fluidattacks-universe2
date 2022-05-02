@@ -19701,6 +19701,54 @@ F281,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   82 |           }
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_port
+F247,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,2,311,skims,247. Non-encrypted confidential information - AWS,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
+   1 |
+>  2 | resource ""aws_lb"" ""test"" {
+   3 |   name               = ""test-lb-tf""
+   4 |   internal           = false
+   5 |   load_balancer_type = ""application""
+   6 |   security_groups    = [aws_security_group.lb_sg.id]
+   7 | }
+   8 |
+   9 |
+  10 | resource ""aws_lb"" ""test"" {
+  11 |   name               = ""test-lb-tf""
+  12 |   internal           = false
+  13 |   load_balancer_type = ""application""
+  14 |   security_groups    = [aws_security_group.lb_sg.id]
+  15 |
+  16 |   enable_deletion_protection = false
+  17 | }
+  18 |
+  19 |
+  20 | resource ""aws_lb"" ""test"" {
+  21 |   name               = ""test-lb-tf""
+     ^ Col 0
+",terraform.tfm_elb2_has_not_deletion_protection
+F247,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,16,311,skims,247. Non-encrypted confidential information - AWS,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
+   6 |   security_groups    = [aws_security_group.lb_sg.id]
+   7 | }
+   8 |
+   9 |
+  10 | resource ""aws_lb"" ""test"" {
+  11 |   name               = ""test-lb-tf""
+  12 |   internal           = false
+  13 |   load_balancer_type = ""application""
+  14 |   security_groups    = [aws_security_group.lb_sg.id]
+  15 |
+> 16 |   enable_deletion_protection = false
+  17 | }
+  18 |
+  19 |
+  20 | resource ""aws_lb"" ""test"" {
+  21 |   name               = ""test-lb-tf""
+  22 |   internal           = false
+  23 |   load_balancer_type = ""application""
+  24 |   security_groups    = [aws_security_group.lb_sg.id]
+  25 |
+  26 |   enable_deletion_protection = true
+     ^ Col 0
+",terraform.tfm_elb2_has_not_deletion_protection
 F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,11,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
    1 | Resources:
    2 |   NewVolume1:
@@ -21427,7 +21475,7 @@ F412,lines,namespace/skims/test/data/lib_path/f101/azure_key_valut.tf,1,463,skim
   17 | }
      ^ Col 0
 ",terraform.tfm_azure_key_vault_not_recoverable
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,19,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,19,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    9 |         Value: True
   10 |       - Key: ""access_logs.s3.bucket""
   11 |         Value: ""bk""
@@ -21451,7 +21499,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   29 |         Value: ""bk""
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,32,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,32,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
   16 |       IpAddressType: String
@@ -21475,7 +21523,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   34 |       IpAddressType: String
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,27,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,27,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
   16 |       IpAddressType: String
@@ -21499,7 +21547,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   34 |       IpAddressType: String
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   18 |       }
   19 |     },
   20 |     ""LoadBalancer2"": {
@@ -21523,7 +21571,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   32 |         ""Value"": ""bk""
   33 |       }
   34 |     ]
@@ -21547,7 +21595,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   52 |   ""Properties"": {
      ^ Col 4
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   39 |       ""Properties"": {
   40 |         ""Name"": ""test-Application-Load-Balancer"",
@@ -21571,7 +21619,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   58 | }
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,7,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,7,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
    1 | Resources:
    2 |   LoadBalancer1:
    3 |     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -21595,7 +21643,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   21 |         Value: ""bk""
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,17,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,17,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
    7 |       LoadBalancerAttributes:
    8 |       - Key: ""access_logs.s3.enabled""
    9 |         Value: True
@@ -21619,7 +21667,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   27 |       LoadBalancerAttributes:
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,32,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,32,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
   16 |       IpAddressType: String
@@ -21643,7 +21691,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   34 |       IpAddressType: String
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,27,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,27,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml,"
   14 |     Properties:
   15 |       Name: ""test-Application-Load-Balancer""
   16 |       IpAddressType: String
@@ -21667,7 +21715,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   34 |       IpAddressType: String
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,8,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,8,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
    1 |
    2 | esources"": {
    3 | ""LoadBalancer1"": {
@@ -21691,7 +21739,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   21 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
      ^ Col 4
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,25,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,25,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
   15 |         ""Value"": ""bk""
   16 |       }
   17 |     ]
@@ -21715,7 +21763,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   35 |   }
      ^ Col 4
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
   32 |         ""Value"": ""bk""
   33 |       }
   34 |     ]
@@ -21739,7 +21787,7 @@ F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   52 |   ""Properties"": {
      ^ Col 4
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection.enabled property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_disabled.yaml.json,"
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   39 |       ""Properties"": {
   40 |         ""Name"": ""test-Application-Load-Balancer"",
@@ -28247,7 +28295,7 @@ F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insec
   13 |
      ^ Col 8
 ",c_sharp.csharp_ldap_connections_authenticated
-F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
+F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain.
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | g System.Net;
    2 | g System;
@@ -28272,7 +28320,7 @@ F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,18,918,skims,100. Ser
   21 |
      ^ Col 4
 ",query.query_f100
-F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application’s server into making requests to an arbitrary domain.
+F100,lines,namespace/skims/test/data/lib_root/f100/test.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain.
  in namespace/skims/test/data/lib_root/f100/test.cs","
    1 | using System.Net;
    2 | using System;

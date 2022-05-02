@@ -257,6 +257,16 @@ def iter_aws_elb2_listener(model: Any) -> Iterator[Any]:
         )
 
 
+def iter_aws_elb2(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_lb")
+    for resource in iterator:
+        yield AWSElb(
+            data=resource.body,
+            column=resource.column,
+            line=resource.line,
+        )
+
+
 def iter_aws_db_instance(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_db_instance")
     for bucket in iterator:
