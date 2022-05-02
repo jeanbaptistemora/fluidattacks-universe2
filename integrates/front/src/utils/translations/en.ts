@@ -53,7 +53,7 @@ export const enTranslations: ResourceKey = {
       },
       information: {
         id: "information_button_tooltip",
-        tooltip: "Go to information corresponding to the chart",
+        tooltip: "Go to information about to the chart",
       },
       refresh: {
         id: "refresh_button_tooltip",
