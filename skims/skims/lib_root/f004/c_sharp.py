@@ -44,12 +44,12 @@ def remote_command_execution(
             executors_objs = get_object_identifiers(
                 shard, graph_db, {"Executor"}
             )
-            graph = shard.syntax_graph
+            syntax_graph = shard.syntax_graph
             executors = list(
-                search_method_invocation_naive(graph, {"Execute"})
+                search_method_invocation_naive(syntax_graph, {"Execute"})
             )
             danger_meths = set(
-                search_method_invocation_naive(graph, {"Start"})
+                search_method_invocation_naive(syntax_graph, {"Start"})
             )
             methods = [
                 executor
@@ -63,8 +63,8 @@ def remote_command_execution(
             ]
             danger_meths.update(filter(None, methods))
             for n_id in danger_meths:
-                for path in get_backward_paths(graph, n_id):
-                    if evaluate(c_sharp, finding, graph, path, n_id):
+                for path in get_backward_paths(syntax_graph, n_id):
+                    if evaluate(c_sharp, finding, syntax_graph, path, n_id):
                         yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
