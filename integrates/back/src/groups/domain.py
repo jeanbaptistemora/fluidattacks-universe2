@@ -82,9 +82,6 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from dynamodb.resource import (
-    get_resource,
-)
 from events import (
     domain as events_domain,
 )
@@ -155,7 +152,6 @@ from typing import (
     cast,
     Dict,
     Optional,
-    Union,
 )
 from users import (
     domain as users_domain,
@@ -610,7 +606,6 @@ async def add_group(
                 type=subscription,
             ),
             organization_id=organization_id,
-            organization_name=organization_name,
         )
     )
     await orgs_domain.add_group(organization_id, group_name)
@@ -906,12 +901,6 @@ async def get_all(attributes: Optional[list[str]] = None) -> list[GroupType]:
     return await groups_dal.get_all(data_attr=data_attr)
 
 
-async def get_attributes(
-    group_name: str, attributes: list[str]
-) -> dict[str, Union[str, list[str]]]:
-    return await groups_dal.get_attributes(group_name, attributes)
-
-
 async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
@@ -977,20 +966,6 @@ async def get_vulnerabilities_with_pending_attacks(
             == VulnerabilityVerificationStatus.REQUESTED
         )
     )
-
-
-async def get_many_groups(group_names: list[str]) -> list[GroupType]:
-    resource = await get_resource()
-    table = await resource.Table(groups_dal.TABLE_NAME)
-    groups: list[GroupType] = list(
-        await collect(
-            tuple(
-                groups_dal.get_group(group_name, table)
-                for group_name in group_names
-            )
-        )
-    )
-    return groups
 
 
 async def get_max_severity(

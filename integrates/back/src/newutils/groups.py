@@ -176,7 +176,6 @@ def format_group_historic_state(item: Item) -> tuple[GroupState, ...]:
 
 def format_group(
     item: Item,
-    organization_name: str,
     organization_id: str,
 ) -> Group:
     historic_state = format_group_historic_state(item)
@@ -188,7 +187,6 @@ def format_group(
         name=str(
             get_key_or_fallback(item, "group_name", "project_name")
         ).lower(),
-        organization_name=organization_name,
         organization_id=organization_id,
         state=historic_state[-1],
         agent_token=item.get("agent_token"),

@@ -16,7 +16,7 @@ from dynamodb.types import (
     Item,
 )
 from groups import (
-    domain as groups_domain,
+    dal as groups_dal,
 )
 from newutils.groups import (
     format_group,
@@ -40,7 +40,7 @@ async def _batch_load_fn(
     group_names: list[str], parent_org_id: Optional[list[str]]
 ) -> list[GroupType]:
     groups: dict[str, GroupType] = {}
-    groups_by_names: list[GroupType] = await groups_domain.get_many_groups(
+    groups_by_names: list[GroupType] = await groups_dal.get_many_groups(
         group_names
     )
     organization_ids = (
@@ -198,34 +198,25 @@ class GroupTypedLoader(DataLoader):
             orgs_domain.get_id_for_group(group_name)
             for group_name in group_names
         )
-        organization_names = await collect(
-            orgs_domain.get_name_by_id(organization_id)
-            for organization_id in organization_ids
-        )
-        groups_items: list[Item] = await groups_domain.get_many_groups(
+        groups_items: list[Item] = await groups_dal.get_many_groups(
             list(group_names)
         )
         return tuple(
             format_group(
                 item=group,
                 organization_id=organization_id,
-                organization_name=organization_name,
             )
-            for group, organization_id, organization_name in zip(
-                groups_items, organization_ids, organization_names
-            )
+            for group, organization_id in zip(groups_items, organization_ids)
         )
 
 
 async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
-    organization_name = await orgs_domain.get_name_by_id(organization_id)
     group_names = await orgs_domain.get_groups(organization_id)
-    group_items = await groups_domain.get_many_groups(list(group_names))
+    group_items = await groups_dal.get_many_groups(list(group_names))
     return tuple(
         format_group(
             item=group,
             organization_id=organization_id,
-            organization_name=organization_name,
         )
         for group in group_items
     )
@@ -246,7 +237,7 @@ class GroupIndicatorsTypedLoader(DataLoader):
     async def batch_load_fn(
         self, group_names: tuple[str, ...]
     ) -> tuple[GroupUnreliableIndicators, ...]:
-        groups_items: list[Item] = await groups_domain.get_many_groups(
+        groups_items: list[Item] = await groups_dal.get_groups_indicators(
             list(group_names)
         )
         return tuple(
@@ -260,7 +251,7 @@ class GroupHistoricStateTypedLoader(DataLoader):
     async def batch_load_fn(
         self, group_names: tuple[str, ...]
     ) -> tuple[tuple[GroupState, ...], ...]:
-        groups_items: list[Item] = await groups_domain.get_many_groups(
+        groups_items: list[Item] = await groups_dal.get_many_groups(
             list(group_names)
         )
         return tuple(

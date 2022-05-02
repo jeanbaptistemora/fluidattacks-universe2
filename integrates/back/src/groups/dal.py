@@ -1,4 +1,7 @@
 import aioboto3
+from aioextensions import (
+    collect,
+)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -9,6 +12,7 @@ from botocore.exceptions import (
 from custom_exceptions import (
     ErrorAddingGroup,
     ErrorUpdatingGroup,
+    UnavailabilityError,
 )
 from custom_types import (
     Group as GroupType,
@@ -21,6 +25,9 @@ from db_model.groups.types import (
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
+)
+from dynamodb.resource import (
+    get_resource,
 )
 from dynamodb.types import (
     Item,
@@ -91,7 +98,7 @@ async def get_all(
     return items
 
 
-async def get_attributes(
+async def _get_attributes(
     group_name: str,
     attributes: Optional[list[str]] = None,
     table: aioboto3.session.Session.client = None,
@@ -116,11 +123,45 @@ async def get_attributes(
     return response
 
 
-async def get_group(
-    group_name: str, table: aioboto3.session.Session.client
+async def _get_group(
+    group_name: str,
+    table: aioboto3.session.Session.client,
+    raise_exception_on_empty_item: bool = True,
 ) -> GroupType:
     response = await table.get_item(Key={"project_name": group_name})
-    return response.get("Item", {})
+    group_item = response.get("Item", {})
+    if not group_item and raise_exception_on_empty_item:
+        raise UnavailabilityError()
+    return group_item
+
+
+async def get_many_groups(group_names: list[str]) -> list[GroupType]:
+    resource = await get_resource()
+    table = await resource.Table(TABLE_NAME)
+    groups: list[GroupType] = list(
+        await collect(
+            tuple(_get_group(group_name, table) for group_name in group_names)
+        )
+    )
+    return groups
+
+
+async def get_groups_indicators(group_names: list[str]) -> list[GroupType]:
+    resource = await get_resource()
+    table = await resource.Table(TABLE_NAME)
+    groups: list[GroupType] = list(
+        await collect(
+            tuple(
+                _get_group(
+                    group_name=group_name,
+                    table=table,
+                    raise_exception_on_empty_item=False,
+                )
+                for group_name in group_names
+            )
+        )
+    )
+    return groups
 
 
 async def update(group_name: str, data: GroupType) -> bool:
@@ -177,7 +218,7 @@ async def update_state_typed(
     state: GroupState,
 ) -> None:
     item_to_update: Item = {}
-    current_group_item = await get_attributes(
+    current_group_item = await _get_attributes(
         group_name=group_name,
         attributes=["historic_configuration"],
     )

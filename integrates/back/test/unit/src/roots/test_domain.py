@@ -98,5 +98,5 @@ def test_format_root_credential() -> None:
         ),
     ],
 )
-def test_format_url(url_input: str, expected: str):
+def test_format_url(url_input: str, expected: str) -> None:
     assert roots_domain.format_git_repo_url(url_input) == expected
