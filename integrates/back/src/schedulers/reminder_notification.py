@@ -12,9 +12,6 @@ from db_model.enums import (
 from db_model.users.types import (
     User,
 )
-from groups import (
-    domain as groups_domain,
-)
 from itertools import (
     groupby,
 )
@@ -24,6 +21,9 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from settings import (
     LOGGING,
@@ -37,15 +37,15 @@ INACTIVE_DAYS = 21
 
 
 async def send_reminder_notification() -> None:
-    group_names = await groups_domain.get_active_groups()
     loaders: Dataloaders = get_new_context()
+    group_names = await orgs_domain.get_all_active_group_names(loaders)
 
     if FI_ENVIRONMENT == "production":
-        group_names = [
+        group_names = tuple(
             group_name
             for group_name in group_names
             if group_name not in FI_TEST_PROJECTS.split(",")
-        ]
+        )
 
     groups = await loaders.group_typed.load_many(group_names)
     orgs_ids: set[str] = set(group.organization_id for group in groups)
@@ -68,7 +68,7 @@ async def send_reminder_notification() -> None:
     ]
 
     stakeholders_emails_filtered: list[str] = [
-        key for key, group in groupby(sorted(stakeholders_emails))
+        key for key, _ in groupby(sorted(stakeholders_emails))
     ]
 
     users: tuple[User, ...] = await loaders.user.load_many(

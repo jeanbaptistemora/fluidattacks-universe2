@@ -15,11 +15,11 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
 )
-from groups import (
-    domain as groups_domain,
-)
 from newutils import (
     datetime as datetime_utils,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -89,11 +89,11 @@ async def reset_expired_accepted_findings() -> None:
     """Update treatment if acceptance date expires."""
     today: datetime = datetime_utils.get_now()
     loaders: Dataloaders = get_new_context()
-    groups = await groups_domain.get_active_groups()
+    group_names = await orgs_domain.get_all_active_group_names(loaders)
     await collect(
         [
             reset_group_expired_accepted_findings(loaders, group_name, today)
-            for group_name in groups
+            for group_name in group_names
         ],
         workers=40,
     )

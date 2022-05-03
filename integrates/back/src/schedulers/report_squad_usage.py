@@ -14,11 +14,11 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
-from groups import (
-    domain as groups_domain,
-)
 from newutils import (
     bugsnag as bugsnag_utils,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from typing import (
     Any,
@@ -29,12 +29,7 @@ bugsnag_utils.start_scheduler_session()
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    active_groups_names: tuple[str, ...] = tuple(
-        await groups_domain.get_active_groups()
-    )
-    active_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
-        active_groups_names
-    )
+    active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
     squad_groups: tuple[Group, ...] = tuple(
         group for group in active_groups if group.state.tier == GroupTier.SQUAD
     )

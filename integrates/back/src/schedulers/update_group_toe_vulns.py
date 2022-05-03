@@ -6,6 +6,7 @@ from custom_exceptions import (
     ToeLinesAlreadyUpdated,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.findings.types import (
@@ -31,13 +32,13 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
-from groups import (
-    domain as groups_domain,
-)
 import logging
 import logging.config
 from newutils import (
     bugsnag as bugsnag_utils,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from settings import (
     LOGGING,
@@ -141,7 +142,7 @@ async def process_toe_lines(
     vulnerabilities: tuple[Vulnerability, ...],
     root_nicknames: dict[str, str],
 ) -> None:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     group_toe_lines = await loaders.group_toe_lines.load_nodes(
         GroupToeLinesRequest(group_name=group_name)
     )
@@ -173,7 +174,7 @@ async def process_toe_lines(
 
 
 async def process_group(group_name: str) -> None:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     _log("group", id=group_name)
     root_nicknames: dict[str, str] = {
         root.id: root.state.nickname
@@ -183,20 +184,15 @@ async def process_group(group_name: str) -> None:
     findings: tuple[Finding, ...]
     findings = await loaders.group_findings.load(group_name)
 
-    # pylint: disable=consider-using-generator
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
-        [
-            vuln
-            for finding in findings
-            for vuln in await loaders.finding_vulnerabilities_nzr.load(
-                finding.id
-            )
-            if vuln.state.status
-            in {
-                VulnerabilityStateStatus.OPEN,
-                VulnerabilityStateStatus.CLOSED,
-            }
-        ]
+        vuln
+        for finding in findings
+        for vuln in await loaders.finding_vulnerabilities_nzr.load(finding.id)
+        if vuln.state.status
+        in {
+            VulnerabilityStateStatus.OPEN,
+            VulnerabilityStateStatus.CLOSED,
+        }
     )
 
     await collect(
@@ -208,7 +204,8 @@ async def process_group(group_name: str) -> None:
 
 
 async def main() -> None:
-    group_names = await groups_domain.get_active_groups()
+    loaders: Dataloaders = get_new_context()
+    group_names = await orgs_domain.get_all_active_group_names(loaders)
 
     await collect(
         tuple(process_group(group_name) for group_name in group_names),
