@@ -5713,7 +5713,17 @@
   title: FERPA
   en:
     description: >
-      .
+      The Family Educational Rights and
+      Privacy Act (FERPA) is a Federal
+      law that protects the privacy of
+      student education records and the
+      right to have some control over
+      the disclosure of personally
+      identifiable information from
+      the education records.
+      The version used in this
+      section is FERPA amended July 6,
+      2000.
   es:
     description: __empty__
   definitions:
