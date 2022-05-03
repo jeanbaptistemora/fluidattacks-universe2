@@ -12,6 +12,7 @@ from dataclasses import (
     fields,
 )
 from fa_purity.frozen import (
+    freeze,
     FrozenList,
 )
 from fa_purity.maybe import (
@@ -24,8 +25,20 @@ from postgres_client.query import (
     Query as LegacyQuery,
     SqlArgs,
 )
+from redshift_client.sql_client import (
+    QueryValues,
+)
+from redshift_client.sql_client.primitive import (
+    PrimitiveVal,
+)
+from redshift_client.sql_client.query import (
+    dynamic_query,
+    Query,
+)
 from typing import (
+    Dict,
     Optional,
+    Tuple,
 )
 
 
@@ -56,22 +69,20 @@ def all_data(table: TableID) -> LegacyQuery:
 
 def all_data_count(
     table: TableID, namespace: Optional[str] = None
-) -> LegacyQuery:
+) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
-    base_query = "SELECT COUNT(*) FROM {schema}.{table}"
-    _query = _namespace.map(
-        lambda _: f"{base_query} WHERE namespace = %(namespace)s"
-    ).value_or(base_query)
-    return LegacyQuery(
-        _query,
-        SqlArgs(
-            {"namespace": namespace} if namespace else {},
-            {
-                "schema": table.schema.name,
-                "table": table.table_name,
-            },
-        ),
+    base_stm = "SELECT COUNT(*) FROM {schema}.{table}"
+    stm = _namespace.map(
+        lambda _: f"{base_stm} WHERE namespace = %(namespace)s"
+    ).value_or(base_stm)
+    id_args: Dict[str, Optional[str]] = (
+        {"namespace": namespace} if namespace else {}
     )
+    args: Dict[str, PrimitiveVal] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    return (dynamic_query(stm, freeze(id_args)), QueryValues(freeze(args)))
 
 
 def insert_row(table: TableID) -> LegacyQuery:

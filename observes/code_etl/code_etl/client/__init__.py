@@ -133,12 +133,12 @@ class RawClient:
     _table: TableID
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
-        target_query = (
+        query_items = (
             _query.all_data_count(self._table, namespace)
             if namespace
             else _query.all_data_count(self._table)
         )
-        return self._db_client.execute_query(target_query).bind(
+        return self._sql_client.execute(*query_items).bind(
             lambda _: self._db_client.fetch_one().map(
                 lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
             )
