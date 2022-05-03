@@ -675,6 +675,21 @@ async def cancel_batch_job(
         )
 
 
+async def terminate_batch_job(
+    *, job_id: str, reason: str = "not required"
+) -> None:
+    if FI_ENVIRONMENT == "development":
+        return None
+    try:
+        async with aioboto3.Session().client(**OPTIONS) as batch:
+            await batch.terminate_job(jobId=job_id, reason=reason)
+    except ClientError as exc:
+        LOGGER.exception(
+            exc,
+            extra=dict(extra=None),
+        )
+
+
 async def put_action(  # pylint: disable=too-many-locals
     *,
     action: Action,
