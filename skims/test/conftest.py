@@ -2,6 +2,7 @@ import contextlib
 from ctx import (
     NAMESPACES_FOLDER,
 )
+import datetime
 from git import (
     Repo,
 )
@@ -25,6 +26,7 @@ from pytest_mock import (
     MockerFixture,
 )
 from shutil import (
+    copyfile,
     rmtree,
 )
 import subprocess  # nosec
@@ -232,11 +234,33 @@ def mock_pull_git_repo(
             os.makedirs(os.path.split(file)[0], exist_ok=True)
             with open(file, "w", encoding="utf-8") as handler:
                 handler.write(f"# {file.split('/')[-1]}")
+            copyfile(
+                "skims/test/data/lib_path/f099/rebase_check.yaml",
+                f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml",
+            )
             repo.index.add(file)
-        repo.index.commit("Initial commit")
+
+        repo.index.commit(
+            message="Initial commit",
+            author_date=datetime.date(2020, 7, 21).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            commit_date=datetime.date(2020, 7, 21).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+        )
+        copyfile(
+            "skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml",
+            f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml",
+        )
+        repo.index.add(
+            f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml"
+        )
+        repo.index.commit("Changes for rebase")
         mocker.patch(
             "batch.repositories.pull_namespace_from_s3", return_value=repo_path
         )
+
         yield
     finally:
         rmtree(repo_path)
