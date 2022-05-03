@@ -55,7 +55,7 @@ resource "aws_cloudwatch_event_target" "main" {
 
   input = jsonencode(
     {
-      containerOverrides = {
+      containerProperties = {
         command = each.value.command
 
         resourceRequirements = [
