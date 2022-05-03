@@ -21,7 +21,7 @@ from postgres_client.ids import (
     TableID,
 )
 from postgres_client.query import (
-    Query,
+    Query as LegacyQuery,
     SqlArgs,
 )
 from typing import (
@@ -29,7 +29,7 @@ from typing import (
 )
 
 
-def _all_data(table: TableID, namespace: Optional[str]) -> Query:
+def _all_data(table: TableID, namespace: Optional[str]) -> LegacyQuery:
     _namespace = Maybe.from_optional(namespace)
     _attrs = ",".join([f.name for f in fields(RawRow)])
     args = SqlArgs(
@@ -43,24 +43,26 @@ def _all_data(table: TableID, namespace: Optional[str]) -> Query:
     _query = _namespace.map(
         lambda _: f"{base_query} WHERE namespace = %(namespace)s"
     ).value_or(base_query)
-    return Query(_query, args)
+    return LegacyQuery(_query, args)
 
 
-def namespace_data(table: TableID, namespace: str) -> Query:
+def namespace_data(table: TableID, namespace: str) -> LegacyQuery:
     return _all_data(table, namespace)
 
 
-def all_data(table: TableID) -> Query:
+def all_data(table: TableID) -> LegacyQuery:
     return _all_data(table, None)
 
 
-def all_data_count(table: TableID, namespace: Optional[str] = None) -> Query:
+def all_data_count(
+    table: TableID, namespace: Optional[str] = None
+) -> LegacyQuery:
     _namespace = Maybe.from_optional(namespace)
     base_query = "SELECT COUNT(*) FROM {schema}.{table}"
     _query = _namespace.map(
         lambda _: f"{base_query} WHERE namespace = %(namespace)s"
     ).value_or(base_query)
-    return Query(
+    return LegacyQuery(
         _query,
         SqlArgs(
             {"namespace": namespace} if namespace else {},
@@ -72,10 +74,10 @@ def all_data_count(table: TableID, namespace: Optional[str] = None) -> Query:
     )
 
 
-def insert_row(table: TableID) -> Query:
+def insert_row(table: TableID) -> LegacyQuery:
     _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
     values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
-    return Query(
+    return LegacyQuery(
         f"INSERT INTO {{schema}}.{{table}} ({_fields}) VALUES ({values})",
         SqlArgs(
             identifiers={
@@ -86,10 +88,10 @@ def insert_row(table: TableID) -> Query:
     )
 
 
-def insert_unique_row(table: TableID) -> Query:
+def insert_unique_row(table: TableID) -> LegacyQuery:
     _fields = ",".join(tuple(f.name for f in fields(CommitTableRow)))
     values = ",".join(tuple(f"%({f.name})s" for f in fields(CommitTableRow)))
-    return Query(
+    return LegacyQuery(
         f"""
         INSERT INTO {{schema}}.{{table}} ({_fields}) SELECT {values}
         WHERE NOT EXISTS (
@@ -110,8 +112,8 @@ def insert_unique_row(table: TableID) -> Query:
     )
 
 
-def update_users(table: TableID) -> Query:
-    return Query(
+def update_users(table: TableID) -> LegacyQuery:
+    return LegacyQuery(
         """
         UPDATE {schema}.{table}
         SET
@@ -137,8 +139,8 @@ def commit_exists(
     table: TableID,
     repo: RepoId,
     commit_hash: str,
-) -> Query:
-    return Query(
+) -> LegacyQuery:
+    return LegacyQuery(
         """
         SELECT hash, namespace, repository
         FROM {schema}.{table}
@@ -162,8 +164,8 @@ def commit_exists(
     )
 
 
-def last_commit_hash(table: TableID, repo: RepoId) -> Query:
-    return Query(
+def last_commit_hash(table: TableID, repo: RepoId) -> LegacyQuery:
+    return LegacyQuery(
         """
         SELECT hash FROM {schema}.{table}
         WHERE
@@ -189,7 +191,7 @@ def last_commit_hash(table: TableID, repo: RepoId) -> Query:
 
 def update_row(
     table: TableID, row: CommitTableRow, _fields: FrozenList[str]
-) -> Query:
+) -> LegacyQuery:
     values = ",".join(tuple(f"{f} = %({f})s" for f in _fields))
     statement = f"""
         UPDATE {{schema}}.{{table}} SET {values} WHERE
@@ -204,4 +206,4 @@ def update_row(
             "table": table.table_name,
         },
     )
-    return Query(statement, args)
+    return LegacyQuery(statement, args)

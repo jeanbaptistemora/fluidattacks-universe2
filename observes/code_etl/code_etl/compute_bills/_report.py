@@ -25,7 +25,7 @@ from fa_purity.stream.transform import (
 from functools import (
     reduce,
 )
-from redshift_client.sql_client.core import (
+from redshift_client.sql_client import (
     SqlClient,
 )
 from typing import (

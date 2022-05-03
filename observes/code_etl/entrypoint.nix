@@ -7,7 +7,7 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   _purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.12.0";
+    ref = "refs/tags/v1.17.0";
   };
   purity = import _purity_src {
     inherit system legacy_pkgs;
@@ -16,7 +16,7 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   _redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "refs/tags/v0.6.1";
+    ref = "refs/tags/v0.7.0";
   };
   redshift-client = import _redshift_src {
     inherit system legacy_pkgs;

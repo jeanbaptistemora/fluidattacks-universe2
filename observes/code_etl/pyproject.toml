@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "code_etl"
-version = "1.0.0"
+version = "1.1.0"
 description = "Code ETL"
 authors = ["Product Team <development@fluidattacks.com>"]
 
@@ -13,7 +13,7 @@ pathos = "^0.2.8"
 postgres-client = "^1.0.0"
 psycopg2 = "^2.9.1"
 ratelimiter = "^1.2.0.post0"
-redshift-client = "^0.6.1"
+redshift-client = "^0.7.0"
 requests = "^2.25.1"
 six = "^1.16.0"
 types-click = "^7.1.8"

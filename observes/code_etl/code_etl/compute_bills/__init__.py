@@ -44,13 +44,13 @@ from fa_purity.frozen import (
 from pathlib import (
     Path,
 )
+from redshift_client.sql_client import (
+    new_client,
+    SqlClient,
+)
 from redshift_client.sql_client.connection import (
     connect,
     IsolationLvl,
-)
-from redshift_client.sql_client.core import (
-    new_client,
-    SqlClient,
 )
 from typing import (
     FrozenSet,

@@ -1,7 +1,7 @@
 from code_etl.client import (
+    _query,
     decoder,
     encoder,
-    query,
 )
 from code_etl.client._assert import (
     assert_key,
@@ -66,12 +66,12 @@ from postgres_client.query import (
     SqlArgs,
 )
 import psycopg2
+from redshift_client.sql_client import (
+    SqlClient,
+)
 from redshift_client.sql_client.connection import (
     Credentials,
     DatabaseId,
-)
-from redshift_client.sql_client.core import (
-    SqlClient,
 )
 from typing import (
     Optional,
@@ -133,12 +133,12 @@ class RawClient:
     _table: TableID
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
-        _query = (
-            query.all_data_count(self._table, namespace)
+        target_query = (
+            _query.all_data_count(self._table, namespace)
             if namespace
-            else query.all_data_count(self._table)
+            else _query.all_data_count(self._table)
         )
-        return self._db_client.execute_query(_query).bind(
+        return self._db_client.execute_query(target_query).bind(
             lambda _: self._db_client.fetch_one().map(
                 lambda i: assert_key(i, 0).bind(lambda j: assert_type(j, int))
             )
@@ -148,7 +148,7 @@ class RawClient:
         msg = Cmd.from_cmd(lambda: LOG.debug("inserting %s rows", len(rows)))
         return msg.bind(
             lambda _: self._db_client.execute_batch(
-                query.insert_row(self._table),
+                _query.insert_row(self._table),
                 tuple(SqlArgs(to_dict(r)) for r in rows),
             )
         )
@@ -161,7 +161,7 @@ class RawClient:
         )
         return msg.bind(
             lambda _: self._db_client.execute_batch(
-                query.insert_unique_row(self._table),
+                _query.insert_unique_row(self._table),
                 tuple(SqlArgs(to_dict(r)) for r in rows),
             )
         )
@@ -171,8 +171,8 @@ class RawClient:
     ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
         pkg_items = 2000
         statement = namespace.map(
-            lambda n: query.namespace_data(self._table, n)
-        ).or_else_call(lambda: query.all_data(self._table))
+            lambda n: _query.namespace_data(self._table, n)
+        ).or_else_call(lambda: _query.all_data(self._table))
         items = infinite_range(0, 1).map(
             lambda _: _fetch(self._db_client, pkg_items)
         )
@@ -215,7 +215,7 @@ class RawClient:
             )
             return log_info.bind(
                 lambda _: self._db_client.execute_query(
-                    query.update_row(self._table, new, _fields)
+                    _query.update_row(self._table, new, _fields)
                 )
             )
         return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
@@ -242,11 +242,11 @@ class Client:
 
     def get_context(self, repo: RepoId) -> Cmd[RepoContex]:
         last = self._db_client.execute_query(
-            query.last_commit_hash(self._table, repo)
+            _query.last_commit_hash(self._table, repo)
         ).bind(lambda _: _fetch_one_result(self._db_client, str))
         is_new = (
             self._db_client.execute_query(
-                query.commit_exists(self._table, repo, COMMIT_HASH_SENTINEL),
+                _query.commit_exists(self._table, repo, COMMIT_HASH_SENTINEL),
             )
             .bind(lambda _: _fetch_not_empty(self._db_client))
             .map(lambda b: not b)

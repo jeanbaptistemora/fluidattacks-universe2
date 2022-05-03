@@ -51,13 +51,13 @@ from postgres_client.connection import (
 from postgres_client.ids import (
     TableID,
 )
+from redshift_client.sql_client import (
+    new_client,
+)
 from redshift_client.sql_client.connection import (
     connect,
     DbConnection,
     IsolationLvl,
-)
-from redshift_client.sql_client.core import (
-    new_client,
 )
 
 LOG = logging.getLogger(__name__)

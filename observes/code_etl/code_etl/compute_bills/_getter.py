@@ -52,7 +52,8 @@ import logging
 from ratelimiter import (  # type: ignore[import]
     RateLimiter,
 )
-from redshift_client.sql_client.core import (
+from redshift_client.sql_client import (
+    QueryValues,
     RowData,
     SqlClient,
 )
@@ -166,7 +167,7 @@ def get_commit_first_seen_at(client: SqlClient, fa_hash: str) -> Cmd[datetime]:
         WHERE fa_hash = %(fa_hash)s ORDER BY seen_at ASC LIMIT 1
     """
     return client.execute(
-        new_query(stm), freeze({"fa_hash": fa_hash})
+        new_query(stm), QueryValues(freeze({"fa_hash": fa_hash}))
     ) + client.fetch_one().map(
         lambda i: i.map(lambda x: x.data[0])
         .bind_optional(lambda i: i if isinstance(i, datetime) else None)
@@ -207,7 +208,7 @@ def get_month_repos(
     return (
         client.execute(
             new_query(stm),
-            freeze(args),
+            QueryValues(freeze(args)),
         )
         + client.fetch_all().map(lambda l: frozenset(map(_to_group_id, l)))
     )
@@ -244,6 +245,6 @@ def get_month_contributions(
             ),
         )
 
-    return client.execute(new_query(stm), freeze(args)).map(
+    return client.execute(new_query(stm), QueryValues(freeze(args))).map(
         lambda _: client.data_stream(1000).map(to_contrib)
     )
