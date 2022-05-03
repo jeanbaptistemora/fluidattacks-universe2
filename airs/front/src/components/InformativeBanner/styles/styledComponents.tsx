@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+const BannerList = styled.ul.attrs({
+  className: `
+    list
+    ma0
+    pa0
+    overflow-hidden
+    flex
+    flex-nowrap
+  `,
+})``;
+
 const InformativeBannerContainer = styled.div.attrs({
   className: `
     cssmenu
@@ -13,13 +24,14 @@ const InformativeBannerContainer = styled.div.attrs({
 })<{ bgColor: string; isClose: boolean }>`
   background-color: ${({ bgColor }): string => bgColor};
   display: ${({ isClose }): string => (isClose ? "none" : "block")};
+  position: sticky;
 `;
 
 const BannerItem = styled.li.attrs({
   className: `
     mr3
     pr2
-    pv3
+    pv1
     flex
     flex-wrap
   `,
@@ -29,7 +41,7 @@ const CloseContainer = styled.li.attrs({
   className: `
     mr3
     pr2
-    pv3
+    pv2
     flex-l
     dn
   `,
@@ -78,6 +90,7 @@ const BannerSubtitle = styled.h2.attrs({
 export {
   BannerButton,
   BannerItem,
+  BannerList,
   BannerSubtitle,
   BannerTitle,
   CloseContainer,

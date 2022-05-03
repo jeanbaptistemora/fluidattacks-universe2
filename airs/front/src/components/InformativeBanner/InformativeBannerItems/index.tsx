@@ -4,10 +4,10 @@ import { Link } from "gatsby";
 import React from "react";
 import { RiCloseFill } from "react-icons/ri";
 
-import { NavbarList } from "../../../styles/styledComponents";
 import {
   BannerButton,
   BannerItem,
+  BannerList,
   BannerSubtitle,
   BannerTitle,
   CloseContainer,
@@ -28,7 +28,7 @@ const InformativeBannerItems: React.FC<IProps> = ({
   title,
   url,
 }: IProps): JSX.Element => (
-  <NavbarList className={"roboto"}>
+  <BannerList>
     <RiCloseFill className={"f2 ma2 dn-l pointer white"} onClick={close} />
     <div className={"w-auto flex-l flex-wrap center"}>
       <BannerItem>
@@ -44,7 +44,7 @@ const InformativeBannerItems: React.FC<IProps> = ({
         <RiCloseFill className={"f2 pointer white"} onClick={close} />
       </CloseContainer>
     </div>
-  </NavbarList>
+  </BannerList>
 );
 
 export { InformativeBannerItems };
