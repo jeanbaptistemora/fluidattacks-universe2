@@ -165,12 +165,12 @@ resource "aws_launch_template" "main" {
   ebs_optimized = true
 
   block_device_mappings {
-    device_name  = "/dev/xvdcz"
+    device_name  = "/dev/xvda"
     virtual_name = "ephemeral0"
     ebs {
       encrypted             = true
       delete_on_termination = true
-      volume_size           = 20
+      volume_size           = 30
       volume_type           = "gp3"
     }
   }
@@ -207,7 +207,7 @@ resource "aws_batch_compute_environment" "main" {
 
   compute_resources {
     bid_percentage = 100
-    image_id       = "ami-0c09d65d2051ada93"
+    image_id       = "ami-0f260fe26c2826a3d"
     type           = each.value.type
 
     max_vcpus = each.value.max_vcpus
