@@ -160,12 +160,19 @@ resource "aws_iam_instance_profile" "main" {
 }
 
 resource "aws_launch_template" "main" {
-  name     = "compute"
-  key_name = "gitlab"
+  name          = "compute"
+  key_name      = "gitlab"
+  ebs_optimized = true
 
   block_device_mappings {
     device_name  = "/dev/xvdcz"
     virtual_name = "ephemeral0"
+    ebs {
+      encrypted             = true
+      delete_on_termination = true
+      volume_size           = 20
+      volume_type           = "gp3"
+    }
   }
 
   tag_specifications {
