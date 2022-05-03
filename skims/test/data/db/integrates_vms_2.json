@@ -336,6 +336,77 @@
     {
       "PutRequest": {
         "Item": {
+          "pk": {
+            "S": "ROOT#753db431-93cc-4a94-9913-2e126671aea0"
+          },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "ORG#okada"
+          },
+          "sk_2": {
+            "S": "ROOT#753db431-93cc-4a94-9913-2e126671aea0"
+          },
+          "cloning": {
+            "M": {
+              "modified_date": {
+                "S": "2021-09-30T21:24:32.081340+00:00"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              }
+            }
+          },
+          "state": {
+            "M": {
+              "branch": {
+                "S": "main"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "L": []
+              },
+              "git_environment_urls": {
+                "L": []
+              },
+              "gitignore": {
+                "L": []
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "modified_date": {
+                "S": "2021-09-30T21:24:32.081394+00:00"
+              },
+              "nickname": {
+                "S": "namespace4"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/namespace4-f7da9571603744f6b489542ebbed8678.git"
+              }
+            }
+          },
+          "type": {
+            "S": "Git"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "access_token": {
             "M": {
               "iat": {
