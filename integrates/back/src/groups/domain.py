@@ -38,7 +38,6 @@ from custom_exceptions import (
     UserNotInOrganization,
 )
 from custom_types import (
-    Group as GroupType,
     Invitation as InvitationType,
     MailContent as MailContentType,
 )
@@ -896,11 +895,6 @@ async def get_active_groups() -> list[str]:
     return groups
 
 
-async def get_all(attributes: Optional[list[str]] = None) -> list[GroupType]:
-    data_attr = ",".join(attributes or [])
-    return await groups_dal.get_all(data_attr=data_attr)
-
-
 async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
@@ -1497,10 +1491,6 @@ async def remove_user(
     if not has_groups_in_asm:
         success = await users_domain.delete(email)
     return success
-
-
-async def update(group_name: str, data: GroupType) -> bool:
-    return await groups_dal.update(group_name, data)
 
 
 async def update_metadata_typed(

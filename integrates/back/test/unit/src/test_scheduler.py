@@ -442,16 +442,18 @@ async def test_remove_obsolete_groups() -> None:
     loaders: Dataloaders = get_new_context()
     test_group_name_1 = "setpendingdeletion"
     test_group_name_2 = "deletegroup"
-    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
-    all_active_groups_names = [group.name for group in all_active_groups]
+    all_active_groups_names = await orgs_domain.get_all_active_group_names(
+        loaders
+    )
     assert len(all_active_groups_names) == 14
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 in all_active_groups_names
 
     await delete_obsolete_groups.main()
 
-    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
-    all_active_groups_names = [group.name for group in all_active_groups]
+    all_active_groups_names = await orgs_domain.get_all_active_group_names(
+        loaders
+    )
     assert len(all_active_groups_names) == 13
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 not in all_active_groups_names

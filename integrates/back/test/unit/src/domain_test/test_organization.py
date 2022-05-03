@@ -446,8 +446,7 @@ async def test_iterate_organizations_and_groups() -> None:
 
 async def test_get_all_active_group() -> None:
     loaders: Dataloaders = get_new_context()
-    test_data = await orgs_domain.get_all_active_groups_typed(loaders)
-    group_names = [group.name for group in test_data]
+    test_data = await orgs_domain.get_all_active_group_names(loaders)
     expected_output = [
         "asgard",
         "barranquilla",
@@ -464,4 +463,4 @@ async def test_get_all_active_group() -> None:
         "sheele",
         "unittesting",
     ]
-    assert sorted(group_names) == sorted(expected_output)
+    assert sorted(list(test_data)) == sorted(expected_output)

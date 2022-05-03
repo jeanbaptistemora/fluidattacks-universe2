@@ -287,6 +287,14 @@ async def get_all_active_groups_typed(
     return groups_utils.filter_active_groups(tuple(all_groups))
 
 
+async def get_all_active_group_names(
+    loaders: Any,
+) -> tuple[str, ...]:
+    active_groups = await get_all_active_groups_typed(loaders)
+    active_group_names = tuple(group.name for group in active_groups)
+    return active_group_names
+
+
 async def get_by_id(org_id: str) -> Dict[str, Any]:
     organization: Dict[str, Any] = await orgs_dal.get_by_id(org_id)
     if organization:

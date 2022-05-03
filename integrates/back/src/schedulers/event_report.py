@@ -3,6 +3,7 @@ from context import (
     FI_TEST_PROJECTS,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -10,9 +11,6 @@ from datetime import (
 )
 from events import (
     domain as events_domain,
-)
-from groups import (
-    domain as groups_domain,
 )
 import logging
 from mailer import (
@@ -24,12 +22,14 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from organizations import (
+    domain as orgs_domain,
+)
 from settings import (
     LOGGING,
 )
 from typing import (
     Any,
-    Dict,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -47,15 +47,15 @@ def days_to_date(date: str) -> int:
 
 
 async def send_event_report() -> None:
-    groups_names = await groups_domain.get_active_groups()
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
+    groups_names = await orgs_domain.get_all_active_group_names(loaders)
 
     if FI_ENVIRONMENT == "production":
-        groups_names = [
+        groups_names = tuple(
             group
             for group in groups_names
             if group not in FI_TEST_PROJECTS.split(",")
-        ]
+        )
 
     unsolved_events = [
         event
@@ -63,7 +63,7 @@ async def send_event_report() -> None:
         for event in await events_domain.get_unsolved_events(group)
     ]
 
-    events_filtered: list[Dict[str, Any]] = [
+    events_filtered: list[dict[str, Any]] = [
         event
         for event in unsolved_events
         if days_to_date(event["historic_state"][-1]["date"]) in [7, 30]

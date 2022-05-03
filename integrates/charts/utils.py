@@ -135,8 +135,7 @@ async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
 
 async def iterate_groups() -> AsyncIterator[str]:
     loaders: Dataloaders = get_new_context()
-    active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
-    active_groups_names = [group.name for group in active_groups]
+    active_groups_names = await orgs_domain.get_all_active_group_names(loaders)
     for group_name in sorted(active_groups_names, reverse=True):
         log_info(f"Working on group: {group_name}")
         # Exception: WF(AsyncIterator is subtype of iterator)

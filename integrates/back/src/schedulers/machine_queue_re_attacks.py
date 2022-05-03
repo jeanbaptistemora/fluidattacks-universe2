@@ -11,12 +11,12 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
-from groups.domain import (
-    get_active_groups,
-)
 from machine.jobs import (
     get_finding_code_from_title,
     queue_job_new,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from schedulers.common import (
     info,
@@ -27,16 +27,15 @@ from vulnerabilities.domain.utils import (
 
 
 async def main() -> None:
-    dataloaders: Dataloaders = get_new_context()
-
-    groups: list[str] = await get_active_groups()
+    loaders: Dataloaders = get_new_context()
+    group_names = await orgs_domain.get_all_active_group_names(loaders)
     groups_findings: tuple[
         tuple[Finding, ...], ...
-    ] = await dataloaders.group_findings.load_many(groups)
+    ] = await loaders.group_findings.load_many(group_names)
 
-    for group, findings in zip(groups, groups_findings):
-        info(f"Processing group {group}...")
-        findings_vulns = await dataloaders.finding_vulnerabilities.load_many(
+    for group_name, findings in zip(group_names, groups_findings):
+        info(f"Processing group {group_name}...")
+        findings_vulns = await loaders.finding_vulnerabilities.load_many(
             [finding.id for finding in findings]
         )
         findings_to_reattack: set[str] = set()
@@ -55,8 +54,8 @@ async def main() -> None:
                 findings_to_reattack.add(finding.title)
                 roots_to_reattack.update(
                     await get_root_nicknames_for_skims(
-                        dataloaders=dataloaders,
-                        group=group,
+                        dataloaders=loaders,
+                        group=group_name,
                         vulnerabilities=vulns_to_reattack,
                     )
                 )
@@ -71,10 +70,10 @@ async def main() -> None:
             )
         )
         if finding_codes:
-            info("\t" + f"Queueing reattacks for group {group}...")
+            info("\t" + f"Queueing reattacks for group {group_name}...")
             await queue_job_new(
                 finding_codes=finding_codes,
-                group_name=group,
+                group_name=group_name,
                 roots=list(roots_to_reattack),
-                dataloaders=dataloaders,
+                dataloaders=loaders,
             )

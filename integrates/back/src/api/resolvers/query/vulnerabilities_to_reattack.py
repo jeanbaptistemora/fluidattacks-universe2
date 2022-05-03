@@ -18,14 +18,11 @@ from findings.domain import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups.domain import (
-    get_active_groups,
-)
 from itertools import (
     chain,
 )
-from typing import (
-    List,
+from organizations import (
+    domain as orgs_domain,
 )
 
 
@@ -35,11 +32,13 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> List[Vulnerability]:
+) -> list[Vulnerability]:
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs.get("group", "all")
     if group_name == "all":
-        group_names = await get_active_groups()
+        group_names = list(
+            await orgs_domain.get_all_active_group_names(loaders)
+        )
     else:
         group_names = [group_name]
 

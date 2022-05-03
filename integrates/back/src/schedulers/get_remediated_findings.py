@@ -24,9 +24,6 @@ from db_model.users.types import (
 from findings import (
     domain as findings_domain,
 )
-from groups import (
-    domain as groups_domain,
-)
 from itertools import (
     chain,
 )
@@ -34,6 +31,9 @@ import logging
 import logging.config
 from mailer import (
     findings as findings_mail,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from settings import (
     LOGGING,
@@ -46,9 +46,9 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def get_remediated_findings() -> None:
-    """Summary mail send with findings that have not been verified yet"""
+    """Summary mail send with findings that have not been verified yet."""
     loaders: Dataloaders = get_new_context()
-    active_groups = await groups_domain.get_active_groups()
+    active_groups = await orgs_domain.get_all_active_group_names(loaders)
     findings = tuple(
         chain.from_iterable(
             await collect(

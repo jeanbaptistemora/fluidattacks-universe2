@@ -80,12 +80,12 @@ async def get_active_groups() -> list[str]:
     filtering_exp = (
         Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
     )
-    groups = await get_all(filtering_exp, "project_name")
+    groups = await _get_all(filtering_exp, "project_name")
     active_groups = [get_key_or_fallback(group) for group in groups]
     return active_groups
 
 
-async def get_all(
+async def _get_all(
     filtering_exp: object = "", data_attr: str = ""
 ) -> list[GroupType]:
     """Get all groups."""
@@ -164,7 +164,7 @@ async def get_groups_indicators(group_names: list[str]) -> list[GroupType]:
     return groups
 
 
-async def update(group_name: str, data: GroupType) -> bool:
+async def _update(group_name: str, data: GroupType) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""
@@ -208,7 +208,9 @@ async def update_metadata_typed(
     metadata: GroupMetadataToUpdate,
 ) -> None:
     group_item = groups_utils.format_group_metadata_item(metadata)
-    if group_item and not await update(group_name=group_name, data=group_item):
+    if group_item and not await _update(
+        group_name=group_name, data=group_item
+    ):
         raise ErrorUpdatingGroup.new()
 
 
@@ -239,7 +241,7 @@ async def update_state_typed(
             else None
         )
 
-    if not await update(
+    if not await _update(
         group_name=group_name,
         data=item_to_update,
     ):
@@ -254,7 +256,7 @@ async def update_indicators_typed(
     indicators_item = groups_utils.format_group_unreliable_indicators_item(
         indicators
     )
-    if indicators_item and not await update(
+    if indicators_item and not await _update(
         group_name=group_name, data=indicators_item
     ):
         raise ErrorUpdatingGroup.new()

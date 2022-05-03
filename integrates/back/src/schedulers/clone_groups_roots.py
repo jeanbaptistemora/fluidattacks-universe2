@@ -10,8 +10,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from groups import (
-    domain as groups_domain,
+from organizations import (
+    domain as orgs_domain,
 )
 from typing import (
     NamedTuple,
@@ -59,10 +59,8 @@ async def _queue_sync_git_roots(
 
 async def clone_groups_roots(queue_with_vpn: bool = False) -> None:
     loaders: Dataloaders = get_new_context()
-
-    groups: list[str] = await groups_domain.get_active_groups()
-
-    for group in groups:
+    group_names = await orgs_domain.get_all_active_group_names(loaders)
+    for group in group_names:
         await _queue_sync_git_roots(
             loaders=loaders,
             user_email="integrates@fluidattacks.com",

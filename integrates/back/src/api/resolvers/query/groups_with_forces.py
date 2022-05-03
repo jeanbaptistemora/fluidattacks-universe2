@@ -45,5 +45,7 @@ async def resolve_no_cache(
 ) -> list[str]:
     loaders: Dataloaders = info.context.loaders
     # All active groups have 'forces' enabled
-    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
-    return [group.name for group in all_active_groups]
+    all_active_group_names = await orgs_domain.get_all_active_group_names(
+        loaders
+    )
+    return list(all_active_group_names)

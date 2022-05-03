@@ -123,7 +123,7 @@ async def main() -> None:
     session = aioboto3.Session()
     loaders: Dataloaders = get_new_context()
     async with session.client("s3") as s3_client:
-        all_active_groups = await orgs_domain.get_all_active_groups_typed(
+        all_active_group_names = await orgs_domain.get_all_active_group_names(
             loaders
         )
         group_names: list[str] = [
@@ -131,11 +131,11 @@ async def main() -> None:
             for response in await collect(
                 s3_client.list_objects(
                     Bucket="continuous-repositories",
-                    Prefix=group.name,
+                    Prefix=group_name,
                     Delimiter="/",
                     MaxKeys=1,
                 )
-                for group in all_active_groups
+                for group_name in all_active_group_names
             )
             for prefix in response.get("CommonPrefixes", [])
         ]
