@@ -28,7 +28,7 @@ from fa_purity.result import (
     Result,
     ResultE,
 )
-from git import (
+from git.exc import (
     InvalidGitRepositoryError,
 )
 from git.repo.base import (

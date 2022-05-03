@@ -37,11 +37,15 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.pure_iter.transform import (
     until_empty,
 )
-from git.objects import (
+from git.objects.commit import (
     Commit as GitCommit,
 )
 from git.repo.base import (
     Repo,
+)
+from typing import (
+    cast,
+    Iterator,
 )
 
 
@@ -72,7 +76,10 @@ class Extractor:
         commits: PureIter[GitCommit] = unsafe_from_cmd(
             Cmd.from_cmd(
                 lambda: iter(
-                    repo.iter_commits(no_merges=True, topo_order=True)
+                    cast(
+                        Iterator[GitCommit],
+                        repo.iter_commits(no_merges=True, topo_order=True),
+                    )
                 )
             )
         )

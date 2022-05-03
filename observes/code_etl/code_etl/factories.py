@@ -17,7 +17,7 @@ from dataclasses import (
 from fa_purity.json.primitive.factory import (
     to_primitive,
 )
-from git.objects import (
+from git.objects.commit import (
     Commit,
 )
 import hashlib

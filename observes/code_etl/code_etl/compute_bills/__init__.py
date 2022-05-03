@@ -10,9 +10,6 @@ from ._report import (
     filter_by_fa_hash,
     final_reports,
 )
-from charset_normalizer import (
-    logging,
-)
 from code_etl.compute_bills.core import (
     ActiveUsersReport,
     FinalActiveUsersReport,
@@ -41,6 +38,7 @@ from fa_purity.cmd.transform import (
 from fa_purity.frozen import (
     freeze,
 )
+import logging
 from pathlib import (
     Path,
 )
