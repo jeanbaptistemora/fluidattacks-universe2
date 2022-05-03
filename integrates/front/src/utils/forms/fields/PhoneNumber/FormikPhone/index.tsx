@@ -38,6 +38,7 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
       <StyledPhoneInput
         autoFormat={true}
         country={_.get(value, "countryCode", undefined)}
+        disableCountryGuess={true}
         disabled={disabled}
         inputProps={{
           autoFocus,
