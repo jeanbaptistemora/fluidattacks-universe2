@@ -2414,6 +2414,7 @@
     - "c2m2.3_5_e"
     - "c2m2.8_1_b"
     - "c2m2.8_1_c"
+    - "ferpa.D_35_a_2"
   metadata: {}
 "096":
   en:
@@ -2799,6 +2800,7 @@
     - "pdpo.S1_4"
     - "cmmc.IA_L1-3_5_2"
     - "hitrust.10_c"
+    - "ferpa.D_31_c"
   metadata: {}
 "123":
   en:
@@ -5829,6 +5831,7 @@
     - "lgpd.16"
     - "lgpd.60"
     - "c2m2.1_2_i"
+    - "ferpa.D_35_b_2"
   metadata: {}
 "184":
   en:
@@ -5959,6 +5962,7 @@
     - "osstmm3.11_7_3"
     - "osstmm3.11_11_1"
     - "c2m2.9_5_d"
+    - "ferpa.D_35_b_1"
   metadata: {}
 "186":
   en:
@@ -6924,6 +6928,7 @@
     - "iec62443.IAC-1_5"
     - "osstmm3.9_5_4"
     - "wasc.W_01"
+    - "ferpa.D_31_c"
   metadata: {}
 "231":
   en:
@@ -7802,6 +7807,8 @@
     - "wassec.6_2_5_2"
     - "wasc.A_34"
     - "wasc.W_13"
+    - "ferpa.D_35_a_2"
+    - "ferpa.D_35_b_1"
   metadata: {}
 "262":
   en:
@@ -7994,6 +8001,7 @@
     - "c2m2.4_1_b"
     - "wasc.W_17"
     - "wasc.W_01"
+    - "ferpa.D_31_c"
   metadata: {}
 "265":
   en:
@@ -11906,6 +11914,7 @@
     - "c2m2.1_1_i"
     - "c2m2.1_2_i"
     - "c2m2.4_1_e"
+    - "ferpa.D_35_b_2"
   metadata: {}
 "361":
   en:
