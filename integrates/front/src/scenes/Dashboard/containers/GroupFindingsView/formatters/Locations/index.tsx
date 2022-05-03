@@ -50,9 +50,11 @@ const Locations: React.FC<ILocationsProps> = ({
       vulnerabilityEdge.node
   );
 
-  const locations = vulnerabilities
-    .map((value: { where: string }): string => value.where)
-    .join(", ");
+  const locations = [
+    ...new Set(
+      vulnerabilities.map((value: { where: string }): string => value.where)
+    ),
+  ].join(", ");
 
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
@@ -74,6 +76,13 @@ const Locations: React.FC<ILocationsProps> = ({
       );
     }
   }, [locations, findingId, setFindingLocations]);
+
+  if (
+    _.isUndefined(pageInfo) ||
+    (!_.isUndefined(pageInfo) && pageInfo.hasNextPage)
+  ) {
+    return <div />;
+  }
 
   return limitFormatter(locations);
 };

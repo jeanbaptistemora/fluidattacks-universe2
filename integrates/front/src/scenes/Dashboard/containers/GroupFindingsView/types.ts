@@ -22,6 +22,7 @@ interface IFindingAttr {
   id: string;
   isExploitable: boolean;
   lastVulnerability: number;
+  locationsFindingId: string;
   openAge: number;
   openVulnerabilities: number;
   minTimeToRemediate: number | null;

@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
+import { locationsFormatter } from "./formatters/Locations";
 import {
   formatFindings,
   formatState,
@@ -28,7 +29,6 @@ import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { Table } from "components/Table";
-import { limitFormatter } from "components/Table/formatters";
 import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { useRowExpand } from "components/Table/hooks/useRowExpand";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
@@ -42,10 +42,7 @@ import {
   filterWhere,
 } from "components/Table/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import {
-  GET_FINDINGS,
-  GET_GROUP_VULNS,
-} from "scenes/Dashboard/containers/GroupFindingsView/queries";
+import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 import type {
   IFindingAttr,
@@ -104,12 +101,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       age: true,
       closingPercentage: false,
       lastVulnerability: true,
+      locationsFindingId: false,
       openVulnerabilities: true,
       remediated: false,
       severityScore: true,
       state: true,
       title: true,
-      where: false,
     },
     localStorage
   );
@@ -119,6 +116,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [isRunning, setIsRunning] = useState(false);
   const [selectedFindings, setSelectedFindings] = useState<IFindingAttr[]>([]);
 
+  const [findingLocations, setFindingLocations] = useState<
+    Record<string, string>
+  >({});
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [filterGroupFindingsTable, setFilterGroupFindingsTable] =
     useStoredState<IFilterSet>(
@@ -278,13 +278,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      dataField: "where",
-      formatter: limitFormatter,
+      dataField: "locationsFindingId",
+      formatter: locationsFormatter(setFindingLocations),
       header: "Locations",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
       tooltipDataField: t("group.findings.headersTooltips.where"),
-      visible: checkedItems.where,
+      visible: checkedItems.locationsFindingId,
       wrapped: true,
     },
     {
@@ -304,11 +304,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
 
-  const { data: vulnsData } = useQuery<IGroupFindingsAttr>(GET_GROUP_VULNS, {
-    fetchPolicy: "cache-first",
-    onError: handleQryErrors,
-    variables: { groupName },
-  });
   const filledGroupInfo =
     !_.isEmpty(data?.group.description) &&
     !_.isEmpty(data?.group.businessId) &&
@@ -317,7 +312,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const findings: IFindingAttr[] =
     data === undefined
       ? []
-      : formatFindings(_.merge({}, data.group, vulnsData?.group).findings);
+      : formatFindings(data.group.findings, findingLocations);
 
   const typesArray = findings.map((find: IFindingAttr): string[] => [
     find.title,

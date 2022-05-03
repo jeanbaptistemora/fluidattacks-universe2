@@ -6,6 +6,8 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GET_FINDING_LOCATIONS } from "./formatters/Locations/queries";
+
 import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import {
@@ -25,7 +27,7 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-describe("GroupFindingsView", (): void => {
+describe("groupFindingsView", (): void => {
   const apolloDataMock: readonly MockedResponse[] = [
     {
       request: {
@@ -182,6 +184,35 @@ describe("GroupFindingsView", (): void => {
       },
     },
   ];
+  const mocksLocations: MockedResponse[] = [
+    {
+      request: {
+        query: GET_FINDING_LOCATIONS,
+        variables: { findingId: "438679960" },
+      },
+      result: {
+        data: {
+          finding: {
+            vulnerabilitiesConnection: {
+              edges: [
+                {
+                  node: {
+                    __typename: "Vulnerability",
+                    id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
+                    where: "This is a test where",
+                  },
+                },
+              ],
+              pageInfo: {
+                endCursor: "test-cursor=",
+                hasNextPage: false,
+              },
+            },
+          },
+        },
+      },
+    },
+  ];
 
   const mockReportError: MockedResponse = {
     request: {
@@ -326,7 +357,10 @@ describe("GroupFindingsView", (): void => {
 
     render(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
-        <MockedProvider addTypename={true} mocks={mocksFindings}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[...mocksFindings, ...mocksLocations]}
+        >
           <Route
             component={GroupFindingsView}
             path={"/groups/:groupName/vulns"}
@@ -347,7 +381,10 @@ describe("GroupFindingsView", (): void => {
     userEvent.click(screen.getByText("group.findings.tableSet.btn.text"));
 
     userEvent.click(
-      screen.getByRole("checkbox", { checked: false, name: "where" })
+      screen.getByRole("checkbox", {
+        checked: false,
+        name: "locationsFindingId",
+      })
     );
     userEvent.click(
       screen.getByRole("checkbox", { checked: false, name: "remediated" })

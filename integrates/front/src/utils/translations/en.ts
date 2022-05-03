@@ -498,7 +498,8 @@ export const enTranslations: ResourceKey = {
         tags: "Filter by Tags",
         treatment: "Filter by Treatment",
         type: "Filter by type",
-        where: "Filter by text on vulnerability locations",
+        where:
+          "Filter by text on vulnerability locations (open locations column to load data)",
       },
       headersTooltips: {
         age: "Number of days elapsed since the vulnerability type was opened",

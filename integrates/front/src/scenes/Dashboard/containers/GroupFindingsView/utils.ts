@@ -79,19 +79,21 @@ const formatClosingPercentage = (finding: IFindingAttr): number => {
   return closedVulnerabilities / (openVulnerabilities + closedVulnerabilities);
 };
 
-const formatFindings = (findings: IFindingAttr[]): IFindingAttr[] =>
+const formatFindings = (
+  findings: IFindingAttr[],
+  findingLocations: Record<string, string>
+): IFindingAttr[] =>
   findings.map(
     (finding): IFindingAttr => ({
       ...finding,
       closingPercentage: formatClosingPercentage(finding),
+      locationsFindingId: finding.id,
       remediated: formatRemediated(finding.remediated, finding.verified),
       treatment: formatTreatmentSummary(
         finding.state,
         finding.treatmentSummary
       ),
-      where: (finding.vulnerabilities ?? [])
-        .map((value: { where: string }): string => value.where)
-        .join(", "),
+      where: _.get(findingLocations, finding.id, ""),
     })
   );
 

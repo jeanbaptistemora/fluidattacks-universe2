@@ -129,14 +129,13 @@ function filterDateRange<T extends Record<string, any>>(
 
 function filterWhere(rows: IFindingAttr[], searchText: string): IFindingAttr[] {
   return rows.filter((row): boolean => {
-    const currentRows = row.vulnerabilities;
+    row.where.includes(searchText);
+    const locations = row.where.split(",");
 
     return _.isEmpty(searchText)
       ? true
-      : (currentRows ?? []).some((innerRow): boolean =>
-          innerRow.where
-            .toLocaleLowerCase()
-            .includes(searchText.toLocaleLowerCase())
+      : locations.some((location): boolean =>
+          location.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())
         );
   });
 }
