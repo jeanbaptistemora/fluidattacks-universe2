@@ -2664,7 +2664,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_fsx_unencrypted_volumes",
         module="lib_path",
-        finding=FindingEnum.F247,
+        finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -2672,7 +2672,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_ebs_unencrypted_volumes",
         module="lib_path",
-        finding=FindingEnum.F247,
+        finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -2680,7 +2680,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_ec2_unencrypted_volumes",
         module="lib_path",
-        finding=FindingEnum.F247,
+        finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -2688,7 +2688,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="tfm_ebs_unencrypted_by_default",
         module="lib_path",
-        finding=FindingEnum.F247,
+        finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

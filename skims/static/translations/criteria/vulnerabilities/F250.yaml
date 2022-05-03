@@ -4,3 +4,12 @@ src.lib_path.f250.fsx_has_unencrypted_volumes:
 src.lib_path.f250.ec2_has_unencrypted_volumes:
   en: Properties Encrypted, KmsKeyId are missing or misconfigured
   es: Las propiedades Encrypted, KmsKeyId faltan o están mal configurados
+lib_path.f250.resource_not_encrypted:
+  en: Property encrypted is either missing or misconfigured
+  es: Falta la propiedad encrypted o está mal configurada
+lib_path.f250.tfm_ebs_unencrypted_by_default:
+  en: Property enabled is either missing or misconfigured
+  es: Falta la propiedad enabled o está mal configurada
+lib_path.f250.tfm_fsx_unencrypted_volumes:
+  en: Property kms_key_id is either missing or misconfigured
+  es: Falta la propiedad kms_key_id o está mal configurada
