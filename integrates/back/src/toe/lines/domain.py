@@ -117,7 +117,7 @@ async def update(
     if (
         is_moving_toe_lines is False
         and attributes.attacked_lines is not None
-        and not (1 <= attributes.attacked_lines <= loc)
+        and not (0 <= attributes.attacked_lines <= loc)
     ):
         raise InvalidToeLinesAttackedLines()
 

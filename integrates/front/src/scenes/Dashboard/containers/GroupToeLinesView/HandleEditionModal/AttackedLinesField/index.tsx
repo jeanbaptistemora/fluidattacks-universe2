@@ -49,7 +49,7 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
         type={"number"}
         validate={composeValidators([
           isOptionalInteger,
-          optionalNumberBetween(1, maxSelectedLoc),
+          optionalNumberBetween(0, maxSelectedLoc),
         ])}
       />
     </FormGroup>
