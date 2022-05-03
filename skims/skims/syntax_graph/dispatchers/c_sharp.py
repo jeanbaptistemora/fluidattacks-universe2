@@ -22,6 +22,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     lambda_expression as c_sharp_lambda_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
+    member_binding_expression as c_sharp_member_binding_expression,
     method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
     object_creation_expression as c_sharp_object_creation_expression,
@@ -251,6 +252,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "member_access_expression",
         },
         syntax_reader=c_sharp_member_access_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "member_binding_expression",
+        },
+        syntax_reader=c_sharp_member_binding_expression.reader,
     ),
     Dispatcher(
         applicable_types={
