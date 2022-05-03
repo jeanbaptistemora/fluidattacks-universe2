@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration adds a RANDOM_AVAILABLE_GROUP_SORT attribute
 and an uuid to the integrates table on the available group items

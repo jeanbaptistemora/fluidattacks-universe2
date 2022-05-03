@@ -14,12 +14,6 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        "names": [
-            {
-                "entity": "ORGANIZATION",
-                "name": "TESTORG",
-            },
-        ],
         "orgs": [],
         "groups": [],
     }

@@ -15,9 +15,6 @@ from datetime import (
     datetime,
 )
 import json
-from names.domain import (
-    get_name,
-)
 import pytest
 from typing import (
     Any,
@@ -204,7 +201,7 @@ async def test_add_group() -> None:
         success
         }
     }"""
-    query = query % {"name": await get_name("group")}
+    query = query % {"name": "testgroup"}
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result

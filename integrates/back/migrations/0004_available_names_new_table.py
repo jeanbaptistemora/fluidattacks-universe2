@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This will migrate all the data in fi_project_names table to integrates
 

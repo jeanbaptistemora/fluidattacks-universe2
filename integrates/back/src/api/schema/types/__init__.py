@@ -40,9 +40,6 @@ from .group import (
 from .group_file import (
     GROUP_FILE,
 )
-from .internal_name import (
-    INTERNAL_NAME,
-)
 from .me import (
     ME,
 )
@@ -130,7 +127,6 @@ TYPES: Tuple[ObjectType, ...] = (
     ENVIRONMENT_URL,
     GROUP,
     GROUP_FILE,
-    INTERNAL_NAME,
     IPROOT,
     ME,
     MUTATION,

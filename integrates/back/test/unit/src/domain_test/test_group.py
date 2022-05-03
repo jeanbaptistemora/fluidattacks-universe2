@@ -87,9 +87,6 @@ from groups.domain import (
     validate_group_services_config,
     validate_group_tags,
 )
-from names import (
-    domain as names_domain,
-)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -673,7 +670,6 @@ async def test_get_mean_remediate_severity_low_cvssf(
 
 @pytest.mark.changes_db
 async def test_create_group_not_user_admin() -> None:
-    await names_domain.create("newavailablename", "group")
     user_email = "integratesuser@gmail.com"
     user_role = "user_manager"
     await add_group(

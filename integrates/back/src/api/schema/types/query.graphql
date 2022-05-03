@@ -56,12 +56,6 @@ type Query {
   "List groups with forces"
   groupsWithForces: [String]
 
-  "Gets an InternalName depending on the entity"
-  internalNames(
-    "Query internal names from this entity"
-    entity: NameEntity!
-  ): InternalName
-
   "List groups a user is subscribed to"
   listUserGroups(
     "Email address of the user to query"

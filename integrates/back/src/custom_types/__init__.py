@@ -27,7 +27,6 @@ DynamoQuery = Dict[str, Union[ConditionBase, str]]
 Evidence = Dict[str, Dict[str, str]]
 ExploitResult = Dict[str, str]
 Historic = List[Dict[str, str]]
-InternalName = Dict[str, str]
 Invitation = Dict[str, Union[str, bool]]
 
 Action = NamedTuple(

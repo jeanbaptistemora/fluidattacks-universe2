@@ -268,14 +268,6 @@ enum Language {
   ES
 }
 
-"Name entity for Internal Names queries/generation"
-enum NameEntity {
-  "Group"
-  GROUP
-  "Organization"
-  ORGANIZATION
-}
-
 "Approval status of an organization finding policy"
 enum OrganizationFindingPolicy {
   "Policy was approved and enacted"

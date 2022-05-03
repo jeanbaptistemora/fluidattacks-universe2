@@ -63,9 +63,6 @@ from groups import (
     dal as dal_groups,
 )
 import json
-from names import (
-    dal as dal_names,
-)
 from newutils.datetime import (
     get_from_str,
 )
@@ -124,20 +121,6 @@ async def populate_users(data: List[Any]) -> bool:
         ]
     )
     return True
-
-
-async def populate_names(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.extend(
-        [
-            dal_names.create(
-                name["name"],
-                name["entity"],
-            )
-            for name in data
-        ]
-    )
-    return all(await collect(coroutines))
 
 
 async def populate_orgs(data: List[Any]) -> bool:

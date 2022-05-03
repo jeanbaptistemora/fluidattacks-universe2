@@ -161,7 +161,6 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType("Language", {"EN": "EN", "ES": "ES"}),
-    EnumType("NameEntity", {"GROUP": "GROUP", "ORGANIZATION": "ORGANIZATION"}),
     EnumType(
         "OrganizationFindingPolicy",
         {"APPROVED": "APPROVED", "REJECTED": "REJECTED"},

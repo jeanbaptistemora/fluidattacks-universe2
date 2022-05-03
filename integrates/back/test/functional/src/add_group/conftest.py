@@ -13,12 +13,6 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "names": [
-            {
-                "entity": "GROUP",
-                "name": "GROUP1",
-            },
-        ],
         "orgs": [
             {
                 "name": "orgtest",

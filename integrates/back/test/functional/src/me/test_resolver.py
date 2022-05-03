@@ -17,7 +17,7 @@ from typing import (
         (
             "admin@gmail.com",
             "admin",
-            19,
+            18,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",
@@ -28,7 +28,7 @@ from typing import (
         (
             "user@gmail.com",
             "user",
-            5,
+            4,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",
@@ -50,7 +50,7 @@ from typing import (
         (
             "vulnerability_manager@gmail.com",
             "user",
-            5,
+            4,
             {
                 "callingCountryCode": "51",
                 "countryCode": "PE",
@@ -72,7 +72,7 @@ from typing import (
         (
             "hacker@gmail.com",
             "hacker",
-            4,
+            3,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",

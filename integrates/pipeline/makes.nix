@@ -46,7 +46,6 @@
     ["group"]
     ["groups_with_forces"]
     ["handle_vulnerabilities_acceptance"]
-    ["internal_names"]
     ["invalidate_access_token"]
     ["me"]
     ["organization"]

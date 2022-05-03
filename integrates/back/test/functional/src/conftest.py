@@ -51,7 +51,6 @@ TEST_GROUPS: Set[str] = {
     "grant_stakeholder_access",
     "grant_stakeholder_organization_access",
     "groups_with_forces",
-    "internal_names",
     "invalidate_access_token",
     "me",
     "old",
