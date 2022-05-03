@@ -19,11 +19,6 @@ from typing_extensions import (
     TypedDict,
 )
 
-DynamoQuery = Dict[str, Union[ConditionBase, str]]
-Evidence = Dict[str, Dict[str, str]]
-ExploitResult = Dict[str, str]
-Historic = List[Dict[str, str]]
-
 Action = NamedTuple(
     "Action",
     [

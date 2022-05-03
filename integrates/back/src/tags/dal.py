@@ -9,7 +9,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-    DynamoQuery as DynamoQueryType,
 )
 from decimal import (
     Decimal,
@@ -52,7 +51,7 @@ async def get_attributes(
     organization_name: str, tag: str, attributes: Optional[list[str]] = None
 ) -> dict[str, Union[list[str], str]]:
     response = {}
-    item_attrs: DynamoQueryType = {
+    item_attrs: dict[str, Any] = {
         "KeyConditionExpression": (
             Key("organization").eq(organization_name.lower())
             & Key("tag").eq(tag.lower())

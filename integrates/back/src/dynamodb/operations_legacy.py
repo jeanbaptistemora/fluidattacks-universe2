@@ -10,7 +10,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-    DynamoQuery as DynamoQueryType,
 )
 from decimal import (
     Decimal,
@@ -55,7 +54,7 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
     return success
 
 
-async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
+async def query(table: str, query_attrs: dict[str, Any]) -> List[Any]:
     response_items: List[Any]
     try:
         dynamodb_resource = await get_resource()
@@ -76,7 +75,7 @@ async def query(table: str, query_attrs: DynamoQueryType) -> List[Any]:
     return response_items
 
 
-async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
+async def get_item(table: str, query_attrs: dict[str, Any]) -> Dict[str, Any]:
     response_items: Dict[str, Any]
     try:
         dynamodb_resource = await get_resource()
@@ -88,7 +87,7 @@ async def get_item(table: str, query_attrs: DynamoQueryType) -> Dict[str, Any]:
     return response_items
 
 
-async def scan(table: str, scan_attrs: DynamoQueryType) -> List[Any]:
+async def scan(table: str, scan_attrs: dict[str, Any]) -> List[Any]:
     response_items: List[Any]
     dynamodb_resource = await get_resource()
     dynamo_table = await dynamodb_resource.Table(table)

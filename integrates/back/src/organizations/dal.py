@@ -15,7 +15,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-    DynamoQuery as DynamoQueryType,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
@@ -240,7 +239,7 @@ async def get_id_for_group(group_name: str) -> str:
     Return the ID of the organization a group belongs to.
     """
     organization_id: str = ""
-    query_attrs: DynamoQueryType = {
+    query_attrs: dict[str, Any] = {
         "KeyConditionExpression": (
             Key("sk").eq(f"GROUP#{group_name.lower().strip()}")
         ),
@@ -313,7 +312,7 @@ async def get_users(organization_id: str) -> List[str]:
 
 async def has_group(organization_id: str, group_name: str) -> bool:
     group_in_org: bool = False
-    query_attrs: DynamoQueryType = {
+    query_attrs: dict[str, Any] = {
         "KeyConditionExpression": (
             Key("pk").eq(organization_id)
             & Key("sk").eq(f"GROUP#{group_name.lower().strip()}")
@@ -328,7 +327,7 @@ async def has_group(organization_id: str, group_name: str) -> bool:
 
 async def has_user_access(organization_id: str, email: str) -> bool:
     has_access: bool = False
-    query_attrs: DynamoQueryType = {
+    query_attrs: dict[str, Any] = {
         "KeyConditionExpression": (
             Key("pk").eq(organization_id)
             & Key("sk").eq(f"USER#{email.lower().strip()}")

@@ -5,9 +5,6 @@ from aiodataloader import (
 from collections import (
     defaultdict,
 )
-from custom_types import (
-    Historic,
-)
 from events import (
     domain as events_domain,
 )
@@ -30,7 +27,7 @@ async def _batch_load_fn(event_ids: List[str]) -> List[Dict[str, Any]]:
 
     evnts = await events_domain.get_events(event_ids)
     for event in evnts:
-        history: Historic = cast(Historic, event.get("historic_state", []))
+        history = cast(List[Dict[str, str]], event.get("historic_state", []))
         event_id: str = cast(str, event["event_id"])
         client_group = str(
             event.get("client_group", event.get("client_project", ""))
