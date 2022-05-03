@@ -5,16 +5,10 @@ from .common import (
 from context import (
     BASE_URL,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
-from typing import (
-    cast,
-)
 
 
 async def send_mail_analytics(*email_to: str, **context: str) -> None:
-    mail_content = cast(MailContentType, context)
+    mail_content = context
     mail_content["live_report_url"] = (
         f'{BASE_URL}/{mail_content["report_entity_percent"]}s/'
         f'{mail_content["report_subject_percent"]}/analytics'

@@ -5,9 +5,6 @@ from .common import (
 from context import (
     BASE_URL,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from db_model.enums import (
     Notification,
 )
@@ -46,7 +43,7 @@ async def send_mail_updated_treatment(
         if Notification.UPDATED_TREATMENT
         in user.notifications_preferences.email
     ]
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "group": group_name,
         "responsible": modified_by,
         "treatment": treatment,
@@ -81,7 +78,7 @@ async def send_mail_assigned_vulnerability(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
 
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "finding_title": finding_title,
         "group": group_name,
         "finding_url": (

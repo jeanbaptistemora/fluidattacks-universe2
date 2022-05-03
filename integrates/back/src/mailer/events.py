@@ -6,9 +6,6 @@ from .common import (
 from context import (
     BASE_URL,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from datetime import (
     date,
 )
@@ -49,7 +46,7 @@ async def send_mail_comment(
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
 
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "comment": str(comment_data["content"]).splitlines(),
         "comment_type": "event",
         "comment_url": (
@@ -109,7 +106,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "TOE_DIFFERS_APPROVED": "ToE different than agreed upon",
     }
 
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "group": group_name.capitalize(),
         "event_type": event_type_format[event_type],
         "description": description.strip("."),

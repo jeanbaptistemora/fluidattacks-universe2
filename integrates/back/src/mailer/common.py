@@ -14,9 +14,6 @@ from context import (
 from custom_exceptions import (
     UnableToSendMail,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from http.client import (
     RemoteDisconnected,
 )
@@ -64,7 +61,7 @@ TEMPLATES = Environment(
 VERIFY_TAG: List[str] = ["verify"]
 
 
-def get_content(template_name: str, context: MailContentType) -> str:
+def get_content(template_name: str, context: dict[str, Any]) -> str:
     template = TEMPLATES.get_template(f"{template_name}.html")
     return template.render(context)
 
@@ -101,7 +98,7 @@ async def log(msg: str, **kwargs: Any) -> None:
 async def send_mail_async(
     *,
     email_to: str,
-    context: MailContentType,
+    context: dict[str, Any],
     tags: List[str],
     subject: str,
     template_name: str,
@@ -156,7 +153,7 @@ async def send_mail_async(
 
 async def send_mails_async(  # pylint: disable=too-many-arguments
     email_to: List[str],
-    context: MailContentType,
+    context: dict[str, Any],
     tags: List[str],
     subject: str,
     template_name: str,
@@ -180,7 +177,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_confirm_deletion(
-    email_to: List[str], context: MailContentType
+    email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         email_to=email_to,

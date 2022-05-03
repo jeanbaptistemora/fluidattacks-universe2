@@ -8,9 +8,6 @@ from context import (
 from custom_exceptions import (
     InvalidAuthorization,
 )
-from custom_types import (
-    MailContent,
-)
 from group_access.dal import (
     get_access_by_url_token,
     get_user_access,
@@ -184,7 +181,7 @@ async def confirm_deletion_mail(
         )
         confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
         mail_to = [email]
-        email_context: MailContent = {
+        email_context: dict[str, Any] = {
             "email": email,
             "confirm_deletion_url": confirm_access_url,
             "empty_notification_notice": True,

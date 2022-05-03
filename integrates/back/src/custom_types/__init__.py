@@ -29,10 +29,6 @@ ExploitResult = Dict[str, str]
 Historic = List[Dict[str, str]]
 InternalName = Dict[str, str]
 Invitation = Dict[str, Union[str, bool]]
-MailContent = Dict[str, Any]
-Group = Dict[
-    str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]
-]
 
 Action = NamedTuple(
     "Action",
@@ -190,7 +186,7 @@ SimpleGroupPayload = NamedTuple(
     "SimpleGroupPayload",
     [
         ("success", bool),
-        ("group", Group),
+        ("group", dict[str, Any]),
     ],
 )
 SimplePayload = NamedTuple(

@@ -39,7 +39,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Invitation as InvitationType,
-    MailContent as MailContentType,
 )
 from datetime import (
     date,
@@ -163,10 +162,10 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _process_digest_reattacks_requested(
-    reattacks_requested: int, groups_stats: tuple[MailContentType, ...]
-) -> MailContentType:
+    reattacks_requested: int, groups_stats: tuple[dict[str, Any], ...]
+) -> dict[str, Any]:
     """Process digest reattacks requested sub-section"""
-    requested: MailContentType = {
+    requested: dict[str, Any] = {
         "groups_requested": [],
     }
     if not reattacks_requested:
@@ -221,10 +220,10 @@ def _process_digest_reattacks_executed(
     reattacks_executed: int,
     reattacks_executed_total: int,
     effective_reattacks_total: int,
-    groups_stats: tuple[MailContentType, ...],
-) -> MailContentType:
+    groups_stats: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
     """Process digest reattacks executed sub-section"""
-    executed: MailContentType = {
+    executed: dict[str, Any] = {
         "groups_executed": [],
     }
     if not reattacks_executed:
@@ -278,10 +277,10 @@ def _process_digest_reattacks_executed(
 
 
 def _process_digest_reattacks_pending(
-    groups_stats: tuple[MailContentType, ...],
-) -> MailContentType:
+    groups_stats: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
     """Process digest pending reattacks sub-section"""
-    pending: MailContentType = {
+    pending: dict[str, Any] = {
         "groups_pending": [],
     }
     # Get groups with most pending reattacks
@@ -301,8 +300,8 @@ def _process_digest_reattacks_pending(
 
 
 def _process_digest_reattacks(
-    groups_stats: tuple[MailContentType, ...],
-) -> MailContentType:
+    groups_stats: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
     """Process digest reattacks section."""
     reattacks_count: Counter = Counter()
     for stat in groups_stats:
@@ -335,8 +334,8 @@ def _process_digest_reattacks(
 
 
 def _process_digest_treatments(
-    groups_stats: tuple[MailContentType, ...],
-) -> MailContentType:
+    groups_stats: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
     """Process digest treatments section."""
     treatments_count: Counter = Counter()
     for stat in groups_stats:
@@ -344,7 +343,7 @@ def _process_digest_treatments(
     treatments = dict(treatments_count)
 
     # Get groups with most temporary applied
-    temporary: MailContentType = {
+    temporary: dict[str, Any] = {
         "groups_temporary": [],
     }
     groups_temporary = [
@@ -361,7 +360,7 @@ def _process_digest_treatments(
     treatments.update(temporary)
 
     # Get groups with most permanent requested
-    permanent_requested: MailContentType = {
+    permanent_requested: dict[str, Any] = {
         "groups_permanent_requested": [],
     }
     groups_permanent_requested = [
@@ -380,7 +379,7 @@ def _process_digest_treatments(
     treatments.update(permanent_requested)
 
     # Get groups with most permanent approved
-    permanent_approved: MailContentType = {
+    permanent_approved: dict[str, Any] = {
         "groups_permanent_approved": [],
     }
     groups_permanent_approved = [
@@ -399,7 +398,7 @@ def _process_digest_treatments(
     treatments.update(permanent_approved)
 
     # Get groups with most undefined
-    undefined: MailContentType = {
+    undefined: dict[str, Any] = {
         "groups_undefined": [],
     }
     groups_undefined = [
@@ -1209,7 +1208,7 @@ async def invite_to_group(
         confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
         reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
         mail_to = [email]
-        email_context: MailContentType = {
+        email_context: dict[str, Any] = {
             "admin": email,
             "group": group_name,
             "responsible": modified_by,
@@ -1640,8 +1639,8 @@ async def get_remediation_rate(
 
 async def get_group_digest_stats(
     loaders: Any, group_name: str
-) -> MailContentType:
-    content: MailContentType = {
+) -> dict[str, Any]:
+    content: dict[str, Any] = {
         "group": group_name,
         "main": {
             "group_age": 0,
@@ -1745,11 +1744,11 @@ async def get_group_digest_stats(
 
 
 def process_user_digest_stats(
-    group_stats_all: tuple[MailContentType, ...],
-) -> MailContentType:
+    group_stats_all: tuple[dict[str, Any], ...],
+) -> dict[str, Any]:
     """Consolidate several groups stats with precalculated data."""
     # Filter out those groups with no vulns
-    groups_stats: tuple[MailContentType, ...] = tuple(
+    groups_stats: tuple[dict[str, Any], ...] = tuple(
         group for group in group_stats_all if group["vulns_len"] > 0
     )
 
@@ -1758,7 +1757,7 @@ def process_user_digest_stats(
             "groups_len": 0,
         }
 
-    total: MailContentType = {
+    total: dict[str, Any] = {
         "groups_len": len(groups_stats),
         "group_age": {
             "oldest_age": 0,

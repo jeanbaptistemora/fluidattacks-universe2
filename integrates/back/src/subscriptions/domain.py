@@ -20,9 +20,6 @@ from custom_exceptions import (
     UnableToProcessSubscription,
     UnableToSendMail,
 )
-from custom_types import (
-    MailContent,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -276,7 +273,7 @@ async def _send_analytics_report(
 async def _send_digest_report(
     *,
     user_email: str,
-    digest_stats: Optional[tuple[MailContent, ...]] = None,
+    digest_stats: Optional[tuple[dict[str, Any], ...]] = None,
     loaders: Optional[Dataloaders] = None,
 ) -> None:
     group_names: list[str] = await groups_domain.get_groups_by_user(
@@ -343,7 +340,7 @@ async def _send_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-    digest_stats: Optional[tuple[MailContent, ...]] = None,
+    digest_stats: Optional[tuple[dict[str, Any], ...]] = None,
     loaders: Optional[Dataloaders] = None,
 ) -> None:
     if report_entity.lower() == "digest":
@@ -439,7 +436,7 @@ async def unsubscribe_user_to_entity_report(
 async def _get_digest_stats(
     loaders: Dataloaders,
     subscriptions: list[dict[str, Any]],
-) -> tuple[MailContent, ...]:
+) -> tuple[dict[str, Any], ...]:
     """Process the digest stats for each group with a subscriber."""
     digest_suscribers: list[str] = [
         subscription["pk"]["email"]
@@ -504,7 +501,7 @@ async def _validate_subscription(
 async def _process_subscription(
     *,
     subscription: dict[str, Any],
-    digest_stats: Optional[tuple[MailContent, ...]] = None,
+    digest_stats: Optional[tuple[dict[str, Any], ...]] = None,
 ) -> None:
     if not await _validate_subscription(subscription):
         LOGGER.warning(

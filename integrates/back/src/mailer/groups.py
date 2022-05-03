@@ -7,9 +7,6 @@ from .common import (
 from context import (
     BASE_URL,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from datetime import (
     date,
 )
@@ -38,7 +35,7 @@ from typing import (
 
 
 async def send_mail_access_granted(
-    email_to: List[str], context: MailContentType
+    email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         email_to,
@@ -51,7 +48,7 @@ async def send_mail_access_granted(
 
 
 async def send_mail_daily_digest(
-    loaders: Any, email_to: List[str], context: MailContentType
+    loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
     report_date = datetime_utils.get_as_str(
         datetime_utils.get_now(), "%Y/%m/%d"
@@ -75,7 +72,7 @@ async def send_mail_daily_digest(
 
 
 async def send_mail_group_report(
-    email_to: List[str], context: MailContentType
+    email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         email_to,
@@ -99,7 +96,7 @@ async def send_mail_comment(
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
 
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "comment": str(comment_data["content"]).splitlines(),
         "comment_type": "group",
         "comment_url": (
@@ -282,7 +279,7 @@ async def send_mail_updated_policies(
 
 async def send_mail_reminder(
     *,
-    context: MailContentType,
+    context: dict[str, Any],
     email_to: List[str],
 ) -> None:
     await send_mails_async(

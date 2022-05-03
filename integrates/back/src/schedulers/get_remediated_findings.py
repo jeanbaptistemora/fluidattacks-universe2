@@ -8,9 +8,6 @@ from context import (
     BASE_URL,
     FI_MAIL_PROJECTS,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -37,6 +34,9 @@ from organizations import (
 )
 from settings import (
     LOGGING,
+)
+from typing import (
+    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -74,7 +74,7 @@ async def get_remediated_findings() -> None:
                 }
                 for finding in findings
             ]
-            mail_context: MailContentType = {
+            mail_context: dict[str, Any] = {
                 "findings": mail_context_findings,
                 "total": len(findings),
             }

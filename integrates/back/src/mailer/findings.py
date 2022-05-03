@@ -8,9 +8,6 @@ from context import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from db_model.enums import (
     Notification,
     StateRemovalJustification,
@@ -54,7 +51,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
     type_ = str(comment_data["comment_type"])
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "comment": str(comment_data["content"]).splitlines(),
         "comment_type": type_,
         "comment_url": (
@@ -105,7 +102,7 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         StateRemovalJustification.REPORTING_ERROR: "It is a reporting error",
     }
     recipients = FI_MAIL_REVIEWERS.split(",")
-    mail_context: MailContentType = {
+    mail_context: dict[str, Any] = {
         "hacker_email": discoverer_email,
         "finding_name": finding_name,
         "finding_id": finding_id,
@@ -137,7 +134,7 @@ async def send_mail_new_draft(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "hacker_email": hacker_email,
         "finding_id": finding_id,
         "finding_name": finding_title,
@@ -164,7 +161,7 @@ async def send_mail_new_draft(
 
 
 async def send_mail_new_remediated(
-    email_to: List[str], context: MailContentType
+    email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         email_to,
@@ -186,7 +183,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     recipients.append(discoverer_email)
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "admin_mail": reviewer_email,
         "analyst_mail": discoverer_email,
         "draft_url": (
@@ -224,7 +221,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         if Notification.REMEDIATE_FINDING
         in user.notifications_preferences.email
     ]
-    mail_context: MailContentType = {
+    mail_context: dict[str, Any] = {
         "group": group_name.lower(),
         "organization": org_name,
         "finding_name": finding_name,
@@ -269,7 +266,7 @@ async def send_mail_vulnerability_report(
         in user.notifications_preferences.email
     ]
 
-    email_context: MailContentType = {
+    email_context: dict[str, Any] = {
         "finding": finding_title,
         "group": group_name.capitalize(),
         "finding_url": (

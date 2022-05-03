@@ -4,9 +4,6 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from custom_types import (
-    Group as GroupType,
-)
 from db_model.groups.types import (
     Group,
     GroupState,
@@ -30,6 +27,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
+    Any,
     cast,
     Optional,
     Union,
@@ -38,9 +36,9 @@ from typing import (
 
 async def _batch_load_fn(
     group_names: list[str], parent_org_id: Optional[list[str]]
-) -> list[GroupType]:
-    groups: dict[str, GroupType] = {}
-    groups_by_names: list[GroupType] = await groups_dal.get_many_groups(
+) -> list[dict[str, Any]]:
+    groups: dict[str, dict[str, Any]] = {}
+    groups_by_names: list[dict[str, Any]] = await groups_dal.get_many_groups(
         group_names
     )
     organization_ids = (
@@ -173,7 +171,7 @@ class GroupLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: Union[list[str], list[tuple[str, str]]]
-    ) -> list[GroupType]:
+    ) -> list[dict[str, Any]]:
 
         groups_names = (
             list(map(str, group_names))

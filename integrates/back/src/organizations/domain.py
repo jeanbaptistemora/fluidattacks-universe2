@@ -22,9 +22,6 @@ from custom_exceptions import (
     OrganizationNotFound,
     UserNotInOrganization,
 )
-from custom_types import (
-    MailContent as MailContentType,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -437,7 +434,7 @@ async def invite_to_organization(
             f"{BASE_URL}/reject_access_organization/{url_token}"
         )
         mail_to = [email]
-        email_context: MailContentType = {
+        email_context: dict[str, Any] = {
             "admin": email,
             "group": organization_name,
             "responsible": modified_by,

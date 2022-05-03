@@ -14,9 +14,6 @@ from custom_exceptions import (
     ErrorUpdatingGroup,
     UnavailabilityError,
 )
-from custom_types import (
-    Group as GroupType,
-)
 from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
@@ -45,6 +42,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Any,
     Optional,
     Union,
 )
@@ -56,7 +54,7 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_projects"
 
 
-async def add(group: GroupType) -> bool:
+async def add(group: dict[str, Any]) -> bool:
     """Add group to dynamo."""
     resp = False
     try:
@@ -87,14 +85,16 @@ async def get_active_groups() -> list[str]:
 
 async def _get_all(
     filtering_exp: object = "", data_attr: str = ""
-) -> list[GroupType]:
+) -> list[dict[str, Any]]:
     """Get all groups."""
     scan_attrs = {}
     if filtering_exp:
         scan_attrs["FilterExpression"] = filtering_exp
     if data_attr:
         scan_attrs["ProjectionExpression"] = data_attr
-    items: list[GroupType] = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
+    items: list[dict[str, Any]] = await dynamodb_ops.scan(
+        TABLE_NAME, scan_attrs
+    )
     return items
 
 
@@ -127,7 +127,7 @@ async def _get_group(
     group_name: str,
     table: aioboto3.session.Session.client,
     raise_exception_on_empty_item: bool = True,
-) -> GroupType:
+) -> dict[str, Any]:
     response = await table.get_item(Key={"project_name": group_name})
     group_item = response.get("Item", {})
     if not group_item and raise_exception_on_empty_item:
@@ -135,10 +135,10 @@ async def _get_group(
     return group_item
 
 
-async def get_many_groups(group_names: list[str]) -> list[GroupType]:
+async def get_many_groups(group_names: list[str]) -> list[dict[str, Any]]:
     resource = await get_resource()
     table = await resource.Table(TABLE_NAME)
-    groups: list[GroupType] = list(
+    groups: list[dict[str, Any]] = list(
         await collect(
             tuple(_get_group(group_name, table) for group_name in group_names)
         )
@@ -146,10 +146,12 @@ async def get_many_groups(group_names: list[str]) -> list[GroupType]:
     return groups
 
 
-async def get_groups_indicators(group_names: list[str]) -> list[GroupType]:
+async def get_groups_indicators(
+    group_names: list[str],
+) -> list[dict[str, Any]]:
     resource = await get_resource()
     table = await resource.Table(TABLE_NAME)
-    groups: list[GroupType] = list(
+    groups: list[dict[str, Any]] = list(
         await collect(
             tuple(
                 _get_group(
@@ -164,7 +166,7 @@ async def get_groups_indicators(group_names: list[str]) -> list[GroupType]:
     return groups
 
 
-async def _update(group_name: str, data: GroupType) -> bool:
+async def _update(group_name: str, data: dict[str, Any]) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""
