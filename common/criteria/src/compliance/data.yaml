@@ -5709,3 +5709,24 @@
       title: Server misconfiguration
       link: http://projects.webappsec.org/w/page/13246959/Server%20Misconfiguration
   metadata: {}
+"ferpa":
+  title: FERPA
+  en:
+    description: >
+      .
+  es:
+    description: __empty__
+  definitions:
+    "D_31_c":
+      title: Conditions of prior consent required to disclose information
+      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+    "D_35_a_2":
+      title: Conditions of prior consent required to disclose information
+      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+    "D_35_b_1":
+      title: Conditions of prior consent required to disclose information
+      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+    "D_35_b_2":
+      title: Conditions of prior consent required to disclose information
+      link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
+  metadata: {}
