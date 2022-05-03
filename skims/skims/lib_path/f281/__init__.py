@@ -4,16 +4,12 @@ from lib_path.common import (
 )
 from lib_path.f281.cloudformation import (
     cfn_bucket_policy_has_secure_transport,
-    cfn_elb2_uses_insecure_port,
 )
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates_blocking,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
 )
 from typing import (
     Any,
@@ -22,23 +18,12 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_bucket_policy_has_secure_transport(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_bucket_policy_has_secure_transport(
         content=content, path=path, template=template
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD_BLOCKING
-def run_cfn_elb2_uses_insecure_port(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_elb2_uses_insecure_port(
-        content=content, file_ext=file_ext, path=path, template=template
     )
 
 
@@ -59,9 +44,6 @@ def analyze(
                 *results,
                 run_cfn_bucket_policy_has_secure_transport(
                     content, path, template
-                ),
-                run_cfn_elb2_uses_insecure_port(
-                    content, file_extension, path, template
                 ),
             )
 

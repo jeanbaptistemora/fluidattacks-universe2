@@ -2836,14 +2836,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CFN_ELB2_USES_INSEC_PORT = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_elb2_uses_insecure_port",
-        module="lib_path",
-        finding=FindingEnum.F281,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TFM_AZURE_APP_AUTH_OFF = MethodInfo(
         file_name="terraform",
         name="tfm_azure_app_authentication_off",
