@@ -465,6 +465,7 @@ const Development = [
       'development/stack/okta',
       'development/stack/sops',
       'development/stack/terraform',
+      'development/stack/ubiquiti',
     ]
   },
   'development/front-technologies',
