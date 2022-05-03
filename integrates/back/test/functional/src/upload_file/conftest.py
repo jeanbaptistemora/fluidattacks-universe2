@@ -101,10 +101,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
@@ -170,11 +174,19 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     unreliable_closed_vulnerabilities=1,
                     unreliable_is_verified=True,
                     unreliable_open_vulnerabilities=2,
-                    unreliable_newest_vulnerability_report_date="2018-04-08T00:43:11+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2018-04-08T00:43:11+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-08T00:43:11+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2018-04-08T00:43:11+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2018-04-08T00:43:11+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-08T00:43:11+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
-                    unreliable_where="192.168.1.44, 192.168.1.45, 192.168.1.46",
+                    unreliable_where=(
+                        "192.168.1.44, 192.168.1.45, 192.168.1.46"
+                    ),
                 ),
             },
         ],
@@ -220,6 +232,24 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 be_present=True,
                 be_present_until=None,
                 component="https://example.com",
+                entry_point="phone",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-01-02T05:00:00+00:00"
+                ),
+                group_name="group1",
+                has_vulnerabilities=False,
+                seen_at=None,
+                seen_first_time_by="",
+                unreliable_root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+            ),
+            ToeInput(
+                attacked_at=datetime.fromisoformat(
+                    "2020-01-02T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=True,
+                be_present_until=None,
+                component="https://test_new_closed.com",
                 entry_point="phone",
                 first_attack_at=datetime.fromisoformat(
                     "2020-01-02T05:00:00+00:00"
@@ -298,8 +328,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_last_reattack_requester="requester@gmail.com",
-                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+                        unreliable_last_reattack_requester=(
+                            "requester@gmail.com"
+                        ),
+                        unreliable_last_requested_reattack_date=(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         unreliable_report_date="2018-04-08T00:43:11+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
@@ -329,8 +363,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_last_reattack_requester="requester@gmail.com",
-                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+                        unreliable_last_reattack_requester=(
+                            "requester@gmail.com"
+                        ),
+                        unreliable_last_requested_reattack_date=(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         unreliable_report_date="2018-04-08T00:44:11+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
@@ -361,9 +399,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
                         unreliable_efficacy=Decimal("0"),
-                        unreliable_last_reattack_date="2018-04-08T01:45:12+00:00",
-                        unreliable_last_reattack_requester="requester@gmail.com",
-                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+                        unreliable_last_reattack_date=(
+                            "2018-04-08T01:45:12+00:00"
+                        ),
+                        unreliable_last_reattack_requester=(
+                            "requester@gmail.com"
+                        ),
+                        unreliable_last_requested_reattack_date=(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         unreliable_report_date="2018-04-08T00:45:11+00:00",
                         unreliable_source=Source.ASM,
                         unreliable_treatment_changes=0,
@@ -417,8 +461,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     type=VulnerabilityType.PORTS,
                     unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_last_reattack_requester="requester@gmail.com",
-                        unreliable_last_requested_reattack_date="2018-04-08T01:45:11+00:00",
+                        unreliable_last_reattack_requester=(
+                            "requester@gmail.com"
+                        ),
+                        unreliable_last_requested_reattack_date=(
+                            "2018-04-08T01:45:11+00:00"
+                        ),
                         unreliable_report_date="2018-04-08T00:44:11+00:00",
                         unreliable_source=Source.MACHINE,
                         unreliable_treatment_changes=0,
