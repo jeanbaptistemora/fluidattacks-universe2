@@ -37,12 +37,12 @@ from decimal import (
 from findings.domain.core import (
     get_finding_open_age,
 )
-from groups.domain import (
-    get_active_groups,
-)
 from newutils.datetime import (
     get_date_from_iso_str,
     get_now_minus_delta,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from statistics import (
     mean,
@@ -354,9 +354,14 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     ]
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
     portfolios: List[Tuple[str, Tuple[str, ...]]] = []
-    groups: List[str] = list(sorted(await get_active_groups(), reverse=True))
+    group_names: List[str] = list(
+        sorted(
+            await orgs_domain.get_all_active_group_names(loaders),
+            reverse=True,
+        )
+    )
     oldest_open_age: Decimal = await get_oldest_open_age(
-        groups=groups, loaders=loaders
+        groups=group_names, loaders=loaders
     )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
@@ -369,22 +374,28 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     all_groups_data: Tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_group(
-                group,
+                group_name,
                 loaders,
                 None,
             )
-            for group in groups
+            for group_name in group_names
         ],
         workers=24,
     )
 
     all_groups_data_30: Tuple[Benchmarking, ...] = await collect(
-        [get_data_one_group(group, loaders, dates[0]) for group in groups],
+        [
+            get_data_one_group(group_name, loaders, dates[0])
+            for group_name in group_names
+        ],
         workers=24,
     )
 
     all_groups_data_90: Tuple[Benchmarking, ...] = await collect(
-        [get_data_one_group(group, loaders, dates[1]) for group in groups],
+        [
+            get_data_one_group(group_name, loaders, dates[1])
+            for group_name in group_names
+        ],
         workers=24,
     )
 
@@ -684,14 +695,16 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
             )
 
         async for org_id, org_name, _ in iterate_organizations_and_groups():
-            for portfolio, groups in await get_portfolios_groups(org_name):
+            for portfolio, group_names in await get_portfolios_groups(
+                org_name
+            ):
                 json_dump(
                     document=format_mttr_data(
                         data=(
                             (
                                 await get_data_many_groups_mttr(
                                     organization_id=portfolio,
-                                    groups=tuple(groups),
+                                    groups=tuple(group_names),
                                     loaders=loaders,
                                     get_data_one_group=get_data_one_group,
                                     min_date=min_date,

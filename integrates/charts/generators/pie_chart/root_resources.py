@@ -8,13 +8,11 @@ from charts.colors import (
     OTHER,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.roots.types import (
     GitRootItem,
-)
-from groups import (
-    domain as groups_domain,
 )
 from organizations import (
     domain as orgs_domain,
@@ -24,7 +22,6 @@ from typing import (
     Dict,
     List,
     NamedTuple,
-    Set,
 )
 
 Resources = NamedTuple(
@@ -72,12 +69,12 @@ def format_resources(roots: List[GitRootItem]) -> Resources:
 
 
 async def generate_all() -> None:  # pylint: disable=too-many-locals
-    active_groups: Set[str] = set(
-        sorted(await groups_domain.get_active_groups())
+    loaders: Dataloaders = get_new_context()
+    active_group_names: set[str] = set(
+        sorted(await orgs_domain.get_all_active_group_names(loaders))
     )
-    context = get_new_context()
     async for group in utils.iterate_groups():
-        group_roots = await context.group_roots.load(group)
+        group_roots = await loaders.group_roots.load(group)
         utils.json_dump(
             document=format_data(
                 data=format_resources(
@@ -103,7 +100,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 if isinstance(root, GitRootItem)
                 and root.state.status == "ACTIVE"
             ]
-            for group_roots in await context.group_roots.load_many(org_groups)
+            for group_roots in await loaders.group_roots.load_many(org_groups)
         ]
         org_roots = [
             root for group_roots in grouped_roots for root in group_roots
@@ -116,7 +113,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         )
 
         all_org_groups = await orgs_domain.get_groups(org_id)
-        valid_org_groups = active_groups.intersection(all_org_groups)
+        valid_org_groups = active_group_names.intersection(all_org_groups)
         grouped_roots = [
             [
                 root
@@ -124,7 +121,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 if isinstance(root, GitRootItem)
                 and root.state.status == "ACTIVE"
             ]
-            for group_roots in await context.group_roots.load_many(
+            for group_roots in await loaders.group_roots.load_many(
                 valid_org_groups
             )
         ]
@@ -146,7 +143,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                     if isinstance(root, GitRootItem)
                     and root.state.status == "ACTIVE"
                 ]
-                for group_roots in await context.group_roots.load_many(
+                for group_roots in await loaders.group_roots.load_many(
                     list(groups)
                 )
             ]
