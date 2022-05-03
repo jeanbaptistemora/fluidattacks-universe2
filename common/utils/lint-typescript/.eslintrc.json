@@ -168,6 +168,9 @@
      * is not a problem to have verbose type casts
      */
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    /*
+     * Disabled until the migration to newer versions of eslint is done
+     */
     "@typescript-eslint/no-type-alias": [
       "off",
       {
