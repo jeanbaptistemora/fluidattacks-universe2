@@ -671,6 +671,9 @@
     "CVE-2019-17091": ">=2.2.0 <2.3.10",
     "CVE-2020-6950": ">=0 <2.3.14"
   },
+  "com.surenpi.jenkins:phoenix-autotest": {
+    "GHSA-4c7h-f2j9-9c46": "<=1.3"
+  },
   "com.suse.salt:salt-netapi-client": {
     "CVE-2020-8028": ">=0 <0.16.0-4.14.1 || >=0.17.0 <0.17.0-4.6.3"
   },
@@ -866,6 +869,9 @@
   },
   "com.wire:avs": {
     "GHSA-2j6v-xpf3-xvrv": "<7.1.12"
+  },
+  "com.wutka:jox": {
+    "CVE-2021-43142": "<=1.16"
   },
   "com.xuxueli:xxl-conf": {
     "CVE-2018-20094": "1.6.0"
@@ -2923,6 +2929,9 @@
   "org.datadog.jenkins.plugins:datadog": {
     "CVE-2017-1000114": ">=0 <=0.5.6"
   },
+  "org.datatransferproject:portability-spi-cloud": {
+    "CVE-2021-22572": "<0.3.57"
+  },
   "org.dkpro.core:dkpro-core": {
     "CVE-2019-11082": ">=0 <=1.10.0"
   },
@@ -3682,6 +3691,9 @@
   "org.jenkins-ci.plugins:couchdb-statistics": {
     "CVE-2020-2291": ">=0 <=0.3"
   },
+  "org.jenkins-ci.plugins:covcomplplot": {
+    "GHSA-8rx6-v5q4-xw3j": "<=1.1.1"
+  },
   "org.jenkins-ci.plugins:coverity": {
     "CVE-2018-1000104": ">=0 <=1.10.0"
   },
@@ -4251,6 +4263,9 @@
     "CVE-2018-1000418": ">=0 <=2.2.0",
     "CVE-2018-1000419": ">=0 <=2.2.0"
   },
+  "org.jvnet.hudson.plugins:instant-messaging": {
+    "CVE-2022-28135": "<=1.41"
+  },
   "org.jvnet.hudson.plugins:locked-files-report": {
     "CVE-2020-2271": ">=0 <=1.6"
   },
@@ -4263,6 +4278,9 @@
   },
   "org.jvnet.hudson.plugins:selection-tasks-plugin": {
     "CVE-2020-2276": ">=0 <=1.0"
+  },
+  "org.jvnet.hudson.plugins:sitemonitor": {
+    "CVE-2022-28153": "<=0.6"
   },
   "org.jvnet.hudson.plugins:sounds": {
     "CVE-2020-2097": ">=0 <=0.5",
@@ -4693,6 +4711,9 @@
   "org.springframework.cloud:spring-cloud-function-context": {
     "CVE-2022-22963": "<3.1.7 || >=3.2.0 <3.2.3"
   },
+  "org.springframework.cloud:spring-cloud-function-core": {
+    "": ">=3.1.0 <3.1.7 || >=3.2.0 <3.2.3"
+  },
   "org.springframework.cloud:spring-cloud-gateway": {
     "CVE-2022-22947": "<3.0.7 || >=3.1.0 <3.1.1",
     "GHSA-2r2v-q399-qq93": ">=2.2.0 <=2.2.10.release || >=3.0.0 <3.0.5"
@@ -5089,6 +5110,9 @@
   },
   "rg.apache.parquet:parquet": {
     "GHSA-gc67-crq6-hgh5": "<1.11.2 || >=1.12.0 <1.12.2"
+  },
+  "rg.jenkins-ci.plugins:matrix-project": {
+    "GHSA-vqwg-4v6f-h6x5": "<1.20"
   },
   "ro.pippo:pippo-core": {
     "GHSA-rmm5-g63h-m6g9": "<1.12.0"
