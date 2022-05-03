@@ -35,9 +35,6 @@ from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from settings import (
     LOGGING,
 )
@@ -71,31 +68,6 @@ async def add_typed(
     group_item = groups_utils.format_group_to_add_item(group)
     if not await add(group=group_item):
         raise ErrorAddingGroup.new()
-
-
-async def get_active_groups() -> list[str]:
-    """Get active groups names in DynamoDB."""
-    filtering_exp = (
-        Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
-    )
-    groups = await _get_all(filtering_exp, "project_name")
-    active_groups = [get_key_or_fallback(group) for group in groups]
-    return active_groups
-
-
-async def _get_all(
-    filtering_exp: object = "", data_attr: str = ""
-) -> list[dict[str, Any]]:
-    """Get all groups."""
-    scan_attrs = {}
-    if filtering_exp:
-        scan_attrs["FilterExpression"] = filtering_exp
-    if data_attr:
-        scan_attrs["ProjectionExpression"] = data_attr
-    items: list[dict[str, Any]] = await dynamodb_ops.scan(
-        TABLE_NAME, scan_attrs
-    )
-    return items
 
 
 async def _get_attributes(

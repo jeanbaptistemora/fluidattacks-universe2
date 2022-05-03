@@ -148,7 +148,6 @@ from typing import (
     Any,
     Awaitable,
     cast,
-    Dict,
     Optional,
 )
 from users import (
@@ -164,7 +163,7 @@ LOGGER = logging.getLogger(__name__)
 def _process_digest_reattacks_requested(
     reattacks_requested: int, groups_stats: tuple[dict[str, Any], ...]
 ) -> dict[str, Any]:
-    """Process digest reattacks requested sub-section"""
+    """Process digest reattacks requested sub-section."""
     requested: dict[str, Any] = {
         "groups_requested": [],
     }
@@ -222,7 +221,7 @@ def _process_digest_reattacks_executed(
     effective_reattacks_total: int,
     groups_stats: tuple[dict[str, Any], ...],
 ) -> dict[str, Any]:
-    """Process digest reattacks executed sub-section"""
+    """Process digest reattacks executed sub-section."""
     executed: dict[str, Any] = {
         "groups_executed": [],
     }
@@ -279,7 +278,7 @@ def _process_digest_reattacks_executed(
 def _process_digest_reattacks_pending(
     groups_stats: tuple[dict[str, Any], ...],
 ) -> dict[str, Any]:
-    """Process digest pending reattacks sub-section"""
+    """Process digest pending reattacks sub-section."""
     pending: dict[str, Any] = {
         "groups_pending": [],
     }
@@ -432,7 +431,7 @@ async def _has_repeated_tags(
 
 
 async def complete_register_for_group_invitation(
-    group_access: Dict[str, Any],
+    group_access: dict[str, Any],
 ) -> bool:
     coroutines: list[Awaitable[bool]] = []
     success: bool = False
@@ -537,7 +536,7 @@ async def complete_register_for_organization_invitation(
 
 async def reject_register_for_group_invitation(
     loaders: Any,
-    group_access: Dict[str, Any],
+    group_access: dict[str, Any],
 ) -> bool:
     success: bool = False
     invitation = cast(InvitationType, group_access["invitation"])
@@ -652,7 +651,7 @@ async def add_without_group(
 ) -> bool:
     success = False
     if validate_email_address(email):
-        new_user_data: Dict[str, Any] = {}
+        new_user_data: dict[str, Any] = {}
         new_user_data["email"] = email
         if is_register_after_complete:
             new_user_data["registered"] = True
@@ -889,11 +888,6 @@ async def update_group_tier(
     await update_group(**data)
 
 
-async def get_active_groups() -> list[str]:
-    groups = await groups_dal.get_active_groups()
-    return groups
-
-
 async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
@@ -1071,7 +1065,7 @@ async def get_mean_remediate_severity(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    """Get mean time to remediate"""
+    """Get mean time to remediate."""
     group_findings_loader = loaders.group_findings
 
     group_findings: tuple[Finding, ...] = await group_findings_loader.load(
@@ -1605,7 +1599,7 @@ async def validate_group_tags(
 
 
 async def after_complete_register(
-    loaders: Any, group_access: Dict[str, Any]
+    loaders: Any, group_access: dict[str, Any]
 ) -> None:
     group_name: str = str(get_key_or_fallback(group_access))
     user_email: str = str(group_access["user_email"])

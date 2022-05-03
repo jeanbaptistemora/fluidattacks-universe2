@@ -68,7 +68,6 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_group,
-    get_active_groups,
     get_closed_vulnerabilities,
     get_group_digest_stats,
     get_groups_by_user,
@@ -421,28 +420,6 @@ async def test_add_comment() -> None:
     assert await add_comment(
         info, group_name, "unittest@fluidattacks.com", comment_data
     )
-
-
-async def test_get_active_group_names() -> None:
-    test_data = await get_active_groups()
-    expected_output = [
-        "asgard",
-        "barranquilla",
-        "continuoustesting",
-        "deletegroup",
-        "deleteimamura",
-        "gotham",
-        "lubbock",
-        "kurome",
-        "metropolis",
-        "monteria",
-        "oneshottest",
-        "setpendingdeletion",
-        "sheele",
-        "unittesting",
-    ]
-
-    assert sorted(test_data) == sorted(expected_output)
 
 
 async def test_list_events() -> None:
