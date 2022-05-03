@@ -2991,7 +2991,7 @@ export const enTranslations: ResourceKey = {
       proceedButton: {
         invalidForm:
           "Some of the entered information could not be validated. " +
-          "Please, press back and review the entered data or close to abort the guided process. ",
+          "Please, press back and review the entered data or last to abort the guided process. ",
         validForm:
           "Great! Press the button to start cloning and analyzing your code. ",
       },
@@ -3000,6 +3000,7 @@ export const enTranslations: ResourceKey = {
       rootCredentials: {
         content:
           "Fill the credentials that will be used to clone the repository. ",
+        invalid: "Enter a valid credential and press check button",
         key: "Paste a valid SSH key",
         name: "Enter a credential name",
         token: "Enter a valid repository token",

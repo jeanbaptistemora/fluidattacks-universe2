@@ -490,70 +490,68 @@ const Repository: React.FC<IRepositoryProps> = ({
                           />
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <div className={"flex"}>
-                        <div
-                          className={"w-100"}
-                          id={"git-root-add-health-check-confirm"}
-                        >
-                          {[values.url, values.branch].join("") === isRootChange
-                            ? undefined
-                            : rootChanged(values)}
-                          {confirmHealthCheck ?? false ? (
-                            <Alert>
-                              <Field
-                                component={FormikCheckbox}
-                                isChecked={isCheckedHealthCheck}
-                                label={""}
-                                name={"healthCheckConfirm"}
-                                type={"checkbox"}
-                                validate={checkedValidation}
-                                value={"includeA"}
-                              >
-                                {t("group.scope.git.healthCheck.accept")}
-                                <RequiredField>{"*"}&nbsp;</RequiredField>
-                              </Field>
-                            </Alert>
-                          ) : undefined}
-                          {confirmHealthCheck ?? true ? undefined : (
-                            <Alert>
-                              <Field
-                                component={FormikCheckbox}
-                                isChecked={isCheckedHealthCheck}
-                                label={""}
-                                name={"healthCheckConfirm"}
-                                type={"checkbox"}
-                                value={"rejectA"}
-                              >
-                                {t("group.scope.git.healthCheck.rejectA")}
-                                <RequiredField>{"*"}&nbsp;</RequiredField>
-                              </Field>
-                              <Field
-                                component={FormikCheckbox}
-                                isChecked={isCheckedHealthCheck}
-                                label={""}
-                                name={"healthCheckConfirm"}
-                                type={"checkbox"}
-                                value={"rejectB"}
-                              >
-                                {t("group.scope.git.healthCheck.rejectB")}
-                                <RequiredField>{"*"}&nbsp;</RequiredField>
-                              </Field>
-                              <Field
-                                component={FormikCheckbox}
-                                isChecked={isCheckedHealthCheck}
-                                label={""}
-                                name={"healthCheckConfirm"}
-                                type={"checkbox"}
-                                validate={checkedValidation}
-                                value={"rejectC"}
-                              >
-                                {t("group.scope.git.healthCheck.rejectC")}
-                                <RequiredField>{"*"}&nbsp;</RequiredField>
-                              </Field>
-                            </Alert>
-                          )}
+                      <div>
+                        <div className={"flex"}>
+                          <div className={"w-100"}>
+                            {[values.url, values.branch].join("") ===
+                            isRootChange
+                              ? undefined
+                              : rootChanged(values)}
+                            {confirmHealthCheck ?? false ? (
+                              <Alert>
+                                <Field
+                                  component={FormikCheckbox}
+                                  isChecked={isCheckedHealthCheck}
+                                  label={""}
+                                  name={"healthCheckConfirm"}
+                                  type={"checkbox"}
+                                  validate={checkedValidation}
+                                  value={"includeA"}
+                                >
+                                  {t("group.scope.git.healthCheck.accept")}
+                                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                                </Field>
+                              </Alert>
+                            ) : undefined}
+                            {confirmHealthCheck ?? true ? undefined : (
+                              <Alert>
+                                <Field
+                                  component={FormikCheckbox}
+                                  isChecked={isCheckedHealthCheck}
+                                  label={""}
+                                  name={"healthCheckConfirm"}
+                                  type={"checkbox"}
+                                  value={"rejectA"}
+                                >
+                                  {t("group.scope.git.healthCheck.rejectA")}
+                                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                                </Field>
+                                <Field
+                                  component={FormikCheckbox}
+                                  isChecked={isCheckedHealthCheck}
+                                  label={""}
+                                  name={"healthCheckConfirm"}
+                                  type={"checkbox"}
+                                  value={"rejectB"}
+                                >
+                                  {t("group.scope.git.healthCheck.rejectB")}
+                                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                                </Field>
+                                <Field
+                                  component={FormikCheckbox}
+                                  isChecked={isCheckedHealthCheck}
+                                  label={""}
+                                  name={"healthCheckConfirm"}
+                                  type={"checkbox"}
+                                  validate={checkedValidation}
+                                  value={"rejectC"}
+                                >
+                                  {t("group.scope.git.healthCheck.rejectC")}
+                                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                                </Field>
+                              </Alert>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -697,6 +695,11 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 {t("tours.addGitRoot.rootCredentials.key")}
                               </li>
                             )}
+                          {!isGitAccessible && (
+                            <li>
+                              {t("tours.addGitRoot.rootCredentials.invalid")}
+                            </li>
+                          )}
                         </ul>
                       </React.Fragment>
                     ),
@@ -733,9 +736,21 @@ const Repository: React.FC<IRepositoryProps> = ({
                         >
                           <FontAwesomeIcon border={true} icon={faCircleInfo} />
                         </ExternalLink>
+                        <ul>
+                          {values.includesHealthCheck !== null &&
+                            checkedValidation(values.healthCheckConfirm) !==
+                              undefined && (
+                              <li>
+                                {t("tours.addGitRoot.healthCheckConditions")}
+                              </li>
+                            )}
+                        </ul>
                       </React.Fragment>
                     ),
-                    hideFooter: values.includesHealthCheck === null,
+                    hideFooter:
+                      values.includesHealthCheck === null ||
+                      checkedValidation(values.healthCheckConfirm) !==
+                        undefined,
                     placement: "left",
                     target: "#git-root-add-health-check",
                   },
