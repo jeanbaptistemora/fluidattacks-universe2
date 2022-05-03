@@ -26,6 +26,7 @@ import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 import re
 from typing import (
@@ -54,11 +55,15 @@ async def mutate(
     }
     file_name = str(files_data.get("fileName"))
     group_name = group_name.lower()
+    user_info = await token_utils.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
+
     try:
         await groups_domain.remove_file(
             loaders=loaders,
             group_name=group_name,
             file_name=file_name,
+            user_email=user_email,
         )
     except ErrorUpdatingGroup:
         LOGGER.error(

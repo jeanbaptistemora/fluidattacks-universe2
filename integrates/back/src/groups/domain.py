@@ -1285,6 +1285,7 @@ async def add_file(
     user_email: str,
 ) -> None:
     group: Group = await loaders.group_typed.load(group_name)
+    modified_date: str = datetime_utils.get_iso_date()
     validations.validate_fields([description])
     validations.validate_field_length(description, 200)
     validations.validate_file_name(file_name)
@@ -1293,12 +1294,20 @@ async def add_file(
         description=description,
         file_name=file_name,
         modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
+        modified_date=modified_date,
     )
     if not group.files:
         files_to_update: list[GroupFile] = []
     else:
         files_to_update = group.files
+        await send_mail_file_report(
+            group_name=group_name,
+            responsible=user_email,
+            file_name=file_name,
+            file_description=description,
+            is_added=True,
+            modified_date=modified_date,
+        )
     files_to_update.append(group_file_to_add)
     await update_metadata_typed(
         group_name=group_name,
@@ -1313,6 +1322,7 @@ async def remove_file(
     loaders: Any,
     group_name: str,
     file_name: str,
+    user_email: str,
 ) -> None:
     group: Group = await loaders.group_typed.load(group_name)
     if not group.files:
@@ -1335,6 +1345,47 @@ async def remove_file(
                 if file.file_name != file_to_remove.file_name
             ]
         ),
+    )
+    await send_mail_file_report(
+        group_name=group_name,
+        responsible=user_email,
+        file_name=file_name,
+        file_description=file_to_remove.description,
+        modified_date=datetime_utils.get_iso_date(),
+    )
+
+
+async def send_mail_file_report(
+    *,
+    group_name: str,
+    responsible: str,
+    file_name: str,
+    file_description: str,
+    is_added: bool = False,
+    modified_date: str,
+) -> None:
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role
+        in {"resourcer", "customer_manager", "user_manager", "hacker"}
+    ]
+
+    await groups_mail.send_mail_root_file_report(
+        group_name=group_name,
+        responsible=responsible,
+        is_added=is_added,
+        file_name=file_name,
+        file_description=file_description,
+        report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
+        email_to=email_list,
     )
 
 

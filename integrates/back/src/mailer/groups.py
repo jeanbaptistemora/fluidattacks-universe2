@@ -217,7 +217,7 @@ async def send_mail_root_file_report(
     *,
     group_name: str,
     responsible: str,
-    is_added: bool = False,
+    is_added: bool,
     file_name: str,
     file_description: str,
     report_date: date,
