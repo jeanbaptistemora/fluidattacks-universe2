@@ -30,13 +30,15 @@ of your new group.
 You will be asked to provide
 the following:
 
+- **Name:**
+  Enter a name for your group.
+  It is recommended to choose a
+  short one that is easy to remember.
 - **Description:**
   Write a description that
   will help you identify the
   project to which that
-  group is associated,
-  since the group's name
-  is randomly generated.
+  group is associated.
 - **Type of service:**
   Select between Continuous
   Hacking and One-Shot Hacking.

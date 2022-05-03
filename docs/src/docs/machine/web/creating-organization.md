@@ -19,9 +19,7 @@ want on your ASM account.
 
 ![New Option In Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1645711057/docs/web/web_asm_new_ddmenu.png)
 
-The organization name will be
-randomly generated for you.
-You need to click on **Proceed**
+Give it a name, then click on **Proceed**
 and your organization will be
 created.
 
