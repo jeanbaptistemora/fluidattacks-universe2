@@ -47,6 +47,9 @@
     "SNYK-DOTNET-BOUNCYCASTLE-1296078": "<1.8.7",
     "SNYK-DOTNET-BOUNCYCASTLE-474564": "<1.8.1"
   },
+  "c1cms.assemblies": {
+    "GHSA-8pp6-8x4q-c5mx": "<=6.11.7982.26191"
+  },
   "cefsharp.common": {
     "GHSA-gvqv-779r-4jgp": "<86.0.241"
   },
@@ -178,6 +181,9 @@
     "CVE-2020-11023": ">=1.0.3 <3.5.0",
     "SNYK-DOTNET-JQUERY-450227": "<1.12.2 || >=1.12.3 <2.2.2 || >=2.2.3 <3.0.0",
     "SNYK-DOTNET-JQUERY-60119": "<3.0.0"
+  },
+  "jquery.cookie": {
+    "GHSA-gcx5-3p5f-f8vp": "<=1.4.1"
   },
   "jquery.ui.combined": {
     "NYK-DOTNET-JQUERYUICOMBINED-449591": "<1.12.0",
@@ -582,6 +588,10 @@
   },
   "unity.webplayer": {
     "CVE-2015-9288": "<4.6.6 || >=5.0 <5.0.3"
+  },
+  "wasmtime": {
+    "CVE-2022-23636": "0.34.0 || <0.33.1",
+    "GHSA-gwc9-348x-qwv2": ">=0.34.0 <0.34.2 || >=0.35.0 <0.35.2"
   },
   "winscp": {
     "CVE-2006-3015": "3.8.1_build328",
