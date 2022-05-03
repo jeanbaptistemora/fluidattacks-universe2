@@ -13,7 +13,6 @@ const BaseStep: Step = {
   content: "",
   disableBeacon: true,
   hideCloseButton: false,
-  placement: "bottom",
   showSkipButton: true,
   styles: {
     options: {

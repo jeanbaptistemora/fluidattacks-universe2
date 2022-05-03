@@ -596,7 +596,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                   {t("confirmmodal.cancel")}
                 </Button>
                 <Button
-                  disabled={!dirty || isSubmitting}
+                  disabled={!isGitAccessible || !dirty || isSubmitting}
                   id={"git-root-add-proceed"}
                   type={"submit"}
                   variant={"primary"}
@@ -750,7 +750,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                   },
                   {
                     ...BaseStep,
-                    content: t("tours.addGitRoot.proceedButton"),
+                    content:
+                      !isGitAccessible || !dirty || isSubmitting
+                        ? t("tours.addGitRoot.proceedButton.invalidForm")
+                        : t("tours.addGitRoot.proceedButton.validForm"),
                     target: "#git-root-add-proceed",
                   },
                 ]}

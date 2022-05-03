@@ -53,7 +53,7 @@ export const enTranslations: ResourceKey = {
       },
       information: {
         id: "information_button_tooltip",
-        tooltip: "Go to information about to the chart",
+        tooltip: "Go to information about the chart",
       },
       refresh: {
         id: "refresh_button_tooltip",
@@ -2987,8 +2987,13 @@ export const enTranslations: ResourceKey = {
       nickname:
         "Due to your repository name are equal to another existent in your organization, " +
         "please enter a nickname to differentiate it. ",
-      proceedButton:
-        "Great! Press the button to start cloning and analyzing your code. ",
+      proceedButton: {
+        invalidForm:
+          "Some of the entered information could not be validated. " +
+          "Please, press back and review the entered data or close to abort the guided process. ",
+        validForm:
+          "Great! Press the button to start cloning and analyzing your code. ",
+      },
       rootBranch:
         "Now for the repository, enter the branch you want to analyze. For example: master",
       rootCredentials: {
