@@ -43,9 +43,6 @@ from custom_exceptions import (
     InvalidAuthorization,
     SecureAccessException,
 )
-from custom_types import (
-    Invitation as InvitationType,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -112,9 +109,6 @@ from starlette.routing import (
 )
 from starlette.staticfiles import (
     StaticFiles,
-)
-from typing import (
-    cast,
 )
 from users import (
     domain as users_domain,
@@ -259,7 +253,7 @@ async def reject_access(request: Request) -> HTMLResponse:
             url_token
         )
         if group_access:
-            invitation = cast(InvitationType, group_access["invitation"])
+            invitation = group_access["invitation"]
             if invitation["is_used"]:
                 return templates.invalid_invitation(
                     request,

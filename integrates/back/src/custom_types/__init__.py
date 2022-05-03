@@ -8,15 +8,11 @@ from boto3.dynamodb.conditions import (
 from datetime import (
     datetime,
 )
-from decimal import (
-    Decimal,
-)
 from typing import (
     Any,
     Dict,
     List,
     NamedTuple,
-    Set,
     Union,
 )
 from typing_extensions import (
@@ -27,7 +23,6 @@ DynamoQuery = Dict[str, Union[ConditionBase, str]]
 Evidence = Dict[str, Dict[str, str]]
 ExploitResult = Dict[str, str]
 Historic = List[Dict[str, str]]
-Invitation = Dict[str, Union[str, bool]]
 
 Action = NamedTuple(
     "Action",

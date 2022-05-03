@@ -37,9 +37,6 @@ from custom_exceptions import (
     UserCannotEnrollDemo,
     UserNotInOrganization,
 )
-from custom_types import (
-    Invitation as InvitationType,
-)
 from datetime import (
     date,
 )
@@ -147,7 +144,6 @@ from settings import (
 from typing import (
     Any,
     Awaitable,
-    cast,
     Optional,
 )
 from users import (
@@ -435,7 +431,7 @@ async def complete_register_for_group_invitation(
 ) -> bool:
     coroutines: list[Awaitable[bool]] = []
     success: bool = False
-    invitation = cast(InvitationType, group_access["invitation"])
+    invitation = group_access["invitation"]
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
@@ -539,7 +535,7 @@ async def reject_register_for_group_invitation(
     group_access: dict[str, Any],
 ) -> bool:
     success: bool = False
-    invitation = cast(InvitationType, group_access["invitation"])
+    invitation = group_access["invitation"]
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 

@@ -15,7 +15,6 @@ from custom_exceptions import (
     SecureAccessException,
 )
 from custom_types import (
-    Invitation as InvitationType,
     Phone,
     StakeholderPhone,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
@@ -172,7 +171,7 @@ async def ensure_user_exists(email: str) -> bool:
 
 
 def get_invitation_state(
-    invitation: InvitationType, stakeholder: Dict[str, Any]
+    invitation: dict[str, Any], stakeholder: Dict[str, Any]
 ) -> str:
     if invitation and not invitation["is_used"]:
         return "PENDING"
@@ -188,7 +187,7 @@ async def format_stakeholder(email: str, group_name: str) -> Dict[str, Any]:
             get_by_email(email),
         )
     )
-    invitation = cast(InvitationType, group_access.get("invitation"))
+    invitation = group_access.get("invitation")
     invitation_state = get_invitation_state(invitation, stakeholder)
     if invitation_state == "PENDING":
         responsibility = invitation["responsibility"]
@@ -385,7 +384,7 @@ async def update_last_login(email: str) -> bool:
 
 
 async def update_invited_stakeholder(
-    updated_data: Dict[str, str], invitation: InvitationType, group_name: str
+    updated_data: Dict[str, str], invitation: dict[str, Any], group_name: str
 ) -> bool:
     success = False
     email = updated_data["email"]

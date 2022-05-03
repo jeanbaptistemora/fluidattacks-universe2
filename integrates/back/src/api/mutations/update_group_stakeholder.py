@@ -9,7 +9,6 @@ from custom_exceptions import (
     StakeholderNotFound,
 )
 from custom_types import (
-    Invitation as InvitationType,
     UpdateStakeholderPayload as UpdateStakeholderPayloadType,
 )
 from decorators import (
@@ -38,7 +37,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
 )
 from users import (
@@ -62,7 +60,7 @@ async def _update_stakeholder(
     # Validate role requirements before changing anything
     validate_role_fluid_reqs(modified_email, modified_role)
     if group_access:
-        invitation = cast(InvitationType, group_access.get("invitation"))
+        invitation = group_access.get("invitation")
         if invitation and not invitation["is_used"]:
             success = await users_domain.update_invited_stakeholder(
                 updated_data, invitation, group_name
