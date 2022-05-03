@@ -12,8 +12,8 @@ locals {
       schedule_expression = "cron(0/5 * * * ? *)"
       queue               = "unlimited_spot"
       attempts            = 1
-      duration            = 86400
-      cpu                 = 1
+      timeout             = 86400
+      cpu                 = 0.5
       memory              = 1024
 
       environment = {
@@ -55,46 +55,28 @@ resource "aws_cloudwatch_event_target" "main" {
 
   input = jsonencode(
     {
-      jobDefinitionName = aws_batch_job_definition.makes.name
+      ContainerOverrides = {
+        Command = each.value.command
 
-      containerProperties = {
-        command = each.value.command
-
-        resourceRequirements = [
-          { type = "VCPU", "value" = each.value.cpu },
-          { type = "MEMORY", "value" = each.value.memory },
+        ResourceRequirements = [
+          { Type = "VCPU", Value = each.value.cpu },
+          { Type = "MEMORY", Value = each.value.memory },
         ]
 
-        environment = [
-          for k, v in each.value.environment : { name = k, value = v }
+        Environment = [
+          for k, v in each.value.environment : { Name = k, Value = v }
         ]
       }
 
-      retryStrategy = {
-        attempts = each.value.attempts
-        evaluateOnExit = [
-          {
-            action     = "RETRY"
-            onExitCode = "1"
-          },
-          {
-            action   = "EXIT"
-            onReason = "CannotInspectContainerError:*"
-          },
-        ]
+      Timeout = {
+        AttemptDurationSeconds = each.value.timeout
       }
-
-      timeout = {
-        attemptDurationSeconds = each.value.duration
-      }
-
-      propagateTags = true
-      tags          = each.value.tags
     }
   )
 
   batch_target {
     job_name       = each.key
     job_definition = aws_batch_job_definition.makes.arn
+    job_attempts   = each.value.attempts
   }
 }
