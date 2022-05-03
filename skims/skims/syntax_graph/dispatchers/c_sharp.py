@@ -12,6 +12,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     conditional_access_expression as c_sharp_conditional_access_expression,
     constructor_declaration as c_sharp_constructor_declaration,
     element_access_expression as c_sharp_element_access_expression,
+    element_binding_expression as c_sharp_element_binding_expression,
     expression_statement as c_sharp_expression_statement,
     field_declaration as c_sharp_field_declaration,
     for_each_statement as c_sharp_for_each_statement,
@@ -180,6 +181,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "element_access_expression",
         },
         syntax_reader=c_sharp_element_access_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "element_binding_expression",
+        },
+        syntax_reader=c_sharp_element_binding_expression.reader,
     ),
     Dispatcher(
         applicable_types={
