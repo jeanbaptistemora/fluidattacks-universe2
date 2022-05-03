@@ -160,19 +160,12 @@ resource "aws_iam_instance_profile" "main" {
 }
 
 resource "aws_launch_template" "main" {
-  name          = "compute"
-  key_name      = "gitlab"
-  ebs_optimized = true
+  name     = "compute"
+  key_name = "gitlab"
 
   block_device_mappings {
-    device_name  = "/dev/xvda"
+    device_name  = "/dev/xvdcz"
     virtual_name = "ephemeral0"
-    ebs {
-      encrypted             = true
-      delete_on_termination = true
-      volume_size           = 30
-      volume_type           = "gp3"
-    }
   }
 
   tag_specifications {
@@ -207,7 +200,7 @@ resource "aws_batch_compute_environment" "main" {
 
   compute_resources {
     bid_percentage = 100
-    image_id       = "ami-0f260fe26c2826a3d"
+    image_id       = "ami-0c09d65d2051ada93"
     type           = each.value.type
 
     max_vcpus = each.value.max_vcpus

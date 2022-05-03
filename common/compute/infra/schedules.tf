@@ -55,6 +55,8 @@ resource "aws_cloudwatch_event_target" "main" {
 
   input = jsonencode(
     {
+      jobDefinitionName = aws_batch_job_definition.makes.name
+
       containerProperties = {
         command = each.value.command
 
@@ -81,6 +83,7 @@ resource "aws_cloudwatch_event_target" "main" {
           },
         ]
       }
+
       timeout = {
         attemptDurationSeconds = each.value.duration
       }
