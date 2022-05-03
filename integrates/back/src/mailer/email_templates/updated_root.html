@@ -14,9 +14,11 @@
       <strong>{{ responsible }}</strong>:
     </p>
     <p>
-      <strong>Date</strong>: {{ date }}
+      {% for key, value in new_root_content.items() %}
+        <strong>{% if key == "gitignore" %}Exclusions{% else %}{{ key.replace('_', ' ').capitalize() }}{% endif %}</strong>:
+        <u>from</u> {{ old_state[key] }} <u>to</u> {{ value }} <br>
+      {% endfor %}
     </p>
-    {{ text_area(root_content) }}
     <p></p>
     <p>Regards,<br>Fluid Attacks Team</p>
   </div>

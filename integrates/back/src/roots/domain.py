@@ -736,25 +736,22 @@ async def send_mail_updated_root(
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
 
-    root_content: str = ""
     old_state: Dict[str, Any] = root.state._asdict()
-    for key, value in new_state._asdict().items():
-        old_value: str = old_state[key]
-        if old_value != value and key not in ["modified_by", "modified_date"]:
-            subtitle: str = (
-                "Exclusions"
-                if key == "gitignore"
-                else key.replace("_", " ").capitalize()
-            )
-            root_content += f"\n{subtitle}: from {old_value} to " f"{value}"
+    new_root_content: Dict[str, Any] = {
+        key: value
+        for key, value in new_state._asdict().items()
+        if old_state[key] != value
+        and key not in ["modified_by", "modified_date"]
+    }
 
-    if root_content != "":
+    if new_root_content:
         await groups_mail.send_mail_updated_root(
             email_to=email_list,
             group_name=group_name,
             responsible=user_email,
-            root_content=root_content,
             root_nickname=new_state.nickname,
+            new_root_content=new_root_content,
+            old_state=old_state,
             modified_date=new_state.modified_date,
         )
 

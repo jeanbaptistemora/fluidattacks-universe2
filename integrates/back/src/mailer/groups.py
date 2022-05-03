@@ -157,8 +157,9 @@ async def send_mail_updated_root(
     email_to: List[str],
     group_name: str,
     responsible: str,
-    root_content: str,
     root_nickname: str,
+    new_root_content: Dict[str, Any],
+    old_state: Dict[str, Any],
     modified_date: str,
 ) -> None:
     await send_mails_async(
@@ -166,7 +167,8 @@ async def send_mail_updated_root(
         context={
             "group_name": group_name,
             "responsible": responsible,
-            "root_content": root_content.splitlines(),
+            "new_root_content": new_root_content,
+            "old_state": old_state,
             "root_nickname": root_nickname,
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
         },
