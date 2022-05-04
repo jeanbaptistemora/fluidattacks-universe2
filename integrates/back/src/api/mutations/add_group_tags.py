@@ -24,6 +24,7 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -45,6 +46,8 @@ async def mutate(
 ) -> SimpleGroupPayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
+    user_info = await token_utils.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
 
     if not await groups_domain.is_valid(loaders, group_name):
         logs_utils.cloudwatch_log(
@@ -61,7 +64,7 @@ async def mutate(
         raise ErrorUpdatingGroup.new()
 
     group = await loaders.group_typed.load(group_name)
-    await groups_domain.add_tags(group, set(tags))
+    await groups_domain.add_tags(group, set(tags), user_email)
 
     loaders.group_typed.clear(group_name)
     redis_del_by_deps_soon("add_group_tags", group_name=group_name)

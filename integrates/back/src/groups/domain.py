@@ -1544,6 +1544,7 @@ async def remove_pending_deletion_date(
 async def add_tags(
     group: Group,
     tags_to_add: set[str],
+    user_email: str,
 ) -> None:
     updated_tags = group.tags.union(tags_to_add) if group.tags else tags_to_add
     await update_metadata_typed(
@@ -1551,6 +1552,13 @@ async def add_tags(
         metadata=GroupMetadataToUpdate(
             tags=updated_tags,
         ),
+    )
+    await send_mail_portfolio_report(
+        group_name=group.name,
+        responsible=user_email,
+        portfolio=tags_to_add,
+        is_added=True,
+        modified_date=datetime_utils.get_iso_date(),
     )
 
 
@@ -1566,6 +1574,34 @@ async def remove_tag(
                 tags=group.tags,
             ),
         )
+
+
+async def send_mail_portfolio_report(
+    *,
+    group_name: str,
+    responsible: str,
+    portfolio: set[str],
+    is_added: bool = False,
+    modified_date: str,
+) -> None:
+    users = await group_access_domain.get_group_users(group_name, active=True)
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await groups_mail.send_mail_portfolio_report(
+        group_name=group_name,
+        responsible=responsible,
+        is_added=is_added,
+        portfolio=portfolio,
+        report_date=datetime_utils.get_date_from_iso_str(modified_date),
+        email_to=email_list,
+    )
 
 
 def validate_group_services_config(

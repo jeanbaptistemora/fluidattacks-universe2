@@ -1,0 +1,27 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Portfolio Alert') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      Portfolios have been {{ state }} to the group
+      <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>.
+    </p>
+    <p>
+      <strong>Portfolios</strong>: {{ portfolios }}<br>
+      <strong>Date</strong>: {{ report_date }}
+      <br>
+    </p>
+    <p></p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
