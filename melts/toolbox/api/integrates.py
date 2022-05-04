@@ -241,29 +241,6 @@ class Queries:
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def wheres(api_token: str, group_name: str) -> Response:
-        """Get all the open, code wheres from a group."""
-        LOGGER.debug("Query.group(group_name=%s)", group_name)
-        body: str = """
-            query MeltsGetWheres($groupName: String!) {
-                group(groupName: $groupName) {
-                    findings {
-                        id
-                        vulnerabilities(state: "open") {
-                            vulnerabilityType
-                            where
-                        }
-                    }
-                }
-            }
-            """
-        params: dict = {
-            "groupName": group_name,
-        }
-        return request(api_token, body, params, operation="MeltsGetWheres")
-
-    @staticmethod
-    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def finding(
         api_token: str, identifier: str, with_vulns: bool = False
     ) -> Response:
@@ -680,4 +657,3 @@ def clear_cache() -> None:
     Queries.group.cache_clear()
     Queries.finding.cache_clear()
     Queries.resources.cache_clear()
-    Queries.wheres.cache_clear()
