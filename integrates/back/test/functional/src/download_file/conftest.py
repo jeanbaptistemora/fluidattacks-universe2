@@ -5,15 +5,14 @@ from back.test import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("download_file")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "groups": [
             {
                 "project_name": "group1",
@@ -33,26 +32,26 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "files": [
                     {
                         "description": "Test",
-                        "file_name": "test.zip",
-                        "upload_date": "2019-03-01 15:21",
+                        "fileName": "test.zip",
+                        "uploadDate": "2019-03-01 15:21",
                         "uploader": "unittest@fluidattacks.com",
                     },
                     {
                         "description": "Test",
-                        "file_name": "shell.exe",
-                        "upload_date": "2019-04-24 14:56",
+                        "fileName": "shell.exe",
+                        "uploadDate": "2019-04-24 14:56",
                         "uploader": "unittest@fluidattacks.com",
                     },
                     {
                         "description": "Test",
-                        "file_name": "shell2.exe",
-                        "upload_date": "2019-04-24 14:59",
+                        "fileName": "shell2.exe",
+                        "uploadDate": "2019-04-24 14:59",
                         "uploader": "unittest@fluidattacks.com",
                     },
                     {
                         "description": "Test",
-                        "file_name": "asdasd.py",
-                        "upload_date": "2019-08-06 14:28",
+                        "fileName": "asdasd.py",
+                        "uploadDate": "2019-08-06 14:28",
                         "uploader": "unittest@fluidattacks.com",
                     },
                 ],

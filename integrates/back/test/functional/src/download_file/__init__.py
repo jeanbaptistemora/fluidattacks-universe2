@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def get_result(
     user: str,
     group: str,
     f_name: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             downloadFile (
@@ -28,7 +27,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(

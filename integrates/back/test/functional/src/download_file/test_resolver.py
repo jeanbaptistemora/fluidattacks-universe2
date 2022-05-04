@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -28,7 +27,7 @@ from typing import (
 async def test_download_file(populate: bool, email: str) -> None:
     assert populate
     file_name: str = "test.zip"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group="group1",
         f_name=file_name,
