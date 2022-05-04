@@ -63,7 +63,7 @@ ACTIONS = {
 }
 
 
-async def dispatch(  # noqa: MC0001
+async def dispatch(
     action_dynamo_pk: Optional[str] = None,
 ) -> None:
     try:
