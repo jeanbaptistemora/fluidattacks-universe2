@@ -112,7 +112,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   };
 
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
-    isEditing ? initialValues.includesHealthCheck : null
+    isEditing ? initialValues.includesHealthCheck : undefined
   );
   const [isHttpsCredentialsTypeUser, setIsHttpsCredentialsTypeUser] =
     useState(false);

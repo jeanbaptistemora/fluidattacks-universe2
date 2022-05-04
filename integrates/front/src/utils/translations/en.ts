@@ -3022,12 +3022,10 @@ export const enTranslations: ResourceKey = {
         "Let us guide you through the process of setting up your project. " +
         "That way we can start analyzing your code and report all the vulnerabilities we find. " +
         'Press "New Group" to get started!',
-      groupDescription: {
-        end: "Please add a description to help you recognize which group is associated with one of your projects. ",
-        start:
-          "We have added the name of the currently selected organization. " +
-          "Now, add a name for the group that will identify your project. ",
-      },
+      groupDescription:
+        "We have added the name of the currently selected organization. " +
+        "Now for your new group, add a name and description to help you recognize " +
+        "which group is associated with one of your projects. ",
       intro:
         "Next, we are ready to create a new group. Each organization in the ASM has different groups. " +
         "These correspond to unique projects that our clients create to manage their vulnerabilities separately. ",

@@ -191,8 +191,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 ...BaseStep,
                 content: (
                   <React.Fragment>
-                    {t("tours.addGroup.groupDescription.start")}
-                    <strong>{t("tours.addGroup.groupDescription.end")}</strong>
+                    {t("tours.addGroup.groupDescription")}
                   </React.Fragment>
                 ),
                 hideBackButton: true,
