@@ -106,14 +106,14 @@ async def mutate(
                 "Security: Vulnerabilities treatment successfully updated in "
                 f"finding {finding_id}",
             )
-        await vulns_domain.send_treatment_change_mail(
-            loaders,
-            finding_id,
-            finding.title,
-            group_name,
-            datetime.now(timezone.utc) - timedelta(days=1),
-            user_email,
-        )
+            await vulns_domain.send_treatment_change_mail(
+                loaders,
+                finding_id,
+                finding.title,
+                group_name,
+                datetime.now(timezone.utc) - timedelta(days=1),
+                user_email,
+            )
 
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
