@@ -2,7 +2,7 @@ import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { GET_FINDING_LOCATIONS } from "./queries";
 import type {
@@ -19,6 +19,7 @@ const Locations: React.FC<ILocationsProps> = ({
   findingId,
   setFindingLocations,
 }): JSX.Element => {
+  const [locations, setLocations] = useState<string>("");
   const { data, fetchMore } = useQuery<{
     finding: {
       vulnerabilitiesConnection: IVulnerabilitiesConnection | undefined;
@@ -50,12 +51,6 @@ const Locations: React.FC<ILocationsProps> = ({
       vulnerabilityEdge.node
   );
 
-  const locations = [
-    ...new Set(
-      vulnerabilities.map((value: { where: string }): string => value.where)
-    ),
-  ].join(", ");
-
   useEffect((): void => {
     if (!_.isUndefined(pageInfo)) {
       if (pageInfo.hasNextPage) {
@@ -64,10 +59,10 @@ const Locations: React.FC<ILocationsProps> = ({
         });
       }
     }
-  }, [findingId, vulnerabilities, pageInfo, fetchMore, setFindingLocations]);
+  }, [pageInfo, fetchMore]);
 
   useEffect((): void => {
-    if (locations.length > 0) {
+    if (!_.isEmpty(locations)) {
       setFindingLocations(
         (prevState: Record<string, string>): Record<string, string> => ({
           ...prevState,
@@ -75,13 +70,23 @@ const Locations: React.FC<ILocationsProps> = ({
         })
       );
     }
-  }, [locations, findingId, setFindingLocations]);
+  }, [findingId, setFindingLocations, locations]);
 
   if (
     _.isUndefined(pageInfo) ||
     (!_.isUndefined(pageInfo) && pageInfo.hasNextPage)
   ) {
     return <div />;
+  }
+
+  const newLocations = [
+    ...new Set(
+      vulnerabilities.map((value: { where: string }): string => value.where)
+    ),
+  ].join(", ");
+
+  if (newLocations.length !== locations.length) {
+    setLocations(newLocations);
   }
 
   return limitFormatter(locations);
