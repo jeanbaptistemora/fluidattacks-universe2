@@ -13,7 +13,7 @@ locals {
       queue               = "unlimited_spot"
       attempts            = 1
       timeout             = 21600
-      cpu                 = 0.5
+      cpu                 = 1
       memory              = 1024
 
       environment = {
@@ -29,6 +29,61 @@ locals {
     }
   }
 }
+
+resource "aws_batch_job_definition" "schedule" {
+  for_each = local.schedules
+
+  name = each.key
+  type = "container"
+
+  container_properties = jsonencode(
+    {
+      image   = "ghcr.io/fluidattacks/makes:22.05"
+      command = each.value.command
+
+      resourceRequirements = [
+        { type = "VCPU", value = tostring(each.value.cpu) },
+        { type = "MEMORY", value = tostring(each.value.memory) },
+      ]
+
+      environment = concat(
+        [
+          for k, v in each.value.environment : { Name = k, Value = v }
+        ],
+        [
+          {
+            Name  = "CI"
+            Value = "true"
+          },
+          {
+            Name  = "MAKES_AWS_BATCH_COMPAT"
+            Value = "true"
+          },
+        ]
+      )
+    }
+  )
+
+  retry_strategy {
+    attempts = each.value.attempts
+    evaluate_on_exit {
+      action       = "RETRY"
+      on_exit_code = 1
+    }
+    evaluate_on_exit {
+      action    = "EXIT"
+      on_reason = "CannotInspectContainerError:*"
+    }
+  }
+
+  timeout {
+    attempt_duration_seconds = each.value.timeout
+  }
+
+  tags           = each.value.tags
+  propagate_tags = true
+}
+
 
 resource "aws_cloudwatch_event_rule" "main" {
   for_each = local.schedules
@@ -53,55 +108,8 @@ resource "aws_cloudwatch_event_target" "main" {
   arn       = aws_batch_job_queue.main[each.value.queue].arn
   role_arn  = data.aws_iam_role.prod_common.arn
 
-  input = jsonencode(
-    {
-      ContainerOverrides = {
-        Command = each.value.command
-
-        ResourceRequirements = [
-          { Type = "VCPU", Value = tostring(each.value.cpu) },
-          { Type = "MEMORY", Value = tostring(each.value.memory) },
-        ]
-
-        Environment = concat(
-          [
-            for k, v in each.value.environment : { Name = k, Value = v }
-          ],
-          [
-            {
-              Name  = "CI"
-              Value = "true"
-            },
-            {
-              Name  = "MAKES_AWS_BATCH_COMPAT"
-              Value = "true"
-            },
-          ]
-        )
-      }
-
-      RetryStrategy = {
-        Attempts = each.value.attempts
-        EvaluateOnExit = [
-          {
-            Action     = "RETRY"
-            OnExitCode = "1"
-          },
-          {
-            Action   = "EXIT"
-            OnReason = "CannotInspectContainerError:*"
-          },
-        ]
-      }
-
-      Timeout = {
-        AttemptDurationSeconds = each.value.timeout
-      }
-    }
-  )
-
   batch_target {
     job_name       = each.key
-    job_definition = aws_batch_job_definition.makes.arn
+    job_definition = aws_batch_job_definition.schedule[each.key].arn
   }
 }
