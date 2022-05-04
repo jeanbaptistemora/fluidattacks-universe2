@@ -7,6 +7,7 @@ const GET_FINDINGS: DocumentNode = gql`
       findings {
         id
         age
+        closedVulnerabilities
         lastVulnerability
         title
         description
@@ -35,22 +36,6 @@ const GET_FINDINGS: DocumentNode = gql`
   }
 `;
 
-const GET_GROUP_VULNS: DocumentNode = gql`
-  query GetGroupVulns($groupName: String!) {
-    group(groupName: $groupName) {
-      findings {
-        id
-        vulnerabilities {
-          currentState
-          id
-          where
-        }
-      }
-      name
-    }
-  }
-`;
-
 const REQUEST_GROUP_REPORT: DocumentNode = gql`
   query RequestGroupReport(
     $reportType: ReportType!
@@ -71,4 +56,4 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDINGS, GET_GROUP_VULNS, REQUEST_GROUP_REPORT };
+export { GET_FINDINGS, REQUEST_GROUP_REPORT };

@@ -17,6 +17,7 @@ interface ITreatmentSummaryAttr {
 
 interface IFindingAttr {
   age: number;
+  closedVulnerabilities: number;
   closingPercentage: number;
   description: string;
   id: string;
@@ -35,11 +36,6 @@ interface IFindingAttr {
   treatment: string;
   treatmentSummary: ITreatmentSummaryAttr;
   verified: boolean;
-  vulnerabilities?: {
-    currentState: string;
-    id: string;
-    where: string;
-  }[];
   where: string;
 }
 

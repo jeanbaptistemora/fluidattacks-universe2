@@ -12,7 +12,6 @@ import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
 import {
   GET_FINDINGS,
-  GET_GROUP_VULNS,
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
@@ -44,6 +43,7 @@ describe("groupFindingsView", (): void => {
               {
                 __typename: "Finding",
                 age: 252,
+                closedVulnerabilities: 6,
                 description: "This is a test description",
                 id: "438679960",
                 isExploitable: true,
@@ -64,11 +64,6 @@ describe("groupFindingsView", (): void => {
                   new: 1,
                 },
                 verified: false,
-                vulnerabilities: [
-                  {
-                    where: "This is a test where",
-                  },
-                ],
               },
             ],
             name: "TEST",
@@ -127,6 +122,7 @@ describe("groupFindingsView", (): void => {
               {
                 __typename: "Finding",
                 age: 252,
+                closedVulnerabilities: 6,
                 description: "Test description",
                 id: "438679960",
                 isExploitable: true,
@@ -147,35 +143,6 @@ describe("groupFindingsView", (): void => {
                   new: 1,
                 },
                 verified: false,
-              },
-            ],
-            name: "TEST",
-          },
-        },
-      },
-    },
-    {
-      request: {
-        query: GET_GROUP_VULNS,
-        variables: {
-          groupName: "TEST",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            __typename: "Group",
-            findings: [
-              {
-                __typename: "Finding",
-                id: "438679960",
-                vulnerabilities: [
-                  {
-                    __typename: "Vulnerability",
-                    id: "",
-                    where: "This is a test where",
-                  },
-                ],
               },
             ],
             name: "TEST",
