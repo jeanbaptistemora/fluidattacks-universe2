@@ -290,12 +290,11 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/observes/service/jobs-scheduler/bin";
-            args = ["run-schedule"];
+            output = "/observes/job/scheduler";
             gitlabExtra = gitlabScheduled;
           }
           {
-            output = "/observes/service/jobs-scheduler/run";
+            output = "/observes/job/scheduler/manual-trigger";
             gitlabExtra = gitlabScheduled;
           }
           {

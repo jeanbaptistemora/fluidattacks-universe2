@@ -6,13 +6,12 @@
 }:
 makeScript {
   searchPaths = {
-    bin = [
-      outputs."${inputs.observesIndex.service.scheduler.bin}"
-    ];
     source = [
       outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
+      outputs."${inputs.observesIndex.service.scheduler.bin}"
     ];
   };
-  name = "observes-service-jobs-scheduler-run";
+  name = "observes-job-scheduler";
   entrypoint = ./entrypoint.sh;
 }
