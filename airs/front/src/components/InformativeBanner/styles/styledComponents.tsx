@@ -41,7 +41,7 @@ const CloseContainer = styled.li.attrs({
   className: `
     mr3
     pr2
-    pv2
+    pv1
     flex-l
     dn
   `,
@@ -63,27 +63,33 @@ const BannerButton = styled.button.attrs({
     br2
     ba
     roboto
-    mt2
+    mv1
   `,
 })`
   border-color: #f4f4f6;
 `;
 
-const BannerTitle = styled.h2.attrs({
+const BannerTitle = styled.p.attrs({
   className: `
     white
     fw7
-    neue
+    roboto
     lh-solid
+    f3
+    mv3-l
+    mv2
   `,
 })``;
 
-const BannerSubtitle = styled.h2.attrs({
+const BannerSubtitle = styled.p.attrs({
   className: `
     white
-    fw1
-    neue
+    fw4
+    roboto
     lh-solid
+    f3
+    mv3-l
+    mv2
   `,
 })``;
 
