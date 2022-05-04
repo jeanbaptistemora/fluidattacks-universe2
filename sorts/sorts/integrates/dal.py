@@ -212,3 +212,31 @@ def update_toe_lines_sorts(
     )
 
     return result["updateToeLinesSorts"]["success"]
+
+
+def get_finding_ids(group: str) -> List[str]:
+    """Fetches all finding ids for a group"""
+    finding_ids: List[str] = []
+    result = _execute(
+        query="""
+            query SortsGetFindingIds(
+                $group: String!
+            ) {
+                group(groupName: $group) {
+                    findings {
+                        id
+                    }
+                }
+            }
+        """,
+        operation="SortsGetFindingIds",
+        variables=dict(
+            group=group,
+        ),
+    )
+
+    if result:
+        finding_ids = [
+            finding["id"] for finding in result["group"]["findings"]
+        ]
+    return finding_ids
