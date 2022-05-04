@@ -264,3 +264,48 @@ def mock_pull_git_repo(
         yield
     finally:
         rmtree(repo_path)
+
+
+@pytest.fixture(scope="function")
+def mock_pull_git_repo_2(
+    mocker: MockerFixture,
+    test_group: str,  # pylint: disable=redefined-outer-name
+) -> Iterator[None]:
+    repo_path = os.path.join(NAMESPACES_FOLDER, test_group, "rebase")
+    files = {f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml"}
+    try:
+        os.makedirs(repo_path, exist_ok=True)
+        repo = Repo.init(repo_path)
+        for file in files:
+            os.makedirs(os.path.split(file)[0], exist_ok=True)
+            with open(file, "w", encoding="utf-8") as handler:
+                handler.write(f"# {file.split('/')[-1]}")
+            copyfile(
+                "skims/test/data/lib_path/f099/rebase_check.yaml",
+                f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml",
+            )
+            repo.index.add(file)
+
+        repo.index.commit(
+            message="Initial commit",
+            author_date=datetime.date(2020, 7, 21).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            commit_date=datetime.date(2020, 7, 21).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+        )
+        copyfile(
+            "skims/test/data/lib_path/f099/rebase_check_2.yaml",
+            f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml",
+        )
+        repo.index.add(
+            f"{repo_path}/skims/test/data/lib_path/f099/rebase_check.yaml"
+        )
+        repo.index.commit("Changes for rebase")
+        mocker.patch(
+            "batch.repositories.pull_namespace_from_s3", return_value=repo_path
+        )
+        yield
+    finally:
+        rmtree(repo_path)
