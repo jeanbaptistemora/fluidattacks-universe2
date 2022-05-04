@@ -12,6 +12,7 @@ function job_timedoctor {
     && timedoctor_creds=$(mktemp) \
     && mkdir ./logs \
     && aws_login_prod 'observes' \
+    && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_s3_cache_timedoctor \
     && analytics_auth_timedoctor=$(

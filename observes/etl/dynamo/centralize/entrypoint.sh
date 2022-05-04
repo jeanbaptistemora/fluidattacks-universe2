@@ -7,6 +7,7 @@ function dynamodb_centralize {
 
   db_creds="$(mktemp)" \
     && aws_login_prod 'observes' \
+    && export_notifier_key \
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \
     && echo '[INFO] Running centralizer' \

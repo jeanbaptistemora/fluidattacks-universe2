@@ -12,6 +12,7 @@ function start_etl {
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       delighted_api_key \
+      bugsnag_notifier_key \
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \

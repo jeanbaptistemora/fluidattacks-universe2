@@ -10,6 +10,7 @@ in
   makeScript {
     searchPaths = {
       source = [
+        outputs."/observes/common/db-creds"
         outputs."${inputs.observesIndex.etl.dynamo.env.runtime}"
       ];
     };

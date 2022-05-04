@@ -14,6 +14,7 @@ function start_etl {
       announcekit_user \
       announcekit_passwd \
       announcekit_fluid_proj \
+      bugsnag_notifier_key \
     && export ANNOUNCEKIT_USER="${announcekit_user}" \
     && export ANNOUNCEKIT_PASSWD="${announcekit_passwd}" \
     && echo '[INFO] Generating secret files' \

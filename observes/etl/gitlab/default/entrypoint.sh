@@ -8,6 +8,7 @@ function start_etl {
   db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && json_db_creds "${db_creds}" \
+    && export_notifier_key \
     && gitlab-etl \
       'gitlab-ci' \
       'autonomicmind/default' \

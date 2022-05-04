@@ -14,6 +14,7 @@ function job_compute_bills {
     && aws_login_prod 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
+    && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \

@@ -15,6 +15,7 @@ function dynamodb_etl {
     && aws_login_prod 'observes' \
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \
+    && export_notifier_key \
     && echo '[INFO] Running streamer' \
     && tap-dynamo stream \
       --tables "${tables}" \

@@ -43,3 +43,8 @@ function json_db_creds {
       '{dbname: $n, host: $h, port: $p, user: $u, password: $pw}' \
       > "${target}"
 }
+
+function export_notifier_key {
+  sops_export_vars 'observes/secrets/prod.yaml' \
+    bugsnag_notifier_key
+}

@@ -16,6 +16,7 @@ function job_code_upload {
     && aws_login_prod 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
+    && export_notifier_key \
     && sops_export_vars 'observes/conf/code_migration.json' \
       migration \
       migrated \

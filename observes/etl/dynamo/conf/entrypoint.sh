@@ -23,4 +23,5 @@ function execute {
   esac
 }
 
-execute "${@}"
+export_notifier_key \
+  && execute "${@}"
