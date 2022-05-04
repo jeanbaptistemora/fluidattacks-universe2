@@ -164,6 +164,17 @@ resource "aws_launch_template" "main" {
   key_name = "gitlab"
 
   block_device_mappings {
+    device_name = "/dev/xvda"
+
+    ebs {
+      encrypted             = true
+      delete_on_termination = true
+      volume_size           = 20
+      volume_type           = "gp3"
+    }
+  }
+
+  block_device_mappings {
     device_name  = "/dev/xvdcz"
     virtual_name = "ephemeral0"
   }
