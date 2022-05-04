@@ -2716,6 +2716,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_S3_VERSIONING_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_s3_bucket_versioning_disabled",
+        module="lib_path",
+        finding=FindingEnum.F335,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_RDS_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_has_not_automated_backups",
