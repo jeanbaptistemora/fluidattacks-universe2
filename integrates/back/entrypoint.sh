@@ -74,7 +74,7 @@ function serve {
     fi \
     && pushd integrates \
     && kill_port "${PORT}" \
-    && { gunicorn "${config[@]}" 'app.app:APP' & } \
+    && { newrelic-admin run-program gunicorn "${config[@]}" 'app.app:APP' & } \
     && wait_port 5 "${HOST}:${PORT}" \
     && done_port "${HOST}" 28001 \
     && info Back is ready \

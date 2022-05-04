@@ -29,6 +29,8 @@ function main {
     && export INTEGRATES_DB_MODEL_PATH='__argIntegrates__/arch/database-design.json' \
     && export INTEGRATES_CHARTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/logo.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
+    && export NEW_RELIC_CONFIG_FILE='__argIntegrates__/back/src/context/newrelic.ini' \
+    && export NEW_RELIC_ENVIRONMENT="${env}" \
     && export STARTDIR="${PWD}" \
     && export TZ=UTC \
     && if test -z "${CI_COMMIT_REF_NAME:-}"; then
