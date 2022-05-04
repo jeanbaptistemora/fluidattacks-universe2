@@ -23,7 +23,7 @@ from batch.actions.remove_roots import (
     remove_roots,
 )
 from batch.actions.report import (
-    generate_report as report,
+    report,
 )
 from batch.dal import (
     delete_action,

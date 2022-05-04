@@ -121,7 +121,7 @@ async def send_report(
         )
 
 
-async def generate_report(*, item: BatchProcessing) -> None:
+async def report(*, item: BatchProcessing) -> None:
     additional_info: Dict[str, Any] = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
     message = (
