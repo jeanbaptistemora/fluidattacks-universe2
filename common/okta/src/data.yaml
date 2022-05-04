@@ -2145,6 +2145,7 @@ OKTA_DATA_RAW_GROUPS:
       users:
         - ENC[AES256_GCM,data:Y4v1Qi3DKA==,iv:lyJsG6wh5YOUJ+POsezoH/lHmlow4c6ZILcxXWXrYVM=,tag:FEerB7guDdey9Ugl3WIomg==,type:str]
         - ENC[AES256_GCM,data:jEAPKgWvJgC+,iv:6yXc28PH0oeeYXe7UQpdS+DXkDGZsgp2vd6eS3Em18k=,tag:Dcxw/JUgB76Qg10SF3YKvw==,type:str]
+        - ENC[AES256_GCM,data:F3zTY9nB,iv:8DV6KRQ9Pv1SP94yAaDaByb7zBbL4M6IAYXAaqQN+uM=,tag:tjhkjJC36dKhJfi4aNQvSQ==,type:str]
         - ENC[AES256_GCM,data:zt20ZW8=,iv:3hBFY3LRMU8qmSdNUNKyLs1FEywINKvuatK4kVTLqlY=,tag:RNRhwqoS8eGLeBs5StKdZQ==,type:str]
         - ENC[AES256_GCM,data:DmNP2Jeccuk=,iv:EBPLoW0f28apNzgWrAVhd7J5t3+CyMovXaxfmOKUncQ=,tag:GlxW+U6kH6lECk+PVComBw==,type:str]
         - ENC[AES256_GCM,data:huB9qVJDug==,iv:24TxppLpbObAPvj6ZQuFny/ZVcJVT088dYDQk5ocaC0=,tag:l7z6bLKfIxFEXDGGyuxFTg==,type:str]
@@ -3477,8 +3478,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-05-03T21:23:40Z"
-    mac: ENC[AES256_GCM,data:e/HZlsPhH2LzP5GtO3mSjElo7KbAwiU/ydSzyRueakC7mCOR4yJbc4TyxtLZNSQDUeV7S6sQQ902JfyB0WgKq5JdIB9q56a4Ow+7+MvbIPaTkO/4rXAeyWd5HHRNuc2JQaqWgymMg8/VRcJAZK7Fxpz3iDuMFwsjDfEfMQV72d4=,iv:5JMFXfMGW7a9Fp+JqtPEWAEfSC+Bg4qRo10KEvO/GO8=,tag:FUYGog6wfq0EROcwzEiIvA==,type:str]
+    lastmodified: "2022-05-04T18:19:33Z"
+    mac: ENC[AES256_GCM,data:XIzwA87PsWC6CjC9RIriqyG4hTbO5t0EMbDQYPNUfCSEegJnCnBX73gx5cGR442JPoZwJ6VS2ODBIx2515OP4ccyjY9GQ98w/WXqLGnhYQ9epnCZ7y5rNEGnfwA2Z/pATVhjTG7WsB4eSl6Ay5lIT0o9hQjzHY3UXXaEObgC4+c=,iv:EGLw4F7YibcQz0aVpY//ZgxcUQ10BAV1DBg/+MQBSb4=,tag:RwKCrzD/m4N7QP1WXy8a8Q==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.2
