@@ -654,20 +654,6 @@ const PlayItButtonContainer: StyledComponent<
   })
 )``;
 
-const GetDemoContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    w-80-l
-    ba
-    b--light-gray
-    pa4
-    mt4
-    bg-lightgray-xs
-  `,
-})``;
-
 const BannerContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1792,7 +1778,6 @@ export {
   FooterInfoLink,
   FullWidthContainer,
   FullWidthContainerPlain,
-  GetDemoContainer,
   GrayBigParagraph,
   GrayDash,
   GrayLittleParagraph,
