@@ -39,6 +39,8 @@ async def _get_machine_keys_to_delete(
         for batch_job in complete_batch_jobs
         if action.batch_job_id == batch_job["jobId"]
         and batch_job["status"] == JobStatus.FAILED.value
+        and batch_job.get("statusReason")
+        not in ("not required", "job peggated")
         and batch_job["container"]["vcpus"] <= 4
     ]
     await collect(

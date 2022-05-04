@@ -84,17 +84,6 @@ async def main() -> None:
             )
         )
 
-        # filter jobs that have been running for more than 4 hours
-        jobs = [
-            job
-            for job in jobs
-            if (
-                datetime.now()
-                - datetime.fromtimestamp(int(job["startedAt"] / 1000))
-            ).seconds
-            > 14400  # 4 hours
-        ]
-
         jobs_description = await describe_jobs(*[job["jobId"] for job in jobs])
         logs = await collect(
             [
@@ -112,8 +101,9 @@ async def main() -> None:
                 datetime.now()
                 - datetime.fromtimestamp(int(log[-1]["timestamp"] / 1000))
             ).seconds
-            > 3600
+            > 600
         ]
+        # return None
         actions_dict = {
             action.key: action
             for action in (
@@ -129,13 +119,6 @@ async def main() -> None:
             if action is not None
         }
 
-        # terminate batch jobs
-        await collect(
-            [
-                terminate_batch_job(job_id=job["jobId"], reason="job peggated")
-                for job in update_jobs
-            ]
-        )
         # launch new jobs with the same action id
         new_jobs_ids = await collect(
             [
@@ -147,6 +130,7 @@ async def main() -> None:
                     attempt_duration_seconds=86400,
                     action_dynamo_pk=action.key,
                     product_name=Product.SKIMS.value,
+                    memory=15400,
                 )
                 for action in actions_dict.values()
             ]
@@ -161,5 +145,13 @@ async def main() -> None:
                     actions_dict.keys(), new_jobs_ids
                 )
                 if new_job_id
+            ]
+        )
+
+        # terminate batch jobs
+        await collect(
+            [
+                terminate_batch_job(job_id=job["jobId"], reason="job peggated")
+                for job in update_jobs
             ]
         )
