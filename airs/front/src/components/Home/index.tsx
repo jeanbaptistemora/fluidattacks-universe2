@@ -7,7 +7,6 @@ import { ContactSection } from "./ContactSection";
 import { EbookSection } from "./EbookSection";
 import { QualitySection } from "./QualitySection";
 import { SolutionsSection } from "./SolutionsSection";
-import { VideoSection } from "./VideoSection";
 
 const Home: React.FC = (): JSX.Element => (
   <React.Fragment>
@@ -17,7 +16,6 @@ const Home: React.FC = (): JSX.Element => (
         name={"facebook-domain-verification"}
       />
     </Helmet>
-    <VideoSection />
     <AboutUsSection />
     <SolutionsSection />
     <EbookSection />
