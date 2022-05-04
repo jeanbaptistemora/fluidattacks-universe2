@@ -13,7 +13,8 @@ types-click = "^7.1.8"
 types-pytz = "^2021.3.5"
 utils-logger = "^1.0.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.scripts]
+observes-scheduler = 'jobs_scheduler.cli:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

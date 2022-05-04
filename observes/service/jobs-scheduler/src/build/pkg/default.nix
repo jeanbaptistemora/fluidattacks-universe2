@@ -4,27 +4,35 @@
   src,
   metadata,
 }: let
-  runtime_deps = [
-    pythonPkgs.click
-    pythonPkgs.purity
-    pythonPkgs.pytz
-    pythonPkgs.utils-logger
-    pythonPkgs.types-click
-    pythonPkgs.types-pytz
+  runtime_deps = with pythonPkgs; [
+    click
+    purity
+    pytz
+    utils-logger
+    types-click
+    types-pytz
   ];
-  dev_deps = [
-    pythonPkgs.import-linter
-    pythonPkgs.mypy
-    pythonPkgs.pytest
-    pythonPkgs.toml
-    pythonPkgs.types-toml
+  dev_deps = with pythonPkgs; [
+    import-linter
+    mypy
+    poetry
+    pytest
+    toml
+    types-toml
   ];
-  build_pkg = propagatedBuildInputs:
-    (import ./build.nix) {
-      nativeBuildInputs = [pythonPkgs.poetry] ++ dev_deps;
-      inherit lib src metadata propagatedBuildInputs;
+  pkg = (import ./build.nix) {
+    inherit lib src metadata;
+    nativeBuildInputs = dev_deps;
+    propagatedBuildInputs = runtime_deps;
+  };
+  build_env = extraLibs:
+    lib.buildEnv {
+      inherit extraLibs;
+      ignoreCollisions = false;
     };
 in {
-  runtime = build_pkg runtime_deps;
-  dev = build_pkg (runtime_deps ++ dev_deps);
+  inherit pkg;
+  env.runtime = build_env runtime_deps;
+  env.dev = build_env (runtime_deps ++ dev_deps);
+  env.bin = build_env [pkg];
 }

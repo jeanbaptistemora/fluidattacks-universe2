@@ -1,17 +1,23 @@
 {
+  fetchNixpkgs,
   inputs,
-  makeScript,
+  makeTemplate,
   outputs,
+  projectPath,
   ...
-}:
-makeScript {
-  entrypoint = ''
-    python -c "from jobs_scheduler.cli import main; main()" "$@"
-  '';
-  searchPaths = {
-    source = [
-      outputs."${inputs.observesIndex.service.scheduler.env.runtime}"
-    ];
-  };
-  name = "observes-service-jobs-scheduler-bin";
-}
+}: let
+  root = projectPath inputs.observesIndex.service.scheduler.root;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  env = pkg.env.bin;
+in
+  makeTemplate {
+    name = "observes-service-jobs-scheduler-bin";
+    searchPaths = {
+      bin = [
+        env
+      ];
+      source = [
+        outputs."${inputs.observesIndex.service.scheduler.env.runtime}"
+      ];
+    };
+  }
