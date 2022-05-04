@@ -13,6 +13,7 @@ from .group_stakeholders import (
 )
 from .organization import (
     OrganizationLoader,
+    OrganizationTypedLoader,
 )
 from .organization_stakeholders import (
     OrganizationStakeholdersLoader,
@@ -121,6 +122,7 @@ class Dataloaders(NamedTuple):
     organization_groups: OrganizationGroupsTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
+    organization_typed: OrganizationTypedLoader
     organization_tags: OrganizationTagsLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
@@ -214,6 +216,7 @@ def get_new_context() -> Dataloaders:
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
+        organization_typed=OrganizationTypedLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_states=RootStatesLoader(),

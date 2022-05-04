@@ -4,6 +4,12 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
+from db_model.organization.types import (
+    Organization,
+)
+from newutils.organizations import (
+    format_organization,
+)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -13,6 +19,7 @@ from organizations import (
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
 )
 
@@ -61,3 +68,23 @@ class OrganizationLoader(DataLoader):
         self, organization_ids: List[str]
     ) -> List[Dict[str, Any]]:
         return await _batch_load_fn(organization_ids)
+
+
+class OrganizationTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_ids: Iterable[str]
+    ) -> tuple[Organization, ...]:
+        organizations_by_id = await collect(
+            [
+                orgs_domain.get_by_id(organization_id)
+                for organization_id in organization_ids
+            ]
+        )
+        return tuple(
+            format_organization(
+                item=organizations_by_id,
+                organization_id=organization_id,
+            )
+            for organization_id in organization_ids
+        )
