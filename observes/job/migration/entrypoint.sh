@@ -24,6 +24,7 @@ aws_login_prod 'observes' \
     REDSHIFT_DATABASE \
     REDSHIFT_HOST \
     REDSHIFT_PORT \
+    bugsnag_notifier_key \
   && SOURCE_DB_USER="${REDSHIFT_OLD_USER}" \
   && SOURCE_DB_PASSWORD="${REDSHIFT_OLD_PASSWORD}" \
   && SOURCE_DB_NAME="${REDSHIFT_OLD_DATABASE}" \

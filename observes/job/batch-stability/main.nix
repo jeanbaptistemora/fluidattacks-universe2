@@ -10,6 +10,7 @@ makeScript {
     ];
     source = [
       outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
     ];
   };
   name = "observes-job-batch-stability";

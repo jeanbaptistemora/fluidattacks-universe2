@@ -11,6 +11,7 @@ makeScript {
     ];
     source = [
       outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
       outputs."/common/utils/gitlab"
       outputs."/observes/common/db-creds"
     ];
