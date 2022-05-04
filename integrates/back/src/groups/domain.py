@@ -1894,7 +1894,7 @@ async def enroll_user_to_demo(email: str) -> None:
                     user_email=email, group_name=group_name, access=True
                 ),
                 authz.grant_group_level_role(
-                    email=email, group=group_name, role="user"
+                    email=email, group_name=group_name, role="user"
                 ),
             ]
         )

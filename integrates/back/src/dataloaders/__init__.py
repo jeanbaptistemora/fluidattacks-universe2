@@ -5,9 +5,8 @@ from .event import (
 from .group import (
     GroupHistoricStateTypedLoader,
     GroupIndicatorsTypedLoader,
-    GroupLoader,
     GroupTypedLoader,
-    OrganizationGroupsLoader,
+    OrganizationGroupsTypedLoader,
 )
 from .group_stakeholders import (
     GroupStakeholdersLoader,
@@ -107,7 +106,6 @@ class Dataloaders(NamedTuple):
         FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
     me_vulnerabilities: AssignedVulnerabilitiesLoader
-    group: GroupLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
@@ -120,7 +118,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_typed: GroupTypedLoader
     organization: OrganizationLoader
-    organization_groups: OrganizationGroupsLoader
+    organization_groups: OrganizationGroupsTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
@@ -200,7 +198,6 @@ def get_new_context() -> Dataloaders:
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
-        group=GroupLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
@@ -213,7 +210,7 @@ def get_new_context() -> Dataloaders:
         group_toe_lines=GroupToeLinesLoader(),
         group_typed=GroupTypedLoader(),
         organization=OrganizationLoader(),
-        organization_groups=OrganizationGroupsLoader(),
+        organization_groups=OrganizationGroupsTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),

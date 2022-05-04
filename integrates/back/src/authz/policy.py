@@ -47,11 +47,8 @@ from typing import (
     Awaitable,
     cast,
     DefaultDict,
-    Dict,
-    List,
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -61,21 +58,21 @@ AUTHZ_TABLE: str = "fi_authz"
 GROUPS_TABLE: str = "FI_projects"
 LOGGER = logging.getLogger(__name__)
 
-# Typing
-ServicePolicy = NamedTuple("ServicePolicy", [("group", str), ("service", str)])
-SubjectPolicy = NamedTuple(
-    "SubjectPolicy",
-    [
-        ("level", str),
-        ("subject", str),
-        ("object", str),
-        ("role", str),
-    ],
-)
+
+class ServicePolicy(NamedTuple):
+    group_name: str
+    service: str
 
 
-def _cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
-    field_types: Dict[Any, Any] = SubjectPolicy.__annotations__
+class SubjectPolicy(NamedTuple):
+    level: str
+    subject: str
+    object: str
+    role: str
+
+
+def _cast_dict_into_subject_policy(item: dict[str, str]) -> SubjectPolicy:
+    field_types: dict[Any, Any] = SubjectPolicy.__annotations__
 
     # Every string as lowercase
     for field, _ in field_types.items():
@@ -93,7 +90,7 @@ def _cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
     )
 
 
-def _cast_subject_policy_into_dict(policy: SubjectPolicy) -> Dict[str, str]:
+def _cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict[str, str]:
     """Cast a subject policy into a dict, valid to be put in dynamo."""
     return {
         key: (value.lower() if isinstance(value, str) else value)
@@ -117,17 +114,17 @@ async def _delete_subject_policy(subject: str, object_: str) -> bool:
     return False
 
 
-async def _get_group_service_policies(group: Group) -> Tuple[str, ...]:
+async def _get_group_service_policies(group: Group) -> tuple[str, ...]:
     """Cached function to get 1 group features authorization policies."""
-    policies: Tuple[str, ...] = tuple(
+    policies: tuple[str, ...] = tuple(
         policy.service
         for policy in await _get_service_policies(group)
-        if policy.group == group.name
+        if policy.group_name == group.name
     )
     return policies
 
 
-async def _get_service_policies(group: Group) -> List[ServicePolicy]:
+async def _get_service_policies(group: Group) -> list[ServicePolicy]:
     """Return a list of policies for the given group."""
     has_squad = group.state.has_squad
     has_asm = group.state.status == GroupStateStatus.ACTIVE
@@ -156,13 +153,13 @@ async def _get_service_policies(group: Group) -> List[ServicePolicy]:
     )
 
     return [
-        ServicePolicy(group=group.name, service=policy_name)
+        ServicePolicy(group_name=group.name, service=policy_name)
         for condition, policy_name in business_rules
         if condition
     ]
 
 
-async def _get_subject_policies(subject: str) -> List[SubjectPolicy]:
+async def _get_subject_policies(subject: str) -> list[SubjectPolicy]:
     """Return a list of policies for the given subject."""
     query_params = {
         "ConsistentRead": True,
@@ -190,8 +187,8 @@ async def _get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
 
 async def _get_user_subject_policies(
     subject: str,
-) -> Tuple[Tuple[str, str, str], ...]:
-    policies: Tuple[Tuple[str, str, str], ...] = tuple(
+) -> tuple[tuple[str, str, str], ...]:
+    policies: tuple[tuple[str, str, str], ...] = tuple(
         (policy.level, policy.object, policy.role)
         for policy in await _get_subject_policies(subject)
         if policy.subject == subject
@@ -201,8 +198,8 @@ async def _get_user_subject_policies(
 
 async def get_cached_group_service_policies(
     group: Group,
-) -> Tuple[str, ...]:
-    response: Tuple[str, ...] = await redis_get_or_set_entity_attr(
+) -> tuple[str, ...]:
+    response: tuple[str, ...] = await redis_get_or_set_entity_attr(
         partial(_get_group_service_policies, group),
         entity="authz_group",
         attr="policies",
@@ -216,9 +213,9 @@ async def get_cached_subject_policies(
     subject: str,
     context_store: Optional[DefaultDict[Any, Any]] = None,
     with_cache: bool = True,
-) -> Tuple[Tuple[str, str, str], ...]:
+) -> tuple[tuple[str, str, str], ...]:
     """Cached function to get 1 user authorization policies."""
-    policies: Tuple[Tuple[str, str, str], ...]
+    policies: tuple[tuple[str, str, str], ...]
 
     if with_cache:
         # Unique ID for this function and arguments
@@ -232,7 +229,7 @@ async def get_cached_subject_policies(
         context_store = context_store or DefaultDict(str)
         if context_store_key in context_store:
             return cast(
-                Tuple[Tuple[str, str, str], ...],
+                tuple[tuple[str, str, str], ...],
                 context_store[context_store_key],
             )
 
@@ -250,9 +247,9 @@ async def get_cached_subject_policies(
     return policies
 
 
-async def get_group_level_role(email: str, group: str) -> str:
+async def get_group_level_role(email: str, group_name: str) -> str:
     # Admins are granted access to all groups
-    subject_policy = await _get_subject_policy(email, group)
+    subject_policy = await _get_subject_policy(email, group_name)
     group_role: str = subject_policy.role
 
     # Please always make the query at the end
@@ -263,12 +260,12 @@ async def get_group_level_role(email: str, group: str) -> str:
 
 async def get_group_level_roles(
     email: str,
-    groups: List[str],
+    groups: list[str],
     with_cache: bool = True,
-) -> Dict[str, str]:
+) -> dict[str, str]:
     is_admin: bool = await get_user_level_role(email) == "admin"
     policies = await get_cached_subject_policies(email, with_cache=with_cache)
-    db_roles: Dict[str, str] = {
+    db_roles: dict[str, str] = {
         object_: role for level, object_, role in policies if level == "group"
     }
     return {
@@ -295,18 +292,20 @@ async def get_user_level_role(email: str) -> str:
     return str(user_policy.role)
 
 
-async def grant_group_level_role(email: str, group: str, role: str) -> bool:
+async def grant_group_level_role(
+    email: str, group_name: str, role: str
+) -> bool:
     if role not in get_group_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
 
     policy = SubjectPolicy(
         level="group",
         subject=email,
-        object=group,
+        object=group_name,
         role=role,
     )
     success: bool = False
-    coroutines: List[Awaitable[bool]] = []
+    coroutines: list[Awaitable[bool]] = []
     coroutines.append(put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
@@ -332,7 +331,7 @@ async def grant_organization_level_role(
         role=role,
     )
     success: bool = False
-    coroutines: List[Awaitable[bool]] = []
+    coroutines: list[Awaitable[bool]] = []
     coroutines.append(put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
@@ -360,9 +359,9 @@ async def grant_user_level_role(email: str, role: str) -> bool:
     ) and await revoke_cached_subject_policies(email)
 
 
-async def has_access_to_group(email: str, group: str) -> bool:
+async def has_access_to_group(email: str, group_name: str) -> bool:
     """Verify if the user has access to a group."""
-    return bool(await get_group_level_role(email, group.lower()))
+    return bool(await get_group_level_role(email, group_name.lower()))
 
 
 async def put_subject_policy(policy: SubjectPolicy) -> bool:
@@ -376,12 +375,12 @@ async def put_subject_policy(policy: SubjectPolicy) -> bool:
     return False
 
 
-async def revoke_cached_group_service_policies(group: str) -> bool:
+async def revoke_cached_group_service_policies(group_name: str) -> bool:
     """Revoke the cached policies for the provided group."""
     # Delete the cache key from the cache
     await redis_del_by_deps(
         "revoke_authz_group",
-        authz_group_name=group.lower(),
+        authz_group_name=group_name.lower(),
     )
     return True
 
@@ -395,9 +394,9 @@ async def revoke_cached_subject_policies(subject: str) -> bool:
     return True
 
 
-async def revoke_group_level_role(email: str, group: str) -> bool:
+async def revoke_group_level_role(email: str, group_name: str) -> bool:
     return await _delete_subject_policy(
-        email, group
+        email, group_name
     ) and await revoke_cached_subject_policies(email)
 
 

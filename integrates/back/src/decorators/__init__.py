@@ -391,7 +391,6 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 REQUIRE_CONTINUOUS = require_attribute("is_continuous")
 REQUIRE_SQUAD = require_attribute("has_squad")
 REQUIRE_ASM = require_attribute("has_asm")
-REQUIRE_FORCES = require_attribute("has_forces")
 REQUIRE_SERVICE_BLACK = require_attribute("has_service_black")
 REQUIRE_SERVICE_WHITE = require_attribute("has_service_white")
 
@@ -441,10 +440,6 @@ def require_finding_access(func: TVar) -> TVar:
         return await _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)
-
-
-def require_forces(func: TVar) -> TVar:
-    return REQUIRE_FORCES(func)
 
 
 def require_asm(func: TVar) -> TVar:
