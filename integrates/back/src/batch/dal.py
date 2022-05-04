@@ -617,6 +617,7 @@ async def put_action_to_batch(
                     jobQueue=queue,
                     jobDefinition="makes",
                     containerOverrides={
+                        "vcpus": vcpus,
                         "command": [
                             "m",
                             "f",
@@ -635,11 +636,8 @@ async def put_action_to_batch(
                                 "value": PRODUCT_API_TOKEN,
                             },
                         ],
+                        "memory": memory,
                     },
-                    resourceRequirements=[
-                        {"type": "MEMORY", "value": str(memory)},
-                        {"type": "VCPU", "value": str(vcpus)},
-                    ],
                     retryStrategy={
                         "attempts": 1,
                     },
