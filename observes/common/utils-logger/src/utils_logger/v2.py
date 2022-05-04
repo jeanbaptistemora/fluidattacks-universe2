@@ -30,7 +30,7 @@ class Envs(Enum):
 
 ENV = Envs(environ.get("OBSERVES_ENV", "production"))
 DEBUG = environ.get("OBSERVES_DEBUG", "false").lower() == "true"
-PRODUCT_KEY = "13748c4b5f6807a89f327c0f54fe6c7a"  # not a secret
+PRODUCT_KEY = environ.get("bugsnag_notifier_key", "")
 
 
 @dataclass(frozen=True)

@@ -6,6 +6,9 @@ from datetime import (
 from itertools import (
     chain,
 )
+from os import (
+    environ,
+)
 from typing import (
     Any,
     Dict,
@@ -20,7 +23,7 @@ NOW: float = datetime.utcnow().timestamp()
 
 # Side effects
 bugsnag.configure(
-    api_key="13748c4b5f6807a89f327c0f54fe6c7a",
+    api_key=environ.get("bugsnag_notifier_key", ""),
     asynchronous=False,
     send_code=False,
 )
