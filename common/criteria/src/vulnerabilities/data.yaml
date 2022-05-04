@@ -23179,7 +23179,7 @@
     recommendation: >
       Avoid and restrict the use of NTLM as authentication mechanism,
       in favor of more recent and secure alternatives
-      such as Kerberos, Smart Cards, Ouath, Bearer Authentication,
+      such as Kerberos, Smart Cards, OAuth, Bearer Authentication,
       forms, JWT, among others.
     threat: >
       Anonymous attacker from adjacent network performing a MitM.
@@ -23197,7 +23197,7 @@
     recommendation: >
       Evitar y restringir el uso de NTLM como mecanismo de autenticación,
       en favor de alternativas más recientes y seguras como:
-      Kerberos, Smart Cards, Oauth, autenticación Bearer,
+      Kerberos, Smart Cards, OAuth, autenticación Bearer,
       formularios, JWT, entre otros.
     threat: >
       Atacante anónimo desde red adyacente ejecutando un MitM.
