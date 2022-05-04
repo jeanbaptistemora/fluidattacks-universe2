@@ -188,6 +188,11 @@ async def send_mail_deactivated_root(
     root_nickname: str,
     **kwargs: str,
 ) -> None:
+    format_last_root_state = (
+        last_root_state
+        if last_root_state == "OK"
+        else last_root_state.capitalize()
+    )
     await send_mails_async(
         email_to=email_to,
         context={
@@ -198,7 +203,7 @@ async def send_mail_deactivated_root(
             "root_age": root_age,
             "activated_by": activated_by,
             "root_nickname": root_nickname,
-            "last_root_state": last_root_state.capitalize(),
+            "last_root_state": format_last_root_state,
             "last_clone_date": last_clone_date,
             "sast_vulns": kwargs["sast_vulns"],
             "dast_vulns": kwargs["dast_vulns"],
