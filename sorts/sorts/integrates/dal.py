@@ -45,44 +45,79 @@ def _execute(
     return response
 
 
-def get_vulnerabilities(group: str) -> List[Vulnerability]:
-    """Fetches all reported vulnerabilities in a group"""
+def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
+    """Fetches all reported vulnerabilities in a finding"""
+    state = "OPEN"
     vulnerabilities: List[Vulnerability] = []
-    result = _execute(
-        query="""
-            query SortsGetVulnerabilities(
-                $group: String!
-            ) {
-                group(groupName: $group) {
-                    findings {
-                        id
-                        vulnerabilities(state: "open") {
+    query = """
+        query SortsGetVulnerabilities(
+            $after: String
+            $finding_id: String!
+            $first: Int
+            $state: VulnerabilityState
+        ) {
+            finding(identifier: $finding_id) {
+                id
+                vulnerabilitiesConnection(
+                    after: $after,
+                    first: $first,
+                    state: $state
+                ) {
+                    edges {
+                        node {
                             vulnerabilityType
                             where
-                            historicState {
-                                source
-                            }
                         }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
                     }
                 }
             }
-        """,
+        }
+    """
+    result = _execute(
+        query=query,
         operation="SortsGetVulnerabilities",
-        variables=dict(
-            group=group,
-        ),
+        variables=dict(finding_id=finding_id, state=state),
     )
 
-    if result:
-        vulnerabilities = [
-            Vulnerability(
-                kind=VulnerabilityKindEnum(vuln["vulnerabilityType"]),
-                source=vuln["historicState"][0]["source"],
-                where=vuln["where"],
+    while True:
+        has_next_page = False
+        if result:
+            vulnerabilities_connection = result["finding"][
+                "vulnerabilitiesConnection"
+            ]
+            vulnerability_page_info = vulnerabilities_connection["pageInfo"]
+            vulnerability_edges = vulnerabilities_connection["edges"]
+            has_next_page = vulnerability_page_info["hasNextPage"]
+            end_cursor = vulnerability_page_info["endCursor"]
+            vulnerabilities.extend(
+                [
+                    Vulnerability(
+                        kind=VulnerabilityKindEnum(
+                            vuln_edge["node"]["vulnerabilityType"]
+                        ),
+                        where=vuln_edge["node"]["where"],
+                    )
+                    for vuln_edge in vulnerability_edges
+                ]
             )
-            for finding in result["group"]["findings"]
-            for vuln in finding["vulnerabilities"]
-        ]
+
+        if not has_next_page:
+            break
+
+        result = _execute(
+            query=query,
+            operation="SortsGetVulnerabilities",
+            variables=dict(
+                finding_id=finding_id,
+                state=state,
+                after=end_cursor,
+            ),
+        )
+
     return vulnerabilities
 
 

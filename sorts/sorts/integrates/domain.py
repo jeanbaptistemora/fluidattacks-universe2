@@ -1,4 +1,8 @@
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
 from integrates.dal import (  # type: ignore
+    get_finding_ids,
     get_vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
@@ -61,7 +65,13 @@ def get_vulnerable_files(group: str, ignore_repos: List[str]) -> List[str]:
 
 def get_vulnerable_lines(group: str) -> List[str]:
     """Fetches the vulnerable files from a group"""
-    vulnerabilities: List[Vulnerability] = get_vulnerabilities(group)
+    vulnerabilities: List[Vulnerability] = []
+    finding_ids: List[str] = get_finding_ids(group)
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        for finding_vulnerabilities in executor.map(
+            get_vulnerabilities, finding_ids
+        ):
+            vulnerabilities.extend(finding_vulnerabilities)
 
     return [
         vuln.where
