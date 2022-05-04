@@ -10,8 +10,8 @@ import {
 } from "./styledComponents";
 
 import {
+  BlackBigParagraph,
   FullWidthContainer,
-  NewBlackBigParagraph,
 } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
@@ -34,9 +34,9 @@ const MainSection: React.FC<IProps> = ({
         />
       </FullWidthContainer>
       <MainTextContainer>
-        <NewBlackBigParagraph>
+        <BlackBigParagraph>
           {translate.t("productOverview.title")}
-        </NewBlackBigParagraph>
+        </BlackBigParagraph>
         <ProductParagraph isSecundary={false}>{description}</ProductParagraph>
         <Link to={"/contact-us-demo/"}>
           <BigRegularRedButton>

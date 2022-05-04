@@ -3,18 +3,18 @@ import { Link } from "gatsby";
 import React from "react";
 
 import {
+  GrayBigParagraph,
   HomeImageContainer,
+  InnerMainContentHome,
   MainContentHome,
-  NewGrayBigParagraph,
-  NewInnerMainContentHome,
-  NewMainCoverHome,
+  MainCoverHome,
   NewRegularRedButton,
   WhiteBigParagraph,
 } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
 
 const Portrait: React.FC = (): JSX.Element => (
-  <NewMainCoverHome>
+  <MainCoverHome>
     <MainContentHome>
       <HomeImageContainer>
         <CloudImage
@@ -22,13 +22,13 @@ const Portrait: React.FC = (): JSX.Element => (
           src={"/home/portrait-home.png"}
         />
       </HomeImageContainer>
-      <NewInnerMainContentHome>
+      <InnerMainContentHome>
         <WhiteBigParagraph className={"f-home-title"}>
           {"Secure your applications with our Continuous Hacking Solution"}
         </WhiteBigParagraph>
-        <NewGrayBigParagraph>
+        <GrayBigParagraph>
           {"Accurate automation + AI prioritization + Expert intelligence"}
-        </NewGrayBigParagraph>
+        </GrayBigParagraph>
         <div className={"cf mt4 mb5"}>
           <Link className={"no-underline"} to={"/contact-us-demo/"}>
             <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
@@ -36,9 +36,9 @@ const Portrait: React.FC = (): JSX.Element => (
             </NewRegularRedButton>
           </Link>
         </div>
-      </NewInnerMainContentHome>
+      </InnerMainContentHome>
     </MainContentHome>
-  </NewMainCoverHome>
+  </MainCoverHome>
 );
 
 export { Portrait };

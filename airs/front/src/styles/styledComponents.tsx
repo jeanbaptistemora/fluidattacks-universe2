@@ -463,22 +463,6 @@ const MainCoverHome: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    flex-ns
-    items-center
-    cover-m
-    cover-s
-    bg-banner-sz
-    h-section
-  `,
-})`
-  background-image: url("https://res.cloudinary.com/fluid-attacks/image/upload/v1619036564/airs/home/cover-main_imgm6u.webp");
-`;
-
-const NewMainCoverHome: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
     flex
     items-center
     cover-m
@@ -503,22 +487,6 @@ const MainContentHome: StyledComponent<
   `,
 })``;
 
-const InnerMainContentHome: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    fr-l
-    w-50-l
-    w100-m
-    mt3-l
-    center
-    pt0-ns
-    pt4
-    pl3
-  `,
-})``;
-
 const HomeImageContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -536,7 +504,7 @@ const HomeImageContainer: StyledComponent<
   `,
 })``;
 
-const NewInnerMainContentHome: StyledComponent<
+const InnerMainContentHome: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
@@ -574,22 +542,6 @@ const BlackBigParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    f1-l
-    f2
-    c-fluid-bk
-    fw6
-    tl
-    neue
-    lh-solid
-    ma0
-  `,
-})``;
-
-const NewBlackBigParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
     f1
     c-fluid-bk
     fw6
@@ -614,22 +566,6 @@ const WhiteBigParagraph: StyledComponent<
 })``;
 
 const GrayBigParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f1-l
-    f2
-    c-fluid-gray
-    fw6
-    tl
-    neue
-    lh-solid
-    ma0
-  `,
-})``;
-
-const NewGrayBigParagraph: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
@@ -1898,10 +1834,6 @@ export {
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
-  NewBlackBigParagraph,
-  NewGrayBigParagraph,
-  NewInnerMainContentHome,
-  NewMainCoverHome,
   NewRegularRedButton,
   PageArticle,
   PageContainer,

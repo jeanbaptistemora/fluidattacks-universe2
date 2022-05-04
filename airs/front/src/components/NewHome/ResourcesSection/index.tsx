@@ -7,8 +7,8 @@ import { ResourceCard } from "./ResourceCard";
 import { BlackParagraph, Container, TitleContainer } from "./styledComponents";
 
 import {
+  BlackBigParagraph,
   FlexCenterItemsContainer,
-  NewBlackBigParagraph,
   NewRegularRedButton,
 } from "../../../styles/styledComponents";
 
@@ -36,7 +36,7 @@ const ResourcesSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <TitleContainer>
-        <NewBlackBigParagraph>{t("resources.home.title")}</NewBlackBigParagraph>
+        <BlackBigParagraph>{t("resources.home.title")}</BlackBigParagraph>
       </TitleContainer>
       <FlexCenterItemsContainer className={"flex-wrap mv5"}>
         {data.map((card): JSX.Element => {
