@@ -179,7 +179,6 @@ def get_object_identifiers(
     shard: graph_model.GraphShard, obj_names: Set[str]
 ) -> List[str]:
     obj_nodes = list(yield_shard_object_creation(shard, obj_names))
-    print(obj_nodes)
     ident_objects = [
         get_var_node_from_obj(shard, member) for member in obj_nodes
     ]
