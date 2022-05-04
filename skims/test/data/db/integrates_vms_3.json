@@ -24,6 +24,75 @@
     {
       "PutRequest": {
         "Item": {
+          "loc": {
+            "N": "16"
+          },
+          "comments": {
+            "S": "comment 1"
+          },
+          "sorts_risk_level": {
+            "N": "80"
+          },
+          "last_commit": {
+            "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "last_author": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "has_vulnerabilities": {
+            "BOOL": true
+          },
+          "attacked_at": {
+            "S": "2021-02-20T05:00:00+00:00"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "modified_date": {
+            "S": "2020-11-15T15:41:04+00:00"
+          },
+          "attacked_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "4"
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "sk": {
+            "S": "LINES#ROOT#b5b383c0-bd20-4ad1-a509-0981c8a8b18a#FILENAME#skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "b5b383c0-bd20-4ad1-a509-0981c8a8b18a"
+          },
+          "first_attack_at": {
+            "S": "2020-02-19T15:41:04+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#b5b383c0-bd20-4ad1-a509-0981c8a8b18a#FILENAME#skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "seen_at": {
+            "S": "2020-02-01T15:41:04+00:00"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "requirements": {
             "S": "134. The system must store passwords with different key derivations (Salt).\n135. Salt values in passwords must be random and have a minimum length of 48 bits.\n185. All stored sensitive information must be encrypted.\n227. The system must notify, upon any access attempt, that access to the system is only available for authorized users.\n229. The system must request at least one username and password from every actor that tries to authenticate.\n264. The system must require authentication for all resources, except for the consultation or visualization of those specifically classified as public\n300. Business sensitive data (passwords, credit card numbers, CVV, etc.) must be masked."
           },
@@ -280,7 +349,7 @@
             "S": "GROUP#jessup"
           },
           "unreliable_where": {
-            "S": ""
+            "S": "skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
           },
           "unreliable_closed_vulnerabilities": {
             "N": "6"
@@ -379,19 +448,22 @@
             "S": "FIN#16199698-cae6-47d4-81df-eb176dfd5c08"
           },
           "sk_3": {
-            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
-          },
-          "pk_2": {
-            "S": "ROOT"
+            "S": "VULN#bfc71d84-0b81-42f6-bae6-376851e2395b"
           },
           "where": {
-            "S": "namespace3/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+            "S": "skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
           },
           "pk": {
-            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+            "S": "VULN#bfc71d84-0b81-42f6-bae6-376851e2395b"
           },
           "pk_3": {
             "S": "USER#unittest@fluidattacks.com"
+          },
+          "pk_2": {
+            "S": "ROOT#b5b383c0-bd20-4ad1-a509-0981c8a8b18a"
+          },
+          "root_id": {
+            "S": "b5b383c0-bd20-4ad1-a509-0981c8a8b18a"
           },
           "state": {
             "M": {
@@ -410,7 +482,7 @@
             }
           },
           "sk_2": {
-            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+            "S": "VULN#bfc71d84-0b81-42f6-bae6-376851e2395b"
           },
           "verification": {
             "M": {
