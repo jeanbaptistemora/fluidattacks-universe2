@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { AboutUsSection } from "./AboutUsSection";
 import { ClientsSection } from "./ClientsSection";
 import { ContactSection } from "./ContactSection";
 import { EbookSection } from "./EbookSection";
@@ -16,7 +15,6 @@ const Home: React.FC = (): JSX.Element => (
         name={"facebook-domain-verification"}
       />
     </Helmet>
-    <AboutUsSection />
     <SolutionsSection />
     <EbookSection />
     <ClientsSection />
