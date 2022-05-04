@@ -360,13 +360,15 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
             if isinstance(context, dict):
                 context = context.get("request", {})
             store = token_utils.get_request_store(context)
-            group = await resolve_group_name(context, args, kwargs)
+            group_name = await resolve_group_name(context, args, kwargs)
+            loaders = context.loaders
+            group: Group = await loaders.group_typed.load(group_name)
 
             # Unique ID for this decorator function
             context_store_key: str = function.get_id(
                 require_attribute,
                 attribute,
-                group,
+                group_name,
             )
 
             # Within the context of one request we only need to check this once

@@ -13,6 +13,9 @@ from .model import (
     get_user_level_roles_model,
     SERVICE_ATTRIBUTES_SET,
 )
+from db_model.groups.types import (
+    Group,
+)
 import logging
 import logging.config
 from settings import (
@@ -71,7 +74,7 @@ def get_group_level_roles_with_tag(tag: str, email: str) -> Set[str]:
     }
 
 
-async def get_group_service_attributes(group: str) -> Set[str]:
+async def get_group_service_attributes(group: Group) -> Set[str]:
     enforcer = await get_group_service_attributes_enforcer(group)
     return set(filter(enforcer, SERVICE_ATTRIBUTES_SET))
 

@@ -11,6 +11,12 @@ from custom_exceptions import (
 from custom_types import (
     UpdateStakeholderPayload as UpdateStakeholderPayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.groups.types import (
+    Group,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -48,14 +54,15 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def _update_stakeholder(
-    info: GraphQLResolveInfo, updated_data: Dict[str, str]
+    info: GraphQLResolveInfo,
+    updated_data: Dict[str, str],
+    group: Group,
 ) -> bool:
     success = False
-    group_name: str = updated_data["group_name"].lower()
     modified_role = map_roles(updated_data["role"])
     modified_email = updated_data["email"]
     group_access = await group_access_domain.get_user_access(
-        modified_email, group_name
+        modified_email, group.name
     )
     # Validate role requirements before changing anything
     validate_role_fluid_reqs(modified_email, modified_role)
@@ -63,14 +70,14 @@ async def _update_stakeholder(
         invitation = group_access.get("invitation")
         if invitation and not invitation["is_used"]:
             success = await users_domain.update_invited_stakeholder(
-                updated_data, invitation, group_name
+                updated_data, invitation, group
             )
         else:
             if await authz.grant_group_level_role(
-                modified_email, group_name, modified_role
+                modified_email, group.name, modified_role
             ):
                 success = await users_domain.update_user_information(
-                    info.context, updated_data, group_name
+                    info.context, updated_data, group.name
                 )
             else:
                 LOGGER.error(
@@ -90,7 +97,9 @@ async def _update_stakeholder(
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, **updated_data: str
+    _: Any,
+    info: GraphQLResolveInfo,
+    **updated_data: str,
 ) -> UpdateStakeholderPayloadType:
     group_name: str = updated_data["group_name"].lower()
     modified_role: str = map_roles(updated_data["role"])
@@ -107,12 +116,14 @@ async def mutate(
         )
     )
 
+    loaders: Dataloaders = info.context.loaders
+    group: Group = await loaders.group_typed.load(group_name)
     await authz.validate_fluidattacks_staff_on_group(
-        group_name, modified_email, modified_role
+        group, modified_email, modified_role
     )
 
     if modified_role in allowed_roles_to_grant:
-        success = await _update_stakeholder(info, updated_data)
+        success = await _update_stakeholder(info, updated_data, group)
     else:
         LOGGER.error(
             "Invalid role provided",
@@ -144,7 +155,5 @@ async def mutate(
 
     return UpdateStakeholderPayloadType(
         success=success,
-        modified_stakeholder=dict(
-            group_name=group_name, email=updated_data["email"]
-        ),
+        modified_stakeholder=dict(group_name=group_name, email=modified_email),
     )

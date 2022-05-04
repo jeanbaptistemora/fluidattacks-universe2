@@ -8,6 +8,9 @@ from .policy import (
     get_cached_group_service_policies,
     get_cached_subject_policies,
 )
+from db_model.groups.types import (
+    Group,
+)
 from typing import (
     Any,
     Callable,
@@ -47,7 +50,7 @@ async def get_group_level_enforcer(
 
 
 async def get_group_service_attributes_enforcer(
-    group: str,
+    group: Group,
 ) -> Callable[[str], bool]:
     """Return a filtered group authorization for the provided group."""
     policies = await get_cached_group_service_policies(group)

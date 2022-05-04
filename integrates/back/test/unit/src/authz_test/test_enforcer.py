@@ -1,4 +1,8 @@
 import authz
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 import pytest
 from typing import (
     Any,
@@ -72,17 +76,18 @@ async def test_user_level_enforcer() -> None:
 
 
 async def test_group_service_attributes_enforcer() -> None:
+    loaders: Dataloaders = get_new_context()
     # All attributes must be tested for this test to succeed
     # This prevents someone to add a new attribute without testing it
 
     attributes_remaining_to_test: Set[Tuple[str, Any]] = {
-        (group, attr)
-        for group in ("unittesting", "oneshottest", "non_existing")
+        (group_name, attr)
+        for group_name in ("unittesting", "oneshottest")
         for attrs in authz.SERVICE_ATTRIBUTES.values()
         for attr in set(attrs).union({"non_existing_attribute"})
     }
 
-    for group, attribute, result in [
+    for group_name, attribute, result in [
         ("unittesting", "has_service_black", False),
         ("unittesting", "has_service_white", True),
         ("unittesting", "has_forces", True),
@@ -101,23 +106,16 @@ async def test_group_service_attributes_enforcer() -> None:
         ("oneshottest", "is_fluidattacks_customer", True),
         ("oneshottest", "must_only_have_fluidattacks_hackers", True),
         ("oneshottest", "non_existing_attribute", False),
-        ("non_existing", "has_asm", False),
-        ("non_existing", "has_service_black", False),
-        ("non_existing", "has_service_white", False),
-        ("non_existing", "has_forces", False),
-        ("non_existing", "has_squad", False),
-        ("non_existing", "is_continuous", False),
-        ("non_existing", "is_fluidattacks_customer", False),
-        ("non_existing", "must_only_have_fluidattacks_hackers", False),
-        ("non_existing", "non_existing_attribute", False),
     ]:
-        enforcer = await authz.get_group_service_attributes_enforcer(group)
+        enforcer = await authz.get_group_service_attributes_enforcer(
+            await loaders.group_typed.load(group_name)
+        )
 
         assert (
             enforcer(attribute) == result
-        ), f"{group} attribute: {attribute}, should have value {result}"
+        ), f"{group_name} attribute: {attribute}, should have value {result}"
 
-        attributes_remaining_to_test.remove((group, attribute))
+        attributes_remaining_to_test.remove((group_name, attribute))
 
     assert not attributes_remaining_to_test, (
         f"Please add tests for the following pairs of (group, attribute)"

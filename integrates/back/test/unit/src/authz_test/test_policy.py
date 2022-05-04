@@ -7,6 +7,10 @@ from authz import (
     revoke_group_level_role,
     revoke_user_level_role,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 import pytest
 
 # Constants
@@ -16,14 +20,18 @@ pytestmark = [
 
 
 async def test_get_cached_group_service_attributes_policies() -> None:
+    loaders: Dataloaders = get_new_context()
     function = get_cached_group_service_policies
 
-    assert sorted(await function("not-exists... probably")) == []
-    assert sorted(await function("oneshottest")) == [
+    assert sorted(
+        await function(await loaders.group_typed.load("oneshottest"))
+    ) == [
         "asm",
         "service_black",
     ]
-    assert sorted(await function("unittesting")) == [
+    assert sorted(
+        await function(await loaders.group_typed.load("unittesting"))
+    ) == [
         "asm",
         "continuous",
         "forces",

@@ -207,6 +207,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> GitRootItem:
     group_name = str(kwargs["group_name"]).lower()
+    group: Group = await loaders.group_typed.load(group_name)
     url: str = format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
@@ -223,9 +224,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     )
 
     includes_health_check = kwargs["includes_health_check"]
-    service_enforcer = await authz.get_group_service_attributes_enforcer(
-        group_name
-    )
+    service_enforcer = await authz.get_group_service_attributes_enforcer(group)
     if includes_health_check and not service_enforcer("has_squad"):
         raise PermissionDenied()
 
@@ -236,7 +235,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
 
-    group: Group = await loaders.group_typed.load(group_name)
     organization_name = await orgs_domain.get_name_by_id(group.organization_id)
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
@@ -616,6 +614,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
 ) -> RootItem:
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
+    group: Group = await loaders.group_typed.load(group_name)
     root: RootItem = await loaders.root.load((group_name, root_id))
 
     url: str = kwargs["url"]
@@ -635,7 +634,6 @@ async def update_git_root(  # pylint: disable=too-many-locals
             group_name=group_name,
         ):
             raise HasVulns()
-        group: Group = await loaders.group_typed.load(group_name)
         organization_name = await orgs_domain.get_name_by_id(
             group.organization_id
         )
@@ -651,7 +649,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
     )
     if health_check_changed:
         service_enforcer = await authz.get_group_service_attributes_enforcer(
-            group_name
+            group
         )
         if kwargs["includes_health_check"] and not service_enforcer(
             "has_squad"

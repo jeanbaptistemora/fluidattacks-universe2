@@ -22,6 +22,9 @@ from custom_types import (
 from datetime import (
     datetime,
 )
+from db_model.groups.types import (
+    Group,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -384,7 +387,9 @@ async def update_last_login(email: str) -> bool:
 
 
 async def update_invited_stakeholder(
-    updated_data: Dict[str, str], invitation: dict[str, Any], group_name: str
+    updated_data: Dict[str, str],
+    invitation: dict[str, Any],
+    group: Group,
 ) -> bool:
     success = False
     email = updated_data["email"]
@@ -397,14 +402,14 @@ async def update_invited_stakeholder(
         and validate_email_address(email)
         and validate_role_fluid_reqs(email, role)
         and await authz.validate_fluidattacks_staff_on_group(
-            group_name, email, role
+            group, email, role
         )
     ):
         new_invitation["responsibility"] = responsibility
         new_invitation["role"] = role
         success = await group_access_domain.update(
             email,
-            group_name,
+            group.name,
             {
                 "invitation": new_invitation,
             },

@@ -1167,13 +1167,14 @@ async def invite_to_group(
     modified_by: str,
 ) -> bool:
     success = False
+    group: Group = await loaders.group_typed.load(group_name)
     if (
         validate_field_length(responsibility, 50)
         and validate_alphanumeric_field(responsibility)
         and validate_email_address(email)
         and validate_role_fluid_reqs(email, role)
         and await authz.validate_fluidattacks_staff_on_group(
-            group_name, email, role
+            group, email, role
         )
     ):
         expiration_time = datetime_utils.get_as_epoch(
@@ -1194,7 +1195,6 @@ async def invite_to_group(
                 },
             },
         )
-        group: Group = await loaders.group_typed.load(group_name)
         confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
         reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
         mail_to = [email]

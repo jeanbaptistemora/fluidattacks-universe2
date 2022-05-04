@@ -16,6 +16,14 @@ import contextlib
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.groups.enums import (
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+)
+from db_model.groups.types import (
+    Group,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -26,9 +34,6 @@ import logging
 import logging.config
 from newutils import (
     function,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -112,57 +117,46 @@ async def _delete_subject_policy(subject: str, object_: str) -> bool:
     return False
 
 
-async def _get_group_service_policies(group: str) -> Tuple[str, ...]:
+async def _get_group_service_policies(group: Group) -> Tuple[str, ...]:
     """Cached function to get 1 group features authorization policies."""
     policies: Tuple[str, ...] = tuple(
         policy.service
         for policy in await _get_service_policies(group)
-        if policy.group == group
+        if policy.group == group.name
     )
     return policies
 
 
-async def _get_service_policies(group: str) -> List[ServicePolicy]:
+async def _get_service_policies(group: Group) -> List[ServicePolicy]:
     """Return a list of policies for the given group."""
-    query_attrs = {
-        "KeyConditionExpression": Key("project_name").eq(group.lower()),
-        "ConsistentRead": True,
-        "ProjectionExpression": "historic_configuration, project_status",
-    }
-    response_items = await dynamodb_ops.query(GROUPS_TABLE, query_attrs)
-
-    # There is no such group, let's make an early return
-    if not response_items:
-        return []
-
-    group_attributes = response_items[0]
-    historic_config = group_attributes["historic_configuration"]
-    has_squad: bool = get_key_or_fallback(
-        historic_config[-1], "has_squad", "has_drills"
-    )
-    has_forces: bool = historic_config[-1]["has_forces"]
-    has_asm: bool = (
-        get_key_or_fallback(group_attributes, "group_status", "project_status")
-        == "ACTIVE"
-    )
-    service = historic_config[-1]["service"]
-    type_: str = historic_config[-1]["type"]
+    has_squad = group.state.has_squad
+    has_asm = group.state.status == GroupStateStatus.ACTIVE
+    service = group.state.service
+    type_ = group.state.type
 
     business_rules = (
         (has_asm, "asm"),
-        (service == "BLACK" and has_asm, "service_black"),
-        (service == "WHITE" and has_asm, "service_white"),
+        (service == GroupService.BLACK and has_asm, "service_black"),
+        (service == GroupService.WHITE and has_asm, "service_white"),
         (
-            type_ == "continuous" and has_asm and has_forces,
+            type_ == GroupSubscriptionType.CONTINUOUS and has_asm,
             "forces",
         ),
-        (type_ == "continuous" and has_asm and has_squad, "squad"),
-        (type_ == "continuous", "continuous"),
-        (type_ == "oneshot" and has_asm and has_squad, "squad"),
+        (
+            type_ == GroupSubscriptionType.CONTINUOUS
+            and has_asm
+            and has_squad,
+            "squad",
+        ),
+        (type_ == GroupSubscriptionType.CONTINUOUS, "continuous"),
+        (
+            type_ == GroupSubscriptionType.ONESHOT and has_asm and has_squad,
+            "squad",
+        ),
     )
 
     return [
-        ServicePolicy(group=group, service=policy_name)
+        ServicePolicy(group=group.name, service=policy_name)
         for condition, policy_name in business_rules
         if condition
     ]
@@ -205,12 +199,14 @@ async def _get_user_subject_policies(
     return policies
 
 
-async def get_cached_group_service_policies(group: str) -> Tuple[str, ...]:
+async def get_cached_group_service_policies(
+    group: Group,
+) -> Tuple[str, ...]:
     response: Tuple[str, ...] = await redis_get_or_set_entity_attr(
         partial(_get_group_service_policies, group),
         entity="authz_group",
         attr="policies",
-        name=group.lower(),
+        name=group.name,
         ttl=86400,
     )
     return response

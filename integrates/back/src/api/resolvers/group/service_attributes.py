@@ -16,5 +16,4 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> list[str]:
-    group_name: str = parent.name
-    return sorted(await authz.get_group_service_attributes(group_name))
+    return sorted(await authz.get_group_service_attributes(parent))

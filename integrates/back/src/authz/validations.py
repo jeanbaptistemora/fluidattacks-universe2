@@ -11,6 +11,9 @@ from custom_exceptions import (
     PermissionDenied,
     UnexpectedUserRole,
 )
+from db_model.groups.types import (
+    Group,
+)
 from typing import (
     Any,
     DefaultDict,
@@ -21,7 +24,7 @@ FLUIDATTACKS_EMAIL_SUFFIX = "@fluidattacks.com"
 
 
 async def validate_fluidattacks_staff_on_group(
-    group: str, email: str, role: str
+    group: Group, email: str, role: str
 ) -> bool:
     """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
     enforcer = await get_group_service_attributes_enforcer(group)
