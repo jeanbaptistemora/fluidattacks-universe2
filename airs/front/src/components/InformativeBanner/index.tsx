@@ -7,12 +7,12 @@ import { InformativeBannerContainer } from "./styles/styledComponents";
 interface IProps {
   bgColor: string;
   buttonText: string;
-  subtitle: string;
+  subtitle?: string;
   title: string;
   url: string;
 }
 
-export const InformativeBanner: React.FC<IProps> = ({
+const InformativeBanner: React.FC<IProps> = ({
   bgColor,
   buttonText,
   subtitle,
@@ -38,3 +38,10 @@ export const InformativeBanner: React.FC<IProps> = ({
     </InformativeBannerContainer>
   );
 };
+
+// eslint-disable-next-line fp/no-mutation
+InformativeBanner.defaultProps = {
+  subtitle: "",
+};
+
+export { InformativeBanner };

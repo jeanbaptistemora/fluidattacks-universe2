@@ -16,7 +16,7 @@ import {
 interface IProps {
   buttonText: string;
   close: () => void;
-  subtitle: string;
+  subtitle?: string;
   title: string;
   url: string;
 }
@@ -46,5 +46,10 @@ const InformativeBannerItems: React.FC<IProps> = ({
     </div>
   </BannerList>
 );
+
+// eslint-disable-next-line fp/no-mutation
+InformativeBannerItems.defaultProps = {
+  subtitle: "",
+};
 
 export { InformativeBannerItems };
