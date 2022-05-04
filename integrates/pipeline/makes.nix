@@ -650,6 +650,7 @@ in {
             "refresh_toe_lines"
             "report_squad_usage"
             "update_group_toe_vulns"
+            "review_machine_executions"
           ])
         ++ (builtins.map
           (frequency: {

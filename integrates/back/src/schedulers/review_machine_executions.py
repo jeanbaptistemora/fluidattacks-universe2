@@ -21,6 +21,7 @@ from context import (
 from datetime import (
     datetime,
 )
+import logging
 from machine.jobs import (
     SkimsBatchQueue,
 )
@@ -30,6 +31,8 @@ from more_itertools import (
 from typing import (
     Any,
 )
+
+LOGGER = logging.getLogger("console")
 
 OPTIONS = dict(
     service_name="batch",
@@ -155,3 +158,15 @@ async def main() -> None:
                 for job in update_jobs
             ]
         )
+        LOGGER.info(
+            "Number of jobs to finish: %s",
+            len(actions_dict),
+            extra={"extra": None},
+        )
+        for action in actions_dict.values():
+            LOGGER.info(
+                "Canceling job %s for group %s",
+                action.batch_job_id,
+                action.entity,
+                extra={"extra": None},
+            )

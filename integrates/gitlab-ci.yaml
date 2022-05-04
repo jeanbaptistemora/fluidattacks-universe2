@@ -3941,6 +3941,24 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/utils/scheduler__prod__schedulers.review_machine_executions.main:
+  image: ghcr.io/fluidattacks/makes:22.05
+  interruptible: false
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $integrates_scheduler_review_machine_executions == null
+      when: never
+    - when: always
+  script:
+    - m . /integrates/utils/scheduler 'prod' 'schedulers.review_machine_executions.main'
+  stage: scheduler
+  tags:
+    - autoscaling-large
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/utils/scheduler__prod__schedulers.update_group_toe_vulns.main:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: false
