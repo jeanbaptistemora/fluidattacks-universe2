@@ -101,10 +101,10 @@ async def main() -> None:
             job
             for job, log in zip(jobs_description, logs)
             if (
-                datetime.now()
+                datetime.utcnow()
                 - datetime.fromtimestamp(int(log[-1]["timestamp"] / 1000))
             ).seconds
-            > 600
+            > 1800
         ]
         # return None
         actions_dict = {
