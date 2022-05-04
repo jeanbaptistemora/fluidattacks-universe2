@@ -5,9 +5,10 @@ resource "aws_batch_job_definition" "makes" {
     {
       image = "ghcr.io/fluidattacks/makes:22.05"
 
-      # Will be overridden on job submission
-      memory = 1800
-      vcpus  = 1
+      resourceRequirements = [
+        { type = "VCPU", value = "1" },
+        { type = "MEMORY", value = "1800" },
+      ]
     }
   )
 
