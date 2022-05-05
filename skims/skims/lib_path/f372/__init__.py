@@ -10,6 +10,7 @@ from lib_path.f372.cloudformation import (
 from lib_path.f372.terraform import (
     tfm_azure_kv_only_accessible_over_https,
     tfm_azure_sa_insecure_transfer,
+    tfm_elb2_uses_insecure_protocol,
     tfm_serves_content_over_http,
 )
 from model.core_model import (
@@ -21,9 +22,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -31,7 +29,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_serves_content_over_http(
     content: str, path: str, template: Any
@@ -41,7 +38,6 @@ def run_cfn_serves_content_over_http(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb2_uses_insecure_protocol(
     content: str, file_ext: str, path: str, template: Any
@@ -51,7 +47,6 @@ def run_cfn_elb2_uses_insecure_protocol(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_serves_content_over_http(
     content: str, path: str, model: Any
@@ -61,7 +56,15 @@ def run_tfm_serves_content_over_http(
     )
 
 
-@CACHE_ETERNALLY
+@SHIELD_BLOCKING
+def run_tfm_elb2_uses_insecure_protocol(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_elb2_uses_insecure_protocol(
+        content=content, path=path, model=model
+    )
+
+
 @SHIELD_BLOCKING
 def run_tfm_azure_kv_only_accessible_over_https(
     content: str, path: str, model: Any
@@ -71,7 +74,6 @@ def run_tfm_azure_kv_only_accessible_over_https(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_sa_insecure_transfer(
     content: str, path: str, model: Any
@@ -106,6 +108,7 @@ def analyze(
         model = load_terraform(stream=content, default=[])
         results = (
             run_tfm_serves_content_over_http(content, path, model),
+            run_tfm_elb2_uses_insecure_protocol(content, path, model),
             run_tfm_azure_kv_only_accessible_over_https(content, path, model),
             run_tfm_azure_sa_insecure_transfer(content, path, model),
         )

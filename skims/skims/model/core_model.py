@@ -3012,6 +3012,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_ELB2_INSEC_PROTO = MethodInfo(
+        file_name="terraform",
+        name="tfm_elb2_uses_insecure_protocol",
+        module="lib_path",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AZURE_KV_ONLY_ACCESS_HTTPS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_only_accessible_over_https",

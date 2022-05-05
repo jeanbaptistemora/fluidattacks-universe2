@@ -1,5 +1,6 @@
 from aws.model import (
     AWSCloudfrontDistribution,
+    AWSLbTargetGroup,
 )
 from itertools import (
     chain,
@@ -22,11 +23,15 @@ from parse_hcl2.common import (
 )
 from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
+    iter_aws_lb_target_group,
 )
 from parse_hcl2.structure.azure import (
     iter_azurerm_app_service,
     iter_azurerm_function_app,
     iter_azurerm_storage_account,
+)
+from parse_hcl2.tokens import (
+    Attribute,
 )
 from typing import (
     Any,
@@ -70,6 +75,24 @@ def _tfm_content_over_http_iterate_vulnerabilities(
                         yield attr
 
 
+def _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(
+    resource_iterator: Iterator[AWSLbTargetGroup],
+) -> Iterator[Union[Attribute, AWSLbTargetGroup]]:
+    for res in resource_iterator:
+        unsafe_protos = ("HTTP",)
+        protocol = get_attribute(res.data, "protocol")
+        target_type = get_attribute(res.data, "target_type")
+        is_proto_required = (
+            target_type.val != "lambda" if target_type else False
+        )
+        if not is_proto_required:
+            continue
+        if protocol is None:
+            yield res
+        elif protocol.val in unsafe_protos:
+            yield protocol
+
+
 def _tfm_azure_kv_only_accessible_over_https_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
@@ -91,6 +114,22 @@ def _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
             )
         ) and https.val is False:
             yield https
+
+
+def tfm_elb2_uses_insecure_protocol(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f372.elb2_uses_insecure_protocol",
+        iterator=get_cloud_iterator(
+            _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(
+                resource_iterator=iter_aws_lb_target_group(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_ELB2_INSEC_PROTO,
+    )
 
 
 def tfm_serves_content_over_http(
