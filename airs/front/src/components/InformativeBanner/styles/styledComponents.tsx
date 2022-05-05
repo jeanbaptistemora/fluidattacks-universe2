@@ -18,7 +18,6 @@ const InformativeBannerContainer = styled.div.attrs({
     cover
     w-100
     top-0
-    z-max
     t-all-linear-3
   `,
 })<{ bgColor: string; isClose: boolean }>`
