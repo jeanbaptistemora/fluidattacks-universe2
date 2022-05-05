@@ -4,6 +4,7 @@ import type { DocumentNode } from "graphql";
 const GET_FINDING_TITLE: DocumentNode = gql`
   query GetFindingTitle($findingId: String!) {
     finding(identifier: $findingId) {
+      id
       title
     }
   }

@@ -4,6 +4,7 @@ import type { DocumentNode } from "graphql";
 const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
   query GetFindingMachineJobs($findingId: String!) {
     finding(identifier: $findingId) {
+      id
       machineJobs {
         createdAt
         exitCode
