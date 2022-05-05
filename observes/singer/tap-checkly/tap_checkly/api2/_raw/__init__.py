@@ -9,8 +9,6 @@ from fa_purity import (
     FrozenList,
     JsonObj,
     Maybe,
-    Result,
-    ResultE,
 )
 from fa_purity.json.factory import (
     from_any,

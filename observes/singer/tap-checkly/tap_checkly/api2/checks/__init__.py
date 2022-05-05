@@ -2,10 +2,8 @@ from __future__ import (
     annotations,
 )
 
-from . import (
-    results,
-)
 from .results import (
+    CheckResultClient,
     CheckResultObj,
 )
 from .results.time_range import (
@@ -77,15 +75,14 @@ class ChecksClient:
     def _list_check_results(
         self, check: CheckId, dr: DateRange
     ) -> Cmd[Maybe[Stream[CheckResultObj]]]:
-        first = results.list_check_results(
-            self._raw, check, 1, self._per_page, dr
-        )
+        _results = CheckResultClient(self._raw, check)
+        first = _results.list_check_results(1, self._per_page, dr)
         return first.map(
             lambda i: Maybe.from_optional(i if bool(i) else None).map(
                 lambda f: infinite_range(1, 1)
                 .map(
-                    lambda p: results.list_check_results(
-                        self._raw, check, p, self._per_page, dr
+                    lambda p: _results.list_check_results(
+                        p, self._per_page, dr
                     )
                     if p > 1
                     else Cmd.from_cmd(lambda: f)
