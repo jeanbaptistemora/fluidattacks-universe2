@@ -2964,6 +2964,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_KMS_KEY_ROTATION_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_kms_key_is_key_rotation_absent_or_disabled",
+        module="lib_path",
+        finding=FindingEnum.F396,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_CHECK_HASHES_SALT = MethodInfo(
         file_name="c_sharp",
         name="csharp_check_hashes_salt",

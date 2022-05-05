@@ -2,3 +2,6 @@
 src.lib_path.f396.kms_key_is_key_rotation_absent_or_disabled:
   en: The EnableKeyRotation property must be enabled
   es: La propiedad EnableKeyRotation debe estar habilitada
+src.lib_path.f396.tfm_kms_key_is_key_rotation_absent_or_disabled:
+  en: The enable_key_rotation property must be enabled
+  es: La propiedad enable_key_rotation debe estar habilitada

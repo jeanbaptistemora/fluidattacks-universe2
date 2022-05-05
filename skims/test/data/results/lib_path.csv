@@ -14813,6 +14813,54 @@ F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or
   111 |               ""Effect"": ""Allow"",
       ^ Col 0
 ",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,12,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
+   2 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+   3 |   description              = ""KMS key 1""
+   4 |   deletion_window_in_days  = 10
+   5 |   enable_key_rotation      = true
+   6 | }
+   7 |
+   8 | resource ""aws_kms_key"" ""a"" {
+   9 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+  10 |   description              = ""KMS key 1""
+  11 |   deletion_window_in_days  = 10
+> 12 |   enable_key_rotation      = false
+  13 | }
+  14 |
+  15 | resource ""aws_kms_key"" ""a"" {
+  16 |   customer_master_key_spec = ""RSA_2048""
+  17 |   description              = ""KMS key 1""
+  18 |   deletion_window_in_days  = 10
+  19 |   enable_key_rotation      = false
+  20 | }
+  21 |
+  22 | resource ""aws_kms_key"" ""a"" {
+     ^ Col 0
+",terraform.tfm_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,22,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
+   6 | }
+   7 |
+   8 | resource ""aws_kms_key"" ""a"" {
+   9 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+  10 |   description              = ""KMS key 1""
+  11 |   deletion_window_in_days  = 10
+  12 |   enable_key_rotation      = false
+  13 | }
+  14 |
+  15 | resource ""aws_kms_key"" ""a"" {
+  16 |   customer_master_key_spec = ""RSA_2048""
+  17 |   description              = ""KMS key 1""
+  18 |   deletion_window_in_days  = 10
+  19 |   enable_key_rotation      = false
+  20 | }
+  21 |
+> 22 | resource ""aws_kms_key"" ""a"" {
+  23 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+  24 |   description              = ""KMS key 1""
+  25 |   deletion_window_in_days  = 10
+  26 | }
+     ^ Col 0
+",terraform.tfm_kms_key_is_key_rotation_absent_or_disabled
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,33,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   13 |            StatusCode: ""HTTP_301""
   14 |      LoadBalancerArn: myLoadBalancer

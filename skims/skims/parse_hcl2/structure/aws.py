@@ -18,6 +18,7 @@ from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSInstance,
+    AWSKmsKey,
     AWSLaunchConfiguration,
     AWSLaunchTemplate,
     AWSLbTargetGroup,
@@ -242,6 +243,16 @@ def iter_aws_cloudtrail(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_cloudtrail")
     for bucket in iterator:
         yield AWSCTrail(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_kms_key(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_kms_key")
+    for bucket in iterator:
+        yield AWSKmsKey(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
