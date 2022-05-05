@@ -218,3 +218,60 @@ async def test_main_rebase(test_group: str, mocker: MockerFixture) -> None:
             final_where = item.where
 
     assert final_where == "5"
+
+
+@pytest.mark.asyncio
+@pytest.mark.skims_test_group("functional")
+@pytest.mark.usefixtures("mock_pull_git_repo_2")
+@pytest.mark.usefixtures("test_integrates_session")
+async def test_rebase_no_change_line(
+    test_group: str, mocker: MockerFixture
+) -> None:
+    mocker.patch(
+        "batch.get_action",
+        return_value=BatchProcessing(
+            key="test",
+            action_name="execute-machine",
+            entity=test_group,
+            subject="skims@fluidattacks.com",
+            time="test",
+            additional_info=json.dumps(
+                {
+                    "roots": ["namespace4"],
+                    "checks": ["F099"],
+                }
+            ),
+            queue="skims_all_later",
+        ),
+    )
+    mocker.patch("batch.set_running", return_value=None)
+    mocker.patch("batch.delete_action", return_value=None)
+    titles_to_finding: Dict[str, core_model.FindingEnum] = {
+        t(finding.value.title): finding for finding in core_model.FindingEnum
+    }
+
+    findings = await get_group_findings(group=test_group)
+    finding_id = "6ca298ce-8306-4f0d-9db9-103aa92d89d6"
+    for finding in findings:
+        if (
+            finding.title.startswith("099")
+            and finding.identifier == finding_id
+        ):
+            title = finding.title
+
+    import batch
+
+    assert await batch.main(action_dynamo_pk="test") is None
+
+    vulns_before_rebase: EphemeralStore = await get_finding_vulnerabilities(
+        finding=titles_to_finding[title],
+        finding_id=finding_id,
+    )
+    for item in vulns_before_rebase.iterate():
+        if (
+            item.integrates_metadata.uuid
+            == "a487943a-a23e-4da5-a693-1b2dbb6ee5a1"
+        ):
+            where = item.where
+
+    assert where == "4"
