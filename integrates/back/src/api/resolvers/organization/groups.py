@@ -4,6 +4,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organization.types import (
+    Organization,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -16,18 +19,22 @@ from newutils import (
 )
 from typing import (
     Any,
+    Union,
 )
 
 
 async def resolve(
-    parent: dict[str, Any],
+    parent: Union[Organization, dict[str, Any]],
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    organization_id: str = parent["id"]
+    if isinstance(parent, dict):
+        organization_id: str = parent["id"]
+    else:
+        organization_id = parent.id
     user_group_names: list[str] = await groups_domain.get_groups_by_user(
         user_email, organization_id=organization_id
     )

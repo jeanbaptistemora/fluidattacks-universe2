@@ -4,6 +4,9 @@ from analytics import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from db_model.organization.types import (
+    Organization,
+)
 from decorators import (
     enforce_organization_level_auth_async,
 )
@@ -12,18 +15,23 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Dict,
+    Union,
 )
 
 
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **kwargs: str
+    parent: Union[Organization, dict[str, Any]],
+    _info: GraphQLResolveInfo,
+    **kwargs: str,
 ) -> object:
     document_name: str = kwargs["document_name"]
     document_type: str = kwargs["document_type"]
-    org_id: str = parent["id"]
+    if isinstance(parent, dict):
+        org_id: str = parent["id"]
+    else:
+        org_id = parent.id
 
     return await analytics_domain.get_document(
         document_name=document_name,
