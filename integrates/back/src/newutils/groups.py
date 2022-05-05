@@ -335,7 +335,7 @@ def format_group_state_item(state: GroupState) -> Item:
 
 
 def format_group_to_add_item(group: Group) -> Item:
-    return {
+    item: Item = {
         "project_name": group.name,
         "group_name": group.name,
         "description": group.description,
@@ -357,6 +357,14 @@ def format_group_to_add_item(group: Group) -> Item:
         "project_status": group.state.status,
         "group_status": group.state.status,
     }
+    if group.agent_token:
+        item["agent_token"] = group.agent_token
+    if group.context:
+        item["group_context"] = group.context
+    if group.tags:
+        item["tag"] = group.tags
+
+    return item
 
 
 def format_group_treatment_summary_item(

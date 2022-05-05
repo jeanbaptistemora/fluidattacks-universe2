@@ -32,6 +32,9 @@ from db_model.findings.types import (
     Finding,
     FindingUnreliableIndicators,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.roots.types import (
     RootItem,
 )
@@ -176,6 +179,43 @@ async def populate_groups(data: List[Any]) -> bool:
         ]
     )
     return all(await collect(coroutines))
+
+
+async def _populate_group_unreliable_indicator(data: Dict[str, Any]) -> None:
+    group: Group = data["group"]
+    if data.get("unreliable_indicators"):
+        await dal_groups.update_indicators_typed(
+            group_name=group.name,
+            indicators=data["unreliable_indicators"],
+        )
+
+
+async def _populate_group_historic_state(data: Dict[str, Any]) -> None:
+    group: Group = data["group"]
+    historic = (
+        (group.state, *data["historic_state"])
+        if data.get("historic_state")
+        else (group.state,)
+    )
+    for state in historic:
+        await dal_groups.update_state_typed(
+            group_name=group.name,
+            state=state,
+        )
+
+
+async def populate_groups_typed(data: List[Dict[str, Any]]) -> bool:
+    await collect(
+        dal_groups.add_typed(
+            group=item["group"],
+        )
+        for item in data
+    )
+    await collect([_populate_group_historic_state(item) for item in data])
+    await collect(
+        [_populate_group_unreliable_indicator(item) for item in data]
+    )
+    return True
 
 
 async def _populate_finding_unreliable_indicator(data: Dict[str, Any]) -> None:
