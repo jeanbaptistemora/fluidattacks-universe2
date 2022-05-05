@@ -12,7 +12,7 @@ import type {
   IVulnerabilityEdge,
 } from "./types";
 
-import { limitFormatter } from "components/Table/formatters";
+import styles from "components/Table/index.css";
 import { Logger } from "utils/logger";
 
 const Locations: React.FC<ILocationsProps> = ({
@@ -89,7 +89,16 @@ const Locations: React.FC<ILocationsProps> = ({
     setLocations(newLocations);
   }
 
-  return limitFormatter(locations);
+  const additional = vulnerabilities.length - 1;
+
+  return (
+    <div>
+      <p className={`mb0 ${styles.textMesure} tl truncate`}>
+        {vulnerabilities.length >= 0 ? vulnerabilities[0].where : ""}&nbsp;
+        {additional > 0 ? <b>{`+${additional}`}</b> : undefined}
+      </p>
+    </div>
+  );
 };
 
 const locationsFormatter: (
