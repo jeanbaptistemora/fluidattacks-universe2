@@ -12,5 +12,3 @@ coverage:
         threshold: "6%"
     changes: false
     patch: false
-fixes:
-  - "::integrates/"
