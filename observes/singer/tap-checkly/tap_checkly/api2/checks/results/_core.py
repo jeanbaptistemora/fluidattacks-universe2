@@ -70,6 +70,7 @@ class CheckResult:
 
 @dataclass(frozen=True)
 class RolledCheckResult:
+    # run_location & hour make a composite id key
     run_location: str
     error_count: int
     failure_count: int
