@@ -3,9 +3,9 @@
 import { graphql } from "gatsby";
 import React from "react";
 
+import { Home } from "../components/Home";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { Home } from "../components/NewHome";
 import { Seo } from "../components/Seo";
 
 const NewHomeIndex: React.FC<IQueryData> = ({
