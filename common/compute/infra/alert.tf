@@ -52,7 +52,7 @@ resource "aws_sns_topic" "main" {
 
 resource "aws_sns_topic_subscription" "main" {
   protocol  = "email"
-  endpoint  = "dsalazar@fluidattacks.com"
+  endpoint  = "development@fluidattacks.com"
   topic_arn = aws_sns_topic.main.arn
 }
 
