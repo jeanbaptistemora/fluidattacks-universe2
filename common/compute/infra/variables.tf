@@ -36,11 +36,11 @@ locals {
       type      = "EC2"
     }
     limited_spot = {
-      max_vcpus = 10
+      max_vcpus = 50
       type      = "SPOT"
     }
     limited_dedicated = {
-      max_vcpus = 10
+      max_vcpus = 50
       type      = "EC2"
     }
   }

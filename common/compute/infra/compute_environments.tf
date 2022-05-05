@@ -169,7 +169,7 @@ resource "aws_launch_template" "main" {
     ebs {
       encrypted             = true
       delete_on_termination = true
-      volume_size           = 20
+      volume_size           = 15
       volume_type           = "gp3"
     }
   }
