@@ -19,36 +19,11 @@
               }
             }
           },
-          "repo": {
-            "S": "forces"
-          },
-          "sk": {
+          "pk_5": {
             "S": "FIN#940350540"
           },
-          "where": {
-            "S": "forces/test/data/user_controller.py"
-          },
-          "pk": {
-            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
-          },
-          "id": {
-            "S": "2966c4ea-f05b-4bd7-8061-7ac12a778b25"
-          },
-          "state": {
-            "M": {
-              "modified_by": {
-                "S": "drestrepo@fluidattacks.com"
-              },
-              "source": {
-                "S": "ASM"
-              },
-              "modified_date": {
-                "S": "2020-07-22T21:19:25+00:00"
-              },
-              "status": {
-                "S": "CLOSED"
-              }
-            }
+          "repo": {
+            "S": "forces"
           },
           "unreliable_indicators": {
             "M": {
@@ -74,6 +49,37 @@
           },
           "type": {
             "S": "LINES"
+          },
+          "sk": {
+            "S": "FIN#940350540"
+          },
+          "where": {
+            "S": "forces/test/data/user_controller.py"
+          },
+          "id": {
+            "S": "2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "pk": {
+            "S": "VULN#2966c4ea-f05b-4bd7-8061-7ac12a778b25"
+          },
+          "sk_5": {
+            "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+          },
+          "state": {
+            "M": {
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2020-07-22T21:19:25+00:00"
+              },
+              "status": {
+                "S": "CLOSED"
+              }
+            }
           }
         }
       }
