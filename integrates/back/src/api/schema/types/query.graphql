@@ -83,23 +83,25 @@ type Query {
   "Report entity"
   report(
     "Name of the group to which the report belongs"
-    groupName: String,
+    groupName: String
     "Type of the report/export"
-    reportType: ReportType!,
+    reportType: ReportType!
     "Deprecated. Use `groupName` instead"
-    projectName: String,
+    projectName: String @deprecated(reason: """This field will be removed after
+    2022/02/17. Use `groupName` instead.""")
     "Language of the requested report"
-    lang: ReportLang,
+    lang: ReportLang
     "Treatments to include"
     treatments: [VulnerabilityTreatment!]
     "OTP code to verify the stakeholder"
-    verificationCode: String!,
+    verificationCode: String!
   ): Report
 
   "Get resource metadata from group"
   resources(
     "Deprecated. Use `groupName` instead"
-    projectName: String,
+    projectName: String @deprecated(reason: """This field will be removed after
+    2022/02/18. Use `groupName` instead.""")
     "Name of the Group containing the files to be queried"
     groupName: String
   ): Resource
@@ -119,7 +121,8 @@ type Query {
     "ID of the organization, if applicable"
     organizationId: String
     "Deprecated. Use 'groupName' instead"
-    projectName: String
+    projectName: String @deprecated(reason: """This field will be removed after
+    2022/02/12. Use `groupName` instead.""")
     "Name of the group, if applicable"
     groupName: String
     "Email address of the user to query"

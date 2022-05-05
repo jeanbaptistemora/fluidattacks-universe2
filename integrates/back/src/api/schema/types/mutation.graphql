@@ -27,7 +27,8 @@ type Mutation {
     "Level of access needed for an attack to succeed"
     attackVector: String
     "Deprecated. Use `attackVectorDescription` instead"
-    attackVectorDesc: String
+    attackVectorDesc: String @deprecated(reason: """This field will
+    be removed after 2022/02/20. Use `attackVectorDescription` instead.""")
     "Malicious actions that can be performed by exploiting the vulnerability"
     attackVectorDescription: String
     """
@@ -848,7 +849,8 @@ type Mutation {
   "Updates the Forces token in use for a Group"
   updateForcesAccessToken(
     "Deprecated. Use `groupName` instead"
-    projectName: String
+    projectName: String @deprecated(reason: """This field will be removed after
+    2022/02/17. Use `groupName` instead.""")
     "Name of the Group whose token is to be updated"
     groupName: String
   ): UpdateAccessTokenPayload!
@@ -1180,7 +1182,8 @@ type Mutation {
     "New designated treatment for the Vulnerability"
     treatment: UpdateClientDescriptionTreatment!
     "Deprecated. Use `assigned` instead"
-    treatmentManager: String
+    treatmentManager: String @deprecated(reason: """This field will
+    be removed after 2022/06/02. Use `assigned` instead.""")
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload!
@@ -1203,7 +1206,8 @@ type Mutation {
   "Updates data related to the treatment of a Vulnerability"
   updateVulnerabilityTreatment(
     "Deprecated. Use `externalBugTrackingSystem` instead."
-    externalBts: String
+    externalBts: String @deprecated(reason: """This field will
+    be removed after 2022/02/23. Use `externalBugTrackingSystem` instead.""")
     "External Bug Tracking System URL"
     externalBugTrackingSystem: String
     "Identifier of the Finding that contains the vulnerability to update"
