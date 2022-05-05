@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { ContactSection } from "./ContactSection";
 import { QualitySection } from "./QualitySection";
 
 const Home: React.FC = (): JSX.Element => (
@@ -12,7 +11,6 @@ const Home: React.FC = (): JSX.Element => (
         name={"facebook-domain-verification"}
       />
     </Helmet>
-    <ContactSection />
     <QualitySection />
   </React.Fragment>
 );
