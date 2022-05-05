@@ -4,6 +4,7 @@ from aws.iam.utils import (
 from aws.model import (
     AWSApiGatewayStage,
     AWSCloudfrontDistribution,
+    AWSCTrail,
     AWSDbInstance,
     AWSDynamoDBTable,
     AWSEbsEncryptionByDefault,
@@ -231,6 +232,16 @@ def iter_aws_elb(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_elb")
     for bucket in iterator:
         yield AWSElb(
+            data=bucket.body,
+            column=bucket.column,
+            line=bucket.line,
+        )
+
+
+def iter_aws_cloudtrail(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(model, "resource", "aws_cloudtrail")
+    for bucket in iterator:
+        yield AWSCTrail(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

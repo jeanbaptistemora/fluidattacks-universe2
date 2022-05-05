@@ -2956,6 +2956,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_CTRAIL_LOG_NOT_VALIDATED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_s3_versioning_disabled",
+        module="lib_path",
+        finding=FindingEnum.F394,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_CHECK_HASHES_SALT = MethodInfo(
         file_name="c_sharp",
         name="csharp_check_hashes_salt",
