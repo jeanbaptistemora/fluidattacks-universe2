@@ -22,6 +22,7 @@ import type {
   IUploadVulnerabilitiesResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/formatters/Locations/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import {
   ButtonToolbarLeft,
@@ -139,6 +140,12 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             canGetHistoricState: permissions.can(
               "api_resolvers_finding_historic_state_resolve"
             ),
+            findingId,
+          },
+        },
+        {
+          query: GET_FINDING_LOCATIONS,
+          variables: {
             findingId,
           },
         },

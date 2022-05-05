@@ -320,7 +320,7 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
     typePolicies: {
       Finding: {
         fields: {
-          vulnerabilitiesConnection: relayStylePagination(),
+          vulnerabilitiesConnection: relayStylePagination(["state"]),
           zeroRiskConnection: relayStylePagination(),
         },
         keyFields: ["id"],

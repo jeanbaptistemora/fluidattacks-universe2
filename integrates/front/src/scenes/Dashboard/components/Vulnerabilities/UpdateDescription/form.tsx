@@ -65,6 +65,7 @@ import {
   hasNewTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/formatters/Locations/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { Col100, Col50, Row } from "styles/styledComponents";
@@ -318,6 +319,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           },
         },
         { query: GET_ME_VULNERABILITIES_ASSIGNED },
+        {
+          query: GET_FINDING_LOCATIONS,
+          variables: {
+            findingId: vulnerabilities[0].findingId,
+          },
+        },
       ],
     }
   );

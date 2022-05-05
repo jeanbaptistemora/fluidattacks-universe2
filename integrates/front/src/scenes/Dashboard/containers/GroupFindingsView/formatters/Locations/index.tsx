@@ -94,7 +94,7 @@ const Locations: React.FC<ILocationsProps> = ({
   return (
     <div>
       <p className={`mb0 ${styles.textMesure} tl truncate`}>
-        {vulnerabilities.length >= 0 ? vulnerabilities[0].where : ""}&nbsp;
+        {vulnerabilities.length > 0 ? vulnerabilities[0].where : ""}&nbsp;
         {additional > 0 ? <b>{`+${additional}`}</b> : undefined}
       </p>
     </div>

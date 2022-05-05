@@ -7,6 +7,7 @@ import type {
 import type { GraphQLError } from "graphql";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
+import { GET_FINDING_LOCATIONS } from "../../GroupFindingsView/formatters/Locations/queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import {
   getRequestedZeroRiskVulns,
@@ -186,6 +187,12 @@ const rejectZeroRiskProps = (
         query: GET_FINDING_HEADER,
         variables: {
           canGetHistoricState,
+          findingId,
+        },
+      },
+      {
+        query: GET_FINDING_LOCATIONS,
+        variables: {
           findingId,
         },
       },
