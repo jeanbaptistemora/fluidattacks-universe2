@@ -22,6 +22,7 @@ const Home: React.FC = (): JSX.Element => (
     <InformativeBanner
       bgColor={"#ff3435"}
       buttonText={"Book now"}
+      subtitle={"Book appointment!"}
       title={"Meet us at RSA® Conference!"}
       url={"https://calendly.com/mauriciog/rsa-conference-2022?month=2022-06"}
     />
