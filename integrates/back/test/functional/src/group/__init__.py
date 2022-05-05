@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -15,7 +14,7 @@ async def get_result(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         query {{
             group(groupName: "{group}"){{
@@ -92,7 +91,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,
@@ -104,7 +103,7 @@ async def get_vulnerabilities(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query GetGroupVulnerabilities($groupName: String!) {
             group(groupName: $groupName) {
@@ -119,7 +118,7 @@ async def get_vulnerabilities(
             }
         }
     """
-    data: Dict[str, Any] = {"query": query, "variables": {"groupName": group}}
+    data: dict[str, Any] = {"query": query, "variables": {"groupName": group}}
     return await get_graphql_result(
         data,
         stakeholder=user,

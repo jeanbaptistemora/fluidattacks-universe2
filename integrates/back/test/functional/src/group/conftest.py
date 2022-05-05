@@ -20,6 +20,18 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
+    GroupUnreliableIndicators,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRootCloning,
@@ -43,46 +55,47 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("group")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
-        "groups": [
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
+        "groups_typed": [
             {
-                "project_name": "group1",
-                "description": "this is group1",
-                "language": "en",
-                "group_context": "This is a dummy context",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_squad": True,
-                        "has_forces": True,
-                        "has_machine": True,
-                        "requester": "unknown",
-                        "service": "WHITE",
-                        "tier": "squad",
-                        "type": "continuous",
-                    }
-                ],
-                "project_status": "ACTIVE",
-                "closed_vulnerabilities": 1,
-                "open_vulnerabilities": 2,
-                "last_closing_date": 40,
-                "last_closing_vuln_finding": "475041521",
-                "max_open_severity": 4.3,
-                "max_open_severity_finding": "475041521",
-                "open_findings": 2,
-                "mean_remediate": 2,
-                "mean_remediate_low_severity": 3,
-                "mean_remediate_medium_severity": 4,
-                "tag": ["testing"],
-                "agent_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ",
+                "group": Group(
+                    agent_token="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ",
+                    context="This is a dummy context",
+                    description="this is group1",
+                    language=GroupLanguage.EN,
+                    name="group1",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=True,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.SQUAD,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                        service=GroupService.WHITE,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    tags={"testing"},
+                ),
+                "unreliable_indicators": GroupUnreliableIndicators(
+                    closed_vulnerabilities=1,
+                    open_vulnerabilities=2,
+                    last_closed_vulnerability_days=40,
+                    last_closed_vulnerability_finding="475041521",
+                    max_open_severity=Decimal("4.3"),
+                    max_open_severity_finding="475041521",
+                    open_findings=2,
+                    mean_remediate=Decimal("2.0"),
+                    mean_remediate_low_severity=Decimal("3.0"),
+                    mean_remediate_medium_severity=Decimal("4.0"),
+                ),
             },
         ],
         "findings": [

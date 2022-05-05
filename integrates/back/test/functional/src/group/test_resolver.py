@@ -5,7 +5,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -32,7 +31,7 @@ async def test_get_group(populate: bool, email: str) -> None:
     consult: str = "This is a test comment"
     finding: str = "475041521"
     event: str = "418900971"
-    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    result: dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Exception - Document not found"
     assert result["data"]["group"]["name"] == group_name
@@ -115,7 +114,7 @@ async def test_get_group(populate: bool, email: str) -> None:
 async def test_get_group_forces_token(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    result: dict[str, Any] = await get_result(user=email, group=group_name)
     assert result["data"]["group"]["forcesToken"] is not None
     test_token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ"
     assert result["data"]["group"]["forcesToken"] == test_token
@@ -134,7 +133,7 @@ async def test_get_group_forces_token(populate: bool, email: str) -> None:
 async def test_get_assigned(populate: bool, email: str, length: int) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_vulnerabilities(
+    result: dict[str, Any] = await get_vulnerabilities(
         user=email, group=group_name
     )
     assert "errors" not in result
