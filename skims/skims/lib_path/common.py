@@ -321,8 +321,21 @@ def build_subdep_name(dependencies: Dict[str, Any]) -> List[str]:
     return dependencies_list
 
 
-def build_dependencies_tree(  # pylint: disable=too-many-locals,
-    # pylint: disable=too-many-nested-blocks
+def run_over_subdeps(
+    subdeps: List[str], tree: Dict[str, Any], yarn_dict: lockfile
+) -> Dict[str, Any]:
+    while subdeps:
+        current_subdep = subdeps[0]
+        new_values, version, name = get_subdependencies(
+            current_subdep, yarn_dict
+        )
+        tree[name] = version
+        subdeps.remove(current_subdep)
+        subdeps = subdeps + new_values
+    return tree
+
+
+def build_dependencies_tree(
     path_yarn: str,
     path_json: str,
     dependencies_type: str,
@@ -348,13 +361,6 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals,
                     tree[dep] = yarn_value["version"]
                     if "dependencies" in yarn_value:
                         subdeps = build_subdep_name(yarn_value["dependencies"])
-                        while subdeps:
-                            current_subdep = subdeps[0]
-                            new_values, version, name = get_subdependencies(
-                                current_subdep, yarn_dict
-                            )
-                            tree[name] = version
-                            subdeps.remove(current_subdep)
-                            subdeps = subdeps + new_values
+                        tree = run_over_subdeps(subdeps, tree, yarn_dict)
         tree = add_lines(windower, tree)
     return tree
