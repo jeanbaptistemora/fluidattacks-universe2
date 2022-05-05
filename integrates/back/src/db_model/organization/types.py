@@ -11,7 +11,7 @@ from typing import (
 )
 
 
-class OrganizationMaxNumberAcceptations(NamedTuple):
+class MaxNumberAcceptations(NamedTuple):
     modified_date: str
     modified_by: str
     max_number_acceptations: int
@@ -20,10 +20,9 @@ class OrganizationMaxNumberAcceptations(NamedTuple):
 class Organization(NamedTuple):
     id: str
     name: str
-    organization_max_number_acceptations: Optional[
-        OrganizationMaxNumberAcceptations
-    ]
+    max_number_acceptations: Optional[MaxNumberAcceptations]
     billing_customer: Optional[str] = None
+    pending_deletion_date: Optional[str] = None
     max_acceptance_days: Optional[int] = None
     max_acceptance_severity: Decimal = DEFAULT_MAX_SEVERITY
     min_acceptance_severity: Decimal = DEFAULT_MIN_SEVERITY

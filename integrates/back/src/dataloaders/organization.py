@@ -83,8 +83,8 @@ class OrganizationTypedLoader(DataLoader):
         )
         return tuple(
             format_organization(
-                item=organizations_by_id,
-                organization_id=organization_id,
+                item=organization_id,
+                organization_id=organization_id["id"],
             )
-            for organization_id in organization_ids
+            for organization_id in organizations_by_id
         )
