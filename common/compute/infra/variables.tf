@@ -1,47 +1,45 @@
 data "aws_caller_identity" "current" {}
-data "aws_ec2_instance_type" "instance" {
-  instance_type = "c5ad.xlarge"
-}
-data "aws_ec2_instance_type" "instance_large" {
-  instance_type = "c5ad.2xlarge"
-}
-data "local_file" "skims_queues" {
-  filename = var.skimsQueues
-}
-
 variable "region" {
   default = "us-east-1"
 }
-
-variable "skimsQueues" {}
-
 variable "terraform_state_lock_arn" {
   default = "arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"
 }
 
-# Environment
+# Schedules
 
 variable "productApiToken" {
   sensitive = true
 }
 
+# Schedule expressions:
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+# evaluateOnExit syntax:
+# https://docs.aws.amazon.com/batch/latest/APIReference/API_EvaluateOnExit.html
+
 locals {
-  environments = {
-    unlimited_spot = {
-      max_vcpus = 10000
-      type      = "SPOT"
-    }
-    unlimited_dedicated = {
-      max_vcpus = 10000
-      type      = "EC2"
-    }
-    limited_spot = {
-      max_vcpus = 50
-      type      = "SPOT"
-    }
-    limited_dedicated = {
-      max_vcpus = 50
-      type      = "EC2"
+  schedules = {
+    common_criteria_test_unreferenced = {
+      enabled = true
+      command = ["m", "f", "/common/criteria/test/unreferenced"]
+
+      schedule_expression = "cron(0/5 * * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 1
+      timeout             = 21600
+      cpu                 = 1
+      memory              = 1024
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "common_criteria_test_unreferenced"
+        "management:area"    = "cost"
+        "management:product" = "common"
+        "management:type"    = "product"
+      }
     }
   }
 }

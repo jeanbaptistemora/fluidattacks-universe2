@@ -1,14 +1,9 @@
 # https://github.com/fluidattacks/makes
-{
-  outputs,
-  projectPath,
-  ...
-}: {
+{outputs, ...}: {
   deployTerraform = {
     modules = {
       commonCompute = {
         setup = [
-          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
@@ -21,18 +16,12 @@
     modules = {
       commonCompute = {
         setup = [
-          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
         src = "/common/compute/infra";
         version = "1.0";
       };
-    };
-  };
-  envVarsForTerraform = {
-    commonCompute = {
-      skimsQueues = projectPath "/skims/manifests/queues.json";
     };
   };
   secretsForTerraformFromEnv = {
@@ -44,7 +33,6 @@
     modules = {
       commonCompute = {
         setup = [
-          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/commonCompute"
         ];

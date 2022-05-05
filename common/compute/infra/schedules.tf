@@ -1,35 +1,3 @@
-# Schedule expressions:
-# https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
-# evaluateOnExit syntax:
-# https://docs.aws.amazon.com/batch/latest/APIReference/API_EvaluateOnExit.html
-
-locals {
-  schedules = {
-    common_criteria_test_unreferenced = {
-      enabled = true
-      command = ["m", "f", "/common/criteria/test/unreferenced"]
-
-      schedule_expression = "cron(0/5 * * * ? *)"
-      queue               = "unlimited_spot"
-      attempts            = 1
-      timeout             = 21600
-      cpu                 = 1
-      memory              = 1024
-
-      environment = {
-        PRODUCT_API_TOKEN = var.productApiToken
-      }
-
-      tags = {
-        "Name"               = "common_criteria_test_unreferenced"
-        "management:area"    = "cost"
-        "management:product" = "common"
-        "management:type"    = "product"
-      }
-    }
-  }
-}
-
 resource "aws_batch_job_definition" "schedule" {
   for_each = local.schedules
 
