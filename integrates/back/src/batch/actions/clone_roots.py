@@ -165,7 +165,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
         queue_name = os.environ.get("AWS_BATCH_JQ_NAME")
         queue = (
             SkimsBatchQueue.HIGH
-            if queue_name == "skims_all_soon"
+            if queue_name == "unlimited_spot"
             else SkimsBatchQueue.LOW
         )
         await queue_job_new(
@@ -211,7 +211,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     user_email: str,
-    queue: str = "spot_soon",
+    queue: str = "unlimited_spot",
     group_name: str,
     roots: Optional[Tuple[GitRootItem, ...]] = None,
     check_existing_jobs: bool = True,

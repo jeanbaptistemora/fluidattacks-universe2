@@ -11,7 +11,7 @@ from typing import (
 
 
 async def clone_roots_in_batch(group: str, *roots: str) -> Dict[str, Any]:
-    queue_name = "skims_all_soon"
+    queue_name = "unlimited_spot"
     job_name = f"integrates-clone-repos-{group}"
     resource_options = dict(
         service_name="batch",

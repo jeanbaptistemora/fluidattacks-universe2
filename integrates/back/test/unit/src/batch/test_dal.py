@@ -113,7 +113,7 @@ async def test_put_action_to_dynamodb() -> None:
     )
     key_1 = await batch_dal.put_action_to_dynamodb(**item_1)
     action_1 = await batch_dal.get_action(action_dynamo_pk=key_1)
-    assert action_1.queue == "spot_soon"
+    assert action_1.queue == "unlimited_spot"
     assert await batch_dal.is_action_by_key(key=action_1.key)
     assert await batch_dal.delete_action(
         action_name="report",

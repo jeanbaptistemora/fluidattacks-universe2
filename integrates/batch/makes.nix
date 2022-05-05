@@ -9,7 +9,7 @@
       includePositionalArgsInName = true;
       environment = ["PRODUCT_API_TOKEN"];
       memory = 1800 * vcpus;
-      queue = "dedicated_soon";
+      queue = "unlimited_dedicated";
       setup = [outputs."/secretsForAwsFromEnv/prodIntegrates"];
       vcpus = 4;
     };
@@ -22,7 +22,7 @@
       includePositionalArgsInName = true;
       environment = ["PRODUCT_API_TOKEN"];
       memory = 1800 * vcpus;
-      queue = "dedicated_later";
+      queue = "limited_dedicated";
       setup = [outputs."/secretsForAwsFromEnv/prodIntegrates"];
       vcpus = 4;
     };
@@ -35,7 +35,7 @@
       includePositionalArgsInName = true;
       environment = ["PRODUCT_API_TOKEN"];
       memory = 1800 * vcpus;
-      queue = "dedicated_soon";
+      queue = "unlimited_dedicated";
       setup = [outputs."/secretsForAwsFromEnv/prodIntegrates"];
       vcpus = 4;
     };

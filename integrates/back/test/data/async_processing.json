@@ -16,7 +16,7 @@
             "S": "unittesting"
           },
           "queue": {
-            "S": "spot_soon"
+            "S": "unlimited_spot"
           },
           "subject": {
             "S": "__adminEmail__"
@@ -43,7 +43,7 @@
             "S": "unittesting"
           },
           "queue": {
-            "S": "spot_soon"
+            "S": "unlimited_spot"
           },
           "subject": {
             "S": "__adminEmail__"
@@ -70,7 +70,7 @@
             "S": "unittesting"
           },
           "queue": {
-            "S": "spot_soon"
+            "S": "unlimited_spot"
           },
           "subject": {
             "S": "__adminEmail__"
@@ -97,7 +97,7 @@
             "S": "unittesting"
           },
           "queue": {
-            "S": "spot_soon"
+            "S": "unlimited_spot"
           },
           "subject": {
             "S": "__adminEmail__"

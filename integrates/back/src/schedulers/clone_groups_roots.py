@@ -29,7 +29,7 @@ async def _queue_sync_git_roots(
     *,
     loaders: Dataloaders,
     user_email: str,
-    queue: str = "spot_soon",
+    queue: str = "unlimited_spot",
     group_name: str,
     queue_with_vpn: bool = False,
 ) -> QuequeResult:
@@ -64,7 +64,7 @@ async def clone_groups_roots(queue_with_vpn: bool = False) -> None:
         await _queue_sync_git_roots(
             loaders=loaders,
             user_email="integrates@fluidattacks.com",
-            queue="spot_later",
+            queue="limited_spot",
             group_name=group,
             queue_with_vpn=queue_with_vpn,
         )

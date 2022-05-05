@@ -26,7 +26,7 @@ async def test_format_job_payload() -> None:
         subject=subject.lower(),
         time=time,
         additional_info=additional_info,
-        queue="spot_soon",
+        queue="unlimited_spot",
     )
     job_payload = batch_domain.format_job_payload(job_description)
     assert job_payload == JobPayload(

@@ -27,7 +27,7 @@ async def main() -> None:
             entity=group_name,
             product_name=Product.INTEGRATES,
             subject="integrates@fluidattacks.com",
-            queue="spot_later",
+            queue="limited_spot",
         )
         for group_name in group_names
     )

@@ -15393,7 +15393,7 @@
                 "S": "2020-11-19T13:37:10+00:00"
               },
               "queue": {
-                "S": "skims_all_later"
+                "S": "limited_spot"
               }
             }
           ],

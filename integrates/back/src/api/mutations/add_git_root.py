@@ -93,7 +93,7 @@ async def mutate(
                 roots=(root,),
                 user_email=user_email,
                 group_name=root.group_name,
-                queue="spot_soon",
+                queue="unlimited_spot",
             )
         )
         and (
@@ -103,7 +103,7 @@ async def mutate(
                 entity=root.group_name,
                 product_name=Product.INTEGRATES,
                 subject="integrates@fluidattacks.com",
-                queue="spot_soon",
+                queue="unlimited_spot",
                 dependsOn=[
                     {
                         "jobId": result_queue_sync.batch_job_id,

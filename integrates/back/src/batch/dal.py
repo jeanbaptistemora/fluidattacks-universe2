@@ -517,7 +517,7 @@ async def put_action_to_dynamodb(
     time: str,
     additional_info: str,
     batch_job_id: Optional[str] = None,
-    queue: str = "spot_soon",
+    queue: str = "unlimited_spot",
     key: Optional[str] = None,
 ) -> Optional[str]:
     try:
@@ -603,7 +603,7 @@ async def put_action_to_batch(
     product_name: str,
     attempt_duration_seconds: int = 3600,
     memory: int = 3800,
-    queue: str = "spot_soon",
+    queue: str = "unlimited_spot",
     vcpus: int = 2,
     **kwargs: Any,
 ) -> Optional[str]:
@@ -701,7 +701,7 @@ async def put_action(  # pylint: disable=too-many-locals
     subject: str,
     attempt_duration_seconds: int = 3600,
     dynamodb_pk: Optional[str] = None,
-    queue: str = "spot_soon",
+    queue: str = "unlimited_spot",
     vcpus: int = 2,
     **kwargs: Any,
 ) -> PutActionResult:
