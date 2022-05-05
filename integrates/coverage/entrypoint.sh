@@ -12,10 +12,8 @@ function main {
     && coverage report "${coverage_args[@]}" \
     && coverage html "${coverage_args[@]}" -d build \
     && coverage xml "${coverage_args[@]}" \
-    && sops_export_vars secrets/development.yaml CODECOV_TOKEN \
-    && curl -Os https://uploader.codecov.io/latest/linux/codecov \
-    && chmod +x codecov \
-    && ./codecov -C "${CI_COMMIT_SHA}" -B "master" \
+    && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
+    && __argCodecov__ -C "${CI_COMMIT_SHA}" -B "master" -F integrates \
     && popd \
     || return 1
 }

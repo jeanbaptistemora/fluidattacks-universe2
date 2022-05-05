@@ -1,26 +1,42 @@
 {
   inputs,
+  makeDerivation,
   makePythonPypiEnvironment,
   makeScript,
-  outputs,
   projectPath,
+  outputs,
   ...
-}:
-makeScript {
-  name = "integrates-coverage";
-  searchPaths = {
-    bin = [
-      inputs.nixpkgs.findutils
-      inputs.nixpkgs.git
-    ];
-    source = [
-      (makePythonPypiEnvironment {
-        name = "integrates-coverage";
-        sourcesYaml = ./pypi-sources.yaml;
-      })
-      outputs."/common/utils/aws"
-      outputs."/common/utils/sops"
-    ];
+}: let
+  chmodX = name: envSrc:
+    makeDerivation {
+      env = {inherit envSrc;};
+      builder = "cp $envSrc $out && chmod +x $out";
+      inherit name;
+    };
+  codecovSrc = inputs.nixpkgs.fetchurl {
+    url = "https://uploader.codecov.io/v0.2.1/linux/codecov";
+    sha256 = "14kff14mk11kkf7jisr4c8r9bvdyx212drgb2v435blhafrxnpwb";
   };
-  entrypoint = projectPath "/integrates/coverage/entrypoint.sh";
-}
+in
+  makeScript {
+    replace = {
+      __argSecretsDev__ = projectPath "/integrates/secrets/development.yaml";
+      __argCodecov__ = chmodX "codecov" codecovSrc;
+    };
+    name = "integrates-coverage";
+    searchPaths = {
+      bin = [
+        inputs.nixpkgs.findutils
+        inputs.nixpkgs.git
+      ];
+      source = [
+        (makePythonPypiEnvironment {
+          name = "integrates-coverage";
+          sourcesYaml = ./pypi-sources.yaml;
+        })
+        outputs."/common/utils/aws"
+        outputs."/common/utils/sops"
+      ];
+    };
+    entrypoint = ./entrypoint.sh;
+  }
