@@ -25,6 +25,7 @@ from aws.model import (
     AWSRdsCluster,
     AWSRdsClusterInstance,
     AWSS3Bucket,
+    AWSS3SSEConfig,
     AWSSecretsManagerSecret,
 )
 from itertools import (
@@ -182,6 +183,18 @@ def iter_s3_buckets(model: Any) -> Iterator[Any]:
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
+        )
+
+
+def iter_s3_sse_configuration(model: Any) -> Iterator[AWSS3SSEConfig]:
+    iterator = iterate_resources(
+        model, "resource", "aws_s3_bucket_server_side_encryption_configuration"
+    )
+    for sse_config in iterator:
+        yield AWSS3SSEConfig(
+            data=sse_config.body,
+            column=sse_config.column,
+            line=sse_config.line,
         )
 
 
