@@ -16,6 +16,9 @@ from contextlib import (
 from core.expected_code_date import (
     main as get_expected_code_date,
 )
+from core.rebase import (
+    main as execute_rebase,
+)
 from core.scan import (
     main as execute_skims,
 )
@@ -272,6 +275,9 @@ async def main(  # pylint: disable=too-many-locals)
     for config in configs:
         with suppress(Exception):
             log_blocking("info", "Running skims for %s", config.namespace)
+            await execute_rebase(
+                group_name, config.namespace, config.working_dir, token
+            )
             await execute_skims(config, group_name, token)
 
     delete_action(action_dynamo_pk=action_dynamo_pk)
