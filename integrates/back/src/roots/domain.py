@@ -26,6 +26,9 @@ from db_model import (
     credentials as creds_model,
     roots as roots_model,
 )
+from db_model.credentials.add import (
+    add_root_id,
+)
 from db_model.credentials.types import (
     CredentialItem,
     CredentialMetadata,
@@ -95,6 +98,7 @@ from settings.various import (
 )
 from typing import (
     Any,
+    cast,
     Dict,
     List,
     Optional,
@@ -275,12 +279,21 @@ async def add_git_root(  # pylint: disable=too-many-locals
         ),
     )
 
-    credentials = kwargs.get("credentials")
+    credentials: Optional[Dict[str, str]] = cast(
+        Optional[Dict[str, str]], kwargs.get("credentials")
+    )
+
     if credentials:
-        credential = _format_root_credential(
-            credentials, group_name, user_email, root.id
-        )
-        await creds_model.add(credential=credential)
+        if (credential_id := credentials.get("id")) and credential_id:
+            credential = await loaders.credential.load(
+                (group_name, credential_id)
+            )
+            await add_root_id(credential=credential, root_id=root.id)
+        else:
+            credential = _format_root_credential(
+                credentials, group_name, user_email, root.id
+            )
+            await creds_model.add(credential=credential)
 
     await roots_model.add(root=root)
 

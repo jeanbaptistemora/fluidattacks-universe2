@@ -1,5 +1,6 @@
 from .add import (
     add,
+    add_root_id,
 )
 from .remove import (
     remove,
@@ -12,4 +13,5 @@ __all__ = [
     "add",
     "remove",
     "update_credential_state",
+    "add_root_id",
 ]

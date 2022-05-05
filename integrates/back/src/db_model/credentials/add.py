@@ -42,3 +42,28 @@ async def add(*, credential: CredentialItem) -> None:
 
     items = (initial_metadata, *historic_state)
     await operations.batch_put_item(items=items, table=TABLE)
+
+
+async def add_root_id(*, credential: CredentialItem, root_id: str) -> None:
+    key_structure = TABLE.primary_key
+
+    attributes = json.loads(json.dumps(credential.state))
+    if root_id in attributes["roots"]:
+        return None
+    attributes["roots"].append(root_id)
+
+    historic_state = historics.build_historic(
+        attributes=attributes,
+        historic_facet=TABLE.facets["credentials_historic_state"],
+        key_structure=key_structure,
+        key_values={
+            "iso8601utc": credential.state.modified_date,
+            "name": credential.group_name,
+            "uuid": credential.id,
+        },
+        latest_facet=TABLE.facets["credentials_state"],
+    )
+
+    items = (*historic_state,)
+    await operations.batch_put_item(items=items, table=TABLE)
+    return None
