@@ -7,7 +7,7 @@
       definition = "makes";
       environment = ["PRODUCT_API_TOKEN"];
       memory = vcpus * 1800;
-      queue = "dedicated_later";
+      queue = "limited_dedicated";
       setup = [outputs."/secretsForAwsFromEnv/prodSkims"];
       vcpus = 4;
     };

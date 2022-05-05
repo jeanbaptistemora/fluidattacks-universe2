@@ -82,7 +82,7 @@ async def test_main_empty_configs(
             additional_info=json.dumps(
                 {"roots": [], "checks": ["F008", "F001"]}
             ),
-            queue="skims_all_later",
+            queue="unlimited_spot",
         ),
     )
     mocker.patch("batch.set_running", return_value=None)
@@ -111,7 +111,7 @@ async def test_main_with_configs(
             additional_info=json.dumps(
                 {"roots": ["namespace"], "checks": ["F008", "F001"]}
             ),
-            queue="skims_all_later",
+            queue="unlimited_spot",
         ),
     )
     mocker.patch("batch.set_running", return_value=None)
@@ -141,7 +141,7 @@ async def test_main_bad_roots(test_group: str, mocker: MockerFixture) -> None:
                     "checks": ["F008", "F001"],
                 }
             ),
-            queue="skims_all_later",
+            queue="unlimited_spot",
         ),
     )
     mocker.patch("batch.set_running", return_value=None)
@@ -171,7 +171,7 @@ async def test_main_rebase(test_group: str, mocker: MockerFixture) -> None:
                     "checks": ["F099"],
                 }
             ),
-            queue="skims_all_later",
+            queue="unlimited_spot",
         ),
     )
     mocker.patch("batch.set_running", return_value=None)
@@ -241,7 +241,7 @@ async def test_rebase_no_change_line(
                     "checks": ["F099"],
                 }
             ),
-            queue="skims_all_later",
+            queue="unlimited_spot",
         ),
     )
     mocker.patch("batch.set_running", return_value=None)
