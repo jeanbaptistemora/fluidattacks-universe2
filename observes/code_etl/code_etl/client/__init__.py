@@ -170,13 +170,13 @@ class RawClient:
         self, namespace: Maybe[str]
     ) -> Cmd[Stream[ResultE[CommitTableRow]]]:
         pkg_items = 2000
-        statement = namespace.map(
+        query_pair = namespace.map(
             lambda n: _query.namespace_data(self._table, n)
         ).or_else_call(lambda: _query.all_data(self._table))
         items = infinite_range(0, 1).map(
             lambda _: _fetch(self._db_client, pkg_items)
         )
-        return self._db_client.execute_query(statement).map(
+        return self._sql_client.execute(*query_pair).map(
             lambda _: from_piter(items)
             .transform(lambda s: until_empty(s))
             .map(lambda l: from_flist(l))

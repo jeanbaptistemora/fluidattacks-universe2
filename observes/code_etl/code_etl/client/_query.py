@@ -42,28 +42,32 @@ from typing import (
 )
 
 
-def _all_data(table: TableID, namespace: Optional[str]) -> LegacyQuery:
+def _all_data(
+    table: TableID, namespace: Optional[str]
+) -> Tuple[Query, QueryValues]:
     _namespace = Maybe.from_optional(namespace)
     _attrs = ",".join([f.name for f in fields(RawRow)])
-    args = SqlArgs(
-        {"namespace": namespace} if namespace else {},
-        {
-            "schema": table.schema.name,
-            "table": table.table_name,
-        },
+    base_stm = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
+    id_args: Dict[str, Optional[str]] = {
+        "schema": table.schema.name,
+        "table": table.table_name,
+    }
+    args: Dict[str, PrimitiveVal] = (
+        {"namespace": namespace} if namespace else {}
     )
-    base_query = f"SELECT {_attrs} FROM {{schema}}.{{table}}"
-    _query = _namespace.map(
-        lambda _: f"{base_query} WHERE namespace = %(namespace)s"
-    ).value_or(base_query)
-    return LegacyQuery(_query, args)
+    stm = _namespace.map(
+        lambda _: f"{base_stm} WHERE namespace = %(namespace)s"
+    ).value_or(base_stm)
+    return (dynamic_query(stm, freeze(id_args)), QueryValues(freeze(args)))
 
 
-def namespace_data(table: TableID, namespace: str) -> LegacyQuery:
+def namespace_data(
+    table: TableID, namespace: str
+) -> Tuple[Query, QueryValues]:
     return _all_data(table, namespace)
 
 
-def all_data(table: TableID) -> LegacyQuery:
+def all_data(table: TableID) -> Tuple[Query, QueryValues]:
     return _all_data(table, None)
 
 
