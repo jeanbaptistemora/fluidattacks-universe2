@@ -247,18 +247,17 @@ async def send_mail_portfolio_report(
     group_name: str,
     responsible: str,
     is_added: bool,
-    portfolio: set[str],
+    portfolio: str,
     report_date: date,
     email_to: List[str],
 ) -> None:
-    state_format: str = "added" if is_added else "deleted"
     await send_mails_async(
         email_to=email_to,
         context={
-            "state": state_format,
+            "is_added": is_added,
             "group_name": group_name,
             "responsible": responsible,
-            "portfolios": ", ".join(portfolio),
+            "portfolios": portfolio,
             "report_date": report_date,
         },
         tags=GENERAL_TAG,

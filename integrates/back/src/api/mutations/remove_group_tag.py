@@ -26,6 +26,7 @@ import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -51,9 +52,15 @@ async def mutate(
     group_name = group_name.lower()
     loaders: Dataloaders = info.context.loaders
     group = await loaders.group_typed.load(group_name)
+    user_info = await token_utils.get_jwt_content(info.context)
+    user_email: str = user_info["user_email"]
 
     if await groups_domain.is_valid(loaders, group_name) and group.tags:
-        await groups_domain.remove_tag(group=group, tag_to_remove=tag)
+        await groups_domain.remove_tag(
+            group=group,
+            tag_to_remove=tag,
+            user_email=user_email,
+        )
         redis_del_by_deps_soon("remove_group_tag", group_name=group_name)
         logs_utils.cloudwatch_log(
             info.context,

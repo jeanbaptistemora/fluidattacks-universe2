@@ -1556,7 +1556,7 @@ async def add_tags(
     await send_mail_portfolio_report(
         group_name=group.name,
         responsible=user_email,
-        portfolio=tags_to_add,
+        portfolio=", ".join(tags_to_add),
         is_added=True,
         modified_date=datetime_utils.get_iso_date(),
     )
@@ -1565,6 +1565,7 @@ async def add_tags(
 async def remove_tag(
     group: Group,
     tag_to_remove: str,
+    user_email: str,
 ) -> None:
     if group.tags:
         group.tags.remove(tag_to_remove)
@@ -1574,13 +1575,19 @@ async def remove_tag(
                 tags=group.tags,
             ),
         )
+        await send_mail_portfolio_report(
+            group_name=group.name,
+            responsible=user_email,
+            portfolio=tag_to_remove,
+            modified_date=datetime_utils.get_iso_date(),
+        )
 
 
 async def send_mail_portfolio_report(
     *,
     group_name: str,
     responsible: str,
-    portfolio: set[str],
+    portfolio: str,
     is_added: bool = False,
     modified_date: str,
 ) -> None:

@@ -9,7 +9,8 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      Portfolios have been {{ state }} to the group
+      Portfolios have been
+      {% if is_added %}added to{% else %}deleted from{% endif %} the group
       <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>.
     </p>
     <p>
