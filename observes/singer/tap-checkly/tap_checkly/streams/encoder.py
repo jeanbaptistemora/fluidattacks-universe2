@@ -56,7 +56,6 @@ def encode_result_api(result: CheckResultApi) -> JsonObj:
             {
                 "status": result.status,
                 "status_text": result.status_text,
-                "href": result.href.value_or(None),
                 "timings": result.timings.map(encode_timings).value_or(None),
                 "timing_phases": result.timing_phases.map(
                     encode_timing_phases
@@ -82,7 +81,6 @@ def encode_result(result: IndexedObj[CheckId, CheckResultObj]) -> JsonObj:
                 "has_errors": result.obj.obj.has_errors,
                 "has_failures": result.obj.obj.has_failures,
                 "is_degraded": result.obj.obj.is_degraded,
-                "name": result.obj.obj.name,
                 "over_max_response_time": result.obj.obj.over_max_response_time,
                 "response_time": result.obj.obj.response_time,
                 "run_location": result.obj.obj.run_location,

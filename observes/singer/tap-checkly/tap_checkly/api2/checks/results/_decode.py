@@ -4,6 +4,7 @@ from ._core import (
     CheckResultId,
     CheckResultObj,
     CheckRunId,
+    RolledCheckResult,
     TimingPhases,
     Timings,
 )
@@ -48,9 +49,6 @@ def _decode_result_api(api_result: JsonObj) -> CheckResultApi:
     return CheckResultApi(
         Unfolder(response["status"]).to_primitive(int).unwrap(),
         Unfolder(response["statusText"]).to_primitive(str).unwrap(),
-        Maybe.from_optional(response.get("href")).map(
-            lambda j: Unfolder(j).to_primitive(str).unwrap()
-        ),
         Maybe.from_optional(response.get("timings")).map(
             lambda j: Unfolder(j).to_json().map(_decode_timings).unwrap(),
         ),
@@ -76,7 +74,6 @@ def from_raw_result(raw: JsonObj) -> CheckResult:
         Unfolder(raw["hasErrors"]).to_primitive(bool).unwrap(),
         Unfolder(raw["hasFailures"]).to_primitive(bool).unwrap(),
         Unfolder(raw["isDegraded"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["name"]).to_primitive(str).unwrap(),
         Unfolder(raw["overMaxResponseTime"]).to_primitive(bool).unwrap(),
         Unfolder(raw["responseTime"]).to_primitive(int).unwrap(),
         Unfolder(raw["runLocation"]).to_primitive(str).unwrap(),
@@ -88,3 +85,14 @@ def from_raw_result(raw: JsonObj) -> CheckResult:
 def from_raw_obj(raw: JsonObj) -> CheckResultObj:
     _id = Unfolder(raw["id"]).to_primitive(str).map(CheckResultId).unwrap()
     return IndexedObj(_id, from_raw_result(raw))
+
+
+def rolled_from_raw(raw: JsonObj) -> RolledCheckResult:
+    return RolledCheckResult(
+        Unfolder(raw["runLocation"]).to_primitive(str).unwrap(),
+        Unfolder(raw["errorCount"]).to_primitive(int).unwrap(),
+        Unfolder(raw["failureCount"]).to_primitive(int).unwrap(),
+        Unfolder(raw["resultsCount"]).to_primitive(int).unwrap(),
+        Unfolder(raw["hour"]).to_primitive(str).map(isoparse).unwrap(),
+        Unfolder(raw["responseTimes"]).to_list_of(int).unwrap(),
+    )

@@ -7,6 +7,7 @@ from ._core import (
     CheckResultId,
     CheckResultObj,
     CheckRunId,
+    RolledCheckResult,
     TimingPhases,
     Timings,
 )
@@ -31,6 +32,9 @@ from tap_checkly.api2._raw import (
 )
 from tap_checkly.api2.checks.core import (
     CheckId,
+)
+from typing import (
+    Tuple,
 )
 
 
@@ -57,13 +61,33 @@ class CheckResultClient:
             ),
         ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
 
+    def list_rolled_results(
+        self,
+        page: int,
+        per_page: int,
+        date_range: Tuple[datetime, datetime],
+    ) -> Cmd[FrozenList[RolledCheckResult]]:
+        # temp support: this endpoint is deprecated
+        return self._client.get_list(
+            "/v1/check-results-rolled-up/" + self._check.id_str,
+            from_prim_dict(
+                {
+                    "limit": per_page,
+                    "page": page,
+                    "from": str(int(datetime.timestamp(date_range[0]))),
+                    "to": str(int(datetime.timestamp(date_range[1]))),
+                }
+            ),
+        ).map(lambda l: tuple(map(_decode.rolled_from_raw, l)))
+
 
 __all__ = [
-    "CheckRunId",
-    "CheckResultId",
-    "Timings",
-    "TimingPhases",
-    "CheckResultApi",
     "CheckResult",
+    "CheckResultApi",
+    "CheckResultId",
     "CheckResultObj",
+    "CheckRunId",
+    "RolledCheckResult",
+    "TimingPhases",
+    "Timings",
 ]

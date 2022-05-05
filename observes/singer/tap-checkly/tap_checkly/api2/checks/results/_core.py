@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from fa_purity import (
+    FrozenList,
     JsonObj,
     Maybe,
 )
@@ -46,7 +47,6 @@ class TimingPhases:
 class CheckResultApi:
     status: int
     status_text: str
-    href: Maybe[str]
     timings: Maybe[Timings]
     timing_phases: Maybe[TimingPhases]
 
@@ -61,12 +61,21 @@ class CheckResult:
     has_errors: bool
     has_failures: bool
     is_degraded: bool
-    name: str
     over_max_response_time: bool
     response_time: int
     run_location: str
     started_at: datetime
     stopped_at: datetime
+
+
+@dataclass(frozen=True)
+class RolledCheckResult:
+    run_location: str
+    error_count: int
+    failure_count: int
+    results_count: int
+    hour: datetime
+    response_times: FrozenList[int]
 
 
 CheckResultObj = IndexedObj[CheckResultId, CheckResult]
