@@ -266,6 +266,28 @@ async def send_mail_portfolio_report(
     )
 
 
+async def send_mail_updated_services(
+    *,
+    group_name: str,
+    responsible: str,
+    group_changes: dict[str, Any],
+    report_date: str,
+    email_to: List[str],
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "group_name": group_name,
+            "responsible": responsible,
+            "group_changes": group_changes,
+            "report_date": report_date,
+        },
+        tags=GENERAL_TAG,
+        subject=(f"[ASM] Group edited: {group_name}"),
+        template_name="updated_services",
+    )
+
+
 async def send_mail_environment_report(
     *,
     email_to: List[str],
