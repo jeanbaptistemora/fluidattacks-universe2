@@ -24,8 +24,14 @@ from dynamodb.operations_legacy import (
     query as dynamodb_query,
     update_item as dynamodb_update_item,
 )
+from dynamodb.types import (
+    Item,
+)
 import logging
 import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
 from settings import (
     LOGGING,
 )
@@ -94,10 +100,9 @@ async def create(
     organization_id: str = "",
 ) -> Dict[str, Any]:
     """
-    Create an organization and returns its key
+    Create an organization and returns its key.
     """
-    org_exists = await exists(organization_name)
-    if org_exists:
+    if await exists(organization_name):
         raise InvalidOrganization()
 
     organization_id = (
@@ -115,30 +120,43 @@ async def create(
     return _map_keys_to_domain(new_item)
 
 
-async def remove(organization_id: str, organization_name: str) -> bool:
-    """
-    Remove/delete an organization
-    """
-    success: bool = False
-    item = DynamoDeleteType(
-        Key={"pk": organization_id, "sk": f"INFO#{organization_name}"}
+async def remove(
+    *,
+    organization_id: str,
+    modified_by: str,
+) -> bool:
+    """Remove an organization, updating its status to DELETED."""
+    organization: Item = await get_by_id(
+        organization_id, ["historic_state", "name"]
     )
-    try:
-        success = await dynamodb_delete_item(TABLE_NAME, item)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return success
+    historic_state: list[dict[str, str]] = organization.get(
+        "historic_state", []
+    )
+    new_state = {
+        "modified_by": modified_by,
+        "modified_date": datetime_utils.get_now_as_str(),
+        "status": "DELETED",
+    }
+    item_to_update: Item = {
+        "historic_state": [
+            *historic_state,
+            new_state,
+        ]
+    }
+    return await update(
+        organization_id=organization_id,
+        organization_name=organization["name"],
+        values=item_to_update,
+    )
 
 
 async def exists(org_name: str) -> bool:
     """
-    Returns True if the organization key exists
+    Returns True if the organization key exists.
     """
-    org = await get_by_name(org_name)
-    resp = False
-    if org:
-        resp = True
-    return resp
+    if await get_by_name(org_name):
+        return True
+    return False
 
 
 async def get_access_by_url_token(

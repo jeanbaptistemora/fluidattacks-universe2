@@ -221,10 +221,11 @@ async def add_organization(name: str, email: str) -> Dict[str, Any]:
     return new_organization
 
 
-async def remove_organization(organization_id: str) -> bool:
-    organization_name = await get_name_by_id(organization_id)
-    success = await orgs_dal.remove(organization_id, organization_name)
-    return success
+async def remove_organization(organization_id: str, modified_by: str) -> bool:
+    return await orgs_dal.remove(
+        organization_id=organization_id,
+        modified_by=modified_by,
+    )
 
 
 def format_organization(organization: Dict[str, Any]) -> Dict[str, Any]:

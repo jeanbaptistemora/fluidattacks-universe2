@@ -20,6 +20,7 @@ from groups import (
 )
 from newutils import (
     datetime as datetime_utils,
+    organizations as orgs_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -54,7 +55,7 @@ async def _remove_organization(
     loaders: Dataloaders,
     organization_id: str,
     organization_name: str,
-    email: str,
+    modified_by: str,
 ) -> None:
     users = await orgs_domain.get_users(organization_id)
     users_removed = await collect(
@@ -64,9 +65,11 @@ async def _remove_organization(
     success = all(users_removed) if users else True
 
     org_groups = await orgs_domain.get_groups(organization_id)
-    await collect(_remove_group(loaders, group, email) for group in org_groups)
+    await collect(
+        _remove_group(loaders, group, modified_by) for group in org_groups
+    )
     if success:
-        await orgs_domain.remove_organization(organization_id)
+        await orgs_domain.remove_organization(organization_id, modified_by)
         info(
             f"Organization removed {organization_name}, "
             f"groups removed: {org_groups}"
@@ -76,9 +79,13 @@ async def _remove_organization(
 async def delete_obsolete_orgs() -> None:
     """Remove obsolete organizations."""
     today = datetime_utils.get_now().date()
-    email = "integrates@fluidattacks.com"
+    modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
     async for org_id, org_name in orgs_domain.iterate_organizations():
+        organization = await orgs_domain.get_by_id(org_id)
+        if orgs_utils.is_deleted(organization):
+            return
+
         info(f"Working on organization {org_name}")
         org_pending_deletion_date_str = (
             await orgs_domain.get_pending_deletion_date_str(org_id)
@@ -92,7 +99,7 @@ async def delete_obsolete_orgs() -> None:
                 )
                 if org_pending_deletion_date.date() <= today:
                     await _remove_organization(
-                        loaders, org_id, org_name, email
+                        loaders, org_id, org_name, modified_by
                     )
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(

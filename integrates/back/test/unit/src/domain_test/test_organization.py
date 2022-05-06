@@ -27,6 +27,9 @@ from graphql import (
 from group_access import (
     domain as group_access_domain,
 )
+from newutils import (
+    organizations as orgs_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -119,10 +122,11 @@ async def test_add_organization() -> None:
 @pytest.mark.changes_db
 async def test_remove_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
-    await orgs_domain.remove_organization(org_id)
+    email = "org_testuser1@gmail.com"
+    await orgs_domain.remove_organization(org_id, email)
 
-    with pytest.raises(InvalidOrganization):
-        await orgs_domain.get_name_by_id(org_id)
+    org = await orgs_domain.get_by_id(org_id)
+    assert orgs_utils.is_deleted(org)
 
 
 async def test_get_groups() -> None:

@@ -27,7 +27,7 @@ async def main() -> None:
             if STAGE == "test":
                 print(f"Organization {org_name} will be deleted")
             else:
-                await orgs_domain.remove_organization(org_id)
+                await orgs_domain.remove_organization_legacy(org_id)
 
 
 if __name__ == "__main__":

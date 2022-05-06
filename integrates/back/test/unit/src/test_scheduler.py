@@ -34,6 +34,7 @@ from freezegun import (  # type: ignore
 )
 from newutils import (
     datetime as datetime_utils,
+    organizations as orgs_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -374,7 +375,9 @@ async def test_delete_obsolete_orgs() -> None:
     org_name = "makoto"
     org_ids = []
     async for organization_id, _ in iterate_organizations():
-        org_ids.append(organization_id)
+        organization = await orgs_domain.get_by_id(organization_id)
+        if not orgs_utils.is_deleted(organization):
+            org_ids.append(organization_id)
     assert org_id in org_ids
     assert len(org_ids) == 10
 
@@ -385,7 +388,9 @@ async def test_delete_obsolete_orgs() -> None:
 
     new_org_ids = []
     async for organization_id, _ in iterate_organizations():
-        new_org_ids.append(organization_id)
+        organization = await orgs_domain.get_by_id(organization_id)
+        if not orgs_utils.is_deleted(organization):
+            new_org_ids.append(organization_id)
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9
 

@@ -5,6 +5,9 @@ from custom_exceptions import (
 from decimal import (
     Decimal,
 )
+from newutils import (
+    organizations as orgs_utils,
+)
 from organizations import (
     dal as orgs_dal,
 )
@@ -85,11 +88,19 @@ async def test_create() -> None:
 @pytest.mark.changes_db
 async def test_delete() -> None:
     org_name = "himura"
+    email = "org_testuser1@gmail.com"
     assert await orgs_dal.exists(org_name)
+    org = await orgs_dal.get_by_name(org_name)
+    assert not orgs_utils.is_deleted(org)
 
-    org = await orgs_dal.get_by_name(org_name, ["id"])
-    await orgs_dal.remove(org["id"], org_name)
-    assert not await orgs_dal.exists(org_name)
+    await orgs_dal.remove(
+        organization_id=org["id"],
+        modified_by=email,
+    )
+
+    assert await orgs_dal.exists(org_name)
+    org = await orgs_dal.get_by_name(org_name)
+    assert orgs_utils.is_deleted(org)
 
 
 @pytest.mark.changes_db
