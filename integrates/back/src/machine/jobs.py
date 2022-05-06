@@ -55,9 +55,6 @@ import os
 from roots.domain import (
     add_machine_execution,
 )
-from roots.types import (
-    GitRoot,
-)
 from settings.logger import (
     LOGGING,
 )
@@ -330,7 +327,7 @@ async def queue_job_new(
     return queue_result
 
 
-async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
+async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
     group: str = root.group_name
     queued_jobs_dict = {
         job.batch_job_id: job
@@ -377,7 +374,7 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
         for root_nickname in json.loads(
             queued_jobs_dict[entry_execution["jobId"]].additional_info
         )["roots"]
-        if root_nickname == root.nickname
+        if root_nickname == root.state.nickname
     )
 
     active_urgent_jobs = tuple(

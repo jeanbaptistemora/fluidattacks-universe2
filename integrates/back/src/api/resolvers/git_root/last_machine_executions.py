@@ -2,6 +2,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
+    GitRootItem,
     LastMachineExecutions,
 )
 from graphql.type.definition import (
@@ -10,13 +11,10 @@ from graphql.type.definition import (
 from machine.jobs import (
     get_active_executions,
 )
-from roots.types import (
-    GitRoot,
-)
 
 
 async def resolve(
-    parent: GitRoot, info: GraphQLResolveInfo, **_kwargs: None
+    parent: GitRootItem, info: GraphQLResolveInfo
 ) -> LastMachineExecutions:
     loaders: Dataloaders = info.context.loaders
     last_machine_executions = await get_active_executions(parent)

@@ -10,19 +10,11 @@ from db_model.toe_lines.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from roots import (
-    domain as roots_domain,
-)
-from roots.types import (
-    Root,
-)
 
 
-async def resolve(
-    parent: ToeLines, info: GraphQLResolveInfo, **_kwargs: None
-) -> Root:
+async def resolve(parent: ToeLines, info: GraphQLResolveInfo) -> RootItem:
     loaders: Dataloaders = info.context.loaders
     root: RootItem = await loaders.root.load(
         (parent.group_name, parent.root_id)
     )
-    return roots_domain.format_root(root)
+    return root

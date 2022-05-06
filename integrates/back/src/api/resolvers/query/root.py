@@ -15,12 +15,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from roots import (
-    domain as roots_domain,
-)
-from roots.types import (
-    Root,
-)
 from typing import (
     Any,
 )
@@ -33,10 +27,10 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
-) -> Root:
+) -> RootItem:
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["root_id"]
     loaders: Dataloaders = info.context.loaders
     root: RootItem = await loaders.root.load((group_name, root_id))
 
-    return roots_domain.format_root(root)
+    return root

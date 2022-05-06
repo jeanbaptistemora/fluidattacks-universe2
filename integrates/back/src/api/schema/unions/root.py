@@ -1,15 +1,15 @@
 from ariadne import (
     UnionType,
 )
+from db_model.roots.types import (
+    GitRootItem,
+    IPRootItem,
+    RootItem,
+    URLRootItem,
+)
 from graphql.type.definition import (
     GraphQLAbstractType,
     GraphQLResolveInfo,
-)
-from roots.types import (
-    GitRoot,
-    IPRoot,
-    Root,
-    URLRoot,
 )
 from typing import (
     Optional,
@@ -17,13 +17,15 @@ from typing import (
 
 
 def resolve_root_type(
-    result: Root, _info: GraphQLResolveInfo, _return_type: GraphQLAbstractType
+    result: RootItem,
+    _info: GraphQLResolveInfo,
+    _return_type: GraphQLAbstractType,
 ) -> Optional[str]:
-    if isinstance(result, GitRoot):
+    if isinstance(result, GitRootItem):
         return "GitRoot"
-    if isinstance(result, IPRoot):
+    if isinstance(result, IPRootItem):
         return "IPRoot"
-    if isinstance(result, URLRoot):
+    if isinstance(result, URLRootItem):
         return "URLRoot"
     return None
 
