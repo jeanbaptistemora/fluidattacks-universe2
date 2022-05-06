@@ -157,6 +157,11 @@
     "webpack-dev-server": "4.7.3",
     "yup": "0.32.11"
   },
+  "overrides": {
+    "underscore": "1.13.3",
+    "unset-value": "2.0.1",
+    "trim": "0.0.3"
+  },
   "scripts": {
     "build": "npm run css && webpack --config webpack.prod.config.ts",
     "css": "tcm src/ --silent",
