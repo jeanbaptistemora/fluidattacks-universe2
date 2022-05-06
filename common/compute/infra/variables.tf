@@ -19,6 +19,90 @@ variable "productApiToken" {
 
 locals {
   schedules = {
+    integrates_scheduler_clone_groups_roots_vpn = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.clone_groups_roots_vpn.main",
+      ]
+
+      schedule_expression = "cron(30 6,11,16 ? * 1-5 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_clone_groups_roots_vpn"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_event_report = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.event_report.main",
+      ]
+
+      schedule_expression = "cron(0 14 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_event_report"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_reminder_notification = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.reminder_notification.main",
+      ]
+
+      schedule_expression = "cron(0 19 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_reminder_notification"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_review_machine_executions = {
       enabled = true
       command = [
@@ -34,7 +118,7 @@ locals {
       attempts            = 3
       timeout             = 86400
       cpu                 = 2
-      memory              = 3600
+      memory              = 7200
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
