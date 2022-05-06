@@ -12,6 +12,12 @@ from model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
 from utils.graph import (
     get_ast_childs,
     match_ast,
@@ -113,4 +119,36 @@ def check_xml_serializer(
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=core_model.MethodsEnum.CS_XML_SERIAL,
+    )
+
+
+def js_deserialization(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_JS_DESERIALIZATION
+    c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
+    finding = method.value.finding
+
+    serializer = {"JavaScriptSerializer"}
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            for n_id in yield_shard_object_creation(shard, serializer):
+                graph = shard.syntax_graph
+                for path in get_backward_paths(graph, n_id):
+                    if (
+                        evaluation := evaluate(
+                            c_sharp, finding, graph, path, n_id
+                        )
+                    ) and evaluation.danger:
+                        yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f096.js_deserialization",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
     )

@@ -1,3 +1,10 @@
 lib_root.f096.insecure_deserialization:
   en: The way it's deserializing is insecure
   es: La forma en la que se esta deserializando es insegura
+lib_root.f096.js_deserialization:
+  en: >
+    A JavaScriptSerializer deserialization method was called or referenced
+    after initializing with a SimpleTypeResolver.
+  es: >
+    Se llamó o se hizo referencia a un método de deserialización de
+    JavaScriptSerializer después de inicializar con un SimpleTypeResolver.
