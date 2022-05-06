@@ -446,7 +446,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                         name={"environment"}
                         placeholder={t("group.scope.git.repo.environmentHint")}
                         type={"text"}
-                        validate={required}
                       />
                     </div>
                   </div>
@@ -477,7 +476,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                             onSelect={setConfirmHealthCheck}
                             type={"Radio"}
                             uncheck={setIsCheckedHealthCheck}
-                            validate={selected}
                           />
                         </div>
                       </div>

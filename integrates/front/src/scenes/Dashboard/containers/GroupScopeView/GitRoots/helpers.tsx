@@ -9,7 +9,7 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { BaseSchema, InferType } from "yup";
-import { array, lazy, object, string } from "yup";
+import { array, boolean, lazy, object, string } from "yup";
 import type { TypedSchema } from "yup/lib/util/types";
 
 import type { IGitRootAttr } from "../types";
@@ -49,6 +49,7 @@ const gitModalSchema = (
     (values: IGitRootAttr): BaseSchema =>
       object().shape({
         branch: string().required(translate.t("validations.required")),
+        environment: string().required(translate.t("validations.required")),
         gitignore: array().of(
           string()
             .required(translate.t("validations.required"))
@@ -76,6 +77,9 @@ const gitModalSchema = (
               }
             )
         ),
+        includesHealthCheck: boolean()
+          .nullable()
+          .required(translate.t("validations.required")),
         nickname: string()
           .when("url", {
             is: (url: string): boolean => isDuplicated(url),
