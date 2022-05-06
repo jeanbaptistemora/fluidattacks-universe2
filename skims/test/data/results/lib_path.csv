@@ -22206,6 +22206,20 @@ F096,lines,namespace/skims/test/data/lib_root/f096/test_xmlserializer.cs,7,502,s
   16 |
      ^ Col 6
 ",c_sharp.c_sharp_check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/js_deserialization.cs,7,502,skims,096. Insecure deserialization,"A JavaScriptSerializer deserialization method was called or referenced after initializing with a SimpleTypeResolver.
+ in namespace/skims/test/data/lib_root/f096/js_deserialization.cs","
+   1 | g System.Web.Script.Serialization;
+   2 |
+   3 | ic class ExampleClass
+   4 |
+   5 | public T Deserialize<T>(string str)
+   6 | {
+>  7 |     JavaScriptSerializer s = new JavaScriptSerializer(new SimpleTypeResolver());
+   8 |     return s.Deserialize<T>(str);
+   9 | }
+  10 |
+     ^ Col 4
+",c_sharp.c_sharp_js_deserialization
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
