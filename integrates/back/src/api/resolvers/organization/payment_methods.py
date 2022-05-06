@@ -4,6 +4,9 @@ from billing import (
 from billing.types import (
     PaymentMethod,
 )
+from db_model.organization.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -14,9 +17,9 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Dict,
     List,
     Optional,
+    Union,
 )
 
 
@@ -25,10 +28,16 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Organization, dict[str, Any]],
+    _info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> List[PaymentMethod]:
-    org_billing_customer: Optional[str] = parent.get("billing_customer", None)
-
+    if isinstance(parent, dict):
+        org_billing_customer: Optional[str] = parent.get(
+            "billing_customer", None
+        )
+    else:
+        org_billing_customer = parent.billing_customer
     return await billing_domain.customer_payment_methods(
         org_billing_customer=org_billing_customer,
         limit=100,

@@ -1,6 +1,9 @@
 from billing import (
     domain as billing_domain,
 )
+from db_model.organization.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -14,8 +17,8 @@ from newutils import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
+    Union,
 )
 
 
@@ -24,12 +27,21 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Organization, dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> str:
-    org_id: str = parent["id"]
-    org_name: str = parent["name"]
-    org_billing_customer: Optional[str] = parent.get("billing_customer", None)
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    if isinstance(parent, dict):
+        org_id: str = parent["id"]
+        org_name: str = parent["name"]
+        org_billing_customer: Optional[str] = parent.get(
+            "billing_customer", None
+        )
+    else:
+        org_id = parent.id
+        org_name = parent.name
+        org_billing_customer = parent.billing_customer
+    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
     return await billing_domain.customer_portal(
