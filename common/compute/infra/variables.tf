@@ -19,25 +19,31 @@ variable "productApiToken" {
 
 locals {
   schedules = {
-    common_criteria_test_unreferenced = {
+    integrates_scheduler_review_machine_executions = {
       enabled = true
-      command = ["m", "f", "/common/criteria/test/unreferenced"]
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.review_machine_executions.main",
+      ]
 
-      schedule_expression = "cron(0/5 * * * ? *)"
+      schedule_expression = "cron(30 * ? * 1-5 *)"
       queue               = "unlimited_spot"
-      attempts            = 1
-      timeout             = 21600
-      cpu                 = 1
-      memory              = 2048
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
       }
 
       tags = {
-        "Name"               = "common_criteria_test_unreferenced"
+        "Name"               = "integrates_scheduler_review_machine_executions"
         "management:area"    = "cost"
-        "management:product" = "common"
+        "management:product" = "integrates"
         "management:type"    = "product"
       }
     }
