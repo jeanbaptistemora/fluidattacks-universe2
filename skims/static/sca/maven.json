@@ -158,6 +158,10 @@
   "com.catalogic.ecxjenkins:catalogic-ecx": {
     "CVE-2020-2128": ">=0 <=1.9"
   },
+  "com.caucho:resin": {
+    "CVE-2021-44138": ">=4.0.52 <=4.0.56",
+    "GHSA-4w2q-9hp2-vxj5": ">=4.0.52 <=4.0.56"
+  },
   "com.caverock:androidsvg": {
     "GHSA-g556-x5vx-qh59": "<1.3"
   },
