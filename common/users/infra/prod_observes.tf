@@ -71,8 +71,7 @@ locals {
             Resource = [
               "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job/*",
               "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/limited*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/unlimited*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/*",
             ]
           },
           {

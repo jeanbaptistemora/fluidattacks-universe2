@@ -28,7 +28,7 @@ locals {
       attempts            = 1
       timeout             = 21600
       cpu                 = 1
-      memory              = 1024
+      memory              = 2048
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken

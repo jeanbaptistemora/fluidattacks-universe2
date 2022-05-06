@@ -24,7 +24,7 @@ locals {
             ]
             Resource = [
               "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/skims*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/*",
             ]
           },
           {
