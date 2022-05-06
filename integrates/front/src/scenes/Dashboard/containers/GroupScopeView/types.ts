@@ -9,6 +9,15 @@ interface IEnvironmentUrl {
   secrets: ISecret[];
   createdAt: string;
 }
+interface ICredentials {
+  id: string;
+  key: string;
+  name: string;
+  password: string;
+  token: string;
+  type: "" | "HTTPS" | "SSH";
+  user: string;
+}
 interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
@@ -16,15 +25,7 @@ interface IGitRootAttr {
     message: string;
     status: "FAIL" | "OK" | "UNKNOWN";
   };
-  credentials: {
-    id: string;
-    key: string;
-    name: string;
-    password: string;
-    token: string;
-    type: "" | "HTTPS" | "SSH";
-    user: string;
-  };
+  credentials: ICredentials;
   environment: string;
   environmentUrls: string[];
   gitEnvironmentUrls: IEnvironmentUrl[];
@@ -68,4 +69,5 @@ export type {
   IURLRootAttr,
   IEnvironmentUrl,
   ISecret,
+  ICredentials,
 };

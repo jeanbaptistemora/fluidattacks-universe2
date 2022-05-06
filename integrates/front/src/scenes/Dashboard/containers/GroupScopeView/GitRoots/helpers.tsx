@@ -239,9 +239,11 @@ function useGitSubmit(
                 credentials.key === "" &&
                 credentials.user === "" &&
                 credentials.password === "" &&
+                credentials.id === "" &&
                 credentials.token === ""
                   ? null
                   : {
+                      id: credentials.id,
                       key:
                         credentials.key === ""
                           ? undefined

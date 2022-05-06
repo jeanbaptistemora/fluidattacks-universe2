@@ -1,7 +1,7 @@
 /* eslint-disable complexity, react/forbid-component-props */
 import { Buffer } from "buffer";
 
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
   faCircleInfo,
@@ -16,8 +16,8 @@ import _ from "lodash";
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { VALIDATE_GIT_ACCESS } from "../../queries";
-import type { IGitRootAttr } from "../../types";
+import { GET_GROUP_CREDENTIALS, VALIDATE_GIT_ACCESS } from "../../queries";
+import type { ICredentials, IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
@@ -73,6 +73,18 @@ const Repository: React.FC<IRepositoryProps> = ({
 }: IRepositoryProps): JSX.Element => {
   const { t } = useTranslation();
 
+  // GraphQL operations
+  const { data } = useQuery<{
+    group: { credentials: ICredentials[] };
+  }>(GET_GROUP_CREDENTIALS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load roots", error);
+      });
+    },
+    variables: { groupName },
+  });
+
   const isDuplicated = (field: string): boolean => {
     const repoName: string = field
       ? field.split("/").slice(-1)[0].replace(".git", "")
@@ -86,6 +98,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   const [credExists, setCredExists] = useState(
     initialValues.credentials.id !== ""
   );
+  const [disabledCredsEdit, setDisabledCredsEdit] = useState(false);
 
   const deleteCredential: () => void = useCallback((): void => {
     setCredExists(false);
@@ -141,6 +154,15 @@ const Repository: React.FC<IRepositoryProps> = ({
   });
 
   const formRef = useRef<FormikProps<IGitRootAttr>>(null);
+  const groupedExistingCreds =
+    !_.isUndefined(data) && data.group.credentials.length > 0
+      ? Object.fromEntries(
+          data.group.credentials.map((cred): [string, ICredentials] => [
+            cred.id,
+            cred,
+          ])
+        )
+      : {};
 
   function handleCheckAccessClick(): void {
     if (formRef.current !== null) {
@@ -203,6 +225,23 @@ const Repository: React.FC<IRepositoryProps> = ({
     }
 
     return t("validations.required");
+  }
+
+  function onChangeExits(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (event.target.value === "") {
+      formRef.current?.setFieldValue("credentials.type", "");
+      formRef.current?.setFieldValue("credentials.name", "");
+      formRef.current?.setFieldValue("credentials.id", "");
+      setCredExists(false);
+      setDisabledCredsEdit(false);
+    } else {
+      const currentCred = groupedExistingCreds[event.target.value];
+      formRef.current?.setFieldValue("credentials.type", currentCred.type);
+      formRef.current?.setFieldValue("credentials.name", currentCred.name);
+      formRef.current?.setFieldValue("credentials.id", currentCred.id);
+      setCredExists(true);
+      setDisabledCredsEdit(true);
+    }
   }
 
   return (
@@ -285,39 +324,52 @@ const Repository: React.FC<IRepositoryProps> = ({
                   ) : undefined}
                   <div id={"git-root-add-credentials"}>
                     <div className={"flex"}>
-                      <div className={"w-30 mr3"}>
+                      {!_.isUndefined(data) &&
+                      data.group.credentials.length > 0 ? (
+                        <div className={"w-30 mr3"}>
+                          <ControlLabel>{"Existing credentials"}</ControlLabel>
+                          <Field
+                            component={FormikDropdown}
+                            customChange={onChangeExits}
+                            name={"credentials.id"}
+                          >
+                            <option value={""}>{""}</option>
+                            {data.group.credentials.map((cred): JSX.Element => {
+                              return (
+                                <option key={cred.id} value={cred.id}>
+                                  {cred.name}
+                                </option>
+                              );
+                            })}
+                          </Field>
+                        </div>
+                      ) : null}
+                      <div className={"w-20 mr3"}>
                         <ControlLabel>
                           {t("group.scope.git.repo.credentials.type")}
                         </ControlLabel>
-                        {credExists ? (
-                          <Field
-                            component={FormikText}
-                            disabled={true}
-                            name={"credentials.type"}
-                            value={values.credentials.type}
-                          />
-                        ) : (
-                          <Field
-                            component={FormikDropdown}
-                            name={"credentials.type"}
-                          >
-                            <option value={""}>{""}</option>
-                            <option value={"HTTPS"}>
-                              {t("group.scope.git.repo.credentials.https")}
-                            </option>
-                            <option value={"SSH"}>
-                              {t("group.scope.git.repo.credentials.ssh")}
-                            </option>
-                          </Field>
-                        )}
+                        <Field
+                          component={FormikDropdown}
+                          disabled={disabledCredsEdit}
+                          name={"credentials.type"}
+                        >
+                          <option value={""}>{""}</option>
+                          <option value={"HTTPS"}>
+                            {t("group.scope.git.repo.credentials.https")}
+                          </option>
+                          <option value={"SSH"}>
+                            {t("group.scope.git.repo.credentials.ssh")}
+                          </option>
+                        </Field>
                       </div>
-                      <div className={"w-70"}>
+                      <div className={"w-40"}>
                         <ControlLabel>
                           {t("group.scope.git.repo.credentials.name")}
                         </ControlLabel>
                         <div className={"flex"}>
                           <Field
                             component={FormikText}
+                            disabled={disabledCredsEdit}
                             name={"credentials.name"}
                             placeholder={t(
                               "group.scope.git.repo.credentials.nameHint"

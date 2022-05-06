@@ -52,6 +52,18 @@ const GET_ROOTS: DocumentNode = gql`
     }
   }
 `;
+const GET_GROUP_CREDENTIALS: DocumentNode = gql`
+  query GetGroupCredentials($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      credentials {
+        id
+        name
+        type
+      }
+    }
+  }
+`;
 const GET_ROOT: DocumentNode = gql`
   query GetRoot($groupName: String!, $rootId: ID!) {
     root(groupName: $groupName, rootId: $rootId) {
@@ -409,4 +421,5 @@ export {
   UPDATE_GIT_ROOT,
   VALIDATE_GIT_ACCESS,
   REMOVE_ENVIRONMENT_URL_SECRET,
+  GET_GROUP_CREDENTIALS,
 };
