@@ -15,6 +15,26 @@ from newutils.datetime import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from typing import (
+    Any,
+)
+
+
+def is_deleted(organization: dict[str, Any]) -> bool:
+    historic_state = organization.get("historic_state", [{}])
+    state_status = historic_state[-1].get("status", "")
+
+    return state_status == "DELETED"
+
+
+def filter_active_organizations(
+    organizations: tuple[dict[str, Any], ...]
+) -> tuple[dict[str, Any], ...]:
+    return tuple(
+        organization
+        for organization in organizations
+        if not is_deleted(organization)
+    )
 
 
 def format_max_number_acceptations(

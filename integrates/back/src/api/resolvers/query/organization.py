@@ -1,6 +1,3 @@
-# None
-
-
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -17,7 +14,6 @@ from organizations import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -28,7 +24,8 @@ from typing import (
 )
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **kwargs: str
-) -> Dict[str, Any]:
-    org_id: str = kwargs["organization_id"]
-    organization: Dict[str, Any] = await orgs_domain.get_by_id(org_id)
+) -> dict[str, Any]:
+    organization_id: str = kwargs["organization_id"]
+    organization: dict[str, Any] = await orgs_domain.get_by_id(organization_id)
+
     return organization
