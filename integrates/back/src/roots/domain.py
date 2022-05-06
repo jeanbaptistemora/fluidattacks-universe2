@@ -26,8 +26,11 @@ from db_model import (
     credentials as creds_model,
     roots as roots_model,
 )
-from db_model.credentials.add import (
-    add_root_id,
+from db_model.credentials import (
+    update_root_ids,
+)
+from db_model.credentials.get import (
+    get_credentials,
 )
 from db_model.credentials.types import (
     CredentialItem,
@@ -285,10 +288,19 @@ async def add_git_root(  # pylint: disable=too-many-locals
 
     if credentials:
         if (credential_id := credentials.get("id")) and credential_id:
-            credential = await loaders.credential.load(
+            credential: CredentialItem = await loaders.credential.load(
                 (group_name, credential_id)
             )
-            await add_root_id(credential=credential, root_id=root.id)
+            await update_root_ids(
+                current_value=credential.state,
+                modified_by=user_email,
+                group_name=group_name,
+                credential_id=credential.id,
+                root_ids=(
+                    *credential.state.roots,
+                    root.id,
+                ),
+            )
         else:
             credential = _format_root_credential(
                 credentials, group_name, user_email, root.id
@@ -620,6 +632,50 @@ async def update_root_credentials(
             )
 
 
+async def _update_git_root_credentials(
+    loaders: Any,
+    root: GitRootItem,
+    credentials: Dict[str, Any],
+    user_email: str,
+) -> None:
+    if (credential_id := credentials.get("id")) and credential_id:
+        credential: CredentialItem = await loaders.credential.load(
+            (root.group_name, credential_id)
+        )
+        if root.id in credential.state.roots:
+            await update_root_credentials(
+                loaders, credentials, root.group_name, user_email, root.id
+            )
+            return None
+        # remove root from old credentials
+        group_credentials = await get_credentials(group_name=root.group_name)
+        for cred in group_credentials:
+            if root.id in cred.state.roots:
+                cred_roots = cred.state.roots
+                cred_roots.remove(root.id)
+                await update_root_ids(
+                    current_value=credential.state,
+                    modified_by=user_email,
+                    group_name=root.group_name,
+                    credential_id=cred.id,
+                    root_ids=tuple(cred_roots),
+                )
+
+        await update_root_ids(
+            current_value=credential.state,
+            modified_by=user_email,
+            group_name=root.group_name,
+            credential_id=credential.id,
+            root_ids=(root.id, *credential.state.roots),
+        )
+    else:
+        await update_root_credentials(
+            loaders, credentials, root.group_name, user_email, root.id
+        )
+
+    return None
+
+
 async def update_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
@@ -686,8 +742,11 @@ async def update_git_root(  # pylint: disable=too-many-locals
 
     credentials = kwargs.get("credentials")
     if credentials:
-        await update_root_credentials(
-            loaders, credentials, group_name, user_email, root_id
+        await _update_git_root_credentials(
+            loaders=loaders,
+            root=root,
+            credentials=credentials,
+            user_email=user_email,
         )
 
     new_state = GitRootState(

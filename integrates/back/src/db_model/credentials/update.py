@@ -1,6 +1,10 @@
 from boto3.dynamodb.conditions import (
     Attr,
 )
+from datetime import (
+    datetime,
+    timezone,
+)
 from db_model import (
     TABLE,
 )
@@ -12,6 +16,9 @@ from dynamodb import (
     operations,
 )
 import simplejson as json  # type: ignore
+from typing import (
+    Tuple,
+)
 
 
 async def update_credential_state(
@@ -46,3 +53,29 @@ async def update_credential_state(
         table=TABLE,
     )
     await operations.put_item(facet=historic_facet, item=historic, table=TABLE)
+
+
+async def update_root_ids(
+    *,
+    current_value: CredentialState,
+    modified_by: str,
+    group_name: str,
+    credential_id: str,
+    root_ids: Tuple[str, ...],
+) -> None:
+    new_state = CredentialState(
+        modified_by=modified_by,
+        modified_date=datetime.now(tz=timezone.utc).isoformat(),
+        name=current_value.name,
+        roots=list(root_ids),
+        key=current_value.key,
+        token=current_value.token,
+        user=current_value.user,
+        password=current_value.password,
+    )
+    await update_credential_state(
+        current_value=current_value,
+        group_name=group_name,
+        credential_id=credential_id,
+        state=new_state,
+    )
