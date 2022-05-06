@@ -52,7 +52,7 @@ from db_model.roots.types import (
     IPRoot,
     IPRootState,
     Root,
-    RootMachineExecutionItem,
+    RootMachineExecution,
     RootState,
     RootUnreliableIndicators,
     Secret,
@@ -1189,7 +1189,7 @@ async def add_machine_execution(
         int(current_job["createdAt"] / 1000)
     ).astimezone(tzn)
 
-    execution = RootMachineExecutionItem(
+    execution = RootMachineExecution(
         root_id=root_id,
         job_id=job_id,
         name=current_job["jobName"],

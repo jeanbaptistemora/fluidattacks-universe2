@@ -137,7 +137,7 @@ class MachineFindingResult(NamedTuple):
     finding: str
 
 
-class RootMachineExecutionItem(NamedTuple):
+class RootMachineExecution(NamedTuple):
     job_id: str
     name: str
     findings_executed: List[MachineFindingResult]
@@ -152,5 +152,5 @@ class RootMachineExecutionItem(NamedTuple):
 
 
 class LastMachineExecutions(NamedTuple):
-    complete: Optional[RootMachineExecutionItem]
-    specific: Optional[RootMachineExecutionItem]
+    complete: Optional[RootMachineExecution]
+    specific: Optional[RootMachineExecution]

@@ -34,7 +34,7 @@ from db_model.roots.types import (
     IPRootState,
     MachineFindingResult,
     Root,
-    RootMachineExecutionItem,
+    RootMachineExecution,
     RootState,
     RootUnreliableIndicators,
     Secret,
@@ -302,7 +302,7 @@ class RootStatesLoader(DataLoader):
 
 async def get_machine_executions(
     *, root_id: str, job_id: Optional[str] = None
-) -> Tuple[RootMachineExecutionItem, ...]:
+) -> Tuple[RootMachineExecution, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, **({"job_id": job_id} if job_id else {})},
@@ -323,7 +323,7 @@ async def get_machine_executions(
         table=TABLE,
     )
     return tuple(
-        RootMachineExecutionItem(
+        RootMachineExecution(
             job_id=item["sk"].split("#")[-1],
             created_at=item["created_at"],
             started_at=item.get("started_at"),
@@ -348,7 +348,7 @@ async def get_machine_executions(
 
 async def get_machine_executions_by_job_id(
     *, job_id: str, root_id: Optional[str] = None
-) -> Tuple[RootMachineExecutionItem, ...]:
+) -> Tuple[RootMachineExecution, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"job_id": job_id, **({"uuid": root_id} if root_id else {})},
@@ -369,7 +369,7 @@ async def get_machine_executions_by_job_id(
         index=index,
     )
     return tuple(
-        RootMachineExecutionItem(
+        RootMachineExecution(
             job_id=item["sk"].split("#")[-1],
             created_at=item["created_at"],
             started_at=item["started_at"],
@@ -396,7 +396,7 @@ class RootMachineExecutionsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[str]
-    ) -> Tuple[Tuple[RootMachineExecutionItem, ...], ...]:
+    ) -> Tuple[Tuple[RootMachineExecution, ...], ...]:
         machine_executions = await collect(
             get_machine_executions(root_id=root_id) for root_id in root_ids
         )

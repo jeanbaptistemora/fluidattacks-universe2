@@ -37,7 +37,7 @@ from db_model.roots.types import (
     GitRoot,
     LastMachineExecutions,
     MachineFindingResult,
-    RootMachineExecutionItem,
+    RootMachineExecution,
 )
 from enum import (
     Enum,
@@ -127,7 +127,7 @@ async def list_(
     finding_code: str,
     group_roots: Dict[str, str],
 ) -> List[Job]:
-    jobs_from_db: Tuple[RootMachineExecutionItem, ...] = tuple(
+    jobs_from_db: Tuple[RootMachineExecution, ...] = tuple(
         execution
         for execution in collapse(
             (
@@ -136,7 +136,7 @@ async def list_(
                     for root_id in group_roots.keys()
                 )
             ),
-            base_type=RootMachineExecutionItem,
+            base_type=RootMachineExecution,
         )
         if any(
             find.finding == finding_code
@@ -339,7 +339,7 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
     jobs_from_batch = await describe_jobs(*queued_jobs_dict.keys())
 
     active_jobs_from_batch = tuple(
-        RootMachineExecutionItem(
+        RootMachineExecution(
             job_id=entry_execution["jobId"],
             created_at=datetime_utils.get_as_str(
                 datetime_utils.get_datetime_from_batch(

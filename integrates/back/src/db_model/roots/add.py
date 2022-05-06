@@ -13,7 +13,7 @@ from db_model.roots.types import (
     GitRoot,
     MachineFindingResult,
     Root,
-    RootMachineExecutionItem,
+    RootMachineExecution,
     Secret,
 )
 from dynamodb import (
@@ -72,7 +72,7 @@ async def add(*, root: Root) -> None:
 
 async def add_machine_execution(
     root_id: str,
-    execution: RootMachineExecutionItem,
+    execution: RootMachineExecution,
 ) -> bool:
     key_structure = TABLE.primary_key
     machine_execution_key = keys.build_key(
