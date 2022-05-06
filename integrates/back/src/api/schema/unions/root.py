@@ -3,7 +3,7 @@ from ariadne import (
 )
 from db_model.roots.types import (
     GitRoot,
-    IPRootItem,
+    IPRoot,
     RootItem,
     URLRootItem,
 )
@@ -23,7 +23,7 @@ def resolve_root_type(
 ) -> Optional[str]:
     if isinstance(result, GitRoot):
         return "GitRoot"
-    if isinstance(result, IPRootItem):
+    if isinstance(result, IPRoot):
         return "IPRoot"
     if isinstance(result, URLRootItem):
         return "URLRoot"

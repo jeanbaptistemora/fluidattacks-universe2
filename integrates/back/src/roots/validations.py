@@ -11,7 +11,7 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    IPRootItem,
+    IPRoot,
     RootItem,
     URLRootItem,
 )
@@ -101,7 +101,7 @@ def is_ip_unique(address: str, port: str, roots: Tuple[RootItem, ...]) -> bool:
     return (address, port) not in tuple(
         (root.state.address, root.state.port)
         for root in roots
-        if isinstance(root, IPRootItem) and root.state.status == "ACTIVE"
+        if isinstance(root, IPRoot) and root.state.status == "ACTIVE"
     )
 
 
@@ -157,7 +157,7 @@ def validate_component(root: RootItem, component: str) -> None:
         ):
             return
 
-    if isinstance(root, IPRootItem):
+    if isinstance(root, IPRoot):
         host = (
             f"{root.state.address}:{root.state.port}"
             if root.state.port

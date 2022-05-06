@@ -49,7 +49,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
-    IPRootItem,
+    IPRoot,
     IPRootState,
     RootItem,
     RootMachineExecutionItem,
@@ -294,7 +294,7 @@ async def add_ip_root(
     )
 
     modified_date = datetime_utils.get_iso_date()
-    root = IPRootItem(
+    root = IPRoot(
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,
@@ -844,7 +844,7 @@ async def activate_root(
                     requester_email=user_email,
                 )
 
-        elif isinstance(root, IPRootItem):
+        elif isinstance(root, IPRoot):
             if not validations.is_ip_unique(
                 root.state.address, root.state.port, org_roots
             ):
@@ -937,7 +937,7 @@ async def deactivate_root(
                     requester_email=user_email,
                 )
 
-        elif isinstance(root, IPRootItem):
+        elif isinstance(root, IPRoot):
             await roots_model.update_root_state(
                 current_value=root.state,
                 group_name=group_name,
@@ -1111,7 +1111,7 @@ async def move_root(
             url=root.state.url,
         )
         new_root_id = new_root.id
-    elif isinstance(root, IPRootItem):
+    elif isinstance(root, IPRoot):
         if not validations.is_ip_unique(
             root.state.address, root.state.port, target_group_roots
         ):

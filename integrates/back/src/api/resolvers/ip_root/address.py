@@ -1,10 +1,10 @@
 from db_model.roots.types import (
-    IPRootItem,
+    IPRoot,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-def resolve(parent: IPRootItem, _info: GraphQLResolveInfo) -> str:
+def resolve(parent: IPRoot, _info: GraphQLResolveInfo) -> str:
     return parent.state.address

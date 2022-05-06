@@ -30,7 +30,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
-    IPRootItem,
+    IPRoot,
     IPRootState,
     MachineFindingResult,
     RootItem,
@@ -117,7 +117,7 @@ def _format_root(*, item: Item) -> RootItem:
         )
 
     if item["type"] == "IP":
-        return IPRootItem(
+        return IPRoot(
             group_name=group_name,
             id=root_id,
             organization_name=organization_name,

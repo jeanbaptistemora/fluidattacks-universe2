@@ -16,7 +16,7 @@ from custom_types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    IPRootItem,
+    IPRoot,
     URLRootItem,
 )
 from decorators import (
@@ -65,7 +65,7 @@ async def activate_git_root(
 @require_service_black
 async def activate_ip_root(
     info: GraphQLResolveInfo,
-    root: IPRootItem,
+    root: IPRoot,
     user_email: str,
     **kwargs: Any,
 ) -> None:
@@ -109,7 +109,7 @@ async def mutate(
 
     if isinstance(root, GitRoot):
         await activate_git_root(info, root, user_email, **kwargs)
-    elif isinstance(root, IPRootItem):
+    elif isinstance(root, IPRoot):
         await activate_ip_root(info, root, user_email, **kwargs)
     else:
         await activate_url_root(info, root, user_email, **kwargs)

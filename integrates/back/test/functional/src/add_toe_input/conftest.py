@@ -10,7 +10,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
-    IPRootItem,
+    IPRoot,
     IPRootState,
     URLRootItem,
     URLRootState,
@@ -62,7 +62,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            IPRootItem(
+            IPRoot(
                 group_name="group1",
                 id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
                 organization_name="orgtest",

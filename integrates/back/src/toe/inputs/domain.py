@@ -17,7 +17,7 @@ from db_model.groups.types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    IPRootItem,
+    IPRoot,
     RootItem,
     URLRootItem,
 )
@@ -206,7 +206,7 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
                     f"{path}",
                 )
 
-        if has_black_service and isinstance(root, IPRootItem):
+        if has_black_service and isinstance(root, IPRoot):
             root_host_and_port = (
                 f"{root.state.address}:{root.state.port}"
                 if root.state.port

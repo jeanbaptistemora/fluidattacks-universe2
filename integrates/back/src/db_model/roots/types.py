@@ -85,7 +85,7 @@ class IPRootState(NamedTuple):
     status: str
 
 
-class IPRootItem(NamedTuple):
+class IPRoot(NamedTuple):
     group_name: str
     id: str
     organization_name: str
@@ -120,7 +120,7 @@ class URLRootItem(NamedTuple):
     )
 
 
-RootItem = Union[GitRoot, IPRootItem, URLRootItem]
+RootItem = Union[GitRoot, IPRoot, URLRootItem]
 
 
 class RootState(NamedTuple):
