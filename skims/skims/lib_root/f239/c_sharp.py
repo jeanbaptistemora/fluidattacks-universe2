@@ -13,7 +13,6 @@ from model.graph_model import (
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNodes,
 )
-import re
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
@@ -23,20 +22,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from utils.graph.text_nodes import (
-    node_to_str,
-)
-
-
-def check_value_key(node_str: str) -> bool:
-    str_clean = re.split(r"UseSetting", node_str)
-    if len(str_clean) > 1 and (
-        no_parenth := re.search(r"\(([^)]+)", str_clean[1])
-    ):
-        params = no_parenth.group(1).split(",")
-        if params == ["WebHostDefaults.DetailedErrorsKey", '"true"']:
-            return True
-    return False
 
 
 def info_leak_errors(
@@ -47,6 +32,8 @@ def info_leak_errors(
     finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
+    rules = {"WebHostDefaults.DetailedErrorsKey", '"true"'}
+
     def n_ids() -> GraphShardNodes:
 
         for shard in graph_db.shards_by_language(c_sharp):
@@ -56,14 +43,11 @@ def info_leak_errors(
             graph = shard.syntax_graph
             for n_id in search_method_invocation_naive(graph, {"UseSetting"}):
                 for path in get_backward_paths(graph, n_id):
+                    evaluation = evaluate(c_sharp, finding, graph, path, n_id)
                     if (
-                        check_value_key(node_to_str(shard.graph, n_id))
-                        and (
-                            evaluation := evaluate(
-                                c_sharp, finding, graph, path, n_id
-                            )
-                        )
+                        evaluation
                         and evaluation.danger
+                        and evaluation.triggers == rules
                     ):
                         yield shard, n_id
 
