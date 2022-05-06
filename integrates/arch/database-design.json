@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 22, 2022, 02:50 PM",
+    "DateLastModified": "May 06, 2022, 01:06 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -584,6 +584,10 @@
         },
         {
           "AttributeName": "sk_5",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "ip",
           "AttributeType": "S"
         }
       ],
@@ -1807,9 +1811,9 @@
           ],
           "NonKeyAttributes": [
             "description",
+            "created_at",
             "key",
-            "value",
-            "created_at"
+            "value"
           ]
         },
         {
@@ -2918,6 +2922,31 @@
             "entry_point",
             "group_name",
             "unreliable_root_id",
+            "first_attack_at",
+            "attacked_at",
+            "seen_at",
+            "be_present",
+            "attacked_by",
+            "be_present_until",
+            "pk_2",
+            "sk_2",
+            "has_vulnerabilities"
+          ]
+        },
+        {
+          "FacetName": "toe_port_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#group_name",
+            "SortKeyAlias": "PORTS#ROOT#root_id#IP#ip#PORT#port"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "seen_first_time_by",
+            "ip",
+            "port",
+            "protocol",
+            "group_name",
+            "root_id",
             "first_attack_at",
             "attacked_at",
             "seen_at",
@@ -15399,14 +15428,14 @@
           ],
           "NonKeyAttributes": [
             "name",
+            "status",
             "exit_code",
             "commit",
             "started_at",
             "stopped_at",
             "findings_executed",
             "created_at",
-            "queue",
-            "status"
+            "queue"
           ]
         }
       ],
