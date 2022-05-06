@@ -35,55 +35,15 @@ from shutil import (
 import tempfile
 from typing import (
     Any,
-    Dict,
     Iterator,
-    Tuple,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
-        "groups": [
-            {
-                "project_name": "group1",
-                "description": "this is group1",
-                "language": "en",
-                "group_context": "This is a dummy context",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_squad": True,
-                        "has_forces": True,
-                        "has_machine": True,
-                        "requester": "unknown",
-                        "service": "WHITE",
-                        "type": "continuous",
-                    }
-                ],
-                "project_status": "ACTIVE",
-            },
-            {
-                "project_name": "group2",
-                "description": "this is group2",
-                "language": "en",
-                "group_context": "This is a dummy context",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_squad": True,
-                        "has_forces": True,
-                        "has_machine": True,
-                        "requester": "unknown",
-                        "service": "WHITE",
-                        "type": "continuous",
-                    }
-                ],
-                "project_status": "ACTIVE",
-            },
-        ],
         "credentials": (
             CredentialItem(
                 group_name="group1",
@@ -338,7 +298,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
         ),
     }
-    actions: Tuple[Dict[str, Any], ...] = (  # noqa
+    actions: tuple[dict[str, Any], ...] = (  # noqa
         dict(
             action_name=Action.CLONE_ROOTS.value,
             entity="group1",

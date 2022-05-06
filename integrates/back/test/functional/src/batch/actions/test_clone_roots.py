@@ -33,14 +33,13 @@ from pytest_mock import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_clone_roots(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
     mock_tmp_repository: str,
     mocker: MockerFixture,
 ) -> None:
@@ -92,7 +91,7 @@ async def test_clone_roots(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_clone_roots_failed(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
     mock_tmp_repository: str,
     mocker: MockerFixture,
 ) -> None:
@@ -131,7 +130,7 @@ async def test_clone_roots_failed(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_clone_roots_real_https(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     action = BatchProcessing(
@@ -156,7 +155,7 @@ async def test_clone_roots_real_https(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_clone_roots_real_ssh(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     action = BatchProcessing(

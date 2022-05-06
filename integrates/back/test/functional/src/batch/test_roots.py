@@ -36,15 +36,13 @@ from roots.domain import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_real_ssh_ok(
-    generic_data: Dict[str, Any]
+    generic_data: dict[str, Any]
 ) -> None:
 
     loaders: Dataloaders = get_new_context()
@@ -67,7 +65,7 @@ async def test_queue_sync_git_roots_real_ssh_ok(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_real_https_ok(
-    generic_data: Dict[str, Any]
+    generic_data: dict[str, Any]
 ) -> None:
 
     loaders: Dataloaders = get_new_context()
@@ -90,7 +88,7 @@ async def test_queue_sync_git_roots_real_https_ok(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_real_https_same_commit(
-    generic_data: Dict[str, Any], mocker: MockerFixture
+    generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         clone_roots, "is_in_s3", return_value=("nickname8", True)
@@ -121,7 +119,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_real_ssh_same_commit(
-    generic_data: Dict[str, Any], mocker: MockerFixture
+    generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         clone_roots, "is_in_s3", return_value=("nickname6", True)
@@ -152,7 +150,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
-    generic_data: Dict[str, Any], mocker: MockerFixture
+    generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         clone_roots,
@@ -189,7 +187,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_no_creds(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: RootItem = await loaders.root.load(
@@ -208,7 +206,7 @@ async def test_queue_sync_git_roots_no_creds(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_no_valid_root(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: RootItem = await loaders.root.load(
@@ -227,7 +225,7 @@ async def test_queue_sync_git_no_valid_root(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_no_queue(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: GitRootItem = await loaders.root.load(
@@ -251,7 +249,7 @@ async def test_queue_sync_git_no_queue(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_cloning(
-    generic_data: Dict[str, Any], mocker: MockerFixture
+    generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         clone_roots,
@@ -350,7 +348,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch")
 async def test_queue_sync_git_roots_already_in_queue_running(
-    generic_data: Dict[str, Any], mocker: MockerFixture
+    generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(
         clone_roots,
@@ -498,9 +496,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
     ],
 )
 async def test_queue_sync_git_roots(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
     mocker: MockerFixture,
-    batch_items: Tuple[BatchProcessing, ...],
+    batch_items: tuple[BatchProcessing, ...],
     must_rise: bool,
 ) -> None:
     mocker.patch.object(
