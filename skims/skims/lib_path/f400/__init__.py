@@ -11,6 +11,7 @@ from lib_path.f400.cloudformation import (
     cfn_trails_not_multiregion,
 )
 from lib_path.f400.terraform import (
+    tfm_distribution_has_logging_disabled,
     tfm_ec2_monitoring_disabled,
     tfm_elb_logging_disabled,
     tfm_s3_buckets_logging_disabled,
@@ -24,9 +25,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -34,7 +32,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_bucket_has_logging_conf_disabled(
     content: str, file_ext: str, path: str, template: Any
@@ -44,7 +41,6 @@ def run_cfn_bucket_has_logging_conf_disabled(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb_has_access_logging_disabled(
     content: str, file_ext: str, path: str, template: Any
@@ -54,7 +50,6 @@ def run_cfn_elb_has_access_logging_disabled(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_cf_distribution_has_logging_disabled(
     content: str, file_ext: str, path: str, template: Any
@@ -64,7 +59,6 @@ def run_cfn_cf_distribution_has_logging_disabled(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_trails_not_multiregion(
     content: str, file_ext: str, path: str, template: Any
@@ -74,7 +68,6 @@ def run_cfn_trails_not_multiregion(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb2_has_access_logs_s3_disabled(
     content: str, file_ext: str, path: str, template: Any
@@ -84,7 +77,6 @@ def run_cfn_elb2_has_access_logs_s3_disabled(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_elb_logging_disabled(
     content: str, path: str, model: Any
@@ -92,7 +84,6 @@ def run_tfm_elb_logging_disabled(
     return tfm_elb_logging_disabled(content=content, path=path, model=model)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_s3_buckets_logging_disabled(
     content: str, path: str, model: Any
@@ -102,12 +93,20 @@ def run_tfm_s3_buckets_logging_disabled(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_monitoring_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     return tfm_ec2_monitoring_disabled(content=content, path=path, model=model)
+
+
+@SHIELD_BLOCKING
+def run_tfm_distribution_has_logging_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_distribution_has_logging_disabled(
+        content=content, path=path, model=model
+    )
 
 
 @SHIELD_BLOCKING
@@ -151,6 +150,7 @@ def analyze(
             run_tfm_elb_logging_disabled(content, path, model),
             run_tfm_s3_buckets_logging_disabled(content, path, model),
             run_tfm_ec2_monitoring_disabled(content, path, model),
+            run_tfm_distribution_has_logging_disabled(content, path, model),
         )
 
     return results

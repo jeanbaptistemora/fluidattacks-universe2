@@ -3188,6 +3188,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_CF_DISTR_LOG_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_distribution_has_logging_disabled",
+        module="lib_path",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AZURE_KV_SECRET_NO_EXPIRATION = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_secret_no_expiration_date",

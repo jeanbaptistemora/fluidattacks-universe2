@@ -1,3 +1,6 @@
+from aws.model import (
+    AWSCloudfrontDistribution,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -15,6 +18,7 @@ from parse_hcl2.common import (
     iterate_block_attributes,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_cloudfront_distribution,
     iter_aws_elb,
     iter_aws_instance,
     iter_s3_buckets,
@@ -56,6 +60,15 @@ def _tfm_ec2_monitoring_disabled(
             yield resource
         elif monitoring.val is False:
             yield monitoring
+
+
+def _tfm_distribution_has_logging_disabled_iter_vulns(
+    resource_iterator: Iterator[AWSCloudfrontDistribution],
+) -> Iterator[AWSCloudfrontDistribution]:
+    for resource in resource_iterator:
+        log_config = get_argument(resource.data, "logging_config")
+        if log_config is None:
+            yield resource
 
 
 def tfm_elb_logging_disabled(
@@ -103,4 +116,20 @@ def tfm_ec2_monitoring_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_MONITORING_DISABLED,
+    )
+
+
+def tfm_distribution_has_logging_disabled(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f400.tfm_has_logging_config_disabled",
+        iterator=get_cloud_iterator(
+            _tfm_distribution_has_logging_disabled_iter_vulns(
+                resource_iterator=iter_aws_cloudfront_distribution(model=model)
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_CF_DISTR_LOG_DISABLED,
     )
