@@ -56,9 +56,15 @@ def info_leak_errors(
             graph = shard.syntax_graph
             for n_id in search_method_invocation_naive(graph, {"UseSetting"}):
                 for path in get_backward_paths(graph, n_id):
-                    if check_value_key(
-                        node_to_str(shard.graph, n_id)
-                    ) and evaluate(c_sharp, finding, graph, path, n_id):
+                    if (
+                        check_value_key(node_to_str(shard.graph, n_id))
+                        and (
+                            evaluation := evaluate(
+                                c_sharp, finding, graph, path, n_id
+                            )
+                        )
+                        and evaluation.danger
+                    ):
                         yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

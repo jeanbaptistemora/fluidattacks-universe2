@@ -42,7 +42,11 @@ def xpath_injection(
 
             for n_id in search_method_invocation_naive(graph, danger_meths):
                 for path in get_backward_paths(graph, n_id):
-                    if evaluate(c_sharp, finding, graph, path, n_id):
+                    if (
+                        evaluation := evaluate(
+                            c_sharp, finding, graph, path, n_id
+                        )
+                    ) and evaluation.danger:
                         yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

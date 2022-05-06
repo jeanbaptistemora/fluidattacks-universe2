@@ -7,6 +7,7 @@ from symbolic_eval.context.search import (
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 from symbolic_eval.utils import (
     get_lookup_path,
@@ -21,7 +22,7 @@ from utils import (
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
-def evaluate(args: SymbolicEvalArgs) -> bool:
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     symbol_id = args.n_id
     symbol = args.graph.nodes[args.n_id]["symbol"]
     path = get_lookup_path(args.graph, args.path, symbol_id)
@@ -36,6 +37,6 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
         args.evaluation[symbol_id] = args.evaluation[ref_id]
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
-        args.evaluation[args.n_id] = finding_evaluator(args)
+        args.evaluation[args.n_id] = finding_evaluator(args).danger
 
-    return args.evaluation[symbol_id]
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

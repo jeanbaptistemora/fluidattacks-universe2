@@ -7,6 +7,7 @@ from symbolic_eval.f021.member_access.c_sharp import (
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 from typing import (
     Dict,
@@ -17,7 +18,7 @@ LANGUAGE_EVALUATORS: Dict[GraphLanguage, Evaluator] = {
 }
 
 
-def evaluate(args: SymbolicEvalArgs) -> bool:
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if language_evaluator := LANGUAGE_EVALUATORS.get(args.language):
         return language_evaluator(args)
-    return args.evaluation[args.n_id]
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

@@ -4,6 +4,7 @@ from model.core_model import (
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 from typing import (
     Dict,
@@ -15,12 +16,12 @@ from utils import (
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
-def evaluate(args: SymbolicEvalArgs) -> bool:
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     param_ids = g.adj_ast(args.graph, args.n_id)
-    danger = [args.generic(args.fork_n_id(p_id)) for p_id in param_ids]
+    danger = [args.generic(args.fork_n_id(p_id)).danger for p_id in param_ids]
     args.evaluation[args.n_id] = any(danger)
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
-        args.evaluation[args.n_id] = finding_evaluator(args)
+        args.evaluation[args.n_id] = finding_evaluator(args).danger
 
-    return args.evaluation[args.n_id]
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

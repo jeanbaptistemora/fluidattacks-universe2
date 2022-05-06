@@ -1,5 +1,6 @@
 from symbolic_eval.types import (
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 
 
@@ -17,8 +18,8 @@ def is_select_single_node(args: SymbolicEvalArgs) -> bool:
     return False
 
 
-def evaluate(args: SymbolicEvalArgs) -> bool:
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if is_request_form(args) or is_select_single_node(args):
         args.evaluation[args.n_id] = True
 
-    return args.evaluation[args.n_id]
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

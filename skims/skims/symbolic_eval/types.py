@@ -16,6 +16,10 @@ from typing import (
     Iterator,
     List,
     NamedTuple,
+    Set,
+)
+from xmlrpc.client import (
+    boolean,
 )
 
 Path = List[NId]
@@ -23,14 +27,20 @@ Path = List[NId]
 SYMBOLIC_EVAL_ARGS = Any  # SymbolicEvalArgs
 
 
+class SymbolicEvaluation(NamedTuple):
+    danger: boolean
+    triggers: Set[str]
+
+
 class SymbolicEvalArgs(NamedTuple):
-    generic: Callable[[SYMBOLIC_EVAL_ARGS], bool]
+    generic: Callable[[SYMBOLIC_EVAL_ARGS], SymbolicEvaluation]
     language: GraphLanguage
     finding: FindingEnum
     evaluation: Dict[NId, bool]
     graph: Graph
     path: Path
     n_id: NId
+    triggers: Set[str] = set()
 
     def fork_n_id(self, n_id: NId) -> SYMBOLIC_EVAL_ARGS:
         return SymbolicEvalArgs(
@@ -38,6 +48,7 @@ class SymbolicEvalArgs(NamedTuple):
             language=self.language,
             finding=self.finding,
             evaluation=self.evaluation,
+            triggers=self.triggers,
             graph=self.graph,
             path=self.path,
             n_id=n_id,
@@ -51,7 +62,7 @@ class SymbolicEvalArgs(NamedTuple):
 
 Analyzer = Callable[[GraphShard], Vulnerabilities]
 LanguageAnalyzer = Callable[[GraphShard], Iterator[Vulnerability]]
-Evaluator = Callable[[SymbolicEvalArgs], bool]
+Evaluator = Callable[[SymbolicEvalArgs], SymbolicEvaluation]
 
 
 class MissingSymbolicEval(Exception):

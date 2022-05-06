@@ -12,6 +12,7 @@ from symbolic_eval.types import (
     BadMethodInvocation,
     Evaluator,
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 from symbolic_eval.utils import (
     get_inv_forward_paths,
@@ -57,9 +58,9 @@ def _get_invocation_eval(
     return invocation_eval
 
 
-def evaluate(args: SymbolicEvalArgs) -> bool:
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if al_id := args.graph.nodes[args.n_id].get("arguments_id"):
-        d_arguments = args.generic(args.fork_n_id(al_id))
+        d_arguments = args.generic(args.fork_n_id(al_id)).danger
     else:
         d_arguments = False
 
@@ -78,16 +79,16 @@ def evaluate(args: SymbolicEvalArgs) -> bool:
         d_expression = any(
             args.generic(
                 args.fork(n_id=eb_id, path=fwd + bck, evaluation=invoc_eval)
-            )
+            ).danger
             for fwd in get_inv_forward_paths(args.graph, eb_id)
             for _, *bck in iter_backward_paths(args.graph, eb_id)
         )
     else:
-        d_expression = args.generic(args.fork_n_id(expr_id))
+        d_expression = args.generic(args.fork_n_id(expr_id)).danger
 
     args.evaluation[args.n_id] = d_expression or d_arguments
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
-        args.evaluation[args.n_id] = finding_evaluator(args)
+        args.evaluation[args.n_id] = finding_evaluator(args).danger
 
-    return args.evaluation[args.n_id]
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

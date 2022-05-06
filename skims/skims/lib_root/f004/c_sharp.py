@@ -62,7 +62,11 @@ def remote_command_execution(
             danger_meths.update(filter(None, methods))
             for n_id in danger_meths:
                 for path in get_backward_paths(syntax_graph, n_id):
-                    if evaluate(c_sharp, finding, syntax_graph, path, n_id):
+                    if (
+                        evaluation := evaluate(
+                            c_sharp, finding, syntax_graph, path, n_id
+                        )
+                    ) and evaluation.danger:
                         yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

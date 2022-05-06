@@ -30,6 +30,7 @@ from symbolic_eval.types import (
     MissingSymbolicEval,
     Path,
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 from typing import (
     cast,
@@ -61,7 +62,7 @@ EVALUATORS: Dict[str, Evaluator] = {
 }
 
 
-def generic(args: SymbolicEvalArgs) -> bool:
+def generic(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     node_type = args.graph.nodes[args.n_id]["label_type"]
     evaluator = EVALUATORS.get(node_type)
 
@@ -69,7 +70,7 @@ def generic(args: SymbolicEvalArgs) -> bool:
         raise MissingSymbolicEval(f"Missing symbolic evaluator {node_type}")
 
     if args.n_id in args.evaluation:
-        return args.evaluation[args.n_id]
+        return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
     return evaluator(args)
 
@@ -80,7 +81,7 @@ def evaluate(
     graph: Graph,
     path: Path,
     n_id: NId,
-) -> Optional[bool]:
+) -> Optional[SymbolicEvaluation]:
     try:
         evaluation: Dict[NId, bool] = {}
 

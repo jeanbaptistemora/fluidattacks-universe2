@@ -156,7 +156,11 @@ def insecure_cors_origin(
                     pred_nid = g.pred_ast(shard.graph, member)[0]
                     graph = shard.syntax_graph
                     for path in get_backward_paths(graph, pred_nid):
-                        if evaluate(c_sharp, finding, graph, path, pred_nid):
+                        if (
+                            evaluation := evaluate(
+                                c_sharp, finding, graph, path, pred_nid
+                            )
+                        ) and evaluation.danger:
                             yield shard, pred_nid
 
     return get_vulnerabilities_from_n_ids(

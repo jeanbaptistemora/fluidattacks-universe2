@@ -7,6 +7,7 @@ from symbolic_eval.f021.object_creation import (
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
+    SymbolicEvaluation,
 )
 from typing import (
     Dict,
@@ -17,13 +18,13 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
 }
 
 
-def evaluate(args: SymbolicEvalArgs) -> bool:
+def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
 
     if al_id := args.graph.nodes[args.n_id].get("arguments_id"):
-        args.evaluation[args.n_id] = args.generic(args.fork_n_id(al_id))
+        args.evaluation[args.n_id] = args.generic(args.fork_n_id(al_id)).danger
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
-        args.evaluation[args.n_id] = finding_evaluator(args)
+        args.evaluation[args.n_id] = finding_evaluator(args).danger
 
-    return args.evaluation[args.n_id]
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
