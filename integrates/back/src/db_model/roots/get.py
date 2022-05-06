@@ -27,8 +27,8 @@ from db_model.roots.constants import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitRoot,
     GitRootCloning,
-    GitRootItem,
     GitRootState,
     IPRootItem,
     IPRootState,
@@ -82,7 +82,7 @@ def _format_root(*, item: Item) -> RootItem:
     if item["type"] == "Git":
         cloning = item["cloning"]
 
-        return GitRootItem(
+        return GitRoot(
             cloning=GitRootCloning(
                 modified_date=cloning["modified_date"],
                 reason=cloning["reason"],

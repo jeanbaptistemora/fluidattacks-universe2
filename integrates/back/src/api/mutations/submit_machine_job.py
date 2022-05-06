@@ -14,7 +14,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -55,7 +55,7 @@ async def mutate(
     _root_nicknames: Set[str] = {
         root.state.nickname
         for root in await info.context.loaders.group_roots.load(group_name)
-        if isinstance(root, GitRootItem)
+        if isinstance(root, GitRoot)
     }
     if not root_nicknames:
         return SimplePayloadMessage(

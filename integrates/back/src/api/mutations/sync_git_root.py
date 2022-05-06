@@ -11,7 +11,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -45,9 +45,7 @@ async def mutate(
     user_email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs["group_name"]
-    root: GitRootItem = await loaders.root.load(
-        (group_name, kwargs["root_id"])
-    )
+    root: GitRoot = await loaders.root.load((group_name, kwargs["root_id"]))
     await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         roots=(root,),

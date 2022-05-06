@@ -34,8 +34,8 @@ from db_model.groups.types import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitRoot,
     GitRootCloning,
-    GitRootItem,
     GitRootState,
 )
 from db_model.vulnerabilities.enums import (
@@ -505,7 +505,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
         ],
         "roots": (
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2020-11-19T13:37:10+00:00",
                     reason="root creation",

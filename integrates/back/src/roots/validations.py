@@ -10,7 +10,7 @@ from db_model.enums import (
     CredentialType,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     IPRootItem,
     RootItem,
     URLRootItem,
@@ -85,7 +85,7 @@ def is_git_unique(url: str, branch: str, roots: Tuple[RootItem, ...]) -> bool:
     return (url, branch) not in tuple(
         (root.state.url, root.state.branch)
         for root in roots
-        if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
+        if isinstance(root, GitRoot) and root.state.status == "ACTIVE"
     )
 
 
@@ -127,7 +127,7 @@ def validate_active_root(root: RootItem) -> None:
 
 
 def validate_component(root: RootItem, component: str) -> None:
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         if not is_valid_url(component):
             raise InvalidUrl()
         for environment_url in root.state.environment_urls:

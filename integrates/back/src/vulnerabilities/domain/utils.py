@@ -7,7 +7,7 @@ from datetime import (
     datetime,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -127,7 +127,7 @@ async def get_root_nicknames_for_skims(
         root_nicknames.update(
             root.state.nickname
             for root in await dataloaders.group_roots.load(group)
-            if isinstance(root, GitRootItem)
+            if isinstance(root, GitRoot)
         )
 
     return root_nicknames

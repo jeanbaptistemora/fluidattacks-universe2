@@ -19,7 +19,7 @@ from custom_types import (
     AddRootPayload,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -68,7 +68,7 @@ async def mutate(
 ) -> AddRootPayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    root: GitRootItem = await roots_domain.add_git_root(
+    root: GitRoot = await roots_domain.add_git_root(
         info.context.loaders, user_email, **kwargs
     )
     group_name = root.group_name

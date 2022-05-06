@@ -15,7 +15,7 @@ from custom_types import (
     SimplePayload,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     IPRootItem,
     URLRootItem,
 )
@@ -50,7 +50,7 @@ from unreliable_indicators.operations import (
 @require_service_white
 async def activate_git_root(
     info: GraphQLResolveInfo,
-    root: GitRootItem,
+    root: GitRoot,
     user_email: str,
     **kwargs: Any,
 ) -> None:
@@ -107,7 +107,7 @@ async def mutate(
     root_loader: DataLoader = info.context.loaders.root
     root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
 
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         await activate_git_root(info, root, user_email, **kwargs)
     elif isinstance(root, IPRootItem):
         await activate_ip_root(info, root, user_email, **kwargs)
@@ -120,7 +120,7 @@ async def mutate(
     )
 
     if root.state.status != "ACTIVE":
-        if isinstance(root, GitRootItem):
+        if isinstance(root, GitRoot):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,
                 entity=kwargs["group_name"],
@@ -128,7 +128,7 @@ async def mutate(
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
             )
-        if isinstance(root, (GitRootItem, URLRootItem)):
+        if isinstance(root, (GitRoot, URLRootItem)):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,
                 entity=kwargs["group_name"],

@@ -34,7 +34,7 @@ from db_model.roots.get import (
     get_machine_executions,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     LastMachineExecutions,
     MachineFindingResult,
     RootMachineExecutionItem,
@@ -219,7 +219,7 @@ async def queue_job_new(
     dataloaders: Any = None,
     **kwargs: Any,
 ) -> Optional[PutActionResult]:
-    git_roots: List[GitRootItem] = []
+    git_roots: List[GitRoot] = []
     if dataloaders:
         git_roots = await dataloaders.group_roots.load(group_name)
 
@@ -234,7 +234,7 @@ async def queue_job_new(
         roots = list(
             root.state.nickname
             for root in git_roots
-            if isinstance(root, GitRootItem)
+            if isinstance(root, GitRoot)
             and root.state.status == "ACTIVE"
             and root.cloning.status == GitCloningStatus.OK
         )
@@ -327,7 +327,7 @@ async def queue_job_new(
     return queue_result
 
 
-async def get_active_executions(root: GitRootItem) -> LastMachineExecutions:
+async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
     group: str = root.group_name
     queued_jobs_dict = {
         job.batch_job_id: job

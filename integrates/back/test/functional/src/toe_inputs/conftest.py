@@ -10,8 +10,8 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitRoot,
     GitRootCloning,
-    GitRootItem,
     GitRootState,
 )
 from db_model.toe_inputs.types import (
@@ -30,7 +30,7 @@ from typing import (
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "roots": (
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2020-11-19T13:37:10+00:00",
                     reason="root creation",
@@ -61,7 +61,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2020-11-19T13:37:10+00:00",
                     reason="root creation",

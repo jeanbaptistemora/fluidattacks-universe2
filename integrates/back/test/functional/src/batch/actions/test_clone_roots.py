@@ -20,7 +20,7 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from newutils.datetime import (
     get_as_epoch,
@@ -44,7 +44,7 @@ async def test_clone_roots(
     mocker: MockerFixture,
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.FAILED
@@ -96,7 +96,7 @@ async def test_clone_roots_failed(
     mocker: MockerFixture,
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.OK

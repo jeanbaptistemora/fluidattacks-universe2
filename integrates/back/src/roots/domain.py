@@ -46,8 +46,8 @@ from db_model.groups.types import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitRoot,
     GitRootCloning,
-    GitRootItem,
     GitRootState,
     IPRootItem,
     IPRootState,
@@ -116,7 +116,7 @@ from uuid import (
 
 
 async def _notify_health_check(
-    *, group_name: str, request: bool, root: GitRootItem, user_email: str
+    *, group_name: str, request: bool, root: GitRoot, user_email: str
 ) -> None:
     if request:
         await notifications_domain.request_health_check(
@@ -153,7 +153,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     user_email: str,
     ensure_org_uniqueness: bool = True,
     **kwargs: Any,
-) -> GitRootItem:
+) -> GitRoot:
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group_typed.load(group_name)
     url: str = format_git_repo_url(kwargs["url"])
@@ -192,7 +192,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise RepeatedRoot()
 
     modified_date = datetime_utils.get_iso_date()
-    root = GitRootItem(
+    root = GitRoot(
         cloning=GitRootCloning(
             modified_date=datetime_utils.get_iso_date(),
             reason="root created",
@@ -458,7 +458,7 @@ async def update_git_environments(
     root: RootItem = await loaders.root.load((group_name, root_id))
     modified_date: str = datetime_utils.get_iso_date()
 
-    if not isinstance(root, GitRootItem):
+    if not isinstance(root, GitRoot):
         raise InvalidParameter()
 
     is_valid: bool = root.state.status == "ACTIVE" and all(
@@ -575,7 +575,7 @@ async def update_root_credentials(
 
 async def _update_git_root_credentials(
     loaders: Any,
-    root: GitRootItem,
+    root: GitRoot,
     credentials: Dict[str, Any],
     user_email: str,
 ) -> None:
@@ -630,7 +630,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     if not (
-        isinstance(root, GitRootItem)
+        isinstance(root, GitRoot)
         and root.state.status == "ACTIVE"
         and validations.is_valid_url(url)
         and validations.is_valid_git_branch(branch)
@@ -717,7 +717,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
 
     await send_mail_updated_root(group_name, root, new_state, user_email)
 
-    return GitRootItem(
+    return GitRoot(
         cloning=root.cloning,
         group_name=root.group_name,
         id=root.id,
@@ -779,7 +779,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     validation_utils.validate_field_length(message, 400)
     root: RootItem = await loaders.root.load((group_name, root_id))
 
-    if not isinstance(root, GitRootItem):
+    if not isinstance(root, GitRoot):
         raise InvalidParameter()
 
     await roots_model.update_git_root_cloning(
@@ -808,7 +808,7 @@ async def activate_root(
         )
         org_roots = await loaders.organization_roots.load(organization_name)
 
-        if isinstance(root, GitRootItem):
+        if isinstance(root, GitRoot):
             if not validations.is_git_unique(
                 root.state.url, root.state.branch, org_roots
             ):
@@ -906,7 +906,7 @@ async def deactivate_root(
     new_status = "INACTIVE"
 
     if root.state.status != new_status:
-        if isinstance(root, GitRootItem):
+        if isinstance(root, GitRoot):
             await roots_model.update_root_state(
                 current_value=root.state,
                 group_name=group_name,
@@ -1037,7 +1037,7 @@ def get_root_ids_by_nicknames(
     )
     root_ids: Dict[str, str] = {}
     for root in sorted_roots:
-        if not only_git_roots or isinstance(root, GitRootItem):
+        if not only_git_roots or isinstance(root, GitRoot):
             root_ids[root.state.nickname] = root.id
 
     return root_ids
@@ -1092,7 +1092,7 @@ async def move_root(
         target_group_name
     )
 
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         if not validations.is_git_unique(
             root.state.url, root.state.branch, target_group_roots
         ):

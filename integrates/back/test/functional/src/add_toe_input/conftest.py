@@ -7,8 +7,8 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitRoot,
     GitRootCloning,
-    GitRootItem,
     GitRootState,
     IPRootItem,
     IPRootState,
@@ -31,7 +31,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
     test_status = "ACTIVE"
     data: Dict[str, Any] = {
         "roots": (
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date=test_date,
                     reason="root creation",

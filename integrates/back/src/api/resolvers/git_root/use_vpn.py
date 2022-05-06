@@ -1,10 +1,10 @@
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-def resolve(parent: GitRootItem, _info: GraphQLResolveInfo) -> bool:
+def resolve(parent: GitRoot, _info: GraphQLResolveInfo) -> bool:
     return parent.state.use_vpn

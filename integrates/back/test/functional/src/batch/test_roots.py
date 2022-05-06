@@ -24,7 +24,7 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     RootItem,
 )
 import pytest
@@ -228,7 +228,7 @@ async def test_queue_sync_git_no_queue(
     generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1: GitRoot = await loaders.root.load(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
@@ -240,7 +240,7 @@ async def test_queue_sync_git_no_queue(
     )
     assert not result
     loaders.root.clear_all()
-    root: GitRootItem = await loaders.root.load(
+    root: GitRoot = await loaders.root.load(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
     assert root.cloning.status == GitCloningStatus.FAILED
@@ -257,7 +257,7 @@ async def test_queue_sync_git_roots_cloning(
         return_value="904d294729ad03fd2dadbb89b920389458e53a61c",
     )
     loaders: Dataloaders = get_new_context()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1: GitRoot = await loaders.root.load(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
@@ -269,7 +269,7 @@ async def test_queue_sync_git_roots_cloning(
     )
     assert result
     loaders.root.clear_all()
-    root: GitRootItem = await loaders.root.load(
+    root: GitRoot = await loaders.root.load(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
     assert root.cloning.status == GitCloningStatus.CLONING
@@ -292,7 +292,7 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     )
 
     loaders: Dataloaders = get_new_context()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
 
@@ -304,7 +304,7 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     )
     assert not result
     loaders.root.clear_all()
-    root: GitRootItem = await loaders.root.load(
+    root: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root.cloning.status == GitCloningStatus.FAILED
@@ -327,7 +327,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     )
 
     loaders: Dataloaders = get_new_context()
-    root_1: GitRootItem = await loaders.root.load(
+    root_1: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
 
@@ -339,7 +339,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     )
     assert result
     loaders.root.clear_all()
-    root: GitRootItem = await loaders.root.load(
+    root: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root.cloning.status == GitCloningStatus.CLONING

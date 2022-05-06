@@ -1,10 +1,10 @@
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-def resolve(parent: GitRootItem, _info: GraphQLResolveInfo) -> str:
+def resolve(parent: GitRoot, _info: GraphQLResolveInfo) -> str:
     return parent.state.branch

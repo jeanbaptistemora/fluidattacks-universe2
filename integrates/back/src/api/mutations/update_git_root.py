@@ -14,7 +14,7 @@ from custom_types import (
     SimplePayload,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -51,7 +51,7 @@ async def mutate(
     root = await roots_domain.update_git_root(
         info.context.loaders, user_email, **kwargs
     )
-    if kwargs.get("credentials") and isinstance(root, GitRootItem):
+    if kwargs.get("credentials") and isinstance(root, GitRoot):
         with suppress(RootAlreadyCloning):
             await clone_roots.queue_sync_git_roots(
                 loaders=info.context.loaders,

@@ -62,7 +62,7 @@ class GitRootState(NamedTuple):
     use_vpn: bool = False
 
 
-class GitRootItem(NamedTuple):
+class GitRoot(NamedTuple):
     cloning: GitRootCloning
     group_name: str
     id: str
@@ -120,7 +120,7 @@ class URLRootItem(NamedTuple):
     )
 
 
-RootItem = Union[GitRootItem, IPRootItem, URLRootItem]
+RootItem = Union[GitRoot, IPRootItem, URLRootItem]
 
 
 class RootState(NamedTuple):

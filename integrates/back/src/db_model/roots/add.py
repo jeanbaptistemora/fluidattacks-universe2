@@ -10,7 +10,7 @@ from db_model.roots.constants import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
-    GitRootItem,
+    GitRoot,
     MachineFindingResult,
     RootItem,
     RootMachineExecutionItem,
@@ -55,7 +55,7 @@ async def add(*, root: RootItem) -> None:
     }
     items.append(historic_state_item)
 
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         cloning_key = keys.build_key(
             facet=TABLE.facets["git_root_historic_cloning"],
             values={"uuid": root.id, "iso8601utc": root.cloning.modified_date},

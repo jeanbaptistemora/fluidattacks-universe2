@@ -1,5 +1,5 @@
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -10,7 +10,7 @@ from roots.types import (
 
 
 def resolve(
-    parent: GitRootItem, _info: GraphQLResolveInfo
+    parent: GitRoot, _info: GraphQLResolveInfo
 ) -> GitRootCloningStatus:
     return GitRootCloningStatus(
         status=parent.cloning.status.value,

@@ -5,7 +5,7 @@ from custom_types import (
     SimplePayload,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -41,7 +41,7 @@ async def mutate(
     root_nicknames: Dict[str, str] = {
         root.state.nickname: root.id
         for root in await info.context.loaders.group_roots.load(group_name)
-        if isinstance(root, GitRootItem)
+        if isinstance(root, GitRoot)
     }
     if root_id := root_nicknames.get(root_nickname):
         result = await finish_machine_execution(root_id, job_id, **kwargs)

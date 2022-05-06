@@ -39,7 +39,7 @@ from db_model.enums import (
     CredentialType,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 import logging
 import logging.config
@@ -103,7 +103,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
         )
         for nickname in root_nicknames
     )
-    roots: Tuple[GitRootItem, ...] = tuple(
+    roots: Tuple[GitRoot, ...] = tuple(
         root for root in group_roots if root.id in root_ids
     )
     cloned_roots_nicknames: Tuple[str, ...] = tuple()
@@ -185,7 +185,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
 
 
 async def _ls_remote_root(
-    root: GitRootItem, cred: CredentialItem
+    root: GitRoot, cred: CredentialItem
 ) -> Tuple[str, Optional[str]]:
     if cred.metadata.type == CredentialType.SSH and cred.state.key is not None:
         return (
@@ -213,7 +213,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     user_email: str,
     queue: str = "unlimited_spot",
     group_name: str,
-    roots: Optional[Tuple[GitRootItem, ...]] = None,
+    roots: Optional[Tuple[GitRoot, ...]] = None,
     check_existing_jobs: bool = True,
     force: bool = False,
     queue_with_vpn: bool = False,
@@ -224,7 +224,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     )
     roots = roots or await loaders.group_roots.load(group_name)
     roots = tuple(root for root in roots if root.state.status == "ACTIVE")
-    roots_dict: Dict[str, GitRootItem] = {root.id: root for root in roots}
+    roots_dict: Dict[str, GitRoot] = {root.id: root for root in roots}
 
     if not roots:
         raise InactiveRoot()

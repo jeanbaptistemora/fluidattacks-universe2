@@ -12,8 +12,8 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.types import (
+    GitRoot,
     GitRootCloning,
-    GitRootItem,
     GitRootState,
 )
 import os
@@ -75,7 +75,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
         ),
         "roots": (
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2022-02-11 11:32:15+00:00",
                     reason="Repo added",
@@ -101,7 +101,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2022-02-11 11:32:15+00:00",
                     reason="Repo added",
@@ -127,7 +127,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2022-02-11 11:32:15+00:00",
                     reason="Repo added",
@@ -153,7 +153,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2022-02-11 11:32:15+00:00",
                     reason="Repo added",
@@ -179,7 +179,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            GitRootItem(
+            GitRoot(
                 cloning=GitRootCloning(
                     modified_date="2022-02-11 11:32:15+00:00",
                     reason="Repo added",

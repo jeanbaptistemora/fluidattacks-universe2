@@ -2,7 +2,7 @@ from db_model.roots.get import (
     get_download_url,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -12,7 +12,7 @@ from typing import (
 )
 
 
-async def resolve(parent: GitRootItem, _: GraphQLResolveInfo) -> Optional[str]:
+async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> Optional[str]:
     if parent.state.status == "INACTIVE":
         return None
 

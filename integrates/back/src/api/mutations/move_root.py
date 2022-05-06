@@ -15,7 +15,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     RootItem,
     URLRootItem,
 )
@@ -83,7 +83,7 @@ async def mutate(
         product_name=Product.INTEGRATES,
     )
     root: RootItem = await loaders.root.load((group_name, root_id))
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_LINES,
             entity=group_name,
@@ -91,7 +91,7 @@ async def mutate(
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
         )
-    if isinstance(root, (GitRootItem, URLRootItem)):
+    if isinstance(root, (GitRoot, URLRootItem)):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_INPUTS,
             entity=group_name,

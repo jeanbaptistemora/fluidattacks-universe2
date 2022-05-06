@@ -26,7 +26,7 @@ from db_model.enums import (
     Notification,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     RootItem,
     URLRootItem,
 )
@@ -107,7 +107,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     activated_by = last_status_update.modified_by
 
     if (
-        isinstance(root, GitRootItem)
+        isinstance(root, GitRoot)
         and root.cloning.status != GitCloningStatus.UNKNOWN
     ):
         last_clone_date = str(
@@ -160,7 +160,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         user_email=user_email,
     )
     if root.state.status != "INACTIVE":
-        if isinstance(root, GitRootItem):
+        if isinstance(root, GitRoot):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,
                 entity=group_name,
@@ -183,7 +183,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 ],
             )
 
-        if isinstance(root, (GitRootItem, URLRootItem)):
+        if isinstance(root, (GitRoot, URLRootItem)):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,
                 entity=group_name,
@@ -235,7 +235,7 @@ async def mutate(
     root_loader: DataLoader = info.context.loaders.root
     root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
 
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         await require_service_white(deactivate_root)(
             info, root, user_email, **kwargs
         )

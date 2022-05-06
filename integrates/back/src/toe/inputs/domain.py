@@ -16,7 +16,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     IPRootItem,
     RootItem,
     URLRootItem,
@@ -163,7 +163,7 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
     protocol = _get_protocol(component.strip())
     host_and_port = f"{host}:{port}" if port else host
     for root in group_roots:
-        if has_white_service and isinstance(root, GitRootItem):
+        if has_white_service and isinstance(root, GitRoot):
             for env_url in root.state.environment_urls:
                 formatted_root_url = _format_component(env_url)
                 formatted_root_host = _get_host(formatted_root_url)

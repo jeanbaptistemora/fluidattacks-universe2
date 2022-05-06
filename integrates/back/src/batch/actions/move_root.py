@@ -39,7 +39,7 @@ from db_model.findings.types import (
     FindingState,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     RootItem,
     URLRootItem,
 )
@@ -532,7 +532,7 @@ async def move_root(*, item: BatchProcessing) -> None:
     target_root: RootItem = await loaders.root.load(
         (target_group_name, target_root_id)
     )
-    if isinstance(root, (GitRootItem, URLRootItem)):
+    if isinstance(root, (GitRoot, URLRootItem)):
         LOGGER.info("Updating ToE inputs")
         group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
             GroupToeInputsRequest(group_name=source_group_name)
@@ -560,7 +560,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
         )
-    if isinstance(root, GitRootItem):
+    if isinstance(root, GitRoot):
         LOGGER.info("Updating ToE lines")
         repo_toe_lines = await loaders.root_toe_lines.load_nodes(
             RootToeLinesRequest(

@@ -5,7 +5,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
 )
 from decorators import (
     enforce_group_level_auth_async,
@@ -36,7 +36,7 @@ async def resolve(
         for root in await info.context.loaders.group_roots.load(
             parent.group_name
         )
-        if isinstance(root, GitRootItem)
+        if isinstance(root, GitRoot)
     }
     if finding_code is None:
         jobs: List[Job] = []

@@ -20,7 +20,7 @@ from datetime import (
     datetime,
 )
 from db_model.roots.types import (
-    GitRootItem,
+    GitRoot,
     RootItem,
 )
 from db_model.toe_lines.types import (
@@ -300,7 +300,7 @@ def pull_repositories(
 async def refresh_active_root_repo_toe_lines(
     loaders: Dataloaders,
     group_name: str,
-    root_repo: GitRootItem,
+    root_repo: GitRoot,
 ) -> None:
     LOGGER.info(
         "Refreshing toe lines",
@@ -410,7 +410,7 @@ async def refresh_active_root_repo_toe_lines(
 
 
 async def refresh_inactive_root_repo_toe_lines(
-    loaders: Dataloaders, group_name: str, root_repo: GitRootItem
+    loaders: Dataloaders, group_name: str, root_repo: GitRoot
 ) -> None:
     LOGGER.info(
         "Refreshing inactive toe lines",
@@ -471,14 +471,14 @@ async def refresh_root_repo_toe_lines(
     active_root_repos = {
         root.state.nickname: root
         for root in sorted_roots
-        if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
+        if isinstance(root, GitRoot) and root.state.status == "ACTIVE"
     }
     # Deactivate all the toe lines for all the inactive roots
     # with the same nickname
     inactive_root_repos = tuple(
         root
         for root in sorted_roots
-        if isinstance(root, GitRootItem)
+        if isinstance(root, GitRoot)
         and root.state.status == "INACTIVE"
         and root.state.nickname not in active_root_repos
     )
