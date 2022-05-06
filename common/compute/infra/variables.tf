@@ -493,6 +493,90 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_subscriptions_analytics_daily = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/subscriptions/analytics",
+        "prod",
+        "daily",
+      ]
+
+      schedule_expression = "cron(0 10 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_subscriptions_analytics_daily"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_subscriptions_analytics_weekly = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/subscriptions/analytics",
+        "prod",
+        "weekly",
+      ]
+
+      schedule_expression = "cron(0 10 ? * 2 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_subscriptions_analytics_weekly"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_subscriptions_analytics_monthly = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/subscriptions/analytics",
+        "prod",
+        "monthly",
+      ]
+
+      schedule_expression = "cron(0 10 1 * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_subscriptions_analytics_monthly"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
   }
 }
 
