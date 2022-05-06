@@ -33,7 +33,7 @@ from db_model.roots.types import (
     IPRoot,
     IPRootState,
     MachineFindingResult,
-    RootItem,
+    Root,
     RootMachineExecutionItem,
     RootState,
     RootUnreliableIndicators,
@@ -68,7 +68,7 @@ def format_unreliable_indicators(
     )
 
 
-def _format_root(*, item: Item) -> RootItem:
+def _format_root(*, item: Item) -> Root:
     root_id = item["pk"].split("#")[1]
     group_name = item["sk"].split("#")[1]
     organization_name = item["pk_2"].split("#")[1]
@@ -156,9 +156,7 @@ def _format_root(*, item: Item) -> RootItem:
     )
 
 
-async def _get_roots(
-    *, root_ids: List[Tuple[str, str]]
-) -> Tuple[RootItem, ...]:
+async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["git_root_metadata"],
@@ -178,13 +176,13 @@ class RootLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[Tuple[str, str]]
-    ) -> Tuple[RootItem, ...]:
+    ) -> Tuple[Root, ...]:
         roots = {root.id: root for root in await _get_roots(root_ids=root_ids)}
 
         return tuple(roots[root_id] for _, root_id in root_ids)
 
 
-async def _get_group_roots(*, group_name: str) -> Tuple[RootItem, ...]:
+async def _get_group_roots(*, group_name: str) -> Tuple[Root, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name},
@@ -215,7 +213,7 @@ class GroupRootsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, group_names: List[str]
-    ) -> Tuple[Tuple[RootItem, ...], ...]:
+    ) -> Tuple[Tuple[Root, ...], ...]:
         return await collect(
             _get_group_roots(group_name=group_name)
             for group_name in group_names
@@ -224,7 +222,7 @@ class GroupRootsLoader(DataLoader):
 
 async def _get_organization_roots(
     *, organization_name: str
-) -> Tuple[RootItem, ...]:
+) -> Tuple[Root, ...]:
     primary_key = keys.build_key(
         facet=ORG_INDEX_METADATA,
         values={"name": organization_name},
@@ -253,7 +251,7 @@ class OrganizationRootsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_names: List[str]
-    ) -> Tuple[Tuple[RootItem, ...], ...]:
+    ) -> Tuple[Tuple[Root, ...], ...]:
         return await collect(
             _get_organization_roots(organization_name=organization_name)
             for organization_name in organization_names

@@ -4,7 +4,7 @@ from ariadne import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
-    RootItem,
+    Root,
     URLRoot,
 )
 from graphql.type.definition import (
@@ -17,7 +17,7 @@ from typing import (
 
 
 def resolve_root_type(
-    result: RootItem,
+    result: Root,
     _info: GraphQLResolveInfo,
     _return_type: GraphQLAbstractType,
 ) -> Optional[str]:

@@ -2,7 +2,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -17,10 +17,10 @@ from typing import (
 
 async def resolve(
     parent: ToeInput, info: GraphQLResolveInfo
-) -> Optional[RootItem]:
+) -> Optional[Root]:
     loaders: Dataloaders = info.context.loaders
     if parent.unreliable_root_id:
-        root: RootItem = await loaders.root.load(
+        root: Root = await loaders.root.load(
             (parent.group_name, parent.unreliable_root_id)
         )
         return root

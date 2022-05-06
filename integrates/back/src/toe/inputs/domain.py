@@ -18,7 +18,7 @@ from db_model.groups.types import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
-    RootItem,
+    Root,
     URLRoot,
 )
 from db_model.toe_inputs.types import (
@@ -64,7 +64,7 @@ async def add(  # pylint: disable=too-many-arguments
         formatted_component = formatted_component[:-1].strip()
 
     if is_moving_toe_input is False:
-        root: RootItem = await loaders.root.load(
+        root: Root = await loaders.root.load(
             (group_name, attributes.unreliable_root_id)
         )
         validate_active_root(root)
@@ -134,8 +134,8 @@ def _format_component(component: str) -> str:
 
 
 def _format_unreliable_component(
-    root: Optional[RootItem], component: str
-) -> tuple[Optional[RootItem], str]:
+    root: Optional[Root], component: str
+) -> tuple[Optional[Root], str]:
     if component.endswith("/"):
         return root, component[:-1]
     return root, component
@@ -149,8 +149,8 @@ def get_reduced_component(component: str, entry_point: str) -> str:
 
 
 def get_unreliable_component(  # pylint: disable=too-many-locals
-    component: str, group_roots: tuple[RootItem, ...], group: Group
-) -> tuple[Optional[RootItem], Optional[str]]:
+    component: str, group_roots: tuple[Root, ...], group: Group
+) -> tuple[Optional[Root], Optional[str]]:
     if not component:
         return None, None
 

@@ -120,7 +120,7 @@ class URLRoot(NamedTuple):
     )
 
 
-RootItem = Union[GitRoot, IPRoot, URLRoot]
+Root = Union[GitRoot, IPRoot, URLRoot]
 
 
 class RootState(NamedTuple):

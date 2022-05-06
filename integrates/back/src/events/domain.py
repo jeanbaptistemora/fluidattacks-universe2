@@ -40,7 +40,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -152,7 +152,7 @@ async def add_event(  # pylint: disable=too-many-locals
     group: Group = await loaders.group_typed.load(group_name)
     subscription = group.state.type
 
-    root: RootItem = await loaders.root.load((group_name, kwargs["root_id"]))
+    root: Root = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
         raise InvalidParameter()
 

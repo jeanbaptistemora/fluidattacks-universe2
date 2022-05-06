@@ -30,7 +30,7 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
     RootUnreliableIndicatorsToUpdate,
 )
 from db_model.vulnerabilities.types import (
@@ -269,7 +269,7 @@ async def update_root_unreliable_indicators(
     root_id: Tuple[str, str],
     attrs_to_update: Set[EntityAttr],
 ) -> None:
-    root: RootItem = await loaders.root.load(root_id)
+    root: Root = await loaders.root.load(root_id)
     indicators = {}
 
     if EntityAttr.last_status_update in attrs_to_update:

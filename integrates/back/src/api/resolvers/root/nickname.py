@@ -1,10 +1,10 @@
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-def resolve(parent: RootItem, _info: GraphQLResolveInfo) -> str:
+def resolve(parent: Root, _info: GraphQLResolveInfo) -> str:
     return parent.state.nickname

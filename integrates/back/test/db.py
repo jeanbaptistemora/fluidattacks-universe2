@@ -36,7 +36,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -352,7 +352,7 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     return True
 
 
-async def populate_roots(data: Tuple[RootItem, ...]) -> bool:
+async def populate_roots(data: Tuple[Root, ...]) -> bool:
     await collect(tuple(roots_model.add(root=root) for root in data))
 
     return True

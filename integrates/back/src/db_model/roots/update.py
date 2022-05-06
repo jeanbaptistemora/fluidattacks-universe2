@@ -16,7 +16,7 @@ from db_model.roots.types import (
     GitRootState,
     IPRootState,
     MachineFindingResult,
-    RootItem,
+    Root,
     RootUnreliableIndicatorsToUpdate,
     URLRootState,
 )
@@ -138,7 +138,7 @@ async def update_git_root_cloning(
 
 async def update_unreliable_indicators(
     *,
-    current_value: RootItem,
+    current_value: Root,
     indicators: RootUnreliableIndicatorsToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key

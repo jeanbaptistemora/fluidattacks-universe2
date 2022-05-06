@@ -25,7 +25,7 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    RootItem,
+    Root,
 )
 import pytest
 from pytest_mock import (
@@ -46,7 +46,7 @@ async def test_queue_sync_git_roots_real_ssh_ok(
 ) -> None:
 
     loaders: Dataloaders = get_new_context()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
 
@@ -69,7 +69,7 @@ async def test_queue_sync_git_roots_real_https_ok(
 ) -> None:
 
     loaders: Dataloaders = get_new_context()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
 
@@ -103,7 +103,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
         "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
     )
     loaders.root.clear_all()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
 
@@ -134,7 +134,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
         "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
     )
     loaders.root.clear_all()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
 
@@ -171,7 +171,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
     )
 
     loaders: Dataloaders = get_new_context()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
@@ -190,7 +190,7 @@ async def test_queue_sync_git_roots_no_creds(
     generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "5059f0cb-4b55-404b-3fc5-627171f424af")
     )
 
@@ -209,7 +209,7 @@ async def test_queue_sync_git_no_valid_root(
     generic_data: dict[str, Any],
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    root_1: RootItem = await loaders.root.load(
+    root_1: Root = await loaders.root.load(
         ("group1", "63298a73-9dff-46cf-b42d-9b2f01a56690")
     )
 

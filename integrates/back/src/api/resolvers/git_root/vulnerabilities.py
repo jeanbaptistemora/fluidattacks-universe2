@@ -2,7 +2,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -21,7 +21,7 @@ from typing import (
 
 
 async def resolve(
-    parent: RootItem, info: GraphQLResolveInfo
+    parent: Root, info: GraphQLResolveInfo
 ) -> List[Vulnerability]:
     loaders: Dataloaders = info.context.loaders
     root_vulnerabilities: Tuple[

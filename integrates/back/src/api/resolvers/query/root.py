@@ -5,7 +5,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from decorators import (
     concurrent_decorators,
@@ -27,10 +27,10 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
-) -> RootItem:
+) -> Root:
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["root_id"]
     loaders: Dataloaders = info.context.loaders
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
 
     return root

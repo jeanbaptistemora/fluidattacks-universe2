@@ -14,7 +14,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -63,9 +63,7 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         loaders: Dataloaders = info.context.loaders
-        roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
-            group_name
-        )
+        roots: Tuple[Root, ...] = await loaders.group_roots.load(group_name)
         root_id = roots_domain.get_root_id_by_nickname(
             root_nickname, roots, only_git_roots=True
         )

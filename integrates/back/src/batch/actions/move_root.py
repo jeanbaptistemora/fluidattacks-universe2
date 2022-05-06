@@ -40,7 +40,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    RootItem,
+    Root,
     URLRoot,
 )
 from db_model.toe_inputs.types import (
@@ -495,9 +495,7 @@ async def move_root(*, item: BatchProcessing) -> None:
     loaders: Dataloaders = get_new_context()
 
     LOGGER.info("Moving root", extra={"extra": info})
-    root: RootItem = await loaders.root.load(
-        (source_group_name, source_root_id)
-    )
+    root: Root = await loaders.root.load((source_group_name, source_root_id))
     root_vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.root_vulnerabilities.load(root.id)
@@ -529,7 +527,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         workers=10,
     )
     LOGGER.info("Moving completed")
-    target_root: RootItem = await loaders.root.load(
+    target_root: Root = await loaders.root.load(
         (target_group_name, target_root_id)
     )
     if isinstance(root, (GitRoot, URLRoot)):

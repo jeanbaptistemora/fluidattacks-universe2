@@ -51,7 +51,7 @@ from db_model.roots.types import (
     GitRootState,
     IPRoot,
     IPRootState,
-    RootItem,
+    Root,
     RootMachineExecutionItem,
     RootState,
     RootUnreliableIndicators,
@@ -455,7 +455,7 @@ async def update_git_environments(
     root_id: str,
     environment_urls: List[str],
 ) -> None:
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
     modified_date: str = datetime_utils.get_iso_date()
 
     if not isinstance(root, GitRoot):
@@ -621,11 +621,11 @@ async def update_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
     **kwargs: Any,
-) -> RootItem:
+) -> Root:
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group_typed.load(group_name)
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
 
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
@@ -730,7 +730,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
 
 async def send_mail_updated_root(
     group_name: str,
-    root: RootItem,
+    root: Root,
     new_state: GitRootState,
     user_email: str,
 ) -> None:
@@ -777,7 +777,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     commit_date: Optional[str] = None,
 ) -> None:
     validation_utils.validate_field_length(message, 400)
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
 
     if not isinstance(root, GitRoot):
         raise InvalidParameter()
@@ -797,7 +797,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
 
 
 async def activate_root(
-    *, loaders: Any, group_name: str, root: RootItem, user_email: str
+    *, loaders: Any, group_name: str, root: Root, user_email: str
 ) -> None:
     new_status = "ACTIVE"
 
@@ -900,7 +900,7 @@ async def deactivate_root(
     group_name: str,
     other: Optional[str],
     reason: str,
-    root: RootItem,
+    root: Root,
     user_email: str,
 ) -> None:
     new_status = "INACTIVE"
@@ -981,7 +981,7 @@ async def update_root_state(
     root_id: str,
     state: str,
 ) -> None:
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
     if state == "ACTIVE":
         await activate_root(
             loaders=loaders,
@@ -1001,7 +1001,7 @@ async def update_root_state(
 
 def get_root_id_by_nickname(
     nickname: str,
-    group_roots: Tuple[RootItem, ...],
+    group_roots: Tuple[Root, ...],
     only_git_roots: bool = False,
 ) -> str:
     root_ids_by_nicknames = get_root_ids_by_nicknames(
@@ -1025,7 +1025,7 @@ def get_root_id_by_nicknames(
 
 
 def get_root_ids_by_nicknames(
-    group_roots: Tuple[RootItem, ...], only_git_roots: bool = False
+    group_roots: Tuple[Root, ...], only_git_roots: bool = False
 ) -> Dict[str, str]:
     # Get a dict that have the relation between nickname and id for roots
     # There are roots with the same nickname
@@ -1075,7 +1075,7 @@ async def move_root(
     root_id: str,
     target_group_name: str,
 ) -> str:
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
     source_group: Group = await loaders.group_typed.load(group_name)
     source_org_id = await orgs_domain.get_id_for_group(group_name)
     target_group: Group = await loaders.group_typed.load(target_group_name)
@@ -1088,7 +1088,7 @@ async def move_root(
     ):
         raise InvalidParameter()
 
-    target_group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
+    target_group_roots: Tuple[Root, ...] = await loaders.group_roots.load(
         target_group_name
     )
 

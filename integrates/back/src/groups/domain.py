@@ -64,7 +64,7 @@ from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -750,7 +750,7 @@ async def remove_group(
 
 
 async def validate_open_roots(loaders: Any, group_name: str) -> None:
-    roots: tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
     if next((root for root in roots if root.state.status == "ACTIVE"), None):
         raise HasActiveRoots()
 

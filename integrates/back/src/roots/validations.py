@@ -12,7 +12,7 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
-    RootItem,
+    Root,
     URLRoot,
 )
 from git import (
@@ -73,7 +73,7 @@ def is_valid_git_branch(branch_name: str) -> bool:
 
 
 def validate_nickname_is_unique(
-    nickname: str, roots: Tuple[RootItem, ...], old_nickname: str = ""
+    nickname: str, roots: Tuple[Root, ...], old_nickname: str = ""
 ) -> None:
     if nickname != old_nickname and nickname in {
         root.state.nickname for root in roots if root.state.status == "ACTIVE"
@@ -81,7 +81,7 @@ def validate_nickname_is_unique(
         raise RepeatedRootNickname()
 
 
-def is_git_unique(url: str, branch: str, roots: Tuple[RootItem, ...]) -> bool:
+def is_git_unique(url: str, branch: str, roots: Tuple[Root, ...]) -> bool:
     return (url, branch) not in tuple(
         (root.state.url, root.state.branch)
         for root in roots
@@ -97,7 +97,7 @@ def is_valid_ip(address: str) -> bool:
         return False
 
 
-def is_ip_unique(address: str, port: str, roots: Tuple[RootItem, ...]) -> bool:
+def is_ip_unique(address: str, port: str, roots: Tuple[Root, ...]) -> bool:
     return (address, port) not in tuple(
         (root.state.address, root.state.port)
         for root in roots
@@ -106,7 +106,7 @@ def is_ip_unique(address: str, port: str, roots: Tuple[RootItem, ...]) -> bool:
 
 
 def is_url_unique(
-    host: str, path: str, port: str, protocol: str, roots: Tuple[RootItem, ...]
+    host: str, path: str, port: str, protocol: str, roots: Tuple[Root, ...]
 ) -> bool:
     return (host, path, port, protocol) not in tuple(
         (
@@ -120,13 +120,13 @@ def is_url_unique(
     )
 
 
-def validate_active_root(root: RootItem) -> None:
+def validate_active_root(root: Root) -> None:
     if root.state.status == "ACTIVE":
         return
     raise InactiveRoot()
 
 
-def validate_component(root: RootItem, component: str) -> None:
+def validate_component(root: Root, component: str) -> None:
     if isinstance(root, GitRoot):
         if not is_valid_url(component):
             raise InvalidUrl()

@@ -16,7 +16,7 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     GitRoot,
-    RootItem,
+    Root,
     URLRoot,
 )
 from decorators import (
@@ -82,7 +82,7 @@ async def mutate(
         queue="unlimited_dedicated",
         product_name=Product.INTEGRATES,
     )
-    root: RootItem = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
     if isinstance(root, GitRoot):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_LINES,

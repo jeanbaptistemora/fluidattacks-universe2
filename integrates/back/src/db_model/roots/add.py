@@ -12,7 +12,7 @@ from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
     MachineFindingResult,
-    RootItem,
+    Root,
     RootMachineExecutionItem,
     Secret,
 )
@@ -23,7 +23,7 @@ from dynamodb import (
 import simplejson as json  # type: ignore
 
 
-async def add(*, root: RootItem) -> None:
+async def add(*, root: Root) -> None:
     items = []
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(

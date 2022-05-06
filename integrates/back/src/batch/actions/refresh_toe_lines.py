@@ -21,7 +21,7 @@ from datetime import (
 )
 from db_model.roots.types import (
     GitRoot,
-    RootItem,
+    Root,
 )
 from db_model.toe_lines.types import (
     RootToeLinesRequest,
@@ -461,7 +461,7 @@ async def refresh_root_repo_toe_lines(
     group_name: str, optional_repo_nickname: Optional[str]
 ) -> None:
     loaders = get_new_context()
-    roots: Tuple[RootItem, ...] = await loaders.group_roots.load(group_name)
+    roots: Tuple[Root, ...] = await loaders.group_roots.load(group_name)
     # There are roots with the same nickname
     # then it is going to take the last modified root
     sorted_roots = sorted(

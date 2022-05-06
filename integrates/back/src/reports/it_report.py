@@ -19,7 +19,7 @@ from db_model.findings.types import (
     FindingVerification,
 )
 from db_model.roots.types import (
-    RootItem,
+    Root,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -538,7 +538,7 @@ class ITReport:
 
         nickname = EMPTY
         if row.root_id:
-            root: RootItem = await self.loaders.root.load(
+            root: Root = await self.loaders.root.load(
                 (finding.group_name, row.root_id)
             )
             nickname = root.state.nickname

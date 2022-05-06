@@ -27,7 +27,7 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    RootItem,
+    Root,
     URLRoot,
 )
 from db_model.users.types import (
@@ -86,7 +86,7 @@ from vulnerabilities import (
 
 async def deactivate_root(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo,
-    root: RootItem,
+    root: Root,
     user_email: str,
     **kwargs: Any,
 ) -> None:
