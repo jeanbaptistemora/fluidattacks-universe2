@@ -2,6 +2,9 @@ import authz
 from custom_exceptions import (
     InvalidParameter,
 )
+from db_model.organization.types import (
+    Organization,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -14,6 +17,7 @@ from typing import (
     Any,
     Dict,
     Set,
+    Union,
 )
 
 # Constants
@@ -35,11 +39,16 @@ async def _get_org_permissions(
 
 
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **kwargs: Dict
+    parent: Union[Organization, dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: Dict,
 ) -> Set[str]:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    org_id: str = parent["id"]
+    if isinstance(parent, dict):
+        org_id: str = parent["id"]
+    else:
+        org_id = parent.id
     identifier = str(kwargs.get("identifier", org_id))
 
     permissions: Set[str] = await _get_org_permissions(

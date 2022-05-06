@@ -1,3 +1,6 @@
+from db_model.organization.types import (
+    Organization,
+)
 from decorators import (
     enforce_organization_level_auth_async,
 )
@@ -14,26 +17,31 @@ from typing import (
     Any,
     Dict,
     List,
+    Union,
 )
 
 
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **kwargs: None
+    parent: Union[Organization, dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **kwargs: None,
 ) -> List[Dict[str, Any]]:
     response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
         attr="stakeholders",
-        id=parent["id"],
+        id=parent["id"] if isinstance(parent, dict) else parent.id,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Organization, dict[str, Any]],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> List[Dict[str, Any]]:
-    org_id = parent["id"]
+    org_id = parent["id"] if isinstance(parent, dict) else parent.id
     organization_stakeholders_loader = (
         info.context.loaders.organization_stakeholders
     )
