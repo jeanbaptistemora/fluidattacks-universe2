@@ -8,3 +8,8 @@ lib_root.f096.js_deserialization:
   es: >
     Se llamó o se hizo referencia a un método de deserialización de
     JavaScriptSerializer después de inicializar con un SimpleTypeResolver.
+lib_root.f096.type_name_handling:
+  en: >
+    A Newtonsoft.Json.TypeNameHandling enumeration value other than None should not be referenced.
+  es: >
+    No se deberia hacer referencia a un valor de enumeración Newtonsoft.Json.TypeNameHandling, distinto de None.

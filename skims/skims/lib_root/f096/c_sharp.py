@@ -1,4 +1,6 @@
 from lib_root.utilities.c_sharp import (
+    get_first_member,
+    get_object_identifiers,
     get_variable_attribute,
     yield_shard_object_creation,
 )
@@ -18,12 +20,14 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from utils.graph import (
-    get_ast_childs,
-    match_ast,
+from utils import (
+    graph as g,
 )
 from utils.graph.text_nodes import (
     node_to_str,
+)
+from utils.string import (
+    split_on_last_dot as split_last,
 )
 
 
@@ -73,10 +77,10 @@ def check_xml_serializer(
         for shard in graph_db.shards_by_language(c_sharp):
             for node in yield_shard_object_creation(shard, {"XmlSerializer"}):
                 var_value = ""
-                type_node = get_ast_childs(
+                type_node = g.get_ast_childs(
                     shard.graph, node, "argument", depth=2
                 )
-                type_var = match_ast(shard.graph, type_node[0])["__0__"]
+                type_var = g.match_ast(shard.graph, type_node[0])["__0__"]
                 if (
                     len(type_node) > 0
                     and shard.graph.nodes[type_var].get("label_type")
@@ -148,6 +152,56 @@ def js_deserialization(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f096.js_deserialization",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def type_name_handling(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_TYPE_NAME_HANDLING
+    c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
+    finding = method.value.finding
+
+    serializer = {"JsonSerializerSettings"}
+
+    def n_ids() -> graph_model.GraphShardNodes:
+
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            serial_objs = get_object_identifiers(shard, serializer)
+
+            for member in g.filter_nodes(
+                shard.graph,
+                nodes=shard.graph.nodes,
+                predicate=g.pred_has_labels(
+                    label_type="member_access_expression"
+                ),
+            ):
+                fr_member = get_first_member(shard, member)
+                last_member = split_last(node_to_str(shard.graph, member))[1]
+                if (
+                    shard.graph.nodes[fr_member]["label_text"] in serial_objs
+                    and last_member == "TypeNameHandling"
+                    and (pred := g.pred_ast(shard.graph, member)[0])
+                    and (assign := g.match_ast(shard.graph, pred)["__2__"])
+                ):
+                    for path in get_backward_paths(shard.syntax_graph, assign):
+                        graph = shard.syntax_graph
+                        if (
+                            evaluation := evaluate(
+                                c_sharp, finding, graph, path, assign
+                            )
+                        ) and evaluation.danger:
+                            yield shard, member
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f096.type_name_handling",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
