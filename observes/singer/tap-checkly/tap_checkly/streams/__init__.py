@@ -53,13 +53,6 @@ def _stream_data(
         emitter.emit_iopage(stream, page)
 
 
-def all_alerts(api: ApiClient) -> None:
-    _stream_data(
-        SupportedStreams.ALERT_CHS,
-        api.alerts.list_alerts_channels(ALL),
-    )
-
-
 def all_checks(api: ApiClient) -> None:
     _stream_data(
         SupportedStreams.CHECKS,
