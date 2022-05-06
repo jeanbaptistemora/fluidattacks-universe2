@@ -91,18 +91,6 @@ const Repository: React.FC<IRepositoryProps> = ({
     setCredExists(false);
   }, []);
 
-  const requireNickname: FieldValidator = useCallback(
-    (field: string): string | undefined => {
-      const { nickname: initialNickname } = initialValues;
-      if (nicknames.includes(field) && initialNickname !== field) {
-        return t("validations.requireNickname");
-      }
-
-      return required(field) as string | undefined;
-    },
-    [initialValues, nicknames, t]
-  );
-
   const requireGitAccessibility: FieldValidator = (): string | undefined => {
     if (!isGitAccessible) {
       return t("group.scope.git.repo.credentials.checkAccess.noAccess");
@@ -224,7 +212,11 @@ const Repository: React.FC<IRepositoryProps> = ({
         innerRef={formRef}
         name={"gitRoot"}
         onSubmit={onSubmit}
-        validationSchema={gitModalSchema}
+        validationSchema={gitModalSchema(
+          nicknames,
+          initialValues,
+          isDuplicated
+        )}
       >
         {({ dirty, isSubmitting, values }): JSX.Element => (
           <React.Fragment>
@@ -285,7 +277,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                             name={"nickname"}
                             placeholder={t("group.scope.git.repo.nicknameHint")}
                             type={"text"}
-                            validate={requireNickname}
                           />
                         </div>
                       </div>

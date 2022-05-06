@@ -8,8 +8,9 @@ import _ from "lodash";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import type { BaseSchema } from "yup";
+import type { BaseSchema, InferType } from "yup";
 import { array, lazy, object, string } from "yup";
+import type { TypedSchema } from "yup/lib/util/types";
 
 import type { IGitRootAttr } from "../types";
 import { Alert } from "styles/styledComponents";
@@ -39,40 +40,61 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
   );
 };
 
-const gitModalSchema = lazy(
-  (values: IGitRootAttr): BaseSchema =>
-    object().shape({
-      gitignore: array().of(
-        string()
-          .required(translate.t("validations.required"))
-          .test(
-            "excludeFormat",
-            translate.t("validations.excludeFormat"),
-            (value): boolean => {
-              const repoUrl = values.url;
+const gitModalSchema = (
+  nicknames: string[],
+  initialValues: IGitRootAttr,
+  isDuplicated: (field: string) => boolean
+): InferType<TypedSchema> =>
+  lazy(
+    (values: IGitRootAttr): BaseSchema =>
+      object().shape({
+        branch: string().required(translate.t("validations.required")),
+        gitignore: array().of(
+          string()
+            .required(translate.t("validations.required"))
+            .test(
+              "excludeFormat",
+              translate.t("validations.excludeFormat"),
+              (value): boolean => {
+                const repoUrl = values.url;
 
-              if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
-                const [urlBasename] = repoUrl.split("/").slice(-1);
-                const repoName: string = urlBasename.endsWith(".git")
-                  ? urlBasename.replace(".git", "")
-                  : urlBasename;
+                if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
+                  const [urlBasename] = repoUrl.split("/").slice(-1);
+                  const repoName: string = urlBasename.endsWith(".git")
+                    ? urlBasename.replace(".git", "")
+                    : urlBasename;
 
-                return (
-                  value
-                    .toLowerCase()
-                    .split("/")
-                    .indexOf(repoName.toLowerCase()) !== 0
-                );
+                  return (
+                    value
+                      .toLowerCase()
+                      .split("/")
+                      .indexOf(repoName.toLowerCase()) !== 0
+                  );
+                }
+
+                return false;
               }
-
-              return false;
-            }
-          )
-      ),
-      nickname: string().matches(/^[a-zA-Z_0-9-]{1,128}$/u),
-      url: string().required(translate.t("validations.required")),
-    })
-);
+            )
+        ),
+        nickname: string()
+          .when("url", {
+            is: (url: string): boolean => isDuplicated(url),
+            otherwise: string(),
+            then: string().required(translate.t("validations.required")),
+          })
+          .matches(/^[a-zA-Z_0-9-]{1,128}$/u)
+          .test(
+            "isNickname",
+            translate.t("validations.requireNickname"),
+            (value): boolean =>
+              !(
+                nicknames.includes(value as string) &&
+                initialValues.nickname !== value
+              )
+          ),
+        url: string().required(translate.t("validations.required")),
+      })
+  );
 
 // Index helpers
 
