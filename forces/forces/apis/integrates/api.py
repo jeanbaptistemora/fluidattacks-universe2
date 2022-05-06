@@ -80,7 +80,7 @@ async def get_findings(group: str, **kwargs: str) -> List[str]:
 
 @SHIELD
 async def get_vulnerabilities(
-    finding: str, **kwargs: str
+    finding_id: str, **kwargs: str
 ) -> List[Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]]]:
     """
     Returns the vulnerabilities of a finding.
@@ -88,35 +88,73 @@ async def get_vulnerabilities(
     :param client: gql Client.
     :param finding: Finding identifier.
     """
+    vulnerabilities = []
     query = """
-        query ForcesDoGetFindingVulnerabilities($finding_id: String!){
-          finding(identifier: $finding_id) {
-            vulnerabilities {
-              findingId
-              currentState
-              treatment
-              vulnerabilityType
-              where
-              severity
-              specific
-              reportDate
-              rootNickname
-              zeroRisk
+        query ForcesDoGetFindingVulnerabilities(
+            $after: String
+            $finding_id: String!
+            $first: Int
+        ) {
+            finding(identifier: $finding_id) {
+                id
+                vulnerabilitiesConnection(
+                    after: $after,
+                    first: $first,
+                ) {
+                    edges {
+                        node {
+                            findingId
+                            currentState
+                            treatment
+                            vulnerabilityType
+                            where
+                            severity
+                            specific
+                            reportDate
+                            rootNickname
+                            zeroRisk
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                }
             }
-          }
         }
-        """
-
-    params = {"finding_id": finding}
-    response: Dict[str, Dict[str, List[Any]]] = await execute(
+    """
+    response: dict = await execute(
         query=query,
         operation_name="ForcesDoGetFindingVulnerabilities",
-        variables=params,
+        variables=dict(finding_id=finding_id),
         default={},
         **kwargs,
     )
-    finding_value = response.get("finding", {})
-    vulnerabilities = finding_value.get("vulnerabilities", [])
+    while True:
+        has_next_page = False
+        if response:
+            vulnerabilities_connection = response["finding"][
+                "vulnerabilitiesConnection"
+            ]
+            vulnerability_page_info = vulnerabilities_connection["pageInfo"]
+            vulnerability_edges = vulnerabilities_connection["edges"]
+            has_next_page = vulnerability_page_info["hasNextPage"]
+            end_cursor = vulnerability_page_info["endCursor"]
+            vulnerabilities.extend(
+                [vuln_edge["node"] for vuln_edge in vulnerability_edges]
+            )
+
+        if not has_next_page:
+            break
+
+        response = await execute(
+            query=query,
+            operation_name="ForcesDoGetFindingVulnerabilities",
+            variables=dict(finding_id=finding_id, after=end_cursor),
+            default={},
+            **kwargs,
+        )
+
     for index, _ in enumerate(vulnerabilities):
         treatment = vulnerabilities[index].get("treatment")
         zero_risk = vulnerabilities[index].get("zeroRisk")
@@ -128,7 +166,7 @@ async def get_vulnerabilities(
         }:
             vulnerabilities[index]["currentState"] = "accepted"
 
-    return finding_value.get("vulnerabilities", [])
+    return vulnerabilities
 
 
 @SHIELD
