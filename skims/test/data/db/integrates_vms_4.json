@@ -341,6 +341,12 @@
               }
             }
           },
+          "pk_5": {
+            "S": "FIN#6ca298ce-8306-4f0d-9db9-103aa92d89d6"
+          },
+          "commit": {
+            "S": "5ea84e28fd63b591e8c47fee02c744934876f202"
+          },
           "unreliable_indicators": {
             "M": {
               "unreliable_reattack_cycles": {
@@ -366,9 +372,6 @@
               }
             }
           },
-          "commit": {
-            "S": "5ea84e28fd63b591e8c47fee02c744934876f202"
-          },
           "specific": {
             "S": "4"
           },
@@ -392,6 +395,9 @@
           },
           "pk_3": {
             "S": "USER#unittest@fluidattacks.com"
+          },
+          "sk_5": {
+            "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#verified"
           },
           "state": {
             "M": {
