@@ -21,7 +21,7 @@ from datetime import (
 from db_model.roots.types import (
     GitRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
@@ -65,7 +65,7 @@ toe_inputs_update = retry_on_exceptions(
 
 
 def get_non_present_toe_inputs_to_update(
-    root: Union[GitRoot, URLRootItem],
+    root: Union[GitRoot, URLRoot],
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
     LOGGER.info(
@@ -89,7 +89,7 @@ def get_non_present_toe_inputs_to_update(
 
 
 def get_toe_inputs_to_remove(
-    root: Union[GitRoot, URLRootItem],
+    root: Union[GitRoot, URLRoot],
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[ToeInput, ...]:
     LOGGER.info(
@@ -108,7 +108,7 @@ def get_toe_inputs_to_remove(
 
 
 def get_present_toe_inputs_to_update(
-    root: Union[GitRoot, URLRootItem],
+    root: Union[GitRoot, URLRoot],
     root_toe_inputs: Tuple[ToeInput, ...],
 ) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
     LOGGER.info(
@@ -132,7 +132,7 @@ def get_present_toe_inputs_to_update(
 async def refresh_active_root_toe_inputs(
     loaders: Dataloaders,
     group_name: str,
-    root: Union[GitRoot, URLRootItem],
+    root: Union[GitRoot, URLRoot],
 ) -> None:
     LOGGER.info(
         "Refreshing active toe inputs",
@@ -176,7 +176,7 @@ async def refresh_active_root_toe_inputs(
 async def refresh_inactive_root_toe_inputs(
     loaders: Dataloaders,
     group_name: str,
-    root: Union[GitRoot, URLRootItem],
+    root: Union[GitRoot, URLRoot],
 ) -> None:
     LOGGER.info(
         "Refreshing inactive toe inputs",
@@ -243,7 +243,7 @@ async def refresh_root_toe_inputs(
     active_roots = {
         root.state.nickname: root
         for root in sorted_roots
-        if isinstance(root, (GitRoot, URLRootItem))
+        if isinstance(root, (GitRoot, URLRoot))
         and root.state.status == "ACTIVE"
     }
     # Deactivate all the toe inputs for all the inactive roots
@@ -251,7 +251,7 @@ async def refresh_root_toe_inputs(
     inactive_roots = tuple(
         root
         for root in sorted_roots
-        if isinstance(root, (GitRoot, URLRootItem))
+        if isinstance(root, (GitRoot, URLRoot))
         and root.state.status == "INACTIVE"
         and root.state.nickname not in active_roots
     )

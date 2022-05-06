@@ -5,7 +5,7 @@ from db_model.roots.types import (
     GitRoot,
     IPRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from graphql.type.definition import (
     GraphQLAbstractType,
@@ -25,7 +25,7 @@ def resolve_root_type(
         return "GitRoot"
     if isinstance(result, IPRoot):
         return "IPRoot"
-    if isinstance(result, URLRootItem):
+    if isinstance(result, URLRoot):
         return "URLRoot"
     return None
 

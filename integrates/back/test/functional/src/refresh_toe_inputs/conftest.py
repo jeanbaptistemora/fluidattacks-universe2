@@ -13,7 +13,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
-    URLRootItem,
+    URLRoot,
     URLRootState,
 )
 from db_model.toe_inputs.types import (
@@ -63,7 +63,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="Git",
             ),
-            URLRootItem(
+            URLRoot(
                 group_name="group1",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 organization_name="orgtest",
@@ -81,7 +81,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="URL",
             ),
-            URLRootItem(
+            URLRoot(
                 group_name="group1",
                 id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                 organization_name="orgtest",

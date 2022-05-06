@@ -13,7 +13,7 @@ from db_model.roots.types import (
     GitRoot,
     IPRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from git import (
     Git,
@@ -116,7 +116,7 @@ def is_url_unique(
             root.state.protocol,
         )
         for root in roots
-        if isinstance(root, URLRootItem) and root.state.status == "ACTIVE"
+        if isinstance(root, URLRoot) and root.state.status == "ACTIVE"
     )
 
 
@@ -141,7 +141,7 @@ def validate_component(root: RootItem, component: str) -> None:
             ):
                 return
 
-    if isinstance(root, URLRootItem):
+    if isinstance(root, URLRoot):
         if not is_valid_url(component):
             raise InvalidUrl()
         host = (

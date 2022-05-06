@@ -17,7 +17,7 @@ from custom_types import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
-    URLRootItem,
+    URLRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -80,7 +80,7 @@ async def activate_ip_root(
 @require_service_black
 async def activate_url_root(
     info: GraphQLResolveInfo,
-    root: URLRootItem,
+    root: URLRoot,
     user_email: str,
     **kwargs: Any,
 ) -> None:
@@ -128,7 +128,7 @@ async def mutate(
                 additional_info=root.state.nickname,
                 product_name=Product.INTEGRATES,
             )
-        if isinstance(root, (GitRoot, URLRootItem)):
+        if isinstance(root, (GitRoot, URLRoot)):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,
                 entity=kwargs["group_name"],

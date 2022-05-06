@@ -38,7 +38,7 @@ from db_model.roots.types import (
     RootState,
     RootUnreliableIndicators,
     Secret,
-    URLRootItem,
+    URLRoot,
     URLRootState,
 )
 from dynamodb import (
@@ -135,7 +135,7 @@ def _format_root(*, item: Item) -> RootItem:
             unreliable_indicators=unreliable_indicators,
         )
 
-    return URLRootItem(
+    return URLRoot(
         group_name=group_name,
         id=root_id,
         organization_name=organization_name,

@@ -27,7 +27,7 @@ from db_model.roots.types import (
     GitRootState,
     IPRoot,
     IPRootState,
-    URLRootItem,
+    URLRoot,
     URLRootState,
 )
 from db_model.vulnerabilities.enums import (
@@ -107,7 +107,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="IP",
             ),
-            URLRootItem(
+            URLRoot(
                 group_name="group2",
                 id="eee8b331-98b9-4e32-a3c7-ec22bd244ae8",
                 organization_name="orgtest",
@@ -173,7 +173,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 type="IP",
             ),
-            URLRootItem(
+            URLRoot(
                 group_name="group1",
                 id="bd4e5e66-da26-4274-87ed-17de7c3bc2f1",
                 organization_name="orgtest",

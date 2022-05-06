@@ -28,7 +28,7 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from db_model.users.types import (
     User,
@@ -183,7 +183,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 ],
             )
 
-        if isinstance(root, (GitRoot, URLRootItem)):
+        if isinstance(root, (GitRoot, URLRoot)):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_INPUTS,
                 entity=group_name,

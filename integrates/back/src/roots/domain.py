@@ -56,7 +56,7 @@ from db_model.roots.types import (
     RootState,
     RootUnreliableIndicators,
     Secret,
-    URLRootItem,
+    URLRoot,
     URLRootState,
 )
 from group_access import (
@@ -361,7 +361,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     )
 
     modified_date = datetime_utils.get_iso_date()
-    root = URLRootItem(
+    root = URLRoot(
         group_name=group_name,
         id=str(uuid4()),
         organization_name=organization_name,

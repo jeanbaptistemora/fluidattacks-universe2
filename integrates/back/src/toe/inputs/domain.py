@@ -19,7 +19,7 @@ from db_model.roots.types import (
     GitRoot,
     IPRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -182,7 +182,7 @@ def get_unreliable_component(  # pylint: disable=too-many-locals
                         f"{root_host_and_port}/{path}",
                     )
 
-        if has_black_service and isinstance(root, URLRootItem):
+        if has_black_service and isinstance(root, URLRoot):
             root_host_and_port = (
                 f"{root.state.host}:{root.state.port}"
                 if root.state.port

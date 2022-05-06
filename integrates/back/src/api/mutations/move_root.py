@@ -17,7 +17,7 @@ from dataloaders import (
 from db_model.roots.types import (
     GitRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from decorators import (
     concurrent_decorators,
@@ -91,7 +91,7 @@ async def mutate(
             additional_info=root.state.nickname,
             product_name=Product.INTEGRATES,
         )
-    if isinstance(root, (GitRoot, URLRootItem)):
+    if isinstance(root, (GitRoot, URLRoot)):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_INPUTS,
             entity=group_name,

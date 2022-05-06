@@ -41,7 +41,7 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     GitRoot,
     RootItem,
-    URLRootItem,
+    URLRoot,
 )
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
@@ -532,7 +532,7 @@ async def move_root(*, item: BatchProcessing) -> None:
     target_root: RootItem = await loaders.root.load(
         (target_group_name, target_root_id)
     )
-    if isinstance(root, (GitRoot, URLRootItem)):
+    if isinstance(root, (GitRoot, URLRoot)):
         LOGGER.info("Updating ToE inputs")
         group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
             GroupToeInputsRequest(group_name=source_group_name)
