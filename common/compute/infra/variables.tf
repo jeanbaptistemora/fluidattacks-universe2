@@ -14,13 +14,11 @@ variable "productApiToken" {
 
 # Schedule expressions:
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
-# evaluateOnExit syntax:
-# https://docs.aws.amazon.com/batch/latest/APIReference/API_EvaluateOnExit.html
 
 locals {
   schedules = {
     integrates_scheduler_clone_groups_roots = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -48,7 +46,7 @@ locals {
       }
     }
     integrates_scheduler_clone_groups_roots_vpn = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -76,7 +74,7 @@ locals {
       }
     }
     integrates_scheduler_event_report = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -103,8 +101,64 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_scheduler_machine_queue_all = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.machine_queue_all.main",
+      ]
+
+      schedule_expression = "cron(0 5 ? * 5 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_machine_queue_all"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_machine_queue_re_attacks = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.machine_queue_re_attacks.main",
+      ]
+
+      schedule_expression = "cron(0 12,19 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_machine_queue_re_attacks"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_refresh_toe_lines = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -132,7 +186,7 @@ locals {
       }
     }
     integrates_scheduler_reminder_notification = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -160,7 +214,7 @@ locals {
       }
     }
     integrates_scheduler_report_squad_usage = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -187,8 +241,36 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_scheduler_requeue_actions = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.requeue_actions.main",
+      ]
+
+      schedule_expression = "cron(15 * ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_requeue_actions"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_review_machine_executions = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
@@ -216,7 +298,7 @@ locals {
       }
     }
     integrates_scheduler_update_group_toe_vulns = {
-      enabled = true
+      enabled = false
       command = [
         "m",
         "f",
