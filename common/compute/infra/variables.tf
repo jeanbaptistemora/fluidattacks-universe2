@@ -19,6 +19,34 @@ variable "productApiToken" {
 
 locals {
   schedules = {
+    integrates_scheduler_clone_groups_roots = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.clone_groups_roots.main",
+      ]
+
+      schedule_expression = "cron(0 5,8,11,14,17,21 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_clone_groups_roots"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_clone_groups_roots_vpn = {
       enabled = true
       command = [
@@ -29,7 +57,7 @@ locals {
         "schedulers.clone_groups_roots_vpn.main",
       ]
 
-      schedule_expression = "cron(30 6,11,16 ? * 1-5 *)"
+      schedule_expression = "cron(30 6,11,16 ? * 2-6 *)"
       queue               = "unlimited_spot"
       attempts            = 3
       timeout             = 86400
@@ -75,6 +103,34 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_scheduler_refresh_toe_lines = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.refresh_toe_lines.main",
+      ]
+
+      schedule_expression = "cron(0 20 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_refresh_toe_lines"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_reminder_notification = {
       enabled = true
       command = [
@@ -103,6 +159,34 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_scheduler_report_squad_usage = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.report_squad_usage.main",
+      ]
+
+      schedule_expression = "cron(0 18,00 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_report_squad_usage"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_review_machine_executions = {
       enabled = true
       command = [
@@ -113,7 +197,7 @@ locals {
         "schedulers.review_machine_executions.main",
       ]
 
-      schedule_expression = "cron(30 * ? * 1-5 *)"
+      schedule_expression = "cron(30 * ? * 2-6 *)"
       queue               = "unlimited_spot"
       attempts            = 3
       timeout             = 86400
@@ -126,6 +210,34 @@ locals {
 
       tags = {
         "Name"               = "integrates_scheduler_review_machine_executions"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_update_group_toe_vulns = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.update_group_toe_vulns.main",
+      ]
+
+      schedule_expression = "cron(0 10 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_update_group_toe_vulns"
         "management:area"    = "cost"
         "management:product" = "integrates"
         "management:type"    = "product"
