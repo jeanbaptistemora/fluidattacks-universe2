@@ -88,14 +88,6 @@ from roots import (
     dal as roots_dal,
     validations,
 )
-from roots.types import (
-    GitEnvironmentUrl as GitEnvironmentUrlOld,
-    GitRoot,
-    GitRootCloningStatus,
-    IPRoot,
-    Root,
-    URLRoot,
-)
 from settings.various import (
     TIME_ZONE,
 )
@@ -121,57 +113,6 @@ from urllib.parse import (
 from uuid import (
     uuid4,
 )
-
-
-def format_root(root: RootItem) -> Root:
-    if isinstance(root, GitRootItem):
-        return GitRoot(
-            branch=root.state.branch,
-            cloning_status=GitRootCloningStatus(
-                status=root.cloning.status.value,
-                message=root.cloning.reason,
-                commit=root.cloning.commit,
-            ),
-            environment=root.state.environment,
-            environment_urls=root.state.environment_urls,
-            git_environment_urls=[
-                GitEnvironmentUrlOld(url=env.url)
-                for env in root.state.git_environment_urls
-            ],
-            gitignore=root.state.gitignore,
-            group_name=root.group_name,
-            id=root.id,
-            includes_health_check=root.state.includes_health_check,
-            last_cloning_status_update=root.cloning.modified_date,
-            last_state_status_update=(
-                root.unreliable_indicators.unreliable_last_status_update
-            ),
-            nickname=root.state.nickname,
-            state=root.state.status,
-            url=root.state.url,
-            use_vpn=root.state.use_vpn,
-        )
-
-    if isinstance(root, IPRootItem):
-        return IPRoot(
-            address=root.state.address,
-            group_name=root.group_name,
-            id=root.id,
-            nickname=root.state.nickname,
-            port=int(root.state.port),
-            state=root.state.status,
-        )
-
-    return URLRoot(
-        group_name=root.group_name,
-        host=root.state.host,
-        id=root.id,
-        nickname=root.state.nickname,
-        path=root.state.path,
-        port=int(root.state.port),
-        protocol=root.state.protocol,
-        state=root.state.status,
-    )
 
 
 async def _notify_health_check(
