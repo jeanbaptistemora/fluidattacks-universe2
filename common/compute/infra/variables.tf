@@ -381,6 +381,34 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_scheduler_reset_expired_accepted_findings = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.reset_expired_accepted_findings.main",
+      ]
+
+      schedule_expression = "cron(0 0 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_reset_expired_accepted_findings"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_review_machine_executions = {
       enabled = false
       command = [
@@ -432,6 +460,34 @@ locals {
 
       tags = {
         "Name"               = "integrates_scheduler_update_group_toe_vulns"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_update_portfolios = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.update_portfolios.main",
+      ]
+
+      schedule_expression = "cron(0 7,14 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_update_portfolios"
         "management:area"    = "cost"
         "management:product" = "integrates"
         "management:type"    = "product"
