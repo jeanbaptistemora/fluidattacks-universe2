@@ -5,6 +5,7 @@ from aioextensions import (
     collect,
     in_thread,
 )
+import authz
 from context import (
     BASE_URL,
 )
@@ -13,9 +14,13 @@ from db_model.findings.types import (
 )
 from db_model.groups.types import (
     Group,
+    GroupState,
 )
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
+)
+from group_access import (
+    domain as group_access_domain,
 )
 import html
 from mailer import (
@@ -105,13 +110,12 @@ async def delete_group(
     )
 
 
-async def update_group(
+async def update_group(  # pylint: disable=too-many-locals
     *,
     comments: str,
     group_name: str,
+    group_state: GroupState,
     had_asm: bool,
-    had_machine: bool,
-    had_squad: bool,
     has_asm: bool,
     has_machine: bool,
     has_squad: bool,
@@ -120,43 +124,96 @@ async def update_group(
     service: str,
     subscription: str,
 ) -> bool:
-    translations: Dict[Union[str, bool], str] = {
+    old_subscription: str = str(group_state.type.value).lower()
+    old_service = group_state.service
+    translations: dict[Any, str] = {
         "continuous": "Continuous Hacking",
         "oneshot": "One-Shot Hacking",
         True: "Active",
         False: "Inactive",
     }
+    group_changes: dict[str, Any] = {
+        "Name": group_name,
+        "Type": {
+            "from": translations.get(old_subscription, old_subscription),
+            "to": translations.get(subscription, subscription),
+        },
+        "Service": {
+            "from": str(old_service.value if old_service else "").capitalize(),
+            "to": service.capitalize(),
+        },
+        "ASM": {
+            "from": translations[had_asm],
+            "to": translations[has_asm],
+        },
+        "Machine": {
+            "from": translations[group_state.has_machine],
+            "to": translations[has_machine],
+        },
+        "Squad": {
+            "from": translations[group_state.has_squad],
+            "to": translations[has_squad],
+        },
+        "Comments": html.escape(comments, quote=True),
+        "Reason": reason.replace("_", " ").capitalize(),
+    }
+
+    description_body: str = ""
+
+    for key, value in group_changes.items():
+        description_body += f"- {key}: "
+        description_body += (
+            f"{value}\n"
+            if key in ["Comments", "Reason", "Name"]
+            else f"\n\tfrom: {value['from']}\n\tto: {value['to']}\n"
+        )
+
+    description: str = (
+        "You are receiving this email because you have edited a group through "
+        "ASM by Fluid Attacks. \n\nHere are the details of the group:"
+        f"\n{description_body}\n\nIf you require any further information, "
+        "do not hesitate to contact us."
+    )
+
+    await send_mail_services(
+        group_name=group_name,
+        group_changes=group_changes,
+        requester_email=requester_email,
+    )
 
     return cast(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
             subject=f"[ASM] Group edited: {group_name}",
-            description=f"""
-                You are receiving this email because you have edited a group
-                through ASM by Fluid Attacks.
-
-                Here are the details of the group:
-                - Name: {group_name}
-                - Type: {translations.get(subscription, subscription)}
-                - Service: {service.capitalize()}
-                - ASM:
-                    from: {translations[had_asm]}
-                    to: {translations[has_asm]}
-                - Machine:
-                    from: {translations[had_machine]}
-                    to: {translations[has_machine]}
-                - Squad:
-                    from: {translations[had_squad]}
-                    to: {translations[has_squad]}
-                - Comments: {html.escape(comments, quote=True)}
-                - Reason: {reason}
-
-                If you require any further information,
-                do not hesitate to contact us.
-            """,
+            description=description,
             requester_email=requester_email,
         ),
+    )
+
+
+async def send_mail_services(
+    *,
+    group_name: str,
+    group_changes: dict[str, Any],
+    requester_email: str,
+) -> None:
+    users = await group_access_domain.get_group_users(group_name, active=True)
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await groups_mail.send_mail_updated_services(
+        group_name=group_name,
+        responsible=requester_email,
+        group_changes=group_changes,
+        report_date=datetime_utils.get_iso_date(),
+        email_to=email_list,
     )
 
 

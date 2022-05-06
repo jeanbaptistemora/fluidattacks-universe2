@@ -280,7 +280,7 @@ async def send_mail_updated_services(
             "group_name": group_name,
             "responsible": responsible,
             "group_changes": group_changes,
-            "report_date": report_date,
+            "report_date": datetime_utils.get_date_from_iso_str(report_date),
         },
         tags=GENERAL_TAG,
         subject=(f"[ASM] Group edited: {group_name}"),

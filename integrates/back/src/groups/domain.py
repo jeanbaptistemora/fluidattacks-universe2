@@ -808,9 +808,8 @@ async def update_group(
         await notifications_domain.update_group(
             comments=comments,
             group_name=group_name,
+            group_state=group.state,
             had_asm=True,
-            had_machine=group.state.has_machine,
-            had_squad=group.state.has_squad,
             has_asm=has_asm,
             has_machine=has_machine,
             has_squad=has_squad,
