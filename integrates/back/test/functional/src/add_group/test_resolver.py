@@ -41,7 +41,7 @@ from typing import (
 async def test_add_group(populate: bool, email: str) -> None:
     assert populate
     org_name = "orgtest"
-    org_id = await orgs_domain.get_id_by_name(org_name)
+    org_id = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     group_name = "group1"
     result: dict[str, Any] = await get_result(
         user=email, org=org_name, group=group_name

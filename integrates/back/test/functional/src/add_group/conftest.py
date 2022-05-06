@@ -2,6 +2,17 @@
 from back.test import (
     db,
 )
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
+)
 import pytest
 from typing import (
     Any,
@@ -25,38 +36,43 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "policy": {},
             },
         ],
-        "groups": [
+        "groups": [],
+        "groups_typed": [
             {
-                "project_name": "group2",
-                "description": "-",
-                "language": "en",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_drills": True,
-                        "has_forces": True,
-                        "requester": "unknown",
-                        "service": "BLACK",
-                        "type": "oneshot",
-                    }
-                ],
-                "project_status": "ACTIVE",
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group2",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=True,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.BLACK,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.SQUAD,
+                        type=GroupSubscriptionType.ONESHOT,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                ),
             },
             {
-                "project_name": "group3",
-                "description": "-",
-                "language": "en",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_drills": False,
-                        "has_forces": True,
-                        "requester": "unknown",
-                        "service": "BLACK",
-                        "type": "oneshot",
-                    }
-                ],
-                "project_status": "DELETED",
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group3",
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=False,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.BLACK,
+                        status=GroupStateStatus.DELETED,
+                        tier=GroupTier.SQUAD,
+                        type=GroupSubscriptionType.ONESHOT,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                ),
             },
         ],
     }
