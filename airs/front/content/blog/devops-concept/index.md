@@ -2,7 +2,7 @@
 slug: devops-concept/
 title: Breaking Down DevOps
 date: 2020-05-05
-subtitle: The central components of DevOps definition
+subtitle: The central components of a DevOps definition
 category: philosophy
 tags: devops, software, information, web, cloud, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
@@ -199,5 +199,7 @@ concept.
 
 And what does that term mean?
 
-Don't worry;
-surely [we'll talk about it later](../devsecops-concept/).
+We break down the concept
+[here](../devsecops-concept/)
+and mention some of its basics
+[here](../what-is-devsecops/).

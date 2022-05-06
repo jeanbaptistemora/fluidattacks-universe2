@@ -2,7 +2,7 @@
 slug: devsecops-concept/
 title: Everyone Is Responsible for SEC
 date: 2020-05-14
-subtitle: An overview of DevSecOps, better SecDevOps
+subtitle: An overview of DevSecOps or, perhaps better, SecDevOps
 category: philosophy
 tags: security, devops, software, information, web, cloud
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330852/blog/devsecops-concept/cover_c4reuk.webp
@@ -203,7 +203,7 @@ security.
 Companies that decide to implement the [DevSecOps](../../solutions/devsecops/)
 approach
 (or, perhaps better said, SecDevOps)
-will achieve significant benefits,
+will achieve [significant benefits](../what-is-devsecops/),
 especially in the quality and security of their processes and products.
 Would you like some advice on how to do it?
 [Get in touch with our team\!](../../contact-us/)
