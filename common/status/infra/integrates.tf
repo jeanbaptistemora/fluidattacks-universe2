@@ -83,9 +83,15 @@ resource "checkly_check" "integrates_api" {
         group(groupName: "abuja") {
           permissions
           findings {
-            vulnerabilities(state: "open") {
-              id
-          where
+            vulnerabilitiesConnection(
+              state: OPEN
+            ) {
+                edges {
+                    node {
+                        id
+                        where
+                    }
+                }
             }
           }
         }
