@@ -1,7 +1,7 @@
 // Needed to setup Jest mocks
 /* eslint-disable fp/no-mutating-assign */
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import { configure } from "enzyme";
-import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import fetchMock from "fetch-mock";
 
 Object.assign(global, {
@@ -24,8 +24,8 @@ Object.assign(global, {
 
 // Configure enzyme
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-configure({ adapter: new ReactSixteenAdapter() });
-jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
+configure({ adapter: new Adapter() });
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 
 // Disable bugsnag calls
 jest.mock("@bugsnag/expo");
