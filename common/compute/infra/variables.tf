@@ -73,6 +73,90 @@ locals {
         "management:type"    = "product"
       }
     }
+    integrates_scheduler_delete_imamura_stakeholders = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.delete_imamura_stakeholders.main",
+      ]
+
+      schedule_expression = "cron(0 1 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_delete_imamura_stakeholders"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_delete_obsolete_groups = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.delete_obsolete_groups.main",
+      ]
+
+      schedule_expression = "cron(0 2 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_delete_obsolete_groups"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_delete_obsolete_orgs = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.delete_obsolete_orgs.main",
+      ]
+
+      schedule_expression = "cron(0 9 ? * * *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_delete_obsolete_orgs"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
     integrates_scheduler_event_report = {
       enabled = false
       command = [
@@ -96,6 +180,34 @@ locals {
 
       tags = {
         "Name"               = "integrates_scheduler_event_report"
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
+    }
+    integrates_scheduler_get_remediated_findings = {
+      enabled = false
+      command = [
+        "m",
+        "f",
+        "/integrates/utils/scheduler",
+        "prod",
+        "schedulers.get_remediated_findings.main",
+      ]
+
+      schedule_expression = "cron(30 5,16 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 7200
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "integrates_scheduler_get_remediated_findings"
         "management:area"    = "cost"
         "management:product" = "integrates"
         "management:type"    = "product"
