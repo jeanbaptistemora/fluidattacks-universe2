@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ._core import (
+    CheckId,
+)
 from .results import (
     CheckResultClient,
     CheckResultObj,
@@ -27,9 +30,6 @@ from fa_purity.json.value.transform import (
 from tap_checkly.api2._raw import (
     Credentials,
     RawClient,
-)
-from tap_checkly.api2.checks.core import (
-    CheckId,
 )
 
 

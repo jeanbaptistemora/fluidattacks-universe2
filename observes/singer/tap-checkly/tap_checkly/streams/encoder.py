@@ -10,9 +10,6 @@ from fa_purity.json.factory import (
 from tap_checkly.api2.alert_channels import (
     AlertChannelObj,
 )
-from tap_checkly.api2.checks.core import (
-    CheckId,
-)
 from tap_checkly.api2.checks.results import (
     CheckResultApi,
     CheckResultObj,
@@ -20,6 +17,7 @@ from tap_checkly.api2.checks.results import (
     Timings,
 )
 from tap_checkly.api2.id_objs import (
+    CheckId,
     IndexedObj,
 )
 

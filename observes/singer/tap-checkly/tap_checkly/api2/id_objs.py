@@ -21,3 +21,13 @@ class IndexedObj(SupportsKind2["IndexedObj[_ID, _T]", _ID, _T]):
 @dataclass(frozen=True)
 class AlertChannelId:
     id_int: int
+
+
+@dataclass(frozen=True)
+class CheckGroupId:
+    id_str: str
+
+
+@dataclass(frozen=True)
+class CheckId:
+    id_str: str
