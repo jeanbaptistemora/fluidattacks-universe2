@@ -22,12 +22,15 @@ class AWSS3Bucket(NamedTuple):
     column: int
     data: List[Any]
     line: int
+    name: Optional[str] = None
+    tf_reference: Optional[str] = None
 
 
 class AWSS3SSEConfig(NamedTuple):
     column: int
     data: List[Any]
     line: int
+    bucket: Optional[str] = None
 
 
 class AWSS3BucketPolicy(NamedTuple):

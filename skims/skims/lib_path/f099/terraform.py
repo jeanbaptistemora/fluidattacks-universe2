@@ -1,12 +1,10 @@
 from aws.model import (
     AWSS3Bucket,
+    AWSS3SSEConfig,
 )
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
-)
-from metaloaders.model import (
-    Node,
 )
 from model.core_model import (
     MethodsEnum,
@@ -17,26 +15,39 @@ from parse_hcl2.common import (
 )
 from parse_hcl2.structure.aws import (
     iter_s3_buckets as tfm_iter_s3_buckets,
+    iter_s3_sse_configuration as tfm_iter_s3_sse_configuration,
 )
 from typing import (
     Any,
     Iterator,
-    Union,
 )
 
 
 def _tfm_unencrypted_buckets_iterate_vulnerabilities(
-    buckets_iterator: Iterator[Union[AWSS3Bucket, Node]]
-) -> Iterator[Union[AWSS3Bucket, Node]]:
+    buckets_iterator: Iterator[AWSS3Bucket],
+    sse_config_iterator: Iterator[AWSS3SSEConfig],
+) -> Iterator[AWSS3Bucket]:
+    sse_configs = list(sse_config_iterator)
     for bucket in buckets_iterator:
-        if isinstance(bucket, Node):
-            if not bucket.raw.get("BucketEncryption", None):
-                yield bucket
-        elif isinstance(bucket, AWSS3Bucket) and not get_argument(
-            key="server_side_encryption_configuration",
+        if not get_argument(
             body=bucket.data,
+            key="server_side_encryption_configuration",
         ):
-            yield bucket
+            has_sse_config: bool = False
+            for sse_config in sse_configs:
+                if (
+                    bucket.name is not None
+                    and bucket.tf_reference is not None
+                    and sse_config.bucket is not None
+                    and (
+                        sse_config.bucket == bucket.name
+                        or sse_config.bucket.startswith(bucket.tf_reference)
+                    )
+                ):
+                    has_sse_config = True
+                    break
+            if not has_sse_config:
+                yield bucket
 
 
 def tfm_unencrypted_buckets(
@@ -47,7 +58,8 @@ def tfm_unencrypted_buckets(
         description_key="lib_path.f099.unencrypted_buckets",
         iterator=get_cloud_iterator(
             _tfm_unencrypted_buckets_iterate_vulnerabilities(
-                buckets_iterator=tfm_iter_s3_buckets(model=model)
+                buckets_iterator=tfm_iter_s3_buckets(model=model),
+                sse_config_iterator=tfm_iter_s3_sse_configuration(model=model),
             )
         ),
         path=path,

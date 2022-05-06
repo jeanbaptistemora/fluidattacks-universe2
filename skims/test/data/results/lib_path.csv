@@ -18185,23 +18185,23 @@ F099,lines,namespace/skims/test/data/lib_path/f099/rebase_check.yaml.json,5,311,
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
 F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
->  1 | resource ""aws_s3_bucket"" ""bucket"" {
-   2 |   bucket = ""fluidattacks.com""
+>  1 | resource ""aws_s3_bucket"" ""unencrypted_bucket_1"" {
+   2 |   bucket = ""my_unencrypted_bucket_1""
    3 |   acl    = ""private""
    4 |   region = var.region
    5 | }
    6 |
-   7 | resource ""aws_kms_key"" ""mykey"" {
+   7 | resource ""aws_kms_key"" ""bucket_encryption_key"" {
    8 |   description             = ""This key is used to encrypt bucket objects""
    9 |   deletion_window_in_days = 10
   10 | }
   11 |
-  12 | resource ""aws_s3_bucket"" ""mybucket"" {
-  13 |   bucket = ""mybucket""
+  12 | resource ""aws_s3_bucket"" ""encrypted_bucket_1"" {
+  13 |   bucket = ""my_encrypted_bucket_1""
   14 |   server_side_encryption_configuration {
   15 |     rule {
   16 |       apply_server_side_encryption_by_default {
-  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
   18 |         sse_algorithm     = ""aws:kms""
   19 |       }
   20 |     }
@@ -25882,22 +25882,22 @@ F400,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,1,
      ^ Col 0
 ",terraform.tfm_s3_bucket_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
-   2 |   bucket = ""fluidattacks.com""
+   2 |   bucket = ""my_unencrypted_bucket_1""
    3 |   acl    = ""private""
    4 |   region = var.region
    5 | }
    6 |
-   7 | resource ""aws_kms_key"" ""mykey"" {
+   7 | resource ""aws_kms_key"" ""bucket_encryption_key"" {
    8 |   description             = ""This key is used to encrypt bucket objects""
    9 |   deletion_window_in_days = 10
   10 | }
   11 |
-> 12 | resource ""aws_s3_bucket"" ""mybucket"" {
-  13 |   bucket = ""mybucket""
+> 12 | resource ""aws_s3_bucket"" ""encrypted_bucket_1"" {
+  13 |   bucket = ""my_encrypted_bucket_1""
   14 |   server_side_encryption_configuration {
   15 |     rule {
   16 |       apply_server_side_encryption_by_default {
-  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
   18 |         sse_algorithm     = ""aws:kms""
   19 |       }
   20 |     }
@@ -25905,24 +25905,72 @@ F400,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12
   22 | }
      ^ Col 0
 ",terraform.tfm_s3_bucket_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,24,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+  14 |   server_side_encryption_configuration {
+  15 |     rule {
+  16 |       apply_server_side_encryption_by_default {
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
+  18 |         sse_algorithm     = ""aws:kms""
+  19 |       }
+  20 |     }
+  21 |   }
+  22 | }
+  23 |
+> 24 | resource ""aws_s3_bucket"" ""encrypted_bucket_2"" {
+  25 |   bucket = ""my_encrypted_bucket_2""
+  26 |   acl    = ""private""
+  27 |   region = var.region
+  28 | }
+  29 |
+  30 | resource ""aws_s3_bucket_server_side_encryption_configuration"" ""bucket_2_encryption"" {
+  31 |   bucket = ""my_encrypted_bucket_2""
+  32 |
+  33 |   rule {
+  34 |     apply_server_side_encryption_by_default {
+     ^ Col 0
+",terraform.tfm_s3_bucket_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,40,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+  30 | resource ""aws_s3_bucket_server_side_encryption_configuration"" ""bucket_2_encryption"" {
+  31 |   bucket = ""my_encrypted_bucket_2""
+  32 |
+  33 |   rule {
+  34 |     apply_server_side_encryption_by_default {
+  35 |       sse_algorithm = ""AES256""
+  36 |     }
+  37 |   }
+  38 | }
+  39 |
+> 40 | resource ""aws_s3_bucket"" ""encrypted_bucket_3"" {
+  41 |   bucket = ""my_encrypted_bucket_3""
+  42 |   acl    = ""private""
+  43 |   region = var.region
+  44 | }
+  45 |
+  46 | resource ""aws_s3_bucket_server_side_encryption_configuration"" ""bucket_3_encryption"" {
+  47 |   bucket = aws_s3_bucket.encrypted_bucket_3.id
+  48 |
+  49 |   rule {
+  50 |     apply_server_side_encryption_by_default {
+     ^ Col 0
+",terraform.tfm_s3_bucket_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
->  1 | resource ""aws_s3_bucket"" ""bucket"" {
-   2 |   bucket = ""fluidattacks.com""
+>  1 | resource ""aws_s3_bucket"" ""unencrypted_bucket_1"" {
+   2 |   bucket = ""my_unencrypted_bucket_1""
    3 |   acl    = ""private""
    4 |   region = var.region
    5 | }
    6 |
-   7 | resource ""aws_kms_key"" ""mykey"" {
+   7 | resource ""aws_kms_key"" ""bucket_encryption_key"" {
    8 |   description             = ""This key is used to encrypt bucket objects""
    9 |   deletion_window_in_days = 10
   10 | }
   11 |
-  12 | resource ""aws_s3_bucket"" ""mybucket"" {
-  13 |   bucket = ""mybucket""
+  12 | resource ""aws_s3_bucket"" ""encrypted_bucket_1"" {
+  13 |   bucket = ""my_encrypted_bucket_1""
   14 |   server_side_encryption_configuration {
   15 |     rule {
   16 |       apply_server_side_encryption_by_default {
-  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
   18 |         sse_algorithm     = ""aws:kms""
   19 |       }
   20 |     }
@@ -28495,22 +28543,22 @@ F335,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,1,
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
 F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
-   2 |   bucket = ""fluidattacks.com""
+   2 |   bucket = ""my_unencrypted_bucket_1""
    3 |   acl    = ""private""
    4 |   region = var.region
    5 | }
    6 |
-   7 | resource ""aws_kms_key"" ""mykey"" {
+   7 | resource ""aws_kms_key"" ""bucket_encryption_key"" {
    8 |   description             = ""This key is used to encrypt bucket objects""
    9 |   deletion_window_in_days = 10
   10 | }
   11 |
-> 12 | resource ""aws_s3_bucket"" ""mybucket"" {
-  13 |   bucket = ""mybucket""
+> 12 | resource ""aws_s3_bucket"" ""encrypted_bucket_1"" {
+  13 |   bucket = ""my_encrypted_bucket_1""
   14 |   server_side_encryption_configuration {
   15 |     rule {
   16 |       apply_server_side_encryption_by_default {
-  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
   18 |         sse_algorithm     = ""aws:kms""
   19 |       }
   20 |     }
@@ -28518,24 +28566,72 @@ F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,12
   22 | }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
+F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,24,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+  14 |   server_side_encryption_configuration {
+  15 |     rule {
+  16 |       apply_server_side_encryption_by_default {
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
+  18 |         sse_algorithm     = ""aws:kms""
+  19 |       }
+  20 |     }
+  21 |   }
+  22 | }
+  23 |
+> 24 | resource ""aws_s3_bucket"" ""encrypted_bucket_2"" {
+  25 |   bucket = ""my_encrypted_bucket_2""
+  26 |   acl    = ""private""
+  27 |   region = var.region
+  28 | }
+  29 |
+  30 | resource ""aws_s3_bucket_server_side_encryption_configuration"" ""bucket_2_encryption"" {
+  31 |   bucket = ""my_encrypted_bucket_2""
+  32 |
+  33 |   rule {
+  34 |     apply_server_side_encryption_by_default {
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
+F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,40,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+  30 | resource ""aws_s3_bucket_server_side_encryption_configuration"" ""bucket_2_encryption"" {
+  31 |   bucket = ""my_encrypted_bucket_2""
+  32 |
+  33 |   rule {
+  34 |     apply_server_side_encryption_by_default {
+  35 |       sse_algorithm = ""AES256""
+  36 |     }
+  37 |   }
+  38 | }
+  39 |
+> 40 | resource ""aws_s3_bucket"" ""encrypted_bucket_3"" {
+  41 |   bucket = ""my_encrypted_bucket_3""
+  42 |   acl    = ""private""
+  43 |   region = var.region
+  44 | }
+  45 |
+  46 | resource ""aws_s3_bucket_server_side_encryption_configuration"" ""bucket_3_encryption"" {
+  47 |   bucket = aws_s3_bucket.encrypted_bucket_3.id
+  48 |
+  49 |   rule {
+  50 |     apply_server_side_encryption_by_default {
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
 F335,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
->  1 | resource ""aws_s3_bucket"" ""bucket"" {
-   2 |   bucket = ""fluidattacks.com""
+>  1 | resource ""aws_s3_bucket"" ""unencrypted_bucket_1"" {
+   2 |   bucket = ""my_unencrypted_bucket_1""
    3 |   acl    = ""private""
    4 |   region = var.region
    5 | }
    6 |
-   7 | resource ""aws_kms_key"" ""mykey"" {
+   7 | resource ""aws_kms_key"" ""bucket_encryption_key"" {
    8 |   description             = ""This key is used to encrypt bucket objects""
    9 |   deletion_window_in_days = 10
   10 | }
   11 |
-  12 | resource ""aws_s3_bucket"" ""mybucket"" {
-  13 |   bucket = ""mybucket""
+  12 | resource ""aws_s3_bucket"" ""encrypted_bucket_1"" {
+  13 |   bucket = ""my_encrypted_bucket_1""
   14 |   server_side_encryption_configuration {
   15 |     rule {
   16 |       apply_server_side_encryption_by_default {
-  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
   18 |         sse_algorithm     = ""aws:kms""
   19 |       }
   20 |     }

@@ -33,6 +33,7 @@ from itertools import (
 )
 from parse_hcl2.common import (
     get_attribute_by_block,
+    get_attribute_value,
     get_block_attribute,
     get_block_block,
     iterate_resources,
@@ -176,13 +177,15 @@ def iterate_managed_policy_arns(
             )
 
 
-def iter_s3_buckets(model: Any) -> Iterator[Any]:
+def iter_s3_buckets(model: Any) -> Iterator[AWSS3Bucket]:
     iterator = iterate_resources(model, "resource", "aws_s3_bucket")
     for bucket in iterator:
         yield AWSS3Bucket(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,
+            name=get_attribute_value(bucket.body, "bucket"),
+            tf_reference=".".join(bucket.namespace[1:]),
         )
 
 
@@ -192,6 +195,7 @@ def iter_s3_sse_configuration(model: Any) -> Iterator[AWSS3SSEConfig]:
     )
     for sse_config in iterator:
         yield AWSS3SSEConfig(
+            bucket=get_attribute_value(sse_config.body, "bucket"),
             data=sse_config.body,
             column=sse_config.column,
             line=sse_config.line,
