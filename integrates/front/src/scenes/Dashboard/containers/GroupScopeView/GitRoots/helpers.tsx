@@ -77,6 +77,27 @@ const gitModalSchema = (
               }
             )
         ),
+        healthCheckConfirm: array()
+          .of(string())
+          .test(
+            "isChecked",
+            translate.t("validations.required"),
+            (): boolean => {
+              const { healthCheckConfirm, includesHealthCheck } = values;
+              if (healthCheckConfirm === undefined) {
+                return false;
+              }
+
+              return (
+                ((includesHealthCheck ?? false) &&
+                  healthCheckConfirm.includes("includeA")) ||
+                (!(includesHealthCheck ?? true) &&
+                  healthCheckConfirm.includes("rejectA") &&
+                  healthCheckConfirm.includes("rejectB") &&
+                  healthCheckConfirm.includes("rejectC"))
+              );
+            }
+          ),
         includesHealthCheck: boolean()
           .nullable()
           .required(translate.t("validations.required")),

@@ -210,23 +210,6 @@ const Repository: React.FC<IRepositoryProps> = ({
             : !values.credentials.token);
   };
 
-  function checkedValidation(list: string[]): string | undefined {
-    if (isCheckedHealthCheck) {
-      return undefined;
-    }
-    if (
-      ((confirmHealthCheck ?? false) && list.includes("includeA")) ||
-      (!(confirmHealthCheck ?? true) &&
-        list.includes("rejectA") &&
-        list.includes("rejectB") &&
-        list.includes("rejectC"))
-    ) {
-      return undefined;
-    }
-
-    return t("validations.required");
-  }
-
   function onChangeExits(event: React.ChangeEvent<HTMLInputElement>): void {
     if (event.target.value === "") {
       formRef.current?.setFieldValue("credentials.type", "");
@@ -257,7 +240,7 @@ const Repository: React.FC<IRepositoryProps> = ({
           isDuplicated
         )}
       >
-        {({ dirty, isSubmitting, values }): JSX.Element => (
+        {({ dirty, errors, isSubmitting, values }): JSX.Element => (
           <React.Fragment>
             <Form>
               <React.Fragment>
@@ -538,7 +521,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                             isRootChange
                               ? undefined
                               : rootChanged(values)}
-                            {confirmHealthCheck ?? false ? (
+                            {values.includesHealthCheck ?? false ? (
                               <Alert>
                                 <Field
                                   component={FormikCheckbox}
@@ -546,7 +529,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                                   label={""}
                                   name={"healthCheckConfirm"}
                                   type={"checkbox"}
-                                  validate={checkedValidation}
                                   value={"includeA"}
                                 >
                                   {t("group.scope.git.healthCheck.accept")}
@@ -554,7 +536,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 </Field>
                               </Alert>
                             ) : undefined}
-                            {confirmHealthCheck ?? true ? undefined : (
+                            {values.includesHealthCheck ?? true ? undefined : (
                               <Alert>
                                 <Field
                                   component={FormikCheckbox}
@@ -584,7 +566,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                                   label={""}
                                   name={"healthCheckConfirm"}
                                   type={"checkbox"}
-                                  validate={checkedValidation}
                                   value={"rejectC"}
                                 >
                                   {t("group.scope.git.healthCheck.rejectC")}
@@ -779,8 +760,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         </ExternalLink>
                         <ul>
                           {values.includesHealthCheck !== null &&
-                            checkedValidation(values.healthCheckConfirm) !==
-                              undefined && (
+                            errors.healthCheckConfirm !== undefined && (
                               <li>
                                 {t("tours.addGitRoot.healthCheckConditions")}
                               </li>
@@ -790,24 +770,14 @@ const Repository: React.FC<IRepositoryProps> = ({
                     ),
                     hideFooter:
                       values.includesHealthCheck === null ||
-                      checkedValidation(values.healthCheckConfirm) !==
-                        undefined,
+                      errors.healthCheckConfirm !== undefined,
                     placement: "left",
                     target: "#git-root-add-health-check",
                   },
                   {
                     ...BaseStep,
-                    content: t("tours.addGitRoot.healthCheckConditions"),
-                    hideFooter:
-                      checkedValidation(values.healthCheckConfirm) !==
-                      undefined,
-                    placement: "left",
-                    target: "#git-root-add-health-check-confirm",
-                  },
-                  {
-                    ...BaseStep,
                     content:
-                      !isGitAccessible || !dirty || isSubmitting
+                      !isGitAccessible || !dirty
                         ? t("tours.addGitRoot.proceedButton.invalidForm")
                         : t("tours.addGitRoot.proceedButton.validForm"),
                     target: "#git-root-add-proceed",
