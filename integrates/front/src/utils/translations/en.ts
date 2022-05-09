@@ -469,7 +469,7 @@ export const enTranslations: ResourceKey = {
         False: "No",
         True: "Yes",
       },
-      closingPercentage: "Closing %",
+      closingPercentage: "Remediation %",
       description: {
         exploitable: "Exploitable:",
         firstSeen: "First seen:",
