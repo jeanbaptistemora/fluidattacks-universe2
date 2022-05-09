@@ -1,22 +1,22 @@
-resource "aws_s3_bucket" "common_logging_bucket" {
-  bucket = "common_logging"
+resource "aws_s3_bucket" "common_logging" {
+  bucket = "common.logging"
 
   tags = {
-    "Name"               = "common_logging"
+    "Name"               = "common.logging"
     "management:area"    = "innovation"
     "management:product" = "common"
     "management:type"    = "product"
   }
 }
 
-resource "aws_s3_bucket_acl" "common_logging_bucket" {
-  bucket = aws_s3_bucket.common_logging_bucket.id
+resource "aws_s3_bucket_acl" "common_logging" {
+  bucket = aws_s3_bucket.common_logging.id
 
   acl = "private"
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "common_logging_bucket" {
-  bucket = aws_s3_bucket.common_logging_bucket.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "common_logging" {
+  bucket = aws_s3_bucket.common_logging.id
 
   rule {
     apply_server_side_encryption_by_default {
