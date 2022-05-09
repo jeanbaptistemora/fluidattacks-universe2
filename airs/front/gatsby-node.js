@@ -3,6 +3,7 @@ const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
+const mdxDefaultTemplate = path.resolve(`./src/templates/mdxPageArticle.tsx`);
 const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
 
 const setTemplate = (template) =>
@@ -44,6 +45,36 @@ const PageMaker = (createPage) => {
               slug: `/blog/${post.node.frontmatter.slug}`,
             },
           });
+        }
+      });
+    },
+  };
+};
+
+const MdxPageMaker = (createPage) => {
+  return {
+    createTemplatePage(posts) {
+      _.each(posts, (post) => {
+        if (post.node.fields.slug.startsWith("/pages/")) {
+          if (post.node.frontmatter.template == null) {
+            createPage({
+              path: `${post.node.frontmatter.slug}`,
+              component: mdxDefaultTemplate,
+              context: {
+                id: post.node.id,
+                slug: `/pages/${post.node.frontmatter.slug}`,
+              },
+            });
+          } else {
+            createPage({
+              path: `${post.node.frontmatter.slug}`,
+              component: setTemplate(post.node.frontmatter.template),
+              context: {
+                id: post.node.id,
+                slug: `/pages/${post.node.frontmatter.slug}`,
+              },
+            });
+          }
         }
       });
     },
@@ -132,6 +163,7 @@ const createAuthorPages = (createPage, posts) => {
 
 exports.createPages = ({ graphql, actions: { createPage } }) => {
   const pageMaker = PageMaker(createPage);
+  const mdxPageMaker = MdxPageMaker(createPage);
 
   // The “graphql” function allows us to run arbitrary
   // queries against the local Drupal graphql schema. Think of
@@ -158,6 +190,19 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
             }
           }
         }
+        allMdx(limit: 2000) {
+          edges {
+            node {
+              id
+              fields {
+                slug
+              }
+              frontmatter {
+                slug
+              }
+            }
+          }
+        }
       }
     `
   ).then((result) => {
@@ -166,8 +211,10 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
     }
 
     const posts = result.data.allMarkdownRemark.edges;
+    const mdxPosts = result.data.allMdx.edges;
 
     pageMaker.createTemplatePage(posts);
+    mdxPageMaker.createTemplatePage(mdxPosts);
     createTagPages(createPage, posts);
     createAuthorPages(createPage, posts);
     createCategoryPages(createPage, posts);
@@ -177,7 +224,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
 exports.onCreateNode = async ({ node, actions, getNode, loadNodeContent }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode });
     createNodeField({
       name: `slug`,
