@@ -1,6 +1,12 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organization.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     require_login,
@@ -8,12 +14,6 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from organizations import (
-    domain as orgs_domain,
-)
-from typing import (
-    Any,
 )
 
 
@@ -23,9 +23,12 @@ from typing import (
     require_organization_access,
 )
 async def resolve(
-    _parent: None, _info: GraphQLResolveInfo, **kwargs: str
-) -> dict[str, Any]:
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
+) -> Organization:
     organization_id: str = kwargs["organization_id"]
-    organization: dict[str, Any] = await orgs_domain.get_by_id(organization_id)
+    loaders: Dataloaders = info.context.loaders
+    organization: Organization = await loaders.organization_typed.load(
+        organization_id
+    )
 
     return organization

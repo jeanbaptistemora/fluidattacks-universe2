@@ -257,7 +257,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             kwargs.get("identifier")
             or kwargs.get("organization_id")
             or kwargs.get("organization_name")
-            or args[0]["id"]
+            or args[0].id
         )
         organization_id = (
             organization_identifier
