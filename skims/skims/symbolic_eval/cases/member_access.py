@@ -4,6 +4,9 @@ from model.core_model import (
 from symbolic_eval.f004.member_access import (
     evaluate as evaluate_member_access_f004,
 )
+from symbolic_eval.f008.member_access import (
+    evaluate as evaluate_member_access_f008,
+)
 from symbolic_eval.f021.member_access import (
     evaluate as evaluate_member_access_f021,
 )
@@ -27,6 +30,7 @@ from typing import (
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F004: evaluate_member_access_f004,
+    FindingEnum.F008: evaluate_member_access_f008,
     FindingEnum.F021: evaluate_member_access_f021,
     FindingEnum.F096: evaluate_member_access_f096,
     FindingEnum.F100: evaluate_member_access_f100,
