@@ -686,6 +686,240 @@ locals {
         "management:type"    = "product"
       }
     }
+    observes_etl_code_compute_bills = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/code/compute-bills",
+      ]
+
+      schedule_expression = "cron(0 2,17 * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_code_compute_bills"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_dynamo_centralize = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/dynamo/centralize",
+      ]
+
+      schedule_expression = "cron(0 12-23/3 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_dynamo_centralize"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_mixpanel = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/mixpanel",
+      ]
+
+      schedule_expression = "cron(0 11 * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_mixpanel"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_timedoctor = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/timedoctor",
+      ]
+
+      schedule_expression = "cron(0 9 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_timedoctor"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_timedoctor_backup = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/timedoctor/backup",
+      ]
+
+      schedule_expression = "cron(0 4 1,15 * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_timedoctor_backup"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_timedoctor_refresh_token = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/job/timedoctor/refresh-token",
+      ]
+
+      schedule_expression = "cron(0 * * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_timedoctor_refresh_token"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_zoho_crm_fluid = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/zoho-crm/fluid",
+      ]
+
+      schedule_expression = "cron(0 12 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_zoho_crm_fluid"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_etl_zoho_crm_fluid_prepare = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/etl/zoho-crm/fluid/prepare",
+      ]
+
+      schedule_expression = "cron(0 10 ? * 2-6 *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_etl_zoho_crm_fluid_prepare"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
+    observes_job_scheduler = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/observes/job/scheduler",
+      ]
+
+      schedule_expression = "cron(0 * * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "observes_job_scheduler"
+        "management:area"    = "cost"
+        "management:product" = "observes"
+        "management:type"    = "product"
+      }
+    }
   }
 }
 
