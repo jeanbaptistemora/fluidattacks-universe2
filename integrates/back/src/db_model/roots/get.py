@@ -19,9 +19,6 @@ from datetime import (
 from db_model import (
     TABLE,
 )
-from db_model.enums import (
-    GitCloningStatus,
-)
 from db_model.roots.constants import (
     ORG_INDEX_METADATA,
 )
@@ -30,26 +27,18 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
-    GitRoot,
-    GitRootCloning,
-    GitRootState,
-    IPRoot,
-    IPRootState,
     MachineFindingResult,
     Root,
     RootMachineExecution,
     RootState,
-    RootUnreliableIndicators,
     Secret,
-    URLRoot,
-    URLRootState,
+)
+from db_model.roots.utils import (
+    format_root,
 )
 from dynamodb import (
     keys,
     operations,
-)
-from dynamodb.types import (
-    Item,
 )
 from s3.operations import (
     aio_client,
@@ -63,102 +52,6 @@ from typing import (
 )
 
 
-def format_unreliable_indicators(
-    item: Item,
-) -> RootUnreliableIndicators:
-    return RootUnreliableIndicators(
-        unreliable_last_status_update=item["unreliable_last_status_update"]
-    )
-
-
-def _format_root(*, item: Item) -> Root:
-    root_id = item["pk"].split("#")[1]
-    group_name = item["sk"].split("#")[1]
-    organization_name = item["pk_2"].split("#")[1]
-    state = item["state"]
-    unreliable_indicators = (
-        format_unreliable_indicators(item["unreliable_indicators"])
-        if "unreliable_indicators" in item
-        else RootUnreliableIndicators()
-    )
-
-    if item["type"] == "Git":
-        cloning = item["cloning"]
-
-        return GitRoot(
-            cloning=GitRootCloning(
-                modified_date=cloning["modified_date"],
-                reason=cloning["reason"],
-                status=GitCloningStatus(cloning["status"]),
-                commit=cloning.get("commit"),
-                commit_date=cloning.get("commit_date"),
-            ),
-            group_name=group_name,
-            id=root_id,
-            organization_name=organization_name,
-            state=GitRootState(
-                branch=state["branch"],
-                environment_urls=state["environment_urls"],
-                environment=state["environment"],
-                git_environment_urls=[],
-                gitignore=state["gitignore"],
-                includes_health_check=state["includes_health_check"],
-                modified_by=state["modified_by"],
-                modified_date=state["modified_date"],
-                nickname=state["nickname"],
-                other=state.get("other"),
-                reason=state.get("reason"),
-                status=RootStatus[state["status"]],
-                url=state["url"],
-                download_url=None,
-                secrets=[],
-                upload_url=None,
-                use_vpn=state.get("use_vpn", False),
-            ),
-            type=item["type"],
-            unreliable_indicators=unreliable_indicators,
-        )
-
-    if item["type"] == "IP":
-        return IPRoot(
-            group_name=group_name,
-            id=root_id,
-            organization_name=organization_name,
-            state=IPRootState(
-                address=state["address"],
-                modified_by=state["modified_by"],
-                modified_date=state["modified_date"],
-                nickname=state["nickname"],
-                other=state.get("other"),
-                port=state["port"],
-                reason=state.get("reason"),
-                status=RootStatus[state["status"]],
-            ),
-            type=item["type"],
-            unreliable_indicators=unreliable_indicators,
-        )
-
-    return URLRoot(
-        group_name=group_name,
-        id=root_id,
-        organization_name=organization_name,
-        state=URLRootState(
-            host=state["host"],
-            modified_by=state["modified_by"],
-            modified_date=state["modified_date"],
-            nickname=state["nickname"],
-            other=state.get("other"),
-            path=state["path"],
-            port=state["port"],
-            protocol=state["protocol"],
-            reason=state.get("reason"),
-            status=RootStatus[state["status"]],
-        ),
-        type=item["type"],
-        unreliable_indicators=unreliable_indicators,
-    )
-
-
 async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
     primary_keys = tuple(
         keys.build_key(
@@ -170,7 +63,7 @@ async def _get_roots(*, root_ids: List[Tuple[str, str]]) -> Tuple[Root, ...]:
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
     if len(items) == len(root_ids):
-        return tuple(_format_root(item=item) for item in items)
+        return tuple(format_root(item) for item in items)
 
     raise RootNotFound()
 
@@ -209,7 +102,7 @@ async def _get_group_roots(*, group_name: str) -> Tuple[Root, ...]:
         table=TABLE,
     )
 
-    return tuple(_format_root(item=item) for item in response.items)
+    return tuple(format_root(item) for item in response.items)
 
 
 class GroupRootsLoader(DataLoader):
@@ -247,7 +140,7 @@ async def _get_organization_roots(
         table=TABLE,
     )
 
-    return tuple(_format_root(item=item) for item in response.items)
+    return tuple(format_root(item) for item in response.items)
 
 
 class OrganizationRootsLoader(DataLoader):
