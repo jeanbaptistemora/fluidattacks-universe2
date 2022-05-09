@@ -62,17 +62,23 @@ security vulnerabilities:
 
 ### Service status
 
+![Service Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1652122367/docs/web/analytics/groups/service_status.png)
+
 Here you can see
 if the Agent is
 active or inactive.
 
 ### Service usage
 
+![Service Usage](https://res.cloudinary.com/fluid-attacks/image/upload/v1652122427/docs/web/analytics/groups/service_usage.png)
+
 Number of times
 your team used the agent
 to check for vulnerabilities.
 
 ### Repositories and branches
+
+![Repositories And Branches](https://res.cloudinary.com/fluid-attacks/image/upload/v1652122486/docs/web/analytics/groups/repos_and_branch.png)
 
 You can run the agent
 in any of your repositories

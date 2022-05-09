@@ -54,6 +54,8 @@ from a security point of view:
 
 ## Total vulnerabilities
 
+![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
+
 Vulnerabilities are
 the minimum units of risk.
 They are tied to a system,
@@ -61,6 +63,8 @@ and a specific location
 within that system.
 
 ## Vulnerabilities being re-attacked
+
+![Vulnerability Being Re-Attacked](https://res.cloudinary.com/fluid-attacks/image/upload/v1652120561/docs/web/analytics/common/vulns_being_reattacked.png)
 
 Once your team has solved a vulnerability
 you can request a re-attack.
@@ -73,6 +77,8 @@ your team will be notified
 and the finding kept open.
 
 ## Days since last remediation
+
+![Days Since Last Remediation](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121514/docs/web/analytics/common/days_last_remediation.png)
 
 Days since a finding
 was effectively closed.
