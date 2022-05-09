@@ -10,6 +10,7 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
@@ -62,7 +63,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/repo_mock",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -93,7 +94,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/repo_mock2",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
         ),
         "toe_lines": (

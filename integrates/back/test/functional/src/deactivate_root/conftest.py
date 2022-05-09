@@ -20,6 +20,9 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.roots.enums import (
+    RootType,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -89,7 +92,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=test_status,
                     url="https://gitlab.com/fluidattacks/product",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             IPRoot(
                 group_name="group2",
@@ -105,7 +108,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
-                type="IP",
+                type=RootType.IP,
             ),
             URLRoot(
                 group_name="group2",
@@ -123,7 +126,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
-                type="URL",
+                type=RootType.URL,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -154,7 +157,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=test_status,
                     url="https://gitlab.com/fluidattacks/repo",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             IPRoot(
                 group_name="group1",
@@ -171,7 +174,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
-                type="IP",
+                type=RootType.IP,
             ),
             URLRoot(
                 group_name="group1",
@@ -189,7 +192,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=test_status,
                 ),
-                type="URL",
+                type=RootType.URL,
             ),
         ),
         "findings": [

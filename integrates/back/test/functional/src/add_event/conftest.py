@@ -7,6 +7,7 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -50,7 +51,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/events",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
         )
     }

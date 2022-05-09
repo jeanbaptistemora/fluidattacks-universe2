@@ -8,6 +8,9 @@ from datetime import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootType,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -59,7 +62,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -90,7 +93,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/asm_1",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
         ),
         "toe_inputs": (

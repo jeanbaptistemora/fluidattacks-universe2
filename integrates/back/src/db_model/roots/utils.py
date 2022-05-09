@@ -3,6 +3,7 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -107,7 +108,7 @@ def format_root(item: Item) -> Root:
             id=root_id,
             organization_name=organization_name,
             state=format_git_state(item["state"]),
-            type=item["type"],
+            type=RootType.GIT,
             unreliable_indicators=unreliable_indicators,
         )
 
@@ -117,7 +118,7 @@ def format_root(item: Item) -> Root:
             id=root_id,
             organization_name=organization_name,
             state=format_ip_state(item["state"]),
-            type=item["type"],
+            type=RootType.IP,
             unreliable_indicators=unreliable_indicators,
         )
 
@@ -126,6 +127,6 @@ def format_root(item: Item) -> Root:
         id=root_id,
         organization_name=organization_name,
         state=format_url_state(item["state"]),
-        type=item["type"],
+        type=RootType.URL,
         unreliable_indicators=unreliable_indicators,
     )

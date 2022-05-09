@@ -46,6 +46,7 @@ from db_model.groups.types import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
@@ -220,7 +221,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             url=url,
             use_vpn=kwargs.get("use_vpn", False),
         ),
-        type="Git",
+        type=RootType.GIT,
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
         ),
@@ -314,7 +315,7 @@ async def add_ip_root(
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
         ),
-        type="IP",
+        type=RootType.IP,
     )
     await roots_model.add(root=root)
 
@@ -383,7 +384,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
         ),
-        type="URL",
+        type=RootType.URL,
     )
     await roots_model.add(root=root)
 

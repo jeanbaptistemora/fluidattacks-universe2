@@ -16,6 +16,7 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
@@ -135,7 +136,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/nickname",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -162,7 +163,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/nickname2",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -188,7 +189,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/nickname",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -214,7 +215,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/nickname4",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -245,7 +246,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -271,7 +272,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="git@github.com:fluidattacks/test_git_roots.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -297,7 +298,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="https://github.com/fluidattacks/test_git_roots.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
         ),
     }

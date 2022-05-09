@@ -10,6 +10,7 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
@@ -64,7 +65,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             URLRoot(
                 group_name="group1",
@@ -82,7 +83,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status="INACTIVE",
                 ),
-                type="URL",
+                type=RootType.URL,
             ),
             URLRoot(
                 group_name="group1",
@@ -100,7 +101,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason=None,
                     status=RootStatus.ACTIVE,
                 ),
-                type="URL",
+                type=RootType.URL,
             ),
         ),
         "toe_inputs": (

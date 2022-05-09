@@ -6,9 +6,11 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from typing import (
     List,
+    Literal,
     NamedTuple,
     Optional,
     Union,
@@ -71,7 +73,7 @@ class GitRoot(NamedTuple):
     id: str
     organization_name: str
     state: GitRootState
-    type: str
+    type: Literal[RootType.GIT]
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
@@ -93,7 +95,7 @@ class IPRoot(NamedTuple):
     id: str
     organization_name: str
     state: IPRootState
-    type: str
+    type: Literal[RootType.IP]
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )
@@ -117,7 +119,7 @@ class URLRoot(NamedTuple):
     id: str
     organization_name: str
     state: URLRootState
-    type: str
+    type: Literal[RootType.URL]
     unreliable_indicators: RootUnreliableIndicators = (
         RootUnreliableIndicators()
     )

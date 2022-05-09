@@ -13,6 +13,7 @@ from db_model.enums import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -102,7 +103,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -128,7 +129,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -154,7 +155,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -180,7 +181,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status="INACTIVE",
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
             GitRoot(
                 cloning=GitRootCloning(
@@ -206,7 +207,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
-                type="Git",
+                type=RootType.GIT,
             ),
         ),
     }
