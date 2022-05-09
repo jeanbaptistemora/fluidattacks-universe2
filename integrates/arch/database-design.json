@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 06, 2022, 01:06 PM",
+    "DateLastModified": "May 09, 2022, 10:52 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2922,31 +2922,6 @@
             "entry_point",
             "group_name",
             "unreliable_root_id",
-            "first_attack_at",
-            "attacked_at",
-            "seen_at",
-            "be_present",
-            "attacked_by",
-            "be_present_until",
-            "pk_2",
-            "sk_2",
-            "has_vulnerabilities"
-          ]
-        },
-        {
-          "FacetName": "toe_port_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#group_name",
-            "SortKeyAlias": "PORTS#ROOT#root_id#IP#ip#PORT#port"
-          },
-          "TableData": [],
-          "NonKeyAttributes": [
-            "seen_first_time_by",
-            "ip",
-            "port",
-            "protocol",
-            "group_name",
-            "root_id",
             "first_attack_at",
             "attacked_at",
             "seen_at",
