@@ -18,7 +18,7 @@ variable "productApiToken" {
 locals {
   schedules = {
     integrates_scheduler_clone_groups_roots = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -46,7 +46,7 @@ locals {
       }
     }
     integrates_scheduler_clone_groups_roots_vpn = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -74,7 +74,7 @@ locals {
       }
     }
     integrates_scheduler_delete_imamura_stakeholders = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -102,7 +102,7 @@ locals {
       }
     }
     integrates_scheduler_delete_obsolete_groups = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -130,7 +130,7 @@ locals {
       }
     }
     integrates_scheduler_delete_obsolete_orgs = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -158,7 +158,7 @@ locals {
       }
     }
     integrates_scheduler_event_report = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -186,7 +186,7 @@ locals {
       }
     }
     integrates_scheduler_get_remediated_findings = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -214,7 +214,7 @@ locals {
       }
     }
     integrates_scheduler_machine_queue_all = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -242,7 +242,7 @@ locals {
       }
     }
     integrates_scheduler_machine_queue_re_attacks = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -270,7 +270,7 @@ locals {
       }
     }
     integrates_scheduler_refresh_toe_lines = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -298,7 +298,7 @@ locals {
       }
     }
     integrates_scheduler_reminder_notification = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -326,7 +326,7 @@ locals {
       }
     }
     integrates_scheduler_report_squad_usage = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -354,7 +354,7 @@ locals {
       }
     }
     integrates_scheduler_requeue_actions = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -382,7 +382,7 @@ locals {
       }
     }
     integrates_scheduler_reset_expired_accepted_findings = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -410,7 +410,7 @@ locals {
       }
     }
     integrates_scheduler_review_machine_executions = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -438,7 +438,7 @@ locals {
       }
     }
     integrates_scheduler_update_group_toe_vulns = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -466,7 +466,7 @@ locals {
       }
     }
     integrates_scheduler_update_portfolios = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -494,7 +494,7 @@ locals {
       }
     }
     integrates_subscriptions_analytics_daily = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -522,7 +522,7 @@ locals {
       }
     }
     integrates_subscriptions_analytics_weekly = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
@@ -550,7 +550,7 @@ locals {
       }
     }
     integrates_subscriptions_analytics_monthly = {
-      enabled = false
+      enabled = true
       command = [
         "m",
         "f",
