@@ -1,5 +1,6 @@
 let
   commonPath = "/observes/common";
+  servicePath = "/observes/service";
   singerPath = "/observes/singer";
   etlsPath = "/observes/etl";
   underscore_pkg = root: builtins.replaceStrings ["-"] ["_"] (baseNameOf root);
@@ -33,15 +34,16 @@ let
   };
 in {
   service = {
+    batch_stability = new_std "${servicePath}/batch-stability";
     db_migration =
-      (std_data "/observes/service/db-migration")
+      (std_data "${servicePath}/db-migration")
       // {
-        root = "/observes/service/db-migration/src";
+        root = "${servicePath}/db-migration/src";
       };
     scheduler =
-      (std_data "/observes/service/jobs-scheduler")
+      (std_data "${servicePath}/jobs-scheduler")
       // {
-        root = "/observes/service/jobs-scheduler/src";
+        root = "${servicePath}/jobs-scheduler/src";
       };
   };
   etl = {

@@ -21,7 +21,7 @@ in {
                 "/observes/common/utils-logger/src"
                 "/observes/common/postgres-client/src"
                 "/observes/common/purity"
-                "/observes/service/batch-stability/src"
+                "/observes/service/batch-stability"
                 "/observes/service/job-last-success/src"
                 "/observes/service/jobs-scheduler/src"
                 "/observes/service/migrate-tables/src"
@@ -169,7 +169,7 @@ in {
           outputs."/observes/service/batch-stability/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/service/batch-stability/src/batch_stability";
+        src = "/observes/service/batch-stability/batch_stability";
       };
       observesServiceMigrateTables = {
         searchPaths.source = [

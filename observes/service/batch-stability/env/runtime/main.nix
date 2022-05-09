@@ -1,10 +1,11 @@
 {
+  inputs,
   makePythonPypiEnvironment,
   makeTemplate,
   projectPath,
   ...
 }: let
-  self = projectPath "/observes/service/batch-stability/src";
+  self = projectPath inputs.observesIndex.service.batch_stability.root;
 in
   makeTemplate {
     name = "observes-service-batch-stability-env-runtime";

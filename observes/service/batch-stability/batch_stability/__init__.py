@@ -18,6 +18,7 @@ from typing import (
 )
 
 # Constants
+__version__ = "1.0.0"
 HOUR: float = 3600.0
 NOW: float = datetime.utcnow().timestamp()
 
