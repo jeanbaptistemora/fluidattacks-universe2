@@ -7,6 +7,7 @@ from lib_path.common import (
     translate_dependencies_to_vulnerabilities,
 )
 from model.core_model import (
+    DependenciesTypeEnum,
     MethodsEnum,
     Platform,
     Vulnerabilities,
@@ -91,7 +92,7 @@ def npm_yarn_lock_dev(content: str, path: str) -> Vulnerabilities:
             dependencies_tree = build_dependencies_tree(
                 path_yarn=path,
                 path_json=json_path,
-                dependencies_type="devDependencies",
+                dependencies_type=DependenciesTypeEnum.DEV,
             )
             if dependencies_tree:
                 for key, value in dependencies_tree.items():

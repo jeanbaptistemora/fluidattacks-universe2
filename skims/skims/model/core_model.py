@@ -32,6 +32,11 @@ class Grammar(Enum):
     SCALA: str = "Scala"
 
 
+class DependenciesTypeEnum(Enum):
+    DEV: str = "devDependencies"
+    PROD: str = "dependencies"
+
+
 class AvailabilityEnum(Enum):
     ALWAYS = "ALWAYS"
     WORKING_HOURS = "WORKING_HOURS"

@@ -338,7 +338,7 @@ def run_over_subdeps(
 def build_dependencies_tree(
     path_yarn: str,
     path_json: str,
-    dependencies_type: str,
+    dependencies_type: core_model.DependenciesTypeEnum,
 ) -> Dict[str, Any]:
     # Dependencies type could be "devDependencies" for dev dependencies
     # or "dependencies" for prod dependencies
@@ -352,8 +352,8 @@ def build_dependencies_tree(
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
     package_parser = json_parser.parse(get_file_content_block(path_json))
     tree: Dict[str, Any] = {}
-    if dependencies_type in package_parser:
-        package_dict = package_parser[dependencies_type]
+    if dependencies_type.value in package_parser:
+        package_dict = package_parser[dependencies_type.value]
         for json_key, json_value in package_dict.items():
             for yarn_key, yarn_value in yarn_dict.items():
                 dep = json_key + "@" + json_value
