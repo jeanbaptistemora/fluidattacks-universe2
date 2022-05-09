@@ -363,6 +363,8 @@ def format_group_to_add_item(group: Group) -> Item:
         item["group_context"] = group.context
     if group.tags:
         item["tag"] = group.tags
+    if group.files:
+        item["files"] = format_group_files_item(group.files)
 
     return item
 
