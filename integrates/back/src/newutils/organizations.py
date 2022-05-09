@@ -3,8 +3,9 @@ from db_model.organization.constants import (
     DEFAULT_MIN_SEVERITY,
 )
 from db_model.organization.types import (
-    MaxNumberAcceptations,
     Organization,
+    OrganizationPolicies,
+    OrganizationState,
 )
 from dynamodb.types import (
     Item,
@@ -17,6 +18,7 @@ from newutils.utils import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -37,38 +39,57 @@ def filter_active_organizations(
     )
 
 
-def format_max_number_acceptations(
-    item: list[Item],
-) -> MaxNumberAcceptations:
-    organizations_max_number_acceptation = item[-1]
-    return MaxNumberAcceptations(
-        modified_date=(
-            convert_to_iso_str(organizations_max_number_acceptation["date"])
-        ),
-        modified_by=organizations_max_number_acceptation["user"],
-        max_number_acceptations=int(
-            get_key_or_fallback(
-                organizations_max_number_acceptation,
-                "max_number_acceptances",
-                "max_number_acceptations",
-            )
-        ),
-    )
+def format_historic_policies(
+    item: Optional[list[Item]],
+) -> OrganizationPolicies:
+    if item:
+        organization_historic_policies = item[-1]
+        return OrganizationPolicies(
+            modified_date=(
+                convert_to_iso_str(organization_historic_policies["date"])
+            ),
+            modified_by=organization_historic_policies["user"],
+            max_number_acceptations=int(
+                get_key_or_fallback(
+                    organization_historic_policies,
+                    "max_number_acceptances",
+                    "max_number_acceptations",
+                )
+            ),
+        )
+    return None
+
+
+def format_historic_state(
+    item: Optional[list[Item]],
+) -> OrganizationState:
+    if item:
+        organization_state = item[-1]
+        return OrganizationState(
+            modified_date=(
+                convert_to_iso_str(organization_state["modified_date"])
+            ),
+            modified_by=organization_state["modified_by"],
+            max_number_acceptations=organization_state["status"],
+        )
+    return None
 
 
 def format_organization(
     item: Item,
     organization_id: str,
 ) -> Organization:
-    max_number_acceptations = format_max_number_acceptations(
+    historic_policies = format_historic_policies(
         item["historic_max_number_acceptances"]
         if item.get("historic_max_number_acceptances")
         else item["historic_max_number_acceptations"]
     )
+    historic_state = format_historic_state(item.get("historic_state", None))
     return Organization(
-        id=organization_id.split("#")[1],
-        name=item.get("name", ""),
-        max_number_acceptations=max_number_acceptations,
+        id=organization_id,
+        name=item["name"],
+        historic_policies=historic_policies,
+        historic_status=historic_state,
         billing_customer=item.get("billing_customer", None),
         pending_deletion_date=(
             convert_to_iso_str(item.get("pending_deletion_date", None))
