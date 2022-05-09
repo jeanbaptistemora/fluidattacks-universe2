@@ -100,20 +100,14 @@ async def main() -> None:
         update_jobs = [
             job
             for job, log in zip(jobs_description, logs)
-            if (
+            if job["jobName"].startswith("skims-execute-machine")
+            and (
                 datetime.utcnow()
                 - datetime.fromtimestamp(int(log[-1]["timestamp"] / 1000))
             ).seconds
             > 1800
         ]
-        # filter out of scope jobs
-        exceptions = ["observes"]
-        update_jobs = list(
-            filter(
-                lambda j: all(e not in j["jobName"] for e in exceptions),
-                update_jobs,
-            )
-        )
+
         # return None
         actions_dict = {
             action.key: action
