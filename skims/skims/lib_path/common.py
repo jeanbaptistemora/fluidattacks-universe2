@@ -271,7 +271,7 @@ def translate_dependencies_to_vulnerabilities(
     return results
 
 
-def get_subdependencies(current_subdep: str, data: Any) -> Tuple:
+def get_subdependencies(current_subdep: str, data: lockfile) -> Tuple:
     for yarn in data:
         if yarn.find(current_subdep) != -1:
             yarn_dict: Any = data.get(yarn)
@@ -285,13 +285,13 @@ def get_subdependencies(current_subdep: str, data: Any) -> Tuple:
     return [], None, None
 
 
-def add_lines(
+def add_lines_enumeration(
     windower: Iterator[
         Tuple[Tuple[int, str], Tuple[int, str]],
     ],
-    tree: Dict[str, Any],
+    tree: Dict[str, str],
 ) -> Dict[str, Any]:
-
+    enumerated_tree: Dict[str, Any] = {}
     for (product_line, product), (version_line, version) in windower:
         product, version = product.strip(), version.strip()
         if (
@@ -306,15 +306,15 @@ def add_lines(
             version = version.strip('"')
 
             if tree.get(product) == version:
-                tree[product] = {
+                enumerated_tree[product] = {
                     "version": version,
                     "product_line": product_line,
                     "version_line": version_line,
                 }
-    return tree
+    return enumerated_tree
 
 
-def build_subdep_name(dependencies: Dict[str, Any]) -> List[str]:
+def build_subdep_name(dependencies: Dict[str, str]) -> List[str]:
     dependencies_list: List[str] = []
     for key, value in dependencies.items():
         dependencies_list.append(key + "@" + value)
@@ -322,8 +322,8 @@ def build_subdep_name(dependencies: Dict[str, Any]) -> List[str]:
 
 
 def run_over_subdeps(
-    subdeps: List[str], tree: Dict[str, Any], yarn_dict: lockfile
-) -> Dict[str, Any]:
+    subdeps: List[str], tree: Dict[str, str], yarn_dict: lockfile
+) -> Dict[str, str]:
     while subdeps:
         current_subdep = subdeps[0]
         new_values, version, name = get_subdependencies(
@@ -335,7 +335,7 @@ def run_over_subdeps(
     return tree
 
 
-def build_dependencies_tree(
+def build_dependencies_tree(  # pylint: disable=too-many-locals
     path_yarn: str,
     path_json: str,
     dependencies_type: core_model.DependenciesTypeEnum,
@@ -351,7 +351,7 @@ def build_dependencies_tree(
     )
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
     package_parser = json_parser.parse(get_file_content_block(path_json))
-    tree: Dict[str, Any] = {}
+    tree: Dict[str, str] = {}
     if dependencies_type.value in package_parser:
         package_dict = package_parser[dependencies_type.value]
         for json_key, json_value in package_dict.items():
@@ -362,5 +362,5 @@ def build_dependencies_tree(
                     if "dependencies" in yarn_value:
                         subdeps = build_subdep_name(yarn_value["dependencies"])
                         tree = run_over_subdeps(subdeps, tree, yarn_dict)
-        tree = add_lines(windower, tree)
-    return tree
+        enumerated_tree = add_lines_enumeration(windower, tree)
+    return enumerated_tree
