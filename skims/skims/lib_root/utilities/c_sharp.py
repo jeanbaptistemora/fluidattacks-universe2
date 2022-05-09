@@ -154,6 +154,8 @@ def get_first_member(
     shard: graph_model.GraphShard, n_id: str
 ) -> Optional[str]:
     member: Any = g.match_ast(shard.graph, n_id, "member_access_expression")
+    if member.get("member_access_expression") == "None":
+        return n_id
     while member.get("member_access_expression"):
         member = member.get("member_access_expression")
         member = g.match_ast(shard.graph, member, "member_access_expression")

@@ -175,7 +175,6 @@ def type_name_handling(
                 continue
 
             serial_objs = get_object_identifiers(shard, serializer)
-
             for member in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,
@@ -183,11 +182,12 @@ def type_name_handling(
                     label_type="member_access_expression"
                 ),
             ):
-                fr_member = get_first_member(shard, member)
-                last_member = split_last(node_to_str(shard.graph, member))[1]
+                fr_memb = get_first_member(shard, member)
+                last_memb = split_last(node_to_str(shard.graph, member))[1]
                 if (
-                    shard.graph.nodes[fr_member]["label_text"] in serial_objs
-                    and last_member == "TypeNameHandling"
+                    shard.graph.nodes[fr_memb]["label_type"] == "identifier"
+                    and shard.graph.nodes[fr_memb]["label_text"] in serial_objs
+                    and last_memb == "TypeNameHandling"
                     and (pred := g.pred_ast(shard.graph, member)[0])
                     and (assign := g.match_ast(shard.graph, pred)["__2__"])
                 ):
