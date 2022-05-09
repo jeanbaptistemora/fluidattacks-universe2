@@ -1,3 +1,8 @@
+from aws.model import (
+    AWSS3Bucket,
+    AWSS3VersionConfig,
+    S3VersioningEnum,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -12,19 +17,26 @@ from parse_hcl2.common import (
 )
 from parse_hcl2.structure.aws import (
     iter_s3_buckets,
+    iter_s3_version_configuration,
+)
+from parse_hcl2.tokens import (
+    Attribute,
 )
 from typing import (
     Any,
     Iterator,
+    Union,
 )
 
 
 def _tfm_aws_s3_versioning_disabled(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
+    bucket_iterator: Iterator[AWSS3Bucket],
+    versioning_iterator: Iterator[AWSS3VersionConfig],
+) -> Iterator[Union[AWSS3Bucket, Attribute]]:
+    versioning_configs = list(versioning_iterator)
+    for bucket in bucket_iterator:
         if versioning := get_argument(
-            body=resource.data,
+            body=bucket.data,
             key="versioning",
         ):
             versioning_enabled = get_block_attribute(
@@ -33,7 +45,23 @@ def _tfm_aws_s3_versioning_disabled(
             if versioning_enabled and versioning_enabled.val is False:
                 yield versioning_enabled
         else:
-            yield resource
+            has_versioning: bool = False
+            for versioning_config in versioning_configs:
+                if (
+                    bucket.name is not None
+                    and bucket.tf_reference is not None
+                    and (
+                        versioning_config.bucket == bucket.name
+                        or versioning_config.bucket.startswith(
+                            bucket.tf_reference
+                        )
+                    )
+                    and versioning_config.status == S3VersioningEnum.ENABLED
+                ):
+                    has_versioning = True
+                    break
+            if not has_versioning:
+                yield bucket
 
 
 def tfm_aws_s3_versioning_disabled(
@@ -44,7 +72,8 @@ def tfm_aws_s3_versioning_disabled(
         description_key=("lib_path.f335.tfm_aws_s3_versioning_disabled"),
         iterator=get_cloud_iterator(
             _tfm_aws_s3_versioning_disabled(
-                resource_iterator=iter_s3_buckets(model=model),
+                bucket_iterator=iter_s3_buckets(model=model),
+                versioning_iterator=iter_s3_version_configuration(model=model),
             )
         ),
         path=path,

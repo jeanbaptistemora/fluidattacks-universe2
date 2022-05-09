@@ -18388,6 +18388,54 @@ F099,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disa
   28 | }
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,21,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
+  11 |     rule {
+  12 |       apply_server_side_encryption_by_default {
+  13 |         kms_master_key_id = aws_kms_key.mykey.arn
+  14 |         sse_algorithm     = ""aws:kms""
+  15 |       }
+  16 |     }
+  17 |   }
+  18 |
+  19 | }
+  20 |
+> 21 | resource ""aws_s3_bucket"" ""versioned_bucket_1"" {
+  22 |   bucket = ""my_versioned_bucket_1""
+  23 |   acl = ""private""
+  24 | }
+  25 |
+  26 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  27 |   bucket = aws_s3_bucket.versioned_bucket_1.id
+  28 |   versioning_configuration {
+  29 |     status = ""Enabled""
+  30 |   }
+  31 | }
+     ^ Col 0
+",terraform.tfm_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,33,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
+  23 |   acl = ""private""
+  24 | }
+  25 |
+  26 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  27 |   bucket = aws_s3_bucket.versioned_bucket_1.id
+  28 |   versioning_configuration {
+  29 |     status = ""Enabled""
+  30 |   }
+  31 | }
+  32 |
+> 33 | resource ""aws_s3_bucket"" ""non_versioned_bucket_1"" {
+  34 |   bucket = ""my_non_versioned_bucket_1""
+  35 |   acl = ""private""
+  36 | }
+  37 |
+  38 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  39 |   bucket = ""my_non_versioned_bucket_1""
+  40 |   versioning_configuration {
+  41 |     status = ""Suspended""
+  42 |   }
+  43 | }
+     ^ Col 0
+",terraform.tfm_unencrypted_buckets
 F099,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,9,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | Resources:
    2 |   S3Bucket1:
@@ -26016,6 +26064,54 @@ F400,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,1,778,s
   21 |   }
      ^ Col 0
 ",terraform.tfm_s3_bucket_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,21,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
+  11 |     rule {
+  12 |       apply_server_side_encryption_by_default {
+  13 |         kms_master_key_id = aws_kms_key.mykey.arn
+  14 |         sse_algorithm     = ""aws:kms""
+  15 |       }
+  16 |     }
+  17 |   }
+  18 |
+  19 | }
+  20 |
+> 21 | resource ""aws_s3_bucket"" ""versioned_bucket_1"" {
+  22 |   bucket = ""my_versioned_bucket_1""
+  23 |   acl = ""private""
+  24 | }
+  25 |
+  26 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  27 |   bucket = aws_s3_bucket.versioned_bucket_1.id
+  28 |   versioning_configuration {
+  29 |     status = ""Enabled""
+  30 |   }
+  31 | }
+     ^ Col 0
+",terraform.tfm_s3_bucket_logging_disabled
+F400,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,33,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
+  23 |   acl = ""private""
+  24 | }
+  25 |
+  26 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  27 |   bucket = aws_s3_bucket.versioned_bucket_1.id
+  28 |   versioning_configuration {
+  29 |     status = ""Enabled""
+  30 |   }
+  31 | }
+  32 |
+> 33 | resource ""aws_s3_bucket"" ""non_versioned_bucket_1"" {
+  34 |   bucket = ""my_non_versioned_bucket_1""
+  35 |   acl = ""private""
+  36 | }
+  37 |
+  38 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  39 |   bucket = ""my_non_versioned_bucket_1""
+  40 |   versioning_configuration {
+  41 |     status = ""Suspended""
+  42 |   }
+  43 | }
+     ^ Col 0
+",terraform.tfm_s3_bucket_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,1,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
 >  1 | resource ""aws_s3_bucket"" ""state_bucket"" {
    2 |   bucket        = ""${data.aws_caller_identity.current.account_id}-terraform-state""
@@ -26036,6 +26132,8 @@ F400,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disable
   17 |   }
   18 |
   19 | }
+  20 |
+  21 | resource ""aws_s3_bucket"" ""versioned_bucket_1"" {
      ^ Col 0
 ",terraform.tfm_s3_bucket_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,5,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
@@ -28721,6 +28819,32 @@ F335,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disable
   17 |   }
   18 |
   19 | }
+  20 |
+  21 | resource ""aws_s3_bucket"" ""versioned_bucket_1"" {
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
+F335,lines,namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,33,922,skims,335. Insecure service configuration - Bucket,Property versioning.enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f335/tfm_aws_s3_versioning_disabled.tf,"
+  23 |   acl = ""private""
+  24 | }
+  25 |
+  26 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  27 |   bucket = aws_s3_bucket.versioned_bucket_1.id
+  28 |   versioning_configuration {
+  29 |     status = ""Enabled""
+  30 |   }
+  31 | }
+  32 |
+> 33 | resource ""aws_s3_bucket"" ""non_versioned_bucket_1"" {
+  34 |   bucket = ""my_non_versioned_bucket_1""
+  35 |   acl = ""private""
+  36 | }
+  37 |
+  38 | resource ""aws_s3_bucket_versioning"" ""versioning_config_1"" {
+  39 |   bucket = ""my_non_versioned_bucket_1""
+  40 |   versioning_configuration {
+  41 |     status = ""Suspended""
+  42 |   }
+  43 | }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_path/f085/react.jsx,"

@@ -1,9 +1,18 @@
+from enum import (
+    Enum,
+)
 from typing import (
     Any,
     List,
     NamedTuple,
     Optional,
 )
+
+
+class S3VersioningEnum(Enum):
+    DISABLED: str = "Disabled"
+    ENABLED: str = "Enabled"
+    SUSPENDED: str = "Suspended"
 
 
 class AWSIamPolicyStatement(NamedTuple):
@@ -27,10 +36,16 @@ class AWSS3Bucket(NamedTuple):
 
 
 class AWSS3SSEConfig(NamedTuple):
+    bucket: str
     column: int
-    data: List[Any]
     line: int
-    bucket: Optional[str] = None
+
+
+class AWSS3VersionConfig(NamedTuple):
+    bucket: str
+    column: int
+    line: int
+    status: S3VersioningEnum
 
 
 class AWSS3BucketPolicy(NamedTuple):

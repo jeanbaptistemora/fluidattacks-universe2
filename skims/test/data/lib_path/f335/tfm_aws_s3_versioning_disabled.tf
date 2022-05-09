@@ -17,3 +17,27 @@ resource "aws_s3_bucket" "state_bucket" {
   }
 
 }
+
+resource "aws_s3_bucket" "versioned_bucket_1" {
+  bucket = "my_versioned_bucket_1"
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "versioning_config_1" {
+  bucket = aws_s3_bucket.versioned_bucket_1.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket" "non_versioned_bucket_1" {
+  bucket = "my_non_versioned_bucket_1"
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "versioning_config_1" {
+  bucket = "my_non_versioned_bucket_1"
+  versioning_configuration {
+    status = "Suspended"
+  }
+}

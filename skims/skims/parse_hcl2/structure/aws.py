@@ -26,7 +26,9 @@ from aws.model import (
     AWSRdsClusterInstance,
     AWSS3Bucket,
     AWSS3SSEConfig,
+    AWSS3VersionConfig,
     AWSSecretsManagerSecret,
+    S3VersioningEnum,
 )
 from itertools import (
     chain,
@@ -196,9 +198,27 @@ def iter_s3_sse_configuration(model: Any) -> Iterator[AWSS3SSEConfig]:
     for sse_config in iterator:
         yield AWSS3SSEConfig(
             bucket=get_attribute_value(sse_config.body, "bucket"),
-            data=sse_config.body,
             column=sse_config.column,
             line=sse_config.line,
+        )
+
+
+def iter_s3_version_configuration(model: Any) -> Iterator[AWSS3VersionConfig]:
+    iterator = iterate_resources(model, "resource", "aws_s3_bucket_versioning")
+    for version_config in iterator:
+        versioning_block = get_block_block(
+            version_config, "versioning_configuration"
+        )
+        versioning_status: S3VersioningEnum
+        if versioning_block is not None:
+            versioning_status = get_attribute_value(
+                versioning_block.body, "status"
+            )
+        yield AWSS3VersionConfig(
+            bucket=get_attribute_value(version_config.body, "bucket"),
+            column=version_config.column,
+            line=version_config.line,
+            status=S3VersioningEnum(versioning_status),
         )
 
 

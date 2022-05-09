@@ -38,7 +38,6 @@ def _tfm_unencrypted_buckets_iterate_vulnerabilities(
                 if (
                     bucket.name is not None
                     and bucket.tf_reference is not None
-                    and sse_config.bucket is not None
                     and (
                         sse_config.bucket == bucket.name
                         or sse_config.bucket.startswith(bucket.tf_reference)
