@@ -22220,6 +22220,21 @@ F096,lines,namespace/skims/test/data/lib_root/f096/js_deserialization.cs,7,502,s
   10 |
      ^ Col 4
 ",c_sharp.c_sharp_js_deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/type_name_handling.cs,9,502,skims,096. Insecure deserialization,"A Newtonsoft.Json.TypeNameHandling enumeration value other than None should not be referenced.
+ in namespace/skims/test/data/lib_root/f096/type_name_handling.cs","
+   1 | using Newtonsoft.Json;
+   2 |
+   3 | public class ExampleClass
+   4 | {
+   5 |
+   6 |     public void ExampleClass()
+   7 |     {
+   8 |         var Settings = new JsonSerializerSettings();
+>  9 |         Settings.TypeNameHandling = TypeNameHandling.All;
+  10 |     }
+  11 | }
+     ^ Col 0
+",c_sharp.c_sharp_type_name_handling
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;

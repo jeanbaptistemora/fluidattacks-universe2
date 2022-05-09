@@ -2,6 +2,7 @@ from lib_root.f096.c_sharp import (
     check_xml_serializer as c_sharp_check_xml_serializer,
     insecure_deserialization as c_sharp_insecure_deserialization,
     js_deserialization as c_sharp_js_deserialization,
+    type_name_handling as c_sharp_type_name_handling,
 )
 from model import (
     core_model,
@@ -13,4 +14,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_insecure_deserialization),
     (FINDING, c_sharp_check_xml_serializer),
     (FINDING, c_sharp_js_deserialization),
+    (FINDING, c_sharp_type_name_handling),
 )
