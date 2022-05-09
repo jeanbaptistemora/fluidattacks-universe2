@@ -6,44 +6,6 @@ declare module "*.svg";
 
 interface IQueryData {
   data: {
-    asciidoc: {
-      document: {
-        title: string;
-      };
-      html: string;
-      fields: {
-        slug: string;
-      };
-      pageAttributes: {
-        advise: string;
-        alt: string;
-        author: string;
-        authors: string;
-        banner: string;
-        category: string;
-        certificationid: string;
-        certificationsindex: string;
-        clientsindex: string;
-        codename: string;
-        cveid: string;
-        date: string;
-        defaux: string;
-        definition: string;
-        description: string;
-        image: string;
-        keywords: string;
-        partnersindex: string;
-        phrase: string;
-        product: string;
-        slug: string;
-        solution: string;
-        subtext: string;
-        subtitle: string;
-        tags: string;
-        title: string;
-        writer: string;
-      };
-    };
     markdownRemark: {
       html: string;
       fields: {
@@ -81,6 +43,44 @@ interface IQueryData {
         writer: string;
       };
       rawMarkdownBody: string;
+    };
+    mdx: {
+      body: string;
+      fields: {
+        slug: string;
+      };
+      frontmatter: {
+        advise: string;
+        alt: string;
+        author: string;
+        authors: string;
+        banner: string;
+        category: string;
+        certificationid: string;
+        certificationsindex: string;
+        clientsindex: string;
+        codename: string;
+        cveid: string;
+        date: string;
+        defaux: string;
+        definition: string;
+        description: string;
+        image: string;
+        keywords: string;
+        partnersindex: string;
+        phrase: string;
+        product: string;
+        slug: string;
+        solution: string;
+        subtext: string;
+        subtitle: string;
+        product: string;
+        tags: string;
+        template: string;
+        title: string;
+        writer: string;
+      };
+      rawBody: string;
     };
     site: {
       siteMetadata: {
