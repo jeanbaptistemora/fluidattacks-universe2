@@ -106,6 +106,14 @@ async def main() -> None:
             ).seconds
             > 1800
         ]
+        # filter out of scope jobs
+        exceptions = ["observes"]
+        update_jobs = list(
+            filter(
+                lambda j: all(e not in j["jobName"] for e in exceptions),
+                update_jobs,
+            )
+        )
         # return None
         actions_dict = {
             action.key: action
@@ -150,7 +158,6 @@ async def main() -> None:
                 if new_job_id
             ]
         )
-
         # terminate batch jobs
         await collect(
             [
