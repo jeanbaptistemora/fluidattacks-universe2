@@ -13,12 +13,31 @@
       from the group <strong>{{ group_name }}</strong> have been changed by
       <strong>{{ responsible }}</strong>:
     </p>
-    <p>
+    <div style="line-height: 30px;">
       {% for key, value in new_root_content.items() %}
         <strong>{% if key == "gitignore" %}Exclusions{% else %}{{ key.replace('_', ' ').capitalize() }}{% endif %}</strong>:
-        <u>from</u> {{ old_state[key] }} <u>to</u> {{ value }} <br>
+        {% if key in ["url", "gitignore"]%}
+          <div class="row">
+          	<div class="column left">
+              from:
+          	</div>
+            <div class="column right">
+              {{ old_state[key] }}
+          	</div>
+          </div>
+          <div class="row" style="margin-bottom:1rem !important;">
+          	<div class="column left">
+              to:
+          	</div>
+            <div class="column right">
+              {{ value }}
+          	</div>
+          </div>
+        {% else %}
+          <u>from</u> {{ old_state[key] }} <u>to</u> {{ value }} <br>
+        {% endif %}
       {% endfor %}
-    </p>
+    </div>
     <p></p>
     <p>Regards,<br>Fluid Attacks Team</p>
   </div>
