@@ -1,6 +1,9 @@
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
+from metaloaders.model import (
+    Type as ModelType,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -14,15 +17,13 @@ from typing import (
 def _json_anon_connection_config(
     template: Any,
 ) -> Iterator[Any]:
-    connection_str = template.inner.get("iisSettings")
-    if (
-        connection_str
-        and (
-            anon_connect := connection_str.inner.get("anonymousAuthentication")
-        )
-        and anon_connect.data
-    ):
-        yield anon_connect.start_line, anon_connect.start_column
+    if template.data_type == ModelType.OBJECT:
+        if (
+            (conn_str := template.inner.get("iisSettings"))
+            and (anon_conn := conn_str.inner.get("anonymousAuthentication"))
+            and anon_conn.data
+        ):
+            yield anon_conn.start_line, anon_conn.start_column
 
 
 def json_anon_connection_config(
