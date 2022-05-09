@@ -129,6 +129,7 @@ def format_data(*, counters: Counter[str]) -> Dict[str, Any]:
                 categories=[key for key, _ in merged_data],
                 type="category",
                 tick=dict(
+                    multiline=False,
                     outer=False,
                     rotate=TICK_ROTATION,
                 ),
