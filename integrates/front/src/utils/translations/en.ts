@@ -38,6 +38,9 @@ export const enTranslations: ResourceKey = {
           vulnerabilities: "Vulnerabilities",
         },
       },
+      touchedFiles: {
+        title: "Files with open vulnerabilities in the last 20 weeks",
+      },
     },
     buttonToolbar: {
       download: {

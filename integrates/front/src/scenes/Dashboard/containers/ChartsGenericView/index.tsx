@@ -698,6 +698,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               />
             </Col100>
           </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"touchedFiles"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"barChart"}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("analytics.barChart.touchedFiles.title")}
+              />
+            </Col100>
+          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch(["organization", "portfolio"]) ? (
