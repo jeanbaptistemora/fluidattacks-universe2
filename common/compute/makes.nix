@@ -27,6 +27,7 @@
   secretsForTerraformFromEnv = {
     commonCompute = {
       productApiToken = "PRODUCT_API_TOKEN";
+      servicesApiToken = "SERVICES_API_TOKEN";
     };
   };
   testTerraform = {
