@@ -3,27 +3,6 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
-          },
-          "description": {
-            "S": "local skims test group"
-          },
-          "pk": {
-            "S": "GROUP#jessup"
-          },
-          "name": {
-            "S": "jessup"
-          },
-          "language": {
-            "S": "en"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
           "requirements": {
             "S": "134. The system must store passwords with different key derivations (Salt).\n135. Salt values in passwords must be random and have a minimum length of 48 bits.\n185. All stored sensitive information must be encrypted.\n227. The system must notify, upon any access attempt, that access to the system is only available for authorized users.\n229. The system must request at least one username and password from every actor that tries to authenticate.\n264. The system must require authentication for all resources, except for the consultation or visualization of those specifically classified as public\n300. Business sensitive data (passwords, credit card numbers, CVV, etc.) must be masked."
           },
@@ -324,15 +303,109 @@
         "Item": {
           "treatment": {
             "M": {
+              "modified_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "status": {
+                "S": "NEW"
+              }
+            }
+          },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_reattack_cycles": {
+                "N": "1"
+              },
+              "unreliable_source": {
+                "S": "MACHINE"
+              },
+              "unreliable_last_reattack_requester": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "unreliable_last_requested_reattack_date": {
+                "S": "2022-03-24T15:29:07.070648+00:00"
+              },
+              "unreliable_efficacy": {
+                "N": "0"
+              },
+              "unreliable_report_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
+              },
+              "unreliable_treatment_changes": {
+                "N": "0"
+              }
+            }
+          },
+          "pk_5": {
+            "S": "FIN#16199698-cae6-47d4-81df-eb176dfd5c08"
+          },
+          "commit": {
+            "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+          },
+          "specific": {
+            "S": "5"
+          },
+          "type": {
+            "S": "LINES"
+          },
+          "sk": {
+            "S": "FIN#16199698-cae6-47d4-81df-eb176dfd5c08"
+          },
+          "sk_3": {
+            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+          },
+          "pk_2": {
+            "S": "ROOT"
+          },
+          "where": {
+            "S": "namespace3/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "pk": {
+            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+          },
+          "pk_3": {
+            "S": "USER"
+          },
+          "sk_5": {
+            "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#requested"
+          },
+          "state": {
+            "M": {
               "modified_by": {
                 "S": "unittest@fluidattacks.com"
               },
-              "assigned": {
-                "S": "unittest@fluidattacks.com"
+              "source": {
+                "S": "MACHINE"
               },
-              "justification": {
-                "S": "test justification"
+              "modified_date": {
+                "S": "2022-03-17T15:28:07.070648+00:00"
               },
+              "status": {
+                "S": "OPEN"
+              }
+            }
+          },
+          "sk_2": {
+            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+          },
+          "verification": {
+            "M": {
+              "modified_date": {
+                "S": "2022-03-24T15:29:07.070648+00:00"
+              },
+              "status": {
+                "S": "REQUESTED"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "treatment": {
+            "M": {
               "modified_date": {
                 "S": "2022-03-17T15:28:07.070648+00:00"
               },
@@ -382,16 +455,16 @@
             "S": "FIN#16199698-cae6-47d4-81df-eb176dfd5c08"
           },
           "sk_3": {
-            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+            "S": "VULN#5397a4d4-3a10-4475-ab03-d3f6c7e1aefe"
           },
           "pk_2": {
             "S": "ROOT"
           },
           "where": {
-            "S": "namespace3/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+            "S": "namespace3/skims/test/data/lib_path/f099/cfn_bucket_policy.yaml"
           },
           "pk": {
-            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+            "S": "VULN#5397a4d4-3a10-4475-ab03-d3f6c7e1aefe"
           },
           "pk_3": {
             "S": "USER#unittest@fluidattacks.com"
@@ -405,7 +478,7 @@
                 "S": "unittest@fluidattacks.com"
               },
               "source": {
-                "S": "ASM"
+                "S": "MACHINE"
               },
               "modified_date": {
                 "S": "2022-03-24T15:28:07.070648+00:00"
@@ -416,7 +489,7 @@
             }
           },
           "sk_2": {
-            "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+            "S": "VULN#5397a4d4-3a10-4475-ab03-d3f6c7e1aefe"
           },
           "verification": {
             "M": {

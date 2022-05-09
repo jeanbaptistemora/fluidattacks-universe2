@@ -1,0 +1,334 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item":{
+          "loc": {
+            "N": "99"
+          },
+          "comments": {
+            "S": "comment 1"
+          },
+          "sorts_risk_level": {
+            "N": "80"
+          },
+          "last_commit": {
+            "S": "983466z"
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "last_author": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "attacked_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "modified_date": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "attacked_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "4"
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "sk": {
+            "S": "LINES#ROOT#b5b383c0-bd20-4ad1-a509-0981c8a8b18a#FILENAME#skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "b5b383c0-bd20-4ad1-a509-0981c8a8b18a"
+          },
+          "first_attack_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#b5b383c0-bd20-4ad1-a509-0981c8a8b18a#FILENAME#skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml"
+          },
+          "seen_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item":{
+          "loc": {
+            "N": "117"
+          },
+          "comments": {
+            "S": "comment 1"
+          },
+          "sorts_risk_level": {
+            "N": "80"
+          },
+          "last_commit": {
+            "S": "983466z"
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "last_author": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "attacked_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "modified_date": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "attacked_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "4"
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f117/.project"
+          },
+          "sk": {
+            "S": "LINES#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#FILENAME#skims/test/data/lib_path/f117/.project"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "6deac0ea-cd7b-401e-9240-eebb903f028b"
+          },
+          "first_attack_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#FILENAME#skims/test/data/lib_path/f117/.project"
+          },
+          "seen_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item":{
+          "loc": {
+            "N": "117"
+          },
+          "comments": {
+            "S": "comment 1"
+          },
+          "sorts_risk_level": {
+            "N": "80"
+          },
+          "last_commit": {
+            "S": "983466z"
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "last_author": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "attacked_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "modified_date": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "attacked_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "4"
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "sk": {
+            "S": "LINES#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#FILENAME#skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "6deac0ea-cd7b-401e-9240-eebb903f028b"
+          },
+          "first_attack_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#FILENAME#skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "seen_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item":{
+          "loc": {
+            "N": "117"
+          },
+          "comments": {
+            "S": "comment 1"
+          },
+          "sorts_risk_level": {
+            "N": "80"
+          },
+          "last_commit": {
+            "S": "983466z"
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "last_author": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "attacked_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "modified_date": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "attacked_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "4"
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "sk": {
+            "S": "LINES#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#FILENAME#skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "6deac0ea-cd7b-401e-9240-eebb903f028b"
+          },
+          "first_attack_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#FILENAME#skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "seen_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item":{
+          "seen_first_time_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "attacked_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "attacked_by": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "component": {
+            "S": "https://localhost:4446/"
+          },
+          "unreliable_root_id": {
+            "S": "6deac0ea-cd7b-401e-9240-eebb903f028b"
+          },
+          "sk": {
+            "S": "INPUTS#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#COMPONENT#https://localhost:4446/#ENTRYPOINT#-"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "first_attack_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          },
+          "entry_point": {
+            "S": "-"
+          },
+          "sk_2": {
+            "S": "INPUTS#PRESENT#true#ROOT#6deac0ea-cd7b-401e-9240-eebb903f028b#COMPONENT#https://localhost:4446/#ENTRYPOINT#-"
+          },
+          "seen_at": {
+            "S": "2021-10-19T15:27:57.995656+00:00"
+          }
+        }
+      }
+    }
+  ]
+}

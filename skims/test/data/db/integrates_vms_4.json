@@ -3,27 +3,6 @@
     {
       "PutRequest": {
         "Item": {
-          "sk": {
-            "S": "GROUP#jessup"
-          },
-          "description": {
-            "S": "local skims test group"
-          },
-          "pk": {
-            "S": "GROUP#jessup"
-          },
-          "name": {
-            "S": "jessup"
-          },
-          "language": {
-            "S": "en"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
           "requirements": {
             "S": "134. The system must store passwords with different key derivations (Salt).\n135. Salt values in passwords must be random and have a minimum length of 48 bits.\n185. All stored sensitive information must be encrypted.\n227. The system must notify, upon any access attempt, that access to the system is only available for authorized users.\n229. The system must request at least one username and password from every actor that tries to authenticate.\n264. The system must require authentication for all resources, except for the consultation or visualization of those specifically classified as public\n300. Business sensitive data (passwords, credit card numbers, CVV, etc.) must be masked."
           },

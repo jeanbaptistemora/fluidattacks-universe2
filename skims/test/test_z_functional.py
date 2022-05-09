@@ -471,11 +471,13 @@ async def test_reattack_comments_open_and_closed_vulnerability(
 ) -> None:
     # A reattack request was executed, a finding consult was found
     # that report open vulnerabilities
+    finding_id = "16199698-cae6-47d4-81df-eb176dfd5c08"
+    has_finding = False
     findings = await get_group_findings(group=test_group)
 
     for finding in findings:
-        if finding.title.startswith("099"):
-            finding_id = finding.identifier
+        if finding.identifier == finding_id:
+            has_finding = True
 
     open_vulns_comment = (
         r"^A reattack request was executed on\s"
@@ -496,6 +498,8 @@ async def test_reattack_comments_open_and_closed_vulnerability(
         + r"([a-zA-Z0-9]{40})\: \n"
         + r"  - skims/test/data/lib_path/f099/cfn_bucket_policy.yaml\s\n$"
     )
+
+    assert has_finding is not False
 
     finding_consult = await get_finding_consult(finding_id=finding_id)
 
