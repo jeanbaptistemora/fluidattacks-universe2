@@ -13,6 +13,9 @@ from datetime import (
 from db_model import (
     toe_lines as toe_lines_model,
 )
+from db_model.roots.types import (
+    Root,
+)
 from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesMetadataToUpdate,
@@ -23,10 +26,14 @@ from newutils import (
 from newutils.validations import (
     validate_field_length,
 )
+from roots.validations import (
+    validate_active_root,
+)
 from toe.utils import (
     get_has_vulnerabilities,
 )
 from typing import (
+    Any,
     Optional,
 )
 
@@ -37,12 +44,17 @@ def _get_optional_be_present_until(
     return datetime_utils.get_utc_now() if be_present is False else None
 
 
-async def add(
+async def add(  # pylint: disable=too-many-arguments
+    loaders: Any,
     group_name: str,
     root_id: str,
     filename: str,
     attributes: ToeLinesAttributesToAdd,
+    is_moving_toe_lines: bool = False,
 ) -> None:
+    if is_moving_toe_lines is False:
+        root: Root = await loaders.root.load((group_name, root_id))
+        validate_active_root(root)
     attacked_lines = (
         attributes.attacked_lines
         if attributes.attacked_at

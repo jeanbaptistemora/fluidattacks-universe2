@@ -373,7 +373,14 @@ async def refresh_active_root_repo_toe_lines(
     )
     await collect(
         tuple(
-            toe_lines_add(group_name, root_repo.id, filename, toe_lines_to_add)
+            toe_lines_add(
+                loaders,
+                group_name,
+                root_repo.id,
+                filename,
+                toe_lines_to_add,
+                is_moving_toe_lines=True,
+            )
             for filename, toe_lines_to_add in present_toe_lines_to_add
         ),
     )

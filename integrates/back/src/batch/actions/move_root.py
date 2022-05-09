@@ -456,10 +456,12 @@ async def _process_toe_lines(
     )
     try:
         await toe_lines_add(
+            loaders,
             target_group_name,
             target_root_id,
             toe_lines.filename,
             attributes_to_add,
+            is_moving_toe_lines=True,
         )
     except RepeatedToeLines:
         current_value: ToeLines = await loaders.toe_lines.load(

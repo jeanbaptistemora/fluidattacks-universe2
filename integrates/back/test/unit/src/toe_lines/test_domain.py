@@ -29,6 +29,7 @@ pytestmark = [
 @pytest.mark.changes_db
 @freeze_time("2018-08-01T05:00:00+00:00")
 async def test_add() -> None:
+    loaders = get_new_context()
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     filename = "product/test/new#.new"
@@ -44,7 +45,9 @@ async def test_add() -> None:
         modified_date=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=100,
     )
-    await toe_lines_domain.add(group_name, root_id, filename, attributes)
+    await toe_lines_domain.add(
+        loaders, group_name, root_id, filename, attributes
+    )
     loaders = get_new_context()
     toe_lines = await loaders.toe_lines.load(
         ToeLinesRequest(
