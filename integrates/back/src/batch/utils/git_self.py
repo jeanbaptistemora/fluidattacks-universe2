@@ -27,6 +27,7 @@ import newutils.git
 from settings.logger import (
     LOGGING,
 )
+import shutil
 import tempfile
 
 logging.config.dictConfig(LOGGING)
@@ -81,6 +82,7 @@ async def clone_root(
                     }
                 ),
             )
+            shutil.rmtree(temp_dir, ignore_errors=True)
             return CloneResult(success=False, message=stderr)
 
         success = await upload_cloned_repo_to_s3_tar(
@@ -94,7 +96,7 @@ async def clone_root(
                 commit = Repo(
                     folder_to_clone_root, search_parent_directories=True
                 ).head.object
-                return CloneResult(
+                result = CloneResult(
                     success=success,
                     commit=commit.hexsha,
                     commit_date=datetime.fromtimestamp(
@@ -102,7 +104,10 @@ async def clone_root(
                     ).isoformat(),
                     message=stderr,
                 )
+                shutil.rmtree(temp_dir, ignore_errors=True)
+                return result
             except (GitError, AttributeError) as exc:
+                shutil.rmtree(temp_dir, ignore_errors=True)
                 LOGGER.exception(
                     exc,
                     extra=dict(
@@ -112,5 +117,5 @@ async def clone_root(
                         }
                     ),
                 )
-
-        return CloneResult(success=False, message=stderr)
+        shutil.rmtree(temp_dir, ignore_errors=True)
+    return CloneResult(success=False, message=stderr)
