@@ -3209,6 +3209,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_TRAILS_NOT_MULTIREGION = MethodInfo(
+        file_name="terraform",
+        name="tfm_trails_not_multiregion",
+        module="lib_path",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AZURE_KV_SECRET_NO_EXPIRATION = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_secret_no_expiration_date",

@@ -310,6 +310,81 @@ F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_valid
   22 | }
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
+F394,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,9,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf","
+   1 | resource ""aws_cloudtrail"" ""foobar"" {
+   2 |   name                          = ""tf-trail-foobar""
+   3 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   4 |   s3_key_prefix                 = ""prefix""
+   5 |   include_global_service_events = false
+   6 |   is_multi_region_trail         = true
+   7 | }
+   8 |
+>  9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   name                          = ""tf-trail-foobar""
+  11 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  12 |   s3_key_prefix                 = ""prefix""
+  13 |   include_global_service_events = false
+  14 |   is_multi_region_trail         = false
+  15 | }
+  16 |
+  17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
+F394,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,17,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf","
+   2 |   name                          = ""tf-trail-foobar""
+   3 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   4 |   s3_key_prefix                 = ""prefix""
+   5 |   include_global_service_events = false
+   6 |   is_multi_region_trail         = true
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   name                          = ""tf-trail-foobar""
+  11 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  12 |   s3_key_prefix                 = ""prefix""
+  13 |   include_global_service_events = false
+  14 |   is_multi_region_trail         = false
+  15 | }
+  16 |
+> 17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+  22 | }
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
+F394,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,1,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf","
+>  1 | resource ""aws_cloudtrail"" ""foobar"" {
+   2 |   name                          = ""tf-trail-foobar""
+   3 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   4 |   s3_key_prefix                 = ""prefix""
+   5 |   include_global_service_events = false
+   6 |   is_multi_region_trail         = true
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   name                          = ""tf-trail-foobar""
+  11 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  12 |   s3_key_prefix                 = ""prefix""
+  13 |   include_global_service_events = false
+  14 |   is_multi_region_trail         = false
+  15 | }
+  16 |
+  17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
 F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,6,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,"
    1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
@@ -27402,6 +27477,78 @@ F400,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.y
   27 | }
      ^ Col 0
 ",cloudformation.cfn_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,9,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,"
+   1 | resource ""aws_cloudtrail"" ""foobar"" {
+   2 |   enable_log_file_validation    = true
+   3 |   name                          = ""tf-trail-foobar""
+   4 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   5 |   s3_key_prefix                 = ""prefix""
+   6 |   include_global_service_events = false
+   7 | }
+   8 |
+>  9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   enable_log_file_validation    = false
+  11 |   name                          = ""tf-trail-foobar""
+  12 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  13 |   s3_key_prefix                 = ""prefix""
+  14 |   include_global_service_events = false
+  15 | }
+  16 |
+  17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+     ^ Col 0
+",terraform.tfm_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,17,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,"
+   2 |   enable_log_file_validation    = true
+   3 |   name                          = ""tf-trail-foobar""
+   4 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   5 |   s3_key_prefix                 = ""prefix""
+   6 |   include_global_service_events = false
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   enable_log_file_validation    = false
+  11 |   name                          = ""tf-trail-foobar""
+  12 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  13 |   s3_key_prefix                 = ""prefix""
+  14 |   include_global_service_events = false
+  15 | }
+  16 |
+> 17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+  22 | }
+     ^ Col 0
+",terraform.tfm_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,1,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,"
+>  1 | resource ""aws_cloudtrail"" ""foobar"" {
+   2 |   enable_log_file_validation    = true
+   3 |   name                          = ""tf-trail-foobar""
+   4 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   5 |   s3_key_prefix                 = ""prefix""
+   6 |   include_global_service_events = false
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   enable_log_file_validation    = false
+  11 |   name                          = ""tf-trail-foobar""
+  12 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  13 |   s3_key_prefix                 = ""prefix""
+  14 |   include_global_service_events = false
+  15 | }
+  16 |
+  17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+     ^ Col 0
+",terraform.tfm_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,12,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,"
    1 | Resources:
    2 |   trail1:
@@ -27490,6 +27637,54 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   25 |   }
      ^ Col 0
 ",cloudformation.cfn_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,17,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,"
+   2 |   name                          = ""tf-trail-foobar""
+   3 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   4 |   s3_key_prefix                 = ""prefix""
+   5 |   include_global_service_events = false
+   6 |   is_multi_region_trail         = true
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   name                          = ""tf-trail-foobar""
+  11 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  12 |   s3_key_prefix                 = ""prefix""
+  13 |   include_global_service_events = false
+  14 |   is_multi_region_trail         = false
+  15 | }
+  16 |
+> 17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+  22 | }
+     ^ Col 0
+",terraform.tfm_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,14,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,"
+   2 |   name                          = ""tf-trail-foobar""
+   3 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   4 |   s3_key_prefix                 = ""prefix""
+   5 |   include_global_service_events = false
+   6 |   is_multi_region_trail         = true
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   name                          = ""tf-trail-foobar""
+  11 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  12 |   s3_key_prefix                 = ""prefix""
+  13 |   include_global_service_events = false
+> 14 |   is_multi_region_trail         = false
+  15 | }
+  16 |
+  17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+  22 | }
+     ^ Col 0
+",terraform.tfm_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,7,778,skims,400. Traceability Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    1 | Resources:
    2 |   LoadBalancer1:
