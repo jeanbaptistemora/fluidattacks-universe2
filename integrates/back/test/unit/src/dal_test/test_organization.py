@@ -292,6 +292,7 @@ async def test_iterate_organizations() -> None:
         "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448": "kiba",
         "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b": "imamura",
         "ORG#d32674a9-9838-4337-b222-68c88bf54647": "makoto",
+        "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee": "ikari",
     }
     async for org_id, org_name in orgs_dal.iterate_organizations():
         assert expected_organizations.pop(org_id) == org_name

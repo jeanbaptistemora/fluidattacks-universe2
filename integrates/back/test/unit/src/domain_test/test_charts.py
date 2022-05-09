@@ -40,6 +40,7 @@ async def test_iterate_organizations_and_groups() -> None:
             "imamura": ["deleteimamura"]
         },
         "ORG#d32674a9-9838-4337-b222-68c88bf54647": {"makoto": []},
+        "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee": {"ikari": []},
     }
     async for org_id, org_name, groups in (
         utils.iterate_organizations_and_groups()

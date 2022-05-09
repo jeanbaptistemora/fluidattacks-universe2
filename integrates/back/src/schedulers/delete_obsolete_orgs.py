@@ -84,7 +84,7 @@ async def delete_obsolete_orgs() -> None:
     async for org_id, org_name in orgs_domain.iterate_organizations():
         organization = await orgs_domain.get_by_id(org_id)
         if orgs_utils.is_deleted(organization):
-            return
+            continue
 
         info(f"Working on organization {org_name}")
         org_pending_deletion_date_str = (
