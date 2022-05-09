@@ -128,12 +128,14 @@ async def populate_users(data: List[Any]) -> bool:
 
 async def populate_orgs(data: List[Any]) -> bool:
     success: bool = False
+    user_email: str = "user@gmail.com"
     coroutines: List[Awaitable[bool]] = []
     for org in data:
         coroutines.append(
-            dal_organizations.create(
-                org["name"],
-                org["id"],
+            dal_organizations.add(
+                modified_by=user_email,
+                organization_name=org["name"],
+                organization_id=org["id"],
             )
         )
         for user in org["users"]:

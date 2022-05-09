@@ -69,7 +69,7 @@ def main() -> None:
             log(f'pk: {org["id"]}\nsk: {org["name"]}')
         else:
             if not org:
-                org = async_to_sync(orgs_dal.create)(org_name)
+                org = async_to_sync(orgs_dal.create_legacy)(org_name)
             success: bool = users_dal.update(
                 data={"organization": org["id"]}, email=user_email
             )

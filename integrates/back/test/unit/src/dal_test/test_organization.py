@@ -75,18 +75,19 @@ async def test_add_user() -> None:
 
 
 @pytest.mark.changes_db
-async def test_create() -> None:
+async def test_add() -> None:
     org_name = "test-create-org"
-    new_org = await orgs_dal.create(org_name)
+    email = "org_testuser1@gmail.com"
+    new_org = await orgs_dal.add(modified_by=email, organization_name=org_name)
     assert isinstance(new_org, dict)
     assert "id" in new_org
     assert new_org["name"] == org_name
     with pytest.raises(InvalidOrganization):
-        await orgs_dal.create(org_name)
+        await orgs_dal.add(modified_by=email, organization_name=org_name)
 
 
 @pytest.mark.changes_db
-async def test_delete() -> None:
+async def test_remove() -> None:
     org_name = "himura"
     email = "org_testuser1@gmail.com"
     assert await orgs_dal.exists(org_name)
@@ -101,6 +102,8 @@ async def test_delete() -> None:
     assert await orgs_dal.exists(org_name)
     org = await orgs_dal.get_by_name(org_name)
     assert orgs_utils.is_deleted(org)
+    with pytest.raises(InvalidOrganization):
+        await orgs_dal.add(modified_by=email, organization_name=org_name)
 
 
 @pytest.mark.changes_db

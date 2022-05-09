@@ -95,12 +95,14 @@ async def add_user(organization_id: str, email: str) -> bool:
     return success
 
 
-async def create(
+async def add(
+    *,
+    modified_by: str,
     organization_name: str,
     organization_id: str = "",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
-    Create an organization and returns its key.
+    Add an organization and returns its key.
     """
     if await exists(organization_name):
         raise InvalidOrganization()
@@ -111,6 +113,13 @@ async def create(
     new_item: Dict[str, Any] = {
         "pk": f"ORG#{organization_id}",
         "sk": f"INFO#{organization_name.lower().strip()}",
+        "historic_state": [
+            {
+                "modified_by": modified_by,
+                "modified_date": datetime_utils.get_now_as_str(),
+                "status": "ACTIVE",
+            }
+        ],
     }
     try:
         await dynamodb_put_item(TABLE_NAME, new_item)

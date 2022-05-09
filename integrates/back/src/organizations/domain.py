@@ -356,7 +356,10 @@ async def get_or_add(
             await has_user_access(str(org["id"]), email) if email else True
         )
     else:
-        org = await orgs_dal.create(organization_name)
+        org = await orgs_dal.add(
+            modified_by=email,
+            organization_name=organization_name,
+        )
         org_created = True
         org_role = "user_manager"
 
