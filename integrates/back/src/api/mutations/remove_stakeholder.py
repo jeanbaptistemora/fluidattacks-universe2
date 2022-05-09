@@ -28,11 +28,8 @@ async def mutate(_: Any, info: GraphQLResolveInfo) -> SimplePayloadType:
     stakeholder_email = stakeholder_info["user_email"]
     deletion = await get_confirm_deletion(email=stakeholder_email)
 
-    if deletion:
-        if "expiration_time" in deletion:
-            validate_new_invitation_time_limit(
-                int(deletion["expiration_time"])
-            )
+    if deletion and "expiration_time" in deletion:
+        validate_new_invitation_time_limit(int(deletion["expiration_time"]))
 
     success = await confirm_deletion_mail(email=stakeholder_email)
 
