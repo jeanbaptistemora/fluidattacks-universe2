@@ -110,46 +110,6 @@ interface IQueryData {
 }
 
 interface IData {
-  allAsciidoc: {
-    edges: [
-      {
-        node: {
-          fields: {
-            slug: string;
-          };
-          document: {
-            title: string;
-          };
-          html: string;
-          pageAttributes: {
-            advise: string;
-            alt: string;
-            author: string;
-            authors: string;
-            category: string;
-            certification: string;
-            certificationlogo: string;
-            client: string;
-            clientlogo: string;
-            codename: string;
-            cveid: string;
-            date: string;
-            filter: string;
-            image: string;
-            tags: string;
-            description: string;
-            partner: string;
-            partnerlogo: string;
-            product: string;
-            slug: string;
-            spanish: string;
-            subtitle: string;
-            writer: string;
-          };
-        };
-      }
-    ];
-  };
   allMarkdownRemark: {
     edges: [
       {
@@ -158,6 +118,46 @@ interface IData {
             slug: string;
           };
           html: string;
+          frontmatter: {
+            advise: string;
+            alt: string;
+            author: string;
+            authors: string;
+            category: string;
+            certification: string;
+            certificationidd: string;
+            certificationlogo: string;
+            client: string;
+            clientlogo: string;
+            codename: string;
+            cveid: string;
+            date: string;
+            description: string;
+            filter: string;
+            image: string;
+            partner: string;
+            partnerlogo: string;
+            product: string;
+            severity: string;
+            slug: string;
+            spanish: string;
+            subtitle: string;
+            tags: string;
+            title: string;
+            writer: string;
+          };
+        };
+      }
+    ];
+  };
+  allMdx: {
+    edges: [
+      {
+        node: {
+          body: string;
+          fields: {
+            slug: string;
+          };
           frontmatter: {
             advise: string;
             alt: string;
