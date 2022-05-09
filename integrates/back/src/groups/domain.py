@@ -1497,6 +1497,41 @@ async def update_metadata_typed(
     )
 
 
+async def update_group_info(
+    *,
+    loaders: Any,
+    group_name: str,
+    metadata: GroupMetadataToUpdate,
+    user_email: str,
+) -> None:
+    group: Group = await loaders.group_typed.load(group_name)
+
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await update_metadata_typed(group_name=group_name, metadata=metadata)
+
+    if metadata:
+        await groups_mail.send_mail_updated_group_information(
+            group_name=group_name,
+            responsible=user_email,
+            group=group,
+            metadata=metadata,
+            report_date=datetime_utils.get_iso_date(),
+            email_to=email_list,
+        )
+
+
 async def update_state_typed(
     *,
     group_name: str,

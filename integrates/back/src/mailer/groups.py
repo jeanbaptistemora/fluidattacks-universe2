@@ -15,6 +15,7 @@ from db_model.enums import (
 )
 from db_model.groups.types import (
     Group,
+    GroupMetadataToUpdate,
 )
 from db_model.users.types import (
     User,
@@ -313,6 +314,53 @@ async def send_mail_environment_report(
         tags=GENERAL_TAG,
         subject=f"Environment have been modified in [{group_name}]",
         template_name="environment_report",
+    )
+
+
+async def send_mail_updated_group_information(
+    *,
+    group_name: str,
+    responsible: str,
+    group: Group,
+    metadata: GroupMetadataToUpdate,
+    report_date: str,
+    email_to: List[str],
+) -> None:
+    language_metadata: str = (
+        metadata.language.value if metadata.language else ""
+    )
+    language_format: dict[str, Any] = {"EN": "English", "ES": "Spanish"}
+
+    group_info_modified: dict[str, Any] = {
+        "Business Registration Number": {
+            "from": group.business_id,
+            "to": metadata.business_id,
+        },
+        "Business Name": {
+            "from": group.business_name,
+            "to": metadata.business_name,
+        },
+        "Description": {
+            "from": group.description,
+            "to": metadata.description,
+        },
+        "Language": {
+            "from": language_format[group.language.value],
+            "to": language_format[language_metadata],
+        },
+    }
+
+    await send_mails_async(
+        email_to=email_to,
+        context={
+            "group_name": group_name,
+            "responsible": responsible,
+            "group_changes": group_info_modified,
+            "report_date": datetime_utils.get_date_from_iso_str(report_date),
+        },
+        tags=GENERAL_TAG,
+        subject=(f"The information has been modified in [{group_name}]"),
+        template_name="updated_group_information",
     )
 
 

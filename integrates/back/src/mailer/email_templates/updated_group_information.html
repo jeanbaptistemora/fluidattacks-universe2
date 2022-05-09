@@ -1,0 +1,32 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Information Updated') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      The information has been modified to the group <strong>{{ group_name }}</strong>
+      by <strong>{{ responsible }}</strong>.<br/>
+      Here are the details of the group:
+    </p>
+    <p>
+      <strong>Date</strong>: {{ report_date }}<br>
+      {% for key, value in group_changes.items() %}
+        <strong>{{ key }}</strong>:
+        {% if value["from"] == value["to"] %}
+          {{ value["to"] }}<br>
+        {% else %}
+          Modified <u>from</u> {{ value["from"] }} <u>to</u> {{ value["to"] }}<br>
+        {% endif %}
+      {% endfor %}
+    </p>
+    <p>Regards,<br>Fluid Attacks Team</p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}

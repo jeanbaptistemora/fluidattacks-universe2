@@ -8,6 +8,9 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.enums import (
     GroupLanguage,
 )
@@ -28,6 +31,7 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
     validations as validations_utils,
 )
 from typing import (
@@ -49,7 +53,11 @@ async def mutate(
     language: str,
     **parameters: str,
 ) -> SimplePayloadType:
+    loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
+    user_info = await token_utils.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
+
     try:
         business_id = parameters.get("business_id", None)
         business_name = parameters.get("business_name", None)
@@ -62,7 +70,8 @@ async def mutate(
             validations_utils.validate_field_length(business_name, 60)
         validations_utils.validate_field_length(description, 200)
         validations_utils.validate_group_language(language)
-        await groups_domain.update_metadata_typed(
+        await groups_domain.update_group_info(
+            loaders=loaders,
             group_name=group_name,
             metadata=GroupMetadataToUpdate(
                 business_id=business_id,
@@ -70,6 +79,7 @@ async def mutate(
                 description=description,
                 language=GroupLanguage[language.upper()],
             ),
+            user_email=user_email,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
