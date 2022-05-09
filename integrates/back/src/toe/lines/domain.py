@@ -24,6 +24,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.validations import (
+    validate_email_address,
     validate_field_length,
 )
 from roots.validations import (
@@ -55,6 +56,8 @@ async def add(  # pylint: disable=too-many-arguments
     if is_moving_toe_lines is False:
         root: Root = await loaders.root.load((group_name, root_id))
         validate_active_root(root)
+        if attributes.seen_first_time_by is not None:
+            validate_email_address(attributes.seen_first_time_by)
     attacked_lines = (
         attributes.attacked_lines
         if attributes.attacked_at

@@ -8,19 +8,20 @@ from typing import (
 
 
 class ToeLinesAttributesToAdd(NamedTuple):
-    attacked_at: Optional[datetime]
-    attacked_by: str
-    attacked_lines: int
-    comments: str
     last_author: str
     loc: int
     last_commit: str
     modified_date: datetime
+    attacked_at: Optional[datetime] = None
+    attacked_by: str = ""
+    attacked_lines: int = 0
+    comments: str = ""
     be_present: bool = True
     be_present_until: Optional[datetime] = None
     first_attack_at: Optional[datetime] = None
     has_vulnerabilities: Optional[bool] = None
     seen_at: Optional[datetime] = None
+    seen_first_time_by: Optional[str] = None
     sorts_risk_level: int = -1
 
 
