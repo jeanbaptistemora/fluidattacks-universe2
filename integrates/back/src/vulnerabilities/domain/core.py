@@ -84,6 +84,7 @@ from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
     GroupedVulnerabilitiesInfo,
     Treatments,
+    Verifications,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -429,6 +430,21 @@ def get_treatments_count(
             VulnerabilityTreatmentStatus.IN_PROGRESS
         ],
         new=treatment_counter[VulnerabilityTreatmentStatus.NEW],
+    )
+
+
+def get_verifications_count(
+    vulnerabilities: Tuple[Vulnerability, ...],
+) -> Verifications:
+    treatment_counter = Counter(
+        vuln.verification.status
+        for vuln in vulnerabilities
+        if vuln.verification
+    )
+    return Verifications(
+        requested=treatment_counter[VulnerabilityVerificationStatus.REQUESTED],
+        on_hold=treatment_counter[VulnerabilityVerificationStatus.ON_HOLD],
+        verified=treatment_counter[VulnerabilityVerificationStatus.VERIFIED],
     )
 
 

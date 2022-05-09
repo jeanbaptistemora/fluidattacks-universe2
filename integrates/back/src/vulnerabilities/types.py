@@ -23,3 +23,9 @@ class Treatments(NamedTuple):
     accepted_undefined: int
     in_progress: int
     new: int
+
+
+class Verifications(NamedTuple):
+    requested: int
+    on_hold: int
+    verified: int
