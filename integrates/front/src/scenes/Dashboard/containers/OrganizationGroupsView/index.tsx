@@ -50,8 +50,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     authContext as React.Context<Required<IAuthContext>>
   );
 
-  const enableTour =
-    !user.tours.newGroup && user.userEmail.endsWith("fluidattacks.com");
+  const enableTour = !user.tours.newGroup;
   const [runTour, setRunTour] = useState(enableTour);
 
   const openNewGroupModal: () => void = useCallback((): void => {

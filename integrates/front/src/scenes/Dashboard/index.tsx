@@ -95,8 +95,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
     onCompleted: ({ me }): void => {
       user.setUser({
         tours: {
-          newGroup: me.tours.newGroup,
-          newRoot: me.tours.newRoot,
+          newGroup: true,
+          newRoot: true,
         },
         userEmail: me.userEmail,
         userIntPhone: _.isNil(me.phone)

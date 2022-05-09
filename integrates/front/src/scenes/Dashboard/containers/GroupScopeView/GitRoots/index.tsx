@@ -103,8 +103,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const user: Required<IAuthContext> = useContext(
     authContext as React.Context<Required<IAuthContext>>
   );
-  const enableTour =
-    !user.tours.newRoot && user.userEmail.endsWith("fluidattacks.com");
+  const enableTour = !user.tours.newRoot;
   const [runTour, setRunTour] = useState(enableTour);
 
   const openAddModal: () => void = useCallback((): void => {
