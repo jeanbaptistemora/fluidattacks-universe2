@@ -4,6 +4,7 @@
     modules = {
       commonCompute = {
         setup = [
+          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
@@ -16,6 +17,7 @@
     modules = {
       commonCompute = {
         setup = [
+          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/commonCompute"
         ];
@@ -30,10 +32,16 @@
       servicesApiToken = "SERVICES_API_TOKEN";
     };
   };
+  envVarsForTerraform = {
+    commonCompute = {
+      ciProjectId = "20741933";
+    };
+  };
   testTerraform = {
     modules = {
       commonCompute = {
         setup = [
+          outputs."/envVarsForTerraform/commonCompute"
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForTerraformFromEnv/commonCompute"
         ];

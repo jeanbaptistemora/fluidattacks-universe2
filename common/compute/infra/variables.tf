@@ -15,6 +15,8 @@ variable "servicesApiToken" {
   sensitive = true
 }
 
+variable "ciProjectId" {}
+
 # Schedule expressions:
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 
@@ -836,6 +838,7 @@ locals {
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
+        CI_PROJECT_ID     = var.ciProjectId
       }
 
       tags = {
