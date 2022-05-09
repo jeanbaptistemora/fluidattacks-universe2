@@ -6,6 +6,7 @@
 }: let
   runtime_deps = with python_pkgs; [
     boto3
+    boto3-stubs
     bugsnag
     click
     utils-logger

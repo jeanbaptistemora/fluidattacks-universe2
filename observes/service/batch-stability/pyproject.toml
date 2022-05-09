@@ -7,8 +7,9 @@ authors = ["Product Team <development@fluidattacks.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 boto3 = "^1.17.56"
+boto3-stubs = "^1.22.10"
 bugsnag = "^4.0.2"
-click = "^7.1.2"
+click = "^8.0.3"
 
 [tool.poetry.scripts]
 observes-batch-stability = 'batch_stability.cli:main'

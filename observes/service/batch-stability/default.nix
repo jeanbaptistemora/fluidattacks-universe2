@@ -16,7 +16,7 @@
       python_pkgs = legacy_pkgs."${python_version}Packages";
     }
     // {
-      utils-logger = extras.utils-logger."${python_version}";
+      utils-logger = extras.utils-logger."${python_version}".pkg;
     };
   self_pkgs = import ./build/pkg {
     inherit src lib metadata python_pkgs;
