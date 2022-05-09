@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -11,9 +12,11 @@ import { Container } from "./styles";
 import { DeactivationModal } from "../deactivationModal";
 import { InternalSurfaceButton } from "../InternalSurfaceButton";
 import { ACTIVATE_ROOT, ADD_URL_ROOT } from "../queries";
+import { Secrets } from "../Secrets";
 import type { IURLRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import { changeFormatter } from "components/Table/formatters";
 import { filterSearchText } from "components/Table/utils";
@@ -40,11 +43,19 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
   const [isManagingRoot, setIsManagingRoot] = useState<false | { mode: "ADD" }>(
     false
   );
+  const [currentRow, setCurrentRow] = useState<IURLRootAttr | undefined>(
+    undefined
+  );
+  const [isSecretsModalOpen, setIsSecretsModalOpen] = useState(false);
+
   const openAddModal = useCallback((): void => {
     setIsManagingRoot({ mode: "ADD" });
   }, []);
   const closeModal = useCallback((): void => {
     setIsManagingRoot(false);
+  }, []);
+  const closeSecretsModal = useCallback((): void => {
+    setIsSecretsModalOpen(false);
   }, []);
 
   const [addUrlRoot] = useMutation(ADD_URL_ROOT, {
@@ -82,6 +93,14 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
       await addUrlRoot({ variables: { groupName, nickname, url: url.trim() } });
     },
     [addUrlRoot, groupName]
+  );
+
+  const handleRowClick = useCallback(
+    (_0: React.SyntheticEvent, row: IURLRootAttr): void => {
+      setCurrentRow(row);
+      setIsSecretsModalOpen(true);
+    },
+    []
   );
 
   const [activateRoot] = useMutation(ACTIVATE_ROOT, {
@@ -201,12 +220,25 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                 ]}
                 id={"tblURLRoots"}
                 pageSize={10}
+                rowEvents={{ onClick: handleRowClick }}
                 search={false}
               />
             </Container>
           );
         }}
       </ConfirmDialog>
+      {_.isUndefined(currentRow) ? undefined : (
+        <Modal
+          open={isSecretsModalOpen}
+          title={t("group.scope.git.repo.credentials.secrets.tittle")}
+        >
+          <Secrets
+            gitRootId={currentRow.id}
+            groupName={groupName}
+            onCloseModal={closeSecretsModal}
+          />
+        </Modal>
+      )}
       {isManagingRoot === false ? undefined : (
         <ManagementModal onClose={closeModal} onSubmit={handleUrlSubmit} />
       )}

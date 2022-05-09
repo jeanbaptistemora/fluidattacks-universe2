@@ -83,6 +83,14 @@ const GET_ROOT: DocumentNode = gql`
           }
         }
       }
+      ... on URLRoot {
+        id
+        secrets {
+          description
+          key
+          value
+        }
+      }
     }
   }
 `;

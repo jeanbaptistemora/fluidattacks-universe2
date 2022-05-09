@@ -7,9 +7,9 @@ import { useTranslation } from "react-i18next";
 import { AddSecret } from "./addSecret";
 
 import { GET_ENVIRONMENT_URL } from "../../queries";
+import { renderSecretsDescription } from "../../Secrets/secretDescription";
+import { SecretValue } from "../../Secrets/secretValue";
 import type { IEnvironmentUrl, ISecret } from "../../types";
-import { renderSecretsDescription } from "../ManagementModal/secretDescription";
-import { SecretValue } from "../ManagementModal/secretValue";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";

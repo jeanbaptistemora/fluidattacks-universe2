@@ -6,8 +6,8 @@ import { MemoryRouter, Route, Switch } from "react-router-dom";
 
 import { Environments } from "./environments";
 import { Repository } from "./repository";
-import { Secrets } from "./secrets";
 
+import { Secrets } from "../../Secrets";
 import type { IGitRootAttr } from "../../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";

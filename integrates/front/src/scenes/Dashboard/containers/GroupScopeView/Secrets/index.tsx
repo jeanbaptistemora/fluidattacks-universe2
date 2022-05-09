@@ -1,8 +1,10 @@
+/* eslint-disable react/require-default-props */
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -10,8 +12,8 @@ import { AddSecret } from "./addSecret";
 import { renderSecretsDescription } from "./secretDescription";
 import { SecretValue } from "./secretValue";
 
-import { GET_ROOT } from "../../queries";
-import type { IGitRootAttr } from "../../types";
+import { GET_ROOT } from "../queries";
+import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
@@ -33,11 +35,13 @@ interface ISecretItem {
 interface ISecretsProps {
   gitRootId: string;
   groupName: string;
+  onCloseModal?: () => void;
 }
 
 const Secrets: React.FC<ISecretsProps> = ({
   gitRootId,
   groupName,
+  onCloseModal = undefined,
 }: ISecretsProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -145,6 +149,15 @@ const Secrets: React.FC<ISecretsProps> = ({
       >
         {"Add secret"}
       </Button>
+      {_.isUndefined(onCloseModal) ? undefined : (
+        <Button
+          id={"git-root-add-secret-cancel"}
+          onClick={onCloseModal}
+          variant={"secondary"}
+        >
+          {t("confirmmodal.cancel")}
+        </Button>
+      )}
     </React.StrictMode>
   );
 };

@@ -84,6 +84,13 @@ const gitModalSchema = (
             translate.t("validations.required"),
             (): boolean => {
               const { healthCheckConfirm, includesHealthCheck } = values;
+              if (
+                includesHealthCheck !== null &&
+                !includesHealthCheck &&
+                healthCheckConfirm === undefined
+              ) {
+                return true;
+              }
               if (healthCheckConfirm === undefined) {
                 return false;
               }

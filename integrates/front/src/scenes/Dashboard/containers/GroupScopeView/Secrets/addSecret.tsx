@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { lazy, object, string } from "yup";
 import type { BaseSchema } from "yup";
 
-import { ADD_SECRET, REMOVE_SECRET } from "../../queries";
+import { ADD_SECRET, REMOVE_SECRET } from "../queries";
 import { Button } from "components/Button";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
