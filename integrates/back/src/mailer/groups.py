@@ -289,6 +289,31 @@ async def send_mail_updated_services(
     )
 
 
+async def send_mail_devsecops_agent_token(
+    *,
+    loaders: Any,
+    group_name: str,
+    user_email: str,
+    report_date: date,
+    email_to: List[str],
+) -> None:
+    org_name = await get_organization_name(loaders, group_name)
+
+    email_context: dict[str, Any] = {
+        "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
+        "group_name": group_name,
+        "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
+        "responsible": user_email,
+    }
+    await send_mails_async(
+        email_to,
+        email_context,
+        COMMENTS_TAG,
+        f"DevSecOps Agent token reset in [{group_name}]",
+        "devsecops_agent_token",
+    )
+
+
 async def send_mail_environment_report(
     *,
     email_to: List[str],

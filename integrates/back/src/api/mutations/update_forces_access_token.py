@@ -10,6 +10,9 @@ from custom_exceptions import (
 from custom_types import (
     UpdateAccessTokenPayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     enforce_group_level_auth_async,
 )
@@ -18,6 +21,9 @@ from forces import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -36,7 +42,9 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str,
 ) -> UpdateAccessTokenPayload:
+    loaders: Dataloaders = info.context.loaders
     user_info = await token_utils.get_jwt_content(info.context)
+    responsible = user_info["user_email"]
 
     user_email = forces_domain.format_forces_user_email(group_name)
     if not await users_domain.ensure_user_exists(user_email):
@@ -53,8 +61,12 @@ async def mutate(
         datetime_utils.get_now_plus_delta(days=180).timestamp()
     )
     try:
-        result = await users_domain.update_access_token(
-            user_email, expiration_time
+        result = await groups_domain.update_forces_access_token(
+            loaders=loaders,
+            group_name=group_name,
+            email=user_email,
+            expiration_time=expiration_time,
+            responsible=responsible,
         )
         if result.success:
             logs_utils.cloudwatch_log(

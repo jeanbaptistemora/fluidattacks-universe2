@@ -1,0 +1,59 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('DevSecOps Agent Token') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      A DevSecOps Agent token has been reset {{ report_date }} in the group <strong>{{ group_name }}</strong>
+      by <strong>{{ responsible }}</strong>.<br/>
+    </p>
+    <p>
+      You can use the DevSeCops agent on any OS that Docker can run on. You can also integrate
+      the agent into your <strong>CI/CD</strong> to ensure that your software is built and shipped without previously
+      reported vulnerabilities in our ASM. In order to install the agent you need to do the following:
+    </p>
+    <ol>
+      <li style="margin-top:2rem;">
+        <p>
+          Make sure you own an DevSecOps agent token. This token can be generated in our ASM scope section
+          (Organization>Groups>GroupName>Scope), where you will find the DevSecOps Agent Token section.<br>
+          Click on the <strong>Manage Token</strong> button and a pop-up will appear where you can
+          <strong>Generate</strong> the token or click on <strong>Reveal Token</strong> in case you already generated one.
+        </p>
+      </li>
+      <li style="margin-top:2rem;">
+        <p>
+          Make sure your execution environment has the required dependencies:
+        </p>
+        <ul>
+          <li>
+            Docker
+          </li>
+        </ul>
+      </li>
+      <li style="margin-top:2rem;">
+        <p>
+          Install docker by following the official guide:
+        </p>
+        <ul>
+          <li>
+            https://docs.docker.com/engine/install/
+          </li>
+        </ul>
+      </li>
+      <li style="margin-top:2rem;">
+        <p>Having Docker installed, pull the image: docker pull fluidattacks/forces:new.</p>
+      </li>
+    </ol>
+    <p>Regards,<br>Fluid Attacks Team</p>
+    {{ go_to_button('Go to scope', scope_url) }}
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}

@@ -37,6 +37,9 @@ from custom_exceptions import (
     UserCannotEnrollDemo,
     UserNotInOrganization,
 )
+from custom_types import (
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+)
 from datetime import (
     date,
 )
@@ -1530,6 +1533,55 @@ async def update_group_info(
             report_date=datetime_utils.get_iso_date(),
             email_to=email_list,
         )
+
+
+async def update_forces_access_token(
+    *,
+    loaders: Any,
+    group_name: str,
+    email: str,
+    expiration_time: int,
+    responsible: str,
+) -> UpdateAccessTokenPayloadType:
+    result = await users_domain.update_access_token(email, expiration_time)
+
+    if result.success:
+        await send_mail_devsecops_agent(
+            loaders=loaders,
+            group_name=group_name,
+            responsible=responsible,
+        )
+
+    return result
+
+
+async def send_mail_devsecops_agent(
+    *,
+    loaders: Any,
+    group_name: str,
+    responsible: str,
+) -> None:
+    report_date: str = datetime_utils.get_iso_date()
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        authz.get_group_level_role(user, group_name) for user in users
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await groups_mail.send_mail_devsecops_agent_token(
+        loaders=loaders,
+        group_name=group_name,
+        user_email=responsible,
+        report_date=datetime_utils.get_datetime_from_iso_str(report_date),
+        email_to=email_list,
+    )
 
 
 async def update_state_typed(
