@@ -8,6 +8,9 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
 )
+from metaloaders.model import (
+    Type as ModelType,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -120,21 +123,22 @@ def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
 def _sensitive_info_in_dotnet_json(
     template: Any,
 ) -> Iterator[Any]:
-    regex_email = re.compile(
-        r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
-    )
-    services = template.inner.get("OutlookServices")
-    if (
-        services
-        and services.inner.get("Email")
-        and services.inner.get("Password")
-        and isinstance(services.inner.get("Email").data, str)
-        and re.fullmatch(
-            regex_email,
-            services.inner.get("Email").data,
+    if template.data_type == ModelType.OBJECT:
+        regex_email = re.compile(
+            r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
         )
-    ):
-        yield services.start_line, services.start_column
+        services = template.inner.get("OutlookServices")
+        if (
+            services
+            and services.inner.get("Email")
+            and services.inner.get("Password")
+            and isinstance(services.inner.get("Email").data, str)
+            and re.fullmatch(
+                regex_email,
+                services.inner.get("Email").data,
+            )
+        ):
+            yield services.start_line, services.start_column
 
 
 def sensitive_info_in_dotnet_json(
@@ -154,13 +158,17 @@ def sensitive_info_in_dotnet_json(
 def _sensitive_info_in_json(
     template: Any,
 ) -> Iterator[Any]:
-    regex_password = re.compile(r"Password=.*")
-    connection_str = template.inner.get("ConnectionStrings")
-    if connection_str and connection_str.inner.get("Claims"):
-        data_str = connection_str.inner.get("Claims").data
-        for element in data_str.split(";"):
-            if re.match(regex_password, element):
-                yield connection_str.start_line, connection_str.start_column
+    if template.data_type == ModelType.OBJECT:
+        regex_password = re.compile(r"Password=.*")
+        connection_str = template.inner.get("ConnectionStrings")
+        if connection_str and connection_str.inner.get("Claims"):
+            data_str = connection_str.inner.get("Claims").data
+            for element in data_str.split(";"):
+                if re.match(regex_password, element):
+                    yield (
+                        connection_str.start_line,
+                        connection_str.start_column,
+                    )
 
 
 def sensitive_info_in_json(
