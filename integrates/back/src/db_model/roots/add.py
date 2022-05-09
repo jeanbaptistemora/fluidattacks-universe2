@@ -120,7 +120,7 @@ async def add_secret(
 ) -> bool:
     key_structure = TABLE.primary_key
     secret_key = keys.build_key(
-        facet=TABLE.facets["git_root_secret"],
+        facet=TABLE.facets["root_secret"],
         values={"uuid": root_id, "key": secret.key},
     )
     secret_item = {

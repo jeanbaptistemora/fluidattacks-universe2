@@ -1754,7 +1754,7 @@
           ]
         },
         {
-          "FacetName": "git_root_secret",
+          "FacetName": "root_secret",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "ROOT#uuid",
             "SortKeyAlias": "SECRET#key"

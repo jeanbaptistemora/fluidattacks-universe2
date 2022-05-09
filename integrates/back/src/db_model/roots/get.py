@@ -348,7 +348,7 @@ async def get_secrets(
     *, root_id: str, secret_key: Optional[str] = None
 ) -> Tuple[Secret, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["git_root_secret"],
+        facet=TABLE.facets["root_secret"],
         values={
             "uuid": root_id,
             **({"key": secret_key} if secret_key else {}),
@@ -366,7 +366,7 @@ async def get_secrets(
                 )
             )
         ),
-        facets=(TABLE.facets["git_root_secret"],),
+        facets=(TABLE.facets["root_secret"],),
         table=TABLE,
     )
     return tuple(
