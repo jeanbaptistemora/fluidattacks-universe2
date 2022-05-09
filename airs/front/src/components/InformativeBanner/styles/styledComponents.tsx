@@ -24,6 +24,7 @@ const InformativeBannerContainer = styled.div.attrs({
   background-color: ${({ bgColor }): string => bgColor};
   display: ${({ isClose }): string => (isClose ? "none" : "block")};
   position: sticky;
+  z-index: 1;
 `;
 
 const BannerItem = styled.li.attrs({

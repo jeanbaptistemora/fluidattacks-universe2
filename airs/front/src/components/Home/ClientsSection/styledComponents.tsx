@@ -19,7 +19,9 @@ const ClientsContainer = styled.div.attrs({
     overflow-hidden
     home-clients-container
   `,
-})``;
+})`
+  z-index: 0;
+`;
 
 const TitleContainer = styled.div.attrs({
   className: `
