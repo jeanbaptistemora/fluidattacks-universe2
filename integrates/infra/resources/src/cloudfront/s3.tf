@@ -24,7 +24,7 @@ resource "aws_s3_bucket_acl" "fi_resources_bucket" {
 resource "aws_s3_bucket_logging" "fi_resources_bucket" {
   bucket = aws_s3_bucket.fi_resources_bucket.id
 
-  target_bucket = aws_s3_bucket.common_logging.id
+  target_bucket = "common.logging"
   target_prefix = "log/resources"
 }
 
@@ -78,7 +78,7 @@ resource "aws_s3_bucket_acl" "fi_evidences_bucket" {
 resource "aws_s3_bucket_logging" "fi_evidences_bucket" {
   bucket = aws_s3_bucket.fi_evidences_bucket.id
 
-  target_bucket = aws_s3_bucket.common_logging.id
+  target_bucket = "common.logging"
   target_prefix = "log/evidences"
 }
 
@@ -120,7 +120,7 @@ resource "aws_s3_bucket_acl" "fi_reports_bucket" {
 resource "aws_s3_bucket_logging" "fi_reports_bucket" {
   bucket = aws_s3_bucket.fi_reports_bucket.id
 
-  target_bucket = aws_s3_bucket.common_logging.id
+  target_bucket = "common.logging"
   target_prefix = "log/reports"
 }
 
@@ -175,7 +175,7 @@ resource "aws_s3_bucket_acl" "fi_build_bucket" {
 resource "aws_s3_bucket_logging" "fi_build_bucket" {
   bucket = aws_s3_bucket.fi_build_bucket.id
 
-  target_bucket = aws_s3_bucket.common_logging.id
+  target_bucket = "common.logging"
   target_prefix = "log/build"
 }
 
@@ -217,7 +217,7 @@ resource "aws_s3_bucket_acl" "fi_forces_bucket" {
 resource "aws_s3_bucket_logging" "fi_forces_bucket" {
   bucket = aws_s3_bucket.fi_forces_bucket.id
 
-  target_bucket = aws_s3_bucket.common_logging.id
+  target_bucket = "common.logging"
   target_prefix = "log/forces"
 }
 
