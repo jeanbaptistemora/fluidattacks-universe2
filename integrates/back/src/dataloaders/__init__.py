@@ -119,7 +119,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_typed: GroupTypedLoader
     organization: OrganizationLoader
-    organization_groups: OrganizationGroupsTypedLoader
+    organization_groups_typed: OrganizationGroupsTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_typed: OrganizationTypedLoader
@@ -212,7 +212,7 @@ def get_new_context() -> Dataloaders:
         group_toe_lines=GroupToeLinesLoader(),
         group_typed=GroupTypedLoader(),
         organization=OrganizationLoader(),
-        organization_groups=OrganizationGroupsTypedLoader(),
+        organization_groups_typed=OrganizationGroupsTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
