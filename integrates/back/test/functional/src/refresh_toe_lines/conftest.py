@@ -8,6 +8,9 @@ from datetime import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -56,7 +59,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="repo_mock",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/repo_mock",
                 ),
                 type="Git",

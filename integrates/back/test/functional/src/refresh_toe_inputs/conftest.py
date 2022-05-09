@@ -8,6 +8,9 @@ from datetime import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -95,7 +98,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     port="8080",
                     protocol="HTTPS",
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                 ),
                 type="URL",
             ),

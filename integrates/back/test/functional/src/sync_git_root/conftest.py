@@ -11,6 +11,9 @@ from db_model.enums import (
     CredentialType,
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
@@ -96,7 +99,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="nickname1",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
                 type="Git",
@@ -122,7 +125,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="nickname2",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
                 type="Git",
@@ -148,7 +151,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="nickname3",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
                 type="Git",
@@ -200,7 +203,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="nickname5",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
                 type="Git",

@@ -25,6 +25,9 @@ from db_model.enums import (
 from db_model.roots.constants import (
     ORG_INDEX_METADATA,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -105,7 +108,7 @@ def _format_root(*, item: Item) -> Root:
                 nickname=state["nickname"],
                 other=state.get("other"),
                 reason=state.get("reason"),
-                status=state["status"],
+                status=RootStatus[state["status"]],
                 url=state["url"],
                 download_url=None,
                 secrets=[],
@@ -129,7 +132,7 @@ def _format_root(*, item: Item) -> Root:
                 other=state.get("other"),
                 port=state["port"],
                 reason=state.get("reason"),
-                status=state["status"],
+                status=RootStatus[state["status"]],
             ),
             type=item["type"],
             unreliable_indicators=unreliable_indicators,
@@ -149,7 +152,7 @@ def _format_root(*, item: Item) -> Root:
             port=state["port"],
             protocol=state["protocol"],
             reason=state.get("reason"),
-            status=state["status"],
+            status=RootStatus[state["status"]],
         ),
         type=item["type"],
         unreliable_indicators=unreliable_indicators,
@@ -284,7 +287,7 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
             modified_date=state["modified_date"],
             other=state.get("other"),
             reason=state.get("reason"),
-            status=state["status"],
+            status=RootStatus[state["status"]],
         )
         for state in response.items
     )

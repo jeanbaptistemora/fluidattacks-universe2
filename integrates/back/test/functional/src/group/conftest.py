@@ -32,6 +32,9 @@ from db_model.groups.types import (
     GroupState,
     GroupUnreliableIndicators,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -531,7 +534,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     nickname="",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 type="Git",

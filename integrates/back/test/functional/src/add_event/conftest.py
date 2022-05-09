@@ -5,6 +5,9 @@ from back.test import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
@@ -44,7 +47,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="nickname",
                     other=None,
                     reason=None,
-                    status="ACTIVE",
+                    status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/events",
                 ),
                 type="Git",

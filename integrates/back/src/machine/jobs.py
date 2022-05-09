@@ -30,6 +30,9 @@ from dateutil.parser import (  # type: ignore
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.get import (
     get_machine_executions,
 )
@@ -235,7 +238,7 @@ async def queue_job_new(
             root.state.nickname
             for root in git_roots
             if isinstance(root, GitRoot)
-            and root.state.status == "ACTIVE"
+            and root.state.status == RootStatus.ACTIVE
             and root.cloning.status == GitCloningStatus.OK
         )
 

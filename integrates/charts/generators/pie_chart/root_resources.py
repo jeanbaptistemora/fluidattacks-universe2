@@ -11,6 +11,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -82,7 +85,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                         root
                         for root in group_roots
                         if isinstance(root, GitRoot)
-                        and root.state.status == "ACTIVE"
+                        and root.state.status == RootStatus.ACTIVE
                     ]
                 ),
             ),
@@ -97,7 +100,8 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             [
                 root
                 for root in group_roots
-                if isinstance(root, GitRoot) and root.state.status == "ACTIVE"
+                if isinstance(root, GitRoot)
+                and root.state.status == RootStatus.ACTIVE
             ]
             for group_roots in await loaders.group_roots.load_many(org_groups)
         ]
@@ -117,7 +121,8 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             [
                 root
                 for root in group_roots
-                if isinstance(root, GitRoot) and root.state.status == "ACTIVE"
+                if isinstance(root, GitRoot)
+                and root.state.status == RootStatus.ACTIVE
             ]
             for group_roots in await loaders.group_roots.load_many(
                 valid_org_groups
@@ -139,7 +144,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                     root
                     for root in group_roots
                     if isinstance(root, GitRoot)
-                    and root.state.status == "ACTIVE"
+                    and root.state.status == RootStatus.ACTIVE
                 ]
                 for group_roots in await loaders.group_roots.load_many(
                     list(groups)

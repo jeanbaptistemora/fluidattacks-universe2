@@ -19,6 +19,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -471,7 +474,7 @@ async def refresh_root_repo_toe_lines(
     active_root_repos = {
         root.state.nickname: root
         for root in sorted_roots
-        if isinstance(root, GitRoot) and root.state.status == "ACTIVE"
+        if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
     }
     # Deactivate all the toe lines for all the inactive roots
     # with the same nickname
@@ -479,7 +482,7 @@ async def refresh_root_repo_toe_lines(
         root
         for root in sorted_roots
         if isinstance(root, GitRoot)
-        and root.state.status == "INACTIVE"
+        and root.state.status == RootStatus.INACTIVE
         and root.state.nickname not in active_root_repos
     )
     active_root_repos_to_proccess = tuple(

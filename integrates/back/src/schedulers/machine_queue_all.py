@@ -22,6 +22,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from machine.availability import (
     is_check_available,
 )
@@ -114,7 +117,7 @@ async def _roots_by_group(
         roots=[
             root.state.nickname
             for root in await loaders.group_roots.load(group.name)
-            if root.state.status == "ACTIVE"
+            if root.state.status == RootStatus.ACTIVE
         ],
     )
 

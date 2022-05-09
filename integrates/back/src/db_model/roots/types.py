@@ -4,6 +4,9 @@ from datetime import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from typing import (
     List,
     NamedTuple,
@@ -49,7 +52,7 @@ class GitRootState(NamedTuple):
     modified_by: str
     modified_date: str
     nickname: str
-    status: str
+    status: RootStatus
     url: str
     environment_urls: List[str] = []
     download_url: Optional[str] = None
@@ -128,7 +131,7 @@ class RootState(NamedTuple):
     modified_date: str
     other: Optional[str]
     reason: Optional[str]
-    status: str
+    status: RootStatus
 
 
 class MachineFindingResult(NamedTuple):

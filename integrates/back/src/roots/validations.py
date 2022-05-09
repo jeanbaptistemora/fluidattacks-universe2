@@ -9,6 +9,9 @@ from custom_exceptions import (
 from db_model.enums import (
     CredentialType,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
@@ -76,7 +79,9 @@ def validate_nickname_is_unique(
     nickname: str, roots: Tuple[Root, ...], old_nickname: str = ""
 ) -> None:
     if nickname != old_nickname and nickname in {
-        root.state.nickname for root in roots if root.state.status == "ACTIVE"
+        root.state.nickname
+        for root in roots
+        if root.state.status == RootStatus.ACTIVE
     }:
         raise RepeatedRootNickname()
 
@@ -85,7 +90,7 @@ def is_git_unique(url: str, branch: str, roots: Tuple[Root, ...]) -> bool:
     return (url, branch) not in tuple(
         (root.state.url, root.state.branch)
         for root in roots
-        if isinstance(root, GitRoot) and root.state.status == "ACTIVE"
+        if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
     )
 
 
@@ -101,7 +106,7 @@ def is_ip_unique(address: str, port: str, roots: Tuple[Root, ...]) -> bool:
     return (address, port) not in tuple(
         (root.state.address, root.state.port)
         for root in roots
-        if isinstance(root, IPRoot) and root.state.status == "ACTIVE"
+        if isinstance(root, IPRoot) and root.state.status == RootStatus.ACTIVE
     )
 
 
@@ -116,12 +121,12 @@ def is_url_unique(
             root.state.protocol,
         )
         for root in roots
-        if isinstance(root, URLRoot) and root.state.status == "ACTIVE"
+        if isinstance(root, URLRoot) and root.state.status == RootStatus.ACTIVE
     )
 
 
 def validate_active_root(root: Root) -> None:
-    if root.state.status == "ACTIVE":
+    if root.state.status == RootStatus.ACTIVE:
         return
     raise InactiveRoot()
 

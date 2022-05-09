@@ -44,6 +44,9 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitEnvironmentUrl,
     GitRoot,
@@ -213,7 +216,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             nickname=nickname,
             other=None,
             reason=None,
-            status="ACTIVE",
+            status=RootStatus.ACTIVE,
             url=url,
             use_vpn=kwargs.get("use_vpn", False),
         ),
@@ -306,7 +309,7 @@ async def add_ip_root(
             other=None,
             port=port,
             reason=None,
-            status="ACTIVE",
+            status=RootStatus.ACTIVE,
         ),
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
@@ -375,7 +378,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
             port=port,
             protocol=protocol,
             reason=None,
-            status="ACTIVE",
+            status=RootStatus.ACTIVE,
         ),
         unreliable_indicators=RootUnreliableIndicators(
             unreliable_last_status_update=modified_date,
@@ -461,7 +464,7 @@ async def update_git_environments(
     if not isinstance(root, GitRoot):
         raise InvalidParameter()
 
-    is_valid: bool = root.state.status == "ACTIVE" and all(
+    is_valid: bool = root.state.status == RootStatus.ACTIVE and all(
         validations.is_valid_url(url) for url in environment_urls
     )
     if not is_valid:
@@ -631,7 +634,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
     branch: str = kwargs["branch"]
     if not (
         isinstance(root, GitRoot)
-        and root.state.status == "ACTIVE"
+        and root.state.status == RootStatus.ACTIVE
         and validations.is_valid_url(url)
         and validations.is_valid_git_branch(branch)
     ):
@@ -799,7 +802,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
 async def activate_root(
     *, loaders: Any, group_name: str, root: Root, user_email: str
 ) -> None:
-    new_status = "ACTIVE"
+    new_status = RootStatus.ACTIVE
 
     if root.state.status != new_status:
         group: Group = await loaders.group_typed.load(group_name)
@@ -903,7 +906,7 @@ async def deactivate_root(
     root: Root,
     user_email: str,
 ) -> None:
-    new_status = "INACTIVE"
+    new_status = RootStatus.INACTIVE
 
     if root.state.status != new_status:
         if isinstance(root, GitRoot):

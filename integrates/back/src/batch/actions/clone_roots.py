@@ -38,6 +38,9 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -223,7 +226,9 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         key=lambda x: x.time,
     )
     roots = roots or await loaders.group_roots.load(group_name)
-    roots = tuple(root for root in roots if root.state.status == "ACTIVE")
+    roots = tuple(
+        root for root in roots if root.state.status == RootStatus.ACTIVE
+    )
     roots_dict: Dict[str, GitRoot] = {root.id: root for root in roots}
 
     if not roots:

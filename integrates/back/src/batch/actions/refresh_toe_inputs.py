@@ -18,6 +18,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -82,7 +85,7 @@ def get_non_present_toe_inputs_to_update(
             ToeInputAttributesToUpdate(be_present=False),
         )
         for toe_input in root_toe_inputs
-        if root.state.status == "INACTIVE"
+        if root.state.status == RootStatus.INACTIVE
         and toe_input.be_present
         and toe_input.seen_at is not None
     )
@@ -103,7 +106,8 @@ def get_toe_inputs_to_remove(
     return tuple(
         toe_input
         for toe_input in root_toe_inputs
-        if root.state.status == "INACTIVE" and toe_input.seen_at is None
+        if root.state.status == RootStatus.INACTIVE
+        and toe_input.seen_at is None
     )
 
 
@@ -125,7 +129,7 @@ def get_present_toe_inputs_to_update(
             ToeInputAttributesToUpdate(be_present=True),
         )
         for toe_input in root_toe_inputs
-        if root.state.status == "ACTIVE" and not toe_input.be_present
+        if root.state.status == RootStatus.ACTIVE and not toe_input.be_present
     )
 
 
@@ -244,7 +248,7 @@ async def refresh_root_toe_inputs(
         root.state.nickname: root
         for root in sorted_roots
         if isinstance(root, (GitRoot, URLRoot))
-        and root.state.status == "ACTIVE"
+        and root.state.status == RootStatus.ACTIVE
     }
     # Deactivate all the toe inputs for all the inactive roots
     # with the same nickname
@@ -252,7 +256,7 @@ async def refresh_root_toe_inputs(
         root
         for root in sorted_roots
         if isinstance(root, (GitRoot, URLRoot))
-        and root.state.status == "INACTIVE"
+        and root.state.status == RootStatus.INACTIVE
         and root.state.nickname not in active_roots
     )
     active_roots_to_proccess = tuple(

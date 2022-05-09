@@ -1,3 +1,6 @@
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.get import (
     get_download_url,
 )
@@ -13,7 +16,7 @@ from typing import (
 
 
 async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> Optional[str]:
-    if parent.state.status == "INACTIVE":
+    if parent.state.status == RootStatus.INACTIVE:
         return None
 
     return await get_download_url(
