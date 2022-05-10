@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def get_result(
     user: str,
     org: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         query {{
             organization(organizationId: "{org}") {{
@@ -25,6 +24,7 @@ async def get_result(
                 maxAcceptanceSeverity
                 maxNumberAcceptances
                 minAcceptanceSeverity
+                minBreakingSeverity
                 name
                 groups {{
                     name
@@ -34,10 +34,11 @@ async def get_result(
                 }}
                 permissions(identifier: "{group}")
                 userRole(identifier: "{group}")
+                vulnerabilityGracePeriod
             }}
         }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

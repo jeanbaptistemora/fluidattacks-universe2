@@ -5,15 +5,14 @@ from back.test import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("organization")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "orgs": [
             {
                 "name": "orgtest",
@@ -39,7 +38,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "max_acceptance_severity": 7,
                     "min_acceptance_severity": 3,
                     "min_breaking_severity": 2,
-                    "vulnerability_grace_period": 2,
+                    "vulnerability_grace_period": 5,
                     "historic_max_number_acceptations": [
                         {
                             "date": "2019-11-22 15:07:57",
@@ -48,6 +47,17 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         },
                     ],
                 },
+            },
+            {
+                "name": "acme",
+                "id": "8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
+                "users": [
+                    "admin@gmail.com",
+                ],
+                "groups": [
+                    "group2",
+                ],
+                "policy": {},
             },
         ],
     }
