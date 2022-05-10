@@ -123,6 +123,7 @@ def test_group_analytics(
             "Accepted vulnerabilities by severity",
             "Mean (average) days to remediate",
             "Severity by assignment",
+            "Files with open vulnerabilities in the last 20 weeks",
             "Finding by tags",
             "Your commitment towards security",
             "Builds risk",
