@@ -2,62 +2,59 @@
   inputs,
   outputs,
   ...
-}: {
-  dev = {
-    observesPaginator = {
-      source = [
-        outputs."/observes/common/paginator/env/development"
-      ];
-    };
-    observesPostgresClient = {
-      source = [
-        outputs."/observes/common/postgres-client/env/development"
-      ];
-    };
-    observesPurity = {
-      source = [
-        outputs."/observes/common/purity/env/development"
-      ];
-    };
-    observesSingerIO = {
-      source = [
-        outputs."/observes/common/singer-io/env/development"
-      ];
-    };
-    observesScheduler = {
-      source = [
-        outputs."/observes/service/jobs-scheduler/env/development"
-      ];
-    };
-    observesCodeEtl = {
-      source = [
-        outputs."${inputs.observesIndex.etl.code.env.dev}"
-      ];
-    };
-    observesTapCheckly = {
-      source = [
-        outputs."${inputs.observesIndex.tap.checkly.env.dev}"
-      ];
-    };
-    observesTapDynamo = {
-      source = [
-        outputs."/observes/singer/tap-dynamo/env/development"
-      ];
-    };
-    observesEtlDynamoConf = {
-      source = [
-        outputs."${inputs.observesIndex.etl.dynamo.env.dev}"
-      ];
-    };
-    observesCommonUtilsLogger = {
-      source = [
-        outputs."${inputs.observesIndex.common.utils_logger.new_env.dev}"
-      ];
-    };
-    observesServiceDbMigration = {
-      source = [
-        outputs."${inputs.observesIndex.service.db_migration.env.dev}"
-      ];
-    };
+}: let
+  products = with inputs.observesIndex; {
+    observesCodeEtl = etl.code;
+    observesBatchStability = service.batch_stability;
+    observesServiceDbMigration = service.db_migration;
+    observesTapCheckly = tap.checkly;
+    observesEtlDynamoConf = etl.dynamo;
   };
+  dev_envs =
+    builtins.mapAttrs (
+      _: v: {
+        source = [outputs."${v.env.dev}"];
+      }
+    )
+    products;
+in {
+  dev =
+    dev_envs
+    // {
+      observesPaginator = {
+        source = [
+          outputs."/observes/common/paginator/env/development"
+        ];
+      };
+      observesPostgresClient = {
+        source = [
+          outputs."/observes/common/postgres-client/env/development"
+        ];
+      };
+      observesPurity = {
+        source = [
+          outputs."/observes/common/purity/env/development"
+        ];
+      };
+      observesSingerIO = {
+        source = [
+          outputs."/observes/common/singer-io/env/development"
+        ];
+      };
+      observesScheduler = {
+        source = [
+          outputs."/observes/service/jobs-scheduler/env/development"
+        ];
+      };
+      observesTapDynamo = {
+        source = [
+          outputs."/observes/singer/tap-dynamo/env/development"
+        ];
+      };
+      observesCommonUtilsLogger = {
+        source = [
+          outputs."${inputs.observesIndex.common.utils_logger.new_env.dev}"
+        ];
+      };
+    };
 }
