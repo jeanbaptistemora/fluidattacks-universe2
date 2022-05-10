@@ -240,6 +240,7 @@ in {
               };
           })
           [
+            "0213_populate_verification_summary.py"
           ])
         ++ (builtins.map
           (name: {
