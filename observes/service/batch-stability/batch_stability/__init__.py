@@ -65,7 +65,7 @@ def _report_status(
 
     print(arguments)
     bugsnag.start_session()
-    bugsnag.notify(**arguments)
+    bugsnag.notify(**arguments)  # type: ignore
 
 
 def _report_job(

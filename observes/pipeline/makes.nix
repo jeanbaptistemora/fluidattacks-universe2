@@ -56,11 +56,11 @@
     stage = "analytics";
     tags = ["autoscaling"];
   };
-
+  # new standard
   index = inputs.observesIndex;
-
-  pkgTargets = [
-    inputs.observesIndex.tap.checkly
+  pkgTargets = with index; [
+    service.batch_stability
+    tap.checkly
   ];
   genPkgJobs = pkg: [
     {
@@ -77,10 +77,10 @@
     }
   ];
   pkgsJobs = builtins.concatLists (map genPkgJobs pkgTargets);
-
-  targets = [
-    index.etl.code
-    index.service.scheduler
+  # legacy standard
+  targets = with index; [
+    etl.code
+    service.scheduler
   ];
   lintJobsOutputs = map (x: x.lint) targets;
   lintJobs =
