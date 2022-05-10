@@ -8,6 +8,8 @@ function job_code_mirror {
       abort '[INFO] Please set the first argument to the group name'
     fi \
     && aws_login_prod 'observes' \
+    && ensure_gitlab_env_vars \
+      INTEGRATES_API_TOKEN \
     && use_git_repo_services \
     && echo "[INFO] Working on ${group}" \
     && echo "[INFO] Cloning ${group} from source Git repository" \

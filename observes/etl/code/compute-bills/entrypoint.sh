@@ -15,6 +15,8 @@ function job_compute_bills {
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && export_notifier_key \
+    && ensure_gitlab_env_vars \
+      INTEGRATES_API_TOKEN \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \

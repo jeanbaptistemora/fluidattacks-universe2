@@ -116,6 +116,7 @@ in {
           "PRODUCT_API_TOKEN"
           "SERVICES_API_TOKEN"
         ];
+        queue = "unlimited_spot";
       };
 
     observesCodeEtlMigration2 =

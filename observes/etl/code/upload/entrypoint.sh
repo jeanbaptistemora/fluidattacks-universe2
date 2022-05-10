@@ -14,6 +14,8 @@ function job_code_upload {
     && migration_groups_file=$(mktemp) \
     && migrated_groups_file=$(mktemp) \
     && aws_login_prod 'observes' \
+    && ensure_gitlab_env_vars \
+      INTEGRATES_API_TOKEN \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && export_notifier_key \
