@@ -243,6 +243,30 @@ async def send_mail_root_file_report(
     )
 
 
+async def send_mail_root_cloning_status(
+    *,
+    loaders: Any,
+    email_to: List[str],
+    group_name: str,
+    root_nickname: str,
+    report_date: date,
+) -> None:
+    org_name = await get_organization_name(loaders, group_name)
+    email_context: dict[str, Any] = {
+        "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
+        "group": group_name,
+        "root_nickname": root_nickname,
+        "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
+    }
+    await send_mails_async(
+        email_to=email_to,
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=f"Root changed to cloning in [{group_name}]",
+        template_name="root_cloning_status",
+    )
+
+
 async def send_mail_portfolio_report(
     *,
     group_name: str,
