@@ -1250,6 +1250,11 @@ export const enTranslations: ResourceKey = {
     help: {
       chat: "Live Chat",
       expert: "Talk to an expert",
+      extra: {
+        chat: "Fast and personalized attention is not necessary to schedule",
+        expert: "Request any help you need through a scheduled videoconference",
+      },
+      support: "Support",
     },
     home: {
       text: "Home",
