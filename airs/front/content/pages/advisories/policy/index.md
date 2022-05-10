@@ -1,7 +1,9 @@
 ---
 slug: advisories/policy/
 title: Disclosure Policy
-description: This Disclosure Policy describes the details referring to the parameters used by Fluid Attacks on disclosing public vulnerabilities.
+description: This Disclosure Policy describes the details referring
+  to the parameters used by Fluid Attacks
+  on disclosing public vulnerabilities.
 keywords: Fluid Attacks, Disclosure, Policy, Vulnerability, CVE, ISO
 ---
 

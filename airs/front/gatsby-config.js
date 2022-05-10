@@ -136,7 +136,6 @@ module.exports = {
         siteUrl: 'https://fluidattacks.com',
       }
     },
-    "gatsby-plugin-mdx",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-preload-fonts",
