@@ -11,9 +11,10 @@ from typing import (
 
 
 class OrganizationState(NamedTuple):
-    modified_date: str
-    modified_by: str
     status: OrganizationStateStatus
+    modified_by: Optional[str] = None
+    modified_date: Optional[str] = None
+    pending_deletion_date: Optional[str] = None
 
 
 class OrganizationPolicies(NamedTuple):
@@ -31,6 +32,5 @@ class Organization(NamedTuple):
     id: str
     name: str
     policies: OrganizationPolicies
+    state: OrganizationState
     billing_customer: Optional[str] = None
-    pending_deletion_date: Optional[str] = None
-    state: Optional[OrganizationState] = None

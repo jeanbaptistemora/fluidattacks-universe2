@@ -1,3 +1,6 @@
+from db_model.organization.enums import (
+    OrganizationStateStatus,
+)
 from db_model.organization.types import (
     Organization,
     OrganizationPolicies,
@@ -14,7 +17,6 @@ from newutils.utils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -33,22 +35,6 @@ def filter_active_organizations(
         for organization in organizations
         if not is_deleted(organization)
     )
-
-
-def format_historic_state(
-    item: Optional[list[Item]],
-) -> OrganizationState:
-    if item:
-        organization_state = item[-1]
-        return OrganizationState(
-            modified_date=(
-                convert_to_iso_str(organization_state["modified_date"])
-            ),
-            modified_by=organization_state["modified_by"],
-            status=organization_state["status"],
-        )
-
-    return None
 
 
 def format_organization_policies(item: Item) -> OrganizationPolicies:
@@ -85,18 +71,33 @@ def format_organization_policies(item: Item) -> OrganizationPolicies:
     )
 
 
-def format_organization(item: Item) -> Organization:
-    historic_state = format_historic_state(item.get("historic_state"))
+def format_organization_state(item: Item) -> OrganizationState:
+    historic_state = item.get("historic_state", [])
+    last_entry_state = historic_state[-1] if historic_state else {}
+    pending_deletion_date = (
+        convert_to_iso_str(item["pending_deletion_date"])
+        if item.get("pending_deletion_date")
+        else None
+    )
+    state_status = OrganizationStateStatus[
+        last_entry_state.get("status") or "ACTIVE"
+    ]
 
+    return OrganizationState(
+        status=state_status,
+        modified_by=last_entry_state.get("modified_by"),
+        modified_date=convert_to_iso_str(last_entry_state["modified_date"])
+        if last_entry_state.get("modified_date")
+        else None,
+        pending_deletion_date=pending_deletion_date,
+    )
+
+
+def format_organization(item: Item) -> Organization:
     return Organization(
+        billing_customer=item.get("billing_customer"),
         id=item["id"],
         name=item["name"],
-        state=historic_state,
-        billing_customer=item.get("billing_customer"),
-        pending_deletion_date=(
-            convert_to_iso_str(item["pending_deletion_date"])
-            if item.get("pending_deletion_date")
-            else None
-        ),
+        state=format_organization_state(item),
         policies=format_organization_policies(item),
     )
