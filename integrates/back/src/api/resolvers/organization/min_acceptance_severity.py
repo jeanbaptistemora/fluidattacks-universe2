@@ -22,9 +22,9 @@ async def resolve(
 ) -> Decimal:
     if isinstance(parent, dict):
         return (
-            parent["min_breaking_severity"]
-            if "min_breaking_severity" in parent
+            parent["min_acceptance_severity"]
+            if "min_acceptance_severity" in parent
             else DEFAULT_MIN_SEVERITY
         )
 
-    return parent.policies.min_breaking_severity or DEFAULT_MIN_SEVERITY
+    return parent.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY

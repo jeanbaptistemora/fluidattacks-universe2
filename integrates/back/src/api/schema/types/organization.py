@@ -6,6 +6,7 @@ from api.resolvers.organization import (
     max_acceptance_days,
     max_acceptance_severity,
     max_number_acceptances,
+    min_acceptance_severity,
     min_breaking_severity,
     payment_methods,
     permissions,
@@ -26,6 +27,9 @@ ORGANIZATION.set_field("maxAcceptanceDays", max_acceptance_days.resolve)
 ORGANIZATION.set_field(
     "maxAcceptanceSeverity", max_acceptance_severity.resolve
 )
+ORGANIZATION.set_field(
+    "minAcceptanceSeverity", min_acceptance_severity.resolve
+)
 ORGANIZATION.set_field("maxNumberAcceptances", max_number_acceptances.resolve)
 ORGANIZATION.set_field("minBreakingSeverity", min_breaking_severity.resolve)
 ORGANIZATION.set_field("paymentMethods", payment_methods.resolve)
@@ -35,4 +39,3 @@ ORGANIZATION.set_field("userRole", user_role.resolve)
 ORGANIZATION.set_field(
     "vulnerabilityGracePeriod", vulnerability_grace_period.resolve
 )
-ORGANIZATION.set_alias("maxNumberAcceptances", "max_number_acceptations")
