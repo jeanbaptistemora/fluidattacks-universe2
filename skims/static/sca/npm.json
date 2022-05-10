@@ -2336,6 +2336,9 @@
   "express-restify-mongoose": {
     "GMS-2016-25": "<=2.4.2 || >=3.0.0a <=3.0.1"
   },
+  "express-validator": {
+    "SNYK-JS-EXPRESSVALIDATOR-174763": ">=4.2.1 <6.0.0"
+  },
   "express-validators": {
     "CVE-2020-7767": "<=1.0.4"
   },
