@@ -290,8 +290,8 @@ def add_lines_enumeration(
         Tuple[Tuple[int, str], Tuple[int, str]],
     ],
     tree: Dict[str, str],
-) -> Dict[str, Any]:
-    enumerated_tree: Dict[str, Any] = {}
+) -> Dict[str, Dict[str, Any]]:
+    enumerated_tree: Dict[str, Dict[str, Any]] = {}
     for (product_line, product), (version_line, version) in windower:
         product, version = product.strip(), version.strip()
         if (
@@ -339,7 +339,7 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
     path_yarn: str,
     path_json: str,
     dependencies_type: core_model.DependenciesTypeEnum,
-) -> Dict[str, Any]:
+) -> Dict[str, Dict[str, Any]]:
     # Dependencies type could be "devDependencies" for dev dependencies
     # or "dependencies" for prod dependencies
     yarn_content = get_file_content_block(path_yarn)
