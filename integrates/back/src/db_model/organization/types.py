@@ -34,6 +34,7 @@ class Organization(NamedTuple):
     billing_customer: Optional[str] = None
     pending_deletion_date: Optional[str] = None
     max_acceptance_days: Optional[int] = None
+    max_number_acceptations: Optional[int] = None
     max_acceptance_severity: Decimal = DEFAULT_MAX_SEVERITY
     min_acceptance_severity: Decimal = DEFAULT_MIN_SEVERITY
     min_breaking_severity: Decimal = DEFAULT_MIN_SEVERITY
