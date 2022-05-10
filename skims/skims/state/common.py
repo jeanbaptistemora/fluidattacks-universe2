@@ -31,22 +31,6 @@ def read_blob(obj_location: str) -> Any:
         return py_loads(obj_stream)
 
 
-def retrieve_object(folder: str, key: Any) -> Any:
-    """Retrieve an entry from the cache.
-
-    :param folder: Path to folder to retrieve data from
-    :type folder: str
-    :param key: Key that identifies the value to be read
-    :type key: Any
-    :return: The value that is hold under the specified key
-    :rtype: Any
-    """
-    obj_id: bytes = get_obj_id(key)
-    obj_location: str = join(folder, obj_id.hex())
-
-    return read_blob(obj_location)
-
-
 def store_object(
     folder: str,
     key: Any,

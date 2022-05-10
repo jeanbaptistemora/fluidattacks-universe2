@@ -22,9 +22,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -32,7 +29,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_rds_has_not_automated_backups(
     content: str, path: str, template: Any
@@ -42,7 +38,6 @@ def run_cfn_rds_has_not_automated_backups(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_rds_has_not_termination_protection(
     content: str, file_ext: str, path: str, template: Any
@@ -52,7 +47,6 @@ def run_cfn_rds_has_not_termination_protection(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_db_no_deletion_protection(
     content: str, path: str, model: Any
@@ -62,7 +56,6 @@ def run_tfm_db_no_deletion_protection(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_rds_no_deletion_protection(
     content: str, path: str, model: Any
@@ -72,7 +65,6 @@ def run_tfm_rds_no_deletion_protection(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_db_has_not_automated_backups(
     content: str, path: str, model: Any
@@ -82,7 +74,6 @@ def run_tfm_db_has_not_automated_backups(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_rds_has_not_automated_backups(
     content: str, path: str, model: Any

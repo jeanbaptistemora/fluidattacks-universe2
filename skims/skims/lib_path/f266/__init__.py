@@ -13,16 +13,12 @@ from re import (
     IGNORECASE,
     search,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Callable,
     Tuple,
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_container_whitout_user(content: str, path: str) -> Vulnerabilities:
     return container_whitout_user(content=content, path=path)

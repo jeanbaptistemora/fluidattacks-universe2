@@ -14,9 +14,6 @@ from model.core_model import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -24,7 +21,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_unrestricted_access_network_segments(
     content: str, path: str, model: Any
@@ -34,7 +30,6 @@ def run_tfm_azure_unrestricted_access_network_segments(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_sa_default_network_access(
     content: str, path: str, model: Any
@@ -44,7 +39,6 @@ def run_tfm_azure_sa_default_network_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_kv_default_network_access(
     content: str, path: str, model: Any
@@ -54,7 +48,6 @@ def run_tfm_azure_kv_default_network_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_kv_danger_bypass(
     content: str, path: str, model: Any

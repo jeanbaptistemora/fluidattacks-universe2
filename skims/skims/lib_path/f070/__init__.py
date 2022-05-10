@@ -20,9 +20,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -30,7 +27,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb2_uses_insecure_security_policy(
     content: str, path: str, template: Any
@@ -40,7 +36,6 @@ def run_cfn_elb2_uses_insecure_security_policy(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_elb2_target_group_insecure_port(
     content: str, file_ext: str, path: str, template: Any
@@ -50,7 +45,6 @@ def run_cfn_elb2_target_group_insecure_port(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_elb2_uses_insecure_security_policy(
     content: str, path: str, model: Any
@@ -60,7 +54,6 @@ def run_tfm_elb2_uses_insecure_security_policy(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_lb_target_group_insecure_port(
     content: str, path: str, model: Any

@@ -12,9 +12,6 @@ from model.core_model import (
 from parse_cfn.loader import (
     load_templates_blocking,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -22,7 +19,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_k8s_sys_admin_or_privileged_used(
     content: str, path: str, template: Any
@@ -32,7 +28,6 @@ def run_k8s_sys_admin_or_privileged_used(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_k8s_allow_privilege_escalation_enabled(
     content: str, path: str, template: Any

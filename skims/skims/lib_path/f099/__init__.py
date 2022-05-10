@@ -19,9 +19,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -29,7 +26,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_bucket_policy_has_server_side_encryption_disabled(
     content: str, path: str, template: Any
@@ -39,7 +35,6 @@ def run_cfn_bucket_policy_has_server_side_encryption_disabled(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_unencrypted_buckets(
     content: str, file_ext: str, path: str, template: Any
@@ -50,7 +45,6 @@ def run_cfn_unencrypted_buckets(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_unencrypted_buckets(
     content: str, path: str, model: Any

@@ -28,9 +28,6 @@ from model.core_model import (
 from parse_cfn.loader import (
     load_templates_blocking,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -38,19 +35,16 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_aws_credentials(content: str, path: str) -> Vulnerabilities:
     return aws_credentials(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
     return dockerfile_env_secrets(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_docker_compose_env_secrets(
     content: str, path: str, template: Any
@@ -60,7 +54,6 @@ def run_docker_compose_env_secrets(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_java_properties_sensitive_data(
     content: str, path: str
@@ -68,13 +61,11 @@ def run_java_properties_sensitive_data(
     return java_properties_sensitive_data(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
     return sensitive_key_in_json(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_sensitive_info_in_dotnet_json(
     content: str, path: str, template: Any
@@ -84,7 +75,6 @@ def run_sensitive_info_in_dotnet_json(
     )
 
 
-# @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_sensitive_info_in_json(
     content: str, path: str, template: Any
@@ -94,19 +84,16 @@ def run_sensitive_info_in_json(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_web_config_user_pass(content: str, path: str) -> Vulnerabilities:
     return web_config_user_pass(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_web_config_db_connection(content: str, path: str) -> Vulnerabilities:
     return web_config_db_connection(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_jwt_token(content: str, path: str) -> Vulnerabilities:
     return jwt_token(content=content, path=path)

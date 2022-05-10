@@ -11,9 +11,6 @@ from model.core_model import (
 from parse_cfn.loader import (
     load_templates_blocking,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -21,7 +18,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_insecure_generate_secret_string(
     content: str, path: str, template: Any

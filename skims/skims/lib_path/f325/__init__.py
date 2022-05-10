@@ -15,9 +15,6 @@ from model.core_model import (
 from parse_cfn.loader import (
     load_templates_blocking,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -25,7 +22,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str, path: str, template: Any
@@ -35,7 +31,6 @@ def run_cfn_kms_key_has_master_keys_exposed_to_everyone(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_iam_has_wildcard_resource_on_write_action(
     content: str, path: str, template: Any
@@ -45,7 +40,6 @@ def run_cfn_iam_has_wildcard_resource_on_write_action(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_iam_is_policy_miss_configured(
     content: str,
@@ -58,7 +52,6 @@ def run_cfn_iam_is_policy_miss_configured(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_iam_has_privileges_over_iam(
     content: str, path: str, template: Any
@@ -68,7 +61,6 @@ def run_cfn_iam_has_privileges_over_iam(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_iam_is_role_over_privileged(
     content: str, file_ext: str, path: str, template: Any

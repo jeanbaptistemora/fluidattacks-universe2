@@ -18,9 +18,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -28,7 +25,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_use_default_security_group(
     content: str, file_ext: str, path: str, template: Any
@@ -38,7 +34,6 @@ def run_cfn_ec2_use_default_security_group(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_ec2_use_default_security_group(
     content: str, path: str, model: Any

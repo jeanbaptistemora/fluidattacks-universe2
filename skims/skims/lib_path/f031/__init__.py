@@ -30,9 +30,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -40,7 +37,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_admin_policy_attached(
     content: str, path: str, template: Any
@@ -51,7 +47,6 @@ def run_cfn_admin_policy_attached(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_bucket_policy_allows_public_access(
     content: str, path: str, template: Any
@@ -61,7 +56,6 @@ def run_cfn_bucket_policy_allows_public_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_iam_user_missing_role_based_security(
     content: str, path: str, template: Any
@@ -71,7 +65,6 @@ def run_cfn_iam_user_missing_role_based_security(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_negative_statement(
     content: str, path: str, template: Any
@@ -89,7 +82,6 @@ def run_cfn_negative_statement(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_open_passrole(
     content: str, path: str, template: Any
@@ -102,7 +94,6 @@ def run_cfn_open_passrole(
     return cfn_open_passrole(content=content, path=path, template=template)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_permissive_policy(
     content: str, path: str, template: Any
@@ -119,7 +110,6 @@ def run_cfn_permissive_policy(
     return cfn_permissive_policy(content=content, path=path, template=template)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_iam_has_full_access_to_ssm(
     content: str, path: str, template: Any
@@ -129,7 +119,6 @@ def run_cfn_iam_has_full_access_to_ssm(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_terraform_admin_policy_attached(
     content: str, path: str, model: Any
@@ -140,7 +129,6 @@ def run_terraform_admin_policy_attached(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_bucket_policy_allows_public_access(
     content: str, path: str, model: Any
@@ -150,7 +138,6 @@ def run_tfm_bucket_policy_allows_public_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_iam_user_missing_role_based_security(
     content: str, path: str, model: Any
@@ -160,7 +147,6 @@ def run_tfm_iam_user_missing_role_based_security(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_iam_has_full_access_to_ssm(
     content: str, path: str, model: Any
@@ -170,7 +156,6 @@ def run_tfm_iam_has_full_access_to_ssm(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_terraform_negative_statement(
     content: str, path: str, model: Any
@@ -188,7 +173,6 @@ def run_terraform_negative_statement(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_terraform_open_passrole(
     content: str, path: str, model: Any
@@ -201,7 +185,6 @@ def run_terraform_open_passrole(
     return terraform_open_passrole(content=content, path=path, model=model)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_terraform_permissive_policy(
     content: str, path: str, model: Any

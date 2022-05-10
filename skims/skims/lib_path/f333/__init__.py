@@ -20,9 +20,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -30,7 +27,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_has_not_an_iam_instance_profile(
     content: str, file_ext: str, path: str, template: Any
@@ -40,7 +36,6 @@ def run_cfn_ec2_has_not_an_iam_instance_profile(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_ec2_has_terminate_shutdown_behavior(
     content: str, path: str, model: Any
@@ -50,7 +45,6 @@ def run_ec2_has_terminate_shutdown_behavior(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_associate_public_ip_address(
     content: str, path: str, model: Any
@@ -60,7 +54,6 @@ def run_tfm_ec2_associate_public_ip_address(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_has_not_an_iam_instance_profile(
     content: str, path: str, model: Any

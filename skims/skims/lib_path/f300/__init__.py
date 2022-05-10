@@ -12,9 +12,6 @@ from model.core_model import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -22,7 +19,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_app_authentication_off(
     content: str, path: str, model: Any
@@ -32,7 +28,6 @@ def run_tfm_azure_app_authentication_off(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_azure_as_client_certificates_enabled(
     content: str, path: str, model: Any

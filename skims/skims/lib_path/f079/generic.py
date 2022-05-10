@@ -6,12 +6,8 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(

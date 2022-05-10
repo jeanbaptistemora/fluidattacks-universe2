@@ -36,9 +36,6 @@ from parse_cfn.loader import (
 from parse_hcl2.loader import (
     load_blocking as load_terraform,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Any,
     Callable,
@@ -46,7 +43,6 @@ from typing import (
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_instances_without_profile(
     content: str, path: str, template: Any
@@ -56,7 +52,6 @@ def run_cfn_instances_without_profile(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_unrestricted_cidrs(
     content: str, path: str, template: Any
@@ -69,7 +64,6 @@ def run_cfn_unrestricted_cidrs(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_allows_anyone_to_admin_ports(
     content: str, path: str, template: Any
@@ -79,7 +73,6 @@ def run_cfn_allows_anyone_to_admin_ports(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_unrestricted_ip_protocols(
     content: str, path: str, template: Any
@@ -91,7 +84,6 @@ def run_cfn_unrestricted_ip_protocols(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
     content: str, path: str, template: Any
@@ -101,7 +93,6 @@ def run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_has_unrestricted_ports(
     content: str, path: str, template: Any
@@ -111,7 +102,6 @@ def run_cfn_ec2_has_unrestricted_ports(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_aws_ec2_allows_all_outbound_traffic(
     content: str, path: str, model: Any
@@ -121,7 +111,6 @@ def run_tfm_aws_ec2_allows_all_outbound_traffic(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_aws_ec2_cfn_unrestricted_ip_protocols(
     content: str, path: str, model: Any
@@ -131,7 +120,6 @@ def run_tfm_aws_ec2_cfn_unrestricted_ip_protocols(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_aws_ec2_unrestricted_cidrs(
     content: str, path: str, model: Any
@@ -141,7 +129,6 @@ def run_tfm_aws_ec2_unrestricted_cidrs(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_has_unrestricted_ports(
     content: str, path: str, model: Any
@@ -151,7 +138,6 @@ def run_tfm_ec2_has_unrestricted_ports(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_aws_allows_anyone_to_admin_ports(
     content: str, path: str, model: Any
@@ -161,7 +147,6 @@ def run_tfm_aws_allows_anyone_to_admin_ports(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
     content: str, path: str, model: Any
@@ -171,7 +156,6 @@ def run_tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_has_unrestricted_dns_access(
     content: str, path: str, model: Any
@@ -181,7 +165,6 @@ def run_tfm_ec2_has_unrestricted_dns_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_has_unrestricted_ftp_access(
     content: str, path: str, model: Any
@@ -191,7 +174,6 @@ def run_tfm_ec2_has_unrestricted_ftp_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_instances_without_profile(
     content: str, path: str, model: Any
@@ -201,7 +183,6 @@ def run_tfm_ec2_instances_without_profile(
     )
 
 
-# @CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_tfm_ec2_has_open_all_ports_to_the_public(
     content: str, path: str, model: Any
@@ -211,7 +192,6 @@ def run_tfm_ec2_has_open_all_ports_to_the_public(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_groups_without_egress(
     content: str, path: str, template: Any
@@ -222,7 +202,6 @@ def run_cfn_groups_without_egress(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_has_unrestricted_dns_access(
     content: str, path: str, template: Any
@@ -232,7 +211,6 @@ def run_cfn_ec2_has_unrestricted_dns_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_has_unrestricted_ftp_access(
     content: str, path: str, template: Any
@@ -242,7 +220,6 @@ def run_cfn_ec2_has_unrestricted_ftp_access(
     )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_cfn_ec2_has_open_all_ports_to_the_public(
     content: str, path: str, template: Any

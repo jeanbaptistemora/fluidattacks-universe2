@@ -9,16 +9,12 @@ from lib_path.f052.java import (
 from model.core_model import (
     Vulnerabilities,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Callable,
     Tuple,
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_java_properties_missing_ssl(
     content: str, path: str
@@ -26,7 +22,6 @@ def run_java_properties_missing_ssl(
     return java_properties_missing_ssl(content=content, path=path)
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_java_properties_weak_cipher_suite(
     content: str, path: str

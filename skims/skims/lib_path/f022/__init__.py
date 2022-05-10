@@ -8,16 +8,12 @@ from lib_path.f022.java import (
 from model.core_model import (
     Vulnerabilities,
 )
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from typing import (
     Callable,
     Tuple,
 )
 
 
-@CACHE_ETERNALLY
 @SHIELD_BLOCKING
 def run_java_properties_unencrypted_transport(
     content: str, path: str
