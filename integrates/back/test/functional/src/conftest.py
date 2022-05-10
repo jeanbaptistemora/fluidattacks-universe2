@@ -53,6 +53,7 @@ TEST_GROUPS: Set[str] = {
     "groups_with_forces",
     "invalidate_access_token",
     "me",
+    "move_root",
     "old",
     "organization",
     "organization_id",

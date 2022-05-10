@@ -48,6 +48,7 @@
     ["handle_vulnerabilities_acceptance"]
     ["invalidate_access_token"]
     ["me"]
+    ["move_root"]
     ["organization"]
     ["organization_id"]
     ["refresh_toe_inputs"]
