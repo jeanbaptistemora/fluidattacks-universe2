@@ -19,6 +19,18 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupFile,
+    GroupState,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -44,80 +56,87 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "groups": [
+        "groups": [],
+        "groups_typed": [
             {
-                "project_name": "group1",
-                "description": "-",
-                "language": "en",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_drills": False,
-                        "has_forces": False,
-                        "requester": "unknown",
-                        "service": "WHITE",
-                        "type": "continuous",
-                    }
-                ],
-                "project_status": "ACTIVE",
-                "files": [
-                    {
-                        "description": "Test",
-                        "fileName": "test.zip",
-                        "uploadDate": "2019-03-01 15:21",
-                        "uploader": "unittest@fluidattacks.com",
-                    },
-                    {
-                        "description": "Test",
-                        "fileName": "shell.exe",
-                        "uploadDate": "2019-04-24 14:56",
-                        "uploader": "unittest@fluidattacks.com",
-                    },
-                    {
-                        "description": "Test",
-                        "fileName": "shell2.exe",
-                        "uploadDate": "2019-04-24 14:59",
-                        "uploader": "unittest@fluidattacks.com",
-                    },
-                    {
-                        "description": "Test",
-                        "fileName": "asdasd.py",
-                        "uploadDate": "2019-08-06 14:28",
-                        "uploader": "unittest@fluidattacks.com",
-                    },
-                ],
+                "group": Group(
+                    name="group1",
+                    description="-",
+                    language=GroupLanguage.EN,
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=False,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.OTHER,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ady6db",
+                    files=[
+                        GroupFile(
+                            description="Test",
+                            file_name="test.zip",
+                            modified_by="unittest@fluidattacks.com",
+                            modified_date="2019-03-01T20:21+00:00",
+                        ),
+                        GroupFile(
+                            description="Test",
+                            file_name="shell.exe",
+                            modified_by="unittest@fluidattacks.com",
+                            modified_date="2019-03-01T19:56+00:00",
+                        ),
+                        GroupFile(
+                            description="Test",
+                            file_name="shell2.exe",
+                            modified_by="unittest@fluidattacks.com",
+                            modified_date="2019-03-01T19:59+00:00",
+                        ),
+                        GroupFile(
+                            description="Test",
+                            file_name="asdasd.py",
+                            modified_by="unittest@fluidattacks.com",
+                            modified_date="2019-03-01T19:59+00:00",
+                        ),
+                    ],
+                ),
             },
             {
-                "project_name": "group2",
-                "description": "-",
-                "language": "en",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_drills": False,
-                        "has_forces": False,
-                        "requester": "unknown",
-                        "service": "WHITE",
-                        "type": "continuous",
-                    }
-                ],
-                "project_status": "ACTIVE",
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group2",
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=False,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.OTHER,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                ),
             },
             {
-                "project_name": "group3",
-                "description": "-",
-                "language": "en",
-                "historic_configuration": [
-                    {
-                        "date": "2020-05-20 17:00:00",
-                        "has_drills": False,
-                        "has_forces": False,
-                        "requester": "unknown",
-                        "service": "WHITE",
-                        "type": "continuous",
-                    }
-                ],
-                "project_status": "ACTIVE",
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group3",
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=False,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.OTHER,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                )
             },
         ],
         "findings": [
