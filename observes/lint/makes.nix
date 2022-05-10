@@ -164,13 +164,6 @@ in {
         python = "3.8";
         src = "/observes/service/job-last-success/src/tests";
       };
-      observesServiceBatchStability = {
-        searchPaths.source = [
-          outputs."/observes/service/batch-stability/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/service/batch-stability/batch_stability";
-      };
       observesServiceMigrateTables = {
         searchPaths.source = [
           outputs."/observes/service/migrate-tables/env/runtime"

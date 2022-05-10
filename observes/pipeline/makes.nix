@@ -202,10 +202,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/module/observesServiceBatchStability";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintPython/module/observesServiceMigrateTables";
             gitlabExtra = gitlabLint;
           }
