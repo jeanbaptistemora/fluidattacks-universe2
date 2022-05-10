@@ -27,6 +27,10 @@ resource "aws_dynamodb_table" "async_processing" {
   point_in_time_recovery {
     enabled = true
   }
+
+  server_side_encryption {
+    enabled = true
+  }
   tags = {
     "Name"               = "fi_async_processing"
     "management:area"    = "cost"
@@ -51,6 +55,10 @@ resource "aws_dynamodb_table" "authz" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
@@ -106,6 +114,10 @@ resource "aws_dynamodb_table" "subscriptions" {
     enabled = true
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "fi_subscriptions"
     "management:area"    = "cost"
@@ -131,6 +143,10 @@ resource "aws_dynamodb_table" "project_comments" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
@@ -167,6 +183,10 @@ resource "aws_dynamodb_table" "events" {
     enabled = true
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "fi_events"
     "management:area"    = "cost"
@@ -189,6 +209,10 @@ resource "aws_dynamodb_table" "projects" {
     enabled = true
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "FI_projects"
     "management:area"    = "cost"
@@ -208,6 +232,10 @@ resource "aws_dynamodb_table" "users" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
@@ -248,6 +276,10 @@ resource "aws_dynamodb_table" "project_access" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
@@ -297,6 +329,10 @@ resource "aws_dynamodb_table" "findings" {
     enabled = true
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "project_findings"
     "management:area"    = "cost"
@@ -322,6 +358,10 @@ resource "aws_dynamodb_table" "finding_comments" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
@@ -371,6 +411,10 @@ resource "aws_dynamodb_table" "vulnerabilities" {
     projection_type = "ALL"
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "FI_vulnerabilities"
     "management:area"    = "cost"
@@ -396,6 +440,10 @@ resource "aws_dynamodb_table" "portfolios" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
@@ -434,6 +482,10 @@ resource "aws_dynamodb_table" "organizations" {
     projection_type = "ALL"
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "fi_organizations"
     "management:area"    = "cost"
@@ -459,6 +511,10 @@ resource "aws_dynamodb_table" "forces" {
   }
 
   point_in_time_recovery {
+    enabled = true
+  }
+
+  server_side_encryption {
     enabled = true
   }
 
