@@ -34,6 +34,7 @@ class EntityAttr(Enum):
     status: str = "status"
     treatment_changes: str = "treatment_changes"
     treatment_summary: str = "treatment_summary"
+    verification_summary: str = "verification_summary"
     where: str = "where"
 
 

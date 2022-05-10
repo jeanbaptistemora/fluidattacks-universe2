@@ -57,6 +57,7 @@ def test_get_entities_to_update_by_dependency() -> None:
                 EntityAttr.open_vulnerabilities,
                 EntityAttr.status,
                 EntityAttr.treatment_summary,
+                EntityAttr.verification_summary,
                 EntityAttr.where,
             },
         ),
