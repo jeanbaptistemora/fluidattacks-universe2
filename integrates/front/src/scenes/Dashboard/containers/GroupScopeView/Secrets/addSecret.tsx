@@ -41,7 +41,6 @@ function getSecretSchema(
       object().shape({
         key: string()
           .required(translate.t("validations.required"))
-          .matches(/^[a-zA-Z_0-9-]{1,128}$/u)
           .test(
             "duplicateValue",
             translate.t("validations.duplicateSecret"),
