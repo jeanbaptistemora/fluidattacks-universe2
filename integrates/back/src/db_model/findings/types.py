@@ -130,6 +130,12 @@ class FindingTreatmentSummary(NamedTuple):
     new: int = 0
 
 
+class FindingVerificationSummary(NamedTuple):
+    requested: int = 0
+    on_hold: int = 0
+    verified: int = 0
+
+
 class FindingUnreliableIndicators(NamedTuple):
     unreliable_closed_vulnerabilities: int = 0
     unreliable_is_verified: bool = True

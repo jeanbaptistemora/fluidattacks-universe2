@@ -15,6 +15,7 @@ from .types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerification,
+    FindingVerificationSummary,
 )
 from datetime import (
     datetime,
@@ -212,6 +213,26 @@ def format_treatment_summary(
         accepted_undefined=int(treatment_summary_item["accepted_undefined"]),
         in_progress=int(treatment_summary_item["in_progress"]),
         new=int(treatment_summary_item["new"]),
+    )
+
+
+def format_verification_summary_item(
+    treatment_summary: FindingVerificationSummary,
+) -> Item:
+    return {
+        "requested": treatment_summary.requested,
+        "on_hold": treatment_summary.on_hold,
+        "verified": treatment_summary.verified,
+    }
+
+
+def format_verification_summary(
+    verification_summary_item: Item,
+) -> FindingVerificationSummary:
+    return FindingVerificationSummary(
+        requested=int(verification_summary_item["requested"]),
+        on_hold=int(verification_summary_item["on_hold"]),
+        verified=int(verification_summary_item["verified"]),
     )
 
 
