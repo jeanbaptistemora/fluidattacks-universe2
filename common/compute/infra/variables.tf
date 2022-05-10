@@ -20,62 +20,6 @@ variable "servicesApiToken" {
 
 locals {
   schedules = {
-    common_users_rotate_even = {
-      enabled = false
-      command = [
-        "m",
-        "f",
-        "/common/users/infra/rotate/keys",
-        "even",
-      ]
-
-      schedule_expression = "cron(0 0 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30 * ? *)"
-      queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
-      cpu                 = 2
-      memory              = 3600
-
-      environment = {
-        PRODUCT_API_TOKEN  = var.productApiToken
-        SERVICES_API_TOKEN = var.servicesApiToken
-      }
-
-      tags = {
-        "Name"               = "common_users_rotate_even"
-        "management:area"    = "cost"
-        "management:product" = "common"
-        "management:type"    = "product"
-      }
-    }
-    common_users_rotate_odd = {
-      enabled = false
-      command = [
-        "m",
-        "f",
-        "/common/users/infra/rotate/keys",
-        "odd",
-      ]
-
-      schedule_expression = "cron(0 0 1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31 * ? *)"
-      queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
-      cpu                 = 2
-      memory              = 3600
-
-      environment = {
-        PRODUCT_API_TOKEN  = var.productApiToken
-        SERVICES_API_TOKEN = var.servicesApiToken
-      }
-
-      tags = {
-        "Name"               = "common_users_rotate_odd"
-        "management:area"    = "cost"
-        "management:product" = "common"
-        "management:type"    = "product"
-      }
-    }
     integrates_charts_make_documents = {
       enabled = true
       command = [
