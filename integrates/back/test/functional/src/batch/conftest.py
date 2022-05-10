@@ -243,7 +243,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     nickname="nickname5",
                     other=None,
                     reason=None,
-                    status="INACTIVE",
+                    status=RootStatus.INACTIVE,
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 type=RootType.GIT,

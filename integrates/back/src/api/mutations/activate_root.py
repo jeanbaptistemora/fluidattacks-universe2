@@ -14,6 +14,9 @@ from batch.enums import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
@@ -119,7 +122,7 @@ async def mutate(
         root_ids=[(root.group_name, root.id)],
     )
 
-    if root.state.status != "ACTIVE":
+    if root.state.status != RootStatus.ACTIVE:
         if isinstance(root, GitRoot):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,

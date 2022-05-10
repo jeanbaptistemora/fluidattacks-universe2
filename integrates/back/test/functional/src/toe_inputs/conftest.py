@@ -9,6 +9,7 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.enums import (
+    RootStatus,
     RootType,
 )
 from db_model.roots.types import (
@@ -59,7 +60,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="test_nickname_1",
                     other=None,
                     reason=None,
-                    status="INACTIVE",
+                    status=RootStatus.INACTIVE,
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 type=RootType.GIT,
@@ -90,7 +91,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="test_nickname_2",
                     other=None,
                     reason=None,
-                    status="INACTIVE",
+                    status=RootStatus.INACTIVE,
                     url="https://gitlab.com/fluidattacks/asm_1",
                 ),
                 type=RootType.GIT,

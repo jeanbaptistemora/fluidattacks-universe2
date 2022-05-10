@@ -178,7 +178,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="nickname4",
                     other=None,
                     reason=None,
-                    status="INACTIVE",
+                    status=RootStatus.INACTIVE,
                     url="git@gitlab.com:fluidattacks/product.git",
                 ),
                 type=RootType.GIT,

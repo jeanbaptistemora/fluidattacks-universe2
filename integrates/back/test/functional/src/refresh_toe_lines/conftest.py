@@ -91,7 +91,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     nickname="repo_mock2",
                     other=None,
                     reason=None,
-                    status="INACTIVE",
+                    status=RootStatus.INACTIVE,
                     url="https://gitlab.com/fluidattacks/repo_mock2",
                 ),
                 type=RootType.GIT,

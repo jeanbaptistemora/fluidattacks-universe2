@@ -25,6 +25,9 @@ from db_model.enums import (
     GitCloningStatus,
     Notification,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -159,7 +162,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         root=root,
         user_email=user_email,
     )
-    if root.state.status != "INACTIVE":
+    if root.state.status != RootStatus.INACTIVE:
         if isinstance(root, GitRoot):
             await batch_dal.put_action(
                 action=Action.REFRESH_TOE_LINES,

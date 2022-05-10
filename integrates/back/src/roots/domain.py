@@ -1085,7 +1085,7 @@ async def move_root(
     target_group: Group = await loaders.group_typed.load(target_group_name)
 
     if (
-        root.state.status != "ACTIVE"
+        root.state.status != RootStatus.ACTIVE
         or target_group_name == root.group_name
         or target_group_name not in await orgs_domain.get_groups(source_org_id)
         or source_group.state.service != target_group.state.service

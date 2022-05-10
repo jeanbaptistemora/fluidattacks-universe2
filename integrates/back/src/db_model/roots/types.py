@@ -87,7 +87,7 @@ class IPRootState(NamedTuple):
     other: Optional[str]
     port: str
     reason: Optional[str]
-    status: str
+    status: RootStatus
 
 
 class IPRoot(NamedTuple):
@@ -111,7 +111,7 @@ class URLRootState(NamedTuple):
     port: str
     protocol: str
     reason: Optional[str]
-    status: str
+    status: RootStatus
 
 
 class URLRoot(NamedTuple):

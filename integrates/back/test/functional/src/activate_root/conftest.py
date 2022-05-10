@@ -6,6 +6,7 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.enums import (
+    RootStatus,
     RootType,
 )
 from db_model.roots.types import (
@@ -31,7 +32,7 @@ from typing import (
 async def populate(generic_data: Dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
     test_date = "2020-11-19T13:37:10+00:00"
-    test_status = "INACTIVE"
+    test_status = RootStatus.INACTIVE
     data: Dict[str, Any] = {
         "roots": (
             GitRoot(
