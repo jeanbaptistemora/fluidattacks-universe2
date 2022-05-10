@@ -171,7 +171,7 @@ async def send_mail_updated_root(
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
         },
         tags=GENERAL_TAG,
-        subject=f"Root have been changed in [{group_name}]",
+        subject=f"Root has been changed in [{group_name}]",
         template_name="updated_root",
     )
 
@@ -361,7 +361,7 @@ async def send_mail_environment_report(
             ),
         },
         tags=GENERAL_TAG,
-        subject=f"Environment have been modified in [{group_name}]",
+        subject=f"Environment has been modified in [{group_name}]",
         template_name="environment_report",
     )
 
@@ -420,7 +420,7 @@ async def send_mail_updated_policies(
         email_to,
         context,
         GENERAL_TAG,
-        f'Policies has been changed in [{context["org_name"]}]',
+        f'Policies have been changed in [{context["org_name"]}]',
         "updated_policies",
     )
 
