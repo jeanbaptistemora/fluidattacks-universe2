@@ -1,0 +1,21 @@
+Resources:
+  FileSystemResource:
+    Type: 'AWS::EFS::FileSystem'
+    Properties:
+      AvailabilityZoneName: us-east-1a
+      BackupPolicy:
+        Status: ENABLED
+      Encrypted: true
+  FileSystemResource2:
+    Type: 'AWS::EFS::FileSystem'
+    Properties:
+      AvailabilityZoneName: us-east-1a
+      BackupPolicy:
+        Status: ENABLED
+      Encrypted: false
+  FileSystemResource3:
+    Type: 'AWS::EFS::FileSystem'
+    Properties:
+      AvailabilityZoneName: us-east-1a
+      BackupPolicy:
+        Status: ENABLED

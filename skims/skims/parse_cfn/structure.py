@@ -278,6 +278,17 @@ def iter_fsx_file_systems(template: Node) -> Iterator[Node]:
     )
 
 
+def iter_efs_file_systems(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::EFS::FileSystem",
+            exact=True,
+        )
+    )
+
+
 def iter_secret_manager_secrets(template: Node) -> Iterator[Node]:
     yield from (
         props

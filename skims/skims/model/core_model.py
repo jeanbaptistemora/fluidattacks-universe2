@@ -3144,6 +3144,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_AWS_EFS_UNENCRYPTED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_aws_efs_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F406,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     FRAGMENT_INJECTION = MethodInfo(
         file_name="analyze_bytecodes",
         name="has_fragment_injection",

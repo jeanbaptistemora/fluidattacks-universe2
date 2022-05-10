@@ -3743,13 +3743,6 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   38 | }
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
-F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,"
-  1 | resource ""aws_efs_file_system"" ""enabled"" {
-  2 |   creation_token = ""example""
-> 3 |   encrypted      = false
-  4 | }
-    ^ Col 0
-",terraform.tfm_aws_efs_unencrypted
 F333,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
    7 |   }
    8 |
@@ -4861,6 +4854,109 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,18,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,"
+   1 | Resources:
+   2 |   FileSystemResource:
+   3 |     Type: 'AWS::EFS::FileSystem'
+   4 |     Properties:
+   5 |       AvailabilityZoneName: us-east-1a
+   6 |       BackupPolicy:
+   7 |         Status: ENABLED
+   8 |       Encrypted: true
+   9 |   FileSystemResource2:
+  10 |     Type: 'AWS::EFS::FileSystem'
+  11 |     Properties:
+  12 |       AvailabilityZoneName: us-east-1a
+  13 |       BackupPolicy:
+  14 |         Status: ENABLED
+  15 |       Encrypted: false
+  16 |   FileSystemResource3:
+  17 |     Type: 'AWS::EFS::FileSystem'
+> 18 |     Properties:
+  19 |       AvailabilityZoneName: us-east-1a
+  20 |       BackupPolicy:
+  21 |         Status: ENABLED
+     ^ Col 0
+",cloudformation.cfn_aws_efs_unencrypted
+F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,15,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,"
+   1 | Resources:
+   2 |   FileSystemResource:
+   3 |     Type: 'AWS::EFS::FileSystem'
+   4 |     Properties:
+   5 |       AvailabilityZoneName: us-east-1a
+   6 |       BackupPolicy:
+   7 |         Status: ENABLED
+   8 |       Encrypted: true
+   9 |   FileSystemResource2:
+  10 |     Type: 'AWS::EFS::FileSystem'
+  11 |     Properties:
+  12 |       AvailabilityZoneName: us-east-1a
+  13 |       BackupPolicy:
+  14 |         Status: ENABLED
+> 15 |       Encrypted: false
+  16 |   FileSystemResource3:
+  17 |     Type: 'AWS::EFS::FileSystem'
+  18 |     Properties:
+  19 |       AvailabilityZoneName: us-east-1a
+  20 |       BackupPolicy:
+  21 |         Status: ENABLED
+     ^ Col 0
+",cloudformation.cfn_aws_efs_unencrypted
+F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,20,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,"
+  10 |         ""Encrypted"": true
+  11 |       }
+  12 |     },
+  13 |     ""FileSystemResource2"": {
+  14 |       ""Type"": ""AWS::EFS::FileSystem"",
+  15 |       ""Properties"": {
+  16 |         ""AvailabilityZoneName"": ""us-east-1a"",
+  17 |         ""BackupPolicy"": {
+  18 |           ""Status"": ""ENABLED""
+  19 |         },
+> 20 |         ""Encrypted"": false
+  21 |       }
+  22 |     },
+  23 |     ""FileSystemResource3"": {
+  24 |       ""Type"": ""AWS::EFS::FileSystem"",
+  25 |       ""Properties"": {
+  26 |         ""AvailabilityZoneName"": ""us-east-1a"",
+  27 |         ""BackupPolicy"": {
+  28 |           ""Status"": ""ENABLED""
+  29 |         }
+  30 |       }
+     ^ Col 0
+",cloudformation.cfn_aws_efs_unencrypted
+F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,25,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,"
+  13 |     ""FileSystemResource2"": {
+  14 |       ""Type"": ""AWS::EFS::FileSystem"",
+  15 |       ""Properties"": {
+  16 |         ""AvailabilityZoneName"": ""us-east-1a"",
+  17 |         ""BackupPolicy"": {
+  18 |           ""Status"": ""ENABLED""
+  19 |         },
+  20 |         ""Encrypted"": false
+  21 |       }
+  22 |     },
+  23 |     ""FileSystemResource3"": {
+  24 |       ""Type"": ""AWS::EFS::FileSystem"",
+> 25 |       ""Properties"": {
+  26 |         ""AvailabilityZoneName"": ""us-east-1a"",
+  27 |         ""BackupPolicy"": {
+  28 |           ""Status"": ""ENABLED""
+  29 |         }
+  30 |       }
+  31 |     }
+  32 |   }
+  33 | }
+     ^ Col 0
+",cloudformation.cfn_aws_efs_unencrypted
+F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,"
+  1 | resource ""aws_efs_file_system"" ""enabled"" {
+  2 |   creation_token = ""example""
+> 3 |   encrypted      = false
+  4 | }
+    ^ Col 0
+",terraform.tfm_aws_efs_unencrypted
 F134,lines,namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,16,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/insecure_cors_origin.cs,"
    3 | namespace AspNet5SQLite
    4 | {
