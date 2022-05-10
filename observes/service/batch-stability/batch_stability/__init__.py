@@ -6,12 +6,18 @@ from datetime import (
 from itertools import (
     chain,
 )
+from mypy_boto3_batch import (
+    BatchClient,
+    ListJobsPaginator,
+)
+from mypy_boto3_batch.type_defs import (
+    JobSummaryTypeDef,
+    ListJobsResponseTypeDef,
+)
 from os import (
     environ,
 )
 from typing import (
-    Any,
-    Dict,
     Iterator,
     List,
     Type,
@@ -21,10 +27,11 @@ from typing import (
 __version__ = "1.0.0"
 HOUR: float = 3600.0
 NOW: float = datetime.utcnow().timestamp()
+NOTIFIER_KEY = environ.get("bugsnag_notifier_key", "")
 
 # Side effects
-bugsnag.configure(
-    api_key=environ.get("bugsnag_notifier_key", ""),
+bugsnag.configure(  # type: ignore[no-untyped-call]
+    api_key=NOTIFIER_KEY,
     asynchronous=False,
     send_code=False,
 )
@@ -54,7 +61,6 @@ def _report_status(
     reason: str,
 ) -> None:
     arguments = dict(
-        exception=exception(name),
         extra=dict(
             container=container,
             identifier=identifier,
@@ -64,12 +70,12 @@ def _report_status(
     )
 
     print(arguments)
-    bugsnag.start_session()
-    bugsnag.notify(**arguments)  # type: ignore
+    bugsnag.start_session()  # type: ignore[no-untyped-call]
+    bugsnag.notify(exception(name), **arguments)
 
 
 def _report_job(
-    job_summary: Dict[str, Any], exception: Type[Exception]
+    job_summary: JobSummaryTypeDef, exception: Type[Exception]
 ) -> None:
     _report_status(
         container=str(job_summary.get("container")),
@@ -80,7 +86,9 @@ def _report_job(
     )
 
 
-def _get_jobs(paginator: Any, queues: List[str]) -> Iterator[Any]:
+def _get_jobs(
+    paginator: ListJobsPaginator, queues: List[str]
+) -> Iterator[ListJobsResponseTypeDef]:
     return chain.from_iterable(
         [
             paginator.paginate(
@@ -92,7 +100,9 @@ def _get_jobs(paginator: Any, queues: List[str]) -> Iterator[Any]:
     )
 
 
-def _get_jobs_summaries(paginator: Any, queues: List[str]) -> Iterator[Any]:
+def _get_jobs_summaries(
+    paginator: ListJobsPaginator, queues: List[str]
+) -> Iterator[JobSummaryTypeDef]:
     jobs = _get_jobs(paginator, queues)
     for job in jobs:
         for job_summary in job["jobSummaryList"]:
@@ -100,7 +110,7 @@ def _get_jobs_summaries(paginator: Any, queues: List[str]) -> Iterator[Any]:
                 yield job_summary
 
 
-def _is_cancelled(job_summary: Dict[str, Any], last_hours: int) -> bool:
+def _is_cancelled(job_summary: JobSummaryTypeDef, last_hours: int) -> bool:
     # Timestamps from aws come in miliseconds
     created_at: float = job_summary["createdAt"] / 1000
     if created_at > NOW - last_hours * HOUR:
@@ -110,7 +120,7 @@ def _is_cancelled(job_summary: Dict[str, Any], last_hours: int) -> bool:
     return False
 
 
-def _is_fail(job_summary: Dict[str, Any], last_hours: int) -> bool:
+def _is_fail(job_summary: JobSummaryTypeDef, last_hours: int) -> bool:
     if job_summary.get("startedAt") and job_summary.get("stoppedAt"):
         stopped_at: float = job_summary["stoppedAt"] / 1000
         if stopped_at > NOW - last_hours * HOUR:
@@ -118,7 +128,7 @@ def _is_fail(job_summary: Dict[str, Any], last_hours: int) -> bool:
     return False
 
 
-def _is_unstarted(job_summary: Dict[str, Any], last_hours: int) -> bool:
+def _is_unstarted(job_summary: JobSummaryTypeDef, last_hours: int) -> bool:
     if not job_summary.get("startedAt") and job_summary.get("stoppedAt"):
         stopped_at: float = job_summary["stoppedAt"] / 1000
         if stopped_at > NOW - last_hours * HOUR:
@@ -127,7 +137,7 @@ def _is_unstarted(job_summary: Dict[str, Any], last_hours: int) -> bool:
 
 
 def report_cancelled(queues: List[str], last_hours: int) -> None:
-    client = boto3.client("batch")
+    client: BatchClient = boto3.client("batch")
     paginator = client.get_paginator("list_jobs")
     jobs = _get_jobs_summaries(paginator, queues)
     for job_summary in jobs:
@@ -136,7 +146,7 @@ def report_cancelled(queues: List[str], last_hours: int) -> None:
 
 
 def report_failures(queues: List[str], last_hours: int) -> None:
-    client = boto3.client("batch")
+    client: BatchClient = boto3.client("batch")
     paginator = client.get_paginator("list_jobs")
     jobs = _get_jobs_summaries(paginator, queues)
     for job_summary in jobs:
