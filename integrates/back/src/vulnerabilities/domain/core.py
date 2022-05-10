@@ -440,6 +440,7 @@ def get_verifications_count(
         vuln.verification.status
         for vuln in vulnerabilities
         if vuln.verification
+        and vuln.state.status == VulnerabilityStateStatus.OPEN
     )
     return Verifications(
         requested=treatment_counter[VulnerabilityVerificationStatus.REQUESTED],

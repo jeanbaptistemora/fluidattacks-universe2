@@ -119,6 +119,7 @@ from vulnerabilities import (
 )
 from vulnerabilities.types import (
     Treatments,
+    Verifications,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -484,6 +485,15 @@ async def get_treatment_summary(
     vulnerabilities = await finding_vulns_loader.load(finding_id)
     open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
     return vulns_domain.get_treatments_count(open_vulnerabilities)
+
+
+async def get_verification_summary(
+    loaders: Any,
+    finding_id: str,
+) -> Verifications:
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    vulnerabilities = await finding_vulns_loader.load(finding_id)
+    return vulns_domain.get_verifications_count(vulnerabilities)
 
 
 async def _get_wheres(
