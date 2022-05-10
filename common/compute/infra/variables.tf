@@ -22,6 +22,58 @@ variable "ciProjectId" {}
 
 locals {
   schedules = {
+    forces_process_groups_break = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/forces/process-groups/break",
+      ]
+
+      schedule_expression = "cron(0 9 */2 * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "forces_process_groups_break"
+        "management:area"    = "cost"
+        "management:product" = "forces"
+        "management:type"    = "product"
+      }
+    }
+    forces_process_groups_pass = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/forces/process-groups/pass",
+      ]
+
+      schedule_expression = "cron(0 12 * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "forces_process_groups_pass"
+        "management:area"    = "cost"
+        "management:product" = "forces"
+        "management:type"    = "product"
+      }
+    }
     integrates_charts_make_documents = {
       enabled = true
       command = [
