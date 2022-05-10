@@ -786,6 +786,7 @@ locals {
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
+        CI_PROJECT_ID     = var.ciProjectId
       }
 
       tags = {
@@ -812,6 +813,7 @@ locals {
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
+        CI_PROJECT_ID     = var.ciProjectId
       }
 
       tags = {
