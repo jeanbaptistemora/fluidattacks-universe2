@@ -193,8 +193,8 @@ const ADD_ENVIRONMENT_SECRET: DocumentNode = gql`
   }
 `;
 const REMOVE_SECRET: DocumentNode = gql`
-  mutation RemoveSecret($rootId: ID!, $key: String!) {
-    removeSecret(rootId: $rootId, key: $key) {
+  mutation RemoveSecret($groupName: String!, $rootId: ID!, $key: String!) {
+    removeSecret(rootId: $rootId, key: $key, groupName: $groupName) {
       success
     }
   }

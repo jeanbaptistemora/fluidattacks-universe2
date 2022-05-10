@@ -134,7 +134,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
   );
 
   function handleRemoveClick(): void {
-    void removeSecret({ variables: { key: secretKey, rootId } });
+    void removeSecret({ variables: { groupName, key: secretKey, rootId } });
   }
 
   return (

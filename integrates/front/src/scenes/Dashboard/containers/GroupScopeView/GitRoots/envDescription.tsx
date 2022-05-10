@@ -7,11 +7,13 @@ import { formatDate } from "utils/formatHelpers";
 interface IDescriptionProps {
   repositoryUrls: string[];
   createdAt: string;
+  url: string;
 }
 
 const Description = ({
   repositoryUrls,
   createdAt,
+  url,
 }: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -19,14 +21,15 @@ const Description = ({
     <div>
       <h3>{t("group.scope.git.envUrl")}</h3>
       <Row>
+        <ul>{`${url}`}</ul>
         <ul>{`${t("group.scope.git.createdAt")} ${formatDate(createdAt)}`}</ul>
       </Row>
       <h3>{t("group.scope.git.title")}</h3>
       <Row>
         <ul>
           {repositoryUrls.map(
-            (url): JSX.Element => (
-              <li key={url}>{url}</li>
+            (_url): JSX.Element => (
+              <li key={_url}>{_url}</li>
             )
           )}
         </ul>
@@ -39,5 +42,6 @@ export const renderEnvDescription = (props: IDescriptionProps): JSX.Element => (
   <Description
     createdAt={props.createdAt}
     repositoryUrls={props.repositoryUrls}
+    url={props.url}
   />
 );

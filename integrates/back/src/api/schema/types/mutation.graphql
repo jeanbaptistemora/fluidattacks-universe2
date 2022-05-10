@@ -586,6 +586,8 @@ type Mutation {
 
   "Adds a machine execution to git root"
   removeSecret(
+    "Group name"
+    groupName: String!
     "Secret key"
     key: String!
     "Id of the root to put secret"

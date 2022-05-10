@@ -27,6 +27,7 @@ async def mutate(
     __: GraphQLResolveInfo,
     key: str,
     root_id: str,
+    _kwargs: str,
 ) -> SimplePayload:
     await remove_secret(root_id, key)
 
