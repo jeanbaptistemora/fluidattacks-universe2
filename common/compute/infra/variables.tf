@@ -980,6 +980,32 @@ locals {
         "management:type"    = "product"
       }
     }
+    skims_benchmark_owasp = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/computeOnAwsBatch/skimsOwaspBenchmarkAndUpload",
+      ]
+
+      schedule_expression = "cron(0 11-23/2 * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "skims_benchmark_owasp"
+        "management:area"    = "cost"
+        "management:product" = "forces"
+        "management:type"    = "product"
+      }
+    }
   }
 }
 
