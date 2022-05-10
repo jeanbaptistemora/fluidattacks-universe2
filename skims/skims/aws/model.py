@@ -78,6 +78,12 @@ class AWSFsxWindowsFileSystem(NamedTuple):
     line: int
 
 
+class AWSEbs(NamedTuple):
+    column: int
+    data: List[Any]
+    line: int
+
+
 class AWSEbsVolume(NamedTuple):
     column: int
     data: List[Any]

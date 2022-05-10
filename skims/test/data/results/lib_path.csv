@@ -3599,6 +3599,102 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    36 |             ""CidrIp"": ""0.0.0.0/0"",
       ^ Col 0
 ",cloudformation.cfn_groups_without_egress
+F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,12,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
+   2 |   myLaunchConfig:
+   3 |     Type: AWS::AutoScaling::LaunchConfiguration
+   4 |     Properties:
+   5 |       ImageId: !Ref LatestAmiId
+   6 |       SecurityGroups:
+   7 |         - Ref: ""myEC2SecurityGroup""
+   8 |       InstanceType:
+   9 |         Ref: ""InstanceType""
+  10 |       BlockDeviceMappings:
+  11 |         - DeviceName: /dev/sda1
+> 12 |           Ebs:
+  13 |             VolumeSize: 30
+  14 |             VolumeType: ""gp3""
+  15 |         - DeviceName: /dev/sdm
+  16 |           Ebs:
+  17 |             VolumeSize: 100
+  18 |             DeleteOnTermination: ""false""
+  19 |             Encrypted : true
+  20 |         - DeviceName: /dev/sdm
+  21 |           Ebs:
+  22 |             VolumeSize: 100
+     ^ Col 0
+",cloudformation.cfn_aws_ebs_volumes_unencrypted
+F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,24,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
+   4 |     Properties:
+   5 |       ImageId: !Ref LatestAmiId
+   6 |       SecurityGroups:
+   7 |         - Ref: ""myEC2SecurityGroup""
+   8 |       InstanceType:
+   9 |         Ref: ""InstanceType""
+  10 |       BlockDeviceMappings:
+  11 |         - DeviceName: /dev/sda1
+  12 |           Ebs:
+  13 |             VolumeSize: 30
+  14 |             VolumeType: ""gp3""
+  15 |         - DeviceName: /dev/sdm
+  16 |           Ebs:
+  17 |             VolumeSize: 100
+  18 |             DeleteOnTermination: ""false""
+  19 |             Encrypted : true
+  20 |         - DeviceName: /dev/sdm
+  21 |           Ebs:
+  22 |             VolumeSize: 100
+  23 |             DeleteOnTermination: ""false""
+> 24 |             Encrypted : false
+     ^ Col 0
+",cloudformation.cfn_aws_ebs_volumes_unencrypted
+F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,20,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,"
+  10 |           {
+  11 |             ""Ref"": ""myEC2SecurityGroup""
+  12 |           }
+  13 |         ],
+  14 |         ""InstanceType"": {
+  15 |           ""Ref"": ""InstanceType""
+  16 |         },
+  17 |         ""BlockDeviceMappings"": [
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sda1"",
+> 20 |             ""Ebs"": {
+  21 |               ""VolumeSize"": 30,
+  22 |               ""VolumeType"": ""gp3""
+  23 |             }
+  24 |           },
+  25 |           {
+  26 |             ""DeviceName"": ""/dev/sdm"",
+  27 |             ""Ebs"": {
+  28 |               ""VolumeSize"": 100,
+  29 |               ""DeleteOnTermination"": ""false"",
+  30 |               ""Encrypted"": true
+     ^ Col 0
+",cloudformation.cfn_aws_ebs_volumes_unencrypted
+F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,38,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,"
+  25 |           {
+  26 |             ""DeviceName"": ""/dev/sdm"",
+  27 |             ""Ebs"": {
+  28 |               ""VolumeSize"": 100,
+  29 |               ""DeleteOnTermination"": ""false"",
+  30 |               ""Encrypted"": true
+  31 |             }
+  32 |           },
+  33 |           {
+  34 |             ""DeviceName"": ""/dev/sdm"",
+  35 |             ""Ebs"": {
+  36 |               ""VolumeSize"": 100,
+  37 |               ""DeleteOnTermination"": ""false"",
+> 38 |               ""Encrypted"": false
+  39 |             }
+  40 |           }
+  41 |         ]
+  42 |       }
+  43 |     }
+  44 |   }
+  45 | }
+     ^ Col 0
+",cloudformation.cfn_aws_ebs_volumes_unencrypted
 F333,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,70,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,"
   60 |     http_endpoint               = ""enabled""
   61 |     http_tokens                 = ""required""
