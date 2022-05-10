@@ -1,14 +1,7 @@
-from db_model.organization.constants import (
-    DEFAULT_MAX_SEVERITY,
-    DEFAULT_MIN_SEVERITY,
-)
 from db_model.organization.types import (
     Organization,
     OrganizationPolicies,
     OrganizationState,
-)
-from decimal import (
-    Decimal,
 )
 from dynamodb.types import (
     Item,
@@ -42,30 +35,6 @@ def filter_active_organizations(
     )
 
 
-def format_historic_policies(
-    item: Optional[list[Item]],
-) -> OrganizationPolicies:
-    if item:
-        organization_historic_policies = item[-1]
-        max_number_acceptations = int(
-            get_key_or_fallback(
-                organization_historic_policies,
-                "max_number_acceptances",
-                "max_number_acceptations",
-                fallback=Decimal("0"),
-            )
-        )
-        return OrganizationPolicies(
-            modified_date=(
-                convert_to_iso_str(organization_historic_policies["date"])
-            ),
-            modified_by=organization_historic_policies["user"],
-            max_number_acceptations=max_number_acceptations,
-        )
-
-    return None
-
-
 def format_historic_state(
     item: Optional[list[Item]],
 ) -> OrganizationState:
@@ -82,25 +51,46 @@ def format_historic_state(
     return None
 
 
-def format_organization(
-    item: Item,
-) -> Organization:
-    historic_policies = format_historic_policies(
-        item["historic_max_number_acceptances"]
-        if item.get("historic_max_number_acceptances")
-        else item["historic_max_number_acceptations"]
-    )
-    historic_state = format_historic_state(item.get("historic_state"))
-    max_number_acceptations: Optional[Decimal] = get_key_or_fallback(
+def format_organization_policies(item: Item) -> OrganizationPolicies:
+    historic_policies = get_key_or_fallback(
         item,
+        "historic_max_number_acceptances",
+        "historic_max_number_acceptations",
+        fallback=[],
+    )
+    last_entry_policies = historic_policies[-1] if historic_policies else {}
+    max_number_acceptances = get_key_or_fallback(
+        last_entry_policies,
         "max_number_acceptances",
         "max_number_acceptations",
     )
 
+    return OrganizationPolicies(
+        max_acceptance_days=int(item["max_acceptance_days"])
+        if item.get("max_acceptance_days") is not None
+        else None,
+        max_acceptance_severity=item.get("max_acceptance_severity"),
+        max_number_acceptances=int(max_number_acceptances)
+        if max_number_acceptances is not None
+        else None,
+        min_acceptance_severity=item.get("min_acceptance_severity"),
+        min_breaking_severity=item.get("min_breaking_severity"),
+        modified_date=convert_to_iso_str(last_entry_policies["date"])
+        if last_entry_policies.get("date")
+        else None,
+        modified_by=last_entry_policies.get("user"),
+        vulnerability_grace_period=int(item["vulnerability_grace_period"])
+        if item.get("vulnerability_grace_period") is not None
+        else None,
+    )
+
+
+def format_organization(item: Item) -> Organization:
+    historic_state = format_historic_state(item.get("historic_state"))
+
     return Organization(
         id=item["id"],
         name=item["name"],
-        policies=historic_policies,
         state=historic_state,
         billing_customer=item.get("billing_customer"),
         pending_deletion_date=(
@@ -108,22 +98,5 @@ def format_organization(
             if item.get("pending_deletion_date")
             else None
         ),
-        max_number_acceptations=int(max_number_acceptations)
-        if max_number_acceptations
-        else None,
-        max_acceptance_days=int(item["max_acceptance_days"])
-        if item.get("max_acceptance_days")
-        else None,
-        max_acceptance_severity=item.get(
-            "max_acceptance_severity", DEFAULT_MAX_SEVERITY
-        ),
-        min_acceptance_severity=item.get(
-            "min_acceptance_severity", DEFAULT_MIN_SEVERITY
-        ),
-        min_breaking_severity=item.get(
-            "min_breaking_severity", DEFAULT_MIN_SEVERITY
-        ),
-        vulnerability_grace_period=int(item["vulnerability_grace_period"])
-        if item.get("vulnerability_grace_period")
-        else None,
+        policies=format_organization_policies(item),
     )

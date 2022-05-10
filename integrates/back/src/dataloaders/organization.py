@@ -14,20 +14,19 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from organizations import (
+    dal as orgs_dal,
     domain as orgs_domain,
 )
 from typing import (
     Any,
-    Dict,
     Iterable,
-    List,
 )
 
 
 async def _batch_load_fn(
-    organization_ids: List[str],
-) -> List[Dict[str, Any]]:
-    organizations: Dict[str, Dict[str, Any]] = {}
+    organization_ids: list[str],
+) -> list[dict[str, Any]]:
+    organizations: dict[str, dict[str, Any]] = {}
     organizations_by_id = await collect(
         [
             orgs_domain.get_by_id(organization_id)
@@ -65,8 +64,8 @@ async def _batch_load_fn(
 class OrganizationLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, organization_ids: List[str]
-    ) -> List[Dict[str, Any]]:
+        self, organization_ids: list[str]
+    ) -> list[dict[str, Any]]:
         return await _batch_load_fn(organization_ids)
 
 
@@ -76,11 +75,7 @@ class OrganizationTypedLoader(DataLoader):
         self, organization_ids: Iterable[str]
     ) -> tuple[Organization, ...]:
         organization_items = await collect(
-            [
-                orgs_domain.get_by_id(organization_id)
-                for organization_id in organization_ids
-            ]
+            orgs_dal.get_by_id(organization_id)
+            for organization_id in organization_ids
         )
-        return tuple(
-            format_organization(item=item) for item in organization_items
-        )
+        return tuple(format_organization(item) for item in organization_items)

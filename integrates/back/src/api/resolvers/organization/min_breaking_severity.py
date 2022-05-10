@@ -20,6 +20,6 @@ async def resolve(
         if "min_breaking_severity" in parent:
             return parent["min_breaking_severity"]
     else:
-        if parent.min_breaking_severity:
-            return parent.min_breaking_severity
+        if parent.policies.min_breaking_severity:
+            return parent.policies.min_breaking_severity
     return 0.0
