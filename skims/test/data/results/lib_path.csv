@@ -2152,6 +2152,141 @@ F024,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   32 |   disable_api_termination = true
      ^ Col 0
 ",terraform.tfm_ec2_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,17,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+> 17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+> 11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+>  5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,13,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+> 13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,21,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+> 21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | Resources:
@@ -4016,6 +4151,141 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   32 |   disable_api_termination = true
      ^ Col 0
 ",terraform.tfm_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,16,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+> 16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,10,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+> 10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,4,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,13,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+> 13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,21,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+> 21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f257/tfm_ec2_has_not_termination_protection.tf,44,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f257/tfm_ec2_has_not_termination_protection.tf,"
   34 |   elastic_inference_accelerator {
   35 |     type = ""eia1.medium""
@@ -21302,6 +21572,141 @@ F257,lines,namespace/skims/test/data/lib_path/f333/ec2_test.tf,26,463,skims,257.
   36 |   }
      ^ Col 0
 ",terraform.ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,16,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+> 16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,10,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+> 10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,13,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+> 13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,21,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+> 21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
 F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
    9 |         KeyType: String
@@ -24036,6 +24441,147 @@ F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   19 |           {
   20 |             ""DeviceName"": ""/dev/sdk"",
   21 |             ""NoDevice"": {}
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,16,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml","
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+> 16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,10,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml","
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+> 10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,4,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml","
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,13,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json","
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+> 13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,21,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json","
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+> 21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
      ^ Col 0
 ",cloudformation.cfn_ec2_use_default_security_group
 F109,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
@@ -26890,210 +27436,6 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   21 |   }
      ^ Col 0
 ",cloudformation.cfn_bucket_has_logging_conf_disabled
-F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
-   7 |   }
-   8 |
-   9 |   filter {
-  10 |     name   = ""virtualization-type""
-  11 |     values = [""hvm""]
-  12 |   }
-  13 |
-  14 |   owners = [""099720109477""] # Canonical
-  15 | }
-  16 |
-> 17 | resource ""aws_instance"" ""web"" {
-  18 |   ami           = data.aws_ami.ubuntu.id
-  19 |   instance_type = ""t3.micro""
-  20 |
-  21 |   tags = {
-  22 |     Name = ""HelloWorld""
-  23 |   }
-  24 | }
-  25 |
-  26 | resource ""aws_instance"" ""web"" {
-  27 |   ami           = data.aws_ami.ubuntu.id
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,26,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
-  14 |   owners = [""099720109477""] # Canonical
-  15 | }
-  16 |
-  17 | resource ""aws_instance"" ""web"" {
-  18 |   ami           = data.aws_ami.ubuntu.id
-  19 |   instance_type = ""t3.micro""
-  20 |
-  21 |   tags = {
-  22 |     Name = ""HelloWorld""
-  23 |   }
-  24 | }
-  25 |
-> 26 | resource ""aws_instance"" ""web"" {
-  27 |   ami           = data.aws_ami.ubuntu.id
-  28 |   instance_type = ""t3.micro""
-  29 |
-  30 |   iam_instance_profile = ""profile""
-  31 |   tags = {
-  32 |     Name = ""HelloWorld""
-  33 |   }
-  34 | }
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
-   1 |
->  2 | resource ""aws_instance"" ""foo"" {
-   3 |   ami           = ""ami-005e54dee72cc1d00""
-   4 |   instance_type = ""t2.micro""
-   5 |
-   6 |   network_interface {
-   7 |     network_interface_id = aws_network_interface.foo.id
-   8 |     device_index         = 0
-   9 |   }
-  10 |
-  11 |   credit_specification {
-  12 |     cpu_credits = ""unlimited""
-  13 |   }
-  14 | }
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,1,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
->  1 | resource ""aws_instance"" ""project-iac"" {
-   2 |   ami                         = lookup(var.awsprops, ""ami"")
-   3 |   instance_type               = lookup(var.awsprops, ""itype"")
-   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
-   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
-   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
-   7 |
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-  14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-  21 |   ebs_block_device {
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,48,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
-  38 |   network_interfaces {
-  39 |     associate_public_ip_address = false
-  40 |   }
-  41 |
-  42 |   placement {
-  43 |     availability_zone = ""us-west-2a""
-  44 |   }
-  45 |   ram_disk_id = ""test""
-  46 | }
-  47 |
-> 48 | resource ""aws_instance"" ""vulnerable"" {
-  49 |   ami                         = ""ami-04b9e92b5572fa0d1""
-  50 |   availability_zone           = ""us-east-1a""
-  51 |   instance_type               = ""t2.small""
-  52 |   key_name                    = ""generic_aws_key""
-  53 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
-  54 |   associate_public_ip_address = true
-  55 |   private_ip                  = ""10.0.0.44""
-  56 |   iam_instance_profile        = ""example""
-  57 |   security_groups             = []
-  58 |
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,66,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
-  56 |   iam_instance_profile        = ""example""
-  57 |   security_groups             = []
-  58 |
-  59 |   tags = {
-  60 |     method = ""aws.ec2.has_unencrypted_volumes""
-  61 |     Name   = ""aws.ec2_unencrypted""
-  62 |   }
-  63 | }
-  64 |
-  65 |
-> 66 | resource ""aws_instance"" ""not_vulnerable"" {
-  67 |   ami                         = ""ami-04b9e92b5572fa0d1""
-  68 |   availability_zone           = ""us-east-1a""
-  69 |   instance_type               = ""t2.small""
-  70 |   key_name                    = ""generic_aws_key""
-  71 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
-  72 |   associate_public_ip_address = false
-  73 |   private_ip                  = ""10.0.0.44""
-  74 |   iam_instance_profile        = ""example""
-  75 |   security_groups             = []
-  76 |
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,6,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
-   1 | resource ""aws_instance"" ""secure"" {
-   2 |   ami                         = ""ami-04b9e92b5572fa0d1""
-   3 |   availability_zone           = ""us-east-1a""
-   4 |   ebs_optimized               = false
-   5 |   instance_type               = ""t2.small""
->  6 |   monitoring                  = false
-   7 |   key_name                    = ""generic_aws_key""
-   8 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
-   9 |   vpc_security_group_ids      = [""sg-0f98371a3f6cad87e""]
-  10 |   associate_public_ip_address = false
-  11 |
-  12 |   disable_api_termination = true
-  13 |
-  14 |   iam_instance_profile = ""test_profile""
-  15 |
-  16 |   tags = {
-  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
-  18 |     Name   = ""aws.ec2_unencrypted""
-  19 |   }
-  20 | }
-  21 |
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,27,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
-  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
-  18 |     Name   = ""aws.ec2_unencrypted""
-  19 |   }
-  20 | }
-  21 |
-  22 | resource ""aws_instance"" ""insecure"" {
-  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
-  24 |   availability_zone           = ""us-east-1a""
-  25 |   ebs_optimized               = false
-  26 |   instance_type               = ""t2.small""
-> 27 |   monitoring                  = false
-  28 |   key_name                    = ""generic_aws_key""
-  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
-  30 |   associate_public_ip_address = true
-  31 |
-  32 |   disable_api_termination = true
-  33 |
-  34 |   tags = {
-  35 |     method = ""aws.ec2.has_unencrypted_volumes""
-  36 |     Name   = ""aws.ec2_unencrypted""
-  37 |   }
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_ec2_monitoring_disabled.tf,2,778,skims,400. Traceability Loss - AWS,Missing Monitoring property to make traceability in namespace/skims/test/data/lib_path/f400/tfm_ec2_monitoring_disabled.tf,"
-   1 | resource ""aws_instance"" ""foo"" {
->  2 |   monitoring                  = false
-   3 |   instance_type               = ""t2.micro""
-   4 |   disable_api_termination     = true
-   5 |   associate_public_ip_address = false
-   6 |   security_groups             = [""test""]
-   7 |   iam_instance_profile        = ""ami-005e54dee72cc1d00""
-   8 |
-   9 |   network_interface {
-  10 |     network_interface_id = aws_network_interface.foo.id
-  11 |     device_index         = 0
-  12 |   }
-  13 |   credit_specification {
-  14 |     cpu_credits = ""unlimited""
-  15 |   }
-  16 | }
-     ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/tfm_distribution_has_logging_disabled.tf,23,778,skims,400. Traceability Loss - AWS,Missing logging_config property to make traceability in namespace/skims/test/data/lib_path/f400/tfm_distribution_has_logging_disabled.tf,"
   13 |     target_origin_id = ""groupS3""
   14 |   }
@@ -27685,6 +28027,708 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf
   22 | }
      ^ Col 0
 ",terraform.tfm_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+   7 |   }
+   8 |
+   9 |   filter {
+  10 |     name   = ""virtualization-type""
+  11 |     values = [""hvm""]
+  12 |   }
+  13 |
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+> 17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+  26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,26,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+  14 |   owners = [""099720109477""] # Canonical
+  15 | }
+  16 |
+  17 | resource ""aws_instance"" ""web"" {
+  18 |   ami           = data.aws_ami.ubuntu.id
+  19 |   instance_type = ""t3.micro""
+  20 |
+  21 |   tags = {
+  22 |     Name = ""HelloWorld""
+  23 |   }
+  24 | }
+  25 |
+> 26 | resource ""aws_instance"" ""web"" {
+  27 |   ami           = data.aws_ami.ubuntu.id
+  28 |   instance_type = ""t3.micro""
+  29 |
+  30 |   iam_instance_profile = ""profile""
+  31 |   tags = {
+  32 |     Name = ""HelloWorld""
+  33 |   }
+  34 | }
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   1 | Resources:
+   2 |   EC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,17,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+   9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+> 17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+  22 |         LaunchTemplateName: launchTemplate
+  23 |         Version:
+  24 |           Fn::GetAtt:
+  25 |             - launchTemplate
+  26 |             - LatestVersionNumber
+  27 |       NetworkInterfaces:
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,26,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+  22 |         ]
+  23 |       }
+  24 |     },
+  25 |     ""EC2Instance2"": {
+> 26 |       ""Properties"": {
+  27 |         ""IamInstanceProfile"": ""iamInstanceProfile1"",
+  28 |         ""LaunchTemplate"": {
+  29 |           ""LaunchTemplateId"": {
+  30 |             ""Ref"": ""launchTemplate""
+  31 |           },
+  32 |           ""LaunchTemplateName"": ""launchTemplate"",
+  33 |           ""Version"": {
+  34 |             ""Fn::GetAtt"": [
+  35 |               ""launchTemplate"",
+  36 |               ""LatestVersionNumber""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
+   1 |
+>  2 | resource ""aws_instance"" ""foo"" {
+   3 |   ami           = ""ami-005e54dee72cc1d00""
+   4 |   instance_type = ""t2.micro""
+   5 |
+   6 |   network_interface {
+   7 |     network_interface_id = aws_network_interface.foo.id
+   8 |     device_index         = 0
+   9 |   }
+  10 |
+  11 |   credit_specification {
+  12 |     cpu_credits = ""unlimited""
+  13 |   }
+  14 | }
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,31,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+  24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,24,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,"
+  13 |     Properties:
+  14 |       LaunchTemplateName: MyLaunchTemplate
+  15 |       LaunchTemplateData:
+  16 |         InstanceType: t2.micro
+  17 |         KeyName: MyKeyPair
+  18 |   MyLaunchTemplate3:
+  19 |     Type: AWS::EC2::LaunchTemplate
+  20 |     Properties:
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |   MyEC2Instance:
+  23 |     Type: AWS::EC2::Instance
+> 24 |     Properties:
+  25 |       ImageId: ""ami-79fd7eee""
+  26 |       KeyName: ""testkey""
+  27 |       SecurityGroups:
+  28 |         - name1
+  29 |   MyEC2Instance2:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,34,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+> 34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+  44 |       ""Properties"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,44,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,"
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+> 44 |       ""Properties"": {
+  45 |         ""ImageId"": ""ami-79fd7eee"",
+  46 |         ""KeyName"": ""testkey""
+  47 |       }
+  48 |     }
+  49 |   }
+  50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,1,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  21 |       LaunchTemplateName: MyLaunchTemplate
+  22 |       LaunchTemplateData:
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+> 31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,43,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+  37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+> 43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,37,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
+  25 |   MyLaunchTemplate4:
+  26 |     Type: AWS::EC2::LaunchTemplate
+  27 |     Properties:
+  28 |       LaunchTemplateName: MyLaunchTemplate
+  29 |   MyEC2Instance:
+  30 |     Type: AWS::EC2::Instance
+  31 |     Properties:
+  32 |       ImageId: ""ami-79fd7eee""
+  33 |       KeyName: ""testkey""
+  34 |       DisableApiTermination: True
+  35 |   MyEC2Instance2:
+  36 |     Type: AWS::EC2::Instance
+> 37 |     Properties:
+  38 |       ImageId: ""ami-79fd7eee""
+  39 |       KeyName: ""testkey""
+  40 |       DisableApiTermination: False
+  41 |   MyEC2Instance3:
+  42 |     Type: AWS::EC2::Instance
+  43 |     Properties:
+  44 |       ImageId: ""ami-79fd7eee""
+  45 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,43,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  33 |       }
+  34 |     },
+  35 |     ""MyLaunchTemplate4"": {
+  36 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  37 |       ""Properties"": {
+  38 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  39 |       }
+  40 |     },
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+> 43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,51,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  41 |     ""MyEC2Instance"": {
+  42 |       ""Type"": ""AWS::EC2::Instance"",
+  43 |       ""Properties"": {
+  44 |         ""ImageId"": ""ami-79fd7eee"",
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+> 51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+  59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,59,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml.json,"
+  45 |         ""KeyName"": ""testkey"",
+  46 |         ""DisableApiTermination"": true
+  47 |       }
+  48 |     },
+  49 |     ""MyEC2Instance2"": {
+  50 |       ""Type"": ""AWS::EC2::Instance"",
+  51 |       ""Properties"": {
+  52 |         ""ImageId"": ""ami-79fd7eee"",
+  53 |         ""KeyName"": ""testkey"",
+  54 |         ""DisableApiTermination"": false
+  55 |       }
+  56 |     },
+  57 |     ""MyEC2Instance3"": {
+  58 |       ""Type"": ""AWS::EC2::Instance"",
+> 59 |       ""Properties"": {
+  60 |         ""ImageId"": ""ami-79fd7eee"",
+  61 |         ""KeyName"": ""testkey""
+  62 |       }
+  63 |     }
+  64 |   }
+  65 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,18,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+> 18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+  22 |       BlockDeviceMappings:
+  23 |       - DeviceName: ""/dev/sdm""
+  24 |         Ebs:
+  25 |           VolumeType: ""io1""
+  26 |           Iops: ""200""
+  27 |           DeleteOnTermination: ""false""
+  28 |           VolumeSize: ""20""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""IamInstanceProfile"": ""iamProfile"",
+   9 |         ""BlockDeviceMappings"": [
+  10 |           {
+  11 |             ""DeviceName"": ""/dev/sdm"",
+  12 |             ""Ebs"": {
+  13 |               ""VolumeType"": ""io1"",
+  14 |               ""Iops"": ""200"",
+  15 |               ""DeleteOnTermination"": ""false"",
+  16 |               ""VolumeSize"": ""20""
+  17 |             }
+  18 |           },
+  19 |           {
+  20 |             ""DeviceName"": ""/dev/sdk"",
+  21 |             ""NoDevice"": {}
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,48,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
+  38 |   network_interfaces {
+  39 |     associate_public_ip_address = false
+  40 |   }
+  41 |
+  42 |   placement {
+  43 |     availability_zone = ""us-west-2a""
+  44 |   }
+  45 |   ram_disk_id = ""test""
+  46 | }
+  47 |
+> 48 | resource ""aws_instance"" ""vulnerable"" {
+  49 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  50 |   availability_zone           = ""us-east-1a""
+  51 |   instance_type               = ""t2.small""
+  52 |   key_name                    = ""generic_aws_key""
+  53 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  54 |   associate_public_ip_address = true
+  55 |   private_ip                  = ""10.0.0.44""
+  56 |   iam_instance_profile        = ""example""
+  57 |   security_groups             = []
+  58 |
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,66,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
+  56 |   iam_instance_profile        = ""example""
+  57 |   security_groups             = []
+  58 |
+  59 |   tags = {
+  60 |     method = ""aws.ec2.has_unencrypted_volumes""
+  61 |     Name   = ""aws.ec2_unencrypted""
+  62 |   }
+  63 | }
+  64 |
+  65 |
+> 66 | resource ""aws_instance"" ""not_vulnerable"" {
+  67 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  68 |   availability_zone           = ""us-east-1a""
+  69 |   instance_type               = ""t2.small""
+  70 |   key_name                    = ""generic_aws_key""
+  71 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  72 |   associate_public_ip_address = false
+  73 |   private_ip                  = ""10.0.0.44""
+  74 |   iam_instance_profile        = ""example""
+  75 |   security_groups             = []
+  76 |
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,6,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+   1 | resource ""aws_instance"" ""secure"" {
+   2 |   ami                         = ""ami-04b9e92b5572fa0d1""
+   3 |   availability_zone           = ""us-east-1a""
+   4 |   ebs_optimized               = false
+   5 |   instance_type               = ""t2.small""
+>  6 |   monitoring                  = false
+   7 |   key_name                    = ""generic_aws_key""
+   8 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+   9 |   vpc_security_group_ids      = [""sg-0f98371a3f6cad87e""]
+  10 |   associate_public_ip_address = false
+  11 |
+  12 |   disable_api_termination = true
+  13 |
+  14 |   iam_instance_profile = ""test_profile""
+  15 |
+  16 |   tags = {
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,27,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+  17 |     method = ""aws.terraform.ec2.has_unencrypted_volumes""
+  18 |     Name   = ""aws.ec2_unencrypted""
+  19 |   }
+  20 | }
+  21 |
+  22 | resource ""aws_instance"" ""insecure"" {
+  23 |   ami                         = ""ami-04b9e92b5572fa0d1""
+  24 |   availability_zone           = ""us-east-1a""
+  25 |   ebs_optimized               = false
+  26 |   instance_type               = ""t2.small""
+> 27 |   monitoring                  = false
+  28 |   key_name                    = ""generic_aws_key""
+  29 |   subnet_id                   = ""subnet-00f969b107a8e55b4""
+  30 |   associate_public_ip_address = true
+  31 |
+  32 |   disable_api_termination = true
+  33 |
+  34 |   tags = {
+  35 |     method = ""aws.ec2.has_unencrypted_volumes""
+  36 |     Name   = ""aws.ec2_unencrypted""
+  37 |   }
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,16,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+  13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+> 16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,13,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       Monitoring: True
+   8 |   MyEC2Instance2:
+   9 |     Type: AWS::EC2::Instance
+  10 |     Properties:
+  11 |       ImageId: ""ami-79fd7eee""
+  12 |       KeyName: ""testkey""
+> 13 |       Monitoring: False
+  14 |   MyEC2Instance3:
+  15 |     Type: AWS::EC2::Instance
+  16 |     Properties:
+  17 |       ImageId: ""ami-79fd7eee""
+  18 |       KeyName: ""testkey""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,16,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+> 16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+  21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+  24 |       }
+  25 |     }
+  26 |   }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,21,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""Monitoring"": true
+   9 |       }
+  10 |     },
+  11 |     ""MyEC2Instance2"": {
+  12 |       ""Type"": ""AWS::EC2::Instance"",
+  13 |       ""Properties"": {
+  14 |         ""ImageId"": ""ami-79fd7eee"",
+  15 |         ""KeyName"": ""testkey"",
+  16 |         ""Monitoring"": false
+  17 |       }
+  18 |     },
+  19 |     ""MyEC2Instance3"": {
+  20 |       ""Type"": ""AWS::EC2::Instance"",
+> 21 |       ""Properties"": {
+  22 |         ""ImageId"": ""ami-79fd7eee"",
+  23 |         ""KeyName"": ""testkey""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f400/tfm_ec2_monitoring_disabled.tf,2,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/tfm_ec2_monitoring_disabled.tf,"
+   1 | resource ""aws_instance"" ""foo"" {
+>  2 |   monitoring                  = false
+   3 |   instance_type               = ""t2.micro""
+   4 |   disable_api_termination     = true
+   5 |   associate_public_ip_address = false
+   6 |   security_groups             = [""test""]
+   7 |   iam_instance_profile        = ""ami-005e54dee72cc1d00""
+   8 |
+   9 |   network_interface {
+  10 |     network_interface_id = aws_network_interface.foo.id
+  11 |     device_index         = 0
+  12 |   }
+  13 |   credit_specification {
+  14 |     cpu_credits = ""unlimited""
+  15 |   }
+  16 | }
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,7,778,skims,400. Traceability Loss - AWS,The access_logs.s3.enabled property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
    1 | Resources:
    2 |   LoadBalancer1:

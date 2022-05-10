@@ -6,6 +6,7 @@ from lib_path.common import (
 from lib_path.f400.cloudformation import (
     cfn_bucket_has_logging_conf_disabled,
     cfn_cf_distribution_has_logging_disabled,
+    cfn_ec2_monitoring_disabled,
     cfn_elb2_has_access_logs_s3_disabled,
     cfn_elb_has_access_logging_disabled,
     cfn_trails_not_multiregion,
@@ -79,6 +80,15 @@ def run_cfn_elb2_has_access_logs_s3_disabled(
 
 
 @SHIELD_BLOCKING
+def run_cfn_ec2_monitoring_disabled(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_ec2_monitoring_disabled(
+        content=content, file_ext=file_ext, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
 def run_tfm_elb_logging_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -145,6 +155,9 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_elb2_has_access_logs_s3_disabled(
+                    content, file_extension, path, template
+                ),
+                run_cfn_ec2_monitoring_disabled(
                     content, file_extension, path, template
                 ),
             )

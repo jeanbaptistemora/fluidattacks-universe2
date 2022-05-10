@@ -3176,6 +3176,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_EC2_MONITORING_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_monitoring_disabled",
+        module="lib_path",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_ELB2_LOGS_S3_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_has_access_logs_s3_disabled",
