@@ -890,6 +890,9 @@
     "CVE-2020-5289": ">=0 <4.5.14",
     "GHSA-2mxr-89gf-rc4v": ">=0 <4.5.14"
   },
+  "com.yahoo.elide:elide-datastore-aggregation": {
+    "GHSA-8xpj-9j9g-fc9r": "6.1.3"
+  },
   "com.ztbsuper:dingding-notifications": {
     "CVE-2019-10433": ">=0 <=1.9"
   },
@@ -1018,6 +1021,10 @@
   },
   "io.jenkins.plugins:artifact-repository-parameter": {
     "CVE-2021-21622": ">=0 <=1.0.0"
+  },
+  "io.jenkins.plugins:autonomiq": {
+    "CVE-2022-25195": "<=1.15",
+    "GHSA-6jv7-28mv-qp9c": "<1.16"
   },
   "io.jenkins.plugins:aws-credentials": {
     "CVE-2021-21625": ">=0 <=1.28"
@@ -2206,6 +2213,10 @@
   },
   "org.apache.pdfbox:pdfbox-parent": {
     "GHSA-7grw-6pjh-jpc9": ">=2.0.0 <2.0.24"
+  },
+  "org.apache.pinot:pinot": {
+    "CVE-2022-23974": "<0.10.0",
+    "GHSA-29f8-q7mf-7cqj": "<0.10.0"
   },
   "org.apache.plc4x:plc4c": {
     "CVE-2021-43083": "<0.9.1"
@@ -3931,6 +3942,10 @@
     "CVE-2018-1000112": ">=0 <=2.2",
     "CVE-2020-2305": ">=0 <=2.11",
     "CVE-2020-2306": ">=0 <=2.11"
+  },
+  "org.jenkins-ci.plugins:metrics": {
+    "CVE-2022-20621": "<=4.0.2.8",
+    "GHSA-gg9m-x3cg-69vh": "<=4.0.2.8"
   },
   "org.jenkins-ci.plugins:neoload-jenkins-plugin": {
     "CVE-2019-10440": ">=0 <=2.2.5"
