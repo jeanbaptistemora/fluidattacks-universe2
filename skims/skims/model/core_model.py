@@ -2376,6 +2376,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_PATH_INJECTION = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_path_injection",
+        module="lib_root",
+        finding=FindingEnum.F098,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CFN_POLICY_SERVER_ENCRYP_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_bucket_policy_has_server_side_encryption_disabled",
