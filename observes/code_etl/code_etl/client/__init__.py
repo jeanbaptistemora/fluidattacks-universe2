@@ -31,14 +31,11 @@ from dataclasses import (
     dataclass,
 )
 from fa_purity import (
+    Cmd,
     FrozenList,
     Maybe,
     ResultE,
     Stream,
-)
-from fa_purity.cmd import (
-    Cmd,
-    unsafe_unwrap,
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
@@ -65,7 +62,6 @@ from postgres_client.ids import (
 from postgres_client.query import (
     SqlArgs,
 )
-import psycopg2
 from redshift_client.sql_client import (
     SqlClient,
 )
@@ -84,25 +80,15 @@ LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 
 
-def _fetch_action(
-    client: DbClient, chunk: int
-) -> Maybe[FrozenList[ResultE[CommitTableRow]]]:
-    try:
-        result = client.fetch_many(chunk).map(
-            lambda rows: Maybe.from_optional(
-                tuple(from_raw(RawRow(*r)) for r in rows) if rows else None
-            )
-        )
-        return unsafe_unwrap(result)
-    except psycopg2.ProgrammingError:
-        LOG.warning("Empty fetch response")
-        return Maybe.empty()
-
-
 def _fetch(
-    client: DbClient, chunk: int
+    client: SqlClient, chunk: int
 ) -> Cmd[Maybe[FrozenList[ResultE[CommitTableRow]]]]:
-    return Cmd.from_cmd(lambda: _fetch_action(client, chunk))
+    result = client.fetch_many(chunk).map(
+        lambda rows: Maybe.from_optional(
+            tuple(from_raw(RawRow(*r.data)) for r in rows) if rows else None
+        )
+    )
+    return result
 
 
 def _fetch_one_result(client: DbClient, d_type: Type[_T]) -> Cmd[ResultE[_T]]:
@@ -174,7 +160,7 @@ class RawClient:
             lambda n: _query.namespace_data(self._table, n)
         ).or_else_call(lambda: _query.all_data(self._table))
         items = infinite_range(0, 1).map(
-            lambda _: _fetch(self._db_client, pkg_items)
+            lambda _: _fetch(self._sql_client, pkg_items)
         )
         return self._sql_client.execute(*query_pair).map(
             lambda _: from_piter(items)
