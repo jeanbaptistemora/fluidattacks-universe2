@@ -75,16 +75,12 @@ class OrganizationTypedLoader(DataLoader):
     async def batch_load_fn(
         self, organization_ids: Iterable[str]
     ) -> tuple[Organization, ...]:
-        organizations_by_id = await collect(
+        organization_items = await collect(
             [
                 orgs_domain.get_by_id(organization_id)
                 for organization_id in organization_ids
             ]
         )
         return tuple(
-            format_organization(
-                item=organization_id,
-                organization_id=organization_id["id"],
-            )
-            for organization_id in organizations_by_id
+            format_organization(item=item) for item in organization_items
         )

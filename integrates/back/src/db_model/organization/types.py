@@ -29,13 +29,13 @@ class OrganizationPolicies(NamedTuple):
 class Organization(NamedTuple):
     id: str
     name: str
-    historic_policies: Optional[OrganizationPolicies] = None
-    historic_status: Optional[OrganizationState] = None
     billing_customer: Optional[str] = None
-    pending_deletion_date: Optional[str] = None
     max_acceptance_days: Optional[int] = None
-    max_number_acceptations: Optional[int] = None
     max_acceptance_severity: Decimal = DEFAULT_MAX_SEVERITY
+    max_number_acceptations: Optional[int] = None
     min_acceptance_severity: Decimal = DEFAULT_MIN_SEVERITY
     min_breaking_severity: Decimal = DEFAULT_MIN_SEVERITY
+    pending_deletion_date: Optional[str] = None
+    policies: Optional[OrganizationPolicies] = None
+    state: Optional[OrganizationState] = None
     vulnerability_grace_period: Optional[int] = None
