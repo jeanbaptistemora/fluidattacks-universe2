@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 09, 2022, 10:52 AM",
+    "DateLastModified": "May 10, 2022, 03:52 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -589,6 +589,10 @@
         {
           "AttributeName": "ip",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unreliable_verification_summary",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -9001,7 +9005,8 @@
             "unreliable_treatment_summary",
             "unreliable_newest_vulnerability_report_date",
             "unreliable_oldest_open_vulnerability_report_date",
-            "unreliable_oldest_vulnerability_report_date"
+            "unreliable_oldest_vulnerability_report_date",
+            "unreliable_verification_summary"
           ]
         },
         {

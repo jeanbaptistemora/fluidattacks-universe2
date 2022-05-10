@@ -18,6 +18,7 @@ from db_model.findings.types import (
     Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
+    FindingVerificationSummary,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -215,8 +216,9 @@ async def test_upload_file(populate: bool, email: str) -> None:
             unreliable_efficacy=Decimal("0"),
             unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
             unreliable_last_reattack_requester="requester@gmail.com",
-            unreliable_last_requested_reattack_date="2018-04-08T01:45:11"
-            "+00:00",
+            unreliable_last_requested_reattack_date=(
+                "2018-04-08T01:45:11+00:00"
+            ),
             unreliable_reattack_cycles=None,
             unreliable_report_date="2018-04-08T00:43:11+00:00",
             unreliable_source=Source.ASM,
@@ -233,8 +235,9 @@ async def test_upload_file(populate: bool, email: str) -> None:
             unreliable_efficacy=Decimal("100"),
             unreliable_last_reattack_date="2022-02-09T00:00:00+00:00",
             unreliable_last_reattack_requester="requester@gmail.com",
-            unreliable_last_requested_reattack_date="2018-04-08T01:45:11"
-            "+00:00",
+            unreliable_last_requested_reattack_date=(
+                "2018-04-08T01:45:11+00:00"
+            ),
             unreliable_reattack_cycles=None,
             unreliable_report_date="2018-04-08T00:44:11+00:00",
             unreliable_source=Source.ASM,
@@ -251,19 +254,27 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=3,
         unreliable_is_verified=True,
-        unreliable_newest_vulnerability_report_date="2022-02-09T00:00:00"
-        "+00:00",
-        unreliable_oldest_open_vulnerability_report_date="2018-04-08T"
-        "00:43:11+00:00",
-        unreliable_oldest_vulnerability_report_date="2018-04-08T00:43:11"
-        "+00:00",
+        unreliable_newest_vulnerability_report_date=(
+            "2022-02-09T00:00:00+00:00"
+        ),
+        unreliable_oldest_open_vulnerability_report_date=(
+            "2018-04-08T00:43:11+00:00"
+        ),
+        unreliable_oldest_vulnerability_report_date=(
+            "2018-04-08T00:43:11+00:00"
+        ),
         unreliable_open_vulnerabilities=6,
         unreliable_status=FindingStatus.OPEN,
         unreliable_treatment_summary=FindingTreatmentSummary(
             accepted=0, accepted_undefined=0, in_progress=0, new=6
         ),
-        unreliable_where="192.168.1.44, 192.168.1.46, https://example.com, "
-        "product/path/to/file1.ext, product/test/1",
+        unreliable_verification_summary=FindingVerificationSummary(
+            requested=0, on_hold=0, verified=1
+        ),
+        unreliable_where=(
+            "192.168.1.44, 192.168.1.46, https://example.com, "
+            "product/path/to/file1.ext, product/test/1"
+        ),
     )
 
 
