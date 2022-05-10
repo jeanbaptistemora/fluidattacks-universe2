@@ -13,6 +13,14 @@ const BaseStep: Step = {
   content: "",
   disableBeacon: true,
   hideCloseButton: false,
+  locale: {
+    back: "Back",
+    close: "Close",
+    last: "Close",
+    next: "Next",
+    open: "Open the dialog",
+    skip: "Skip",
+  },
   showSkipButton: true,
   styles: {
     options: {

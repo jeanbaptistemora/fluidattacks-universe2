@@ -712,8 +712,7 @@ export const enTranslations: ResourceKey = {
             "An active root with the same Nickname already exists " +
             "please type a new nickname",
           duplicateUrl:
-            "An active root with the same URL/Branch already exists " +
-            "within the organization",
+            "An active root with the same URL/branch already exists in this organization.",
           hasVulns:
             "Can't update as there are already vulnerabilities reported for this root",
         },
@@ -755,8 +754,8 @@ export const enTranslations: ResourceKey = {
           status: "Filter by status",
         },
         healthCheck: {
-          accept: "I accept the additional costs derived from the healthcheck",
-          confirm: "Would you like a health check for the existing code?",
+          accept: "I accept the additional costs derived from the Health Check",
+          confirm: "Would you like a Health Check for the existing code?",
           no: "No",
           rejectA:
             "I accept that Fluid Attacks will not include a revision of the existing code in the repository",
@@ -766,7 +765,7 @@ export const enTranslations: ResourceKey = {
             "I accept that the previously defined SLAs do not apply to this repository",
           tableHeader: "HCK",
           title: "Health Check",
-          titleTooltip: "Health check include for existing code",
+          titleTooltip: "Health Check include for existing code",
           yes: "Yes",
         },
         manageEnvs: "Manage environments",
@@ -782,7 +781,7 @@ export const enTranslations: ResourceKey = {
           credentials: {
             checkAccess: {
               noAccess: "Credentials are invalid",
-              success: "Repository was reached successfully",
+              success: "Access checked!",
               successTitle: "Success",
               text: "Check Access",
             },
@@ -1423,7 +1422,7 @@ export const enTranslations: ResourceKey = {
           name: "Group name",
           new: {
             group: "New group",
-            text: "New Group",
+            text: "New group",
             tooltip: "Create a new group",
           },
           organization: {
@@ -1432,9 +1431,9 @@ export const enTranslations: ResourceKey = {
               "Name of the organization that is associated with this group",
           },
           service: {
-            black: "Black",
+            black: "Black-box",
             title: "Type of testing",
-            white: "White",
+            white: "White-box",
           },
           squad: {
             text: "Include Squad Plan?",
@@ -2988,71 +2987,64 @@ export const enTranslations: ResourceKey = {
   },
   tours: {
     addGitRoot: {
-      addButton: "Let's set up your repositories so we can analyze your code",
+      addButton: "Now, let’s add your repository so we can analyze your code. ",
       healthCheckConditions:
         "Check all the conditions that apply to your Health Check selection. ",
       intro:
-        "Now, before you start the test service in your project, there is the git root setup. " +
-        "In this section you can add and edit the repositories and environments to include in the test service. ",
+        "Before you start the testing service in your project, " +
+        "you need to add the repository or environment to include in the testing. ",
       nickname:
-        "Due to your repository name are equal to another existent in your organization, " +
-        "please enter a nickname to differentiate it. ",
+        "This repository name is already in use in your organization. " +
+        "Please enter a nickname to differentiate this one from the other.",
       proceedButton: {
         invalidForm:
           "Some of the entered information could not be validated. " +
-          "Please, press back and review the entered data or last to abort the guided process. ",
-        validForm:
-          "Great! Press the button to start cloning and analyzing your code. ",
+          "Please, click “Back” and review the entered data or “Close” to abort the guided process. ",
+        validForm: "Click “Proceed” to start cloning and analyzing your code. ",
       },
       rootBranch:
-        "Now for the repository, enter the branch you want to analyze. For example: master",
+        "Enter the repository branch you want to analyze. For example: master. ",
       rootCredentials: {
         content:
-          "Fill the credentials that will be used to clone the repository. ",
+          "Enter the credentials that will be used to clone the repository. ",
         invalid: "Enter a valid credential and press check button",
-        key: "Paste a valid SSH key",
-        name: "Enter a credential name",
-        token: "Enter a valid repository token",
-        type: "Select a credential type",
-        user: "Enter a valid user and password",
+        key: "Paste a valid SSH key.",
+        name: "Enter a credential name.",
+        token: "Enter a valid repository token.",
+        type: "Select a credential type.",
+        user: "Enter a valid user and password.",
       },
       rootEnvironment:
-        "Name the type of environment that the code refers to. For example: Production",
+        "Name the type of environment this branch syncs to. For example: Production. ",
       rootHasHealthCheck:
-        "For currently on-going repositories, decide if we are going to analyze " +
-        "the existing code or only the new work from this point forward. ",
+        "For repositories with existing code, decide if we are going to analyze the existing code " +
+        "or only the new work from this point onward. ",
       rootUrl:
         "Start by entering a valid URL of the code repository you need to analyze. " +
-        "For example: https://gitlab.com/fluidattacks/product",
+        "For example: https://gitlab.com/fluidattacks/product. ",
       vpn: "Check if access to the repository is done through a VPN. ",
     },
     addGroup: {
       addButton:
-        "Let us guide you through the process of setting up your project. " +
-        "That way we can start analyzing your code and report all the vulnerabilities we find. " +
-        'Press "New Group" to get started!',
+        'Let us guide you through the process of setting up your project. Click "New group" to get started!',
       groupDescription:
-        "We have added the name of the currently selected organization. " +
-        "Now for your new group, add a name and description to help you recognize " +
-        "which group is associated with one of your projects. ",
+        "Add a name and description to help you recognize which one of your projects this group is associated with.",
       intro:
-        "Next, we are ready to create a new group. Each organization in the ASM has different groups. " +
-        "These correspond to unique projects that our clients create to manage their vulnerabilities separately. ",
-      proceedButton: "Great! Press the button to create your new group. ",
-      reportLanguage: "Choose your preferred reporting language. ",
+        "Each organization on the ASM has different groups, " +
+        "representing unique projects created by our clients to manage their vulnerabilities separately. ",
+      proceedButton: "Click “Proceed” to create your new group. ",
+      reportLanguage: "Select your preferred language for reports. ",
       serviceType:
-        "Now you need to choose the type of service for this group. " +
-        "A Continuous Hacking service allows tracking of vulnerabilities throughout the project lifecycle " +
-        "while One-Shot Hacking service reporting within a specific version of your application. ",
+        "Select the type of service for this group. " +
+        "Continuous Hacking involves searching for vulnerabilities at set frequencies throughout the project lifecycle, " +
+        "whereas One-Shot Hacking searches for them in just one specific version of your project.",
       squadPlan:
-        "Choose if you want to include the Squad plan. " +
-        "This plan allows to the hacking process begins early in the software development cycle " +
-        "and increase the characteristics of the security test service. ",
+        "Squad plan is for clients that want to discover more varied, " +
+        "even more complex vulnerabilities through ethical hacking.",
       testingType:
-        "Please select type of testing. With Black type, " +
-        "we evaluate the application without knowledge of its internal workings and without credentials. " +
-        "A White type includes Black testing, the evaluation of the source code and " +
-        "an internal evaluation of the application that requires the client to provide access credentials. ",
+        "Select the type of testing for this group. In Black-box testing, " +
+        "we evaluate the application without knowledge of its internal workings and without credentials, " +
+        "whereas White-box testing requires them.",
     },
   },
   updateAccessToken: {
