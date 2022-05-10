@@ -11,8 +11,6 @@ import { openPopupWidget } from "react-calendly";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
 
-import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
-
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
@@ -21,6 +19,7 @@ import {
   ExtraMessage,
   Message,
 } from "scenes/Dashboard/components/Navbar/HelpWidget/styles";
+import { UpgradeGroupsModal } from "scenes/Dashboard/components/Navbar/HelpWidget/UpgradeGroupsModal";
 import { NavbarButton } from "scenes/Dashboard/components/Navbar/styles";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
@@ -149,6 +148,22 @@ export const HelpModal: React.FC<IHelpModal> = ({
           </Col>
           <DisplayHelpExpert />
         </Row>
+        <div className={"pt2"}>
+          <span>
+            {t("navbar.help.extra.mail")}&nbsp;
+            <ExternalLink href={"mailto:help@fluidattacks.com"}>
+              <span>{"help@fluidattacks.com"}</span>
+            </ExternalLink>
+          </span>
+          &nbsp;
+          <ExternalLink
+            href={
+              "https://docs.fluidattacks.com/about/security/transparency/help-channel"
+            }
+          >
+            <FontAwesomeIcon className={"mid-gray"} icon={faExternalLinkAlt} />
+          </ExternalLink>
+        </div>
       </Modal>
     </React.StrictMode>
   );
