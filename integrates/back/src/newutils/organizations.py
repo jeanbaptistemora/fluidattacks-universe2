@@ -70,7 +70,7 @@ def format_historic_state(
                 convert_to_iso_str(organization_state["modified_date"])
             ),
             modified_by=organization_state["modified_by"],
-            status=organization_state["status"],
+            max_number_acceptations=organization_state["status"],
         )
     return None
 
@@ -92,14 +92,7 @@ def format_organization(
         historic_status=historic_state,
         billing_customer=item.get("billing_customer", None),
         pending_deletion_date=(
-            convert_to_iso_str(item["pending_deletion_date"])
-            if item.get("pending_deletion_date")
-            else None
-        ),
-        max_number_acceptations=get_key_or_fallback(
-            item,
-            "max_number_acceptances",
-            "max_number_acceptations",
+            convert_to_iso_str(item.get("pending_deletion_date", None))
         ),
         max_acceptance_days=int(item.get("max_acceptance_days", None)),
         max_acceptance_severity=item.get(
