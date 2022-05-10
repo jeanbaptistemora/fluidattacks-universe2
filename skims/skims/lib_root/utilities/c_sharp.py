@@ -189,3 +189,12 @@ def get_object_identifiers(
         for element in ident_objects
     ]
     return list(filter(None, ident_objects))
+
+
+def check_member_acces_expression(
+    shard: graph_model.GraphShard, n_id: str, express: str
+) -> bool:
+    expr = g.match_ast(shard.graph, n_id).get("__2__")
+    if expr and shard.graph.nodes[expr]["label_text"] == express:
+        return True
+    return False
