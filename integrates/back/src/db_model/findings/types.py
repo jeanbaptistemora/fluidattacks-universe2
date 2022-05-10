@@ -147,6 +147,9 @@ class FindingUnreliableIndicators(NamedTuple):
     unreliable_treatment_summary: FindingTreatmentSummary = (
         FindingTreatmentSummary()
     )
+    unreliable_verification_summary: FindingVerificationSummary = (
+        FindingVerificationSummary()
+    )
     unreliable_where: str = ""
 
 
@@ -200,4 +203,7 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_open_vulnerabilities: Optional[int] = None
     unreliable_status: Optional[FindingStatus] = None
     unreliable_treatment_summary: Optional[FindingTreatmentSummary] = None
+    unreliable_verification_summary: Optional[
+        FindingVerificationSummary
+    ] = None
     unreliable_where: Optional[str] = None

@@ -261,6 +261,9 @@ def format_unreliable_indicators_item(
         "unreliable_treatment_summary": format_treatment_summary_item(
             indicators.unreliable_treatment_summary
         ),
+        "unreliable_verification_summary": format_verification_summary_item(
+            indicators.unreliable_verification_summary
+        ),
     }
 
 
@@ -289,6 +292,11 @@ def format_unreliable_indicators(
         unreliable_treatment_summary=format_treatment_summary(
             indicators_item["unreliable_treatment_summary"]
         ),
+        unreliable_verification_summary=format_verification_summary(
+            indicators_item["unreliable_verification_summary"]
+        )
+        if "unreliable_verification_summary" in indicators_item
+        else FindingVerificationSummary(),
     )
 
 

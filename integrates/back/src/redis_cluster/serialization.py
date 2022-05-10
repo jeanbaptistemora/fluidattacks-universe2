@@ -21,6 +21,7 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerification,
+    FindingVerificationSummary,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -65,6 +66,7 @@ safe_pickle.register_namedtuple(FindingEvidences)
 safe_pickle.register_namedtuple(FindingState)
 safe_pickle.register_namedtuple(FindingUnreliableIndicators)
 safe_pickle.register_namedtuple(FindingTreatmentSummary)
+safe_pickle.register_namedtuple(FindingVerificationSummary)
 safe_pickle.register_namedtuple(FindingVerification)
 safe_pickle.register_namedtuple(StakeholderPhone)
 safe_pickle.register_namedtuple(ToeInput)

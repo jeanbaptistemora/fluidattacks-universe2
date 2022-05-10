@@ -28,6 +28,7 @@ from db_model.findings.types import (
     Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
+    FindingVerificationSummary,
 )
 from db_model.roots.types import (
     Root,
@@ -74,6 +75,7 @@ from vulnerabilities import (
 )
 from vulnerabilities.types import (
     Treatments,
+    Verifications,
 )
 
 
@@ -98,6 +100,19 @@ def _format_unreliable_treatment_summary(
             new=treatment_summary.new,
         )
     return unreliable_treatment_summary
+
+
+def _format_unreliable_verification_summary(
+    verification_summary: Optional[Verifications],
+) -> Optional[FindingVerificationSummary]:
+    unreliable_verification_summary = None
+    if verification_summary:
+        unreliable_verification_summary = FindingVerificationSummary(
+            requested=verification_summary.requested,
+            on_hold=verification_summary.on_hold,
+            verified=verification_summary.verified,
+        )
+    return unreliable_verification_summary
 
 
 async def update_findings_unreliable_indicators(
@@ -187,6 +202,11 @@ async def update_finding_unreliable_indicators(  # noqa: C901
             EntityAttr.treatment_summary
         ] = findings_domain.get_treatment_summary(loaders, finding.id)
 
+    if EntityAttr.verification_summary in attrs_to_update:
+        indicators[
+            EntityAttr.verification_summary
+        ] = findings_domain.get_verification_summary(loaders, finding.id)
+
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
     indicators_to_update = FindingUnreliableIndicatorsToUpdate(
         unreliable_closed_vulnerabilities=result.get(
@@ -211,6 +231,11 @@ async def update_finding_unreliable_indicators(  # noqa: C901
         unreliable_where=result.get(EntityAttr.where),
         unreliable_treatment_summary=_format_unreliable_treatment_summary(
             result.get(EntityAttr.treatment_summary)
+        ),
+        unreliable_verification_summary=(
+            _format_unreliable_verification_summary(
+                result.get(EntityAttr.verification_summary)
+            )
         ),
     )
 

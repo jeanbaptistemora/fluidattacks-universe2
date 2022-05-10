@@ -15,6 +15,7 @@ from .types import (
     FindingUnreliableIndicators,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+    FindingVerificationSummary,
 )
 from .utils import (
     format_evidences_item,
@@ -22,6 +23,7 @@ from .utils import (
     format_treatment_summary_item,
     format_unreliable_indicators_item,
     format_verification_item,
+    format_verification_summary_item,
     get_latest_state,
     get_latest_verification,
 )
@@ -426,6 +428,8 @@ async def update_unreliable_indicators(
         if isinstance(value, Enum)
         else format_treatment_summary_item(value)
         if isinstance(value, FindingTreatmentSummary)
+        else format_verification_summary_item(value)
+        if isinstance(value, FindingVerificationSummary)
         else value
         for key, value in indicators._asdict().items()
         if value is not None
@@ -434,6 +438,7 @@ async def update_unreliable_indicators(
     conditions = (
         Attr(indicator_name).eq(current_value_item[indicator_name])
         for indicator_name in unreliable_indicators
+        if indicator_name != "unreliable_verification_summary"
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
