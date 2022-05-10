@@ -34,7 +34,6 @@ import type {
 } from "graphql";
 import _ from "lodash";
 import { createElement, useMemo } from "react";
-import { createNetworkStatusNotifier } from "react-apollo-network-status";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -164,9 +163,6 @@ const apiLink: ApolloLink = ApolloLink.split(
   wsLink,
   httpLink
 );
-
-const { link: networkStatusLink, useApolloNetworkStatus } =
-  createNetworkStatusNotifier();
 
 const retryLink: ApolloLink = new RetryLink({
   attempts: {
@@ -355,12 +351,7 @@ const ApolloProvider: React.FC<ProviderProps> = (
             fetchPolicy: "cache-and-network",
           },
         },
-        link: ApolloLink.from([
-          errorLink(history),
-          networkStatusLink,
-          retryLink,
-          apiLink,
-        ]),
+        link: ApolloLink.from([errorLink(history), retryLink, apiLink]),
       }),
     // This computed value will never change
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -370,4 +361,4 @@ const ApolloProvider: React.FC<ProviderProps> = (
   return createElement(BaseApolloProvider, { client, ...props });
 };
 
-export { getCache, useApolloNetworkStatus, ApolloProvider };
+export { getCache, ApolloProvider };
