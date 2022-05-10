@@ -8954,6 +8954,22 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   15 |
      ^ Col 33
 ",query.query_f063
+F098,lines,namespace/skims/test/data/lib_root/f098/path_injection.cs,10,22,skims,098. External control of file name or path,Potentially untrusted HTTP request input reaches the path of a file operation. in namespace/skims/test/data/lib_root/f098/path_injection.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |     protected void Page_Load(object sender, EventArgs e)
+   7 |     {
+   8 |         string userInput = Request.Params[""UserInput""];
+   9 |
+> 10 |         var elem = File.Open(userInput, FileMode.Open);
+  11 |
+  12 |     }
+  13 | }
+     ^ Col 0
+",c_sharp.c_sharp_path_injection
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
  in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml","
   12 |         Statement:
