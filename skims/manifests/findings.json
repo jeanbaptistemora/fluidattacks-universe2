@@ -343,6 +343,14 @@
       "title": "096. Insecure deserialization"
     }
   },
+  "F098": {
+    "EN": {
+      "title": "098. External control of file name or path"
+    },
+    "ES": {
+      "title": "098. External control of file name or path"
+    }
+  },
   "F099": {
     "EN": {
       "title": "099. Non-encrypted confidential information - S3 Server Side Encryption"
