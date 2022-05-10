@@ -25,6 +25,13 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "fi_analytics_buck
   }
 }
 
+resource "aws_s3_bucket_logging" "fi_analytics_bucket" {
+  bucket = aws_s3_bucket.fi_analytics_bucket.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/analytics"
+}
+
 resource "aws_s3_bucket_versioning" "fi_analytics_bucket" {
   bucket = aws_s3_bucket.fi_analytics_bucket.id
 

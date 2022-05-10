@@ -15,6 +15,19 @@ resource "aws_s3_bucket_acl" "common_logging" {
   acl = "private"
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "common_logging" {
+  bucket = aws_s3_bucket.common_logging.id
+
+  rule {
+    id     = "delete_logs"
+    status = "Enabled"
+
+    expiration {
+      days = 365
+    }
+  }
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "common_logging" {
   bucket = aws_s3_bucket.common_logging.id
 
