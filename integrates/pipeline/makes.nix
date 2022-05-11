@@ -207,77 +207,13 @@
     tags = ["autoscaling"];
   };
   lib = inputs.nixpkgs.lib;
-  schedulerTemplate = {
-    interruptible = false;
-    stage = "scheduler";
-  };
 in {
   pipelines = {
     integrates = {
       gitlabPath = "/integrates/gitlab-ci.yaml";
       jobs =
         []
-        ++ (builtins.map
-          (name: {
-            args = ["prod" name];
-            output = "/computeOnAwsBatch/integratesMigration";
-            gitlabExtra =
-              schedulerTemplate
-              // {
-                rules = [
-                  (gitlabCi.rules.schedules)
-                  (
-                    gitlabCi.rules.varIsDefined
-                    (
-                      builtins.replaceStrings
-                      [".py"]
-                      [""]
-                      "integrates_migration_${name}"
-                    )
-                  )
-                  (gitlabCi.rules.always)
-                ];
-                tags = ["autoscaling"];
-              };
-          })
-          [
-            "0213_populate_verification_summary.py"
-          ])
-        ++ (builtins.map
-          (name: {
-            args = ["prod" "schedulers.${name}.main"];
-            output = "/computeOnAwsBatch/integratesScheduler";
-            gitlabExtra =
-              schedulerTemplate
-              // {
-                rules = [
-                  (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "integrates_scheduler_${name}")
-                  (gitlabCi.rules.always)
-                ];
-                tags = ["autoscaling"];
-              };
-          })
-          [
-            "update_indicators"
-          ])
         ++ [
-          {
-            args = ["prod"];
-            output = "/computeOnAwsBatch/integratesSubscriptionsDailyDigest";
-            gitlabExtra = {
-              interruptible = false;
-              retry = 2;
-              rules = [
-                (gitlabCi.rules.schedules)
-                (gitlabCi.rules.varIsDefined
-                  "integrates_subscriptions_daily_digest_on_aws_prod_schedule")
-                (gitlabCi.rules.always)
-              ];
-              stage = "scheduler";
-              tags = ["autoscaling"];
-            };
-          }
           {
             output = "/deployTerraform/integratesBackups";
             gitlabExtra = gitlabDeployInfra;
@@ -367,18 +303,6 @@ in {
                   (gitlabCi.rules.always)
                 ];
               };
-          }
-          {
-            output = "/integrates/back/destroy/eph";
-            gitlabExtra = {
-              rules = [
-                (gitlabCi.rules.schedules)
-                (gitlabCi.rules.varIsDefined "integrates_nightly_build")
-                (gitlabCi.rules.always)
-              ];
-              stage = "rotation";
-              tags = ["autoscaling"];
-            };
           }
         ]
         ++ (builtins.map
@@ -620,64 +544,6 @@ in {
               };
           }
         ]
-        ++ (builtins.map
-          (name: {
-            args = ["prod" "schedulers.${name}.main"];
-            output = "/integrates/utils/scheduler";
-            gitlabExtra =
-              schedulerTemplate
-              // {
-                rules = [
-                  (gitlabCi.rules.schedules)
-                  (gitlabCi.rules.varIsDefined "integrates_scheduler_${name}")
-                  (gitlabCi.rules.always)
-                ];
-                tags = ["autoscaling-large"];
-              };
-          })
-          [
-            "clone_groups_roots_vpn"
-            "clone_groups_roots"
-            "delete_imamura_stakeholders"
-            "delete_obsolete_groups"
-            "delete_obsolete_orgs"
-            "event_report"
-            "get_remediated_findings"
-            "reset_expired_accepted_findings"
-            "update_portfolios"
-            "requeue_actions"
-            "machine_queue_all"
-            "machine_queue_re_attacks"
-            "reminder_notification"
-            "refresh_toe_lines"
-            "report_squad_usage"
-            "update_group_toe_vulns"
-            "review_machine_executions"
-          ])
-        ++ (builtins.map
-          (frequency: {
-            args = ["prod" frequency];
-            output = "/integrates/subscriptions/analytics";
-            gitlabExtra =
-              schedulerTemplate
-              // {
-                rules = [
-                  (gitlabCi.rules.schedules)
-                  (
-                    gitlabCi.rules.varIsDefined
-                    "integrates_subscriptions_analytics_${frequency}_prod_schedule"
-                  )
-                  (gitlabCi.rules.always)
-                ];
-                tags = ["autoscaling-large"];
-              };
-          })
-          [
-            "daily"
-            "hourly"
-            "monthly"
-            "weekly"
-          ])
         ++ (builtins.map
           (frequency: {
             args = ["dev" frequency];
