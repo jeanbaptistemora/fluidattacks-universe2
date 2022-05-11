@@ -10,8 +10,13 @@
     <p>Hello {{ name }},</p>
     <p>
       The root with the nickname <strong>{{ root_nickname }}</strong> from the group
-      <strong>{{ group }}</strong> has changed status to <strong>cloning</strong>
-      {{ report_date }}.<br>
+      <strong>{{ group }}</strong> has
+      {% if is_failed %}
+        failed
+      {% else %}
+        changed status from <strong>not cloning</strong> to
+      {% endif %}
+      <strong>cloning</strong> {{ report_date }}.<br>
     </p>
     <p>Regards,<br>Fluid Attacks Team</p>
     {{ go_to_button('Go to scope', scope_url) }}

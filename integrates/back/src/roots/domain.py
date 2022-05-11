@@ -782,6 +782,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
 ) -> None:
     validation_utils.validate_field_length(message, 400)
     root: Root = await loaders.root.load((group_name, root_id))
+    modified_date: str = datetime_utils.get_iso_date()
 
     if not isinstance(root, GitRoot):
         raise InvalidParameter()
@@ -789,7 +790,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     await roots_model.update_git_root_cloning(
         current_value=root.cloning,
         cloning=GitRootCloning(
-            modified_date=datetime_utils.get_iso_date(),
+            modified_date=modified_date,
             reason=message,
             status=GitCloningStatus(status),
             commit=commit,
@@ -797,6 +798,53 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         ),
         group_name=group_name,
         root_id=root_id,
+    )
+
+    is_failed: bool = (
+        status == GitCloningStatus.FAILED and status != root.cloning.status
+    )
+    if (
+        status == GitCloningStatus.CLONING
+        and root.cloning.status == GitCloningStatus.FAILED
+        or is_failed
+    ):
+        await send_mail_root_cloning_status(
+            loaders=loaders,
+            group_name=group_name,
+            root_nickname=root.state.nickname,
+            modified_date=modified_date,
+            is_failed=is_failed,
+        )
+
+
+async def send_mail_root_cloning_status(
+    *,
+    loaders: Any,
+    group_name: str,
+    root_nickname: str,
+    modified_date: str,
+    is_failed: bool,
+) -> None:
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        authz.get_group_level_role(user, group_name) for user in users
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await groups_mail.send_mail_root_cloning_status(
+        loaders=loaders,
+        email_to=email_list,
+        group_name=group_name,
+        root_nickname=root_nickname,
+        report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
+        is_failed=is_failed,
     )
 
 

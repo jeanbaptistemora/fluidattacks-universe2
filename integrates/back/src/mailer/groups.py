@@ -250,9 +250,12 @@ async def send_mail_root_cloning_status(
     group_name: str,
     root_nickname: str,
     report_date: date,
+    is_failed: bool,
 ) -> None:
+    cloning_state: str = "failed" if is_failed else "changed"
     org_name = await get_organization_name(loaders, group_name)
     email_context: dict[str, Any] = {
+        "is_failed": is_failed,
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group": group_name,
         "root_nickname": root_nickname,
@@ -262,7 +265,7 @@ async def send_mail_root_cloning_status(
         email_to=email_to,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=f"Root changed to cloning in [{group_name}]",
+        subject=f"Root {cloning_state} status cloning in [{group_name}]",
         template_name="root_cloning_status",
     )
 
