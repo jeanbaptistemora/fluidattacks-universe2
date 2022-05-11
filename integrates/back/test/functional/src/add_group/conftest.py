@@ -36,8 +36,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "policy": {},
             },
         ],
-        "groups": [],
-        "groups_typed": [
+        "groups": [
             {
                 "group": Group(
                     description="-",

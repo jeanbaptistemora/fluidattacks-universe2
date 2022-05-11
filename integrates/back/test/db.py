@@ -44,9 +44,6 @@ from db_model.toe_inputs.types import (
 from db_model.toe_lines.types import (
     ToeLines,
 )
-from decimal import (
-    Decimal,
-)
 from dynamodb.types import (
     OrgFindingPolicyItem,
 )
@@ -65,7 +62,6 @@ from group_comments import (
 from groups import (
     dal as dal_groups,
 )
-import json
 from newutils.datetime import (
     get_from_str,
 )
@@ -169,21 +165,7 @@ async def populate_orgs(data: List[Any]) -> bool:
     return success
 
 
-async def populate_groups(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
-    coroutines.extend(
-        [
-            dal_groups.add(
-                group,
-            )
-            for group in data_parsed
-        ]
-    )
-    return all(await collect(coroutines))
-
-
-async def _populate_group_unreliable_indicator(data: Dict[str, Any]) -> None:
+async def _populate_group_unreliable_indicators(data: Dict[str, Any]) -> None:
     group: Group = data["group"]
     if data.get("unreliable_indicators"):
         await dal_groups.update_indicators_typed(
@@ -206,7 +188,7 @@ async def _populate_group_historic_state(data: Dict[str, Any]) -> None:
         )
 
 
-async def populate_groups_typed(data: List[Dict[str, Any]]) -> bool:
+async def populate_groups(data: List[Dict[str, Any]]) -> bool:
     await collect(
         dal_groups.add_typed(
             group=item["group"],
@@ -215,7 +197,7 @@ async def populate_groups_typed(data: List[Dict[str, Any]]) -> bool:
     )
     await collect([_populate_group_historic_state(item) for item in data])
     await collect(
-        [_populate_group_unreliable_indicator(item) for item in data]
+        [_populate_group_unreliable_indicators(item) for item in data]
     )
     return True
 

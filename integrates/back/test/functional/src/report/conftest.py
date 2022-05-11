@@ -24,8 +24,7 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "groups": [],
-        "groups_typed": [
+        "groups": [
             {
                 "group": Group(
                     description="This is a dummy description",

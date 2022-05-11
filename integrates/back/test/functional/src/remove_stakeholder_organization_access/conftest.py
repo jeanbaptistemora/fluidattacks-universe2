@@ -60,8 +60,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "registered": True,
             },
         ],
-        "groups": [],
-        "groups_typed": [
+        "groups": [
             {
                 "group": Group(
                     description="group5 description",

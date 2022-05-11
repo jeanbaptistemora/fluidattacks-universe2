@@ -54,7 +54,7 @@ async def populate() -> bool:
                 "policy": {},
             },
         ),
-        "groups_typed": (
+        "groups": (
             {
                 "group": Group(
                     description="-",

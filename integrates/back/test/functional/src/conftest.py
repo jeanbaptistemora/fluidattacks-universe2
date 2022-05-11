@@ -569,7 +569,7 @@ def generic_data(  # pylint: disable=too-many-locals
                     "max_acceptance_days": 7,
                 },
             ],
-            "groups_typed": [
+            "groups": [
                 {
                     "group": Group(
                         description="-",

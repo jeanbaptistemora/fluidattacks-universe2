@@ -51,7 +51,7 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_projects"
 
 
-async def add(group: dict[str, Any]) -> bool:
+async def _add_item(group: dict[str, Any]) -> bool:
     """Add group to dynamo."""
     resp = False
     try:
@@ -66,7 +66,7 @@ async def add_typed(
     group: Group,
 ) -> None:
     group_item = groups_utils.format_group_to_add_item(group)
-    if not await add(group=group_item):
+    if not await _add_item(group=group_item):
         raise ErrorAddingGroup.new()
 
 
