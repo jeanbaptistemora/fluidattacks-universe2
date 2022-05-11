@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import type { IFindingData } from "./types";
+import type { IFindingData, IVerificationSummaryAttr } from "./types";
 
-import { Col50, Row } from "styles/styledComponents";
+import { Col33, Row } from "styles/styledComponents";
 
 interface IDescriptionProps {
   description: string;
@@ -11,7 +11,9 @@ interface IDescriptionProps {
   lastVulnerability: number;
   openAge: number;
   remediated: string;
+  state: string;
   treatment: string;
+  verificationSummary: IVerificationSummaryAttr;
 }
 
 const Description = ({
@@ -20,11 +22,14 @@ const Description = ({
   lastVulnerability,
   openAge,
   remediated,
+  state,
   treatment,
+  verificationSummary,
 }: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
   const [treatmentNew, inProgress, temporallyAccepted, permanentlyAccepted] =
     treatment.split(",").map((line): string => line.trim());
+  const isOpen = state === "open";
 
   return (
     <div>
@@ -33,43 +38,68 @@ const Description = ({
         <p>{description}</p>
       </Row>
       <Row>
-        <Col50>
+        <Col33>
           {t("group.findings.description.lastReport")}&nbsp;
           {t("group.findings.description.value", { count: lastVulnerability })}
-        </Col50>
-        <Col50>{treatmentNew}</Col50>
+        </Col33>
+        <Col33>{treatmentNew}</Col33>
+        {isOpen ? (
+          <Col33>
+            {t("group.findings.description.onHold")}&nbsp;
+            {verificationSummary.onHold}
+          </Col33>
+        ) : (
+          <Col33 />
+        )}
       </Row>
       <hr />
       <Row>
-        <Col50>
+        <Col33>
           {t("group.findings.description.firstSeen")}&nbsp;
           {t("group.findings.description.value", { count: openAge })}
-        </Col50>
-        <Col50>{inProgress}</Col50>
+        </Col33>
+        <Col33>{inProgress}</Col33>
+        {isOpen ? (
+          <Col33>
+            {t("group.findings.description.requested")}&nbsp;
+            {verificationSummary.requested}
+          </Col33>
+        ) : (
+          <Col33 />
+        )}
       </Row>
       <hr />
       <Row>
-        <Col50>
+        <Col33>
           {t("group.findings.description.exploitable")}&nbsp;
           {t(
             isExploitable
               ? "group.findings.boolean.True"
               : "group.findings.boolean.False"
           )}
-        </Col50>
-        <Col50>{temporallyAccepted}</Col50>
+        </Col33>
+        <Col33>{temporallyAccepted}</Col33>
+        {isOpen ? (
+          <Col33>
+            {t("group.findings.description.verified")}&nbsp;
+            {verificationSummary.verified}
+          </Col33>
+        ) : (
+          <Col33 />
+        )}
       </Row>
       <hr />
       <Row>
-        <Col50>
+        <Col33>
           {t("group.findings.description.reattack")}&nbsp;
           {t(
             remediated === "Pending"
               ? "group.findings.boolean.True"
               : "group.findings.boolean.False"
           )}
-        </Col50>
-        <Col50>{permanentlyAccepted}</Col50>
+        </Col33>
+        <Col33>{permanentlyAccepted}</Col33>
+        <Col33 />
       </Row>
     </div>
   );
@@ -81,7 +111,9 @@ export const renderDescription = ({
   lastVulnerability,
   openAge,
   remediated,
+  state,
   treatment,
+  verificationSummary,
 }: IFindingData): JSX.Element => (
   <Description
     description={description}
@@ -89,6 +121,8 @@ export const renderDescription = ({
     lastVulnerability={lastVulnerability}
     openAge={openAge}
     remediated={remediated}
+    state={state}
     treatment={treatment}
+    verificationSummary={verificationSummary}
   />
 );

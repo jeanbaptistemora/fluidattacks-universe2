@@ -477,11 +477,14 @@ export const enTranslations: ResourceKey = {
         exploitable: "Exploitable:",
         firstSeen: "First seen:",
         lastReport: "Last report:",
+        onHold: "On hold:",
         reattack: "Pending reattack:",
+        requested: "Requested:",
         title: "Description",
         value: "{{count}} day ago",
         // eslint-disable-next-line camelcase -- It is required for react-i18next
         value_plural: "{{count}} days ago",
+        verified: "Verified:",
       },
       evidence: {
         edit: "Edit",
