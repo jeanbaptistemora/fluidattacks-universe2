@@ -19,6 +19,7 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+    FindingVerificationSummary,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -125,10 +126,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         user_interaction=Decimal("0.85"),
                     ),
                     min_time_to_remediate=4,
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                 ),
                 "historic_state": [
                     FindingState(
@@ -172,15 +177,24 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_closed_vulnerabilities=3,
                     unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_treatment_summary=FindingTreatmentSummary(
                         accepted=1,
                         accepted_undefined=2,
                         in_progress=3,
                         new=4,
+                    ),
+                    unreliable_verification_summary=FindingVerificationSummary(
+                        requested=1, on_hold=2, verified=3
                     ),
                     unreliable_where="192.168.1.2",
                 ),

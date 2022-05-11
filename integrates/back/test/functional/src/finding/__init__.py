@@ -130,6 +130,11 @@ async def get_result(
                     inProgress
                     new
                 }}
+                verificationSummary {{
+                    requested
+                    onHold
+                    verified
+                }}
                 verified
                 vulnerabilities {{
                     id

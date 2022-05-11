@@ -144,6 +144,11 @@ async def test_get_finding(populate: bool, email: str) -> None:
         "inProgress": 3,
         "new": 4,
     }
+    verification_summary: Dict[str, int] = {
+        "requested": 1,
+        "onHold": 2,
+        "verified": 3,
+    }
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
@@ -201,6 +206,10 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["title"] == title
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
+    assert (
+        result["data"]["finding"]["verificationSummary"]
+        == verification_summary
+    )
     assert result["data"]["finding"]["verified"] == verified
     assert (
         result["data"]["finding"]["minTimeToRemediate"]
