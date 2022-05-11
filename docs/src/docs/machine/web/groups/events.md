@@ -136,3 +136,48 @@ follow this [link](/squad/reattacks#reattacks-on-hold).)
 By clicking on the
 **Cancel** button,
 you will abort the process.
+
+## Event details
+
+When you select an event,
+you access a new section
+with its details.
+In the header,
+you find the type
+of event,
+its ID,
+the date it was reported
+and its current status.
+
+![Event Details Header](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_events.png)
+
+You can see three tabs
+under the header: Description,
+Evidence and Comments.
+In **Description**,
+you find why the event
+was reported by one of
+our hackers along
+with their email,
+the site where it is
+present and the number
+of components affected.
+
+![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_description_authorization.png)
+
+In **Evidence**,
+you find images,
+videos or GIFs justifying
+the reported event.
+
+![Event Details Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_evidence.png)
+
+In **Comments**,
+you find the discussion
+established between your
+company's staff and
+`Fluid Attacks'` hackers or
+project managers about the event.
+You can leave your comments there.
+
+![Event Details Comments](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_comments.png)
