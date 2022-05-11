@@ -3367,3 +3367,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_INSECURE_ASSEMBLY_LOAD = MethodInfo(
+        file_name="csharp",
+        name="csharp_insecure_assembly_load",
+        module="lib_root",
+        finding=FindingEnum.F413,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )

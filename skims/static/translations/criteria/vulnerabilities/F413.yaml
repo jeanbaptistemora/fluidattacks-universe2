@@ -1,0 +1,3 @@
+lib_root.f413.insecure_assembly_load:
+  en: Potentially untrusted HTTP request input reaches a method that loads an assembly.
+  es: La entrada de una solicitud HTTP potencialmente no confiable llega a un método que carga un assembly.
