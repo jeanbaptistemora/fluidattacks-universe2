@@ -438,7 +438,6 @@ async def update_unreliable_indicators(
     conditions = (
         Attr(indicator_name).eq(current_value_item[indicator_name])
         for indicator_name in unreliable_indicators
-        if indicator_name != "unreliable_verification_summary"
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
