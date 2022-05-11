@@ -636,6 +636,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 }
                 headers={[
                   {
+                    dataField: "id",
+                    header: t("group.machine.rootId"),
+                    nonToggleList: true,
+                    visible: false,
+                  },
+                  {
                     dataField: "url",
                     header: t("group.scope.git.repo.url"),
                     visible: checkedItems.url,
@@ -677,7 +683,32 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     width: "45px",
                   },
                   {
+                    dataField: "nickname",
+                    header: t("group.scope.git.repo.nickname"),
+                    nonToggleList: true,
+                    visible: false,
+                  },
+                  {
+                    dataField: "environment",
+                    header: t("group.scope.git.repo.environment"),
+                    nonToggleList: true,
+                    visible: false,
+                  },
+                  {
+                    dataField: "gitignore",
+                    header: t("group.scope.git.filter.exclude"),
+                    nonToggleList: true,
+                    visible: false,
+                  },
+                  {
+                    dataField: "environmentUrls",
+                    header: t("group.scope.git.envUrls"),
+                    nonToggleList: true,
+                    visible: false,
+                  },
+                  {
                     changeFunction: handleSyncClick,
+                    csvExport: false,
                     dataField: "sync",
                     formatter: syncButtonFormatter,
                     header: t("group.scope.git.repo.cloning.sync"),
