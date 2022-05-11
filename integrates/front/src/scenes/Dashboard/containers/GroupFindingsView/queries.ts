@@ -25,6 +25,11 @@ const GET_FINDINGS: DocumentNode = gql`
           inProgress
           new
         }
+        verificationSummary {
+          onHold
+          requested
+          verified
+        }
         verified
       }
       name

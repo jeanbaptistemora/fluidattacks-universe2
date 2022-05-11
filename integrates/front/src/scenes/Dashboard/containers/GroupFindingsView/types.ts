@@ -15,6 +15,12 @@ interface ITreatmentSummaryAttr {
   new: number;
 }
 
+interface IVerificationSummaryAttr {
+  onHold: number;
+  requested: number;
+  verified: number;
+}
+
 interface IFindingAttr {
   age: number;
   closedVulnerabilities: number;
@@ -35,6 +41,7 @@ interface IFindingAttr {
   title: string;
   treatment: string;
   treatmentSummary: ITreatmentSummaryAttr;
+  verificationSummary: IVerificationSummaryAttr;
   verified: boolean;
   where: string;
 }
@@ -55,6 +62,7 @@ interface IFindingData {
   title: string;
   treatment: string;
   treatmentSummary: ITreatmentSummaryAttr;
+  verificationSummary: IVerificationSummaryAttr;
   verified: boolean;
   where: string;
 }
@@ -71,4 +79,5 @@ export type {
   IFindingData,
   IRequestGroupReportResult,
   ITreatmentSummaryAttr,
+  IVerificationSummaryAttr,
 };

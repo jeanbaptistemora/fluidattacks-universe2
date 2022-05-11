@@ -63,6 +63,11 @@ describe("groupFindingsView", (): void => {
                   inProgress: 0,
                   new: 1,
                 },
+                verificationSummary: {
+                  onHold: 1,
+                  requested: 2,
+                  verified: 3,
+                },
                 verified: false,
               },
             ],
@@ -141,6 +146,11 @@ describe("groupFindingsView", (): void => {
                   acceptedUndefined: 0,
                   inProgress: 0,
                   new: 1,
+                },
+                verificationSummary: {
+                  onHold: 1,
+                  requested: 2,
+                  verified: 3,
                 },
                 verified: false,
               },
