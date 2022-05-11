@@ -1,5 +1,9 @@
 # https://github.com/fluidattacks/makes
 {outputs, ...}: {
+  imports = [
+    ./parse/makes.nix
+    ./schedule/makes.nix
+  ];
   deployTerraform = {
     modules = {
       commonOkta = {
