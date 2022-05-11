@@ -1,7 +1,7 @@
 from billing import (
     domain as billing_domain,
 )
-from db_model.organization.types import (
+from db_model.organizations.types import (
     Organization,
 )
 from decorators import (

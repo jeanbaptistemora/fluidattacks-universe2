@@ -4,7 +4,7 @@ from analytics import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from db_model.organization.types import (
+from db_model.organizations.types import (
     Organization,
 )
 from decorators import (

@@ -1,4 +1,4 @@
-from db_model.organization.enums import (
+from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
 from decimal import (

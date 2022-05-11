@@ -2,7 +2,7 @@ import authz
 from custom_exceptions import (
     InvalidParameter,
 )
-from db_model.organization.types import (
+from db_model.organizations.types import (
     Organization,
 )
 from graphql.type.definition import (

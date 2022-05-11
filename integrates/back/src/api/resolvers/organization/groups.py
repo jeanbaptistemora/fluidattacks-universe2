@@ -4,7 +4,7 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organization.types import (
+from db_model.organizations.types import (
     Organization,
 )
 from graphql.type.definition import (

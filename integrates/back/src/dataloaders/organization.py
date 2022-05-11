@@ -4,7 +4,7 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-from db_model.organization.types import (
+from db_model.organizations.types import (
     Organization,
 )
 from newutils.organizations import (

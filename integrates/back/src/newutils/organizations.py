@@ -1,7 +1,7 @@
-from db_model.organization.enums import (
+from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
-from db_model.organization.types import (
+from db_model.organizations.types import (
     Organization,
     OrganizationPolicies,
     OrganizationState,
