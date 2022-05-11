@@ -2184,6 +2184,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_OPEN_REDIRECT = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_open_redirect",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     DATE = MethodInfo(
         file_name="analyze_headers",
         name="date",

@@ -10,6 +10,9 @@ from symbolic_eval.f008.member_access import (
 from symbolic_eval.f021.member_access import (
     evaluate as evaluate_member_access_f021,
 )
+from symbolic_eval.f063.member_access import (
+    evaluate as evaluate_member_access_f063,
+)
 from symbolic_eval.f096.member_access import (
     evaluate as evaluate_member_access_f096,
 )
@@ -36,6 +39,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F008: evaluate_member_access_f008,
     FindingEnum.F021: evaluate_member_access_f021,
     FindingEnum.F096: evaluate_member_access_f096,
+    FindingEnum.F063: evaluate_member_access_f063,
     FindingEnum.F098: evaluate_member_access_f098,
     FindingEnum.F100: evaluate_member_access_f100,
     FindingEnum.F239: evaluate_member_access_f239,
