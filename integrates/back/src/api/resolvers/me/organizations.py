@@ -1,5 +1,8 @@
-from aioextensions import (
-    collect,
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -17,15 +20,16 @@ from typing import (
 
 async def resolve(
     parent: dict[str, Any],
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[dict[str, Any], ...]:
+) -> tuple[Organization, ...]:
+    loaders: Dataloaders = info.context.loaders
     user_email = str(parent["user_email"])
     organization_ids: list[str] = await orgs_domain.get_user_organizations(
         user_email
     )
-    organizations = await collect(
-        tuple(orgs_domain.get_by_id(id) for id in organization_ids)
+    organizations = await loaders.organization_typed.load_many(
+        organization_ids
     )
 
-    return orgs_utils.filter_active_organizations(organizations)
+    return orgs_utils.filter_active_organizations_typed(organizations)

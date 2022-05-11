@@ -20,11 +20,25 @@ from typing import (
 )
 
 
+def is_deleted_typed(organization: Organization) -> bool:
+    return organization.state.status == OrganizationStateStatus.DELETED
+
+
 def is_deleted(organization: dict[str, Any]) -> bool:
     historic_state = organization.get("historic_state", [{}])
     state_status = historic_state[-1].get("status", "")
 
     return state_status == "DELETED"
+
+
+def filter_active_organizations_typed(
+    organizations: tuple[Organization, ...]
+) -> tuple[Organization, ...]:
+    return tuple(
+        organization
+        for organization in organizations
+        if not is_deleted_typed(organization)
+    )
 
 
 def filter_active_organizations(
