@@ -15,7 +15,6 @@ import {
   PanelCollapse,
   PanelCollapseBody,
   PanelCollapseHeader,
-  Row,
   RowCenter,
 } from "styles/styledComponents";
 
@@ -532,6 +531,20 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               <Graphic
                 bsHeight={160}
                 className={"g2"}
+                documentName={"assignedVulnerabilities"}
+                documentType={"pieChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.assignedVulnerabilities")}
+              />
+            </Col50>
+            <Col50>
+              <Graphic
+                bsHeight={160}
+                className={"g2"}
                 documentName={"vulnerabilitiesWithUndefinedTreatment"}
                 documentType={"pieChart"}
                 entity={entity}
@@ -541,21 +554,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 reportMode={reportMode}
                 subject={subject}
                 title={t("tagIndicator.undefinedTitle")}
-              />
-            </Col50>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"vulnerabilitiesByTreatments"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}common#vulnerabilities-by-number-of-treatment-changes`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("tagIndicator.vulnerabilitiesByTreatments")}
               />
             </Col50>
           </RowCenter>
@@ -591,22 +589,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               />
             </Col50>
           </RowCenter>
-          <Row>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"assignedVulnerabilities"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("tagIndicator.assignedVulnerabilities")}
-              />
-            </Col50>
-          </Row>
         </div>
       ) : undefined}
       {doesEntityMatch(["group"]) ? (

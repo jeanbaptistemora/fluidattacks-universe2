@@ -38,7 +38,6 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Open Types of Vulnerabilities by Group",
     "Top Oldest Types of Vulnerabilities",
     "Undefined Treatment by Group",
-    "Vulnerabilities by Number of Treatment Changes",
     "Vulnerabilities by group",
     "Open vulnerabilities by group",
     "Vulnerabilities by assignment",

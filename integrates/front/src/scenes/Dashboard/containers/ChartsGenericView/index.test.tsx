@@ -32,7 +32,7 @@ describe("ChartsGenericView", (): void => {
     expect.hasAssertions();
 
     const groupGraphics: number = 31;
-    const organizationAndPportfolioGraphics: number = 36;
+    const organizationAndPportfolioGraphics: number = 35;
 
     const { container, rerender } = render(
       <MockedProvider addTypename={true} mocks={[mocks]}>
