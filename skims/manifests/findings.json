@@ -854,5 +854,13 @@
     "ES": {
       "title": "412. Lack of protection against deletion - Azure Key Vault"
     }
+  },
+  "F413": {
+    "EN": {
+      "title": "413. Insecure file upload - DLL Injection"
+    },
+    "ES": {
+      "title": "413. Insecure file upload - DLL Injection"
+    }
   }
 }

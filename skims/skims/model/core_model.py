@@ -923,6 +923,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[186, 265],
     )
+    F413: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F413",
+        cwe=434,
+        execution_queue=ExecutionQueue.injection,
+        requirements=[40, 41],
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
