@@ -9,6 +9,8 @@ function start_etl {
     && aws_login_prod 'observes' \
     && json_db_creds "${db_creds}" \
     && export_notifier_key \
+    && ensure_gitlab_env_vars \
+      AUTONOMIC_API_TOKEN \
     && gitlab-etl \
       'gitlab-ci' \
       'autonomicjump/challenges' \

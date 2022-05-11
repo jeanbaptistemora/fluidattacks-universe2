@@ -16,6 +16,7 @@ function job_code_upload {
     && aws_login_prod 'observes' \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
+      SERVICES_API_TOKEN \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && export_notifier_key \

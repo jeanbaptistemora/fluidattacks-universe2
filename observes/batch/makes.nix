@@ -52,10 +52,6 @@ in {
       // {
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/gitlab/challenges"];
-        environment = [
-          "AUTONOMIC_API_TOKEN"
-          "PRODUCT_API_TOKEN"
-        ];
       };
 
     observesGitlabEtlDefault =
@@ -63,10 +59,6 @@ in {
       // {
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/gitlab/default"];
-        environment = [
-          "AUTONOMIC_API_TOKEN"
-          "PRODUCT_API_TOKEN"
-        ];
       };
 
     observesGitlabEtlProduct =
@@ -81,7 +73,6 @@ in {
       // {
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/gitlab/services"];
-        environment = ["PRODUCT_API_TOKEN" "SERVICES_API_TOKEN"];
       };
 
     observesMailchimpEtl =
@@ -98,11 +89,6 @@ in {
       // {
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/code/mirror"];
-        environment = [
-          "INTEGRATES_API_TOKEN"
-          "PRODUCT_API_TOKEN"
-          "SERVICES_API_TOKEN"
-        ];
         queue = "unlimited_spot";
       };
 
@@ -111,11 +97,6 @@ in {
       // {
         attemptDurationSeconds = 28800;
         command = ["m" "f" "/observes/etl/code/upload"];
-        environment = [
-          "INTEGRATES_API_TOKEN"
-          "PRODUCT_API_TOKEN"
-          "SERVICES_API_TOKEN"
-        ];
         queue = "unlimited_spot";
       };
 
@@ -126,10 +107,6 @@ in {
         attempts = 1;
         attemptDurationSeconds = 604800;
         command = ["m" "f" "/observes/etl/code/upload/migration/fa-hash/v2"];
-        environment = [
-          "PRODUCT_API_TOKEN"
-          "SERVICES_API_TOKEN"
-        ];
       };
 
     observesDynamoV2Etl =
@@ -155,9 +132,6 @@ in {
         attempts = 1;
         attemptDurationSeconds = 172800;
         command = ["m" "f" "/observes/job/migration"];
-        environment = [
-          "PRODUCT_API_TOKEN"
-        ];
       };
   };
 }
