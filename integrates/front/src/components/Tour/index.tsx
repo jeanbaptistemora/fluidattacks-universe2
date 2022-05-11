@@ -70,6 +70,11 @@ const Tour: React.FC<ITourProps> = (
       spotlightClicks={true}
       stepIndex={tourStep}
       steps={steps}
+      styles={
+        tourStep === steps.length - 1
+          ? { buttonNext: { display: "none" } }
+          : undefined
+      }
     />
   );
 };
