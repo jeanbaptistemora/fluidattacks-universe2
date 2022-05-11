@@ -1,5 +1,8 @@
 # https://github.com/fluidattacks/makes
 {outputs, ...}: {
+  imports = [
+    ./schedule/makes.nix
+  ];
   deployTerraform = {
     modules = {
       commonCompute = {
