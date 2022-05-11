@@ -3168,6 +3168,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_api_gateway_access_logging_disabled",
+        module="lib_path",
+        finding=FindingEnum.F408,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     FRAGMENT_INJECTION = MethodInfo(
         file_name="analyze_bytecodes",
         name="has_fragment_injection",

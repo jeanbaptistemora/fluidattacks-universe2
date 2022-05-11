@@ -34,7 +34,7 @@ def tfm_api_gateway_access_logging_disabled(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f408.has_logging_disabled",
+        description_key="lib_path.f408.tfm_has_logging_disabled",
         iterator=get_cloud_iterator(
             _tfm_api_gateway_access_logging_disabled(
                 resource_iterator=iter_aws_api_gateway_stage(model=model)

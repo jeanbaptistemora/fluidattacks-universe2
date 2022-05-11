@@ -1,3 +1,6 @@
-lib_path.f408.has_logging_disabled:
+lib_path.f408.tfm_has_logging_disabled:
   en: Property access_log_settings is either missing or misconfigured
   es: Falta la propiedad access_log_settings o está mal configurada
+lib_path.f408.cfn_has_logging_disabled:
+  en: Property AccessLogSetting is either missing or misconfigured
+  es: Falta la propiedad AccessLogSetting o está mal configurada

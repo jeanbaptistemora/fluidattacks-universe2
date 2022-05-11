@@ -27801,6 +27801,53 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_trac
   29 | }
      ^ Col 0
 ",terraform.tfm_azure_app_service_logging_disabled
+F408,lines,namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml,15,778,skims,408. Traceability Loss - API Gateway,Property AccessLogSetting is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml,"
+   1 | Resources:
+   2 |   Prod:
+   3 |     Type: AWS::ApiGateway::Stage
+   4 |     Properties:
+   5 |       AccessLogSetting:
+   6 |         DestinationArn: String
+   7 |         Format: String
+   8 |       StageName: Prod
+   9 |       Description: Prod Stage
+  10 |       RestApiId: MyRestApi
+  11 |       Variables:
+  12 |         Stack: Prod
+  13 |   Dev:
+  14 |     Type: AWS::ApiGateway::Stage
+> 15 |     Properties:
+  16 |       StageName: Dev
+  17 |       Description: Prod Stage
+  18 |       RestApiId: MyRestApi
+  19 |       Variables:
+  20 |         Stack: Prod
+     ^ Col 0
+",cloudformation.cfn_api_gateway_access_logging_disabled
+F408,lines,namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml.json,20,778,skims,408. Traceability Loss - API Gateway,Property AccessLogSetting is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml.json,"
+  10 |         ""StageName"": ""Prod"",
+  11 |         ""Description"": ""Prod Stage"",
+  12 |         ""RestApiId"": ""MyRestApi"",
+  13 |         ""Variables"": {
+  14 |           ""Stack"": ""Prod""
+  15 |         }
+  16 |       }
+  17 |     },
+  18 |     ""Dev"": {
+  19 |       ""Type"": ""AWS::ApiGateway::Stage"",
+> 20 |       ""Properties"": {
+  21 |         ""StageName"": ""Dev"",
+  22 |         ""Description"": ""Prod Stage"",
+  23 |         ""RestApiId"": ""MyRestApi"",
+  24 |         ""Variables"": {
+  25 |           ""Stack"": ""Prod""
+  26 |         }
+  27 |       }
+  28 |     }
+  29 |   }
+  30 | }
+     ^ Col 0
+",cloudformation.cfn_api_gateway_access_logging_disabled
 F408,lines,namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,1,778,skims,408. Traceability Loss - API Gateway,Property access_log_settings is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,"
 > 1 | resource ""aws_api_gateway_stage"" ""example"" {
   2 |   deployment_id = aws_api_gateway_deployment.example.id

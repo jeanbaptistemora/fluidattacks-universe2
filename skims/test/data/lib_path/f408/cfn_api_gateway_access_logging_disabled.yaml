@@ -1,0 +1,20 @@
+Resources:
+  Prod:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      AccessLogSetting:
+        DestinationArn: String
+        Format: String
+      StageName: Prod
+      Description: Prod Stage
+      RestApiId: MyRestApi
+      Variables:
+        Stack: Prod
+  Dev:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      StageName: Dev
+      Description: Prod Stage
+      RestApiId: MyRestApi
+      Variables:
+        Stack: Prod

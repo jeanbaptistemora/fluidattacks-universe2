@@ -191,6 +191,17 @@ def iter_ec2_volumes(template: Node) -> Iterator[Node]:
     )
 
 
+def iter_api_gateway_stages(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::ApiGateway::Stage",
+            exact=True,
+        )
+    )
+
+
 def iter_cloudfront_distributions(template: Node) -> Iterator[Node]:
     yield from (
         props
