@@ -9050,6 +9050,19 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   15 |
      ^ Col 33
 ",query.query_f063
+F063,lines,namespace/skims/test/data/lib_path/f063/open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_path/f063/open_redirect.cs,"
+   1 | using System;
+   2 |
+   3 | public partial class WebForm : System.Web.UI.Page
+   4 | {
+   5 |     protected void Page_Load(object sender, EventArgs e)
+   6 |     {
+   7 |         string input = Request.Form[""url""];
+>  8 |         Response.Redirect(input);
+   9 |     }
+  10 | }
+     ^ Col 0
+",c_sharp.c_sharp_open_redirect
 F098,lines,namespace/skims/test/data/lib_root/f098/path_injection.cs,10,22,skims,098. External control of file name or path,Potentially untrusted HTTP request input reaches the path of a file operation. in namespace/skims/test/data/lib_root/f098/path_injection.cs,"
    1 | using System;
    2 | using System.IO;
