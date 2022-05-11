@@ -365,6 +365,10 @@ def format_group_to_add_item(group: Group) -> Item:
         item["tag"] = group.tags
     if group.files:
         item["files"] = format_group_files_item(group.files)
+    if group.business_id:
+        item["business_id"] = group.business_id
+    if group.business_name:
+        item["business_name"] = group.business_name
 
     return item
 
