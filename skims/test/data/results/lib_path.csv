@@ -3695,6 +3695,214 @@ F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypt
   45 | }
      ^ Col 0
 ",cloudformation.cfn_aws_ebs_volumes_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,4,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,"
+   1 | Resources:
+   2 |   table1:
+   3 |     Type: AWS::DynamoDB::Table
+>  4 |     Properties:
+   5 |       KeySchema:
+   6 |       - AttributeName: attr1
+   7 |         KeyType: String
+   8 |       - AttributeName: attr2
+   9 |         KeyType: String
+  10 |       PointInTimeRecoverySpecification:
+  11 |         PointInTimeRecoveryEnabled: True
+  12 |   table2:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       KeySchema:
+  16 |       - AttributeName: attr1
+  17 |         KeyType: String
+  18 |       - AttributeName: attr2
+  19 |         KeyType: String
+  20 |       PointInTimeRecoverySpecification:
+  21 |         PointInTimeRecoveryEnabled: False
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,14,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,"
+   4 |     Properties:
+   5 |       KeySchema:
+   6 |       - AttributeName: attr1
+   7 |         KeyType: String
+   8 |       - AttributeName: attr2
+   9 |         KeyType: String
+  10 |       PointInTimeRecoverySpecification:
+  11 |         PointInTimeRecoveryEnabled: True
+  12 |   table2:
+  13 |     Type: AWS::DynamoDB::Table
+> 14 |     Properties:
+  15 |       KeySchema:
+  16 |       - AttributeName: attr1
+  17 |         KeyType: String
+  18 |       - AttributeName: attr2
+  19 |         KeyType: String
+  20 |       PointInTimeRecoverySpecification:
+  21 |         PointInTimeRecoveryEnabled: False
+  22 |   table3:
+  23 |     Type: AWS::DynamoDB::Table
+  24 |     Properties:
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,24,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,"
+   9 |         KeyType: String
+  10 |       PointInTimeRecoverySpecification:
+  11 |         PointInTimeRecoveryEnabled: True
+  12 |   table2:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       KeySchema:
+  16 |       - AttributeName: attr1
+  17 |         KeyType: String
+  18 |       - AttributeName: attr2
+  19 |         KeyType: String
+  20 |       PointInTimeRecoverySpecification:
+  21 |         PointInTimeRecoveryEnabled: False
+  22 |   table3:
+  23 |     Type: AWS::DynamoDB::Table
+> 24 |     Properties:
+  25 |       KeySchema:
+  26 |       - AttributeName: attr1
+  27 |         KeyType: String
+  28 |       - AttributeName: attr2
+  29 |         KeyType: String
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,5,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""table1"": {
+   4 |       ""Type"": ""AWS::DynamoDB::Table"",
+>  5 |       ""Properties"": {
+   6 |         ""KeySchema"": [
+   7 |           {
+   8 |             ""AttributeName"": ""attr1"",
+   9 |             ""KeyType"": ""String""
+  10 |           },
+  11 |           {
+  12 |             ""AttributeName"": ""attr2"",
+  13 |             ""KeyType"": ""String""
+  14 |           }
+  15 |         ],
+  16 |         ""PointInTimeRecoverySpecification"": {
+  17 |           ""PointInTimeRecoveryEnabled"": true
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""table2"": {
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,23,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,"
+  13 |             ""KeyType"": ""String""
+  14 |           }
+  15 |         ],
+  16 |         ""PointInTimeRecoverySpecification"": {
+  17 |           ""PointInTimeRecoveryEnabled"": true
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""table2"": {
+  22 |       ""Type"": ""AWS::DynamoDB::Table"",
+> 23 |       ""Properties"": {
+  24 |         ""KeySchema"": [
+  25 |           {
+  26 |             ""AttributeName"": ""attr1"",
+  27 |             ""KeyType"": ""String""
+  28 |           },
+  29 |           {
+  30 |             ""AttributeName"": ""attr2"",
+  31 |             ""KeyType"": ""String""
+  32 |           }
+  33 |         ],
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,41,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,"
+  31 |             ""KeyType"": ""String""
+  32 |           }
+  33 |         ],
+  34 |         ""PointInTimeRecoverySpecification"": {
+  35 |           ""PointInTimeRecoveryEnabled"": false
+  36 |         }
+  37 |       }
+  38 |     },
+  39 |     ""table3"": {
+  40 |       ""Type"": ""AWS::DynamoDB::Table"",
+> 41 |       ""Properties"": {
+  42 |         ""KeySchema"": [
+  43 |           {
+  44 |             ""AttributeName"": ""attr1"",
+  45 |             ""KeyType"": ""String""
+  46 |           },
+  47 |           {
+  48 |             ""AttributeName"": ""attr2"",
+  49 |             ""KeyType"": ""String""
+  50 |           }
+  51 |         ]
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,24,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,"
+   7 |         WriteCapacityUnits: 5
+   8 |       SSESpecification:
+   9 |         KMSMasterKeyId: keyid
+  10 |         SSEEnabled: true
+  11 |         SSEType: KMS
+  12 |   DDBTable:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       ProvisionedThroughput:
+  16 |         ReadCapacityUnits: 5
+  17 |         WriteCapacityUnits: 5
+  18 |       SSESpecification:
+  19 |         KMSMasterKeyId: keyid
+  20 |         SSEEnabled: false
+  21 |         SSEType: KMS
+  22 |   DDBTable:
+  23 |     Type: AWS::DynamoDB::Table
+> 24 |     Properties:
+  25 |       ProvisionedThroughput:
+  26 |         ReadCapacityUnits: 5
+  27 |         WriteCapacityUnits: 5
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,20,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,"
+   7 |         WriteCapacityUnits: 5
+   8 |       SSESpecification:
+   9 |         KMSMasterKeyId: keyid
+  10 |         SSEEnabled: true
+  11 |         SSEType: KMS
+  12 |   DDBTable:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       ProvisionedThroughput:
+  16 |         ReadCapacityUnits: 5
+  17 |         WriteCapacityUnits: 5
+  18 |       SSESpecification:
+  19 |         KMSMasterKeyId: keyid
+> 20 |         SSEEnabled: false
+  21 |         SSEType: KMS
+  22 |   DDBTable:
+  23 |     Type: AWS::DynamoDB::Table
+  24 |     Properties:
+  25 |       ProvisionedThroughput:
+  26 |         ReadCapacityUnits: 5
+  27 |         WriteCapacityUnits: 5
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
+F409,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml.json,5,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""DDBTable"": {
+   4 |       ""Type"": ""AWS::DynamoDB::Table"",
+>  5 |       ""Properties"": {
+   6 |         ""ProvisionedThroughput"": {
+   7 |           ""ReadCapacityUnits"": 5,
+   8 |           ""WriteCapacityUnits"": 5
+   9 |         }
+  10 |       }
+  11 |     }
+  12 |   }
+  13 | }
+     ^ Col 0
+",cloudformation.cfn_dynamodb_table_unencrypted
 F333,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,70,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,"
   60 |     http_endpoint               = ""enabled""
   61 |     http_tokens                 = ""required""
@@ -22053,6 +22261,98 @@ F259,lines,namespace/skims/test/data/lib_path/f259/tfm_db_test.tf,10,463,skims,2
   21 |   }
      ^ Col 0
 ",terraform.tfm_db_no_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,4,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml","
+   1 | Resources:
+   2 |   DDBTable:
+   3 |     Type: AWS::DynamoDB::Table
+>  4 |     Properties:
+   5 |       ProvisionedThroughput:
+   6 |         ReadCapacityUnits: 5
+   7 |         WriteCapacityUnits: 5
+   8 |       SSESpecification:
+   9 |         KMSMasterKeyId: keyid
+  10 |         SSEEnabled: true
+  11 |         SSEType: KMS
+  12 |   DDBTable:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       ProvisionedThroughput:
+  16 |         ReadCapacityUnits: 5
+  17 |         WriteCapacityUnits: 5
+  18 |       SSESpecification:
+  19 |         KMSMasterKeyId: keyid
+  20 |         SSEEnabled: false
+  21 |         SSEType: KMS
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,14,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml","
+   4 |     Properties:
+   5 |       ProvisionedThroughput:
+   6 |         ReadCapacityUnits: 5
+   7 |         WriteCapacityUnits: 5
+   8 |       SSESpecification:
+   9 |         KMSMasterKeyId: keyid
+  10 |         SSEEnabled: true
+  11 |         SSEType: KMS
+  12 |   DDBTable:
+  13 |     Type: AWS::DynamoDB::Table
+> 14 |     Properties:
+  15 |       ProvisionedThroughput:
+  16 |         ReadCapacityUnits: 5
+  17 |         WriteCapacityUnits: 5
+  18 |       SSESpecification:
+  19 |         KMSMasterKeyId: keyid
+  20 |         SSEEnabled: false
+  21 |         SSEType: KMS
+  22 |   DDBTable:
+  23 |     Type: AWS::DynamoDB::Table
+  24 |     Properties:
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml","
+   7 |         WriteCapacityUnits: 5
+   8 |       SSESpecification:
+   9 |         KMSMasterKeyId: keyid
+  10 |         SSEEnabled: true
+  11 |         SSEType: KMS
+  12 |   DDBTable:
+  13 |     Type: AWS::DynamoDB::Table
+  14 |     Properties:
+  15 |       ProvisionedThroughput:
+  16 |         ReadCapacityUnits: 5
+  17 |         WriteCapacityUnits: 5
+  18 |       SSESpecification:
+  19 |         KMSMasterKeyId: keyid
+  20 |         SSEEnabled: false
+  21 |         SSEType: KMS
+  22 |   DDBTable:
+  23 |     Type: AWS::DynamoDB::Table
+> 24 |     Properties:
+  25 |       ProvisionedThroughput:
+  26 |         ReadCapacityUnits: 5
+  27 |         WriteCapacityUnits: 5
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml.json,5,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f409/cfn_dynamodb_table_unencrypted.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""DDBTable"": {
+   4 |       ""Type"": ""AWS::DynamoDB::Table"",
+>  5 |       ""Properties"": {
+   6 |         ""ProvisionedThroughput"": {
+   7 |           ""ReadCapacityUnits"": 5,
+   8 |           ""WriteCapacityUnits"": 5
+   9 |         }
+  10 |       }
+  11 |     }
+  12 |   }
+  13 | }
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
 F259,lines,namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf,1,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_path/f409/tfm_aws_dynamodb_table_unencrypted.tf","
 > 1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {

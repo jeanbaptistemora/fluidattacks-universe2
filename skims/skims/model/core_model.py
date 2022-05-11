@@ -3183,6 +3183,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_dynamodb_table_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F409,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     FRAGMENT_INJECTION = MethodInfo(
         file_name="analyze_bytecodes",
         name="has_fragment_injection",
