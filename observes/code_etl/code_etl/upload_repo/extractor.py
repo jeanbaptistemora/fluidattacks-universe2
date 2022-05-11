@@ -43,10 +43,13 @@ from git.objects.commit import (
 from git.repo.base import (
     Repo,
 )
+import logging
 from typing import (
     cast,
     Iterator,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -55,7 +58,9 @@ class Extractor:
     _mailmap: Maybe[Mailmap]
 
     def _to_stamp(self, commit: GitCommit) -> Maybe[CommitStamp]:
+        LOG.debug("_to_stamp commit %s", commit.hexsha)
         if commit.hexsha == self._context.last_commit:
+            LOG.debug("last commit reached")
             return Maybe.empty()
         _obj = CommitDataFactory.from_commit(commit)
         obj = (

@@ -6,6 +6,7 @@ from code_etl.mailmap import (
     Mailmap,
 )
 from code_etl.objs import (
+    RepoContex,
     RepoId,
 )
 from code_etl.upload_repo import (
@@ -59,6 +60,10 @@ from redshift_client.sql_client.connection import (
     DbConnection,
     IsolationLvl,
 )
+from typing import (
+    Callable,
+    Tuple,
+)
 
 LOG = logging.getLogger(__name__)
 
@@ -70,6 +75,8 @@ class NonexistentPath(Exception):
 def upload_or_register(
     client: Client, extractor: Extractor, repo: Repo
 ) -> Cmd[None]:
+    LOG.debug("upload_or_register")
+    LOG.debug(extractor.extract_repo())
     _register = actions.register(client, extractor.extract_repo())
     _upload = actions.upload_stamps(client, extractor.extract_data(repo))
     return _register.bind(lambda _: _upload)
@@ -90,7 +97,7 @@ def upload(
 ) -> Cmd[None]:
     repo = _try_repo(str(repo_path))
     repo_id = RepoId(namespace, repo_path.name)
-    info = Cmd.from_cmd(lambda: LOG.info("Uploading %s", repo_id))
+    info = Cmd.from_cmd(lambda: LOG.info("Uploading the repo: %s", repo_id))
     extractor = client.get_context(repo_id).map(
         lambda r: Extractor(r, mailmap)
     )
@@ -126,14 +133,21 @@ def _upload_repos(
             )
         )
 
-    client_paths = tuple(
-        _new_client(p).map(lambda c: (c, p)) for p in repo_paths
-    )
+    _pair: Callable[[Path], Cmd[Tuple[Client, Path]]] = lambda p: _new_client(
+        p
+    ).map(lambda c: (c, p))
+    client_paths = tuple(map(_pair, repo_paths))
     pool = ThreadPool()  # type: ignore[misc]
 
     def _action() -> None:
+        LOG.debug("Concurrent action started!")
+        _action: Callable[
+            [Cmd[Tuple[Client, Path]]], None
+        ] = lambda i: unsafe_unwrap(
+            i.bind(lambda t: upload(t[0], namespace, t[1], mailmap))
+        )
         pool.map(  # type: ignore[misc]
-            lambda i: unsafe_unwrap(i.map(lambda t: upload(t[0], namespace, t[1], mailmap))),  # type: ignore[misc]
+            _action,
             client_paths,
         )
 
