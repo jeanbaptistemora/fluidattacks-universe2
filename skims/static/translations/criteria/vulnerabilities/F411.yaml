@@ -1,3 +1,6 @@
-lib_path.f411.tfm_aws_secret_encrypted_whitouth_kms_cmk:
+lib_path.f411.tfm_aws_secret_encrypted_without_kms_key:
   en: Property kms_key_id is either missing or misconfigured
   es: Falta la propiedad kms_key_id o está mal configurada
+lib_path.f411.cfn_aws_secret_encrypted_without_kms_key:
+  en: Property KmsKeyId is either missing or misconfigured
+  es: Falta la propiedad KmsKeyId o está mal configurada

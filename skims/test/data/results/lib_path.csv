@@ -3695,6 +3695,150 @@ F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypt
   45 | }
      ^ Col 0
 ",cloudformation.cfn_aws_ebs_volumes_unencrypted
+F411,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,4,16,skims,411. Insecure encryption algorithm - Default encryption,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,"
+   1 | Resources:
+   2 |   MySecret1:
+   3 |     Type: 'AWS::SecretsManager::Secret'
+>  4 |     Properties:
+   5 |       Name: MySecretForAppA
+   6 |       Description: ""This secret has a dynamically generated secret password.""
+   7 |       GenerateSecretString:
+   8 |         SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |         GenerateStringKey: ""password""
+  10 |         PasswordLength: 12
+  11 |         ExcludeCharacters: '""@/\'
+  12 |         ExcludeLowercase: True
+  13 |         ExcludeNumbers: False
+  14 |         ExcludePunctuation: true
+  15 |         ExcludeUppercase: false
+  16 |         IncludeSpace: True
+  17 |         RequireEachIncludedType: False
+  18 |   MySecret2:
+  19 |     Type: 'AWS::SecretsManager::Secret'
+  20 |     Properties:
+  21 |       Name: MySecretForAppA
+     ^ Col 0
+",cloudformation.cfn_aws_secret_encrypted_without_kms_key
+F411,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,20,16,skims,411. Insecure encryption algorithm - Default encryption,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,"
+   2 |   MySecret1:
+   3 |     Type: 'AWS::SecretsManager::Secret'
+   4 |     Properties:
+   5 |       Name: MySecretForAppA
+   6 |       Description: ""This secret has a dynamically generated secret password.""
+   7 |       GenerateSecretString:
+   8 |         SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |         GenerateStringKey: ""password""
+  10 |         PasswordLength: 12
+  11 |         ExcludeCharacters: '""@/\'
+  12 |         ExcludeLowercase: True
+  13 |         ExcludeNumbers: False
+  14 |         ExcludePunctuation: true
+  15 |         ExcludeUppercase: false
+  16 |         IncludeSpace: True
+  17 |         RequireEachIncludedType: False
+  18 |   MySecret2:
+  19 |     Type: 'AWS::SecretsManager::Secret'
+> 20 |     Properties:
+  21 |       Name: MySecretForAppA
+  22 |       Description: ""This secret has a dynamically generated secret password.""
+     ^ Col 0
+",cloudformation.cfn_aws_secret_encrypted_without_kms_key
+F411,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,5,16,skims,411. Insecure encryption algorithm - Default encryption,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MySecret1"": {
+   4 |       ""Type"": ""AWS::SecretsManager::Secret"",
+>  5 |       ""Properties"": {
+   6 |         ""Name"": ""MySecretForAppA"",
+   7 |         ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |         ""GenerateSecretString"": {
+   9 |           ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |           ""GenerateStringKey"": ""password"",
+  11 |           ""PasswordLength"": 12,
+  12 |           ""ExcludeCharacters"": ""\""@/\\"",
+  13 |           ""ExcludeLowercase"": true,
+  14 |           ""ExcludeNumbers"": false,
+  15 |           ""ExcludePunctuation"": true,
+  16 |           ""ExcludeUppercase"": false,
+  17 |           ""IncludeSpace"": true,
+  18 |           ""RequireEachIncludedType"": false
+  19 |         }
+  20 |       }
+  21 |     },
+     ^ Col 0
+",cloudformation.cfn_aws_secret_encrypted_without_kms_key
+F411,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,24,16,skims,411. Insecure encryption algorithm - Default encryption,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,"
+  10 |           ""GenerateStringKey"": ""password"",
+  11 |           ""PasswordLength"": 12,
+  12 |           ""ExcludeCharacters"": ""\""@/\\"",
+  13 |           ""ExcludeLowercase"": true,
+  14 |           ""ExcludeNumbers"": false,
+  15 |           ""ExcludePunctuation"": true,
+  16 |           ""ExcludeUppercase"": false,
+  17 |           ""IncludeSpace"": true,
+  18 |           ""RequireEachIncludedType"": false
+  19 |         }
+  20 |       }
+  21 |     },
+  22 |     ""MySecret2"": {
+  23 |       ""Type"": ""AWS::SecretsManager::Secret"",
+> 24 |       ""Properties"": {
+  25 |         ""Name"": ""MySecretForAppA"",
+  26 |         ""Description"": ""This secret has a dynamically generated secret password.""
+  27 |       }
+  28 |     }
+  29 |   }
+  30 | }
+     ^ Col 0
+",cloudformation.cfn_aws_secret_encrypted_without_kms_key
+F411,lines,namespace/skims/test/data/lib_path/f411/cfn_aws_secret_encrypted_without_kms_key.yaml,4,16,skims,411. Insecure encryption algorithm - Default encryption,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f411/cfn_aws_secret_encrypted_without_kms_key.yaml,"
+   1 | Resources:
+   2 |   MySecretA:
+   3 |     Type: 'AWS::SecretsManager::Secret'
+>  4 |     Properties:
+   5 |       Name: MySecretForAppA
+   6 |       Description: ""This secret""
+   7 |       GenerateSecretString:
+   8 |         SecretStringTemplate: '{""username"": ""test-user""}'
+   9 |         GenerateStringKey: ""password""
+  10 |         PasswordLength: 30
+  11 |         ExcludeCharacters: '""@/\'
+  12 |   MySecretB:
+  13 |     Type: 'AWS::SecretsManager::Secret'
+  14 |     Properties:
+  15 |       Name: MySecretForAppA
+  16 |       Description: ""This secret""
+  17 |       GenerateSecretString:
+  18 |         SecretStringTemplate: '{""username"": ""test-user""}'
+  19 |         GenerateStringKey: ""password""
+  20 |         PasswordLength: 30
+  21 |         ExcludeCharacters: '""@/\'
+     ^ Col 0
+",cloudformation.cfn_aws_secret_encrypted_without_kms_key
+F411,lines,namespace/skims/test/data/lib_path/f411/cfn_aws_secret_encrypted_without_kms_key.yaml.json,5,16,skims,411. Insecure encryption algorithm - Default encryption,Property KmsKeyId is either missing or misconfigured in namespace/skims/test/data/lib_path/f411/cfn_aws_secret_encrypted_without_kms_key.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MySecretA"": {
+   4 |       ""Type"": ""AWS::SecretsManager::Secret"",
+>  5 |       ""Properties"": {
+   6 |         ""Name"": ""MySecretForAppA"",
+   7 |         ""Description"": ""This secret"",
+   8 |         ""GenerateSecretString"": {
+   9 |           ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |           ""GenerateStringKey"": ""password"",
+  11 |           ""PasswordLength"": 30,
+  12 |           ""ExcludeCharacters"": ""\""@/\\""
+  13 |         }
+  14 |       }
+  15 |     },
+  16 |     ""MySecretB"": {
+  17 |       ""Type"": ""AWS::SecretsManager::Secret"",
+  18 |       ""Properties"": {
+  19 |         ""Name"": ""MySecretForAppA"",
+  20 |         ""Description"": ""This secret"",
+  21 |         ""GenerateSecretString"": {
+     ^ Col 0
+",cloudformation.cfn_aws_secret_encrypted_without_kms_key
 F409,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,4,16,skims,409. Non-encrypted confidential information - DynamoDB,Property SSESpecification.SSEEnabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,"
    1 | Resources:
    2 |   table1:
@@ -4640,7 +4784,7 @@ F411,lines,namespace/skims/test/data/lib_path/f411/tfm_aws_secret_encrypted_whit
   6 |   }
   7 | }
     ^ Col 0
-",terraform.tfm_aws_secret_encrypted_whitouth_kms_cmk
+",terraform.tfm_aws_secret_encrypted_without_kms_key
 F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property root_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,"
   1 | resource ""aws_launch_configuration"" ""example"" {
   2 |   instance_type = ""t2.micro""

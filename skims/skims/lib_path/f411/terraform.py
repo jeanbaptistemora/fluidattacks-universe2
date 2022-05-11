@@ -18,7 +18,7 @@ from typing import (
 )
 
 
-def _tfm_aws_secret_encrypted_whitouth_kms_cmk(
+def _tfm_aws_secret_encrypted_without_kms_key_iter_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -29,19 +29,19 @@ def _tfm_aws_secret_encrypted_whitouth_kms_cmk(
             yield resource
 
 
-def tfm_aws_secret_encrypted_whitouth_kms_cmk(
+def tfm_aws_secret_encrypted_without_kms_key(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=(
-            "lib_path.f411.tfm_aws_secret_encrypted_whitouth_kms_cmk"
+            "lib_path.f411.tfm_aws_secret_encrypted_without_kms_key"
         ),
         iterator=get_cloud_iterator(
-            _tfm_aws_secret_encrypted_whitouth_kms_cmk(
+            _tfm_aws_secret_encrypted_without_kms_key_iter_vulns(
                 resource_iterator=iter_aws_secrets_manager_secret(model=model),
             )
         ),
         path=path,
-        method=MethodsEnum.TFM_AWS_SECRET_WHITOUTH_KMS_CMK,
+        method=MethodsEnum.TFM_AWS_SECRET_WITHOUT_KMS_KEY,
     )
