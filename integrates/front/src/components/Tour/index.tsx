@@ -23,6 +23,15 @@ const BaseStep: Step = {
   },
   showSkipButton: true,
   styles: {
+    buttonBack: {
+      fontFamily: "roboto",
+    },
+    buttonNext: {
+      fontFamily: "roboto",
+    },
+    buttonSkip: {
+      fontFamily: "roboto",
+    },
     options: {
       zIndex: 9999,
     },

@@ -767,3 +767,8 @@ label {
   line-height: inherit !important;
   font-family: inherit !important;
 }
+
+::selection {
+  color: #fff;
+  background: #2e2e38;
+}
