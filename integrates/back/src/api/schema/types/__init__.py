@@ -103,6 +103,9 @@ from .vulnerability_historic_state import (
 from api.schema.types.toe_lines import (
     TOELINES,
 )
+from api.schema.types.verification_summary import (
+    VERIFICATION_SUMMARY,
+)
 from ariadne import (
     ObjectType,
 )
@@ -146,6 +149,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TREATMENT_SUMMARY,
     URLROOT,
     VERIFICATION,
+    VERIFICATION_SUMMARY,
     VULNERABILITY,
     VULNERABILITY_HISTORIC_STATE,
 )

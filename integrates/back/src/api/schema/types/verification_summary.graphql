@@ -1,0 +1,9 @@
+"VerificationSummary type definition"
+type VerificationSummary {
+  "Number of vulnerabilities in on hold status"
+  onHold: Int!
+  "Number of vulnerabilities in requested status"
+  requested: Int!
+  "Number of vulnerabilities verified status"
+  verified: Int!
+}
