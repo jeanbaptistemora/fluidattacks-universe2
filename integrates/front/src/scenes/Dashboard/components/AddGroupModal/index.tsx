@@ -1,7 +1,5 @@
 /* eslint-disable react/forbid-component-props, fp/no-mutating-methods */
 import { useMutation } from "@apollo/client";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -21,7 +19,6 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
-import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
 import { Switch } from "components/Switch";
@@ -170,47 +167,21 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
             const steps: Step[] = [
               {
                 ...BaseStep,
-                content: (
-                  <React.Fragment>
-                    {t("tours.addGroup.intro")}
-                    <ExternalLink
-                      className={"g-a"}
-                      href={
-                        "https://docs.fluidattacks.com/machine/web/groups/general"
-                      }
-                    >
-                      <FontAwesomeIcon border={true} icon={faCircleInfo} />
-                    </ExternalLink>
-                  </React.Fragment>
-                ),
+                content: t("tours.addGroup.intro"),
                 placement: "center",
                 target: "#add-group-plan",
                 title: t("organization.tabs.groups.newGroup.new.group"),
               },
               {
                 ...BaseStep,
-                content: (
-                  <React.Fragment>
-                    {t("tours.addGroup.groupDescription")}
-                  </React.Fragment>
-                ),
+                content: t("tours.addGroup.groupDescription"),
                 hideBackButton: true,
                 hideFooter: values.description.length === 0,
                 target: "#add-group-description-tour",
               },
               {
                 ...BaseStep,
-                content: (
-                  <React.Fragment>
-                    {t("tours.addGroup.serviceType")}
-                    <ExternalLink
-                      className={"g-a"}
-                      href={"https://fluidattacks.com/services/comparative/"}
-                    >
-                      <FontAwesomeIcon border={true} icon={faCircleInfo} />
-                    </ExternalLink>
-                  </React.Fragment>
-                ),
+                content: t("tours.addGroup.serviceType"),
                 target: "#add-group-service-type",
               },
               {
@@ -225,17 +196,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
               },
               {
                 ...BaseStep,
-                content: (
-                  <React.Fragment>
-                    {t("tours.addGroup.squadPlan")}
-                    <ExternalLink
-                      className={"g-a"}
-                      href={"https://fluidattacks.com/plans/"}
-                    >
-                      <FontAwesomeIcon border={true} icon={faCircleInfo} />
-                    </ExternalLink>
-                  </React.Fragment>
-                ),
+                content: t("tours.addGroup.squadPlan"),
                 target: "#add-group-plan",
               },
               {

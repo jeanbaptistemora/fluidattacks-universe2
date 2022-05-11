@@ -4,7 +4,6 @@ import { Buffer } from "buffer";
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
-  faCircleInfo,
   faQuestionCircle,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +19,6 @@ import { GET_GROUP_CREDENTIALS, VALIDATE_GIT_ACCESS } from "../../queries";
 import type { ICredentials, IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
-import { ExternalLink } from "components/ExternalLink";
 import { ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour";
@@ -632,19 +630,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                 steps={[
                   {
                     ...BaseStep,
-                    content: (
-                      <React.Fragment>
-                        {t("tours.addGitRoot.intro")}
-                        <ExternalLink
-                          className={"g-a"}
-                          href={
-                            "https://docs.fluidattacks.com/machine/web/groups/scope/roots"
-                          }
-                        >
-                          <FontAwesomeIcon border={true} icon={faCircleInfo} />
-                        </ExternalLink>
-                      </React.Fragment>
-                    ),
+                    content: t("tours.addGitRoot.intro"),
                     placement: "center",
                     target: "#git-root-add-use-vpn",
                     title: t("group.scope.common.add"),
@@ -652,6 +638,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                   {
                     ...BaseStep,
                     content: t("tours.addGitRoot.rootUrl"),
+                    hideBackButton: true,
                     hideFooter: values.url.length === 0,
                     target: "#git-root-add-repo-url",
                   },
@@ -677,14 +664,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                     content: (
                       <React.Fragment>
                         {t("tours.addGitRoot.rootCredentials.content")}
-                        <ExternalLink
-                          className={"g-a"}
-                          href={
-                            "https://docs.fluidattacks.com/machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key"
-                          }
-                        >
-                          <FontAwesomeIcon border={true} icon={faCircleInfo} />
-                        </ExternalLink>
                         <ul>
                           {values.credentials.type === "" && (
                             <li>
@@ -750,14 +729,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                     content: (
                       <React.Fragment>
                         {t("tours.addGitRoot.rootHasHealthCheck")}
-                        <ExternalLink
-                          className={"g-a"}
-                          href={
-                            "https://docs.fluidattacks.com/about/faq#what-if-i-want-the-squad-plan-but-not-the-health-check"
-                          }
-                        >
-                          <FontAwesomeIcon border={true} icon={faCircleInfo} />
-                        </ExternalLink>
                         <ul>
                           {values.includesHealthCheck !== null &&
                             errors.healthCheckConfirm !== undefined && (
