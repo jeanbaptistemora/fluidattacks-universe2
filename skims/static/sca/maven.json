@@ -4473,6 +4473,9 @@
   "org.neo4j:neo4j-enterprise": {
     "GHSA-h5f5-rj4r-42f6": ">=3.4.0 <3.4.9"
   },
+  "org.netbeans.html:pom": {
+    "GHSA-ppc3-fpvh-7396": "<1.7.1"
+  },
   "org.netbeans.html:webkit": {
     "CVE-2020-17534": "1.7"
   },
