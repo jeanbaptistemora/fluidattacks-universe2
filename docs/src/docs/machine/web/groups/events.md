@@ -20,72 +20,119 @@ This is what the **Event** tab is used for.
 ## Creating an event
 
 In order to create a new event,
-you need to click on the **New** button
-that is in the **Event** tab.
-Then,
-a pop-up will appear for creating the event.
+you need to click on the **New**
+button in the **Event** tab.
 
-![New Event Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211891/docs/web/groups/events/newevent_modal_cod9kc.webp)
+![New Event Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/newevent_modal.png)
 
-Here you must enter
-all the information about the event
-including:
+You will see the following pop-up window:
 
-- The approximate date and time
-  at which the event was discovered.
-- Select the type
-  that better summarizes the event.
-- The location at which the analyst was
-  when the event was discovered.
-- Specify if the event affects accessibility
-  to the **Environment**,
-  **Repository** or both.
-- A more detailed description
-  about the event.
-- The action you were performing
-  before being blocked by the event
-  and what you would do
-  after the block.
-- Evidence of the event
-  presented in an image or a file.
+![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/newevent_pop_up_window.png)
 
-After the entering the information
-and pressing the **Proceed** button,
-the ASM will create a new event
-and send an email to all project managers.
-You can also click on the **Cancel** button
-to dismiss the creation of the event.
+There you must enter or
+select the requested information:
+
+- The nickname of the
+  root where the analyst
+  discovered the event
+  being reported
+- The approximate date
+  at which the event
+  was discovered
+- The type of event
+- The affected accessibility
+- A detailed description
+  of the event
+- Image or another file
+  as supporting evidence
+  of the event
+- Impact on an ongoing
+  reattack (Y/N).
+  In case there is an impact,
+  you must select the affected
+  locations in the reattack
+  so that it goes into the
+  On-hold status.)
+
+After entering the
+information and clicking
+the **Proceed** button,
+the ASM will create the new
+event and send an email to
+all project managers.
+You can also click on
+the **Cancel** button
+to discard the creation
+of the event.
 
 ## Closing an event
 
-When a group user notifies
-that the event has been solved
-or the analysts find out
-that they can now access
-the previously blocked targets
-with no problems,
-then it is time
-to close the event.
+When a user notifies that
+the event has been solved,
+or analysts find out they
+can now access previously
+blocked targets
+without problems,
+the event must be closed.
 
-![Event Solved Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211892/docs/web/groups/events/markasolved_button_highlight_a9pxhv.webp)
+![Event Solved Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/markassolved_button_highlight.png)
 
-This can be done by entering the **Event** tab
-and clicking on the event that was solved,
-then in the description of the event
-there will be a button called **Mark as solved**.
-When you click it,
-a pop-up will appear.
+You can do this in the
+**Events** section.
+You have to click on
+the solved event.
+Then,
+in its description,
+you will see the
+**Mark as solved**
+button that will show
+you this pop-up window
+when you click on it:
 
-![Event Solved Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211892/docs/web/groups/events/markasolved_modal_kshwjp.webp)
+![Event Solved Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281292/docs/web/groups/events/markassolved_window.png)
 
-In here you must specify the date
-that the analyst was notified about
-or discovered that
-the event had been solved,
-and also provide the number of hours
-that the event affected the group.
-With this done
-you can click on **Proceed**
-to mark the event as solved,
-and now it will appear closed
-in the event table.
+There you must enter the
+date the analyst discovered
+or was notified of the
+solution of the event.
+In addition,
+you must provide the number
+of hours that the event
+affected the group.
+Once this is done,
+you can click the **Proceed**
+button to mark the event as
+solved or click the **Cancel**
+button to interrupt this procedure.
+
+## Update affected reattacks
+
+With the
+**Update affected reattacks**
+button,
+you can indicate that an
+already created event
+affects the execution of
+one or more reattacks.
+
+![Affected Reattacks Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/updateaffectedreattacks_button.png)
+
+When you click on it,
+you will see a pop-up
+window where you can
+select the respective
+event and the reattacks
+that are being affected.
+
+![Affected Reattacks Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652281293/docs/web/groups/events/updateaffectedreattacks_window.png)
+
+By clicking on the
+**Proceed** button,
+the selected reattack(s) will
+go into a status called On hold.
+(If you want to know
+more about this status,
+follow this [link](/squad/reattacks#reattacks-on-hold).)
+By clicking on the
+**Cancel** button,
+you will abort the process.
