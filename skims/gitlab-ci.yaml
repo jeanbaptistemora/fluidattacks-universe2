@@ -1,21 +1,3 @@
-/computeOnAwsBatch/skimsOwaspBenchmarkAndUpload:
-  image: ghcr.io/fluidattacks/makes:22.05
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE != "schedule"
-      when: never
-    - if: $skims_benchmark_on_aws == null
-      when: never
-    - when: always
-  script:
-    - m . /computeOnAwsBatch/skimsOwaspBenchmarkAndUpload
-  stage: scheduler
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /deployTerraform/skims:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: true

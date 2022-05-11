@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./batch/makes.nix
     ./dev/makes.nix
     ./infra/makes.nix
     ./inputs/makes.nix
