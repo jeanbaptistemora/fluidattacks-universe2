@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Breadcrumb } from "./Breadcrumb";
-import { HelpWidget } from "./HelpWidget";
+import { HelpModal } from "./HelpWidget/modal";
 import { NewsWidget } from "./NewsWidget";
 import { Searchbar } from "./Searchbar";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
@@ -68,10 +68,10 @@ export const Navbar: React.FC<INavbarProps> = ({
             <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
           </li>
           <li>
-            <TechnicalInfo />
+            <HelpModal groups={groups} />
           </li>
           <li>
-            <HelpWidget groups={groups} />
+            <TechnicalInfo />
           </li>
           <li id={"navbar-user-profile"}>
             <UserProfile userRole={userRole} />
