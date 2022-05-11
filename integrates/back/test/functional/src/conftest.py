@@ -4,6 +4,17 @@ import asyncio
 from asyncio import (
     AbstractEventLoop,
 )
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
+)
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
@@ -558,54 +569,60 @@ def generic_data(  # pylint: disable=too-many-locals
                     "max_acceptance_days": 7,
                 },
             ],
-            "groups": [
+            "groups_typed": [
                 {
-                    "project_name": "group1",
-                    "description": "-",
-                    "language": "en",
-                    "historic_configuration": [
-                        {
-                            "date": "2020-05-20 17:00:00",
-                            "has_drills": True,
-                            "has_forces": True,
-                            "requester": "unknown",
-                            "service": "WHITE",
-                            "type": "continuous",
-                        }
-                    ],
-                    "project_status": "ACTIVE",
+                    "group": Group(
+                        description="-",
+                        language=GroupLanguage.EN,
+                        name="group1",
+                        state=GroupState(
+                            has_machine=False,
+                            has_squad=True,
+                            modified_by="unknown",
+                            modified_date="2020-05-20T22:00:00+00:00",
+                            service=GroupService.WHITE,
+                            status=GroupStateStatus.ACTIVE,
+                            tier=GroupTier.OTHER,
+                            type=GroupSubscriptionType.CONTINUOUS,
+                        ),
+                        organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    ),
                 },
                 {
-                    "project_name": "group2",
-                    "description": "-",
-                    "language": "en",
-                    "historic_configuration": [
-                        {
-                            "date": "2020-05-20 17:00:00",
-                            "has_drills": True,
-                            "has_forces": True,
-                            "requester": "unknown",
-                            "service": "BLACK",
-                            "type": "oneshot",
-                        }
-                    ],
-                    "project_status": "ACTIVE",
+                    "group": Group(
+                        description="-",
+                        language=GroupLanguage.EN,
+                        name="group2",
+                        state=GroupState(
+                            has_machine=False,
+                            has_squad=True,
+                            modified_by="unknown",
+                            modified_date="2020-05-20T22:00:00+00:00",
+                            service=GroupService.BLACK,
+                            status=GroupStateStatus.ACTIVE,
+                            tier=GroupTier.OTHER,
+                            type=GroupSubscriptionType.ONESHOT,
+                        ),
+                        organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    ),
                 },
                 {
-                    "project_name": "group3",
-                    "description": "-",
-                    "language": "en",
-                    "historic_configuration": [
-                        {
-                            "date": "2020-05-20 17:00:00",
-                            "has_drills": False,
-                            "has_forces": True,
-                            "requester": "unknown",
-                            "service": "BLACK",
-                            "type": "oneshot",
-                        }
-                    ],
-                    "project_status": "ACTIVE",
+                    "group": Group(
+                        description="-",
+                        language=GroupLanguage.EN,
+                        name="group3",
+                        state=GroupState(
+                            has_machine=False,
+                            has_squad=False,
+                            modified_by="unknown",
+                            modified_date="2020-05-20T22:00:00+00:00",
+                            service=GroupService.BLACK,
+                            status=GroupStateStatus.ACTIVE,
+                            tier=GroupTier.OTHER,
+                            type=GroupSubscriptionType.ONESHOT,
+                        ),
+                        organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    ),
                 },
             ],
             "policies": [
