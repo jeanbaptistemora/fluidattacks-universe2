@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 10, 2022, 03:52 PM",
+    "DateLastModified": "May 11, 2022, 10:02 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -8186,6 +8186,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
               },
@@ -8233,6 +8246,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -8282,6 +8308,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
               },
@@ -8329,6 +8368,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -8378,6 +8430,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
               },
@@ -8425,6 +8490,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -8474,6 +8552,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2019-12-12T13:45:48+00:00"
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
               },
@@ -8521,6 +8612,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2020-09-12T13:45:48+00:00"
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
@@ -8570,6 +8674,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2019-04-12T13:45:48+00:00"
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
               },
@@ -8617,6 +8734,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -8666,6 +8796,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2020-01-03T17:46:10+00:00"
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
               },
@@ -8713,6 +8856,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2019-09-16T21:01:24+00:00"
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "1"
+                  },
+                  "requested": {
+                    "N": "1"
+                  },
+                  "on_hold": {
+                    "N": "2"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "24"
@@ -8762,6 +8918,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2018-11-27T19:54:08+00:00"
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
               },
@@ -8809,6 +8978,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2019-09-13T14:58:38+00:00"
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "2"
@@ -8858,6 +9040,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2019-01-15T16:04:14+00:00"
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
               },
@@ -8906,6 +9101,19 @@
               "unreliable_newest_vulnerability_report_date": {
                 "S": ""
               },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
+              },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
               },
@@ -8953,6 +9161,19 @@
               },
               "unreliable_newest_vulnerability_report_date": {
                 "S": "2019-04-08T00:45:15+00:00"
+              },
+              "unreliable_verification_summary": {
+                "M": {
+                  "verified": {
+                    "N": "0"
+                  },
+                  "requested": {
+                    "N": "0"
+                  },
+                  "on_hold": {
+                    "N": "0"
+                  }
+                }
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
