@@ -14,6 +14,7 @@ import { useRouteMatch } from "react-router-dom";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   Button,
   ExtraMessage,
@@ -93,16 +94,22 @@ export const HelpModal: React.FC<IHelpModal> = ({
             <ExtraMessage>
               {t("navbar.help.extra.expert")}
               &nbsp;
-              <ExternalLink
-                href={
-                  "https://docs.fluidattacks.com/machine/web/support/talk-expert"
-                }
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"talkExpertTooltip"}
+                message={t("navbar.help.tooltip")}
               >
-                <FontAwesomeIcon
-                  className={"mid-gray"}
-                  icon={faExternalLinkAlt}
-                />
-              </ExternalLink>
+                <ExternalLink
+                  href={
+                    "https://docs.fluidattacks.com/machine/web/support/talk-expert"
+                  }
+                >
+                  <FontAwesomeIcon
+                    className={"mid-gray"}
+                    icon={faExternalLinkAlt}
+                  />
+                </ExternalLink>
+              </TooltipWrapper>
             </ExtraMessage>
           </Message>
         </Col>
@@ -133,16 +140,22 @@ export const HelpModal: React.FC<IHelpModal> = ({
               <ExtraMessage>
                 {t("navbar.help.extra.chat")}
                 &nbsp;
-                <ExternalLink
-                  href={
-                    "https://docs.fluidattacks.com/machine/web/support/live-chat"
-                  }
+                <TooltipWrapper
+                  displayClass={"dib"}
+                  id={"liveChatTooltip"}
+                  message={t("navbar.help.tooltip")}
                 >
-                  <FontAwesomeIcon
-                    className={"mid-gray"}
-                    icon={faExternalLinkAlt}
-                  />
-                </ExternalLink>
+                  <ExternalLink
+                    href={
+                      "https://docs.fluidattacks.com/machine/web/support/live-chat"
+                    }
+                  >
+                    <FontAwesomeIcon
+                      className={"mid-gray"}
+                      icon={faExternalLinkAlt}
+                    />
+                  </ExternalLink>
+                </TooltipWrapper>
               </ExtraMessage>
             </Message>
           </Col>
@@ -156,13 +169,22 @@ export const HelpModal: React.FC<IHelpModal> = ({
             </ExternalLink>
           </span>
           &nbsp;
-          <ExternalLink
-            href={
-              "https://docs.fluidattacks.com/about/security/transparency/help-channel"
-            }
+          <TooltipWrapper
+            displayClass={"dib"}
+            id={"helpChannelTooltip"}
+            message={t("navbar.help.tooltip")}
           >
-            <FontAwesomeIcon className={"mid-gray"} icon={faExternalLinkAlt} />
-          </ExternalLink>
+            <ExternalLink
+              href={
+                "https://docs.fluidattacks.com/about/security/transparency/help-channel"
+              }
+            >
+              <FontAwesomeIcon
+                className={"mid-gray"}
+                icon={faExternalLinkAlt}
+              />
+            </ExternalLink>
+          </TooltipWrapper>
         </div>
       </Modal>
     </React.StrictMode>

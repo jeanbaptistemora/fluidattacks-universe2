@@ -1255,6 +1255,7 @@ export const enTranslations: ResourceKey = {
         mail: "or by contacting us at",
       },
       support: "Support",
+      tooltip: "Go to for more information",
     },
     home: {
       text: "Home",
