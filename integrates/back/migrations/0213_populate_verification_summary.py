@@ -2,6 +2,9 @@
 """
 Populate unreliable_is_verification_summary for all findings with the right
 value.
+
+Execution Time:    2022-05-11 at 14:14:51 UTC
+Finalization Time: 2022-05-11 at 14:22:00 UTC
 """
 
 from aioextensions import (
