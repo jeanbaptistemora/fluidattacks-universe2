@@ -1,4 +1,4 @@
-import asyncio
+import aioextensions
 from okta.client import (
     Client,
 )
@@ -34,9 +34,14 @@ async def get_user_ids() -> list[str]:
     return user_ids
 
 
+@aioextensions.run_decorator
 async def main() -> None:
-    await get_user_ids()
+    await aioextensions.collect(
+        [
+            CLIENT.clear_user_sessions(user_id)
+            for user_id in await get_user_ids()
+        ]
+    )
 
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
+main()

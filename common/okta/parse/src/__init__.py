@@ -89,13 +89,13 @@ def aws_user_roles() -> list[dict[str, Any]]:
     return result
 
 
-def main(type: str) -> None:
+def main(data_type: str) -> None:
     response: Any = None
 
-    if type in ["apps", "groups", "rules", "users"]:
-        response = to_dict(item=type)
+    if data_type in ["apps", "groups", "rules", "users"]:
+        response = to_dict(item=data_type)
     else:
-        response = globals()[type]()
+        response = globals()[data_type]()
 
     print(json.dumps(response))
 

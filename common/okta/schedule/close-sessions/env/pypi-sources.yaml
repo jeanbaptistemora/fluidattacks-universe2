@@ -1,5 +1,6 @@
 closure:
   aenum: 3.1.11
+  aioextensions: 21.7.2261349
   aiohttp: 3.8.1
   aiosignal: 1.2.0
   async-timeout: 4.0.2
@@ -27,6 +28,12 @@ links:
   - name: aenum-3.1.11.tar.gz
     sha256: 0wrziq1pxp5aiyaq0z2hpwbdlhx60af72sg8bq6jmrvsairw5lmf
     url: https://files.pythonhosted.org/packages/63/6c/a71e18de7c651f384b328be6bccadbbd472aca62f547c1a307b9388d03ca/aenum-3.1.11.tar.gz
+  - name: aioextensions-21.7.2261349-py3-none-any.whl
+    sha256: 0ci63rmghcgkgyrysqsqc1i5pk63qdrs74qv0nilm02gl39vdxz2
+    url: https://files.pythonhosted.org/packages/84/a9/fe0acc4b74b435c8944e5e1ff9b9d3d0e4706076b9409102b3434086c9eb/aioextensions-21.7.2261349-py3-none-any.whl
+  - name: aioextensions-21.7.2261349.tar.gz
+    sha256: 0izw3ripgpdc2z579wc4xhblc7x75iwfkj786wa36ps9j8kcbb1f
+    url: https://files.pythonhosted.org/packages/92/28/c8ad44c7cb153900fd0a7bb73d7fc48a331fce01af69fe8841cd8c752935/aioextensions-21.7.2261349.tar.gz
   - name: aiohttp-3.8.1-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 0drj55w7dlysrp347lf87kggwxyqfbsapcfx3fpqb493n0p5lcgm
     url: https://files.pythonhosted.org/packages/a8/0e/068cb215e8709703c497fcd07e8a81e68b3eb8b83083f96e93ef964d4685/aiohttp-3.8.1-cp39-cp39-macosx_10_9_universal2.whl
