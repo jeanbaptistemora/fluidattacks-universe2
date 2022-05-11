@@ -43,19 +43,6 @@
     stage = "test-code";
     tags = ["autoscaling"];
   };
-  gitlabScheduled = {
-    interruptible = false;
-    rules = [
-      gitlabCi.rules.schedules
-      {
-        "if" = "$observes_scheduled_job != $CI_JOB_NAME";
-        "when" = "never";
-      }
-      gitlabCi.rules.always
-    ];
-    stage = "analytics";
-    tags = ["autoscaling"];
-  };
   # new standard
   index = inputs.observesIndex;
   pkgTargets = with index; [
@@ -284,50 +271,6 @@ in {
           {
             output = "/pipelineOnGitlab/observes";
             gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/observes/job/scheduler";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/job/scheduler/manual-trigger";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/code/compute-bills";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/dynamo/centralize";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/mixpanel";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/timedoctor/backup";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/timedoctor";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/job/timedoctor/refresh-token";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/zoho-crm/fluid";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/zoho-crm/fluid/prepare";
-            gitlabExtra = gitlabScheduled;
-          }
-          {
-            output = "/observes/etl/zoho-crm/fluid/prepare";
-            gitlabExtra = gitlabScheduled;
           }
           {
             output = "/observes/singer/tap-announcekit/fx-test";
