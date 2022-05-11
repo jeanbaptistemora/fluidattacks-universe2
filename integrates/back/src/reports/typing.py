@@ -214,7 +214,7 @@ class PDFWordlistEn(Wordlist):
     CRIT_C: WordlistItem = WordlistItem("crit_c", "(Critical)")
     CRIT_H: WordlistItem = WordlistItem("crit_h", "(High)")
     CRIT_L: WordlistItem = WordlistItem("crit_l", "(Low)")
-    CRIT_M: WordlistItem = WordlistItem("crit_m", "(Moderate)")
+    CRIT_M: WordlistItem = WordlistItem("crit_m", "(Medium)")
     DESCRIPTION_TITLE: WordlistItem = WordlistItem(
         "description_title", "Vulnerability"
     )
@@ -290,7 +290,7 @@ class PDFWordlistEn(Wordlist):
     VULN_C: WordlistItem = WordlistItem("vuln_c", "Critical")
     VULN_H: WordlistItem = WordlistItem("vuln_h", "High")
     VULN_L: WordlistItem = WordlistItem("vuln_l", "Low")
-    VULN_M: WordlistItem = WordlistItem("vuln_m", "Moderate")
+    VULN_M: WordlistItem = WordlistItem("vuln_m", "Medium")
     WHERE_TITLE: WordlistItem = WordlistItem("where_title", "Where")
 
 
