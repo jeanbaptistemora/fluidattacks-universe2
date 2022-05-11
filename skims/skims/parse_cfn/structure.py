@@ -290,17 +290,6 @@ def iter_kms_keys(template: Node) -> Iterator[Node]:
     )
 
 
-def iter_fsx_file_systems(template: Node) -> Iterator[Node]:
-    yield from (
-        props
-        for _, _, props in iterate_resources(
-            template,
-            "AWS::FSx::FileSystem",
-            exact=True,
-        )
-    )
-
-
 def iter_efs_file_systems(template: Node) -> Iterator[Node]:
     yield from (
         props

@@ -2711,14 +2711,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
-        file_name="terraform",
-        name="tfm_fsx_unencrypted_volumes",
-        module="lib_path",
-        finding=FindingEnum.F250,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TFM_EBS_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="terraform",
         name="tfm_ebs_unencrypted_volumes",
@@ -2748,14 +2740,6 @@ class MethodsEnum(Enum):
         name="tfm_elb2_has_not_deletion_protection",
         module="lib_path",
         finding=FindingEnum.F247,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_FSX_UNENCRYPTED_VOLUMES = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_fsx_has_unencrypted_volumes",
-        module="lib_path",
-        finding=FindingEnum.F250,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -3348,22 +3332,6 @@ class MethodsEnum(Enum):
         name="tfm_api_gateway_access_logging_disabled",
         module="lib_path",
         finding=FindingEnum.F408,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TFM_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_dynamodb_table_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F409,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TFM_AWS_SECRET_WITHOUT_KMS_KEY = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_secret_encrypted_without_kms_key",
-        module="lib_path",
-        finding=FindingEnum.F411,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

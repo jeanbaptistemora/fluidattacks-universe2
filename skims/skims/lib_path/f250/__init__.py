@@ -5,13 +5,11 @@ from lib_path.common import (
 )
 from lib_path.f250.cloudformation import (
     cfn_ec2_has_unencrypted_volumes,
-    cfn_fsx_has_unencrypted_volumes,
 )
 from lib_path.f250.terraform import (
     tfm_ebs_unencrypted_by_default,
     tfm_ebs_unencrypted_volumes,
     tfm_ec2_unencrypted_volumes,
-    tfm_fsx_unencrypted_volumes,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -30,28 +28,12 @@ from typing import (
 
 
 @SHIELD_BLOCKING
-def run_cfn_fsx_has_unencrypted_volumes(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_fsx_has_unencrypted_volumes(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def run_cfn_ec2_has_unencrypted_volumes(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_ec2_has_unencrypted_volumes(
         content=content, file_ext=file_ext, path=path, template=template
     )
-
-
-@SHIELD_BLOCKING
-def run_tfm_fsx_unencrypted_volumes(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_fsx_unencrypted_volumes(content=content, path=path, model=model)
 
 
 @SHIELD_BLOCKING
@@ -93,10 +75,7 @@ def analyze(
                 *results,
                 *(
                     fun(content, file_extension, path, template)
-                    for fun in (
-                        run_cfn_fsx_has_unencrypted_volumes,
-                        run_cfn_ec2_has_unencrypted_volumes,
-                    )
+                    for fun in (run_cfn_ec2_has_unencrypted_volumes,)
                 ),
             )
 
@@ -108,7 +87,6 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
-                    run_tfm_fsx_unencrypted_volumes,
                     run_tfm_ebs_unencrypted_volumes,
                     run_tfm_ec2_unencrypted_volumes,
                     run_tfm_ebs_unencrypted_by_default,

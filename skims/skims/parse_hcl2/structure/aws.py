@@ -13,7 +13,6 @@ from aws.model import (
     AWSEC2Rule,
     AWSEfsFileSystem,
     AWSElb,
-    AWSFsxWindowsFileSystem,
     AWSIamManagedPolicy,
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
@@ -27,7 +26,6 @@ from aws.model import (
     AWSS3Bucket,
     AWSS3SSEConfig,
     AWSS3VersionConfig,
-    AWSSecretsManagerSecret,
     S3VersioningEnum,
 )
 from itertools import (
@@ -234,18 +232,6 @@ def iter_aws_cloudfront_distribution(model: Any) -> Iterator[Any]:
         )
 
 
-def iter_aws_fsx_windows_file_system(model: Any) -> Iterator[Any]:
-    iterator = iterate_resources(
-        model, "resource", "aws_fsx_windows_file_system"
-    )
-    for bucket in iterator:
-        yield AWSFsxWindowsFileSystem(
-            data=bucket.body,
-            column=bucket.column,
-            line=bucket.line,
-        )
-
-
 def iter_aws_ebs_volume(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_ebs_volume")
     for bucket in iterator:
@@ -435,18 +421,6 @@ def iter_aws_security_group_rule(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_security_group_rule")
     for bucket in iterator:
         yield AWSEC2Rule(
-            data=bucket.body,
-            column=bucket.column,
-            line=bucket.line,
-        )
-
-
-def iter_aws_secrets_manager_secret(model: Any) -> Iterator[Any]:
-    iterator = iterate_resources(
-        model, "resource", "aws_secretsmanager_secret"
-    )
-    for bucket in iterator:
-        yield AWSSecretsManagerSecret(
             data=bucket.body,
             column=bucket.column,
             line=bucket.line,

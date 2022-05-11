@@ -72,12 +72,6 @@ class AWSCTrail(NamedTuple):
     line: int
 
 
-class AWSFsxWindowsFileSystem(NamedTuple):
-    column: int
-    data: List[Any]
-    line: int
-
-
 class AWSEbs(NamedTuple):
     column: int
     data: List[Any]
@@ -151,12 +145,6 @@ class AWSKmsKey(NamedTuple):
 
 
 class AWSEFS(NamedTuple):
-    column: int
-    data: List[Any]
-    line: int
-
-
-class AWSFSxFileSystem(NamedTuple):
     column: int
     data: List[Any]
     line: int

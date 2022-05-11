@@ -1,6 +1,5 @@
 from aws.model import (
     AWSEC2,
-    AWSFSxFileSystem,
 )
 from lib_path.common import (
     FALSE_OPTIONS,
@@ -17,27 +16,12 @@ from model.core_model import (
 )
 from parse_cfn.structure import (
     iter_ec2_volumes,
-    iter_fsx_file_systems,
 )
 from typing import (
     Any,
     Iterator,
     Union,
 )
-
-
-def _cfn_fsx_has_unencrypted_volumes_iter_vulns(
-    file_ext: str,
-    fsx_iterator: Iterator[Node],
-) -> Iterator[Union[AWSFSxFileSystem, Node]]:
-    for fsx in fsx_iterator:
-        kms_key_id = fsx.inner.get("KmsKeyId")
-        if not isinstance(kms_key_id, Node):
-            yield AWSFSxFileSystem(
-                column=fsx.start_column,
-                data=fsx.data,
-                line=get_line_by_extension(fsx.start_line, file_ext),
-            )
 
 
 def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
@@ -61,23 +45,6 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                     data=ec2_res.data,
                     line=get_line_by_extension(ec2_res.start_line, file_ext),
                 )
-
-
-def cfn_fsx_has_unencrypted_volumes(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f250.fsx_has_unencrypted_volumes",
-        iterator=get_cloud_iterator(
-            _cfn_fsx_has_unencrypted_volumes_iter_vulns(
-                file_ext=file_ext,
-                fsx_iterator=iter_fsx_file_systems(template=template),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_FSX_UNENCRYPTED_VOLUMES,
-    )
 
 
 def cfn_ec2_has_unencrypted_volumes(

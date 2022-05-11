@@ -16,7 +16,6 @@ from parse_hcl2.common import (
 from parse_hcl2.structure.aws import (
     iter_aws_ebs_encryption_by_default,
     iter_aws_ebs_volume,
-    iter_aws_fsx_windows_file_system,
     iter_aws_instance,
 )
 from parse_hcl2.tokens import (
@@ -82,34 +81,6 @@ def _tfm_ebs_unencrypted_volumes_iterate_vulnerabilities(
                     yield elem
         if not encrypted_attr:
             yield resource
-
-
-def _tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        kms_key = False
-        for elem in resource.data:
-            if isinstance(elem, Attribute) and elem.key == "kms_key_id":
-                kms_key = True
-        if not kms_key:
-            yield resource
-
-
-def tfm_fsx_unencrypted_volumes(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="lib_path.f250.tfm_fsx_unencrypted_volumes",
-        iterator=get_cloud_iterator(
-            _tfm_fsx_unencrypted_volumes_iterate_vulnerabilities(
-                resource_iterator=iter_aws_fsx_windows_file_system(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_FSX_UNENCRYPTED_VOLUMES,
-    )
 
 
 def tfm_ebs_unencrypted_volumes(
