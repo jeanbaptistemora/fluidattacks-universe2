@@ -779,8 +779,8 @@ locals {
 
       schedule_expression = "cron(0 2,17 * * ? *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
+      attempts            = 2
+      timeout             = 3600
       cpu                 = 2
       memory              = 3600
 
@@ -805,10 +805,10 @@ locals {
 
       schedule_expression = "cron(0 12-23/3 ? * 2-6 *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
-      cpu                 = 2
-      memory              = 3600
+      attempts            = 1
+      timeout             = 10800
+      cpu                 = 1
+      memory              = 1800
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
@@ -831,7 +831,7 @@ locals {
 
       schedule_expression = "cron(0 11 * * ? *)"
       queue               = "unlimited_spot"
-      attempts            = 3
+      attempts            = 2
       timeout             = 86400
       cpu                 = 2
       memory              = 3600
@@ -857,8 +857,8 @@ locals {
 
       schedule_expression = "cron(0 9 ? * 2-6 *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
+      attempts            = 2
+      timeout             = 18000
       cpu                 = 2
       memory              = 3600
 
@@ -884,8 +884,8 @@ locals {
 
       schedule_expression = "cron(0 4 1,15 * ? *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
+      attempts            = 4
+      timeout             = 18000
       cpu                 = 2
       memory              = 3600
 
@@ -911,10 +911,10 @@ locals {
 
       schedule_expression = "cron(0 * * * ? *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
-      cpu                 = 2
-      memory              = 3600
+      attempts            = 1
+      timeout             = 3600
+      cpu                 = 1
+      memory              = 1800
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
@@ -938,7 +938,7 @@ locals {
 
       schedule_expression = "cron(0 12 ? * 2-6 *)"
       queue               = "unlimited_spot"
-      attempts            = 3
+      attempts            = 2
       timeout             = 86400
       cpu                 = 2
       memory              = 3600
@@ -964,10 +964,10 @@ locals {
 
       schedule_expression = "cron(0 10 ? * 2-6 *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
-      cpu                 = 2
-      memory              = 3600
+      attempts            = 1
+      timeout             = 3600
+      cpu                 = 1
+      memory              = 1800
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
@@ -990,10 +990,10 @@ locals {
 
       schedule_expression = "cron(0 * * * ? *)"
       queue               = "unlimited_spot"
-      attempts            = 3
-      timeout             = 86400
-      cpu                 = 2
-      memory              = 3600
+      attempts            = 1
+      timeout             = 1800
+      cpu                 = 1
+      memory              = 1800
 
       environment = {
         PRODUCT_API_TOKEN = var.productApiToken
