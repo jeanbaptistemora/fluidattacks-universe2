@@ -8,7 +8,7 @@
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
-        src = "/common/okta/src/infra";
+        src = "/common/okta/infra";
         version = "1.0";
       };
     };
@@ -21,7 +21,7 @@
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
-        src = "/common/okta/src/infra";
+        src = "/common/okta/infra";
         version = "1.0";
       };
     };
@@ -47,7 +47,7 @@
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
-        src = "/common/okta/src/infra";
+        src = "/common/okta/infra";
         version = "1.0";
       };
     };

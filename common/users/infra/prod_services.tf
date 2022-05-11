@@ -65,7 +65,19 @@ locals {
             Resource = [
               "arn:aws:dynamodb:us-east-1:205810638802:table/FI_projects",
             ]
-          }
+          },
+          {
+            Sid    = "dynamoWrite"
+            Effect = "Allow"
+            Action = [
+              "dynamodb:DeleteItem",
+              "dynamodb:GetItem",
+              "dynamodb:PutItem",
+            ]
+            Resource = [
+              var.terraform_state_lock_arn,
+            ]
+          },
         ]
       }
     }

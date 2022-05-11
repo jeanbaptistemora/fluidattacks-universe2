@@ -6,8 +6,8 @@
 }:
 makeTemplate {
   replace = {
-    __argParser__ = projectPath "/common/okta/src/parser/__init__.py";
-    __argSopsData__ = projectPath "/common/okta/src/data.yaml";
+    __argParser__ = projectPath "/common/okta/parse/src/__init__.py";
+    __argSopsData__ = projectPath "/common/okta/data.yaml";
   };
   searchPaths = {
     bin = [
