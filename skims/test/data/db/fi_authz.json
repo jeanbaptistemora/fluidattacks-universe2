@@ -3,17 +3,17 @@
     {
       "PutRequest": {
         "Item": {
-          "subject": {
-            "S": "unittest@fluidattacks.com"
-          },
-          "role": {
-            "S": "admin"
-          },
           "level": {
             "S": "group"
           },
+          "subject": {
+            "S": "customer@domain.com"
+          },
           "object": {
             "S": "jessup"
+          },
+          "role": {
+            "S": "user_manager"
           }
         }
       }
@@ -21,17 +21,17 @@
     {
       "PutRequest": {
         "Item": {
+          "level": {
+            "S": "group"
+          },
           "subject": {
             "S": "forces.jessup@fluidattacks.com"
+          },
+          "object": {
+            "S": "jessup"
           },
           "role": {
             "S": "service_forces"
-          },
-          "level": {
-            "S": "group"
-          },
-          "object": {
-            "S": "jessup"
           }
         }
       }
@@ -39,17 +39,17 @@
     {
       "PutRequest": {
         "Item": {
-          "subject": {
-            "S": "forces.jessup@fluidattacks.com"
-          },
-          "role": {
-            "S": "customer"
-          },
           "level": {
             "S": "organization"
           },
+          "subject": {
+            "S": "customer@domain.com"
+          },
           "object": {
-            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "role": {
+            "S": "user_manager"
           }
         }
       }
@@ -57,17 +57,17 @@
     {
       "PutRequest": {
         "Item": {
-          "subject": {
-            "S": "unittest@fluidattacks.com"
-          },
-          "role": {
-            "S": "customeradmin"
-          },
           "level": {
             "S": "organization"
           },
+          "subject": {
+            "S": "forces.jessup@fluidattacks.com"
+          },
           "object": {
-            "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "role": {
+            "S": "user"
           }
         }
       }
@@ -75,17 +75,17 @@
     {
       "PutRequest": {
         "Item": {
-          "subject": {
-            "S": "forces.jessup@fluidattacks.com"
-          },
-          "role": {
-            "S": "customer"
-          },
           "level": {
             "S": "user"
+          },
+          "subject": {
+            "S": "customer@domain.com"
           },
           "object": {
             "S": "self"
+          },
+          "role": {
+            "S": "user"
           }
         }
       }
@@ -97,7 +97,7 @@
             "S": "user"
           },
           "subject": {
-            "S": "unittest@fluidattacks.com"
+            "S": "machine@fluidattacks.com"
           },
           "object": {
             "S": "self"

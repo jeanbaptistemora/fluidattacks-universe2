@@ -1,0 +1,77 @@
+{
+  "FI_users": [
+    {
+      "PutRequest": {
+        "Item": {
+          "date_joined": {
+            "S": "2022-05-11 18:52:26"
+          },
+          "email": {
+            "S": "customer@domain.com"
+          },
+          "first_name": {
+            "S": "Customer"
+          },
+          "last_login": {
+            "S": "2022-05-11 18:52:26"
+          },
+          "last_name": {
+            "S": ""
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "email": {
+            "S": "forces.jessup@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "access_token": {
+            "M": {
+              "iat": {
+                "N": "1652323789"
+              },
+              "jti": {
+                "S": "8e2d8d26f77df34b96fce567a1b7f232d838c4bfc94872f24e1e602507c1f939"
+              },
+              "salt": {
+                "S": "3b3e42b6eff02ab9da367b294e502ba7ba982bb86b3fe8ce98133410522a3863"
+              }
+            }
+          },
+          "date_joined": {
+            "S": "2022-05-11 18:52:26"
+          },
+          "email": {
+            "S": "machine@fluidattacks.com"
+          },
+          "first_name": {
+            "S": "Machine"
+          },
+          "last_login": {
+            "S": "2022-05-11 18:52:26"
+          },
+          "last_name": {
+            "S": "Services"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    }
+  ]
+}

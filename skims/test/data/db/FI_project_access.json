@@ -1,0 +1,53 @@
+{
+  "FI_project_access": [
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "project_name": {
+            "S": "jessup"
+          },
+          "user_email": {
+            "S": "customer@domain.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "invitation": {
+            "M": {
+              "is_used": {
+                "BOOL": true
+              },
+              "responsibility": {
+                "S": "Forces service user"
+              },
+              "role": {
+                "S": "service_forces"
+              },
+              "url_token": {
+                "S": "aFdbP-glxskodMU_g-AQNFWzgPu9nhLpxZmlx84SZ6ezRy4IF674IlhAuXZxSw0zfuVr_z42fb7wo8Y2llV-Cw"
+              }
+            }
+          },
+          "project_name": {
+            "S": "jessup"
+          },
+          "responsibility": {
+            "S": "Forces service user"
+          },
+          "user_email": {
+            "S": "forces.jessup@fluidattacks.com"
+          }
+        }
+      }
+    }
+  ]
+}
