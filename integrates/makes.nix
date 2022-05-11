@@ -2,7 +2,6 @@
 {
   imports = [
     ./back/makes.nix
-    ./batch/makes.nix
     ./infra/makes.nix
     ./pipeline/makes.nix
   ];
