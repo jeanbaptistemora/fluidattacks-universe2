@@ -18,13 +18,6 @@
   };
   deployTerraform = {
     modules = {
-      commonRolesForProjects = {
-        setup = [
-          outputs."/integrates/back/tools/dump-groups"
-        ];
-        src = "/common/users/infra_roles";
-        version = "1.0";
-      };
       commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodCommon"
@@ -99,16 +92,6 @@
   };
   testTerraform = {
     modules = {
-      commonRolesForProjects = {
-        setup = [
-          outputs."/integrates/back/tools/dump-groups"
-          outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonUsersDev"
-          outputs."/secretsForTerraformFromEnv/commonUsers"
-        ];
-        src = "/common/users/infra_roles";
-        version = "1.0";
-      };
       commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
