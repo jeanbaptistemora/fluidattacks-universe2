@@ -22,6 +22,32 @@ variable "ciProjectId" {}
 
 locals {
   schedules = {
+    common_okta_schedule_close_sessions = {
+      enabled = true
+      command = [
+        "m",
+        "f",
+        "/common/okta/schedule/close-sessions",
+      ]
+
+      schedule_expression = "cron(0 8 * * ? *)"
+      queue               = "unlimited_spot"
+      attempts            = 3
+      timeout             = 86400
+      cpu                 = 2
+      memory              = 3600
+
+      environment = {
+        PRODUCT_API_TOKEN = var.productApiToken
+      }
+
+      tags = {
+        "Name"               = "common_okta_schedule_close_sessions"
+        "management:area"    = "cost"
+        "management:product" = "common"
+        "management:type"    = "product"
+      }
+    }
     forces_process_groups_break = {
       enabled = true
       command = [
@@ -637,7 +663,7 @@ locals {
       command = [
         "m",
         "f",
-        "/computeOnAwsBatch/integratesSubscriptionsDailyDigest",
+        "/integrates/subscriptions/daily-digest",
         "prod",
       ]
 
@@ -692,7 +718,7 @@ locals {
       command = [
         "m",
         "f",
-        "/computeOnAwsBatch/integratesScheduler",
+        "/integrates/utils/scheduler",
         "prod",
         "schedulers.update_indicators.main",
       ]
@@ -985,7 +1011,7 @@ locals {
       command = [
         "m",
         "f",
-        "/computeOnAwsBatch/skimsOwaspBenchmarkAndUpload",
+        "/skims/owasp-benchmark-and-upload",
       ]
 
       schedule_expression = "cron(0 11-23/2 * * ? *)"
