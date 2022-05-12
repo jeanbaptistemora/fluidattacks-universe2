@@ -41,7 +41,13 @@ async def _get_machine_keys_to_delete(
         and batch_job["status"] == JobStatus.FAILED.value
         and batch_job.get("statusReason")
         not in ("not required", "job peggated")
-        and batch_job["container"]["vcpus"] <= 4
+        and {
+            res["type"]: int(res["value"])
+            for res in batch_job.get("container", {}).get(
+                "resourceRequirements", []
+            )
+        }.get("VCPU", 2)
+        <= 4
     ]
     await collect(
         batch_dal.put_action(
@@ -208,29 +214,42 @@ async def requeue_actions() -> bool:
             ]
         )
     }
-
-    new_batch_jobs_ids = await collect(
-        (
-            batch_dal.put_action_to_batch(
-                action_name=action.action_name,
-                action_dynamo_pk=action.key,
-                entity=action.entity,
-                queue=action.queue,
-                product_name=(
-                    Product.SKIMS
-                    if action.action_name == "execute-machine"
-                    else Product.INTEGRATES
-                ).value,
-                memory=batch_jobs_dict.get(
-                    action.batch_job_id, {"container": {"memory": 3200}}
-                )["container"]["memory"],
-                vcpus=batch_jobs_dict.get(
-                    action.batch_job_id, {"container": {"vcpus": 2}}
-                )["container"]["vcpus"],
+    futures = []
+    for action in actions_to_requeue:
+        if action.batch_job_id:
+            if action.batch_job_id in batch_jobs_dict:
+                try:
+                    resources = {
+                        res["type"]: int(res["value"])
+                        for res in batch_jobs_dict[action.batch_job_id][
+                            "container"
+                        ]["resourceRequirements"]
+                    }
+                    vcpus = resources["VCPU"]
+                    memory = resources["MEMORY"]
+                except KeyError:
+                    vcpus = 2
+                    memory = 2
+            else:
+                vcpus = 2
+                memory = 2
+            futures.append(
+                batch_dal.put_action_to_batch(
+                    action_name=action.action_name,
+                    action_dynamo_pk=action.key,
+                    entity=action.entity,
+                    queue=action.queue,
+                    product_name=(
+                        Product.SKIMS
+                        if action.action_name == "execute-machine"
+                        else Product.INTEGRATES
+                    ).value,
+                    memory=memory,
+                    vcpus=vcpus,
+                )
             )
-            for action in actions_to_requeue
-            if action.batch_job_id
-        ),
+    new_batch_jobs_ids = await collect(
+        futures,
         workers=20,
     )
     return all(

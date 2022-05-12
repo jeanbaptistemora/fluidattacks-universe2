@@ -35,11 +35,6 @@ async def test_requeue_actions(populate: bool) -> None:
         "b4c34e385a10"
     )
 
-    await collect(
-        batch_dal.update_action_to_dynamodb(key=key, running=True)
-        for key in running_actions
-    )
-
     # An active action that will not have any changes
     unchanged_actions = await collect(
         batch_dal.get_action(action_dynamo_pk=pk)
@@ -51,30 +46,62 @@ async def test_requeue_actions(populate: bool) -> None:
 
     read_response = (
         {
-            "container": {"vcpus": 4},
+            "container": {
+                "resourceRequirements": [
+                    {"value": "2", "type": "VCPU"},
+                    {"value": "3200", "type": "MEMORY"},
+                ],
+            },
             "jobId": "2c95e12c-8b93-4faf-937f-1f2b34530004",
             "status": "FAILED",
         },
         {
-            "container": {"vcpus": 8},
+            "container": {
+                "resourceRequirements": [
+                    {"value": "8", "type": "VCPU"},
+                    {"value": "1800", "type": "MEMORY"},
+                ],
+            },
             "jobId": "fda5fcbe-8986-4af7-9e54-22a7d8e7981f",
             "status": "FAILED",
         },
         {
-            "container": {"vcpus": 4},
+            "container": {
+                "resourceRequirements": [
+                    {"value": "2", "type": "VCPU"},
+                    {"value": "1800", "type": "MEMORY"},
+                ],
+            },
             "jobId": "6994b21b-4270-4026-8382-27f35fb6a6e7",
             "status": "SUCCEEDED",
         },
         {
-            "container": {"vcpus": 2},
+            "container": {
+                "resourceRequirements": [
+                    {"value": "2", "type": "VCPU"},
+                    {"value": "1800", "type": "MEMORY"},
+                ],
+            },
             "jobId": "342cea18-72b5-49c0-badb-f7e38dd0e273",
             "status": "RUNNING",
         },
         {
-            "container": {"vcpus": 2},
+            "container": {
+                "resourceRequirements": [
+                    {"value": "1", "type": "VCPU"},
+                    {"value": "1800", "type": "MEMORY"},
+                ],
+            },
             "jobId": "42d5b400-89f3-498c-b7ce-cc29d2e7f254",
             "status": "RUNNABLE",
         },
+    )
+    # create jobs in dynamo
+    await collect(
+        batch_dal.update_action_to_dynamodb(
+            key=key, running=True, batch_job_id=read_response[index]["jobId"]
+        )
+        for index, key in enumerate(running_actions)
     )
     write_response = [
         "6fbe3011-eb29-426a-b52d-396382d32c1c",
@@ -119,8 +146,7 @@ async def test_requeue_actions(populate: bool) -> None:
                 == "2507485d-4a2e-4c14-a68b-fbe0c34d5f01"
             )
             assert clone_action.running is False
-
-            assert all(
+            assert any(
                 unchanged_action in actions
                 for unchanged_action in unchanged_actions
             )
