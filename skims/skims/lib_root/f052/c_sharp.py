@@ -1,4 +1,5 @@
 from lib_root.utilities.c_sharp import (
+    check_member_acces_expression,
     yield_shard_member_access,
     yield_shard_object_creation,
 )
@@ -19,8 +20,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from symbolic_eval.evaluate import (
+    evaluate,
+)
 from symbolic_eval.utils import (
     filter_ast,
+    get_backward_paths,
 )
 from typing import (
     Dict,
@@ -295,4 +300,44 @@ def c_sharp_insecure_hash(
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.CS_INSECURE_HASH,
+    )
+
+
+def c_sharp_disabled_strong_crypto(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CS_DISABLED_STRONG_CRYPTO
+    finding = method.value.finding
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
+    rules = {"Switch.System.Net.DontEnableSchUseStrongCrypto", "true"}
+
+    def n_ids() -> GraphShardNodes:
+
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            for member in yield_shard_member_access(shard, {"AppContext"}):
+                if not check_member_acces_expression(
+                    shard, member, "SetSwitch"
+                ):
+                    continue
+                graph = shard.syntax_graph
+                pred = g.pred_ast(shard.graph, member)[0]
+                for path in get_backward_paths(graph, pred):
+                    evaluation = evaluate(c_sharp, finding, graph, path, pred)
+                    if (
+                        evaluation
+                        and evaluation.danger
+                        and evaluation.triggers == rules
+                    ):
+                        yield shard, pred
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f052.c_sharp_disabled_strong_crypto",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
     )

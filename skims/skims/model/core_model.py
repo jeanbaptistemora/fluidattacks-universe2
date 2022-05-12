@@ -2023,6 +2023,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_DISABLED_STRONG_CRYPTO = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_disabled_strong_crypto",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     GO_INSECURE_CIPHER = MethodInfo(
         file_name="go",
         name="go_insecure_cipher",
