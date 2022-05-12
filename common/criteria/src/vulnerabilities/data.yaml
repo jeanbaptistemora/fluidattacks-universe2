@@ -15350,12 +15350,11 @@
 
       - Modificar o eliminar la información almacenada en los discos
     recommendation: >
-      Cifrar los archivos de un ordenador o todo el
-      disco reduce en gran medida el riesgo de robo de datos.
-    threat: >
       Establecer la propiedad encrypted
       para todas las instancias
       de discos definidas desde el código.
+    threat: >
+      Atacante autenticado con acceso local a la máquina.
   category: Collect Information
   remediation_time: "60"
   score:
