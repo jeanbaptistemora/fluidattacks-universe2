@@ -8,6 +8,7 @@ from api.resolvers.organization import (
     max_number_acceptances,
     min_acceptance_severity,
     min_breaking_severity,
+    organization_id,
     payment_methods,
     permissions,
     stakeholders,
@@ -23,6 +24,7 @@ ORGANIZATION.set_field("analytics", analytics.resolve)
 ORGANIZATION.set_field("billingPortal", billing_portal.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)
 ORGANIZATION.set_field("groups", groups.resolve)
+ORGANIZATION.set_field("id", organization_id.resolve)
 ORGANIZATION.set_field("maxAcceptanceDays", max_acceptance_days.resolve)
 ORGANIZATION.set_field(
     "maxAcceptanceSeverity", max_acceptance_severity.resolve
