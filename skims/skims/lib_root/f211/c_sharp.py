@@ -1,5 +1,7 @@
 from lib_root.utilities.c_sharp import (
+    check_member_acces_expression,
     get_variable_attribute,
+    yield_shard_member_access,
     yield_shard_object_creation,
 )
 from lib_sast.types import (
@@ -11,6 +13,12 @@ from model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
 )
 from typing import (
     Tuple,
@@ -88,4 +96,39 @@ def vuln_regular_expression(
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=core_model.MethodsEnum.CS_VULN_REGEX,
+    )
+
+
+def regex_injection(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_REGEX_INJETCION
+    finding = method.value.finding
+    c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
+
+    def n_ids() -> graph_model.GraphShardNodes:
+
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            for member in yield_shard_member_access(shard, {"Regex"}):
+                if not check_member_acces_expression(shard, member, "Match"):
+                    continue
+                graph = shard.syntax_graph
+                pred = g.pred_ast(shard.graph, member)[0]
+                for path in get_backward_paths(graph, pred):
+                    if (
+                        evaluation := evaluate(
+                            c_sharp, finding, graph, path, pred
+                        )
+                    ) and evaluation.danger:
+                        yield shard, pred
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f211.regex_injection",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
     )

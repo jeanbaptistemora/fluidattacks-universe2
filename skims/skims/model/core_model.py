@@ -2671,6 +2671,15 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_REGEX_INJETCION = MethodInfo(
+        file_name="csharp",
+        name="csharp_regex_injection",
+        module="lib_root",
+        finding=FindingEnum.F211,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+
     JAVA_LEAK_STACKTRACE = MethodInfo(
         file_name="java",
         name="java_info_leak_stacktrace",
