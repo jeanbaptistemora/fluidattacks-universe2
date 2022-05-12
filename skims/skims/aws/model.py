@@ -48,6 +48,13 @@ class AWSS3VersionConfig(NamedTuple):
     status: S3VersioningEnum
 
 
+class AWSS3LogginConfig(NamedTuple):
+    bucket: str
+    column: int
+    line: int
+    target: str
+
+
 class AWSS3BucketPolicy(NamedTuple):
     column: int
     data: List[Any]

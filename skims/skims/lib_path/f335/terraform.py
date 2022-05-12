@@ -51,10 +51,8 @@ def _tfm_aws_s3_versioning_disabled(
                     bucket.name is not None
                     and bucket.tf_reference is not None
                     and (
-                        versioning_config.bucket == bucket.name
-                        or versioning_config.bucket.startswith(
-                            bucket.tf_reference
-                        )
+                        versioning_config.bucket
+                        in (bucket.name, f"{bucket.tf_reference}.id")
                     )
                     and versioning_config.status == S3VersioningEnum.ENABLED
                 ):

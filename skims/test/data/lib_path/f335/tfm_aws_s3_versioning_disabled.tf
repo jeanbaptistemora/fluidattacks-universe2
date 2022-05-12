@@ -35,7 +35,7 @@ resource "aws_s3_bucket" "non_versioned_bucket_1" {
   acl    = "private"
 }
 
-resource "aws_s3_bucket_versioning" "versioning_config_1" {
+resource "aws_s3_bucket_versioning" "versioning_config_2" {
   bucket = "my_non_versioned_bucket_1"
   versioning_configuration {
     status = "Suspended"

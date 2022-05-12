@@ -24,6 +24,7 @@ from aws.model import (
     AWSRdsCluster,
     AWSRdsClusterInstance,
     AWSS3Bucket,
+    AWSS3LogginConfig,
     AWSS3SSEConfig,
     AWSS3VersionConfig,
     S3VersioningEnum,
@@ -217,6 +218,17 @@ def iter_s3_version_configuration(model: Any) -> Iterator[AWSS3VersionConfig]:
             column=version_config.column,
             line=version_config.line,
             status=S3VersioningEnum(versioning_status),
+        )
+
+
+def iter_s3_logging_configuration(model: Any) -> Iterator[AWSS3LogginConfig]:
+    iterator = iterate_resources(model, "resource", "aws_s3_bucket_logging")
+    for loggin_config in iterator:
+        yield AWSS3LogginConfig(
+            bucket=get_attribute_value(loggin_config.body, "bucket"),
+            column=loggin_config.column,
+            line=loggin_config.line,
+            target=get_attribute_value(loggin_config.body, "target_bucket"),
         )
 
 

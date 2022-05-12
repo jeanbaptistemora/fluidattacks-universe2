@@ -39,8 +39,8 @@ def _tfm_unencrypted_buckets_iterate_vulnerabilities(
                     bucket.name is not None
                     and bucket.tf_reference is not None
                     and (
-                        sse_config.bucket == bucket.name
-                        or sse_config.bucket.startswith(bucket.tf_reference)
+                        sse_config.bucket
+                        in (bucket.name, f"{bucket.tf_reference}.id")
                     )
                 ):
                     has_sse_config = True
