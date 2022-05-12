@@ -143,9 +143,25 @@ to generate a key pair:
     okta-login `<role>` # To use a specific role
     ```
 
-1. Use the `--no-aws-cache` flag only in case you
-    - are running a local environment connected to production, or
-    - have problems with `okta-login`
-      or AWS credentials.
+1. If you see the following error:
+
+    ```
+    Error: Status Code: 404
+    Error: Summary: Not Found: Resource not found: me (Session)
+    ERROR: SAMLResponse tag was not found!
+    ```
+
+    Please remove your [AWS Okta processor](https://github.com/godaddy/aws-okta-processor)
+    configuration directory by running:
+
+    ```bash
+    $ rm -rf ~/.aws-okta-processor/
+    ```
+
+    And then try again.
+
+    This error happens when
+    [AWS Okta processor](https://github.com/godaddy/aws-okta-processor)
+    tries to reuse a cached expired session.
 
 [AWS]: https://aws.amazon.com/

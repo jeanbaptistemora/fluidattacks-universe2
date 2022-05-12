@@ -69,31 +69,36 @@ and the [GitLab CI Bastion](https://docs.gitlab.com/runner/configuration/autosca
 
 ## Usage
 
-We use Batch for running
+We use [Batch][BATCH] for running
 
-- [Observes ETLs](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/observes/scheduled/on-aws);
-- [Skims scans](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/skims/process-groups-on-aws);
-- [Skims OWASP Benchmark](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/skims/owasp-benchmark-on-aws),
-  and
-- [ASM Users to Entity reports](https://gitlab.com/fluidattacks/product/-/blob/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/applications/integrates/subscriptions/user-to-entity-on-aws/default.nix).
+- [Production background schedules](https://gitlab.com/fluidattacks/product/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/schedule/schedules.nix)
+  for all our products.
+- [ASM background tasks](https://gitlab.com/fluidattacks/product/blob/37b52839d969fe37b4d583756409349f4154ff53/integrates/back/src/batch/enums.py#L21)
+  like cloning roots and refreshing targets of evaluation.
 
 ## Guidelines
 
 - You can access the [Batch][BATCH] console
   after [authenticating to AWS](/development/stack/aws#guidelines).
-- Any changes to Batch infrastructure
+- Any changes to [Batch][BATCH] infrastructure
   must be done
   via [merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
-- You can queue new jobs to Batch
+- You can queue new jobs to [Batch][BATCH]
   using the [compute-on-aws module](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/utils/compute-on-aws).
 - If a scheduled job takes longer than six hours,
-  it should generally run in Batch;
+  it should generally run in [Batch][BATCH];
   otherwise,
   you can use [GitLab CI][GITLAB-CI].
 - To learn how to test
   and apply infrastructure
   via [Terraform](/development/stack/terraform/),
   visit the [Terraform Guidelines](/development/stack/terraform#guidelines).
+- When adding a new
+  [schedule](https://gitlab.com/fluidattacks/product/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/schedule/schedules.nix),
+  a [Makes](https://github.com/fluidattacks/makes) job
+  with name `computeOnAwsBatch/schedule_<job-name>` will be created for local reproducibiliy.
+- [Terraform infrastructure](https://gitlab.com/fluidattacks/product/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/infra/schedules.tf#L5)
+  for such schedule will also be provisioned.
 
 [BATCH]: https://aws.amazon.com/batch/
 [EC2]: /development/stack/aws/ec2/

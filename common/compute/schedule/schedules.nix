@@ -924,7 +924,7 @@
     command = [
       "m"
       "f"
-      "/skims/owasp-benchmark-and-upload"
+      "/skims/benchmark/owasp/upload"
     ];
 
     schedule_expression = "cron(0 11-23/2 * * ? *)";

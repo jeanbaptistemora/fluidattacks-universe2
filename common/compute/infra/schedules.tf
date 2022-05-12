@@ -1,5 +1,3 @@
-# Schedules
-
 variable "schedules" {}
 
 locals {
