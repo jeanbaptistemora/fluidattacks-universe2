@@ -25,7 +25,7 @@
       "PutRequest": {
         "Item": {
           "commit": {
-            "S": "df10e9e8b998530f152c357781419a22c68c9ef9"
+            "S": "5a772da889fbc6d3afd55e058e2111994e3ae2c0"
           },
           "commit_date": {
             "S": "2022-05-07T12:17:44.444204+00:00"
@@ -61,7 +61,11 @@
             "L": []
           },
           "git_environment_urls": {
-            "L": []
+            "L": [
+              {
+                "S": "https://localhost:4446"
+              }
+            ]
           },
           "gitignore": {
             "L": []
@@ -105,7 +109,7 @@
           "cloning": {
             "M": {
               "commit": {
-                "S": "df10e9e8b998530f152c357781419a22c68c9ef9"
+                "S": "5a772da889fbc6d3afd55e058e2111994e3ae2c0"
               },
               "commit_date": {
                 "S": "2022-05-07T12:17:44.444204+00:00"
@@ -154,7 +158,11 @@
                 "L": []
               },
               "git_environment_urls": {
-                "L": []
+                "L": [
+                  {
+                    "S": "https://localhost:4446"
+                  }
+                ]
               },
               "gitignore": {
                 "L": []
@@ -194,6 +202,24 @@
                 "S": "2022-05-12T03:17:20.031791+00:00"
               }
             }
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "created_at": {
+            "S": "2022-05-12T03:17:20.031791"
+          },
+          "pk": {
+            "S": "ROOT#0a93e13a-a96f-43cc-a8b8-5a01f68ba78b"
+          },
+          "sk": {
+            "S": "URL#7d04fc01c8247bd6dbe4027ad8cd054fe8c08fb4"
+          },
+          "url": {
+            "S": "https://localhost:4446"
           }
         }
       }

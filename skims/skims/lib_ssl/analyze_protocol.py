@@ -95,7 +95,7 @@ def _create_core_vulns(
         build_inputs_vuln(
             method=ssl_vulnerability.method,
             stream="home,socket-send,socket-response",
-            what=str(ssl_vulnerability),
+            what=f"https://{str(ssl_vulnerability)}",
             where=ssl_vulnerability.description,
             metadata=build_metadata(
                 method=ssl_vulnerability.method,
