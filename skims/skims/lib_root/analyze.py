@@ -34,6 +34,7 @@ from lib_root import (
     f320,
     f338,
     f366,
+    f413,
 )
 from lib_sast.types import (
     ShardDb,
@@ -86,6 +87,7 @@ QUERIES: graph_model.Queries = (
     *f320.QUERIES,
     *f338.QUERIES,
     *f366.QUERIES,
+    *f413.QUERIES,
     *sast_query.QUERIES,
 )
 
