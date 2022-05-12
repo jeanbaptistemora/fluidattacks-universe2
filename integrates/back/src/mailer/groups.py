@@ -216,7 +216,7 @@ async def send_mail_deactivated_root(
     )
 
 
-async def send_mail_root_file_report(
+async def send_mail_file_report(
     *,
     group_name: str,
     responsible: str,
@@ -239,7 +239,7 @@ async def send_mail_root_file_report(
         },
         tags=GENERAL_TAG,
         subject=(f"Root file {state_format}"),
-        template_name="root_file_report",
+        template_name="file_report",
     )
 
 

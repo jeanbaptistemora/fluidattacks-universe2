@@ -1369,7 +1369,7 @@ async def send_mail_file_report(
         in {"resourcer", "customer_manager", "user_manager", "hacker"}
     ]
 
-    await groups_mail.send_mail_root_file_report(
+    await groups_mail.send_mail_file_report(
         group_name=group_name,
         responsible=responsible,
         is_added=is_added,
