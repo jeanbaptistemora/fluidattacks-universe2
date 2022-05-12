@@ -21,12 +21,14 @@ in {
                 "/observes/common/utils-logger/src"
                 "/observes/common/postgres-client/src"
                 "/observes/common/purity"
-                "/observes/service/batch-stability"
                 "/observes/service/job-last-success/src"
-                "/observes/service/jobs-scheduler/src"
                 "/observes/service/migrate-tables/src"
                 "/observes/service/timedoctor-tokens/src"
                 "/observes/singer/tap-zoho-crm/src"
+              ]
+              ++ [
+                inputs.observesIndex.service.scheduler.root
+                inputs.observesIndex.service.batch_stability.root
               ]
               ++ (
                 extract_roots inputs.observesIndex.tap

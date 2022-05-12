@@ -40,11 +40,7 @@ in {
       // {
         root = "${servicePath}/db-migration/src";
       };
-    scheduler =
-      (std_data "${servicePath}/jobs-scheduler")
-      // {
-        root = "${servicePath}/jobs-scheduler/src";
-      };
+    scheduler = new_std "${servicePath}/jobs-scheduler";
   };
   etl = {
     dynamo =

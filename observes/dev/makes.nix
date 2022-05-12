@@ -7,6 +7,7 @@
     observesCodeEtl = etl.code;
     observesBatchStability = service.batch_stability;
     observesServiceDbMigration = service.db_migration;
+    observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
     observesEtlDynamoConf = etl.dynamo;
   };
@@ -39,11 +40,6 @@ in {
       observesSingerIO = {
         source = [
           outputs."/observes/common/singer-io/env/development"
-        ];
-      };
-      observesScheduler = {
-        source = [
-          outputs."/observes/service/jobs-scheduler/env/development"
         ];
       };
       observesTapDynamo = {
