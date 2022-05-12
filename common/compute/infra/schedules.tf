@@ -1,3 +1,11 @@
+# Schedules
+
+variable "schedules" {}
+
+locals {
+  schedules = jsondecode(var.schedules)
+}
+
 resource "aws_batch_job_definition" "schedule" {
   for_each = local.schedules
 
@@ -15,9 +23,7 @@ resource "aws_batch_job_definition" "schedule" {
       ]
 
       environment = concat(
-        [
-          for k, v in each.value.environment : { Name = k, Value = v }
-        ],
+        each.value.environment,
         [
           {
             Name  = "CI"

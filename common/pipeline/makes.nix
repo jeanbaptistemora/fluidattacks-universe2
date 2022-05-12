@@ -107,11 +107,15 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/lintPython/module/commonComputeScheduleParseTerraform";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/commonOktaParse";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/commonOktaScheduleCloseSessions";
+          output = "/lintPython/module/commonOktaCloseSessions";
           gitlabExtra = gitlabLint;
         }
         {

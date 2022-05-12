@@ -1,10 +1,12 @@
+# Schedule expressions:
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 {
-  common_okta_schedule_close_sessions = {
+  common_okta_close_sessions = {
     enabled = true;
     command = [
       "m"
       "f"
-      "/common/okta/schedule/close-sessions"
+      "/common/okta/close-sessions"
     ];
 
     schedule_expression = "cron(0 8 * * ? *)";
@@ -17,7 +19,7 @@
     environment = ["PRODUCT_API_TOKEN"];
 
     tags = {
-      "Name" = "common_okta_schedule_close_sessions";
+      "Name" = "common_okta_close_sessions";
       "management:area" = "cost";
       "management:product" = "common";
       "management:type" = "product";
@@ -702,8 +704,8 @@
 
     schedule_expression = "cron(0 2,17 * * ? *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
+    attempts = 2;
+    timeout = 3600;
     cpu = 2;
     memory = 3600;
 
@@ -726,10 +728,10 @@
 
     schedule_expression = "cron(0 12-23/3 ? * 2-6 *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    attempts = 1;
+    timeout = 10800;
+    cpu = 1;
+    memory = 1800;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -750,7 +752,7 @@
 
     schedule_expression = "cron(0 11 * * ? *)";
     queue = "unlimited_spot";
-    attempts = 3;
+    attempts = 2;
     timeout = 86400;
     cpu = 2;
     memory = 3600;
@@ -774,8 +776,8 @@
 
     schedule_expression = "cron(0 9 ? * 2-6 *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
+    attempts = 2;
+    timeout = 18000;
     cpu = 2;
     memory = 3600;
 
@@ -801,8 +803,8 @@
 
     schedule_expression = "cron(0 4 1,15 * ? *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
+    attempts = 4;
+    timeout = 18000;
     cpu = 2;
     memory = 3600;
 
@@ -828,10 +830,10 @@
 
     schedule_expression = "cron(0 * * * ? *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    attempts = 1;
+    timeout = 3600;
+    cpu = 1;
+    memory = 1800;
 
     environment = [
       "CI_PROJECT_ID"
@@ -855,7 +857,7 @@
 
     schedule_expression = "cron(0 12 ? * 2-6 *)";
     queue = "unlimited_spot";
-    attempts = 3;
+    attempts = 2;
     timeout = 86400;
     cpu = 2;
     memory = 3600;
@@ -879,10 +881,10 @@
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    attempts = 1;
+    timeout = 3600;
+    cpu = 1;
+    memory = 1800;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -903,10 +905,10 @@
 
     schedule_expression = "cron(0 * * * ? *)";
     queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    attempts = 1;
+    timeout = 1800;
+    cpu = 1;
+    memory = 1800;
 
     environment = ["PRODUCT_API_TOKEN"];
 

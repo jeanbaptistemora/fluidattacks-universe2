@@ -2,7 +2,7 @@
 {outputs, ...}: {
   imports = [
     ./parse/makes.nix
-    ./schedule/makes.nix
+    ./close-sessions/makes.nix
   ];
   deployTerraform = {
     modules = {

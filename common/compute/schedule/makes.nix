@@ -17,5 +17,8 @@
       vcpus = value.cpu;
     };
 in {
+  imports = [
+    ./parse-terraform/makes.nix
+  ];
   computeOnAwsBatch = lib.mapAttrs' mapToBatch schedules;
 }
