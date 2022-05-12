@@ -38,6 +38,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
   roots,
   onUpdate,
 }: IURLRootsProps): JSX.Element => {
+  const permissions = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
   const [isManagingRoot, setIsManagingRoot] = useState<false | { mode: "ADD" }>(
@@ -97,10 +98,12 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 
   const handleRowClick = useCallback(
     (_0: React.SyntheticEvent, row: IURLRootAttr): void => {
-      setCurrentRow(row);
-      setIsSecretsModalOpen(true);
+      if (permissions.can("api_resolvers_git_root_secrets_resolve")) {
+        setCurrentRow(row);
+        setIsSecretsModalOpen(true);
+      }
     },
-    []
+    [permissions]
   );
 
   const [activateRoot] = useMutation(ACTIVATE_ROOT, {
@@ -139,7 +142,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     setDeactivationModal({ open: false, rootId: "" });
   }, []);
 
-  const permissions = useAbility(authzPermissionsContext);
   const canUpdateRootState = permissions.can(
     "api_mutations_activate_root_mutate"
   );

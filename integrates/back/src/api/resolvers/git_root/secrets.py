@@ -5,6 +5,9 @@ from db_model.roots.types import (
     GitRoot,
     URLRoot,
 )
+from decorators import (
+    enforce_group_level_auth_async,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -13,6 +16,7 @@ from typing import (
 )
 
 
+@enforce_group_level_auth_async
 async def resolve(
     parent: Union[GitRoot, URLRoot], info: GraphQLResolveInfo
 ) -> str:

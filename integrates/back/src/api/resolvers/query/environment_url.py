@@ -27,6 +27,10 @@ from typing import (
     enforce_group_level_auth_async,
 )
 async def resolve(
-    _parent: None, _info: GraphQLResolveInfo, url_id: str, **_kwargs: Any
+    _parent: None, _info: GraphQLResolveInfo, url_id: str, **kwargs: Any
 ) -> Optional[GitEnvironmentUrl]:
-    return await get_git_environment_url_by_id(url_id=url_id)
+    url = await get_git_environment_url_by_id(url_id=url_id)
+
+    if url:
+        return url._replace(group_name=kwargs["group_name"])
+    return None

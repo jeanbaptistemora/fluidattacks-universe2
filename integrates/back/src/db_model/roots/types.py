@@ -45,6 +45,7 @@ class GitEnvironmentUrl(NamedTuple):
     id: str
     secrets: list[Secret] = []
     created_at: Optional[datetime] = None
+    group_name: Optional[str] = None
 
 
 class GitRootState(NamedTuple):

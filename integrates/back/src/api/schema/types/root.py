@@ -1,10 +1,12 @@
+from api.resolvers.git_environment_url import (
+    secrets as environment_secrets,
+)
 from api.resolvers.git_root import (
     branch,
     cloning_status,
     credentials,
     download_url,
     environment,
-    environment_secrets,
     environment_urls,
     git_environment_urls,
     gitignore,

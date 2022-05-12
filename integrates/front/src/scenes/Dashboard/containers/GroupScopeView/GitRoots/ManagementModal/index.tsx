@@ -99,12 +99,14 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                 tooltip={t("group.scope.git.manageEnvsTooltip")}
               />
             </Can>
-            <ContentTab
-              id={"secretsTab"}
-              link={"/secrets"}
-              title={"Secrets"}
-              tooltip={t("group.scope.git.repo.title")}
-            />
+            <Can do={"api_resolvers_git_root_secrets_resolve"}>
+              <ContentTab
+                id={"secretsTab"}
+                link={"/secrets"}
+                title={"Secrets"}
+                tooltip={t("group.scope.git.repo.title")}
+              />
+            </Can>
           </TabsContainer>
         ) : undefined}
         <TabContent>

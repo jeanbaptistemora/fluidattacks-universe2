@@ -234,6 +234,7 @@ describe("GitRoots", (): void => {
             { action: "api_mutations_update_git_environments_mutate" },
             { action: "api_mutations_add_secret_mutate" },
             { action: "api_mutations_update_git_root_mutate" },
+            { action: "api_resolvers_git_root_secrets_resolve" },
           ])
         }
       >
