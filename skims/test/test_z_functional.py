@@ -251,7 +251,6 @@ def test_config_with_extra_parameters() -> None:
 
 
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 def test_bad_integrates_api_token(test_group: str) -> None:
     suite: str = "nothing_to_do"
     code, stdout, stderr = skims(

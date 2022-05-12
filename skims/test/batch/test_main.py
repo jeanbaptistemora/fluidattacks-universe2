@@ -66,7 +66,6 @@ async def test_main_bad_action(mocker: MockerFixture) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("mock_pull_namespace_from_s3")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_main_empty_configs(
@@ -96,7 +95,6 @@ async def test_main_empty_configs(
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("mock_pull_namespace_from_s3")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_main_with_configs(
@@ -126,7 +124,6 @@ async def test_main_with_configs(
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("mock_pull_namespace_from_s3")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_main_bad_roots(test_group: str, mocker: MockerFixture) -> None:
