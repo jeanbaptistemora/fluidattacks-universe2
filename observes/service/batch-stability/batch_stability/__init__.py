@@ -1,3 +1,8 @@
+from batch_stability.errors import (
+    BatchCancelledJob,
+    BatchFailedJob,
+    BatchUnstartedJob,
+)
 import boto3
 import bugsnag
 from datetime import (
@@ -35,22 +40,6 @@ bugsnag.configure(  # type: ignore[no-untyped-call]
     asynchronous=False,
     send_code=False,
 )
-
-
-class BatchSucceededJob(Exception):
-    pass
-
-
-class BatchFailedJob(Exception):
-    pass
-
-
-class BatchCancelledJob(Exception):
-    pass
-
-
-class BatchUnstartedJob(Exception):
-    pass
 
 
 def _report_status(
