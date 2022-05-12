@@ -1,20 +1,43 @@
 locals {
   environments = {
-    unlimited_spot = {
-      max_vcpus = 10000
-      type      = "SPOT"
-    }
-    unlimited_dedicated = {
-      max_vcpus = 10000
+    limited_dedicated = {
+      max_vcpus = 50
       type      = "EC2"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
     }
     limited_spot = {
       max_vcpus = 50
       type      = "SPOT"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
     }
-    limited_dedicated = {
-      max_vcpus = 50
+    unlimited_dedicated = {
+      max_vcpus = 10000
       type      = "EC2"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+    }
+    unlimited_spot = {
+      max_vcpus = 10000
+      type      = "SPOT"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+    }
+    unlimited_spot_clone = {
+      max_vcpus = 10000
+      type      = "SPOT"
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+      ]
     }
   }
 }
@@ -119,10 +142,7 @@ resource "aws_batch_compute_environment" "main" {
       "c5ad.2xlarge",
     ]
     security_group_ids = [aws_security_group.main.id]
-    subnets = [
-      data.aws_subnet.batch_clone.id,
-      data.aws_subnet.batch_main.id,
-    ]
+    subnets            = each.value.subnets
 
     tags = {
       "Name"               = each.key
