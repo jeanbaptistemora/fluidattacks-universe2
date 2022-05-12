@@ -1984,6 +1984,30 @@ F024,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   21 |           },
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,1,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",terraform.tfm_ec2_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   22 |       LaunchTemplateData:
   23 |         InstanceType: t2.micro
@@ -4096,6 +4120,30 @@ F333,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   21 |           },
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,1,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",terraform.tfm_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   21 |       LaunchTemplateName: MyLaunchTemplate
   22 |       LaunchTemplateData:
@@ -20281,6 +20329,54 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   32 |         ""Size"": 100,
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,14,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+> 14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+     ^ Col 0
+",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,21,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+> 21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+  25 |     volume_type           = ""gp2""
+  26 |   }
+  27 |
+  28 | }
+     ^ Col 0
+",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
 F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,9,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
    1 | Resources:
    2 |   EC2Instance:
@@ -28930,6 +29026,30 @@ F400,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   21 |           },
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,1,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+>  1 | resource ""aws_instance"" ""project-iac"" {
+   2 |   ami                         = lookup(var.awsprops, ""ami"")
+   3 |   instance_type               = lookup(var.awsprops, ""itype"")
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+     ^ Col 0
+",terraform.tfm_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   21 |       LaunchTemplateName: MyLaunchTemplate
   22 |       LaunchTemplateData:
