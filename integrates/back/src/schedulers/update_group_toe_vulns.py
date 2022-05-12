@@ -104,7 +104,7 @@ async def process_toe_inputs(
             # ToeInput is not associated to a root_id
             # and vulnerability.root_id == toe_input.root_id
             and vulnerability.where.startswith(toe_input.component)
-            and vulnerability.specific == toe_input.entry_point
+            and vulnerability.specific.startswith(toe_input.entry_point)
             for vulnerability in vulnerabilities
         )
 
