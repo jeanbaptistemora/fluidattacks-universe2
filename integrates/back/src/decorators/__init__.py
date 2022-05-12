@@ -33,6 +33,7 @@ import logging.config
 from newutils import (
     function,
     logs as logs_utils,
+    organizations as orgs_utils,
     templates as templates_utils,
     token as token_utils,
     validations,
@@ -257,7 +258,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             kwargs.get("identifier")
             or kwargs.get("organization_id")
             or kwargs.get("organization_name")
-            or args[0].id
+            or orgs_utils.add_org_id_prefix(args[0].id)
         )
         organization_id = (
             organization_identifier
