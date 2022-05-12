@@ -27,6 +27,9 @@ RETRY = shield(
 async def create_session(*args: Any, **kwargs: Any) -> aiohttp.ClientSession:
     async with aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(
+            # The server might be timing out the connection
+            # since it's being used for multiple requests
+            force_close=True,
             ssl=False,
         ),
         timeout=aiohttp.ClientTimeout(

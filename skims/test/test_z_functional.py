@@ -653,7 +653,6 @@ async def test_should_report_vulns_to_namespace_verify(
 
 
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     suite: str = "integrates2"
     code, stdout, stderr = skims(
@@ -674,7 +673,6 @@ def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_should_report_vulns_to_namespace2_verify(
     test_group: str,
@@ -687,11 +685,11 @@ async def test_should_report_vulns_to_namespace2_verify(
             "SUBMITTED",
             (
                 (
-                    "localhost:4446 (namespace2)",
+                    "https://localhost:4446 (dynamic_namespace_2)",
                     "server refuses connections with PFS support in TLSv1.0",
                 ),
                 (
-                    "localhost:4446 (namespace2)",
+                    "https://localhost:4446 (dynamic_namespace_2)",
                     "server refuses connections with PFS support in TLSv1.1",
                 ),
             ),
@@ -700,12 +698,36 @@ async def test_should_report_vulns_to_namespace2_verify(
             "F117",
             "APPROVED",
             (
-                ("namespace/skims/test/data/lib_path/f117/.project", "1"),
-                ("namespace/skims/test/data/lib_path/f117/MyJar.class", "1"),
-                ("namespace/skims/test/data/lib_path/f117/MyJar.jar", "1"),
-                ("namespace2/skims/test/data/lib_path/f117/.project", "1"),
-                ("namespace2/skims/test/data/lib_path/f117/MyJar.class", "1"),
-                ("namespace2/skims/test/data/lib_path/f117/MyJar.jar", "1"),
+                (
+                    "dynamic_namespace_1/skims/test/"
+                    "data/lib_path/f117/.project",
+                    "1",
+                ),
+                (
+                    "dynamic_namespace_1/skims/test/"
+                    "data/lib_path/f117/MyJar.class",
+                    "1",
+                ),
+                (
+                    "dynamic_namespace_1/skims/test/"
+                    "data/lib_path/f117/MyJar.jar",
+                    "1",
+                ),
+                (
+                    "dynamic_namespace_2/skims/test/"
+                    "data/lib_path/f117/.project",
+                    "1",
+                ),
+                (
+                    "dynamic_namespace_2/skims/test/"
+                    "data/lib_path/f117/MyJar.class",
+                    "1",
+                ),
+                (
+                    "dynamic_namespace_2/skims/test/"
+                    "data/lib_path/f117/MyJar.jar",
+                    "1",
+                ),
             ),
         ),
     }

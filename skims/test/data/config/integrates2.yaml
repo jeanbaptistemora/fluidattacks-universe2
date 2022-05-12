@@ -1,7 +1,7 @@
 checks:
 - F133
 - F117
-namespace: namespace2
+namespace: dynamic_namespace_2
 output: skims/test/outputs/integrates2.csv
 path:
   include:

@@ -61,7 +61,11 @@
             "L": []
           },
           "git_environment_urls": {
-            "L": []
+            "L": [
+              {
+                "S": "https://localhost:4446"
+              }
+            ]
           },
           "gitignore": {
             "L": []
@@ -154,7 +158,11 @@
                 "L": []
               },
               "git_environment_urls": {
-                "L": []
+                "L": [
+                  {
+                    "S": "https://localhost:4446"
+                  }
+                ]
               },
               "gitignore": {
                 "L": []
@@ -194,6 +202,24 @@
                 "S": "2022-05-12T03:17:20.031791+00:00"
               }
             }
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "created_at": {
+            "S": "2022-05-12T03:17:20.031791"
+          },
+          "pk": {
+            "S": "ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48"
+          },
+          "sk": {
+            "S": "URL#7d04fc01c8247bd6dbe4027ad8cd054fe8c08fb4"
+          },
+          "url": {
+            "S": "https://localhost:4446"
           }
         }
       }

@@ -1,0 +1,319 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "attacked_at": {
+            "S": ""
+          },
+          "attacked_by": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "0"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "comments": {
+            "S": ""
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f117/.project"
+          },
+          "first_attack_at": {
+            "S": ""
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "last_author": {
+            "S": "customer@domain.com"
+          },
+          "last_commit": {
+            "S": "5a772da889fbc6d3afd55e058e2111994e3ae2c0"
+          },
+          "loc": {
+            "N": "0"
+          },
+          "modified_date": {
+            "S": "2022-05-12T19:24:56+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "4e4b19fc-84d0-4531-86ab-a9a2454f5d48"
+          },
+          "seen_at": {
+            "S": "2022-05-12T19:28:36.675463+00:00"
+          },
+          "sk": {
+            "S": "LINES#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#FILENAME#skims/test/data/lib_path/f117/.project"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#FILENAME#skims/test/data/lib_path/f117/.project"
+          },
+          "sorts_risk_level": {
+            "N": "-1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "attacked_at": {
+            "S": ""
+          },
+          "attacked_by": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "0"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "comments": {
+            "S": ""
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "first_attack_at": {
+            "S": ""
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "last_author": {
+            "S": "customer@domain.com"
+          },
+          "last_commit": {
+            "S": "5a772da889fbc6d3afd55e058e2111994e3ae2c0"
+          },
+          "loc": {
+            "N": "0"
+          },
+          "modified_date": {
+            "S": "2022-05-12T19:24:56+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "4e4b19fc-84d0-4531-86ab-a9a2454f5d48"
+          },
+          "seen_at": {
+            "S": "2022-05-12T19:28:36.675463+00:00"
+          },
+          "sk": {
+            "S": "LINES#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#FILENAME#skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#FILENAME#skims/test/data/lib_path/f117/MyJar.jar"
+          },
+          "sorts_risk_level": {
+            "N": "-1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "attacked_at": {
+            "S": ""
+          },
+          "attacked_by": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "0"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "comments": {
+            "S": ""
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "first_attack_at": {
+            "S": ""
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "last_author": {
+            "S": "customer@domain.com"
+          },
+          "last_commit": {
+            "S": "5a772da889fbc6d3afd55e058e2111994e3ae2c0"
+          },
+          "loc": {
+            "N": "0"
+          },
+          "modified_date": {
+            "S": "2022-05-12T19:24:56+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "4e4b19fc-84d0-4531-86ab-a9a2454f5d48"
+          },
+          "seen_at": {
+            "S": "2022-05-12T19:28:36.682591+00:00"
+          },
+          "sk": {
+            "S": "LINES#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#FILENAME#skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#FILENAME#skims/test/data/lib_path/f117/MyJar.class"
+          },
+          "sorts_risk_level": {
+            "N": "-1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "attacked_at": {
+            "S": ""
+          },
+          "attacked_by": {
+            "S": ""
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "component": {
+            "S": "https://localhost:4446"
+          },
+          "entry_point": {
+            "S": "server refuses connections with PFS support in TLSv1.0"
+          },
+          "first_attack_at": {
+            "S": ""
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "seen_at": {
+            "S": "2022-05-12T19:52:10.983912+00:00"
+          },
+          "seen_first_time_by": {
+            "S": "machine@fluidattacks.com"
+          },
+          "sk": {
+            "S": "INPUTS#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#COMPONENT#https://localhost:4446#ENTRYPOINT#server refuses connections with PFS support in TLSv1.0"
+          },
+          "sk_2": {
+            "S": "INPUTS#PRESENT#true#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#COMPONENT#https://localhost:4446#ENTRYPOINT#server refuses connections with PFS support in TLSv1.0"
+          },
+          "unreliable_root_id": {
+            "S": "4e4b19fc-84d0-4531-86ab-a9a2454f5d48"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "attacked_at": {
+            "S": ""
+          },
+          "attacked_by": {
+            "S": ""
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "component": {
+            "S": "https://localhost:4446"
+          },
+          "entry_point": {
+            "S": "server refuses connections with PFS support in TLSv1.1"
+          },
+          "first_attack_at": {
+            "S": ""
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "seen_at": {
+            "S": "2022-05-12T19:52:10.983912+00:00"
+          },
+          "seen_first_time_by": {
+            "S": "machine@fluidattacks.com"
+          },
+          "sk": {
+            "S": "INPUTS#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#COMPONENT#https://localhost:4446#ENTRYPOINT#server refuses connections with PFS support in TLSv1.1"
+          },
+          "sk_2": {
+            "S": "INPUTS#PRESENT#true#ROOT#4e4b19fc-84d0-4531-86ab-a9a2454f5d48#COMPONENT#https://localhost:4446#ENTRYPOINT#server refuses connections with PFS support in TLSv1.1"
+          },
+          "unreliable_root_id": {
+            "S": "4e4b19fc-84d0-4531-86ab-a9a2454f5d48"
+          }
+        }
+      }
+    }
+  ]
+}
