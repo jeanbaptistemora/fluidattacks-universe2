@@ -176,7 +176,7 @@ async def test_get_or_create() -> None:
     not_ex_org_name = "new-org"
     existing_org = await orgs_domain.get_or_add(ex_org_name, email)
     assert isinstance(existing_org, dict)
-    assert existing_org["id"] == "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+    assert existing_org["id"] == "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
 
     not_existent_org = await orgs_domain.get_or_add(not_ex_org_name, email)
     assert isinstance(not_existent_org, dict)

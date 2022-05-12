@@ -16,6 +16,9 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -127,23 +130,27 @@ async def add(
     organization_id = (
         str(uuid.uuid4()) if organization_id == "" else organization_id
     )
-    new_item: Dict[str, Any] = {
+    organization_name = organization_name.lower().strip()
+    new_state = {
+        "modified_by": modified_by,
+        "modified_date": datetime_utils.get_now_as_str(),
+        "status": OrganizationStateStatus.ACTIVE.value,
+    }
+    item_to_add: dict[str, Any] = {
         "pk": f"ORG#{organization_id}",
-        "sk": f"INFO#{organization_name.lower().strip()}",
-        "historic_state": [
-            {
-                "modified_by": modified_by,
-                "modified_date": datetime_utils.get_now_as_str(),
-                "status": "ACTIVE",
-            }
-        ],
+        "sk": f"INFO#{organization_name}",
+        "historic_state": [new_state],
     }
     try:
-        await dynamodb_put_item(TABLE_NAME, new_item)
-        new_item.update({"sk": organization_name.lower().strip()})
+        await dynamodb_put_item(TABLE_NAME, item_to_add)
     except ClientError as ex:
         raise UnavailabilityError() from ex
-    return _map_keys_to_domain(new_item)
+
+    return {
+        "id": organization_id,
+        "name": organization_name,
+        "historic_state": [new_state],
+    }
 
 
 async def remove(

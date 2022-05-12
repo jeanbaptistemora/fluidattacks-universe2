@@ -81,6 +81,7 @@ async def test_add() -> None:
     new_org = await orgs_dal.add(modified_by=email, organization_name=org_name)
     assert isinstance(new_org, dict)
     assert "id" in new_org
+    assert not str(new_org["id"]).startswith("ORG#")
     assert new_org["name"] == org_name
     with pytest.raises(InvalidOrganization):
         await orgs_dal.add(modified_by=email, organization_name=org_name)

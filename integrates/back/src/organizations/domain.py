@@ -47,6 +47,10 @@ from newutils import (
     groups as groups_utils,
     token,
 )
+from newutils.organizations import (
+    add_org_id_prefix,
+    remove_org_id_prefix,
+)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -192,6 +196,7 @@ async def add_group(organization_id: str, group: str) -> bool:
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
     # Check for customer manager granting requirements
+    organization_id = add_org_id_prefix(organization_id)
     validate_role_fluid_reqs(email, role)
     success = await orgs_dal.add_user(
         organization_id, email
@@ -352,6 +357,7 @@ async def get_or_add(
 
     org = await orgs_dal.get_by_name(organization_name, ["id", "name"])
     if org:
+        org["id"] = remove_org_id_prefix(org["id"])
         has_access = (
             await has_user_access(str(org["id"]), email) if email else True
         )
@@ -393,6 +399,7 @@ async def has_group(organization_id: str, group_name: str) -> bool:
 
 
 async def has_user_access(organization_id: str, email: str) -> bool:
+    organization_id = add_org_id_prefix(organization_id)
     return (
         await orgs_dal.has_user_access(organization_id, email)
         or await authz.get_organization_level_role(email, organization_id)
@@ -474,6 +481,7 @@ async def remove_group(group_name: str, organization_id: str) -> bool:
 
 
 async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
+    organization_id = add_org_id_prefix(organization_id)
     if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
 

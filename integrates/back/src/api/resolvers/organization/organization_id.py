@@ -4,12 +4,13 @@ from db_model.organizations.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.organizations import (
+    add_org_id_prefix,
+)
 from typing import (
     Any,
     Union,
 )
-
-ORGANIZATION_ID_PREFIX = "ORG#"
 
 
 async def resolve(
@@ -20,8 +21,4 @@ async def resolve(
     organization_id = parent["id"] if isinstance(parent, dict) else parent.id
 
     # Currently, the api expects the prefix in the id
-    return (
-        organization_id
-        if organization_id.startswith(ORGANIZATION_ID_PREFIX)
-        else f"{ORGANIZATION_ID_PREFIX}{organization_id}"
-    )
+    return add_org_id_prefix(organization_id)

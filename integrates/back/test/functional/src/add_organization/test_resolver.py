@@ -23,8 +23,11 @@ async def test_admin(populate: bool) -> None:
         == org_name.lower()
     )
     assert result["data"]["addOrganization"]["organization"]["id"].startswith(
-        "ORG"
+        "ORG#"
     )
+    assert not result["data"]["addOrganization"]["organization"][
+        "id"
+    ].startswith("ORG#ORG#")
 
 
 @pytest.mark.asyncio
