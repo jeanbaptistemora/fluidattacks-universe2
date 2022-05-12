@@ -8,6 +8,9 @@ from boto3.dynamodb.conditions import (
 from datetime import (
     datetime,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from typing import (
     Any,
     Dict,
@@ -119,7 +122,7 @@ ApproveDraftPayload = NamedTuple(
 )
 AddOrganizationPayload = NamedTuple(
     "AddOrganizationPayload",
-    [("success", bool), ("organization", Dict[str, Any])],
+    [("success", bool), ("organization", Organization)],
 )
 DownloadFilePayload = NamedTuple(
     "DownloadFilePayload",

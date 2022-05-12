@@ -25,6 +25,14 @@ from custom_exceptions import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPolicies,
+    OrganizationState,
+)
 from decimal import (
     Decimal,
 )
@@ -78,6 +86,7 @@ from typing import (
 from users import (
     domain as users_domain,
 )
+import uuid
 
 logging.config.dictConfig(LOGGING)
 
@@ -342,6 +351,36 @@ async def get_name_by_id(organization_id: str) -> str:
     if not result:
         raise InvalidOrganization()
     return str(result["name"])
+
+
+async def if_exist(organization_name: str) -> bool:
+    if await orgs_dal.get_by_name(organization_name.lower().strip()):
+        return True
+    return False
+
+
+async def add_organization_typed(
+    organization_name: str, email: str
+) -> Organization:
+    if await if_exist(organization_name) or not re.match(
+        r"^[a-zA-Z]{4,10}$", organization_name
+    ):
+        raise InvalidOrganization()
+    org = Organization(
+        id=str(uuid.uuid4()),
+        name=organization_name.lower().strip(),
+        policies=OrganizationPolicies(),
+        state=OrganizationState(
+            modified_by=email,
+            modified_date=datetime_utils.get_iso_date(),
+            status=OrganizationStateStatus.ACTIVE,
+        ),
+    )
+    await orgs_dal.add_typed(org)
+    org_role = "user_manager"
+    if email and org:
+        await add_user(f"ORG#{org.id}", email, org_role)
+    return org
 
 
 async def get_or_add(

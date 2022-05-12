@@ -16,7 +16,6 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
-    Any,
     Dict,
 )
 
@@ -36,13 +35,11 @@ async def mutate(
         user_email,
         name,
     )
-    organization: Dict[str, Any] = await orgs_domain.add_organization(
-        name, user_email
-    )
+    organization = await orgs_domain.add_organization_typed(name, user_email)
     TRANSACTIONS_LOGGER.info(
         "Organization %s with ID %s was successfully added by %s",
-        organization["name"],
-        organization["id"],
+        organization.name,
+        organization.id,
         user_email,
     )
 

@@ -105,7 +105,6 @@ async def add_user(organization_id: str, email: str) -> bool:
 
 
 async def add_typed(
-    *,
     organization: Organization,
 ) -> None:
     org_item = format_organization_item(organization)
