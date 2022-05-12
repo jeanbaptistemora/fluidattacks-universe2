@@ -48,7 +48,6 @@ def test_get_ssl_targets() -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_get_scopes_from_group(test_group: str) -> None:
     expected = {
@@ -61,7 +60,6 @@ async def test_get_scopes_from_group(test_group: str) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 async def test_generate_config(test_group: str) -> None:
     expected = SkimsConfig(
         apk=SkimsAPKConfig(

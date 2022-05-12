@@ -1,0 +1,303 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "modified_date": {
+            "S": "2022-05-12T03:17:20.031815+00:00"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "reason": {
+            "S": "root created"
+          },
+          "sk": {
+            "S": "CLON#2022-05-12T03:17:20.031815+00:00"
+          },
+          "status": {
+            "S": "UNKNOWN"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "commit": {
+            "S": "e8c1985039aa6233c83598596b4e4640607d25ee"
+          },
+          "commit_date": {
+            "S": "2022-05-07T12:17:44.444204+00:00"
+          },
+          "modified_date": {
+            "S": "2022-05-12T03:33:46.644102+00:00"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "reason": {
+            "S": "Cloned successfully"
+          },
+          "sk": {
+            "S": "CLON#2022-05-12T03:33:46.644102+00:00"
+          },
+          "status": {
+            "S": "OK"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "branch": {
+            "S": "master"
+          },
+          "environment": {
+            "S": "production"
+          },
+          "environment_urls": {
+            "L": []
+          },
+          "git_environment_urls": {
+            "L": []
+          },
+          "gitignore": {
+            "L": []
+          },
+          "includes_health_check": {
+            "BOOL": false
+          },
+          "modified_by": {
+            "S": "customer@domain.com"
+          },
+          "modified_date": {
+            "S": "2022-05-12T03:17:20.031791+00:00"
+          },
+          "nickname": {
+            "S": "namespace"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "secrets": {
+            "L": []
+          },
+          "sk": {
+            "S": "STATE#2022-05-12T03:17:20.031791+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/namespace.git"
+          },
+          "use_vpn": {
+            "BOOL": false
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "branch": {
+            "S": "master"
+          },
+          "environment": {
+            "S": "production"
+          },
+          "environment_urls": {
+            "L": [
+              {
+                "S": "https://fluidattacks.com/"
+              },
+              {
+                "S": "https://app.fluidattacks.com/"
+              }
+            ]
+          },
+          "git_environment_urls": {
+            "L": []
+          },
+          "gitignore": {
+            "L": []
+          },
+          "includes_health_check": {
+            "BOOL": false
+          },
+          "modified_by": {
+            "S": "customer@domain.com"
+          },
+          "modified_date": {
+            "S": "2022-05-12T03:40:31.834557+00:00"
+          },
+          "nickname": {
+            "S": "namespace"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "secrets": {
+            "L": []
+          },
+          "sk": {
+            "S": "STATE#2022-05-12T03:40:31.834557+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/namespace.git"
+          },
+          "use_vpn": {
+            "BOOL": false
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "cloning": {
+            "M": {
+              "commit": {
+                "S": "e8c1985039aa6233c83598596b4e4640607d25ee"
+              },
+              "commit_date": {
+                "S": "2022-05-07T12:17:44.444204+00:00"
+              },
+              "modified_date": {
+                "S": "2022-05-12T03:33:46.644102+00:00"
+              },
+              "reason": {
+                "S": "Cloned successfully"
+              },
+              "status": {
+                "S": "OK"
+              }
+            }
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "id": {
+            "S": "ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "organization_name": {
+            "S": "esdeath"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "pk_2": {
+            "S": "ORG#esdeath"
+          },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
+          "sk_2": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "state": {
+            "M": {
+              "branch": {
+                "S": "master"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "environment_urls": {
+                "L": [
+                  {
+                    "S": "https://fluidattacks.com/"
+                  },
+                  {
+                    "S": "https://app.fluidattacks.com/"
+                  }
+                ]
+              },
+              "git_environment_urls": {
+                "L": []
+              },
+              "gitignore": {
+                "L": []
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "customer@domain.com"
+              },
+              "modified_date": {
+                "S": "2022-05-12T03:40:31.834557+00:00"
+              },
+              "nickname": {
+                "S": "namespace"
+              },
+              "secrets": {
+                "L": []
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "url": {
+                "S": "https://gitlab.com/fluidattacks/namespace.git"
+              },
+              "use_vpn": {
+                "BOOL": false
+              }
+            }
+          },
+          "type": {
+            "S": "Git"
+          },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_last_status_update": {
+                "S": "2022-05-12T03:17:20.031791+00:00"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "created_at": {
+            "S": "2022-05-12T03:40:31.834761"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "sk": {
+            "S": "URL#da6e2b7cd209163aa21dac553f0758c3cfbf55d6"
+          },
+          "url": {
+            "S": "https://fluidattacks.com/"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "created_at": {
+            "S": "2022-05-12T03:40:31.836752"
+          },
+          "pk": {
+            "S": "ROOT#ce086009-0bbf-4798-ac32-76c2ef752612"
+          },
+          "sk": {
+            "S": "URL#e6118eb4696e04e882362cf2159baf240687256f"
+          },
+          "url": {
+            "S": "https://app.fluidattacks.com/"
+          }
+        }
+      }
+    }
+  ]
+}
