@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
+import { filterVerificationCount } from "./filters";
 import { locationsFormatter } from "./formatters/Locations";
 import {
   formatFindings,
@@ -376,10 +377,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       (value): IFilterSet => ({ ...value, reattack: event.target.value })
     );
   }
-  const filterReattackFindings: IFindingAttr[] = filterSelect(
+  const filterReattackFindings: IFindingAttr[] = filterVerificationCount(
     findings,
-    filterGroupFindingsTable.reattack,
-    "remediated"
+    filterGroupFindingsTable.reattack
   );
 
   function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
