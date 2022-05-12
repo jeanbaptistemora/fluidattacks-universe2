@@ -3,7 +3,7 @@
   extras,
   src,
 }: let
-  python_version = "python39";
+  python_version = "python310";
   metadata = (builtins.fromTOML (builtins.readFile "${src}/pyproject.toml")).tool.poetry;
   lib = {
     buildEnv = legacy_pkgs."${python_version}".buildEnv.override;

@@ -6,11 +6,12 @@
 }: let
   runtime_deps = with python_pkgs; [
     boto3
-    boto3-stubs
     bugsnag
     click
+    mypy-boto3-batch
     utils-logger
     types-click
+    types-boto3
   ];
   dev_deps = with python_pkgs; [
     import-linter

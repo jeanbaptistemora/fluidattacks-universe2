@@ -23,7 +23,6 @@
 in
   pkgs
   // {
-    boto3-stubs = import ./boto3/stubs.nix lib pkgs;
     import-linter = import ./import-linter {
       inherit lib;
       click = pkgs.click;
@@ -34,5 +33,7 @@ in
         propagatedBuildInputs = map _typing_ext_override old.propagatedBuildInputs;
       }
     );
+    mypy-boto3-batch = import ./boto3/batch-stubs.nix lib pkgs;
+    types-boto3 = import ./boto3/stubs.nix lib pkgs;
     types-click = import ./click/stubs.nix lib;
   }
