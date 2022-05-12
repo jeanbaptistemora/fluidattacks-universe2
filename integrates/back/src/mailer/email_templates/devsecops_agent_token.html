@@ -9,8 +9,9 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      A DevSecOps Agent token has been reset {{ report_date }} in the group <strong>{{ group_name }}</strong>
-      by <strong>{{ responsible }}</strong>.<br/>
+      A DevSecOps Agent token has been
+      {% if had_token %} reset {% else %} generated {% endif %} {{ report_date }}
+      in the group <strong>{{ group_name }}</strong> by <strong>{{ responsible }}</strong>.<br/>
     </p>
     <p>
       You can use the DevSeCops agent on any OS that Docker can run on. You can also integrate

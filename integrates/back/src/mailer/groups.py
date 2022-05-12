@@ -323,20 +323,23 @@ async def send_mail_devsecops_agent_token(
     user_email: str,
     report_date: date,
     email_to: List[str],
+    had_token: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
+    token_status: str = "reset" if had_token else "generated"
 
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group_name": group_name,
         "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
         "responsible": user_email,
+        "had_token": had_token,
     }
     await send_mails_async(
         email_to,
         email_context,
         COMMENTS_TAG,
-        f"DevSecOps Agent token reset in [{group_name}]",
+        f"DevSecOps Agent token {token_status} in [{group_name}]",
         "devsecops_agent_token",
     )
 

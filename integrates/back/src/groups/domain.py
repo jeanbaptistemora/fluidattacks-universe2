@@ -1543,6 +1543,9 @@ async def update_forces_access_token(
     expiration_time: int,
     responsible: str,
 ) -> UpdateAccessTokenPayloadType:
+    group: Group = await loaders.group_typed.load(group_name)
+    had_token: bool = bool(group.agent_token)
+
     result = await users_domain.update_access_token(email, expiration_time)
 
     if result.success:
@@ -1550,6 +1553,7 @@ async def update_forces_access_token(
             loaders=loaders,
             group_name=group_name,
             responsible=responsible,
+            had_token=had_token,
         )
 
     return result
@@ -1560,6 +1564,7 @@ async def send_mail_devsecops_agent(
     loaders: Any,
     group_name: str,
     responsible: str,
+    had_token: bool,
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
     users = await group_access_domain.get_group_users(
@@ -1581,6 +1586,7 @@ async def send_mail_devsecops_agent(
         user_email=responsible,
         report_date=datetime_utils.get_datetime_from_iso_str(report_date),
         email_to=email_list,
+        had_token=had_token,
     )
 
 
