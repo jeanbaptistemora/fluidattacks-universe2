@@ -425,44 +425,77 @@ async def get_finding_current_release_status(
 
 
 @SHIELD
-async def get_finding_vulnerabilities(
-    *,
+async def get_finding_vulnerabilities(  # pylint: disable=too-many-locals
     finding: core_model.FindingEnum,
     finding_id: str,
     client: Optional[GraphQLClient] = None,
 ) -> EphemeralStore:
-    result = await _execute(
-        query="""
-            query SkimsGetFindingVulnerabilities(
-                $finding_id: String!
-            ) {
-                finding(identifier: $finding_id) {
-                    vulnerabilities {
-                        commitHash
-                        currentState
-                        id
-                        lastVerificationDate
-                        source
-                        specific
-                        stream
-                        verification
-                        vulnerabilityType
-                        where
+    vulnerabilities = []
+    query = """
+        query SkimsGetFindingVulnerabilities(
+            $after: String
+            $finding_id: String!
+            $first: Int
+        ) {
+            finding(identifier: $finding_id) {
+                id
+                vulnerabilitiesConnection(
+                    after: $after,
+                    first: $first,
+                ) {
+                    edges {
+                        node {
+                            commitHash
+                            currentState
+                            id
+                            lastVerificationDate
+                            source
+                            specific
+                            stream
+                            verification
+                            vulnerabilityType
+                            where
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
                     }
                 }
             }
-        """,
+        }
+    """
+    result = await _execute(
+        query=query,
         operation="SkimsGetFindingVulnerabilities",
-        variables=dict(
-            finding_id=finding_id,
-        ),
+        variables=dict(finding_id=finding_id),
         client=client,
     )
+    while True:
+        has_next_page = False
+        if result:
+            vulnerabilities_connection = result["data"]["finding"][
+                "vulnerabilitiesConnection"
+            ]
+            vulnerability_page_info = vulnerabilities_connection["pageInfo"]
+            vulnerability_edges = vulnerabilities_connection["edges"]
+            has_next_page = vulnerability_page_info["hasNextPage"]
+            end_cursor = vulnerability_page_info["endCursor"]
+            vulnerabilities.extend(
+                [vuln_edge["node"] for vuln_edge in vulnerability_edges]
+            )
+
+        if not has_next_page:
+            break
+
+        result = await _execute(
+            query=query,
+            operation="SkimsGetFindingVulnerabilities",
+            variables=dict(finding_id=finding_id, after=end_cursor),
+            client=client,
+        )
 
     store: EphemeralStore = get_ephemeral_store()
-    vulnerabilities = []
-    with suppress(AttributeError, KeyError, TypeError):
-        vulnerabilities = result["data"]["finding"]["vulnerabilities"]
     for vulnerability in vulnerabilities:
         kind = core_model.VulnerabilityKindEnum(
             vulnerability["vulnerabilityType"]
