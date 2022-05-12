@@ -801,10 +801,11 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     )
 
     is_failed: bool = (
-        status == GitCloningStatus.FAILED and status != root.cloning.status
+        status == GitCloningStatus.FAILED
+        and root.cloning.status == GitCloningStatus.OK
     )
     if (
-        status == GitCloningStatus.CLONING
+        status == GitCloningStatus.OK
         and root.cloning.status == GitCloningStatus.FAILED
         or is_failed
     ):
