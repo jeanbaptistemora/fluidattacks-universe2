@@ -110,6 +110,10 @@ const Repository: React.FC<IRepositoryProps> = ({
     return undefined;
   };
 
+  const [hasSquad, setHasSquad] = useState(false);
+  function setSquad(): void {
+    setHasSquad(true);
+  }
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     isEditing ? initialValues.includesHealthCheck : undefined
   );
@@ -233,9 +237,10 @@ const Repository: React.FC<IRepositoryProps> = ({
         name={"gitRoot"}
         onSubmit={onSubmit}
         validationSchema={gitModalSchema(
-          nicknames,
+          hasSquad,
           initialValues,
-          isDuplicated
+          isDuplicated,
+          nicknames
         )}
       >
         {({ dirty, errors, isSubmitting, values }): JSX.Element => (
@@ -486,7 +491,11 @@ const Repository: React.FC<IRepositoryProps> = ({
                 </fieldset>
                 <Have I={"has_squad"}>
                   <fieldset className={"bn"}>
-                    <div id={"git-root-add-health-check"}>
+                    <div
+                      id={"git-root-add-health-check"}
+                      onMouseMove={setSquad}
+                      role={"none"}
+                    >
                       <legend className={"f3 b"}>
                         {t("group.scope.git.healthCheck.title")}
                       </legend>

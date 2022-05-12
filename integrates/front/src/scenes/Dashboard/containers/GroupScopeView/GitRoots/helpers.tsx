@@ -41,9 +41,10 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
 };
 
 const gitModalSchema = (
-  nicknames: string[],
+  hasSquad: boolean,
   initialValues: IGitRootAttr,
-  isDuplicated: (field: string) => boolean
+  isDuplicated: (field: string) => boolean,
+  nicknames: string[]
 ): InferType<TypedSchema> =>
   lazy(
     (values: IGitRootAttr): BaseSchema =>
@@ -84,6 +85,9 @@ const gitModalSchema = (
             translate.t("validations.required"),
             (): boolean => {
               const { healthCheckConfirm, includesHealthCheck } = values;
+              if (!hasSquad) {
+                return true;
+              }
               if (
                 includesHealthCheck !== null &&
                 !includesHealthCheck &&
@@ -107,7 +111,13 @@ const gitModalSchema = (
           ),
         includesHealthCheck: boolean()
           .nullable()
-          .required(translate.t("validations.required")),
+          .when("$hasSquad", {
+            is: (): boolean => hasSquad,
+            otherwise: boolean().nullable(),
+            then: boolean()
+              .nullable()
+              .required(translate.t("validations.required")),
+          }),
         nickname: string()
           .when("url", {
             is: (url: string): boolean => isDuplicated(url),
