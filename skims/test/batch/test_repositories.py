@@ -14,7 +14,6 @@ import pytest
 @pytest.mark.usefixtures("mock_pull_namespace_from_s3")
 @pytest.mark.usefixtures("test_integrates_session")
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 async def test_get_namespace(test_group: str) -> None:
     from batch import (
         repositories,
@@ -44,7 +43,6 @@ async def test_get_namespace(test_group: str) -> None:
 @pytest.mark.usefixtures("mock_pull_namespace_from_s3")
 @pytest.mark.usefixtures("test_integrates_session")
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 async def test_delete_out_of_scope_files(test_group: str) -> None:
     from batch import (
         repositories,

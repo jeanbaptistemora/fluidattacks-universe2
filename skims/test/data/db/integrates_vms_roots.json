@@ -64,7 +64,20 @@
             "L": []
           },
           "gitignore": {
-            "L": []
+            "L": [
+              {
+                "S": "back/test/**/*"
+              },
+              {
+                "S": "front/components/**/*.spec.js"
+              },
+              {
+                "S": "front/node_modules/"
+              },
+              {
+                "S": "back/src/static/*"
+              }
+            ]
           },
           "includes_health_check": {
             "BOOL": false
@@ -122,7 +135,20 @@
             "L": []
           },
           "gitignore": {
-            "L": []
+            "L": [
+              {
+                "S": "back/test/**/*"
+              },
+              {
+                "S": "front/components/**/*.spec.js"
+              },
+              {
+                "S": "front/node_modules/"
+              },
+              {
+                "S": "back/src/static/*"
+              }
+            ]
           },
           "includes_health_check": {
             "BOOL": false
@@ -222,7 +248,20 @@
                 "L": []
               },
               "gitignore": {
-                "L": []
+                "L": [
+                  {
+                    "S": "back/test/**/*"
+                  },
+                  {
+                    "S": "front/components/**/*.spec.js"
+                  },
+                  {
+                    "S": "front/node_modules/"
+                  },
+                  {
+                    "S": "back/src/static/*"
+                  }
+                ]
               },
               "includes_health_check": {
                 "BOOL": false
