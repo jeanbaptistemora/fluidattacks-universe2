@@ -16,6 +16,9 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
     delete_item as dynamodb_delete_item,
@@ -31,6 +34,9 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
+)
+from newutils.organizations import (
+    format_organization_item,
 )
 from settings import (
     LOGGING,
@@ -93,6 +99,17 @@ async def add_user(organization_id: str, email: str) -> bool:
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
+
+
+async def add_typed(
+    *,
+    organization: Organization,
+) -> None:
+    org_item = format_organization_item(organization)
+    try:
+        await dynamodb_put_item(TABLE_NAME, org_item)
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
 
 
 async def add(

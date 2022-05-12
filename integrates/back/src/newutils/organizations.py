@@ -11,6 +11,7 @@ from dynamodb.types import (
 )
 from newutils.datetime import (
     convert_to_iso_str,
+    get_now_as_str,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -115,3 +116,17 @@ def format_organization(item: Item) -> Organization:
         state=format_organization_state(item),
         policies=format_organization_policies(item),
     )
+
+
+def format_organization_item(organization: Organization) -> Item:
+    return {
+        "pk": f"ORG#{organization.id}",
+        "sk": f"INFO#{organization.name}",
+        "historic_state": [
+            {
+                "modified_by": organization.state.modified_by,
+                "modified_date": get_now_as_str(),
+                "status": organization.state.status.value,
+            }
+        ],
+    }
