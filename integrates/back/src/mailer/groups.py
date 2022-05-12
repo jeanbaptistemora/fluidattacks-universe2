@@ -265,7 +265,10 @@ async def send_mail_root_cloning_status(
         email_to=email_to,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=f"Root {cloning_state} status cloning in [{group_name}]",
+        subject=(
+            f"Root [{root_nickname}] {cloning_state} status cloning in "
+            f"[{group_name}]"
+        ),
         template_name="root_cloning_status",
     )
 
