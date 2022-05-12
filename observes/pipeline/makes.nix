@@ -47,6 +47,7 @@
   index = inputs.observesIndex;
   pkgTargets = with index; [
     service.batch_stability
+    service.scheduler
     tap.checkly
   ];
   genPkgJobs = pkg: [

@@ -26,25 +26,27 @@ class InvalidJob(Exception):
 
 
 class Jobs(Enum):
-    ANNOUNCEKIT = os.environ["announceKitEtl"]
-    BUGSNAG = os.environ["bugsnagEtl"]
-    CHECKLY = os.environ["checklyEtl"]
-    DELIGHTED = os.environ["delightedEtl"]
-    DYNAMO_FORCES = f'{os.environ["dynamoDbEtls"]} FORCES'
-    DYNAMO_INTEGRATES = f'{os.environ["dynamoDbEtls"]} GROUP'
-    DYNAMO_INTEGRATES_MAIN = f'{os.environ["dynamoDbEtls"]} CORE'
-    FORMSTACK = os.environ["formstackEtl"]
-    GITLAB_PRODUCT = os.environ["gitlabEtlProduct"]
-    GITLAB_CHALLENGES = os.environ["gitlabEtlChallenges"]
-    GITLAB_DEFAULT = os.environ["gitlabEtlDefault"]
-    GITLAB_SERVICES = os.environ["gitlabEtlServices"]
-    MAILCHIMP_ETL = os.environ["mailchimpEtl"]
-    MIRROR = os.environ["codeEtlMirror"]
-    REPORT_FAILS = os.environ["batchStability"] + " report-failures observes"
-    REPORT_CANCELLED = (
-        os.environ["batchStability"] + " report-cancelled observes"
+    ANNOUNCEKIT = os.environ.get("announceKitEtl", "")
+    BUGSNAG = os.environ.get("bugsnagEtl", "")
+    CHECKLY = os.environ.get("checklyEtl", "")
+    DELIGHTED = os.environ.get("delightedEtl", "")
+    DYNAMO_FORCES = f'{os.environ.get("dynamoDbEtls", "")} FORCES'
+    DYNAMO_INTEGRATES = f'{os.environ.get("dynamoDbEtls", "")} GROUP'
+    DYNAMO_INTEGRATES_MAIN = f'{os.environ.get("dynamoDbEtls", "")} CORE'
+    FORMSTACK = os.environ.get("formstackEtl", "")
+    GITLAB_PRODUCT = os.environ.get("gitlabEtlProduct", "")
+    GITLAB_CHALLENGES = os.environ.get("gitlabEtlChallenges", "")
+    GITLAB_DEFAULT = os.environ.get("gitlabEtlDefault", "")
+    GITLAB_SERVICES = os.environ.get("gitlabEtlServices", "")
+    MAILCHIMP_ETL = os.environ.get("mailchimpEtl", "")
+    MIRROR = os.environ.get("codeEtlMirror", "")
+    REPORT_FAILS = (
+        os.environ.get("batchStability", "") + " report-failures observes"
     )
-    UPLOAD = os.environ["codeEtlUpload"]
+    REPORT_CANCELLED = (
+        os.environ.get("batchStability", "") + " report-cancelled observes"
+    )
+    UPLOAD = os.environ.get("codeEtlUpload", "")
 
 
 def new_job(raw: str) -> Result[Jobs, InvalidJob]:
