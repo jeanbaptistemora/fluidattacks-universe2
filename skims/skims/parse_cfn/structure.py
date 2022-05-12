@@ -124,6 +124,18 @@ def iter_ebs_block_devices(
                     yield block_device
 
 
+def iter_ec2_instance_ebs_block_devices(
+    template: Node,
+) -> Iterator[Node]:
+    for _, _, props in iterate_resources(
+        template, "AWS::EC2::Instance"  # NOSONAR
+    ):
+        if block_dev_map_list := props.inner.get("BlockDeviceMappings"):
+            for block_dev_map in block_dev_map_list.data:
+                if block_device := block_dev_map.inner.get("Ebs"):
+                    yield block_device
+
+
 def iter_ec2_security_groups(template: Node) -> Iterator[Node]:
     yield from (
         props

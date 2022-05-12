@@ -41,7 +41,7 @@ def _tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
                 yield elem
 
 
-def _tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
+def _tfm_ec2_instance_unencrypted_ebs_block_devices_iter_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for resource in resource_iterator:
@@ -99,19 +99,21 @@ def tfm_ebs_unencrypted_volumes(
     )
 
 
-def tfm_ec2_unencrypted_volumes(
+def tfm_ec2_instance_unencrypted_ebs_block_devices(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f250.resource_not_encrypted",
+        description_key=(
+            "lib_path.f250.tfm_ec2_instance_unencrypted_ebs_block_devices"
+        ),
         iterator=get_cloud_iterator(
-            _tfm_ec2_unencrypted_volumes_iterate_vulnerabilities(
+            _tfm_ec2_instance_unencrypted_ebs_block_devices_iter_vulns(
                 resource_iterator=iter_aws_instance(model=model)
             )
         ),
         path=path,
-        method=MethodsEnum.TFM_EC2_UNENCRYPTED_VOLUMES,
+        method=MethodsEnum.TFM_EC2_UNENCRYPTED_BLOCK_DEVICES,
     )
 
 

@@ -7,6 +7,12 @@ src.lib_path.f250.ec2_has_unencrypted_volumes:
 lib_path.f250.resource_not_encrypted:
   en: Property encrypted is either missing or misconfigured
   es: Falta la propiedad encrypted o está mal configurada
+lib_path.f250.tfm_ec2_instance_unencrypted_ebs_block_devices:
+  en: Property (ebs/root)_block_device.encrypted is either missing or misconfigured
+  es: Falta la propiedad (ebs/root)_block_device.encrypted o está mal configurada
+lib_path.f250.cfn_ec2_instance_unencrypted_ebs_block_devices:
+  en: Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured
+  es: Falta la propiedad BlockDeviceMapping.Ebs.Encrypted o está mal configurada
 lib_path.f250.tfm_ebs_unencrypted_by_default:
   en: Property enabled is either missing or misconfigured
   es: Falta la propiedad enabled o está mal configurada

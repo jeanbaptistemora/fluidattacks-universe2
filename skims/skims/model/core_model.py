@@ -2728,9 +2728,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
+    TFM_EC2_UNENCRYPTED_BLOCK_DEVICES = MethodInfo(
         file_name="terraform",
-        name="tfm_ec2_unencrypted_volumes",
+        name="tfm_ec2_instance_unencrypted_ebs_block_devices",
         module="lib_path",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
@@ -2755,6 +2755,14 @@ class MethodsEnum(Enum):
     CFN_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_unencrypted_volumes",
+        module="lib_path",
+        finding=FindingEnum.F250,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_EC2_UNENCRYPTED_BLOCK_DEVICES = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_instance_unencrypted_ebs_block_devices",
         module="lib_path",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,

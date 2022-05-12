@@ -5,11 +5,12 @@ from lib_path.common import (
 )
 from lib_path.f250.cloudformation import (
     cfn_ec2_has_unencrypted_volumes,
+    cfn_ec2_instance_unencrypted_ebs_block_devices,
 )
 from lib_path.f250.terraform import (
     tfm_ebs_unencrypted_by_default,
     tfm_ebs_unencrypted_volumes,
-    tfm_ec2_unencrypted_volumes,
+    tfm_ec2_instance_unencrypted_ebs_block_devices,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -37,6 +38,15 @@ def run_cfn_ec2_has_unencrypted_volumes(
 
 
 @SHIELD_BLOCKING
+def run_cfn_ec2_instance_unencrypted_ebs_block_devices(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_ec2_instance_unencrypted_ebs_block_devices(
+        content=content, file_ext=file_ext, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
 def run_tfm_ebs_unencrypted_volumes(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -44,10 +54,12 @@ def run_tfm_ebs_unencrypted_volumes(
 
 
 @SHIELD_BLOCKING
-def run_tfm_ec2_unencrypted_volumes(
+def run_tfm_ec2_instance_unencrypted_ebs_block_devices(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
-    return tfm_ec2_unencrypted_volumes(content=content, path=path, model=model)
+    return tfm_ec2_instance_unencrypted_ebs_block_devices(
+        content=content, path=path, model=model
+    )
 
 
 @SHIELD_BLOCKING
@@ -75,7 +87,10 @@ def analyze(
                 *results,
                 *(
                     fun(content, file_extension, path, template)
-                    for fun in (run_cfn_ec2_has_unencrypted_volumes,)
+                    for fun in (
+                        run_cfn_ec2_has_unencrypted_volumes,
+                        run_cfn_ec2_instance_unencrypted_ebs_block_devices,
+                    )
                 ),
             )
 
@@ -88,7 +103,7 @@ def analyze(
                 fun(content, path, model)
                 for fun in (
                     run_tfm_ebs_unencrypted_volumes,
-                    run_tfm_ec2_unencrypted_volumes,
+                    run_tfm_ec2_instance_unencrypted_ebs_block_devices,
                     run_tfm_ebs_unencrypted_by_default,
                 )
             ),

@@ -1936,30 +1936,54 @@ F024,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_
   50 | }
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,1,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
->  1 | resource ""aws_instance"" ""project-iac"" {
-   2 |   ami                         = lookup(var.awsprops, ""ami"")
-   3 |   instance_type               = lookup(var.awsprops, ""itype"")
-   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
-   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
-   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
-   7 |
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-  14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-  21 |   ebs_block_device {
+F024,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+>  5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
      ^ Col 0
-",terraform.tfm_ec2_instances_without_profile
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   22 |       LaunchTemplateData:
   23 |         InstanceType: t2.micro
@@ -4024,30 +4048,54 @@ F333,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_
   50 | }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,1,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
->  1 | resource ""aws_instance"" ""project-iac"" {
-   2 |   ami                         = lookup(var.awsprops, ""ami"")
-   3 |   instance_type               = lookup(var.awsprops, ""itype"")
-   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
-   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
-   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
-   7 |
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-  14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-  21 |   ebs_block_device {
+F333,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,4,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
      ^ Col 0
-",terraform.tfm_ec2_has_not_an_iam_instance_profile
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   21 |       LaunchTemplateName: MyLaunchTemplate
   22 |       LaunchTemplateData:
@@ -20233,6 +20281,222 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volum
   32 |         ""Size"": 100,
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,9,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+   1 | Resources:
+   2 |   EC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |         - DeviceName: ""/dev/sdm""
+>  9 |           Ebs:
+  10 |             VolumeType: ""io1""
+  11 |             Iops: ""200""
+  12 |             DeleteOnTermination: ""false""
+  13 |             VolumeSize: ""20""
+  14 |         - DeviceName: ""/dev/sdk""
+  15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+> 11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,9,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+>  9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,25,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
+  22 |           VolumeSize: ""20""
+  23 |       - DeviceName: ""/dev/sdm""
+  24 |         Ebs:
+> 25 |           Encrypted: false
+  26 |           VolumeType: ""io1""
+  27 |           Iops: ""200""
+  28 |           DeleteOnTermination: ""false""
+  29 |           VolumeSize: ""20""
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+> 11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,35,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+  25 |               ""Encrypted"": true,
+  26 |               ""VolumeType"": ""io1"",
+  27 |               ""Iops"": ""200"",
+  28 |               ""DeleteOnTermination"": ""false"",
+  29 |               ""VolumeSize"": ""20""
+  30 |             }
+  31 |           },
+  32 |           {
+  33 |             ""DeviceName"": ""/dev/sdm"",
+  34 |             ""Ebs"": {
+> 35 |               ""Encrypted"": false,
+  36 |               ""VolumeType"": ""io1"",
+  37 |               ""Iops"": ""200"",
+  38 |               ""DeleteOnTermination"": ""false"",
+  39 |               ""VolumeSize"": ""20""
+  40 |             }
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     }
+  45 |   }
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,9,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+   4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+>  9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,24,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |   MyEC2Instance:
+  17 |     Type: AWS::EC2::Instance
+  18 |     Properties:
+  19 |       ImageId: ""ami-79fd7eee""
+  20 |       KeyName: ""testkey""
+  21 |       IamInstanceProfile: iamProfile
+  22 |       BlockDeviceMappings:
+  23 |       - DeviceName: ""/dev/sdm""
+> 24 |         Ebs:
+  25 |           VolumeType: ""io1""
+  26 |           Iops: ""200""
+  27 |           DeleteOnTermination: ""false""
+  28 |           VolumeSize: ""20""
+  29 |       - DeviceName: ""/dev/sdk""
+  30 |         NoDevice: {}
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,12,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""IamInstanceProfile"": ""iamProfile"",
+   9 |         ""BlockDeviceMappings"": [
+  10 |           {
+  11 |             ""DeviceName"": ""/dev/sdm"",
+> 12 |             ""Ebs"": {
+  13 |               ""VolumeType"": ""io1"",
+  14 |               ""Iops"": ""200"",
+  15 |               ""DeleteOnTermination"": ""false"",
+  16 |               ""VolumeSize"": ""20""
+  17 |             }
+  18 |           },
+  19 |           {
+  20 |             ""DeviceName"": ""/dev/sdk"",
+  21 |             ""NoDevice"": {}
+  22 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
 F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ebs_unencrypted_by_default.tf,2,313,skims,250. Non-encrypted hard drives,Property enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ebs_unencrypted_by_default.tf,"
   1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
 > 2 |   enabled = false
@@ -20259,54 +20523,6 @@ F250,lines,namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volum
   17 | }
      ^ Col 0
 ",terraform.tfm_ebs_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,14,313,skims,250. Non-encrypted hard drives,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
-   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
-   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
-   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
-   7 |
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-> 14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-  21 |   ebs_block_device {
-  22 |     delete_on_termination = true
-  23 |     iops                  = 150
-  24 |     volume_size           = 50
-     ^ Col 0
-",terraform.tfm_ec2_unencrypted_volumes
-F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,21,313,skims,250. Non-encrypted hard drives,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-  14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-> 21 |   ebs_block_device {
-  22 |     delete_on_termination = true
-  23 |     iops                  = 150
-  24 |     volume_size           = 50
-  25 |     volume_type           = ""gp2""
-  26 |   }
-  27 |
-  28 | }
-     ^ Col 0
-",terraform.tfm_ec2_unencrypted_volumes
 F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,017. Sensitive information sent insecurely,"The system sends sensitive information through a channel or method which does not guarantee its confidentiality or integrity.
  in namespace/skims/test/data/lib_root/f017/decoder_test.cs","
    1 | using System;
@@ -21355,6 +21571,54 @@ F257,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_
   48 |     }
   49 |   }
   50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,17,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
@@ -24253,6 +24517,56 @@ F109,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_
   48 |     }
   49 |   }
   50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,4,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml","
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
      ^ Col 0
 ",cloudformation.cfn_ec2_use_default_security_group
 F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,6,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
@@ -28568,30 +28882,54 @@ F400,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_
   50 | }
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,1,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f250/tfm_ec2_unencrypted_volumes.tf,"
->  1 | resource ""aws_instance"" ""project-iac"" {
-   2 |   ami                         = lookup(var.awsprops, ""ami"")
-   3 |   instance_type               = lookup(var.awsprops, ""itype"")
-   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
-   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
-   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
-   7 |
-   8 |
-   9 |   vpc_security_group_ids = [
-  10 |     aws_security_group.project-iac-sg.id
-  11 |   ]
-  12 |
-  13 |   root_block_device {
-  14 |     encrypted             = false
-  15 |     delete_on_termination = true
-  16 |     iops                  = 150
-  17 |     volume_size           = 50
-  18 |     volume_type           = ""gp2""
-  19 |   }
-  20 |
-  21 |   ebs_block_device {
+F400,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,4,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   1 | Resources:
+   2 |   MyEC2Instance:
+   3 |     Type: AWS::EC2::Instance
+>  4 |     Properties:
+   5 |       ImageId: ""ami-79fd7eee""
+   6 |       KeyName: ""testkey""
+   7 |       BlockDeviceMappings:
+   8 |       - DeviceName: ""/dev/sdm""
+   9 |         Ebs:
+  10 |           VolumeType: ""io1""
+  11 |           Iops: ""200""
+  12 |           DeleteOnTermination: ""false""
+  13 |           VolumeSize: ""20""
+  14 |       - DeviceName: ""/dev/sdk""
+  15 |         NoDevice: {}
+  16 |       - DeviceName: ""/dev/sdm""
+  17 |         Ebs:
+  18 |           Encrypted: true
+  19 |           VolumeType: ""io1""
+  20 |           Iops: ""200""
+  21 |           DeleteOnTermination: ""false""
      ^ Col 0
-",terraform.tfm_ec2_monitoring_disabled
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,31,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_protection.yaml,"
   21 |       LaunchTemplateName: MyLaunchTemplate
   22 |       LaunchTemplateData:
