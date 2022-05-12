@@ -5,6 +5,7 @@ from jobs_scheduler.cron.core import (
     AnyTime,
     Cron,
     CronItem,
+    DaysRange,
 )
 
 
@@ -23,12 +24,17 @@ def _cron_weekday(time: datetime) -> int:
 
 
 def match_cron(cron: Cron, time: datetime) -> bool:
+    _week_day = (
+        cron.week_day.to_cron()
+        if isinstance(cron.week_day, DaysRange)
+        else cron.week_day
+    )
     return all(
         (
             match_cron_item(cron.minute, time.minute),
             match_cron_item(cron.hour, time.hour),
             match_cron_item(cron.day, time.day),
             match_cron_item(cron.month, time.month),
-            match_cron_item(cron.week_day, _cron_weekday(time)),
+            match_cron_item(_week_day, _cron_weekday(time)),
         )
     )

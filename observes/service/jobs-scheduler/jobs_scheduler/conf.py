@@ -12,6 +12,8 @@ from jobs_scheduler.cron.core import (
     AnyTime,
     Cron,
     CronItem,
+    Days,
+    DaysRange,
 )
 from jobs_scheduler.cron.factory import (
     week_days,
@@ -57,7 +59,7 @@ def new_job(raw: str) -> Result[Jobs, InvalidJob]:
 
 
 def behind_work_days(minute: CronItem, hour: CronItem) -> Cron:
-    return week_days(minute, hour, range(0, 5)).unwrap()  # Sun - Thu
+    return week_days(minute, hour, DaysRange(Days.SUN, Days.THU)).unwrap()
 
 
 ANY = AnyTime()
@@ -84,7 +86,11 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
             Jobs.GITLAB_SERVICES,
         ),
         work_days(ANY, (11, 18)).unwrap(): (Jobs.FORMSTACK,),
-        work_days(ANY, range(0, 16, 5)).unwrap(): (Jobs.DYNAMO_FORCES,),
-        work_days(ANY, range(5, 19, 3)).unwrap(): (Jobs.DYNAMO_INTEGRATES,),
+        week_days(
+            ANY, range(0, 16, 5), DaysRange(Days.SUN, Days.FRI)
+        ).unwrap(): (Jobs.DYNAMO_FORCES,),
+        week_days(
+            ANY, range(5, 19, 3), DaysRange(Days.SUN, Days.FRI)
+        ).unwrap(): (Jobs.DYNAMO_INTEGRATES,),
     }
 )

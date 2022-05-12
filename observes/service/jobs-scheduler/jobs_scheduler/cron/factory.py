@@ -6,8 +6,13 @@ from jobs_scheduler.cron.core import (
     Cron,
     CronDraft,
     CronItem,
+    Days,
+    DaysRange,
     InvalidCron,
     new_cron,
+)
+from typing import (
+    Union,
 )
 
 
@@ -18,12 +23,12 @@ def weekly(
 
 
 def work_days(minute: CronItem, hour: CronItem) -> Result[Cron, InvalidCron]:
-    days = range(1, 6)  # Monday - Friday
+    days = DaysRange(Days.MON, Days.FRI)
     return new_cron(CronDraft(minute, hour, AnyTime(), AnyTime(), days))
 
 
 def week_days(
-    minute: CronItem, hour: CronItem, days: CronItem
+    minute: CronItem, hour: CronItem, days: Union[CronItem, DaysRange]
 ) -> Result[Cron, InvalidCron]:
     return new_cron(CronDraft(minute, hour, AnyTime(), AnyTime(), days))
 
