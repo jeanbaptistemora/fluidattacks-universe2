@@ -214,7 +214,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     user_email: str,
-    queue: str = "unlimited_spot",
     group_name: str,
     roots: Optional[Tuple[GitRoot, ...]] = None,
     check_existing_jobs: bool = True,
@@ -371,7 +370,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                     *roots_in_current_actions,
                 }
             ),
-            queue=queue,
+            queue="unlimited_spot_clone",
             product_name=Product.INTEGRATES,
             dynamodb_pk=current_action.key if current_action else None,
         )

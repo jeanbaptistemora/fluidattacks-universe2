@@ -93,7 +93,6 @@ async def mutate(
                 roots=(root,),
                 user_email=user_email,
                 group_name=root.group_name,
-                queue="unlimited_spot",
             )
         )
         and (

@@ -50,6 +50,9 @@ from db_model.findings.types import (
     FindingState,
     FindingVerification,
 )
+from db_model.roots.types import (
+    GitRoot,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -63,9 +66,6 @@ from decimal import (
 )
 from findings import (
     storage as findings_storage,
-)
-from findings.domain.reattack import (
-    clone_roots_in_batch,
 )
 from findings.types import (
     FindingDescriptionToUpdate,
@@ -611,17 +611,19 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
     )
     if not vulnerabilities:
         raise VulnNotFound()
-
     root_nicknames = {
         vuln.repo
         for vuln in vulnerabilities
         if vuln.repo and not check_hold(vuln)
     }
+    roots: tuple[GitRoot, ...] = await loaders.group_roots.load(
+        finding.group_name
+    )
+    roots = tuple(
+        root for root in roots if root.state.nickname in root_nicknames
+    )
     if root_nicknames and FI_ENVIRONMENT == "production":
         with suppress(ClientError):
-            clone_job_id = (
-                await clone_roots_in_batch(finding.group_name, *root_nicknames)
-            )["jobId"]
             if finding_code := get_finding_code_from_title(finding.title):
                 await queue_job_new(
                     group_name=finding.group_name,
@@ -629,9 +631,8 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
                     finding_codes=[
                         finding_code,
                     ],
-                    dependsOn=[
-                        {"jobId": clone_job_id, "type": "SEQUENTIAL"},
-                    ],
+                    dataloaders=loaders,
+                    clone_before=True,
                 )
     comment_id = str(round(time() * 1000))
     user_email: str = user_info["user_email"]

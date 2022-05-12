@@ -214,26 +214,25 @@ async def list_(
     )
 
 
-async def queue_job_new(
+async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
     group_name: str,
+    dataloaders: Any,
     finding_codes: Union[Tuple[str, ...], List[str]],
     queue: SkimsBatchQueue = SkimsBatchQueue.HIGH,
     roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
-    dataloaders: Any = None,
+    clone_before: bool = False,
     **kwargs: Any,
 ) -> Optional[PutActionResult]:
+
+    from batch.actions import (  # pylint: disable=import-outside-toplevel
+        clone_roots,
+    )
+
     git_roots: List[GitRoot] = []
     if dataloaders:
         git_roots = await dataloaders.group_roots.load(group_name)
 
     if not roots:
-        if not dataloaders:
-            raise Exception(
-                (
-                    "If you don't provide the roots parameter, you must"
-                    " provide the dataloaders parameter to load the roots"
-                )
-            )
         roots = list(
             root.state.nickname
             for root in git_roots
@@ -244,12 +243,6 @@ async def queue_job_new(
 
     if not roots:
         return None
-
-    resource_options = dict(
-        service_name="batch",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    )
 
     current_executions = tuple(
         execution
@@ -272,7 +265,15 @@ async def queue_job_new(
         else None
     )
 
-    async with aioboto3.Session().client(**resource_options) as batch:
+    async with aioboto3.Session().client(
+        **(
+            dict(
+                service_name="batch",
+                aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
+                aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+            )
+        )
+    ) as batch:
         for execution in current_executions[:-1]:
             if not execution.running:
                 LOGGER.info(
@@ -286,6 +287,23 @@ async def queue_job_new(
                     )
                     await batch.cancel_job(jobId=job_id, reason="not required")
 
+    if (
+        (clone_before and dataloaders)
+        and (
+            result_clone := (
+                await clone_roots.queue_sync_git_roots(
+                    loaders=dataloaders,
+                    user_email="integrates@fluidattacks.com",
+                    group_name=group_name,
+                    force=True,
+                )
+            )
+        )
+        and (clone_job_id := result_clone.batch_job_id)
+    ):
+        kwargs["dependsOn"] = [
+            {"jobId": clone_job_id, "type": "SEQUENTIAL"},
+        ]
     queue_result = await put_action(
         action=Action.EXECUTE_MACHINE,
         vcpus=4,
