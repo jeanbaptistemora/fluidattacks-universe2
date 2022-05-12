@@ -8,6 +8,7 @@
     boto3
     bugsnag
     click
+    fa-purity
     mypy-boto3-batch
     utils-logger
     types-click

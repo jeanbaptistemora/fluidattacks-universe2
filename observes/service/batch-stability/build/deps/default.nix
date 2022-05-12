@@ -20,16 +20,27 @@
     if x.pname == "typing-extensions"
     then pkgs.typing-extensions
     else x;
+  mypy = pkgs.mypy.overridePythonAttrs (
+    old: {
+      propagatedBuildInputs = map _typing_ext_override old.propagatedBuildInputs;
+    }
+  );
+  _mypy_override = x:
+    if x.pname == "mypy"
+    then mypy
+    else x;
 in
   pkgs
   // {
+    inherit mypy;
     import-linter = import ./import-linter {
       inherit lib;
       click = pkgs.click;
       networkx = pkgs.networkx;
     };
-    mypy = pkgs.mypy.overridePythonAttrs (
+    fa-purity = pkgs.fa-purity.overridePythonAttrs (
       old: {
+        nativeBuildInputs = map _mypy_override old.nativeBuildInputs;
         propagatedBuildInputs = map _typing_ext_override old.propagatedBuildInputs;
       }
     );

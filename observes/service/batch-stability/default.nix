@@ -10,14 +10,15 @@
     buildPythonPackage = legacy_pkgs."${python_version}".pkgs.buildPythonPackage;
     fetchPypi = legacy_pkgs.python3Packages.fetchPypi;
   };
-  python_pkgs =
-    import ./build/deps {
-      inherit lib;
-      python_pkgs = legacy_pkgs."${python_version}Packages";
-    }
-    // {
-      utils-logger = extras.utils-logger."${python_version}".pkg;
-    };
+  python_pkgs = import ./build/deps {
+    inherit lib;
+    python_pkgs =
+      legacy_pkgs."${python_version}Packages"
+      // {
+        fa-purity = extras.fa-purity."${python_version}".pkg;
+        utils-logger = extras.utils-logger."${python_version}".pkg;
+      };
+  };
   self_pkgs = import ./build/pkg {
     inherit src lib metadata python_pkgs;
   };
