@@ -13,6 +13,6 @@ in
     searchPaths = {
       bin = [check];
     };
-    name = "observes-service-jobs-scheduler-test";
+    name = "observes-service-scheduler-check-tests";
     entrypoint = "";
   }

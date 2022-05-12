@@ -13,6 +13,6 @@ in
     searchPaths = {
       bin = [check];
     };
-    name = "observes-service-jobs-scheduler-lint";
+    name = "observes-service-scheduler-check-types";
     entrypoint = "";
   }

@@ -67,7 +67,6 @@
   # legacy standard
   targets = with index; [
     etl.code
-    service.scheduler
   ];
   lintJobsOutputs = map (x: x.lint) targets;
   lintJobs =

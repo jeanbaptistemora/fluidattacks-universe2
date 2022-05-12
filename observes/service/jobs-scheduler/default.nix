@@ -17,6 +17,6 @@
   self_pkgs = import ./build/pkg {
     inherit src lib metadata pythonPkgs;
   };
-  checks = import ./ci/check.nix {self_pkg = self_pkgs.pkg;};
+  checks = import ./check {self_pkg = self_pkgs.pkg;};
 in
   self_pkgs // {check = checks;}
