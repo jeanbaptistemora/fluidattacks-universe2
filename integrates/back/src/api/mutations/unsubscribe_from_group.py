@@ -42,8 +42,11 @@ async def mutate(
 ) -> SimplePayloadType:
     stakeholder_info = await token_utils.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info["user_email"]
-    success = await groups_domain.remove_user(
-        info.context.loaders, group_name, stakeholder_email
+    loaders: Any = info.context.loaders
+    success = await groups_domain.unsubscribe_from_group(
+        loaders=loaders,
+        group_name=group_name,
+        email=stakeholder_email,
     )
 
     if success:

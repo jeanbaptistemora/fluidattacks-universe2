@@ -344,6 +344,27 @@ async def send_mail_devsecops_agent_token(
     )
 
 
+async def send_mail_user_unsubscribed(
+    *,
+    group_name: str,
+    user_email: str,
+    report_date: date,
+    email_to: List[str],
+) -> None:
+    email_context: dict[str, Any] = {
+        "group_name": group_name,
+        "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
+        "user_email": user_email,
+    }
+    await send_mails_async(
+        email_to,
+        email_context,
+        COMMENTS_TAG,
+        f"Unsubscription alert in [{group_name}]",
+        "user_unsubscribed",
+    )
+
+
 async def send_mail_environment_report(
     *,
     email_to: List[str],

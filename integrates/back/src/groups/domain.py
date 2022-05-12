@@ -1490,6 +1490,52 @@ async def remove_user(
     return success
 
 
+async def unsubscribe_from_group(
+    *,
+    loaders: Any,
+    group_name: str,
+    email: str,
+) -> bool:
+    success: bool = await remove_user(
+        loaders=loaders,
+        group_name=group_name,
+        email=email,
+    )
+    if success:
+        await send_mail_unsubscribed(
+            group_name=group_name,
+            user_email=email,
+        )
+    return success
+
+
+async def send_mail_unsubscribed(
+    *,
+    group_name: str,
+    user_email: str,
+) -> None:
+    report_date: str = datetime_utils.get_iso_date()
+    users = await group_access_domain.get_group_users(
+        group_name,
+        active=True,
+    )
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in {"resourcer", "customer_manager", "user_manager"}
+    ]
+
+    await groups_mail.send_mail_user_unsubscribed(
+        group_name=group_name,
+        user_email=user_email,
+        report_date=datetime_utils.get_datetime_from_iso_str(report_date),
+        email_to=email_list,
+    )
+
+
 async def update_metadata_typed(
     *,
     group_name: str,
