@@ -20948,6 +20948,22 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Ex
   16 |  */
      ^ Col 0
 ",java.java_file_create_temp_file
+F211,lines,namespace/skims/test/data/lib_root/f211/regex_injection.cs,10,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/regex_injection.cs","
+   1 | using System;
+   2 | using System.Text.RegularExpressions;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |
+   7 |     protected void Page_Load(object sender, EventArgs e)
+   8 |     {
+   9 |         string findTerm = Request.Form[""findTerm""];
+> 10 |         Match m = Regex.Match(SearchableText, ""^term="" + findTerm);
+  11 |     }
+  12 | }
+     ^ Col 0
+",csharp.csharp_regex_injection
 F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/test.cs","
    1 | using System.Text.RegularExpressions;
