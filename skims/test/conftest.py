@@ -178,7 +178,7 @@ def mock_pull_namespace_from_s3(
     mocker: MockerFixture,
     test_group: str,  # pylint: disable=redefined-outer-name
 ) -> Iterator[None]:
-    repo_path = os.path.join(NAMESPACES_FOLDER, test_group, "namespace")
+    repo_path = os.path.join(NAMESPACES_FOLDER, test_group, "static_namespace")
     files = {
         f"{repo_path}/back/test/conftest.py",
         f"{repo_path}/back/test/test_utils.py",

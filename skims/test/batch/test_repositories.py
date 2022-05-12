@@ -19,8 +19,12 @@ async def test_get_namespace(test_group: str) -> None:
         repositories,
     )
 
-    path_expected = os.path.join(NAMESPACES_FOLDER, test_group, "namespace")
-    path_result = await repositories.get_namespace(test_group, "namespace")
+    path_expected = os.path.join(
+        NAMESPACES_FOLDER, test_group, "static_namespace"
+    )
+    path_result = await repositories.get_namespace(
+        test_group, "static_namespace"
+    )
     assert path_expected == path_result
 
     assert path_exists(path_join(path_expected, "README.md"))
@@ -49,9 +53,11 @@ async def test_delete_out_of_scope_files(test_group: str) -> None:
     )
 
     path_to_namespace = os.path.join(
-        NAMESPACES_FOLDER, test_group, "namespace"
+        NAMESPACES_FOLDER, test_group, "static_namespace"
     )
-    await repositories.delete_out_of_scope_files(test_group, "namespace")
+    await repositories.delete_out_of_scope_files(
+        test_group, "static_namespace"
+    )
     assert path_exists(path_join(path_to_namespace, "README.md"))
     assert path_exists(
         path_join(path_to_namespace, "front/components/user/index.js")

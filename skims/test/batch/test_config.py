@@ -54,7 +54,7 @@ async def test_get_scopes_from_group(test_group: str) -> None:
         "https://fluidattacks.com/",
         "https://app.fluidattacks.com/",
     }
-    result = await config.get_scopes_from_group(test_group, "namespace")
+    result = await config.get_scopes_from_group(test_group, "static_namespace")
     assert expected == result
 
 
@@ -77,7 +77,7 @@ async def test_generate_config(test_group: str) -> None:
             ),
         ),
         language=LocalesEnum.EN,
-        namespace="namespace",
+        namespace="static_namespace",
         output=os.path.abspath("result.csv"),
         path=SkimsPathConfig(
             include=(".",),
@@ -96,7 +96,7 @@ async def test_generate_config(test_group: str) -> None:
     )
     result = await config.generate_config(
         group_name=test_group,
-        namespace="namespace",
+        namespace="static_namespace",
         language=LocalesEnum.EN,
         working_dir=".",
         checks=("F001", "F008"),

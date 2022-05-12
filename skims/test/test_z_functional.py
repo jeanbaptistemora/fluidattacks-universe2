@@ -10,7 +10,6 @@ from contextlib import (
 )
 import csv
 from integrates.dal import (
-    do_add_git_root,
     do_delete_finding,
     get_finding_consult,
     get_finding_current_release_status,
@@ -43,9 +42,6 @@ from typing import (
 )
 from utils.logs import (
     configure,
-)
-from uuid import (
-    uuid4 as uuid,
 )
 from zone import (
     t,
@@ -520,7 +516,6 @@ async def test_reattack_comments_open_and_closed_vulnerability(
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 @pytest.mark.usefixtures("test_mocks_ssl_unsafe")
 async def test_integrates_group_is_pristine_run(
@@ -539,7 +534,6 @@ async def test_integrates_group_is_pristine_run(
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_integrates_group_is_pristine_check(
     test_group: str,
@@ -550,30 +544,21 @@ async def test_integrates_group_is_pristine_check(
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_integrates_group_has_required_roots(
     test_group: str,
 ) -> None:
     group_res = await get_group_roots(group=test_group)
     assert group_res is not None
-    roots: Set[str] = {result.nickname for result in group_res}
+    roots_nicknames: Set[str] = {result.nickname for result in group_res}
 
-    for namespace in ("namespace", "namespace2"):
-        if namespace in roots:
-            assert True
-        else:
-            assert await do_add_git_root(
-                group_name=test_group,
-                nickname=namespace,
-                url=(
-                    f"git@gitlab.com:fluidattacks/{namespace}-{uuid().hex}.git"
-                ),
-            )
+    assert all(
+        nickname in roots_nicknames
+        for nickname in ["dynamic_namespace_1", "dynamic_namespace_2"]
+    )
 
 
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     suite: str = "nothing_to_do"
     code, stdout, stderr = skims(

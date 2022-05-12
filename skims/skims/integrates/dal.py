@@ -547,60 +547,6 @@ async def get_finding_vulnerabilities(  # pylint: disable=too-many-locals
     return store
 
 
-@SHIELD
-async def do_add_git_root(
-    *,
-    branch: str = "main",
-    environment: str = "production",
-    gitignore: Optional[List[str]] = None,
-    group_name: str,
-    includes_health_check: bool = False,
-    nickname: str,
-    url: str,
-    client: Optional[GraphQLClient] = None,
-) -> bool:
-    result = await _execute(
-        query="""
-            mutation SkimsDoAddGitRoot(
-                $branch: String!
-                $environment: String!
-                $gitignore: [String!]!
-                $groupName: String!
-                $includesHealthCheck: Boolean!
-                $nickname: String
-                $url: String!
-            ) {
-                addGitRoot(
-                    branch: $branch
-                    environment: $environment
-                    gitignore: $gitignore
-                    groupName: $groupName
-                    includesHealthCheck: $includesHealthCheck
-                    nickname: $nickname
-                    url: $url
-                ) {
-                    success
-                }
-            }
-        """,
-        operation="SkimsDoAddGitRoot",
-        variables=dict(
-            branch=branch,
-            environment=environment,
-            gitignore=gitignore or [],
-            groupName=group_name,
-            includesHealthCheck=includes_health_check,
-            nickname=nickname,
-            url=url,
-        ),
-        client=client,
-    )
-
-    with suppress(ArithmeticError):
-        return result["data"]["addGitRoot"]["success"]
-    return False
-
-
 class ResultCreateDraft(NamedTuple):
     success: bool
     id: str = ""
