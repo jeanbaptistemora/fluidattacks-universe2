@@ -22,7 +22,8 @@ def main() -> None:
                     ],
                 }
                 for name, values in DATA.items()
-            }
+            },
+            separators=(",", ":"),
         )
     )
 

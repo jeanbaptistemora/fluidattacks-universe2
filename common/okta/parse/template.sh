@@ -1,21 +1,15 @@
 # shellcheck shell=bash
 
-function compress_with_jq {
-  local var="${1}"
-
-  jq -rc "${var}" -
-}
-
 function export_raw_var {
   local var="${1}"
 
-  export "${var}=$(sops --decrypt --output-type json __argSopsData__ | compress_with_jq ".${var}")"
+  export "${var}=$(sops --decrypt --output-type json __argSopsData__ | jq -rc ".${var}")"
 }
 
 function export_parsed_var {
   local type="${1}"
 
-  export "OKTA_DATA_${type}=$(python __argParser__ "${type}" | compress_with_jq ".")"
+  export "OKTA_DATA_${type}=$(python __argParser__ "${type}")"
 }
 
 function main {

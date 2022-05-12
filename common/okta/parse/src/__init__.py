@@ -97,7 +97,12 @@ def main(data_type: str) -> None:
     else:
         response = globals()[data_type]()
 
-    print(json.dumps(response))
+    print(
+        json.dumps(
+            response,
+            separators=(",", ":"),
+        )
+    )
 
 
 if __name__ == "__main__":
