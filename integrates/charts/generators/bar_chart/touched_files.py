@@ -42,6 +42,7 @@ from newutils.datetime import (
     get_datetime_from_iso_str,
     get_now_minus_delta,
 )
+import re
 from typing import (
     Any,
     Counter,
@@ -49,6 +50,14 @@ from typing import (
     List,
     Tuple,
 )
+
+
+def format_where(where: str) -> str:
+    # filename (pacakge) [CVE]
+    if match := re.match(r"(?P<where>.*)\s\(.*\)\s\[.*\]", where):
+        return match.groupdict()["where"]
+
+    return where
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -66,7 +75,7 @@ async def get_data_one_group(
 
     return Counter(
         tuple(
-            vulnerability.where
+            format_where(vulnerability.where)
             for vulnerability in vulnerabilities
             if get_datetime_from_iso_str(
                 vulnerability.unreliable_indicators.unreliable_report_date
