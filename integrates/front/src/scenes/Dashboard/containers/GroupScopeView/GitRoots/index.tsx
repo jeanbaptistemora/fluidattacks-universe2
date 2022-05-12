@@ -707,6 +707,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     visible: false,
                   },
                   {
+                    dataField: "useVpn",
+                    header: t("group.scope.git.repo.useVpn"),
+                    nonToggleList: true,
+                    visible: false,
+                  },
+                  {
                     changeFunction: handleSyncClick,
                     csvExport: false,
                     dataField: "sync",
