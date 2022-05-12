@@ -40,6 +40,7 @@ from newutils import (
 )
 from newutils.organizations import (
     format_organization_item,
+    remove_org_id_prefix,
 )
 from settings import (
     LOGGING,
@@ -64,7 +65,7 @@ TABLE_NAME = "fi_organizations"
 
 def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     """
-    Map domain attributes to its DynamoDB representation
+    Map domain attributes to its DynamoDB representation.
     """
     mapping = {"id": "pk", "name": "sk"}
     mapped_attrs = [attr for attr in attrs if attr not in mapping]
@@ -74,7 +75,7 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
 
 def _map_keys_to_domain(org: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Map DynamoDB keys to a human-readable form
+    Map DynamoDB keys to a human-readable form.
     """
     mapping = {"pk": "id", "sk": "name"}
     mapped_org = {key: org[key] for key in org if key not in mapping}
@@ -85,8 +86,12 @@ def _map_keys_to_domain(org: Dict[str, Any]) -> Dict[str, Any]:
 
 
 async def add_group(organization_id: str, group: str) -> bool:
+    organization_id = remove_org_id_prefix(organization_id)
     success: bool = False
-    new_item = {"pk": organization_id, "sk": f"GROUP#{group.lower().strip()}"}
+    new_item = {
+        "pk": f"ORG#{organization_id}",
+        "sk": f"GROUP#{group.lower().strip()}",
+    }
     try:
         success = await dynamodb_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
@@ -95,8 +100,12 @@ async def add_group(organization_id: str, group: str) -> bool:
 
 
 async def add_user(organization_id: str, email: str) -> bool:
+    organization_id = remove_org_id_prefix(organization_id)
     success: bool = False
-    new_item = {"pk": organization_id, "sk": f"USER#{email.lower().strip()}"}
+    new_item = {
+        "pk": f"ORG#{organization_id}",
+        "sk": f"USER#{email.lower().strip()}",
+    }
     try:
         success = await dynamodb_put_item(TABLE_NAME, new_item)
     except ClientError as ex:
@@ -167,7 +176,7 @@ async def remove(
     new_state = {
         "modified_by": modified_by,
         "modified_date": datetime_utils.get_now_as_str(),
-        "status": "DELETED",
+        "status": OrganizationStateStatus.DELETED.value,
     }
     item_to_update: Item = {
         "historic_state": [
@@ -195,8 +204,12 @@ async def get_access_by_url_token(
     organization_id: str,
     user_email: str,
 ) -> Dict[str, Any]:
-    """Get user access of a organization by the url token"""
-    key = {"pk": organization_id, "sk": f"USER#{user_email}"}
+    """Get user access of a organization by the url token."""
+    organization_id = remove_org_id_prefix(organization_id)
+    key = {
+        "pk": f"ORG#{organization_id}",
+        "sk": f"USER#{user_email}",
+    }
     get_attrs = {"Key": cast(ConditionBase, key)}
     item = await dynamodb_get_item(TABLE_NAME, get_attrs)
     return item
@@ -206,7 +219,7 @@ async def get_by_id(
     organization_id: str, attributes: Optional[List[str]] = None
 ) -> Dict[str, Any]:
     """
-    Use the organization ID to fetch general information about it
+    Use the organization ID to fetch general information about it.
     """
     organization: Dict[str, Any] = {}
     query_attrs = {
@@ -236,7 +249,7 @@ async def get_by_name(
 ) -> Dict[str, Any]:
     """
     Get an organization info given its name
-    Return specified attributes or all if not setted
+    Return specified attributes or all if not setted.
     """
     organization: Dict[str, Any] = {}
     query_attrs = {
@@ -266,12 +279,14 @@ async def get_by_name(
 async def get_groups(organization_id: str) -> List[str]:
     """
     Return a list of the names of all the groups that belong to an
-    organization
+    organization.
     """
+    organization_id = remove_org_id_prefix(organization_id)
     groups: List[str] = []
     query_attrs = {
         "KeyConditionExpression": (
-            Key("pk").eq(organization_id) & Key("sk").begins_with("GROUP#")
+            Key("pk").eq(f"ORG#{organization_id}")
+            & Key("sk").begins_with("GROUP#")
         ),
         "FilterExpression": Attr("deletion_date").not_exists(),
     }
@@ -307,7 +322,7 @@ async def get_id_for_group(group_name: str) -> str:
 
 async def get_ids_for_user(email: str) -> List[str]:
     """
-    Return the IDs of all the organizations a user belongs to
+    Return the IDs of all the organizations a user belongs to.
     """
     organization_ids: List[str] = []
     query_attrs = {
@@ -330,7 +345,7 @@ async def get_many_by_id(
     organization_ids: List[str], attributes: Optional[List[str]] = None
 ) -> List[Dict[str, Any]]:
     """
-    Use the organization ID to fetch general information about it
+    Use the organization ID to fetch general information about it.
     """
     return cast(
         List[Dict[str, Any]],
@@ -343,12 +358,14 @@ async def get_many_by_id(
 async def get_users(organization_id: str) -> List[str]:
     """
     Return a list of the emails of all the users that belong to an
-    organization
+    organization.
     """
+    organization_id = remove_org_id_prefix(organization_id)
     users: List[str] = []
     query_attrs = {
         "KeyConditionExpression": (
-            Key("pk").eq(organization_id) & Key("sk").begins_with("USER#")
+            Key("pk").eq(f"ORG#{organization_id}")
+            & Key("sk").begins_with("USER#")
         )
     }
     try:
@@ -361,10 +378,11 @@ async def get_users(organization_id: str) -> List[str]:
 
 
 async def has_group(organization_id: str, group_name: str) -> bool:
+    organization_id = remove_org_id_prefix(organization_id)
     group_in_org: bool = False
     query_attrs: dict[str, Any] = {
         "KeyConditionExpression": (
-            Key("pk").eq(organization_id)
+            Key("pk").eq(f"ORG#{organization_id}")
             & Key("sk").eq(f"GROUP#{group_name.lower().strip()}")
         ),
         "FilterExpression": Attr("deletion_date").not_exists(),
@@ -376,10 +394,11 @@ async def has_group(organization_id: str, group_name: str) -> bool:
 
 
 async def has_user_access(organization_id: str, email: str) -> bool:
+    organization_id = remove_org_id_prefix(organization_id)
     has_access: bool = False
     query_attrs: dict[str, Any] = {
         "KeyConditionExpression": (
-            Key("pk").eq(organization_id)
+            Key("pk").eq(f"ORG#{organization_id}")
             & Key("sk").eq(f"USER#{email.lower().strip()}")
         )
     }
@@ -415,12 +434,13 @@ async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
 
 async def remove_group(organization_id: str, group_name: str) -> bool:
     """
-    Delete a group from an organization
+    Delete a group from an organization.
     """
     success: bool = False
+    organization_id = remove_org_id_prefix(organization_id)
     group_item = DynamoDeleteType(
         Key={
-            "pk": organization_id,
+            "pk": f"ORG#{organization_id}",
             "sk": f"GROUP#{group_name.lower().strip()}",
         }
     )
@@ -433,11 +453,15 @@ async def remove_group(organization_id: str, group_name: str) -> bool:
 
 async def remove_user(organization_id: str, email: str) -> bool:
     """
-    Remove a user from an organization
+    Remove a user from an organization.
     """
     success: bool = False
+    organization_id = remove_org_id_prefix(organization_id)
     user_item = DynamoDeleteType(
-        Key={"pk": organization_id, "sk": f"USER#{email.lower().strip()}"}
+        Key={
+            "pk": f"ORG#{organization_id}",
+            "sk": f"USER#{email.lower().strip()}",
+        }
     )
     try:
         success = await dynamodb_delete_item(TABLE_NAME, user_item)
@@ -450,7 +474,7 @@ async def update(
     organization_id: str, organization_name: str, values: Dict[str, Any]
 ) -> bool:
     """
-    Updates the attributes of an organization
+    Updates the attributes of an organization.
     """
     success: bool = False
     set_expression: str = ""
@@ -469,10 +493,11 @@ async def update(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
+    organization_id = remove_org_id_prefix(organization_id)
     try:
         update_attrs: Dict[str, Any] = {
             "Key": {
-                "pk": organization_id,
+                "pk": f"ORG#{organization_id}",
                 "sk": f"INFO#{organization_name.lower().strip()}",
             },
             "UpdateExpression": (
@@ -493,7 +518,7 @@ async def update_group(
     organization_id: str, group_name: str, values: Dict[str, Any]
 ) -> bool:
     """
-    Updates the attributes of a group in an organization
+    Updates the attributes of a group in an organization.
     """
     success: bool = False
     set_expression: str = ""
@@ -512,10 +537,11 @@ async def update_group(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
+    organization_id = remove_org_id_prefix(organization_id)
     try:
         update_attrs: Dict[str, Any] = {
             "Key": {
-                "pk": organization_id,
+                "pk": f"ORG#{organization_id}",
                 "sk": f"GROUP#{group_name.lower().strip()}",
             },
             "UpdateExpression": (
@@ -533,7 +559,7 @@ async def update_group(
 
 
 async def update_user(
-    org_id: str, user_email: str, data: Dict[str, Any]
+    organization_id: str, user_email: str, data: Dict[str, Any]
 ) -> bool:
     """Update org access attributes."""
     success = False
@@ -552,9 +578,10 @@ async def update_user(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
+    organization_id = remove_org_id_prefix(organization_id)
     update_attrs = {
         "Key": {
-            "pk": org_id,
+            "pk": f"ORG#{organization_id}",
             "sk": f"USER#{user_email.lower()}",
         },
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
