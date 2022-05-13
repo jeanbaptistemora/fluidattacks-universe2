@@ -12,6 +12,10 @@ class Credential(NamedTuple):
     id: str
     name: str
     type: Union[CredentialType, str]
+    key: Optional[str] = None
+    user: Optional[str] = None
+    password: Optional[str] = None
+    token: Optional[str] = None
 
 
 class GitRootCloningStatus(NamedTuple):

@@ -34,10 +34,19 @@ type GitEnvironmentUrl {
 type Credentials {
   "ID of the credential"
   id: String!
+  "SSH key"
+  key: String
   "Name of the credential"
   name: String!
+  "Https password"
+  password: String
+  "Https token"
+  token: String
   "Type of authentication of the credential"
   type: String!
+  "Https user"
+  user: String
+
 }
 
 "Git Root type definition"

@@ -126,6 +126,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_environment_url_secret_mutate",
             "api_resolvers_query_environment_url_resolve",
+            "api_resolvers_git_root_credentials_get_credentials_value",
         },
         tags=set(),
     ),
@@ -571,6 +572,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_git_environment_secret_mutate",
             "api_mutations_remove_environment_url_secret_mutate",
             "api_resolvers_query_environment_url_resolve",
+            "api_resolvers_git_root_credentials_get_credentials_value",
         },
         tags={
             "drills",
