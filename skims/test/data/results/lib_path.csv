@@ -17015,6 +17015,18 @@ F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,0
   21 |     disable_password_authentication = false
      ^ Col 0
 ",terraform.tfm_azure_virtual_machine_insecure_authentication
+F052,lines,namespace/skims/test/data/lib_root/f052/disabled_strong_crypto.cs,7,310,skims,052. Insecure encryption algorithm,A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto to true in namespace/skims/test/data/lib_root/f052/disabled_strong_crypto.cs,"
+  1 | using System;
+  2 |
+  3 | public class ExampleClass
+  4 | {
+  5 |     public void ExampleMethod()
+  6 |     {
+> 7 |         AppContext.SetSwitch(""Switch.System.Net.DontEnableSchUseStrongCrypto"", true);
+  8 |     }
+  9 | }
+    ^ Col 0
+",c_sharp.c_sharp_disabled_strong_crypto
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false

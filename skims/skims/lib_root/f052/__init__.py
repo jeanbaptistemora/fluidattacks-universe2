@@ -1,5 +1,6 @@
 from lib_root.f052.c_sharp import (
     c_sharp_aesmanaged_secure_mode,
+    c_sharp_disabled_strong_crypto,
     c_sharp_insecure_cipher,
     c_sharp_insecure_hash,
     c_sharp_insecure_keys,
@@ -38,6 +39,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_aesmanaged_secure_mode),
     (FINDING, c_sharp_rsa_secure_mode),
     (FINDING, c_sharp_insecure_keys),
+    (FINDING, c_sharp_disabled_strong_crypto),
     (FINDING, go_insecure_cipher),
     (FINDING, go_insecure_hash),
     (FINDING, java_insecure_cipher),
