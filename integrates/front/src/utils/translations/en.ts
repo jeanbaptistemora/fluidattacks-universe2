@@ -76,19 +76,6 @@ export const enTranslations: ResourceKey = {
         title: "Builds risk",
       },
       forcesSecurityCommitment: {
-        footer: {
-          acceptedRisk:
-            "However, accepted vulnerabilities on ASM are ignored by the strict mode, " +
-            "and Forces will (by decision of your team) allow them to be built or deployed.",
-          conclusion:
-            "The maximum benefit is reached when the accepted risk is low, and the strict mode high.",
-          intro:
-            "Forces objective is to help your team overcome security vulnerabilities. " +
-            "For this to work, we put two things in your hands:",
-          strictMode:
-            "The strict mode (which is enabled by default) helps you stop builds or deployments " +
-            "if there are open vulnerabilities, and thus protects your system from vulnerable code introduction.",
-        },
         title: "Your commitment towards security",
       },
       severity: {
@@ -2991,8 +2978,6 @@ export const enTranslations: ResourceKey = {
     undefinedTitle: "Undefined Treatment by Group",
     vulnerabilitiesByLevel: "Vulnerabilities by level",
     vulnerabilitiesByTag: "Vulnerabilities by tag",
-    vulnerabilitiesByTreatments:
-      "Vulnerabilities by Number of Treatment Changes",
     vulnerabilitiesByType: "Vulnerabilities by source",
     vulnsGroups: "Vulnerabilities by group",
   },
