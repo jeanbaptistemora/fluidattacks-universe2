@@ -256,6 +256,7 @@ async def send_mail_root_cloning_status(
     email_to: List[str],
     group_name: str,
     root_nickname: str,
+    root_id: str,
     report_date: date,
     is_failed: bool,
 ) -> None:
@@ -272,6 +273,7 @@ async def send_mail_root_cloning_status(
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group": group_name,
         "root_nickname": root_nickname,
+        "root_id": root_id,
         "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
     }
     await send_mails_async(

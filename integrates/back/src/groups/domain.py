@@ -43,6 +43,9 @@ from custom_types import (
 from datetime import (
     date,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -71,6 +74,9 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     Root,
+)
+from db_model.users.types import (
+    User,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -151,6 +157,7 @@ from typing import (
     Any,
     Awaitable,
     Optional,
+    Tuple,
 )
 from users import (
     domain as users_domain,
@@ -1292,6 +1299,7 @@ async def add_file(
     else:
         files_to_update = group.files
         await send_mail_file_report(
+            loaders=loaders,
             group_name=group_name,
             responsible=user_email,
             file_name=file_name,
@@ -1338,6 +1346,7 @@ async def remove_file(
         ),
     )
     await send_mail_file_report(
+        loaders=loaders,
         group_name=group_name,
         responsible=user_email,
         file_name=file_name,
@@ -1348,6 +1357,7 @@ async def remove_file(
 
 async def send_mail_file_report(
     *,
+    loaders: Any,
     group_name: str,
     responsible: str,
     file_name: str,
@@ -1368,6 +1378,12 @@ async def send_mail_file_report(
         if user_role
         in {"resourcer", "customer_manager", "user_manager", "hacker"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.FILE_UPDATE in user.notifications_preferences.email
+    ]
 
     await groups_mail.send_mail_file_report(
         group_name=group_name,
@@ -1376,7 +1392,7 @@ async def send_mail_file_report(
         file_name=file_name,
         file_description=file_description,
         report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
-        email_to=email_list,
+        email_to=users_email,
     )
 
 

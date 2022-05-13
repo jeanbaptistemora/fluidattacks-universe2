@@ -832,6 +832,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
             loaders=loaders,
             group_name=group_name,
             root_nickname=root.state.nickname,
+            root_id=root_id,
             modified_date=modified_date,
             is_failed=is_failed,
         )
@@ -842,6 +843,7 @@ async def send_mail_root_cloning_status(
     loaders: Any,
     group_name: str,
     root_nickname: str,
+    root_id: str,
     modified_date: str,
     is_failed: bool,
 ) -> None:
@@ -863,6 +865,7 @@ async def send_mail_root_cloning_status(
         email_to=email_list,
         group_name=group_name,
         root_nickname=root_nickname,
+        root_id=root_id,
         report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
         is_failed=is_failed,
     )
