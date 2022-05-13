@@ -16,8 +16,14 @@ resource "aws_batch_job_definition" "schedule" {
       command = each.value.command
 
       resourceRequirements = [
-        { type = "VCPU", value = tostring(each.value.cpu) },
-        { type = "MEMORY", value = tostring(each.value.memory) },
+        {
+          type  = "VCPU"
+          value = tostring(each.value.cpu)
+        },
+        {
+          type  = "MEMORY"
+          value = tostring(each.value.memory)
+        },
       ]
 
       environment = concat(
@@ -83,5 +89,6 @@ resource "aws_cloudwatch_event_target" "main" {
   batch_target {
     job_name       = each.key
     job_definition = aws_batch_job_definition.schedule[each.key].arn
+    array_size     = each.value.parallel > 1 ? each.value.parallel : null
   }
 }

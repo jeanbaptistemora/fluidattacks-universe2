@@ -15,6 +15,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -39,6 +40,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -63,6 +65,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -78,17 +81,17 @@
     command = [
       "m"
       "f"
-      "/integrates/utils/scheduler"
+      "/integrates/charts/documents"
       "prod"
-      "schedulers.update_portfolios.main"
     ];
 
-    schedule_expression = "cron(0 7,14 ? * 2-6 *)";
+    schedule_expression = "cron(0 5,9,13 ? * 2-6 *)";
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 25;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -113,6 +116,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -139,6 +143,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -165,6 +170,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -191,6 +197,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -217,6 +224,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -243,6 +251,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -269,6 +278,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -295,6 +305,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -321,6 +332,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -347,6 +359,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -373,6 +386,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -399,6 +413,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -425,6 +440,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -451,6 +467,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -477,6 +494,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -503,6 +521,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -529,6 +548,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -555,6 +575,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -581,6 +602,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -606,6 +628,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -632,6 +655,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -658,6 +682,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -684,6 +709,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 7200;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -708,6 +734,7 @@
     timeout = 3600;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -732,6 +759,7 @@
     timeout = 10800;
     cpu = 1;
     memory = 1800;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -756,6 +784,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -780,6 +809,7 @@
     timeout = 18000;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = [
       "CI_PROJECT_ID"
@@ -807,6 +837,7 @@
     timeout = 18000;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = [
       "CI_PROJECT_ID"
@@ -834,6 +865,7 @@
     timeout = 3600;
     cpu = 1;
     memory = 1800;
+    parallel = 1;
 
     environment = [
       "CI_PROJECT_ID"
@@ -861,6 +893,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -885,6 +918,7 @@
     timeout = 3600;
     cpu = 1;
     memory = 1800;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -909,6 +943,7 @@
     timeout = 1800;
     cpu = 1;
     memory = 1800;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 
@@ -933,6 +968,7 @@
     timeout = 86400;
     cpu = 2;
     memory = 3600;
+    parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
 

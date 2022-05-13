@@ -1,18 +1,19 @@
 {inputs, ...}: let
   lib = inputs.nixpkgs.lib;
   schedules = import ./schedules.nix;
-  mapToBatch = definition: value:
+  mapToBatch = name: value:
     lib.nameValuePair
-    "schedule_${definition}"
+    "schedule_${name}"
     {
-      inherit definition;
       allowDuplicates = true;
       attempts = value.attempts;
       attemptDurationSeconds = value.timeout;
       command = value.command;
-      includePositionalArgsInName = false;
+      definition = "makes";
       environment = value.environment;
+      includePositionalArgsInName = false;
       memory = value.memory;
+      parallel = value.parallel;
       queue = value.queue;
       vcpus = value.cpu;
     };
