@@ -3,15 +3,24 @@ from batch_stability.errors import (
     BatchFailedJob,
     BatchUnstartedJob,
 )
+import bugsnag
 from dataclasses import (
     dataclass,
 )
+from datetime import (
+    datetime,
+)
 from fa_purity import (
+    Cmd,
+    Maybe,
     Stream,
 )
 from mypy_boto3_batch.type_defs import (
     JobSummaryTypeDef,
 )
+
+HOUR: float = 3600.0
+NOW: float = datetime.utcnow().timestamp()
 
 
 @dataclass(frozen=True)
@@ -49,3 +58,41 @@ def failed_jobs(jobs: Stream[JobSummaryTypeDef]) -> Stream[FailReport]:
     return jobs.filter(
         lambda j: bool(j.get("startedAt") and j.get("stoppedAt"))
     ).map(lambda j: _to_report(j, BatchFailedJob(j["jobName"])))
+
+
+def time_filter(
+    jobs: Stream[JobSummaryTypeDef], last_hours: int
+) -> Stream[JobSummaryTypeDef]:
+    def _filter(job: JobSummaryTypeDef) -> bool:
+        # Timestamps from aws come in miliseconds
+        job_date = (
+            Maybe.from_optional(job.get("stoppedAt")).value_or(
+                job["createdAt"]
+            )
+            / 1000
+        )  # unit: seconds
+        return job_date > NOW - last_hours * HOUR
+
+    return jobs.filter(_filter)
+
+
+def observes_filter(
+    jobs: Stream[JobSummaryTypeDef],
+) -> Stream[JobSummaryTypeDef]:
+    return jobs.filter(lambda j: "observes" in j["jobName"])
+
+
+def report(item: FailReport) -> Cmd[None]:
+    def _action() -> None:
+        arguments = dict(
+            extra=dict(
+                container=item.container,
+                identifier=item.identifier,
+                reason=item.reason,
+            ),
+            grouping_hash=item.name,
+        )
+        bugsnag.start_session()  # type: ignore[no-untyped-call]
+        bugsnag.notify(item.exception, **arguments)
+
+    return Cmd.from_cmd(_action)

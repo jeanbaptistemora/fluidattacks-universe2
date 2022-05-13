@@ -1,22 +1,34 @@
-import batch_stability
 from batch_stability import (
-    default_queues,
+    report,
+)
+from batch_stability.jobs import (
+    observes_jobs,
 )
 import click
+from fa_purity.stream.transform import (
+    consume,
+)
+from typing import (
+    NoReturn,
+)
 
 
 @click.command()  # type: ignore[misc]
-@click.argument("base-name", type=str)
+@click.argument("queue", type=str)
 @click.option("--last-hours", type=int, default=24)
-def report_cancelled(base_name: str, last_hours: int) -> None:
-    batch_stability.report_cancelled(default_queues(base_name), last_hours)
+def report_cancelled(queue: str, last_hours: int) -> NoReturn:
+    jobs = observes_jobs(queue, last_hours)
+    cmds = report.cancelled_jobs(jobs).map(report.report)
+    consume(cmds).compute()
 
 
 @click.command()  # type: ignore[misc]
-@click.argument("base-name", type=str)
+@click.argument("queue", type=str)
 @click.option("--last-hours", type=int, default=1)
-def report_failures(base_name: str, last_hours: int) -> None:
-    batch_stability.report_failures(default_queues(base_name), last_hours)
+def report_failures(queue: str, last_hours: int) -> NoReturn:
+    jobs = observes_jobs(queue, last_hours)
+    cmds = report.failed_jobs(jobs).map(report.report)
+    consume(cmds).compute()
 
 
 @click.group()  # type: ignore[misc]
