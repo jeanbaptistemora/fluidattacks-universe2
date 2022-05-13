@@ -26,7 +26,7 @@ function main {
     && pushd integrates \
     && todo=$(mktemp) \
     && find 'charts/generators' -wholename '*.py' | sort > "${todo}" \
-    && execute_chunk_parallel execute_analytics_generator "${todo}" \
+    && execute_chunk_parallel execute_analytics_generator "${todo}" "25" "batch" \
     && aws_s3_sync \
       'charts/generators' \
       "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}/documents" \
