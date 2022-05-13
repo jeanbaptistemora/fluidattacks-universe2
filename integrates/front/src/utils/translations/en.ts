@@ -1413,7 +1413,7 @@ export const enTranslations: ResourceKey = {
           name: "Group name",
           new: {
             group: "New group",
-            text: "New project",
+            text: "New group",
             tooltip: "Create a new group",
           },
           organization: {
