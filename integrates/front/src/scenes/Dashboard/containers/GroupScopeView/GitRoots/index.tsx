@@ -193,7 +193,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // GraphQL operations
   const [updateTours] = useMutation(UPDATE_TOURS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
-      handleUpdateError(graphQLErrors, "tours");
+      handleUpdateError(graphQLErrors, setRootModalMessages, "tours");
     },
   });
 
@@ -220,7 +220,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      handleUpdateError(graphQLErrors, "root");
+      handleUpdateError(graphQLErrors, setRootModalMessages, "root");
     },
   });
 
@@ -231,7 +231,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      handleUpdateError(graphQLErrors, "envs");
+      handleUpdateError(graphQLErrors, setRootModalMessages, "envs");
     },
   });
 

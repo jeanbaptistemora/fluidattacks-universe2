@@ -194,27 +194,43 @@ const handleCreationError = (
 
 const handleUpdateError = (
   graphQLErrors: readonly GraphQLError[],
+  setModalMessages: React.Dispatch<
+    React.SetStateAction<{
+      message: string;
+      type: string;
+    }>
+  >,
   scope: "envs" | "root" | "tours"
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
+    const showMessage = (translation: string): void => {
+      if (scope === "root") {
+        setModalMessages({
+          message: translate.t(translation),
+          type: "error",
+        });
+      } else {
+        msgError(translate.t(translation));
+      }
+    };
     switch (error.message) {
       case "Exception - Error empty value is not valid":
-        msgError(translate.t("group.scope.git.errors.invalid"));
+        showMessage("group.scope.git.errors.invalid");
         break;
       case "Exception - A root with reported vulns can't be updated":
-        msgError(translate.t("group.scope.common.errors.hasVulns"));
+        showMessage("group.scope.common.errors.hasVulns");
         break;
       case "Exception - Active root with the same URL/branch already exists":
-        msgError(translate.t("group.scope.common.errors.duplicateUrl"));
+        showMessage("group.scope.common.errors.duplicateUrl");
         break;
       case "Exception - Invalid characters":
-        msgError(translate.t("validations.invalidChar"));
+        showMessage("validations.invalidChar");
         break;
       case "Exception - Git repository was not accessible with given credentials":
-        msgError(translate.t("group.scope.git.errors.invalidGitCredentials"));
+        showMessage("group.scope.git.errors.invalidGitCredentials");
         break;
       default:
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        showMessage("groupAlerts.errorTextsad");
         Logger.error(`Couldn't update git ${scope}`, error);
     }
   });
