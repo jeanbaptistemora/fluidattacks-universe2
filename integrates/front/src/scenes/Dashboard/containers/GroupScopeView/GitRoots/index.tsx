@@ -130,7 +130,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       });
     }
     setIsManagingRoot(false);
-  }, [enableTour, user]);
+    setRootModalMessages({ message: "", type: "success" });
+  }, [enableTour, user, setRootModalMessages]);
 
   const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
     undefined
