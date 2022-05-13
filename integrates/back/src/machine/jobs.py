@@ -21,6 +21,9 @@ from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
 )
+from custom_exceptions import (
+    RootAlreadyCloning,
+)
 from datetime import (
     datetime,
 )
@@ -214,6 +217,44 @@ async def list_(
     )
 
 
+async def _queue_sync_git_roots(
+    *,
+    loaders: Any,
+    user_email: str,
+    group_name: str,
+    roots: Optional[Tuple[GitRoot, ...]] = None,
+    check_existing_jobs: bool = True,
+    force: bool = False,
+    queue_with_vpn: bool = False,
+) -> Optional[PutActionResult]:
+    from batch.actions import (  # pylint: disable=import-outside-toplevel
+        clone_roots,
+    )
+
+    try:
+        return await clone_roots.queue_sync_git_roots(
+            loaders=loaders,
+            user_email=user_email,
+            group_name=group_name,
+            roots=roots,
+            check_existing_jobs=check_existing_jobs,
+            force=force,
+            queue_with_vpn=queue_with_vpn,
+        )
+    except RootAlreadyCloning:
+        current_jobs = sorted(
+            await get_actions_by_name("clone_roots", group_name),
+            key=lambda x: x.time,
+        )
+        if current_jobs:
+            return PutActionResult(
+                success=True,
+                batch_job_id=current_jobs[0].batch_job_id,
+                dynamo_pk=current_jobs[0].key,
+            )
+    return None
+
+
 async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
     group_name: str,
     dataloaders: Any,
@@ -223,11 +264,6 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
     clone_before: bool = False,
     **kwargs: Any,
 ) -> Optional[PutActionResult]:
-
-    from batch.actions import (  # pylint: disable=import-outside-toplevel
-        clone_roots,
-    )
-
     git_roots: List[GitRoot] = []
     if dataloaders:
         git_roots = await dataloaders.group_roots.load(group_name)
@@ -291,7 +327,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
         (clone_before and dataloaders)
         and (
             result_clone := (
-                await clone_roots.queue_sync_git_roots(
+                await _queue_sync_git_roots(
                     loaders=dataloaders,
                     user_email="integrates@fluidattacks.com",
                     group_name=group_name,
