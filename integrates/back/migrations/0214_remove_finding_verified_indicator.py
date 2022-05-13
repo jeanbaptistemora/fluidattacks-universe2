@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Remove unreliable_is_verified indicator from all findings
+
+Execution Time: 2022-05-13 at 19:25:35 UTC
+Finalization Time: 2022-05-13 at 19:26:30 UTC
 """
 
 from aioextensions import (
