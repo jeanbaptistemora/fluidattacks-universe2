@@ -282,8 +282,18 @@
           "unreliable_closed_vulnerabilities": {
             "N": "0"
           },
-          "unreliable_is_verified": {
-            "BOOL": true
+          "unreliable_verification_summary": {
+            "M": {
+              "verified": {
+                "N": "0"
+              },
+              "requested": {
+                "N": "0"
+              },
+              "on_hold": {
+                "N": "0"
+              }
+            }
           },
           "pk": {
             "S": "FIN#682152985#UNRELIABLEINDICATORS"
