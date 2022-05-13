@@ -5,12 +5,39 @@ from batch_stability.client import (
     JobsClient,
 )
 import boto3
+from enum import (
+    Enum,
+)
 from fa_purity import (
+    Cmd,
     Stream,
+)
+from fa_purity.pure_iter.factory import (
+    from_flist,
+)
+from fa_purity.stream.transform import (
+    consume,
 )
 from mypy_boto3_batch.type_defs import (
     JobSummaryTypeDef,
 )
+from typing import (
+    Callable,
+)
+
+QUEUES = frozenset(
+    [
+        "limited_dedicated",
+        "limited_spot",
+        "unlimited_dedicated",
+        "unlimited_spot",
+        "unlimited_spot_clone",
+    ]
+)
+
+
+class Product(Enum):
+    OBSERVES = "observes"
 
 
 def observes_jobs(queue: str, last_hours: int) -> Stream[JobSummaryTypeDef]:
@@ -20,3 +47,44 @@ def observes_jobs(queue: str, last_hours: int) -> Stream[JobSummaryTypeDef]:
         .transform(lambda s: report.observes_filter(s))
         .transform(lambda s: report.time_filter(s, last_hours))
     )
+
+
+def observes_cancelled(
+    queue: str, last_hours: int, dry_run: bool
+) -> Cmd[None]:
+    jobs = observes_jobs(queue, last_hours)
+    cmds = report.cancelled_jobs(jobs).map(lambda i: report.report(i, dry_run))
+    cmds_2 = report.unstarted_jobs(jobs).map(
+        lambda i: report.report(i, dry_run)
+    )
+    return consume(cmds) + consume(cmds_2)
+
+
+def observes_failures(queue: str, last_hours: int, dry_run: bool) -> Cmd[None]:
+    jobs = observes_jobs(queue, last_hours)
+    cmds = report.failed_jobs(jobs).map(lambda i: report.report(i, dry_run))
+    return consume(cmds)
+
+
+def report_cancelled(
+    product: Product, last_hours: int, dry_run: bool
+) -> Cmd[None]:
+    if product is Product.OBSERVES:
+        return (
+            from_flist(tuple(QUEUES))
+            .map(lambda q: observes_cancelled(q, last_hours, dry_run))
+            .reduce(Cmd.__add__, Cmd.from_cmd(lambda: None))
+        )
+    raise Exception("Invalid product")
+
+
+def report_failures(
+    product: Product, last_hours: int, dry_run: bool
+) -> Cmd[None]:
+    if product is Product.OBSERVES:
+        return (
+            from_flist(tuple(QUEUES))
+            .map(lambda q: observes_failures(q, last_hours, dry_run))
+            .reduce(Cmd.__add__, Cmd.from_cmd(lambda: None))
+        )
+    raise Exception("Invalid product")
