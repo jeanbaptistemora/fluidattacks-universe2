@@ -9,7 +9,7 @@ locals {
       ]
     }
     limited_spot = {
-      max_vcpus = 50
+      max_vcpus = 75
       type      = "SPOT"
       subnets = [
         data.aws_subnet.batch_clone.id,
