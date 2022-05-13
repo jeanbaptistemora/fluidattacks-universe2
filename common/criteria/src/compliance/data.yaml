@@ -5740,3 +5740,27 @@
       title: Conditions of prior consent required to disclose information
       link: http://projects.webappsec.org/w/page/13246913/Abuse%20of%20Functionality
   metadata: {}
+"nistssdf":
+  title: NIST SSDF
+  en:
+    description: >
+      .
+  es:
+    description: __empty__
+  definitions:
+    "PO_1_3":
+      title: Define security requirements for software development
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PO_5_1":
+      title: Implement and maintain secure environments for software development
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PS_1_1":
+      title: Protect all forms of code from unauthorized access and tampering
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PS_2_1":
+      title: Provide a mechanism for verifying software release integrity
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PS_3_1":
+      title: Archive and protect each software release
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+  metadata: {}
