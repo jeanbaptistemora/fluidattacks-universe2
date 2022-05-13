@@ -5763,4 +5763,34 @@
     "PS_3_1":
       title: Archive and protect each software release
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_1_1":
+      title: Design software to meet security requirements and mitigate security risks
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_1_3":
+      title: Design software to meet security requirements and mitigate security risks
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_4_1":
+      title: Reuse existing, well-secured software when feasible instead of duplicating functionality
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_4_4":
+      title: Reuse existing, well-secured software when feasible instead of duplicating functionality
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_5_1":
+      title: Archive and protect each software release
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_6_1":
+      title: Configure the compilation, interpreter, and build processes to improve executable security
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_6_2":
+      title: Configure the compilation, interpreter, and build processes to improve executable security
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_9_1":
+      title: Configure software to have secure settings by default
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "PW_9_2":
+      title: Configure software to have secure settings by default
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
+    "RV_2_2":
+      title: Assess, prioritize, and remediate vulnerabilities
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf
   metadata: {}
