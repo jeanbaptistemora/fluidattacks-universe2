@@ -15,24 +15,24 @@
   compliance = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/cc7eb820492b2d9fdcdb0c05919d077a744bc14e/common/criteria/src/compliance/data.yaml";
-        sha256 = "sha256-qnTQOqXL5oUKiBqaynUVoHQqZ/8JzjY+sxvoCm2fJbI=";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/3a23157558bf4eb681347d994f0ba73dd149ec5b/common/criteria/src/compliance/data.yaml";
+        sha256 = "sha256-naT78K7r0FP0vEQne8WO2FZyC3DXFdB8CCKTjabj6R0=";
       }
     )
   );
   requirements = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/cc7eb820492b2d9fdcdb0c05919d077a744bc14e/common/criteria/src/requirements/data.yaml";
-        sha256 = "sha256-JXUmFhs52Cv5wRad9953t+va4vWszyi6sDMz1hFEK90=";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/3a23157558bf4eb681347d994f0ba73dd149ec5b/common/criteria/src/requirements/data.yaml";
+        sha256 = "sha256-L4YvsRMb9cnJV/hvKgqrgFD4bcca0PPPeRE+LxuN0Os=";
       }
     )
   );
   vulnerabilities = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/cc7eb820492b2d9fdcdb0c05919d077a744bc14e/common/criteria/src/vulnerabilities/data.yaml";
-        sha256 = "sha256-fq62Il2fl0oKoGkBx4ERhVr7RYrCCbuCOIjYs+Y5jXg=";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/3a23157558bf4eb681347d994f0ba73dd149ec5b/common/criteria/src/vulnerabilities/data.yaml";
+        sha256 = "sha256-cUF/n8otH6qv9l1/YYCJ+GACeP6Kg6qBypZCLXLlUps=";
       }
     )
   );
