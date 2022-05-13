@@ -83,7 +83,7 @@ type Group {
   openFindings: Int
   "Amount of currently open Vulnerabilities in the group"
   openVulnerabilities: Int
-  "Organization to which the group belongs"
+  "Organization name to which the group belongs"
   organization: String!
   "Permissions of the current user within the group"
   permissions: [String]

@@ -221,10 +221,12 @@ async def get_by_id(
     """
     Use the organization ID to fetch general information about it.
     """
+    organization_id = remove_org_id_prefix(organization_id)
     organization: Dict[str, Any] = {}
     query_attrs = {
         "KeyConditionExpression": (
-            Key("pk").eq(organization_id) & Key("sk").begins_with("INFO#")
+            Key("pk").eq(f"ORG#{organization_id}")
+            & Key("sk").begins_with("INFO#")
         )
     }
 

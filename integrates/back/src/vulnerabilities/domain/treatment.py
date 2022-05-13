@@ -88,7 +88,7 @@ def _validate_acceptance_date(values: Dict[str, str]) -> bool:
 
 
 async def _validate_acceptance_days(
-    loaders: Any, values: Dict[str, str], organization: str
+    loaders: Any, values: Dict[str, str], organization_id: str
 ) -> bool:
     """
     Check that the date during which the finding will be temporarily accepted
@@ -104,7 +104,7 @@ async def _validate_acceptance_days(
             values["acceptance_date"]
         )
         acceptance_days = Decimal((acceptance_date - today).days)
-        organization_data = await loaders.organization.load(organization)
+        organization_data = await loaders.organization.load(organization_id)
         max_acceptance_days: Optional[Decimal] = organization_data[
             "max_acceptance_days"
         ]
@@ -177,20 +177,20 @@ async def validate_treatment_change(
     finding_severity: float,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
     loaders: Any,
-    organization: str,
+    organization_id: str,
     values: Dict[str, str],
 ) -> bool:
     validate_acceptance_days_coroutine = _validate_acceptance_days(
-        loaders, values, organization
+        loaders, values, organization_id
     )
     validate_acceptance_severity_coroutine = _validate_acceptance_severity(
-        loaders, values, finding_severity, organization
+        loaders, values, finding_severity, organization_id
     )
     validate_number_acceptances_coroutine = _validate_number_acceptances(
         loaders,
         values,
         historic_treatment,
-        organization,
+        organization_id,
     )
     return all(
         await collect(
