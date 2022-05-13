@@ -1751,6 +1751,81 @@ F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   32 |   disable_api_termination = true
      ^ Col 0
 ",terraform.ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,22,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf","
+  12 |
+  13 |   iam_instance_profile {
+  14 |     name = ""test""
+  15 |   }
+  16 |
+  17 |   image_id                             = ""ami-test""
+  18 |   instance_initiated_shutdown_behavior = ""stop""
+  19 |
+  20 | }
+  21 |
+> 22 | resource ""aws_launch_template"" ""foo"" {
+  23 |
+  24 |   name = ""foo""
+  25 |
+  26 |   block_device_mappings {
+  27 |     device_name = ""/dev/sda1""
+  28 |
+  29 |     ebs {
+  30 |       volume_size = 20
+  31 |     }
+  32 |   }
+     ^ Col 0
+",terraform.ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,43,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf","
+  33 |
+  34 |   iam_instance_profile {
+  35 |     name = ""test""
+  36 |   }
+  37 |
+  38 |   image_id                             = ""ami-test""
+  39 |   instance_initiated_shutdown_behavior = ""terminate""
+  40 |
+  41 | }
+  42 |
+> 43 | resource ""aws_launch_template"" ""foo"" {
+  44 |
+  45 |   name = ""foo""
+  46 |
+  47 |   block_device_mappings {
+  48 |     device_name = ""/dev/sda1""
+  49 |
+  50 |     ebs {
+  51 |       volume_size = 20
+  52 |     }
+  53 |   }
+     ^ Col 0
+",terraform.ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,1,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf","
+>  1 | resource ""aws_launch_template"" ""foo"" {
+   2 |
+   3 |   name = ""foo""
+   4 |
+   5 |   block_device_mappings {
+   6 |     device_name = ""/dev/sda1""
+   7 |
+   8 |     ebs {
+   9 |       volume_size = 20
+  10 |     }
+  11 |   }
+  12 |
+  13 |   iam_instance_profile {
+  14 |     name = ""test""
+  15 |   }
+  16 |
+  17 |   image_id                             = ""ami-test""
+  18 |   instance_initiated_shutdown_behavior = ""stop""
+  19 |
+  20 | }
+  21 |
+     ^ Col 0
+",terraform.ec2_use_default_security_group
 F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
    7 |   }
    8 |
@@ -4877,6 +4952,54 @@ F333,lines,namespace/skims/test/data/lib_path/f257/tfm_ec2_has_not_termination_p
   52 |   kernel_id = ""test""
   53 |
   54 |   key_name = ""test""
+     ^ Col 0
+",terraform.tfm_ec2_has_terminate_shutdown_behavior
+F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,18,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+   8 |     ebs {
+   9 |       volume_size = 20
+  10 |     }
+  11 |   }
+  12 |
+  13 |   iam_instance_profile {
+  14 |     name = ""test""
+  15 |   }
+  16 |
+  17 |   image_id                             = ""ami-test""
+> 18 |   instance_initiated_shutdown_behavior = ""stop""
+  19 |
+  20 | }
+  21 |
+  22 | resource ""aws_launch_template"" ""foo"" {
+  23 |
+  24 |   name = ""foo""
+  25 |
+  26 |   block_device_mappings {
+  27 |     device_name = ""/dev/sda1""
+  28 |
+     ^ Col 0
+",terraform.tfm_ec2_has_terminate_shutdown_behavior
+F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,43,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+  33 |
+  34 |   iam_instance_profile {
+  35 |     name = ""test""
+  36 |   }
+  37 |
+  38 |   image_id                             = ""ami-test""
+  39 |   instance_initiated_shutdown_behavior = ""terminate""
+  40 |
+  41 | }
+  42 |
+> 43 | resource ""aws_launch_template"" ""foo"" {
+  44 |
+  45 |   name = ""foo""
+  46 |
+  47 |   block_device_mappings {
+  48 |     device_name = ""/dev/sda1""
+  49 |
+  50 |     ebs {
+  51 |       volume_size = 20
+  52 |     }
+  53 |   }
      ^ Col 0
 ",terraform.tfm_ec2_has_terminate_shutdown_behavior
 F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property root_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,"
@@ -22510,6 +22633,78 @@ F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   21 |             ""NoDevice"": {}
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,22,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+  12 |
+  13 |   iam_instance_profile {
+  14 |     name = ""test""
+  15 |   }
+  16 |
+  17 |   image_id                             = ""ami-test""
+  18 |   instance_initiated_shutdown_behavior = ""stop""
+  19 |
+  20 | }
+  21 |
+> 22 | resource ""aws_launch_template"" ""foo"" {
+  23 |
+  24 |   name = ""foo""
+  25 |
+  26 |   block_device_mappings {
+  27 |     device_name = ""/dev/sda1""
+  28 |
+  29 |     ebs {
+  30 |       volume_size = 20
+  31 |     }
+  32 |   }
+     ^ Col 0
+",terraform.ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,43,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+  33 |
+  34 |   iam_instance_profile {
+  35 |     name = ""test""
+  36 |   }
+  37 |
+  38 |   image_id                             = ""ami-test""
+  39 |   instance_initiated_shutdown_behavior = ""terminate""
+  40 |
+  41 | }
+  42 |
+> 43 | resource ""aws_launch_template"" ""foo"" {
+  44 |
+  45 |   name = ""foo""
+  46 |
+  47 |   block_device_mappings {
+  48 |     device_name = ""/dev/sda1""
+  49 |
+  50 |     ebs {
+  51 |       volume_size = 20
+  52 |     }
+  53 |   }
+     ^ Col 0
+",terraform.ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,1,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+>  1 | resource ""aws_launch_template"" ""foo"" {
+   2 |
+   3 |   name = ""foo""
+   4 |
+   5 |   block_device_mappings {
+   6 |     device_name = ""/dev/sda1""
+   7 |
+   8 |     ebs {
+   9 |       volume_size = 20
+  10 |     }
+  11 |   }
+  12 |
+  13 |   iam_instance_profile {
+  14 |     name = ""test""
+  15 |   }
+  16 |
+  17 |   image_id                             = ""ami-test""
+  18 |   instance_initiated_shutdown_behavior = ""stop""
+  19 |
+  20 | }
+  21 |
+     ^ Col 0
+",terraform.ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,16,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
    1 | Resources:
    2 |   MyEC2Instance:
