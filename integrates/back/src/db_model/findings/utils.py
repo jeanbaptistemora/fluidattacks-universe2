@@ -243,7 +243,6 @@ def format_unreliable_indicators_item(
         "unreliable_closed_vulnerabilities": (
             indicators.unreliable_closed_vulnerabilities
         ),
-        "unreliable_is_verified": indicators.unreliable_is_verified,
         "unreliable_newest_vulnerability_report_date": (
             indicators.unreliable_newest_vulnerability_report_date
         ),
@@ -274,7 +273,6 @@ def format_unreliable_indicators(
         unreliable_closed_vulnerabilities=int(
             indicators_item["unreliable_closed_vulnerabilities"]
         ),
-        unreliable_is_verified=indicators_item["unreliable_is_verified"],
         unreliable_newest_vulnerability_report_date=(
             indicators_item["unreliable_newest_vulnerability_report_date"]
         ),

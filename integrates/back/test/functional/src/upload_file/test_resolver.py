@@ -253,7 +253,6 @@ async def test_upload_file(populate: bool, email: str) -> None:
     finding: Finding = await loaders.finding.load(finding_id)
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=3,
-        unreliable_is_verified=True,
         unreliable_newest_vulnerability_report_date=(
             "2022-02-09T00:00:00+00:00"
         ),

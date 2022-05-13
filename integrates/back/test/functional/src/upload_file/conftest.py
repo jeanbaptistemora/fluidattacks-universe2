@@ -176,7 +176,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ],
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=1,
-                    unreliable_is_verified=True,
                     unreliable_open_vulnerabilities=2,
                     unreliable_newest_vulnerability_report_date=(
                         "2018-04-08T00:43:11+00:00"

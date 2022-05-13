@@ -50,7 +50,6 @@ def test_get_entities_to_update_by_dependency() -> None:
         Entity.finding: EntityToUpdate(
             entity_ids={EntityId.ids: [finding_id]},
             attributes_to_update={
-                EntityAttr.is_verified,
                 EntityAttr.newest_vulnerability_report_date,
                 EntityAttr.oldest_vulnerability_report_date,
                 EntityAttr.oldest_open_vulnerability_report_date,

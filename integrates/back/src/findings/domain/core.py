@@ -322,10 +322,6 @@ async def get_last_closed_vulnerability_info(
     return last_closed_days, last_closed_vuln
 
 
-async def get_is_verified(loaders: Any, finding_id: str) -> bool:
-    return len(await get_vulnerabilities_to_reattack(loaders, finding_id)) == 0
-
-
 async def get_max_open_severity(
     loaders: Any, findings: Tuple[Finding, ...]
 ) -> Tuple[Decimal, Optional[Finding]]:

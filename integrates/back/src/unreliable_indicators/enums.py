@@ -17,7 +17,6 @@ class EntityId(Enum):
 class EntityAttr(Enum):
     efficacy: str = "efficacy"
     closed_vulnerabilities: str = "closed_vulnerabilities"
-    is_verified: str = "is_verified"
     last_reattack_date: str = "last_reattack_date"
     last_reattack_requester: str = "last_reattack_requester"
     last_requested_reattack_date: str = "last_requested_reattack_date"

@@ -52,7 +52,6 @@ async def test_update_unreliable_indicators_by_deps() -> None:
     finding: Finding = await loaders.finding.load(finding_id)
     expected_finding_output = FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=0,
-        unreliable_is_verified=True,
         unreliable_open_vulnerabilities=1,
         unreliable_newest_vulnerability_report_date="2020-01-03T17:46:10+00:00",
         unreliable_oldest_open_vulnerability_report_date="2020-01-03T17:46:10+00:00",

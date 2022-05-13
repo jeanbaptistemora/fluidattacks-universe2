@@ -156,11 +156,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
             EntityAttr.closed_vulnerabilities
         ] = findings_domain.get_closed_vulnerabilities(loaders, finding.id)
 
-    if EntityAttr.is_verified in attrs_to_update:
-        indicators[EntityAttr.is_verified] = findings_domain.get_is_verified(
-            loaders, finding.id
-        )
-
     if EntityAttr.newest_vulnerability_report_date in attrs_to_update:
         indicators[
             EntityAttr.newest_vulnerability_report_date
@@ -212,7 +207,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
         unreliable_closed_vulnerabilities=result.get(
             EntityAttr.closed_vulnerabilities
         ),
-        unreliable_is_verified=result.get(EntityAttr.is_verified),
         unreliable_newest_vulnerability_report_date=result.get(
             EntityAttr.newest_vulnerability_report_date
         ),

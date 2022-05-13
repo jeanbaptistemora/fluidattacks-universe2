@@ -138,7 +138,6 @@ class FindingVerificationSummary(NamedTuple):
 
 class FindingUnreliableIndicators(NamedTuple):
     unreliable_closed_vulnerabilities: int = 0
-    unreliable_is_verified: bool = True
     unreliable_newest_vulnerability_report_date: str = ""
     unreliable_oldest_open_vulnerability_report_date: str = ""
     unreliable_oldest_vulnerability_report_date: str = ""
@@ -196,7 +195,6 @@ class FindingMetadataToUpdate(NamedTuple):
 
 class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_closed_vulnerabilities: Optional[int] = None
-    unreliable_is_verified: Optional[bool] = None
     unreliable_newest_vulnerability_report_date: Optional[str] = None
     unreliable_oldest_open_vulnerability_report_date: Optional[str] = None
     unreliable_oldest_vulnerability_report_date: Optional[str] = None

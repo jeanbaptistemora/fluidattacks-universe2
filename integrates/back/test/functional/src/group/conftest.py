@@ -71,7 +71,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         "groups": [
             {
                 "group": Group(
-                    agent_token="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ",
+                    agent_token=(
+                        "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ"
+                    ),
                     context="This is a dummy context",
                     description="this is group1",
                     language=GroupLanguage.EN,
@@ -114,7 +116,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="060. Insecure service configuration - Host verification",
+                    title=(
+                        "060. Insecure service configuration - Host"
+                        " verification"
+                    ),
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email=generic_data["global_vars"]["admin_email"],
@@ -144,7 +149,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Autenticated attacker from the Internet.",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                 ),
                 "historic_state": [
                     FindingState(
@@ -186,11 +193,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ],
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
-                    unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                     unreliable_verification_summary=FindingVerificationSummary(
@@ -236,10 +248,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                 ),
                 "historic_state": [
                     FindingState(
@@ -270,11 +286,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "historic_verification": [],
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
-                    unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
@@ -354,10 +375,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                 ),
                 "historic_state": [],
                 "historic_verification": [
@@ -374,11 +399,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ],
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
-                    unreliable_is_verified=False,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
