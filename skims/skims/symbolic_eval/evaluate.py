@@ -76,7 +76,7 @@ def generic(args: SymbolicEvalArgs) -> SymbolicEvaluation:
 
 
 def evaluate(
-    language: GraphLanguage,
+    lang: GraphLanguage,
     finding: FindingEnum,
     graph: Graph,
     path: Path,
@@ -87,7 +87,7 @@ def evaluate(
 
         return generic(
             SymbolicEvalArgs(
-                generic, language, finding, evaluation, graph, path, n_id
+                generic, lang, finding, evaluation, graph, path, n_id, set()
             )
         )
     except MissingSymbolicEval as error:

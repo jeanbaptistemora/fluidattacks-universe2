@@ -40,7 +40,7 @@ class SymbolicEvalArgs(NamedTuple):
     graph: Graph
     path: Path
     n_id: NId
-    triggers: Set[str] = set()
+    triggers: Set[str]
 
     def fork_n_id(self, n_id: NId) -> SYMBOLIC_EVAL_ARGS:
         return SymbolicEvalArgs(
