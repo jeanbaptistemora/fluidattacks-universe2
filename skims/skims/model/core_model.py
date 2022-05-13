@@ -1431,6 +1431,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CS_SERVICE_POINT_MANAGER_DISABLED = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_service_point_manager_disabled",
+        module="lib_root",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_insecure_protocols",

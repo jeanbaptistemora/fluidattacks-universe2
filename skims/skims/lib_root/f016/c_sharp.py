@@ -1,3 +1,7 @@
+from lib_root.utilities.c_sharp import (
+    check_member_acces_expression,
+    yield_shard_member_access,
+)
 from lib_sast.types import (
     ShardDb,
 )
@@ -11,6 +15,12 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
 )
 from utils import (
     graph as g,
@@ -46,6 +56,54 @@ def weak_protocol(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f016.serves_content_over_insecure_protocols",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def service_point_manager_disabled(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
+    finding = method.value.finding
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
+    member_str = (
+        "Switch.System.ServiceModel."
+        + "DisableUsingServicePointManagerSecurityProtocols"
+    )
+
+    rules = {
+        member_str,
+        "true",
+    }
+
+    def n_ids() -> GraphShardNodes:
+
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            for member in yield_shard_member_access(shard, {"AppContext"}):
+                if not check_member_acces_expression(
+                    shard, member, "SetSwitch"
+                ):
+                    continue
+                graph = shard.syntax_graph
+                pred = g.pred_ast(shard.graph, member)[0]
+                for path in get_backward_paths(graph, pred):
+                    evaluation = evaluate(c_sharp, finding, graph, path, pred)
+                    if (
+                        evaluation
+                        and evaluation.danger
+                        and evaluation.triggers == rules
+                    ):
+                        yield shard, pred
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f016.service_point_manager_disabled",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

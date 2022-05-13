@@ -31,3 +31,12 @@ lib_ssl.analyze_protocol.raccoon_possible:
 lib_ssl.analyze_protocol.breach_possible:
   en: server is vulnerable to BREACH attacks
   es: el servidor es vulnerable a ataques BREACH
+lib_root.f016.service_point_manager_disabled:
+  en: >
+    A AppContext.SetSwitch method call sets
+    Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols
+    to true
+  es: >
+    Una llamada al método AppContext.SetSwitch establece
+    Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols
+    en verdadero
