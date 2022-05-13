@@ -1,14 +1,13 @@
 {
+  inputs,
   makeScript,
   outputs,
   ...
 }:
 makeScript {
   searchPaths = {
-    bin = [
-      outputs."/observes/service/batch-stability/bin"
-    ];
     source = [
+      outputs."${inputs.observesIndex.service.batch_stability.bin}"
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
