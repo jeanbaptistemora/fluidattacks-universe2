@@ -19,6 +19,9 @@ from symbolic_eval.f098.parameter import (
 from symbolic_eval.f100.parameter import (
     evaluate as evaluate_parameter_f100,
 )
+from symbolic_eval.f107.parameter import (
+    evaluate as evaluate_parameter_f107,
+)
 from symbolic_eval.f211.parameter import (
     evaluate as evaluate_parameter_f211,
 )
@@ -41,6 +44,7 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F021: evaluate_parameter_f021,
     FindingEnum.F063: evaluate_parameter_f063,
     FindingEnum.F100: evaluate_parameter_f100,
+    FindingEnum.F107: evaluate_parameter_f107,
     FindingEnum.F211: evaluate_parameter_f211,
     FindingEnum.F413: evaluate_parameter_f413,
 }
