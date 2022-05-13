@@ -18,12 +18,12 @@ import { useTranslation } from "react-i18next";
 import { GET_GROUP_CREDENTIALS, VALIDATE_GIT_ACCESS } from "../../queries";
 import type { ICredentials, IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
+import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour";
 import {
-  Alert,
   ControlLabel,
   QuestionButton,
   RequiredField,
@@ -286,7 +286,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                     </div>
                   </div>
                   {isEditing && values.branch !== initialValues.branch ? (
-                    <Alert>{t("group.scope.common.changeWarning")}</Alert>
+                    <Alert variant={"error"}>
+                      {t("group.scope.common.changeWarning")}
+                    </Alert>
                   ) : undefined}
                   <br />
                   {isDuplicated(values.url) ? (
@@ -529,7 +531,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                               ? undefined
                               : rootChanged(values)}
                             {values.includesHealthCheck ?? false ? (
-                              <Alert>
+                              <Alert variant={"error"}>
                                 <Field
                                   component={FormikCheckbox}
                                   isChecked={isCheckedHealthCheck}
@@ -544,7 +546,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                               </Alert>
                             ) : undefined}
                             {values.includesHealthCheck ?? true ? undefined : (
-                              <Alert>
+                              <Alert variant={"error"}>
                                 <Field
                                   component={FormikCheckbox}
                                   isChecked={isCheckedHealthCheck}
