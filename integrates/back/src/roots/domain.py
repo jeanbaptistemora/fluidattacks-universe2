@@ -40,6 +40,7 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
     GitCloningStatus,
+    Notification,
 )
 from db_model.groups.types import (
     Group,
@@ -62,6 +63,9 @@ from db_model.roots.types import (
     Secret,
     URLRoot,
     URLRootState,
+)
+from db_model.users.types import (
+    User,
 )
 from group_access import (
     domain as group_access_domain,
@@ -496,6 +500,7 @@ async def update_git_environments(
 
     if urls_added or urls_deleted:
         await send_mail_environment(
+            loaders=loaders,
             date=modified_date,
             group_name=group_name,
             git_root=root.state.nickname,
@@ -719,7 +724,13 @@ async def update_git_root(  # pylint: disable=too-many-locals
         state=new_state,
     )
 
-    await send_mail_updated_root(group_name, root, new_state, user_email)
+    await send_mail_updated_root(
+        loaders=loaders,
+        group_name=group_name,
+        root=root,
+        new_state=new_state,
+        user_email=user_email,
+    )
 
     return GitRoot(
         cloning=root.cloning,
@@ -733,6 +744,8 @@ async def update_git_root(  # pylint: disable=too-many-locals
 
 
 async def send_mail_updated_root(
+    *,
+    loaders: Any,
     group_name: str,
     root: Root,
     new_state: GitRootState,
@@ -750,6 +763,12 @@ async def send_mail_updated_root(
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.ROOT_UPDATE in user.notifications_preferences.email
+    ]
 
     old_state: Dict[str, Any] = root.state._asdict()
     new_root_content: Dict[str, Any] = {
@@ -761,7 +780,7 @@ async def send_mail_updated_root(
 
     if new_root_content:
         await groups_mail.send_mail_updated_root(
-            email_to=email_list,
+            email_to=users_email,
             group_name=group_name,
             responsible=user_email,
             root_nickname=new_state.nickname,
@@ -1305,6 +1324,7 @@ async def remove_environment_url(root_id: str, url: str) -> None:
 
 
 async def send_mail_environment(  # pylint: disable=too-many-arguments
+    loaders: Any,
     date: str,
     group_name: str,
     git_root: str,
@@ -1325,9 +1345,15 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.ROOT_UPDATE in user.notifications_preferences.email
+    ]
 
     await groups_mail.send_mail_environment_report(
-        email_to=email_list,
+        email_to=users_email,
         group_name=group_name,
         responsible=user_email,
         git_root=git_root,

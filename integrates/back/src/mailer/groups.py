@@ -126,6 +126,7 @@ async def send_mail_comment(
 
 async def send_mail_added_root(
     *,
+    loaders: Any,
     branch: str,
     email_to: List[str],
     environment: str,
@@ -134,8 +135,14 @@ async def send_mail_added_root(
     responsible: str,
     modified_date: str,
 ) -> None:
+    user: Tuple[User, ...] = await loaders.user.load_many(email_to)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.ROOT_UPDATE in user.notifications_preferences.email
+    ]
     await send_mails_async(
-        email_to=email_to,
+        email_to=users_email,
         context={
             "branch": branch.capitalize(),
             "environment": environment.capitalize(),
@@ -254,6 +261,12 @@ async def send_mail_root_cloning_status(
 ) -> None:
     cloning_state: str = "failed" if is_failed else "changed"
     org_name = await get_organization_name(loaders, group_name)
+    user: Tuple[User, ...] = await loaders.user.load_many(email_to)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.ROOT_UPDATE in user.notifications_preferences.email
+    ]
     email_context: dict[str, Any] = {
         "is_failed": is_failed,
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
@@ -262,7 +275,7 @@ async def send_mail_root_cloning_status(
         "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
     }
     await send_mails_async(
-        email_to=email_to,
+        email_to=users_email,
         context=email_context,
         tags=GENERAL_TAG,
         subject=(

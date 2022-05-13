@@ -29,6 +29,11 @@ Added Reminder Notification
 
 Execution Time: 2022-04-18 at 19:22:42 UTC
 Finalization Time: 2022-04-18 at 19:24:20 UTC
+
+Added notifications preferences
+
+Execution Time: 2022-05-13 at 16:57:29 UTC
+Finalization Time: 2022-05-13 at 17:04:16 UTC
 """
 
 

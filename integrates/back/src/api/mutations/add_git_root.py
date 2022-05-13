@@ -1,3 +1,6 @@
+from aiodataloader import (
+    DataLoader,
+)
 from aioextensions import (
     collect,
 )
@@ -68,8 +71,9 @@ async def mutate(
 ) -> AddRootPayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
+    loaders: DataLoader = info.context.loaders
     root: GitRoot = await roots_domain.add_git_root(
-        info.context.loaders, user_email, **kwargs
+        loaders, user_email, **kwargs
     )
     group_name = root.group_name
     users = await group_access_domain.get_group_users(
@@ -89,7 +93,7 @@ async def mutate(
         kwargs.get("credentials")
         and (
             result_queue_sync := await clone_roots.queue_sync_git_roots(
-                loaders=info.context.loaders,
+                loaders=loaders,
                 roots=(root,),
                 user_email=user_email,
                 group_name=root.group_name,
@@ -119,7 +123,7 @@ async def mutate(
             ),
             queue=SkimsBatchQueue.HIGH,
             roots=[root.state.nickname],
-            dataloaders=info.context.loaders,
+            dataloaders=loaders,
             dependsOn=[
                 {
                     "jobId": result_refresh.batch_job_id,
@@ -129,6 +133,7 @@ async def mutate(
         )
 
     await groups_mail.send_mail_added_root(
+        loaders=loaders,
         branch=root.state.branch,
         email_to=email_list,
         environment=root.state.environment,
