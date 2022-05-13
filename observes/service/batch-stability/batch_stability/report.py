@@ -1,6 +1,7 @@
 from batch_stability.errors import (
     BatchCancelledJob,
     BatchFailedJob,
+    BatchUnknownExitCode,
     BatchUnstartedJob,
 )
 import bugsnag
@@ -54,10 +55,20 @@ def unstarted_jobs(jobs: Stream[JobSummaryTypeDef]) -> Stream[FailReport]:
     ).map(lambda j: _to_report(j, BatchUnstartedJob(j["jobName"])))
 
 
+def _failed_job_exception(job: JobSummaryTypeDef) -> Exception:
+    name = job["jobName"]
+    exit_code = Maybe.from_optional(job.get("container")).bind_optional(
+        lambda c: c.get("exitCode")
+    )
+    return exit_code.map(lambda _: BatchFailedJob(name)).value_or(
+        BatchUnknownExitCode(name)
+    )
+
+
 def failed_jobs(jobs: Stream[JobSummaryTypeDef]) -> Stream[FailReport]:
     return jobs.filter(
         lambda j: bool(j.get("startedAt") and j.get("stoppedAt"))
-    ).map(lambda j: _to_report(j, BatchFailedJob(j["jobName"])))
+    ).map(lambda j: _to_report(j, _failed_job_exception(j)))
 
 
 def time_filter(
@@ -82,7 +93,7 @@ def observes_filter(
     return jobs.filter(lambda j: "observes" in j["jobName"])
 
 
-def report(item: FailReport) -> Cmd[None]:
+def report(item: FailReport, dry_run: bool) -> Cmd[None]:
     def _action() -> None:
         arguments = dict(
             extra=dict(
@@ -92,7 +103,12 @@ def report(item: FailReport) -> Cmd[None]:
             ),
             grouping_hash=item.name,
         )
-        bugsnag.start_session()  # type: ignore[no-untyped-call]
-        bugsnag.notify(item.exception, **arguments)
+        if dry_run:
+            print(type(item.exception))
+            print(item.exception)
+            print(arguments)
+        else:
+            bugsnag.start_session()  # type: ignore[no-untyped-call]
+            bugsnag.notify(item.exception, **arguments)
 
     return Cmd.from_cmd(_action)

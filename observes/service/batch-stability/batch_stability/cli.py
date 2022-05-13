@@ -16,18 +16,23 @@ from typing import (
 @click.command()  # type: ignore[misc]
 @click.argument("queue", type=str)
 @click.option("--last-hours", type=int, default=24)
-def report_cancelled(queue: str, last_hours: int) -> NoReturn:
+@click.option("--dry-run", is_flag=True)
+def report_cancelled(queue: str, last_hours: int, dry_run: bool) -> NoReturn:
     jobs = observes_jobs(queue, last_hours)
-    cmds = report.cancelled_jobs(jobs).map(report.report)
-    consume(cmds).compute()
+    cmds = report.cancelled_jobs(jobs).map(lambda i: report.report(i, dry_run))
+    cmds_2 = report.unstarted_jobs(jobs).map(
+        lambda i: report.report(i, dry_run)
+    )
+    (consume(cmds) + consume(cmds_2)).compute()
 
 
 @click.command()  # type: ignore[misc]
 @click.argument("queue", type=str)
 @click.option("--last-hours", type=int, default=1)
-def report_failures(queue: str, last_hours: int) -> NoReturn:
+@click.option("--dry-run", is_flag=True)
+def report_failures(queue: str, last_hours: int, dry_run: bool) -> NoReturn:
     jobs = observes_jobs(queue, last_hours)
-    cmds = report.failed_jobs(jobs).map(report.report)
+    cmds = report.failed_jobs(jobs).map(lambda i: report.report(i, dry_run))
     consume(cmds).compute()
 
 
