@@ -5744,7 +5744,21 @@
   title: NIST SSDF
   en:
     description: >
-      .
+      The NIST Secure Software Development
+      Framework (SSDF) is a set of
+      fundamental and secure software
+      development practices based on
+      established secure software
+      development practice documents,
+      it describes a set of high-level
+      practices based on
+      established standards,
+      guidance,
+      and secure software
+      development practice documents.
+      The version used for this
+      section is NIST 800-218 v1.1,
+      February 2022.
   es:
     description: __empty__
   definitions:
