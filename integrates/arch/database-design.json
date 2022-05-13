@@ -659,6 +659,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -666,6 +669,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -677,13 +686,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -714,6 +732,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -721,6 +742,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -732,13 +759,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -769,6 +805,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -776,6 +815,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -787,13 +832,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -824,6 +878,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -831,6 +888,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -842,13 +905,25 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
                       },
                       {
                         "S": "VULNERABILITY_ASSIGNED"
@@ -876,6 +951,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -883,6 +961,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -894,13 +978,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -931,6 +1024,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -938,6 +1034,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -949,13 +1051,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -986,6 +1097,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -993,6 +1107,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -1004,13 +1124,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -1041,6 +1170,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -1048,6 +1180,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -1059,13 +1197,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"
@@ -1200,6 +1347,9 @@
                         "S": "ACCESS_GRANTED"
                       },
                       {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
                         "S": "CHARTS_REPORT"
                       },
                       {
@@ -1207,6 +1357,12 @@
                       },
                       {
                         "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
                       },
                       {
                         "S": "GROUP_REPORT"
@@ -1218,13 +1374,22 @@
                         "S": "NEW_DRAFT"
                       },
                       {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
                         "S": "REMEDIATE_FINDING"
                       },
                       {
                         "S": "REMINDER_NOTIFICATION"
                       },
                       {
-                        "S": "ROOT_MOVED"
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
                       },
                       {
                         "S": "UPDATED_TREATMENT"

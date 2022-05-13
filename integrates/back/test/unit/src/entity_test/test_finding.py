@@ -62,7 +62,6 @@ async def _get_result(
                 "NEW_COMMENT",
                 "NEW_DRAFT",
                 "REMEDIATE_FINDING",
-                "ROOT_MOVED",
                 "UPDATED_TREATMENT",
                 "VULNERABILITY_ASSIGNED",
             ]

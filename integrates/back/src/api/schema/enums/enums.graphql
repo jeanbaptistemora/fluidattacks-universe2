@@ -428,24 +428,44 @@ enum StakeholderRole {
 enum NotificationsName {
   "access_granted"
   ACCESS_GRANTED
+  "agent_token"
+  AGENT_TOKEN
   "charts_report"
   CHARTS_REPORT
   "daily_digest"
   DAILY_DIGEST
   "event_report"
   EVENT_REPORT
+  "file_update"
+  FILE_UPDATE
+  "group_information"
+  GROUP_INFORMATION
   "group_report"
   GROUP_REPORT
   "new_comment"
   NEW_COMMENT
   "new_draft"
   NEW_DRAFT
+  "portfolio_update"
+  PORTFOLIO_UPDATE
   "remediate_finding"
   REMEDIATE_FINDING
   "reminder_notification"
   REMINDER_NOTIFICATION
   "root_moved"
   ROOT_MOVED
+    @deprecated(
+      reason: """
+      This enum field  will be removed
+      after 2022/11/13. Use `ROOT_UPDATE` instead.
+      """
+    )
+  "root_update"
+  ROOT_UPDATE
+  "service_update"
+  SERVICE_UPDATE
+  "unsubscripton_alert"
+  UNSUBSCRIPTION_ALERT
   "updated_treatment"
   UPDATED_TREATMENT
   "vulnerability_assigned"

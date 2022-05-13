@@ -146,7 +146,6 @@ async def test_solve_event() -> None:
                 "NEW_COMMENT",
                 "NEW_DRAFT",
                 "REMEDIATE_FINDING",
-                "ROOT_MOVED",
                 "UPDATED_TREATMENT",
                 "VULNERABILITY_ASSIGNED",
             ]

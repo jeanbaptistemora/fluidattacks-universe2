@@ -205,7 +205,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     users_email = [
         user.email
         for user in user
-        if Notification.ROOT_MOVED in user.notifications_preferences.email
+        if Notification.ROOT_UPDATE in user.notifications_preferences.email
     ]
     await groups_mail.send_mail_deactivated_root(
         activated_by=activated_by,

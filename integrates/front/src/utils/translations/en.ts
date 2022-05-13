@@ -1683,6 +1683,10 @@ export const enTranslations: ResourceKey = {
         name: "ACCESS_GRANTED",
         tooltip: "ACCESS_GRANTED",
       },
+      AGENT_TOKEN: {
+        name: "DevSecOps agent token alert",
+        tooltip: "DevSecOps Agent Token Alert",
+      },
       CHARTS_REPORT: {
         name: "Analytics report",
         tooltip:
@@ -1702,7 +1706,15 @@ export const enTranslations: ResourceKey = {
         tooltip:
           "Get information about an event when it is reported in a group.",
       },
+      FILE_UPDATE: {
+        name: "Files updates",
+        tooltip: "Files updates",
+      },
       GROUP: "GROUP",
+      GROUP_INFORMATION: {
+        name: "Group information",
+        tooltip: "Group information",
+      },
       GROUP_REPORT: {
         name: "GROUP_REPORT",
         tooltip: "GROUP_REPORT",
@@ -1721,6 +1733,10 @@ export const enTranslations: ResourceKey = {
       },
       ORGANIZATION: "ORGANIZATION",
       PORTFOLIO: "PORTFOLIO",
+      PORTFOLIO_UPDATE: {
+        name: "Portfolio updates",
+        tooltip: "Portfolio updates",
+      },
       REMEDIATE_FINDING: {
         name: "Vulnerability updates",
         tooltip:
@@ -1734,11 +1750,19 @@ export const enTranslations: ResourceKey = {
           "Get notifications when three weeks have passed " +
           "since you last used the platform.",
       },
-      ROOT_MOVED: {
+      ROOT_UPDATE: {
         name: "Root updates",
         tooltip:
           "Get notifications when a user deactivates a root " +
           "or moves a root to another group.",
+      },
+      SERVICE_UPDATE: {
+        name: "Services updates",
+        tooltip: "Services updates",
+      },
+      UNSUBSCRIPTION_ALERT: {
+        name: "Unsubscription alert",
+        tooltip: "Unsubscription alert",
       },
       UPDATED_TREATMENT: {
         name: "Treatment updates",

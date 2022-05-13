@@ -586,7 +586,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             product_name=Product.INTEGRATES,
         )
     user: User = await loaders.user.load(item.subject)
-    if Notification.ROOT_MOVED in user.notifications_preferences.email:
+    if Notification.ROOT_UPDATE in user.notifications_preferences.email:
         LOGGER.info(
             "Notifying user",
             extra={
