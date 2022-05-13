@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 11, 2022, 10:02 AM",
+    "DateLastModified": "May 13, 2022, 12:54 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -333,10 +333,6 @@
         {
           "AttributeName": "unreliable_closed_vulnerabilities",
           "AttributeType": "N"
-        },
-        {
-          "AttributeName": "unreliable_is_verified",
-          "AttributeType": "BOOL"
         },
         {
           "AttributeName": "unreliable_open_vulnerabilities",
@@ -8398,9 +8394,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "CLOSED"
               }
@@ -8458,9 +8451,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -8520,9 +8510,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "CLOSED"
               }
@@ -8580,9 +8567,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -8642,9 +8626,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "CLOSED"
               }
@@ -8702,9 +8683,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -8764,9 +8742,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "CLOSED"
               }
@@ -8824,9 +8799,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -8886,9 +8858,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "OPEN"
               }
@@ -8946,9 +8915,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -9008,9 +8974,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "OPEN"
               }
@@ -9068,9 +9031,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "4"
-              },
-              "unreliable_is_verified": {
-                "BOOL": false
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -9130,9 +9090,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "CLOSED"
               }
@@ -9190,9 +9147,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -9252,9 +9206,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "OPEN"
               }
@@ -9312,9 +9263,6 @@
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
-              },
-              "unreliable_is_verified": {
-                "BOOL": true
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -9374,9 +9322,6 @@
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
-              "unreliable_is_verified": {
-                "BOOL": true
-              },
               "unreliable_status": {
                 "S": "OPEN"
               }
@@ -9384,7 +9329,6 @@
           ],
           "NonKeyAttributes": [
             "unreliable_closed_vulnerabilities",
-            "unreliable_is_verified",
             "unreliable_open_vulnerabilities",
             "unreliable_status",
             "unreliable_where",
