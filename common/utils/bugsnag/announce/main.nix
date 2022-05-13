@@ -5,7 +5,7 @@
 }: let
   nodeJsEnvironment = makeNodeJsEnvironment {
     name = "bugsnag-announce";
-    nodeJsVersion = "12";
+    nodeJsVersion = "14";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
   };
