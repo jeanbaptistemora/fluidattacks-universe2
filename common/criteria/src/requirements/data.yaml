@@ -1319,6 +1319,7 @@
   references:
     - "asvs.V14_2_2"
     - "asvs.V14_2_5"
+    - "nistssdf.PW_4_1"
   metadata: {}
 "050":
   en:
@@ -1377,6 +1378,7 @@
     - "sans25.94"
     - "iso27002.8_26"
     - "c2m2.9_3_f"
+    - "nistssdf.PW_6_1"
   metadata: {}
 "051":
   en:
@@ -1531,6 +1533,11 @@
     - "wasc.A_26"
     - "wasc.W_15"
     - "wasc.W_14"
+    - "nistssdf.PW_1_3"
+    - "nistssdf.PW_4_1"
+    - "nistssdf.PW_6_2"
+    - "nistssdf.PW_9_1"
+    - "nistssdf.RV_2_2"
   metadata: {}
 "072":
   en:
@@ -3624,6 +3631,7 @@
     - "osstmm3.11_9_2"
     - "c2m2.7_2_h"
     - "wasc.W_15"
+    - "nistssdf.PW_9_1"
   metadata: {}
 "143":
   en:
@@ -4376,6 +4384,7 @@
     - "iso27002.8_28"
     - "c2m2.9_4_d"
     - "nistssdf.PW_1_1"
+    - "nistssdf.PW_5_1"
   metadata: {}
 "157":
   en:
@@ -4428,6 +4437,7 @@
     - "sans25.611"
     - "sans25.787"
     - "wassec.5_3"
+    - "nistssdf.PW_6_1"
   metadata: {}
 "158":
   en:
@@ -4482,6 +4492,8 @@
     - "hitrust.10_j"
     - "iso27002.8_28"
     - "wasc.A_07"
+    - "nistssdf.PW_5_1"
+    - "nistssdf.PW_6_1"
   metadata: {}
 "159":
   en:
@@ -4519,6 +4531,7 @@
     - "hitrust.10_j"
     - "iso27002.8_25"
     - "osstmm3.11_7_2"
+    - "nistssdf.PW_6_2"
   metadata: {}
 "160":
   en:
@@ -4715,6 +4728,8 @@
     - "c2m2.9_3_f"
     - "c2m2.9_4_d"
     - "wasc.W_15"
+    - "nistssdf.PW_1_3"
+    - "nistssdf.PW_9_2"
   metadata: {}
 "162":
   en:
@@ -4837,6 +4852,7 @@
     - "certc.EXP33-C"
     - "mitre.M1013"
     - "iso27002.8_28"
+    - "nistssdf.PW_5_1"
   metadata: {}
 "169":
   en:
@@ -5882,6 +5898,7 @@
     - "osstmm3.11_7_2"
     - "c2m2.9_3_f"
     - "c2m2.9_5_b"
+    - "nistssdf.PW_6_2"
   metadata: {}
 "185":
   en:
@@ -7554,6 +7571,7 @@
     - "iso27002.8_20"
     - "iec62443.UC-2_2"
     - "osstmm3.9_5_3"
+    - "nistssdf.PW_9_1"
   metadata: {}
 "255":
   en:
@@ -7936,6 +7954,8 @@
     - "c2m2.7_1_e"
     - "c2m2.9_4_e"
     - "nistssdf.PO_1_3"
+    - "nistssdf.PW_4_1"
+    - "nistssdf.PW_4_4"
   metadata: {}
 "264":
   en:
@@ -8233,6 +8253,8 @@
     - "wasc.A_05"
     - "wasc.W_16"
     - "nistssdf.PS_1_1"
+    - "nistssdf.PW_5_1"
+    - "nistssdf.RV_2_2"
   metadata: {}
 "273":
   en:
@@ -8292,6 +8314,7 @@
     - "c2m2.2_1_d"
     - "c2m2.9_1_e"
     - "c2m2.9_2_e"
+    - "nistssdf.RV_2_2"
   metadata: {}
 "280":
   en:
@@ -8585,6 +8608,8 @@
     - "c2m2.2_2_h"
     - "c2m2.7_2_h"
     - "nistssdf.PS_1_1"
+    - "nistssdf.PW_4_1"
+    - "nistssdf.PW_5_1"
   metadata: {}
 "305":
   en:
@@ -8914,6 +8939,7 @@
     - "cmmc.CM_L2-3_4_8"
     - "hitrust.11_a"
     - "iec62443.SI-3_7"
+    - "nistssdf.RV_2_2"
   metadata: {}
 "314":
   en:
@@ -10892,6 +10918,7 @@
     - "lgpd.46"
     - "iec62443.RDF-5_2"
     - "wasc.W_02"
+    - "nistssdf.PW_9_1"
   metadata: {}
 "342":
   en:
@@ -10970,6 +10997,7 @@
     - "osstmm3.11_6_2"
     - "wasc.A_12"
     - "wasc.A_33"
+    - "nistssdf.PW_5_1"
   metadata: {}
 "343":
   en:
@@ -11097,6 +11125,7 @@
     - "iso27002.8_28"
     - "c2m2.3_1_b"
     - "c2m2.9_3_j"
+    - "nistssdf.PW_6_1"
   metadata: {}
 "345":
   en:
@@ -11388,6 +11417,7 @@
     - "wassec.5_3"
     - "c2m2.9_1_e"
     - "c2m2.9_5_g"
+    - "nistssdf.PW_4_1"
   metadata: {}
 "349":
   en:
@@ -11579,6 +11609,7 @@
     - "c2m2.3_1_b"
     - "c2m2.9_3_j"
     - "c2m2.9_4_d"
+    - "nistssdf.PW_6_1"
   metadata: {}
 "353":
   en:
@@ -11625,6 +11656,7 @@
     - "c2m2.7_2_a"
     - "c2m2.9_2_e"
     - "c2m2.9_3_i"
+    - "nistssdf.PW_4_1"
   metadata: {}
 "354":
   en:
@@ -12747,6 +12779,7 @@
     - "cwe.1120"
     - "cwe.1121"
     - "mitre.M1013"
+    - "nistssdf.PW_5_1"
   metadata: {}
 "380":
   en:
