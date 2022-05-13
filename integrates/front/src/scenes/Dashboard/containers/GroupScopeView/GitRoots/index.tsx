@@ -84,6 +84,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
+  const [rootModalMessages, setRootModalMessages] = useState({
+    message: "",
+    type: "success",
+  });
   const canSyncGitRoot: boolean = permissions.can(
     "api_mutations_sync_git_root_mutate"
   );
@@ -204,7 +208,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       closeModal();
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      handleCreationError(graphQLErrors);
+      handleCreationError(graphQLErrors, setRootModalMessages);
     },
   });
 
@@ -786,6 +790,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           initialValues={
             isManagingRoot.mode === "EDIT" ? currentRow : undefined
           }
+          modalMessages={rootModalMessages}
           nicknames={nicknames}
           onClose={closeModal}
           onSubmitEnvs={handleEnvsSubmit}

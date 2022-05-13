@@ -33,9 +33,10 @@ const Box = styled.div<IBoxProps>`
     variants[props.variant].backgroundColor};
   border-radius: 4px;
   color: ${(props): string => variants[props.variant].color};
-  padding: 0px 20px 10px 20px;
+  padding: 10px 20px 20px 20px;
   font-family: Roboto;
   font-size: 16px;
+  margin: 10px 20px 10px 20px;
 `;
 
 export type { IBoxProps };

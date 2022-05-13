@@ -19,6 +19,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 interface IManagementModalProps {
   groupName: string;
   initialValues: IGitRootAttr | undefined;
+  modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
   onSubmitEnvs: (values: IGitRootAttr) => Promise<void>;
@@ -58,6 +59,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
     url: "",
     useVpn: false,
   },
+  modalMessages,
   nicknames,
   onClose,
   onSubmitEnvs,
@@ -142,6 +144,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                       groupName={groupName}
                       initialValues={initialValues}
                       isEditing={isEditing}
+                      modalMessages={modalMessages}
                       nicknames={nicknames}
                       onClose={onClose}
                       onSubmit={confirmAndSubmit}

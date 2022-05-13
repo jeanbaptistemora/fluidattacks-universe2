@@ -19,6 +19,7 @@ import { GET_GROUP_CREDENTIALS, VALIDATE_GIT_ACCESS } from "../../queries";
 import type { ICredentials, IGitRootAttr } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
+import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -52,6 +53,7 @@ interface IRepositoryProps {
   groupName: string;
   initialValues: IGitRootAttr;
   isEditing: boolean;
+  modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
@@ -64,6 +66,7 @@ const Repository: React.FC<IRepositoryProps> = ({
   initialValues,
   isEditing,
   nicknames,
+  modalMessages,
   onClose,
   onSubmit,
   runTour,
@@ -620,6 +623,14 @@ const Repository: React.FC<IRepositoryProps> = ({
                   </fieldset>
                 </Can>
               </React.Fragment>
+              {modalMessages.message !== "" && (
+                <Alert
+                  icon={true}
+                  variant={modalMessages.type as IAlertProps["variant"]}
+                >
+                  {modalMessages.message}
+                </Alert>
+              )}
               <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
                   {t("confirmmodal.cancel")}

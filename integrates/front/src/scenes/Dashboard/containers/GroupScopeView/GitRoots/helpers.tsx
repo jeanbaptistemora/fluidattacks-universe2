@@ -13,7 +13,7 @@ import { array, boolean, lazy, object, string } from "yup";
 import type { TypedSchema } from "yup/lib/util/types";
 
 import type { IGitRootAttr } from "../types";
-import { Alert } from "styles/styledComponents";
+import { Alert } from "components/Alert";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -36,7 +36,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
   return _.isEmpty(gitignore) ? (
     <div />
   ) : (
-    <Alert>{t("group.scope.git.filter.warning")}</Alert>
+    <Alert variant={"error"}>{t("group.scope.git.filter.warning")}</Alert>
   );
 };
 
@@ -140,26 +140,52 @@ const gitModalSchema = (
 
 // Index helpers
 
-const handleCreationError = (graphQLErrors: readonly GraphQLError[]): void => {
+const handleCreationError = (
+  graphQLErrors: readonly GraphQLError[],
+  setModalMessages: React.Dispatch<
+    React.SetStateAction<{
+      message: string;
+      type: string;
+    }>
+  >
+): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
       case "Exception - Error empty value is not valid":
-        msgError(translate.t("group.scope.git.errors.invalid"));
+        setModalMessages({
+          message: translate.t("group.scope.git.errors.invalid"),
+          type: "error",
+        });
         break;
       case "Exception - Active root with the same Nickname already exists":
-        msgError(translate.t("group.scope.common.errors.duplicateNickname"));
+        setModalMessages({
+          message: translate.t("group.scope.common.errors.duplicateNickname"),
+          type: "error",
+        });
         break;
       case "Exception - Active root with the same URL/branch already exists":
-        msgError(translate.t("group.scope.common.errors.duplicateUrl"));
+        setModalMessages({
+          message: translate.t("group.scope.common.errors.duplicateUrl"),
+          type: "error",
+        });
         break;
       case "Exception - Root name should not be included in the exception pattern":
-        msgError(translate.t("group.scope.git.errors.rootInGitignore"));
+        setModalMessages({
+          message: translate.t("group.scope.git.errors.rootInGitignore"),
+          type: "error",
+        });
         break;
       case "Exception - Invalid characters":
-        msgError(translate.t("validations.invalidChar"));
+        setModalMessages({
+          message: translate.t("validations.invalidChar"),
+          type: "error",
+        });
         break;
       default:
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        setModalMessages({
+          message: translate.t("groupAlerts.errorTextsad"),
+          type: "error",
+        });
         Logger.error("Couldn't add git roots", error);
     }
   });
