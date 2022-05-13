@@ -175,6 +175,32 @@
       "management:type" = "product";
     };
   };
+  integrates_db_migration_0214_remove_finding_verified_indicator = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/integrates/db/migration"
+      "prod"
+      "0214_remove_finding_verified_indicator.py"
+    ];
+
+    schedule_expression = "cron(10 18 ? 5 ? 2022)";
+    queue = "unlimited_dedicated";
+    attempts = 1;
+    timeout = 86400;
+    cpu = 2;
+    memory = 7200;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "integrates_db_migration";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_delete_imamura_stakeholders = {
     enabled = true;
     command = [
