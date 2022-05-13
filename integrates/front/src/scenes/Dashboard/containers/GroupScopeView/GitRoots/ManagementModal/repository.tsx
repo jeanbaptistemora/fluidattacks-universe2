@@ -242,6 +242,7 @@ const Repository: React.FC<IRepositoryProps> = ({
         validationSchema={gitModalSchema(
           hasSquad,
           initialValues,
+          isCheckedHealthCheck,
           isDuplicated,
           nicknames
         )}

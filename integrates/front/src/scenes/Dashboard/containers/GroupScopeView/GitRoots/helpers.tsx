@@ -43,6 +43,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
 const gitModalSchema = (
   hasSquad: boolean,
   initialValues: IGitRootAttr,
+  isCheckedHealthCheck: boolean,
   isDuplicated: (field: string) => boolean,
   nicknames: string[]
 ): InferType<TypedSchema> =>
@@ -85,7 +86,7 @@ const gitModalSchema = (
             translate.t("validations.required"),
             (): boolean => {
               const { healthCheckConfirm, includesHealthCheck } = values;
-              if (!hasSquad) {
+              if (!hasSquad || isCheckedHealthCheck) {
                 return true;
               }
               if (
