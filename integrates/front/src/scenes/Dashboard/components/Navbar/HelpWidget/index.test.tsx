@@ -1,3 +1,4 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -102,5 +103,66 @@ describe("HelpModal", (): void => {
     await waitFor((): void => {
       expect(screen.queryAllByRole("button")).toHaveLength(3);
     });
+    userEvent.click(screen.getAllByRole("button")[2]);
+
+    await waitFor((): void => {
+      expect(screen.queryByText("upgrade.title")).not.toBeInTheDocument();
+    });
+  });
+
+  it("should render upgrade modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const nonValidGroups: IOrganizationGroups["groups"] = [
+      {
+        name: "unittesting",
+        permissions: [],
+        serviceAttributes: [],
+      },
+    ];
+    const { container } = render(
+      <authzPermissionsContext.Provider value={new PureAbility([])}>
+        <MemoryRouter
+          initialEntries={["/orgs/okada/groups/unittesting/events"]}
+        >
+          <MockedProvider addTypename={true} mocks={[]}>
+            <authContext.Provider
+              value={{
+                tours: {
+                  newGroup: true,
+                  newRoot: true,
+                },
+                userEmail: "test@fluidattacks.com",
+                userName: "",
+              }}
+            >
+              <Route path={"/orgs/:orgName/groups/:groupName/events"}>
+                <HelpModal groups={nonValidGroups} />
+              </Route>
+            </authContext.Provider>
+          </MockedProvider>
+        </MemoryRouter>
+      </authzPermissionsContext.Provider>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("button")).toHaveLength(1);
+    });
+
+    userEvent.click(screen.getAllByRole("button")[0]);
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("button")).toHaveLength(3);
+    });
+
+    userEvent.click(screen.getAllByRole("button")[2]);
+
+    await waitFor((): void => {
+      expect(screen.queryByText("upgrade.title")).toBeInTheDocument();
+    });
+
+    expect(container.querySelector("#page-region")).not.toBeInTheDocument();
   });
 });
