@@ -16,12 +16,14 @@ from fa_purity import (
     Maybe,
     Stream,
 )
+import logging
 from mypy_boto3_batch.type_defs import (
     JobSummaryTypeDef,
 )
 
 HOUR: float = 3600.0
 NOW: float = datetime.utcnow().timestamp()
+LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -104,9 +106,12 @@ def report(item: FailReport, dry_run: bool) -> Cmd[None]:
             grouping_hash=item.name,
         )
         if dry_run:
-            print(type(item.exception))
-            print(item.exception)
-            print(arguments)
+            LOG.info(
+                "Dry notification %s(%s): %s",
+                type(item.exception),
+                item.exception,
+                arguments,
+            )
         else:
             bugsnag.start_session()  # type: ignore[no-untyped-call]
             bugsnag.notify(item.exception, **arguments)

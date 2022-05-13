@@ -1,15 +1,13 @@
-import bugsnag
-from os import (
-    environ,
+from utils_logger.v2 import (
+    BugsnagConf,
+    set_bugsnag,
+    set_main_log,
 )
 
-# Constants
-__version__ = "2.0.0"
-NOTIFIER_KEY = environ.get("bugsnag_notifier_key", "")
+__version__ = "2.0.1"
 
-# Side effects
-bugsnag.configure(  # type: ignore[no-untyped-call]
-    api_key=NOTIFIER_KEY,
-    asynchronous=False,
-    send_code=False,
+_conf = BugsnagConf(
+    "service", __version__, "./observes/service/batch-stability", False
 )
+set_bugsnag(_conf)
+LOG = set_main_log(__name__)
