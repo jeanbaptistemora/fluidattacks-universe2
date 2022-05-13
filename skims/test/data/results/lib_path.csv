@@ -20981,6 +20981,19 @@ F022,lines,namespace/skims/test/data/lib_path/f022/kotlin.kt,15,319,skims,022. U
   24 | }
      ^ Col 0
 ",kotlin.kotlin_unencrypted_channel
+F016,lines,namespace/skims/test/data/lib_root/f016/service_point_manager_disabled.cs,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,"A AppContext.SetSwitch method call sets Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols to true
+ in namespace/skims/test/data/lib_root/f016/service_point_manager_disabled.cs","
+  1 | using System;
+  2 |
+  3 | public class ExampleClass
+  4 | {
+  5 |     public void ExampleMethod()
+  6 |     {
+> 7 |         AppContext.SetSwitch(""Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols"", true);
+  8 |     }
+  9 | }
+    ^ Col 0
+",c_sharp.c_sharp_service_point_manager_disabled
 F016,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
    1 | resource ""azurerm_storage_account"" ""example"" {
    2 |   name                     = ""storageaccountname""
