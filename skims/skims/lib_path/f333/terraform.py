@@ -39,14 +39,13 @@ def _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Union[Any, Node]]:
     for resource in resource_iterator:
-        for elem in resource.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "instance_initiated_shutdown_behavior"
-                and isinstance(elem.val, str)
-                and elem.val.lower() != "terminate"
-            ):
-                yield elem
+        if shut_behavior := get_attribute(
+            resource.data, "instance_initiated_shutdown_behavior"
+        ):
+            if shut_behavior.val != "terminate":
+                yield shut_behavior
+        else:
+            yield resource
 
 
 def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
@@ -91,12 +90,12 @@ def _tfm_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
             yield resource
 
 
-def ec2_has_terminate_shutdown_behavior(
+def tfm_ec2_has_terminate_shutdown_behavior(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f333.ec2_allows_shutdown_command",
+        description_key="lib_path.f333.tfm_ec2_allows_shutdown_command",
         iterator=get_cloud_iterator(
             _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
                 resource_iterator=iter_aws_launch_template(model=model)

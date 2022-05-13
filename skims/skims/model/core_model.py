@@ -1815,6 +1815,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_terminate_shutdown_behavior",
+        module="lib_path",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_IAM_FULL_ACCESS_SSM = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_has_full_access_to_ssm",
@@ -3010,10 +3018,10 @@ class MethodsEnum(Enum):
     )
     EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
         file_name="terraform",
-        name="ec2_has_terminate_shutdown_behavior",
+        name="tfm_ec2_has_terminate_shutdown_behavior",
         module="lib_path",
         finding=FindingEnum.F333,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_EC2_ASSOC_PUB_IP = MethodInfo(

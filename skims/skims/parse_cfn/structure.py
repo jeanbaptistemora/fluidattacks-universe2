@@ -180,6 +180,17 @@ def iter_ec2_instances(template: Node) -> Iterator[Node]:
     )
 
 
+def iter_ec2_launch_templates(template: Node) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::EC2::LaunchTemplate",
+            exact=True,
+        )
+    )
+
+
 def iter_ec2_ltemplates_and_instances(template: Node) -> Iterator[Node]:
     yield from (
         props
