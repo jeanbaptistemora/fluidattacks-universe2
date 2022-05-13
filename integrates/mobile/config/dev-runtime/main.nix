@@ -6,7 +6,7 @@
 }:
 makeNodeJsModules {
   name = "integrates-mobile-dev-runtime";
-  nodeJsVersion = "12";
+  nodeJsVersion = "14";
   searchPaths.bin = [
     inputs.nixpkgs.bash
     inputs.nixpkgs.gcc

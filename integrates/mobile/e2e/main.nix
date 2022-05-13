@@ -8,7 +8,7 @@
 } @ _: let
   nodeJsModules = makeNodeJsModules {
     name = "integrates-mobile-e2e-npm";
-    nodeJsVersion = "12";
+    nodeJsVersion = "14";
     packageJson = ./npm/package.json;
     packageLockJson = ./npm/package-lock.json;
   };
