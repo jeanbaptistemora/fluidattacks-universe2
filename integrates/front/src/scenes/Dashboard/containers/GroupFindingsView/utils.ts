@@ -6,6 +6,7 @@ import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/For
 import type {
   IFindingAttr,
   ITreatmentSummaryAttr,
+  IVerificationSummaryAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -13,14 +14,13 @@ import { translate } from "utils/translations/translate";
 
 type RemoveFindingResult = ExecutionResult<IRemoveFindingResultAttr>;
 
-const formatRemediated: (remediated: string, verified: boolean) => string = (
-  remediated: string,
-  verified: boolean
-): string =>
+const formatReattack: (
+  verificationSummary: IVerificationSummaryAttr
+) => string = (verificationSummary: IVerificationSummaryAttr): string =>
   translate.t(
-    Boolean(remediated) || !verified
-      ? "group.findings.remediated.True"
-      : "group.findings.remediated.False"
+    verificationSummary.requested > 0 || verificationSummary.onHold > 0
+      ? "group.findings.reattack.True"
+      : "group.findings.reattack.False"
   );
 
 const formatState: (state: string) => JSX.Element = (
@@ -79,7 +79,7 @@ const formatFindings = (
       ...finding,
       closingPercentage: formatClosingPercentage(finding),
       locationsFindingId: finding.id,
-      remediated: formatRemediated(finding.remediated, finding.verified),
+      reattack: formatReattack(finding.verificationSummary),
       treatment: formatTreatmentSummary(
         finding.state,
         finding.treatmentSummary
@@ -217,7 +217,7 @@ export {
   formatFindings,
   formatState,
   formatTreatmentSummary,
-  formatRemediated,
+  formatReattack,
   getAreAllMutationValid,
   getFindingsIndex,
   getResults,

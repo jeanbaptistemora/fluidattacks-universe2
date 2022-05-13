@@ -34,8 +34,8 @@ interface IFindingAttr {
   openVulnerabilities: number;
   minTimeToRemediate: number | null;
   name: string;
+  reattack: string;
   releaseDate: string | null;
-  remediated: string;
   severityScore: number;
   state: string;
   title: string;
@@ -56,7 +56,6 @@ interface IFindingData {
   openVulnerabilities: number;
   name: string;
   releaseDate: string | null;
-  remediated: string;
   severityScore: number;
   state: string;
   title: string;

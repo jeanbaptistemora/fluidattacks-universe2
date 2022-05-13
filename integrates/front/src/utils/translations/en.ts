@@ -521,12 +521,12 @@ export const enTranslations: ResourceKey = {
         type: "Vulnerability title",
         where: "Exact location of the vulnerability.",
       },
-      records: {
-        noData: "There are no records",
-      },
-      remediated: {
+      reattack: {
         False: "-",
         True: "Pending",
+      },
+      records: {
+        noData: "There are no records",
       },
       report: {
         alerts: {

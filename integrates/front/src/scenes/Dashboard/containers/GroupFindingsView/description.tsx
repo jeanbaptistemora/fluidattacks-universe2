@@ -10,7 +10,6 @@ interface IDescriptionProps {
   isExploitable: boolean;
   lastVulnerability: number;
   openAge: number;
-  remediated: string;
   state: string;
   treatment: string;
   verificationSummary: IVerificationSummaryAttr;
@@ -21,7 +20,6 @@ const Description = ({
   isExploitable,
   lastVulnerability,
   openAge,
-  remediated,
   state,
   treatment,
   verificationSummary,
@@ -93,7 +91,7 @@ const Description = ({
         <Col33>
           {t("group.findings.description.reattack")}&nbsp;
           {t(
-            remediated === "Pending"
+            verificationSummary.onHold > 0 || verificationSummary.requested > 0
               ? "group.findings.boolean.True"
               : "group.findings.boolean.False"
           )}
@@ -110,7 +108,6 @@ export const renderDescription = ({
   isExploitable,
   lastVulnerability,
   openAge,
-  remediated,
   state,
   treatment,
   verificationSummary,
@@ -120,7 +117,6 @@ export const renderDescription = ({
     isExploitable={isExploitable}
     lastVulnerability={lastVulnerability}
     openAge={openAge}
-    remediated={remediated}
     state={state}
     treatment={treatment}
     verificationSummary={verificationSummary}

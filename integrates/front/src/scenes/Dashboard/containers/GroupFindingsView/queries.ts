@@ -18,7 +18,6 @@ const GET_FINDINGS: DocumentNode = gql`
         minTimeToRemediate
         isExploitable
         releaseDate
-        remediated
         treatmentSummary {
           accepted
           acceptedUndefined

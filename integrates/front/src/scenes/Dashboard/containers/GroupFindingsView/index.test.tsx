@@ -52,7 +52,6 @@ describe("groupFindingsView", (): void => {
                 openAge: 60,
                 openVulnerabilities: 6,
                 releaseDate: null,
-                remediated: false,
                 severityScore: 2.9,
                 state: "open",
                 title: "038. Business information leak",
@@ -136,7 +135,6 @@ describe("groupFindingsView", (): void => {
                 openAge: 60,
                 openVulnerabilities: 6,
                 releaseDate: null,
-                remediated: false,
                 severityScore: 2.9,
                 state: "open",
                 title: "038. Business information leak",
@@ -364,7 +362,7 @@ describe("groupFindingsView", (): void => {
       })
     );
     userEvent.click(
-      screen.getByRole("checkbox", { checked: false, name: "remediated" })
+      screen.getByRole("checkbox", { checked: false, name: "reattack" })
     );
     userEvent.type(
       screen.getByText("group.findings.tableSet.modalTitle"),

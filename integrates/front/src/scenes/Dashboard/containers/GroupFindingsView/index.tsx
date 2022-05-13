@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
-import { filterVerificationCount } from "./filters";
 import { locationsFormatter } from "./formatters/Locations";
 import {
   formatFindings,
@@ -104,7 +103,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       lastVulnerability: true,
       locationsFindingId: false,
       openVulnerabilities: true,
-      remediated: false,
+      reattack: false,
       severityScore: true,
       state: true,
       title: true,
@@ -289,12 +288,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      dataField: "remediated",
+      dataField: "reattack",
       header: "Reattack",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
       tooltipDataField: t("group.findings.headersTooltips.reattack"),
-      visible: checkedItems.remediated,
+      visible: checkedItems.reattack,
       wrapped: true,
     },
   ];
@@ -377,9 +376,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       (value): IFilterSet => ({ ...value, reattack: event.target.value })
     );
   }
-  const filterReattackFindings: IFindingAttr[] = filterVerificationCount(
+  const filterReattackFindings: IFindingAttr[] = filterSelect(
     findings,
-    filterGroupFindingsTable.reattack
+    filterGroupFindingsTable.reattack,
+    "reattack"
   );
 
   function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
