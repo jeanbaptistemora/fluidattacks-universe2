@@ -1,3 +1,6 @@
+from . import (
+    findings as findings_utils,
+)
 import collections
 from custom_exceptions import (
     InvalidFilter,
@@ -36,7 +39,9 @@ async def filter_findings(
 
     def satisfies_filter(finding: Finding) -> bool:
         filter_finding_value = {
-            "verified": finding.unreliable_indicators.unreliable_is_verified,
+            "verified": findings_utils.is_verified(
+                finding.unreliable_indicators.unreliable_verification_summary
+            ),
         }
         hits = 0
         for attr, value in filters.items():

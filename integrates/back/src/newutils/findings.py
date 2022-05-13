@@ -8,6 +8,7 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
     FindingEvidence,
+    FindingVerificationSummary,
 )
 import io
 from newutils import (
@@ -139,3 +140,9 @@ def get_formatted_evidence(
         "evidence_5": format_evidence(parent, parent.evidences.evidence5),
         "exploitation": format_evidence(parent, parent.evidences.exploitation),
     }
+
+
+def is_verified(
+    verification_summary: FindingVerificationSummary,
+) -> bool:
+    return verification_summary.requested == 0

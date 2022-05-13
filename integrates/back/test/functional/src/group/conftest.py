@@ -19,6 +19,7 @@ from db_model.findings.types import (
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+    FindingVerificationSummary,
 )
 from db_model.groups.enums import (
     GroupLanguage,
@@ -192,6 +193,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
+                    unreliable_verification_summary=FindingVerificationSummary(
+                        requested=1
+                    ),
                 ),
             },
             {
