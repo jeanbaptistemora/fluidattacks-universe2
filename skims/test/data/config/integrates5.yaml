@@ -1,7 +1,7 @@
 checks:
-- F099
-namespace: namespace3
+  - F099
+namespace: dynamic_namespace_1
 output: skims/test/outputs/integrates5.csv
 path:
   include:
-    - skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml
+    - skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf

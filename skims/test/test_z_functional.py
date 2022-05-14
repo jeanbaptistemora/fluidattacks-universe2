@@ -440,7 +440,6 @@ def _run_no_group(
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 def test_should_execute_a_reattack(test_group: str) -> None:
     # Test should execute a reattack
@@ -462,17 +461,16 @@ def test_should_execute_a_reattack(test_group: str) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_reattack_comments_open_and_closed_vulnerability(
     test_group: str,
 ) -> None:
     # A reattack request was executed, a finding consult was found
     # that report open vulnerabilities
-    finding_id = "16199698-cae6-47d4-81df-eb176dfd5c08"
+    finding_id = "4edcc6fb-2139-415d-80e2-f758d39c7eb7"
     has_finding = False
-    findings = await get_group_findings(group=test_group)
 
+    findings = await get_group_findings(group=test_group)
     for finding in findings:
         if finding.identifier == finding_id:
             has_finding = True
@@ -484,8 +482,9 @@ async def test_reattack_comments_open_and_closed_vulnerability(
         + r"Reported vulnerabilities are still open in commit\s+"
         + r"([a-zA-Z0-9]{40})\: \n"
         + r"   - skims/test/data/lib_path/f099/"
-        + r"cfn_unencrypted_buckets.yaml:\n"
-        + r"     Non-compliant code: >  5 |     Properties:$"
+        + r"tfm_unencrypted_buckets.tf:\n"
+        + r"     Non-compliant code: >  1 |"
+        + r"resource \"aws_s3_bucket\" \"unencrypted_bucket_1\" \{$"
     )
 
     closed_vulns_comment = (
@@ -494,10 +493,10 @@ async def test_reattack_comments_open_and_closed_vulnerability(
         + r"[0-9]{2}\:[0-9]{2})\.\s\n"
         + r"Reported vulnerabilities were solved in commit\s+"
         + r"([a-zA-Z0-9]{40})\: \n"
-        + r"  - skims/test/data/lib_path/f099/cfn_bucket_policy.yaml\s\n$"
+        + r"  - skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf\s\n$"
     )
 
-    assert has_finding is not False
+    assert has_finding
 
     finding_consult = await get_finding_consult(finding_id=finding_id)
 

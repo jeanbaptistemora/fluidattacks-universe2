@@ -216,6 +216,75 @@
           "attacked_by": {
             "S": ""
           },
+          "attacked_lines": {
+            "N": "0"
+          },
+          "be_present": {
+            "BOOL": true
+          },
+          "be_present_until": {
+            "S": ""
+          },
+          "comments": {
+            "S": ""
+          },
+          "filename": {
+            "S": "skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf"
+          },
+          "first_attack_at": {
+            "S": ""
+          },
+          "group_name": {
+            "S": "jessup"
+          },
+          "has_vulnerabilities": {
+            "BOOL": false
+          },
+          "last_author": {
+            "S": "customer@domain.com"
+          },
+          "last_commit": {
+            "S": "67adeec942683fc24fd564d292ded6d05df3c57d"
+          },
+          "loc": {
+            "N": "55"
+          },
+          "modified_date": {
+            "S": "2022-05-12T19:24:56+00:00"
+          },
+          "pk": {
+            "S": "GROUP#jessup"
+          },
+          "pk_2": {
+            "S": "GROUP#jessup"
+          },
+          "root_id": {
+            "S": "0a93e13a-a96f-43cc-a8b8-5a01f68ba78b"
+          },
+          "seen_at": {
+            "S": "2022-05-12T19:28:36.675463+00:00"
+          },
+          "sk": {
+            "S": "LINES#ROOT#0a93e13a-a96f-43cc-a8b8-5a01f68ba78b#FILENAME#skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf"
+          },
+          "sk_2": {
+            "S": "LINES#PRESENT#true#ROOT#0a93e13a-a96f-43cc-a8b8-5a01f68ba78b#FILENAME#skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf"
+          },
+          "sorts_risk_level": {
+            "N": "-1"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "attacked_at": {
+            "S": ""
+          },
+          "attacked_by": {
+            "S": ""
+          },
           "be_present": {
             "BOOL": true
           },
