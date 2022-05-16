@@ -23,6 +23,7 @@ function execute {
 }
 
 function main {
+  local parallel="${1}"
   local groups_file
 
   aws_login_prod 'sorts' \
@@ -36,7 +37,7 @@ function main {
     && use_git_repo_services \
     && groups_file="$(mktemp)" \
     && ls -1 groups > "${groups_file}" \
-    && execute_chunk_parallel execute "${groups_file}" "15" "batch"
+    && execute_chunk_parallel execute "${groups_file}" "${parallel}" "batch"
 
 }
 

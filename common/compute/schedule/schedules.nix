@@ -76,32 +76,6 @@
       "management:type" = "product";
     };
   };
-  integrates_charts_make_documents = {
-    enabled = true;
-    command = [
-      "m"
-      "f"
-      "/integrates/charts/documents"
-      "prod"
-    ];
-
-    schedule_expression = "cron(0 5,9,13 ? * 2-6 *)";
-    queue = "unlimited_spot";
-    attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 7200;
-    parallel = 25;
-
-    environment = ["PRODUCT_API_TOKEN"];
-
-    tags = {
-      "Name" = "integrates_charts_make_documents";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
   integrates_clean_ephemerals = {
     enabled = true;
     command = [
@@ -979,12 +953,13 @@
       "management:type" = "product";
     };
   };
-  sorts_execute = {
+  sorts_execute = rec {
     enabled = true;
     command = [
       "m"
       "f"
       "/sorts/execute"
+      "${toString parallel}"
     ];
 
     schedule_expression = "cron(0 23 ? * 7 *)";

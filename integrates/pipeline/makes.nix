@@ -339,8 +339,8 @@ in {
             output = "/integrates/back/test/check-forces-output";
             gitlabExtra = gitlabTest;
           }
-          {
-            args = ["dev" "7" "gitlab"];
+          rec {
+            args = ["dev" "${toString gitlabExtra.parallel}" "gitlab"];
             output = "/integrates/charts/documents";
             gitlabExtra =
               chartsTemplate
@@ -349,8 +349,8 @@ in {
                 rules = gitlabOnlyDev;
               };
           }
-          {
-            args = ["prod" "25" "gitlab"];
+          rec {
+            args = ["prod" "${toString gitlabExtra.parallel}" "gitlab"];
             output = "/integrates/charts/documents";
             gitlabExtra =
               chartsTemplate
