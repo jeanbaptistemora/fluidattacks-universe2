@@ -621,6 +621,114 @@
         {
           "AttributeName": "tier",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "closed_vulnerabilities",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "exposed_over_time_cvssf",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "exposed_over_time_month_cvssf",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "exposed_over_time_year_cvssf",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "last_closed_vulnerability_days",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "last_closed_vulnerability_finding",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "max_open_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "max_open_severity_finding",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "max_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "mean_remediate",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "mean_remediate_critical_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "mean_remediate_high_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "mean_remediate_low_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "mean_remediate_medium_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "open_findings",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "open_vulnerabilities",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "remediated_over_time",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_30",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_90",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_cvssf",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_cvssf_30",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_cvssf_90",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_month",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_month_cvssf",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_year",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "remediated_over_time_year_cvssf",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "treatment_summary",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -1617,6 +1725,43 @@
             "status",
             "tier",
             "type"
+          ]
+        },
+        {
+          "FacetName": "group_unreliable_indicators",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "GROUP#name#UNRELIABLEINDICATORS"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "closed_vulnerabilities",
+            "exposed_over_time_cvssf",
+            "exposed_over_time_month_cvssf",
+            "exposed_over_time_year_cvssf",
+            "last_closed_vulnerability_days",
+            "last_closed_vulnerability_finding",
+            "max_open_severity",
+            "max_open_severity_finding",
+            "max_severity",
+            "mean_remediate",
+            "mean_remediate_critical_severity",
+            "mean_remediate_high_severity",
+            "mean_remediate_low_severity",
+            "mean_remediate_medium_severity",
+            "open_findings",
+            "open_vulnerabilities",
+            "remediated_over_time",
+            "remediated_over_time_30",
+            "remediated_over_time_90",
+            "remediated_over_time_cvssf",
+            "remediated_over_time_cvssf_30",
+            "remediated_over_time_cvssf_90",
+            "remediated_over_time_month",
+            "remediated_over_time_month_cvssf",
+            "remediated_over_time_year",
+            "remediated_over_time_year_cvssf",
+            "treatment_summary"
           ]
         },
         {
