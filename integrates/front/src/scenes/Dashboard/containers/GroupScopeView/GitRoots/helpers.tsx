@@ -201,7 +201,7 @@ const handleUpdateError = (
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     const showMessage = (translation: string): void => {
-      if (scope === "root") {
+      if (scope === "root" || scope === "envs") {
         setModalMessages({
           message: translate.t(translation),
           type: "error",

@@ -296,9 +296,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   const handleEnvsSubmit = useCallback(
     async ({ environmentUrls, id }: IGitRootAttr): Promise<void> => {
+      setRootModalMessages({ message: "", type: "success" });
       await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
     },
-    [groupName, updateGitEnvs]
+    [groupName, setRootModalMessages, updateGitEnvs]
   );
 
   function handleChange(columnName: string): void {
