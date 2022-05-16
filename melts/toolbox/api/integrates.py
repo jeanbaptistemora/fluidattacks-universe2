@@ -383,6 +383,35 @@ class Queries:
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
+    def git_credentials(
+        api_token: str, group_name: str, root_id: str
+    ) -> Response:
+        """Get group git root download url"""
+        query = """
+            query MeltsGetGitRootCredentials($groupName: String!, $rootId: ID!)
+            {
+              root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                  id
+                  nickname
+                  credentials {
+                    user
+                    password
+                    key
+                    token
+                    type
+                  }
+                }
+              }
+            }
+        """
+        params: dict = {"groupName": group_name, "rootId": root_id}
+        return request(
+            api_token, query, params, operation="MeltsGetGitRootCredentials"
+        )
+
+    @staticmethod
+    @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
     def git_upload_url(
         api_token: str, group_name: str, root_id: str
     ) -> Response:

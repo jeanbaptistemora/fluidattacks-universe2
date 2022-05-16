@@ -98,6 +98,21 @@ def get_git_root_upload_url(
     return (roots.data["root"]["id"], roots.data["root"]["uploadUrl"])
 
 
+def get_git_root_credentials(
+    group: str, root_id: str
+) -> Optional[Dict[str, Optional[str]]]:
+    roots = api.integrates.Queries.git_credentials(API_TOKEN, group, root_id)
+    if not roots.ok:
+        LOGGER.error(
+            "An error has occurred querying the root %s for group %s",
+            root_id,
+            group,
+        )
+        LOGGER.error(roots.errors)
+        return None
+    return roots.data["root"]["credentials"]
+
+
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
 def has_forces(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)

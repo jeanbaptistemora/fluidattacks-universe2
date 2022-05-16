@@ -65,6 +65,7 @@ from toolbox.utils import (
     last_sync,
 )
 from toolbox.utils.integrates import (
+    get_git_root_credentials,
     get_git_roots,
 )
 from typing import (
@@ -73,6 +74,9 @@ from typing import (
     Iterator,
     List,
     Optional,
+)
+from urllib3.util.url import (
+    parse_url,
 )
 import urllib.parse
 
@@ -170,20 +174,20 @@ def has_vpn(code: Dict[str, str], subs: str) -> None:
 
 
 @contextmanager
-def setup_ssh_key() -> Iterator[str]:
+def setup_ssh_key(group_name: str, root_id: str) -> Iterator[str]:
     try:
-        if credentials := utils.generic.get_sops_secret(
-            "repo_key", "../config/secrets-prod.yaml", "continuous-admin"
-        ):
-            key = base64.b64decode(credentials).decode("utf-8")
+        if credentials := get_git_root_credentials(group_name, root_id):
+            key = base64.b64decode(credentials.get("key") or "").decode(
+                "utf-8"
+            )
 
-            with tempfile.NamedTemporaryFile(delete=False) as keyfile:
-                os.chmod(keyfile.name, stat.S_IREAD | stat.S_IWRITE)
-                keyfile.write(key.encode())
+        with tempfile.NamedTemporaryFile(delete=False) as keyfile:
+            os.chmod(keyfile.name, stat.S_IREAD | stat.S_IWRITE)
+            keyfile.write(key.encode())
 
-            os.chmod(keyfile.name, stat.S_IREAD)
+        os.chmod(keyfile.name, stat.S_IREAD)
 
-            yield keyfile.name
+        yield keyfile.name
     finally:
         with suppress(UnboundLocalError):
             cmd_execute(
@@ -196,49 +200,36 @@ def setup_ssh_key() -> Iterator[str]:
             )
 
 
-def repo_url(baseurl: str) -> str:
+def repo_url(group_name: str, root_id: str, baseurl: str) -> str:
     """return the repo url"""
     error = ""
-    for user, passw in ["repo_user", "repo_pass"], [
-        "repo_user_2",
-        "repo_pass_2",
-    ]:
-        repo_user: Optional[str] = ""
-        repo_pass: Optional[str] = ""
-        with open("../config/secrets-prod.yaml", encoding="utf8") as secrets:
-            if f"{user}:" in secrets.read():
-                repo_user = utils.generic.get_sops_secret(
-                    user,
-                    "../config/secrets-prod.yaml",
-                    "continuous-admin",
-                )
-                repo_pass = utils.generic.get_sops_secret(
-                    passw,
-                    "../config/secrets-prod.yaml",
-                    "continuous-admin",
-                )
-                if repo_user and repo_pass:
-                    repo_user = urllib.parse.quote_plus(repo_user)
-                    repo_pass = urllib.parse.quote_plus(repo_pass)
-                    uri = baseurl.replace("<user>", repo_user)
-                    uri = uri.replace("<pass>", repo_pass)
-                    # check if the user has permissions in the repo
-                    remote = ls_remote(uri)
-                    if remote.get("ok"):
-                        return uri
-                    error = remote["error"]["message"]
+    repo_user: Optional[str] = None
+    repo_pass: Optional[str] = None
+    if credentials := get_git_root_credentials(group_name, root_id):
+        repo_user = credentials.get("user")
+        repo_pass = credentials.get("password")
+    if repo_user and repo_pass:
+        repo_user = urllib.parse.quote_plus(repo_user)
+        repo_pass = urllib.parse.quote_plus(repo_pass)
+        parsed_url = parse_url(baseurl)
+        url = str(parsed_url._replace(auth=f"{repo_user}:{repo_pass}"))
+        # check if the user has permissions in the repo
+        remote = ls_remote(url)
+        if remote.get("ok"):
+            return url
+        error = remote["error"]["message"]
 
     return error
 
 
-def _ssh_ls_remote(root: GitRoot) -> Optional[str]:
+def _ssh_ls_remote(group_name: str, root: GitRoot) -> Optional[str]:
     baseurl = root.url
     if "source.developers.google" not in baseurl:
         baseurl = baseurl.replace("ssh://", "")
 
     branch = urllib.parse.unquote(root.branch)
 
-    with setup_ssh_key() as keyfile:
+    with setup_ssh_key(group_name, root.root_id) as keyfile:
         command_ls = [
             "ssh-agent",
             "sh",
@@ -268,7 +259,7 @@ def _ssh_repo_cloning(
 
     folder = nickname
 
-    with setup_ssh_key() as keyfile:
+    with setup_ssh_key(group_name, root.root_id) as keyfile:
         if os.path.isdir(folder):
             # Update already existing repo
             command = [
@@ -320,8 +311,10 @@ def _ssh_repo_cloning(
     return Maybe.from_optional(problem).to_result().swap()
 
 
-def _http_ls_remote(root: GitRoot) -> Result[Optional[str], FormatRepoProblem]:
-    baseurl = repo_url(root.url)
+def _http_ls_remote(
+    group_name: str, root: GitRoot
+) -> Result[Optional[str], FormatRepoProblem]:
+    baseurl = repo_url(group_name, root.root_id, root.url)
     if "fatal" not in baseurl:
         command_ls = ["git", "ls-remote", shq(baseurl), root.branch]
         cmd = cmd_execute(command_ls)
@@ -352,15 +345,14 @@ def _http_repo_cloning(
     os.environ["GIT_SSL_NO_VERIFY"] = "False"
     # script does not support vpns atm
     baseurl = root.url
-    baseurl = baseurl.replace("https://", "https://<user>:<pass>@")
-    baseurl = baseurl.replace("http://", "https://<user>:<pass>@")
     nickname = root.nickname
 
     branch = root.branch
 
     problem: Optional[FormatRepoProblem] = None
     # check if user has access to current repository
-    baseurl = repo_url(root.url)
+    baseurl = repo_url(group_name, root.root_id, root.url)
+
     if "fatal:" in baseurl:
         problem = FormatRepoProblem(nickname, branch, baseurl)
         problem.log(LOGGER)
@@ -400,11 +392,16 @@ def _http_repo_cloning(
 
 
 def already_in_s3(
+    group_name: str,
     root: GitRoot,
 ) -> Result[bool, FormatRepoProblem]:
     if root.repo_type is RepoType.SSH:
-        return Result.success(_ssh_ls_remote(root) == root.head_commit)
-    return _http_ls_remote(root).map(lambda c: c == root.head_commit)
+        return Result.success(
+            _ssh_ls_remote(group_name, root) == root.head_commit
+        )
+    return _http_ls_remote(group_name, root).map(
+        lambda c: c == root.head_commit
+    )
 
 
 def _clone_repo(
@@ -435,7 +432,7 @@ def _lazy_cloning(
         )
         return Result.success(LazyCloningResult.CACHED)
 
-    problem = already_in_s3(root).bind(
+    problem = already_in_s3(group_name, root).bind(
         lambda b: _clone_repo(group_name, root).map(
             lambda _: LazyCloningResult.UPDATED
         )
@@ -492,8 +489,6 @@ def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
     if not repositories:
         LOGGER.error("There is no %s repository in %s", repo_name, subs)
         return False
-
-    utils.generic.aws_login("continuous-admin")
 
     with alive_bar(len(repositories), enrich_print=False) as progress_bar:
         with ThreadPool(processes=cpu_count()) as worker:
