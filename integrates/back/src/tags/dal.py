@@ -10,11 +10,18 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.portfolios.constants import (
+    OLD_ID,
+    OLD_ORGANIZATION_ID,
+)
 from decimal import (
     Decimal,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
+)
+from dynamodb.types import (
+    Item,
 )
 import logging
 import logging.config
@@ -22,8 +29,6 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    Any,
-    Dict,
     Optional,
     Union,
 )
@@ -31,19 +36,25 @@ from typing import (
 logging.config.dictConfig(LOGGING)
 
 # Constants
+EXTRA = "extra"
+KEY_CONDITION_EXPRESSION = "KeyConditionExpression"
 LOGGER = logging.getLogger(__name__)
+PROJECTION_EXPRESSION = "ProjectionExpression"
 TABLE_NAME = "fi_portfolios"
 
 
 async def delete(organization_name: str, tag: str) -> bool:
     success: bool = False
     item = DynamoDeleteType(
-        Key={"organization": organization_name.lower(), "tag": tag.lower()}
+        Key={
+            OLD_ORGANIZATION_ID: organization_name.lower(),
+            OLD_ID: tag.lower(),
+        }
     )
     try:
         success = await dynamodb_ops.delete_item(TABLE_NAME, item)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
+        LOGGER.exception(ex, extra={EXTRA: locals()})
     return success
 
 
@@ -51,14 +62,14 @@ async def get_attributes(
     organization_name: str, tag: str, attributes: Optional[list[str]] = None
 ) -> dict[str, Union[list[str], str]]:
     response = {}
-    item_attrs: dict[str, Any] = {
-        "KeyConditionExpression": (
-            Key("organization").eq(organization_name.lower())
-            & Key("tag").eq(tag.lower())
+    item_attrs: Item = {
+        KEY_CONDITION_EXPRESSION: (
+            Key(OLD_ORGANIZATION_ID).eq(organization_name.lower())
+            & Key(OLD_ID).eq(tag.lower())
         ),
     }
     if attributes:
-        item_attrs["ProjectionExpression"] = ",".join(attributes)
+        item_attrs[PROJECTION_EXPRESSION] = ",".join(attributes)
     response_items = await dynamodb_ops.query(TABLE_NAME, item_attrs)
     if response_items:
         response = response_items[0]
@@ -67,14 +78,16 @@ async def get_attributes(
 
 async def get_tags(
     organization_name: str, attributes: Optional[list[str]]
-) -> list[Dict[str, Any]]:
-    tags: list[Dict[str, Any]] = []
+) -> list[Item]:
+    tags: list[Item] = []
     query_attrs = {
-        "KeyConditionExpression": Key("organization").eq(organization_name)
+        KEY_CONDITION_EXPRESSION: Key(OLD_ORGANIZATION_ID).eq(
+            organization_name,
+        )
     }
     if attributes:
         projection = ",".join(attributes)
-        query_attrs.update({"ProjectionExpression": projection})
+        query_attrs.update({PROJECTION_EXPRESSION: projection})
     try:
         tags = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     except ClientError as ex:
@@ -106,7 +119,7 @@ async def update(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
     update_attrs = {
-        "Key": {"organization": organization_name, "tag": tag},
+        "Key": {OLD_ORGANIZATION_ID: organization_name, OLD_ID: tag},
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
 
@@ -117,5 +130,5 @@ async def update(
     try:
         success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
+        LOGGER.exception(ex, extra={EXTRA: locals()})
     return success

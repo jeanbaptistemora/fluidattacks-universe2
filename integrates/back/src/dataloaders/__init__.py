@@ -21,6 +21,9 @@ from .organization_stakeholders import (
 from .organization_tags import (
     OrganizationTagsLoader,
 )
+from .portfolio import (
+    OrganizationPortfoliosTypedLoader,
+)
 from collections import (
     defaultdict,
 )
@@ -120,6 +123,7 @@ class Dataloaders(NamedTuple):
     group_typed: GroupTypedLoader
     organization: OrganizationLoader
     organization_groups_typed: OrganizationGroupsTypedLoader
+    organization_portfolios: OrganizationPortfoliosTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_typed: OrganizationTypedLoader
@@ -213,6 +217,7 @@ def get_new_context() -> Dataloaders:
         group_typed=GroupTypedLoader(),
         organization=OrganizationLoader(),
         organization_groups_typed=OrganizationGroupsTypedLoader(),
+        organization_portfolios=OrganizationPortfoliosTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
