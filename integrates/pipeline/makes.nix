@@ -616,10 +616,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintTerraform/integratesCache";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintTerraform/integratesDatabase";
             gitlabExtra = gitlabLint;
           }
@@ -641,10 +637,6 @@ in {
           }
           {
             output = "/testTerraform/integratesBackups";
-            gitlabExtra = gitlabTestInfra;
-          }
-          {
-            output = "/testTerraform/integratesCache";
             gitlabExtra = gitlabTestInfra;
           }
           {

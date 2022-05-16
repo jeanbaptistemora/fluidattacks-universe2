@@ -5,7 +5,7 @@ resource "aws_elasticache_subnet_group" "cache_db" {
   ]
 }
 
-resource "aws_security_group" "main" {
+resource "aws_security_group" "cache_db" {
   name   = "integrates_cache"
   vpc_id = data.aws_vpc.main.id
 
@@ -44,7 +44,7 @@ resource "aws_elasticache_replication_group" "cache_db" {
   port                          = 6379
 
   security_group_ids = [
-    aws_security_group.main.id,
+    aws_security_group.cache_db.id,
   ]
 
   cluster_mode {
