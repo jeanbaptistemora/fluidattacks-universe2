@@ -5,6 +5,9 @@ from back.test.functional.src.utils import (
 from batch import (
     dal as batch_dal,
 )
+from batch.actions import (
+    move_root,
+)
 from batch.enums import (
     Action,
 )
@@ -107,10 +110,14 @@ async def test_should_mutate_successfully(populate: bool) -> None:
     batch_actions = await batch_dal.get_actions()
     assert len(batch_actions) == 3
 
-    action_names = tuple(action.action_name for action in batch_actions)
-    assert Action.MOVE_ROOT.value in action_names
-    assert Action.REFRESH_TOE_LINES.value in action_names
-    assert Action.REFRESH_TOE_INPUTS.value in action_names
+    actions_by_name = {
+        Action[action.action_name.upper()]: action for action in batch_actions
+    }
+    assert Action.MOVE_ROOT in actions_by_name
+    assert Action.REFRESH_TOE_LINES in actions_by_name
+    assert Action.REFRESH_TOE_INPUTS in actions_by_name
+
+    await move_root.move_root(item=actions_by_name[Action.MOVE_ROOT])
 
 
 @pytest.mark.asyncio

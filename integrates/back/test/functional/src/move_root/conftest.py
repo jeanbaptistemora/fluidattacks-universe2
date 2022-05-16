@@ -4,6 +4,14 @@ from back.test import (
 )
 from db_model.enums import (
     GitCloningStatus,
+    Source,
+)
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingState,
 )
 from db_model.groups.enums import (
     GroupLanguage,
@@ -24,6 +32,15 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityUnreliableIndicators,
 )
 import pytest
 
@@ -188,6 +205,46 @@ async def populate() -> bool:
                 ),
                 type=RootType.GIT,
             ),
+        ),
+        "findings": (
+            {
+                "finding": Finding(
+                    id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    group_name="kibi",
+                    state=FindingState(
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2017-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                    ),
+                    title="001. SQL injection",
+                    hacker_email="test@fluidattacks.com",
+                ),
+                "historic_state": [],
+                "historic_verification": [],
+            },
+        ),
+        "vulnerabilities": (
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    id="64bf8e56-0b3c-432a-bff7-c3eef56c47b7",
+                    root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:11+00:00",
+                        unreliable_source=Source.ASM,
+                    ),
+                    where="192.168.1.20",
+                ),
+            },
         ),
     }
     return await db.populate(data)
