@@ -612,6 +612,73 @@ async def update_billing_customer(
     return success
 
 
+async def update_org_policies_typed(
+    *,
+    loaders: Any,
+    organization_id: str,
+    organization_name: str,
+    email: str,
+    org_policies: OrganizationPolicies,
+) -> None:
+    valid: List[bool] = []
+    try:
+        for attr, value in org_policies._asdict().iteritems():
+            if value is not None:
+                value = (
+                    Decimal(value).quantize(Decimal("0.1"))
+                    if isinstance(value, float)
+                    else Decimal(value)
+                )
+                org_policies[attr] = value
+                validator_func = getattr(
+                    sys.modules[__name__], f"validate_{attr}"
+                )
+                valid.append(validator_func(value))
+        valid.append(
+            await validate_acceptance_severity_range(
+                loaders, organization_id, org_policies
+            )
+        )
+    except (
+        InvalidAcceptanceDays,
+        InvalidAcceptanceSeverity,
+        InvalidAcceptanceSeverityRange,
+        InvalidNumberAcceptances,
+        InvalidSeverity,
+    ) as exe:
+        LOGGER.exception(exe, extra={"extra": locals()})
+        raise GraphQLError(str(exe)) from exe
+    if all(valid):
+        organization: Organization = await loaders.organization_typed.load(
+            organization_id
+        )
+        org_policies = organization.policies
+        new_policies = org_policies._replace(
+            max_acceptance_days=org_policies.max_acceptance_days,
+            max_acceptance_severity=org_policies.max_acceptance_severity,
+            max_number_acceptances=org_policies.max_number_acceptances,
+            min_acceptance_severity=org_policies.min_acceptance_severity,
+            min_breaking_severity=org_policies.min_breaking_severity,
+            modified_date=datetime_utils.get_iso_date(),
+            modified_by=email,
+            vulnerability_grace_period=org_policies.vulnerability_grace_period,
+        )
+        if new_policies:
+            await send_mail_policies(
+                loaders,
+                new_policies._asdict,
+                organization_id,
+                organization_name,
+                email,
+                date=datetime_utils.get_now_as_str(),
+            )
+            await orgs_dal.update_policies_typed(
+                organization_id=organization_id,
+                organization_name=organization_name,
+                policies=new_policies,
+            )
+
+
 async def update_policies(
     loaders: Any,
     organization_id: str,

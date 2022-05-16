@@ -21,6 +21,7 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationPolicies,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
@@ -39,6 +40,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.organizations import (
+    format_org_policies_item,
     format_organization_item,
     remove_org_id_prefix,
 )
@@ -514,6 +516,19 @@ async def update(
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return success
+
+
+async def update_policies_typed(
+    organization_id: str,
+    organization_name: str,
+    policies: OrganizationPolicies,
+) -> None:
+    organization_item = format_org_policies_item(policies)
+    update(
+        organization_id=organization_id,
+        organization_name=organization_name,
+        values=organization_item,
+    )
 
 
 async def update_group(

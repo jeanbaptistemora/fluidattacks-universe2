@@ -143,3 +143,27 @@ def format_organization_item(organization: Organization) -> Item:
             }
         ],
     }
+
+
+def format_org_policies_item(metadata: OrganizationPolicies) -> Item:
+    item = {
+        "max_acceptance_days": metadata.max_acceptance_days,
+        "max_acceptance_severity": metadata.max_acceptance_severity,
+        "min_acceptance_severity": metadata.min_acceptance_severity,
+        "min_breaking_severity": metadata.min_breaking_severity,
+        "vulnerability_grace_period": metadata.vulnerability_grace_period,
+    }
+    historic_max_number_acceptances = []
+    if metadata.max_number_acceptances is not None:
+        historic_max_number_acceptances.append(
+            {
+                "date": convert_from_iso_str(metadata.modified_date),
+                "max_number_acceptations": metadata.max_number_acceptances,
+                "user": metadata.modified_by,
+            }
+        )
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
