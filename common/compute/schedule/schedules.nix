@@ -979,4 +979,29 @@
       "management:type" = "product";
     };
   };
+  sorts_execute = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/sorts/execute"
+    ];
+
+    schedule_expression = "cron(0 23 ? * 7 *)";
+    queue = "unlimited_spot";
+    attempts = 3;
+    timeout = 86400;
+    cpu = 2;
+    memory = 7200;
+    parallel = 15;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "sorts_execute";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
+    };
+  };
 }
