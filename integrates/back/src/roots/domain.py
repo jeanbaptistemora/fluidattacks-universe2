@@ -64,9 +64,6 @@ from db_model.roots.types import (
     URLRoot,
     URLRootState,
 )
-from db_model.users.types import (
-    User,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -746,24 +743,13 @@ async def send_mail_updated_root(
     new_state: GitRootState,
     user_email: str,
 ) -> None:
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.ROOT_UPDATE in user.notifications_preferences.email
-    ]
 
     old_state: Dict[str, Any] = root.state._asdict()
     new_root_content: Dict[str, Any] = {
@@ -842,22 +828,17 @@ async def send_mail_root_cloning_status(
     modified_date: str,
     is_failed: bool,
 ) -> None:
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
     )
-    user_roles = await collect(
-        authz.get_group_level_role(user, group_name) for user in users
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
 
     await groups_mail.send_mail_root_cloning_status(
         loaders=loaders,
-        email_to=email_list,
+        email_to=users_email,
         group_name=group_name,
         root_nickname=root_nickname,
         root_id=root_id,
@@ -1330,25 +1311,13 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
     urls_deleted: List[str],
     user_email: str,
 ) -> None:
-
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.ROOT_UPDATE in user.notifications_preferences.email
-    ]
 
     await groups_mail.send_mail_environment_report(
         email_to=users_email,

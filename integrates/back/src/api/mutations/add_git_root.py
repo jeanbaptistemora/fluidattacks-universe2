@@ -1,13 +1,9 @@
 from aiodataloader import (
     DataLoader,
 )
-from aioextensions import (
-    collect,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-import authz
 from batch.actions import (
     clone_roots,
 )
@@ -20,6 +16,9 @@ from batch.enums import (
 )
 from custom_types import (
     AddRootPayload,
+)
+from db_model.enums import (
+    Notification,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -76,18 +75,13 @@ async def mutate(
         loaders, user_email, **kwargs
     )
     group_name = root.group_name
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
 
     if (
         kwargs.get("credentials")
@@ -133,9 +127,8 @@ async def mutate(
         )
 
     await groups_mail.send_mail_added_root(
-        loaders=loaders,
         branch=root.state.branch,
-        email_to=email_list,
+        email_to=users_email,
         environment=root.state.environment,
         group_name=group_name,
         root_nickname=root.state.nickname,

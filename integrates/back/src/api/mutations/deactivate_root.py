@@ -7,7 +7,6 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-import authz
 from batch import (
     dal as batch_dal,
 )
@@ -32,9 +31,6 @@ from db_model.roots.types import (
     GitRoot,
     Root,
     URLRoot,
-)
-from db_model.users.types import (
-    User,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -118,15 +114,6 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         )
         last_root_state = root.cloning.status.value
 
-    users = await group_access_domain.get_group_users(group_name, active=True)
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
     root_vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.root_vulnerabilities.load(root.id)
@@ -201,12 +188,13 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
     root_age = (datetime_utils.get_now() - historic_state_date).days
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.ROOT_UPDATE in user.notifications_preferences.email
-    ]
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
+    )
     await groups_mail.send_mail_deactivated_root(
         activated_by=activated_by,
         email_to=users_email,

@@ -12,6 +12,9 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.users.types import (
+    User,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -99,6 +102,31 @@ async def get_users_to_notify(
         for user, user_role in zip(users, user_roles)
         if user_role != "executive"
     ]
+
+
+async def get_users_email_by_preferences(
+    *,
+    loaders: Any,
+    group_name: str,
+    notification: str,
+    roles: Set[str],
+) -> List[str]:
+    users = await get_group_users(group_name, active=True)
+    user_roles = await collect(
+        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    )
+    email_list = [
+        str(user)
+        for user, user_role in zip(users, user_roles)
+        if user_role in roles
+    ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if notification in user.notifications_preferences.email
+    ]
+    return users_email
 
 
 async def remove_access(

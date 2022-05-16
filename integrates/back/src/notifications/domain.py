@@ -5,7 +5,6 @@ from aioextensions import (
     collect,
     in_thread,
 )
-import authz
 from context import (
     BASE_URL,
 )
@@ -18,9 +17,6 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
     GroupState,
-)
-from db_model.users.types import (
-    User,
 )
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
@@ -46,7 +42,6 @@ from typing import (
     cast,
     Dict,
     List,
-    Tuple,
     Union,
 )
 from users import (
@@ -208,21 +203,13 @@ async def send_mail_services(
     group_changes: dict[str, Any],
     requester_email: str,
 ) -> None:
-    users = await group_access_domain.get_group_users(group_name, active=True)
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.SERVICE_UPDATE,
+        roles=roles,
     )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.SERVICE_UPDATE in user.notifications_preferences.email
-    ]
 
     await groups_mail.send_mail_updated_services(
         group_name=group_name,

@@ -75,9 +75,6 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     Root,
 )
-from db_model.users.types import (
-    User,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -157,7 +154,6 @@ from typing import (
     Any,
     Awaitable,
     Optional,
-    Tuple,
 )
 from users import (
     domain as users_domain,
@@ -1366,25 +1362,18 @@ async def send_mail_file_report(
     is_added: bool = False,
     modified_date: str,
 ) -> None:
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {
+        "resourcer",
+        "customer_manager",
+        "user_manager",
+        "hacker",
+    }
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.FILE_UPDATE,
+        roles=roles,
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role
-        in {"resourcer", "customer_manager", "user_manager", "hacker"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.FILE_UPDATE in user.notifications_preferences.email
-    ]
 
     await groups_mail.send_mail_file_report(
         group_name=group_name,
@@ -1534,25 +1523,13 @@ async def send_mail_unsubscribed(
     user_email: str,
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.UNSUBSCRIPTION_ALERT,
+        roles=roles,
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.UNSUBSCRIPTION_ALERT
-        in user.notifications_preferences.email
-    ]
 
     await groups_mail.send_mail_user_unsubscribed(
         group_name=group_name,
@@ -1581,25 +1558,13 @@ async def update_group_info(
 ) -> None:
     group: Group = await loaders.group_typed.load(group_name)
 
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.GROUP_INFORMATION,
+        roles=roles,
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.GROUP_INFORMATION
-        in user.notifications_preferences.email
-    ]
 
     await update_metadata_typed(group_name=group_name, metadata=metadata)
 
@@ -1646,25 +1611,20 @@ async def send_mail_devsecops_agent(
     had_token: bool,
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
-    users = await group_access_domain.get_group_users(
-        group_name,
-        active=True,
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.AGENT_TOKEN,
+        roles=roles,
     )
-    user_roles = await collect(
-        authz.get_group_level_role(user, group_name) for user in users
-    )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
 
     await groups_mail.send_mail_devsecops_agent_token(
         loaders=loaders,
         group_name=group_name,
         user_email=responsible,
         report_date=datetime_utils.get_datetime_from_iso_str(report_date),
-        email_to=email_list,
+        email_to=users_email,
         had_token=had_token,
     )
 
@@ -1773,22 +1733,13 @@ async def send_mail_portfolio_report(
     is_added: bool = False,
     modified_date: str,
 ) -> None:
-    users = await group_access_domain.get_group_users(group_name, active=True)
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.PORTFOLIO_UPDATE,
+        roles=roles,
     )
-    email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in {"resourcer", "customer_manager", "user_manager"}
-    ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
-    users_email = [
-        user.email
-        for user in user
-        if Notification.PORTFOLIO_UPDATE
-        in user.notifications_preferences.email
-    ]
 
     await groups_mail.send_mail_portfolio_report(
         group_name=group_name,
