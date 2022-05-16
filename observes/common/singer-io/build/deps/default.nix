@@ -1,15 +1,10 @@
 {
-  system,
+  pkgs,
   lib,
-  localLib,
-  legacyPkgs,
-  pythonPkgs,
-  pythonVersion,
+  local_pkgs,
+  python_version,
 }: let
-  legacy-purity = import localLib.legacy-purity {
-    inherit legacyPkgs pythonVersion system;
-    src = localLib.legacy-purity;
-  };
+  pythonPkgs = pkgs."${python_version}Packages";
   jsonschema = pythonPkgs.jsonschema.overridePythonAttrs (
     old: rec {
       version = "3.2.0";
@@ -25,5 +20,5 @@ in
   pythonPkgs
   // {
     inherit jsonschema;
-    legacy-purity = legacy-purity.pkg;
+    legacy-purity = local_pkgs.legacy-purity."${python_version}".pkg;
   }
