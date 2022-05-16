@@ -15,7 +15,6 @@
     python-dateutil
     pytz
     requests
-    returns
     legacy-paginator
     legacy-postgres-client
     legacy-singer-io

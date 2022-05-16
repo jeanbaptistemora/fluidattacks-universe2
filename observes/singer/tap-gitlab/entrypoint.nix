@@ -65,9 +65,20 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = _legacy_paginator_src;
   };
 
-  local_pkgs = {inherit fa-purity legacy-paginator legacy-postgres-client redshift-client utils-logger;};
+  _legacy_singer_io = projectPath "/observes/common/singer-io";
+  legacy-singer-io."${python_version}" = import _legacy_singer_io {
+    inherit python_version;
+    local_pkgs = {
+      inherit legacy-purity;
+    };
+    pkgs = legacy_pkgs;
+    src = _legacy_singer_io;
+  };
+
+  local_pkgs = {inherit fa-purity legacy-paginator legacy-postgres-client legacy-singer-io redshift-client utils-logger;};
   out = import ./. {
-    inherit legacy_pkgs local_pkgs;
+    inherit local_pkgs python_version;
+    pkgs = legacy_pkgs;
     src = ./.;
   };
 in
