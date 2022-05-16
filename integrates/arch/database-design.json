@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 13, 2022, 12:54 PM",
+    "DateLastModified": "May 16, 2022, 09:56 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -589,6 +589,46 @@
         {
           "AttributeName": "unreliable_verification_summary",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "organization_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "business_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "business_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "context",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "disambiguation",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "has_machine",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "has_squad",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "pending_deletion_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "service",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tier",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -1594,93 +1634,43 @@
           "FacetName": "group_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "GROUP#name"
+            "SortKeyAlias": "ORG#id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "name": {
-                "S": "unittesting"
-              },
-              "description": {
-                "S": "Test group"
-              },
-              "language": {
-                "S": "en"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "name",
+            "agent_token",
+            "business_id",
+            "business_name",
+            "context",
             "description",
+            "disambiguation",
+            "files",
             "language",
-            "agent_token"
+            "name",
+            "organization_id",
+            "state",
+            "tags"
           ]
         },
         {
           "FacetName": "group_historic_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name#STATE#iso8601utc",
-            "SortKeyAlias": "GROUP#name"
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting#STATE#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "type": {
-                "S": "CONTINUOUS"
-              },
-              "status": {
-                "S": "ACTIVE"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test"
-                  }
-                ]
-              },
-              "reason": {
-                "S": "BUDGET"
-              },
-              "has_drills": {
-                "BOOL": true
-              },
-              "has_forces": {
-                "BOOL": false
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "files": {
-                "SS": [
-                  "https://s3.amazonaws.com/fluidintegrates.resources/unittesting/file.ext"
-                ]
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "type",
-            "status",
-            "tags",
-            "reason",
-            "has_drills",
-            "has_forces",
-            "modified_date",
+            "comments",
+            "has_machine",
+            "has_squad",
+            "justification",
             "modified_by",
-            "files"
+            "modified_date",
+            "pending_deletion_date",
+            "service",
+            "status",
+            "tier",
+            "type"
           ]
         },
         {
