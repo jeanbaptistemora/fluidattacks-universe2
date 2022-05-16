@@ -21,6 +21,13 @@ interface IVerificationSummaryAttr {
   verified: number;
 }
 
+interface ILocationsInfoAttr {
+  findingId: string;
+  openVulnerabilities: number;
+  closedVulnerabilities: number;
+  locations: string | undefined;
+}
+
 interface IFindingAttr {
   age: number;
   closedVulnerabilities: number;
@@ -29,7 +36,7 @@ interface IFindingAttr {
   id: string;
   isExploitable: boolean;
   lastVulnerability: number;
-  locationsFindingId: string;
+  locationsInfo: ILocationsInfoAttr;
   openAge: number;
   openVulnerabilities: number;
   minTimeToRemediate: number | null;
@@ -43,7 +50,6 @@ interface IFindingAttr {
   treatmentSummary: ITreatmentSummaryAttr;
   verificationSummary: IVerificationSummaryAttr;
   verified: boolean;
-  where: string;
 }
 
 interface IFindingData {
@@ -76,6 +82,7 @@ export type {
   IGroupFindingsAttr,
   IFindingAttr,
   IFindingData,
+  ILocationsInfoAttr,
   IRequestGroupReportResult,
   ITreatmentSummaryAttr,
   IVerificationSummaryAttr,

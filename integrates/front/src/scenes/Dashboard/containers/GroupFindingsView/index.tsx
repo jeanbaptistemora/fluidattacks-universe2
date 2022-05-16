@@ -13,7 +13,8 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
-import { locationsFormatter } from "./formatters/Locations";
+import { locationsFormatter } from "./formatters/locationsFormatter";
+import { Locations } from "./loaders/Locations";
 import {
   formatFindings,
   formatState,
@@ -101,7 +102,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       age: true,
       closingPercentage: false,
       lastVulnerability: true,
-      locationsFindingId: false,
+      locationsInfo: false,
       openVulnerabilities: true,
       reattack: false,
       severityScore: true,
@@ -278,13 +279,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      dataField: "locationsFindingId",
-      formatter: locationsFormatter(setFindingLocations),
+      dataField: "locationsInfo",
+      formatter: locationsFormatter,
       header: "Locations",
       headerFormatter: tooltipFormatter,
       onSort: onSortState,
       tooltipDataField: t("group.findings.headersTooltips.where"),
-      visible: checkedItems.locationsFindingId,
+      visible: checkedItems.locationsInfo,
       wrapped: true,
     },
     {
@@ -839,6 +840,17 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           </Form>
         </Formik>
       </Modal>
+      {checkedItems.locationsInfo
+        ? findings.map(
+            (finding: IFindingAttr): JSX.Element => (
+              <Locations
+                findingId={finding.id}
+                key={finding.id}
+                setFindingLocations={setFindingLocations}
+              />
+            )
+          )
+        : undefined}
     </React.StrictMode>
   );
 };

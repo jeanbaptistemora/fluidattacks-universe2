@@ -78,13 +78,17 @@ const formatFindings = (
     (finding): IFindingAttr => ({
       ...finding,
       closingPercentage: formatClosingPercentage(finding),
-      locationsFindingId: finding.id,
+      locationsInfo: {
+        closedVulnerabilities: finding.closedVulnerabilities,
+        findingId: finding.id,
+        locations: _.get(findingLocations, finding.id, undefined),
+        openVulnerabilities: finding.openVulnerabilities,
+      },
       reattack: formatReattack(finding.verificationSummary),
       treatment: formatTreatmentSummary(
         finding.state,
         finding.treatmentSummary
       ),
-      where: _.get(findingLocations, finding.id, ""),
     })
   );
 

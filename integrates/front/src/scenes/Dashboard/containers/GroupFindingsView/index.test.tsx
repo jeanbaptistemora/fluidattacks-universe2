@@ -6,7 +6,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { GET_FINDING_LOCATIONS } from "./formatters/Locations/queries";
+import { GET_FINDING_LOCATIONS } from "./loaders/Locations/queries";
 
 import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
@@ -358,7 +358,7 @@ describe("groupFindingsView", (): void => {
     userEvent.click(
       screen.getByRole("checkbox", {
         checked: false,
-        name: "locationsFindingId",
+        name: "locationsInfo",
       })
     );
     userEvent.click(

@@ -12,7 +12,6 @@ import type {
   IVulnerabilityEdge,
 } from "./types";
 
-import styles from "components/Table/index.css";
 import { Logger } from "utils/logger";
 
 const Locations: React.FC<ILocationsProps> = ({
@@ -89,36 +88,7 @@ const Locations: React.FC<ILocationsProps> = ({
     setLocations(newLocations);
   }
 
-  const additional = vulnerabilities.length - 1;
-
-  return (
-    <div>
-      <p className={`mb0 ${styles.textMesure} tl truncate`}>
-        {vulnerabilities.length > 0 ? vulnerabilities[0].where : ""}&nbsp;
-        {additional > 0 ? <b>{`+${additional}`}</b> : undefined}
-      </p>
-    </div>
-  );
+  return <div />;
 };
 
-const locationsFormatter: (
-  setFindingLocations: (
-    setStateFn: (prevState: Record<string, string>) => Record<string, string>
-  ) => void
-) => (value: string) => JSX.Element = (
-  setFindingLocations: (
-    setStateFn: (prevState: Record<string, string>) => Record<string, string>
-  ) => void
-): ((value: string) => JSX.Element) => {
-  const formatter: (value: string) => JSX.Element = (
-    value: string
-  ): JSX.Element => {
-    return (
-      <Locations findingId={value} setFindingLocations={setFindingLocations} />
-    );
-  };
-
-  return formatter;
-};
-
-export { locationsFormatter };
+export { Locations };

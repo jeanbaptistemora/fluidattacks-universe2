@@ -22,7 +22,7 @@ import type {
   IUploadVulnerabilitiesResultAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
-import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/formatters/Locations/queries";
+import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/loaders/Locations/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import {
   ButtonToolbarLeft,

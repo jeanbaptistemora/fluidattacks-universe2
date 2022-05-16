@@ -7,7 +7,7 @@ import type {
 import type { GraphQLError } from "graphql";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
-import { GET_FINDING_LOCATIONS } from "../../GroupFindingsView/formatters/Locations/queries";
+import { GET_FINDING_LOCATIONS } from "../../GroupFindingsView/loaders/Locations/queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import {
   getRequestedZeroRiskVulns,
