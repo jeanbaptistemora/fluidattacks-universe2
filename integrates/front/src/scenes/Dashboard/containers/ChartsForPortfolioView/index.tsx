@@ -5,16 +5,15 @@ import { useLocation, useParams } from "react-router-dom";
 import type { IChartsForPortfolioViewProps } from "scenes/Dashboard/containers/ChartsForPortfolioView/types";
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
-const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
-  props: IChartsForPortfolioViewProps
-): JSX.Element => {
+const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = ({
+  organizationId,
+}: IChartsForPortfolioViewProps): JSX.Element => {
   const { tagName } = useParams<{ tagName: string }>();
   const searchParams: URLSearchParams = new URLSearchParams(
     useLocation().search
   );
 
   const subjectFromSearchParams: string | null = searchParams.get("portfolio");
-  const { organizationId } = props;
   const auxOrganizationId: string = _.isUndefined(organizationId)
     ? ""
     : organizationId;

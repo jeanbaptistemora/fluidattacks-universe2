@@ -5,13 +5,12 @@ import { useLocation } from "react-router-dom";
 import type { IChartsForOrganizationViewProps } from "scenes/Dashboard/containers/ChartsForOrganizationView/types";
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
-const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = (
-  props: IChartsForOrganizationViewProps
-): JSX.Element => {
+const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = ({
+  organizationId,
+}: IChartsForOrganizationViewProps): JSX.Element => {
   const searchParams: URLSearchParams = new URLSearchParams(
     useLocation().search
   );
-  const { organizationId } = props;
   const maybeOrganizationId: string | null = searchParams.get("organization");
 
   /*
@@ -19,10 +18,11 @@ const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = (
    *   or from URL search query, whatever is available first
    */
   const auxOrganizationId: string = _.isUndefined(organizationId)
-    ? _.isNull(maybeOrganizationId)
-      ? ""
-      : maybeOrganizationId
+    ? ""
     : organizationId;
+  const subject: string = _.isNull(maybeOrganizationId)
+    ? auxOrganizationId
+    : maybeOrganizationId;
 
   return (
     <React.StrictMode>
@@ -30,7 +30,7 @@ const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = (
         bgChange={searchParams.get("bgChange") === "true"}
         entity={"organization"}
         reportMode={searchParams.get("reportMode") === "true"}
-        subject={auxOrganizationId}
+        subject={subject}
       />
     </React.StrictMode>
   );
