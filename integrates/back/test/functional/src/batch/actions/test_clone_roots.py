@@ -48,7 +48,6 @@ async def test_clone_roots(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.FAILED
-    assert root_1.cloning.commit is None
     mocker.patch.object(
         clone_roots,
         "clone_root",
@@ -75,8 +74,8 @@ async def test_clone_roots(
     root_1 = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
-    assert root_1.cloning.status == GitCloningStatus.OK
-    assert root_1.cloning.commit == "6d4519f5d5b97235feb65fcbc8af68e8ef9964b3"
+    assert root_1.cloning.status == GitCloningStatus.CLONING
+    assert root_1.cloning.commit is None
 
     assert (
         len(
@@ -99,8 +98,8 @@ async def test_clone_roots_failed(
     root_1: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
-    assert root_1.cloning.status == GitCloningStatus.OK
-    assert root_1.cloning.commit == "6d4519f5d5b97235feb65fcbc8af68e8ef9964b3"
+    assert root_1.cloning.status == GitCloningStatus.CLONING
+    assert root_1.cloning.commit is None
     mocker.patch.object(
         clone_roots,
         "clone_root",
@@ -123,7 +122,7 @@ async def test_clone_roots_failed(
     root_1 = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
-    assert root_1.cloning.status == GitCloningStatus.FAILED
+    assert root_1.cloning.status == GitCloningStatus.CLONING
     assert root_1.cloning.commit is None
 
 
@@ -148,8 +147,8 @@ async def test_clone_roots_real_https(
     root_1 = await loaders.root.load(
         ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
-    assert root_1.cloning.status == GitCloningStatus.OK
-    assert root_1.cloning.commit == "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b"
+    assert root_1.cloning.status == GitCloningStatus.CLONING
+    assert root_1.cloning.commit is None
 
 
 @pytest.mark.asyncio
@@ -174,5 +173,5 @@ async def test_clone_roots_real_ssh(
     root_1 = await loaders.root.load(
         ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
-    assert root_1.cloning.status == GitCloningStatus.OK
-    assert root_1.cloning.commit == "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b"
+    assert root_1.cloning.status == GitCloningStatus.CLONING
+    assert root_1.cloning.commit is None

@@ -59,6 +59,13 @@ async def mutate(
                 user_email=user_email,
                 group_name=root.group_name,
             )
+            await roots_domain.update_root_cloning_status(
+                loaders=info.context.loaders,
+                group_name=root.group_name,
+                root_id=root.id,
+                status="CLONING",
+                message="Cloning in progress...",
+            )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated root {kwargs["id"]}'
     )

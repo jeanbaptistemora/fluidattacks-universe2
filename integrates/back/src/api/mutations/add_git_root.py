@@ -110,6 +110,13 @@ async def mutate(
             )
         )
     ):
+        await roots_domain.update_root_cloning_status(
+            loaders=loaders,
+            group_name=group_name,
+            root_id=root.id,
+            status="CLONING",
+            message="Cloning in progress...",
+        )
         await queue_job_new(
             group_name=root.group_name,
             finding_codes=tuple(

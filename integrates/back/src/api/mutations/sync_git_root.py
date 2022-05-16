@@ -26,6 +26,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from roots.domain import (
+    update_root_cloning_status,
+)
 from typing import (
     Any,
     Dict,
@@ -52,6 +55,13 @@ async def mutate(
         user_email=user_email,
         group_name=root.group_name,
         force=True,
+    )
+    await update_root_cloning_status(
+        loaders=loaders,
+        group_name=group_name,
+        root_id=root.id,
+        status="CLONING",
+        message="Cloning in progress...",
     )
     logs_utils.cloudwatch_log(
         info.context,

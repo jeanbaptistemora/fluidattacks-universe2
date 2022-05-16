@@ -113,6 +113,13 @@ async def clone_roots(  # pylint: disable=too-many-locals
 
     LOGGER.info("%s roots will be cloned", len(roots))
     for root in roots:
+        await roots_domain.update_root_cloning_status(
+            loaders=dataloaders,
+            group_name=group_name,
+            root_id=root.id,
+            status="CLONING",
+            message="Cloning in progress...",
+        )
         root_cred: Optional[CredentialItem] = next(
             (cred for cred in group_creds if root.id in cred.state.roots), None
         )
@@ -374,15 +381,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             product_name=Product.INTEGRATES,
             dynamodb_pk=current_action.key if current_action else None,
         )
-        await collect(
-            roots_domain.update_root_cloning_status(
-                loaders=loaders,
-                group_name=group_name,
-                root_id=root_id,
-                status="CLONING",
-                message="Cloning in progress...",
-            )
-            for root_id in roots_to_clone
-        )
+
         return result
     return None
