@@ -57,6 +57,10 @@ class ExpectedVulnToBeOfLinesType(_SingleMessageException):
     msg: str = "Expected vulnerability to be of type: lines"
 
 
+class GroupAlreadyCreated(_SingleMessageException):
+    msg: str = "This group has already been created"
+
+
 class IndicatorAlreadyUpdated(CustomBaseException):
     """Exception to control the indicator has not been updated"""
 

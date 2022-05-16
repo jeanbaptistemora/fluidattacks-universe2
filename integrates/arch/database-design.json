@@ -1688,7 +1688,7 @@
           "FacetName": "group_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "ORG#id"
+            "SortKeyAlias": "ORG#organization_id"
           },
           "TableData": [],
           "NonKeyAttributes": [
