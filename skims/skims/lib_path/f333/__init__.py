@@ -4,6 +4,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f333.cloudformation import (
+    cfn_ec2_associate_public_ip_address,
     cfn_ec2_has_not_an_iam_instance_profile,
     cfn_ec2_has_terminate_shutdown_behavior,
 )
@@ -34,6 +35,15 @@ def run_cfn_ec2_has_not_an_iam_instance_profile(
 ) -> Vulnerabilities:
     return cfn_ec2_has_not_an_iam_instance_profile(
         content=content, file_ext=file_ext, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
+def run_cfn_ec2_associate_public_ip_address(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_ec2_associate_public_ip_address(
+        content=content, path=path, template=template
     )
 
 
@@ -88,6 +98,9 @@ def analyze(
             results = (
                 run_cfn_ec2_has_not_an_iam_instance_profile(
                     content, file_extension, path, template
+                ),
+                run_cfn_ec2_associate_public_ip_address(
+                    content, path, template
                 ),
                 run_cfn_ec2_has_terminate_shutdown_behavior(
                     content, file_extension, path, template

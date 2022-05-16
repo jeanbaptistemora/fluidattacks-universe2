@@ -2227,6 +2227,54 @@ F024,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   65 | }
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+  22 |         ImageId: ami-04d5cc9b88example
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   Ec2Instance:
+  26 |     Type: AWS::EC2::Instance
+  27 |     Properties:
+> 28 |       ImageId:
+  29 |         Fn::FindInMap:
+  30 |           - ""RegionMap""
+  31 |           - Ref: ""AWS::Region""
+  32 |           - ""AMI""
+  33 |       KeyName:
+  34 |         Ref: ""KeyName""
+  35 |       NetworkInterfaces:
+  36 |         - AssociatePublicIpAddress: ""true""
+  37 |           DeviceIndex: ""0""
+  38 |           GroupSet:
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
+F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+  29 |             ""Tenancy"": ""dedicated""
+  30 |           },
+  31 |           ""ImageId"": ""ami-04d5cc9b88example"",
+  32 |           ""InstanceType"": ""t2.micro"",
+  33 |           ""KeyName"": ""MyKeyPair""
+  34 |         }
+  35 |       }
+  36 |     },
+  37 |     ""Ec2Instance"": {
+  38 |       ""Type"": ""AWS::EC2::Instance"",
+> 39 |       ""Properties"": {
+  40 |         ""ImageId"": {
+  41 |           ""Fn::FindInMap"": [
+  42 |             ""RegionMap"",
+  43 |             {
+  44 |               ""Ref"": ""AWS::Region""
+  45 |             },
+  46 |             ""AMI""
+  47 |           ]
+  48 |         },
+  49 |         ""KeyName"": {
+     ^ Col 0
+",cloudformation.cfn_instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
    1 | Resources:
    2 |   MyEC2Instance:
@@ -4154,6 +4202,54 @@ F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   47 |       }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,6,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+   1 | Resources:
+   2 |   myLaunchTemplate:
+   3 |     Type: 'AWS::EC2::LaunchTemplate'
+   4 |     Properties:
+   5 |       LaunchTemplateName: '${AWS::StackName}-launch-template-for-auto-scaling'
+>  6 |       LaunchTemplateData:
+   7 |         NetworkInterfaces:
+   8 |           - DeviceIndex: 0
+   9 |             AssociatePublicIpAddress: true
+  10 |             Groups:
+  11 |               - sg-7c2270198example
+  12 |               - sg-903004f88example
+  13 |             DeleteOnTermination: true
+  14 |           - DeviceIndex: 0
+  15 |             AssociatePublicIpAddress: false
+  16 |             Groups:
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+     ^ Col 0
+",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,7,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""myLaunchTemplate"": {
+   4 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+   5 |       ""Properties"": {
+   6 |         ""LaunchTemplateName"": ""${AWS::StackName}-launch-template-for-auto-scaling"",
+>  7 |         ""LaunchTemplateData"": {
+   8 |           ""NetworkInterfaces"": [
+   9 |             {
+  10 |               ""DeviceIndex"": 0,
+  11 |               ""AssociatePublicIpAddress"": true,
+  12 |               ""Groups"": [
+  13 |                 ""sg-7c2270198example"",
+  14 |                 ""sg-903004f88example""
+  15 |               ],
+  16 |               ""DeleteOnTermination"": true
+  17 |             },
+  18 |             {
+  19 |               ""DeviceIndex"": 0,
+  20 |               ""AssociatePublicIpAddress"": false,
+  21 |               ""Groups"": [
+     ^ Col 0
+",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
 F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml,13,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml,"
    3 | ::EC2::LaunchTemplate
    4 | s:
@@ -4226,6 +4322,150 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdow
   21 |         }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
+F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,28,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+  12 |       DeleteOnTermination: ""false""
+  13 |       VolumeSize: ""20""
+  14 |   - DeviceName: ""/dev/sdk""
+  15 |     NoDevice: {}
+  16 | nstance2:
+  17 | operties:
+  18 | IamInstanceProfile: iamInstanceProfile1
+  19 | LaunchTemplate:
+  20 |   LaunchTemplateId:
+  21 |     Ref: launchTemplate
+  22 |   LaunchTemplateName: launchTemplate
+  23 |   Version:
+  24 |     Fn::GetAtt:
+  25 |       - launchTemplate
+  26 |       - LatestVersionNumber
+  27 | NetworkInterfaces:
+> 28 |   - AssociatePublicIpAddress: 'true'
+  29 |     DeviceIndex: 0
+  30 | SecurityGroups:
+  31 |   - security-group-test
+  32 | pe: AWS::EC2::Instance
+     ^ Col 6
+",cloudformation.cfn_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,42,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+  32 | ""LaunchTemplateName"": ""launchTemplate"",
+  33 | ""Version"": {
+  34 |   ""Fn::GetAtt"": [
+  35 |     ""launchTemplate"",
+  36 |     ""LatestVersionNumber""
+  37 |   ]
+  38 | }
+  39 |
+  40 | etworkInterfaces"": [
+  41 | {
+> 42 |   ""AssociatePublicIpAddress"": ""true"",
+  43 |   ""DeviceIndex"": 0
+  44 | }
+  45 |
+  46 | ecurityGroups"": [
+  47 | ""security-group-test""
+  48 |
+  49 |
+  50 | e"": ""AWS::EC2::Instance""
+  51 |
+  52 |
+     ^ Col 10
+",cloudformation.cfn_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,9,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+   1 | s:
+   2 | chTemplate:
+   3 | : 'AWS::EC2::LaunchTemplate'
+   4 | erties:
+   5 | unchTemplateName: '${AWS::StackName}-launch-template-for-auto-scaling'
+   6 | unchTemplateData:
+   7 | NetworkInterfaces:
+   8 |   - DeviceIndex: 0
+>  9 |     AssociatePublicIpAddress: true
+  10 |     Groups:
+  11 |       - sg-7c2270198example
+  12 |       - sg-903004f88example
+  13 |     DeleteOnTermination: true
+  14 |   - DeviceIndex: 0
+  15 |     AssociatePublicIpAddress: false
+  16 |     Groups:
+  17 |       - sg-7c2270198example
+  18 |       - sg-903004f88example
+  19 |     DeleteOnTermination: true
+  20 | Placement:
+  21 |   Tenancy: dedicated
+     ^ Col 8
+",cloudformation.cfn_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,36,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+  26 | pe: AWS::EC2::Instance
+  27 | operties:
+  28 | ImageId:
+  29 |   Fn::FindInMap:
+  30 |     - ""RegionMap""
+  31 |     - Ref: ""AWS::Region""
+  32 |     - ""AMI""
+  33 | KeyName:
+  34 |   Ref: ""KeyName""
+  35 | NetworkInterfaces:
+> 36 |   - AssociatePublicIpAddress: ""true""
+  37 |     DeviceIndex: ""0""
+  38 |     GroupSet:
+  39 |       - Ref: ""myVPCEC2SecurityGroup""
+  40 |     SubnetId:
+  41 |       Ref: ""PublicSubnet""
+  42 |   - AssociatePublicIpAddress: false
+  43 |     DeviceIndex: ""0""
+  44 |     GroupSet:
+  45 |       - Ref: ""myVPCEC2SecurityGroup""
+  46 |     SubnetId:
+     ^ Col 6
+",cloudformation.cfn_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,11,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+   1 |
+   2 | "": {
+   3 | hTemplate"": {
+   4 | : ""AWS::EC2::LaunchTemplate"",
+   5 | rties"": {
+   6 | nchTemplateName"": ""${AWS::StackName}-launch-template-for-auto-scaling"",
+   7 | nchTemplateData"": {
+   8 | etworkInterfaces"": [
+   9 | {
+  10 |   ""DeviceIndex"": 0,
+> 11 |   ""AssociatePublicIpAddress"": true,
+  12 |   ""Groups"": [
+  13 |     ""sg-7c2270198example"",
+  14 |     ""sg-903004f88example""
+  15 |   ],
+  16 |   ""DeleteOnTermination"": true
+  17 | },
+  18 | {
+  19 |   ""DeviceIndex"": 0,
+  20 |   ""AssociatePublicIpAddress"": false,
+  21 |   ""Groups"": [
+     ^ Col 12
+",cloudformation.cfn_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,54,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+  44 |     ""Ref"": ""AWS::Region""
+  45 |   },
+  46 |   ""AMI""
+  47 | ]
+  48 |
+  49 | eyName"": {
+  50 | ""Ref"": ""KeyName""
+  51 |
+  52 | etworkInterfaces"": [
+  53 | {
+> 54 |   ""AssociatePublicIpAddress"": ""true"",
+  55 |   ""DeviceIndex"": ""0"",
+  56 |   ""GroupSet"": [
+  57 |     {
+  58 |       ""Ref"": ""myVPCEC2SecurityGroup""
+  59 |     }
+  60 |   ],
+  61 |   ""SubnetId"": {
+  62 |     ""Ref"": ""PublicSubnet""
+  63 |   }
+  64 | },
+     ^ Col 10
+",cloudformation.cfn_ec2_associate_public_ip_address
 F333,lines,namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,70,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/aws_lanch_template_test.tf,"
   60 |     http_endpoint               = ""enabled""
   61 |     http_tokens                 = ""required""
@@ -4745,6 +4985,54 @@ F333,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   63 |     }
   64 |   }
   65 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,27,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+  22 |         ImageId: ami-04d5cc9b88example
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   Ec2Instance:
+  26 |     Type: AWS::EC2::Instance
+> 27 |     Properties:
+  28 |       ImageId:
+  29 |         Fn::FindInMap:
+  30 |           - ""RegionMap""
+  31 |           - Ref: ""AWS::Region""
+  32 |           - ""AMI""
+  33 |       KeyName:
+  34 |         Ref: ""KeyName""
+  35 |       NetworkInterfaces:
+  36 |         - AssociatePublicIpAddress: ""true""
+  37 |           DeviceIndex: ""0""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+  29 |             ""Tenancy"": ""dedicated""
+  30 |           },
+  31 |           ""ImageId"": ""ami-04d5cc9b88example"",
+  32 |           ""InstanceType"": ""t2.micro"",
+  33 |           ""KeyName"": ""MyKeyPair""
+  34 |         }
+  35 |       }
+  36 |     },
+  37 |     ""Ec2Instance"": {
+  38 |       ""Type"": ""AWS::EC2::Instance"",
+> 39 |       ""Properties"": {
+  40 |         ""ImageId"": {
+  41 |           ""Fn::FindInMap"": [
+  42 |             ""RegionMap"",
+  43 |             {
+  44 |               ""Ref"": ""AWS::Region""
+  45 |             },
+  46 |             ""AMI""
+  47 |           ]
+  48 |         },
+  49 |         ""KeyName"": {
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
@@ -22561,6 +22849,102 @@ F257,lines,namespace/skims/test/data/lib_path/f257/tfm_ec2_has_not_termination_p
   36 |   }
      ^ Col 0
 ",terraform.ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,6,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+   1 | Resources:
+   2 |   myLaunchTemplate:
+   3 |     Type: 'AWS::EC2::LaunchTemplate'
+   4 |     Properties:
+   5 |       LaunchTemplateName: '${AWS::StackName}-launch-template-for-auto-scaling'
+>  6 |       LaunchTemplateData:
+   7 |         NetworkInterfaces:
+   8 |           - DeviceIndex: 0
+   9 |             AssociatePublicIpAddress: true
+  10 |             Groups:
+  11 |               - sg-7c2270198example
+  12 |               - sg-903004f88example
+  13 |             DeleteOnTermination: true
+  14 |           - DeviceIndex: 0
+  15 |             AssociatePublicIpAddress: false
+  16 |             Groups:
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,27,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+  22 |         ImageId: ami-04d5cc9b88example
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   Ec2Instance:
+  26 |     Type: AWS::EC2::Instance
+> 27 |     Properties:
+  28 |       ImageId:
+  29 |         Fn::FindInMap:
+  30 |           - ""RegionMap""
+  31 |           - Ref: ""AWS::Region""
+  32 |           - ""AMI""
+  33 |       KeyName:
+  34 |         Ref: ""KeyName""
+  35 |       NetworkInterfaces:
+  36 |         - AssociatePublicIpAddress: ""true""
+  37 |           DeviceIndex: ""0""
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,7,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""myLaunchTemplate"": {
+   4 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+   5 |       ""Properties"": {
+   6 |         ""LaunchTemplateName"": ""${AWS::StackName}-launch-template-for-auto-scaling"",
+>  7 |         ""LaunchTemplateData"": {
+   8 |           ""NetworkInterfaces"": [
+   9 |             {
+  10 |               ""DeviceIndex"": 0,
+  11 |               ""AssociatePublicIpAddress"": true,
+  12 |               ""Groups"": [
+  13 |                 ""sg-7c2270198example"",
+  14 |                 ""sg-903004f88example""
+  15 |               ],
+  16 |               ""DeleteOnTermination"": true
+  17 |             },
+  18 |             {
+  19 |               ""DeviceIndex"": 0,
+  20 |               ""AssociatePublicIpAddress"": false,
+  21 |               ""Groups"": [
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
+F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+  29 |             ""Tenancy"": ""dedicated""
+  30 |           },
+  31 |           ""ImageId"": ""ami-04d5cc9b88example"",
+  32 |           ""InstanceType"": ""t2.micro"",
+  33 |           ""KeyName"": ""MyKeyPair""
+  34 |         }
+  35 |       }
+  36 |     },
+  37 |     ""Ec2Instance"": {
+  38 |       ""Type"": ""AWS::EC2::Instance"",
+> 39 |       ""Properties"": {
+  40 |         ""ImageId"": {
+  41 |           ""Fn::FindInMap"": [
+  42 |             ""RegionMap"",
+  43 |             {
+  44 |               ""Ref"": ""AWS::Region""
+  45 |             },
+  46 |             ""AMI""
+  47 |           ]
+  48 |         },
+  49 |         ""KeyName"": {
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_termination_protection
 F257,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
    1 | Resources:
    2 |   MyEC2Instance:
@@ -25641,6 +26025,106 @@ F109,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   63 |     }
   64 |   }
   65 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,6,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml","
+   1 | Resources:
+   2 |   myLaunchTemplate:
+   3 |     Type: 'AWS::EC2::LaunchTemplate'
+   4 |     Properties:
+   5 |       LaunchTemplateName: '${AWS::StackName}-launch-template-for-auto-scaling'
+>  6 |       LaunchTemplateData:
+   7 |         NetworkInterfaces:
+   8 |           - DeviceIndex: 0
+   9 |             AssociatePublicIpAddress: true
+  10 |             Groups:
+  11 |               - sg-7c2270198example
+  12 |               - sg-903004f88example
+  13 |             DeleteOnTermination: true
+  14 |           - DeviceIndex: 0
+  15 |             AssociatePublicIpAddress: false
+  16 |             Groups:
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,27,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml","
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+  22 |         ImageId: ami-04d5cc9b88example
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   Ec2Instance:
+  26 |     Type: AWS::EC2::Instance
+> 27 |     Properties:
+  28 |       ImageId:
+  29 |         Fn::FindInMap:
+  30 |           - ""RegionMap""
+  31 |           - Ref: ""AWS::Region""
+  32 |           - ""AMI""
+  33 |       KeyName:
+  34 |         Ref: ""KeyName""
+  35 |       NetworkInterfaces:
+  36 |         - AssociatePublicIpAddress: ""true""
+  37 |           DeviceIndex: ""0""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,7,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""myLaunchTemplate"": {
+   4 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+   5 |       ""Properties"": {
+   6 |         ""LaunchTemplateName"": ""${AWS::StackName}-launch-template-for-auto-scaling"",
+>  7 |         ""LaunchTemplateData"": {
+   8 |           ""NetworkInterfaces"": [
+   9 |             {
+  10 |               ""DeviceIndex"": 0,
+  11 |               ""AssociatePublicIpAddress"": true,
+  12 |               ""Groups"": [
+  13 |                 ""sg-7c2270198example"",
+  14 |                 ""sg-903004f88example""
+  15 |               ],
+  16 |               ""DeleteOnTermination"": true
+  17 |             },
+  18 |             {
+  19 |               ""DeviceIndex"": 0,
+  20 |               ""AssociatePublicIpAddress"": false,
+  21 |               ""Groups"": [
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json","
+  29 |             ""Tenancy"": ""dedicated""
+  30 |           },
+  31 |           ""ImageId"": ""ami-04d5cc9b88example"",
+  32 |           ""InstanceType"": ""t2.micro"",
+  33 |           ""KeyName"": ""MyKeyPair""
+  34 |         }
+  35 |       }
+  36 |     },
+  37 |     ""Ec2Instance"": {
+  38 |       ""Type"": ""AWS::EC2::Instance"",
+> 39 |       ""Properties"": {
+  40 |         ""ImageId"": {
+  41 |           ""Fn::FindInMap"": [
+  42 |             ""RegionMap"",
+  43 |             {
+  44 |               ""Ref"": ""AWS::Region""
+  45 |             },
+  46 |             ""AMI""
+  47 |           ]
+  48 |         },
+  49 |         ""KeyName"": {
      ^ Col 0
 ",cloudformation.cfn_ec2_use_default_security_group
 F109,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
@@ -29846,6 +30330,54 @@ F400,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   63 |     }
   64 |   }
   65 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,27,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+  17 |               - sg-7c2270198example
+  18 |               - sg-903004f88example
+  19 |             DeleteOnTermination: true
+  20 |         Placement:
+  21 |           Tenancy: dedicated
+  22 |         ImageId: ami-04d5cc9b88example
+  23 |         InstanceType: t2.micro
+  24 |         KeyName: MyKeyPair
+  25 |   Ec2Instance:
+  26 |     Type: AWS::EC2::Instance
+> 27 |     Properties:
+  28 |       ImageId:
+  29 |         Fn::FindInMap:
+  30 |           - ""RegionMap""
+  31 |           - Ref: ""AWS::Region""
+  32 |           - ""AMI""
+  33 |       KeyName:
+  34 |         Ref: ""KeyName""
+  35 |       NetworkInterfaces:
+  36 |         - AssociatePublicIpAddress: ""true""
+  37 |           DeviceIndex: ""0""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+  29 |             ""Tenancy"": ""dedicated""
+  30 |           },
+  31 |           ""ImageId"": ""ami-04d5cc9b88example"",
+  32 |           ""InstanceType"": ""t2.micro"",
+  33 |           ""KeyName"": ""MyKeyPair""
+  34 |         }
+  35 |       }
+  36 |     },
+  37 |     ""Ec2Instance"": {
+  38 |       ""Type"": ""AWS::EC2::Instance"",
+> 39 |       ""Properties"": {
+  40 |         ""ImageId"": {
+  41 |           ""Fn::FindInMap"": [
+  42 |             ""RegionMap"",
+  43 |             {
+  44 |               ""Ref"": ""AWS::Region""
+  45 |             },
+  46 |             ""AMI""
+  47 |           ]
+  48 |         },
+  49 |         ""KeyName"": {
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,4,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"

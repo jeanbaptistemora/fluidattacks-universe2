@@ -7,6 +7,9 @@ lib_path.f333.cfn_ec2_allows_shutdown_command:
 lib_path.f333.ec2_public_ip_addresses:
   en: Property associate_public_ip_address is either missing or misconfigured
   es: Falta la propiedad associate_public_ip_address o está mal configurada
+lib_path.f333.cfn_ec2_associate_public_ip_address:
+  en: Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured
+  es: Falta la propiedad NetworkInterfaces.AssociatePublicIpAddress o está mal configurada
 src.lib_path.f333.ec2_has_not_an_iam_instance_profile:
   en: Property iam_instance_profile is either missing or misconfigured
   es: Falta la propiedad iam_instance_profile o está mal configurada

@@ -1,0 +1,47 @@
+Resources:
+  myLaunchTemplate:
+    Type: 'AWS::EC2::LaunchTemplate'
+    Properties:
+      LaunchTemplateName: '${AWS::StackName}-launch-template-for-auto-scaling'
+      LaunchTemplateData:
+        NetworkInterfaces:
+          - DeviceIndex: 0
+            AssociatePublicIpAddress: true
+            Groups:
+              - sg-7c2270198example
+              - sg-903004f88example
+            DeleteOnTermination: true
+          - DeviceIndex: 0
+            AssociatePublicIpAddress: false
+            Groups:
+              - sg-7c2270198example
+              - sg-903004f88example
+            DeleteOnTermination: true
+        Placement:
+          Tenancy: dedicated
+        ImageId: ami-04d5cc9b88example
+        InstanceType: t2.micro
+        KeyName: MyKeyPair
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Fn::FindInMap:
+          - "RegionMap"
+          - Ref: "AWS::Region"
+          - "AMI"
+      KeyName:
+        Ref: "KeyName"
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet:
+            - Ref: "myVPCEC2SecurityGroup"
+          SubnetId:
+            Ref: "PublicSubnet"
+        - AssociatePublicIpAddress: false
+          DeviceIndex: "0"
+          GroupSet:
+            - Ref: "myVPCEC2SecurityGroup"
+          SubnetId:
+            Ref: "PublicSubnet"
