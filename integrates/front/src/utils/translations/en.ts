@@ -1672,7 +1672,9 @@ export const enTranslations: ResourceKey = {
       },
       AGENT_TOKEN: {
         name: "DevSecOps agent token alert",
-        tooltip: "DevSecOps Agent Token Alert",
+        tooltip:
+          "Get notifications when a DevSecOps Agent token is generated or " +
+          "reset.",
       },
       CHARTS_REPORT: {
         name: "Analytics report",
@@ -1695,12 +1697,12 @@ export const enTranslations: ResourceKey = {
       },
       FILE_UPDATE: {
         name: "Files updates",
-        tooltip: "Files updates",
+        tooltip: "Get notifications when a file is added or removed.",
       },
       GROUP: "GROUP",
       GROUP_INFORMATION: {
         name: "Group information",
-        tooltip: "Group information",
+        tooltip: "Get notifications when a group's information changed.",
       },
       GROUP_REPORT: {
         name: "GROUP_REPORT",
@@ -1722,7 +1724,7 @@ export const enTranslations: ResourceKey = {
       PORTFOLIO: "PORTFOLIO",
       PORTFOLIO_UPDATE: {
         name: "Portfolio updates",
-        tooltip: "Portfolio updates",
+        tooltip: "Get notifications when a portfolio is created or removed.",
       },
       REMEDIATE_FINDING: {
         name: "Vulnerability updates",
@@ -1740,16 +1742,17 @@ export const enTranslations: ResourceKey = {
       ROOT_UPDATE: {
         name: "Root updates",
         tooltip:
-          "Get notifications when a user deactivates a root " +
-          "or moves a root to another group.",
+          "Get notifications on the status of root cloning, environment " +
+          "adds, or deletes. Too when a user deactivates, adds, updates, or " +
+          "moves a root to another group.",
       },
       SERVICE_UPDATE: {
         name: "Services updates",
-        tooltip: "Services updates",
+        tooltip: "Get notifications when services are updated.",
       },
       UNSUBSCRIPTION_ALERT: {
         name: "Unsubscription alert",
-        tooltip: "Unsubscription alert",
+        tooltip: "Get notifications when a user unsubscribes.",
       },
       UPDATED_TREATMENT: {
         name: "Treatment updates",
