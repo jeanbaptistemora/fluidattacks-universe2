@@ -97,7 +97,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
   >(
-    "tableSet",
+    "findingsTableSet",
     {
       age: true,
       closingPercentage: false,
