@@ -340,7 +340,7 @@ in {
             gitlabExtra = gitlabTest;
           }
           rec {
-            args = ["dev" "${toString gitlabExtra.parallel}" "gitlab"];
+            args = ["dev" (toString gitlabExtra.parallel) "gitlab"];
             output = "/integrates/charts/documents";
             gitlabExtra =
               chartsTemplate
@@ -350,7 +350,7 @@ in {
               };
           }
           rec {
-            args = ["prod" "${toString gitlabExtra.parallel}" "gitlab"];
+            args = ["prod" (toString gitlabExtra.parallel) "gitlab"];
             output = "/integrates/charts/documents";
             gitlabExtra =
               chartsTemplate

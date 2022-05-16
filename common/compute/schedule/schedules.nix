@@ -959,7 +959,7 @@
       "m"
       "f"
       "/sorts/execute"
-      "${toString parallel}"
+      (toString parallel)
     ];
 
     schedule_expression = "cron(0 23 ? * 7 *)";
