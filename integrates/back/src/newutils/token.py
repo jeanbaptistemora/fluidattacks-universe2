@@ -67,7 +67,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 NUMBER_OF_BYTES = 32  # length of the key
-SCRYPT_N = 2 ** 14  # cpu/memory cost
+SCRYPT_N = 2**14  # cpu/memory cost
 SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
 

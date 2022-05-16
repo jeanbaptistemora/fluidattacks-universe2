@@ -38,7 +38,7 @@ try:
 except BaseException:
     print("a")
 try:
-    list(range(10 ** 10))
+    list(range(10**10))
 except (IOError, MemoryError) as exc:
     print(exc)
 try:

@@ -69,7 +69,7 @@ def _my_send_finished(
         self._send_record_limit = self._peer_record_size_limit
         # this is TLS 1.2 and earlier method, so the real limit may be
         # lower that what's in the settings
-        self._recv_record_limit = min(2 ** 14, settings.record_size_limit)
+        self._recv_record_limit = min(2**14, settings.record_size_limit)
 
     if next_proto is not None:
         next_proto_msg = tlslite.messages.NextProtocol().create(next_proto)

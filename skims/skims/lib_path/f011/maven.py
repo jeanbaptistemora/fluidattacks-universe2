@@ -28,26 +28,26 @@ TEXT = r'[^"\']+'
 WS = r"\s*"
 
 # Regexes
-RE_LINE_COMMENT: Pattern[str] = re.compile(r"^.*" fr"{WS}//" r".*$")
+RE_LINE_COMMENT: Pattern[str] = re.compile(r"^.*" rf"{WS}//" r".*$")
 RE_GRADLE_A: Pattern[str] = re.compile(
     r"^.*"
-    fr"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
-    fr"group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}"
-    fr",{WS}name{WS}:{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}"
-    fr"(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?"
-    fr".*$"
+    rf"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
+    rf"group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}"
+    rf",{WS}name{WS}:{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}"
+    rf"(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?"
+    rf".*$"
 )
 RE_GRADLE_B: Pattern[str] = re.compile(
     r"^.*"
-    fr"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
-    fr"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
-    fr".*$"
+    rf"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
+    rf"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
+    rf".*$"
 )
 RE_SBT: Pattern[str] = re.compile(
     r"^[^%]*"
-    fr"{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}%"
-    fr"{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}%"
-    fr"{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS}"
+    rf"{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}%"
+    rf"{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}%"
+    rf"{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS}"
     r".*$"
 )
 

@@ -53,12 +53,9 @@ def go_add(graph: Graph) -> None:
 
 def java_add(graph: Graph) -> None:
     def _predicate(n_attrs: NAttrs) -> bool:
-        return (
-            g.pred_has_labels(
-                label_type="method_declaration",
-            )(n_attrs)
-            or g.pred_has_labels(label_type="constructor_declaration")(n_attrs)
-        )
+        return g.pred_has_labels(label_type="method_declaration",)(
+            n_attrs
+        ) or g.pred_has_labels(label_type="constructor_declaration")(n_attrs)
 
     language = GraphShardMetadataLanguage.JAVA
 

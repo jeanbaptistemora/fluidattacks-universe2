@@ -53,7 +53,7 @@ def validate_email_address(email: str) -> bool:
 
 def validate_fields(fields: Iterable[str]) -> None:
     allowed_chars = r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s(),./'~:;%@_$#*=\?-"
-    regex = fr'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
+    regex = rf'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
     for field in map(str, fields):
         if field:
             check_field(field, regex)
@@ -69,7 +69,7 @@ def validate_url(url: Optional[str]) -> None:
         allowed_chars = r"a-zA-Z0-9(),./:;@_$#=\?-"
         check_field(
             clean_url,
-            fr'^[{allowed_chars.replace("=", "")}]+[{allowed_chars}]*$',
+            rf'^[{allowed_chars.replace("=", "")}]+[{allowed_chars}]*$',
         )
 
 

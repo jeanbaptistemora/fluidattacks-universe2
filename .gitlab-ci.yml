@@ -90,6 +90,7 @@ workflow:
   <<: *makes4
   <<: *common_in_dev_branch
   stage: lint-code
+  tags: [autoscaling-large]
 
 /formatTerraform:
   <<: *makes4

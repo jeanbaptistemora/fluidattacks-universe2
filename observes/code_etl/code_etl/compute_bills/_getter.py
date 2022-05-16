@@ -205,13 +205,10 @@ def get_month_repos(
     def _to_group_id(row: RowData) -> GroupId:
         return GroupId(_assert_str(row.data[0]))
 
-    return (
-        client.execute(
-            new_query(stm),
-            QueryValues(freeze(args)),
-        )
-        + client.fetch_all().map(lambda l: frozenset(map(_to_group_id, l)))
-    )
+    return client.execute(
+        new_query(stm),
+        QueryValues(freeze(args)),
+    ) + client.fetch_all().map(lambda l: frozenset(map(_to_group_id, l)))
 
 
 def get_month_contributions(

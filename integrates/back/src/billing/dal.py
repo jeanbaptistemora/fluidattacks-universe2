@@ -470,14 +470,10 @@ async def update_subscription(
             raise CouldNotDowngradeSubscription()
 
     # Update subscription
-    result = (
-        result
-        and stripe.Subscription.modify(
-            subscription.id,
-            **data,
-        ).status
-        in ("active", "trialing")
-    )
+    result = result and stripe.Subscription.modify(
+        subscription.id,
+        **data,
+    ).status in ("active", "trialing")
 
     return result
 
