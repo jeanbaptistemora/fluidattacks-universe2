@@ -16,7 +16,6 @@ import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface ISecretsProps {
@@ -26,6 +25,12 @@ interface ISecretsProps {
   secretKey: string;
   rootId: string;
   secretValue: string;
+  setModalMessages: React.Dispatch<
+    React.SetStateAction<{
+      message: string;
+      type: string;
+    }>
+  >;
   closeModal: () => void;
   handleSubmitSecret: () => void;
   isDuplicated: (key: string) => boolean;
@@ -64,6 +69,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
   secretKey,
   rootId,
   secretValue,
+  setModalMessages,
   closeModal,
   isDuplicated,
   handleSubmitSecret,
@@ -84,16 +90,19 @@ const AddSecret: React.FC<ISecretsProps> = ({
   const { t } = useTranslation();
   const [addSecret] = useMutation(ADD_SECRET, {
     onCompleted: (): void => {
-      msgSuccess(
-        t("group.scope.git.repo.credentials.secrets.success"),
-        t("group.scope.git.repo.credentials.secrets.successTitle")
-      );
+      setModalMessages({
+        message: t("group.scope.git.repo.credentials.secrets.success"),
+        type: "success",
+      });
       handleSubmitSecret();
       closeModal();
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        msgError(t("groupAlerts.errorTextsad"));
+        setModalMessages({
+          message: t("groupAlerts.errorTextsad"),
+          type: "error",
+        });
         Logger.error("Couldn't add url roots", error);
       });
     },
@@ -101,16 +110,19 @@ const AddSecret: React.FC<ISecretsProps> = ({
 
   const [removeSecret] = useMutation(REMOVE_SECRET, {
     onCompleted: (): void => {
-      msgSuccess(
-        t("group.scope.git.repo.credentials.secrets.removed"),
-        t("group.scope.git.repo.credentials.secrets.successTitle")
-      );
+      setModalMessages({
+        message: t("group.scope.git.repo.credentials.secrets.removed"),
+        type: "success",
+      });
       handleSubmitSecret();
       closeModal();
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        msgError(t("groupAlerts.errorTextsad"));
+        setModalMessages({
+          message: t("groupAlerts.errorTextsad"),
+          type: "error",
+        });
         Logger.error("Couldn't add url roots", error);
       });
     },

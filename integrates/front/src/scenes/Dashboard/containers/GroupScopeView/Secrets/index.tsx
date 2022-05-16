@@ -14,6 +14,8 @@ import { SecretValue } from "./secretValue";
 
 import { GET_ROOT } from "../queries";
 import type { IGitRootAttr } from "../types";
+import { Alert } from "components/Alert";
+import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
@@ -48,6 +50,13 @@ const Secrets: React.FC<ISecretsProps> = ({
   const canAddSecret: boolean = permissions.can(
     "api_mutations_add_secret_mutate"
   );
+
+  const [modalMessages, setModalMessages] = useState({
+    message: "",
+    type: "success",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+
   const defaultCurrentRow: ISecret = { description: "", key: "", value: "" };
   const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -66,6 +75,11 @@ const Secrets: React.FC<ISecretsProps> = ({
     value: string,
     description: string
   ): void {
+    setShowAlert(false);
+    setModalMessages({
+      message: "",
+      type: "success",
+    });
     setCurrentRow({ description, key, value });
     setIsUpdate(true);
     setAddSecretModalOpen(true);
@@ -95,6 +109,11 @@ const Secrets: React.FC<ISecretsProps> = ({
     setAddSecretModalOpen(false);
   }
   function openModal(): void {
+    setShowAlert(false);
+    setModalMessages({
+      message: "",
+      type: "success",
+    });
     setAddSecretModalOpen(true);
   }
   function isSecretDuplicated(key: string): boolean {
@@ -117,6 +136,7 @@ const Secrets: React.FC<ISecretsProps> = ({
           secretDescription={currentRow.description}
           secretKey={currentRow.key}
           secretValue={currentRow.value}
+          setModalMessages={setModalMessages}
         />
       </Modal>
       <Table
@@ -141,6 +161,15 @@ const Secrets: React.FC<ISecretsProps> = ({
         pageSize={10}
         search={false}
       />
+      {!showAlert && modalMessages.message !== "" && (
+        <Alert
+          icon={true}
+          timer={setShowAlert}
+          variant={modalMessages.type as IAlertProps["variant"]}
+        >
+          {modalMessages.message}
+        </Alert>
+      )}
       <Button
         disabled={!canAddSecret}
         id={"add-secret"}
