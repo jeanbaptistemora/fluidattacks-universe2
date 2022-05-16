@@ -91,14 +91,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "has_drills",
-          "AttributeType": "BOOL"
-        },
-        {
-          "AttributeName": "has_forces",
-          "AttributeType": "BOOL"
-        },
-        {
           "AttributeName": "modified_date",
           "AttributeType": "S"
         },
@@ -1509,52 +1501,6 @@
             "role",
             "responsibility",
             "subscription_period"
-          ]
-        },
-        {
-          "FacetName": "available_group_names",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "NAME#GROUP",
-            "SortKeyAlias": "NAME#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "NAME#GROUP"
-              },
-              "sk": {
-                "S": "NAME#ebisu"
-              },
-              "name": {
-                "S": "ebisu"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "name"
-          ]
-        },
-        {
-          "FacetName": "available_org_names",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "NAME#ORG",
-            "SortKeyAlias": "NAME#name"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "NAME#ORG"
-              },
-              "sk": {
-                "S": "NAME#udon"
-              },
-              "name": {
-                "S": "udon"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "name"
           ]
         },
         {
