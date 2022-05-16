@@ -53,7 +53,7 @@ from typing import (
 
 
 def format_where(where: str) -> str:
-    # filename (pacakge) [CVE]
+    # filename (package) [CVE]
     if match := re.match(r"(?P<where>.*)\s\(.*\)\s\[.*\]", where):
         return match.groupdict()["where"]
 
