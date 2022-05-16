@@ -23,15 +23,18 @@ this document: [Use SSH keys to communicate with GitLab](https://docs.gitlab.com
 There, we show you how to generate your private
 and public key step by step.
 
-With a SSH key, someone can clone your repository
+With a SSH key,
+someone can clone your repository
 and use that code according to their interests.
 It is essential that you provide our hackers with
 the most complete information and access rights
 before they start hacking your software.
-Here, you will learn how to use the **Scope** tab for
+Here,
+you will learn how to use the **Scope** tab for
 adding SSH keys with **Adding a new root**.
 
-On the ASM, you can give full permission for
+On the ASM,
+you can give full permission for
 accessing your Git repository in the “Scope” tab
 using the **Add new root** option.
 The nice feature we have here is a Cloning
@@ -116,10 +119,15 @@ or **Proceed** respectively.
 Scope changes may involve closing or reporting new vulnerabilities
 :::
 
-Deleting a root isn't possible in the ASM because in the security world it is
-always better to keep records of everything.
-However, you can change its state to **Active** or **Inactive**, which would
-mean the following:
+Deleting a root isn't possible
+in the ASM because in the
+security world it is
+always better to keep
+records of everything.
+However,
+you can change its state
+to **Active** or **Inactive**,
+which would mean the following:
 
 - **Active:**
   The repository is available and ready for our analysts to access.
@@ -127,31 +135,112 @@ mean the following:
   The repository does not exist anymore, it was changed, or it was added by
   mistake.
 
-We will notify the state changes via email to all the people involved in the
-project (both Fluid Attacks’s and the customer’s users).
+We will notify the state changes
+via email to all the people involved in the
+project (both `Fluid Attacks’s`
+and the customer’s users).
 
-You can change the state at any moment. We will keep track of every change for
+You can change the state at any moment.
+We will keep track of every change for
 traceability reasons.
 
 ### Out of scope
 
-This option takes the root out of scope, therefore it will no longer be tested.
+This option takes
+the root out of scope,
+therefore it will no
+longer be tested.
 
 ### Registered by mistake
 
-This option is useful in case of mistakes when adding a root, but if you just
-need to update the URL, branch or any other root attributes,
+This option is useful in case
+of mistakes when adding a root,
+but if you just
+need to update the URL,
+branch or any other root attributes,
 refer to [Editing git roots](#editing-git-roots)
 
 ### Moved to another group
 
-This option allows moving a root to another group along with the
+This option allows moving a
+root to another group along with the
 vulnerabilities reported to it.
 
 ![Move root](https://res.cloudinary.com/fluid-attacks/image/upload/v1634230160/docs/web/groups/scope/move_root.png)
 
-The search bar will suggest other groups with the same service type that you
-have access to within the organization.
+The search bar will suggest
+other groups with the same
+service type that you have
+access to within the organization.
 
-Then, after clicking the "proceed" button, the root will be deactivated in the
-current group and created in the selected group.
+Then,
+after clicking the "proceed" button,
+the root will be deactivated in the
+current group and created in
+the selected group.
+
+## Secrets
+
+This section allows
+you to see,
+add,
+edit and delete secrets.
+These are usernames,
+passwords,
+email addresses,
+tokens,
+etc.,
+that give us access to
+private repositories
+and environments.
+As this is sensitive information
+that has to be protected,
+only a limited group of
+people has access to it.
+The management of secrets
+is done for previously
+created roots or URLs,
+listed in the tables **Git Roots**
+or **Environment URLs** in the
+Scope section.
+
+![Go to Secrets Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_gitroots_table.png)
+
+You can select a
+root from Git Roots.
+You will immediately see a
+pop-up window with three tabs,
+the third one being **Secrets**.
+
+![Secrets Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_window.png)
+
+To add a new secret,
+you have to access the Secrets
+section and click on the
+**Add secret** button.
+
+![Add Secret Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_click_add.png)
+
+The secret must consist
+of key and value.
+Additionally,
+you can include a short description.
+
+![Add Secrets](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_add_window.png)
+
+When you click Proceed,
+the secret is made accessible
+to our hackers on the ASM.
+You can also delete or edit
+all the secrets you add by
+clicking on the
+corresponding button.
+
+![Secret Details](https://res.cloudinary.com/fluid-attacks/image/upload/v1652717752/docs/web/groups/scope/secrets_accesible_editing.png)
+
+From Environment URLs,
+you have to select the URL
+where you want to add,
+delete or edit secrets and
+follow the same procedure
+described above.
