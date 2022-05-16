@@ -11,10 +11,13 @@ const getGitRootHost = (environmentUrl: string): string => {
 const getIpRootHost = (root: IIPRootAttr): string =>
   root.port ? `${root.address}:${root.port}/` : `${root.address}/`;
 
-const getUrlRootHost = (root: IURLRootAttr): string =>
-  root.port
+const getUrlRootHost = (root: IURLRootAttr): string => {
+  const urlRootHost = root.port
     ? `${root.protocol.toLowerCase()}://${root.host}:${root.port}${root.path}`
     : `${root.protocol.toLowerCase()}://${root.host}${root.path}`;
+
+  return urlRootHost.endsWith("/") ? urlRootHost : `${urlRootHost}/`;
+};
 
 const isGitRoot = (root: Root): root is IGitRootAttr =>
   root.__typename === "GitRoot";
