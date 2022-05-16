@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "tap_gitlab"
+version = "1.0.0"
+description = "Gitlab Tap"
+authors = ["Product Team <development@fluidattacks.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aioextensions = "^20.8.2087641"
+aiohttp = "^3.8.1"
+asgiref = "^3.2.10"
+boto3 = "^1.17.104"
+cachetools = "^4.2.2"
+click = "^8.0.1"
+more-itertools = "^8.8.0"
+python-dateutil = "^2.8.1"
+pytz = "^2021.1"
+requests = "^2.25.1"
+returns = "^0.16.0"
+paginator = "^1.0.0"
+postgres-client = "^1.0.0"
+singer-io = "^1.0.0"
+
+[tool.poetry.scripts]
+tap-gitlab = 'tap_gitlab.cli:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
