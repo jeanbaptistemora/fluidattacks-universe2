@@ -862,5 +862,13 @@
     "ES": {
       "title": "413. Insecure file upload - DLL Injection"
     }
+  },
+  "F416": {
+    "EN": {
+      "title": "416. XAML injection"
+    },
+    "ES": {
+      "title": "416. XAML injection"
+    }
   }
 }
