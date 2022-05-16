@@ -49,7 +49,7 @@ async def main() -> None:  # noqa: MC0001
         )
 
     for finding_id in [finding.id for finding in findings]:
-        comments = await comments_domain.get("comment", finding_id)
+        await comments_domain.get("comment", finding_id)
 
 
 if __name__ == "__main__":
