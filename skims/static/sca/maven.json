@@ -3828,6 +3828,9 @@
     "CVE-2020-2136": ">=0 <=4.2.0",
     "CVE-2021-21684": ">=0 <=4.8.2"
   },
+  "org.jenkins-ci.plugins:git-parameter": {
+    "GHSA-fcr6-6cph-vmcm": "<0.9.16"
+  },
   "org.jenkins-ci.plugins:github-branch-source": {
     "CVE-2017-1000087": "0.1 || 2.2.0 || >=1.0 <=1.8.1 || >=1.9 <=1.10 || >=2.0.0 <=2.0.7",
     "CVE-2017-1000091": "0.1 || 2.2.0 || >=1.0 <=1.8.1 || >=1.9 <=1.10 || >=2.0.0 <=2.0.7",
@@ -4005,6 +4008,9 @@
   },
   "org.jenkins-ci.plugins:publish-over-cifs": {
     "CVE-2018-1999038": ">=0 <=0.10"
+  },
+  "org.jenkins-ci.plugins:publish-over-ftp": {
+    "CVE-2022-29051": "<=1.16"
   },
   "org.jenkins-ci.plugins:qmetry-for-jira-test-management": {
     "CVE-2019-16544": ">=0 <=1.12",
