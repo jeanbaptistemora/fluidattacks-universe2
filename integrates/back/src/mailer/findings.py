@@ -252,7 +252,7 @@ async def send_mail_vulnerability_report(
     severity_level: str,
     is_closed: bool = False,
 ) -> None:
-    state: str = "closed" if is_closed else "reported"
+    state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
         Dict[str, Any], ...
@@ -281,9 +281,6 @@ async def send_mail_vulnerability_report(
         email_to=users_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=(
-            f"Vulnerability {state} in "
-            f"[{finding_title}] for [{group_name}]"
-        ),
+        subject=f"[{finding_title}] {state} in [{group_name}].",
         template_name="vulnerability_report",
     )
