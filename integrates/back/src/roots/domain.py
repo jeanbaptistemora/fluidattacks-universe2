@@ -93,7 +93,6 @@ from organizations import (
 import pytz  # type: ignore
 import re
 from roots import (
-    dal as roots_dal,
     validations,
 )
 from settings.various import (
@@ -647,11 +646,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
         raise InvalidParameter()
 
     if url != root.state.url:
-        if await roots_dal.get_root_vulns(
-            nickname=root.state.nickname,
-            loaders=loaders,
-            group_name=group_name,
-        ):
+        if await loaders.root_vulnerabilities.load(root.id):
             raise HasVulns()
         organization_name = await orgs_domain.get_name_by_id(
             group.organization_id
