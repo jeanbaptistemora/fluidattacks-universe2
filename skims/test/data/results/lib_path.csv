@@ -31240,27 +31240,44 @@ F009,lines,namespace/skims/test/data/lib_path/f009/javascript.js,3,798,skims,009
   8 | CryptoJS.enc.Utf8.parse(`sec\`ret`);
     ^ Col 0
 ",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,10,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
+   1 | ENV API_KEY '123'
+   2 | ENV API_KEY='123'
+   3 | ENV API_KEY ''
+   4 | ENV API_KEY
+   5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
+   6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
+   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
+   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
+   9 | ENV NEW_USER ${NEW_USER}
+> 10 | ENV NEW_USER='123'
+     ^ Col 0
+",docker.dockerfile_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,2,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
-  1 | ENV API_KEY '123'
-> 2 | ENV API_KEY='123'
-  3 | ENV API_KEY ''
-  4 | ENV API_KEY
-  5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
-  6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
-  7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
-  8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
-    ^ Col 0
+   1 | ENV API_KEY '123'
+>  2 | ENV API_KEY='123'
+   3 | ENV API_KEY ''
+   4 | ENV API_KEY
+   5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
+   6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
+   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
+   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
+   9 | ENV NEW_USER ${NEW_USER}
+  10 | ENV NEW_USER='123'
+     ^ Col 0
 ",docker.dockerfile_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
-> 1 | ENV API_KEY '123'
-  2 | ENV API_KEY='123'
-  3 | ENV API_KEY ''
-  4 | ENV API_KEY
-  5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
-  6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
-  7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
-  8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
-    ^ Col 0
+>  1 | ENV API_KEY '123'
+   2 | ENV API_KEY='123'
+   3 | ENV API_KEY ''
+   4 | ENV API_KEY
+   5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
+   6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
+   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
+   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
+   9 | ENV NEW_USER ${NEW_USER}
+  10 | ENV NEW_USER='123'
+     ^ Col 0
 ",docker.dockerfile_env_secrets
 F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,14,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
    4 |     build: .

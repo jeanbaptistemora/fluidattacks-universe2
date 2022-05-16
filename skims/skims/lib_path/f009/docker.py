@@ -105,10 +105,14 @@ def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
             if match := DOCKERFILE_ENV.match(line):
                 secret: str = match.group("key").lower()
                 value: str = match.group("value").strip('"').strip("'")
-                if (
-                    value
+                is_interpolated: bool = (
+                    not (value.startswith("${") and value.endswith("}"))
                     and not value.startswith("#{")
                     and not value.endswith("}#")
+                )
+                if (
+                    value
+                    and is_interpolated
                     and (
                         any(smell in secret for smell in secret_smells)
                         or is_key_sensitive(secret)
