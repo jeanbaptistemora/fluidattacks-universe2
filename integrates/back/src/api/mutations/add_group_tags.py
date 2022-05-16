@@ -64,7 +64,12 @@ async def mutate(
         raise ErrorUpdatingGroup.new()
 
     group = await loaders.group_typed.load(group_name)
-    await groups_domain.add_tags(group, set(tags), user_email)
+    await groups_domain.add_tags(
+        loaders=loaders,
+        group=group,
+        tags_to_add=set(tags),
+        user_email=user_email,
+    )
 
     loaders.group_typed.clear(group_name)
     redis_del_by_deps_soon("add_group_tags", group_name=group_name)

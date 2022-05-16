@@ -822,6 +822,7 @@ async def update_group(
     )
     if has_asm:
         await notifications_domain.update_group(
+            loaders=loaders,
             comments=comments,
             group_name=group_name,
             group_state=group.state,
@@ -1519,6 +1520,7 @@ async def unsubscribe_from_group(
     )
     if success:
         await send_mail_unsubscribed(
+            loaders=loaders,
             group_name=group_name,
             user_email=email,
         )
@@ -1527,6 +1529,7 @@ async def unsubscribe_from_group(
 
 async def send_mail_unsubscribed(
     *,
+    loaders: Any,
     group_name: str,
     user_email: str,
 ) -> None:
@@ -1543,12 +1546,19 @@ async def send_mail_unsubscribed(
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.UNSUBSCRIPTION_ALERT
+        in user.notifications_preferences.email
+    ]
 
     await groups_mail.send_mail_user_unsubscribed(
         group_name=group_name,
         user_email=user_email,
         report_date=datetime_utils.get_datetime_from_iso_str(report_date),
-        email_to=email_list,
+        email_to=users_email,
     )
 
 
@@ -1583,6 +1593,13 @@ async def update_group_info(
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.GROUP_INFORMATION
+        in user.notifications_preferences.email
+    ]
 
     await update_metadata_typed(group_name=group_name, metadata=metadata)
 
@@ -1593,7 +1610,7 @@ async def update_group_info(
             group=group,
             metadata=metadata,
             report_date=datetime_utils.get_iso_date(),
-            email_to=email_list,
+            email_to=users_email,
         )
 
 
@@ -1702,6 +1719,7 @@ async def remove_pending_deletion_date(
 
 
 async def add_tags(
+    loaders: Any,
     group: Group,
     tags_to_add: set[str],
     user_email: str,
@@ -1714,6 +1732,7 @@ async def add_tags(
         ),
     )
     await send_mail_portfolio_report(
+        loaders=loaders,
         group_name=group.name,
         responsible=user_email,
         portfolio=", ".join(tags_to_add),
@@ -1723,6 +1742,7 @@ async def add_tags(
 
 
 async def remove_tag(
+    loaders: Any,
     group: Group,
     tag_to_remove: str,
     user_email: str,
@@ -1736,6 +1756,7 @@ async def remove_tag(
             ),
         )
         await send_mail_portfolio_report(
+            loaders=loaders,
             group_name=group.name,
             responsible=user_email,
             portfolio=tag_to_remove,
@@ -1745,6 +1766,7 @@ async def remove_tag(
 
 async def send_mail_portfolio_report(
     *,
+    loaders: Any,
     group_name: str,
     responsible: str,
     portfolio: str,
@@ -1760,6 +1782,13 @@ async def send_mail_portfolio_report(
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.PORTFOLIO_UPDATE
+        in user.notifications_preferences.email
+    ]
 
     await groups_mail.send_mail_portfolio_report(
         group_name=group_name,
@@ -1767,7 +1796,7 @@ async def send_mail_portfolio_report(
         is_added=is_added,
         portfolio=portfolio,
         report_date=datetime_utils.get_date_from_iso_str(modified_date),
-        email_to=email_list,
+        email_to=users_email,
     )
 
 

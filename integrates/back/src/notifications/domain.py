@@ -9,12 +9,18 @@ import authz
 from context import (
     BASE_URL,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.findings.types import (
     Finding,
 )
 from db_model.groups.types import (
     Group,
     GroupState,
+)
+from db_model.users.types import (
+    User,
 )
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
@@ -40,6 +46,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Tuple,
     Union,
 )
 from users import (
@@ -112,6 +119,7 @@ async def delete_group(
 
 async def update_group(  # pylint: disable=too-many-locals
     *,
+    loaders: Any,
     comments: str,
     group_name: str,
     group_state: GroupState,
@@ -176,6 +184,7 @@ async def update_group(  # pylint: disable=too-many-locals
     )
 
     await send_mail_services(
+        loaders=loaders,
         group_name=group_name,
         group_changes=group_changes,
         requester_email=requester_email,
@@ -194,6 +203,7 @@ async def update_group(  # pylint: disable=too-many-locals
 
 async def send_mail_services(
     *,
+    loaders: Any,
     group_name: str,
     group_changes: dict[str, Any],
     requester_email: str,
@@ -207,13 +217,19 @@ async def send_mail_services(
         for user, user_role in zip(users, user_roles)
         if user_role in {"resourcer", "customer_manager", "user_manager"}
     ]
+    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.SERVICE_UPDATE in user.notifications_preferences.email
+    ]
 
     await groups_mail.send_mail_updated_services(
         group_name=group_name,
         responsible=requester_email,
         group_changes=group_changes,
         report_date=datetime_utils.get_iso_date(),
-        email_to=email_list,
+        email_to=users_email,
     )
 
 

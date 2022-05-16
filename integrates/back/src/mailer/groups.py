@@ -346,6 +346,13 @@ async def send_mail_devsecops_agent_token(
     org_name = await get_organization_name(loaders, group_name)
     token_status: str = "reset" if had_token else "generated"
 
+    user: Tuple[User, ...] = await loaders.user.load_many(email_to)
+    users_email = [
+        user.email
+        for user in user
+        if Notification.AGENT_TOKEN in user.notifications_preferences.email
+    ]
+
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group_name": group_name,
@@ -354,7 +361,7 @@ async def send_mail_devsecops_agent_token(
         "had_token": had_token,
     }
     await send_mails_async(
-        email_to,
+        users_email,
         email_context,
         COMMENTS_TAG,
         f"DevSecOps Agent token {token_status} in [{group_name}]",

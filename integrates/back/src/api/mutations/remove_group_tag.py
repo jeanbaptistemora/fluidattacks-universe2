@@ -57,6 +57,7 @@ async def mutate(
 
     if await groups_domain.is_valid(loaders, group_name) and group.tags:
         await groups_domain.remove_tag(
+            loaders=loaders,
             group=group,
             tag_to_remove=tag,
             user_email=user_email,
