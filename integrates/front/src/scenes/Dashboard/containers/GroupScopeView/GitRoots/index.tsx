@@ -581,6 +581,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               <Table
                 clearFiltersButton={clearFilters}
                 columnToggle={true}
+                csvFilename={`${groupName}.csv`}
                 customFilters={{
                   customFiltersProps,
                   isCustomFilterEnabled,
