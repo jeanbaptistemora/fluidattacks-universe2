@@ -14,21 +14,28 @@ function execute_analytics_generator {
 }
 
 function main {
-  local env="${1:-}"
+  local env="${1}"
+  local parallel="${2}"
+  local runtime="${3}"
   local todo
 
   source __argIntegratesBackEnv__/template "${env}" \
-    && if test "${env}" = 'dev'; then
-      DAEMON=true integrates-cache \
+    && if test "${env}" = "dev"; then
+      : \
+        && DAEMON=true integrates-cache \
         && DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage
+    elif test "${env}" = "prod"; then
+      :
+    else
+      error "Only 'dev' and 'prod' allowed for env."
     fi \
     && pushd integrates \
     && todo=$(mktemp) \
-    && find 'charts/generators' -wholename '*.py' | sort > "${todo}" \
-    && execute_chunk_parallel execute_analytics_generator "${todo}" "25" "batch" \
+    && find "charts/generators" -wholename "*.py" | sort > "${todo}" \
+    && execute_chunk_parallel execute_analytics_generator "${todo}" "${parallel}" "${runtime}" \
     && aws_s3_sync \
-      'charts/generators' \
+      "charts/generators" \
       "s3://fluidintegrates.analytics/${CI_COMMIT_REF_NAME}/documents" \
     && popd \
     || return 1

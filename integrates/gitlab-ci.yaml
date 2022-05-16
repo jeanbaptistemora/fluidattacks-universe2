@@ -2935,7 +2935,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/charts/documents__dev:
+/integrates/charts/documents__dev__7__gitlab:
   artifacts:
     expire_in: 1 week
     paths:
@@ -2956,14 +2956,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/charts/documents 'dev'
+    - m . /integrates/charts/documents 'dev' '7' 'gitlab'
   stage: analytics
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/charts/documents__prod:
+/integrates/charts/documents__prod__25__gitlab:
   artifacts:
     expire_in: 1 week
     paths:
@@ -2980,7 +2980,7 @@
       when: never
     - when: always
   script:
-    - m . /integrates/charts/documents 'prod'
+    - m . /integrates/charts/documents 'prod' '25' 'gitlab'
   stage: analytics
   tags:
     - autoscaling
@@ -2991,7 +2991,7 @@
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: false
   needs:
-    - /integrates/charts/documents__prod
+    - /integrates/charts/documents__prod__25__gitlab
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never

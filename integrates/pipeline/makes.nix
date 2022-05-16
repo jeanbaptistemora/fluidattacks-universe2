@@ -340,7 +340,7 @@ in {
             gitlabExtra = gitlabTest;
           }
           {
-            args = ["dev"];
+            args = ["dev" "7" "gitlab"];
             output = "/integrates/charts/documents";
             gitlabExtra =
               chartsTemplate
@@ -350,7 +350,7 @@ in {
               };
           }
           {
-            args = ["prod"];
+            args = ["prod" "25" "gitlab"];
             output = "/integrates/charts/documents";
             gitlabExtra =
               chartsTemplate
@@ -377,7 +377,7 @@ in {
                 (gitlabCi.rules.varIsDefined "charts")
                 (gitlabCi.rules.always)
               ];
-              needs = ["/integrates/charts/documents__prod"];
+              needs = ["/integrates/charts/documents__prod__25__gitlab"];
               stage = "analytics";
               tags = ["autoscaling"];
             };
