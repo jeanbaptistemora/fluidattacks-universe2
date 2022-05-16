@@ -98,33 +98,6 @@ in {
           };
         }
         {
-          output = "/sorts/training";
-          gitlabExtra = {
-            interruptible = false;
-            rules = [
-              (gitlabCi.rules.schedules)
-              (gitlabCi.rules.varIsDefined "sorts_train")
-              (gitlabCi.rules.always)
-            ];
-            stage = "deploy-app";
-            tags = ["autoscaling"];
-          };
-        }
-        {
-          output = "/sorts/tune";
-          gitlabExtra = {
-            interruptible = false;
-            needs = ["/sorts/training"];
-            rules = [
-              (gitlabCi.rules.schedules)
-              (gitlabCi.rules.varIsDefined "sorts_train")
-              (gitlabCi.rules.always)
-            ];
-            stage = "post-deploy";
-            tags = ["autoscaling"];
-          };
-        }
-        {
           output = "/testPython/sorts";
           gitlabExtra = gitlabTest;
         }

@@ -1004,4 +1004,29 @@
       "management:type" = "product";
     };
   };
+  sorts_training_and_tune = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/sorts/training-and-tune"
+    ];
+
+    schedule_expression = "cron(0 5 ? * 6 *)";
+    queue = "unlimited_spot";
+    attempts = 3;
+    timeout = 129600;
+    cpu = 2;
+    memory = 3600;
+    parallel = 1;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "sorts_training_and_tune";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
+    };
+  };
 }
