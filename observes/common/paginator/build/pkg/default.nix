@@ -1,10 +1,10 @@
 {
   lib,
-  pythonPkgs,
+  python_pkgs,
   src,
   metadata,
 }: let
-  runtime_deps = with pythonPkgs; [
+  runtime_deps = with python_pkgs; [
     aioextensions
     legacy-purity
     pathos
@@ -13,7 +13,7 @@
     six
   ];
   dev_deps = [
-    pythonPkgs.poetry
+    python_pkgs.poetry
   ];
   pkg = (import ./build.nix) {
     inherit lib src metadata;

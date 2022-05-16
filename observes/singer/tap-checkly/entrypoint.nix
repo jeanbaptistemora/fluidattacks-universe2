@@ -46,8 +46,12 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   _legacy_paginator_src = projectPath "/observes/common/paginator";
   legacy-paginator."${pythonVersion}" = import _legacy_paginator_src {
+    local_pkgs = {
+      inherit legacy-purity;
+    };
+    pkgs = legacyPkgs;
+    python_version = pythonVersion;
     src = _legacy_paginator_src;
-    inherit legacyPkgs pythonVersion localLib system;
   };
 
   _legacy_singer_io = projectPath "/observes/common/singer-io";

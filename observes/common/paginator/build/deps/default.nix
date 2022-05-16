@@ -1,15 +1,10 @@
 {
-  system,
+  local_pkgs,
+  pkgs,
   lib,
-  localLib,
-  legacyPkgs,
-  pythonPkgs,
-  pythonVersion,
+  python_version,
 }: let
-  legacy-purity = import localLib.legacy-purity {
-    inherit legacyPkgs pythonVersion system;
-    src = localLib.legacy-purity;
-  };
+  pythonPkgs = pkgs."${python_version}Packages";
   aioextensions = pythonPkgs.aioextensions.overridePythonAttrs (
     old: rec {
       version = "20.11.1621472";
@@ -25,5 +20,5 @@ in
   pythonPkgs
   // {
     inherit aioextensions pathos;
-    legacy-purity = legacy-purity.pkg;
+    legacy-purity = local_pkgs.legacy-purity."${python_version}".pkg;
   }
