@@ -165,12 +165,6 @@
     stage = "deploy-app";
     tags = ["autoscaling"];
   };
-  gitlabDeployInfra = {
-    resource_group = "deploy/$CI_JOB_NAME";
-    rules = gitlabOnlyMaster;
-    stage = "deploy-infra";
-    tags = ["autoscaling"];
-  };
   gitlabExternal = {
     rules = gitlabOnlyDev;
     stage = "external";
@@ -214,26 +208,6 @@ in {
       jobs =
         []
         ++ [
-          {
-            output = "/deployTerraform/integratesBackups";
-            gitlabExtra = gitlabDeployInfra;
-          }
-          {
-            output = "/deployTerraform/integratesCache";
-            gitlabExtra = gitlabDeployInfra;
-          }
-          {
-            output = "/deployTerraform/integratesDatabase";
-            gitlabExtra = gitlabDeployInfra;
-          }
-          {
-            output = "/deployTerraform/integratesFront";
-            gitlabExtra = gitlabDeployInfra;
-          }
-          {
-            output = "/deployTerraform/integratesResources";
-            gitlabExtra = gitlabDeployInfra;
-          }
           {
             output = "/integrates/back/authz-matrix";
             gitlabExtra =
