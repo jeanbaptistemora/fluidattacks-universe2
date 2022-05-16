@@ -50,7 +50,7 @@ def weak_protocol(
                     and shard.graph.nodes[c_ident[0]]["label_text"]
                     == "SecurityProtocolType"
                     and shard.graph.nodes[c_ident[1]]["label_text"]
-                    in {"Ssl3", "Tls", "None"}
+                    in {"Ssl3", "Tls", "Tls11", "None"}
                 ):
                     yield shard, member
 
