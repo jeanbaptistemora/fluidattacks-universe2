@@ -1,17 +1,18 @@
 fetchNixpkgs: projectPath: observesIndex: let
   system = "x86_64-linux";
+  python_version = "python39";
   legacy_pkgs = fetchNixpkgs {
     rev = "6c5e6e24f0b3a797ae4984469f42f2a01ec8d0cd";
     sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
   };
 
-  _purity_src = builtins.fetchGit {
+  _fa_purity_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
     ref = "refs/tags/v1.18.0";
   };
-  purity = import _purity_src {
+  fa-purity = import _fa_purity_src {
     inherit system legacy_pkgs;
-    src = _purity_src;
+    src = _fa_purity_src;
   };
 
   _redshift_src = builtins.fetchGit {
@@ -22,33 +23,51 @@ fetchNixpkgs: projectPath: observesIndex: let
     inherit system legacy_pkgs;
     src = _redshift_src;
     others = {
-      fa-purity = purity;
+      inherit fa-purity;
     };
   };
 
   _utils_logger_src = projectPath observesIndex.common.utils_logger.root;
-  utils-logger.python39 = import _utils_logger_src {
-    inherit legacy_pkgs;
+  utils-logger."${python_version}" = import _utils_logger_src {
+    inherit legacy_pkgs python_version;
     src = _utils_logger_src;
-    python_version = "python39";
   };
 
-  _postgres_client_src = projectPath "/observes/common/postgres-client/src";
-  postgres-client.python39 = import _postgres_client_src {
-    src = _postgres_client_src;
+  _legacy_postgres_client_src = projectPath "/observes/common/postgres-client/src";
+  legacy-postgres-client."${python_version}" = import _legacy_postgres_client_src {
+    src = _legacy_postgres_client_src;
     legacy_pkgs =
       legacy_pkgs
       // {
-        python39Packages =
-          legacy_pkgs.python39Packages
+        "${python_version}Packages" =
+          legacy_pkgs."${python_version}Packages"
           // {
-            utils-logger = utils-logger.python39.pkg;
+            utils-logger = utils-logger."${python_version}".pkg;
           };
       };
   };
-  extras = {inherit postgres-client purity redshift-client utils-logger;};
+
+  _legacy_purity_src = projectPath "/observes/common/purity";
+  legacy-purity."${python_version}" = import _legacy_purity_src {
+    inherit system;
+    legacyPkgs = legacy_pkgs;
+    pythonVersion = python_version;
+    src = _legacy_purity_src;
+  };
+
+  _legacy_paginator_src = projectPath "/observes/common/paginator";
+  legacy-paginator."${python_version}" = import _legacy_paginator_src {
+    inherit python_version;
+    local_pkgs = {
+      inherit legacy-purity;
+    };
+    pkgs = legacy_pkgs;
+    src = _legacy_paginator_src;
+  };
+
+  local_pkgs = {inherit fa-purity legacy-paginator legacy-postgres-client redshift-client utils-logger;};
   out = import ./. {
-    inherit legacy_pkgs extras;
+    inherit legacy_pkgs local_pkgs;
     src = ./.;
   };
 in
