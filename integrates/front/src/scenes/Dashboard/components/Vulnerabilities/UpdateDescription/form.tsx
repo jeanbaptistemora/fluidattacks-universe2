@@ -155,10 +155,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
 
   const [updateVuln, { loading: updatingVuln }] =
     useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
-      onCompleted: (data: IUpdateVulnDescriptionResultAttr): void => {
+      onCompleted: (result: IUpdateVulnDescriptionResultAttr): void => {
         if (
-          !_.isUndefined(data.updateVulnerabilitiesTreatment) &&
-          data.updateVulnerabilitiesTreatment.success
+          !_.isUndefined(result.updateVulnerabilitiesTreatment) &&
+          result.updateVulnerabilitiesTreatment.success
         ) {
           refetchData();
         }
