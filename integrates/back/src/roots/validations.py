@@ -154,11 +154,9 @@ def validate_component(root: Root, component: str) -> None:
             if root.state.port
             else root.state.host
         )
-        if (
-            root.state.path == "/"
-            and component == f"{root.state.protocol.lower()}://{host}"
-        ) or component.startswith(
-            f"{root.state.protocol.lower()}://{host}{root.state.path}"
+        if f"{component}/".startswith(
+            f"{root.state.protocol.lower()}://{host}"
+            f"{root.state.path.removesuffix('/')}/"
         ):
             return
 
