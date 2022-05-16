@@ -7,6 +7,7 @@ declare module "*.svg";
 interface IQueryData {
   data: {
     markdownRemark: {
+      htmlAst: string;
       html: string;
       fields: {
         slug: string;
