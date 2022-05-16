@@ -115,12 +115,46 @@ async def test_should_mutate_successfully(populate: bool) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("move_root")
-async def test_should_fail_on_different_service(populate: bool) -> None:
+@pytest.mark.parametrize(
+    ("root_id", "source_group_name", "target_group_name"),
+    (
+        # Inactive root
+        (
+            "8a62109b-316a-4a88-a1f1-767b80383864",
+            "kibi",
+            "kuri",
+        ),
+        # Same group
+        (
+            "88637616-41d4-4242-854a-db8ff7fe1ab6",
+            "kibi",
+            "kibi",
+        ),
+        # Target group outside the organization
+        (
+            "88637616-41d4-4242-854a-db8ff7fe1ab6",
+            "kibi",
+            "kurau",
+        ),
+        # Groups with different services
+        (
+            "88637616-41d4-4242-854a-db8ff7fe1ab6",
+            "kibi",
+            "udon",
+        ),
+    ),
+)
+async def test_should_trigger_validations(
+    populate: bool,
+    root_id: str,
+    source_group_name: str,
+    target_group_name: str,
+) -> None:
     assert populate
     result = await mutate(
-        root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-        source_group_name="kibi",
-        target_group_name="udon",
+        root_id=root_id,
+        source_group_name=source_group_name,
+        target_group_name=target_group_name,
         user="test@fluidattacks.com",
     )
     assert "errors" in result

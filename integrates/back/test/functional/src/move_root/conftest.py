@@ -53,6 +53,13 @@ async def populate() -> bool:
                 ),
                 "policy": {},
             },
+            {
+                "name": "zou",
+                "id": "5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
+                "users": ("test@fluidattacks.com",),
+                "groups": ("kurau",),
+                "policy": {},
+            },
         ),
         "groups": (
             {
@@ -109,6 +116,24 @@ async def populate() -> bool:
                     organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 ),
             },
+            {
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="kurau",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=True,
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.SQUAD,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                    organization_id="5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
+                ),
+            },
         ),
         "roots": (
             GitRoot(
@@ -134,6 +159,32 @@ async def populate() -> bool:
                     reason="",
                     status=RootStatus.ACTIVE,
                     url="https://gitlab.com/fluidattacks/test",
+                ),
+                type=RootType.GIT,
+            ),
+            GitRoot(
+                cloning=GitRootCloning(
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    reason="Cloned successfully",
+                    status=GitCloningStatus.OK,
+                ),
+                group_name="kibi",
+                id="8a62109b-316a-4a88-a1f1-767b80383864",
+                organization_name="wano",
+                state=GitRootState(
+                    branch="master",
+                    environment_urls=[],
+                    environment="production",
+                    git_environment_urls=[],
+                    gitignore=[],
+                    includes_health_check=False,
+                    modified_by="test@fluidattacks.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    nickname="inactive",
+                    other="",
+                    reason="",
+                    status=RootStatus.INACTIVE,
+                    url="https://gitlab.com/fluidattacks/inactive",
                 ),
                 type=RootType.GIT,
             ),
