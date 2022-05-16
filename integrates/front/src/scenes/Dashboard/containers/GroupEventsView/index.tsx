@@ -221,9 +221,9 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "closingDate",
-      header: t("searchFindings.tabEvents.closingDate"),
+      header: t("searchFindings.tabEvents.dateClosed"),
       onSort: onSortState,
-      visible: columnItems.closingDate,
+      visible: columnItems.dateClosed,
       width: "13%",
       wrapped: true,
     },
@@ -640,8 +640,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         onChangeMax: onClosingDateMaxChange,
         onChangeMin: onClosingDateMinChange,
       },
-      tooltipId: "group.events.filtersTooltips.closingDate.id",
-      tooltipMessage: "group.events.filtersTooltips.closingDate",
+      tooltipId: "group.events.filtersTooltips.dateClosed.id",
+      tooltipMessage: "group.events.filtersTooltips.dateClosed",
       type: "dateRange",
     },
   ];
