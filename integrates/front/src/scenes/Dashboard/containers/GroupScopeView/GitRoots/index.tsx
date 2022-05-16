@@ -290,6 +290,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     addGitRoot,
     groupName,
     isManagingRoot,
+    setRootModalMessages,
     updateGitRoot
   );
 

@@ -7,7 +7,7 @@ import {
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box } from "./Box";
 import type { IBoxProps } from "./Box";
@@ -17,6 +17,7 @@ import { Col, Row } from "components/Layout";
 interface IAlertProps extends IBoxProps {
   children: React.ReactNode;
   icon?: boolean;
+  timer?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IIcons {
@@ -41,8 +42,23 @@ const icons: Record<IAlertProps["variant"], IIcons> = {
 const Alert: React.FC<IAlertProps> = ({
   children,
   icon = false,
+  timer = (): void => undefined,
   variant,
 }: IAlertProps): JSX.Element | null => {
+  const [seconds, setSeconds] = useState(0);
+  useEffect((): VoidFunction => {
+    const interval = setInterval((): void => {
+      setSeconds((secs): number => secs + 1);
+    }, 1000);
+
+    return (): void => {
+      clearInterval(interval);
+    };
+  }, []);
+  if (seconds > 10) {
+    timer(true);
+  }
+
   return (
     <Box variant={variant}>
       <Row align={"center"}>

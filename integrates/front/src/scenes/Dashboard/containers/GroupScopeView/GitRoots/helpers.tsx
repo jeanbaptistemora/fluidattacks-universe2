@@ -23,6 +23,13 @@ interface IGitIgnoreAlertProps {
   gitignore: string[];
 }
 
+type modalMessages = React.Dispatch<
+  React.SetStateAction<{
+    message: string;
+    type: string;
+  }>
+>;
+
 const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
   props: IGitIgnoreAlertProps
 ): JSX.Element => {
@@ -143,12 +150,7 @@ const gitModalSchema = (
 
 const handleCreationError = (
   graphQLErrors: readonly GraphQLError[],
-  setModalMessages: React.Dispatch<
-    React.SetStateAction<{
-      message: string;
-      type: string;
-    }>
-  >
+  setModalMessages: modalMessages
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
@@ -194,12 +196,7 @@ const handleCreationError = (
 
 const handleUpdateError = (
   graphQLErrors: readonly GraphQLError[],
-  setModalMessages: React.Dispatch<
-    React.SetStateAction<{
-      message: string;
-      type: string;
-    }>
-  >,
+  setModalMessages: modalMessages,
   scope: "envs" | "root" | "tours"
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
@@ -284,6 +281,7 @@ function useGitSubmit(
   ) => Promise<FetchResult<unknown>>,
   groupName: string,
   isManagingRoot: false | { mode: "ADD" | "EDIT" },
+  setModalMessages: modalMessages,
   updateGitRoot: (
     variables: Record<string, unknown>
   ) => Promise<FetchResult<unknown>>
@@ -310,6 +308,7 @@ function useGitSubmit(
       url,
       useVpn,
     }: IGitRootAttr): Promise<void> => {
+      setModalMessages({ message: "", type: "success" });
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {
           mixpanel.track("AddGitRoot");
@@ -384,7 +383,7 @@ function useGitSubmit(
         }
       }
     },
-    [addGitRoot, groupName, isManagingRoot, updateGitRoot]
+    [addGitRoot, groupName, isManagingRoot, setModalMessages, updateGitRoot]
   );
 }
 

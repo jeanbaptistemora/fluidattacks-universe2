@@ -40,7 +40,6 @@ import {
   FormikTextArea,
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import {
   composeValidators,
@@ -134,23 +133,38 @@ const Repository: React.FC<IRepositoryProps> = ({
     );
   }, []);
 
+  const [showGitAlert, setShowGitAlert] = useState(false);
+  const [showSubmitAlert, setShowSubmitAlert] = useState(false);
+
+  const [validateGitMsg, setValidateGitMsg] = useState({
+    message: "",
+    type: "success",
+  });
   const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
     onCompleted: (): void => {
+      setShowGitAlert(false);
       setIsGitAccessible(true);
-      msgSuccess(
-        t("group.scope.git.repo.credentials.checkAccess.success"),
-        t("group.scope.git.repo.credentials.checkAccess.successTitle")
-      );
+      setValidateGitMsg({
+        message: t("group.scope.git.repo.credentials.checkAccess.success"),
+        type: "success",
+      });
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
+      setShowGitAlert(false);
       graphQLErrors.forEach((error: GraphQLError): void => {
         if (
           error.message ===
           "Exception - Git repository was not accessible with given credentials"
         ) {
-          msgError(t("group.scope.git.errors.invalidGitCredentials"));
+          setValidateGitMsg({
+            message: t("group.scope.git.errors.invalidGitCredentials"),
+            type: "error",
+          });
         } else {
-          msgError(t("groupAlerts.errorTextsad"));
+          setValidateGitMsg({
+            message: t("groupAlerts.errorTextsad"),
+            type: "error",
+          });
           Logger.error("Couldn't activate root", error);
         }
       });
@@ -247,540 +261,574 @@ const Repository: React.FC<IRepositoryProps> = ({
           nicknames
         )}
       >
-        {({ dirty, errors, isSubmitting, values }): JSX.Element => (
-          <React.Fragment>
-            <Form>
-              <React.Fragment>
-                <fieldset className={"bn"}>
-                  <legend className={"f3 b"}>
-                    {t("group.scope.git.repo.title")}
-                  </legend>
-                  <div className={"flex"}>
-                    <div className={"w-60 mr3"} id={"git-root-add-repo-url"}>
-                      <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t("group.scope.git.repo.url")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikText}
-                        name={"url"}
-                        type={"text"}
-                      />
-                    </div>
-                    <div className={"w-30"} id={"git-root-add-repo-branch"}>
-                      <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t("group.scope.git.repo.branch")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikText}
-                        name={"branch"}
-                        type={"text"}
-                      />
-                    </div>
-                    <div className={"w-10 ml3 mt4"} id={"git-root-add-use-vpn"}>
-                      <Field
-                        component={FormikCheckbox}
-                        label={""}
-                        name={"useVpn"}
-                        type={"checkbox"}
+        {({ dirty, errors, isSubmitting, values }): JSX.Element => {
+          if (isSubmitting) {
+            setShowSubmitAlert(false);
+          }
+
+          return (
+            <React.Fragment>
+              <Form>
+                <React.Fragment>
+                  <fieldset className={"bn"}>
+                    <legend className={"f3 b"}>
+                      {t("group.scope.git.repo.title")}
+                    </legend>
+                    <div className={"flex"}>
+                      <div className={"w-60 mr3"} id={"git-root-add-repo-url"}>
+                        <ControlLabel>
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                          {t("group.scope.git.repo.url")}
+                        </ControlLabel>
+                        <Field
+                          component={FormikText}
+                          name={"url"}
+                          type={"text"}
+                        />
+                      </div>
+                      <div className={"w-30"} id={"git-root-add-repo-branch"}>
+                        <ControlLabel>
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                          {t("group.scope.git.repo.branch")}
+                        </ControlLabel>
+                        <Field
+                          component={FormikText}
+                          name={"branch"}
+                          type={"text"}
+                        />
+                      </div>
+                      <div
+                        className={"w-10 ml3 mt4"}
+                        id={"git-root-add-use-vpn"}
                       >
-                        {t("group.scope.git.repo.useVpn")}
-                      </Field>
+                        <Field
+                          component={FormikCheckbox}
+                          label={""}
+                          name={"useVpn"}
+                          type={"checkbox"}
+                        >
+                          {t("group.scope.git.repo.useVpn")}
+                        </Field>
+                      </div>
                     </div>
-                  </div>
-                  {isEditing && values.branch !== initialValues.branch ? (
-                    <Alert variant={"error"}>
-                      {t("group.scope.common.changeWarning")}
-                    </Alert>
-                  ) : undefined}
-                  <br />
-                  {isDuplicated(values.url) ? (
-                    <React.Fragment>
+                    {isEditing && values.branch !== initialValues.branch ? (
+                      <Alert variant={"error"}>
+                        {t("group.scope.common.changeWarning")}
+                      </Alert>
+                    ) : undefined}
+                    <br />
+                    {isDuplicated(values.url) ? (
+                      <React.Fragment>
+                        <div className={"flex"}>
+                          <div className={"w-100"} id={"git-root-add-nickname"}>
+                            <ControlLabel>
+                              <RequiredField>{"*"}&nbsp;</RequiredField>
+                              {t("group.scope.git.repo.nickname")}
+                            </ControlLabel>
+                            <Field
+                              component={FormikText}
+                              name={"nickname"}
+                              placeholder={t(
+                                "group.scope.git.repo.nicknameHint"
+                              )}
+                              type={"text"}
+                            />
+                          </div>
+                        </div>
+                        <br />
+                      </React.Fragment>
+                    ) : undefined}
+                    <div id={"git-root-add-credentials"}>
                       <div className={"flex"}>
-                        <div className={"w-100"} id={"git-root-add-nickname"}>
+                        {!_.isUndefined(data) &&
+                        data.group.credentials.length > 0 ? (
+                          <div className={"w-30 mr3"}>
+                            <ControlLabel>
+                              {"Existing credentials"}
+                            </ControlLabel>
+                            <Field
+                              component={FormikDropdown}
+                              customChange={onChangeExits}
+                              name={"credentials.id"}
+                            >
+                              <option value={""}>{""}</option>
+                              {data.group.credentials.map(
+                                (cred): JSX.Element => {
+                                  return (
+                                    <option key={cred.id} value={cred.id}>
+                                      {cred.name}
+                                    </option>
+                                  );
+                                }
+                              )}
+                            </Field>
+                          </div>
+                        ) : null}
+                        <div className={"w-20 mr3"}>
                           <ControlLabel>
-                            <RequiredField>{"*"}&nbsp;</RequiredField>
-                            {t("group.scope.git.repo.nickname")}
+                            {t("group.scope.git.repo.credentials.type")}
                           </ControlLabel>
                           <Field
-                            component={FormikText}
-                            name={"nickname"}
-                            placeholder={t("group.scope.git.repo.nicknameHint")}
-                            type={"text"}
-                          />
+                            component={FormikDropdown}
+                            disabled={disabledCredsEdit}
+                            name={"credentials.type"}
+                          >
+                            <option value={""}>{""}</option>
+                            <option value={"HTTPS"}>
+                              {t("group.scope.git.repo.credentials.https")}
+                            </option>
+                            <option value={"SSH"}>
+                              {t("group.scope.git.repo.credentials.ssh")}
+                            </option>
+                          </Field>
+                        </div>
+                        <div className={"w-40"}>
+                          <ControlLabel>
+                            {t("group.scope.git.repo.credentials.name")}
+                          </ControlLabel>
+                          <div className={"flex"}>
+                            <Field
+                              component={FormikText}
+                              disabled={disabledCredsEdit}
+                              name={"credentials.name"}
+                              placeholder={t(
+                                "group.scope.git.repo.credentials.nameHint"
+                              )}
+                              type={"text"}
+                            />
+                            {credExists ? (
+                              <Button
+                                id={"git-root-add"}
+                                onClick={deleteCredential}
+                                variant={"secondary"}
+                              >
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                              </Button>
+                            ) : undefined}
+                          </div>
                         </div>
                       </div>
                       <br />
-                    </React.Fragment>
-                  ) : undefined}
-                  <div id={"git-root-add-credentials"}>
-                    <div className={"flex"}>
-                      {!_.isUndefined(data) &&
-                      data.group.credentials.length > 0 ? (
-                        <div className={"w-30 mr3"}>
-                          <ControlLabel>{"Existing credentials"}</ControlLabel>
-                          <Field
-                            component={FormikDropdown}
-                            customChange={onChangeExits}
-                            name={"credentials.id"}
-                          >
-                            <option value={""}>{""}</option>
-                            {data.group.credentials.map((cred): JSX.Element => {
-                              return (
-                                <option key={cred.id} value={cred.id}>
-                                  {cred.name}
-                                </option>
-                              );
-                            })}
-                          </Field>
+                      {values.credentials.type === "SSH" && !credExists ? (
+                        <div className={"flex"}>
+                          <div className={"w-100"}>
+                            <ControlLabel>
+                              {t("group.scope.git.repo.credentials.sshKey")}
+                            </ControlLabel>
+                            <Field
+                              component={FormikTextArea}
+                              name={"credentials.key"}
+                              placeholder={t(
+                                "group.scope.git.repo.credentials.sshHint"
+                              )}
+                              type={"text"}
+                              validate={composeValidators([
+                                hasSshFormat,
+                                required,
+                                requireGitAccessibility,
+                              ])}
+                            />
+                          </div>
                         </div>
-                      ) : null}
-                      <div className={"w-20 mr3"}>
+                      ) : values.credentials.type === "HTTPS" && !credExists ? (
+                        <React.Fragment>
+                          <Field
+                            component={FormikRadioGroup}
+                            initialState={"Access Token"}
+                            labels={["User and Password", "Access Token"]}
+                            name={"httpsCredentialsType"}
+                            onSelect={setIsHttpsCredentialsTypeUser}
+                            type={"Radio"}
+                            validate={selected}
+                          />
+                          {isHttpsCredentialsTypeUser ? (
+                            <div className={"flex"}>
+                              <div className={"w-30 mr3"}>
+                                <ControlLabel>
+                                  {t("group.scope.git.repo.credentials.user")}
+                                </ControlLabel>
+                                <Field
+                                  component={FormikText}
+                                  name={"credentials.user"}
+                                  type={"text"}
+                                  validate={composeValidators([
+                                    required,
+                                    requireGitAccessibility,
+                                  ])}
+                                />
+                              </div>
+                              <div className={"w-70"}>
+                                <ControlLabel>
+                                  {t(
+                                    "group.scope.git.repo.credentials.password"
+                                  )}
+                                </ControlLabel>
+                                <Field
+                                  component={FormikText}
+                                  name={"credentials.password"}
+                                  type={"text"}
+                                  validate={composeValidators([
+                                    required,
+                                    requireGitAccessibility,
+                                  ])}
+                                />
+                              </div>
+                            </div>
+                          ) : (
+                            <div className={"flex"}>
+                              <div className={"w-30 mr3"}>
+                                <ControlLabel>
+                                  {t("group.scope.git.repo.credentials.token")}
+                                </ControlLabel>
+                                <Field
+                                  component={FormikText}
+                                  name={"credentials.token"}
+                                  type={"text"}
+                                  validate={composeValidators([
+                                    required,
+                                    requireGitAccessibility,
+                                  ])}
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </React.Fragment>
+                      ) : undefined}
+                      {!showGitAlert && validateGitMsg.message !== "" && (
+                        <Alert
+                          icon={true}
+                          timer={setShowGitAlert}
+                          variant={
+                            validateGitMsg.type as IAlertProps["variant"]
+                          }
+                        >
+                          {validateGitMsg.message}
+                        </Alert>
+                      )}
+                      {
+                        <div className={"mt2 tr"}>
+                          <Button
+                            disabled={submittableCredentials(values)}
+                            id={"checkAccessBtn"}
+                            onClick={handleCheckAccessClick}
+                            variant={"secondary"}
+                          >
+                            {t(
+                              "group.scope.git.repo.credentials.checkAccess.text"
+                            )}
+                          </Button>
+                        </div>
+                      }
+                    </div>
+                    <div className={"flex mt3"}>
+                      <div className={"w-100"} id={"git-root-add-env"}>
                         <ControlLabel>
-                          {t("group.scope.git.repo.credentials.type")}
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                          {t("group.scope.git.repo.environment")}
                         </ControlLabel>
                         <Field
-                          component={FormikDropdown}
-                          disabled={disabledCredsEdit}
-                          name={"credentials.type"}
-                        >
-                          <option value={""}>{""}</option>
-                          <option value={"HTTPS"}>
-                            {t("group.scope.git.repo.credentials.https")}
-                          </option>
-                          <option value={"SSH"}>
-                            {t("group.scope.git.repo.credentials.ssh")}
-                          </option>
-                        </Field>
-                      </div>
-                      <div className={"w-40"}>
-                        <ControlLabel>
-                          {t("group.scope.git.repo.credentials.name")}
-                        </ControlLabel>
-                        <div className={"flex"}>
-                          <Field
-                            component={FormikText}
-                            disabled={disabledCredsEdit}
-                            name={"credentials.name"}
-                            placeholder={t(
-                              "group.scope.git.repo.credentials.nameHint"
-                            )}
-                            type={"text"}
-                          />
-                          {credExists ? (
-                            <Button
-                              id={"git-root-add"}
-                              onClick={deleteCredential}
-                              variant={"secondary"}
-                            >
-                              <FontAwesomeIcon icon={faTrashAlt} />
-                            </Button>
-                          ) : undefined}
-                        </div>
+                          component={FormikText}
+                          name={"environment"}
+                          placeholder={t(
+                            "group.scope.git.repo.environmentHint"
+                          )}
+                          type={"text"}
+                        />
                       </div>
                     </div>
                     <br />
-                    {values.credentials.type === "SSH" && !credExists ? (
-                      <div className={"flex"}>
-                        <div className={"w-100"}>
-                          <ControlLabel>
-                            {t("group.scope.git.repo.credentials.sshKey")}
-                          </ControlLabel>
-                          <Field
-                            component={FormikTextArea}
-                            name={"credentials.key"}
-                            placeholder={t(
-                              "group.scope.git.repo.credentials.sshHint"
-                            )}
-                            type={"text"}
-                            validate={composeValidators([
-                              hasSshFormat,
-                              required,
-                              requireGitAccessibility,
-                            ])}
-                          />
-                        </div>
-                      </div>
-                    ) : values.credentials.type === "HTTPS" && !credExists ? (
-                      <React.Fragment>
-                        <Field
-                          component={FormikRadioGroup}
-                          initialState={"Access Token"}
-                          labels={["User and Password", "Access Token"]}
-                          name={"httpsCredentialsType"}
-                          onSelect={setIsHttpsCredentialsTypeUser}
-                          type={"Radio"}
-                          validate={selected}
-                        />
-                        {isHttpsCredentialsTypeUser ? (
-                          <div className={"flex"}>
-                            <div className={"w-30 mr3"}>
-                              <ControlLabel>
-                                {t("group.scope.git.repo.credentials.user")}
-                              </ControlLabel>
-                              <Field
-                                component={FormikText}
-                                name={"credentials.user"}
-                                type={"text"}
-                                validate={composeValidators([
-                                  required,
-                                  requireGitAccessibility,
-                                ])}
-                              />
-                            </div>
-                            <div className={"w-70"}>
-                              <ControlLabel>
-                                {t("group.scope.git.repo.credentials.password")}
-                              </ControlLabel>
-                              <Field
-                                component={FormikText}
-                                name={"credentials.password"}
-                                type={"text"}
-                                validate={composeValidators([
-                                  required,
-                                  requireGitAccessibility,
-                                ])}
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div className={"flex"}>
-                            <div className={"w-30 mr3"}>
-                              <ControlLabel>
-                                {t("group.scope.git.repo.credentials.token")}
-                              </ControlLabel>
-                              <Field
-                                component={FormikText}
-                                name={"credentials.token"}
-                                type={"text"}
-                                validate={composeValidators([
-                                  required,
-                                  requireGitAccessibility,
-                                ])}
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </React.Fragment>
-                    ) : undefined}
-                    {
-                      <div className={"mt2 tr"}>
-                        <Button
-                          disabled={submittableCredentials(values)}
-                          id={"checkAccessBtn"}
-                          onClick={handleCheckAccessClick}
-                          variant={"secondary"}
-                        >
-                          {t(
-                            "group.scope.git.repo.credentials.checkAccess.text"
-                          )}
-                        </Button>
-                      </div>
-                    }
-                  </div>
-                  <div className={"flex mt3"}>
-                    <div className={"w-100"} id={"git-root-add-env"}>
-                      <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t("group.scope.git.repo.environment")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikText}
-                        name={"environment"}
-                        placeholder={t("group.scope.git.repo.environmentHint")}
-                        type={"text"}
-                      />
-                    </div>
-                  </div>
-                  <br />
-                </fieldset>
-                <Have I={"has_squad"}>
-                  <fieldset className={"bn"}>
-                    <div
-                      id={"git-root-add-health-check"}
-                      onMouseMove={setSquad}
-                      role={"none"}
-                    >
-                      <legend className={"f3 b"}>
-                        {t("group.scope.git.healthCheck.title")}
-                      </legend>
-                      <div className={"flex"}>
-                        <div className={"w-100"}>
-                          <ControlLabel>
-                            {t("group.scope.git.healthCheck.confirm")}
-                          </ControlLabel>
-                          <Field
-                            component={FormikRadioGroup}
-                            initialState={
-                              isEditing
-                                ? confirmHealthCheck ?? false
-                                  ? "Yes"
-                                  : "No"
-                                : null
-                            }
-                            labels={["Yes", "No"]}
-                            name={"includesHealthCheck"}
-                            onSelect={setConfirmHealthCheck}
-                            type={"Radio"}
-                            uncheck={setIsCheckedHealthCheck}
-                          />
-                        </div>
-                      </div>
-                      <div>
+                  </fieldset>
+                  <Have I={"has_squad"}>
+                    <fieldset className={"bn"}>
+                      <div
+                        id={"git-root-add-health-check"}
+                        onMouseMove={setSquad}
+                        role={"none"}
+                      >
+                        <legend className={"f3 b"}>
+                          {t("group.scope.git.healthCheck.title")}
+                        </legend>
                         <div className={"flex"}>
                           <div className={"w-100"}>
-                            {[values.url, values.branch].join("") ===
-                            isRootChange
-                              ? undefined
-                              : rootChanged(values)}
-                            {values.includesHealthCheck ?? false ? (
-                              <Alert variant={"error"}>
-                                <Field
-                                  component={FormikCheckbox}
-                                  isChecked={isCheckedHealthCheck}
-                                  label={""}
-                                  name={"healthCheckConfirm"}
-                                  type={"checkbox"}
-                                  value={"includeA"}
-                                >
-                                  {t("group.scope.git.healthCheck.accept")}
-                                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                                </Field>
-                              </Alert>
-                            ) : undefined}
-                            {values.includesHealthCheck ?? true ? undefined : (
-                              <Alert variant={"error"}>
-                                <Field
-                                  component={FormikCheckbox}
-                                  isChecked={isCheckedHealthCheck}
-                                  label={""}
-                                  name={"healthCheckConfirm"}
-                                  type={"checkbox"}
-                                  value={"rejectA"}
-                                >
-                                  {t("group.scope.git.healthCheck.rejectA")}
-                                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                                </Field>
-                                <Field
-                                  component={FormikCheckbox}
-                                  isChecked={isCheckedHealthCheck}
-                                  label={""}
-                                  name={"healthCheckConfirm"}
-                                  type={"checkbox"}
-                                  value={"rejectB"}
-                                >
-                                  {t("group.scope.git.healthCheck.rejectB")}
-                                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                                </Field>
-                                <Field
-                                  component={FormikCheckbox}
-                                  isChecked={isCheckedHealthCheck}
-                                  label={""}
-                                  name={"healthCheckConfirm"}
-                                  type={"checkbox"}
-                                  value={"rejectC"}
-                                >
-                                  {t("group.scope.git.healthCheck.rejectC")}
-                                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                                </Field>
-                              </Alert>
-                            )}
+                            <ControlLabel>
+                              {t("group.scope.git.healthCheck.confirm")}
+                            </ControlLabel>
+                            <Field
+                              component={FormikRadioGroup}
+                              initialState={
+                                isEditing
+                                  ? confirmHealthCheck ?? false
+                                    ? "Yes"
+                                    : "No"
+                                  : null
+                              }
+                              labels={["Yes", "No"]}
+                              name={"includesHealthCheck"}
+                              onSelect={setConfirmHealthCheck}
+                              type={"Radio"}
+                              uncheck={setIsCheckedHealthCheck}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className={"flex"}>
+                            <div className={"w-100"}>
+                              {[values.url, values.branch].join("") ===
+                              isRootChange
+                                ? undefined
+                                : rootChanged(values)}
+                              {values.includesHealthCheck ?? false ? (
+                                <Alert variant={"error"}>
+                                  <Field
+                                    component={FormikCheckbox}
+                                    isChecked={isCheckedHealthCheck}
+                                    label={""}
+                                    name={"healthCheckConfirm"}
+                                    type={"checkbox"}
+                                    value={"includeA"}
+                                  >
+                                    {t("group.scope.git.healthCheck.accept")}
+                                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                                  </Field>
+                                </Alert>
+                              ) : undefined}
+                              {values.includesHealthCheck ??
+                              true ? undefined : (
+                                <Alert variant={"error"}>
+                                  <Field
+                                    component={FormikCheckbox}
+                                    isChecked={isCheckedHealthCheck}
+                                    label={""}
+                                    name={"healthCheckConfirm"}
+                                    type={"checkbox"}
+                                    value={"rejectA"}
+                                  >
+                                    {t("group.scope.git.healthCheck.rejectA")}
+                                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                                  </Field>
+                                  <Field
+                                    component={FormikCheckbox}
+                                    isChecked={isCheckedHealthCheck}
+                                    label={""}
+                                    name={"healthCheckConfirm"}
+                                    type={"checkbox"}
+                                    value={"rejectB"}
+                                  >
+                                    {t("group.scope.git.healthCheck.rejectB")}
+                                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                                  </Field>
+                                  <Field
+                                    component={FormikCheckbox}
+                                    isChecked={isCheckedHealthCheck}
+                                    label={""}
+                                    name={"healthCheckConfirm"}
+                                    type={"checkbox"}
+                                    value={"rejectC"}
+                                  >
+                                    {t("group.scope.git.healthCheck.rejectC")}
+                                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                                  </Field>
+                                </Alert>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </fieldset>
-                </Have>
-                <Can do={"update_git_root_filter"}>
-                  <fieldset className={"bn"}>
-                    <TooltipWrapper
-                      displayClass={"dib"}
-                      id={"group.scope.git.filter.tooltip.info"}
-                      message={t("group.scope.git.filter.tooltip")}
-                    >
-                      <ControlLabel>
-                        {t("group.scope.git.filter.exclude")}
-                      </ControlLabel>
-                    </TooltipWrapper>
-                    <QuestionButton onClick={goToDocumentation}>
-                      <FontAwesomeIcon icon={faQuestionCircle} />
-                    </QuestionButton>
-                    <GitIgnoreAlert gitignore={values.gitignore} />
-                    <FormikArrayField
-                      allowEmpty={true}
-                      initialValue={""}
-                      name={"gitignore"}
-                    >
-                      {(fieldName: string): JSX.Element => (
-                        <Field
-                          component={FormikText}
-                          name={fieldName}
-                          placeholder={t("group.scope.git.filter.placeholder")}
-                          type={"text"}
-                        />
-                      )}
-                    </FormikArrayField>
-                  </fieldset>
-                </Can>
-              </React.Fragment>
-              {modalMessages.message !== "" && (
-                <Alert
-                  icon={true}
-                  variant={modalMessages.type as IAlertProps["variant"]}
-                >
-                  {modalMessages.message}
-                </Alert>
-              )}
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!isGitAccessible || !dirty || isSubmitting}
-                  id={"git-root-add-proceed"}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
-            </Form>
-            {runTour ? (
-              <Tour
-                onFinish={finishTour}
-                run={runTour}
-                steps={[
-                  {
-                    ...BaseStep,
-                    content: t("tours.addGitRoot.intro"),
-                    placement: "center",
-                    target: "#git-root-add-use-vpn",
-                    title: t("group.scope.common.add"),
-                  },
-                  {
-                    ...BaseStep,
-                    content: t("tours.addGitRoot.rootUrl"),
-                    hideBackButton: true,
-                    hideFooter: values.url.length === 0,
-                    target: "#git-root-add-repo-url",
-                  },
-                  {
-                    ...BaseStep,
-                    content: t("tours.addGitRoot.rootBranch"),
-                    hideFooter: values.branch.length === 0,
-                    target: "#git-root-add-repo-branch",
-                  },
-                  {
-                    ...BaseStep,
-                    content: t("tours.addGitRoot.vpn"),
-                    target: "#git-root-add-use-vpn",
-                  },
-                  {
-                    ...BaseStep,
-                    content: t("tours.addGitRoot.nickname"),
-                    hideFooter: values.nickname.length === 0,
-                    target: "#git-root-add-nickname",
-                  },
-                  {
-                    ...BaseStep,
-                    content: (
-                      <React.Fragment>
-                        {t("tours.addGitRoot.rootCredentials.content")}
-                        <ul>
-                          {values.credentials.type === "" && (
-                            <li>
-                              {t("tours.addGitRoot.rootCredentials.type")}
-                            </li>
-                          )}
-                          {values.credentials.name === "" && (
-                            <li>
-                              {t("tours.addGitRoot.rootCredentials.name")}
-                            </li>
-                          )}
-                          {values.credentials.type === "HTTPS" &&
-                            isHttpsCredentialsTypeUser &&
-                            (values.credentials.user === "" ||
-                              values.credentials.password === "") && (
+                    </fieldset>
+                  </Have>
+                  <Can do={"update_git_root_filter"}>
+                    <fieldset className={"bn"}>
+                      <TooltipWrapper
+                        displayClass={"dib"}
+                        id={"group.scope.git.filter.tooltip.info"}
+                        message={t("group.scope.git.filter.tooltip")}
+                      >
+                        <ControlLabel>
+                          {t("group.scope.git.filter.exclude")}
+                        </ControlLabel>
+                      </TooltipWrapper>
+                      <QuestionButton onClick={goToDocumentation}>
+                        <FontAwesomeIcon icon={faQuestionCircle} />
+                      </QuestionButton>
+                      <GitIgnoreAlert gitignore={values.gitignore} />
+                      <FormikArrayField
+                        allowEmpty={true}
+                        initialValue={""}
+                        name={"gitignore"}
+                      >
+                        {(fieldName: string): JSX.Element => (
+                          <Field
+                            component={FormikText}
+                            name={fieldName}
+                            placeholder={t(
+                              "group.scope.git.filter.placeholder"
+                            )}
+                            type={"text"}
+                          />
+                        )}
+                      </FormikArrayField>
+                    </fieldset>
+                  </Can>
+                </React.Fragment>
+                {!showSubmitAlert && modalMessages.message !== "" && (
+                  <Alert
+                    icon={true}
+                    timer={setShowSubmitAlert}
+                    variant={modalMessages.type as IAlertProps["variant"]}
+                  >
+                    {modalMessages.message}
+                  </Alert>
+                )}
+                <ModalFooter>
+                  <Button onClick={onClose} variant={"secondary"}>
+                    {t("confirmmodal.cancel")}
+                  </Button>
+                  <Button
+                    disabled={!isGitAccessible || !dirty || isSubmitting}
+                    id={"git-root-add-proceed"}
+                    type={"submit"}
+                    variant={"primary"}
+                  >
+                    {t("confirmmodal.proceed")}
+                  </Button>
+                </ModalFooter>
+              </Form>
+              {runTour ? (
+                <Tour
+                  onFinish={finishTour}
+                  run={runTour}
+                  steps={[
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGitRoot.intro"),
+                      placement: "center",
+                      target: "#git-root-add-use-vpn",
+                      title: t("group.scope.common.add"),
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGitRoot.rootUrl"),
+                      hideBackButton: true,
+                      hideFooter: values.url.length === 0,
+                      target: "#git-root-add-repo-url",
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGitRoot.rootBranch"),
+                      hideFooter: values.branch.length === 0,
+                      target: "#git-root-add-repo-branch",
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGitRoot.vpn"),
+                      target: "#git-root-add-use-vpn",
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGitRoot.nickname"),
+                      hideFooter: values.nickname.length === 0,
+                      target: "#git-root-add-nickname",
+                    },
+                    {
+                      ...BaseStep,
+                      content: (
+                        <React.Fragment>
+                          {t("tours.addGitRoot.rootCredentials.content")}
+                          <ul>
+                            {values.credentials.type === "" && (
                               <li>
-                                {t("tours.addGitRoot.rootCredentials.user")}
+                                {t("tours.addGitRoot.rootCredentials.type")}
                               </li>
                             )}
-                          {values.credentials.type === "HTTPS" &&
-                            !isHttpsCredentialsTypeUser &&
-                            values.credentials.token === "" && (
+                            {values.credentials.name === "" && (
                               <li>
-                                {t("tours.addGitRoot.rootCredentials.token")}
+                                {t("tours.addGitRoot.rootCredentials.name")}
                               </li>
                             )}
-                          {values.credentials.type === "SSH" &&
-                            values.credentials.key === "" && (
+                            {values.credentials.type === "HTTPS" &&
+                              isHttpsCredentialsTypeUser &&
+                              (values.credentials.user === "" ||
+                                values.credentials.password === "") && (
+                                <li>
+                                  {t("tours.addGitRoot.rootCredentials.user")}
+                                </li>
+                              )}
+                            {values.credentials.type === "HTTPS" &&
+                              !isHttpsCredentialsTypeUser &&
+                              values.credentials.token === "" && (
+                                <li>
+                                  {t("tours.addGitRoot.rootCredentials.token")}
+                                </li>
+                              )}
+                            {values.credentials.type === "SSH" &&
+                              values.credentials.key === "" && (
+                                <li>
+                                  {t("tours.addGitRoot.rootCredentials.key")}
+                                </li>
+                              )}
+                            {!isGitAccessible && (
                               <li>
-                                {t("tours.addGitRoot.rootCredentials.key")}
+                                {t("tours.addGitRoot.rootCredentials.invalid")}
                               </li>
                             )}
-                          {!isGitAccessible && (
-                            <li>
-                              {t("tours.addGitRoot.rootCredentials.invalid")}
-                            </li>
-                          )}
-                        </ul>
-                      </React.Fragment>
-                    ),
-                    hideFooter:
-                      values.credentials.type === "" ||
-                      values.credentials.name.length === 0 ||
-                      (!_.isUndefined(values.credentials.key) &&
-                        !_.isUndefined(values.credentials.token) &&
-                        values.credentials.key.length === 0 &&
-                        ((!isHttpsCredentialsTypeUser &&
-                          values.credentials.token.length === 0) ||
-                          (isHttpsCredentialsTypeUser &&
-                            (values.credentials.user.length === 0 ||
-                              values.credentials.password.length === 0)))),
-                    placement: "left",
-                    target: "#git-root-add-credentials",
-                  },
-                  {
-                    ...BaseStep,
-                    content: t("tours.addGitRoot.rootEnvironment"),
-                    hideFooter: values.environment.length === 0,
-                    target: "#git-root-add-env",
-                  },
-                  {
-                    ...BaseStep,
-                    content: (
-                      <React.Fragment>
-                        {t("tours.addGitRoot.rootHasHealthCheck")}
-                        <ul>
-                          {values.includesHealthCheck !== null &&
-                            errors.healthCheckConfirm !== undefined && (
-                              <li>
-                                {t("tours.addGitRoot.healthCheckConditions")}
-                              </li>
-                            )}
-                        </ul>
-                      </React.Fragment>
-                    ),
-                    hideFooter:
-                      values.includesHealthCheck === null ||
-                      errors.healthCheckConfirm !== undefined,
-                    placement: "left",
-                    target: "#git-root-add-health-check",
-                  },
-                  {
-                    ...BaseStep,
-                    content:
-                      !isGitAccessible || !dirty
-                        ? t("tours.addGitRoot.proceedButton.invalidForm")
-                        : t("tours.addGitRoot.proceedButton.validForm"),
-                    target: "#git-root-add-proceed",
-                  },
-                ]}
-              />
-            ) : undefined}
-          </React.Fragment>
-        )}
+                          </ul>
+                        </React.Fragment>
+                      ),
+                      hideFooter:
+                        values.credentials.type === "" ||
+                        values.credentials.name.length === 0 ||
+                        (!_.isUndefined(values.credentials.key) &&
+                          !_.isUndefined(values.credentials.token) &&
+                          values.credentials.key.length === 0 &&
+                          ((!isHttpsCredentialsTypeUser &&
+                            values.credentials.token.length === 0) ||
+                            (isHttpsCredentialsTypeUser &&
+                              (values.credentials.user.length === 0 ||
+                                values.credentials.password.length === 0)))),
+                      placement: "left",
+                      target: "#git-root-add-credentials",
+                    },
+                    {
+                      ...BaseStep,
+                      content: t("tours.addGitRoot.rootEnvironment"),
+                      hideFooter: values.environment.length === 0,
+                      target: "#git-root-add-env",
+                    },
+                    {
+                      ...BaseStep,
+                      content: (
+                        <React.Fragment>
+                          {t("tours.addGitRoot.rootHasHealthCheck")}
+                          <ul>
+                            {values.includesHealthCheck !== null &&
+                              errors.healthCheckConfirm !== undefined && (
+                                <li>
+                                  {t("tours.addGitRoot.healthCheckConditions")}
+                                </li>
+                              )}
+                          </ul>
+                        </React.Fragment>
+                      ),
+                      hideFooter:
+                        values.includesHealthCheck === null ||
+                        errors.healthCheckConfirm !== undefined,
+                      placement: "left",
+                      target: "#git-root-add-health-check",
+                    },
+                    {
+                      ...BaseStep,
+                      content:
+                        !isGitAccessible || !dirty
+                          ? t("tours.addGitRoot.proceedButton.invalidForm")
+                          : t("tours.addGitRoot.proceedButton.validForm"),
+                      target: "#git-root-add-proceed",
+                    },
+                  ]}
+                />
+              ) : undefined}
+            </React.Fragment>
+          );
+        }}
       </Formik>
     </div>
   );

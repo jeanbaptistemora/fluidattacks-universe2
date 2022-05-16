@@ -771,8 +771,7 @@ export const enTranslations: ResourceKey = {
           credentials: {
             checkAccess: {
               noAccess: "Credentials are invalid",
-              success: "Access checked!",
-              successTitle: "Success",
+              success: "Success - Access checked!",
               text: "Check Access",
             },
             https: "HTTPS",
