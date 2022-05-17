@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | Thinfinity VNC v4.0.0.1 - CORS Misconfiguration to RCE     |
-| **Code name**           | [Clapton](https://en.wikipedia.org/wiki/Eric_Clapton)      |
-| **Product**             | Thinfinity VNC                                             |
-| **Affected versions**   | v4.0.0.1                                                   |
-| **State**               | Public                                                     |
-| **Release date**        | 2022-05-17                                                 |
+|                       |                                                        |
+| --------------------- | ------------------------------------------------------ |
+| **Name**              | Thinfinity VNC v4.0.0.1 - CORS Misconfiguration to RCE |
+| **Code name**         | [Clapton](https://en.wikipedia.org/wiki/Eric_Clapton)  |
+| **Product**           | Thinfinity VNC                                         |
+| **Affected versions** | v4.0.0.1                                               |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-05-17                                             |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | CORS Misconfiguration                                            |
-| **Rule**              | [134. Insecure or unset HTTP headers - CORS](https://docs.fluidattacks.com/criteria/vulnerabilities/134)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H                     |
-| **CVSSv3 Base Score** | 8.3                                                              |
-| **Exploit available** | Yes                                                              |
-| **CVE ID(s)**         | [CVE-2022-25227](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25227)                                                    |
+|                       |                                                                                                          |
+| --------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Kind**              | CORS Misconfiguration                                                                                    |
+| **Rule**              | [134. Insecure or unset HTTP headers - CORS](https://docs.fluidattacks.com/criteria/vulnerabilities/134) |
+| **Remote**            | Yes                                                                                                      |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H                                                             |
+| **CVSSv3 Base Score** | 8.3                                                                                                      |
+| **Exploit available** | Yes                                                                                                      |
+| **CVE ID(s)**         | [CVE-2022-25227](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25227)                          |
 
 ## Description
 
@@ -290,14 +290,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.cybelesoft.com/thinfinity/>                            |
+**Vendor page** <https://www.cybelesoft.com/thinfinity/>
 
 ## Timeline
 
-* 2022-04-11: Vulnerability discovered.
-
-* 2022-04-11: Vendor contacted.
-
-* 2022-05-17: Public disclosure.
+<time-lapse
+  discovered="2022-04-11"
+  contacted="2022-04-11"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-05-17">
+</time-lapse>

@@ -17,25 +17,25 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | ManageEngine AppManager15 (Build No:15510) - DLL Hijacking |
-| **Code name**           | [Cerati](https://en.wikipedia.org/wiki/Gustavo_Cerati)     |
-| **Product**             | ManageEngine                                               |
-| **Affected versions**   | AppManager15 (Build No:15510)                              |
-| **State**               | Unpublished/Contacted Vendor                               |
+|                       |                                                            |
+| --------------------- | ---------------------------------------------------------- |
+| **Name**              | ManageEngine AppManager15 (Build No:15510) - DLL Hijacking |
+| **Code name**         | [Cerati](https://en.wikipedia.org/wiki/Gustavo_Cerati)     |
+| **Product**           | ManageEngine                                               |
+| **Affected versions** | AppManager15 (Build No:15510)                              |
+| **State**             | Unpublished/Contacted Vendor                               |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | DLL Hijacking                                                    |
-| **Rule**              | [413. Insecure file upload - DLL Injection](https://docs.fluidattacks.com/criteria/vulnerabilities/413)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
-| **CVSSv3 Base Score** | 9.1                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23050](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23050)                                                    |
+|                       |                                                                                                         |
+| --------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Kind**              | DLL Hijacking                                                                                           |
+| **Rule**              | [413. Insecure file upload - DLL Injection](https://docs.fluidattacks.com/criteria/vulnerabilities/413) |
+| **Remote**            | Yes                                                                                                     |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                                                            |
+| **CVSSv3 Base Score** | 9.1                                                                                                     |
+| **Exploit available** | No                                                                                                      |
+| **CVE ID(s)**         | [CVE-2022-23050](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23050)                         |
 
 ## Description
 
@@ -66,12 +66,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.manageengine.com/>                                     |
+**Vendor page** <https://www.manageengine.com/>
 
 ## Timeline
 
-- 2022-02-03: Vulnerability discovered.
-
-- 2022-02-03: Vendor contacted.
+<time-lapse
+  discovered="2022-02-03"
+  contacted="2022-02-03"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="">
+</time-lapse>

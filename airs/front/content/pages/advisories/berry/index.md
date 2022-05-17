@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                                  |
-|-------------------------|------------------------------------------------------------------|
-| **Name**                | Money Transfer Management System - Unauthenticated SQL Injection |
-| **Code name**           | [Berry](https://en.wikipedia.org/wiki/Chuck_Berry)               |
-| **Product**             | Money Transfer Management System                                 |
-| **Affected versions**   | Version 1.0                                                      |
-| **State**               | Public                                                           |
-| **Release date**        | 2022-03-15                                                       |
+|                       |                                                                  |
+| --------------------- | ---------------------------------------------------------------- |
+| **Name**              | Money Transfer Management System - Unauthenticated SQL Injection |
+| **Code name**         | [Berry](https://en.wikipedia.org/wiki/Chuck_Berry)               |
+| **Product**           | Money Transfer Management System                                 |
+| **Affected versions** | Version 1.0                                                      |
+| **State**             | Public                                                           |
+| **Release date**      | 2022-03-15                                                       |
 
 ## Vulnerability
 
-|                       |                                                                                 |
-|-----------------------|---------------------------------------------------------------------------------|
-| **Kind**              | SQL injection                                                                   |
-| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146)|
-| **Remote**            | Yes                                                                             |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N                                    |
-| **CVSSv3 Base Score** | 7.5                                                                             |
-| **Exploit available** | Yes                                                                             |
-| **CVE ID(s)**         | [CVE-2022-25222](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25222)                                                                                      |
+|                       |                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------- |
+| **Kind**              | SQL injection                                                                    |
+| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146) |
+| **Remote**            | Yes                                                                              |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N                                     |
+| **CVSSv3 Base Score** | 7.5                                                                              |
+| **Exploit available** | Yes                                                                              |
+| **CVE ID(s)**         | [CVE-2022-25222](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25222)  |
 
 ## Description
 
@@ -157,14 +157,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.sourcecodester.com/php/15015/money-transfer-management-system-send-money-businesses-php-free-source-code.html>           |
+**Vendor page** <https://www.sourcecodester.com/php/15015/money-transfer-management-system-send-money-businesses-php-free-source-code.html>
 
 ## Timeline
 
-* 2022-02-15: Vulnerability discovered.
-
-* 2022-02-15: Vendor contacted.
-
-* 2022-03-15: Public Disclosure.
+<time-lapse
+  discovered="2022-02-15"
+  contacted="2022-02-15"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-03-15">
+</time-lapse>

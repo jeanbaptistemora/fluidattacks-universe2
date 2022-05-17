@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | Popcorn Time 0.4.7 - XSS to RCE                            |
-| **Code name**           | [Bowie](https://en.wikipedia.org/wiki/David_Bowie)         |
-| **Product**             | Popcorn Time                                               |
-| **Affected versions**   | Version 0.4.7 (Just Keep Swimming)                         |
-| **State**               | Public                                                     |
-| **Release date**        | 2022-05-17                                                 |
+|                       |                                                    |
+| --------------------- | -------------------------------------------------- |
+| **Name**              | Popcorn Time 0.4.7 - XSS to RCE                    |
+| **Code name**         | [Bowie](https://en.wikipedia.org/wiki/David_Bowie) |
+| **Product**           | Popcorn Time                                       |
+| **Affected versions** | Version 0.4.7 (Just Keep Swimming)                 |
+| **State**             | Public                                             |
+| **Release date**      | 2022-05-17                                         |
 
 ## Vulnerability
 
-|                       |                                                                                    |
-|-----------------------|------------------------------------------------------------------------------------|
-| **Kind**              | XSS to RCE                                                                         |
-| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010)   |
-| **Remote**            | No                                                                                |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:N/I:H/A:N                                       |
-| **CVSSv3 Base Score** | 7.7                                                                                |
-| **Exploit available** | No                                                                                 |
-| **CVE ID(s)**         | [CVE-2022-25229](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25229)                                                    |
+|                       |                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Kind**              | XSS to RCE                                                                                           |
+| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010) |
+| **Remote**            | No                                                                                                   |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:N/I:H/A:N                                                         |
+| **CVSSv3 Base Score** | 7.7                                                                                                  |
+| **Exploit available** | No                                                                                                   |
+| **CVE ID(s)**         | [CVE-2022-25229](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25229)                      |
 
 ## Description
 
@@ -100,19 +100,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://github.com/popcorn-official/popcorn-desktop>               |
-| **Issue**           | <https://github.com/popcorn-official/popcorn-desktop/issues/2491>   |
+**Vendor page** <https://github.com/popcorn-official/popcorn-desktop>
+
+**Issue** <https://github.com/popcorn-official/popcorn-desktop/issues/2491>
 
 ## Timeline
 
-* 2022-04-26: Vulnerability discovered.
-
-* 2022-04-26: Vendor contacted.
-
-* 2022-05-04: Vendor confirmed the vulnerability.
-
-* 2022-05-07: Vulnerability patched.
-
-* 2022-05-17: Public disclosure.
+<time-lapse
+  discovered="2022-04-26"
+  contacted="2022-04-26"
+  replied=""
+  confirmed="2022-05-04"
+  patched="2022-05-07"
+  disclosure="2022-05-17">
+</time-lapse>

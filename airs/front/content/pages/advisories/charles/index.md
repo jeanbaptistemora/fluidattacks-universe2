@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                      |
-|-------------------------|------------------------------------------------------|
-| **Name**                | Money Transfer Management System - DOM-Based XSS     |
-| **Code name**           | [Charles](https://en.wikipedia.org/wiki/Ray_Charles) |
-| **Product**             | Money Transfer Management System                     |
-| **Affected versions**   | Version 1.0                                          |
-| **State**               | Public                                               |
-| **Release date**        | 2022-03-15                                           |
+|                       |                                                      |
+| --------------------- | ---------------------------------------------------- |
+| **Name**              | Money Transfer Management System - DOM-Based XSS     |
+| **Code name**         | [Charles](https://en.wikipedia.org/wiki/Ray_Charles) |
+| **Product**           | Money Transfer Management System                     |
+| **Affected versions** | Version 1.0                                          |
+| **State**             | Public                                               |
+| **Release date**      | 2022-03-15                                           |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | DOM-Based Cross-Site Scripting (XSS)                             |
-| **Rule**              | [371. DOM-Based Cross-Site Scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/371)    |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N                     |
-| **CVSSv3 Base Score** | 4.3                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-25221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25221)                                                     |
+|                       |                                                                                                         |
+| --------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Kind**              | DOM-Based Cross-Site Scripting (XSS)                                                                    |
+| **Rule**              | [371. DOM-Based Cross-Site Scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/371) |
+| **Remote**            | Yes                                                                                                     |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N                                                            |
+| **CVSSv3 Base Score** | 4.3                                                                                                     |
+| **Exploit available** | No                                                                                                      |
+| **CVE ID(s)**         | [CVE-2022-25221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25221)                         |
 
 ## Description
 
@@ -76,14 +76,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.sourcecodester.com/php/15015/money-transfer-management-system-send-money-businesses-php-free-source-code.html>           |
+**Vendor page** <https://www.sourcecodester.com/php/15015/money-transfer-management-system-send-money-businesses-php-free-source-code.html>
 
 ## Timeline
 
-* 2022-02-15: Vulnerability discovered.
-
-* 2022-02-15: Vendor contacted.
-
-* 2022-03-15: Public Disclosure.
+<time-lapse
+  discovered="2022-02-15"
+  contacted="2022-02-15"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-03-15">
+</time-lapse>
