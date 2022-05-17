@@ -26,6 +26,8 @@ data "cloudflare_zones" "fluidattacks_com" {
 data "cloudflare_ip_ranges" "cloudflare" {}
 
 variable "cloudflare_api_token" {}
+variable "twilio_account_sid" {}
+variable "twilio_auth_token" {}
 variable "region" {
   default = "us-east-1"
 }

@@ -27,17 +27,29 @@
   };
   secretsForEnvFromSops = {
     integratesDatabaseDev = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
+      vars = [
+        "CLOUDFLARE_ACCOUNT_ID"
+        "CLOUDFLARE_API_TOKEN"
+        "TWILIO_ACCOUNT_SID"
+        "TWILIO_AUTH_TOKEN"
+      ];
       manifest = "/integrates/secrets/development.yaml";
     };
     integratesDatabaseProd = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN"];
+      vars = [
+        "CLOUDFLARE_ACCOUNT_ID"
+        "CLOUDFLARE_API_TOKEN"
+        "TWILIO_ACCOUNT_SID"
+        "TWILIO_AUTH_TOKEN"
+      ];
       manifest = "/integrates/secrets/production.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     integratesDatabase = {
       cloudflare_api_token = "CLOUDFLARE_API_TOKEN";
+      twilio_account_sid = "TWILIO_ACCOUNT_SID";
+      twilio_auth_token = "TWILIO_AUTH_TOKEN";
     };
   };
   testTerraform = {

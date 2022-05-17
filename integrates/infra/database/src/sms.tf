@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    twilio = {
-      source  = "twilio/twilio"
-      version = "~> 0.13.2"
-    }
-  }
-}
-
 resource "twilio_verify_services_v2" "verify" {
   friendly_name         = "ASM"
   code_length           = 6
@@ -14,12 +5,10 @@ resource "twilio_verify_services_v2" "verify" {
   skip_sms_to_landlines = true
 }
 
-
 resource "twilio_verify_services_rate_limits_v2" "phone_number_rate_limit" {
   service_sid = twilio_verify_services_v2.verify.sid
   unique_name = "end_user_phone_number"
 }
-
 
 resource "twilio_verify_services_rate_limits_buckets_v2" "phone_number_rate_limit_bucket" {
   service_sid    = twilio_verify_services_v2.verify.sid

@@ -10,6 +10,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 3.10.0"
     }
+    twilio = {
+      source  = "twilio/twilio"
+      version = "~> 0.13.2"
+    }
   }
 
   backend "s3" {
@@ -24,4 +28,9 @@ terraform {
 
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
+}
+
+provider "twilio" {
+  username = var.twilio_account_sid
+  password = var.twilio_auth_token
 }
