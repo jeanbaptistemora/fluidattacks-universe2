@@ -314,7 +314,7 @@ class AssignedVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, emails: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         return await collect(
             tuple(
                 _get_assigned_vulnerabilities(user_email=user_email)
@@ -330,10 +330,13 @@ class FindingVulnerabilitiesLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
+        self, finding_ids: Tuple[str, ...]
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         vulns = await collect(
-            tuple(_get_finding_vulnerabilities(finding_id=id) for id in ids)
+            tuple(
+                _get_finding_vulnerabilities(finding_id=finding_id)
+                for finding_id in finding_ids
+            )
         )
         for finding_vulns in vulns:
             for vuln in finding_vulns:
@@ -459,7 +462,7 @@ class RootVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         return await collect(
             _get_root_vulnerabilities(root_id=id) for id in ids
         )
@@ -469,7 +472,7 @@ class EventVulnerabilitiesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
+    ) -> Tuple[Tuple[Vulnerability, ...], ...]:
         return await collect(
             _get_affected_reattacks(event_id=id) for id in ids
         )

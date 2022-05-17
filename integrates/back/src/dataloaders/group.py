@@ -62,7 +62,7 @@ class OrganizationGroupsTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_ids: tuple[str, ...]
-    ) -> tuple[Group, ...]:
+    ) -> tuple[tuple[Group, ...], ...]:
         return await collect(
             tuple(map(_get_organization_groups, organization_ids))
         )
