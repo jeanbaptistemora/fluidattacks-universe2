@@ -18,7 +18,14 @@ data "aws_subnet" "main" {
     values = [each.key]
   }
 }
+data "cloudflare_zones" "fluidattacks_com" {
+  filter {
+    name = "fluidattacks.com"
+  }
+}
+data "cloudflare_ip_ranges" "cloudflare" {}
 
+variable "cloudflare_api_token" {}
 variable "region" {
   default = "us-east-1"
 }

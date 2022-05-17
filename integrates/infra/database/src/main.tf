@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.4.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 3.10.0"
+    }
   }
 
   backend "s3" {
@@ -16,4 +20,8 @@ terraform {
     dynamodb_table = "terraform_state_lock"
   }
 
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
