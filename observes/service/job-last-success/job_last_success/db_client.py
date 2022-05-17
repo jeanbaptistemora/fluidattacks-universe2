@@ -86,7 +86,7 @@ def _get_single_job(state: DbState, job_name: str) -> List[Any]:
     )
     state.cursor.execute(query)
     result = state.cursor.fetchall()
-    return result
+    return list(result)
 
 
 def single_job_update(state: DbState, job_name: str) -> None:

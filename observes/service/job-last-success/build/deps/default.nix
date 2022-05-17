@@ -13,5 +13,7 @@ in
     import-linter = import ./import-linter {
       inherit lib python_pkgs;
     };
+    fa-purity = local_pkgs.fa-purity."${python_version}".pkg;
+    redshift-client = local_pkgs.redshift-client."${python_version}".pkg;
     utils-logger = local_pkgs.utils-logger."${python_version}".pkg;
   }
