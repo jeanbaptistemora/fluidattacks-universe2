@@ -13,6 +13,7 @@ from .enums import (
 from .types import (
     Group,
     GroupFile,
+    GroupMetadataToUpdate,
     GroupState,
     GroupStatusJustification,
 )
@@ -69,6 +70,27 @@ def format_group(item: Item) -> Group:
         state=format_state(item["state"]),
         tags=set(item["tags"]) if item.get("tags") else None,
     )
+
+
+def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
+    item = {
+        "agent_token": metadata.agent_token,
+        "business_id": metadata.business_id,
+        "business_name": metadata.business_name,
+        "description": metadata.description,
+        "disambiguation": metadata.disambiguation,
+        "context": metadata.context,
+        "files": [file._asdict() for file in metadata.files]
+        if metadata.files is not None
+        else None,
+        "language": metadata.language.value if metadata.language else None,
+        "tags": metadata.tags,
+    }
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
 
 
 def format_state(state: Item) -> GroupState:
