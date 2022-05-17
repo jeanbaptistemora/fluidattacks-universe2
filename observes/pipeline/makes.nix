@@ -48,6 +48,7 @@
   pkgTargets = with index; [
     service.batch_stability
     service.scheduler
+    service.job_last_success
     tap.checkly
   ];
   genPkgJobs = pkg: [
