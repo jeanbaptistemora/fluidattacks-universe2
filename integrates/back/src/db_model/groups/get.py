@@ -3,6 +3,7 @@ from .types import (
 )
 from .utils import (
     format_group,
+    remove_org_id_prefix,
 )
 from aiodataloader import (
     DataLoader,
@@ -51,6 +52,29 @@ async def _get_group(*, group_name: str) -> Group:
     return format_group(response.items[0])
 
 
+async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["group_metadata"],
+        values={"organization_id": remove_org_id_prefix(organization_id)},
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["group_metadata"],),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_group(item) for item in response.items)
+
+
 class GroupLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -60,4 +84,14 @@ class GroupLoader(DataLoader):
             tuple(
                 _get_group(group_name=group_name) for group_name in group_names
             )
+        )
+
+
+class OrganizationGroupsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_ids: Iterable[str]
+    ) -> tuple[tuple[Group, ...], ...]:
+        return await collect(
+            tuple(map(_get_organization_groups, organization_ids))
         )
