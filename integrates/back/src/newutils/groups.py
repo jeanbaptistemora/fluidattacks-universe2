@@ -116,6 +116,7 @@ def format_group_state(state: Item) -> GroupState:
         has_machine=has_machine,
         has_squad=has_squad,
         justification=justification,
+        managed=state.get("managed", True),
         modified_by=str(state.get("requester")) or str(state.get("user")),
         modified_date=convert_to_iso_str(state["date"]),
         service=GroupService[str(state["service"]).upper()]

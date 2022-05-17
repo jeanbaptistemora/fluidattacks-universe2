@@ -87,6 +87,7 @@ async def populate() -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
+                        managed=True,
                         modified_by="test@fluidattacks.com",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.WHITE,
@@ -105,6 +106,7 @@ async def populate() -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
+                        managed=True,
                         modified_by="test@fluidattacks.com",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.WHITE,
@@ -123,6 +125,7 @@ async def populate() -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
+                        managed=True,
                         modified_by="test@fluidattacks.com",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.BLACK,
@@ -141,6 +144,7 @@ async def populate() -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
+                        managed=True,
                         modified_by="test@fluidattacks.com",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.WHITE,

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 16, 2022, 09:56 AM",
+    "DateLastModified": "May 17, 2022, 02:09 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -729,6 +729,10 @@
         {
           "AttributeName": "treatment_summary",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "managed",
+          "AttributeType": "BOOL"
         }
       ],
       "TableFacets": [
@@ -1692,18 +1696,18 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "name",
+            "description",
+            "language",
+            "tags",
+            "files",
             "agent_token",
+            "state",
+            "organization_id",
             "business_id",
             "business_name",
             "context",
-            "description",
-            "disambiguation",
-            "files",
-            "language",
-            "name",
-            "organization_id",
-            "state",
-            "tags"
+            "disambiguation"
           ]
         },
         {
@@ -1714,17 +1718,18 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
+            "type",
+            "status",
+            "modified_date",
+            "modified_by",
             "comments",
+            "justification",
             "has_machine",
             "has_squad",
-            "justification",
-            "modified_by",
-            "modified_date",
             "pending_deletion_date",
             "service",
-            "status",
             "tier",
-            "type"
+            "managed"
           ]
         },
         {

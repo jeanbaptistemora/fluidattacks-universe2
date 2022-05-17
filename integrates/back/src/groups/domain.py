@@ -600,6 +600,7 @@ async def add_group(
             state=GroupState(
                 has_machine=has_machine,
                 has_squad=has_squad,
+                managed=True,
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
                 service=service,
@@ -808,6 +809,7 @@ async def update_group(
             modified_date=datetime_utils.get_iso_date(),
             has_machine=has_machine,
             has_squad=has_squad,
+            managed=group.state.managed,
             justification=justification,
             modified_by=user_email,
             service=service,

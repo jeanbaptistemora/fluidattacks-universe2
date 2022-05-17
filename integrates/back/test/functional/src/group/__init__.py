@@ -28,6 +28,7 @@ async def get_result(
                 openVulnerabilities
                 closedVulnerabilities
                 lastClosedVulnerability
+                managed
                 maxSeverity
                 meanRemediate
                 meanRemediateCriticalSeverity
