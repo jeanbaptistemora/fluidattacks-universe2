@@ -181,14 +181,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/module/observesJobLastSuccess";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesJobLastSuccessTests";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintPython/module/observesServiceMigrateTables";
             gitlabExtra = gitlabLint;
           }

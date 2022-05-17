@@ -1,17 +1,19 @@
 {
-  makeScript,
-  outputs,
+  fetchNixpkgs,
+  inputs,
+  makeTemplate,
+  projectPath,
   ...
-}:
-makeScript {
-  entrypoint = ''
-    import_and_run job_last_success.cli main "$@"
-  '';
-  searchPaths = {
-    source = [
-      outputs."/observes/service/job-last-success/env/runtime"
-      outputs."/observes/common/import-and-run"
-    ];
-  };
-  name = "observes-service-job-last-success-bin";
-}
+}: let
+  root = projectPath inputs.observesIndex.service.job_last_success.root;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  env = pkg.env.bin;
+in
+  makeTemplate {
+    name = "observes-service-job-last-success-bin";
+    searchPaths = {
+      bin = [
+        env
+      ];
+    };
+  }

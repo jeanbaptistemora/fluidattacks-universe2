@@ -152,20 +152,6 @@ in {
         python = "3.8";
         src = "/observes/common/singer-io/src/tests";
       };
-      observesJobLastSuccess = {
-        searchPaths.source = [
-          outputs."/observes/service/job-last-success/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/service/job-last-success/job_last_success";
-      };
-      observesJobLastSuccessTests = {
-        searchPaths.source = [
-          outputs."/observes/service/job-last-success/env/runtime"
-        ];
-        python = "3.8";
-        src = "/observes/service/job-last-success/tests";
-      };
       observesServiceMigrateTables = {
         searchPaths.source = [
           outputs."/observes/service/migrate-tables/env/runtime"
