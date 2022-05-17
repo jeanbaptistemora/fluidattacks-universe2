@@ -23,7 +23,8 @@ template: advisory
 | **Code name**           | [Bowie](https://en.wikipedia.org/wiki/David_Bowie)         |
 | **Product**             | Popcorn Time                                               |
 | **Affected versions**   | Version 0.4.7 (Just Keep Swimming)                         |
-| **State**               | Unpublished/Contacted Vendor                               |
+| **State**               | Public                                                     |
+| **Release date**        | 2022-05-17                                                 |
 
 ## Vulnerability
 
@@ -39,23 +40,57 @@ template: advisory
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+Popcorn Time 0.4.7 has a Stored XSS in the `Movies API Server(s)`
+field via the `settings` page. The `nodeIntegration` configuration
+is set to **on** which allows the webpage to use `NodeJs` features,
+an attacker can leverage this to run OS commands.
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+### Steps to reproduce
+
+1. Open the Popcorn time application.
+
+2. Go to `settings`.
+
+3. Enable `Show advanced settings`.
+
+4. Scroll down to the `API Server(s)` section.
+
+5. Insert the following PoC inside the `Movies API Server(s)`
+   field and click on `Check for updates`.
+
+```javascript
+a"><script>require('child_process').exec('calc');</script>
+```
+
+6. Scroll down to the `Database` section and click on
+   `Export database`.
+
+7. The application will create a `.zip` file with
+   the current configuration.
+
+8. Send the configuration to the victim.
+
+9. The victim must go to `Settings -> Database`
+   and click on `Import Database`
+
+10. When the victim restarts the application the XSS
+    will be triggered and will run the `calc` command.
+
+### System Information
+
+* Version: Popcorn Time 0.4.7.
+* Operating System: Windows 10.0.19042 N/A Build 19042.
+* Installer: Popcorn-Time-0.4.7-win64-Setup.exe
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+An updated version of PopcornTime is available at the vendor page.
 
 ## Credits
 
@@ -68,9 +103,16 @@ Team of  `Fluid Attacks`.
 |                     |                                                                     |
 |---------------------|---------------------------------------------------------------------|
 | **Vendor page**     | <https://github.com/popcorn-official/popcorn-desktop>               |
+| **Issue**           | <https://github.com/popcorn-official/popcorn-desktop/issues/2491>   |
 
 ## Timeline
 
-- 2022-04-26: Vulnerability discovered.
+* 2022-04-26: Vulnerability discovered.
 
-- 2022-04-26: Vendor contacted.
+* 2022-04-26: Vendor contacted.
+
+* 2022-05-04: Vendor confirmed the vulnerability.
+
+* 2022-05-07: Vulnerability patched.
+
+* 2022-05-17: Public disclosure.
