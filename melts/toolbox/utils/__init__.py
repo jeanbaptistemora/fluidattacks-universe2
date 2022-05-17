@@ -1,7 +1,6 @@
 from toolbox.utils import (
     bugs,
     cli,
-    does_subs_exist,
     env,
     file,
     function,
@@ -13,7 +12,6 @@ from toolbox.utils import (
 
 # Imported but unused
 assert cli
-assert does_subs_exist
 assert file
 assert integrates
 assert generic

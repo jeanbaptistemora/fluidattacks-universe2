@@ -536,12 +536,6 @@ def get_sops_secret(var: str, path: str, profile: str = "default") -> str:
     return stdout
 
 
-@lru_cache(maxsize=None, typed=True)
-def does_subs_exist(subs: str) -> bool:
-    """Return True if the group exists."""
-    return os.path.isdir(f"groups/{subs}")
-
-
 def does_fusion_exist(subs: str) -> bool:
     """Return True if fusion folder present in group"""
     return os.path.isdir(f"groups/{subs}/fusion")

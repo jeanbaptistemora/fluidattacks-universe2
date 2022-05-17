@@ -1,28 +1,15 @@
 from click import (
-    argument,
     command,
     echo,
     option,
 )
 import sys
 from toolbox.utils import (
-    does_subs_exist,
-    generic,
     get_commit_subs,
 )
 
 
 @command(name="utils", short_help="Generic utilities")
-@argument(
-    "group",
-    default=generic.get_current_group(),
-)
-@option(
-    "--does-subs-exist",
-    "o_does_subs_exist",
-    help="Check if a group exists.",
-    is_flag=True,
-)
 @option(
     "--get-commit-subs",
     "o_get_commit_subs",
@@ -30,13 +17,9 @@ from toolbox.utils import (
     is_flag=True,
 )
 def utils_management(
-    group: str,
-    o_does_subs_exist: bool,
     o_get_commit_subs: bool,
 ) -> None:
-    if o_does_subs_exist:
-        sys.exit(0 if does_subs_exist.main(group) else 1)
-    elif o_get_commit_subs:
+    if o_get_commit_subs:
         subs = get_commit_subs.main()
         echo(subs)
         sys.exit(0 if subs else 1)

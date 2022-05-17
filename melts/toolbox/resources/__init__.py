@@ -41,7 +41,6 @@ from shlex import (
 )
 import shutil
 import stat
-import subprocess
 from subprocess import (
     DEVNULL,
     PIPE,
@@ -518,35 +517,6 @@ def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
     os.chdir(original_dir)
 
     return success
-
-
-def edit_secrets(group: str, suffix: str, profile: str) -> bool:
-    status: bool = True
-    secrets_file: str = f"groups/{group}/config/secrets-{suffix}.yaml"
-    if not os.path.exists(secrets_file):
-        LOGGER.error("secrets-%s.yaml does not exist in %s", suffix, group)
-        status = False
-    else:
-        utils.generic.aws_login(profile)
-        subprocess.call(
-            f"sops --aws-profile {profile} {secrets_file}", shell=True
-        )
-    return status
-
-
-def read_secrets(group: str, suffix: str, profile: str) -> bool:
-    status: bool = True
-    secrets_file: str = f"groups/{group}/config/secrets-{suffix}.yaml"
-    if not os.path.exists(secrets_file):
-        LOGGER.error("secrets-%s.yaml does not exist in %s", suffix, group)
-        status = False
-    else:
-        utils.generic.aws_login(profile)
-        subprocess.call(
-            f"sops --aws-profile {profile} --decrypt {secrets_file}",
-            shell=True,
-        )
-    return status
 
 
 def get_fingerprint(subs: str) -> bool:

@@ -152,7 +152,7 @@ def main(
     if "api_mutations_refresh_toe_lines_mutate" not in permissions:
         LOGGER.error("Must have permission to refresh the surface lines")
         return False
-    if not (generic.does_subs_exist(subs) and generic.does_fusion_exist(subs)):
+    if not generic.does_fusion_exist(subs):
         LOGGER.error("Either the subs or the fusion folder does not exist")
         return False
 
