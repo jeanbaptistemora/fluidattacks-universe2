@@ -6,16 +6,88 @@ slug: /machine/web/groups/events
 ---
 
 Sometimes,
-a situation may arise for a group
-that prevents analysts from pentesting
-part of the scope or maybe all of it.
-When this is the case,
-we need to keep track of these situations
-and manage them,
-so we can resolve them quickly and efficiently.
-This is what the **Event** tab is used for.
+a situation may arise in a
+group that prevents our analysts
+from pentesting part of the
+scope or maybe all of it.
+Your team needs to keep track
+of these situations and solve them,
+so we can resume our assessments.
+The place on the ASM where you
+can see a cumulative record of
+solved and unsolved events in
+your group is the Events section.
 
-![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211893/docs/web/groups/events/event_tab_view_lsxvmy.webp)
+![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1652798987/docs/web/groups/events/event_tab_view.png)
+
+This section shows a table
+providing the following
+information:
+
+- **ID:**
+  The event’s unique identifier
+- **Date reported:**
+  When the event was reported
+- **Description:**
+  The problem that,
+  according to the
+  hacker,
+  impeded,
+  or still impedes,
+  their security assessments
+- **Accessibility:**
+  Which out of Environment,
+  Repository or both are
+  affected by the event
+- **Affected components:**
+  The components that are
+  showing problems within
+  the repository or environment
+- **Type:**
+  The category in which
+  the problem falls,
+  which can be Authorization
+  for special attack,
+  Incorrect or missing supplies,
+  ToE different from what
+  was agreed upon or Other
+- **Status:**
+  The condition of the event,
+  which can be either Solved
+  or Unsolved
+- **Date closed:**
+  When the event was solved,
+  if it was;
+  otherwise,
+  only a hyphen is shown
+
+## Functionalities
+
+### Export events
+
+You can download the event table
+to a CSV (comma-separated values)
+file by clicking on the Export button.
+
+### Columns filter
+
+You can show or hide columns
+in the table by clicking on
+the Columns button and toggling
+the on/off button in front
+of each column name.
+
+![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1652799131/docs/web/groups/events/functionalities_columns_filter.png)
+
+### Filters
+
+By clicking the Filters button,
+you can access several filter
+options corresponding to the
+variables that give columns
+their names.
+
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1652799132/docs/web/groups/events/functionalities_filters.png)
 
 ## Event details
 
@@ -61,6 +133,35 @@ project managers about the event.
 You can leave your comments there.
 
 ![Event Details Comments](https://res.cloudinary.com/fluid-attacks/image/upload/v1652304172/docs/web/groups/events/details_comments.png)
+
+## Types of events
+
+### Authorization for spacial attack
+
+This event type corresponds to
+situations when the hacker
+requests permission to
+exploit a vulnerability,
+anticipating that its
+exploitation may cause
+anomalous behaviors in your
+system’s infrastructure or environment.
+
+### Incorrect or missing supplies
+
+This event type refers to
+situations when the testing
+environment is down or when
+you provide incorrect URLs
+or bad credentials.
+
+### ToE different from what was agreed upon
+
+This event type refers to
+situations when you add a
+git repository or environment
+that we didn’t agree to assess
+when the ToE was defined.
 
 ## Creating an event
 
