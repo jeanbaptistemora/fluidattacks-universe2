@@ -1,4 +1,7 @@
-lib: python_pkgs:
+{
+  lib,
+  python_pkgs,
+}:
 python_pkgs
 // {
   types-click = import ./click/stubs.nix lib;
