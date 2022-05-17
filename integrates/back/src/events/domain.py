@@ -321,7 +321,9 @@ async def solve_event(  # pylint: disable=too-many-locals
     affectation: str,
     hacker_email: str,
     date: datetime,
-) -> bool:
+) -> Tuple[bool, Dict[str, Set[str]]]:
+    """Solves an Event, can either return a bool and an empty dict or a bool
+    with the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`"""
     event = await get_event(event_id)
     success = False
     loaders = info.context.loaders
@@ -338,7 +340,8 @@ async def solve_event(  # pylint: disable=too-many-locals
     affected_reattacks: Tuple[
         Vulnerability, ...
     ] = await loaders.event_vulnerabilities_loader.load((event_id))
-    if len(affected_reattacks) > 0:
+    has_reattacks: bool = len(affected_reattacks) > 0
+    if has_reattacks:
         user_info = await token_utils.get_jwt_content(info.context)
         reattacks_dict: Dict[str, Set[str]] = {}
         for vuln in affected_reattacks:
@@ -390,7 +393,9 @@ async def solve_event(  # pylint: disable=too-many-locals
         },
     ]
     success = await events_dal.update(event_id, {"historic_state": history})
-    return success
+    if has_reattacks:
+        return (success, reattacks_dict)
+    return (success, {})
 
 
 async def update_evidence(

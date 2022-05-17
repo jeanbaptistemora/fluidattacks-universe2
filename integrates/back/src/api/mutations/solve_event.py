@@ -29,6 +29,12 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -46,7 +52,7 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
-    success = await events_domain.solve_event(
+    (success, reattacks_dict) = await events_domain.solve_event(
         info, event_id, affectation, hacker_email, date
     )
 
@@ -58,6 +64,16 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context, f"Security: Solved event {event_id} successfully"
         )
+        if bool(reattacks_dict):
+            await update_unreliable_indicators_by_deps(
+                EntityDependency.request_vulnerabilities_verification,
+                finding_ids=list(reattacks_dict.keys()),
+                vulnerability_ids=[
+                    vuln_id
+                    for hold_ids in reattacks_dict.values()
+                    for vuln_id in hold_ids
+                ],
+            )
     else:
         logs_utils.cloudwatch_log(
             info.context, "Security: Attempted to solve event {event_id}"

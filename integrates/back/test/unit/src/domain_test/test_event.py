@@ -109,13 +109,14 @@ async def test_add_event_file_image() -> None:
 async def test_solve_event() -> None:
     request = await create_dummy_session("unittesting@fluidattacks.com")
     info = create_dummy_info(request)
-    assert await events_domain.solve_event(
+    (success, _reattacks_dict) = await events_domain.solve_event(
         info=info,
         event_id="538745942",
         affectation=1,
         hacker_email="unittesting@fluidattacks.com",
         date=parse_datetime("2019-12-09T05:00:00.000Z"),
     )
+    assert success
     event = await events_domain.get_event("538745942")
     assert event["historic_state"][-1]["state"] == "SOLVED"
     with pytest.raises(EventAlreadyClosed):
