@@ -44,6 +44,9 @@ from newutils.organizations import (
     format_organization_item,
     remove_org_id_prefix,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from settings import (
     LOGGING,
 )
@@ -522,13 +525,31 @@ async def update_policies_typed(
     organization_id: str,
     organization_name: str,
     policies: OrganizationPolicies,
-) -> None:
-    organization_item = format_org_policies_item(policies)
-    update(
+) -> bool:
+    historic_policies = []
+    if policies.max_number_acceptances is not None:
+        organization_data = await get_by_id(
+            organization_id=organization_id,
+            attributes=[
+                "historic_max_number_acceptances",
+                "historic_max_number_acceptations",
+            ],
+        )
+        historic_policies = get_key_or_fallback(
+            organization_data,
+            "historic_max_number_acceptances",
+            "historic_max_number_acceptations",
+            fallback=[],
+        )
+    organization_item = format_org_policies_item(
+        policies, historic=historic_policies
+    )
+    success = await update(
         organization_id=organization_id,
         organization_name=organization_name,
         values=organization_item,
     )
+    return success
 
 
 async def update_group(
