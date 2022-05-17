@@ -16,7 +16,6 @@ from toolbox.utils import (
 @argument(
     "group",
     default=generic.get_current_group(),
-    callback=generic.is_valid_group,
 )
 @option(
     "--does-subs-exist",

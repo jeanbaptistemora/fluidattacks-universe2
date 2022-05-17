@@ -16,7 +16,6 @@ SUBS_METAVAR = "[GROUP]"
 @argument(
     "group",
     default=utils.generic.get_current_group(),
-    callback=utils.generic.is_valid_group,
 )
 @option(
     "--clone-from-customer-git",

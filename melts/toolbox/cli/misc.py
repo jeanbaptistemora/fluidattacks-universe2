@@ -31,7 +31,6 @@ def do_check_commit_msg() -> bool:
 @argument(
     "group",
     default=utils.generic.get_current_group(),
-    callback=utils.generic.is_valid_group,
 )
 @option("--check-commit-msg", is_flag=True, help="validate commit msg syntax")
 @option("--is-drills-commit", is_flag=True)
