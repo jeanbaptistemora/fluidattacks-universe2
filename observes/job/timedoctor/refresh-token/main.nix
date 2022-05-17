@@ -1,4 +1,5 @@
 {
+  inputs,
   makeScript,
   outputs,
   ...
@@ -6,7 +7,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/service/job-last-success/bin"
+      outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/observes/service/timedoctor-tokens/bin"
     ];
     source = [

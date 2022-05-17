@@ -21,7 +21,6 @@ in {
                 "/observes/common/utils-logger/src"
                 "/observes/common/postgres-client/src"
                 "/observes/common/purity"
-                "/observes/service/job-last-success/src"
                 "/observes/service/migrate-tables/src"
                 "/observes/service/timedoctor-tokens/src"
                 "/observes/singer/tap-zoho-crm/src"
@@ -29,6 +28,7 @@ in {
               ++ [
                 inputs.observesIndex.service.scheduler.root
                 inputs.observesIndex.service.batch_stability.root
+                inputs.observesIndex.service.job_last_success.root
               ]
               ++ (
                 extract_roots inputs.observesIndex.tap
@@ -157,14 +157,14 @@ in {
           outputs."/observes/service/job-last-success/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/service/job-last-success/src/job_last_success";
+        src = "/observes/service/job-last-success/job_last_success";
       };
       observesJobLastSuccessTests = {
         searchPaths.source = [
           outputs."/observes/service/job-last-success/env/runtime"
         ];
         python = "3.8";
-        src = "/observes/service/job-last-success/src/tests";
+        src = "/observes/service/job-last-success/tests";
       };
       observesServiceMigrateTables = {
         searchPaths.source = [

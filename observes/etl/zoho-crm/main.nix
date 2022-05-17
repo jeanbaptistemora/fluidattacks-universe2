@@ -11,7 +11,7 @@ makeScript {
       outputs."${inputs.observesIndex.tap.csv.bin}"
       outputs."${inputs.observesIndex.tap.json.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
-      outputs."/observes/service/job-last-success/bin"
+      outputs."${inputs.observesIndex.service.job_last_success.bin}"
     ];
   };
   name = "observes-etl-zoho-crm";

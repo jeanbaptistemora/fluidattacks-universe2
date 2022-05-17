@@ -9,7 +9,7 @@ makeScript {
     bin = [
       outputs."${inputs.observesIndex.tap.formstack.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
-      outputs."/observes/service/job-last-success/bin"
+      outputs."${inputs.observesIndex.service.job_last_success.bin}"
     ];
     source = [
       outputs."/common/utils/aws"

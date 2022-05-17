@@ -40,6 +40,7 @@ in {
       // {
         root = "${servicePath}/db-migration/src";
       };
+    job_last_success = new_std "${servicePath}/job-last-success";
     scheduler = new_std "${servicePath}/jobs-scheduler";
   };
   etl = {
