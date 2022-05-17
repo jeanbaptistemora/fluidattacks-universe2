@@ -612,6 +612,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   <Row>
                     <Can do={"api_mutations_add_git_root_mutate"}>
                       <TooltipWrapper
+                        hide={runTour}
                         id={t("group.scope.common.addTooltip.id")}
                         message={t("group.scope.common.addTooltip")}
                       >

@@ -640,6 +640,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                     <fieldset className={"bn"}>
                       <TooltipWrapper
                         displayClass={"dib"}
+                        hide={runTour}
                         id={"group.scope.git.filter.tooltip.info"}
                         message={t("group.scope.git.filter.tooltip")}
                       >
