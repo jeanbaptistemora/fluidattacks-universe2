@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-alias job-success="observes-service-job-last-success-bin"
 alias tap-mailchimp="observes-singer-tap-mailchimp-bin"
 alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"
@@ -35,7 +34,7 @@ function start_etl {
       --drop-schema \
       --schema-name 'mailchimp' \
       < .singer \
-    && job-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'mailchimp'
 }

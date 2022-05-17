@@ -7,10 +7,10 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/observes/service/timedoctor-tokens/bin"
     ];
     source = [
+      outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
       outputs."/common/utils/gitlab"

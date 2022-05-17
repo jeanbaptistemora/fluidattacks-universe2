@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-alias last-success="observes-service-job-last-success-bin"
 alias tap-bugsnag="observes-singer-tap-bugsnag-bin"
 alias tap-json="observes-singer-tap-json-bin"
 alias target-redshift="observes-target-redshift"
@@ -27,7 +26,7 @@ function start_etl {
       --drop-schema \
       --schema-name 'bugsnag' \
       < .singer \
-    && last-success single-job \
+    && job-last-success single-job \
       --auth "${db_creds}" \
       --job 'bugsnag'
 }

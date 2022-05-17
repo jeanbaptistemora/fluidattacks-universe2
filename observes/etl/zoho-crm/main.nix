@@ -11,6 +11,8 @@ makeScript {
       outputs."${inputs.observesIndex.tap.csv.bin}"
       outputs."${inputs.observesIndex.tap.json.bin}"
       outputs."${inputs.observesIndex.target.redshift.bin}"
+    ];
+    source = [
       outputs."${inputs.observesIndex.service.job_last_success.bin}"
     ];
   };

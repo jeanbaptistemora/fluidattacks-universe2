@@ -11,9 +11,9 @@ makeScript {
       inputs.nixpkgs.coreutils
       inputs.nixpkgs.jq
       outputs."${inputs.observesIndex.tap.timedoctor.bin}"
-      outputs."${inputs.observesIndex.service.job_last_success.bin}"
     ];
     source = [
+      outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/common/utils/aws"
       outputs."/common/utils/gitlab"
       outputs."/common/utils/sops"
