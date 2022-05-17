@@ -2,9 +2,8 @@
 """
 Remove useless comments on findings
 
-Execution Time:    UTCUTC
-Finalization Time: UTCUTC
-Currently working on this
+Execution Time:    2022-05-17 at 20:17:47 UTCUTC
+Finalization Time: 2022-05-17 at 21:01:58 UTCUTC
 """
 from aioextensions import (
     run,
@@ -23,6 +22,7 @@ import logging.config
 from organizations.domain import (
     get_all_active_group_names,
 )
+import re
 from settings import (
     LOGGING,
 )
@@ -42,14 +42,25 @@ TABLE_NAME: str = "FI_findings"
 async def main() -> None:  # noqa: MC0001
     loaders = get_new_context()
     groups = sorted(await get_all_active_group_names(loaders=loaders))
+    useless_comments = (
+        r"^Reattack request was executed in\s\s\s\s\s\s\s\s\s\s\s\s\s"
+        + r"+([0-9]{4}\/+[0-9]{2}\/+[0-9]{2}\s"
+        + r"[0-9]{2}\:[0-9]{2})\.\s$"
+    )
 
     for group in groups:
         findings: Tuple[Finding, ...] = await loaders.group_findings.load(
             group
         )
 
-    for finding_id in [finding.id for finding in findings]:
-        await comments_domain.get("comment", finding_id)
+        for finding_id in [finding.id for finding in findings]:
+            comments = await comments_domain.get("comment", finding_id)
+            for comment in comments:
+                if comment.get("email") == "machine@fluidattacks.com":
+                    if re.search(useless_comments, comment.get("content")):
+                        await comments_domain.delete(
+                            comment.get("comment_id"), finding_id
+                        )
 
 
 if __name__ == "__main__":
