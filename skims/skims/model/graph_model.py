@@ -532,6 +532,8 @@ class GraphDB(NamedTuple):
         ]
 
 
+MetadataGraphShardNode = Tuple[GraphShard, NId, Dict]
+MetadataGraphShardNodes = Iterable[MetadataGraphShardNode]
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 

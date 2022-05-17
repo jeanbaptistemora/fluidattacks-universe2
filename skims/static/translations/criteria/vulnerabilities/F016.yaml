@@ -1,3 +1,6 @@
+src.lib_root.f016.csharp_weak_protocol:
+  en: The application makes use of the {protocol} protocol which is insecure
+  es: La aplicación hace uso del protocolo {protocol} el cual es inseguro
 src.lib_path.f016.serves_content_over_insecure_protocols:
   en: The application makes use of an insecure protocol
   es: La aplicación hace uso de un protocolo inseguro

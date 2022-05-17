@@ -12,9 +12,11 @@ from model.graph_model import (
     GraphDB,
     GraphShardMetadataLanguage,
     GraphShardNodes,
+    MetadataGraphShardNodes,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+    get_vulnerabilities_from_n_ids_metadata,
 )
 from symbolic_eval.evaluate import (
     evaluate,
@@ -33,7 +35,8 @@ def weak_protocol(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_WEAK_PROTOCOL
 
-    def n_ids() -> GraphShardNodes:
+    def n_ids() -> MetadataGraphShardNodes:
+        metadata = {}
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
@@ -52,10 +55,15 @@ def weak_protocol(
                     and shard.graph.nodes[c_ident[1]]["label_text"]
                     in {"Ssl3", "Tls", "Tls11", "None"}
                 ):
-                    yield shard, member
+                    protocol = shard.graph.nodes[c_ident[1]]["label_text"]
 
-    return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f016.serves_content_over_insecure_protocols",
+                    metadata["what"] = protocol
+                    metadata["desc_params"] = {"protocol": protocol}
+
+                    yield shard, member, metadata
+
+    return get_vulnerabilities_from_n_ids_metadata(
+        desc_key="src.lib_root.f016.csharp_weak_protocol",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

@@ -20,6 +20,7 @@ from sast_symbolic_evaluation.evaluate import (
     PossibleSyntaxStepsForUntrustedNId,
 )
 from typing import (
+    Any,
     Dict,
     Iterator,
     Optional,
@@ -45,9 +46,10 @@ def get_vulnerability_from_n_id(
     graph_shard: graph_model.GraphShard,
     n_id: str,
     method: core_model.MethodsEnum,
+    metadata: Optional[Dict[str, Any]] = None,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
-    meta_attrs_label_path = graph_shard.path
+    what_data = meta_attrs_label_path = graph_shard.path
 
     n_attrs: graph_model.NAttrs = graph_shard.graph.nodes[n_id]
     n_attrs_label_column = n_attrs["label_c"]
@@ -59,9 +61,21 @@ def get_vulnerability_from_n_id(
     ) as handle:
         content: str = handle.read()
 
+    if metadata:
+        what_data = (
+            f"{meta_attrs_label_path} ({meta_what})"
+            if (meta_what := metadata.get("what"))
+            else what_data
+        )
+        desc_params = (
+            meta_desc_params
+            if (meta_desc_params := metadata.get("desc_params"))
+            else desc_params
+        )
+
     return build_lines_vuln(
         method=method,
-        what=meta_attrs_label_path,
+        what=what_data,
         where=str(n_attrs_label_line),
         metadata=build_metadata(
             method=method,
@@ -77,6 +91,27 @@ def get_vulnerability_from_n_id(
                 ),
             ),
         ),
+    )
+
+
+def get_vulnerabilities_from_n_ids_metadata(
+    *,
+    desc_key: str,
+    desc_params: Dict[str, str],
+    graph_shard_nodes: graph_model.MetadataGraphShardNodes,
+    method: core_model.MethodsEnum,
+) -> core_model.Vulnerabilities:
+
+    return tuple(
+        get_vulnerability_from_n_id(
+            desc_key=desc_key,
+            desc_params=desc_params,
+            graph_shard=graph_shard,
+            n_id=n_id,
+            method=method,
+            metadata=metadata,
+        )
+        for graph_shard, n_id, metadata in graph_shard_nodes
     )
 
 

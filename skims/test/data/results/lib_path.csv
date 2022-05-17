@@ -22020,7 +22020,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Ins
   28 | }
      ^ Col 0
 ",terraform.tfm_aws_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,10,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,"
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls),10,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of the Tls protocol which is insecure in namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,"
    1 |
    2 |
    3 |
