@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                                 |
-|-------------------------|-----------------------------------------------------------------|
-| **Name**                | Network Olympus 1.8.0 - SQL Injection                           |
-| **Code name**           | [Spinetta](https://en.wikipedia.org/wiki/Luis_Alberto_Spinetta) |
-| **Product**             | Network Olympus                                                 |
-| **Affected versions**   | Version 1.8.0                                                   |
-| **State**               | Public                                                          |
-| **Release date**        | 2022-03-07                                                      |
+|                       |                                                                 |
+| --------------------- | --------------------------------------------------------------- |
+| **Name**              | Network Olympus 1.8.0 - SQL Injection                           |
+| **Code name**         | [Spinetta](https://en.wikipedia.org/wiki/Luis_Alberto_Spinetta) |
+| **Product**           | Network Olympus                                                 |
+| **Affected versions** | Version 1.8.0                                                   |
+| **State**             | Public                                                          |
+| **Release date**      | 2022-03-07                                                      |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | SQL injection                                                    |
-| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146)    |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
-| **CVSSv3 Base Score** | 9.1                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-25225](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25225)                                                     |
+|                       |                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------- |
+| **Kind**              | SQL injection                                                                    |
+| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146) |
+| **Remote**            | Yes                                                                              |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                                     |
+| **CVSSv3 Base Score** | 9.1                                                                              |
+| **Exploit available** | No                                                                               |
+| **CVE ID(s)**         | [CVE-2022-25225](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25225)  |
 
 ## Description
 
@@ -202,14 +202,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.network-olympus.com/monitoring/>                       |
+**Vendor page** <https://www.network-olympus.com/monitoring/>
 
 ## Timeline
 
-* 2022-02-22: Vulnerability discovered.
-
-* 2022-02-23: Vendor contacted.
-
-* 2022-03-07: Public Disclosure.
+<time-lapse
+  discovered="2022-02-22"
+  contacted="2022-02-23"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-03-07">
+</time-lapse>

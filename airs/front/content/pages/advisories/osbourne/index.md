@@ -17,27 +17,27 @@ template: advisory
 
 ## Summary
 
-|                       |                                                        |
-|-----------------------|--------------------------------------------------------|
-| **Name**              | phpIPAM 1.4.4 - Stored XSS                             |
-| **Code name**         | [Osbourne](https://en.wikipedia.org/wiki/Ozzy_Osbourne)|
-| **Product**           | phpIPAM                                                |
-| **Affected versions** | 1.4.4                                                  |
-| **Fixed versions**    | 1.4.5                                                  |
-| **State**             | Public                                                 |
-| **Release date**      | 2022-01-18                                             |
+|                       |                                                         |
+| --------------------- | ------------------------------------------------------- |
+| **Name**              | phpIPAM 1.4.4 - Stored XSS                              |
+| **Code name**         | [Osbourne](https://en.wikipedia.org/wiki/Ozzy_Osbourne) |
+| **Product**           | phpIPAM                                                 |
+| **Affected versions** | 1.4.4                                                   |
+| **Fixed versions**    | 1.4.5                                                   |
+| **State**             | Public                                                  |
+| **Release date**      | 2022-01-18                                              |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Stored cross-site scripting (XSS)                                |
-| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                     |
-| **CVSSv3 Base Score** | 4.8                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23045](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23045)                                               |
+|                       |                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Kind**              | Stored cross-site scripting (XSS)                                                                    |
+| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010) |
+| **Remote**            | Yes                                                                                                  |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                                                         |
+| **CVSSv3 Base Score** | 4.8                                                                                                  |
+| **Exploit available** | No                                                                                                   |
+| **CVE ID(s)**         | [CVE-2022-23045](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23045)                      |
 
 ## Description
 
@@ -88,19 +88,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://phpipam.net/>                                          |
-| **Patched version** | <https://github.com/phpipam/phpipam/releases/tag/v1.4.5>        |
+**Vendor page** <https://phpipam.net/>
+
+**Patched version** <https://github.com/phpipam/phpipam/releases/tag/v1.4.5>
 
 ## Timeline
 
-- 2022-01-06: Vulnerability discovered.
-
-- 2022-01-07: Vendor contacted.
-
-- 2022-01-07: Vendor replied acknowledging the report.
-
-- 2022-01-17: Vulnerability patched.
-
-- 2022-01-18: Public Disclosure.
+<time-lapse
+  discovered="2022-01-06"
+  contacted="2022-01-07"
+  replied="2022-01-07"
+  confirmed=""
+  patched="2022-01-17"
+  disclosure="2022-01-18">
+</time-lapse>

@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | ThinVNC 1.0b1 - Authentication Bypass                      |
-| **Code name**           | [Sinatra](https://en.wikipedia.org/wiki/Frank_Sinatra)     |
-| **Product**             | ThinVNC                                                    |
-| **Affected versions**   | Version 1.0b1                                              |
-| **State**               | Public                                                     |
-| **Release date**        | 2022-04-13                                                 |
+|                       |                                                        |
+| --------------------- | ------------------------------------------------------ |
+| **Name**              | ThinVNC 1.0b1 - Authentication Bypass                  |
+| **Code name**         | [Sinatra](https://en.wikipedia.org/wiki/Frank_Sinatra) |
+| **Product**           | ThinVNC                                                |
+| **Affected versions** | Version 1.0b1                                          |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-04-13                                             |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Authentication Bypass                                            |
-| **Rule**              | [006. Authentication mechanism absence or evasion](https://docs.fluidattacks.com/criteria/vulnerabilities/006)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H                     |
-| **CVSSv3 Base Score** | 10.0                                                             |
-| **Exploit available** | Yes                                                              |
-| **CVE ID(s)**         | [CVE-2022-25226](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25226)                                                    |
+|                       |                                                                                                                |
+| --------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Kind**              | Authentication Bypass                                                                                          |
+| **Rule**              | [006. Authentication mechanism absence or evasion](https://docs.fluidattacks.com/criteria/vulnerabilities/006) |
+| **Remote**            | Yes                                                                                                            |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H                                                                   |
+| **CVSSv3 Base Score** | 10.0                                                                                                           |
+| **Exploit available** | Yes                                                                                                            |
+| **CVE ID(s)**         | [CVE-2022-25226](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25226)                                |
 
 ## Description
 
@@ -325,19 +325,21 @@ By 2022-04-13 there is not a patch resolving the issue.
 
 The vulnerability was discovered by [Oscar
 Uribe](https://co.linkedin.com/in/oscar-uribe-londo%C3%B1o-0b6534155) from the Offensive
-Team of  `Fluid Attacks`.
+Team of  `Fluid Attacks`.simone
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://github.com/bewest/thinvnc>                                 |
-| **Issue**           | <https://github.com/bewest/thinvnc/issues/7>                        |
+**Vendor page** <https://github.com/bewest/thinvnc>
+
+**Issue** <https://github.com/bewest/thinvnc/issues/7>
 
 ## Timeline
 
-- 2022-04-05: Vulnerability discovered.
-
-- 2022-04-05: Vendor contacted.
-
-- 2022-04-13: Public disclosure.
+<time-lapse
+  discovered="2022-04-05"
+  contacted="2022-04-05"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-04-13">
+</time-lapse>

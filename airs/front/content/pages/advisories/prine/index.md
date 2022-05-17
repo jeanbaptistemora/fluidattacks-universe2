@@ -18,7 +18,7 @@ template: advisory
 ## Summary
 
 |                    |                                                   |
-|--------------------|---------------------------------------------------|
+| ------------------ | ------------------------------------------------- |
 | **Name**           | DupScout Enterprise 10.0.18 'sid' Buffer Overflow |
 | **Code name**      | [Prine](https://en.wikipedia.org/wiki/John_Prine) |
 | **Product**        | DupScout Enterprise                               |
@@ -28,18 +28,18 @@ template: advisory
 
 ## Vulnerability
 
-|                       |                                                                                                   |
-|-----------------------|---------------------------------------------------------------------------------------------------|
-| **Kind**              | Stack Buffer Overflow                                                                             |
+|                       |                                                                                                          |
+| --------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Kind**              | Stack Buffer Overflow                                                                                    |
 | **Rule**              | [345. Establish protections against overflows](https://docs.fluidattacks.com/criteria/requirements/345/) |
-| **Remote**            | Yes                                                                                               |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H                                                      |
-| **CVSSv3 Base Score** | 9.8 CRITICAL                                                                                      |
-| **CVSSv2 Vector**     | AV:N/AC:L/Au:N/C:C/I:C/A:C                                                                        |
-| **CVSSv2 Base Score** | 10 HIGH                                                                                           |
-| **Exploit available** | Yes                                                                                               |
-| **Exploit URL**       | <https://www.exploit-db.com/exploits/49217>                                                       |
-| **CVE ID(s)**         | [CVE-2020-29659](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659)                   |
+| **Remote**            | Yes                                                                                                      |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H                                                             |
+| **CVSSv3 Base Score** | 9.8 CRITICAL                                                                                             |
+| **CVSSv2 Vector**     | AV:N/AC:L/Au:N/C:C/I:C/A:C                                                                               |
+| **CVSSv2 Base Score** | 10 HIGH                                                                                                  |
+| **Exploit available** | Yes                                                                                                      |
+| **Exploit URL**       | <https://www.exploit-db.com/exploits/49217>                                                              |
+| **CVE ID(s)**         | [CVE-2020-29659](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659)                          |
 
 ## Description
 
@@ -67,9 +67,10 @@ Team of `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **CVE**             | <https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659> |
-| **Exploit**         | <https://www.exploit-db.com/exploits/49217>                     |
-| **Updated exploit** | [prine-exploit.py](prine-exploit.py)                            |
-| **Vendor page**     | <https://www.dupscout.com/>                                     |
+**CVE** <https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-29659>
+
+**Exploit** <https://www.exploit-db.com/exploits/49217>
+
+**Updated exploit** [prine-exploit.py](prine-exploit.py)
+
+**Vendor page** <https://www.dupscout.com/>

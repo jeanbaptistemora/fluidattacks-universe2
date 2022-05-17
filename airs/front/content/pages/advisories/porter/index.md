@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | CyberArk Identity 22.1 User Enumeration                    |
-| **Code name**           | [Porter](https://en.wikipedia.org/wiki/Cole_Porter)        |
-| **Product**             | CyberArk Identity                                          |
-| **Affected versions**   | 22.1 and below                                             |
-| **Fixed versions**      | 22.2                                                       |
-| **State**               | Public                                                     |
+|                       |                                                     |
+| --------------------- | --------------------------------------------------- |
+| **Name**              | CyberArk Identity 22.1 User Enumeration             |
+| **Code name**         | [Porter](https://en.wikipedia.org/wiki/Cole_Porter) |
+| **Product**           | CyberArk Identity                                   |
+| **Affected versions** | 22.1 and below                                      |
+| **Fixed versions**    | 22.2                                                |
+| **State**             | Public                                              |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | User Enumeration                                                 |
-| **Rule**              | [225. Proper Authentication Responses](https://docs.fluidattacks.com/criteria/requirements/225)                                                          |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N                     |
-| **CVSSv3 Base Score** | 5.3                                                              |
-| **Exploit available** | Yes                                                              |
-| **CVE ID(s)**         | [CVE-2022-22700](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22700)                                                    |
+|                       |                                                                                                 |
+| --------------------- | ----------------------------------------------------------------------------------------------- |
+| **Kind**              | User Enumeration                                                                                |
+| **Rule**              | [225. Proper Authentication Responses](https://docs.fluidattacks.com/criteria/requirements/225) |
+| **Remote**            | Yes                                                                                             |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N                                                    |
+| **CVSSv3 Base Score** | 5.3                                                                                             |
+| **Exploit available** | Yes                                                                                             |
+| **CVE ID(s)**         | [CVE-2022-22700](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22700)                 |
 
 ## Description
 
@@ -145,23 +145,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.cyberark.com/resources/cyberark-identity/>                                     |
-| **Changelog**     | <https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/ReleaseNotes/ReleaseNotes-Latest.htm>                                     |
+**Vendor page** <https://www.cyberark.com/resources/cyberark-identity/>
+
+**Changelog** <https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/ReleaseNotes/ReleaseNotes-Latest.htm>
 
 ## Timeline
 
-- 2021-09-28: Vulnerability discovered in customer engagement.
-
-- 2021-09-29: Customer notified of vulnerability.
-
-- 2022-01-21: Customer approval to contact vendor.
-
-- 2022-02-05: Vendor contacted.
-
-- 2022-02-16: Vendor asked for more information.
-
-- 2022-02-25: Version 22.2 released with fix.
-
-- 2022-02-28: Vendor confirmed patch.
+<time-lapse
+  discovered="2021-09-28"
+  contacted="2022-02-05"
+  replied="2022-02-16"
+  confirmed=""
+  patched="2022-02-28"
+  disclosure="">
+</time-lapse>

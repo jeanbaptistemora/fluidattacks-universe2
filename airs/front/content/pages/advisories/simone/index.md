@@ -17,27 +17,27 @@ template: advisory
 
 ## Summary
 
-|                             |                                                            |
-|-----------------------------|------------------------------------------------------------|
-| **Name**                    | Zenario CMS 9.2 - Insecure file upload (RCE)               |
-| **Code name**               | [Simone](https://en.wikipedia.org/wiki/Nina_Simone)        |
-| **Product**                 | Zenario CMS                                                |
-| **Affected versions**       | 9.2                                                        |
-| **Fixed versions**          | 9.2.55826                                                  |
-| **State**                   | Public                                                     |
-| **Release date**            | 2022-02-18                                                 |
+|                       |                                                     |
+| --------------------- | --------------------------------------------------- |
+| **Name**              | Zenario CMS 9.2 - Insecure file upload (RCE)        |
+| **Code name**         | [Simone](https://en.wikipedia.org/wiki/Nina_Simone) |
+| **Product**           | Zenario CMS                                         |
+| **Affected versions** | 9.2                                                 |
+| **Fixed versions**    | 9.2.55826                                           |
+| **State**             | Public                                              |
+| **Release date**      | 2022-02-18                                          |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Insecure file upload (RCE)                                       |
-| **Rule**              | [027. Insecure file upload](https://docs.fluidattacks.com/criteria/vulnerabilities/027)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
-| **CVSSv3 Base Score** | 9.1                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23043](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23043)                                                   |
+|                       |                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| **Kind**              | Insecure file upload (RCE)                                                              |
+| **Rule**              | [027. Insecure file upload](https://docs.fluidattacks.com/criteria/vulnerabilities/027) |
+| **Remote**            | Yes                                                                                     |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                                            |
+| **CVSSv3 Base Score** | 9.1                                                                                     |
+| **Exploit available** | No                                                                                      |
+| **CVE ID(s)**         | [CVE-2022-23043](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23043)         |
 
 ## Description
 
@@ -100,19 +100,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                   |
-|---------------------|-------------------------------------------------------------------|
-| **Vendor page**     | <https://zenar.io/>                                               |
-| **Patched version** | <https://github.com/TribalSystems/Zenario/releases/tag/9.2.55826> |
+**Vendor page** <https://zenar.io/>
+
+**Patched version** <https://github.com/TribalSystems/Zenario/releases/tag/9.2.55826>
 
 ## Timeline
 
-* 2022-01-13: Vulnerability discovered.
-
-* 2022-01-13: Vendor contacted.
-
-* 2022-01-14: Vendor replied acknowledging the report.
-
-* 2022-02-08: Vulnerability patched.
-
-* 2022-02-18: Public Disclosure.
+<time-lapse
+  discovered="2022-01-13"
+  contacted="2022-01-13"
+  replied="2022-01-14"
+  confirmed=""
+  patched="2022-02-08"
+  disclosure="2022-02-18">
+</time-lapse>
