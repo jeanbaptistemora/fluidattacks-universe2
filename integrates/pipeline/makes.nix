@@ -612,7 +612,7 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintTerraform/integratesDatabase";
+            output = "/lintTerraform/integratesInfra";
             gitlabExtra = gitlabLint;
           }
           {
@@ -624,7 +624,7 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/testTerraform/integratesDatabase";
+            output = "/testTerraform/integratesInfra";
             gitlabExtra = gitlabTestInfra;
           }
         ];

@@ -3711,7 +3711,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/integratesDatabase:
+/lintTerraform/integratesInfra:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: true
   needs: []
@@ -3726,7 +3726,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /lintTerraform/integratesDatabase
+    - m . /lintTerraform/integratesInfra
   stage: lint-code
   tags:
     - autoscaling
@@ -3777,7 +3777,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testTerraform/integratesDatabase:
+/testTerraform/integratesInfra:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: true
   needs: []
@@ -3792,7 +3792,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /testTerraform/integratesDatabase
+    - m . /testTerraform/integratesInfra
   stage: test-infra
   tags:
     - autoscaling
