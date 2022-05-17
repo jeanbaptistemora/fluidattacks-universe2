@@ -768,6 +768,37 @@ async def validate_open_roots(loaders: Any, group_name: str) -> None:
         raise HasActiveRoots()
 
 
+async def update_group_managed(
+    *,
+    loaders: Any,
+    comments: str,
+    group_name: str,
+    managed: bool,
+    user_email: str,
+) -> None:
+    validate_fields([comments])
+    validate_string_length_between(comments, 0, 250)
+    group: Group = await loaders.group_typed.load(group_name)
+
+    if managed != group.state.managed:
+        await update_state_typed(
+            group_name=group_name,
+            state=GroupState(
+                comments=comments,
+                modified_date=datetime_utils.get_iso_date(),
+                has_machine=group.state.has_machine,
+                has_squad=group.state.has_squad,
+                managed=managed,
+                justification=GroupStateUpdationJustification["NONE"],
+                modified_by=user_email,
+                service=group.state.service,
+                status=GroupStateStatus.ACTIVE,
+                tier=group.state.tier,
+                type=group.state.type,
+            ),
+        )
+
+
 async def update_group(
     *,
     loaders: Any,

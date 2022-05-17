@@ -87,6 +87,7 @@ from api.mutations import (
     update_group_access_info,
     update_group_disambiguation,
     update_group_info,
+    update_group_managed,
     update_group_stakeholder,
     update_notifications_preferences,
     update_organization_policies,
@@ -248,6 +249,7 @@ MUTATION.set_field(
     "updateGroupDisambiguation", update_group_disambiguation.mutate
 )
 MUTATION.set_field("updateGroupInfo", update_group_info.mutate)
+MUTATION.set_field("updateGroupManaged", update_group_managed.mutate)
 MUTATION.set_field("updateGroupStakeholder", update_group_stakeholder.mutate)
 MUTATION.set_field(
     "updateNotificationsPreferences", update_notifications_preferences.mutate

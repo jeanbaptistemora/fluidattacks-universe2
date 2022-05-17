@@ -948,6 +948,16 @@ type Mutation {
     language: Language!
   ): SimplePayload!
 
+  "Update group information on whether it's managed manually"
+  updateGroupManaged(
+    "Observation about the group update"
+    comments: String!
+    "Whether to keep payment method managed manually within the group"
+    managed: Boolean!
+    "Name of the group to be updated"
+    groupName: String!
+  ): SimplePayload!
+
   "Updates/edits an user belonging to a group"
   updateGroupStakeholder(
     "Name of the group to which the user to be updated belongs"

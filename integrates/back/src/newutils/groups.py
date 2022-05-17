@@ -322,6 +322,7 @@ def format_group_state_item(state: GroupState) -> Item:
         "has_drills": state.has_squad,
         "has_squad": state.has_squad,
         "has_forces": True,
+        "managed": state.managed,
         "reason": state.justification.value if state.justification else None,
         "requester": state.modified_by,
         "service": state.service.value if state.service else None,
