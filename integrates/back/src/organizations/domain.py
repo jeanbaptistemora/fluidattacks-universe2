@@ -746,7 +746,7 @@ async def update_policies(
     return success
 
 
-# pylint: disable=too-many-arguments, too-many-locals
+# pylint: disable=too-many-arguments
 async def send_mail_policies(
     loaders: Any,
     new_policies: Dict[str, Any],
@@ -767,31 +767,29 @@ async def send_mail_policies(
         "between which a finding can be accepted",
         "vulnerability_grace_period": "Grace period in days where newly "
         "reported vulnerabilities won't break the build (DevSecOps only)",
+        "historic_max_number_acceptations": "Maximum number of times a "
+        "finding can be temporarily accepted",
     }
 
-    policies_content: str = ""
+    policies_content: dict[str, Any] = {}
     for key, val in new_policies.items():
         if "historic_max_number_acceptations" in key:
-            number_acceptations = val[-1]["max_number_acceptations"]
-            old_number_acceptations = organization_data[
-                "max_number_acceptations"
-            ]
-            policies_content += (
-                "Maximum number of times a finding can be "
-                f"temporarily accepted: from {old_number_acceptations} to "
-                f"{number_acceptations}\n"
-            )
+            policies_content[policies_format[key]] = {
+                "from": organization_data["max_number_acceptations"],
+                "to": val[-1]["max_number_acceptations"],
+            }
         else:
             old_value: Optional[Decimal] = organization_data.get(key)
             if val is not None and val != old_value:
-                policies_content += (
-                    f"{policies_format[key]}: from {old_value} to {val}\n"
-                )
+                policies_content[policies_format[key]] = {
+                    "from": old_value,
+                    "to": val,
+                }
 
     email_context: Dict[str, Any] = {
         "org_name": organization_name,
         "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
-        "policies": policies_content.splitlines(),
+        "policies_content": policies_content,
         "responsible": responsible,
         "date": date,
     }
@@ -806,10 +804,11 @@ async def send_mail_policies(
         if stakeholder["role"] in ["customer_manager", "user_manager"]
     ]
 
-    await groups_mail.send_mail_updated_policies(
-        email_to=stakeholders_emails,
-        context=email_context,
-    )
+    if policies_content:
+        await groups_mail.send_mail_updated_policies(
+            email_to=stakeholders_emails,
+            context=email_context,
+        )
 
 
 async def validate_acceptance_severity_range(

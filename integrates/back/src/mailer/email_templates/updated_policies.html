@@ -13,9 +13,11 @@
       <strong>{{ responsible }}</strong>:
     </p>
     <p>
-      <strong>Date</strong>: {{ date }}
+      <strong>Date</strong>: {{ date }}<br>
+      {% for key, val in policies_content.items() %}
+        {{ key }}: <u>from</u> {{ val["from"] }} <u>to</u> {{ val["to"] }}<br>
+      {% endfor %}
     </p>
-    {{ text_area(policies) }}
     <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
