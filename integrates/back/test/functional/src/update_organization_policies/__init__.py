@@ -7,31 +7,32 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_result(
     *,
     user: str,
-    identifier: str,
-    name: str,
-) -> Dict[str, Any]:
+    organization_id: str,
+    organization_name: str,
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             updateOrganizationPolicies(
                 maxAcceptanceDays: 5,
-                maxAcceptanceSeverity: 8.5,
+                maxAcceptanceSeverity: 8.2,
                 maxNumberAcceptances: 3,
                 minAcceptanceSeverity: 1.5,
-                organizationId: "{identifier}",
-                organizationName: "{name}"
+                minBreakingSeverity: 5.7,
+                vulnerabilityGracePeriod: 1000,
+                organizationId: "{organization_id}",
+                organizationName: "{organization_name}"
             ) {{
                 success
             }}
         }}
     """
-    data: Dict[str, str] = {"query": query}
+    data: dict[str, str] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,
