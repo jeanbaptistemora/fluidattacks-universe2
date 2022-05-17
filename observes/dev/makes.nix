@@ -7,6 +7,7 @@
     observesCodeEtl = etl.code;
     observesBatchStability = service.batch_stability;
     observesServiceDbMigration = service.db_migration;
+    observesServiceJobLastSuccess = service.job_last_success;
     observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
     observesEtlDynamoConf = etl.dynamo;
