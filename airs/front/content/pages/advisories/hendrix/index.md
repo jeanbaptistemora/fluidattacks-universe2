@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                             |                                                      |
-|-----------------------------|------------------------------------------------------|
-| **Name**                    | PartKeepr v1.4.0 url attachment 'add parts' - LFI    |
-| **Code name**               | [Hendrix](https://en.wikipedia.org/wiki/Jimi_Hendrix)|
-| **Product**                 | PartKeepr                                            |
-| **Affected versions**       | v1.4.0                                               |
-| **State**                   | Public                                               |
-| **Release date**            | 2022-01-09                                           |
+|                       |                                                       |
+| --------------------- | ----------------------------------------------------- |
+| **Name**              | PartKeepr v1.4.0 url attachment 'add parts' - LFI     |
+| **Code name**         | [Hendrix](https://en.wikipedia.org/wiki/Jimi_Hendrix) |
+| **Product**           | PartKeepr                                             |
+| **Affected versions** | v1.4.0                                                |
+| **State**             | Public                                                |
+| **Release date**      | 2022-01-09                                            |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Local file inclusion                                             |
-| **Rule**              | [123. Local file inclusion](https://docs.fluidattacks.com/criteria/vulnerabilities/123)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N                     |
-| **CVSSv3 Base Score** | 6.5                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-22701](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22701)                   |
+|                       |                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| **Kind**              | Local file inclusion                                                                    |
+| **Rule**              | [123. Local file inclusion](https://docs.fluidattacks.com/criteria/vulnerabilities/123) |
+| **Remote**            | Yes                                                                                     |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N                                            |
+| **CVSSv3 Base Score** | 6.5                                                                                     |
+| **Exploit available** | No                                                                                      |
+| **CVE ID(s)**         | [CVE-2022-22701](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22701)         |
 
 ## Description
 
@@ -70,15 +70,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://partkeepr.org/>                                        |
-| **Issue**           | <https://github.com/partkeepr/PartKeepr/issues/1229/>           |
+**Vendor page** <https://partkeepr.org/>
+
+**Issue** <https://github.com/partkeepr/PartKeepr/issues/1229/>
 
 ## Timeline
 
-- 2022-01-03: Vulnerability discovered.
-
-- 2022-01-04: Vendor contacted.
-
-- 2022-01-09: Public Disclosure.
+<time-lapse
+  discovered="2022-01-03"
+  contacted="2022-01-04"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-01-09">
+</time-lapse>

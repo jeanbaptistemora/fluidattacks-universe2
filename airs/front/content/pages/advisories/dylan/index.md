@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                             |                                                          |
-|-----------------------------|----------------------------------------------------------|
-| **Name**                    | Exponent CMS 2.6.0 patch2 - Insecure file upload (RCE)   |
-| **Code name**               | [Dylan](https://en.wikipedia.org/wiki/Bob_Dylan)         |
-| **Product**                 | Exponent CMS                                             |
-| **Affected versions**       | v2.6.0 patch2                                            |
-| **State**                   | Public                                                   |
-| **Release Date**            | 2022-02-03                                               |
+|                       |                                                        |
+| --------------------- | ------------------------------------------------------ |
+| **Name**              | Exponent CMS 2.6.0 patch2 - Insecure file upload (RCE) |
+| **Code name**         | [Dylan](https://en.wikipedia.org/wiki/Bob_Dylan)       |
+| **Product**           | Exponent CMS                                           |
+| **Affected versions** | v2.6.0 patch2                                          |
+| **State**             | Public                                                 |
+| **Release Date**      | 2022-02-03                                             |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Insecure file upload (RCE)                                       |
-| **Rule**              | [027. Insecure file upload](https://docs.fluidattacks.com/criteria/vulnerabilities/027)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                     |
-| **CVSSv3 Base Score** | 9.1                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23048](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23048)                                                    |
+|                       |                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| **Kind**              | Insecure file upload (RCE)                                                              |
+| **Rule**              | [027. Insecure file upload](https://docs.fluidattacks.com/criteria/vulnerabilities/027) |
+| **Remote**            | Yes                                                                                     |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H                                            |
+| **CVSSv3 Base Score** | 9.1                                                                                     |
+| **Exploit available** | No                                                                                      |
+| **CVE ID(s)**         | [CVE-2022-23048](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23048)         |
 
 ## Description
 
@@ -87,16 +87,19 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.exponentcms.org/>                                      |
-| **Ticket**          | <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1460> |
-| **Issue**           | <https://github.com/exponentcms/exponent-cms/issues/1546>           |
+**Vendor page** <https://www.exponentcms.org/>
+
+**Ticket** <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1460>
+
+**Issue** <https://github.com/exponentcms/exponent-cms/issues/1546>
 
 ## Timeline
 
-- 2022-01-24: Vulnerability discovered.
-
-- 2022-01-24: Vendor contacted.
-
-- 2022-02-03: Public Disclosure.
+<time-lapse
+  discovered="2022-01-24"
+  contacted="2022-01-24"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-02-03">
+</time-lapse>

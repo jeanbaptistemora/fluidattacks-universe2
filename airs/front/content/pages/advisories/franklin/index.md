@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                             |                                                          |
-|-----------------------------|----------------------------------------------------------|
-| **Name**                    | Exponent CMS 2.6.0 patch2 - Stored XSS                   |
-| **Code name**               | [Franklin](https://en.wikipedia.org/wiki/Aretha_Franklin)|
-| **Product**                 | Exponent CMS                                             |
-| **Affected versions**       | v2.6.0 patch2                                            |
-| **State**                   | Public                                                   |
-| **Release Date**            | 2022-02-03                                               |
+|                       |                                                           |
+| --------------------- | --------------------------------------------------------- |
+| **Name**              | Exponent CMS 2.6.0 patch2 - Stored XSS                    |
+| **Code name**         | [Franklin](https://en.wikipedia.org/wiki/Aretha_Franklin) |
+| **Product**           | Exponent CMS                                              |
+| **Affected versions** | v2.6.0 patch2                                             |
+| **State**             | Public                                                    |
+| **Release Date**      | 2022-02-03                                                |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Stored cross-site scripting (XSS)                                |
-| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                     |
-| **CVSSv3 Base Score** | 4.8                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23047](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23047)                                                    |
+|                       |                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Kind**              | Stored cross-site scripting (XSS)                                                                    |
+| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010) |
+| **Remote**            | Yes                                                                                                  |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                                                         |
+| **CVSSv3 Base Score** | 4.8                                                                                                  |
+| **Exploit available** | No                                                                                                   |
+| **CVE ID(s)**         | [CVE-2022-23047](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23047)                      |
 
 ## Description
 
@@ -84,16 +84,19 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.exponentcms.org/>                                      |
-| **Ticket**          | <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1459> |
-| **Issue**           | <https://github.com/exponentcms/exponent-cms/issues/1546>           |
+**Vendor page** <https://www.exponentcms.org/>
+
+**Ticket** <https://exponentcms.lighthouseapp.com/projects/61783/tickets/1459>
+
+**Issue** <https://github.com/exponentcms/exponent-cms/issues/1546>
 
 ## Timeline
 
-- 2022-01-24: Vulnerability discovered.
-
-- 2022-01-24: Vendor contacted.
-
-- 2022-02-03: Public Disclosure.
+<time-lapse
+  discovered="2022-01-24"
+  contacted="2022-01-24"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-02-03">
+</time-lapse>

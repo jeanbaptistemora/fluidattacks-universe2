@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                             |                                                        |
-|-----------------------------|--------------------------------------------------------|
-| **Name**                    | PHP Server Monitor v3.5.2 - Stored XSS                 |
-| **Code name**               | [Gilmour](https://en.wikipedia.org/wiki/David_Gilmour) |
-| **Product**                 | PHP Server Monitor                                     |
-| **Affected versions**       | v3.5.2                                                 |
-| **State**                   | Public                                                 |
-| **Release date**            | 2022-03-07                                             |
+|                       |                                                        |
+| --------------------- | ------------------------------------------------------ |
+| **Name**              | PHP Server Monitor v3.5.2 - Stored XSS                 |
+| **Code name**         | [Gilmour](https://en.wikipedia.org/wiki/David_Gilmour) |
+| **Product**           | PHP Server Monitor                                     |
+| **Affected versions** | v3.5.2                                                 |
+| **State**             | Public                                                 |
+| **Release date**      | 2022-03-07                                             |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Stored cross-site scripting (XSS)                                |
-| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010)   |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                     |
-| **CVSSv3 Base Score** | 4.8                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23044](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23044)                                                 |
+|                       |                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Kind**              | Stored cross-site scripting (XSS)                                                                    |
+| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010) |
+| **Remote**            | Yes                                                                                                  |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                                                         |
+| **CVSSv3 Base Score** | 4.8                                                                                                  |
+| **Exploit available** | No                                                                                                   |
+| **CVE ID(s)**         | [CVE-2022-23044](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23044)                      |
 
 ## Description
 
@@ -86,17 +86,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://www.phpservermonitor.org/>                             |
-| **Issue**           | <https://github.com/phpservermon/phpservermon/issues/1178>      |
+**Vendor page** <https://www.phpservermonitor.org/>
+
+**Issue** <https://github.com/phpservermon/phpservermon/issues/1178>
 
 ## Timeline
 
-* 2022-01-11: Vulnerability discovered.
-
-* 2022-01-11: Vendor contacted.
-
-* 2022-01-17: Vendor replied acknowledging the report.
-
-* 2022-03-07: Public Disclosure.
+<time-lapse
+  discovered="2022-01-11"
+  contacted="2022-01-11"
+  replied="2022-01-17"
+  confirmed=""
+  patched=""
+  disclosure="2022-03-07">
+</time-lapse>
