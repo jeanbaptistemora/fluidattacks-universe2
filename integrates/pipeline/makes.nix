@@ -575,16 +575,6 @@ in {
               };
           }
           {
-            output = "/integrates/web/check-schema-changes";
-            gitlabExtra =
-              gitlabPostDeployDev
-              // {
-                needs = [
-                  "/integrates/back/deploy/dev"
-                ];
-              };
-          }
-          {
             output = "/integrates/web/check-forces-output";
             gitlabExtra =
               gitlabPostDeployDev
