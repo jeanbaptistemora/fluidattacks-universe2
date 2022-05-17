@@ -3711,28 +3711,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/lintTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:22.05
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /lintTerraform/integratesBackups
-  stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesDatabase:
   image: ghcr.io/fluidattacks/makes:22.05
   interruptible: true
@@ -3838,28 +3816,6 @@
   script:
     - m . /securePythonWithBandit/integratesBack
   stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/testTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:22.05
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "master"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /testTerraform/integratesBackups
-  stage: test-infra
   tags:
     - autoscaling
   variables:

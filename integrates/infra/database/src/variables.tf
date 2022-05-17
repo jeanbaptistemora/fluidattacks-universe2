@@ -18,3 +18,7 @@ data "aws_subnet" "main" {
     values = [each.key]
   }
 }
+
+variable "region" {
+  default = "us-east-1"
+}

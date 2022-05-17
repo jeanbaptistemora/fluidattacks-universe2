@@ -612,10 +612,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintTerraform/integratesBackups";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintTerraform/integratesDatabase";
             gitlabExtra = gitlabLint;
           }
@@ -634,10 +630,6 @@ in {
           {
             output = "/securePythonWithBandit/integratesBack";
             gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/testTerraform/integratesBackups";
-            gitlabExtra = gitlabTestInfra;
           }
           {
             output = "/testTerraform/integratesDatabase";
