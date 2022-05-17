@@ -1,7 +1,8 @@
 {
-  makeDerivation,
+  inputs,
+  libGit,
+  makeScript,
   makeNodeJsEnvironment,
-  projectPath,
   ...
 }: let
   name = "integrates-back-lint-schema";
@@ -12,9 +13,17 @@
     packageLockJson = ./npm/package-lock.json;
   };
 in
-  makeDerivation {
-    builder = ./builder.sh;
-    env.envIntegratesApiSchema = projectPath "/integrates/back/src/api/schema";
+  makeScript {
+    entrypoint = ./entrypoint.sh;
     inherit name;
-    searchPaths.source = [nodeJsEnvironment];
+    searchPaths = {
+      bin = [
+        inputs.nixpkgs.git
+        inputs.nixpkgs.openssh
+      ];
+      source = [
+        libGit
+        nodeJsEnvironment
+      ];
+    };
   }
