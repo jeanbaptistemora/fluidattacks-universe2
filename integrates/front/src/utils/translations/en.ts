@@ -1241,7 +1241,7 @@ export const enTranslations: ResourceKey = {
       extra: {
         chat: "Fast and personalized attention is not necessary to schedule",
         expert: "Request any help you need through a scheduled videoconference",
-        mail: "or by contacting us at",
+        mail: "Direct communication channel through an email ticketing system",
       },
       support: "Support",
       tooltip: "Go to for more information",

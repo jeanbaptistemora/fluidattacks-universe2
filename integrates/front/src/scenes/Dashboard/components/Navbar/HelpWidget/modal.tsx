@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-component-props */
 import {
   faComment,
+  faEnvelope,
   faExternalLinkAlt,
   faHeadset,
   faQuestionCircle,
@@ -160,32 +161,43 @@ export const HelpModal: React.FC<IHelpModal> = ({
             </Message>
           </Col>
           <DisplayHelpExpert />
+          <Col>
+            <Message>
+              <ExternalLink href={"mailto:help@fluidattacks.com"}>
+                <Button onClick={undefined}>
+                  <FontAwesomeIcon
+                    className={"f4 dark-gray"}
+                    icon={faEnvelope}
+                  />
+                  &nbsp;
+                  <span className={"dark-gray f4"}>
+                    {"help@fluidattacks.com"}
+                  </span>
+                </Button>
+              </ExternalLink>
+              <ExtraMessage>
+                {t("navbar.help.extra.mail")}
+                &nbsp;
+                <TooltipWrapper
+                  displayClass={"dib"}
+                  id={"helpChannelTooltip"}
+                  message={t("navbar.help.tooltip")}
+                >
+                  <ExternalLink
+                    href={
+                      "https://docs.fluidattacks.com/about/security/transparency/help-channel"
+                    }
+                  >
+                    <FontAwesomeIcon
+                      className={"mid-gray"}
+                      icon={faExternalLinkAlt}
+                    />
+                  </ExternalLink>
+                </TooltipWrapper>
+              </ExtraMessage>
+            </Message>
+          </Col>
         </Row>
-        <div className={"pt2"}>
-          <span>
-            {t("navbar.help.extra.mail")}&nbsp;
-            <ExternalLink href={"mailto:help@fluidattacks.com"}>
-              <span>{"help@fluidattacks.com"}</span>
-            </ExternalLink>
-          </span>
-          &nbsp;
-          <TooltipWrapper
-            displayClass={"dib"}
-            id={"helpChannelTooltip"}
-            message={t("navbar.help.tooltip")}
-          >
-            <ExternalLink
-              href={
-                "https://docs.fluidattacks.com/about/security/transparency/help-channel"
-              }
-            >
-              <FontAwesomeIcon
-                className={"mid-gray"}
-                icon={faExternalLinkAlt}
-              />
-            </ExternalLink>
-          </TooltipWrapper>
-        </div>
       </Modal>
     </React.StrictMode>
   );
