@@ -9,6 +9,7 @@
     psycopg2
     types-psycopg2
     types-click
+    utils-logger
   ];
   dev_deps = with python_pkgs; [
     import-linter

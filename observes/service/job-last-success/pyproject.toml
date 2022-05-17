@@ -8,6 +8,7 @@ authors = ["Product Team <development@fluidattacks.com>"]
 python = "^3.8"
 click = "^8.0.0"
 psycopg2 = "^2.9.1"
+utils-logger = "^1.0.0"
 
 [tool.poetry.scripts]
 job-last-success = 'job_last_success.cli:main'
