@@ -82,14 +82,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://www.sourcecodester.com/php/15015/money-transfer-management-system-send-money-businesses-php-free-source-code.html>           |
+**Vendor page** <https://www.sourcecodester.com/php/15015/money-transfer-management-system-send-money-businesses-php-free-source-code.html>
 
 ## Timeline
 
-* 2022-02-15: Vulnerability discovered.
-
-* 2022-02-15: Vendor contacted.
-
-* 2022-03-15: Public Disclosure.
+<time-lapse
+  discovered="2022-02-15"
+  contacted="2022-02-15"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-03-15">
+</time-lapse>

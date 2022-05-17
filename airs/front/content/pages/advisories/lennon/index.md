@@ -17,26 +17,26 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | Proton v0.2.0 - XSS To RCE                                 |
-| **Code name**           | [Lennon](https://en.wikipedia.org/wiki/John_Lennon)        |
-| **Product**             | Proton Markdown                                            |
-| **Affected versions**   | Version 0.2.0                                              |
-| **State**               | Public                                                     |
-| **Release date**        | 2022-05-17                                                 |
+|                       |                                                     |
+| --------------------- | --------------------------------------------------- |
+| **Name**              | Proton v0.2.0 - XSS To RCE                          |
+| **Code name**         | [Lennon](https://en.wikipedia.org/wiki/John_Lennon) |
+| **Product**           | Proton Markdown                                     |
+| **Affected versions** | Version 0.2.0                                       |
+| **State**             | Public                                              |
+| **Release date**      | 2022-05-17                                          |
 
 ## Vulnerability
 
-|                       |                                                                                    |
-|-----------------------|------------------------------------------------------------------------------------|
-| **Kind**              | XSS to RCE                                                                         |
-| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010)   |
-| **Remote**            | No                                                                                |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:N                                       |
-| **CVSSv3 Base Score** | 7.1                                                                                |
-| **Exploit available** | No                                                                                 |
-| **CVE ID(s)**         | [CVE-2022-25224](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25224)                                                    |
+|                       |                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Kind**              | XSS to RCE                                                                                           |
+| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010) |
+| **Remote**            | No                                                                                                   |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:N                                                         |
+| **CVSSv3 Base Score** | 7.1                                                                                                  |
+| **Exploit available** | No                                                                                                   |
+| **CVE ID(s)**         | [CVE-2022-25224](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25224)                      |
 
 ## Description
 
@@ -94,14 +94,15 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://github.com/steventhanna/proton/>                           |
+**Vendor page** <https://github.com/steventhanna/proton/>
 
 ## Timeline
 
-* 2022-04-29: Vulnerability discovered.
-
-* 2022-04-29: Vendor contacted.
-
-* 2022-05-17: Public disclosure.
+<time-lapse
+  discovered="2022-04-29"
+  contacted="2022-04-29"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-05-17">
+</time-lapse>

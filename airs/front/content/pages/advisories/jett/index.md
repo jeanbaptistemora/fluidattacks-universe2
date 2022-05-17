@@ -17,27 +17,27 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | PeTeReport 0.5 - Cross-site request forgery                |
-| **Code name**           | [Jett](https://en.wikipedia.org/wiki/Joan_Jett)            |
-| **Product**             | PeTeReport                                                 |
-| **Affected versions**   | Version 0.5                                                |
-| **Fixed versions**      | Version 0.7                                                |
-| **State**               | Public                                                     |
-| **Release date**        | 2022-02-23                                                 |
+|                       |                                                 |
+| --------------------- | ----------------------------------------------- |
+| **Name**              | PeTeReport 0.5 - Cross-site request forgery     |
+| **Code name**         | [Jett](https://en.wikipedia.org/wiki/Joan_Jett) |
+| **Product**           | PeTeReport                                      |
+| **Affected versions** | Version 0.5                                     |
+| **Fixed versions**    | Version 0.7                                     |
+| **State**             | Public                                          |
+| **Release date**      | 2022-02-23                                      |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Cross-site request forgery                                       |
-| **Rule**              | [007. Cross-site request forgery](https://docs.fluidattacks.com/criteria/vulnerabilities/007)    |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N/E:X/RL:X/RC:X       |
-| **CVSSv3 Base Score** | 4.3                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-23052](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23052)                                                     |
+|                       |                                                                                               |
+| --------------------- | --------------------------------------------------------------------------------------------- |
+| **Kind**              | Cross-site request forgery                                                                    |
+| **Rule**              | [007. Cross-site request forgery](https://docs.fluidattacks.com/criteria/vulnerabilities/007) |
+| **Remote**            | Yes                                                                                           |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N/E:X/RL:X/RC:X                                    |
+| **CVSSv3 Base Score** | 4.3                                                                                           |
+| **Exploit available** | No                                                                                            |
+| **CVE ID(s)**         | [CVE-2022-23052](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23052)               |
 
 ## Description
 
@@ -89,19 +89,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://github.com/1modm/petereport>                               |
-| **Issue**           | <https://github.com/1modm/petereport/issues/34>                     |
+**Vendor page** <https://github.com/1modm/petereport>
+
+**Issue** <https://github.com/1modm/petereport/issues/34>
 
 ## Timeline
 
-* 2022-02-07: Vulnerability discovered.
-
-* 2022-02-07: Vendor contacted.
-
-* 2022-02-09: Vendor replied acknowledging the report.
-
-* 2022-02-09: Vulnerability patched.
-
-* 2022-02-23: Public Disclosure.
+<time-lapse
+  discovered="2022-02-07"
+  contacted="2022-02-07"
+  replied="2022-02-09"
+  confirmed=""
+  patched="2022-02-09"
+  disclosure="2022-02-23">
+</time-lapse>

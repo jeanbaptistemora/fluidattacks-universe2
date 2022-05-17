@@ -70,15 +70,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://partkeepr.org/>                                        |
-| **Issue**           | <https://github.com/partkeepr/PartKeepr/issues/1230/>           |
+**Vendor page** <https://partkeepr.org/>
+
+**Issue** <https://github.com/partkeepr/PartKeepr/issues/1230/>
 
 ## Timeline
 
-- 2022-01-03: Vulnerability discovered.
-
-- 2022-01-04: Vendor contacted.
-
-- 2022-01-09: Public Disclosure.
+<time-lapse
+  discovered="2022-01-03"
+  contacted="2022-01-04"
+  replied=""
+  confirmed=""
+  patched=""
+  disclosure="2022-01-09">
+</time-lapse>

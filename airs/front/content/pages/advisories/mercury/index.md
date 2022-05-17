@@ -18,7 +18,7 @@ template: advisory
 ## Summary
 
 |                       |                                                          |
-|-----------------------|----------------------------------------------------------|
+| --------------------- | -------------------------------------------------------- |
 | **Name**              | phpIPAM 1.4.4 - SQL Injection                            |
 | **Code name**         | [Mercury](https://en.wikipedia.org/wiki/Freddie_Mercury) |
 | **Product**           | phpIPAM                                                  |
@@ -29,15 +29,15 @@ template: advisory
 
 ## Vulnerability
 
-|                       |                                                                                    |
-|-----------------------|------------------------------------------------------------------------------------|
-| **Kind**              | SQL injection                                                                      |
-| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146)   |
-| **Remote**            | Yes                                                                                |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L                                       |
-| **CVSSv3 Base Score** | 4.7                                                                                |
-| **Exploit available** | No                                                                                 |
-| **CVE ID(s)**         | [CVE-2022-23046](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23046)                                                                 |
+|                       |                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------- |
+| **Kind**              | SQL injection                                                                    |
+| **Rule**              | [146. SQL injection](https://docs.fluidattacks.com/criteria/vulnerabilities/146) |
+| **Remote**            | Yes                                                                              |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L                                     |
+| **CVSSv3 Base Score** | 4.7                                                                              |
+| **Exploit available** | No                                                                               |
+| **CVE ID(s)**         | [CVE-2022-23046](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23046)  |
 
 ## Description
 
@@ -83,19 +83,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                 |
-|---------------------|-----------------------------------------------------------------|
-| **Vendor page**     | <https://phpipam.net/>                                          |
-| **Patched version** | <https://github.com/phpipam/phpipam/releases/tag/v1.4.5>        |
+**Vendor page** <https://phpipam.net/>
+
+**Patched version** <https://github.com/phpipam/phpipam/releases/tag/v1.4.5>
 
 ## Timeline
 
-- 2022-01-06: Vulnerability discovered.
-
-- 2022-01-07: Vendor contacted.
-
-- 2022-01-07: Vendor replied acknowledging the report.
-
-- 2022-01-17: Vulnerability patched.
-
-- 2022-01-18: Public Disclosure.
+<time-lapse
+  discovered="2022-01-06"
+  contacted="2022-01-07"
+  replied="2022-01-07"
+  confirmed=""
+  patched="2022-01-17"
+  disclosure="2022-01-18">
+</time-lapse>

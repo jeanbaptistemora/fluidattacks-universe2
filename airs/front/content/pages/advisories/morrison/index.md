@@ -18,7 +18,7 @@ template: advisory
 ## Summary
 
 |               |                                                        |
-|---------------|--------------------------------------------------------|
+| ------------- | ------------------------------------------------------ |
 | **Name**      | Squid Cache vulnerability                              |
 | **Code name** | [Morrison](https://en.wikipedia.org/wiki/Van_Morrison) |
 | **Product**   | Squid Cache                                            |
@@ -26,14 +26,14 @@ template: advisory
 
 ## Vulnerability
 
-|                       |                                                                                                   |
-|-----------------------|---------------------------------------------------------------------------------------------------|
-| **Kind**              | Double-Free/Arbitrary code execution                                                              |
+|                       |                                                                                                          |
+| --------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Kind**              | Double-Free/Arbitrary code execution                                                                     |
 | **Rule**              | [345. Establish protections against overflows](https://docs.fluidattacks.com/criteria/requirements/345/) |
-| **Remote**            | No                                                                                                |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H                                                      |
-| **CVSSv3 Base Score** | 6.4 MEDIUM                                                                                        |
-| **Exploit available** | Yes                                                                                               |
+| **Remote**            | No                                                                                                       |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H                                                             |
+| **CVSSv3 Base Score** | 6.4 MEDIUM                                                                                               |
+| **Exploit available** | Yes                                                                                                      |
 
 ## Description
 
@@ -143,7 +143,6 @@ Team of `Fluid Attacks`.
 
 ## References
 
-|                                  |                                                   |
-|----------------------------------|---------------------------------------------------|
-| **Vendor page**                  | <http://www.squid-cache.org/>                     |
-| **Full Disclosure announcement** | <https://seclists.org/fulldisclosure/2021/Feb/80> |
+**Vendor page** <http://www.squid-cache.org/>
+
+**Full Disclosure announcement** <https://seclists.org/fulldisclosure/2021/Feb/80>
