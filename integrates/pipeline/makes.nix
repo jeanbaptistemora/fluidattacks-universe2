@@ -94,6 +94,7 @@
     ["update_group_access_info"]
     ["update_group_disambiguation"]
     ["update_group_info"]
+    ["update_group_managed"]
     ["update_group_stakeholder"]
     ["update_organization_policies"]
     ["update_organization_stakeholder"]
