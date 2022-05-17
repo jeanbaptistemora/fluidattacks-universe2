@@ -2,5 +2,5 @@
 
 echo "Executing type check phase" \
   && mypy --version \
-  && mypy . \
+  && mypy . --config-file ./mypy.ini \
   && echo "Finished type check phase"
