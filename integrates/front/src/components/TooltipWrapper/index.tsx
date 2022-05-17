@@ -7,6 +7,7 @@ import style from "./index.css";
 interface ITooltipWrapperProps {
   children: React.ReactNode;
   displayClass?: string;
+  hide?: boolean;
   id: string;
   message: string;
   placement?: "bottom" | "left" | "right" | "top";
@@ -15,7 +16,14 @@ interface ITooltipWrapperProps {
 export const TooltipWrapper: React.FC<ITooltipWrapperProps> = (
   props: Readonly<ITooltipWrapperProps>
 ): JSX.Element => {
-  const { children, displayClass, id, message, placement = "bottom" } = props;
+  const {
+    children,
+    displayClass,
+    hide = false,
+    id,
+    message,
+    placement = "bottom",
+  } = props;
 
   return (
     <div
@@ -27,26 +35,28 @@ export const TooltipWrapper: React.FC<ITooltipWrapperProps> = (
       data-tip={message}
     >
       {children}
-      <ReactTooltip
-        delayShow={500}
-        id={id}
-        overridePosition={(
-          { left, top },
-          _currentEvent,
-          _currentTarget,
-          node
-        ): { left: number; top: number } => {
-          const doc = document.documentElement;
-          if (node !== null) {
-            left = Math.min(doc.clientWidth - node.clientWidth, left);
-            top = Math.min(doc.clientHeight - node.clientHeight, top);
-            left = Math.max(0, left);
-            top = Math.max(0, top);
-          }
+      {!hide && (
+        <ReactTooltip
+          delayShow={500}
+          id={id}
+          overridePosition={(
+            { left, top },
+            _currentEvent,
+            _currentTarget,
+            node
+          ): { left: number; top: number } => {
+            const doc = document.documentElement;
+            if (node !== null) {
+              left = Math.min(doc.clientWidth - node.clientWidth, left);
+              top = Math.min(doc.clientHeight - node.clientHeight, top);
+              left = Math.max(0, left);
+              top = Math.max(0, top);
+            }
 
-          return { left, top };
-        }}
-      />
+            return { left, top };
+          }}
+        />
+      )}
     </div>
   );
 };

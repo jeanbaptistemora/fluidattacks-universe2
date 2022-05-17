@@ -301,6 +301,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                       <Can do={"api_mutations_add_group_mutate"}>
                         <ButtonToolbar>
                           <TooltipWrapper
+                            hide={runTour}
                             id={
                               "organization.tabs.groups.newGroup.new.tooltip.btn"
                             }

@@ -229,6 +229,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           )}
                         </ControlLabel>
                         <TooltipWrapper
+                          hide={runTour}
                           id={
                             "organization.tabs.groups.newGroup.organization.tooltip"
                           }
@@ -280,6 +281,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           )}
                         </ControlLabel>
                         <TooltipWrapper
+                          hide={runTour}
                           id={
                             "organization.tabs.groups.newGroup.description.tooltip"
                           }
@@ -317,6 +319,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           {t("organization.tabs.groups.newGroup.type.title")}
                         </ControlLabel>
                         <TooltipWrapper
+                          hide={runTour}
                           id={"organization.tabs.groups.newGroup.type.tooltip"}
                           message={t(
                             "organization.tabs.groups.newGroup.type.tooltip"
@@ -375,6 +378,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           {t("organization.tabs.groups.newGroup.language.text")}
                         </ControlLabel>
                         <TooltipWrapper
+                          hide={runTour}
                           id={
                             "organization.tabs.groups.newGroup.language.tooltip"
                           }
@@ -404,6 +408,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                   <Row justify={"center"}>
                     <Col hidden={true} large={"50"} medium={"50"} small={"50"}>
                       <TooltipWrapper
+                        hide={runTour}
                         id={"organization.tabs.groups.newGroup.machine.tooltip"}
                         message={t(
                           "organization.tabs.groups.newGroup.machine.tooltip"
@@ -441,6 +446,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         small={"50"}
                       >
                         <TooltipWrapper
+                          hide={runTour}
                           id={"organization.tabs.groups.newGroup.squad.tooltip"}
                           message={t(
                             "organization.tabs.groups.newGroup.squad.tooltip"
