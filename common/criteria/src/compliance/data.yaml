@@ -1,7 +1,7 @@
 "bsimm":
   title: BSIMM
   en:
-    description: >
+    summary: >
       The Building Security In Maturity Model
       is a data-driven model
       developed through rigorous analysis of software
@@ -9,7 +9,7 @@
       also known as application/product security programs.
       The version used in this section is BSIMM11.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "CR3_4:_2":
       title: Automate malicious code detection
@@ -27,7 +27,7 @@
 "capec":
   title: CAPEC™
   en:
-    description: >
+    summary: >
       Common Attack Pattern Enumeration and Classification
       helps by providing a comprehensive dictionary
       of known patterns of attack
@@ -40,7 +40,7 @@
       and enhance defenses.
       The version used in this section is CAPEC List v3.5.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1":
       title: Accessing functionality not properly constrained by ACLs
@@ -307,7 +307,7 @@
 "cis":
   title: CIS
   en:
-    description: >
+    summary: >
       The Center for Internet Security Controls
       are a prioritized set of safeguards
       to mitigate the most prevalent cyberattacks
@@ -317,7 +317,7 @@
       regulatory and policy frameworks.
       The version used in this section is CIS Controls v8.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "2_1":
       title: Establish and maintain a software inventory
@@ -449,7 +449,7 @@
 "cwe":
   title: CWE
   en:
-    description: >
+    summary: >
       Common Weakness Enumeration
       is a community-developed list of software
       and hardware weakness types.
@@ -459,7 +459,7 @@
       mitigation and prevention efforts.
       The version used in this section is CWE List v4.5.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "20":
       title: Improper input validation
@@ -957,7 +957,7 @@
 "eprivacy":
   title: ePrivacy Directive
   en:
-    description: >
+    summary: >
       ePrivacy Directive is an important legal instrument
       for privacy in the digital age,
       and more specifically
@@ -966,7 +966,7 @@
       The version used in this section is Directive 2002 58 EC
       (amended by E-privacy Directive 2009 136 EC).
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "4_1a":
       title: Security of processing
@@ -987,7 +987,7 @@
 "gdpr":
   title: GDPR
   en:
-    description: >
+    summary: >
       This regulation lays down rules
       relating to the protection of natural persons
       with regard to the processing of personal data
@@ -995,7 +995,7 @@
       The version used in this section is GDPR - OJ L 119,
       4.5.2016.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "5_1e":
       title: Principles relating to processing of personal data
@@ -1094,7 +1094,7 @@
 "hipaa":
   title: HIPAA
   en:
-    description: >
+    summary: >
       The Health Insurance Portability and Accountability Act of 1996
       required the Secretary of the U.S. Department of Health
       and Human Services (HHS)
@@ -1102,7 +1102,7 @@
       protecting the privacy and security of certain health information.
       The version used in this section is the HIPAA Rules 2013 update.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "164_308_a_1_ii_D":
       title: Information system activity review (required)
@@ -1147,7 +1147,7 @@
 "iso27001":
   title: ISO/IEC 27001
   en:
-    description: >
+    summary: >
       ISO/IEC 27001 is widely known,
       providing requirements
       for an information security management system (ISMS),
@@ -1161,7 +1161,7 @@
       The version used in this section is ISO/IEC 27001:2013
       - Annex A.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "9_1_2":
       title: Access to networks and network services
@@ -1230,7 +1230,7 @@
 "nerccip":
   title: NERC CIP
   en:
-    description: >
+    summary: >
       The North American Electric Reliability
       Corporation Reliability Standards
       are developed using an industry-driven,
@@ -1240,7 +1240,7 @@
       by the reliability of the North American bulk power system.
       The version used for this section is NERC CIP v5 Standards.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "003-8_3_1":
       title: Electronic access controls
@@ -1300,7 +1300,7 @@
 "nist80053":
   title: NIST 800-53
   en:
-    description: >
+    summary: >
       NIST SP 800-53 defines the standards
       and guidelines for federal agencies
       to architect and manage their
@@ -1313,7 +1313,7 @@
       Rev. 5,
       September 2020.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "AC-2_2":
       title: Removal of temporary or emergency accounts
@@ -1370,7 +1370,7 @@
 "nist80063":
   title: NIST 800-63B
   en:
-    description: >
+    summary: >
       NIST Special Publication 800-63B is a digital identity guideline
       that provides recommendations
       on types of authentication processes
@@ -1380,7 +1380,7 @@
       to systems over a network.
       The version used for this section is NIST 800-63B.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "5_1_1_2":
       title: Memorized secret verifiers
@@ -1413,7 +1413,7 @@
 "asvs":
   title: OWASP ASVS
   en:
-    description: >
+    summary: >
       The OWASP Application Security Verification Standard project
       provides a basis for testing web application
       technical security controls
@@ -1421,7 +1421,7 @@
       with a list of requirements for secure development.
       The version used in this section is OWASP-ASVS v4.0.2.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "C_1":
       title: Security verification requirements
@@ -2270,7 +2270,7 @@
 "owasp10":
   title: OWASP TOP 10
   en:
-    description: >
+    summary: >
       The OWASP Top 10 is a standard
       awareness document for developers
       and web application security.
@@ -2279,7 +2279,7 @@
       to web applications.
       The version used in this section is OWASP Top 10:2021.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "A1":
       title: Broken access control
@@ -2315,7 +2315,7 @@
 "pci":
   title: PCI DSS
   en:
-    description: >
+    summary: >
       PCI DSS is the global data security standard
       adopted by payment card brands
       for all entities that process,
@@ -2325,7 +2325,7 @@
       that mirror security best practices.
       The version used in this section is PCI DSS v3.2.1.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "A1_1":
       title: A hosting provider must fulfill these requirements
@@ -2619,7 +2619,7 @@
 "soc2":
   title: SOC2®
   en:
-    description: >
+    summary: >
       These reports are intended to meet the needs
       of a broad range of users
       that need detailed information and assurance
@@ -2634,7 +2634,7 @@
       Confidentiality, and Privacy
       (last revisions made in March 2020).
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "CC2_3":
       title: Communication and information
@@ -2715,7 +2715,7 @@
 "cwe25":
   title: CWE TOP 25
   en:
-    description: >
+    summary: >
       Common Weakness Enumeration Top 25
       (CWE Top 25) is a demonstrative list
       and valuable community resource
@@ -2727,7 +2727,7 @@
       and current security weaknesses.
       The version used in this section is CWE Top 25 2021.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "787":
       title: Out-of-bounds write
@@ -2808,7 +2808,7 @@
 "owaspm10":
   title: OWASP-M TOP 10
   en:
-    description: >
+    summary: >
       OWASP Mobile Security Project is a centralized resource
       intended to give developers and security teams
       the resources they need
@@ -2819,7 +2819,7 @@
       or likelihood of exploitation.
       The last version reviewed is 2016.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "M1":
       title: Improper platform usage
@@ -2855,7 +2855,7 @@
 "nist":
   title: NIST Framework
   en:
-    description: >
+    summary: >
       The NIST Cybersecurity Framework is a guidance
       based on existing standards,
       guidelines and practices for organizations
@@ -2864,7 +2864,7 @@
       by the National Institute of Standards and Technology (NIST)
       in close collaboration with the private sector.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "ID_AM-3":
       title: Organizational communication and data flows are mapped
@@ -2966,7 +2966,7 @@
 "agile":
   title: Agile Alliance
   en:
-    description: >
+    summary: >
       The Agile Manifesto uncovers better ways of developing software
       by doing it and helping others do it.
       This work values individuals and interactions
@@ -2978,7 +2978,7 @@
       and responding to change
       over following a plan.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1":
       title: Early and continuous delivery of valuable software
@@ -2996,13 +2996,13 @@
 "bizec":
   title: BIZEC-APP
   en:
-    description: >
+    summary: >
       The BIZEC APP/11 standard comprises the most critical
       and the most common security defects
       and technical risks in SAP ABAP applications.
       This version corresponds to the year 2012.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "APP-01":
       title: ABAP command injection
@@ -3032,7 +3032,7 @@
 "ccpa":
   title: CCPA
   en:
-    description: >
+    summary: >
       The California Consumer Privacy Act of 2018
       (CCPA) gives users and consumers more control
       over the personal information
@@ -3042,7 +3042,7 @@
       The version used in this section
       is CCPA of 2018.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1798_100":
       title: General duties of businesses that collect personal information
@@ -3069,7 +3069,7 @@
 "cpra":
   title: CPRA
   en:
-    description: >
+    summary: >
       The California Privacy Rights Act CPRA
       is a data privacy law
       that takes effect on January 1, 2023.
@@ -3078,7 +3078,7 @@
       (CCPA).
       The version used in this section is CPRA of 2018 v2.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1798-100":
       title: Right to know what personal information is being collected
@@ -3096,7 +3096,7 @@
 "certc":
   title: CERT-C
   en:
-    description: >
+    summary: >
       The SEI CERT C Coding Standard,
       2016 Edition provides rules for secure
       coding in the C programming language.
@@ -3108,7 +3108,7 @@
       undefined program behaviors and
       exploitable vulnerabilities.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "EXP33-C":
       title: Do not read uninitialized memory
@@ -3135,7 +3135,7 @@
 "certj":
   title: CERT-J
   en:
-    description: >
+    summary: >
       The SEI CERT® Oracle® Secure Coding
       Standard for Java™ provides rules
       designed to eliminate insecure coding practices
@@ -3144,7 +3144,7 @@
       published in 2011,
       covers security issues.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "IDS00-J":
       title: Prevent SQL injection
@@ -3246,7 +3246,7 @@
 "fcra":
   title: FCRA
   en:
-    description: >
+    summary: >
       The Fair Credit Reporting Act
       (FCRA) regulates the way
       credit reporting agencies can collect,
@@ -3255,7 +3255,7 @@
       referencing personal and sensitive information.
       The version used in this section is FCRA of September 2018.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "604-E_5":
       title: Notification system
@@ -3267,14 +3267,14 @@
 "facta":
   title: FACTA
   en:
-    description: >
+    summary: >
       The Fair and Accurate Credit Transactions Act
       (FACTA) of 2003,
       amending the Fair Credit Reporting Act,
       adds provisions designed to improve
       the accuracy of consumers' credit-related records.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "157-A":
       title: Study on the use of technology to combat identity theft
@@ -3286,7 +3286,7 @@
 "glba":
   title: GLBA
   en:
-    description: >
+    summary: >
       The Gramm–Leach–Bliley Act
       (GLBA) requires financial institutions
       —companies that offer consumers financial products
@@ -3297,7 +3297,7 @@
       to their customers
       and to safeguard sensitive data.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "501_A":
       title: Privacy obligation policy
@@ -3312,7 +3312,7 @@
 "misrac":
   title: MISRA-C
   en:
-    description: >
+    summary: >
       MISRA C is a set of software development guidelines
       for the C programming language
       developed by The MISRA Consortium.
@@ -3324,7 +3324,7 @@
       and standalone software.
       The version used in this section is MISRA-C:2004.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1_1":
       title: All code shall conform to legal compliance
@@ -3363,7 +3363,7 @@
 "nydfs":
   title: NYDFS
   en:
-    description: >
+    summary: >
       The NYDFS Cybersecurity Regulation (23 NYCRR 500)
       is a set of regulations
       from the New York State Department of Financial Services (NYDFS)
@@ -3371,7 +3371,7 @@
       on all covered entities.
       The version used in this section is NYDFS, February 2017.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "500_2":
       title: Cybersecurity program
@@ -3413,7 +3413,7 @@
 "nyshield":
   title: NY SHIELD Act
   en:
-    description: >
+    summary: >
       Stop Hacks and Improve Electronic Data Security Act (SHIELD ACT)
       was developed in July of 2019.
       This Act amends New York's existing data breach notification law
@@ -3423,7 +3423,7 @@
       and new reporting requirements
       in the event of a breach.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "5575_B_2":
       title: Personal and private information
@@ -3438,7 +3438,7 @@
 "mitre":
   title: MITRE ATT&CK®
   en:
-    description: >
+    summary: >
       MITRE ATT&CK® is a globally-accessible
       knowledge base of adversary tactics and techniques
       based on real-world observations
@@ -3448,7 +3448,7 @@
       to avoid introducing security weaknesses
       that an adversary may be able to take advantage of.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "M1036":
       title: Account use policies
@@ -3568,7 +3568,7 @@
 "padss":
   title: PA-DSS
   en:
-    description: >
+    summary: >
       The PCI Payment Application
       Data Security Standard (PA-DSS)
       Requirements and Security Assessment Procedures
@@ -3577,7 +3577,7 @@
       The version used in this section is PA-DSS version 3.0,
       November 2013.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1_1":
       title: Do not store sensitive authentication data after authorization
@@ -3754,7 +3754,7 @@
 "sans25":
   title: SANS 25
   en:
-    description: >
+    summary: >
       CWE/SANS TOP 25 Most Dangerous Software Errors
       is a demonstrative list of the most common
       and impactful issues
@@ -3764,7 +3764,7 @@
       for mitigating and avoiding them.
       The version used in this section is CWE Top 25 2020.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "119":
       title: Improper restriction of operations within the bounds of a memory buffer
@@ -3845,7 +3845,7 @@
 "pdpa":
   title: PDPA
   en:
-    description: >
+    summary: >
       Singapore's Personal Data Protection Act (PDPA)
       regulates the collection,
       use and disclosure of personal data in Singapore
@@ -3855,7 +3855,7 @@
       companies and organizations.
       The version used in this section is PDPA 2020.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "3_12":
       title: Policies and practices
@@ -3906,7 +3906,7 @@
 "popia":
   title: POPIA
   en:
-    description: >
+    summary: >
       South Africa's Protection of Personal Information Act (POPIA)
       aims to promote the protection of personal information
       processed by public and private bodies
@@ -3915,7 +3915,7 @@
       for the processing of personal information.
       The version used in this section is POPIA 2021.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "3A_11":
       title: Processing of personal information in general – Consent, justification and objection
@@ -3954,7 +3954,7 @@
 "pdpo":
   title: PDPO
   en:
-    description: >
+    summary: >
       The Personal Data Privacy Ordinance (PDPO)
       is the main legislation in Hong Kong
       which aims to protect the privacy of individuals
@@ -3964,7 +3964,7 @@
       based on a set of data protection principles.
       The version used in this section is the PDPO 2021 update.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "5_18":
       title: Data access request
@@ -4012,7 +4012,7 @@
 "cmmc":
   title: CMMC
   en:
-    description: >
+    summary: >
       The Cybersecurity Maturity Model Certification
       (CMMC) program enhances cyber protection standards
       for companies in the Defense Industrial Base (DIB).
@@ -4021,7 +4021,7 @@
       (process institutionalization).
       The version used in this section is CMMC 2.0.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "AC_L1-3_1_1":
       title: Authorized access control
@@ -4267,7 +4267,7 @@
 "hitrust":
   title: HITRUST CSF
   en:
-    description: >
+    summary: >
       HITRUST CSF is both risk and compliance-based,
       making it possible
       for organizations of varying risk profiles
@@ -4284,7 +4284,7 @@
       maintenance and comprehensiveness of components.
       The version used in this section is HITRUST CSF v9.6.0.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "01_a":
       title: Access control policy
@@ -4548,7 +4548,7 @@
 "fedramp":
   title: FedRAMP
   en:
-    description: >
+    summary: >
       FedRAMP is a U.S. Government program
       designed to standardize
       how the Federal Information Security Management Act
@@ -4563,7 +4563,7 @@
       based on NIST baseline controls
       (NIST SP 800-53).
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "AC-2_3":
       title: Account management - Disable inactive accounts
@@ -4731,7 +4731,7 @@
 "iso27002":
   title: ISO/IEC 27002
   en:
-    description: >
+    summary: >
       ISO/IEC 27002 is used as a reference
       for determining and implementing controls
       for information security risk treatment
@@ -4747,7 +4747,7 @@
       using ISO/IEC 27002 for guidance.
       The version used in this section is ISO/IEC 27002:2022.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "5_16":
       title: Identity management
@@ -4864,7 +4864,7 @@
 "lgpd":
   title: LGPD
   en:
-    description: >
+    summary: >
       The Brazilian General Data Protection Law
       (LGPD) can be considered as Brazil's answer to the GDPR
       —with the Brazilian law
@@ -4876,7 +4876,7 @@
       in the private and public sectors.
       The version used in this section is LGPD 2019.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "7_I":
       title: Chances of carrying out personal data processing
@@ -4984,7 +4984,7 @@
 "iec62443":
   title: ISA/IEC 62443
   en:
-    description: >
+    summary: >
       The ISA/IEC 62443 standard defines the necessary elements
       to establish a cyber security management system (CSMS)
       for industrial automation and control systems (IACS)
@@ -4992,7 +4992,7 @@
       The version used in this section
       is IEC 62443-3-3 edition 1.0 2013-08.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "IAC-1_1":
       title: Human user identification and authentication
@@ -5121,7 +5121,7 @@
 "wassec":
   title: WASSEC
   en:
-    description: >
+    summary: >
       The Web Application Security Scanner Evaluation Criteria
       (WASSEC) is a set of guidelines
       to evaluate web application scanners
@@ -5132,7 +5132,7 @@
       testing and reporting.
       The version used in this section is WASSEC version 1.0.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1_1":
       title: Transport support
@@ -5255,7 +5255,7 @@
 "osstmm3":
   title: OSSTMM3
   en:
-    description: >
+    summary: >
       The Open Source Security Testing Methodology Manual (OSSTMM)
       provides a methodology for the accurate characterization
       of operational security (OpSec)
@@ -5269,7 +5269,7 @@
       The version used in this section is OSSTMM 3.0,
       published on December 14, 2010.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "8_5_2":
       title: Physical security (access verification) - Authentication
@@ -5395,7 +5395,7 @@
 "c2m2":
   title: C2M2
   en:
-    description: >
+    summary: >
       The Cybersecurity Capability Maturity
       Model (C2M2) is a tool for evaluating
       and improving cybersecurity.
@@ -5409,7 +5409,7 @@
       The version used in this section
       is C2M2 v2.0.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "1_1_i":
       title: ASSET - Manage IT and OT asset inventory (3)
@@ -5592,7 +5592,7 @@
 "wasc":
   title: WASC
   en:
-    description: >
+    summary: >
       The WASC Threat Classification is a cooperative effort
       to clarify and organize the threats
       to the security of a website.
@@ -5601,7 +5601,7 @@
       its data or its users.
       The version used in this section is WASC Threat Classification v2.0.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "A_42":
       title: Abuse of functionality
@@ -5712,7 +5712,7 @@
 "ferpa":
   title: FERPA
   en:
-    description: >
+    summary: >
       The Family Educational Rights and
       Privacy Act (FERPA) is a Federal
       law that protects the privacy of
@@ -5725,7 +5725,7 @@
       section is FERPA amended July 6,
       2000.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "D_31_c":
       title: Conditions of prior consent required to disclose information
@@ -5743,7 +5743,7 @@
 "nistssdf":
   title: NIST SSDF
   en:
-    description: >
+    summary: >
       The NIST Secure Software Development
       Framework (SSDF) is a set of
       fundamental and secure software
@@ -5760,7 +5760,7 @@
       section is NIST 800-218 v1.1,
       February 2022.
   es:
-    description: __empty__
+    summary: __empty__
   definitions:
     "PO_1_3":
       title: Define security requirements for software development

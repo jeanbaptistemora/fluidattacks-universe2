@@ -42,9 +42,9 @@
     "language": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "description" ],
+      "required": [ "summary" ],
       "properties": {
-        "description": { "type": "string" }
+        "summary": { "type": "string" }
       }
     }
   }

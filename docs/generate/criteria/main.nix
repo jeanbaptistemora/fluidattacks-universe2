@@ -511,8 +511,8 @@
           ];
         };
         __argTitle__ = src.title;
-        __argDescription__ = section {
-          title = "## Description";
+        __argSummary__ = section {
+          title = "## Summary";
           content = src.en.description;
         };
         __argDefinitions__ = section {
