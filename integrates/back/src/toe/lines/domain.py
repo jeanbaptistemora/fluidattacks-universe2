@@ -56,6 +56,7 @@ async def add(  # pylint: disable=too-many-arguments
     if is_moving_toe_lines is False:
         root: Root = await loaders.root.load((group_name, root_id))
         validate_active_root(root)
+        validate_email_address(attributes.last_author)
         if attributes.seen_first_time_by is not None:
             validate_email_address(attributes.seen_first_time_by)
     attacked_lines = (
