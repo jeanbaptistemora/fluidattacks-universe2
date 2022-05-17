@@ -17,27 +17,27 @@ template: advisory
 
 ## Summary
 
-|                         |                                                            |
-|-------------------------|------------------------------------------------------------|
-| **Name**                | PeTeReport 0.5 - Stored XSS (Markdown)                     |
-| **Code name**           | [Armstrong](https://en.wikipedia.org/wiki/Louis_Armstrong) |
-| **Product**             | PeTeReport                                                 |
-| **Affected versions**   | Version 0.5                                                |
-| **Fixed versions**      | Version 0.7                                                |
-| **State**               | Public                                                     |
-| **Release date**        | 2022-02-23                                                 |
+|                       |                                                            |
+| --------------------- | ---------------------------------------------------------- |
+| **Name**              | PeTeReport 0.5 - Stored XSS (Markdown)                     |
+| **Code name**         | [Armstrong](https://en.wikipedia.org/wiki/Louis_Armstrong) |
+| **Product**           | PeTeReport                                                 |
+| **Affected versions** | Version 0.5                                                |
+| **Fixed versions**    | Version 0.7                                                |
+| **State**             | Public                                                     |
+| **Release date**      | 2022-02-23                                                 |
 
 ## Vulnerability
 
-|                       |                                                                  |
-|-----------------------|------------------------------------------------------------------|
-| **Kind**              | Stored cross-site scripting (XSS)                                |
-| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010)    |
-| **Remote**            | Yes                                                              |
-| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                     |
-| **CVSSv3 Base Score** | 4.8                                                              |
-| **Exploit available** | No                                                               |
-| **CVE ID(s)**         | [CVE-2022-25220](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25220)                                                     |
+|                       |                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Kind**              | Stored cross-site scripting (XSS)                                                                    |
+| **Rule**              | [010. Stored cross-site scripting (XSS)](https://docs.fluidattacks.com/criteria/vulnerabilities/010) |
+| **Remote**            | Yes                                                                                                  |
+| **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N                                                         |
+| **CVSSv3 Base Score** | 4.8                                                                                                  |
+| **Exploit available** | No                                                                                                   |
+| **CVE ID(s)**         | [CVE-2022-25220](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-25220)                      |
 
 ## Description
 
@@ -82,19 +82,17 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-|                     |                                                                     |
-|---------------------|---------------------------------------------------------------------|
-| **Vendor page**     | <https://github.com/1modm/petereport>                               |
-| **Issue**           | <https://github.com/1modm/petereport/issues/35>                     |
+**Vendor page** <https://github.com/1modm/petereport>
+
+**Issue** <https://github.com/1modm/petereport/issues/35>
 
 ## Timeline
 
-* 2022-02-08: Vulnerability discovered.
-
-* 2022-02-08: Vendor contacted.
-
-* 2022-02-09: Vendor replied acknowledging the report.
-
-* 2022-02-09: Vulnerability patched.
-
-* 2022-02-23: Public Disclosure.
+<time-lapse
+  discovered="2022-02-08"
+  contacted="2022-02-08"
+  replied="2022-02-09"
+  confirmed=""
+  patched="2022-02-28"
+  disclosure="2022-02-23">
+</time-lapse>
