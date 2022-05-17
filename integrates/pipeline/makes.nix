@@ -616,10 +616,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintTerraform/integratesResources";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/pipelineOnGitlab/integrates";
             gitlabExtra = gitlabLint;
           }
@@ -629,10 +625,6 @@ in {
           }
           {
             output = "/testTerraform/integratesDatabase";
-            gitlabExtra = gitlabTestInfra;
-          }
-          {
-            output = "/testTerraform/integratesResources";
             gitlabExtra = gitlabTestInfra;
           }
         ];
