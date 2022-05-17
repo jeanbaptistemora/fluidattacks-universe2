@@ -9,13 +9,19 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0*/
+/* eslint @typescript-eslint/no-unsafe-call: 0*/
+/* eslint @typescript-eslint/no-explicit-any: 0*/
+
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
-import React from "react";
+import React, { createElement } from "react";
+import rehypeReact from "rehype-react";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
+import { TimeLapse } from "../components/TimeLapse";
 import {
   AdvisoryContainer,
   MarkedTitle,
@@ -33,9 +39,16 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
+  const renderAst = new (rehypeReact as any)({
+    components: {
+      "time-lapse": TimeLapse,
+    },
+    createElement,
+  }).Compiler;
+
   const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
-  const { html } = data.markdownRemark;
+  const { htmlAst } = data.markdownRemark;
 
   return (
     <React.Fragment>
@@ -66,11 +79,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
                 </RedMark>
               </div>
             </MarkedTitleContainer>
-            <AdvisoryContainer
-              dangerouslySetInnerHTML={{
-                __html: html,
-              }}
-            />
+            <AdvisoryContainer>{renderAst(htmlAst)}</AdvisoryContainer>
           </PageArticle>
         </div>
       </Layout>
@@ -83,7 +92,7 @@ export default AdvisoryIndex;
 export const query: void = graphql`
   query AdvisoryIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+      htmlAst
       fields {
         slug
       }
