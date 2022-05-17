@@ -560,6 +560,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       }
     );
 
+  const resultEnvironmentsUrlsDataset: Record<string, unknown>[] =
+    filterSearchText(envUrlsDataSet, searchEnvsTextFilter);
+
   return (
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
@@ -753,7 +756,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 onUpdateCustomSearch: onSearchEnvsTextChange,
                 position: "right",
               }}
-              dataset={envUrlsDataSet}
+              dataset={resultEnvironmentsUrlsDataset}
               expandRow={{
                 expandByColumnOnly: true,
                 renderer: renderEnvDescription,

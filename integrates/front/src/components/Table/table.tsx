@@ -85,7 +85,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   } = customSearch ?? {};
   const searchPosition: ICustomSearchProps["position"] =
     position === undefined || position === "left" ? "left" : "right";
-  const shoulShowResults: boolean = hideResults === undefined || !hideResults;
+  const shouldShowResults: boolean = hideResults === undefined || !hideResults;
   const { t } = useTranslation();
 
   function handleUpdateEnableFilter(): void {
@@ -261,7 +261,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
-      {resultSize && shoulShowResults && (
+      {resultSize && shouldShowResults && (
         <TooltipWrapper
           id={"tableResultTooltip"}
           message={t("table.results.tooltip")}
