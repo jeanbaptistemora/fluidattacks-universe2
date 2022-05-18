@@ -1,4 +1,5 @@
 from lib_root.utilities.c_sharp import (
+    get_object_identifiers,
     yield_shard_member_access,
     yield_shard_object_creation,
 )
@@ -22,6 +23,9 @@ from utils import (
 from utils.graph.text_nodes import (
     node_to_str,
 )
+from utils.string import (
+    split_on_last_dot as split_l,
+)
 
 
 def verify_decoder(
@@ -32,6 +36,8 @@ def verify_decoder(
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
+            jwt_dec = get_object_identifiers(shard, {"JwtDecoder"})
+
             for member in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,
@@ -39,7 +45,8 @@ def verify_decoder(
                     label_type="member_access_expression"
                 ),
             ):
-                if node_to_str(shard.graph, member) == "decoder.Decode":
+                split_node = split_l(node_to_str(shard.graph, member))
+                if split_node[0] in jwt_dec and split_node[1] == "Decode":
                     pred = g.pred(shard.graph, member)[0]
                     props = g.get_ast_childs(
                         shard.graph, pred, depth=4, label_type="argument"
