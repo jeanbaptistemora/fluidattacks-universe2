@@ -90,7 +90,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       user.setUser({
         tours: {
           newGroup: true,
-          newRoot: false,
+          newRoot: user.tours.newRoot,
         },
         userEmail: user.userEmail,
         userIntPhone: user.userIntPhone,

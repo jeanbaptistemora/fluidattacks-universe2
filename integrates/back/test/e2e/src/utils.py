@@ -51,6 +51,19 @@ def wait_for_text(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     )
 
 
+def wait_for_aria_label(
+    driver: WebDriver, element: str, text: str, timeout: int
+) -> WebDriverWait:
+    return WebDriverWait(driver, timeout).until(
+        ec.presence_of_element_located(
+            (
+                By.XPATH,
+                f"//{element}[@aria-label='{text}']",
+            )
+        )
+    )
+
+
 def wait_for_class_name(
     driver: WebDriver, text: str, timeout: int
 ) -> WebDriverWait:

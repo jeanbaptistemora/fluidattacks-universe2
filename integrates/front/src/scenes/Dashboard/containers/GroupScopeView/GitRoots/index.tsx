@@ -121,7 +121,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     if (enableTour) {
       user.setUser({
         tours: {
-          newGroup: true,
+          newGroup: user.tours.newGroup,
           newRoot: true,
         },
         userEmail: user.userEmail,
@@ -198,7 +198,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   function finishTour(): void {
-    void updateTours({ variables: { newGroup: true, newRoot: true } });
+    void updateTours({
+      variables: {
+        newGroup: user.tours.newGroup,
+        newRoot: true,
+      },
+    });
     closeModal();
   }
 

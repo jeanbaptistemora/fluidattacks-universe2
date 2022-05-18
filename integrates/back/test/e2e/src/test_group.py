@@ -173,11 +173,26 @@ def test_group_scope_repositories(
     # Add repo
     repo_url: str = utils.rand_name("https://gitlab.com/fluidattacks/test")
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
+    close_tour = utils.wait_for_aria_label(
+        driver,
+        "button",
+        "Close",
+        timeout,
+    )
+    close_tour.click()
     add_repo = utils.wait_for_id(
         driver,
         "git-root-add",
         timeout,
     )
+    add_repo.click()
+    close_tour = utils.wait_for_aria_label(
+        driver,
+        "button",
+        "Skip",
+        timeout,
+    )
+    close_tour.click()
     add_repo.click()
     url = utils.wait_for_name(driver, "url", timeout)
     branch = utils.wait_for_name(

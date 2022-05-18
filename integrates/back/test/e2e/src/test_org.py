@@ -88,6 +88,14 @@ def test_org_groups(
         timeout,
     )
     add_group.click()
+    close_tour = utils.wait_for_aria_label(
+        driver,
+        "button",
+        "Skip",
+        timeout,
+    )
+    close_tour.click()
+    add_group.click()
     name = utils.wait_for_id(driver, "add-group-name", timeout)
     name.send_keys(group_name)
     description = utils.wait_for_id(driver, "add-group-description", timeout)
