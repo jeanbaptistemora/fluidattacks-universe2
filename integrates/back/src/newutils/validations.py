@@ -73,6 +73,12 @@ def validate_url(url: Optional[str]) -> None:
         )
 
 
+def validate_chart_field(param_value: str, param_name: str) -> None:
+    is_valid = bool(re.search("^[A-Za-z0-9 #-]*$", str(param_value)))
+    if not is_valid:
+        raise InvalidChar(param_name)
+
+
 def validate_file_name(name: str) -> None:
     """Verify that filename has valid characters. Raises InvalidChar
     otherwise."""

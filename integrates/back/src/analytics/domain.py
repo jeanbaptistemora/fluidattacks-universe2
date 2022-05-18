@@ -28,6 +28,7 @@ import logging.config
 from newutils import (
     templates as templates_utils,
     token as token_utils,
+    validations,
 )
 from newutils.encodings import (
     safe_encode,
@@ -223,11 +224,7 @@ def handle_graphic_request_parameters(
         ("generatorType", generator_type),
         ("subject", subject),
     ]:
-        if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
-            raise ValueError(
-                f"Expected [{ALLOWED_CHARS_IN_PARAMS}] "
-                f"in parameter: {param_name}",
-            )
+        validations.validate_chart_field(param_value, param_name)
 
     return GraphicParameters(
         document_name=document_name,
