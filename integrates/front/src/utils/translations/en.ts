@@ -1297,6 +1297,7 @@ export const enTranslations: ResourceKey = {
         groups: {
           managed: {
             no: "Not manually",
+            tooltip: "If the payment method is managed manually",
             yes: "Manually",
           },
           title: "Groups",

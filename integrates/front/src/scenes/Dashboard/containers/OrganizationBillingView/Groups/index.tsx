@@ -12,6 +12,7 @@ import { UPDATE_SUBSCRIPTION } from "../queries";
 import type { IGroupAttr } from "../types";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
+import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
@@ -139,6 +140,8 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       dataField: "managed",
       formatter: formatBoolean,
       header: "Managed",
+      headerFormatter: tooltipFormatter,
+      tooltipDataField: t("organization.tabs.billing.groups.managed.tooltip"),
       width: "10%",
     },
     {
