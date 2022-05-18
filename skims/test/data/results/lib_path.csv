@@ -9874,7 +9874,7 @@ F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,2
   15 |
      ^ Col 33
 ",query.query_f063
-F063,lines,namespace/skims/test/data/lib_path/f063/open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_path/f063/open_redirect.cs,"
+F063,lines,namespace/skims/test/data/lib_root/f063/open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_root/f063/open_redirect.cs,"
    1 | using System;
    2 |
    3 | public partial class WebForm : System.Web.UI.Page
@@ -17842,69 +17842,6 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310,skims,0
   8 | ibm.mq.cipher.suite=X
     ^ Col 0
 ",java.java_properties_weak_cipher_suite
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | ng System.Security.Cryptography;
-   2 |
-   3 | espace Cypher_Example
-   4 |
-   5 |  class CypherExample
-   6 |  {
-   7 |      public static void Main()
-   8 |      {
-   9 |          MD5 myAes = MD5.Create();
-  10 |          SHA1 myAes = SHA1.Create();
-  11 |          HMACMD5 myAes = HMACMD5.Create();
-  12 |          DES myAes = DES.Create();
-  13 |          TripleDES myAes = TripleDES.Create();
-  14 |          var hashProvider3 = new SHA1Managed();
-> 15 |          var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |      }
-  17 |  }
-  18 |
-     ^ Col 3
-",c_sharp.c_sharp_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | sing System.Security.Cryptography;
-   2 |
-   3 | amespace Cypher_Example
-   4 |
-   5 |    class CypherExample
-   6 |    {
-   7 |        public static void Main()
-   8 |        {
-   9 |            MD5 myAes = MD5.Create();
-  10 |            SHA1 myAes = SHA1.Create();
-  11 |            HMACMD5 myAes = HMACMD5.Create();
-  12 |            DES myAes = DES.Create();
-> 13 |            TripleDES myAes = TripleDES.Create();
-  14 |            var hashProvider3 = new SHA1Managed();
-  15 |            var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |        }
-  17 |    }
-  18 |
-     ^ Col 1
-",c_sharp.c_sharp_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | using System.Security.Cryptography;
-   2 |
-   3 | namespace Cypher_Example
-   4 | {
-   5 |     class CypherExample
-   6 |     {
-   7 |         public static void Main()
-   8 |         {
-   9 |             MD5 myAes = MD5.Create();
-  10 |             SHA1 myAes = SHA1.Create();
-  11 |             HMACMD5 myAes = HMACMD5.Create();
-> 12 |             DES myAes = DES.Create();
-  13 |             TripleDES myAes = TripleDES.Create();
-  14 |             var hashProvider3 = new SHA1Managed();
-  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |         }
-  17 |     }
-  18 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_path/f052/java.java,"
    3 | c static void main(String[] args) {
    4 | essageDigest md = MessageDigest.getInstance(""ShA-256"");
@@ -18720,6 +18657,69 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,40,310,skims,052. I
   50 |         val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
      ^ Col 4
 ",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | ng System.Security.Cryptography;
+   2 |
+   3 | espace Cypher_Example
+   4 |
+   5 |  class CypherExample
+   6 |  {
+   7 |      public static void Main()
+   8 |      {
+   9 |          MD5 myAes = MD5.Create();
+  10 |          SHA1 myAes = SHA1.Create();
+  11 |          HMACMD5 myAes = HMACMD5.Create();
+  12 |          DES myAes = DES.Create();
+  13 |          TripleDES myAes = TripleDES.Create();
+  14 |          var hashProvider3 = new SHA1Managed();
+> 15 |          var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |      }
+  17 |  }
+  18 |
+     ^ Col 3
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | sing System.Security.Cryptography;
+   2 |
+   3 | amespace Cypher_Example
+   4 |
+   5 |    class CypherExample
+   6 |    {
+   7 |        public static void Main()
+   8 |        {
+   9 |            MD5 myAes = MD5.Create();
+  10 |            SHA1 myAes = SHA1.Create();
+  11 |            HMACMD5 myAes = HMACMD5.Create();
+  12 |            DES myAes = DES.Create();
+> 13 |            TripleDES myAes = TripleDES.Create();
+  14 |            var hashProvider3 = new SHA1Managed();
+  15 |            var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |        }
+  17 |    }
+  18 |
+     ^ Col 1
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+> 12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,24,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.cs,"
   14 |    };
   15 |
@@ -18912,90 +18912,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310,skims,052.
   12 | }
      ^ Col 0
 ",c_sharp.c_sharp_rsa_secure_mode
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | ng System.Security.Cryptography;
-   2 |
-   3 | espace Cypher_Example
-   4 |
-   5 |  class CypherExample
-   6 |  {
-   7 |      public static void Main()
-   8 |      {
-   9 |          MD5 myAes = MD5.Create();
-  10 |          SHA1 myAes = SHA1.Create();
-  11 |          HMACMD5 myAes = HMACMD5.Create();
-  12 |          DES myAes = DES.Create();
-  13 |          TripleDES myAes = TripleDES.Create();
-> 14 |          var hashProvider3 = new SHA1Managed();
-  15 |          var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |      }
-  17 |  }
-  18 |
-     ^ Col 3
-",c_sharp.c_sharp_insecure_hash
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | using System.Security.Cryptography;
-   2 |
-   3 | namespace Cypher_Example
-   4 | {
-   5 |     class CypherExample
-   6 |     {
-   7 |         public static void Main()
-   8 |         {
-   9 |             MD5 myAes = MD5.Create();
-  10 |             SHA1 myAes = SHA1.Create();
-> 11 |             HMACMD5 myAes = HMACMD5.Create();
-  12 |             DES myAes = DES.Create();
-  13 |             TripleDES myAes = TripleDES.Create();
-  14 |             var hashProvider3 = new SHA1Managed();
-  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |         }
-  17 |     }
-  18 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_hash
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | using System.Security.Cryptography;
-   2 |
-   3 | namespace Cypher_Example
-   4 | {
-   5 |     class CypherExample
-   6 |     {
-   7 |         public static void Main()
-   8 |         {
-   9 |             MD5 myAes = MD5.Create();
-> 10 |             SHA1 myAes = SHA1.Create();
-  11 |             HMACMD5 myAes = HMACMD5.Create();
-  12 |             DES myAes = DES.Create();
-  13 |             TripleDES myAes = TripleDES.Create();
-  14 |             var hashProvider3 = new SHA1Managed();
-  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |         }
-  17 |     }
-  18 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_hash
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/csharp.cs,"
-   1 | using System.Security.Cryptography;
-   2 |
-   3 | namespace Cypher_Example
-   4 | {
-   5 |     class CypherExample
-   6 |     {
-   7 |         public static void Main()
-   8 |         {
->  9 |             MD5 myAes = MD5.Create();
-  10 |             SHA1 myAes = SHA1.Create();
-  11 |             HMACMD5 myAes = HMACMD5.Create();
-  12 |             DES myAes = DES.Create();
-  13 |             TripleDES myAes = TripleDES.Create();
-  14 |             var hashProvider3 = new SHA1Managed();
-  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |         }
-  17 |     }
-  18 | }
-     ^ Col 0
-",c_sharp.c_sharp_insecure_hash
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/java.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 | public class Main {
@@ -19140,6 +19056,90 @@ F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,49,310,skims,052. I
   55 |
      ^ Col 34
 ",kotlin.kotlin_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | ng System.Security.Cryptography;
+   2 |
+   3 | espace Cypher_Example
+   4 |
+   5 |  class CypherExample
+   6 |  {
+   7 |      public static void Main()
+   8 |      {
+   9 |          MD5 myAes = MD5.Create();
+  10 |          SHA1 myAes = SHA1.Create();
+  11 |          HMACMD5 myAes = HMACMD5.Create();
+  12 |          DES myAes = DES.Create();
+  13 |          TripleDES myAes = TripleDES.Create();
+> 14 |          var hashProvider3 = new SHA1Managed();
+  15 |          var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |      }
+  17 |  }
+  18 |
+     ^ Col 3
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+> 11 |             HMACMD5 myAes = HMACMD5.Create();
+  12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+> 10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+  12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+>  9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+  12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -22064,7 +22064,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Un
   15 | �MyJar.classPK��
      ^ Col 0
 ",generic.unverifiable_files
-F160,lines,namespace/skims/test/data/lib_path/f160/test.cs,10,378,skims,160. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in namespace/skims/test/data/lib_path/f160/test.cs,"
+F160,lines,namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file.cs,10,378,skims,160. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file.cs,"
    1 | using System;
    2 | using System.IO;
    3 |
@@ -30970,8 +30970,28 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb2_has_access_logs_s3_d
   58 | }
      ^ Col 0
 ",cloudformation.cfn_elb2_has_access_logs_s3_disabled
-F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
- in namespace/skims/test/data/lib_path/f004/test.cs","
+F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+ in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+> 11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+  13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",query.query_f004
+F004,lines,namespace/skims/test/data/lib_root/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+ in namespace/skims/test/data/lib_root/f004/test.cs","
    5 | {
    6 |     public class RSPEC2076OSCommandInjectionNoncompliantController : Controller
    7 |     {
@@ -30993,26 +31013,6 @@ F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remo
   23 |         }
   24 |     }
   25 | }
-     ^ Col 0
-",query.query_f004
-F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
- in namespace/skims/test/data/lib_root/f004/remote_command_execution.cs","
-   1 | using System.Diagnostics;
-   2 |
-   3 | namespace Application
-   4 | {
-   5 |     public class Executor
-   6 |     {
-   7 |
-   8 |         public bool Execute(HttpRequest req)
-   9 |         {
-  10 |             string command = req.QueryString[""command""];
-> 11 |             var p = Diagnostics.Process.Start(command);
-  12 |             var executor = new Executor();
-  13 |             var result = executor.Execute(command);
-  14 |         }
-  15 |     }
-  16 | }
      ^ Col 0
 ",query.query_f004
 F004,lines,namespace/skims/test/data/lib_root/f004/remote_command_execution.cs,13,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
