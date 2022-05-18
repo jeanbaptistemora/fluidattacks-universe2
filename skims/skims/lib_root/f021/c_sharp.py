@@ -1,3 +1,7 @@
+from lib_root.utilities.c_sharp import (
+    get_first_member,
+    get_object_identifiers,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -37,17 +41,22 @@ def xpath_injection(
             if shard.syntax_graph is None:
                 continue
 
+            xpath_obj = get_object_identifiers(shard, {"XPathNavigator"})
+
             graph = shard.syntax_graph
             danger_meths = {"SelectSingleNode"}
 
             for n_id in search_method_invocation_naive(graph, danger_meths):
-                for path in get_backward_paths(graph, n_id):
-                    if (
-                        evaluation := evaluate(
-                            c_sharp, finding, graph, path, n_id
-                        )
-                    ) and evaluation.danger:
-                        yield shard, n_id
+                if (
+                    memb := get_first_member(shard, n_id)
+                ) and shard.graph.nodes[memb].get("label_text") in xpath_obj:
+                    for path in get_backward_paths(graph, n_id):
+                        if (
+                            evaluation := evaluate(
+                                c_sharp, finding, graph, path, n_id
+                            )
+                        ) and evaluation.danger:
+                            yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f021.xpath_injection",
