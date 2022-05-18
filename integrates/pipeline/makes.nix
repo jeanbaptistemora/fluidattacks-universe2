@@ -166,6 +166,12 @@
     stage = "deploy-app";
     tags = ["autoscaling"];
   };
+  gitlabDeployInfra = {
+    resource_group = "deploy/$CI_JOB_NAME";
+    rules = gitlabOnlyMaster;
+    stage = "deploy-infra";
+    tags = ["autoscaling"];
+  };
   gitlabExternal = {
     rules = gitlabOnlyDev;
     stage = "external";
@@ -209,6 +215,10 @@ in {
       jobs =
         []
         ++ [
+          {
+            output = "/deployTerraform/integratesInfra";
+            gitlabExtra = gitlabDeployInfra;
+          }
           {
             output = "/integrates/back/authz-matrix";
             gitlabExtra =
