@@ -656,27 +656,33 @@ async def update_org_policies_typed(
         org_policies_to_update = organization.policies
         new_policies = org_policies_to_update._replace(
             max_acceptance_days=org_policies.max_acceptance_days,
-            max_acceptance_severity=Decimal(
-                org_policies.max_acceptance_severity
-            ).quantize(Decimal("0.1")),
+            max_acceptance_severity=org_policies.max_acceptance_severity,
             max_number_acceptances=org_policies.max_number_acceptances,
-            min_acceptance_severity=Decimal(
-                org_policies.min_acceptance_severity
-            ).quantize(Decimal("0.1")),
-            min_breaking_severity=Decimal(
-                org_policies.min_breaking_severity
-            ).quantize(Decimal("0.1")),
+            min_acceptance_severity=org_policies.min_acceptance_severity,
+            min_breaking_severity=org_policies.min_breaking_severity,
             vulnerability_grace_period=org_policies.vulnerability_grace_period,
             modified_date=datetime_utils.get_iso_date(),
             modified_by=email,
         )
-        LOGGER.info(new_policies)
         if new_policies:
             success = await orgs_dal.update_policies_typed(
                 organization_id=organization_id,
                 organization_name=organization_name,
                 policies=new_policies,
             )
+            policies_to_mail = new_policies._replace(
+                modified_date=None,
+                modified_by=None,
+            )
+            await send_mail_policies_typed(
+                loaders,
+                policies_to_mail._asdict(),
+                organization_id,
+                organization_name,
+                email,
+                date=new_policies.modified_date,
+            )
+
     return success
 
 
@@ -745,6 +751,67 @@ async def update_policies(
                 organization_id, organization_name, new_policies
             )
     return success
+
+
+# pylint: disable=too-many-arguments
+async def send_mail_policies_typed(
+    loaders: Any,
+    new_policies: Dict[str, Any],
+    organization_id: str,
+    organization_name: str,
+    responsible: str,
+    date: str,
+) -> None:
+    organization_data: Organization = await loaders.organization_typed.load(
+        organization_id
+    )
+    policies_format = {
+        "max_acceptance_days": "Maximum number of calendar days a finding "
+        "can be temporarily accepted",
+        "max_acceptance_severity": "Maximum temporal CVSS 3.1 score range "
+        "between which a finding can be accepted",
+        "min_breaking_severity": "Minimum CVSS 3.1 score of an open "
+        "vulnerability for DevSecOps to break the build in strict mode",
+        "min_acceptance_severity": "Minimum temporal CVSS 3.1 score range "
+        "between which a finding can be accepted",
+        "vulnerability_grace_period": "Grace period in days where newly "
+        "reported vulnerabilities won't break the build (DevSecOps only)",
+        "max_number_acceptances": "Maximum number of times a "
+        "finding can be temporarily accepted",
+    }
+
+    policies_content: dict[str, Any] = {}
+    for key, val in new_policies.items():
+        old_value = organization_data.policies._asdict().get(key)
+        if val is not None and val != old_value:
+            policies_content[policies_format[key]] = {
+                "from": old_value,
+                "to": val,
+            }
+
+    email_context: Dict[str, Any] = {
+        "org_name": organization_name,
+        "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
+        "policies_content": policies_content,
+        "responsible": responsible,
+        "date": date,
+    }
+
+    org_stakeholders_loaders = await loaders.organization_stakeholders.load(
+        organization_id
+    )
+
+    stakeholders_emails = [
+        stakeholder["email"]
+        for stakeholder in org_stakeholders_loaders
+        if stakeholder["role"] in ["customer_manager", "user_manager"]
+    ]
+
+    if policies_content:
+        await groups_mail.send_mail_updated_policies(
+            email_to=stakeholders_emails,
+            context=email_context,
+        )
 
 
 # pylint: disable=too-many-arguments

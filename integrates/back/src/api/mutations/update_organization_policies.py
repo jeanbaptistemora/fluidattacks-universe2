@@ -4,8 +4,17 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.organizations.types import (
+    OrganizationPolicies,
+)
+from decimal import (
+    Decimal,
+)
 from decorators import (
     enforce_organization_level_auth_async,
+)
+from dynamodb.types import (
+    Item,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -29,15 +38,16 @@ async def mutate(
 ) -> SimplePayload:
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
+    new_policies = format_org_policies_to_update(parameters)
 
     organization_id = parameters.pop("organization_id")
     organization_name = parameters.pop("organization_name")
-    success: bool = await orgs_domain.update_policies(
+    success: bool = await orgs_domain.update_org_policies_typed(
         info.context.loaders,
         organization_id,
         organization_name,
         user_email,
-        parameters,
+        new_policies,
     )
     if success:
         logs_utils.cloudwatch_log(
@@ -46,3 +56,32 @@ async def mutate(
             f"{organization_name} with ID {organization_id}",
         )
     return SimplePayload(success=success)
+
+
+def format_org_policies_to_update(item: Item) -> OrganizationPolicies:
+    return OrganizationPolicies(
+        max_acceptance_days=int(item["max_acceptance_days"])
+        if item.get("max_acceptance_days") is not None
+        else None,
+        max_acceptance_severity=Decimal(
+            item["max_acceptance_severity"]
+        ).quantize(Decimal("0.1"))
+        if item.get("max_acceptance_severity")
+        else None,
+        max_number_acceptances=int(item["max_number_acceptances"])
+        if item.get("max_number_acceptances") is not None
+        else None,
+        min_acceptance_severity=Decimal(
+            item["min_acceptance_severity"]
+        ).quantize(Decimal("0.1"))
+        if item.get("min_acceptance_severity")
+        else None,
+        min_breaking_severity=Decimal(item["min_breaking_severity"]).quantize(
+            Decimal("0.1")
+        )
+        if item.get("min_breaking_severity")
+        else None,
+        vulnerability_grace_period=int(item["vulnerability_grace_period"])
+        if item.get("vulnerability_grace_period") is not None
+        else None,
+    )
