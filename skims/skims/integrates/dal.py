@@ -1234,3 +1234,126 @@ async def get_finding_consult(
         ]
 
     return solution
+
+
+@SHIELD
+async def get_finding_vulnerabilities_zr(  # pylint: disable=too-many-locals
+    finding: core_model.FindingEnum,
+    finding_id: str,
+    client: Optional[GraphQLClient] = None,
+) -> EphemeralStore:
+    vulnerabilities = []
+    query = """
+        query SkimsGetFindingVulnerabilitiesZr(
+            $after: String
+            $finding_id: String!
+            $first: Int
+        ) {
+            finding(identifier: $finding_id) {
+                id
+                zeroRiskConnection(
+                    after: $after,
+                    first: $first,
+                ) {
+                    edges {
+                        node {
+                            commitHash
+                            currentState
+                            id
+                            lastVerificationDate
+                            source
+                            specific
+                            stream
+                            verification
+                            vulnerabilityType
+                            where
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                }
+            }
+        }
+    """
+    result = await _execute(
+        query=query,
+        operation="SkimsGetFindingVulnerabilitiesZr",
+        variables=dict(finding_id=finding_id),
+        client=client,
+    )
+    while True:
+        has_next_page = False
+        if result:
+            zero_risk_connection = result["data"]["finding"][
+                "zeroRiskConnection"
+            ]
+            vulnerability_page_info = zero_risk_connection["pageInfo"]
+            vulnerability_edges = zero_risk_connection["edges"]
+            has_next_page = vulnerability_page_info["hasNextPage"]
+            end_cursor = vulnerability_page_info["endCursor"]
+            vulnerabilities.extend(
+                [vuln_edge["node"] for vuln_edge in vulnerability_edges]
+            )
+
+        if not has_next_page:
+            break
+
+        result = await _execute(
+            query=query,
+            operation="SkimsGetFindingVulnerabilitiesZr",
+            variables=dict(finding_id=finding_id, after=end_cursor),
+            client=client,
+        )
+
+    store: EphemeralStore = get_ephemeral_store()
+    for vulnerability in vulnerabilities:
+        kind = core_model.VulnerabilityKindEnum(
+            vulnerability["vulnerabilityType"]
+        )
+        namespace, what = core_model.Vulnerability.what_from_integrates(
+            kind=kind,
+            what_on_integrates=vulnerability["where"],
+        )
+        source = (
+            core_model.VulnerabilitySourceEnum.SKIMS
+            if vulnerability["source"] in {"machine", "skims"}
+            else core_model.VulnerabilitySourceEnum.INTEGRATES
+        )
+        verification = (
+            core_model.VulnerabilityVerification(
+                date=vulnerability["lastVerificationDate"],
+                state=core_model.VulnerabilityVerificationStateEnum(
+                    str(vulnerability["verification"]).upper()
+                ),
+            )
+            if vulnerability["lastVerificationDate"] is not None
+            and vulnerability["verification"] is not None
+            else None
+        )
+        stream = vulnerability["stream"]
+        if stream is not None:
+            stream = stream.replace(" > ", ",")
+
+        store.store(
+            core_model.Vulnerability(
+                finding=finding,
+                integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
+                    commit_hash=vulnerability["commitHash"],
+                    source=source,
+                    verification=verification,
+                    uuid=vulnerability["id"],
+                ),
+                kind=kind,
+                namespace=namespace,
+                state=core_model.VulnerabilityStateEnum(
+                    vulnerability["currentState"]
+                ),
+                stream=stream,
+                what=what,
+                where=vulnerability["specific"],
+            )
+        )
+
+    return store
