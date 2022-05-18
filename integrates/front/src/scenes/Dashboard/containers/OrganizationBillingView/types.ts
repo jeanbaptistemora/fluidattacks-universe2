@@ -10,6 +10,7 @@ interface IGroupAttr {
   hasMachine: boolean;
   hasSquad: boolean;
   machine: string;
+  managed: boolean;
   name: string;
   permissions: string[];
   service: string;

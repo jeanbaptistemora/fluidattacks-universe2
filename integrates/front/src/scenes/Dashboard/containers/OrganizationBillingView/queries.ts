@@ -11,6 +11,7 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         hasForces
         hasMachine
         hasSquad
+        managed
         service
         permissions
         tier

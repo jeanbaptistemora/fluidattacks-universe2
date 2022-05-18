@@ -25,7 +25,7 @@ import { Button } from "components/Button";
 import { Table } from "components/Table/index";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { Col100, Row } from "styles/styledComponents";
+import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -276,7 +276,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     return (
       <Container>
         <Row>
-          <Col100>
+          <div className={"w-100-ns"}>
             <Row>
               <h2>{t("organization.tabs.billing.paymentMethods.title")}</h2>
               <Table
@@ -347,7 +347,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                 }}
               />
             </Row>
-          </Col100>
+          </div>
         </Row>
         {isAddingPaymentMethod === false ? undefined : (
           <AddPaymentModal

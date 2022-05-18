@@ -16,7 +16,7 @@ import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import { Col100, Row } from "styles/styledComponents";
+import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -55,6 +55,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     hasMachine: false,
     hasSquad: false,
     machine: "",
+    managed: false,
     name: "",
     permissions: [],
     service: "",
@@ -124,44 +125,47 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     {
       dataField: "name",
       header: "Group Name",
+      width: "20%",
     },
     {
       dataField: "tier",
       header: "Tier",
+      width: "8%",
     },
     {
       dataField: "service",
       header: "Service",
+      width: "9%",
     },
     {
       dataField: "machine",
       formatter: statusFormatter,
       header: "Machine",
-      width: "90px",
+      width: "9%",
     },
     {
       dataField: "squad",
       formatter: statusFormatter,
       header: "Squad",
-      width: "90px",
+      width: "8%",
     },
     {
       dataField: "forces",
       formatter: statusFormatter,
       header: "Forces",
-      width: "90px",
+      width: "8%",
     },
     {
       dataField: "authors.total",
       formatter: statusFormatter,
       header: "Authors",
-      width: "80px",
+      width: "9%",
     },
     {
       dataField: "authors.currentSpend",
       formatter: statusFormatter,
       header: "Month-to-date spend ($)",
-      width: "80px",
+      width: "19%",
     },
   ];
 
@@ -444,7 +448,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   return (
     <Container>
       <Row>
-        <Col100>
+        <div className={"w-100-ns"}>
           <Row>
             <h2>{t("organization.tabs.billing.groups.title")}</h2>
             <Table
@@ -493,7 +497,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
               />
             )}
           </Row>
-        </Col100>
+        </div>
       </Row>
     </Container>
   );
