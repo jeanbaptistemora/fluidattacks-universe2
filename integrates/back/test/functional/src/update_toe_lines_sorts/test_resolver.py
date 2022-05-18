@@ -2,30 +2,32 @@ from . import (
     get_result,
     query_get,
 )
-from .constants import (
-    USERS_EMAILS,
+from custom_exceptions import (
+    InvalidSortsRiskLevel,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_lines_sorts")
-@pytest.mark.parametrize(["email"], USERS_EMAILS)
-async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
+@pytest.mark.parametrize(("sorts_risk_level"), ((0), (10), (100)))
+async def test_update_toe_lines_sorts(
+    populate: bool, sorts_risk_level: int
+) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
-        user=email,
+    user_email = "admin@fluidattacks.com"
+    result: dict[str, Any] = await get_result(
+        user=user_email,
         group_name="group1",
         root_nickname="asm_1",
         filename="test2/test.sh",
-        sorts_risk_level=10,
+        sorts_risk_level=sorts_risk_level,
     )
     assert result["data"]["updateToeLinesSorts"]["success"]
-    result = await query_get(user=email, group_name="group1")
+    result = await query_get(user=user_email, group_name="group1")
     assert result["data"]["group"]["toeLines"] == {
         "edges": [
             {
@@ -66,7 +68,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "root": {"nickname": "asm_1"},
                     "seenAt": "2020-02-01T15:41:04+00:00",
-                    "sortsRiskLevel": 10,
+                    "sortsRiskLevel": sorts_risk_level,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
                 "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
@@ -104,16 +106,33 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
     }
 
 
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_toe_lines_sorts")
+@pytest.mark.parametrize(("sorts_risk_level"), ((-10), (-1), (101), (1000)))
+async def test_update_toe_lines_sorts_range_fail(
+    populate: bool, sorts_risk_level: int
+) -> None:
+    assert populate
+    user_email = "admin@fluidattacks.com"
+    result: dict[str, Any] = await get_result(
+        user=user_email,
+        group_name="group1",
+        root_nickname="asm_1",
+        filename="test2/test.sh",
+        sorts_risk_level=sorts_risk_level,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == InvalidSortsRiskLevel.msg
+
+
 @pytest.mark.skip
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_lines_sorts")
-@pytest.mark.parametrize(["email"], USERS_EMAILS)
-async def test_update_toe_lines_sorts_no_filename(
-    populate: bool, email: str
-) -> None:
+async def test_update_toe_lines_sorts_no_filename(populate: bool) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
-        user=email,
+    user_email = "admin@fluidattacks.com"
+    result: dict[str, Any] = await get_result(
+        user=user_email,
         group_name="group1",
         root_nickname="asm_1",
         filename="non_existing_filename",
