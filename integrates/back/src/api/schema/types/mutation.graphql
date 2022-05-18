@@ -27,8 +27,13 @@ type Mutation {
     "Level of access needed for an attack to succeed"
     attackVector: String
     "Deprecated. Use `attackVectorDescription` instead"
-    attackVectorDesc: String @deprecated(reason: """This field will
-    be removed after 2022/02/20. Use `attackVectorDescription` instead.""")
+    attackVectorDesc: String
+      @deprecated(
+        reason: """
+        This field will
+        be removed after 2022/02/20. Use `attackVectorDescription` instead.
+        """
+      )
     "Malicious actions that can be performed by exploiting the vulnerability"
     attackVectorDescription: String
     """
@@ -346,6 +351,24 @@ type Mutation {
     rootId: String!
   ): SimplePayload!
 
+  "Adds a new Toe lines to the ASM group"
+  addToeLines(
+    "Name of the group"
+    groupName: String!
+    "Id of the git root"
+    rootId: String!
+    "Filename of the file"
+    filename: String!
+    "Last author of the last commit"
+    lastAuthor: String!
+    "Commit hash of the last commit"
+    lastCommit: String!
+    "Lines of code"
+    loc: Int!
+    "Date of the last commit"
+    modifiedDate: DateTime!
+  ): SimplePayload!
+
   "Adds the URL of the environment to be tested"
   addUrlRoot(
     "URL of the environment to test"
@@ -593,7 +616,6 @@ type Mutation {
     "Id of the root to put secret"
     rootId: ID!
   ): SimplePayload!
-
 
   "Removes/deletes your access to ASM"
   removeStakeholder: SimplePayload!
@@ -851,8 +873,13 @@ type Mutation {
   "Updates the Forces token in use for a Group"
   updateForcesAccessToken(
     "Deprecated. Use `groupName` instead"
-    projectName: String @deprecated(reason: """This field will be removed after
-    2022/02/17. Use `groupName` instead.""")
+    projectName: String
+      @deprecated(
+        reason: """
+        This field will be removed after
+        2022/02/17. Use `groupName` instead.
+        """
+      )
     "Name of the Group whose token is to be updated"
     groupName: String
   ): UpdateAccessTokenPayload!
@@ -1194,8 +1221,13 @@ type Mutation {
     "New designated treatment for the Vulnerability"
     treatment: UpdateClientDescriptionTreatment!
     "Deprecated. Use `assigned` instead"
-    treatmentManager: String @deprecated(reason: """This field will
-    be removed after 2022/06/02. Use `assigned` instead.""")
+    treatmentManager: String
+      @deprecated(
+        reason: """
+        This field will
+        be removed after 2022/06/02. Use `assigned` instead.
+        """
+      )
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload!
@@ -1218,8 +1250,13 @@ type Mutation {
   "Updates data related to the treatment of a Vulnerability"
   updateVulnerabilityTreatment(
     "Deprecated. Use `externalBugTrackingSystem` instead."
-    externalBts: String @deprecated(reason: """This field will
-    be removed after 2022/02/23. Use `externalBugTrackingSystem` instead.""")
+    externalBts: String
+      @deprecated(
+        reason: """
+        This field will
+        be removed after 2022/02/23. Use `externalBugTrackingSystem` instead.
+        """
+      )
     "External Bug Tracking System URL"
     externalBugTrackingSystem: String
     "Identifier of the Finding that contains the vulnerability to update"

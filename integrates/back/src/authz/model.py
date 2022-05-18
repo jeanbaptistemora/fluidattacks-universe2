@@ -780,6 +780,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["admin"]["actions"],
             "api_mutations_add_toe_input_mutate",
+            "api_mutations_add_toe_lines_mutate",
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_submit_machine_job_mutate",
             "api_mutations_update_subscription_mutate",
@@ -813,6 +814,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["hacker"]["actions"],
             "api_mutations_add_toe_input_mutate",
+            "api_mutations_add_toe_lines_mutate",
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_update_toe_input_mutate",
             "api_mutations_update_toe_lines_attacked_lines_mutate",
@@ -921,6 +923,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *GROUP_LEVEL_ROLES["resourcer"]["actions"],
             "api_mutations_add_toe_input_mutate",
+            "api_mutations_add_toe_lines_mutate",
             "api_mutations_refresh_toe_lines_mutate",
             "api_mutations_update_toe_input_mutate",
             "api_mutations_update_toe_lines_attacked_lines_mutate",
