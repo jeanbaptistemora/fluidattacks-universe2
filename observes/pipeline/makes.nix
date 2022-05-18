@@ -142,10 +142,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/imports/observesTapGitlab";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintPython/imports/observesTapJson";
             gitlabExtra = gitlabLint;
           }
@@ -230,14 +226,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            output = "/lintPython/module/observesTapGitlab";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesTapGitlabTests";
-            gitlabExtra = gitlabLint;
-          }
-          {
             output = "/lintPython/module/observesTapJson";
             gitlabExtra = gitlabLint;
           }
@@ -279,10 +267,6 @@ in {
           }
           {
             output = "/observes/singer/tap-csv/test";
-            gitlabExtra = gitlabTestCode;
-          }
-          {
-            output = "/observes/singer/tap-gitlab/test";
             gitlabExtra = gitlabTestCode;
           }
           {

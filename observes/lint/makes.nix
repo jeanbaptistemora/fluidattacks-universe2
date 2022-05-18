@@ -77,10 +77,6 @@ in {
         config = "${inputs.observesIndex.tap.formstack.src}/setup.imports.cfg";
         src = inputs.observesIndex.tap.formstack.root;
       };
-      observesTapGitlab = {
-        config = "${inputs.observesIndex.tap.gitlab.src}/setup.imports.cfg";
-        src = inputs.observesIndex.tap.gitlab.root;
-      };
       observesTapJson = {
         config = "${inputs.observesIndex.tap.json.src}/setup.imports.cfg";
         src = inputs.observesIndex.tap.json.root;
@@ -228,20 +224,6 @@ in {
         ];
         python = "3.8";
         src = inputs.observesIndex.tap.formstack.src;
-      };
-      observesTapGitlab = {
-        searchPaths.source = [
-          outputs."${inputs.observesIndex.tap.gitlab.env.dev}"
-        ];
-        python = "3.8";
-        src = inputs.observesIndex.tap.gitlab.src;
-      };
-      observesTapGitlabTests = {
-        searchPaths.source = [
-          outputs."${inputs.observesIndex.tap.gitlab.env.dev}"
-        ];
-        python = "3.8";
-        src = inputs.observesIndex.tap.gitlab.tests;
       };
       observesTapJson = {
         searchPaths.source = [
