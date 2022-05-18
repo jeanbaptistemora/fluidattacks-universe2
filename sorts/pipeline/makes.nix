@@ -69,6 +69,10 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/sorts/association-rules/check/types";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/sorts/extract-features";
           gitlabExtra = {
             interruptible = false;
