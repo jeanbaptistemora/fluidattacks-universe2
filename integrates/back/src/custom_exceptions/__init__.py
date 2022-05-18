@@ -1397,3 +1397,9 @@ class InvalidCommitHash(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The commit hash is invalid"
         super(InvalidCommitHash, self).__init__(msg)
+
+
+class InvalidGitRoot(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - A git root is required"
+        super(InvalidGitRoot, self).__init__(msg)

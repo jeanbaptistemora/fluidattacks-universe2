@@ -2,6 +2,7 @@ from custom_exceptions import (
     InactiveRoot,
     InvalidChar,
     InvalidGitCredentials,
+    InvalidGitRoot,
     InvalidRootComponent,
     InvalidUrl,
     RepeatedRootNickname,
@@ -170,6 +171,11 @@ def validate_component(root: Root, component: str) -> None:
             return
 
     raise InvalidRootComponent()
+
+
+def validate_git_root(root: Root) -> None:
+    if not isinstance(root, GitRoot):
+        raise InvalidGitRoot()
 
 
 def validate_nickname(nickname: str) -> None:
