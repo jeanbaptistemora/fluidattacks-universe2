@@ -62,9 +62,7 @@ const formatClosingPercentage = (finding: IFindingAttr): number => {
   const { closedVulnerabilities, openVulnerabilities }: IFindingAttr = finding;
 
   if (openVulnerabilities + closedVulnerabilities === 0) {
-    const closedPercentage: number = 100;
-
-    return finding.state === "closed" ? closedPercentage : 0;
+    return finding.state === "closed" ? 1.0 : 0;
   }
 
   return closedVulnerabilities / (openVulnerabilities + closedVulnerabilities);
