@@ -49,6 +49,8 @@ type ToeLines {
   seenAt: DateTime!
   "Priority (IA/ML)"
   sortsRiskLevel: Int!
+  "Sorts suggestions for vulnerabilities"
+  sortsSuggestions: [ToeLinesSortSuggestion]
 }
 
 "Toe lines Edge type definition"
@@ -65,4 +67,12 @@ type ToeLinesConnection {
   edges: [ToeLinesEdge]
   "Information to aid in pagination"
   pageInfo: PageInfo!
+}
+
+"Sorts suggestion for vulnerabilities in the file, given as a probability"
+type ToeLinesSortSuggestion {
+  "Finding title related to the suggestion"
+  findingTitle: String!
+  "Probability as a percentage"
+  probability: Int!
 }
