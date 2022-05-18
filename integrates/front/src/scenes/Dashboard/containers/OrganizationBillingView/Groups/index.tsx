@@ -72,6 +72,14 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
         ) && group.authors !== null
     );
 
+  const formatBoolean = useCallback(
+    (value: boolean): string =>
+      value
+        ? t("organization.tabs.billing.groups.managed.yes")
+        : t("organization.tabs.billing.groups.managed.no"),
+    [t]
+  );
+
   const formatGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
     groupData.map((group: IGroupAttr): IGroupAttr => {
       const servicesParameters: Record<string, string> = {
@@ -126,6 +134,12 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       dataField: "name",
       header: "Group Name",
       width: "20%",
+    },
+    {
+      dataField: "managed",
+      formatter: formatBoolean,
+      header: "Managed",
+      width: "10%",
     },
     {
       dataField: "tier",

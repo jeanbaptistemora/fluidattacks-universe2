@@ -1292,6 +1292,10 @@ export const enTranslations: ResourceKey = {
       },
       billing: {
         groups: {
+          managed: {
+            no: "Not manually",
+            yes: "Manually",
+          },
           title: "Groups",
           updateSubscription: {
             errors: {
