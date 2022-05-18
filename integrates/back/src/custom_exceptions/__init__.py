@@ -1391,3 +1391,9 @@ class UnsanitizedInputFound(CustomBaseException):
         """Constructor"""
         msg = "Exception - Unsanitized input found"
         super(UnsanitizedInputFound, self).__init__(msg)
+
+
+class InvalidCommitHash(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The commit hash is invalid"
+        super(InvalidCommitHash, self).__init__(msg)

@@ -4,6 +4,7 @@ from custom_exceptions import (
     ErrorFileNameAlreadyExists,
     IncompleteSeverity,
     InvalidChar,
+    InvalidCommitHash,
     InvalidCvssVersion,
     InvalidField,
     InvalidFieldChange,
@@ -316,3 +317,19 @@ def validate_sanitized_csv_input(*fields: str) -> bool:
             ):
                 raise UnsanitizedInputFound()
     return True
+
+
+def validate_commit_hash(commit_hash: str) -> None:
+    if not (
+        # validate SHA-1
+        re.match(
+            r"^[A-Fa-f0-9]{40}$",
+            commit_hash,
+        )
+        # validate SHA-256
+        or re.match(
+            r"^[A-Fa-f0-9]{64}$",
+            commit_hash,
+        )
+    ):
+        raise InvalidCommitHash()
