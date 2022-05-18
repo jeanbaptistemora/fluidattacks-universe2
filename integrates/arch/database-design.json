@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 17, 2022, 02:09 PM",
+    "DateLastModified": "May 18, 2022, 11:42 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -733,6 +733,10 @@
         {
           "AttributeName": "managed",
           "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "sorts_suggestions",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -2919,6 +2923,30 @@
               },
               "seen_at": {
                 "S": "2020-02-01T15:41:04+00:00"
+              },
+              "sorts_suggestions": {
+                "L": [
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "083. XML injection (XXE)"
+                      },
+                      "probability": {
+                        "N": "90"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "033. Password change without identity check"
+                      },
+                      "probability": {
+                        "N": "50"
+                      }
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2984,6 +3012,20 @@
               },
               "seen_at": {
                 "S": "2020-01-01T15:41:04+00:00"
+              },
+              "sorts_suggestions": {
+                "L": [
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "027. Insecure file upload"
+                      },
+                      "probability": {
+                        "N": "100"
+                      }
+                    }
+                  }
+                ]
               }
             }
           ],
@@ -3006,7 +3048,8 @@
             "sk_2",
             "has_vulnerabilities",
             "last_author",
-            "last_commit"
+            "last_commit",
+            "sorts_suggestions"
           ]
         },
         {
