@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { object, string } from "yup";
 
-import { ADD_ORGANIZATION, GET_USER_WELCOME } from "../queries";
-import type { IAddOrganizationResult } from "../types";
+import { ADD_ORGANIZATION, GET_USER_WELCOME } from "../../queries";
+import type { IAddOrganizationResult } from "../../types";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -18,7 +18,7 @@ import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
-const Tour: React.FC = (): JSX.Element => {
+const AddOrganization: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { goBack, replace } = useHistory();
 
@@ -107,4 +107,4 @@ const Tour: React.FC = (): JSX.Element => {
   );
 };
 
-export { Tour };
+export { AddOrganization };
