@@ -58,17 +58,17 @@ async def mutate(
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        curren_value: ToeLines = await loaders.toe_lines.load(
+        current_value: ToeLines = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=filename, group_name=group_name, root_id=root_id
             )
         )
         await toe_lines_domain.update(
-            curren_value,
+            current_value,
             ToeLinesAttributesToUpdate(
                 attacked_at=datetime_utils.get_utc_now(),
                 attacked_by=user_email,
-                attacked_lines=kwargs.get("attacked_lines", curren_value.loc),
+                attacked_lines=kwargs.get("attacked_lines", current_value.loc),
                 comments=comments,
             ),
         )

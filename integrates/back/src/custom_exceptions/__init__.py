@@ -86,6 +86,10 @@ class InvalidRemovalVulnState(_SingleMessageException):
     msg: str = "Invalid, you cannot remove a closed vulnerability"
 
 
+class InvalidSortsRiskLevel(_SingleMessageException):
+    msg: str = "Invalid, value not in range [0, 100]"
+
+
 class InvalidVulnerabilityAlreadyExists(_SingleMessageException):
     msg: str = "Invalid, vulnerability already exists"
 

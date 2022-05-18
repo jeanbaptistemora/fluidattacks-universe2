@@ -41,9 +41,11 @@ from toe.lines import (
 from toe.lines.types import (
     ToeLinesAttributesToUpdate,
 )
+from toe.lines.validations import (
+    validate_sort_risk_level,
+)
 from typing import (
     Any,
-    Tuple,
 )
 
 
@@ -63,7 +65,10 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         loaders: Dataloaders = info.context.loaders
-        roots: Tuple[Root, ...] = await loaders.group_roots.load(group_name)
+
+        validate_sort_risk_level(sorts_risk_level)
+
+        roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
         root_id = roots_domain.get_root_id_by_nickname(
             root_nickname, roots, only_git_roots=True
         )
