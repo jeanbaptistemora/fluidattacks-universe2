@@ -11798,6 +11798,78 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
    32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
       ^ Col 0
 ",cloudformation.cfn_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,5,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""sts:AssumeRole""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
+     ^ Col 0
+",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,37,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""ec2:*"",
+  44 |           ""iam:*"",
+  45 |           ""eks:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.terraform_permissive_policy
+F031,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,73,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+  63 |         ""Action"": ""ec2:Something"",
+  64 |         ""Resource"": ""arn:::ec2/specific"",
+  65 |         ""Effect"": ""Allow""
+  66 |       }
+  67 |     ]
+  68 |   }
+  69 |   EOF
+  70 | }
+  71 |
+  72 | data ""aws_iam_policy_document"" ""example"" {
+> 73 |   statement {
+  74 |     actions = [
+  75 |       ""ec2:*"",
+  76 |       ""autoscaling:*"",
+  77 |       ""eks:*""
+  78 |     ]
+  79 |
+  80 |     resources = [
+  81 |       ""*"",
+  82 |     ]
+  83 |   }
+     ^ Col 0
+",terraform.terraform_permissive_policy
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,12,250,skims,325. Excessive privileges - Wildcards,"IAM Policy should consider the next rules:
 - Should not allow  action. - Should not apply directly to users, Should be on group. - Should not allow  resource with PassRole action. - Should not allow  resource. - Should not allow AllowNotAction. - Should not allow AllowNotResource.
  in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
@@ -14188,6 +14260,81 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   38 |             }
      ^ Col 0
 ",cloudformation.cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf","
+   1 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   2 |   name = ""test_policy""
+   3 |   role = aws_iam_role.test_role.id
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Action"": ""iam:PassRole"",
+  11 |         ""Resource"": ""*"",
+  12 |         ""Condition"": {
+  13 |           ""StringEquals"": {
+  14 |             ""iam:PassedToService"": ""cloudwatch.amazonaws.com""
+  15 |           }
+  16 |         }
+  17 |       },
+  18 |       {
+  19 |         ""Effect"": ""Allow"",
+  20 |         ""Action"": ""iam:PassRole"",
+  21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
+     ^ Col 0
+",terraform.tfm_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""ec2:*"",
+  44 |           ""autoscaling:*"",
+  45 |           ""eks:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.tfm_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,5,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf","
+   1 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   2 |   name = ""test_policy""
+   3 |   role = aws_iam_role.test_role.id
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Version"": ""2012-10-17"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Action"": [
+  11 |           ""ec2:*"",
+  12 |           ""s3:DeleteObjectVersion"",
+  13 |           ""eks:*""
+  14 |         ],
+  15 |         ""Resource"": ""*"",
+  16 |         ""Effect"": ""Allow"",
+  17 |         ""Principal"": ""*""
+  18 |       },
+  19 |       {
+  20 |         ""Action"": [
+  21 |           ""ec2:Something""
+     ^ Col 0
+",terraform.tfm_iam_has_privileges_over_iam
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,52,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   33 |             Principal:
@@ -14438,6 +14585,56 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
    38 |         Statement:
       ^ Col 0
 ",cloudformation.cfn_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,37,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""ec2:*"",
+  44 |           ""iam:*"",
+  45 |           ""eks:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.tfm_iam_has_privileges_over_iam
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,85,250,skims,325. Excessive privileges - Wildcards,"Policies have privileges over IAM
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+  75 |       ""ec2:*"",
+  76 |       ""autoscaling:*"",
+  77 |       ""eks:*""
+  78 |     ]
+  79 |
+  80 |     resources = [
+  81 |       ""*"",
+  82 |     ]
+  83 |   }
+  84 |
+> 85 |   statement {
+  86 |     sid    = ""Enable IAM User Permissions""
+  87 |     effect = ""Allow""
+  88 |     principals {
+  89 |       type        = ""AWS""
+  90 |       identifiers = [""arn:aws:iam::${data.aws_caller_identity.current.account_id}:root""]
+  91 |     }
+  92 |     actions = [
+  93 |       ""iam:*""
+  94 |     ]
+  95 |     resources = [
+     ^ Col 0
+",terraform.tfm_iam_has_privileges_over_iam
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,40,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
   30 |           - Action:
   31 |               - ""s3:DeleteObject""
@@ -16011,6 +16208,54 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
    32 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
       ^ Col 0
 ",cloudformation.cfn_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,37,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,"
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""ec2:*"",
+  44 |           ""iam:*"",
+  45 |           ""eks:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.terraform_open_passrole
+F031,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,85,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,"
+  75 |       ""ec2:*"",
+  76 |       ""autoscaling:*"",
+  77 |       ""eks:*""
+  78 |     ]
+  79 |
+  80 |     resources = [
+  81 |       ""*"",
+  82 |     ]
+  83 |   }
+  84 |
+> 85 |   statement {
+  86 |     sid    = ""Enable IAM User Permissions""
+  87 |     effect = ""Allow""
+  88 |     principals {
+  89 |       type        = ""AWS""
+  90 |       identifiers = [""arn:aws:iam::${data.aws_caller_identity.current.account_id}:root""]
+  91 |     }
+  92 |     actions = [
+  93 |       ""iam:*""
+  94 |     ]
+  95 |     resources = [
+     ^ Col 0
+",terraform.terraform_open_passrole
 F396,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,30,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_exposed_to_everyone.yaml,"
   20 |             Effect: Allow
   21 |             Principal:

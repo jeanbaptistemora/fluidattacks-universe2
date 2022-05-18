@@ -3015,6 +3015,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    EC2_IAM_PRIVILEGES_OVER_IAM = MethodInfo(
+        file_name="terraform",
+        name="tfm_iam_has_privileges_over_iam",
+        module="lib_path",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_is_role_over_privileged",
