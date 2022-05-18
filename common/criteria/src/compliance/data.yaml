@@ -4751,115 +4751,115 @@
   definitions:
     "5_16":
       title: Identity management
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_17":
       title: Authentication information
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_22":
       title: Monitoring, review and change management of supplier services
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_28":
       title: Collection of evidence
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_33":
       title: Protection of records
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_34":
       title: Privacy and protection of Personal Identifiable Information (PII)
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_35":
       title: Independent review of information security
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "5_37":
       title: Documented operating procedures
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "7_2":
       title: Physical entry controls
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "7_3":
       title: Securing offices, rooms and facilities
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "7_9":
       title: Security of assets off-premises
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "7_10":
       title: Storage media
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "7_14":
       title: Secure disposal or re-use of equipment
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_1":
       title: User endpoint devices
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_2":
       title: Privileged access rights
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_3":
       title: Information access restriction
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_4":
       title: Access to source code
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_5":
       title: Secure authentication
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_7":
       title: Protection against malware
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_8":
       title: Management of technical vulnerabilities
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_9":
       title: Configuration management
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_10":
       title: Information deletion
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_11":
       title: Data masking
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_15":
       title: Logging
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_16":
       title: Monitoring activities
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_17":
       title: Clock synchronization
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_19":
       title: Installation of software on operational systems
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_20":
       title: Network controls
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_21":
       title: Security of network services
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_22":
       title: Web filtering
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_23":
       title: Segregation in networks
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_24":
       title: Use of cryptography
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_25":
       title: Secure development lifecycle
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_26":
       title: Application security requirements
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_27":
       title: Secure system architecture and engineering principles
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_28":
       title: Secure coding
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
     "8_31":
       title: Separation of development, test and production environments
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27002:ed-3:v1:en
+      link: https://www.iso.org/obp/ui/es/#iso:std:iso-iec:27002:ed-3:v2:en
   metadata: {}
 "lgpd":
   title: LGPD
