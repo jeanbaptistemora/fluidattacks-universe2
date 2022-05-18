@@ -89,8 +89,8 @@ FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
 
 
 class SkimsBatchQueue(Enum):
-    HIGH: str = "unlimited_spot"
-    LOW: str = "limited_spot"
+    HIGH: str = "limited_spot"
+    LOW: str = "unlimited_spot"
 
 
 class JobArguments(NamedTuple):
