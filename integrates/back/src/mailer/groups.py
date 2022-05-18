@@ -440,7 +440,7 @@ async def send_mail_updated_group_information(
             "report_date": datetime_utils.get_date_from_iso_str(report_date),
         },
         tags=GENERAL_TAG,
-        subject=(f"The information has been modified in [{group_name}]"),
+        subject=f"Group information has been modified in [{group_name}]",
         template_name="updated_group_information",
     )
 
