@@ -351,6 +351,13 @@ resource "aws_s3_bucket_acl" "continuous_data" {
   acl = "private"
 }
 
+resource "aws_s3_bucket_logging" "continuous_data" {
+  bucket = aws_s3_bucket.continuous_data.id
+
+  target_bucket = "common.logging"
+  target_prefix = "log/continuous_data"
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "continuous_data" {
   bucket = aws_s3_bucket.continuous_data.id
 
