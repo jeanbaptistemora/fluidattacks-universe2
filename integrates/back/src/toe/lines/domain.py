@@ -100,6 +100,7 @@ async def add(  # pylint: disable=too-many-arguments
         modified_date=attributes.modified_date,
         root_id=root_id,
         seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
+        seen_first_time_by=attributes.seen_first_time_by,
         sorts_risk_level=attributes.sorts_risk_level,
     )
     await toe_lines_model.add(toe_lines=toe_lines)
