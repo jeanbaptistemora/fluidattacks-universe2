@@ -58,12 +58,16 @@
             "S": "production"
           },
           "environment_urls": {
-            "L": []
+            "L": [
+              {
+                "S": "https://localhost:4446"
+              }
+            ]
           },
           "git_environment_urls": {
             "L": [
               {
-                "S": "https://localhost:4446"
+                "S": "7d04fc01c8247bd6dbe4027ad8cd054fe8c08fb4"
               }
             ]
           },
@@ -155,12 +159,16 @@
                 "S": "production"
               },
               "environment_urls": {
-                "L": []
+                "L": [
+                  {
+                    "S": "https://localhost:4446"
+                  }
+                ]
               },
               "git_environment_urls": {
                 "L": [
                   {
-                    "S": "https://localhost:4446"
+                    "S": "7d04fc01c8247bd6dbe4027ad8cd054fe8c08fb4"
                   }
                 ]
               },

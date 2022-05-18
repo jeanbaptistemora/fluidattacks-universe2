@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from aiogqlc.client import (
     GraphQLClient,
 )
@@ -9,6 +12,7 @@ from datetime import (
 )
 from integrates.dal import (
     do_add_execution,
+    do_add_toe_input,
     do_approve_draft,
     do_create_draft,
     do_delete_finding,
@@ -20,6 +24,8 @@ from integrates.dal import (
     get_finding_current_release_status,
     get_group_findings,
     ResultGetGroupFindings,
+    ResultGetGroupRoots,
+    ToEInput,
 )
 from model import (
     core_model,
@@ -32,6 +38,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
     Union,
 )
@@ -344,3 +351,37 @@ async def do_finish_skims_execution(
         end_date=end_date.isoformat(),
         findings_executed=findings_executed,
     )
+
+
+async def ensure_toe_inputs(
+    group: str, roots: Tuple[ResultGetGroupRoots, ...], store: EphemeralStore
+) -> bool:
+    # Vulnerabilities of type `input`
+    # require to have the ToEInput present in the DB
+    # in order to report the vulnerability
+    toe_inputs: Set[ToEInput] = set()
+    root_id: Optional[str] = None
+    success: bool = False
+
+    vulnerability: core_model.Vulnerability
+    root_dicts: Dict[str, str] = {root.nickname: root.id for root in roots}
+    for vulnerability in store.iterate():
+        if vulnerability.kind == core_model.VulnerabilityKindEnum.INPUTS:
+            if root_id is None and vulnerability.namespace in root_dicts:
+                root_id = root_dicts[vulnerability.namespace]
+            toe_inputs.add(
+                ToEInput(
+                    component=vulnerability.what,
+                    entry_point=vulnerability.where,
+                )
+            )
+    if root_id:
+        success = all(
+            await collect(
+                do_add_toe_input(
+                    group=group, root_id=root_id, toe_input=toe_input
+                )
+                for toe_input in toe_inputs
+            )
+        )
+    return success

@@ -22,11 +22,14 @@ from integrates.dal import (
     get_group_findings,
     get_group_level_role,
     get_group_open_severity,
+    get_group_roots,
     ResultGetGroupFindings,
+    ResultGetGroupRoots,
 )
 from integrates.domain import (
     do_build_and_upload_vulnerabilities,
     do_release_finding,
+    ensure_toe_inputs,
     get_closest_finding_id,
 )
 from integrates.graphql import (
@@ -236,6 +239,7 @@ async def persist_finding(  # pylint: disable=too-many-locals
     existing_findings: Tuple[ResultGetGroupFindings, ...],
     finding: core_model.FindingEnum,
     group: str,
+    roots: Tuple[ResultGetGroupRoots, ...],
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
 ) -> core_model.PersistResult:
@@ -291,6 +295,8 @@ async def persist_finding(  # pylint: disable=too-many-locals
             reattacked_store=reattacked_store,
             store=diff_store,
         )
+
+        await ensure_toe_inputs(group=group, roots=roots, store=store)
 
         success = await do_build_and_upload_vulnerabilities(
             finding_id=finding_id, store=diff_store, client=client
@@ -351,6 +357,7 @@ async def _persist_finding(
     existing_findings: Tuple[ResultGetGroupFindings, ...],
     finding: core_model.FindingEnum,
     group: str,
+    roots: Tuple[ResultGetGroupRoots, ...],
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
 ) -> Tuple[core_model.FindingEnum, core_model.PersistResult]:
@@ -358,6 +365,7 @@ async def _persist_finding(
         existing_findings=existing_findings,
         finding=finding,
         group=group,
+        roots=roots,
         store=store,
         client=client,
     )
@@ -384,12 +392,14 @@ async def persist(
         existing_findings: Tuple[
             ResultGetGroupFindings, ...
         ] = await get_group_findings(group=group, client=client)
+        roots = await get_group_roots(group=group, client=client)
         result = await collect(
             tuple(
                 _persist_finding(
                     existing_findings=existing_findings,
                     finding=finding,
                     group=group,
+                    roots=roots,
                     store=stores[finding],
                     client=client,
                 )

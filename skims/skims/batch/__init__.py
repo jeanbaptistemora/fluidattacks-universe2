@@ -220,8 +220,7 @@ async def main(  # pylint: disable=too-many-locals)
     roots_nicknames: List[str] = job_details["roots"]
     checks: List[str] = job_details["checks"]
 
-    res_roots = await get_group_roots(group=group_name)
-    roots: Tuple[ResultGetGroupRoots, ...] = res_roots if res_roots else ()
+    roots = await get_group_roots(group=group_name)
     roots_dict_by_nickname = {item.nickname: item for item in roots}
     roots_dict_by_id = {item.id: item for item in roots}
 

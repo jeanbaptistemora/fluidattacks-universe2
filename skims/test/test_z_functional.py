@@ -548,9 +548,9 @@ async def test_integrates_group_has_required_roots(
     test_group: str,
 ) -> None:
     group_res = await get_group_roots(group=test_group)
-    assert group_res is not None
-    roots_nicknames: Set[str] = {result.nickname for result in group_res}
+    assert len(group_res) > 0
 
+    roots_nicknames: Set[str] = {result.nickname for result in group_res}
     assert all(
         nickname in roots_nicknames
         for nickname in ["dynamic_namespace_1", "dynamic_namespace_2"]

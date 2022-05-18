@@ -29,7 +29,7 @@ async def get_scopes_from_group(group: str, namespace: str) -> Set[str]:
     roots = await get_group_roots(group=group)
     return {
         environment_url
-        for root in (roots if roots else ())
+        for root in roots
         for environment_url in root.environment_urls
         if root.nickname == namespace
     }

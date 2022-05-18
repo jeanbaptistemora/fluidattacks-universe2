@@ -324,7 +324,7 @@ async def get_group_roots(
     *,
     group: str,
     client: Optional[GraphQLClient] = None,
-) -> Optional[Tuple[ResultGetGroupRoots, ...]]:
+) -> Tuple[ResultGetGroupRoots, ...]:
     result = await _execute(
         query="""
             query SkimsGetGroupRoots(
@@ -361,7 +361,7 @@ async def get_group_roots(
             for root in result["data"]["group"]["roots"]
         )
     except (AttributeError, KeyError, TypeError):
-        return None
+        return tuple()
 
 
 @SHIELD
@@ -1357,3 +1357,50 @@ async def get_finding_vulnerabilities_zr(  # pylint: disable=too-many-locals
         )
 
     return store
+
+
+class ToEInput(NamedTuple):
+    component: str
+    entry_point: str
+
+
+@SHIELD
+async def do_add_toe_input(
+    group: str,
+    root_id: str,
+    toe_input: ToEInput,
+    client: Optional[GraphQLClient] = None,
+) -> bool:
+    success: bool = False
+    result = await _execute(
+        query="""
+            mutation SkimsAddToEInput(
+                $component: String!
+                $entry_point: String!
+                $group_name: String!
+                $root_id: String!
+            ) {
+                addToeInput(
+                    component: $component
+                    entryPoint: $entry_point
+                    groupName: $group_name
+                    rootId: $root_id
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SkimsAddToEInput",
+        variables=dict(
+            component=toe_input.component,
+            entry_point=toe_input.entry_point,
+            group_name=group,
+            root_id=root_id,
+        ),
+        client=client,
+    )
+
+    with suppress(AttributeError, KeyError, TypeError):
+        success = result["data"]["addToeInput"]["success"]
+
+    return success
