@@ -73,7 +73,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
 
   const cardWidth = 382;
   const maxScroll = cardWidth * data.length;
-  const [width, setwidth] = useState(0);
+  const [currentWidth, setCurrentWidth] = useState(0);
   const [scroll, setScroll] = useState(0);
 
   const scrollLeft: () => void = (): void => {
@@ -81,18 +81,20 @@ const SolutionsSection: React.FC = (): JSX.Element => {
   };
 
   const scrollRight: () => void = (): void => {
-    setScroll(scroll > width - cardWidth ? width : scroll + cardWidth);
+    setScroll(
+      scroll > currentWidth - cardWidth ? currentWidth : scroll + cardWidth
+    );
   };
 
   const changeScroll: (element: HTMLElement) => void = (
     element: HTMLElement
   ): void => {
-    if (element.scrollLeft > 0 || element.scrollLeft < width) {
+    if (element.scrollLeft > 0 || element.scrollLeft < currentWidth) {
       element.scrollLeft = scroll;
     } else {
       element.scrollLeft += 0;
     }
-    setwidth(maxScroll - element.offsetWidth);
+    setCurrentWidth(maxScroll - element.offsetWidth);
   };
 
   useEffect((): void => {
@@ -114,7 +116,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
               <IoIosArrowBack className={"f3 white"} />
             </IconContainerSmall>
           </ArrowButton>
-          <ArrowButton limit={scroll === width} onClick={scrollRight}>
+          <ArrowButton limit={scroll === currentWidth} onClick={scrollRight}>
             <IconContainerSmall>
               <IoIosArrowForward className={"f3 white"} />
             </IconContainerSmall>

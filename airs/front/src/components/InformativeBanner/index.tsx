@@ -19,10 +19,10 @@ const InformativeBanner: React.FC<IProps> = ({
   title,
   url,
 }: IProps): JSX.Element => {
-  const [isClose, setisClose] = useState(false);
+  const [isClose, setIsClose] = useState(false);
 
   function close(): void {
-    setisClose(!isClose);
+    setIsClose(!isClose);
   }
 
   return (

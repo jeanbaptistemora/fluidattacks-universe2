@@ -34,8 +34,8 @@ const theme = {
 
 export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
   const rootRef = createRef();
-  const [queryValue, setQuery] = useState();
-  const [hasFocus, setFocus] = useState(false);
+  const [queryValue, setQueryValue] = useState();
+  const [hasFocus, setHasFocus] = useState(false);
   const searchClient = useMemo(
     (): SearchClient =>
       algoliasearch(
@@ -46,7 +46,7 @@ export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
   );
 
   useClickOutside(rootRef as RefObject<HTMLDivElement>, (): void =>
-    setFocus(false)
+    setHasFocus(false)
   );
 
   return (
@@ -55,13 +55,13 @@ export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
         <InstantSearch
           indexName={indices[0].name}
           onSearchStateChange={({ query }: IQueryProps): void =>
-            setQuery(query)
+            setQueryValue(query)
           }
           searchClient={searchClient}
         >
           <StyledSearchBox
             className={""}
-            onFocus={(): void => setFocus(true)}
+            onFocus={(): void => setHasFocus(true)}
           />
           <StyledSearchResult
             className={"scroll-touch bs-btm-h-10 bn"}

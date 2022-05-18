@@ -57,6 +57,7 @@ const ContacUsIndex: React.FC<IQueryData> = ({
 
             <IframeContainer>
               <iframe
+                sandbox={"allow-forms allow-scripts"}
                 src={
                   "https://forms.zohopublic.com/fluidattacks1/form/ContactForm/formperma/g4Je_6zumBrCA3iMMJMHU6b4JrVrUzItp_cfyb3ad74"
                 }

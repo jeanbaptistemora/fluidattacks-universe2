@@ -15,7 +15,7 @@ makeTemplate {
       inputs.nixpkgs.gnugrep
       inputs.nixpkgs.gnumake
       inputs.nixpkgs.gnused
-      inputs.nixpkgs.nodejs
+      inputs.nixpkgs.nodejs-14_x
       inputs.nixpkgs.python37
     ];
     source = [

@@ -23,9 +23,9 @@ const PlanCard: React.FC<IPlansCard> = ({
   items,
   title,
 }: IPlansCard): JSX.Element => {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const handleOpenClose = useCallback((): void => {
-    setOpen(!isOpen);
+    setIsOpen(!isOpen);
   }, [isOpen]);
 
   return (

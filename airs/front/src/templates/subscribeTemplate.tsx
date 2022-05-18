@@ -57,6 +57,7 @@ const SubscribeIndex: React.FC<IQueryData> = ({
 
             <IframeContainer>
               <iframe
+                sandbox={"allow-forms allow-scripts"}
                 src={
                   "https://forms.zohopublic.com/fluidattacks1/form/Newsletter/formperma/Oj1qU25E49Iy6up1YnEtxsXuOxqbDEl1V5QtvLIAM7c"
                 }
