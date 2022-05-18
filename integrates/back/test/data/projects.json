@@ -67,6 +67,9 @@
                   "has_skims": {
                     "BOOL": false
                   },
+                  "managed": {
+                    "BOOL": false
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -291,6 +294,9 @@
                     "BOOL": true
                   },
                   "has_skims": {
+                    "BOOL": true
+                  },
+                  "managed": {
                     "BOOL": true
                   },
                   "requester": {
@@ -948,6 +954,9 @@
                   "has_skims": {
                     "BOOL": true
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -1088,6 +1097,9 @@
                   "has_skims": {
                     "BOOL": true
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -1197,6 +1209,9 @@
                   },
                   "has_skims": {
                     "BOOL": false
+                  },
+                  "managed": {
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"
@@ -1308,6 +1323,9 @@
                   "has_skims": {
                     "BOOL": false
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -1417,6 +1435,9 @@
                   },
                   "has_skims": {
                     "BOOL": false
+                  },
+                  "managed": {
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"
@@ -1528,6 +1549,9 @@
                   "has_skims": {
                     "BOOL": false
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -1637,6 +1661,9 @@
                   },
                   "has_skims": {
                     "BOOL": false
+                  },
+                  "managed": {
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"
@@ -1748,6 +1775,9 @@
                   "has_skims": {
                     "BOOL": true
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -1852,6 +1882,9 @@
                   },
                   "has_skims": {
                     "BOOL": false
+                  },
+                  "managed": {
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"
@@ -1961,6 +1994,9 @@
                   "has_skims": {
                     "BOOL": false
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -2066,6 +2102,9 @@
                   "has_skims": {
                     "BOOL": false
                   },
+                  "managed": {
+                    "BOOL": true
+                  },
                   "requester": {
                     "S": "unknown"
                   },
@@ -2170,6 +2209,9 @@
                   },
                   "has_skims": {
                     "BOOL": false
+                  },
+                  "managed": {
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"
