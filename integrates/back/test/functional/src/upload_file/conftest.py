@@ -277,7 +277,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 group_name="group1",
                 has_vulnerabilities=False,
                 last_author="customer1@gmail.com",
-                last_commit="273412t",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                 loc=4324,
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
@@ -302,7 +302,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 group_name="group1",
                 has_vulnerabilities=False,
                 last_author="customer2@gmail.com",
-                last_commit="983466z",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                 loc=8,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"

@@ -37,7 +37,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "filename": "test2/test#.config",
                     "firstAttackAt": "2020-02-19T15:41:04+00:00",
                     "loc": 8,
-                    "lastCommit": "983466z",
+                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "root": {
                         "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -62,7 +62,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "filename": "test1/test.sh",
                     "firstAttackAt": "2020-01-19T15:41:04+00:00",
                     "loc": 4324,
-                    "lastCommit": "273412t",
+                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                     "modifiedDate": "2020-11-16T15:41:04+00:00",
                     "root": {
                         "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
@@ -87,7 +87,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "filename": "test3/test.sh",
                     "firstAttackAt": "2020-01-14T15:41:04+00:00",
                     "loc": 243,
-                    "lastCommit": "g545435i",
+                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c3",
                     "modifiedDate": "2020-11-16T15:41:04+00:00",
                     "root": {
                         "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",

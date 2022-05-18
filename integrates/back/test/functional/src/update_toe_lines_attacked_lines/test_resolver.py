@@ -49,7 +49,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
                     "filename": "test/test#.config",
                     "firstAttackAt": "2021-05-05T07:00:00+00:00",
                     "loc": 4324,
-                    "lastCommit": "273412t",
+                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                     "modifiedDate": "2020-11-16T15:41:04+00:00",
                     "root": {
                         "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -109,7 +109,7 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
                     "filename": "test2/test.sh",
                     "firstAttackAt": "2020-02-19T15:41:04+00:00",
                     "loc": 8,
-                    "lastCommit": "983466z",
+                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "root": {
                         "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",

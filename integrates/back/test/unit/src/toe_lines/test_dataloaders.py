@@ -45,7 +45,7 @@ async def test_get() -> None:
         group_name="unittesting",
         has_vulnerabilities=False,
         last_author="user@gmail.com",
-        last_commit="983466z",
+        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
         loc=8,
         modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -72,7 +72,7 @@ async def test_get() -> None:
         group_name="unittesting",
         has_vulnerabilities=False,
         last_author="user@gmail.com",
-        last_commit="273412t",
+        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
         loc=172,
         modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
@@ -106,7 +106,7 @@ async def test_get_by_group() -> None:
                     group_name="unittesting",
                     has_vulnerabilities=False,
                     last_author="user@gmail.com",
-                    last_commit="983466z",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                     loc=8,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
@@ -140,7 +140,7 @@ async def test_get_by_group() -> None:
                     group_name="unittesting",
                     has_vulnerabilities=False,
                     last_author="user@gmail.com",
-                    last_commit="273412t",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                     loc=172,
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
@@ -186,7 +186,7 @@ async def test_get_by_root() -> None:
                     group_name="unittesting",
                     has_vulnerabilities=False,
                     last_author="user@gmail.com",
-                    last_commit="983466z",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                     loc=8,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
@@ -230,7 +230,7 @@ async def test_get_by_root() -> None:
                     group_name="unittesting",
                     has_vulnerabilities=False,
                     last_author="user@gmail.com",
-                    last_commit="273412t",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                     loc=172,
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
