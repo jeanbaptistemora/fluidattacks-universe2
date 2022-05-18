@@ -3,12 +3,23 @@ import type { ColumnDescription } from "react-bootstrap-table-next";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
 
-export const tooltipFormatter = (column: ColumnDescription): JSX.Element => (
+export const tooltipFormatter = (
+  column: ColumnDescription,
+  colIndex: number,
+  components: {
+    sortElement: JSX.Element;
+    filterElement: JSX.Element;
+  }
+): JSX.Element => (
   <TooltipWrapper
-    id={`headers.${column.text}.help`}
+    id={`headers.${column.text}.${colIndex}.help`}
     message={column.tooltipDataField ?? ""}
     placement={"top"}
   >
-    <div className={"nowrap"}>{column.text}</div>
+    <div className={"nowrap"}>
+      {column.text}
+      {components.sortElement}
+    </div>
+    {components.filterElement}
   </TooltipWrapper>
 );
