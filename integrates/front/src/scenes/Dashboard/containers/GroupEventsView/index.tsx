@@ -270,6 +270,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   };
 
   // State Management
+  const [affectsReattacks, setAffectsReattacks] = useState(false);
   const [selectedReattacks, setSelectedReattacks] = useState({});
 
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -325,7 +326,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         t("group.events.titleSuccess")
       );
 
-      if (!_.isEmpty(selectedReattacks)) {
+      if (affectsReattacks && !_.isEmpty(selectedReattacks)) {
         const allHoldsValid = await handleRequestHoldsHelper(
           requestHold,
           selectedReattacks,
@@ -352,6 +353,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   const handleSubmit = useCallback(
     async (values: IFormValues): Promise<void> => {
+      setAffectsReattacks(values.affectsReattacks);
       setSelectedReattacks(formatReattacks(values.affectedReattacks));
 
       const selectedAccessibility: string[] = values.accessibility.map(
@@ -429,7 +431,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextResult: IEventConfig[] = filterSearchText(
+  const filterSearchTextResult: IEventConfig[] = filterSearchText(
     dataset,
     searchTextFilter
   );
@@ -571,7 +573,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   }
 
   const resultDataset: IEventConfig[] = _.intersection(
-    filterSearchtextResult,
+    filterSearchTextResult,
     filterStatusResult,
     filterTypeResult,
     filterDateRangeResult,

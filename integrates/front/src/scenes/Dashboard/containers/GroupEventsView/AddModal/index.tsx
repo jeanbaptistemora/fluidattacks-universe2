@@ -60,6 +60,7 @@ interface IFormValues {
   blockingHours: number;
   accessibility: string[];
   affectedComponents: string[];
+  affectsReattacks: boolean;
   affectedReattacks: string[];
   eventType: string;
   detail: string;
@@ -157,9 +158,7 @@ const AddModal: React.FC<IAddModalProps> = ({
         validationSchema={validations}
       >
         {({ dirty, isSubmitting, values, setFieldValue }): JSX.Element => {
-          function handleAffectedReattacksBtnChange(
-            switchValue: boolean
-          ): void {
+          function handleAffectsReattacksBtnChange(switchValue: boolean): void {
             setFieldValue("affectsReattacks", switchValue);
           }
 
@@ -467,7 +466,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     component={FormikSwitchButton}
                     name={"affectsReattacks"}
                     offlabel={t("group.events.form.affectedReattacks.no")}
-                    onChange={handleAffectedReattacksBtnChange}
+                    onChange={handleAffectsReattacksBtnChange}
                     onlabel={t("group.events.form.affectedReattacks.yes")}
                     type={"checkbox"}
                   />
