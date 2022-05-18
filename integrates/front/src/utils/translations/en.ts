@@ -393,13 +393,16 @@ export const enTranslations: ResourceKey = {
             text: "Update Affected Reattacks",
             tooltip: "Put reattacks on hold on already existing Events",
           },
-          checkbox: "Does this event have an impact on any ongoing reattacks?",
           description: "Please select the affected reattacks",
           eventSection: "Event",
           holdsCreate: "Reattack holds requested successfully",
+          no: "No",
           sectionTitle: "Affected Reattacks",
           selection: "Please select the reattacks that would be affected",
+          switchLabel:
+            "Does this event have an impact on any ongoing reattacks?",
           title: "Update Affected Reattacks",
+          yes: "Yes",
         },
         blockingHours: "Working hours until getting blocked",
         components: {

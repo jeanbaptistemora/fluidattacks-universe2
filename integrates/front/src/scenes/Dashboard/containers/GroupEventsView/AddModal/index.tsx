@@ -34,6 +34,7 @@ import {
   FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
+import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import { Logger } from "utils/logger";
 import {
   composeValidators,
@@ -155,328 +156,349 @@ const AddModal: React.FC<IAddModalProps> = ({
         onSubmit={handleSubmit}
         validationSchema={validations}
       >
-        {({ dirty, isSubmitting, values }): JSX.Element => (
-          <Form>
-            <Row>
-              <Col100>
-                <FormGroup>
-                  <ControlLabel>{t("group.events.form.root")}</ControlLabel>
-                  <Field
-                    component={FormikAutocompleteText}
-                    name={"rootNickname"}
-                    placeholder={t("group.events.form.rootPlaceholder")}
-                    suggestions={nicknames}
-                  />
-                </FormGroup>
-              </Col100>
-            </Row>
-            <Row>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>{t("group.events.form.date")}</ControlLabel>
-                  <Field
-                    component={FormikDateTime}
-                    name={"eventDate"}
-                    validate={composeValidators([
-                      required,
-                      validDatetime,
-                      dateTimeBeforeToday,
-                    ])}
-                  />
-                </FormGroup>
-              </Col50>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>
-                    {t("group.events.form.type.title")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikDropdown}
-                    name={"eventType"}
-                    validate={required}
-                  >
-                    <option value={""} />
-                    <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
-                      {t("group.events.form.type.specialAttack")}
-                    </option>
-                    <option value={"INCORRECT_MISSING_SUPPLIES"}>
-                      {t("group.events.form.type.missingSupplies")}
-                    </option>
-                    <option value={"TOE_DIFFERS_APPROVED"}>
-                      {t("group.events.form.type.toeDiffers")}
-                    </option>
-                    <option value={"OTHER"}>
-                      {t("group.events.form.other")}
-                    </option>
-                  </Field>
-                </FormGroup>
-              </Col50>
-            </Row>
-            <Row>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>
-                    {t("group.events.form.accessibility.title")}
-                  </ControlLabel>
-                  <br />
-                  <Field
-                    component={FormikCheckbox}
-                    label={t("group.events.form.accessibility.environment")}
-                    name={"accessibility"}
-                    type={"checkbox"}
-                    value={"environment"}
-                  />
-                  <Field
-                    component={FormikCheckbox}
-                    label={t("group.events.form.accessibility.repository")}
-                    name={"accessibility"}
-                    type={"checkbox"}
-                    value={"repository"}
-                  />
-                </FormGroup>
-              </Col50>
-            </Row>
-            {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
+        {({ dirty, isSubmitting, values, setFieldValue }): JSX.Element => {
+          function handleAffectedReattacksBtnChange(
+            switchValue: boolean
+          ): void {
+            setFieldValue("affectsReattacks", switchValue);
+          }
+
+          return (
+            <Form>
+              <Row>
+                <Col100>
+                  <FormGroup>
+                    <ControlLabel>{t("group.events.form.root")}</ControlLabel>
+                    <Field
+                      component={FormikAutocompleteText}
+                      name={"rootNickname"}
+                      placeholder={t("group.events.form.rootPlaceholder")}
+                      suggestions={nicknames}
+                    />
+                  </FormGroup>
+                </Col100>
+              </Row>
+              <Row>
+                <Col50>
+                  <FormGroup>
+                    <ControlLabel>{t("group.events.form.date")}</ControlLabel>
+                    <Field
+                      component={FormikDateTime}
+                      name={"eventDate"}
+                      validate={composeValidators([
+                        required,
+                        validDatetime,
+                        dateTimeBeforeToday,
+                      ])}
+                    />
+                  </FormGroup>
+                </Col50>
+                <Col50>
+                  <FormGroup>
+                    <ControlLabel>
+                      {t("group.events.form.type.title")}
+                    </ControlLabel>
+                    <Field
+                      component={FormikDropdown}
+                      name={"eventType"}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
+                        {t("group.events.form.type.specialAttack")}
+                      </option>
+                      <option value={"INCORRECT_MISSING_SUPPLIES"}>
+                        {t("group.events.form.type.missingSupplies")}
+                      </option>
+                      <option value={"TOE_DIFFERS_APPROVED"}>
+                        {t("group.events.form.type.toeDiffers")}
+                      </option>
+                      <option value={"OTHER"}>
+                        {t("group.events.form.other")}
+                      </option>
+                    </Field>
+                  </FormGroup>
+                </Col50>
+              </Row>
               <Row>
                 <Col50>
                   <FormGroup>
                     <ControlLabel>
-                      {t("group.events.form.blockingHours")}
+                      {t("group.events.form.accessibility.title")}
+                    </ControlLabel>
+                    <br />
+                    <Field
+                      component={FormikCheckbox}
+                      label={t("group.events.form.accessibility.environment")}
+                      name={"accessibility"}
+                      type={"checkbox"}
+                      value={"environment"}
+                    />
+                    <Field
+                      component={FormikCheckbox}
+                      label={t("group.events.form.accessibility.repository")}
+                      name={"accessibility"}
+                      type={"checkbox"}
+                      value={"repository"}
+                    />
+                  </FormGroup>
+                </Col50>
+              </Row>
+              {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
+                <Row>
+                  <Col50>
+                    <FormGroup>
+                      <ControlLabel>
+                        {t("group.events.form.blockingHours")}
+                      </ControlLabel>
+                      <Field
+                        component={FormikText}
+                        name={"blockingHours"}
+                        type={"number"}
+                        validate={composeValidators([numeric, required])}
+                      />
+                    </FormGroup>
+                  </Col50>
+                  <Col50>
+                    <FormGroup>
+                      <ControlLabel>
+                        {t("group.events.form.components.title")}
+                      </ControlLabel>
+                      <br />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.fluidStation")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"FLUID_STATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.clientStation")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"CLIENT_STATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toeExclusion")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_EXCLUSSION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.documentation")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"DOCUMENTATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.localConn")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"LOCAL_CONNECTION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.internetConn")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"INTERNET_CONNECTION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.vpnConn")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"VPN_CONNECTION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toeLocation")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_LOCATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toeCredentials")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_CREDENTIALS"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toePrivileges")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_PRIVILEGES"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.testData")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TEST_DATA"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toeUnstability")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_UNSTABLE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t(
+                          "group.events.form.components.toeUnaccessible"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_UNACCESSIBLE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toeUnavailable")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_UNAVAILABLE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.toeAlteration")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_ALTERATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.sourceCode")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"SOURCE_CODE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.components.compileError")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"COMPILE_ERROR"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={t("group.events.form.other")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"OTHER"}
+                      />
+                    </FormGroup>
+                  </Col50>
+                </Row>
+              ) : undefined}
+              <Row>
+                <Col100>
+                  <FormGroup>
+                    <ControlLabel>
+                      {t("group.events.form.details")}
                     </ControlLabel>
                     <Field
-                      component={FormikText}
-                      name={"blockingHours"}
-                      type={"number"}
-                      validate={composeValidators([numeric, required])}
+                      // eslint-disable-next-line react/forbid-component-props
+                      className={globalStyle.noResize}
+                      component={FormikTextArea}
+                      name={"detail"}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxEventDetailsLength,
+                      ])}
+                    />
+                  </FormGroup>
+                </Col100>
+              </Row>
+              <Row>
+                <Col50>
+                  <FormGroup>
+                    <ControlLabel>
+                      {t("group.events.form.evidence")}
+                    </ControlLabel>
+                    <Field
+                      accept={"image/gif,image/png"}
+                      component={FormikFileInput}
+                      id={"image"}
+                      name={"image"}
+                      validate={composeValidators([
+                        validEvidenceImage,
+                        maxFileSize,
+                      ])}
                     />
                   </FormGroup>
                 </Col50>
                 <Col50>
                   <FormGroup>
                     <ControlLabel>
-                      {t("group.events.form.components.title")}
+                      {t("group.events.form.evidenceFile")}
                     </ControlLabel>
-                    <br />
                     <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.fluidStation")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"FLUID_STATION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.clientStation")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"CLIENT_STATION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeExclusion")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_EXCLUSSION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.documentation")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"DOCUMENTATION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.localConn")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"LOCAL_CONNECTION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.internetConn")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"INTERNET_CONNECTION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.vpnConn")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"VPN_CONNECTION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeLocation")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_LOCATION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeCredentials")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_CREDENTIALS"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toePrivileges")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_PRIVILEGES"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.testData")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TEST_DATA"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeUnstability")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_UNSTABLE"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeUnaccessible")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_UNACCESSIBLE"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeUnavailable")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_UNAVAILABLE"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.toeAlteration")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"TOE_ALTERATION"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.sourceCode")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"SOURCE_CODE"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.components.compileError")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"COMPILE_ERROR"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.other")}
-                      name={"affectedComponents"}
-                      type={"checkbox"}
-                      value={"OTHER"}
+                      accept={
+                        "application/pdf,application/zip,text/csv,text/plain"
+                      }
+                      component={FormikFileInput}
+                      id={"file"}
+                      name={"file"}
+                      validate={composeValidators([
+                        validEventFile,
+                        maxFileSize,
+                      ])}
                     />
                   </FormGroup>
                 </Col50>
               </Row>
-            ) : undefined}
-            <Row>
-              <Col100>
-                <FormGroup>
-                  <ControlLabel>{t("group.events.form.details")}</ControlLabel>
-                  <Field
-                    // eslint-disable-next-line react/forbid-component-props
-                    className={globalStyle.noResize}
-                    component={FormikTextArea}
-                    name={"detail"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxEventDetailsLength,
-                    ])}
-                  />
-                </FormGroup>
-              </Col100>
-            </Row>
-            <Row>
-              <Col50>
-                <FormGroup>
-                  <ControlLabel>{t("group.events.form.evidence")}</ControlLabel>
-                  <Field
-                    accept={"image/gif,image/png"}
-                    component={FormikFileInput}
-                    id={"image"}
-                    name={"image"}
-                    validate={composeValidators([
-                      validEvidenceImage,
-                      maxFileSize,
-                    ])}
-                  />
-                </FormGroup>
-              </Col50>
-              <Col50>
+              {hasReattacks ? (
                 <FormGroup>
                   <ControlLabel>
-                    {t("group.events.form.evidenceFile")}
+                    {t("group.events.form.affectedReattacks.sectionTitle")}
                   </ControlLabel>
+                  <br />
+                  {t("group.events.form.affectedReattacks.switchLabel")}
+                  <br />
                   <Field
-                    accept={
-                      "application/pdf,application/zip,text/csv,text/plain"
-                    }
-                    component={FormikFileInput}
-                    id={"file"}
-                    name={"file"}
-                    validate={composeValidators([validEventFile, maxFileSize])}
+                    component={FormikSwitchButton}
+                    name={"affectsReattacks"}
+                    offlabel={t("group.events.form.affectedReattacks.no")}
+                    onChange={handleAffectedReattacksBtnChange}
+                    onlabel={t("group.events.form.affectedReattacks.yes")}
+                    type={"checkbox"}
                   />
+                  {values.affectsReattacks ? (
+                    <React.Fragment>
+                      <br />
+                      {t("group.events.form.affectedReattacks.selection")}
+                      <br />
+                      <br />
+                      <Row>
+                        <AffectedReattackAccordion findings={findings} />
+                      </Row>
+                    </React.Fragment>
+                  ) : undefined}
                 </FormGroup>
-              </Col50>
-            </Row>
-            {hasReattacks ? (
-              <FormGroup>
-                <ControlLabel>
-                  {t("group.events.form.affectedReattacks.sectionTitle")}
-                </ControlLabel>
-                <br />
-                <Field
-                  component={FormikCheckbox}
-                  label={t("group.events.form.affectedReattacks.checkbox")}
-                  name={"affectsReattacks"}
-                  type={"checkbox"}
-                />
-                {values.affectsReattacks ? (
-                  <React.Fragment>
-                    <br />
-                    {t("group.events.form.affectedReattacks.selection")}
-                    <br />
-                    <br />
-                    <Row>
-                      <AffectedReattackAccordion findings={findings} />
-                    </Row>
-                  </React.Fragment>
-                ) : undefined}
-              </FormGroup>
-            ) : undefined}
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                disabled={!dirty || isSubmitting}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
-          </Form>
-        )}
+              ) : undefined}
+              <ModalFooter>
+                <Button onClick={onClose} variant={"secondary"}>
+                  {t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={!dirty || isSubmitting}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
+            </Form>
+          );
+        }}
       </Formik>
     </Modal>
   );
