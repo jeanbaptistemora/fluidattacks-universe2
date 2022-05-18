@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -22,7 +21,7 @@ from typing import (
 )
 async def test_get_toe_lines(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(user=email, group_name="group1")
+    result: dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["data"]["group"]["toeLines"] == {
         "edges": [
             {
@@ -45,6 +44,17 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     },
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,
+                    "sortsSuggestions": [
+                        {
+                            "findingTitle": "083. XML injection (XXE)",
+                            "probability": 90,
+                        },
+                        {
+                            "findingTitle": "033. Password change without "
+                            "identity check",
+                            "probability": 50,
+                        },
+                    ],
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
                 "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
@@ -70,6 +80,12 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     },
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
+                    "sortsSuggestions": [
+                        {
+                            "findingTitle": "027. Insecure file upload",
+                            "probability": 100,
+                        }
+                    ],
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
                 "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
@@ -95,6 +111,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     },
                     "seenAt": "2019-01-01T15:41:04+00:00",
                     "sortsRiskLevel": -1,
+                    "sortsSuggestions": None,
                 },
                 "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
                 "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
@@ -138,5 +155,5 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
 )
 async def test_get_toe_lines_fail(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(user=email, group_name="group1")
+    result: dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["errors"][0]["message"] == "Access denied"

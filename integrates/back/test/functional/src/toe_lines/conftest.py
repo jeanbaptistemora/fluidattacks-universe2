@@ -19,20 +19,20 @@ from db_model.roots.types import (
     GitRootState,
 )
 from db_model.toe_lines.types import (
+    SortsSuggestion,
     ToeLines,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("toe_lines")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "roots": (
             GitRoot(
                 cloning=GitRootCloning(
@@ -124,6 +124,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
                 sorts_risk_level=0,
+                sorts_suggestions=[
+                    SortsSuggestion(
+                        finding_title="027. Insecure file upload",
+                        probability=100,
+                    ),
+                ],
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
@@ -149,6 +155,17 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
                 sorts_risk_level=80,
+                sorts_suggestions=[
+                    SortsSuggestion(
+                        finding_title="083. XML injection (XXE)",
+                        probability=90,
+                    ),
+                    SortsSuggestion(
+                        finding_title="033. Password change without "
+                        "identity check",
+                        probability=50,
+                    ),
+                ],
             ),
             ToeLines(
                 attacked_at=datetime.fromisoformat(
