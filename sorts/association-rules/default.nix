@@ -8,8 +8,12 @@
     buildEnv = pkgs."${python_version}".buildEnv.override;
     buildPythonPackage = pkgs."${python_version}".pkgs.buildPythonPackage;
     fetchPypi = pkgs.python3Packages.fetchPypi;
+    fetchFromGitHub = pkgs.fetchFromGitHub;
   };
-  python_pkgs = pkgs."${python_version}Packages";
+  python_pkgs = import ./build/deps {
+    inherit lib;
+    python_pkgs = pkgs."${python_version}Packages";
+  };
   self_pkgs = import ./build/pkg {
     inherit src lib metadata python_pkgs;
   };
