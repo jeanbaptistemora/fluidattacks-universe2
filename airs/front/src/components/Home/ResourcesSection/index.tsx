@@ -17,7 +17,7 @@ const ResourcesSection: React.FC = (): JSX.Element => {
   const data = [
     {
       image: "resource-1",
-      url: "https://landing.fluidattacks.com/us/ebook/",
+      url: "https://try.fluidattacks.com/us/ebook/",
     },
     {
       image: "resource-2",

@@ -53,7 +53,7 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
       <DesktopTopbarItem className={"dn-m"}>
         <Link
           className={"no-underline"}
-          to={"https://landing.fluidattacks.com/us/ebook/"}
+          to={"https://try.fluidattacks.com/us/ebook/"}
         >
           <TopBarButton>{"Download eBook"}</TopBarButton>
         </Link>

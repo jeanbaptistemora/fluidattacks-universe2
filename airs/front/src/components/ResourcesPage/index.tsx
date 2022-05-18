@@ -202,7 +202,7 @@ const ResourcesPage: React.FC<IProps> = ({
         image={"/resources/resource-card5n"}
         language={"ENGLISH"}
         title={`${translate.t("resources.cardsText.eBooks.ebook1Title")}`}
-        urlCard={"https://landing.fluidattacks.com/us/ebook/"}
+        urlCard={"https://try.fluidattacks.com/us/ebook/"}
       />
       <ResourcesCard
         buttonText={`${translate.t(
