@@ -18,6 +18,7 @@
     legacy-paginator
     legacy-postgres-client
     legacy-singer-io
+    types-requests
   ];
   dev_deps = with python_pkgs; [
     import-linter

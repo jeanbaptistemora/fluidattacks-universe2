@@ -20,6 +20,7 @@ returns = ">=0.16.0 <1.0.0"
 paginator = "^1.0.0"
 postgres-client = "^1.0.0"
 singer-io = "^1.0.0"
+types-requests = "^2.26.0"
 
 [tool.poetry.scripts]
 tap-gitlab = 'tap_gitlab.cli:main'

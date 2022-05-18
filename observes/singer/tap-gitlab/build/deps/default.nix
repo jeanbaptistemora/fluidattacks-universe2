@@ -4,20 +4,7 @@
   pkgs,
   python_version,
 }: let
-  python_pkgs =
-    pkgs."${python_version}Packages"
-    // {
-      types-requests = python_pkgs.types-requests.overridePythonAttrs (
-        old: rec {
-          version = "2.27.20";
-          src = lib.fetchPypi {
-            inherit version;
-            pname = old.pname;
-            sha256 = "YzRFc83mxO/UTYZ8AVjZ+35r65VyHL6YgvP4V+6KU5g=";
-          };
-        }
-      );
-    };
+  python_pkgs = pkgs."${python_version}Packages";
   aioextensions = python_pkgs.aioextensions.overridePythonAttrs (
     old: rec {
       version = "20.11.1621472";
