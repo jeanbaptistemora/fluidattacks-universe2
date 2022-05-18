@@ -20,12 +20,13 @@
     };
   aioextensions = python_pkgs.aioextensions.overridePythonAttrs (
     old: rec {
-      version = "20.8.2087641";
+      version = "20.11.1621472";
       src = lib.fetchPypi {
         inherit version;
         pname = old.pname;
-        sha256 = "rwvzxA6gT+91AXWnRUp8CjD97wTkWg2GgI+FXwLOPDA=";
+        sha256 = "q/sqJ1kPILBICBkubJxfkymGVsATVGhQxFBbUHCozII=";
       };
+      # doCheck = false;
     }
   );
 in
