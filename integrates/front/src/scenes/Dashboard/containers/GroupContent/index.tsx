@@ -17,6 +17,7 @@ import { groupContext } from "./context";
 
 import { GroupInternalContent } from "../GroupInternalContent";
 import { GroupScopeView } from "../GroupScopeView";
+import { GroupVulnerabilitiesView } from "../GroupVulnerabilitiesView";
 import { ToeContent } from "../ToeContent";
 import { Dot } from "components/Dot";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
@@ -98,6 +99,14 @@ const GroupContent: React.FC = (): JSX.Element => {
                     title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
                   />
+                  <Can do={"front_experimental_group_vulns"}>
+                    <ContentTab
+                      id={"vulnsTab"}
+                      link={`${url}/vulnerabilities`}
+                      title={translate.t("group.tabs.findings.text")}
+                      tooltip={translate.t("group.tabs.findings.tooltip")}
+                    />
+                  </Can>
                   <ContentTab
                     id={"analyticsTab"}
                     link={`${url}/analytics`}
@@ -183,6 +192,11 @@ const GroupContent: React.FC = (): JSX.Element => {
                       component={GroupFindingsView}
                       exact={true}
                       path={`${path}/vulns`}
+                    />
+                    <Route
+                      component={GroupVulnerabilitiesView}
+                      exact={true}
+                      path={`${path}/vulnerabilities`}
                     />
                     <Route
                       component={GroupDraftsView}
