@@ -70,7 +70,7 @@ const AdviseCards: React.FC = (): JSX.Element => {
     );
   });
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
   const pageCount = Math.ceil(listOfCards.length / itemsPerPage);
   const [currentItems, setCurrentItems] = useState(
     listOfCards.slice(0, itemsPerPage)
