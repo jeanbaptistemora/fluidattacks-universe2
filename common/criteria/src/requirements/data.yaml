@@ -60,8 +60,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.227"
     - "cis.4_3"
@@ -733,8 +733,8 @@
   category: Authorization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.419"
     - "asvs.V13_1_2"
@@ -788,8 +788,8 @@
   category: Authorization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.6_2"
     - "hipaa.164_308_a_3_ii_A"
@@ -851,8 +851,8 @@
   category: Authorization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.233"
     - "cwe.267"
@@ -1314,7 +1314,7 @@
   category: Architecture
   supported_in:
     machine: true
-    squad: false
+    squad: true
     oneshot: true
   references:
     - "asvs.V14_2_2"
@@ -1355,8 +1355,8 @@
   category: Architecture
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.19"
     - "capec.154"
@@ -1397,8 +1397,8 @@
   category: Architecture
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "iso27001.9_4_5"
     - "iso27001.14_2_2"
@@ -1454,9 +1454,9 @@
       y servicios.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "bsimm.SR3_3:_9"
     - "capec.125"
@@ -1576,9 +1576,9 @@
       alcanza su máximo.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.125"
     - "capec.130"
@@ -2172,8 +2172,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.13_9"
     - "cwe.299"
@@ -2210,8 +2210,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.295"
     - "cwe.298"
@@ -2236,8 +2236,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.298"
     - "cwe.299"
@@ -2266,8 +2266,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.295"
     - "asvs.V9_2_1"
@@ -2294,8 +2294,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.94"
     - "cwe.300"
@@ -2324,8 +2324,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.475"
     - "cwe.295"
@@ -2379,9 +2379,9 @@
       un rol predeterminado.
   category: Authorization
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.122"
     - "capec.233"
@@ -2466,9 +2466,9 @@
       claramente establecido.
   category: Authorization
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.1"
     - "capec.122"
@@ -2567,8 +2567,8 @@
   category: Authorization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "hipaa.164_310_a_2_iii"
     - "nerccip.004-6_R5"
@@ -2799,9 +2799,9 @@
     description: __empty__
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.654"
     - "cwe.287"
@@ -2918,8 +2918,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.521"
     - "cwe.640"
@@ -2974,8 +2974,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.916"
     - "nist80063.5_1_1_2"
@@ -3007,8 +3007,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.522"
     - "asvs.V6_4_1"
@@ -3038,8 +3038,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "pci.8_2_5"
     - "mitre.M1027"
@@ -3062,9 +3062,9 @@
     description: __empty__
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.49"
     - "cis.5_3"
@@ -3100,8 +3100,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.620"
     - "cwe.640"
@@ -3157,9 +3157,9 @@
       caracteres o más.
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.49"
     - "capec.560"
@@ -3191,9 +3191,9 @@
     description: __empty__
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.49"
     - "capec.560"
@@ -3226,9 +3226,9 @@
     description: __empty__
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.3_11"
     - "cwe.759"
@@ -3254,9 +3254,9 @@
     description: __empty__
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.759"
     - "cwe.760"
@@ -3299,8 +3299,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.263"
     - "nist80063.6_1_1"
@@ -3351,8 +3351,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.263"
     - "nist80063.6_1_1"
@@ -3401,9 +3401,9 @@
       inutilizarlos después de 120 minutos.
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.263"
     - "asvs.V2_3_1"
@@ -3444,9 +3444,9 @@
       como protección contra ataques de fuerza bruta.
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.330"
     - "nist80063.5_1_1_2"
@@ -3498,9 +3498,9 @@
       dentro del periodo de validez.
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.287"
     - "cwe.326"
@@ -3541,8 +3541,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.613"
     - "asvs.V3_3_3"
@@ -3605,9 +3605,9 @@
       y eliminar todas las credenciales predeterminadas.
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.70"
     - "capec.560"
@@ -3649,8 +3649,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.5_2"
     - "hipaa.164_312_a_2_i"
@@ -3684,8 +3684,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.5_3"
     - "nist80053.AC-2_3"
@@ -3750,9 +3750,9 @@
       verificados por la industria.
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
      - "cwe.321"
      - "cwe.322"
@@ -3816,8 +3816,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.226"
     - "cwe.459"
@@ -3874,9 +3874,9 @@
       y aprobados.
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "cis.3_6"
@@ -3933,9 +3933,9 @@
     description: __empty__
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
@@ -3963,9 +3963,9 @@
     description: __empty__
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
@@ -3991,9 +3991,9 @@
     description: __empty__
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "asvs.V1_6_1"
@@ -4018,9 +4018,9 @@
     description: __empty__
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "asvs.V1_6_1"
     - "owaspm10.M5"
@@ -4110,8 +4110,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.287"
     - "cwe.319"
@@ -5367,9 +5367,9 @@
       teniendo en cuenta estas restricciones.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.3_3"
     - "cwe.284"
@@ -5488,9 +5488,9 @@
       a proteger la información confidencial.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.524"
     - "cwe.525"
@@ -5550,9 +5550,9 @@
       de ser afectados por terceros.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.21"
     - "capec.22"
@@ -5631,8 +5631,8 @@
   category: Data
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.200"
     - "cwe.359"
@@ -5702,9 +5702,9 @@
       son HTTP, FTP, POP3 y Telnet.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.12"
     - "capec.31"
@@ -5824,9 +5824,9 @@
       que evitan que sean recuperado.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.226"
     - "cwe.459"
@@ -5882,8 +5882,8 @@
   category: Data
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.200"
     - "cwe.359"
@@ -5952,9 +5952,9 @@
       obtengan la información.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.3_11"
     - "cwe.311"
@@ -6206,8 +6206,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "owasp10.A5"
     - "nist.PR_PT-2"
@@ -6254,8 +6254,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "owasp10.A5"
     - "owaspm10.M3"
@@ -6288,8 +6288,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "pci.6_5_10"
     - "cmmc.IA_L2-3_5_10"
@@ -6318,8 +6318,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.459"
     - "eprivacy.4_1a"
@@ -6356,8 +6356,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.4_1"
     - "nist.PR_AC-3"
@@ -6390,8 +6390,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "hipaa.164_310_d_2_i"
     - "hipaa.164_312_e_2_i"
@@ -6511,9 +6511,9 @@
       aleatoria.
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "cwe.330"
@@ -6591,9 +6591,9 @@
       implementado por la plataforma.
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "capec.94"
@@ -6719,8 +6719,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.203"
     - "cwe.204"
@@ -6755,8 +6755,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.2"
     - "capec.212"
@@ -6820,9 +6820,9 @@
       para los usuarios autorizados.
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.287"
     - "cwe.306"
@@ -6862,9 +6862,9 @@
     description: __empty__
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.115"
     - "pci.6_5_10"
@@ -6922,9 +6922,9 @@
       y una contraseña.
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.306"
     - "hipaa.164_310_a_2_iii"
@@ -7025,9 +7025,9 @@
       sino más bien un factor secundario.
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.308"
     - "gdpr.R64"
@@ -7068,8 +7068,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.114"
     - "cwe.287"
@@ -7105,9 +7105,9 @@
     description: __empty__
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "nist80053.SC-3"
     - "owasp10.A5"
@@ -7134,8 +7134,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "asvs.V3_6_1"
     - "pci.6_5_10"
@@ -7196,8 +7196,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.49"
     - "cwe.287"
@@ -7275,8 +7275,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.345"
     - "cwe.602"
@@ -7995,9 +7995,9 @@
       accedan a ellos.
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.1"
     - "capec.36"
@@ -8201,9 +8201,9 @@
       y funciones sin servidor.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.161"
     - "capec.212"
@@ -8419,9 +8419,9 @@
       a esta protección.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.359"
     - "eprivacy.4_1a"
@@ -8493,8 +8493,8 @@
   category: Data
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.620"
     - "nist80053.AC-2_4"
@@ -8631,8 +8631,8 @@
   category: Data
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "asvs.V6_1_3"
     - "pci.12_3_2"
@@ -9366,9 +9366,9 @@
       para que no haya una alternativa más débil.
   category: Authentication
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.114"
     - "capec.115"
@@ -9436,9 +9436,9 @@
       y / o manipulado.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.11"
     - "capec.22"
@@ -9528,9 +9528,9 @@
       como inyección de objetos.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.130"
     - "capec.153"
@@ -9744,9 +9744,9 @@
       a los sitios de confianza.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.161"
     - "cwe.601"
@@ -9814,8 +9814,8 @@
   category: Architecture
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.116"
     - "capec.224"
@@ -9874,9 +9874,9 @@
       o evitar su propia ejecución.
   category: Devices
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.250"
     - "cwe.693"
@@ -9952,9 +9952,9 @@
       regular entre un host y el servidor.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.49"
     - "capec.125"
@@ -9998,8 +9998,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.39"
     - "capec.74"
@@ -10069,9 +10069,9 @@
       del lado del cliente.
   category: Data
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.74"
     - "cwe.922"
@@ -10247,9 +10247,9 @@
       usen contraseñas contenidas en ellas.
   category: Credentials
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.16"
     - "capec.560"
@@ -10306,8 +10306,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.916"
     - "nist80063.5_1_1_2"
@@ -10365,8 +10365,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.640"
     - "nist80063.5_1_1_2"
@@ -10430,8 +10430,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.287"
     - "cwe.294"
@@ -10500,9 +10500,9 @@
       o no cifrados.
   category: Cryptography
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.94"
     - "capec.117"
@@ -10684,8 +10684,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.117"
     - "cwe.326"
@@ -10892,8 +10892,8 @@
   category: Authorization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.122"
     - "capec.233"
@@ -11274,8 +11274,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.326"
     - "cwe.330"
@@ -11325,8 +11325,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.287"
     - "cwe.307"
@@ -11396,8 +11396,8 @@
   category: Architecture
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.33"
     - "capec.43"
@@ -11458,9 +11458,9 @@
       las solicitudes de servidores y respuestas.
   category: Architecture
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.19"
     - "capec.31"
@@ -11522,8 +11522,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.123"
     - "asvs.C_3"
@@ -11552,8 +11552,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.693"
     - "cwe.1233"
@@ -11590,8 +11590,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.693"
     - "cwe.1233"
@@ -11628,8 +11628,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.7_3"
     - "cwe.367"
@@ -11676,8 +11676,8 @@
   category: Devices
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.693"
     - "cwe.757"
@@ -11735,8 +11735,8 @@
   category: Architecture
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.200"
     - "cwe.213"
@@ -11842,8 +11842,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.263"
     - "asvs.V2_3_3"
@@ -12032,8 +12032,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.324"
     - "cwe.326"
@@ -12094,8 +12094,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.287"
     - "asvs.V1_2_4"
@@ -12206,8 +12206,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.295"
     - "cwe.298"
@@ -12238,8 +12238,8 @@
   category: Data
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.116"
     - "capec.224"
@@ -12288,8 +12288,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.263"
     - "cwe.640"
@@ -12318,8 +12318,8 @@
   category: Authentication
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.203"
     - "cwe.204"
@@ -12377,8 +12377,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
@@ -12403,8 +12403,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.20"
     - "hipaa.164_312_a_2_iv"
@@ -12433,8 +12433,8 @@
   category: Cryptography
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.330"
     - "cwe.1204"
@@ -12467,8 +12467,8 @@
   category: Certificates
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.94"
     - "cwe.94"
@@ -12802,8 +12802,8 @@
   category: Credentials
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.256"
     - "cwe.522"
