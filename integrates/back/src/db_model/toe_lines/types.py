@@ -11,6 +11,11 @@ from typing import (
 )
 
 
+class SortsSuggestion(NamedTuple):
+    finding_title: str
+    probability: int
+
+
 class ToeLines(NamedTuple):
     attacked_at: Optional[datetime]
     attacked_by: str
@@ -29,6 +34,7 @@ class ToeLines(NamedTuple):
     root_id: str
     seen_at: datetime
     sorts_risk_level: int
+    sorts_suggestions: Optional[list[SortsSuggestion]] = None
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))

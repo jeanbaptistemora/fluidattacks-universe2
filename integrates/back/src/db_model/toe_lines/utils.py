@@ -1,4 +1,5 @@
 from .types import (
+    SortsSuggestion,
     ToeLines,
     ToeLinesEdge,
 )
@@ -20,6 +21,18 @@ from dynamodb.utils import (
 from typing import (
     Optional,
 )
+
+
+def format_toe_lines_sorts_suggestions(
+    suggestions: list[Item],
+) -> list[SortsSuggestion]:
+    return [
+        SortsSuggestion(
+            finding_title=suggestion["finding_title"],
+            probability=int(suggestion["probability"]),
+        )
+        for suggestion in suggestions
+    ]
 
 
 def format_toe_lines(item: Item) -> ToeLines:
@@ -47,6 +60,11 @@ def format_toe_lines(item: Item) -> ToeLines:
         root_id=item["root_id"],
         seen_at=datetime.fromisoformat(item["seen_at"]),
         sorts_risk_level=int(item["sorts_risk_level"]),
+        sorts_suggestions=format_toe_lines_sorts_suggestions(
+            item["sorts_suggestions"]
+        )
+        if item.get("sorts_suggestions")
+        else None,
     )
 
 
@@ -58,6 +76,18 @@ def format_toe_lines_edge(
     return ToeLinesEdge(
         node=format_toe_lines(item), cursor=get_cursor(index, item, table)
     )
+
+
+def format_toe_lines_sorts_suggestions_item(
+    suggestions: list[SortsSuggestion],
+) -> list[Item]:
+    return [
+        {
+            "finding_title": suggestion.finding_title,
+            "probability": suggestion.probability,
+        }
+        for suggestion in suggestions
+    ]
 
 
 def format_toe_lines_item(
@@ -103,4 +133,9 @@ def format_toe_lines_item(
             toe_lines.seen_at
         ),
         "sorts_risk_level": toe_lines.sorts_risk_level,
+        "sorts_suggestions": format_toe_lines_sorts_suggestions_item(
+            toe_lines.sorts_suggestions
+        )
+        if toe_lines.sorts_suggestions
+        else None,
     }

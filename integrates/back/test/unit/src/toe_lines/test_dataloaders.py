@@ -7,6 +7,7 @@ from datetime import (
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     RootToeLinesRequest,
+    SortsSuggestion,
     ToeLines,
     ToeLinesConnection,
     ToeLinesEdge,
@@ -51,6 +52,15 @@ async def test_get() -> None:
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
         sorts_risk_level=80,
+        sorts_suggestions=[
+            SortsSuggestion(
+                finding_title="083. XML injection (XXE)", probability=90
+            ),
+            SortsSuggestion(
+                finding_title="033. Password change without identity check",
+                probability=50,
+            ),
+        ],
     )
     group_name = "unittesting"
     root_id = "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
@@ -78,6 +88,11 @@ async def test_get() -> None:
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
         seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
         sorts_risk_level=0,
+        sorts_suggestions=[
+            SortsSuggestion(
+                finding_title="027. Insecure file upload", probability=100
+            ),
+        ],
     )
 
 
@@ -116,6 +131,17 @@ async def test_get_by_group() -> None:
                         "2020-02-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=80,
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="083. XML injection (XXE)",
+                            probability=90,
+                        ),
+                        SortsSuggestion(
+                            finding_title="033. Password change without "
+                            "identity check",
+                            probability=50,
+                        ),
+                    ],
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUx"
@@ -150,6 +176,12 @@ async def test_get_by_group() -> None:
                         "2020-01-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=0,
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="027. Insecure file upload",
+                            probability=100,
+                        ),
+                    ],
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIx"
@@ -196,6 +228,17 @@ async def test_get_by_root() -> None:
                         "2020-02-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=80,
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="083. XML injection (XXE)",
+                            probability=90,
+                        ),
+                        SortsSuggestion(
+                            finding_title="033. Password change without "
+                            "identity check",
+                            probability=50,
+                        ),
+                    ],
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzQwMzlkMDk4LWZmYzUtNDk4NC04ZWQzLWViMTdiY2E5OGUx"
@@ -240,6 +283,12 @@ async def test_get_by_root() -> None:
                         "2020-01-01T15:41:04+00:00"
                     ),
                     sorts_risk_level=0,
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="027. Insecure file upload",
+                            probability=100,
+                        ),
+                    ],
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
                 "NST09UIzc2NWIxZDBmLWI2ZmItNDQ4NS1iNGUyLTJjMmNiMTU1NWIx"
