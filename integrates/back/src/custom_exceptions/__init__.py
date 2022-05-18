@@ -1403,3 +1403,9 @@ class InvalidGitRoot(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - A git root is required"
         super(InvalidGitRoot, self).__init__(msg)
+
+
+class InvalidModifiedDate(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The modified date can not be a future date"
+        super(InvalidModifiedDate, self).__init__(msg)
