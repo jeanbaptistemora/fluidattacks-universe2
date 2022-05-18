@@ -46,6 +46,7 @@ TEST_GROUPS: Set[str] = {
     "add_organization",
     "add_push_token",
     "add_toe_input",
+    "add_toe_lines",
     "approve_draft",
     "confirm_vulnerabilities_zero_risk",
     "deactivate_root",
@@ -190,8 +191,9 @@ def generic_data(  # pylint: disable=too-many-locals
             "user_manager_fluid_email": user_manager_fluid_email,
             "vulnerability_manager_email": vuln_manager_email,
             "vulnerability_manager_fluid_email": vuln_manager_fluid_email,
-            "FIN.H.060": "060. Insecure service configuration - "
-            "Host verification",
+            "FIN.H.060": (
+                "060. Insecure service configuration - Host verification"
+            ),
             "R359": "R359. Avoid using generic exceptions.",
         },
         "db_data": {

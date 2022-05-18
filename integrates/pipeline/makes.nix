@@ -29,6 +29,7 @@
     ["add_organization"]
     ["add_push_token"]
     ["add_toe_input"]
+    ["add_toe_lines"]
     ["approve_draft"]
     ["batch"]
     ["confirm_vulnerabilities_zero_risk"]
