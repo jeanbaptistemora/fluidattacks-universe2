@@ -287,3 +287,84 @@ resource "aws_s3_bucket_versioning" "forces" {
     status = "Enabled"
   }
 }
+
+# Continuous respositories
+
+resource "aws_s3_bucket" "continuous_repositories" {
+  bucket = "continuous-repositories"
+
+  tags = {
+    "Name"               = "continuous-repositories"
+    "management:area"    = "cost"
+    "management:product" = "services"
+    "management:type"    = "service"
+  }
+}
+
+resource "aws_s3_bucket_acl" "continuous_repositories" {
+  bucket = aws_s3_bucket.continuous_repositories.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_logging" "continuous_repositories" {
+  bucket = aws_s3_bucket.continuous_repositories.id
+
+  target_bucket = "continuous-repositories-logs"
+  target_prefix = ""
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "continuous_repositories" {
+  bucket = aws_s3_bucket.continuous_repositories.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "continuous_repositories" {
+  bucket = aws_s3_bucket.continuous_repositories.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+# Continuous Data
+
+resource "aws_s3_bucket" "continuous_data" {
+  bucket = "continuous-data"
+
+  tags = {
+    "Name"               = "continuous-data"
+    "management:area"    = "cost"
+    "management:product" = "services"
+    "management:type"    = "service"
+  }
+}
+
+resource "aws_s3_bucket_acl" "continuous_data" {
+  bucket = aws_s3_bucket.continuous_data.id
+
+  acl = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "continuous_data" {
+  bucket = aws_s3_bucket.continuous_data.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "continuous_data" {
+  bucket = aws_s3_bucket.continuous_data.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
