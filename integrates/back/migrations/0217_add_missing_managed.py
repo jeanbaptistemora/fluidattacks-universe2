@@ -2,8 +2,8 @@
 """
 add managed field to all groups
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-05-18 at 03:31:48 UTC
+Finalization Time: 2022-05-18 at 03:33:15 UTC
 """
 
 from aioextensions import (

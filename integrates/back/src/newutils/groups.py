@@ -348,6 +348,7 @@ def format_group_to_add_item(group: Group) -> Item:
                 "has_skims": group.state.has_machine,
                 "has_drills": group.state.has_squad,
                 "has_forces": True,
+                "managed": group.state.managed,
                 "requester": group.state.modified_by,
                 "service": (
                     group.state.service.value if group.state.service else None
