@@ -629,6 +629,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "see_dropdown_to_confirm_zero_risk",
             "see_dropdown_to_reject_zero_risk",
             "api_resolvers_query_environment_url_resolve",
+            "api_resolvers_git_root_download_url_resolve",
         },
         tags={
             "drills",
