@@ -25,6 +25,9 @@ from batch.actions.remove_roots import (
 from batch.actions.report import (
     report,
 )
+from batch.actions.update_nickname import (
+    update_nickname,
+)
 from batch.dal import (
     delete_action,
     get_action,
@@ -59,6 +62,7 @@ ACTIONS = {
         remove_group_resources,
         remove_roots,
         report,
+        update_nickname,
     ]
 }
 

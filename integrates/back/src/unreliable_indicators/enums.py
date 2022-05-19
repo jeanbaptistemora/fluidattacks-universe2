@@ -56,6 +56,7 @@ class EntityDependency(Enum):
         "request_vulnerabilities_zero_risk"
     )
     reset_expired_accepted_findings: str = "reset_expired_accepted_findings"
+    update_nickname: str = "update_nickname"
     update_vulnerabilities_treatment: str = "update_vulnerabilities_treatment"
     update_vulnerability_commit: str = "update_vulnerability_commit"
     upload_file: str = "upload_file"

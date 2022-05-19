@@ -28,3 +28,4 @@ class Action(Enum):
     REMOVE_ROOTS = "remove_roots"
     REMOVE_GROUP_RESOURCES = "remove_group_resources"
     EXECUTE_MACHINE = "execute-machine"
+    UPDATE_NICKNAME = "update_nickname"
