@@ -51,6 +51,9 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 from mailer import (
     vulnerabilities as vulns_mailer,
 )
@@ -429,6 +432,42 @@ async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
             modified_by=modified_by,
         )
     return bool(treatments)
+
+
+async def send_treatment_report_mail(
+    *,
+    loaders: Any,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
+    modified_by: str,
+    updated_values: Dict[str, str],
+) -> None:
+    assigned: str = updated_values["assigned"]
+    justification: str = updated_values["justification"]
+    roles: set[str] = {
+        "resourcer",
+        "customer_manager",
+        "user_manager",
+        "vulnerability_manager",
+    }
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.UPDATED_TREATMENT,
+        roles=roles,
+    )
+    await vulns_mailer.send_mail_treatment_report(
+        loaders=loaders,
+        assigned=assigned,
+        finding_id=finding_id,
+        finding_title=finding_title,
+        group_name=group_name,
+        justification=justification,
+        modified_by=modified_by,
+        modified_date=str(datetime_utils.get_iso_date()),
+        email_to=users_email,
+    )
 
 
 async def update_vulnerabilities_treatment(
