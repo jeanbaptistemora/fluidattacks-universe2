@@ -62,4 +62,5 @@ in
     types-boto3 = import ./boto3/stubs.nix lib python_pkgs;
     types-cachetools = import ./cachetools/stubs.nix lib;
     types-click = import ./click/stubs.nix lib;
+    types-python-dateutil = import ./dateutil/stubs.nix lib;
   }

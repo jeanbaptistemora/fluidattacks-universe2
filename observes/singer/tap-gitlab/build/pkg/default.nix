@@ -21,6 +21,7 @@
     legacy-singer-io
     types-boto3
     types-cachetools
+    types-python-dateutil
     types-pytz
     types-requests
   ];
