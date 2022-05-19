@@ -56,6 +56,9 @@ and hide as described below in
   was found and is still
   open; that is,
   not yet remediated.
+- **Remediation %:**
+  The percentage of closed
+  vulnerabilities of that type.
 - **Locations:** The name of
   one specific file where the
   type of vulnerability was found.
