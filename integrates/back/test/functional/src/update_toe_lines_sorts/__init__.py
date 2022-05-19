@@ -17,14 +17,25 @@ async def get_result(
     root_nickname: str,
     filename: str,
     sorts_risk_level: int,
+    sorts_suggestions: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    sorts_suggestions_formatted: str = "".join(
+        f"""
+            {{
+                findingTitle: "{item["findingTitle"]}",
+                probability: {item["probability"]}
+            }}
+        """
+        for item in sorts_suggestions
+    )
     query: str = f"""
         mutation {{
             updateToeLinesSorts(
                 groupName: "{group_name}",
                 rootNickname: "{root_nickname}",
                 filename: "{filename}",
-                sortsRiskLevel: {sorts_risk_level}
+                sortsRiskLevel: {sorts_risk_level},
+                sortsSuggestions: [{sorts_suggestions_formatted}]
             ) {{
                 success
             }}
@@ -66,6 +77,10 @@ async def query_get(
                         }}
                         seenAt
                         sortsRiskLevel
+                        sortsSuggestions {{
+                            findingTitle
+                            probability
+                        }}
                     }}
                     cursor
                 }}
