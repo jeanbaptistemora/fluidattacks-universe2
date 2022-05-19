@@ -7,6 +7,9 @@ from billing import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -34,7 +37,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    org = await info.context.loaders.organization.load(
+    org: Organization = await info.context.loaders.organization_typed.load(
         kwargs["organization_id"]
     )
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
@@ -42,9 +45,9 @@ async def mutate(
 
     # Create payment method
     result: bool = await billing_domain.create_payment_method(
-        org_billing_customer=org["billing_customer"],
-        org_id=org["id"],
-        org_name=org["name"],
+        org_billing_customer=org.billing_customer,
+        org_id=org.id,
+        org_name=org.name,
         user_email=user_email,
         card_number=kwargs["card_number"],
         card_expiration_month=kwargs["card_expiration_month"],
