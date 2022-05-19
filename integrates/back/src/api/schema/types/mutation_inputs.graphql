@@ -64,6 +64,14 @@ input PhoneInput {
   nationalNumber: String!
 }
 
+"Sorts vulnerability suggestion"
+input SortsSuggestionInput {
+  "Finding title"
+  findingTitle: String!
+  "Probability as a percentage"
+  probability: Int!
+}
+
 "Tours input definition"
 input ToursInput {
   "Add group new user workflow"

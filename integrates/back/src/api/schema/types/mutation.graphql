@@ -1200,6 +1200,8 @@ type Mutation {
     rootNickname: String
     "Risk level of the reviewed lines assigned by Sorts"
     sortsRiskLevel: Int
+    "List with Sorts suggestions for vulnerabilities in the file"
+    sortsSuggestions: [SortsSuggestionInput!]
   ): SimplePayload!
 
   "Update the new user completed workflow"

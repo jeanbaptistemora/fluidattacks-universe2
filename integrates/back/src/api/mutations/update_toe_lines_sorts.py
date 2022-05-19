@@ -1,11 +1,11 @@
-# This mutation updates the attribute sorts_file_risk for a concrete Toe
-
-
 from api import (
     APP_EXCEPTIONS,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
+)
+from custom_exceptions import (
+    InvalidSortsParameters,
 )
 from custom_types import (
     SimplePayload as SimplePayloadType,
@@ -17,6 +17,7 @@ from db_model.roots.types import (
     Root,
 )
 from db_model.toe_lines.types import (
+    SortsSuggestion,
     ToeLines,
     ToeLinesRequest,
 )
@@ -32,6 +33,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
+from operator import (
+    attrgetter,
+)
 from roots import (
     domain as roots_domain,
 )
@@ -43,10 +47,25 @@ from toe.lines.types import (
 )
 from toe.lines.validations import (
     validate_sort_risk_level,
+    validate_sort_suggestions,
 )
 from typing import (
     Any,
+    Optional,
 )
+
+
+def _format_sorts_suggestions(
+    suggestions: list[dict[str, Any]]
+) -> list[SortsSuggestion]:
+    unordered = [
+        SortsSuggestion(
+            finding_title=item["finding_title"],
+            probability=item["probability"],
+        )
+        for item in suggestions
+    ]
+    return sorted(unordered, key=attrgetter("probability"), reverse=True)
 
 
 @convert_kwargs_to_snake_case
@@ -55,19 +74,30 @@ from typing import (
     enforce_group_level_auth_async,
     require_asm,
 )
-async def mutate(
+async def mutate(  # pylint: disable=too-many-arguments
     _: Any,
     info: GraphQLResolveInfo,
     group_name: str,
     root_nickname: str,
     filename: str,
-    sorts_risk_level: int,
+    sorts_risk_level: Optional[int] = None,
+    sorts_suggestions: Optional[list[dict[str, Any]]] = None,
 ) -> SimplePayloadType:
-    try:
-        loaders: Dataloaders = info.context.loaders
+    if sorts_risk_level is None and sorts_suggestions is None:
+        raise InvalidSortsParameters.new()
 
+    if sorts_risk_level is not None:
         validate_sort_risk_level(sorts_risk_level)
 
+    sorts_suggestions_formatted = None
+    if sorts_suggestions is not None:
+        sorts_suggestions_formatted = _format_sorts_suggestions(
+            sorts_suggestions
+        )
+        validate_sort_suggestions(sorts_suggestions_formatted)
+
+    try:
+        loaders: Dataloaders = info.context.loaders
         roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
         root_id = roots_domain.get_root_id_by_nickname(
             root_nickname, roots, only_git_roots=True
@@ -79,18 +109,23 @@ async def mutate(
         )
         await toe_lines_domain.update(
             toe_lines,
-            ToeLinesAttributesToUpdate(sorts_risk_level=sorts_risk_level),
+            ToeLinesAttributesToUpdate(
+                sorts_risk_level=sorts_risk_level,
+                sorts_suggestions=sorts_suggestions_formatted,
+            ),
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Updated sorts risk level for group {group_name} in "
-            f"toes with filename {filename} successfully",
+            f"Security: Updated sorts parameters for group {group_name} in "
+            f"root {root_nickname} in toes with filename {filename} "
+            f"successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Tried to update sorts risk level "
-            f"for group {group_name} in toes with filename {filename}",
+            f"Security: Tried to update sorts parameters for group "
+            f"{group_name} in root {root_nickname} in toes with "
+            f"filename {filename}",
         )
         raise
 
