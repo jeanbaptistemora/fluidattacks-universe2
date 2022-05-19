@@ -429,6 +429,10 @@ async def send_mail_updated_group_information(
             "from": language_format[group.language.value],
             "to": language_format[language_metadata],
         },
+        "Sprint Duration": {
+            "from": group.sprint_duration,
+            "to": metadata.sprint_duration,
+        },
     }
 
     await send_mails_async(

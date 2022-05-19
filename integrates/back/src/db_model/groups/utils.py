@@ -67,6 +67,7 @@ def format_group(item: Item) -> Group:
         language=GroupLanguage[item["language"]],
         name=item["name"],
         organization_id=add_org_id_prefix(item["organization_id"]),
+        sprint_duration=int(item.get("sprint_duration", 1)),
         state=format_state(item["state"]),
         tags=set(item["tags"]) if item.get("tags") else None,
     )
@@ -80,6 +81,7 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         "description": metadata.description,
         "disambiguation": metadata.disambiguation,
         "context": metadata.context,
+        "sprint_duration": metadata.sprint_duration,
         "files": [file._asdict() for file in metadata.files]
         if metadata.files is not None
         else None,

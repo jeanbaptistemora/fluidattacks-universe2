@@ -61,6 +61,7 @@ async def mutate(
     try:
         business_id = parameters.get("business_id", None)
         business_name = parameters.get("business_name", None)
+        sprint_duration = parameters.get("sprint_duration", None)
         description = description.strip()
         if not description:
             raise InvalidParameter()
@@ -68,6 +69,10 @@ async def mutate(
             validations_utils.validate_field_length(business_id, 60)
         if business_name is not None:
             validations_utils.validate_field_length(business_name, 60)
+        if sprint_duration is not None:
+            validations_utils.validate_int_range(
+                int(sprint_duration), 1, 10, True
+            )
         validations_utils.validate_field_length(description, 200)
         validations_utils.validate_group_language(language)
         await groups_domain.update_group_info(
@@ -78,6 +83,9 @@ async def mutate(
                 business_name=business_name,
                 description=description,
                 language=GroupLanguage[language.upper()],
+                sprint_duration=int(sprint_duration)
+                if sprint_duration
+                else None,
             ),
             user_email=user_email,
         )

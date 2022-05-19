@@ -194,6 +194,7 @@ def format_group(
         context=item.get("group_context"),
         disambiguation=item.get("disambiguation"),
         files=format_group_files(item["files"]) if item.get("files") else None,
+        sprint_duration=item.get("sprint_duration", 1),
         tags=set(item["tag"]) if item.get("tag") else None,
     )
 
@@ -304,6 +305,7 @@ def format_group_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         "language": str(metadata.language.value).lower()
         if metadata.language
         else None,
+        "sprint_duration": metadata.sprint_duration,
         "tag": metadata.tags,
     }
     return {
@@ -372,6 +374,8 @@ def format_group_to_add_item(group: Group) -> Item:
         item["business_id"] = group.business_id
     if group.business_name:
         item["business_name"] = group.business_name
+    if group.sprint_duration:
+        item["sprint_duration"] = group.sprint_duration
 
     return item
 

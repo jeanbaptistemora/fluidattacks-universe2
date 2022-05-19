@@ -109,6 +109,8 @@ type Group {
   service: ServiceType!
   "Currently active service attributes"
   serviceAttributes: [String]
+  "Average Sprint duration in weeks"
+  sprintDuration: Int!
   "Stakeholders of the group"
   stakeholders: [Stakeholder!]
   "Continuous or one-shot hacking"

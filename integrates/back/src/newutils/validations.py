@@ -338,9 +338,11 @@ def validate_commit_hash(commit_hash: str) -> None:
 
 def validate_int_range(
     value: int, lower_bound: int, upper_bound: int, inclusive: bool = True
-) -> None:
+) -> bool:
     if inclusive:
-        if not lower_bound <= value <= upper_bound:
-            raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+        if lower_bound <= value <= upper_bound:
+            return True
+        raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
     if not lower_bound < value < upper_bound:
         raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+    return True
