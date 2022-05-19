@@ -32,6 +32,7 @@ from roots.validations import (
     validate_active_root,
     validate_git_root,
 )
+import simplejson as json  # type: ignore
 from toe.lines.validations import (
     validate_modified_date,
 )
@@ -203,6 +204,9 @@ async def update(
         sorts_risk_level=attributes.sorts_risk_level,
         clean_be_present_until=attributes.be_present is not None
         and be_present_until is None,
+        sorts_suggestions=json.loads(json.dumps(attributes.sorts_suggestions))
+        if attributes.sorts_suggestions is not None
+        else None,
     )
     await toe_lines_model.update_metadata(
         current_value=current_value,

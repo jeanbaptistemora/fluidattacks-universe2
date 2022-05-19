@@ -1,6 +1,9 @@
 from datetime import (
     datetime,
 )
+from db_model.toe_lines.types import (
+    SortsSuggestion,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -39,3 +42,4 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     modified_date: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None
+    sorts_suggestions: Optional[list[SortsSuggestion]] = None

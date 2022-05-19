@@ -86,6 +86,14 @@ class InvalidRemovalVulnState(_SingleMessageException):
     msg: str = "Invalid, you cannot remove a closed vulnerability"
 
 
+class InvalidSortsParameters(_SingleMessageException):
+    msg: str = "Invalid, missing parameters in mutation"
+
+
+class InvalidSortsSuggestions(_SingleMessageException):
+    msg: str = "Invalid, incorrect parameters in ToE Lines Sorts suggestions"
+
+
 class InvalidSortsRiskLevel(_SingleMessageException):
     msg: str = "Invalid, value not in range [0, 100]"
 

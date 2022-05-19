@@ -67,6 +67,7 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None
     clean_be_present_until: bool = False
+    sorts_suggestions: Optional[list[SortsSuggestion]] = None
 
 
 class ToeLinesRequest(NamedTuple):
