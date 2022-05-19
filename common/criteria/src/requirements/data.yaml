@@ -109,8 +109,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "owasp10.A2"
     - "nyshield.5575_B_6"
@@ -170,8 +170,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.227"
     - "cwe.384"
@@ -218,9 +218,9 @@
       por terceros hostiles.
   category: Session
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.39"
     - "capec.74"
@@ -253,8 +253,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "nist80053.AC-2_2"
     - "nist80053.AC-2_13"
@@ -311,8 +311,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.613"
     - "nist80063.7_1"
@@ -378,9 +378,9 @@
       el robo de sesión se mitiga drásticamente.
   category: Session
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.31"
     - "cwe.346"
@@ -468,9 +468,9 @@
       integridad y disponibilidad del sistema.
   category: Session
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.60"
     - "cwe.287"
@@ -565,8 +565,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.613"
     - "nist80063.7_1"
@@ -652,9 +652,9 @@
       ni almacenados en logs.
   category: Session
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.200"
     - "cwe.319"
@@ -919,8 +919,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.155"
     - "nist.PR_DS-7"
@@ -959,9 +959,9 @@
       y comprometer información sensible.
   category: Files
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.11"
     - "capec.153"
@@ -1027,8 +1027,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.400"
     - "cwe.409"
@@ -1060,9 +1060,9 @@
     description: __empty__
   category: Files
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.11"
     - "capec.165"
@@ -1093,9 +1093,9 @@
     description: __empty__
   category: Files
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.17"
     - "capec.23"
@@ -1142,8 +1142,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.165"
     - "cwe.646"
@@ -1167,8 +1167,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.242"
     - "cwe.116"
@@ -1205,8 +1205,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.242"
     - "cwe.116"
@@ -1234,8 +1234,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.1230"
     - "gdpr.25_1"
@@ -1267,8 +1267,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.13"
     - "capec.23"
@@ -1670,9 +1670,9 @@
       en caso de que un ataque sea exitoso.
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.8_2"
     - "cis.8_5"
@@ -1777,9 +1777,9 @@
       otras vulnerabilidades más adelante.
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.116"
     - "capec.224"
@@ -1817,9 +1817,9 @@
     description: __empty__
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.113"
     - "capec.116"
@@ -1869,9 +1869,9 @@
       el seguimiento en una investigación.
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.8_5"
     - "cwe.778"
@@ -1940,9 +1940,9 @@
       se note de manera oportuna.
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.161"
     - "cwe.200"
@@ -2021,8 +2021,8 @@
   category: Logs
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.532"
     - "eprivacy.4_1a"
@@ -2084,8 +2084,8 @@
   category: Logs
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.R7"
     - "hipaa.164_308_a_1_ii_D"
@@ -2133,8 +2133,8 @@
   category: Logs
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.R7"
     - "hipaa.164_308_a_1_ii_D"
@@ -2607,8 +2607,8 @@
   category: Emails
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.41"
     - "soc2.CC6_6"
@@ -2639,8 +2639,8 @@
   category: Emails
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.9_7"
     - "iec62443.RDF-5_3"
@@ -2662,9 +2662,9 @@
     description: __empty__
   category: Emails
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.242"
     - "cwe.80"
@@ -2703,8 +2703,8 @@
   category: Emails
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.9_6"
     - "cwe.509"
@@ -2735,8 +2735,8 @@
   category: Emails
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.200"
     - "gdpr.5_1f"
@@ -2769,8 +2769,8 @@
   category: Emails
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "nist80053.IA-2"
     - "c2m2.9_2_f"
@@ -2870,8 +2870,8 @@
   category: Emails
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "asvs.V11_1_4"
     - "nyshield.5575_B_4"
@@ -4048,8 +4048,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.16_10"
     - "pci.6_3"
@@ -4192,8 +4192,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.113"
     - "capec.115"
@@ -4269,8 +4269,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "bsimm.CR3_4:_2"
     - "capec.438"
@@ -4356,9 +4356,9 @@
       en peligro los sistemas críticos.
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.259"
     - "cwe.321"
@@ -4408,8 +4408,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.123"
     - "capec.129"
@@ -4462,9 +4462,9 @@
     description: __empty__
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.123"
     - "capec.129"
@@ -4512,9 +4512,9 @@
     description: __empty__
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "bsimm.SE3_2:_13"
     - "capec.188"
@@ -4581,8 +4581,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.18"
     - "capec.19"
@@ -4705,8 +4705,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "owasp10.A5"
     - "agile.9"
@@ -4749,8 +4749,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.474"
     - "cwe.561"
@@ -4775,8 +4775,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.20"
     - "asvs.V5_1_4"
@@ -4814,8 +4814,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.404"
     - "owasp10.A6"
@@ -4844,8 +4844,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.456"
     - "cwe.457"
@@ -4876,9 +4876,9 @@
     description: __empty__
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.7"
     - "capec.248"
@@ -4919,8 +4919,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.1085"
     - "asvs.V14_2_2"
@@ -4981,8 +4981,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.259"
     - "cwe.311"
@@ -5083,9 +5083,9 @@
       y un tratamiento adecuado.
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.3"
     - "capec.4"
@@ -5231,8 +5231,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.21"
     - "capec.31"
@@ -5296,9 +5296,9 @@
       (por ejemplo, "X-Frame-Options").
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.346"
     - "cwe.451"
@@ -6047,9 +6047,9 @@
       otras vulnerabilidades.
   category: System
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.17"
     - "capec.23"
@@ -6156,8 +6156,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "eprivacy.6_4"
     - "eprivacy.9_1"
@@ -6431,8 +6431,8 @@
   category: Virtualization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.4_1"
     - "cis.4_2"
@@ -6462,8 +6462,8 @@
   category: Virtualization
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.115"
   metadata: {}
@@ -7314,8 +7314,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.613"
     - "owasp10.A7"
@@ -7338,8 +7338,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.613"
     - "padss.6_1"
@@ -7368,8 +7368,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.619"
     - "cis.12_2"
@@ -7411,8 +7411,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "nerccip.007-6_R1_1"
     - "pci.9_1_3"
@@ -7451,8 +7451,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "asvs.V2_5_4"
     - "asvs.V2_10_2"
@@ -7484,8 +7484,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "owasp10.A5"
     - "pci.4_1"
@@ -7523,8 +7523,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.13_9"
     - "iso27001.9_1_2"
@@ -7564,8 +7564,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.613"
     - "iso27002.8_20"
@@ -7592,9 +7592,9 @@
     description: __empty__
   category: Networks
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.4_5"
     - "cis.4_8"
@@ -7648,8 +7648,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.12_6"
     - "cis.13_9"
@@ -7697,8 +7697,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.9_2"
     - "mitre.M1021"
@@ -7726,8 +7726,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.9_2"
     - "cis.3_12"
@@ -7773,8 +7773,8 @@
   category: Social
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "nist80053.PL-4_1"
   metadata: {}
@@ -7821,8 +7821,8 @@
   category: Social
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.116"
     - "cwe.200"
@@ -7898,9 +7898,9 @@
       descubiertas recientemente.
   category: Services
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "bsimm.SR2_4:_60"
     - "capec.42"
@@ -8094,9 +8094,9 @@
       los privilegios requeridos.
   category: Services
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.13"
     - "capec.122"
@@ -8276,9 +8276,9 @@
     description: __empty__
   category: System
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "bsimm.CR3_4:_2"
     - "capec.169"
@@ -8335,8 +8335,8 @@
   category: System
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.122"
     - "agile.11"
@@ -8363,8 +8363,8 @@
     description: __empty__
   category: System
   supported_in:
-    machine: true
-    squad: false
+    machine: false
+    squad: true
     oneshot: true
   references:
     - "cis.16_10"
@@ -8581,9 +8581,9 @@
       un administrador de paquetes.
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.829"
     - "asvs.C_12"
@@ -8712,8 +8712,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "eprivacy.6_4"
     - "eprivacy.9_1"
@@ -8789,8 +8789,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.7_1"
     - "iso27001.18_1_4"
@@ -8853,8 +8853,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "eprivacy.6_3"
     - "gdpr.7_3"
@@ -8928,8 +8928,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.11_2"
     - "iso27001.18_1_4"
@@ -8984,8 +8984,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.11_2"
     - "gdpr.15_1"
@@ -9084,8 +9084,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "eprivacy.6_4"
     - "eprivacy.9_1"
@@ -9166,8 +9166,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.11_2"
     - "gdpr.16_1"
@@ -9237,8 +9237,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.212"
     - "gdpr.11_2"
@@ -9310,8 +9310,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.19"
     - "gdpr.89_3"
@@ -9617,8 +9617,8 @@
   category: Logs
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.779"
     - "asvs.V1_7_1"
@@ -9689,9 +9689,9 @@
       los rootkits e información sensible expuesta.
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cwe.510"
     - "asvs.V10_2_3"
@@ -10130,9 +10130,9 @@
       estén comprometidos.
   category: Services
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.148"
     - "capec.154"
@@ -10173,8 +10173,8 @@
   category: Legal
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.R45"
     - "iso27001.18_1_2"
@@ -10601,8 +10601,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.25"
     - "capec.26"
@@ -10747,8 +10747,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.116"
     - "cwe.219"
@@ -10821,8 +10821,8 @@
   category: Files
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.19"
     - "capec.165"
@@ -10967,9 +10967,9 @@
       contra la asignación de parámetros inseguros.
   category: Source
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "capec.6"
     - "capec.31"
@@ -11044,8 +11044,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "eprivacy.6_4"
     - "eprivacy.9_1"
@@ -11100,8 +11100,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.19"
     - "capec.242"
@@ -11189,8 +11189,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.123"
     - "capec.153"
@@ -11775,8 +11775,8 @@
   category: Networks
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.350"
     - "asvs.V10_3_3"
@@ -11805,8 +11805,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.290"
     - "cwe.345"
@@ -11888,8 +11888,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.396"
     - "cwe.397"
@@ -11943,8 +11943,8 @@
   category: Privacy
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "gdpr.5_1e"
     - "iso27001.18_1_3"
@@ -12170,8 +12170,8 @@
   category: System
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cis.8_4"
     - "iso27001.12_4_4"
@@ -12263,8 +12263,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.710"
     - "cwe25.476"
@@ -12345,8 +12345,8 @@
   category: Session
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.613"
     - "nist80053.AC-12"
@@ -12503,8 +12503,8 @@
   category: System
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "capec.124"
     - "owaspm10.M8"
@@ -12585,9 +12585,9 @@
     description: __empty__
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.8_5"
     - "cwe.223"
@@ -12640,9 +12640,9 @@
     description: __empty__
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.8_5"
     - "cwe.778"
@@ -12693,9 +12693,9 @@
     description: __empty__
   category: Logs
   supported_in:
-    machine: false
-    squad: false
-    oneshot: false
+    machine: true
+    squad: true
+    oneshot: true
   references:
     - "cis.8_5"
     - "cwe.778"
@@ -12773,8 +12773,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.1120"
     - "cwe.1121"
@@ -12833,8 +12833,8 @@
   category: Source
   supported_in:
     machine: false
-    squad: false
-    oneshot: false
+    squad: true
+    oneshot: true
   references:
     - "cwe.73"
     - "cwe.710"
