@@ -1,6 +1,5 @@
-from lib_root.utilities.c_sharp import (
-    check_member_acces_expression,
-    yield_shard_member_access,
+from lib_root.utilities.common import (
+    search_method_invocation_naive,
 )
 from lib_sast.types import (
     ShardDb,
@@ -26,6 +25,12 @@ from symbolic_eval.utils import (
 from utils import (
     graph as g,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
+from utils.string import (
+    build_attr_paths,
+)
 
 
 def path_injection(
@@ -42,18 +47,23 @@ def path_injection(
             if shard.syntax_graph is None:
                 continue
 
-            for member in yield_shard_member_access(shard, {"File"}):
-                if not check_member_acces_expression(shard, member, "Open"):
+            paths = build_attr_paths("System", "IO", "File", "Open")
+            syn_graph = shard.syntax_graph
+
+            for nid in search_method_invocation_naive(syn_graph, {"Open"}):
+                if (
+                    member := g.match_ast_d(
+                        shard.graph, nid, "member_access_expression"
+                    )
+                ) and not node_to_str(shard.graph, member) in paths:
                     continue
-                graph = shard.syntax_graph
-                pred = g.pred_ast(shard.graph, member)[0]
-                for path in get_backward_paths(graph, pred):
+                for path in get_backward_paths(syn_graph, nid):
                     if (
                         evaluation := evaluate(
-                            c_sharp, finding, graph, path, pred
+                            c_sharp, finding, syn_graph, path, nid
                         )
                     ) and evaluation.danger:
-                        yield shard, pred
+                        yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f098.c_sharp_path_injection",
