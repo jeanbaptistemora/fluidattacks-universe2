@@ -12,6 +12,7 @@ from custom_exceptions import (
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
     InvalidSeverityUpdateValues,
+    NumberOutOfRange,
     UnsanitizedInputFound,
 )
 from db_model.findings.enums import (
@@ -333,3 +334,13 @@ def validate_commit_hash(commit_hash: str) -> None:
         )
     ):
         raise InvalidCommitHash()
+
+
+def validate_int_range(
+    value: int, lower_bound: int, upper_bound: int, inclusive: bool = True
+) -> None:
+    if inclusive:
+        if not lower_bound <= value <= upper_bound:
+            raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+    if not lower_bound < value < upper_bound:
+        raise NumberOutOfRange(lower_bound, upper_bound, inclusive)

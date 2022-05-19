@@ -1219,6 +1219,18 @@ class NoActiveBillingSubscription(CustomBaseException):
         super(NoActiveBillingSubscription, self).__init__(msg)
 
 
+class NumberOutOfRange(CustomBaseException):
+    def __init__(
+        self, lower_bound: int, upper_bound: int, inclusive: bool
+    ) -> None:
+        inclusive_str = " (inclusive)" if inclusive else ""
+        msg = (
+            f"Exception - Value must be between {lower_bound}{inclusive_str} "
+            f"and {upper_bound}{inclusive_str}"
+        )
+        super(NumberOutOfRange, self).__init__(msg)
+
+
 class BillingSubscriptionSameActive(CustomBaseException):
     def __init__(self) -> None:
         msg = (
