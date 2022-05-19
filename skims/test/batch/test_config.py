@@ -36,13 +36,15 @@ def test_get_ssl_targets() -> None:
         "https://fluidattacks.com/",
         "https://app.fluidattacks.com/",
     ]
-    expected = [
-        ("app.fluidattacks.com", "3000"),
-        ("fluidattacks.com", "443"),
-        ("app.fluidattacks.com", "443"),
-        ("app.fluidattacks.com", "8001"),
-    ]
-    result = config.get_ssl_targets(urls)
+    expected = sorted(
+        [
+            ("app.fluidattacks.com", "3000"),
+            ("fluidattacks.com", "443"),
+            ("app.fluidattacks.com", "443"),
+            ("app.fluidattacks.com", "8001"),
+        ]
+    )
+    result = sorted(config.get_ssl_targets(urls))
     assert expected == result
 
 

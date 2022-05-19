@@ -20,8 +20,8 @@ from typing import (
     Set,
     Tuple,
 )
-from urllib.parse import (
-    urlparse,
+from urllib3.util.url import (
+    parse_url,
 )
 
 
@@ -54,12 +54,11 @@ def get_urls_from_scopes(scopes: Set[str]) -> List[str]:
 def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
     targets: List[Tuple[str, str]] = []
 
-    for netloc in {urlparse(url).netloc for url in urls}:
-        if ":" not in netloc:
-            targets.append((netloc, "443"))
+    for parsed_url in {parse_url(url) for url in urls}:
+        if parsed_url.port is None:
+            targets.append((parsed_url.host, "443"))
         else:
-            host, port = netloc.rsplit(":", maxsplit=1)
-            targets.append((host, port))
+            targets.append((parsed_url.host, str(parsed_url.port)))
 
     return targets
 
