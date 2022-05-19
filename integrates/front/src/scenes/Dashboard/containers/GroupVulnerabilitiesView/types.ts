@@ -10,4 +10,28 @@ interface IGroupFindings {
   };
 }
 
-export type { IFinding, IGroupFindings };
+interface IVulnerability {
+  id: string;
+  where: string;
+  specific: string;
+}
+
+interface IFindingVulnerabilities {
+  finding: {
+    id: string;
+    vulnerabilitiesConnection: {
+      edges: { node: IVulnerability }[];
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string;
+      };
+    };
+  };
+}
+
+export type {
+  IFinding,
+  IFindingVulnerabilities,
+  IGroupFindings,
+  IVulnerability,
+};

@@ -13,4 +13,29 @@ const GET_GROUP_FINDINGS: DocumentNode = gql`
   }
 `;
 
-export { GET_GROUP_FINDINGS };
+const GET_FINDING_VULNERABILITIES: DocumentNode = gql`
+  query GetFindingVulnerabilities(
+    $after: String
+    $findingId: String!
+    $first: Int
+  ) {
+    finding(identifier: $findingId) {
+      id
+      vulnerabilitiesConnection(after: $after, first: $first) {
+        edges {
+          node {
+            id
+            where
+            specific
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+`;
+
+export { GET_FINDING_VULNERABILITIES, GET_GROUP_FINDINGS };
