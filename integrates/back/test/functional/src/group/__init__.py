@@ -88,6 +88,9 @@ async def get_result(
                 groupContext
                 service
                 tier
+                businessId
+                businessName
+                sprintDuration
                 __typename
             }}
         }}

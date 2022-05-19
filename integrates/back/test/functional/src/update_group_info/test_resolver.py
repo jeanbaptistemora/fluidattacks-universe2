@@ -35,7 +35,13 @@ async def test_update_group_info(
     assert populate
     group_name: str = "group1"
     description: str = f"Description test modified by {email}"
+    business_id: str = "420938281"
+    business_name: str = "Testing Company & Sons"
+    sprint_duration: int = 2
     result: dict[str, Any] = await get_result(
+        business_id=business_id,
+        business_name=business_name,
+        sprint_duration=sprint_duration,
         user=email,
         group=group_name,
         description=description,
@@ -80,11 +86,17 @@ async def test_update_group_info_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
+    business_id: str = "420938282"
+    business_name: str = "Testing Company & Failures"
+    sprint_duration: int = 1
     result: dict[str, Any] = await get_result(
+        business_id=business_id,
+        business_name=business_name,
         user=email,
         group=group_name,
         description=description,
         language=language,
+        sprint_duration=sprint_duration,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

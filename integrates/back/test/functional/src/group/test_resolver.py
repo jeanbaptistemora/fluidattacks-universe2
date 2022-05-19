@@ -98,6 +98,9 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["groupContext"] == "This is a dummy context"
     assert result["data"]["group"]["service"] == "WHITE"
     assert result["data"]["group"]["tier"] == "SQUAD"
+    assert result["data"]["group"]["businessId"] == "1867"
+    assert result["data"]["group"]["businessName"] == "Testing Company"
+    assert result["data"]["group"]["sprintDuration"] == 3
 
 
 @pytest.mark.asyncio

@@ -12,17 +12,23 @@ from typing import (
 
 async def get_result(
     *,
+    business_id: str,
+    business_name: str,
     user: str,
     group: str,
     description: str,
     language: str,
+    sprint_duration: int,
 ) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             updateGroupInfo(
-                description: "{description}",
-                groupName: "{group}",
-                language: {language},
+                businessId: "{business_id}"
+                businessName: "{business_name}"
+                description: "{description}"
+                groupName: "{group}"
+                language: {language}
+                sprintDuration: {sprint_duration}
             ) {{
                 success
             }}
