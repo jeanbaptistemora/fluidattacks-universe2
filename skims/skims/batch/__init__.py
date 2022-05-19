@@ -186,7 +186,7 @@ async def _gererate_configs(
 
 
 async def _get_namespace(
-    group_name: str, root_nickname: str, signed_url: Optional[str] = None
+    group_name: str, root_nickname: str, signed_url: str
 ) -> Tuple[str, Optional[str]]:
     return (
         root_nickname,
@@ -249,11 +249,10 @@ async def main(  # pylint: disable=too-many-locals)
                 _get_namespace(
                     group_name,
                     root_nickname,
-                    roots_dict_by_nickname[root_nickname].download_url
-                    if root_nickname in roots_dict_by_nickname
-                    else None,
+                    roots_dict_by_nickname[root_nickname].download_url or "",
                 )
                 for root_nickname in roots_nicknames
+                if root_nickname in roots_dict_by_nickname
             ]
         )
     )

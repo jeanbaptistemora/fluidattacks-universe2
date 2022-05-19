@@ -29,6 +29,7 @@ in
         inputs.nixpkgs.gcc
         inputs.nixpkgs.git
         inputs.nixpkgs.graphviz
+        inputs.nixpkgs.wget
         inputs.nixpkgs.nodejs
       ];
       pythonPackage = [

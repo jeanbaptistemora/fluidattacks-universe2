@@ -1,7 +1,3 @@
-import aiohttp
-from aiohttp.client_exceptions import (
-    ClientResponseError,
-)
 import asyncio
 from ctx import (
     NAMESPACES_FOLDER,
@@ -50,7 +46,7 @@ def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
 async def get_namespace(
     group_name: str,
     root_nickname: str,
-    presigned_ulr: Optional[str] = None,
+    presigned_ulr: str,
     delete: bool = True,
 ) -> Optional[str]:
     path = await pull_namespace_from_s3(
@@ -93,65 +89,44 @@ async def delete_out_of_scope_files(
 async def pull_namespace_from_s3(
     group_name: str,
     root_nickname: str,
-    presigned_url: Optional[str] = None,
+    presigned_url: str,
 ) -> Optional[str]:
     local_path = os.path.join(NAMESPACES_FOLDER, group_name, root_nickname)
     os.makedirs(local_path, mode=0o700, exist_ok=True)
+    _, file_path = tempfile.mkstemp()
 
-    if presigned_url:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(presigned_url, timeout=None) as response:
-                try:
-                    response.raise_for_status()
-                except ClientResponseError:
-                    log_blocking("error", "failed to download root")
-                    return None
-
-                _, file_path = tempfile.mkstemp()
-
-                with open(file_path, "wb") as file_handler:
-                    while True:
-                        chunk = await response.content.read(8192)
-                        if not chunk:
-                            break
-                        file_handler.write(chunk)
-
-                proc = await asyncio.create_subprocess_exec(
-                    "tar",
-                    "-xf",
-                    file_path,
-                    cwd=os.path.join(NAMESPACES_FOLDER, group_name),
-                )
-                _, _stderr = await proc.communicate()
-                os.remove(file_path)
-                if proc.returncode != 0:
-                    log_blocking(
-                        "error", "failed to decompress repo %s", _stderr
-                    )
-                    return None
-    else:
-        aws_sync_command: List[str] = [
-            "aws",
-            "s3",
-            "sync",
-            "--delete",
-            "--sse",
-            "AES256",
-            "--exact-timestamps",
-            f"s3://continuous-repositories/{group_name}/{root_nickname}",
-            local_path,
-        ]
-        proc = await asyncio.create_subprocess_exec(
-            *aws_sync_command,
-            env={**os.environ.copy()},
-            stdout=asyncio.subprocess.DEVNULL,
-            stderr=asyncio.subprocess.STDOUT,
+    proc = await asyncio.create_subprocess_exec(
+        "wget",
+        "--quiet",
+        "--output-document",
+        file_path,
+        presigned_url,
+    )
+    await proc.communicate()
+    _, _stderr = await proc.communicate()
+    if proc.returncode != 0:
+        log_blocking(
+            "error",
+            "failed to download repo",
+            extra={{"extra": {"stderr": _stderr}}},
         )
-        _, _stderr = await proc.communicate()
-        if _stderr:
-            log_blocking("error", _stderr.decode("utf-8"))
-            return None
+        return None
 
+    proc = await asyncio.create_subprocess_exec(
+        "tar",
+        "-xf",
+        file_path,
+        cwd=os.path.join(NAMESPACES_FOLDER, group_name),
+    )
+    _, _stderr = await proc.communicate()
+    os.remove(file_path)
+    if proc.returncode != 0:
+        log_blocking(
+            "error",
+            "failed to decompress repo",
+            extra={{"extra": {"stderr": _stderr}}},
+        )
+        return None
     try:
         repo = Repo(local_path)
         repo.git.reset("--hard", "HEAD")
