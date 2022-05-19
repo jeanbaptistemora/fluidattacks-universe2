@@ -40,9 +40,6 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = ({
         onError: (errors: ApolloError): void => {
           errors.graphQLErrors.forEach((error: GraphQLError): void => {
             switch (error.message) {
-              case "Exception - The toe lines is not present":
-                msgError(t("group.toe.lines.editModal.alerts.nonPresent"));
-                break;
               case "Exception - The attack time must be between the previous attack and the current time":
                 msgError(
                   t("group.toe.lines.editModal.alerts.invalidAttackedAt")

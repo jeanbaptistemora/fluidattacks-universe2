@@ -19,7 +19,6 @@ import {
   formatPercentage,
   formatRootId,
   getFilteredData,
-  getNonSelectable,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
 } from "./utils";
@@ -613,7 +612,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     clickToSelect: false,
     hideSelectColumn: !isInternal || !canUpdateAttackedLines,
     mode: "checkbox",
-    nonSelectable: getNonSelectable(filteredData),
     onSelect: onSelectOneToeLinesData,
     onSelectAll: onSelectSeveralToeLinesDatas,
     selected: getToeLinesIndex(selectedToeLinesDatas, filteredData),

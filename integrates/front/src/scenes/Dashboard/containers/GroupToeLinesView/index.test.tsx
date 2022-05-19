@@ -53,7 +53,7 @@ describe("GroupToeLinesView", (): void => {
                     firstAttackAt: "2020-02-19T15:41:04+00:00",
                     hasVulnerabilities: false,
                     lastAuthor: "user@gmail.com",
-                    lastCommit: "983466z",
+                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                     loc: 8,
                     modifiedDate: "2020-11-15T15:41:04+00:00",
                     root: {
@@ -76,7 +76,7 @@ describe("GroupToeLinesView", (): void => {
                     firstAttackAt: "",
                     hasVulnerabilities: true,
                     lastAuthor: "user@gmail.com",
-                    lastCommit: "273412t",
+                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                     loc: 172,
                     modifiedDate: "2020-11-16T15:41:04+00:00",
                     root: {
@@ -143,7 +143,7 @@ describe("GroupToeLinesView", (): void => {
         "120",
         "group.toe.lines.yes",
         "2020-11-16",
-        "273412t",
+        "f9e4beb",
         "",
         "comment 2",
       ].join("")
@@ -156,7 +156,7 @@ describe("GroupToeLinesView", (): void => {
         "4",
         "group.toe.lines.no",
         "2020-11-15",
-        "983466z",
+        "f9e4beb",
         "2021-02-20",
         "comment 1",
       ].join("")

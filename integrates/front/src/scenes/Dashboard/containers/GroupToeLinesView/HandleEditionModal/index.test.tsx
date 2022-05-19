@@ -60,7 +60,7 @@ describe("handle toe lines edition modal", (): void => {
         firstAttackAt: new Date("2020-02-19T15:41:04+00:00"),
         hasVulnerabilities: true,
         lastAuthor: "user@gmail.com",
-        lastCommit: "983466z",
+        lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
         loc: 8,
         modifiedDate: new Date("2020-11-15T15:41:04+00:00"),
         root: {

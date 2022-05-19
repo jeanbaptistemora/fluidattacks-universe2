@@ -76,22 +76,6 @@ const onSelectSeveralToeLinesHelper = (
   );
 };
 
-function getNonSelectable(toeLinesDatas: IToeLinesData[]): number[] {
-  const nonSelectable: number[] = toeLinesDatas.reduce(
-    (
-      nonSelectableToeLinesDatas: number[],
-      toeLinesData: IToeLinesData,
-      currentToeLinesDataIndex: number
-    ): number[] =>
-      toeLinesData.bePresent
-        ? nonSelectableToeLinesDatas
-        : [...nonSelectableToeLinesDatas, currentToeLinesDataIndex],
-    []
-  );
-
-  return nonSelectable;
-}
-
 const filterBooleanValue: (
   filterGroupToeLinesTable: IFilterSet,
   filterName: keyof IFilterSet,
@@ -242,7 +226,6 @@ export {
   formatPercentage,
   formatRootId,
   getFilteredData,
-  getNonSelectable,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
 };
