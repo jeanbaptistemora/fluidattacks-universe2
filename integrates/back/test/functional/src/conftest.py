@@ -120,6 +120,7 @@ TEST_GROUPS: Set[str] = {
     "update_group_stakeholder",
     "update_organization_policies",
     "update_organization_stakeholder",
+    "update_nickname",
     "update_severity",
     "update_stakeholder_phone",
     "update_toe_input",
