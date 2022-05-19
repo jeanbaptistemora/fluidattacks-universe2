@@ -12,12 +12,16 @@
     cachetools
     click
     more-itertools
+    mypy-boto3-s3
     python-dateutil
     pytz
     requests
     legacy-paginator
     legacy-postgres-client
     legacy-singer-io
+    types-boto3
+    types-cachetools
+    types-pytz
     types-requests
   ];
   dev_deps = with python_pkgs; [

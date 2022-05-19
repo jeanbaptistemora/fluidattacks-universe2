@@ -13,6 +13,7 @@ boto3 = "^1.17.104"
 cachetools = "^5.0.0"
 click = "^8.0.1"
 more-itertools = "^8.8.0"
+mypy-boto3-s3 = "^1.23.0"
 python-dateutil = "^2.8.1"
 pytz = "^2021.1"
 requests = "^2.25.1"
@@ -20,7 +21,10 @@ returns = ">=0.16.0 <1.0.0"
 paginator = "^1.0.0"
 postgres-client = "^1.0.0"
 singer-io = "^1.0.0"
+types-cachetools = "^5.0.1"
+types-pytz = "^2021.3.0"
 types-requests = "^2.26.0"
+types-boto3= "^1.0.2"
 
 [tool.poetry.scripts]
 tap-gitlab = 'tap_gitlab.cli:main'
