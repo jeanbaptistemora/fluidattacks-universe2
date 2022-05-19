@@ -612,7 +612,7 @@ async def update_billing_customer(
     return success
 
 
-async def update_org_policies_typed(
+async def update_policies(
     loaders: Any,
     organization_id: str,
     organization_name: str,
@@ -683,73 +683,6 @@ async def update_org_policies_typed(
                 date=new_policies.modified_date,
             )
 
-    return success
-
-
-async def update_policies(
-    loaders: Any,
-    organization_id: str,
-    organization_name: str,
-    email: str,
-    values: Dict[str, Optional[Decimal]],
-) -> bool:
-    """
-    Validate setting values to update and update them
-    """
-    success: bool = False
-    valid: List[bool] = []
-
-    try:
-        for attr, value in values.items():
-            if value is not None:
-                value = (
-                    Decimal(value).quantize(Decimal("0.1"))
-                    if isinstance(value, float)
-                    else Decimal(value)
-                )
-                values[attr] = value
-                validator_func = getattr(
-                    sys.modules[__name__], f"validate_{attr}"
-                )
-                valid.append(validator_func(value))
-        valid.append(
-            await validate_acceptance_severity_range(
-                loaders, organization_id, values
-            )
-        )
-    except (
-        InvalidAcceptanceDays,
-        InvalidAcceptanceSeverity,
-        InvalidAcceptanceSeverityRange,
-        InvalidNumberAcceptances,
-        InvalidSeverity,
-    ) as exe:
-        LOGGER.exception(exe, extra={"extra": locals()})
-        raise GraphQLError(str(exe)) from exe
-
-    if all(valid):
-        success = True
-        date = datetime_utils.get_now_as_str()
-        # Compatibility for the old API
-        if "max_number_acceptances" in values:
-            values["max_number_acceptations"] = values.pop(
-                "max_number_acceptances"
-            )
-        new_policies = await _get_new_policies(
-            loaders, organization_id, email, date, values
-        )
-        if new_policies:
-            await send_mail_policies(
-                loaders,
-                new_policies,
-                organization_id,
-                organization_name,
-                email,
-                date,
-            )
-            success = await orgs_dal.update(
-                organization_id, organization_name, new_policies
-            )
     return success
 
 
