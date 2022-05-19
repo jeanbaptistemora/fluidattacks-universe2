@@ -4,6 +4,9 @@ from ariadne import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from db_model.groups.types import (
+    Group,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -19,9 +22,6 @@ from groups import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -50,7 +50,8 @@ async def mutate(
     )
 
     if success:
-        group_org_id = await orgs_domain.get_id_for_group(group_name)
+        group: Group = await loaders.group_typed.load(group_name)
+        group_org_id = group.organization_id
         redis_del_by_deps_soon(
             "unsubscribe_from_group",
             group_name=group_name,
