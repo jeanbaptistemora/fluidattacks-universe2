@@ -1,3 +1,6 @@
+from aws.services import (
+    ACTIONS,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -20,6 +23,7 @@ import re
 from typing import (
     Any,
     Iterator,
+    List,
     Pattern,
     Union,
 )
@@ -77,6 +81,53 @@ def _tfm_iam_is_policy_miss_configured_iter_vulns(
             yield users
 
 
+def _policy_actions_has_privilege(
+    action: Union[str, List[str]], privilege: str
+) -> bool:
+    """Check if an action have a privilege."""
+    write_actions: dict = ACTIONS
+    actions = action if isinstance(action, list) else [action]
+    for act in actions:
+        if act == "*":
+            return True
+        serv, act_val = act.split(":")
+        if act_val.startswith("*"):
+            return True
+        act_val = (
+            act_val[: act_val.index("*")] if act_val.endswith("*") else act_val
+        )
+        if act_val in write_actions.get(serv, {}).get(privilege, []):
+            return True
+    return False
+
+
+def _resource_all(resource: Union[str, List[str]]) -> bool:
+    """Check if an action is permitted for any resource."""
+    resources = resource if isinstance(resource, list) else [resource]
+    for res in resources:
+        if res == "*":
+            return True
+    return False
+
+
+def _tfm_iam_has_wildcard_resource_on_write_action_iter_vulns(
+    stmts_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for stmt in stmts_iterator:
+        effect = stmt.data.get("Effect")
+        resource = stmt.data.get("Resource")
+        action = stmt.data.get("Action")
+        wild_res_node = _resource_all(resource) if resource else None
+        if (
+            effect
+            and effect == "Allow"
+            and wild_res_node
+            and action
+            and _policy_actions_has_privilege(action, "write")
+        ):
+            yield stmt
+
+
 def tfm_iam_has_privileges_over_iam(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -107,4 +158,22 @@ def tfm_iam_is_policy_miss_configured(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_IAM_POLICY_MISS_CONFIG,
+    )
+
+
+def tfm_iam_has_wildcard_resource_on_write_action(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f325.iam_has_wildcard_resource_on_write_action"
+        ),
+        iterator=get_cloud_iterator(
+            _tfm_iam_has_wildcard_resource_on_write_action_iter_vulns(
+                stmts_iterator=iterate_iam_policy_documents(model=model),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_IAM_WILDCARD_WRITE,
     )
