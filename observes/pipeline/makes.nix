@@ -50,6 +50,7 @@
     service.scheduler
     service.job_last_success
     tap.checkly
+    tap.gitlab
   ];
   genPkgJobs = pkg: [
     {

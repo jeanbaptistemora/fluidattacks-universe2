@@ -10,6 +10,7 @@
     observesServiceJobLastSuccess = service.job_last_success;
     observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
+    observesTapGitlab = tap.gitlab;
     observesEtlDynamoConf = etl.dynamo;
   };
   dev_envs =
