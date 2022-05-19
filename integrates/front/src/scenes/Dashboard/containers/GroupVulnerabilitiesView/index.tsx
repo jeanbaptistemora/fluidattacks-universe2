@@ -1,18 +1,13 @@
-import { useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { GET_GROUP_FINDINGS } from "./queries";
-import type { IGroupFindings } from "./types";
+import { useGroupVulnerabilities } from "./hooks";
 
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
-  const { data } = useQuery<IGroupFindings>(GET_GROUP_FINDINGS, {
-    variables: { groupName },
-  });
-  const findings = data === undefined ? [] : data.group.findings;
+  const vulnerabilities = useGroupVulnerabilities(groupName);
 
-  return <div>{JSON.stringify(findings)}</div>;
+  return <div>{JSON.stringify(vulnerabilities)}</div>;
 };
 
 export { GroupVulnerabilitiesView };
