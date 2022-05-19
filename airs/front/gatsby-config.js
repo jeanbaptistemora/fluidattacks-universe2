@@ -42,7 +42,12 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          "gatsby-remark-component",
+          {
+            resolve: "gatsby-remark-component-parent2div",
+            options: {
+              components: ["time-lapse"]
+            }
+          },
           {
             resolve: `gatsby-remark-classes`,
             options: {
