@@ -3023,6 +3023,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_EC2_IAM_POLICY_MISS_CONFIG = MethodInfo(
+        file_name="terraform",
+        name="tfm_iam_is_policy_miss_configured",
+        module="lib_path",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_is_role_over_privileged",

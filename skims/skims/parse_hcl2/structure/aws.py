@@ -15,6 +15,7 @@ from aws.model import (
     AWSElb,
     AWSIamManagedPolicy,
     AWSIamManagedPolicyArns,
+    AWSIamPolicyAttachment,
     AWSIamPolicyStatement,
     AWSInstance,
     AWSKmsKey,
@@ -153,6 +154,18 @@ def iter_iam_user_policy(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_iam_user_policy")
     for resource in iterator:
         yield AWSIamManagedPolicy(
+            data=resource.body,
+            column=resource.column,
+            line=resource.line,
+        )
+
+
+def iter_iam_policy_attachment(model: Any) -> Iterator[Any]:
+    iterator = iterate_resources(
+        model, "resource", "aws_iam_policy_attachment"
+    )
+    for resource in iterator:
+        yield AWSIamPolicyAttachment(
             data=resource.body,
             column=resource.column,
             line=resource.line,
