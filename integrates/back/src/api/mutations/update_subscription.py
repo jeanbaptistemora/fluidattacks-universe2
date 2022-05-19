@@ -13,6 +13,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -38,15 +41,15 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group_typed.load(kwargs["group_name"])
-    org: dict[str, Any] = await loaders.organization.load(
+    org: Organization = await loaders.organization_typed.load(
         group.organization_id
     )
 
     # Update subscription
     result: bool = await billing_domain.update_subscription(
         subscription=kwargs["subscription"],
-        org_billing_customer=str(org["billing_customer"]),
-        org_name=str(org["name"]),
+        org_billing_customer=org.billing_customer,
+        org_name=org.name,
         group_name=group.name,
     )
 

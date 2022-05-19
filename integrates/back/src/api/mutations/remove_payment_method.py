@@ -7,6 +7,9 @@ from billing import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -30,13 +33,13 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    org = await info.context.loaders.organization.load(
+    org: Organization = await info.context.loaders.organization_typed.load(
         kwargs["organization_id"]
     )
 
     # Remove payment method
     result: bool = await billing_domain.remove_payment_method(
-        org_billing_customer=org["billing_customer"],
+        org_billing_customer=org.billing_customer,
         payment_method_id=kwargs["payment_method_id"],
     )
 
