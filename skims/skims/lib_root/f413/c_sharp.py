@@ -1,6 +1,5 @@
-from lib_root.utilities.c_sharp import (
-    check_member_acces_expression,
-    yield_shard_member_access,
+from lib_root.utilities.common import (
+    search_method_invocation_naive,
 )
 from lib_sast.types import (
     ShardDb,
@@ -26,6 +25,12 @@ from symbolic_eval.utils import (
 from utils import (
     graph as g,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
+from utils.string import (
+    build_attr_paths,
+)
 
 
 def insecure_assembly_load(
@@ -42,18 +47,25 @@ def insecure_assembly_load(
             if shard.syntax_graph is None:
                 continue
 
-            for member in yield_shard_member_access(shard, {"Assembly"}):
-                if not check_member_acces_expression(shard, member, "Load"):
+            paths = build_attr_paths(
+                "System", "Reflection", "Assembly", "Load"
+            )
+            graph = shard.syntax_graph
+
+            for n_id in search_method_invocation_naive(graph, {"Load"}):
+                if (
+                    member := g.match_ast_d(
+                        shard.graph, n_id, "member_access_expression"
+                    )
+                ) and not node_to_str(shard.graph, member) in paths:
                     continue
-                graph = shard.syntax_graph
-                pred = g.pred_ast(shard.graph, member)[0]
-                for path in get_backward_paths(graph, pred):
+                for path in get_backward_paths(graph, n_id):
                     if (
                         evaluation := evaluate(
-                            c_sharp, finding, graph, path, pred
+                            c_sharp, finding, graph, path, n_id
                         )
                     ) and evaluation.danger:
-                        yield shard, pred
+                        yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f413.insecure_assembly_load",
