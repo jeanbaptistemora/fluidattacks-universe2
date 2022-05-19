@@ -1,19 +1,19 @@
 {
+  fetchNixpkgs,
   inputs,
-  makePythonPypiEnvironment,
   makeTemplate,
-  outputs,
+  projectPath,
   ...
-}:
-makeTemplate {
-  name = "observes-singer-tap-gitlab-env-development";
-  searchPaths = {
-    source = [
-      (makePythonPypiEnvironment {
-        name = "observes-singer-tap-gitlab-env-development";
-        sourcesYaml = ./pypi-sources.yaml;
-      })
-      outputs."${inputs.observesIndex.tap.gitlab.env.runtime}"
-    ];
-  };
-}
+}: let
+  root = projectPath inputs.observesIndex.tap.gitlab.root;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  env = pkg.env.dev;
+in
+  makeTemplate {
+    name = "observes-singer-tap-gitlab-env-dev";
+    searchPaths = {
+      bin = [
+        env
+      ];
+    };
+  }

@@ -82,11 +82,7 @@ in {
     dynamo = std_data "${singerPath}/tap-dynamo";
     formstack = std_data "${singerPath}/tap-formstack";
     git = std_data "${singerPath}/tap-git";
-    gitlab =
-      new_std "${singerPath}/tap-gitlab"
-      // {
-        tests = "${singerPath}/tap-gitlab/tests";
-      };
+    gitlab = new_std "${singerPath}/tap-gitlab";
     json = std_data "${singerPath}/tap-json";
     mailchimp = std_data "${singerPath}/tap-mailchimp";
     mixpanel = std_data "${singerPath}/tap-mixpanel";
