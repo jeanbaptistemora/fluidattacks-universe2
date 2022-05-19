@@ -234,9 +234,18 @@ export const enTranslations: ResourceKey = {
     minimumWidth: "ASM is only available on desktops",
   },
   autoenrollment: {
-    addGroup: {
-      subtitle: "To begin, add the first code repository",
-      title: "Welcome to the Attack Surface Manager (ASM)",
+    addOrganization: {
+      groupDescription: "Description of the group",
+      groupName: "Group name",
+      organizationName: "Organization name",
+      proceed: "Start your free trial now",
+      reportLanguage: "Report language",
+      reportLanguageTip:
+        "Select the language of your preference to report vulnerabilities",
+      role: "User manager",
+      roleTitle: "Role",
+      termsOfService: "I read the Terms of Service and Privacy",
+      title: "Let's create your group",
     },
   },
   comments: {

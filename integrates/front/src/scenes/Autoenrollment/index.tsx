@@ -38,17 +38,16 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         <Sidebar />
         <DashboardContent id={"dashboard"}>
           <Switch>
-            <Route exact={true} path={"/autoenrollment/tour"}>
+            <Route exact={true} path={"/autoenrollment/organization"}>
               <Row align={"center"} justify={"center"}>
                 <Col>
                   <Row justify={"center"}>
                     <Col>
-                      <h2>{t("autoenrollment.addGroup.title")}</h2>
-                      <p>{t("autoenrollment.addGroup.subtitle")}</p>
+                      <h2>{t("autoenrollment.addOrganization.title")}</h2>
                     </Col>
                   </Row>
                   <Row justify={"center"}>
-                    <Col large={"60"} medium={"80"} small={"90"}>
+                    <Col large={"25"} medium={"50"} small={"70"}>
                       <Card>
                         <CardBody>
                           <AddOrganization />
@@ -59,7 +58,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 </Col>
               </Row>
             </Route>
-            <Redirect to={"/autoenrollment/tour"} />
+            <Redirect to={"/autoenrollment/organization"} />
           </Switch>
         </DashboardContent>
       </Container>

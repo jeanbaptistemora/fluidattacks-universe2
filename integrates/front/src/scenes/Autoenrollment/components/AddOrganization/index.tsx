@@ -1,4 +1,6 @@
 import { useMutation } from "@apollo/client";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -6,14 +8,13 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { object, string } from "yup";
+import { boolean, object, string } from "yup";
 
 import { ADD_ORGANIZATION, GET_USER_WELCOME } from "../../queries";
 import type { IAddOrganizationResult } from "../../types";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -49,12 +50,20 @@ const AddOrganization: React.FC = (): JSX.Element => {
     });
 
   const handleSubmit = useCallback(
-    async (values: { name: string }): Promise<void> => {
+    async (values: {
+      groupDescription: string;
+      groupName: string;
+      organizationName: string;
+      reportLanguage: string;
+      termsOfservice: boolean;
+    }): Promise<void> => {
       mixpanel.track("AddOrganization");
-      await addOrganization({ variables: { name: values.name.toUpperCase() } });
+      await addOrganization({
+        variables: { name: values.organizationName.toUpperCase() },
+      });
       localStorage.clear();
       sessionStorage.clear();
-      replace(`/orgs/${values.name.toLowerCase()}/groups`);
+      replace(`/orgs/${values.organizationName.toLowerCase()}/groups`);
     },
     [addOrganization, replace]
   );
@@ -62,45 +71,136 @@ const AddOrganization: React.FC = (): JSX.Element => {
   const minLenth = 4;
   const maxLength = 10;
   const validations = object().shape({
-    name: string()
+    groupDescription: string()
       .required()
       .min(minLenth)
       .max(maxLength)
       .matches(/^[a-zA-Z]+$/u),
+    groupName: string().required(),
+    organizationName: string().required(),
+    reportLanguage: string().required(),
+    termsOfservice: boolean().required(),
   });
 
   return (
     <div>
       <Formik
         enableReinitialize={true}
-        initialValues={{ name: "" }}
+        initialValues={{
+          groupDescription: "",
+          groupName: "",
+          organizationName: "",
+          reportLanguage: "",
+          termsOfservice: false,
+        }}
         name={"newOrganization"}
         onSubmit={handleSubmit}
         validationSchema={validations}
       >
         <Form>
-          <Row justify={"center"} key={0}>
-            <Col large={"50"} medium={"50"} small={"50"}>
-              <FormGroup>
-                <ControlLabel>
-                  {t("sidebar.newOrganization.modal.name")}
-                </ControlLabel>
-                <TooltipWrapper
-                  id={"addOrgTooltip"}
-                  message={t("sidebar.newOrganization.modal.nameTooltip")}
-                  placement={"top"}
-                >
-                  <Field component={FormikText} name={"name"} type={"text"} />
-                </TooltipWrapper>
-              </FormGroup>
+          <Row justify={"flex-start"}>
+            <Col>
+              <Row>
+                <Col>
+                  <strong>
+                    {t("autoenrollment.addOrganization.organizationName")}
+                  </strong>
+                </Col>
+                <Col>
+                  <TooltipWrapper
+                    id={"addGroupTooltip"}
+                    message={t("sidebar.newOrganization.modal.nameTooltip")}
+                    placement={"top"}
+                  >
+                    <FontAwesomeIcon icon={faCircleInfo} />
+                  </TooltipWrapper>
+                </Col>
+              </Row>
+              <Field
+                component={FormikText}
+                name={"organizationName"}
+                type={"text"}
+              />
             </Col>
           </Row>
-          <Button onClick={goBack} variant={"secondary"}>
-            {t("confirmmodal.cancel")}
-          </Button>
-          <Button disabled={submitting} type={"submit"} variant={"primary"}>
-            {t("confirmmodal.proceed")}
-          </Button>
+          <Row justify={"flex-start"}>
+            <Col>
+              <Row>
+                <Col>
+                  <strong>
+                    {t("autoenrollment.addOrganization.groupName")}
+                  </strong>
+                </Col>
+                <Col>
+                  <TooltipWrapper
+                    id={"addGroupTooltip"}
+                    message={t("sidebar.newOrganization.modal.nameTooltip")}
+                    placement={"top"}
+                  >
+                    <FontAwesomeIcon icon={faCircleInfo} />
+                  </TooltipWrapper>
+                </Col>
+              </Row>
+              <Field component={FormikText} name={"groupName"} type={"text"} />
+            </Col>
+          </Row>
+          <Row justify={"flex-start"}>
+            <Col>
+              <p>{t("autoenrollment.addOrganization.reportLanguageTip")}</p>
+              <strong>
+                {t("autoenrollment.addOrganization.reportLanguage")}
+              </strong>
+              <Field
+                component={FormikText}
+                name={"reportLanguage"}
+                type={"text"}
+              />
+            </Col>
+          </Row>
+          <Row justify={"flex-start"}>
+            <Col>
+              <strong>
+                {t("autoenrollment.addOrganization.groupDescription")}
+              </strong>
+              <Field
+                component={FormikText}
+                name={"groupDescription"}
+                type={"text"}
+              />
+            </Col>
+          </Row>
+          <Row justify={"flex-start"}>
+            <Col>
+              <strong>{t("autoenrollment.addOrganization.roleTitle")}</strong>
+              <p>{t("autoenrollment.addOrganization.role")}</p>
+            </Col>
+          </Row>
+          <Row justify={"flex-start"}>
+            <Col large={"10"} medium={"10"} small={"10"}>
+              <Field
+                component={FormikText}
+                name={"termsOfService"}
+                type={"checkbox"}
+              />
+            </Col>
+            <Col large={"90"} medium={"90"} small={"90"}>
+              {t("autoenrollment.addOrganization.termsOfService")}
+            </Col>
+          </Row>
+          <Row justify={"center"}>
+            <Col>
+              <Button disabled={submitting} type={"submit"} variant={"primary"}>
+                {t("autoenrollment.addOrganization.proceed")}
+              </Button>
+            </Col>
+          </Row>
+          <Row justify={"center"}>
+            <Col>
+              <Button onClick={goBack} variant={"secondary"}>
+                {t("confirmmodal.cancel")}
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Formik>
     </div>
