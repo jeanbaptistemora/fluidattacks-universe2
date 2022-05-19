@@ -44,10 +44,11 @@ from db_model.roots.get import (
     GitEnvironmentUrlsLoader,
     GroupRootsLoader,
     OrganizationRootsLoader,
+    RootHistoricCloningLoader,
+    RootHistoricStatesLoader,
     RootLoader,
     RootMachineExecutionsLoader,
     RootSecretsLoader,
-    RootStatesLoader,
 )
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
@@ -133,7 +134,8 @@ class Dataloaders(NamedTuple):
     root_secrets: RootSecretsLoader
     environment_secrets: GitEnvironmentSecretsLoader
     git_environment_urls: GitEnvironmentUrlsLoader
-    root_states: RootStatesLoader
+    root_historic_cloning: RootHistoricCloningLoader
+    root_historic_states: RootHistoricStatesLoader
     root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
     root_vulnerabilities: RootVulnerabilitiesLoader
@@ -224,7 +226,8 @@ def get_new_context() -> Dataloaders:
         organization_typed=OrganizationTypedLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
-        root_states=RootStatesLoader(),
+        root_historic_cloning=RootHistoricCloningLoader(),
+        root_historic_states=RootHistoricStatesLoader(),
         root_secrets=RootSecretsLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         git_environment_urls=GitEnvironmentUrlsLoader(),

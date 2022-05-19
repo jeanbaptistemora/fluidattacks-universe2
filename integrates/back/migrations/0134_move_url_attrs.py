@@ -17,7 +17,7 @@ from db_model import (
 )
 from db_model.roots.get import (
     GroupRootsLoader,
-    RootStatesLoader,
+    RootHistoricStatesLoader,
 )
 from db_model.roots.types import (
     URLRootItem,
@@ -39,7 +39,9 @@ from typing import (
 
 
 async def update_root(root: URLRootItem) -> None:
-    historic_state: List[URLRootState] = await RootStatesLoader().load(root.id)
+    historic_state: List[URLRootState] = await RootHistoricStatesLoader().load(
+        root.id
+    )
     # Update historic states
     await collect(
         tuple(

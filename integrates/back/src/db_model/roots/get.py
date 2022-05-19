@@ -27,6 +27,7 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitRootCloning,
     MachineFindingResult,
     Root,
     RootMachineExecution,
@@ -34,6 +35,7 @@ from db_model.roots.types import (
     Secret,
 )
 from db_model.roots.utils import (
+    format_cloning,
     format_root,
 )
 from dynamodb import (
@@ -186,13 +188,42 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
     )
 
 
-class RootStatesLoader(DataLoader):
+async def _get_historic_cloning(*, root_id: str) -> Tuple[GitRootCloning, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_historic_cloning"],
+        values={"uuid": root_id},
+    )
+
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["git_root_historic_cloning"],),
+        table=TABLE,
+    )
+
+    return tuple(format_cloning(state) for state in response.items)
+
+
+class RootHistoricStatesLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, root_ids: List[str]
     ) -> Tuple[Tuple[RootState, ...], ...]:
         return await collect(
             _get_historic_state(root_id=root_id) for root_id in root_ids
+        )
+
+
+class RootHistoricCloningLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[str]
+    ) -> Tuple[Tuple[GitRootCloning, ...], ...]:
+        return await collect(
+            _get_historic_cloning(root_id=root_id) for root_id in root_ids
         )
 
 

@@ -17,7 +17,7 @@ from db_model import (
 )
 from db_model.roots.get import (
     GroupRootsLoader,
-    RootStatesLoader,
+    RootHistoricStatesLoader,
 )
 from db_model.roots.types import (
     GitRootState,
@@ -41,7 +41,9 @@ from typing import (
 
 async def update_root(root: IPRootItem) -> None:
     print(root.id)
-    historic_state: List[GitRootState] = await RootStatesLoader().load(root.id)
+    historic_state: List[GitRootState] = await RootHistoricStatesLoader().load(
+        root.id
+    )
     # Update historic states
     await collect(
         tuple(
