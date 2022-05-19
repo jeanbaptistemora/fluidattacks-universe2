@@ -22,6 +22,15 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from utils import (
+    graph as g,
+)
+from utils.graph.text_nodes import (
+    node_to_str,
+)
+from utils.string import (
+    build_attr_paths,
+)
 
 
 def insec_create(
@@ -37,8 +46,16 @@ def insec_create(
             if shard.syntax_graph is None:
                 continue
 
+            paths = build_attr_paths("System", "Net", "WebRequest", "Create")
+
             graph = shard.syntax_graph
             for n_id in search_method_invocation_naive(graph, {"Create"}):
+                if (
+                    member := g.match_ast_d(
+                        shard.graph, n_id, "member_access_expression"
+                    )
+                ) and not node_to_str(shard.graph, member) in paths:
+                    continue
                 for path in get_backward_paths(graph, n_id):
                     if (
                         evaluation := evaluate(
