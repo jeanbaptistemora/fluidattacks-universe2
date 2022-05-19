@@ -10,6 +10,24 @@ you can add and edit
 the repositories and environments
 to be included in the testing service
 
+## Single root assessment
+
+We assess only one
+repository branch,
+looking for vulnerabilities in
+one single version of the system.
+Testing only one branch allows
+us to do a coherent assessment
+and makes it easier to keep a
+track of findings and fixes.
+Therefore,
+your development team can
+efficiently manage the
+reported vulnerabilities,
+and our team can efficiently
+verify the effectiveness of
+the fixes you implemented.
+
 ## Adding a root with the SSH key
 
 We know it is very important to keep our repositories
