@@ -17,6 +17,9 @@ from group_access import (
 from mailer.utils import (
     get_organization_name,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
     List,
@@ -63,6 +66,40 @@ async def send_mail_updated_treatment(
             f'{email_context["treatment"]} in [{email_context["group"]}]'
         ),
         "updated_treatment",
+    )
+
+
+async def send_mail_treatment_report(
+    *,
+    loaders: Any,
+    assigned: str,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
+    justification: str,
+    modified_by: str,
+    modified_date: str,
+    email_to: List[str],
+) -> None:
+    org_name = await get_organization_name(loaders, group_name)
+    email_context: dict[str, Any] = {
+        "assigned": assigned,
+        "date": datetime_utils.get_date_from_iso_str(modified_date),
+        "group": group_name,
+        "responsible": modified_by,
+        "justification": justification,
+        "finding": finding_title,
+        "finding_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
+            f"/vulns/{finding_id}"
+        ),
+    }
+    await send_mails_async(
+        email_to,
+        email_context,
+        GENERAL_TAG,
+        f"A permanent treatment is requested in [{group_name}]",
+        "treatment_report",
     )
 
 
