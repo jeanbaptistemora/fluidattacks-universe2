@@ -30,7 +30,7 @@ where you can add comments about any issues
 or questions
 that you may have about the group in general.
 
-![Group Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_ongroup_nzutto.webp)
+![Group Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1652992439/docs/squad/consulting/concerning_groups.png)
 
 ## Concerning vulnerabilities
 
@@ -40,7 +40,7 @@ When you click on a type of vulnerability,
 you can find the tab
 on the right-hand side of your screen.
 
-![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_onvuln_gav9nf.webp)
+![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1652992439/docs/squad/consulting/concerning_vulns.png)
 
 This section should be used to communicate with us
 when there are any issues concerning any of the vulnerabilities
@@ -60,7 +60,7 @@ When you click on the former,
 a text field will be available
 where you can add your comments.
 
-![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_onevent_k7qkeq.webp)
+![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1652992439/docs/squad/consulting/concerning_events.png)
 
 This tab is useful
 for when you want to ask us
@@ -68,3 +68,18 @@ specific details of the event
 and when you consider
 that the event has been solved
 and wish to notify us about this.
+
+### Notifications
+
+Whenever you post a comment,
+you and everyone who has
+access to the group where
+you posted it and has this
+notification enabled will
+receive a
+[Consulting notification](/machine/web/notifications#consulting)
+via email.
+The message will show the comment,
+who made it and where.
+You can turn on/off these notifications in the
+[Notifications section](/machine/web/notifications#consulting).
