@@ -1028,6 +1028,10 @@ export const enTranslations: ResourceKey = {
       },
       lines: {
         actionButtons: {
+          addButton: {
+            text: "Add",
+            tooltip: "Add new lines",
+          },
           editButton: {
             text: "Edit",
             tooltip: "Edit attacked lines",
