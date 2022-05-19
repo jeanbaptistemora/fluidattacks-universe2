@@ -108,7 +108,7 @@ async def pull_namespace_from_s3(
         log_blocking(
             "error",
             "failed to download repo",
-            extra={{"extra": {"stderr": _stderr}}},
+            extra={"extra": {"stderr": _stderr}},
         )
         return None
 
@@ -124,7 +124,7 @@ async def pull_namespace_from_s3(
         log_blocking(
             "error",
             "failed to decompress repo",
-            extra={{"extra": {"stderr": _stderr}}},
+            extra={"extra": {"stderr": _stderr}},
         )
         return None
     try:
