@@ -5,7 +5,6 @@ from .types import (
 from custom_exceptions import (
     InvalidToeLinesAttackAt,
     InvalidToeLinesAttackedLines,
-    ToeLinesNotPresent,
 )
 from datetime import (
     datetime,
@@ -122,13 +121,6 @@ async def update(
     attributes: ToeLinesAttributesToUpdate,
     is_moving_toe_lines: bool = False,
 ) -> None:
-    if (
-        is_moving_toe_lines is False
-        and attributes.be_present is None
-        and current_value.be_present is False
-    ):
-        raise ToeLinesNotPresent()
-
     if not is_moving_toe_lines and (
         attributes.attacked_at is not None
         and current_value.attacked_at is not None
