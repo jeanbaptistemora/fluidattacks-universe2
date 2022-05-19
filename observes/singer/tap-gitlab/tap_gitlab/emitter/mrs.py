@@ -80,7 +80,7 @@ class MrStreamEmitter:
     def _split_progress(
         self, interval: OpenLeftInterval[datetime], page: MrsPage
     ) -> Result[NTuple[ProgressInterval[OpenLeftInterval, datetime]], None]:
-        data = tuple(  # type: ignore
+        data = tuple(
             (
                 ProgressInterval(
                     i_factory.new_lopen(interval.lower, page.max_date),

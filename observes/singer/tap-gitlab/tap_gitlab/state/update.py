@@ -1,10 +1,10 @@
 # pylint: skip-file
 
-from cachetools import (  # type: ignore
+from cachetools import (
     cached,
     LRUCache,
 )
-from cachetools.keys import (  # type: ignore
+from cachetools.keys import (
     hashkey,
 )
 from collections import (
@@ -20,7 +20,7 @@ import logging
 from paginator.pages import (
     PageId,
 )
-import pytz  # type: ignore
+import pytz
 from returns.maybe import (
     Maybe,
 )

@@ -7,7 +7,7 @@ from __future__ import (
 from datetime import (
     datetime,
 )
-from dateutil.parser import (  # type: ignore
+from dateutil.parser import (
     isoparse,
 )
 from enum import (

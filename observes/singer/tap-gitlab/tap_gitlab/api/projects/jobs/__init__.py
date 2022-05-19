@@ -115,7 +115,7 @@ class JobApi(NamedTuple):
     ) -> IO[Iterator[JobsPage]]:
         init = self.search_possible_item_page(item_id, start).map(
             lambda item: item.or_else_call(
-                lambda: _raise(NotFound(f"id: {item_id}"))
+                lambda: _raise(NotFound(f"id: {item_id}"))  # type: ignore[misc]
             )
         )
 
@@ -163,7 +163,7 @@ class JobApi(NamedTuple):
     ) -> IO[Iterator[JobsPage]]:
         init = self.search_possible_item_page(ids.upper, start).map(
             lambda item: item.or_else_call(
-                lambda: _raise(NotFound(f"id: {ids.upper}"))
+                lambda: _raise(NotFound(f"id: {ids.upper}"))  # type: ignore[misc]
             )
         )
 

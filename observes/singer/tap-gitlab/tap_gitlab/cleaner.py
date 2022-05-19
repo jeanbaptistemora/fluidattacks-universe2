@@ -6,7 +6,7 @@ from datetime import (
     timedelta,
     timezone,
 )
-from dateutil.parser import (  # type: ignore
+from dateutil.parser import (
     isoparse,
 )
 import logging

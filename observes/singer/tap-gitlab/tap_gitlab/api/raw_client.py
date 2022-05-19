@@ -12,10 +12,10 @@ from paginator.raw_client import (
 from paginator.raw_client.patch import (
     Patch,
 )
-from requests.exceptions import (  # type: ignore
+from requests.exceptions import (
     HTTPError,
 )
-from requests.models import (  # type: ignore
+from requests.models import (
     Response,
 )
 from returns.io import (
@@ -33,7 +33,7 @@ from typing import (
     NamedTuple,
     Optional,
 )
-from utils_logger import (
+from utils_logger.v2 import (
     DEBUG,
 )
 
