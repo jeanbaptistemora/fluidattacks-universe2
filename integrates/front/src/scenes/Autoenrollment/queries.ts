@@ -31,4 +31,35 @@ const AUTOENROLL_DEMO = gql`
   }
 `;
 
-export { ADD_ORGANIZATION, AUTOENROLL_DEMO, GET_USER_WELCOME };
+const ADD_GROUP_MUTATION = gql`
+  mutation AddGroupMutation(
+    $description: String!
+    $groupName: String!
+    $hasMachine: Boolean!
+    $hasSquad: Boolean!
+    $language: Language!
+    $organizationName: String!
+    $service: ServiceType!
+    $subscription: SubscriptionType!
+  ) {
+    addGroup(
+      description: $description
+      groupName: $groupName
+      hasMachine: $hasMachine
+      hasSquad: $hasSquad
+      language: $language
+      organizationName: $organizationName
+      service: $service
+      subscription: $subscription
+    ) {
+      success
+    }
+  }
+`;
+
+export {
+  ADD_GROUP_MUTATION,
+  ADD_ORGANIZATION,
+  AUTOENROLL_DEMO,
+  GET_USER_WELCOME,
+};

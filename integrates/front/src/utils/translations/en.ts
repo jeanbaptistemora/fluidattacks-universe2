@@ -235,9 +235,18 @@ export const enTranslations: ResourceKey = {
   },
   autoenrollment: {
     addOrganization: {
-      groupDescription: "Description of the group",
-      groupName: "Group name",
-      organizationName: "Organization name",
+      groupDescription: {
+        label: "Description of the group",
+        placeholder: "AWS test new group",
+      },
+      groupName: {
+        label: "Group name",
+        placeholder: "My group name",
+      },
+      organizationName: {
+        label: "Organization name",
+        placeholder: "My organization",
+      },
       proceed: "Start your free trial now",
       reportLanguage: "Report language",
       reportLanguageTip:

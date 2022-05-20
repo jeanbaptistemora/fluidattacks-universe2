@@ -1,29 +1,40 @@
 import { useMutation } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { boolean, object, string } from "yup";
+import { array, object, string } from "yup";
 
-import { ADD_ORGANIZATION, GET_USER_WELCOME } from "../../queries";
+import {
+  ADD_GROUP_MUTATION,
+  ADD_ORGANIZATION,
+  GET_USER_WELCOME,
+} from "../../queries";
 import type { IAddOrganizationResult } from "../../types";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { FormikText } from "utils/forms/fields";
+import {
+  FormikCheckbox,
+  FormikDropdown,
+  FormikText,
+  FormikTextArea,
+} from "utils/forms/fields";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 
 const AddOrganization: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { goBack, replace } = useHistory();
 
-  const [addOrganization, { loading: submitting }] =
+  const [addOrganization, { loading: submittingOrg }] =
     useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
       awaitRefetchQueries: true,
       onCompleted: (result): void => {
@@ -49,37 +60,83 @@ const AddOrganization: React.FC = (): JSX.Element => {
       refetchQueries: [GET_USER_WELCOME],
     });
 
+  const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      switch (error.message) {
+        case "Exception - Error invalid group name":
+          msgError(t("organization.tabs.groups.newGroup.invalidName"));
+          break;
+        case "Exception - User is not a member of the target organization":
+          msgError(
+            t("organization.tabs.groups.newGroup.userNotInOrganization")
+          );
+          break;
+        default:
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred adding a group", error);
+      }
+    });
+  };
+
+  const [addGroup, { loading: submittingGroup }] = useMutation(
+    ADD_GROUP_MUTATION,
+    {
+      onCompleted: (result: { addGroup: { success: boolean } }): void => {
+        if (result.addGroup.success) {
+          msgSuccess(
+            t("organization.tabs.groups.newGroup.success"),
+            t("organization.tabs.groups.newGroup.titleSuccess")
+          );
+        }
+      },
+      onError: handleCreateError,
+    }
+  );
+
   const handleSubmit = useCallback(
     async (values: {
       groupDescription: string;
       groupName: string;
       organizationName: string;
       reportLanguage: string;
-      termsOfservice: boolean;
+      terms: string[];
     }): Promise<void> => {
       mixpanel.track("AddOrganization");
       await addOrganization({
         variables: { name: values.organizationName.toUpperCase() },
       });
+      mixpanel.track("AddGroup");
+      await addGroup({
+        variables: {
+          description: values.groupDescription,
+          groupName: values.groupName.toUpperCase(),
+          hasMachine: true,
+          hasSquad: false,
+          language: values.reportLanguage,
+          organizationName: values.organizationName,
+          service: "WHITE",
+          subscription: "CONTINUOUS",
+        },
+      });
       localStorage.clear();
       sessionStorage.clear();
       replace(`/orgs/${values.organizationName.toLowerCase()}/groups`);
     },
-    [addOrganization, replace]
+    [addGroup, addOrganization, replace]
   );
 
   const minLenth = 4;
   const maxLength = 10;
   const validations = object().shape({
-    groupDescription: string()
+    groupDescription: string().required(),
+    groupName: string().required(),
+    organizationName: string()
       .required()
       .min(minLenth)
       .max(maxLength)
       .matches(/^[a-zA-Z]+$/u),
-    groupName: string().required(),
-    organizationName: string().required(),
     reportLanguage: string().required(),
-    termsOfservice: boolean().required(),
+    terms: array().of(string()).required().length(1, t("validations.required")),
   });
 
   return (
@@ -91,7 +148,7 @@ const AddOrganization: React.FC = (): JSX.Element => {
           groupName: "",
           organizationName: "",
           reportLanguage: "",
-          termsOfservice: false,
+          terms: [],
         }}
         name={"newOrganization"}
         onSubmit={handleSubmit}
@@ -103,7 +160,7 @@ const AddOrganization: React.FC = (): JSX.Element => {
               <Row>
                 <Col>
                   <strong>
-                    {t("autoenrollment.addOrganization.organizationName")}
+                    {t("autoenrollment.addOrganization.organizationName.label")}
                   </strong>
                 </Col>
                 <Col>
@@ -119,6 +176,9 @@ const AddOrganization: React.FC = (): JSX.Element => {
               <Field
                 component={FormikText}
                 name={"organizationName"}
+                placeholder={t(
+                  "autoenrollment.addOrganization.organizationName.placeholder"
+                )}
                 type={"text"}
               />
             </Col>
@@ -128,7 +188,7 @@ const AddOrganization: React.FC = (): JSX.Element => {
               <Row>
                 <Col>
                   <strong>
-                    {t("autoenrollment.addOrganization.groupName")}
+                    {t("autoenrollment.addOrganization.groupName.label")}
                   </strong>
                 </Col>
                 <Col>
@@ -141,7 +201,14 @@ const AddOrganization: React.FC = (): JSX.Element => {
                   </TooltipWrapper>
                 </Col>
               </Row>
-              <Field component={FormikText} name={"groupName"} type={"text"} />
+              <Field
+                component={FormikText}
+                name={"groupName"}
+                placeholder={t(
+                  "autoenrollment.addOrganization.groupName.placeholder"
+                )}
+                type={"text"}
+              />
             </Col>
           </Row>
           <Row justify={"flex-start"}>
@@ -150,21 +217,28 @@ const AddOrganization: React.FC = (): JSX.Element => {
               <strong>
                 {t("autoenrollment.addOrganization.reportLanguage")}
               </strong>
-              <Field
-                component={FormikText}
-                name={"reportLanguage"}
-                type={"text"}
-              />
+              <Field component={FormikDropdown} name={"reportLanguage"}>
+                <option value={""}>{""}</option>
+                <option value={"EN"}>
+                  {t("organization.tabs.groups.newGroup.language.EN")}
+                </option>
+                <option value={"ES"}>
+                  {t("organization.tabs.groups.newGroup.language.ES")}
+                </option>
+              </Field>
             </Col>
           </Row>
           <Row justify={"flex-start"}>
             <Col>
               <strong>
-                {t("autoenrollment.addOrganization.groupDescription")}
+                {t("autoenrollment.addOrganization.groupDescription.label")}
               </strong>
               <Field
-                component={FormikText}
+                component={FormikTextArea}
                 name={"groupDescription"}
+                placeholder={t(
+                  "autoenrollment.addOrganization.groupDescription.placeholder"
+                )}
                 type={"text"}
               />
             </Col>
@@ -175,21 +249,24 @@ const AddOrganization: React.FC = (): JSX.Element => {
               <p>{t("autoenrollment.addOrganization.role")}</p>
             </Col>
           </Row>
-          <Row justify={"flex-start"}>
-            <Col large={"10"} medium={"10"} small={"10"}>
+          <Row justify={"center"}>
+            <Col>
               <Field
-                component={FormikText}
-                name={"termsOfService"}
+                component={FormikCheckbox}
+                label={t("autoenrollment.addOrganization.termsOfService")}
+                name={"terms"}
                 type={"checkbox"}
+                value={"accept"}
               />
-            </Col>
-            <Col large={"90"} medium={"90"} small={"90"}>
-              {t("autoenrollment.addOrganization.termsOfService")}
             </Col>
           </Row>
           <Row justify={"center"}>
             <Col>
-              <Button disabled={submitting} type={"submit"} variant={"primary"}>
+              <Button
+                disabled={submittingOrg || submittingGroup}
+                type={"submit"}
+                variant={"primary"}
+              >
                 {t("autoenrollment.addOrganization.proceed")}
               </Button>
             </Col>
