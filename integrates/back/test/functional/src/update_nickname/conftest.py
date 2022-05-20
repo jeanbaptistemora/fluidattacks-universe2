@@ -100,32 +100,51 @@ async def populate() -> bool:
             },
         ],
         "roots": [
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    reason="Cloned successfully",
-                    status=GitCloningStatus.OK,
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2022-02-10T14:58:10+00:00",
+                        reason="Cloned successfully",
+                        status=GitCloningStatus.OK,
+                    ),
+                    group_name="group123",
+                    id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+                    organization_name="org123",
+                    state=GitRootState(
+                        branch="master",
+                        environment_urls=[],
+                        environment="production",
+                        git_environment_urls=[],
+                        gitignore=[],
+                        includes_health_check=False,
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2022-02-09T14:58:10+00:00",
+                        nickname="test",
+                        other="",
+                        reason="",
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/test",
+                    ),
+                    type=RootType.GIT,
                 ),
-                group_name="group123",
-                id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                organization_name="org123",
-                state=GitRootState(
-                    branch="master",
-                    environment_urls=[],
-                    environment="production",
-                    git_environment_urls=[],
-                    gitignore=[],
-                    includes_health_check=False,
-                    modified_by="test@fluidattacks.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    nickname="test",
-                    other="",
-                    reason="",
-                    status=RootStatus.ACTIVE,
-                    url="https://gitlab.com/fluidattacks/test",
+                "historic_state": (
+                    GitRootState(
+                        branch="master",
+                        environment_urls=[],
+                        environment="production",
+                        git_environment_urls=[],
+                        gitignore=["node_modules/*"],
+                        includes_health_check=False,
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2022-02-10T14:58:10+00:00",
+                        nickname="test123",
+                        other="",
+                        reason="",
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/test",
+                    ),
                 ),
-                type=RootType.GIT,
-            ),
+            }
         ],
         "findings": [
             {
@@ -188,6 +207,26 @@ async def populate() -> bool:
                     commit="f58490fab40762048474be2bae4735c82714946e",
                 ),
             },
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
+                    specific="9999",
+                    state=VulnerabilityState(
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2018-04-08T00:45:14+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.OPEN,
+                    ),
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:14+00:00",
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    where="192.168.1.20",
+                )
+            },
         ],
     }
     actions: tuple[dict[str, Any], ...] = (
@@ -196,13 +235,7 @@ async def populate() -> bool:
             entity="88637616-41d4-4242-854a-db8ff7fe1ab6",
             subject="test@fluidattacks.com",
             time=str(get_as_epoch(get_now())),
-            additional_info=json.dumps(
-                {
-                    "group_name": "group123",
-                    "source_nickname": "test",
-                    "target_nickname": "test123",
-                }
-            ),
+            additional_info="group123",
             batch_job_id=None,
             queue="unlimited_spot",
             key="1",

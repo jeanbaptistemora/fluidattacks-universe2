@@ -33,101 +33,110 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        "roots": (
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    reason="root creation",
-                    status=GitCloningStatus("UNKNOWN"),
+        "roots": [
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group1",
+                    id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://test.com"],
+                        git_environment_urls=[
+                            GitEnvironmentUrl(
+                                url="https://test.com",
+                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                            )
+                        ],
+                        gitignore=["bower_components/*", "node_modules/*"],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="product",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.INACTIVE,
+                        url="https://gitlab.com/fluidattacks/product",
+                    ),
+                    type=RootType.GIT,
                 ),
-                group_name="group1",
-                id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                organization_name="orgtest",
-                state=GitRootState(
-                    branch="master",
-                    environment="production",
-                    environment_urls=["https://test.com"],
-                    git_environment_urls=[
-                        GitEnvironmentUrl(
-                            url="https://test.com",
-                            id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                        )
-                    ],
-                    gitignore=["bower_components/*", "node_modules/*"],
-                    includes_health_check=True,
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="product",
-                    other=None,
-                    reason=None,
-                    status=RootStatus.INACTIVE,
-                    url="https://gitlab.com/fluidattacks/product",
+                "historic_state": [],
+            },
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group2",
+                    id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://test.com"],
+                        git_environment_urls=[
+                            GitEnvironmentUrl(
+                                url="https://test.com",
+                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                            )
+                        ],
+                        gitignore=["node_modules/*"],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="asm_1",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.INACTIVE,
+                        url="https://gitlab.com/fluidattacks/asm_1",
+                    ),
+                    type=RootType.GIT,
                 ),
-                type=RootType.GIT,
-            ),
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    reason="root creation",
-                    status=GitCloningStatus("UNKNOWN"),
+                "historic_state": [],
+            },
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group3",
+                    id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://test.com"],
+                        git_environment_urls=[
+                            GitEnvironmentUrl(
+                                url="https://test.com",
+                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                            )
+                        ],
+                        gitignore=["node_modules/*"],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="asm_1",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.INACTIVE,
+                        url="https://gitlab.com/fluidattacks/asm_1",
+                    ),
+                    type=RootType.GIT,
                 ),
-                group_name="group2",
-                id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                organization_name="orgtest",
-                state=GitRootState(
-                    branch="master",
-                    environment="production",
-                    environment_urls=["https://test.com"],
-                    git_environment_urls=[
-                        GitEnvironmentUrl(
-                            url="https://test.com",
-                            id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                        )
-                    ],
-                    gitignore=["node_modules/*"],
-                    includes_health_check=True,
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="asm_1",
-                    other=None,
-                    reason=None,
-                    status=RootStatus.INACTIVE,
-                    url="https://gitlab.com/fluidattacks/asm_1",
-                ),
-                type=RootType.GIT,
-            ),
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    reason="root creation",
-                    status=GitCloningStatus("UNKNOWN"),
-                ),
-                group_name="group3",
-                id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
-                organization_name="orgtest",
-                state=GitRootState(
-                    branch="master",
-                    environment="production",
-                    environment_urls=["https://test.com"],
-                    git_environment_urls=[
-                        GitEnvironmentUrl(
-                            url="https://test.com",
-                            id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                        )
-                    ],
-                    gitignore=["node_modules/*"],
-                    includes_health_check=True,
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="asm_1",
-                    other=None,
-                    reason=None,
-                    status=RootStatus.INACTIVE,
-                    url="https://gitlab.com/fluidattacks/asm_1",
-                ),
-                type=RootType.GIT,
-            ),
-        ),
+                "historic_state": [],
+            },
+        ],
         "toe_lines": (
             ToeLines(
                 attacked_at=None,

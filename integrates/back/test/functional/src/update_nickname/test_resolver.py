@@ -60,7 +60,7 @@ async def test_should_update_successfully(populate: bool) -> None:
     assert root_vulns[1].where == "test/data/lib_path/f060/csharp.cs"
     assert (
         finding.unreliable_indicators.unreliable_where
-        == f"{root_vulns[0].where}, {root_vulns[1].where}"
+        == f"192.168.1.20, {root_vulns[0].where}, {root_vulns[1].where}"
     )
 
     loaders.root_vulnerabilities.clear_all()
@@ -78,6 +78,11 @@ async def test_should_update_successfully(populate: bool) -> None:
     finding_updated: Finding = await loaders.finding.load(
         root_vulns_updated[0].finding_id
     )
+    wheres_updated = [
+        "192.168.1.20",
+        root_vulns_updated[0].where,
+        root_vulns_updated[1].where,
+    ]
 
     assert not root_vulns_updated[0].where.startswith("test/")
     assert root_vulns_updated[0].where.startswith("test123/")
@@ -90,5 +95,8 @@ async def test_should_update_successfully(populate: bool) -> None:
     )
     assert (
         finding_updated.unreliable_indicators.unreliable_where
-        == f"{root_vulns_updated[0].where}, {root_vulns_updated[1].where}"
+        != f"192.168.1.20, {root_vulns[0].where}, {root_vulns[1].where}"
+    )
+    assert finding_updated.unreliable_indicators.unreliable_where == str.join(
+        ", ", wheres_updated
     )

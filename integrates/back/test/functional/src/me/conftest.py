@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from collections import (
+    defaultdict,
+)
 from db_model.enums import (
     GitCloningStatus,
     Source,
@@ -281,39 +284,47 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "roots": (
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    reason="root creation",
-                    status=GitCloningStatus("UNKNOWN"),
+        "roots": [
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group1",
+                    id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://.com"],
+                        git_environment_urls=[
+                            GitEnvironmentUrl(
+                                url="https://test.com",
+                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                            )
+                        ],
+                        gitignore=["bower_components/*", "node_modules/*"],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/product",
+                    ),
+                    type=RootType.GIT,
                 ),
-                group_name="group1",
-                id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                organization_name="orgtest",
-                state=GitRootState(
-                    branch="master",
-                    environment="production",
-                    environment_urls=["https://.com"],
-                    git_environment_urls=[
-                        GitEnvironmentUrl(
-                            url="https://test.com",
-                            id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                        )
-                    ],
-                    gitignore=["bower_components/*", "node_modules/*"],
-                    includes_health_check=True,
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="",
-                    other=None,
-                    reason=None,
-                    status=RootStatus.ACTIVE,
-                    url="https://gitlab.com/fluidattacks/product",
-                ),
-                type=RootType.GIT,
-            ),
-        ),
+                "historic_state": [],
+            }
+        ],
     }
 
-    return await db.populate({**generic_data["db_data"], **data})
+    merge_dict = defaultdict(list)
+    for dict_data in (generic_data["db_data"], data):
+        for key, value in dict_data.items():
+            merge_dict[key].extend(value)
+
+    return await db.populate(merge_dict)

@@ -251,6 +251,18 @@ async def _populate_finding_historic_verification(
         )
 
 
+async def _populate_root_historic_state(data: Dict[str, Any]) -> None:
+    root: Root = data["root"]
+    historic = (root.state, *data["historic_state"])
+    for previous, current in zip(historic, historic[1:]):
+        await roots_model.update_root_state(
+            current_value=previous,
+            group_name=root.group_name,
+            root_id=root.id,
+            state=current,
+        )
+
+
 async def populate_findings(data: List[Dict[str, Any]]) -> bool:
     await collect(
         [findings_model.add(finding=item["finding"]) for item in data]
@@ -344,8 +356,9 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
     return True
 
 
-async def populate_roots(data: Tuple[Root, ...]) -> bool:
-    await collect(tuple(roots_model.add(root=root) for root in data))
+async def populate_roots(data: List[Dict[str, Any]]) -> bool:
+    await collect(tuple(roots_model.add(root=item["root"]) for item in data))
+    await collect([_populate_root_historic_state(item) for item in data])
 
     return True
 

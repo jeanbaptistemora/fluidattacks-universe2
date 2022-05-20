@@ -26,34 +26,37 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data = {
-        "roots": (
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    reason="root creation",
-                    status=GitCloningStatus("UNKNOWN"),
+        "roots": [
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group1",
+                    id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=[],
+                        git_environment_urls=[],
+                        gitignore=[],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="nickname",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/events",
+                    ),
+                    type=RootType.GIT,
                 ),
-                group_name="group1",
-                id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                organization_name="orgtest",
-                state=GitRootState(
-                    branch="master",
-                    environment="production",
-                    environment_urls=[],
-                    git_environment_urls=[],
-                    gitignore=[],
-                    includes_health_check=True,
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="nickname",
-                    other=None,
-                    reason=None,
-                    status=RootStatus.ACTIVE,
-                    url="https://gitlab.com/fluidattacks/events",
-                ),
-                type=RootType.GIT,
-            ),
-        )
+                "historic_state": [],
+            }
+        ]
     }
 
     return await db.populate({**generic_data["db_data"], **data})

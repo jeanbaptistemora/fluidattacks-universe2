@@ -35,75 +35,84 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        "roots": (
-            GitRoot(
-                cloning=GitRootCloning(
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    reason="root creation",
-                    status=GitCloningStatus("UNKNOWN"),
+        "roots": [
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group1",
+                    id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://test.com"],
+                        git_environment_urls=[
+                            GitEnvironmentUrl(
+                                url="https://test.com",
+                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                            )
+                        ],
+                        gitignore=["bower_components/*", "node_modules/*"],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="test_nickname_1",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.INACTIVE,
+                        url="https://gitlab.com/fluidattacks/product",
+                    ),
+                    type=RootType.GIT,
                 ),
-                group_name="group1",
-                id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                organization_name="orgtest",
-                state=GitRootState(
-                    branch="master",
-                    environment="production",
-                    environment_urls=["https://test.com"],
-                    git_environment_urls=[
-                        GitEnvironmentUrl(
-                            url="https://test.com",
-                            id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                        )
-                    ],
-                    gitignore=["bower_components/*", "node_modules/*"],
-                    includes_health_check=True,
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="test_nickname_1",
-                    other=None,
-                    reason=None,
-                    status=RootStatus.INACTIVE,
-                    url="https://gitlab.com/fluidattacks/product",
+                "historic_state": [],
+            },
+            {
+                "root": URLRoot(
+                    group_name="group1",
+                    id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                    organization_name="orgtest",
+                    state=URLRootState(
+                        host="app.fluidattacks.com",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="test_nickname_2",
+                        other=None,
+                        path="/",
+                        port="8080",
+                        protocol="HTTPS",
+                        reason=None,
+                        status=RootStatus.INACTIVE,
+                    ),
+                    type=RootType.URL,
                 ),
-                type=RootType.GIT,
-            ),
-            URLRoot(
-                group_name="group1",
-                id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                organization_name="orgtest",
-                state=URLRootState(
-                    host="app.fluidattacks.com",
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="test_nickname_2",
-                    other=None,
-                    path="/",
-                    port="8080",
-                    protocol="HTTPS",
-                    reason=None,
-                    status=RootStatus.INACTIVE,
+                "historic_state": [],
+            },
+            {
+                "root": URLRoot(
+                    group_name="group1",
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    organization_name="orgtest",
+                    state=URLRootState(
+                        host="app.fluidattacks.com",
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="test_nickname_3",
+                        other=None,
+                        path="/",
+                        port="8080",
+                        protocol="HTTPS",
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                    ),
+                    type=RootType.URL,
                 ),
-                type=RootType.URL,
-            ),
-            URLRoot(
-                group_name="group1",
-                id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                organization_name="orgtest",
-                state=URLRootState(
-                    host="app.fluidattacks.com",
-                    modified_by="admin@gmail.com",
-                    modified_date="2020-11-19T13:37:10+00:00",
-                    nickname="test_nickname_3",
-                    other=None,
-                    path="/",
-                    port="8080",
-                    protocol="HTTPS",
-                    reason=None,
-                    status=RootStatus.ACTIVE,
-                ),
-                type=RootType.URL,
-            ),
-        ),
+                "historic_state": [],
+            },
+        ],
         "toe_inputs": (
             ToeInput(
                 attacked_at=datetime.fromisoformat(
