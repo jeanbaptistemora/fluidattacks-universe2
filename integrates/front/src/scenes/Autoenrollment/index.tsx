@@ -5,10 +5,9 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import { AddOrganization } from "./components/AddOrganization";
 import { GET_USER_WELCOME } from "./queries";
-import { Container, DashboardContent } from "./styles";
+import { Container, DashboardContent, FormContent } from "./styles";
 import type { IGetUserWelcomeResult } from "./types";
 
-import { Card, CardBody } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { Sidebar } from "scenes/Autoenrollment/components/Sidebar";
 import { Dashboard } from "scenes/Dashboard";
@@ -48,11 +47,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                   </Row>
                   <Row justify={"center"}>
                     <Col large={"25"} medium={"50"} small={"70"}>
-                      <Card>
-                        <CardBody>
-                          <AddOrganization />
-                        </CardBody>
-                      </Card>
+                      <FormContent>
+                        <AddOrganization />
+                      </FormContent>
                     </Col>
                   </Row>
                 </Col>

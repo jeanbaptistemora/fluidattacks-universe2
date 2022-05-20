@@ -16,14 +16,15 @@ const DashboardContent = styled.div.attrs({
   margin-bottom: auto;
   padding-left: 24px;
   padding-right: 24px;
-
-  // Hide scrollbar for Chrome, Safari and Opera
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  // Hide scrollbar for IE, Edge and Firefox
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 `;
 
-export { Container, DashboardContent };
+const FormContent = styled.div.attrs({
+  className: "col-1",
+})`
+  margin: 16px 0 0;
+  padding: 24px 24px 24.2px;
+  border-radius: 6px;
+  background-color: #f4f4f6;
+`;
+
+export { Container, DashboardContent, FormContent };

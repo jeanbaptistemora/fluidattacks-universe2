@@ -19,6 +19,7 @@ import {
 } from "../../queries";
 import type { IAddOrganizationResult } from "../../types";
 import { Button } from "components/Button";
+import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
@@ -253,11 +254,15 @@ const AddOrganization: React.FC = (): JSX.Element => {
             <Col>
               <Field
                 component={FormikCheckbox}
-                label={t("autoenrollment.addOrganization.termsOfService")}
+                label={""}
                 name={"terms"}
                 type={"checkbox"}
                 value={"accept"}
-              />
+              >
+                <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+                  {t("autoenrollment.addOrganization.termsOfService")}
+                </ExternalLink>
+              </Field>
             </Col>
           </Row>
           <Row justify={"center"}>
