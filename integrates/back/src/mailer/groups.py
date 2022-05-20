@@ -248,9 +248,11 @@ async def send_mail_root_cloning_status(
     loaders: Any,
     email_to: List[str],
     group_name: str,
+    root_creation_date: str,
     root_nickname: str,
     root_id: str,
     report_date: date,
+    modified_by: str,
     is_failed: bool,
 ) -> None:
     cloning_state: str = "failed" if is_failed else "changed"
@@ -259,8 +261,12 @@ async def send_mail_root_cloning_status(
         "is_failed": is_failed,
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group": group_name,
+        "root_creation_date": str(
+            datetime_utils.get_date_from_iso_str(root_creation_date)
+        ),
         "root_nickname": root_nickname,
         "root_id": root_id,
+        "modified_by": modified_by,
         "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
     }
     await send_mails_async(

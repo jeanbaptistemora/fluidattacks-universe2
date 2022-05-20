@@ -822,6 +822,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
             group_name=group_name,
             root_nickname=root.state.nickname,
             root_id=root_id,
+            modified_by=root.state.modified_by,
             modified_date=modified_date,
             is_failed=is_failed,
         )
@@ -833,6 +834,7 @@ async def send_mail_root_cloning_status(
     group_name: str,
     root_nickname: str,
     root_id: str,
+    modified_by: str,
     modified_date: str,
     is_failed: bool,
 ) -> None:
@@ -843,14 +845,17 @@ async def send_mail_root_cloning_status(
         notification=Notification.ROOT_UPDATE,
         roles=roles,
     )
+    creation_date = await get_first_cloning_date(loaders, root_id)
 
     await groups_mail.send_mail_root_cloning_status(
         loaders=loaders,
         email_to=users_email,
         group_name=group_name,
+        root_creation_date=creation_date,
         root_nickname=root_nickname,
         root_id=root_id,
         report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
+        modified_by=modified_by,
         is_failed=is_failed,
     )
 
@@ -1125,6 +1130,15 @@ async def get_last_status_update_date(loaders: Any, root_id: str) -> str:
     last_status_update = await get_last_status_update(loaders, root_id)
 
     return last_status_update.modified_date
+
+
+async def get_first_cloning_date(loaders: Any, root_id: str) -> str:
+    historic_cloning: Tuple[
+        GitRootCloning, ...
+    ] = await loaders.root_historic_cloning.load(root_id)
+    first_root: GitRootCloning = historic_cloning[0]
+
+    return first_root.modified_date
 
 
 async def move_root(
