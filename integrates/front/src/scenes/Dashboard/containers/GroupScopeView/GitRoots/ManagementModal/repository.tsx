@@ -317,7 +317,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                       </Alert>
                     ) : undefined}
                     <br />
-                    {isDuplicated(values.url) ? (
+                    {isDuplicated(values.url) || isEditing ? (
                       <React.Fragment>
                         <div className={"flex"}>
                           <div className={"w-100"} id={"git-root-add-nickname"}>

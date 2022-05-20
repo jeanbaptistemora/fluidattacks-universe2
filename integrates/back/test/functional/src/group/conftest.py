@@ -628,6 +628,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
     merge_dict = defaultdict(list)
     for dict_data in (generic_data["db_data"], data):
         for key, value in dict_data.items():
-            merge_dict[key].extend(value)
+            if key == "groups":
+                merge_dict[key] = value
+            else:
+                merge_dict[key].extend(value)
 
     return await db.populate(merge_dict)

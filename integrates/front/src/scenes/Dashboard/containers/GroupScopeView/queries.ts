@@ -240,6 +240,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
     $groupName: String!
     $id: ID!
     $includesHealthCheck: Boolean!
+    $nickname: String
     $url: String!
     $useVpn: Boolean!
   ) {
@@ -250,6 +251,7 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
       gitignore: $gitignore
       groupName: $groupName
       id: $id
+      nickname: $nickname
       includesHealthCheck: $includesHealthCheck
       url: $url
       useVpn: $useVpn
