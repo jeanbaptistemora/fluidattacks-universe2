@@ -38,7 +38,7 @@ async def test_add_toe_input(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    entry_point: str = "-"
+    entry_point: str = ""
     result: Dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,
@@ -81,7 +81,7 @@ async def test_add_toe_input_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    entry_point: str = "-"
+    entry_point: str = ""
     result: Dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,
@@ -121,7 +121,7 @@ async def test_add_toe_input_fail_2(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    entry_point: str = "-"
+    entry_point: str = ""
     result: Dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,

@@ -297,27 +297,28 @@ def check_and_set_min_time_to_remediate(
         raise InvalidMinTimeToRemediate() from error
 
 
-def validate_sanitized_csv_input(*fields: str) -> bool:
+def validate_sanitized_csv_input(*fields: str) -> None:
     """Checks for the presence of any character that could be interpreted as
     the start of a formula by a spreadsheet editor according to
     https://owasp.org/www-community/attacks/CSV_Injection"""
-    forbidden_characters: Tuple[str, ...] = ("=", "+", "@", "\t", "\r")
+    forbidden_characters: Tuple[str, ...] = ("-", "=", "+", "@", "\t", "\r")
     separators: Tuple[str, ...] = ('"', "'", ",", ";")
     for field in fields:
-        split_text: List[str] = [*field]
-        if any(character in split_text for character in forbidden_characters):
-            raise UnsanitizedInputFound()
-
-        # As it isn't unusual to find the "-" char, we check for it separately
-        minus_locations: List[int] = [
-            match.start() for match in re.finditer("-", field)
-        ]
-        for location in minus_locations:
-            if location == 0 or any(
-                separator in field[location - 1] for separator in separators
-            ):
+        for character in forbidden_characters:
+            # match characters at the beginning of string
+            if re.match(re.escape(character), field):
                 raise UnsanitizedInputFound()
-    return True
+            # check for field separator and quotes
+            char_locations: List[int] = [
+                match.start()
+                for match in re.finditer((re.escape(character)), field)
+            ]
+            for location in char_locations:
+                if any(
+                    separator in field[location - 1]
+                    for separator in separators
+                ):
+                    raise UnsanitizedInputFound()
 
 
 def validate_commit_hash(commit_hash: str) -> None:
