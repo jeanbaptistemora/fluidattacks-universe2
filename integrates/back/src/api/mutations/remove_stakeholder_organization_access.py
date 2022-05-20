@@ -4,6 +4,12 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     enforce_organization_level_auth_async,
 )
@@ -32,7 +38,11 @@ async def mutate(
 ) -> SimplePayload:
     user_data = await token_utils.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
-    organization_name = await orgs_domain.get_name_by_id(organization_id)
+    loaders: Dataloaders = info.context.loaders
+    organization: Organization = await loaders.organization_typed.load(
+        organization_id
+    )
+    organization_name = organization.name
 
     success: bool = await orgs_domain.remove_user(
         info.context.loaders, organization_id, user_email.lower()

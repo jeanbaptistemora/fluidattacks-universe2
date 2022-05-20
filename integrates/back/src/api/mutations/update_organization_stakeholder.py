@@ -11,6 +11,12 @@ from custom_exceptions import (
 from custom_types import (
     UpdateStakeholderPayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -56,7 +62,11 @@ async def mutate(
     success: bool = False
 
     organization_id: str = str(parameters.get("organization_id"))
-    organization_name: str = await orgs_domain.get_name_by_id(organization_id)
+    loaders: Dataloaders = info.context.loaders
+    organization: Organization = await loaders.organization_typed.load(
+        organization_id
+    )
+    organization_name: str = organization.name
     requester_data = await token_utils.get_jwt_content(info.context)
     requester_email = requester_data["user_email"]
 
