@@ -59,9 +59,6 @@ from newutils.organizations import (
     add_org_id_prefix,
     remove_org_id_prefix,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from newutils.validations import (
     validate_email_address,
 )
@@ -81,7 +78,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-    Union,
 )
 from users import (
     domain as users_domain,
@@ -94,93 +90,6 @@ logging.config.dictConfig(LOGGING)
 DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
 LOGGER = logging.getLogger(__name__)
-
-
-async def _add_updated_values(
-    loaders: Any,
-    organization_id: str,
-    values: Dict[str, Optional[Decimal]],
-    value_to_update: str,
-) -> Dict[str, Any]:
-    """Generic method to update org policies and reuse typical validation
-    logic"""
-    new_value = values.get(value_to_update)
-    organization_data = await loaders.organization.load(organization_id)
-    old_value: Optional[Decimal] = organization_data.get(value_to_update)
-    if new_value is not None and new_value != old_value:
-        return {value_to_update: new_value}
-    return {}
-
-
-async def _add_updated_max_number_acceptances(
-    loaders: Any,
-    organization_id: str,
-    values: Dict[str, Optional[Decimal]],
-    email: str,
-    date: str,
-) -> Dict[str, Any]:
-    new_max_number_acceptances = get_key_or_fallback(
-        values, "max_number_acceptances", "max_number_acceptations"
-    )
-    organization_data = await loaders.organization.load(organization_id)
-    max_number_acceptances: Optional[Decimal] = organization_data[
-        "max_number_acceptations"
-    ]
-    if (
-        new_max_number_acceptances is not None
-        and new_max_number_acceptances != max_number_acceptances
-    ):
-        historic_max_number_acceptances = get_key_or_fallback(
-            organization_data,
-            "historic_max_number_acceptances",
-            "historic_max_number_acceptations",
-        )
-        historic_max_number_acceptances.append(
-            {
-                "date": date,
-                "max_number_acceptations": new_max_number_acceptances,
-                "user": email,
-            }
-        )
-        return {
-            "historic_max_number_acceptations": historic_max_number_acceptances
-        }
-    return {}
-
-
-async def _get_new_policies(
-    loaders: Any,
-    organization_id: str,
-    email: str,
-    date: str,
-    values: Dict[str, Optional[Decimal]],
-) -> Union[Dict[str, Any], None]:
-    policies = await collect(
-        [
-            _add_updated_max_number_acceptances(
-                loaders, organization_id, values, email, date
-            ),
-            _add_updated_values(
-                loaders, organization_id, values, "max_acceptance_days"
-            ),
-            _add_updated_values(
-                loaders, organization_id, values, "max_acceptance_severity"
-            ),
-            _add_updated_values(
-                loaders, organization_id, values, "min_acceptance_severity"
-            ),
-            _add_updated_values(
-                loaders, organization_id, values, "min_breaking_severity"
-            ),
-            _add_updated_values(
-                loaders, organization_id, values, "vulnerability_grace_period"
-            ),
-        ]
-    )
-    new_policies: Dict[str, Any] = {
-        key: val for item in policies for key, val in item.items()
-    }
-    return new_policies or None
 
 
 async def add_group(organization_id: str, group: str) -> bool:
@@ -674,7 +583,7 @@ async def update_policies(
                 modified_date=None,
                 modified_by=None,
             )
-            await send_mail_policies_typed(
+            await send_mail_policies(
                 loaders,
                 policies_to_mail._asdict(),
                 organization_id,
@@ -687,7 +596,7 @@ async def update_policies(
 
 
 # pylint: disable=too-many-arguments
-async def send_mail_policies_typed(
+async def send_mail_policies(
     loaders: Any,
     new_policies: Dict[str, Any],
     organization_id: str,
@@ -721,71 +630,6 @@ async def send_mail_policies_typed(
                 "from": old_value,
                 "to": val,
             }
-
-    email_context: Dict[str, Any] = {
-        "org_name": organization_name,
-        "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
-        "policies_content": policies_content,
-        "responsible": responsible,
-        "date": date,
-    }
-
-    org_stakeholders_loaders = await loaders.organization_stakeholders.load(
-        organization_id
-    )
-
-    stakeholders_emails = [
-        stakeholder["email"]
-        for stakeholder in org_stakeholders_loaders
-        if stakeholder["role"] in ["customer_manager", "user_manager"]
-    ]
-
-    if policies_content:
-        await groups_mail.send_mail_updated_policies(
-            email_to=stakeholders_emails,
-            context=email_context,
-        )
-
-
-# pylint: disable=too-many-arguments
-async def send_mail_policies(
-    loaders: Any,
-    new_policies: Dict[str, Any],
-    organization_id: str,
-    organization_name: str,
-    responsible: str,
-    date: str,
-) -> None:
-    organization_data = await loaders.organization.load(organization_id)
-    policies_format = {
-        "max_acceptance_days": "Maximum number of calendar days a finding "
-        "can be temporarily accepted",
-        "max_acceptance_severity": "Maximum temporal CVSS 3.1 score range "
-        "between which a finding can be accepted",
-        "min_breaking_severity": "Minimum CVSS 3.1 score of an open "
-        "vulnerability for DevSecOps to break the build in strict mode",
-        "min_acceptance_severity": "Minimum temporal CVSS 3.1 score range "
-        "between which a finding can be accepted",
-        "vulnerability_grace_period": "Grace period in days where newly "
-        "reported vulnerabilities won't break the build (DevSecOps only)",
-        "historic_max_number_acceptations": "Maximum number of times a "
-        "finding can be temporarily accepted",
-    }
-
-    policies_content: dict[str, Any] = {}
-    for key, val in new_policies.items():
-        if "historic_max_number_acceptations" in key:
-            policies_content[policies_format[key]] = {
-                "from": organization_data["max_number_acceptations"],
-                "to": val[-1]["max_number_acceptations"],
-            }
-        else:
-            old_value: Optional[Decimal] = organization_data.get(key)
-            if val is not None and val != old_value:
-                policies_content[policies_format[key]] = {
-                    "from": old_value,
-                    "to": val,
-                }
 
     email_context: Dict[str, Any] = {
         "org_name": organization_name,
