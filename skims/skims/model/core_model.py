@@ -3439,3 +3439,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_XAML_INJECTION = MethodInfo(
+        file_name="csharp",
+        name="csharp_xaml_injection",
+        module="lib_root",
+        finding=FindingEnum.F416,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )

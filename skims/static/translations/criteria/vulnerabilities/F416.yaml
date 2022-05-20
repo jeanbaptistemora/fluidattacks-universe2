@@ -1,0 +1,3 @@
+lib_root.f416.xaml_injection:
+  en: Potentially untrusted HTTP request input reaches a System.Windows.Markup.XamlReader Load method
+  es: La entrada de una solicitud HTTP potencialmente no confiable llega a un método de carga System.Windows.Markup.XamlReader
