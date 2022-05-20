@@ -1084,6 +1084,23 @@ export const enTranslations: ResourceKey = {
             tooltip: "Edit attacked lines",
           },
         },
+        addModal: {
+          alerts: {
+            alreadyExists: "The lines already exists.",
+            success: "Lines has been added.",
+          },
+          close: "Close",
+          fields: {
+            filename: "Filename",
+            lastAuthor: "Last author",
+            lastCommit: "Last commit",
+            loc: "Lines of code",
+            modifiedDate: "Modified date",
+            root: "Root",
+          },
+          procced: "Proceed",
+          title: "Add lines",
+        },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
         attackedLines: "Attacked lines",
