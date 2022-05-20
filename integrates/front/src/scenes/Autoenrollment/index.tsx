@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import { AddOrganization } from "./components/AddOrganization";
+import { AddRoot } from "./components/AddRoot";
+import { Sidebar } from "./components/Sidebar";
 import { GET_USER_WELCOME } from "./queries";
 import { Container, DashboardContent, FormContent } from "./styles";
 import type { IGetUserWelcomeResult } from "./types";
 
 import { Col, Row } from "components/Layout";
-import { Sidebar } from "scenes/Autoenrollment/components/Sidebar";
 import { Dashboard } from "scenes/Dashboard";
 import { Logger } from "utils/logger";
 
@@ -55,7 +56,26 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 </Col>
               </Row>
             </Route>
-            <Redirect to={"/autoenrollment/organization"} />
+            <Route exact={true} path={"/autoenrollment/repository"}>
+              <Row align={"center"} justify={"center"}>
+                <Col>
+                  <Row justify={"center"}>
+                    <Col>
+                      <h2>{t("autoenrollment.addRoot.title")}</h2>
+                      <p>{t("autoenrollment.addRoot.subtitle")}</p>
+                    </Col>
+                  </Row>
+                  <Row justify={"center"}>
+                    <Col large={"40"} medium={"60"} small={"80"}>
+                      <FormContent>
+                        <AddRoot />
+                      </FormContent>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Route>
+            <Redirect to={"/autoenrollment/repository"} />
           </Switch>
         </DashboardContent>
       </Container>

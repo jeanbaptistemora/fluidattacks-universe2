@@ -256,6 +256,44 @@ export const enTranslations: ResourceKey = {
       termsOfService: "I read the Terms of Service and Privacy",
       title: "Let's create your group",
     },
+    addRoot: {
+      branch: {
+        label: "Branch",
+        placeholder: "QA",
+      },
+      credentialName: {
+        label: "Credential name",
+        placeholder: "Test credential",
+      },
+      credentialType: "Credential type",
+      environment: {
+        label: "Environment kind",
+        placeholder: "QA",
+      },
+      exclusions: {
+        label: "Exclusions",
+        placeholder: "/devopsinterbanknew",
+        tooltip: "Enter exclusions paths",
+      },
+      proceed: {
+        checkAccess: "Check access",
+        next: "next",
+      },
+      subtitle: "To begin, add the first code repository",
+      title: "Welcome to the Attack Surface Manager (ASM)",
+      url: {
+        label: "URL repository",
+        placeholder: "https://gitrepository.yourproject/sms/...",
+        tooltip:
+          `A remote URL is Git's fancy way of saying "the place where your code is stored." ` +
+          "That URL could be your repository on GitHub, or another user's fork, " +
+          "or even on a completely different server. " +
+          "You can only push to two types of URL addresses: " +
+          "An HTTPS URL like https://github.com/user/repo.git " +
+          "An SSH URL, like git@github.com:user/repo.git" +
+          "Git associates a remote URL with a name, and your default remote is usually called origin.",
+      },
+    },
   },
   comments: {
     editorPlaceholder: "Add your comment here",
