@@ -26,6 +26,7 @@ interface IGroupData {
       name: string;
     };
     service: string;
+    sprintDuration: string;
     subscription: string;
   };
 }

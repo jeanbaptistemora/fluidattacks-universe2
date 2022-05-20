@@ -21,6 +21,7 @@ const GET_GROUP_DATA: DocumentNode = gql`
       language
       name
       service
+      sprintDuration
       subscription
     }
   }

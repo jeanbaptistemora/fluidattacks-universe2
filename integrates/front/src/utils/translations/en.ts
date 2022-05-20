@@ -1462,6 +1462,11 @@ export const enTranslations: ResourceKey = {
             title: "Type of testing",
             white: "White-box",
           },
+          sprintDuration: {
+            text: "Sprint Duration",
+            tooltip:
+              "The length of the average Sprint for this product in weeks",
+          },
           squad: {
             text: "Include Squad Plan?",
             tooltip:

@@ -12,12 +12,16 @@ import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   maxLength,
+  numberBetween,
+  numeric,
   required,
   validTextField,
 } from "utils/validations";
 
 const MAX_BUSINESS_INFO_LENGTH: number = 60;
 const MAX_DESCRIPTION_LENGTH: number = 200;
+const MIN_SPRINT_DURATION: number = 1;
+const MAX_SPRINT_DURATION: number = 10;
 
 const maxBusinessInfoLength: ConfigurableValidator = maxLength(
   MAX_BUSINESS_INFO_LENGTH
@@ -164,6 +168,38 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                             )}
                           </option>
                         </Field>
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>
+                      {translate.t(
+                        "organization.tabs.groups.newGroup.sprintDuration.text"
+                      )}
+                    </ControlLabel>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.sprintDuration.tooltip"
+                      }
+                      message={translate.t(
+                        "organization.tabs.groups.newGroup.sprintDuration.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <Field
+                          component={FormikText}
+                          id={"add-group-description"}
+                          name={"sprintDuration"}
+                          type={"text"}
+                          validate={composeValidators([
+                            numberBetween(
+                              MIN_SPRINT_DURATION,
+                              MAX_SPRINT_DURATION
+                            ),
+                            numeric,
+                          ])}
+                        />
                       </FormGroup>
                     </TooltipWrapper>
                   </FormGroup>

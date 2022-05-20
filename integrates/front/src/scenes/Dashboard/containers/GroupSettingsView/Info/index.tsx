@@ -50,6 +50,8 @@ const GroupInformation: React.FC = (): JSX.Element => {
       return "businessId";
     } else if (attribute === "Business Name") {
       return "businessName";
+    } else if (attribute === "Sprint Duration") {
+      return "sprintDuration";
     }
 
     return attribute.toLocaleLowerCase();
@@ -112,6 +114,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           description: values.description,
           groupName,
           language: values.language,
+          sprintDuration: Number(values.sprintDuration),
         },
       });
       setIsGroupSettingsModalOpen(false);
@@ -141,6 +144,10 @@ const GroupInformation: React.FC = (): JSX.Element => {
     {
       attribute: "Business Name",
       value: data.group.businessName,
+    },
+    {
+      attribute: "Sprint Duration",
+      value: data.group.sprintDuration,
     },
   ];
   const tableHeaders: IHeaderConfig[] = [

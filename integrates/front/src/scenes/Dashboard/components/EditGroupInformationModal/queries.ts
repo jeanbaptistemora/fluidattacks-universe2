@@ -8,6 +8,7 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
     $description: String!
     $groupName: String!
     $language: Language!
+    $sprintDuration: Int
   ) {
     updateGroupInfo(
       businessId: $businessId
@@ -15,6 +16,7 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
       description: $description
       groupName: $groupName
       language: $language
+      sprintDuration: $sprintDuration
     ) {
       success
     }
