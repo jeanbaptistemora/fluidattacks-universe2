@@ -4,6 +4,13 @@ from ariadne.utils import (
 from batch.actions import (
     clone_roots,
 )
+from batch.dal import (
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
 from contextlib import (
     suppress,
 )
@@ -15,6 +22,7 @@ from custom_types import (
 )
 from db_model.roots.types import (
     GitRoot,
+    Root,
 )
 from decorators import (
     concurrent_decorators,
@@ -47,7 +55,12 @@ async def mutate(
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
+    group_name: str = str(kwargs["group_name"]).lower()
+    root_id: str = kwargs["id"]
 
+    old_root: Root = await info.context.loaders.root.load(
+        (group_name, root_id)
+    )
     root = await roots_domain.update_git_root(
         info.context.loaders, user_email, **kwargs
     )
@@ -66,6 +79,20 @@ async def mutate(
                 status="CLONING",
                 message="Cloning in progress...",
             )
+
+    nickname: str = kwargs.get("nickname") or old_root.state.nickname
+    if nickname != old_root.state.nickname:
+        await put_action(
+            action=Action.UPDATE_NICKNAME,
+            additional_info=group_name,
+            attempt_duration_seconds=3600,
+            entity=root_id,
+            memory=3800,
+            product_name=Product.INTEGRATES,
+            queue="unlimited_spot",
+            subject=user_email,
+            vcpus=2,
+        )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated root {kwargs["id"]}'
     )

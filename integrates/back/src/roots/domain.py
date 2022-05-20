@@ -622,7 +622,7 @@ async def _update_git_root_credentials(
     return None
 
 
-async def update_git_root(  # pylint: disable=too-many-locals
+async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     loaders: Any,
     user_email: str,
     **kwargs: Any,
@@ -634,6 +634,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
 
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
+    nickname: str = root.state.nickname
     if not (
         isinstance(root, GitRoot)
         and root.state.status == RootStatus.ACTIVE
@@ -641,6 +642,13 @@ async def update_git_root(  # pylint: disable=too-many-locals
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
+
+    if kwargs.get("nickname") and kwargs.get("nickname") != nickname:
+        validations.validate_nickname(kwargs["nickname"])
+        validations.validate_nickname_is_unique(
+            kwargs["nickname"], await loaders.group_roots.load(group_name)
+        )
+        nickname = kwargs["nickname"]
 
     if url != root.state.url:
         if await loaders.root_vulnerabilities.load(root.id):
@@ -700,7 +708,7 @@ async def update_git_root(  # pylint: disable=too-many-locals
         includes_health_check=kwargs["includes_health_check"],
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
-        nickname=root.state.nickname,
+        nickname=nickname,
         other=None,
         reason=None,
         status=root.state.status,
