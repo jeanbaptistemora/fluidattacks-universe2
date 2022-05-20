@@ -1,6 +1,6 @@
 fetchNixpkgs: projectPath: observesIndex: let
   system = "x86_64-linux";
-  python_version = "python39";
+  python_version = "python310";
   legacy_pkgs = fetchNixpkgs {
     rev = "6c5e6e24f0b3a797ae4984469f42f2a01ec8d0cd";
     sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
@@ -35,6 +35,7 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   _legacy_postgres_client_src = projectPath "/observes/common/postgres-client/src";
   legacy-postgres-client."${python_version}" = import _legacy_postgres_client_src {
+    inherit python_version;
     src = _legacy_postgres_client_src;
     legacy_pkgs =
       legacy_pkgs

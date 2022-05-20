@@ -1,5 +1,6 @@
 fetchNixpkgs: projectPath: observesIndex: let
   system = "x86_64-linux";
+  python_version = "python39";
   legacy_pkgs = fetchNixpkgs {
     rev = "6c5e6e24f0b3a797ae4984469f42f2a01ec8d0cd";
     sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
@@ -27,14 +28,14 @@ fetchNixpkgs: projectPath: observesIndex: let
   };
 
   _utils_logger_src = projectPath observesIndex.common.utils_logger.root;
-  utils-logger.python39 = import _utils_logger_src {
-    inherit legacy_pkgs;
+  utils-logger."${python_version}" = import _utils_logger_src {
+    inherit legacy_pkgs python_version;
     src = _utils_logger_src;
-    python_version = "python39";
   };
 
   _postgres_client_src = projectPath "/observes/common/postgres-client/src";
-  postgres-client.python39 = import _postgres_client_src {
+  postgres-client."${python_version}" = import _postgres_client_src {
+    inherit python_version;
     src = _postgres_client_src;
     legacy_pkgs =
       legacy_pkgs
