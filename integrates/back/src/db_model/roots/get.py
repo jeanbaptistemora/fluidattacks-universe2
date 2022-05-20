@@ -180,6 +180,7 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
         RootState(
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],
+            nickname=state.get("nickname"),
             other=state.get("other"),
             reason=state.get("reason"),
             status=RootStatus[state["status"]],

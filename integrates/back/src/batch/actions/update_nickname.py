@@ -14,6 +14,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.roots.types import (
+    Root,
+    RootState,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -26,7 +30,6 @@ from db_model.vulnerabilities.update import (
     update_metadata,
 )
 import itertools
-import json
 import logging
 import logging.config
 from operator import (
@@ -37,9 +40,6 @@ from redis_cluster.operations import (
 )
 from settings import (
     LOGGING,
-)
-from typing import (
-    Any,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -66,7 +66,7 @@ async def _update_indicators(finding_id: str, group_name: str) -> None:
 
 async def _process_vuln(
     *,
-    source_nickname: str,
+    nicknames: set[str],
     target_nickname: str,
     vulnerability: Vulnerability,
 ) -> None:
@@ -79,9 +79,14 @@ async def _process_vuln(
         },
     )
 
-    format_old_nickname: str = f"{source_nickname}/"
-    if vulnerability.where.startswith(format_old_nickname):
-        format_new_nickname: str = f"{target_nickname}/"
+    format_new_nickname: str = f"{target_nickname}/"
+    if vulnerability.where.startswith(format_new_nickname):
+        return
+
+    slash_index = vulnerability.where.find("/")
+    old_nickname = vulnerability.where[:slash_index]
+    format_old_nickname = f"{old_nickname}/"
+    if old_nickname in nicknames:
         await update_metadata(
             finding_id=vulnerability.finding_id,
             vulnerability_id=vulnerability.id,
@@ -97,8 +102,8 @@ async def _process_finding(
     *,
     finding_id: str,
     group_name: str,
+    nicknames: set[str],
     root_id: str,
-    source_nickname: str,
     target_nickname: str,
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> None:
@@ -125,7 +130,7 @@ async def _process_finding(
     await collect(
         tuple(
             _process_vuln(
-                source_nickname=source_nickname,
+                nicknames=nicknames,
                 target_nickname=target_nickname,
                 vulnerability=vulnerability,
             )
@@ -153,20 +158,24 @@ async def _process_finding(
 async def update_nickname(*, item: BatchProcessing) -> None:
     subject: str = item.subject
     root_id: str = item.entity
-    info: dict[str, Any] = json.loads(item.additional_info)
-    group_name: str = info["group_name"]
-    source_nickname: str = info["source_nickname"]
-    target_nickname: str = info["target_nickname"]
+    group_name: str = item.additional_info
     loaders: Dataloaders = get_new_context()
 
     LOGGER.info(
-        "Updating nickname in vulnerabilities in root", extra={"extra": info}
+        "Updating nickname in vulnerabilities in root", extra={"extra": item}
     )
     enforcer = await get_group_level_enforcer(subject, with_cache=False)
     if enforcer(
         group_name,
         "api_mutations_update_git_root_mutate",
     ):
+        root: Root = await loaders.root.load((group_name, root_id))
+        historic_states: tuple[
+            RootState, ...
+        ] = await loaders.root_historic_states.load(root.id)
+        nicknames: set[str] = set(
+            state.nickname or "" for state in historic_states
+        )
         root_vulnerabilities: tuple[
             Vulnerability, ...
         ] = await loaders.root_vulnerabilities.load(root_id)
@@ -187,9 +196,9 @@ async def update_nickname(*, item: BatchProcessing) -> None:
                 _process_finding(
                     finding_id=finding_id,
                     group_name=group_name,
+                    nicknames=nicknames,
                     root_id=root_id,
-                    source_nickname=source_nickname,
-                    target_nickname=target_nickname,
+                    target_nickname=root.state.nickname,
                     vulnerabilities=tuple(vulnerabilities),
                 )
                 for finding_id, vulnerabilities in vulnerabilities_by_finding
