@@ -19,14 +19,15 @@ describe("Info", (): void => {
       result: {
         data: {
           group: {
-            businessId: "",
-            businessName: "",
+            businessId: "1444",
+            businessName: "Testing Company & Mocks",
             description: "group description",
             hasMachine: true,
             hasSquad: true,
             language: "EN",
             name: "TEST",
             service: "WHITE",
+            sprintDuration: "2",
             subscription: "TEST",
           },
         },
@@ -55,10 +56,24 @@ describe("Info", (): void => {
     await waitFor((): void => {
       expect(screen.getByRole("table")).toBeInTheDocument();
     });
+    const thirdRow: number = 3;
+    const fifthRow: number = 5;
 
     expect(
       screen.queryByText("table.noDataIndication")
     ).not.toBeInTheDocument();
     expect(screen.getAllByRole("row")[1].textContent).toBe("LanguageEnglish");
+    expect(screen.getAllByRole("row")[2].textContent).toBe(
+      "Descriptiongroup description"
+    );
+    expect(screen.getAllByRole("row")[thirdRow].textContent).toBe(
+      "Business Registration Number1444"
+    );
+    expect(screen.getAllByRole("row")[4].textContent).toBe(
+      "Business NameTesting Company & Mocks"
+    );
+    expect(screen.getAllByRole("row")[fifthRow].textContent).toBe(
+      "Sprint Duration2"
+    );
   });
 });
