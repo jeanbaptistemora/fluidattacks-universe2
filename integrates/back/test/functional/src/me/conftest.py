@@ -253,7 +253,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="475041521",
-                    id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
+                    id="de70c2f7-7ec7-49aa-9a84-aff4fbe5d1ad",
                     specific="2322",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],

@@ -141,7 +141,7 @@ describe("GitRoots", (): void => {
               groupName={""}
               initialValues={undefined}
               modalMessages={{ message: "", type: "success" }}
-              nicknames={[]}
+              nicknames={["product"]}
               onClose={handleClose}
               onSubmitEnvs={handleSubmit}
               onSubmitRepo={handleSubmit}
@@ -167,6 +167,23 @@ describe("GitRoots", (): void => {
       screen.queryAllByRole("checkbox", { name: "healthCheckConfirm" })
     ).toHaveLength(0);
 
+    // Present just if duplicated when adding
+    expect(
+      screen.queryByRole("textbox", { name: "nickname" })
+    ).not.toBeInTheDocument();
+
+    userEvent.clear(screen.getByRole("textbox", { name: "url" }));
+    userEvent.type(
+      screen.getByRole("textbox", { name: "url" }),
+      "https://gitlab.com/fluidattacks/product"
+    );
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("textbox", { name: "nickname" })
+      ).toBeInTheDocument();
+    });
+
     userEvent.click(screen.getByRole("radio", { name: "Yes" }));
 
     await waitFor((): void => {
@@ -183,6 +200,7 @@ describe("GitRoots", (): void => {
         screen.getByRole("textbox", { name: "gitignore[0]" })
       ).toBeInTheDocument();
     });
+
     jest.clearAllMocks();
   });
 
@@ -254,6 +272,19 @@ describe("GitRoots", (): void => {
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
+
+    // Repository fields
+    await waitFor((): void => {
+      expect(screen.getByRole("textbox", { name: "url" })).toBeInTheDocument();
+    });
+
+    expect(screen.getByRole("textbox", { name: "url" })).toHaveValue(
+      "https://gitlab.com/fluidattacks/product"
+    );
+    // Present always when editing
+    expect(
+      screen.queryByRole("textbox", { name: "nickname" })
+    ).toBeInTheDocument();
 
     await waitFor((): void => {
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
