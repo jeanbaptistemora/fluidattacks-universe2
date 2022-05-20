@@ -11,6 +11,7 @@
     boto3
     cachetools
     click
+    fa-purity
     more-itertools
     mypy-boto3-s3
     python-dateutil

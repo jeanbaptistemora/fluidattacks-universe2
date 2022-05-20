@@ -5,6 +5,7 @@
   python_version,
 }: let
   _python_pkgs = pkgs."${python_version}Packages";
+  fa-purity = typing_ext_override local_pkgs.fa-purity."${python_version}".pkg;
   aioextensions = _python_pkgs.aioextensions.overridePythonAttrs (
     old: rec {
       version = "20.11.1621472";
@@ -29,11 +30,11 @@
         nativeBuildInputs = [_python_pkgs.flit-core];
       };
     };
-  typing_ext_override = let
+  pkg_override = is_pkg: new_pkg: let
     override = x:
-      if x ? overridePythonAttrs && (x.pname == "typing-extensions" || x.pname == "typing_extensions")
-      then python_pkgs.typing-extensions
-      else typing_ext_override x;
+      if x ? overridePythonAttrs && is_pkg x
+      then new_pkg
+      else pkg_override is_pkg new_pkg x;
   in
     pkg:
       if pkg ? overridePythonAttrs
@@ -45,18 +46,20 @@
           }
         )
       else pkg;
+  typing_ext_override = pkg_override (x: (x.pname == "typing-extensions" || x.pname == "typing_extensions")) python_pkgs.typing-extensions;
+  purity_override = pkg_override (x: (x.pname == "fa_purity")) fa-purity;
 in
   python_pkgs
   // {
-    inherit aioextensions;
+    inherit aioextensions fa-purity;
     aiohttp = typing_ext_override python_pkgs.aiohttp;
     asgiref = typing_ext_override python_pkgs.asgiref;
     import-linter = import ./import-linter {
       inherit lib python_pkgs;
     };
-    legacy-paginator = typing_ext_override local_pkgs.legacy-paginator."${python_version}".pkg;
-    legacy-postgres-client = typing_ext_override local_pkgs.legacy-postgres-client."${python_version}".pkg;
-    legacy-singer-io = typing_ext_override local_pkgs.legacy-singer-io."${python_version}".pkg;
+    legacy-paginator = purity_override (typing_ext_override local_pkgs.legacy-paginator."${python_version}".pkg);
+    legacy-postgres-client = purity_override (typing_ext_override local_pkgs.legacy-postgres-client."${python_version}".pkg);
+    legacy-singer-io = purity_override (typing_ext_override local_pkgs.legacy-singer-io."${python_version}".pkg);
     mypy = typing_ext_override python_pkgs.mypy;
     mypy-boto3-s3 = import ./boto3/s3-stubs.nix lib python_pkgs;
     types-boto3 = import ./boto3/stubs.nix lib python_pkgs;
