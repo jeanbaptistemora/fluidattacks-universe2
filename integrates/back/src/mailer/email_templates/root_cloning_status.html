@@ -9,8 +9,8 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      The root with the nickname <strong>{{ root_nickname }}</strong>
-      and id <strong>{{ root_id }}</strong> from the group <strong>{{ group }}</strong> has
+      The root <strong>{{ root_nickname }}</strong> from the group
+      <strong>{{ group }}</strong> has
       {% if is_failed %}
         failed
       {% else %}
@@ -20,6 +20,10 @@
     </p>
     <p>Regards,<br>Fluid Attacks Team</p>
     {{ go_to_button('Go to scope', scope_url) }}
+    <p style="font-size: 15px !important;">
+      <strong>More information about</strong>:<br>
+      <strong>ID</strong>: {{ root_id }}
+    </p>
   </div>
 
   {% include 'layouts/components/footer.html' %}
