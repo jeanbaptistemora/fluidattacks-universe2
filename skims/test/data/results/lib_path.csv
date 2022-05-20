@@ -36253,3 +36253,19 @@ F393,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (xmldom v0.4.0) [GH
   485 |   integrity sha512-2E93k08T30Ugs+34HBSTQLVtpi6mCddaY8uO+pMNk1pqSjV5vElzn4mmh6KLxN3hki8rNcHSYzILoh3TEWORvA==
       ^ Col 0
 ",yarn.npm_yarn_lock_dev
+F416,lines,namespace/skims/test/data/lib_root/f416/xaml_injection.cs,11,94,skims,416. XAML injection,Potentially untrusted HTTP request input reaches a System.Windows.Markup.XamlReader Load method in namespace/skims/test/data/lib_root/f416/xaml_injection.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |     protected void Page_Load(object sender, EventArgs e)
+   7 |     {
+   8 |         string input = Request.Form[""in""];
+   9 |         byte[] bytes = Convert.FromBase64String(input);
+  10 |         MemoryStream ms = new MemoryStream(bytes);
+> 11 |         System.Windows.Markup.XamlReader.Load(ms);
+  12 |     }
+  13 | }
+     ^ Col 0
+",csharp.csharp_xaml_injection
