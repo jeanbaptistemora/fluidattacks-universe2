@@ -14,6 +14,8 @@ import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
 import { HandleEditionModal } from "./HandleEditionModal";
+import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
+import { SortsSuggestionsButton } from "./styles";
 import {
   formatBePresent,
   formatPercentage,
@@ -34,6 +36,7 @@ import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/que
 import type {
   IFilterSet,
   IGroupToeLinesViewProps,
+  ISortsSuggestionAttr,
   IToeLinesAttr,
   IToeLinesConnection,
   IToeLinesData,
@@ -86,6 +89,15 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
     IToeLinesData[]
   >([]);
+  const [isSortsSuggestionsModalOpen, setIsSortsSuggestionsModalOpen] =
+    useState(false);
+  const [
+    selectedToeLinesSortsSuggestions,
+    setSelectedToeLinesSortsSuggestions,
+  ] = useState<ISortsSuggestionAttr[]>();
+  const closeSortsSuggestionsModal: () => void = useCallback((): void => {
+    setIsSortsSuggestionsModalOpen(false);
+  }, []);
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
@@ -110,6 +122,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       rootNickname: true,
       seenAt: false,
       sortsRiskLevel: false,
+      sortsSuggestions: false,
     },
     localStorage
   );
@@ -175,8 +188,32 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     const newSorted = { dataField, order };
     sessionStorage.setItem("toeLinesSort", JSON.stringify(newSorted));
   };
-  const formatRiskLevel = (sortsRiskLevel: number): string =>
+  const formatSortsRiskLevel = (sortsRiskLevel: number): string =>
     sortsRiskLevel >= 0 ? `${sortsRiskLevel.toString()} %` : "n/a";
+
+  const formatSortsSuggestions = (
+    sortsSuggestions: ISortsSuggestionAttr[] | null
+  ): JSX.Element => {
+    const value =
+      _.isNil(sortsSuggestions) || sortsSuggestions.length === 0
+        ? "None"
+        : `${sortsSuggestions.length} available`;
+
+    return (
+      <SortsSuggestionsButton
+        isNone={value === "None"}
+        // eslint-disable-next-line react/jsx-no-bind
+        onClick={(): void => {
+          if (!_.isNil(sortsSuggestions)) {
+            setSelectedToeLinesSortsSuggestions(sortsSuggestions);
+            setIsSortsSuggestionsModalOpen(true);
+          }
+        }}
+      >
+        {value}
+      </SortsSuggestionsButton>
+    );
+  };
 
   const headersToeLinesTable: IHeaderConfig[] = [
     {
@@ -288,10 +325,17 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     },
     {
       dataField: "sortsRiskLevel",
-      formatter: formatRiskLevel,
+      formatter: formatSortsRiskLevel,
       header: t("group.toe.lines.sortsRiskLevel"),
       onSort,
       visible: checkedItems.sortsRiskLevel,
+    },
+    {
+      dataField: "sortsSuggestions",
+      formatter: formatSortsSuggestions,
+      header: t("group.toe.lines.sortsSuggestions"),
+      onSort,
+      visible: checkedItems.sortsSuggestions,
     },
     {
       dataField: "bePresent",
@@ -668,6 +712,11 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
           setSelectedToeLinesDatas={setSelectedToeLinesDatas}
         />
       ) : undefined}
+      <SortsSuggestionsModal
+        closeSortsSuggestionsModal={closeSortsSuggestionsModal}
+        isSortsSuggestionsOpen={isSortsSuggestionsModalOpen}
+        selectedSortsSuggestions={selectedToeLinesSortsSuggestions}
+      />
     </React.StrictMode>
   );
 };

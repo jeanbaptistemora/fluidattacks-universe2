@@ -72,6 +72,7 @@ interface IToeLinesData {
   rootId: string;
   seenAt: Date | undefined;
   sortsRiskLevel: number;
+  sortsSuggestions: ISortsSuggestionAttr[] | null;
 }
 
 interface IGroupToeLinesViewProps {

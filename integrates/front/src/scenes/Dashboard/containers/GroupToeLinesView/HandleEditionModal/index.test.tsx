@@ -71,6 +71,7 @@ describe("handle toe lines edition modal", (): void => {
         rootNickname: "product",
         seenAt: new Date("2020-02-01T15:41:04+00:00"),
         sortsRiskLevel: 80,
+        sortsSuggestions: null,
       },
     ];
     render(
