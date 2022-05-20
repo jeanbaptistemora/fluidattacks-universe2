@@ -37,11 +37,17 @@ interface IToeLinesAttr {
   root: IGitRootAttr;
   seenAt: string;
   sortsRiskLevel: number;
+  sortsSuggestions: ISortsSuggestionAttr[] | null;
 }
 
 interface IGitRootAttr {
   id: string;
   nickname: string;
+}
+
+interface ISortsSuggestionAttr {
+  findingTitle: string;
+  probability: number;
 }
 
 interface IToeLinesData {
@@ -80,4 +86,5 @@ export type {
   IToeLinesConnection,
   IToeLinesData,
   IToeLinesEdge,
+  ISortsSuggestionAttr,
 };

@@ -44,6 +44,10 @@ const GET_TOE_LINES: DocumentNode = gql`
             }
             seenAt
             sortsRiskLevel
+            sortsSuggestions {
+              findingTitle
+              probability
+            }
           }
         }
         pageInfo {
