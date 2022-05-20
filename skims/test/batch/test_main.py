@@ -1,4 +1,4 @@
-# pylint: disable=import-outside-toplevel,broad-except
+# pylint: disable=import-outside-toplevel
 from batch import (
     BatchProcessing,
     main as batch_main,
@@ -24,45 +24,6 @@ from typing import (
 from zone import (
     t,
 )
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("unittesting")
-async def test_main_no_action(mocker: MockerFixture) -> None:
-    mocker.patch("batch.get_action", return_value=None)
-
-    import batch
-
-    try:
-        await batch.main(action_dynamo_pk="test")
-        assert False  # this must throws an exception
-    except Exception as exc:
-        assert "No jobs were found for the key test" in str(exc)
-
-
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("unittesting")
-async def test_main_bad_action(mocker: MockerFixture) -> None:
-    mocker.patch(
-        "batch.get_action",
-        return_value=BatchProcessing(
-            key="test",
-            action_name="bad-action",
-            entity="test",
-            subject="test",
-            time="test",
-            additional_info="test",
-            queue="test",
-        ),
-    )
-
-    import batch
-
-    try:
-        await batch.main(action_dynamo_pk="test")
-        assert False  # this must throws an exception
-    except Exception as exc:
-        assert "Invalid action name" in str(exc)
 
 
 @pytest.mark.asyncio

@@ -53,6 +53,7 @@ from typing import (
 )
 from utils.logs import (
     log_blocking,
+    log_exception_blocking,
 )
 
 
@@ -208,10 +209,18 @@ async def main(  # pylint: disable=too-many-locals)
     )
 
     if not item:
-        raise Exception(f"No jobs were found for the key {action_dynamo_pk}")
+        log_exception_blocking(
+            "exception",
+            Exception("No jobs were found"),
+            action_dynamo_pk=action_dynamo_pk,
+        )
+        return None
 
     if item.action_name != "execute-machine":
-        raise Exception("Invalid action name", item.action_name)
+        log_exception_blocking(
+            "error", Exception("Invalid action"), item=item.key
+        )
+        return None
 
     set_running(action_dynamo_pk=action_dynamo_pk)
     group_name = item.entity
@@ -279,6 +288,7 @@ async def main(  # pylint: disable=too-many-locals)
             await execute_skims(config, group_name, token)
 
     delete_action(action_dynamo_pk=action_dynamo_pk)
+    return None
 
 
 if __name__ == "__main__":
