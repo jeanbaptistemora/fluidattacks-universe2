@@ -1,5 +1,5 @@
 :global .login-grid {
-  width: 500px;
+  width: 400px;
 }
 
 @media screen and (min-height: 530px) {

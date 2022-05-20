@@ -23,7 +23,7 @@ const StyledLoginButton: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `bn br2 f5 white pointer w-100 ${className ?? ""}`,
+    className: `bn br2 f5 pointer w-100 ${className ?? ""}`,
     type: type ?? "button",
   })
 )`

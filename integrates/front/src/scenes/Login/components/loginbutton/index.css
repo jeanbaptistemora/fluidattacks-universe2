@@ -10,14 +10,15 @@
 }
 
 :global .btn-lgoogle {
-  background-color: #c00;
+  background-color: #fff;
+  border: solid 1px #ccc !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 :global .btn-lgoogle:hover {
-  background-color: #8f0000;
+  background-color: #ccc;
 }
 
 :global .btn-lazure {

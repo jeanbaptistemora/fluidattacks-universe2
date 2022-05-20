@@ -3,11 +3,7 @@
   We need className to override default styles from react-boostrap.
 */
 
-import {
-  faBitbucket,
-  faGoogle,
-  faWindows,
-} from "@fortawesome/free-brands-svg-icons";
+import { faBitbucket, faWindows } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -19,6 +15,7 @@ import { LoginButton, LoginContainer, LoginGrid } from "./components";
 
 import { ExternalLink } from "components/ExternalLink";
 import logo from "resources/asm.svg";
+import google from "resources/google.svg";
 import style from "scenes/Login/index.css";
 import {
   ASM_DEPLOYMENT_DATE,
@@ -49,20 +46,16 @@ export const Login: React.FC = (): JSX.Element => {
         <img alt={"logo"} className={style.logo} src={logo} />
         <p className={`tc mt4 mb4 ${style["text-color"]}`}>{t("login.auth")}</p>
         <LoginButton
-          className={"btn-lgoogle mb2"}
+          className={"btn-lgoogle mb2 black"}
           icon={
-            <FontAwesomeIcon
-              className={"f3"}
-              fixedWidth={true}
-              icon={faGoogle}
-            />
+            <img alt={"google"} className={style["ico-google"]} src={google} />
           }
           id={"login-google"}
           onClick={handleGoogleLogin}
           text={t("login.google")}
         />
         <LoginButton
-          className={"btn-lazure mb2"}
+          className={"btn-lazure mb2 white"}
           icon={
             <FontAwesomeIcon
               className={"f3"}
@@ -75,7 +68,7 @@ export const Login: React.FC = (): JSX.Element => {
           text={t("login.microsoft")}
         />
         <LoginButton
-          className={"btn-lbitbucket mb0"}
+          className={"btn-lbitbucket mb0 white"}
           icon={
             <FontAwesomeIcon
               className={"f3"}
@@ -87,7 +80,7 @@ export const Login: React.FC = (): JSX.Element => {
           onClick={handleBitbucketLogin}
           text={t("login.bitbucket")}
         />
-        <div className={`mt4 mb0 tc ${style["text-color"]}`}>
+        <div className={`mt3 mb0 tc ${style["text-color"]}`}>
           <p className={"mb0"}>
             {t("info.deploymentDate")}&nbsp;
             {ASM_DEPLOYMENT_DATE}
