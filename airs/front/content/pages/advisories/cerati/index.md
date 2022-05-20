@@ -17,13 +17,14 @@ template: advisory
 
 ## Summary
 
-|                       |                                                            |
-| --------------------- | ---------------------------------------------------------- |
-| **Name**              | ManageEngine AppManager15 (Build No:15510) - DLL Hijacking |
-| **Code name**         | [Cerati](https://en.wikipedia.org/wiki/Gustavo_Cerati)     |
-| **Product**           | ManageEngine                                               |
-| **Affected versions** | AppManager15 (Build No:15510)                              |
-| **State**             | Unpublished/Contacted Vendor                               |
+|                         |                                                            |
+|-------------------------|------------------------------------------------------------|
+| **Name**                | ManageEngine AppManager15 (Build No:15510) - DLL Hijacking |
+| **Code name**           | [Cerati](https://en.wikipedia.org/wiki/Gustavo_Cerati)     |
+| **Product**             | ManageEngine                                               |
+| **Affected versions**   | AppManager15 (Build No:15510)                              |
+| **Affected versions**   | AppManager15 (Build No:15520)                              |
+| **State**               | Public                                                     |
 
 ## Vulnerability
 
@@ -39,23 +40,44 @@ template: advisory
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+ManageEngine AppManager15 `(Build No:15510)` allows an
+authenticated admin user to upload a DLL file to perform
+a DLL hijack attack inside the `working` folder through
+the `Upload Files / Binaries` functionality.
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+### Steps to reproduce
+
+1. Log in as an admin user.
+2. Go to `Settings`.
+3. Go to the `Tools` section and click on `Upload Files / Binaries`.
+4. Select the `Upload Script to <Product_Home>/working/` option.
+5. Create a malicious DLL with one of the following names
+
+    ```
+    MSASN1.dll
+    WTSAPI32.dll
+    CRYPTSP.dll
+    CRYPTBASE.dll
+    ```
+
+6. Upload the file.
+7. Go to `Shutdown / Restart Service` and click on `Restart`
+8. Wait for the service to restart in order to load the DLL file.
+
+### System Information
+
+* Version: ManageEngine AppManager15 (Build No:15510).
+* Operating System: Windows 10.0.19042 N/A Build 19042.
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+There is no exploit for the vulnerability but can be manually exploited.
 
 ## Mitigation
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+An updated version of ManageEngine is available at the vendor page.
 
 ## Credits
 
@@ -66,15 +88,19 @@ Team of  `Fluid Attacks`.
 
 ## References
 
-**Vendor page** <https://www.manageengine.com/>
+|                     |                                                                                 |
+|---------------------|---------------------------------------------------------------------------------|
+| **Vendor page**     | <https://www.manageengine.com/>                                                 |
+| **Release notes**   | <https://www.manageengine.com/products/applications_manager/release-notes.html> |
+| **Latest version** | <https://www.manageengine.com/products/applications_manager/download.html> |
 
 ## Timeline
 
 <time-lapse
   discovered="2022-02-03"
   contacted="2022-02-03"
-  replied=""
-  confirmed=""
-  patched=""
-  disclosure="">
+  replied="2022-02-04"
+  confirmed="2022-02-08"
+  patched="2022-05-19"
+  disclosure="2022-05-20">
 </time-lapse>

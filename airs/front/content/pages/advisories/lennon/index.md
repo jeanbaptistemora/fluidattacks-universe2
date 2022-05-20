@@ -40,7 +40,7 @@ template: advisory
 
 ## Description
 
-Proton **v0.2.1** allows an attacker to create a malicious
+Proton **v0.2.0** allows an attacker to create a malicious
 link inside a markdown file. When the victim clicks the link,
 the application opens the site in the current frame allowing
 an attacker to host JavaScript code in the malicious link in
@@ -74,7 +74,7 @@ an attacker can leverage this to run OS commands.
 
 ### System Information
 
-* Version: Proton v0.2.1.
+* Version: Proton v0.2.0.
 * Operating System: Windows 10.0.19042 N/A Build 19042.
 * Installer: Proton.Setup.0.2.0.exe
 
