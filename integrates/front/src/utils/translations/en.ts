@@ -3179,6 +3179,7 @@ export const enTranslations: ResourceKey = {
     alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
     columns: "At least 1 column must be shown",
+    commitHash: "The commit hash is invalid",
     datetime: "The datetime format is not valid",
     datetimeBetween: "The datetime must be between {{from}} and {{to}}",
     draftTitle: "The title format is not valid",

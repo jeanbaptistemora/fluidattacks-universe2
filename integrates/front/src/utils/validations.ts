@@ -230,6 +230,12 @@ const validEmail: Validator = matchesPattern(
   message: translate.t("validations.email"),
 });
 
+const validCommitHash: Validator = matchesPattern(
+  /^[A-Fa-f0-9]{40}$|^[A-Fa-f0-9]{64}$/u
+)({
+  message: translate.t("validations.commitHash"),
+});
+
 const validDraftTitle: (title: string) => string | undefined = (
   title: string
 ): string | undefined => {
@@ -564,6 +570,7 @@ export {
   isValidPhoneNumber,
   isValidVulnSeverity,
   isFloatOrInteger,
+  validCommitHash,
   validDatetime,
   validEventFile,
   validEvidenceImage,
