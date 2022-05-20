@@ -23,7 +23,7 @@ template: advisory
 | **Code name**           | [Cerati](https://en.wikipedia.org/wiki/Gustavo_Cerati)     |
 | **Product**             | ManageEngine                                               |
 | **Affected versions**   | AppManager15 (Build No:15510)                              |
-| **Affected versions**   | AppManager15 (Build No:15520)                              |
+| **Fixed versions**      | AppManager15 (Build No:15520)                              |
 | **State**               | Public                                                     |
 
 ## Vulnerability
