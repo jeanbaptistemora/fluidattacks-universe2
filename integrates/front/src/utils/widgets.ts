@@ -51,6 +51,10 @@ const initializeZendesk = (userEmail: string, userName: string): void => {
     zE("webWidget:on", "close", hideZendesk);
     zE("webWidget", "setLocale", "en-US");
     zE("webWidget", "identify", { email: userEmail, name: userName });
+    zE("webWidget", "prefill", {
+      email: { value: userEmail },
+      name: { value: userName },
+    });
   } catch (exception: unknown) {
     Logger.warning("Zendesk widget failed to load", exception);
   }
