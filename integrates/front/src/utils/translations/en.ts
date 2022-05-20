@@ -1119,6 +1119,7 @@ export const enTranslations: ResourceKey = {
         root: "Root",
         seenAt: "Seen at",
         sortsRiskLevel: "Priority (IA/ML)",
+        sortsSuggestions: "Suggested Vulnerabilities",
         yes: "Yes",
       },
       tabs: {
