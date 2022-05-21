@@ -31,9 +31,21 @@ import {
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const AddOrganization: React.FC = (): JSX.Element => {
+type setNames = React.Dispatch<React.SetStateAction<string>>;
+
+interface IAddOrganizationProps {
+  onCompleted: () => void;
+  setGroupName: setNames;
+  setOrgName: setNames;
+}
+
+const AddOrganization: React.FC<IAddOrganizationProps> = ({
+  onCompleted,
+  setGroupName,
+  setOrgName,
+}: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
-  const { goBack, replace } = useHistory();
+  const { goBack } = useHistory();
 
   const [addOrganization, { loading: submittingOrg }] =
     useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
@@ -119,11 +131,11 @@ const AddOrganization: React.FC = (): JSX.Element => {
           subscription: "CONTINUOUS",
         },
       });
-      localStorage.clear();
-      sessionStorage.clear();
-      replace(`/orgs/${values.organizationName.toLowerCase()}/groups`);
+      setGroupName(values.groupName.toUpperCase());
+      setOrgName(values.organizationName.toUpperCase());
+      onCompleted();
     },
-    [addGroup, addOrganization, replace]
+    [addGroup, addOrganization, onCompleted, setGroupName, setOrgName]
   );
 
   const minLenth = 4;

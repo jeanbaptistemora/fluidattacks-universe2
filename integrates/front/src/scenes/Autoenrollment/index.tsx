@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import { AddOrganization } from "./components/AddOrganization";
 import { AddRoot } from "./components/AddRoot";
@@ -16,6 +16,15 @@ import { Logger } from "utils/logger";
 
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
+
+  const { push } = useHistory();
+  const goToRoot = useCallback((): void => {
+    push("/autoenrollment/repository");
+  }, [push]);
+
+  const [orgName, setOrgName] = useState("");
+  const [groupName, setGroupName] = useState("");
+  const [isRepository, setIsRepository] = useState(false);
 
   const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME, {
     onError: (error): void => {
@@ -32,7 +41,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const organizations = data === undefined ? [] : data.me.organizations;
   const isFirstTimeUser = organizations.length === 0;
 
-  if (isFirstTimeUser) {
+  if (isFirstTimeUser || !isRepository) {
     return (
       <Container>
         <Sidebar />
@@ -49,7 +58,11 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                   <Row justify={"center"}>
                     <Col large={"25"} medium={"50"} small={"70"}>
                       <FormContent>
-                        <AddOrganization />
+                        <AddOrganization
+                          onCompleted={goToRoot}
+                          setGroupName={setGroupName}
+                          setOrgName={setOrgName}
+                        />
                       </FormContent>
                     </Col>
                   </Row>
@@ -68,14 +81,18 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                   <Row justify={"center"}>
                     <Col large={"40"} medium={"60"} small={"80"}>
                       <FormContent>
-                        <AddRoot />
+                        <AddRoot
+                          group={groupName}
+                          organizationName={orgName}
+                          setIsRepository={setIsRepository}
+                        />
                       </FormContent>
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </Route>
-            <Redirect to={"/autoenrollment/repository"} />
+            <Redirect to={"/autoenrollment/organization"} />
           </Switch>
         </DashboardContent>
       </Container>

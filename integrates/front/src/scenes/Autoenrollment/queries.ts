@@ -1,31 +1,28 @@
 import { gql } from "@apollo/client";
 
-const GET_USER_WELCOME = gql`
-  query GetUserWelcome {
-    me {
-      organizations {
-        name
-      }
-      userEmail
-    }
-  }
-`;
-
-const ADD_ORGANIZATION = gql`
-  mutation AddOrganization($name: String!) {
-    addOrganization(name: $name) {
-      organization {
-        id
-        name
-      }
-      success
-    }
-  }
-`;
-
-const AUTOENROLL_DEMO = gql`
-  mutation AutoenrollDemo {
-    autoenrollDemo {
+const ADD_GIT_ROOT = gql`
+  mutation AddGitRoot(
+    $branch: String!
+    $credentials: CredentialsInput
+    $environment: String!
+    $gitignore: [String!]!
+    $groupName: String!
+    $includesHealthCheck: Boolean!
+    $nickname: String!
+    $url: String!
+    $useVpn: Boolean!
+  ) {
+    addGitRoot(
+      branch: $branch
+      credentials: $credentials
+      environment: $environment
+      gitignore: $gitignore
+      groupName: $groupName
+      includesHealthCheck: $includesHealthCheck
+      nickname: $nickname
+      url: $url
+      useVpn: $useVpn
+    ) {
       success
     }
   }
@@ -57,7 +54,39 @@ const ADD_GROUP_MUTATION = gql`
   }
 `;
 
+const ADD_ORGANIZATION = gql`
+  mutation AddOrganization($name: String!) {
+    addOrganization(name: $name) {
+      organization {
+        id
+        name
+      }
+      success
+    }
+  }
+`;
+
+const AUTOENROLL_DEMO = gql`
+  mutation AutoenrollDemo {
+    autoenrollDemo {
+      success
+    }
+  }
+`;
+
+const GET_USER_WELCOME = gql`
+  query GetUserWelcome {
+    me {
+      organizations {
+        name
+      }
+      userEmail
+    }
+  }
+`;
+
 export {
+  ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
   AUTOENROLL_DEMO,
