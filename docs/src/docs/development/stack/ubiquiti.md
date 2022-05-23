@@ -9,7 +9,8 @@ slug: /development/stack/ubiquiti
 
 [Ubiquiti][UBIQUITI]
 EdgeRouter 8 is the router we mainly use
-to create VPN tunnels with some clients.
+to create VPN tunnels with some clients, and for
+direct access with some clients via MPLS.
 
 ## Usage
 
@@ -129,7 +130,7 @@ VPN tunnel:
 1. Set up the destination ip. Example:
 
    ```bash
-    set vpn ipsec site-to-site peer $client-peer 1 remote prefix $client-remote
+    set vpn ipsec site-to-site peer $client-peer tunnel 1 remote prefix $client-remote
    ```
 
    where `$client-remote` is the remote IP which the tunnel will connect.
