@@ -6,6 +6,7 @@
     ./criteria/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
+    ./google/makes.nix
     ./kubernetes/makes.nix
     ./okta/makes.nix
     ./pipeline/makes.nix

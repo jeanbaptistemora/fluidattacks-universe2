@@ -1,0 +1,166 @@
+closure:
+  cachetools: 5.1.0
+  certifi: 2022.5.18.1
+  charset-normalizer: 2.0.12
+  google-api-core: 2.8.0
+  google-api-python-client: 2.48.0
+  google-auth: 2.6.6
+  google-auth-httplib2: 0.1.0
+  google-auth-oauthlib: 0.5.1
+  googleapis-common-protos: 1.56.1
+  httplib2: 0.20.4
+  idna: "3.3"
+  oauthlib: 3.2.0
+  protobuf: 3.20.1
+  pyasn1: 0.4.8
+  pyasn1-modules: 0.2.8
+  pyparsing: 3.0.9
+  requests: 2.27.1
+  requests-oauthlib: 1.3.1
+  rsa: "4.8"
+  six: 1.16.0
+  uritemplate: 4.1.1
+  urllib3: 1.26.9
+links:
+  - name: cachetools-5.1.0-py3-none-any.whl
+    sha256: 070l1d10rqv9rskxiwi915bv92i4xm8xhlgps41kdzfd063x7fsf
+    url: https://files.pythonhosted.org/packages/99/33/c605db9880c7bf6d58db6bb2953860b1927d28dd033d3bea82323d4e7b25/cachetools-5.1.0-py3-none-any.whl
+  - name: cachetools-5.1.0.tar.gz
+    sha256: 162s7xzz1q1c0yxg5aqkan8py7lmk1kqks91nbjn4isn7yjqyfwb
+    url: https://files.pythonhosted.org/packages/1c/bf/f240cea66ada23676c635411f5dd2ad1a04bd8cf39804080e3e903203b5a/cachetools-5.1.0.tar.gz
+  - name: certifi-2022.5.18.1-py3-none-any.whl
+    sha256: 0aiqjyji7vx0ri8b0yb3rmzjjg5k5wvqcmlb27idpglcxr13bmgi
+    url: https://files.pythonhosted.org/packages/11/dd/e015f3780f42dd9af62cf0107b44ea1298926627ecd70c17b0e484e95bcd/certifi-2022.5.18.1-py3-none-any.whl
+  - name: certifi-2022.5.18.1.tar.gz
+    sha256: 1dqyyy887h62ysffrwj6rq45wrb53v2db2nxa51hhw6djpihamww
+    url: https://files.pythonhosted.org/packages/07/10/75277f313d13a2b74fc56e29239d5c840c2bf09f17bf25c02b35558812c6/certifi-2022.5.18.1.tar.gz
+  - name: charset_normalizer-2.0.12-py3-none-any.whl
+    sha256: 1pxim0sfz7gq157k9kv88kxxzvgnid1ip0maxas3jyxipnzfv0b8
+    url: https://files.pythonhosted.org/packages/06/b3/24afc8868eba069a7f03650ac750a778862dc34941a4bebeb58706715726/charset_normalizer-2.0.12-py3-none-any.whl
+  - name: charset-normalizer-2.0.12.tar.gz
+    sha256: 15r5hf9p6v7s3h3zplz6dvwrg9ni942j78vwrm1bhkfky2gy4mr8
+    url: https://files.pythonhosted.org/packages/56/31/7bcaf657fafb3c6db8c787a865434290b726653c912085fbd371e9b92e1c/charset-normalizer-2.0.12.tar.gz
+  - name: google_api_core-2.8.0-py3-none-any.whl
+    sha256: 07ckyracl3xzys9jh0rxwmljd6p7awlz5m61hykfkfp1dhimk7qv
+    url: https://files.pythonhosted.org/packages/36/24/22aebcf612e2705cff528279b1c7c8a9662231add2674631596bbcc4bf82/google_api_core-2.8.0-py3-none-any.whl
+  - name: google-api-core-2.8.0.tar.gz
+    sha256: 1csn25n5x60mfn46hiavr6rzb2hwviihkrbsf0rd4pv03khvhnq6
+    url: https://files.pythonhosted.org/packages/52/9e/c2f8458c4ca67b2b1b88b3b4b04dd5513b188eec300089ada2cb56ba8ff3/google-api-core-2.8.0.tar.gz
+  - name: google_api_python_client-2.48.0-py2.py3-none-any.whl
+    sha256: 02xkz1a58wnzdrfnmpb7ijwq73v2alnl3nk8mcj5cycaa6wgf9s5
+    url: https://files.pythonhosted.org/packages/6f/d8/7cb754f345bf64dcc97618c0b81ab92551974d4c6887b33f3b240ba1dc78/google_api_python_client-2.48.0-py2.py3-none-any.whl
+  - name: google-api-python-client-2.48.0.tar.gz
+    sha256: 0c0kkwxz1fwiwwkxh2yvqzsfs0z5ksx187ddvipm7qy6xbbl6330
+    url: https://files.pythonhosted.org/packages/32/ce/a3ddd0d18ab4364482e42e166ae3cd61307499a936ad384663438d10bf83/google-api-python-client-2.48.0.tar.gz
+  - name: google_auth-2.6.6-py2.py3-none-any.whl
+    sha256: 0zf7g9dkmaxp0901hby9g2bp6wnp5v4i37697i2ij45h32dw96il
+    url: https://files.pythonhosted.org/packages/fc/04/ea9a945a6fbd7f7f977fcf7e300a715f1635939e5daf141b95068abaa5ec/google_auth-2.6.6-py2.py3-none-any.whl
+  - name: google-auth-2.6.6.tar.gz
+    sha256: 04ikassansqkkw4pa98in7q9r4z001m6bi2r3ssxwwrb0f79790v
+    url: https://files.pythonhosted.org/packages/fd/8c/3c24a436775d6582effe4ecaf33b2562e6a7f0cbc647a293c764c5eac9ee/google-auth-2.6.6.tar.gz
+  - name: google_auth_httplib2-0.1.0-py2.py3-none-any.whl
+    sha256: 042a3yfgl0ic4mksyqysz4nisghy08zcn5r6x1bknr5mqqv9rr1i
+    url: https://files.pythonhosted.org/packages/ba/db/721e2f3f32339080153995d16e46edc3a7657251f167ddcb9327e632783b/google_auth_httplib2-0.1.0-py2.py3-none-any.whl
+  - name: google-auth-httplib2-0.1.0.tar.gz
+    sha256: 1b1hrhah01hx6bj3rb83iybrdwqv0bbdy63py39srv1bcgykjz50
+    url: https://files.pythonhosted.org/packages/c6/b5/a9e956fd904ecb34ec9d297616fe98fa4106fc12f3b0a914dec983c267b9/google-auth-httplib2-0.1.0.tar.gz
+  - name: google_auth_oauthlib-0.5.1-py2.py3-none-any.whl
+    sha256: 1c7750x223gkpzbpgdgwip66msqxbbp1sbyyvcs72k1wa4spgxi4
+    url: https://files.pythonhosted.org/packages/ee/43/2160e91ab8bd0182378656ca4ef977ba43aa5ac96ff6b09f3c193513d1e4/google_auth_oauthlib-0.5.1-py2.py3-none-any.whl
+  - name: google-auth-oauthlib-0.5.1.tar.gz
+    sha256: 1f656rdhiiwds9kfmslr6m5znh6ck14qw11grbd8z0669y16nn9h
+    url: https://files.pythonhosted.org/packages/14/49/9f23d33e5872446c8162d63f035f222c1d0d74d0fbe00cea9e2538351432/google-auth-oauthlib-0.5.1.tar.gz
+  - name: googleapis_common_protos-1.56.1-py2.py3-none-any.whl
+    sha256: 0x710xqdh4w5x0jvmrfd15yyv8gsfd9lgyjryrl96n5nbddrbkfx
+    url: https://files.pythonhosted.org/packages/00/11/2a8d766a5b2378e243fdce6b7e74cc961594a8cf1c3d6ddab1ef99cbb717/googleapis_common_protos-1.56.1-py2.py3-none-any.whl
+  - name: googleapis-common-protos-1.56.1.tar.gz
+    sha256: 16x1pjc34mrj9w130j40r23ndpykhsqivvk5xfl63ss6qsfyapkb
+    url: https://files.pythonhosted.org/packages/a6/65/e178ee378323aabdd3a283d9030dc39872de6ee3500bec853f302d3987a0/googleapis-common-protos-1.56.1.tar.gz
+  - name: httplib2-0.20.4-py3-none-any.whl
+    sha256: 0hw58lpmqfx3nmn0b3smghgk9p1n7jczssc67z8fz7n7n5f90slb
+    url: https://files.pythonhosted.org/packages/59/0f/29725a9caf4b2618f524e0f28e2bda91aca8f880123ec77426ede6ea1ea4/httplib2-0.20.4-py3-none-any.whl
+  - name: httplib2-0.20.4.tar.gz
+    sha256: 11f5nng2bvvsnjjhw9f4p87wyvk6c4lmv41z0xrq595ini2qxaaq
+    url: https://files.pythonhosted.org/packages/9c/65/57ad964eb8d45cc3d1316ce5ada2632f74e35863a0e57a52398416a182a1/httplib2-0.20.4.tar.gz
+  - name: idna-3.3-py3-none-any.whl
+    sha256: 1zrm4xnjas13byafi11ma2q8h5rr1fmjwvi41xp5k07sgw2dvnc4
+    url: https://files.pythonhosted.org/packages/04/a2/d918dcd22354d8958fe113e1a3630137e0fc8b44859ade3063982eacd2a4/idna-3.3-py3-none-any.whl
+  - name: idna-3.3.tar.gz
+    sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
+    url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
+  - name: oauthlib-3.2.0-py3-none-any.whl
+    sha256: 1zi2614wn1kc5y00w1jlhdsr63sxpzzd9nx6yfvzk1s76m039cvd
+    url: https://files.pythonhosted.org/packages/1d/46/5ee2475e1b46a26ca0fa10d3c1d479577fde6ee289f8c6aa6d7ec33e31fd/oauthlib-3.2.0-py3-none-any.whl
+  - name: oauthlib-3.2.0.tar.gz
+    sha256: 18i7zbv86vrlblzyfvy1qv19vv8m1al1zlwzl9z7j0mrfn6j1a13
+    url: https://files.pythonhosted.org/packages/6e/7e/a43cec8b2df28b6494a865324f0ac4be213cb2edcf1e2a717547a93279b0/oauthlib-3.2.0.tar.gz
+  - name: protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1drzm60fzak3xjfg63wj2w7rg80lv4w1cnx8v0jkdlm328an0l3g
+    url: https://files.pythonhosted.org/packages/0b/db/2b07ad1542511b0b2b2c1796c316c5063f9724b86240f5e6accc1fde5e5f/protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
+    sha256: 13xpqsb6wf326hjjnx61cjaqzfrn78jfnmp9sx17b2bw42k8ckr8
+    url: https://files.pythonhosted.org/packages/9f/b0/bf25cdbab8841d9111f0f13578150d232339a6483383589648592fe84f4b/protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
+  - name: protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 1yc2i58c1p8ajcx2h0jsi803fmjp28zb52xac40x94h9dlgr80vl
+    url: https://files.pythonhosted.org/packages/98/d9/63b47f719d3cc0f29b36e870ad1d9447b8eef398c2a7b548e67298d9f652/protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: protobuf-3.20.1-py2.py3-none-any.whl
+    sha256: 126394l6282qjja9shqm2crarw0qxx79d4y74kym133zkkv6rz5d
+    url: https://files.pythonhosted.org/packages/ef/c8/2e7f7feaf804b7206e6cc8fa3f0f49834a78f7cb127813d2c45e42d5f7bf/protobuf-3.20.1-py2.py3-none-any.whl
+  - name: protobuf-3.20.1.tar.gz
+    sha256: 1ja2vpk9nklllmsirmil2s4l7ni9yfqvbvj47zz5xx17s1k1bhxd
+    url: https://files.pythonhosted.org/packages/19/96/1283259c25bc48a6df98fa096f66fc568b40137b93806ef5ff66a2d166b1/protobuf-3.20.1.tar.gz
+  - name: pyasn1-0.4.8-py2.py3-none-any.whl
+    sha256: 0pda8szs8jsaknf4ggilgn2q8vpwdm2nzyw79vzlfnai63nf5irr
+    url: https://files.pythonhosted.org/packages/62/1e/a94a8d635fa3ce4cfc7f506003548d0a2447ae76fd5ca53932970fe3053f/pyasn1-0.4.8-py2.py3-none-any.whl
+  - name: pyasn1-0.4.8.tar.gz
+    sha256: 1fnhbi3rmk47l9851gbik0flfr64vs5j0hbqx24cafjap6gprxxf
+    url: https://files.pythonhosted.org/packages/a4/db/fffec68299e6d7bad3d504147f9094830b704527a7fc098b721d38cc7fa7/pyasn1-0.4.8.tar.gz
+  - name: pyasn1_modules-0.2.8-py2.py3-none-any.whl
+    sha256: 0x0cilayca3lm2wahmxz3z9v7jqnn3v82nfj3mhb6z5rzs7q02x5
+    url: https://files.pythonhosted.org/packages/95/de/214830a981892a3e286c3794f41ae67a4495df1108c3da8a9f62159b9a9d/pyasn1_modules-0.2.8-py2.py3-none-any.whl
+  - name: pyasn1-modules-0.2.8.tar.gz
+    sha256: 0pp6dcagd8c2c9qx3lahc1rdwlnmm0y0siqr5icjq2r32b3q8pwh
+    url: https://files.pythonhosted.org/packages/88/87/72eb9ccf8a58021c542de2588a867dbefc7556e14b2866d1e40e9e2b587e/pyasn1-modules-0.2.8.tar.gz
+  - name: pyparsing-3.0.9-py3-none-any.whl
+    sha256: 1g3b426kswh9ndjdlkpf9ba0fhwz5c2hjbxb3nvfzshfl7lvl9jh
+    url: https://files.pythonhosted.org/packages/6c/10/a7d0fa5baea8fe7b50f448ab742f26f52b80bfca85ac2be9d35cdd9a3246/pyparsing-3.0.9-py3-none-any.whl
+  - name: pyparsing-3.0.9.tar.gz
+    sha256: 1yvhdm0wdc1n20fzl0qly13llr0zcg9wl7mp37r8gdi1gp7hw0ib
+    url: https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz
+  - name: requests-2.27.1-py2.py3-none-any.whl
+    sha256: 0bg7c13nfm400gx7wn5kjbjfjyz1b6bwf6p4wqbgvpf9akjs2bzj
+    url: https://files.pythonhosted.org/packages/2d/61/08076519c80041bc0ffa1a8af0cbd3bf3e2b62af10435d269a9d0f40564d/requests-2.27.1-py2.py3-none-any.whl
+  - name: requests-2.27.1.tar.gz
+    sha256: 0qcsbi919d689xqlgyhw9zkppp1fs6k09wwffa3ri6d8smpwbmv8
+    url: https://files.pythonhosted.org/packages/60/f3/26ff3767f099b73e0efa138a9998da67890793bfa475d8278f84a30fec77/requests-2.27.1.tar.gz
+  - name: requests_oauthlib-1.3.1-py2.py3-none-any.whl
+    sha256: 1dfspmj87kr7nc1d22aqy7z0dhs7dq6hk7f00jihb3gvl80waxr5
+    url: https://files.pythonhosted.org/packages/6f/bb/5deac77a9af870143c684ab46a7934038a53eb4aa975bc0687ed6ca2c610/requests_oauthlib-1.3.1-py2.py3-none-any.whl
+  - name: requests-oauthlib-1.3.1.tar.gz
+    sha256: 0yhdrwn4bijjzfmbjci3zspmd27q3v9nlpgasnafn7l88x5argkm
+    url: https://files.pythonhosted.org/packages/95/52/531ef197b426646f26b53815a7d2a67cb7a331ef098bb276db26a68ac49f/requests-oauthlib-1.3.1.tar.gz
+  - name: rsa-4.8-py3-none-any.whl
+    sha256: 1fshd62fvf7f8cia5hrwcpypi565csjqnhlcf1lywyg8qh0d7icm
+    url: https://files.pythonhosted.org/packages/30/ab/8fd9e88e6fa5ec41afca995938bbefb72195278e0cfc5bd76a4f29b23fb2/rsa-4.8-py3-none-any.whl
+  - name: rsa-4.8.tar.gz
+    sha256: 05vbvxavxk80cbljm764pwmlwrrvia51yqsa63j7yfslgbfdjssw
+    url: https://files.pythonhosted.org/packages/8c/ee/4022542e0fed77dd6ddade38e1e4dea3299f873b7fd4e6d78319953b0f83/rsa-4.8.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: uritemplate-4.1.1-py2.py3-none-any.whl
+    sha256: 0bp08jq51nrjha3sgfc4dwk3d2cflfa5kl7alhp33pcvv6w0h343
+    url: https://files.pythonhosted.org/packages/81/c0/7461b49cd25aeece13766f02ee576d1db528f1c37ce69aee300e075b485b/uritemplate-4.1.1-py2.py3-none-any.whl
+  - name: uritemplate-4.1.1.tar.gz
+    sha256: 1w14a775d92mx9pdhb5zimifpfr2lfcn0vfdpjagcy9vbkyfsij3
+    url: https://files.pythonhosted.org/packages/d2/5a/4742fdba39cd02a56226815abfa72fe0aa81c33bed16ed045647d6000eba/uritemplate-4.1.1.tar.gz
+  - name: urllib3-1.26.9-py2.py3-none-any.whl
+    sha256: 051c8x2xchkhcrvagwzw4p4jx6j6ym4cdlcvgik6yw5i7zay9v24
+    url: https://files.pythonhosted.org/packages/ec/03/062e6444ce4baf1eac17a6a0ebfe36bb1ad05e1df0e20b110de59c278498/urllib3-1.26.9-py2.py3-none-any.whl
+  - name: urllib3-1.26.9.tar.gz
+    sha256: 13j4mkk6vgix4bixfqk3fhydsl3r5f61z94ss4fmwsl0fxjg3fma
+    url: https://files.pythonhosted.org/packages/1b/a5/4eab74853625505725cefdf168f48661b2cd04e7843ab836f3f63abf81da/urllib3-1.26.9.tar.gz
+python: "3.9"
