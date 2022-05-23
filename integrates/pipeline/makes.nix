@@ -106,6 +106,7 @@
     ["update_toe_input"]
     ["update_toe_lines_attacked_lines"]
     ["update_toe_lines_sorts"]
+    ["update_url_root"]
     ["update_vulnerabilities_treatment"]
     ["update_vulnerability_commit"]
     ["update_vulnerability_treatment"]

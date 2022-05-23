@@ -28,8 +28,8 @@ from db_model.roots.enums import (
     RootType,
 )
 from db_model.roots.types import (
-    IPRoot,
-    IPRootState,
+    URLRoot,
+    URLRootState,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -47,7 +47,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_ip_root")
+@pytest.mark.resolver_test_group("update_url_root")
 @pytest.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data: dict[str, Any] = {
@@ -91,21 +91,23 @@ async def populate() -> bool:
         ],
         "roots": [
             {
-                "root": IPRoot(
+                "root": URLRoot(
                     group_name="group123",
                     id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     organization_name="org123",
-                    state=IPRootState(
-                        address="https://gitlab.com/fluidattacks/test",
+                    state=URLRootState(
+                        host="app.fluidattacks.com",
                         modified_by="test@fluidattacks.com",
                         modified_date="2022-02-10T14:58:10+00:00",
-                        nickname="test123",
-                        other="",
-                        port="444",
-                        reason="",
+                        nickname="test_nickname_3",
+                        other=None,
+                        path="/",
+                        port="8080",
+                        protocol="HTTPS",
+                        reason=None,
                         status=RootStatus.ACTIVE,
                     ),
-                    type=RootType.IP,
+                    type=RootType.URL,
                 ),
                 "historic_state": [],
             }
@@ -149,47 +151,6 @@ async def populate() -> bool:
                     where="test/data/lib_path/f060/csharp.cs",
                     commit="4af88aa99f5ba20456560dd89ed380cbf81c2b1e",
                 ),
-            },
-            {
-                "vulnerability": Vulnerability(
-                    finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
-                    id="06b0e56b-db07-4420-88f7-f8ad1561a444",
-                    root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                    specific="909",
-                    state=VulnerabilityState(
-                        modified_by="test@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
-                        source=Source.ASM,
-                        status=VulnerabilityStateStatus.OPEN,
-                    ),
-                    type=VulnerabilityType.LINES,
-                    unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2019-04-08T00:45:11+00:00",
-                        unreliable_source=Source.ASM,
-                    ),
-                    where="test/data/lib_path/f050/csharp.cs",
-                    commit="f58490fab40762048474be2bae4735c82714946e",
-                ),
-            },
-            {
-                "vulnerability": Vulnerability(
-                    finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
-                    id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                    specific="9999",
-                    state=VulnerabilityState(
-                        modified_by="test@fluidattacks.com",
-                        modified_date="2018-04-08T00:45:14+00:00",
-                        source=Source.ASM,
-                        status=VulnerabilityStateStatus.OPEN,
-                    ),
-                    unreliable_indicators=VulnerabilityUnreliableIndicators(
-                        unreliable_report_date="2018-04-08T00:45:14+00:00",
-                        unreliable_source=Source.ASM,
-                        unreliable_treatment_changes=0,
-                    ),
-                    type=VulnerabilityType.PORTS,
-                    where="192.168.1.20",
-                )
             },
         ],
     }
