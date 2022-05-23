@@ -17,6 +17,9 @@ from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
 )
+from db_model.roots.types import (
+    GitRootCloning,
+)
 from db_model.users.types import (
     User,
 )
@@ -248,6 +251,7 @@ async def send_mail_root_cloning_status(
     loaders: Any,
     email_to: List[str],
     group_name: str,
+    last_successful_clone: Optional[GitRootCloning],
     root_creation_date: str,
     root_nickname: str,
     root_id: str,
@@ -257,10 +261,26 @@ async def send_mail_root_cloning_status(
 ) -> None:
     cloning_state: str = "failed" if is_failed else "changed"
     org_name = await get_organization_name(loaders, group_name)
+    last_clone_date = None
+    days = None
+
+    if last_successful_clone and not is_failed:
+        last_clone_date = datetime_utils.get_date_from_iso_str(
+            last_successful_clone.modified_date
+        )
+        days = (
+            datetime_utils.get_now()
+            - datetime_utils.get_datetime_from_iso_str(
+                last_successful_clone.modified_date
+            )
+        ).days
+
     email_context: dict[str, Any] = {
         "is_failed": is_failed,
+        "days": days,
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group": group_name,
+        "last_clone_date": last_clone_date,
         "root_creation_date": str(
             datetime_utils.get_date_from_iso_str(root_creation_date)
         ),

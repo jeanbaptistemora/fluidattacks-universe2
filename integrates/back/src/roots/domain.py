@@ -950,11 +950,15 @@ async def send_mail_root_cloning_status(
         roles=roles,
     )
     creation_date = await get_first_cloning_date(loaders, root_id)
+    last_cloning_successful = await get_last_cloning_successful(
+        loaders, root_id
+    )
 
     await groups_mail.send_mail_root_cloning_status(
         loaders=loaders,
         email_to=users_email,
         group_name=group_name,
+        last_successful_clone=last_cloning_successful,
         root_creation_date=creation_date,
         root_nickname=root_nickname,
         root_id=root_id,
@@ -1251,9 +1255,9 @@ async def get_last_cloning_successful(
         tuple(group)
         for _, group in groupby(historic_cloning, key=attrgetter("status"))
     )
-    last_cloning_ok = status_changes[-3]
 
-    if last_cloning_ok:
+    if len(status_changes) > 2:
+        last_cloning_ok = status_changes[-3]
         last_cloning: GitRootCloning = last_cloning_ok[-1]
         if last_cloning.status == "OK":
             return last_cloning

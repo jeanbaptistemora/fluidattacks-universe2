@@ -16,8 +16,16 @@
       {% else %}
         changed status from <strong>not cloning</strong> to
       {% endif %}
-      <strong>cloning</strong> {{ report_date }}.<br>
+      <strong>cloning</strong> {{ report_date }}.
     </p>
+    {% if last_clone_date %}
+      <p>
+        <strong>Last cloning date</strong>: {{ last_clone_date }}
+        {%if days%}
+          ({{ days }} days ago)
+        {% endif %}<br>
+      </p>
+    {% endif %}
     <p>Regards,<br>Fluid Attacks Team</p>
     {{ go_to_button('Go to scope', scope_url) }}
     <p style="font-size: 15px !important;">
