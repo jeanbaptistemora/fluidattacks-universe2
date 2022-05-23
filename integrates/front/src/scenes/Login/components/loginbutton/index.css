@@ -11,14 +11,14 @@
 
 :global .btn-lgoogle {
   background-color: #fff;
-  border: solid 1px #ccc !important;
+  border: solid 1px #e9e9ed !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 :global .btn-lgoogle:hover {
-  background-color: #ccc;
+  background-color: #e9e9ed;
 }
 
 :global .btn-lazure {
