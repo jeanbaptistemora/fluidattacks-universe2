@@ -31,7 +31,6 @@ import {
   FormikDateTime,
   FormikDropdown,
   FormikFileInput,
-  FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
@@ -41,7 +40,6 @@ import {
   dateTimeBeforeToday,
   isValidFileSize,
   maxLength,
-  numeric,
   required,
   validDatetime,
   validEventFile,
@@ -57,7 +55,6 @@ const maxFileSize = isValidFileSize(MAX_FILE_SIZE);
 
 interface IFormValues {
   eventDate: Moment | string;
-  blockingHours: number;
   accessibility: string[];
   affectedComponents: string[];
   affectsReattacks: boolean;
@@ -144,7 +141,6 @@ const AddModal: React.FC<IAddModalProps> = ({
           affectedComponents: [],
           affectedReattacks: [],
           affectsReattacks: false,
-          blockingHours: 0,
           detail: "",
           eventDate: "",
           eventType: "",
@@ -242,22 +238,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                     />
                   </FormGroup>
                 </Col50>
-              </Row>
-              {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
-                <Row>
-                  <Col50>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.events.form.blockingHours")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikText}
-                        name={"blockingHours"}
-                        type={"number"}
-                        validate={composeValidators([numeric, required])}
-                      />
-                    </FormGroup>
-                  </Col50>
+                {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
                   <Col50>
                     <FormGroup>
                       <ControlLabel>
@@ -394,8 +375,8 @@ const AddModal: React.FC<IAddModalProps> = ({
                       />
                     </FormGroup>
                   </Col50>
-                </Row>
-              ) : undefined}
+                ) : undefined}
+              </Row>
               <Row>
                 <Col100>
                   <FormGroup>

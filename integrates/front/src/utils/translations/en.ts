@@ -466,7 +466,6 @@ export const enTranslations: ResourceKey = {
           title: "Update Affected Reattacks",
           yes: "Yes",
         },
-        blockingHours: "Working hours until getting blocked",
         components: {
           clientStation: "Client's test station",
           compileError: "Compilation error",
