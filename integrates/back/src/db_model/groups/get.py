@@ -1,9 +1,11 @@
 from .types import (
     Group,
+    GroupState,
     GroupUnreliableIndicators,
 )
 from .utils import (
     format_group,
+    format_state,
     format_unreliable_indicators,
     remove_org_id_prefix,
 )
@@ -52,6 +54,26 @@ async def _get_group(*, group_name: str) -> Group:
         raise GroupNotFound()
 
     return format_group(response.items[0])
+
+
+async def _get_group_historic_state(
+    *,
+    group_name: str,
+) -> tuple[GroupState, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["group_historic_state"],
+        values={"name": group_name},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["group_historic_state"],),
+        table=TABLE,
+    )
+    return tuple(map(format_state, response.items))
 
 
 async def _get_group_unreliable_indicators(
@@ -103,6 +125,19 @@ class GroupLoader(DataLoader):
         return await collect(
             tuple(
                 _get_group(group_name=group_name) for group_name in group_names
+            )
+        )
+
+
+class GroupHistoricStateLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> tuple[tuple[GroupState, ...], ...]:
+        return await collect(
+            tuple(
+                _get_group_historic_state(group_name=group_name)
+                for group_name in group_names
             )
         )
 
