@@ -1,5 +1,6 @@
 from .types import (
     GroupMetadataToUpdate,
+    GroupUnreliableIndicators,
 )
 from .utils import (
     format_metadata_item,
@@ -14,6 +15,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb import (
     keys,
     operations,
@@ -21,6 +25,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
+import simplejson as json  # type: ignore
 
 
 async def update_metadata(
@@ -50,3 +55,26 @@ async def update_metadata(
             )
         except ConditionalCheckFailedException as ex:
             raise GroupNotFound() from ex
+
+
+async def update_unreliable_indicators(
+    *,
+    group_name: str,
+    indicators: GroupUnreliableIndicators,
+) -> None:
+    group_key = keys.build_key(
+        facet=TABLE.facets["group_unreliable_indicators"],
+        values={
+            "name": group_name,
+        },
+    )
+    unreliable_indicators = json.loads(json.dumps(indicators))
+    unreliable_indicators = {
+        key: Decimal(str(value)) if isinstance(value, float) else value
+        for key, value in json.loads(json.dumps(indicators)).items()
+    }
+    await operations.update_item(
+        item=unreliable_indicators,
+        key=group_key,
+        table=TABLE,
+    )

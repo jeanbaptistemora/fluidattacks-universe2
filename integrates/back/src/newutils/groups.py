@@ -194,7 +194,7 @@ def format_group(
         context=item.get("group_context"),
         disambiguation=item.get("disambiguation"),
         files=format_group_files(item["files"]) if item.get("files") else None,
-        sprint_duration=item.get("sprint_duration", 1),
+        sprint_duration=int(item.get("sprint_duration", 1)),
         tags=set(item["tag"]) if item.get("tag") else None,
     )
 
