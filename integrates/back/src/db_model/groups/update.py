@@ -1,5 +1,6 @@
 from .types import (
     GroupMetadataToUpdate,
+    GroupState,
     GroupUnreliableIndicators,
 )
 from .utils import (
@@ -14,6 +15,9 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.groups.enums import (
+    GroupStateStatus,
 )
 from decimal import (
     Decimal,
@@ -55,6 +59,55 @@ async def update_metadata(
             )
         except ConditionalCheckFailedException as ex:
             raise GroupNotFound() from ex
+
+
+async def update_state(
+    *,
+    group_name: str,
+    organization_id: str,
+    state: GroupState,
+) -> None:
+    key_structure = TABLE.primary_key
+    state_item = json.loads(json.dumps(state))
+
+    try:
+        group_key = keys.build_key(
+            facet=TABLE.facets["group_metadata"],
+            values={
+                "name": group_name,
+                "organization_id": remove_org_id_prefix(organization_id),
+            },
+        )
+        group_item = {"state": state_item}
+        condition_expression = Attr(
+            key_structure.partition_key
+        ).exists() & Attr("state.status").ne(GroupStateStatus.DELETED.value)
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=group_item,
+            key=group_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise GroupNotFound() from ex
+
+    historic_state_key = keys.build_key(
+        facet=TABLE.facets["group_historic_state"],
+        values={
+            "name": group_name,
+            "iso8601utc": state.modified_date,
+        },
+    )
+    historic_item = {
+        key_structure.partition_key: historic_state_key.partition_key,
+        key_structure.sort_key: historic_state_key.sort_key,
+        **state_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["group_historic_state"],
+        item=historic_item,
+        table=TABLE,
+    )
 
 
 async def update_unreliable_indicators(
