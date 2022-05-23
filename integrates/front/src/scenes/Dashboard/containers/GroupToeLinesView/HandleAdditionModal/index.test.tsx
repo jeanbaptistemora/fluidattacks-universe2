@@ -38,7 +38,7 @@ describe("handle toe lines addition modal", (): void => {
             lastAuthor: "test@test.com",
             lastCommit: "2fab76140221397cabbc0eae536b41ff38e7540a",
             loc: 10,
-            modifiedDate: "2020-11-19T13:37:10+00:00",
+            modifiedDate: "2022-05-23T07:18:00.000Z",
             rootId: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
           },
         },
@@ -87,6 +87,10 @@ describe("handle toe lines addition modal", (): void => {
 
     await screen.findByText("group.toe.lines.addModal.title");
 
+    userEvent.paste(
+      screen.getByRole("textbox", { name: "" }),
+      "2022-05-23T07:18:00.000Z"
+    );
     userEvent.type(
       screen.getByRole("textbox", { name: "filename" }),
       "test/filename.py"
@@ -100,21 +104,16 @@ describe("handle toe lines addition modal", (): void => {
       screen.getByRole("textbox", { name: "lastCommit" }),
       "2fab76140221397cabbc0eae536b41ff38e7540a"
     );
-    userEvent.type(
-      screen.getByRole("textbox", { name: "" }),
-      "2020-11-19T13:37:10+00:00"
-    );
 
     userEvent.click(screen.getByText("group.toe.lines.addModal.procced"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);
+      expect(handleRefetchData).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.toe.lines.addModal.alerts.success",
+        "groupAlerts.titleSuccess"
+      );
     });
-
-    expect(handleRefetchData).toHaveBeenCalledTimes(1);
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "group.toe.lines.addModal.alerts.success",
-      "groupAlerts.titleSuccess"
-    );
   });
 });

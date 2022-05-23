@@ -7,7 +7,7 @@ import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
   isOptionalInteger,
-  isPositive,
+  isZeroOrPositive,
   required,
 } from "utils/validations";
 
@@ -32,10 +32,15 @@ const LinesOfCodeField: React.FC = (): JSX.Element => {
       <Field
         component={FormikText}
         customKeyDown={handleKeyDown}
+        min={"0"}
         name={"loc"}
         step={"1"}
         type={"number"}
-        validate={composeValidators([required, isOptionalInteger, isPositive])}
+        validate={composeValidators([
+          required,
+          isOptionalInteger,
+          isZeroOrPositive,
+        ])}
       />
     </FormGroup>
   );

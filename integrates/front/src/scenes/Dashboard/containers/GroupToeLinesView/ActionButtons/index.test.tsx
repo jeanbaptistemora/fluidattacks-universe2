@@ -18,8 +18,10 @@ describe("ToelinesActionButtons", (): void => {
       <authzPermissionsContext.Provider value={new PureAbility([])}>
         <ActionButtons
           areToeLinesDatasSelected={true}
+          isAdding={false}
           isEditing={false}
           isInternal={true}
+          onAdd={jest.fn()}
           onEdit={jest.fn()}
         />
       </authzPermissionsContext.Provider>
@@ -38,8 +40,10 @@ describe("ToelinesActionButtons", (): void => {
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <ActionButtons
           areToeLinesDatasSelected={true}
+          isAdding={false}
           isEditing={false}
           isInternal={false}
+          onAdd={jest.fn()}
           onEdit={jest.fn()}
         />
       </authzPermissionsContext.Provider>
@@ -58,8 +62,10 @@ describe("ToelinesActionButtons", (): void => {
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <ActionButtons
           areToeLinesDatasSelected={true}
+          isAdding={false}
           isEditing={false}
           isInternal={true}
+          onAdd={jest.fn()}
           onEdit={jest.fn()}
         />
       </authzPermissionsContext.Provider>

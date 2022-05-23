@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
+import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
 import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
 import { SortsSuggestionsButton } from "./styles";
@@ -85,6 +86,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
     IToeLinesData[]
@@ -478,6 +480,9 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     return <div />;
   }
 
+  function toggleAdd(): void {
+    setIsAdding(!isAdding);
+  }
   function toggleEdit(): void {
     setIsEditing(!isEditing);
   }
@@ -690,8 +695,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         extraButtonsRight={
           <ActionButtons
             areToeLinesDatasSelected={selectedToeLinesDatas.length > 0}
+            isAdding={isAdding}
             isEditing={isEditing}
             isInternal={isInternal}
+            onAdd={toggleAdd}
             onEdit={toggleEdit}
           />
         }
@@ -702,6 +709,13 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         pageSize={100}
         search={false}
         selectionMode={selectionMode}
+      />
+
+      <HandleAdditionModal
+        groupName={groupName}
+        handleCloseModal={toggleAdd}
+        isAdding={isAdding}
+        refetchData={refetch}
       />
       {isEditing ? (
         <HandleEditionModal

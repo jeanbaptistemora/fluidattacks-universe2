@@ -143,9 +143,8 @@ const validTextField: Validator = (value: string): string | undefined => {
 
 const validCsvInput: Validator = (value: string): string | undefined => {
   if (!_.isNil(value)) {
-    const formattedValue = value.replace(/\s/gu, "").trim();
     const beginTextMatch: RegExpMatchArray | null =
-      /^=|^-|^\+|^@|^\t|^\r/u.exec(formattedValue);
+      /^=|^-|^\+|^@|^\t|^\r/u.exec(value);
     if (!_.isNull(beginTextMatch)) {
       return translate.t("validations.invalidTextBeginning", {
         chars: `'${beginTextMatch[0]}'`,
@@ -153,7 +152,7 @@ const validCsvInput: Validator = (value: string): string | undefined => {
     }
 
     const contentTextMatch: RegExpMatchArray | null =
-      /["',;](?:=|-|\+|@|\t|\r)/u.exec(formattedValue);
+      /["',;](?:=|-|\+|@|\t|\r)/u.exec(value);
     if (!_.isNull(contentTextMatch)) {
       return translate.t("validations.invalidTextPattern", {
         chars: `'${contentTextMatch[0]}'`,
@@ -215,7 +214,7 @@ const optionalNumberBetween: (min: number, max: number) => Validator =
       : undefined;
 
 const isPositive = (value: number): string | undefined =>
-  value < 1 ? translate.t("validations.positive") : undefined;
+  value < 0 ? translate.t("validations.positive") : undefined;
 
 const isZeroOrPositive = (value: number): string | undefined =>
   value < 0 ? translate.t("validations.zeroOrPositive") : undefined;
