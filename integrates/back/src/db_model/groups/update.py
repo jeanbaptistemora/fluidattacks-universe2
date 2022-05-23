@@ -68,7 +68,6 @@ async def update_unreliable_indicators(
             "name": group_name,
         },
     )
-    unreliable_indicators = json.loads(json.dumps(indicators))
     unreliable_indicators = {
         key: Decimal(str(value)) if isinstance(value, float) else value
         for key, value in json.loads(json.dumps(indicators)).items()

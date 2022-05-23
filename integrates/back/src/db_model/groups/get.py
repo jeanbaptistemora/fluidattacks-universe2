@@ -1,8 +1,10 @@
 from .types import (
     Group,
+    GroupUnreliableIndicators,
 )
 from .utils import (
     format_group,
+    format_unreliable_indicators,
     remove_org_id_prefix,
 )
 from aiodataloader import (
@@ -52,6 +54,24 @@ async def _get_group(*, group_name: str) -> Group:
     return format_group(response.items[0])
 
 
+async def _get_group_unreliable_indicators(
+    *, group_name: str
+) -> GroupUnreliableIndicators:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["group_unreliable_indicators"],
+        values={"name": group_name},
+    )
+    item = await operations.get_item(
+        facets=(TABLE.facets["group_unreliable_indicators"],),
+        key=primary_key,
+        table=TABLE,
+    )
+    if not item:
+        return GroupUnreliableIndicators()
+
+    return format_unreliable_indicators(item)
+
+
 async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
@@ -83,6 +103,19 @@ class GroupLoader(DataLoader):
         return await collect(
             tuple(
                 _get_group(group_name=group_name) for group_name in group_names
+            )
+        )
+
+
+class GroupUnreliableIndicatorsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> tuple[GroupUnreliableIndicators, ...]:
+        return await collect(
+            tuple(
+                _get_group_unreliable_indicators(group_name=group_name)
+                for group_name in group_names
             )
         )
 
