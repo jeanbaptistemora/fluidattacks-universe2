@@ -602,7 +602,7 @@ async def send_mail_policies(
     organization_id: str,
     organization_name: str,
     responsible: str,
-    date: str,
+    date: Optional[str],
 ) -> None:
     organization_data: Organization = await loaders.organization_typed.load(
         organization_id

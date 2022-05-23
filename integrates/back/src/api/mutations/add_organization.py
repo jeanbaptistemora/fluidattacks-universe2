@@ -1,4 +1,4 @@
-from custom_types import (
+from api.mutations import (
     AddOrganizationPayload,
 )
 from decorators import (

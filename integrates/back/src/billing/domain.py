@@ -156,7 +156,7 @@ async def _get_active_subscription(
 async def update_subscription(
     *,
     subscription: str,
-    org_billing_customer: str,
+    org_billing_customer: Optional[str],
     org_name: str,
     group_name: str,
 ) -> bool:
@@ -360,7 +360,7 @@ async def create_payment_method(
 
 async def update_payment_method(
     *,
-    org_billing_customer: str,
+    org_billing_customer: Optional[str],
     payment_method_id: str,
     card_expiration_month: str,
     card_expiration_year: str,
@@ -396,7 +396,7 @@ async def update_payment_method(
 
 async def remove_payment_method(
     *,
-    org_billing_customer: str,
+    org_billing_customer: Optional[str],
     payment_method_id: str,
 ) -> bool:
     # Raise exception if stripe customer does not exist

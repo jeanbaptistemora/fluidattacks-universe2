@@ -138,7 +138,9 @@ def format_organization_item(organization: Organization) -> Item:
                 "modified_by": organization.state.modified_by,
                 "modified_date": convert_from_iso_str(
                     organization.state.modified_date
-                ),
+                )
+                if organization.state.modified_date
+                else "",
                 "status": organization.state.status,
             }
         ],
@@ -151,7 +153,9 @@ def format_org_policies_item(
     if metadata.max_number_acceptances is not None:
         historic.append(
             {
-                "date": convert_from_iso_str(metadata.modified_date),
+                "date": convert_from_iso_str(metadata.modified_date)
+                if metadata.modified_date
+                else "",
                 "max_number_acceptations": metadata.max_number_acceptances,
                 "user": metadata.modified_by,
             }
