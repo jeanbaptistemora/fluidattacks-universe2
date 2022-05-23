@@ -305,6 +305,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
 
+  const hasMachine = data?.group.hasMachine ?? false;
   const filledGroupInfo =
     !_.isEmpty(data?.group.description) &&
     !_.isEmpty(data?.group.businessId) &&
@@ -791,7 +792,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         }}
       />
       <ReportsModal
-        filledGroupInfo={filledGroupInfo}
+        enableCerts={hasMachine && filledGroupInfo}
         isOpen={isReportsModalOpen}
         onClose={closeReportsModal}
         userRole={data?.group.userRole ?? "user"}

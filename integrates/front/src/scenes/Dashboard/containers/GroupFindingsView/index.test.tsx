@@ -245,7 +245,7 @@ describe("groupFindingsView", (): void => {
         >
           <Route path={"orgs/:organizationName/groups/:groupName/vulns"}>
             <ReportsModal
-              filledGroupInfo={true}
+              enableCerts={true}
               isOpen={true}
               onClose={handleClose}
               userRole={"user_manager"}

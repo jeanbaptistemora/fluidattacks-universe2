@@ -35,6 +35,7 @@ const GET_FINDINGS: DocumentNode = gql`
       businessId
       businessName
       description
+      hasMachine
       userRole
     }
   }

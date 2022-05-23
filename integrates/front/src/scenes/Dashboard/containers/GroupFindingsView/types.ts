@@ -4,6 +4,7 @@ interface IGroupFindingsAttr {
     businessId: string;
     businessName: string;
     description: string;
+    hasMachine: boolean;
     userRole: string;
   };
 }

@@ -29,14 +29,14 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 interface IDeactivationModalProps {
-  filledGroupInfo: boolean;
+  enableCerts: boolean;
   isOpen: boolean;
   onClose: () => void;
   userRole: string;
 }
 
 const ReportsModal: React.FC<IDeactivationModalProps> = ({
-  filledGroupInfo,
+  enableCerts,
   isOpen,
   onClose,
   userRole,
@@ -136,7 +136,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                         message={t("group.findings.report.certTooltip")}
                       >
                         <Button
-                          disabled={!filledGroupInfo}
+                          disabled={!enableCerts}
                           hidden={userRole !== "user_manager"}
                           id={"report-cert"}
                           onClick={onRequestReport}
