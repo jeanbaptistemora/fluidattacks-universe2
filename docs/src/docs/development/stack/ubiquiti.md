@@ -160,6 +160,36 @@ This will prompt any configured tunnels, where any tunnel
 with the word `INSTALLED` is a configured tunnel with status `up`, and any
 `ROUTED` tunnel is a configured tunnel but with status `down`.
 
+### Add routes to DNS service
+
+You can add different routes to the `DNS` service running on the router.
+This includes accesses for any `VPN` tunnel or to resolve routes for
+our curent MPLS channel
+
+1. First you you must be in configuration mode.
+   Then, you can set up the address for the `DNS` service:
+
+   ```bash
+      set service dns forwarding options address=/$client_domain/$domain_ip
+   ```
+
+   Where `$client_domain` is the resolving domain, example: `sub.example.com`
+   and `$domain_ip` is the ip where the `$client_domain` will conect,
+   example: `190.1.1.1`.
+
+1. After setting up the address on the `DNS` service you have to commit
+   your changes:
+
+   ```bash
+   commit
+   ```
+
+   And save changes:
+
+   ```bash
+   save
+   ```
+
 ### Restart router
 
 You can restart the router by running this command out of configuration mode:
