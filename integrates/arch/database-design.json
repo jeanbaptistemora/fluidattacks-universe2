@@ -2181,13 +2181,13 @@
               "cloning": {
                 "M": {
                   "status": {
-                    "S": "UNKNOWN"
+                    "S": "OK"
                   },
                   "reason": {
-                    "S": "root creation"
+                    "S": "root OK"
                   },
                   "modified_date": {
-                    "S": "2020-11-19T13:37:10+00:00"
+                    "S": "2020-11-19T13:39:10+00:00"
                   },
                   "commit": {
                     "S": "33058a900a4eac73a3a9d70b8f4121bfd127b415"
@@ -2412,6 +2412,75 @@
             "SortKeyAlias": "CLON#iso8601utc"
           },
           "TableData": [
+            {
+              "pk": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "CLON#2020-11-19T13:39:10+00:00"
+              },
+              "status": {
+                "S": "OK"
+              },
+              "reason": {
+                "S": "root OK"
+              },
+              "modified_date": {
+                "S": "2020-11-19T13:39:10+00:00"
+              },
+              "commit": {
+                "S": "767eb97ba0a02a935541d5b5ed04bfe12f2baf8c"
+              },
+              "commit_date": {
+                "S": "2022-02-15T19:10:53.129220+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "CLON#2020-11-19T13:38:10+00:00"
+              },
+              "status": {
+                "S": "FAILED"
+              },
+              "reason": {
+                "S": "root FAILED"
+              },
+              "modified_date": {
+                "S": "2020-11-19T13:38:10+00:00"
+              },
+              "commit": {
+                "S": "767eb97ba0a02a935541d5b5ed04bfe12f2baf8c"
+              },
+              "commit_date": {
+                "S": "2022-02-15T19:10:53.129220+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "CLON#2020-11-19T13:38:00+00:00"
+              },
+              "status": {
+                "S": "OK"
+              },
+              "reason": {
+                "S": "root OK"
+              },
+              "modified_date": {
+                "S": "2020-11-19T13:37:10+00:00"
+              },
+              "commit": {
+                "S": "767eb97ba0a02a935541d5b5ed04bfe12f2baf8c"
+              },
+              "commit_date": {
+                "S": "2022-02-15T19:10:53.129220+00:00"
+              }
+            },
             {
               "pk": {
                 "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"

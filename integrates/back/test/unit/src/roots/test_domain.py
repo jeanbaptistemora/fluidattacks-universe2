@@ -32,6 +32,13 @@ async def test_get_root_id_by_nickname() -> None:
     assert root_id == "4039d098-ffc5-4984-8ed3-eb17bca98e19"
 
 
+async def test_get_last_cloning_successful() -> None:
+    loaders = get_new_context()
+    root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+    item = await roots_domain.get_last_cloning_successful(loaders, root_id)
+    assert item.status == "OK"
+
+
 def test_format_credential_key() -> None:
     key_1 = "VGVzdCBTU0g="
     expected_key_1 = "VGVzdCBTU0gK"

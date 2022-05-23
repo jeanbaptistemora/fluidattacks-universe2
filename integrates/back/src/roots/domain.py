@@ -1236,6 +1236,31 @@ async def get_last_status_update_date(loaders: Any, root_id: str) -> str:
     return last_status_update.modified_date
 
 
+async def get_last_cloning_successful(
+    loaders: Any, root_id: str
+) -> Optional[GitRootCloning]:
+    """
+    Returns last cloning item with "ok" state before failure
+
+    [OK], FAILED, OK <-
+    """
+    historic_cloning: Tuple[
+        GitRootCloning, ...
+    ] = await loaders.root_historic_cloning.load(root_id)
+    status_changes = tuple(
+        tuple(group)
+        for _, group in groupby(historic_cloning, key=attrgetter("status"))
+    )
+    last_cloning_ok = status_changes[-3]
+
+    if last_cloning_ok:
+        last_cloning: GitRootCloning = last_cloning_ok[-1]
+        if last_cloning.status == "OK":
+            return last_cloning
+
+    return None
+
+
 async def get_first_cloning_date(loaders: Any, root_id: str) -> str:
     historic_cloning: Tuple[
         GitRootCloning, ...
