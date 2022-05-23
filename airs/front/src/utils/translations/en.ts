@@ -190,7 +190,8 @@ const pageTexts: ResourceKey = {
       question4Title:
         "Can I upgrade from the Continuous Hacking Machine Plan to the Squad Plan?",
     },
-    mainButton: "Start your Machine Plan Free Trial",
+    mainButton1: "Start free trial (Machine Plan)",
+    mainButton2: "Request a demo (Squad Plan)",
     plansSection: {
       description:
         "Fluid Attacks' plans offer flexibility " +
@@ -223,7 +224,7 @@ const pageTexts: ResourceKey = {
         "of organizations are already enjoying.",
       title: "Ready to try Continuous Hacking?",
     },
-    title: "Enjoy Continuous Hacking",
+    title: "Try our continuous hacking solution",
   },
   resources: {
     cardsText: {

@@ -13,6 +13,7 @@ import { decode } from "he";
 import React from "react";
 
 import { Layout } from "../components/Layout";
+import { NavbarComponent } from "../components/Navbar";
 import { ProductOverviewPage } from "../components/ProductOverviewPage";
 import { Seo } from "../components/Seo";
 
@@ -35,7 +36,10 @@ const ProductOverview: React.FC<IQueryData> = ({
       />
 
       <Layout>
-        <ProductOverviewPage description={description} />
+        <div>
+          <NavbarComponent />
+          <ProductOverviewPage description={description} />
+        </div>
       </Layout>
     </React.Fragment>
   );

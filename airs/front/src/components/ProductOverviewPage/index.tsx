@@ -4,7 +4,6 @@ import { CardsSection } from "./CardsSection";
 import { FaqSection } from "./FaqSection";
 import { MainSection } from "./MainSection";
 import { PlansSection } from "./PlansSection";
-import { Portrait } from "./Portrait";
 
 import { PageArticle } from "../../styles/styledComponents";
 
@@ -21,7 +20,6 @@ const ProductOverviewPage: React.FC<IProps> = ({
       <CardsSection />
       <PlansSection />
       <FaqSection />
-      <Portrait />
     </PageArticle>
   );
 };
