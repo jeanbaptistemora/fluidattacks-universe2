@@ -1,4 +1,5 @@
 from custom_exceptions import (
+    InvalidLinesOfCode,
     InvalidModifiedDate,
     InvalidSortsRiskLevel,
     InvalidSortsSuggestions,
@@ -20,6 +21,11 @@ from newutils.findings import (
 def validate_modified_date(modified_date: datetime) -> None:
     if modified_date > datetime_utils.get_now():
         raise InvalidModifiedDate()
+
+
+def validate_loc(loc: int) -> None:
+    if loc < 0:
+        raise InvalidLinesOfCode()
 
 
 def validate_sort_risk_level(value: int) -> None:

@@ -1427,3 +1427,9 @@ class InvalidModifiedDate(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The modified date can not be a future date"
         super(InvalidModifiedDate, self).__init__(msg)
+
+
+class InvalidLinesOfCode(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Lines of code must be equal or greater than 0"
+        super(InvalidLinesOfCode, self).__init__(msg)
