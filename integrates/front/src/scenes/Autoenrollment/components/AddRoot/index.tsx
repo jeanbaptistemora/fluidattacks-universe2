@@ -3,40 +3,32 @@ import type { ApolloError } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
-import type { GraphQLError } from "graphql";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { array, object, string } from "yup";
 
-import { ADD_GIT_ROOT } from "../../queries";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import {
+  handleCreationError,
+  rootSchema,
+  useRootSubmit,
+} from "scenes/Autoenrollment/helpers";
+import { ADD_GIT_ROOT } from "scenes/Autoenrollment/queries";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
-import { Logger } from "utils/logger";
 
 interface IAddRootProps {
-  organizationName: string;
+  organization: string;
   group: string;
   setIsRepository: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type modalMessages = React.Dispatch<
-  React.SetStateAction<{
-    message: string;
-    type: string;
-  }>
->;
-
 const AddRoot: React.FC<IAddRootProps> = ({
   setIsRepository,
-  organizationName,
+  organization,
   group,
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
@@ -50,53 +42,13 @@ const AddRoot: React.FC<IAddRootProps> = ({
   const [isGitAccessible, setIsGitAccessible] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
 
-  const handleCreationError = (
-    graphQLErrors: readonly GraphQLError[],
-    setMessages: modalMessages
-  ): void => {
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      switch (error.message) {
-        case "Exception - Error empty value is not valid":
-          setMessages({
-            message: t("group.scope.git.errors.invalid"),
-            type: "error",
-          });
-          break;
-        case "Exception - Active root with the same Nickname already exists":
-          setMessages({
-            message: t("group.scope.common.errors.duplicateNickname"),
-            type: "error",
-          });
-          break;
-        case "Exception - Active root with the same URL/branch already exists":
-          setMessages({
-            message: t("group.scope.common.errors.duplicateUrl"),
-            type: "error",
-          });
-          break;
-        case "Exception - Root name should not be included in the exception pattern":
-          setMessages({
-            message: t("group.scope.git.errors.rootInGitignore"),
-            type: "error",
-          });
-          break;
-        case "Exception - Invalid characters":
-          setMessages({
-            message: t("validations.invalidChar"),
-            type: "error",
-          });
-          break;
-        default:
-          setMessages({
-            message: t("groupAlerts.errorTextsad"),
-            type: "error",
-          });
-          Logger.error("Couldn't add git roots", error);
-      }
-    });
-  };
-
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
+    onCompleted: (): void => {
+      localStorage.clear();
+      sessionStorage.clear();
+      replace(`/orgs/${organization.toLowerCase()}/groups`);
+      setIsRepository(true);
+    },
     onError: ({ graphQLErrors }: ApolloError): void => {
       handleCreationError(graphQLErrors, setRootMessages);
     },
@@ -110,54 +62,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
     });
   }, [setIsGitAccessible, t]);
 
-  const handleSubmit = useCallback(
-    async (values: {
-      branch: string;
-      credentialName: string;
-      credentialType: string;
-      environment: string;
-      exclusions: string[];
-      url: string;
-    }): Promise<void> => {
-      mixpanel.track("AddGitRoot");
-      await addGitRoot({
-        variables: {
-          branch: values.branch.trim(),
-          credentials: {
-            id: undefined,
-            key: undefined,
-            name: values.credentialName,
-            password: undefined,
-            token: undefined,
-            type: values.credentialType,
-            user: undefined,
-          },
-          environment: values.environment,
-          gitignore: values.exclusions,
-          groupName: group,
-          includesHealthCheck: false,
-          nickname: false,
-          url: values.url.trim(),
-          useVpn: false,
-        },
-      });
-      localStorage.clear();
-      sessionStorage.clear();
-      replace(`/orgs/${organizationName.toLowerCase()}/groups`);
-      setIsRepository(true);
-    },
-    [addGitRoot, group, organizationName, replace, setIsRepository]
-  );
-
-  const validations = object().shape({
-    branch: string().required(),
-    credentialName: string().required(),
-    credentialType: string().required(),
-    environment: string().required(),
-    exclusions: array().of(string()).required(),
-    url: string().required(),
-  });
-
   return (
     <div>
       <Formik
@@ -166,13 +70,13 @@ const AddRoot: React.FC<IAddRootProps> = ({
           branch: "",
           credentialName: "",
           credentialType: "",
-          environment: "",
+          env: "",
           exclusions: [],
           url: "",
         }}
         name={"newRoot"}
-        onSubmit={handleSubmit}
-        validationSchema={validations}
+        onSubmit={useRootSubmit(addGitRoot, group)}
+        validationSchema={rootSchema}
       >
         <Form>
           <Row justify={"flex-start"}>

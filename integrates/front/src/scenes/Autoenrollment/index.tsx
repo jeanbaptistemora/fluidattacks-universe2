@@ -83,7 +83,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                       <FormContent>
                         <AddRoot
                           group={groupName}
-                          organizationName={orgName}
+                          organization={orgName}
                           setIsRepository={setIsRepository}
                         />
                       </FormContent>
