@@ -9,6 +9,7 @@ locals {
             Effect = "Allow"
             Action = [
               "access-analyzer:*",
+              "acm:*",
               "autoscaling:*",
               "aws-marketplace:*",
               "aws-portal:*",
