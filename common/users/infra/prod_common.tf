@@ -59,6 +59,34 @@ locals {
     }
 
     keys = {
+      common_google = {
+        admins = [
+          "prod_common",
+        ]
+        users = [
+          "dev",
+        ]
+        tags = {
+          "Name"               = "common_google"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
+        }
+      }
+      common_okta = {
+        admins = [
+          "prod_common",
+        ]
+        users = [
+          "dev",
+        ]
+        tags = {
+          "Name"               = "common_okta"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
+        }
+      }
       prod_common = {
         admins = [
           "prod_common",
