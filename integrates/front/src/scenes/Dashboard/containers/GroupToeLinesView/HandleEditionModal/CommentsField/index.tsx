@@ -8,6 +8,7 @@ import { FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
+  validCsvInput,
   validTextField,
 } from "utils/validations";
 
@@ -25,7 +26,11 @@ const CommentsField: React.FC = (): JSX.Element => {
         component={FormikTextArea}
         name={"comments"}
         type={"text"}
-        validate={composeValidators([validTextField, maxCommentsLength])}
+        validate={composeValidators([
+          validTextField,
+          maxCommentsLength,
+          validCsvInput,
+        ])}
       />
     </FormGroup>
   );

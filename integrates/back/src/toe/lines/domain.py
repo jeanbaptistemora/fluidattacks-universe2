@@ -145,6 +145,7 @@ async def update(
 
     if is_moving_toe_lines is False and attributes.comments is not None:
         validate_field_length(attributes.comments, 200)
+        validate_sanitized_csv_input(attributes.comments)
 
     last_attacked_at = attributes.attacked_at or current_value.attacked_at
     last_modified_date = (
