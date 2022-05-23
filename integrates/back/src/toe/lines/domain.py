@@ -26,6 +26,7 @@ from newutils.validations import (
     validate_commit_hash,
     validate_email_address,
     validate_field_length,
+    validate_sanitized_csv_input,
 )
 from roots.validations import (
     validate_active_root,
@@ -59,6 +60,8 @@ async def add(  # pylint: disable=too-many-arguments
     is_moving_toe_lines: bool = False,
 ) -> None:
     if is_moving_toe_lines is False:
+        validate_sanitized_csv_input(filename)
+        validate_sanitized_csv_input(attributes.last_author)
         validate_email_address(attributes.last_author)
         validate_commit_hash(attributes.last_commit)
         validate_modified_date(attributes.modified_date)
