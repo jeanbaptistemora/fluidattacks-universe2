@@ -795,6 +795,58 @@ async def update_ip_root(
     )
 
 
+async def update_url_root(
+    *,
+    loaders: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    nickname: str,
+) -> None:
+    root: Root = await loaders.root.load((group_name, root_id))
+    if not (
+        isinstance(root, URLRoot) and root.state.status == RootStatus.ACTIVE
+    ):
+        raise InvalidParameter()
+
+    if nickname == root.state.nickname:
+        return
+
+    validations.validate_nickname(nickname)
+    validations.validate_nickname_is_unique(
+        nickname, await loaders.group_roots.load(group_name)
+    )
+    new_state: URLRootState = URLRootState(
+        host=root.state.host,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        nickname=nickname,
+        other=None,
+        path=root.state.path,
+        port=root.state.port,
+        protocol=root.state.protocol,
+        reason=None,
+        status=RootStatus.ACTIVE,
+    )
+
+    await roots_model.update_root_state(
+        current_value=root.state,
+        group_name=group_name,
+        root_id=root_id,
+        state=new_state,
+    )
+
+    schedule(
+        send_mail_updated_root(
+            loaders=loaders,
+            group_name=group_name,
+            root=root,
+            new_state=new_state,
+            user_email=user_email,
+        )
+    )
+
+
 async def send_mail_updated_root(
     *,
     loaders: Any,

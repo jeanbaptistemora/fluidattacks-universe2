@@ -103,6 +103,7 @@ from api.mutations import (
     update_toe_lines_attacked_lines,
     update_toe_lines_sorts,
     update_tours,
+    update_url_root,
     update_vulnerabilities_treatment,
     update_vulnerability_commit,
     update_vulnerability_treatment,
@@ -277,6 +278,7 @@ MUTATION.set_field(
 )
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 MUTATION.set_field("updateTours", update_tours.mutate)
+MUTATION.set_field("updateUrlRoot", update_url_root.mutate)
 MUTATION.set_field(
     "updateVulnerabilityCommit", update_vulnerability_commit.mutate
 )

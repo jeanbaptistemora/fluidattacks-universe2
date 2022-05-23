@@ -1007,7 +1007,7 @@ type Mutation {
     groupName: String!
     "ID of the IP root to updated"
     rootId: ID!
-    "Nickname of the repository"
+    "Nickname of the root"
     nickname: String!
   ): SimplePayload!
 
@@ -1222,6 +1222,16 @@ type Mutation {
   updateTours(
     "Values for identify the completed new user workflows"
     tours: ToursInput!
+  ): SimplePayload!
+
+  "Updates a Group's URL root and its attributes"
+  updateUrlRoot(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "ID of the IP root to updated"
+    rootId: ID!
+    "Nickname of the root"
+    nickname: String!
   ): SimplePayload!
 
   "Updates the treatment of a single Vulnerability"
