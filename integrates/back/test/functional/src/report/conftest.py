@@ -31,8 +31,8 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     language=GroupLanguage.EN,
                     name="group1",
                     state=GroupState(
-                        has_machine=False,
-                        has_squad=False,
+                        has_machine=True,
+                        has_squad=True,
                         managed=True,
                         modified_by="unknown",
                         modified_date="2020-05-20T22:00:00+00:00",
@@ -49,12 +49,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             },
             {
                 "group": Group(
-                    description="-",
+                    description="This is another dummy description",
                     language=GroupLanguage.EN,
                     name="group2",
                     state=GroupState(
-                        has_machine=True,
-                        has_squad=True,
+                        has_machine=False,
+                        has_squad=False,
                         managed=True,
                         modified_by="unknown",
                         modified_date="2020-05-20T22:00:00+00:00",

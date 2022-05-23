@@ -147,6 +147,12 @@ async def resolve(
     report_type: str = kwargs["report_type"]
     if report_type == "CERT":
         group: Group = await loaders.group_typed.load(group_name)
+        if not group.state.has_machine:
+            raise RequestedReportError(
+                expr=(
+                    "Group must have Machine enabled to generate Certificates"
+                )
+            )
         if not (
             group.business_id and group.business_name and group.description
         ):
