@@ -949,7 +949,7 @@
     tags = {
       "Name" = "skims_benchmark_owasp";
       "management:area" = "cost";
-      "management:product" = "forces";
+      "management:product" = "skims";
       "management:type" = "product";
     };
   };

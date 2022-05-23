@@ -328,7 +328,19 @@ resource "aws_s3_bucket_versioning" "continuous_repositories" {
   bucket = aws_s3_bucket.continuous_repositories.id
 
   versioning_configuration {
+    status = "Suspended"
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "continuous_repositories" {
+  bucket = aws_s3_bucket.continuous_repositories.id
+
+  rule {
+    id     = "remove-versioning"
     status = "Enabled"
+    noncurrent_version_expiration {
+      noncurrent_days = 1
+    }
   }
 }
 
