@@ -737,6 +737,10 @@
         {
           "AttributeName": "sorts_suggestions",
           "AttributeType": "L"
+        },
+        {
+          "AttributeName": "sprint_duration",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -1711,7 +1715,8 @@
             "business_id",
             "business_name",
             "context",
-            "disambiguation"
+            "disambiguation",
+            "sprint_duration"
           ]
         },
         {
