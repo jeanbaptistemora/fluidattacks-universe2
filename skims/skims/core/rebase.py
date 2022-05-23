@@ -50,7 +50,7 @@ async def iterate_vulnerabilities_to_rebase(
     for finding_id in await get_group_finding_ids(group):
         # Intentionally awaiting inside the loop in order to
         # allow integrates to rest a little, this query is heavy weighted
-        zr_store = await get_finding_vulnerabilities(
+        store = await get_finding_vulnerabilities(
             # The finding code does not matter for our purpose, use any
             # This will get only ZR vulnerabilities
             finding=core_model.FindingEnum.F008,
@@ -58,26 +58,11 @@ async def iterate_vulnerabilities_to_rebase(
             get_zr=True,
         )
         vulnerability: Vulnerability
-        for vulnerability in zr_store.iterate():
-            if (
-                vulnerability.namespace == namespace
-                and vulnerability.integrates_metadata
-                and vulnerability.integrates_metadata.commit_hash
-            ):
-                # Exception: WF(AsyncIterator is subtype of iterator)
-                yield vulnerability  # NOSONAR
-
-        store = await get_finding_vulnerabilities(
-            # The finding code does not matter for our purpose, use any
-            finding=core_model.FindingEnum.F008,
-            finding_id=finding_id,
-        )
-
         for vulnerability in store.iterate():
             # The vulnerability must be for the namespace we are interested in
             # and have commit_hash.
             #
-            # We'll allow skims to rebase all vulnerabilities,
+            # We'll allow skims to rebase all vulnerabilities even zero risk,
             # not only the ones managed by skims.
             if (
                 vulnerability.namespace == namespace

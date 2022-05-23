@@ -503,14 +503,24 @@ async def get_finding_vulnerabilities(  # pylint: disable=too-many-locals
                 vulnerabilities_connection = result["data"]["finding"][
                     "zeroRiskConnection"
                 ]
+                vulnerability_page_info = vulnerabilities_connection[
+                    "pageInfo"
+                ]
+                if not vulnerability_page_info["hasNextPage"]:
+                    get_zr = False
+                    has_next_page = True
+                    end_cursor = None
             else:
                 vulnerabilities_connection = result["data"]["finding"][
                     "vulnerabilitiesConnection"
                 ]
-            vulnerability_page_info = vulnerabilities_connection["pageInfo"]
+                vulnerability_page_info = vulnerabilities_connection[
+                    "pageInfo"
+                ]
+                has_next_page = vulnerability_page_info["hasNextPage"]
+                end_cursor = vulnerability_page_info["endCursor"]
+
             vulnerability_edges = vulnerabilities_connection["edges"]
-            has_next_page = vulnerability_page_info["hasNextPage"]
-            end_cursor = vulnerability_page_info["endCursor"]
             vulnerabilities.extend(
                 [vuln_edge["node"] for vuln_edge in vulnerability_edges]
             )
