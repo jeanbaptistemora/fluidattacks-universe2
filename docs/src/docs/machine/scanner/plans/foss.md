@@ -67,7 +67,7 @@ in pretty-printed or CSV format:
 1. Makes, installed like this:
 
     ```bash
-    $ nix-env -if https://github.com/fluidattacks/makes/archive/22.05.tar.gz
+    $ nix-env -if https://github.com/fluidattacks/makes/archive/22.06.tar.gz
     ```
 
 ## Using
