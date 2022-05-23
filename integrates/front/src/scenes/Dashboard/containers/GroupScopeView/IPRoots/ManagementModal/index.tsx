@@ -44,7 +44,11 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   const isEditing: boolean = initialValues.address !== "";
 
   return (
-    <Modal onClose={onClose} open={true} title={t(`group.scope.common.add`)}>
+    <Modal
+      onClose={onClose}
+      open={true}
+      title={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
+    >
       <Formik
         initialValues={initialValues}
         name={"ipRoot"}
