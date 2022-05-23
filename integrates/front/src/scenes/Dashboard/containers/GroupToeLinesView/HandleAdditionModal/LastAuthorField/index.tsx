@@ -4,7 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
-import { composeValidators, required, validEmail } from "utils/validations";
+import {
+  composeValidators,
+  required,
+  validCsvInput,
+  validEmail,
+} from "utils/validations";
 
 const LastAuthorField: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -18,7 +23,7 @@ const LastAuthorField: React.FC = (): JSX.Element => {
         component={FormikText}
         name={"lastAuthor"}
         type={"text"}
-        validate={composeValidators([required, validEmail])}
+        validate={composeValidators([required, validCsvInput, validEmail])}
       />
     </FormGroup>
   );

@@ -4,7 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
-import { composeValidators, required, validTextField } from "utils/validations";
+import {
+  composeValidators,
+  required,
+  validCsvInput,
+  validTextField,
+} from "utils/validations";
 
 const FilenameField: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -18,7 +23,7 @@ const FilenameField: React.FC = (): JSX.Element => {
         component={FormikTextArea}
         name={"filename"}
         type={"text"}
-        validate={composeValidators([required, validTextField])}
+        validate={composeValidators([required, validCsvInput, validTextField])}
       />
     </FormGroup>
   );

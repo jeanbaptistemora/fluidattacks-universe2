@@ -3275,6 +3275,8 @@ export const enTranslations: ResourceKey = {
       "Field cannot begin with the following character: {{ chars }}",
     invalidTextField:
       "Field cannot contain the following characters: {{chars}}",
+    invalidTextPattern:
+      "Field cannot contain the following character pattern: {{ chars }}",
     invalidUrlField:
       "URL value cannot contain the following characters: {{chars}}",
     invalidValueInField: "The value inserted in one of the fields is not valid",

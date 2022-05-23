@@ -141,6 +141,29 @@ const validTextField: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
+const validCsvInput: Validator = (value: string): string | undefined => {
+  if (!_.isNil(value)) {
+    const formattedValue = value.replace(/\s/gu, "").trim();
+    const beginTextMatch: RegExpMatchArray | null =
+      /^=|^-|^\+|^@|^\t|^\r/u.exec(formattedValue);
+    if (!_.isNull(beginTextMatch)) {
+      return translate.t("validations.invalidTextBeginning", {
+        chars: `'${beginTextMatch[0]}'`,
+      });
+    }
+
+    const contentTextMatch: RegExpMatchArray | null =
+      /["',;](?:=|-|\+|@|\t|\r)/u.exec(formattedValue);
+    if (!_.isNull(contentTextMatch)) {
+      return translate.t("validations.invalidTextPattern", {
+        chars: `'${contentTextMatch[0]}'`,
+      });
+    }
+  }
+
+  return undefined;
+};
+
 const validUrlField: (value: string) => string | undefined = (
   value: string
 ): string | undefined => {
@@ -550,6 +573,7 @@ export {
   someRequired,
   validEvidenceDescription,
   validTextField,
+  validCsvInput,
   validUrlField,
   numberBetween,
   optionalDateTimeBetween,
