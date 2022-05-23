@@ -120,10 +120,10 @@ async def get_users_email_by_preferences(
         for user, user_role in zip(users, user_roles)
         if user_role in roles
     ]
-    user: Tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_data: tuple[User, ...] = await loaders.user.load_many(email_list)
     users_email = [
         user.email
-        for user in user
+        for user in users_data
         if notification in user.notifications_preferences.email
     ]
     return users_email

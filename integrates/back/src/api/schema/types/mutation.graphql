@@ -1001,6 +1001,16 @@ type Mutation {
     role: StakeholderRole!
   ): UpdateStakeholderPayload!
 
+  "Updates a Group's IP root and its attributes"
+  updateIpRoot(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "ID of the IP root to updated"
+    rootId: ID!
+    "Nickname of the repository"
+    nickname: String!
+  ): SimplePayload!
+
   "Update users notifications preferences"
   updateNotificationsPreferences(
     "Email channel to notifications preferences"

@@ -3,6 +3,7 @@
 import aioboto3
 from aioextensions import (
     collect,
+    schedule,
 )
 import authz
 import base64
@@ -102,6 +103,7 @@ from typing import (
     List,
     Optional,
     Tuple,
+    Union,
 )
 from urllib3.exceptions import (
     LocationParseError,
@@ -743,12 +745,62 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     )
 
 
+async def update_ip_root(
+    *,
+    loaders: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    nickname: str,
+) -> None:
+    root: Root = await loaders.root.load((group_name, root_id))
+    if not (
+        isinstance(root, IPRoot) and root.state.status == RootStatus.ACTIVE
+    ):
+        raise InvalidParameter()
+
+    if nickname == root.state.nickname:
+        return
+
+    validations.validate_nickname(nickname)
+    validations.validate_nickname_is_unique(
+        nickname, await loaders.group_roots.load(group_name)
+    )
+    new_state: IPRootState = IPRootState(
+        address=root.state.address,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        nickname=nickname,
+        other=None,
+        port=root.state.port,
+        reason=None,
+        status=root.state.status,
+    )
+
+    await roots_model.update_root_state(
+        current_value=root.state,
+        group_name=group_name,
+        root_id=root_id,
+        state=new_state,
+    )
+
+    schedule(
+        send_mail_updated_root(
+            loaders=loaders,
+            group_name=group_name,
+            root=root,
+            new_state=new_state,
+            user_email=user_email,
+        )
+    )
+
+
 async def send_mail_updated_root(
     *,
     loaders: Any,
     group_name: str,
     root: Root,
-    new_state: GitRootState,
+    new_state: Union[GitRootState, IPRootState, URLRootState],
     user_email: str,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
