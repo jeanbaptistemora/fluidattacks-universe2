@@ -120,9 +120,10 @@ in {
     observesDynamoV2EtlBig =
       sharedConfiguration
       // {
-        attemptDurationSeconds = 86400;
+        attemptDurationSeconds = 172800;
+        attempts = 1;
         command = ["m" "f" "/observes/etl/dynamo/v2"];
-        queue = "unlimited_spot";
+        queue = "unlimited_dedicated";
       };
 
     observesDbMigration =
