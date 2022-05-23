@@ -44,7 +44,7 @@ export const FormikText: React.FC<ITextProps> = (
   }
 
   function capitalize(text: string): string {
-    return name === "email"
+    return name === "email" || type === "number"
       ? text
       : text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   }

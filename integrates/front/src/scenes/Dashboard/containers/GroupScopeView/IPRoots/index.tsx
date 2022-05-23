@@ -1,3 +1,4 @@
+import type { ApolloError } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +11,6 @@ import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
 import { InternalSurfaceButton } from "../InternalSurfaceButton";
-import { ACTIVATE_ROOT, ADD_IP_ROOT } from "../queries";
 import type { IIPRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -18,6 +18,11 @@ import { Table } from "components/Table";
 import { changeFormatter } from "components/Table/formatters";
 import { filterSearchText } from "components/Table/utils";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
+import {
+  ACTIVATE_ROOT,
+  ADD_IP_ROOT,
+  UPDATE_IP_ROOT,
+} from "scenes/Dashboard/containers/GroupScopeView/queries";
 import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -37,15 +42,29 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
 }: IIPRootsProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const [isManagingRoot, setIsManagingRoot] = useState<false | { mode: "ADD" }>(
-    false
+  const [currentRow, setCurrentRow] = useState<IIPRootAttr | undefined>(
+    undefined
   );
+  const [isManagingRoot, setIsManagingRoot] = useState<
+    false | { mode: "ADD" | "EDIT" }
+  >(false);
+
   const openAddModal = useCallback((): void => {
     setIsManagingRoot({ mode: "ADD" });
   }, []);
   const closeModal = useCallback((): void => {
     setIsManagingRoot(false);
+    setCurrentRow(undefined);
   }, []);
+  const handleRowClick = useCallback(
+    (_0: React.SyntheticEvent, row: IIPRootAttr): void => {
+      if (row.state === "ACTIVE") {
+        setCurrentRow(row);
+        setIsManagingRoot({ mode: "EDIT" });
+      }
+    },
+    []
+  );
 
   const [addIpRoot] = useMutation(ADD_IP_ROOT, {
     onCompleted: (): void => {
@@ -71,21 +90,54 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       });
     },
   });
+  const [updateGitRoot] = useMutation(UPDATE_IP_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+      closeModal();
+      setCurrentRow(undefined);
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error): void => {
+        switch (error.message) {
+          case "Exception - Error empty value is not valid":
+            msgError(t("group.scope.url.errors.invalid"));
+            break;
+          case "Exception - Active root with the same Nickname already exists":
+            msgError(t("group.scope.common.errors.duplicateNickname"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't update ip roots", error);
+        }
+      });
+    },
+  });
+
   const handleIpSubmit = useCallback(
     async ({
       address,
+      id,
       nickname,
       port,
     }: {
       address: string;
+      id: string;
       nickname: string;
       port: number;
     }): Promise<void> => {
-      await addIpRoot({
-        variables: { address: address.trim(), groupName, nickname, port },
-      });
+      if (isManagingRoot !== false) {
+        if (isManagingRoot.mode === "ADD") {
+          await addIpRoot({
+            variables: { address: address.trim(), groupName, nickname, port },
+          });
+        } else {
+          await updateGitRoot({
+            variables: { groupName, nickname, rootId: id },
+          });
+        }
+      }
     },
-    [addIpRoot, groupName]
+    [addIpRoot, groupName, isManagingRoot, updateGitRoot]
   );
 
   const [activateRoot] = useMutation(ACTIVATE_ROOT, {
@@ -196,6 +248,11 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                 ]}
                 id={"tblIPRoots"}
                 pageSize={10}
+                rowEvents={
+                  permissions.can("api_mutations_update_ip_root_mutate")
+                    ? { onClick: handleRowClick }
+                    : {}
+                }
                 search={false}
               />
             </Container>
@@ -203,7 +260,13 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
         }}
       </ConfirmDialog>
       {isManagingRoot === false ? undefined : (
-        <ManagementModal onClose={closeModal} onSubmit={handleIpSubmit} />
+        <ManagementModal
+          initialValues={
+            isManagingRoot.mode === "EDIT" ? currentRow : undefined
+          }
+          onClose={closeModal}
+          onSubmit={handleIpSubmit}
+        />
       )}
       {deactivationModal.open ? (
         <DeactivationModal

@@ -5,13 +5,16 @@ import { number, object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
+import type { IIPRootAttr } from "scenes/Dashboard/containers/GroupToeInputsView/HandleAdditionModal/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
+  initialValues: IIPRootAttr | undefined;
   onClose: () => void;
   onSubmit: (values: {
     address: string;
+    id: string;
     nickname: string;
     port: number;
   }) => Promise<void>;
@@ -26,15 +29,24 @@ const validations = object().shape({
 });
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
+  initialValues = {
+    __typename: "IPRoot",
+    address: "",
+    id: "",
+    nickname: "",
+    port: 0,
+    state: "ACTIVE",
+  },
   onClose,
   onSubmit,
 }: IManagementModalProps): JSX.Element => {
   const { t } = useTranslation();
+  const isEditing: boolean = initialValues.address !== "";
 
   return (
     <Modal onClose={onClose} open={true} title={t(`group.scope.common.add`)}>
       <Formik
-        initialValues={{ address: "", nickname: "", port: 0 }}
+        initialValues={initialValues}
         name={"ipRoot"}
         onSubmit={onSubmit}
         validationSchema={validations}
@@ -47,14 +59,24 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                   <RequiredField>{"*"}&nbsp;</RequiredField>
                   {t("group.scope.ip.address")}
                 </ControlLabel>
-                <Field component={FormikText} name={"address"} type={"text"} />
+                <Field
+                  component={FormikText}
+                  disabled={isEditing}
+                  name={"address"}
+                  type={"text"}
+                />
               </div>
               <div className={"w-30"}>
                 <ControlLabel>
                   <RequiredField>{"*"}&nbsp;</RequiredField>
                   {t("group.scope.ip.port")}
                 </ControlLabel>
-                <Field component={FormikText} name={"port"} type={"number"} />
+                <Field
+                  component={FormikText}
+                  disabled={isEditing}
+                  name={"port"}
+                  type={"number"}
+                />
               </div>
             </div>
             <div>
