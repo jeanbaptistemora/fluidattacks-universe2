@@ -343,6 +343,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       dataField: "sortsSuggestions",
       formatter: formatSortsSuggestions,
       header: t("group.toe.lines.sortsSuggestions"),
+      omit: !isInternal,
       onSort,
       visible: checkedItems.sortsSuggestions,
     },
