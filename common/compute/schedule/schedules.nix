@@ -953,6 +953,31 @@
       "management:type" = "product";
     };
   };
+  sorts_association_rules = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/sorts/association-rules/bin"
+    ];
+
+    schedule_expression = "cron(0 0 1 1-12/3 ? *)";
+    queue = "unlimited_spot";
+    attempts = 1;
+    timeout = 86400;
+    cpu = 2;
+    memory = 7200;
+    parallel = 1;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "sorts_association_rules";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
+    };
+  };
   sorts_execute = rec {
     enabled = true;
     command = [
