@@ -16,14 +16,26 @@ from fa_purity import (
     JsonObj,
     JsonValue,
     Maybe,
+    Stream,
     UnfoldedJVal,
 )
 from fa_purity.frozen import (
     freeze,
-    unfreeze,
 )
 from fa_purity.json.factory import (
     from_unfolded_dict,
+)
+from fa_purity.pure_iter.factory import (
+    from_flist,
+    infinite_range,
+)
+from fa_purity.stream.factory import (
+    from_piter,
+)
+from fa_purity.stream.transform import (
+    chain,
+    squash,
+    until_empty,
 )
 from tap_gitlab.api2._raw import (
     RawClient,
@@ -64,16 +76,34 @@ class IssueFilter:
 @dataclass(frozen=True)
 class IssueClient:
     _client: RawClient
+    _filter: Optional[IssueFilter]
+    _per_page: int = 100
 
-    def project_issues(
-        self, project_id: int, page: Page, filter: Optional[IssueFilter]
+    def _project_issues_page(
+        self,
+        project_id: int,
+        page: Page,
     ) -> Cmd[FrozenList[IssueObj]]:
         raw_args: Dict[str, JsonValue] = {
             "page": JsonValue(page.page_num),
             "per_page": JsonValue(page.per_page),
         }
-        if filter:
-            raw_args.update(filter.to_json())
+        if self._filter:
+            raw_args.update(self._filter.to_json())
         return self._client.get_list(
             f"/projects/{project_id}/issues", freeze(raw_args)
         ).map(lambda l: tuple(map(decode_issue_obj, l)))
+
+    def project_issues(self, project_id: int) -> Stream[IssueObj]:
+        return (
+            infinite_range(1, 1)
+            .map(lambda i: Page.new_page(i, self._per_page).unwrap())
+            .map(lambda p: self._project_issues_page(project_id, p))
+            .transform(lambda x: from_piter(x))
+            .map(
+                lambda l: Maybe.from_optional(l if l else None).map(
+                    lambda x: from_flist(x)
+                )
+            )
+            .transform(lambda x: chain(until_empty(x)))
+        )
