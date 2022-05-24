@@ -8,8 +8,6 @@ alt: Logo Arroyo
 partner: yes
 ---
 
-![USA
-Flag](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/us-flag_qveunz.webp)
 [Arroyo Consulting](http://arroyoconsulting.net/) is an agile IT
 development firm formed in 2009. They have offices in the United States
 and low-cost operation centers located in Mexico City, as well as in

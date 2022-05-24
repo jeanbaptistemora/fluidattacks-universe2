@@ -8,8 +8,6 @@ alt: Logo AGT
 partner: yes
 ---
 
-![Germany
-Flag](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226924/airs/icons/germany-flag_toak5k.webp)
 Founded in Berlin two decades ago, [AGT](http://agt-technology.com/) is
 a leading Cybersecurity solutions provider with a strong consultancy
 focus and extensive system integration expertise. AGT delivers the

@@ -8,8 +8,6 @@ alt: Logo Proximiteam
 partner: yes
 ---
 
-![Canada
-Flag](https://res.cloudinary.com/fluid-attacks/image/upload/v1620226924/airs/icons/canada-flag_usun5s.webp)
 [Proximiteam](https://www.proximiteam.com) is a global provider of
 high-quality software development services. Their teams of highly
 skilled software engineers and IT specialists create innovative systems
