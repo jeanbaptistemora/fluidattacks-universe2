@@ -69,6 +69,11 @@ async def update_state(
 ) -> None:
     key_structure = TABLE.primary_key
     state_item = json.loads(json.dumps(state))
+    state_item = {
+        key: None if not value and value is not False else value
+        for key, value in state_item.items()
+        if value is not None
+    }
 
     try:
         group_key = keys.build_key(
