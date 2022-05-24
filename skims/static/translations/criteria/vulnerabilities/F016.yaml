@@ -43,3 +43,10 @@ lib_root.f016.service_point_manager_disabled:
     Una llamada al método AppContext.SetSwitch establece
     Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols
     en verdadero
+lib_root.f016.insecure_shared_access_protocol:
+  en: >
+    Using the GetSharedAccessSignature method to generate a Shared Access Signature
+    (SAS) with specifying protocols as HttpsOrHttp.
+  es: >
+    Usar el método GetSharedAccessSignature para generar una firma de acceso
+    compartido (SAS) con protocolos específicos como HttpsOrHttp.

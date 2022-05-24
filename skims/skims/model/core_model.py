@@ -1454,6 +1454,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_INSECURE_SHARED_ACCESS_PROTOCOL = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_insecure_shared_access_protocol",
+        module="lib_root",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_insecure_protocols",
