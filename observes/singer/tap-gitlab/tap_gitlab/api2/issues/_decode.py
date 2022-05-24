@@ -1,5 +1,6 @@
 from ._core import (
     Issue,
+    IssueObj,
     IssueType,
 )
 from dataclasses import (
@@ -22,6 +23,7 @@ from fa_purity.json.value.transform import (
 )
 from tap_gitlab.api2.ids import (
     EpicId,
+    IssueId,
     MilestoneId,
     UserId,
 )
@@ -125,3 +127,11 @@ def decode_issue(raw: JsonObj) -> Issue:
             .unwrap()
         ),
     )
+
+
+def decode_issue_obj(raw: JsonObj) -> IssueObj:
+    _id = IssueId(
+        Unfolder(raw["id"]).to_primitive(str).unwrap(),
+        Unfolder(raw["iid"]).to_primitive(int).unwrap(),
+    )
+    return (_id, decode_issue(raw))

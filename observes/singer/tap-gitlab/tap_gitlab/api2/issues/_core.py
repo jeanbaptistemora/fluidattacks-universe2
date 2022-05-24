@@ -14,8 +14,12 @@ from fa_purity import (
 )
 from tap_gitlab.api2.ids import (
     EpicId,
+    IssueId,
     MilestoneId,
     UserId,
+)
+from typing import (
+    Tuple,
 )
 
 
@@ -48,3 +52,6 @@ class Issue:
     closed_at: Maybe[datetime]
     closed_by: Maybe[UserId]
     health_status: Maybe[str]
+
+
+IssueObj = Tuple[IssueId, Issue]
