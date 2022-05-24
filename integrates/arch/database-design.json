@@ -2770,7 +2770,1503 @@
             "PartitionKeyAlias": "GROUP#name",
             "SortKeyAlias": "GROUP#name#UNRELIABLEINDICATORS"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "open_vulnerabilities": {
+                "N": "1"
+              },
+              "max_open_severity": {
+                "N": "0"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": "457497318"
+              },
+              "mean_remediate": {
+                "N": "103"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "0"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "0"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "45"
+              },
+              "remediated_over_time_cvssf": {
+                "L": [
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "sk": {
+                "S": "GROUP#oneshottest#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "remediated_over_time": {
+                "L": [
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 7 - 13, 2020"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "31"
+              },
+              "max_open_severity": {
+                "N": "6.3"
+              },
+              "closed_vulnerabilities": {
+                "N": "8"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": "457497316"
+              },
+              "mean_remediate": {
+                "N": "245"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "1"
+                  },
+                  "new": {
+                    "N": "25"
+                  },
+                  "in_progress": {
+                    "N": "4"
+                  },
+                  "accepted_undefined": {
+                    "N": "2"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "23"
+              },
+              "sk": {
+                "S": "GROUP#unittesting#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": "988493279"
+              },
+              "open_findings": {
+                "N": "5"
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "remediated_over_time": {
+                "L": [
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Nov 26 - Dec 2, 2018"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Jan 14 - 20, 2019"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 1 - 7, 2019"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 8 - 14, 2019"
+                          },
+                          "y": {
+                            "N": "5"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 5 - 11, 2019"
+                          },
+                          "y": {
+                            "N": "5"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 26 - Sep 1, 2019"
+                          },
+                          "y": {
+                            "N": "6"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 9 - 15, 2019"
+                          },
+                          "y": {
+                            "N": "33"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 16 - 22, 2019"
+                          },
+                          "y": {
+                            "N": "35"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Dec 30, 2019 - Jan 5, 2020"
+                          },
+                          "y": {
+                            "N": "36"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Nov 26 - Dec 2, 2018"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Jan 14 - 20, 2019"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 1 - 7, 2019"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 8 - 14, 2019"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 5 - 11, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 26 - Sep 1, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 9 - 15, 2019"
+                          },
+                          "y": {
+                            "N": "6"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 16 - 22, 2019"
+                          },
+                          "y": {
+                            "N": "7"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Dec 30, 2019 - Jan 5, 2020"
+                          },
+                          "y": {
+                            "N": "7"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Nov 26 - Dec 2, 2018"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Jan 14 - 20, 2019"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 1 - 7, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 8 - 14, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 5 - 11, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 26 - Sep 1, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 9 - 15, 2019"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 16 - 22, 2019"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Dec 30, 2019 - Jan 5, 2020"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Nov 26 - Dec 2, 2018"
+                          },
+                          "y": {
+                            "N": "0"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Jan 14 - 20, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 1 - 7, 2019"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 8 - 14, 2019"
+                          },
+                          "y": {
+                            "N": "3"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 5 - 11, 2019"
+                          },
+                          "y": {
+                            "N": "4"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 26 - Sep 1, 2019"
+                          },
+                          "y": {
+                            "N": "4"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 9 - 15, 2019"
+                          },
+                          "y": {
+                            "N": "9"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 16 - 22, 2019"
+                          },
+                          "y": {
+                            "N": "10"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Dec 30, 2019 - Jan 5, 2020"
+                          },
+                          "y": {
+                            "N": "10"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "L": [
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Nov 26 - Dec 2, 2018"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Jan 14 - 20, 2019"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 1 - 7, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Apr 8 - 14, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 5 - 11, 2019"
+                          },
+                          "y": {
+                            "N": "1"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Aug 26 - Sep 1, 2019"
+                          },
+                          "y": {
+                            "N": "2"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 9 - 15, 2019"
+                          },
+                          "y": {
+                            "N": "24"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Sep 16 - 22, 2019"
+                          },
+                          "y": {
+                            "N": "25"
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "x": {
+                            "S": "Dec 30, 2019 - Jan 5, 2020"
+                          },
+                          "y": {
+                            "N": "26"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "mean_remediate_low_severity": {
+                "N": "232"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "287"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "100"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "2"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "12"
+              },
+              "sk": {
+                "S": "GROUP#setpendingdeletion#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#setpendingdeletion"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "100"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "0"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "0"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "0"
+              },
+              "sk": {
+                "S": "GROUP#kurome#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#kurome"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "245"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "5"
+                  },
+                  "new": {
+                    "N": "65"
+                  },
+                  "in_progress": {
+                    "N": "58"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "23"
+              },
+              "sk": {
+                "S": "GROUP#continuoustesting#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "2.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "245"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "2"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "0"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "45"
+              },
+              "sk": {
+                "S": "GROUP#gotham#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#gotham"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "6.6"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "135"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "0"
+                  },
+                  "new": {
+                    "N": "2"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "80"
+              },
+              "sk": {
+                "S": "GROUP#barranquilla#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#barranquilla"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "245"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "5"
+                  },
+                  "new": {
+                    "N": "65"
+                  },
+                  "in_progress": {
+                    "N": "58"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "23"
+              },
+              "sk": {
+                "S": "GROUP#lubbock#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#lubbock"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "100"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "2"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "12"
+              },
+              "sk": {
+                "S": "GROUP#monteria#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#monteria"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "100"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "2"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "12"
+              },
+              "sk": {
+                "S": "GROUP#deleteimamura#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#deleteimamura"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "5.7"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "245"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "1"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "90"
+              },
+              "sk": {
+                "S": "GROUP#asgard#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#asgard"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "100"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "2"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "12"
+              },
+              "sk": {
+                "S": "GROUP#deletegroup#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#deletegroup"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "245"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "2"
+                  },
+                  "new": {
+                    "N": "1"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "23"
+              },
+              "sk": {
+                "S": "GROUP#metropolis#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#metropolis"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            },
+            {
+              "open_vulnerabilities": {
+                "N": "0"
+              },
+              "max_open_severity": {
+                "N": "4.9"
+              },
+              "closed_vulnerabilities": {
+                "N": "0"
+              },
+              "mean_remediate_high_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_finding": {
+                "S": ""
+              },
+              "mean_remediate": {
+                "N": "100"
+              },
+              "treatment_summary": {
+                "M": {
+                  "accepted": {
+                    "N": "0"
+                  },
+                  "new": {
+                    "N": "0"
+                  },
+                  "in_progress": {
+                    "N": "0"
+                  },
+                  "accepted_undefined": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mean_remediate_critical_severity": {
+                "N": "0"
+              },
+              "last_closed_vulnerability_days": {
+                "N": "0"
+              },
+              "sk": {
+                "S": "GROUP#sheele#UNRELIABLEINDICATORS"
+              },
+              "max_open_severity_finding": {
+                "S": ""
+              },
+              "open_findings": {
+                "N": "0"
+              },
+              "pk": {
+                "S": "GROUP#sheele"
+              },
+              "remediated_over_time": {
+                "L": []
+              },
+              "mean_remediate_low_severity": {
+                "N": "0"
+              },
+              "mean_remediate_medium_severity": {
+                "N": "0"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "closed_vulnerabilities",
             "exposed_over_time_cvssf",
