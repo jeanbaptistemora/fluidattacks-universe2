@@ -437,12 +437,15 @@ async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
 async def send_treatment_report_mail(
     *,
     loaders: Any,
-    finding_id: str,
     finding_title: str,
     group_name: str,
     modified_by: str,
     updated_values: Dict[str, str],
+    vulnerability_id: str,
 ) -> None:
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
+        vulnerability_id
+    )
     assigned: str = updated_values["assigned"]
     justification: str = updated_values["justification"]
     roles: set[str] = {
@@ -460,12 +463,13 @@ async def send_treatment_report_mail(
     await vulns_mailer.send_mail_treatment_report(
         loaders=loaders,
         assigned=assigned,
-        finding_id=finding_id,
+        finding_id=vulnerability.finding_id,
         finding_title=finding_title,
         group_name=group_name,
         justification=justification,
         modified_by=modified_by,
         modified_date=str(datetime_utils.get_iso_date()),
+        location=vulnerability.where,
         email_to=users_email,
     )
 

@@ -21,6 +21,9 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -106,6 +109,19 @@ async def mutate(
                 "Security: Vulnerabilities treatment successfully updated in "
                 f"finding {finding_id}",
             )
+            if (
+                parameters.get("treatment")
+                == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+            ):
+                await vulns_domain.send_treatment_report_mail(
+                    loaders=loaders,
+                    finding_title=finding.title,
+                    group_name=group_name,
+                    modified_by=user_email,
+                    updated_values=parameters,
+                    vulnerability_id=vulnerability_id,
+                )
+
             await vulns_domain.send_treatment_change_mail(
                 loaders,
                 finding_id,

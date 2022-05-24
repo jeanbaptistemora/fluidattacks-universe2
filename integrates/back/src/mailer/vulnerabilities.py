@@ -79,6 +79,7 @@ async def send_mail_treatment_report(
     justification: str,
     modified_by: str,
     modified_date: str,
+    location: str,
     email_to: List[str],
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
@@ -89,6 +90,7 @@ async def send_mail_treatment_report(
         "responsible": modified_by,
         "justification": justification,
         "finding": finding_title,
+        "location": location,
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/vulns/{finding_id}"
