@@ -9,9 +9,9 @@ certification: yes
 certificationid: 18
 ---
 
-The [Certified Red Teaming Expert](https://www.pentesteracademy.com/redteamlab)
+[CRTE](https://www.pentesteracademy.com/redteamlab)
 is a fully hands-on certification
-given by the Pentester Academy.
+issued by Pentester Academy.
 This certification guarantees a person
 with the expertise to assess the security
 of an unknown Windows infrastructure

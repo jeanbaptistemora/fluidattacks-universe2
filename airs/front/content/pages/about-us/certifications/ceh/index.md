@@ -3,10 +3,10 @@ slug: about-us/certifications/ceh/
 title: Certified Ethical Hacker
 description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
 keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
-certificationlogo: logo-ceh
+certificationlogo: logo-ceh-1
 alt: Logo CEH
 certification: yes
-certificationid: 24
+certificationid: 23
 ---
 
 [CEH](https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/)
