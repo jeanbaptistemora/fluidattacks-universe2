@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 18, 2022, 12:31 PM",
+    "DateLastModified": "May 24, 2022, 11:27 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -741,6 +741,10 @@
         {
           "AttributeName": "sprint_duration",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "query",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -5825,7 +5829,8 @@
             "host",
             "path",
             "protocol",
-            "other"
+            "other",
+            "query"
           ]
         },
         {
@@ -6120,6 +6125,7 @@
             "modified_date",
             "comments",
             "loc",
+            "seen_first_time_by",
             "sorts_risk_level",
             "group_name",
             "first_attack_at",
@@ -6136,8 +6142,7 @@
             "has_vulnerabilities",
             "last_author",
             "last_commit",
-            "sorts_suggestions",
-            "seen_first_time_by"
+            "sorts_suggestions"
           ]
         },
         {
