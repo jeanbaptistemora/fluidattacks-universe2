@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import { Buffer } from "buffer";
 
 import type { FetchResult } from "@apollo/client";
@@ -52,12 +53,105 @@ const gitModalSchema = (
   initialValues: IGitRootAttr,
   isCheckedHealthCheck: boolean,
   isDuplicated: (field: string) => boolean,
+  isGitAccessible: boolean,
+  isHttpsCredentialsTypeUser: boolean,
   nicknames: string[]
 ): InferType<TypedSchema> =>
   lazy(
     (values: IGitRootAttr): BaseSchema =>
       object().shape({
         branch: string().required(translate.t("validations.required")),
+        credentials: object({
+          id: string(),
+          key: string()
+            .when("type", {
+              is: (type: string): boolean => {
+                return type === "SSH";
+              },
+              otherwise: string(),
+              then: string().required(translate.t("validations.required")),
+            })
+            .test(
+              "isGitAccesible",
+              translate.t(
+                "group.scope.git.repo.credentials.checkAccess.noAccess"
+              ),
+              (): boolean => {
+                return isGitAccessible;
+              }
+            )
+            .test(
+              "hasSshFormat",
+              translate.t("validations.invalidSshFormat"),
+              (value): boolean => {
+                const regex =
+                  /^-{5}BEGIN OPENSSH PRIVATE KEY-{5}\n(?:[a-zA-Z0-9+/=]+\n)+-{5}END OPENSSH PRIVATE KEY-{5}\n?$/u;
+
+                if (value === undefined || values.credentials.type !== "SSH") {
+                  return true;
+                }
+
+                return regex.test(value);
+              }
+            ),
+          name: string().when("type", {
+            is: undefined,
+            otherwise: string().required(translate.t("validations.required")),
+            then: string(),
+          }),
+          password: string()
+            .when("type", {
+              is: (type: string): boolean => {
+                return type === "HTTPS" && isHttpsCredentialsTypeUser;
+              },
+              otherwise: string(),
+              then: string().required(translate.t("validations.required")),
+            })
+            .test(
+              "isGitAccesible",
+              translate.t(
+                "group.scope.git.repo.credentials.checkAccess.noAccess"
+              ),
+              (): boolean => {
+                return isGitAccessible;
+              }
+            ),
+          token: string()
+            .when("type", {
+              is: (type: string): boolean => {
+                return type === "HTTPS" && !isHttpsCredentialsTypeUser;
+              },
+              otherwise: string(),
+              then: string().required(translate.t("validations.required")),
+            })
+            .test(
+              "isGitAccesible",
+              translate.t(
+                "group.scope.git.repo.credentials.checkAccess.noAccess"
+              ),
+              (): boolean => {
+                return isGitAccessible;
+              }
+            ),
+          type: string(),
+          user: string()
+            .when("type", {
+              is: (type: string): boolean => {
+                return type === "HTTPS" && isHttpsCredentialsTypeUser;
+              },
+              otherwise: string(),
+              then: string().required(translate.t("validations.required")),
+            })
+            .test(
+              "isGitAccesible",
+              translate.t(
+                "group.scope.git.repo.credentials.checkAccess.noAccess"
+              ),
+              (): boolean => {
+                return isGitAccessible;
+              }
+            ),
+        }),
         environment: string().required(translate.t("validations.required")),
         gitignore: array().of(
           string()

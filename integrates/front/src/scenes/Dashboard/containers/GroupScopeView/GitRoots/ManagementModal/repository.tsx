@@ -8,7 +8,7 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FieldValidator, FormikProps } from "formik";
+import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -41,12 +41,7 @@ import {
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { openUrl } from "utils/resourceHelpers";
-import {
-  composeValidators,
-  hasSshFormat,
-  required,
-  selected,
-} from "utils/validations";
+import { hasSshFormat } from "utils/validations";
 
 interface IRepositoryProps {
   groupName: string;
@@ -103,14 +98,6 @@ const Repository: React.FC<IRepositoryProps> = ({
   const deleteCredential: () => void = useCallback((): void => {
     setCredExists(false);
   }, []);
-
-  const requireGitAccessibility: FieldValidator = (): string | undefined => {
-    if (!isGitAccessible) {
-      return t("group.scope.git.repo.credentials.checkAccess.noAccess");
-    }
-
-    return undefined;
-  };
 
   const [hasSquad, setHasSquad] = useState(false);
   function setSquad(): void {
@@ -258,6 +245,8 @@ const Repository: React.FC<IRepositoryProps> = ({
           initialValues,
           isCheckedHealthCheck,
           isDuplicated,
+          isGitAccessible,
+          isHttpsCredentialsTypeUser,
           nicknames
         )}
       >
@@ -422,11 +411,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 "group.scope.git.repo.credentials.sshHint"
                               )}
                               type={"text"}
-                              validate={composeValidators([
-                                hasSshFormat,
-                                required,
-                                requireGitAccessibility,
-                              ])}
                             />
                           </div>
                         </div>
@@ -439,9 +423,8 @@ const Repository: React.FC<IRepositoryProps> = ({
                             name={"httpsCredentialsType"}
                             onSelect={setIsHttpsCredentialsTypeUser}
                             type={"Radio"}
-                            validate={selected}
                           />
-                          {isHttpsCredentialsTypeUser ? (
+                          {isHttpsCredentialsTypeUser && (
                             <div className={"flex"}>
                               <div className={"w-30 mr3"}>
                                 <ControlLabel>
@@ -451,10 +434,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                                   component={FormikText}
                                   name={"credentials.user"}
                                   type={"text"}
-                                  validate={composeValidators([
-                                    required,
-                                    requireGitAccessibility,
-                                  ])}
                                 />
                               </div>
                               <div className={"w-70"}>
@@ -467,14 +446,11 @@ const Repository: React.FC<IRepositoryProps> = ({
                                   component={FormikText}
                                   name={"credentials.password"}
                                   type={"text"}
-                                  validate={composeValidators([
-                                    required,
-                                    requireGitAccessibility,
-                                  ])}
                                 />
                               </div>
                             </div>
-                          ) : (
+                          )}
+                          {!isHttpsCredentialsTypeUser && (
                             <div className={"flex"}>
                               <div className={"w-30 mr3"}>
                                 <ControlLabel>
@@ -484,10 +460,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                                   component={FormikText}
                                   name={"credentials.token"}
                                   type={"text"}
-                                  validate={composeValidators([
-                                    required,
-                                    requireGitAccessibility,
-                                  ])}
                                 />
                               </div>
                             </div>
