@@ -339,6 +339,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> str:
     group_name = str(kwargs["group_name"]).lower()
+    query: Optional[str] = kwargs.get("query")
 
     try:
         url_attributes = parse_url(kwargs["url"])
@@ -376,6 +377,8 @@ async def add_url_root(  # pylint: disable=too-many-locals
     validations.validate_nickname_is_unique(
         kwargs["nickname"], await loaders.group_roots.load(group_name)
     )
+    if query is not None:
+        validation_utils.validate_fields([query])
 
     modified_date = datetime_utils.get_iso_date()
     root = URLRoot(
@@ -391,6 +394,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
             path=path,
             port=port,
             protocol=protocol,
+            query=query,
             reason=None,
             status=RootStatus.ACTIVE,
         ),
