@@ -113,6 +113,7 @@ class URLRootState(NamedTuple):
     protocol: str
     reason: Optional[str]
     status: RootStatus
+    query: Optional[str] = None
 
 
 class URLRoot(NamedTuple):
