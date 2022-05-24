@@ -1398,6 +1398,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_RESTREPO,
         technique=TechniqueEnum.SCA,
     )
+    CS_XSL_TRANSFORM_OBJECT = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_xsl_transform_object",
+        module="lib_root",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_JPA_LIKE = MethodInfo(
         file_name="java",
         name="java_jpa_like",
