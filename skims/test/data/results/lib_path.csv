@@ -23454,6 +23454,23 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls
   14 |
      ^ Col 22
 ",analyze_headers.c_sharp_weak_protocol
+F016,lines,namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs,11,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
+ in namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs","
+   1 | using System;
+   2 | using Microsoft.WindowsAzure.Storage;
+   3 | using Microsoft.WindowsAzure.Storage.File;
+   4 |
+   5 | class ExampleClass
+   6 | {
+   7 |     public void ExampleMethod(SharedAccessFilePolicy policy, SharedAccessFileHeaders headers, string groupPolicyIdentifie
+   8 |     {
+   9 |         CloudFile cloudFile = new CloudFile(null);
+  10 |         SharedAccessProtocol protocols = SharedAccessProtocol.HttpsOrHttp;
+> 11 |         cloudFile.GetSharedAccessSignature(policy, headers, groupPolicyIdentifier, protocols, ipAddressOrRange);
+  12 |     }
+  13 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_shared_access_protocol
 F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers. This could allow an attacker to guess the generation sequence after a short time or predict results using probabilistic methods.
  in namespace/skims/test/data/lib_path/f034/Test.java","
    1 |

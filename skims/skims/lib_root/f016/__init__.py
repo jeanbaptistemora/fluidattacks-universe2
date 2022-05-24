@@ -1,4 +1,5 @@
 from lib_root.f016.c_sharp import (
+    insecure_shared_access_protocol as c_sharp_insecure_shared_access_protocol,
     service_point_manager_disabled as c_sharp_service_point_manager_disabled,
     weak_protocol as c_sharp_weak_protocol,
 )
@@ -11,4 +12,5 @@ FINDING: core_model.FindingEnum = core_model.FindingEnum.F016
 QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_weak_protocol),
     (FINDING, c_sharp_service_point_manager_disabled),
+    (FINDING, c_sharp_insecure_shared_access_protocol),
 )
