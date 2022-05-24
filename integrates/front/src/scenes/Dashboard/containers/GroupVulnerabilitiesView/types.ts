@@ -1,5 +1,6 @@
 interface IFinding {
   id: string;
+  severityScore: number;
   title: string;
 }
 
@@ -13,11 +14,12 @@ interface IGroupFindings {
 interface IVulnerabilityNode {
   id: string;
   where: string;
+  reportDate: string;
   specific: string;
 }
 
 interface IVulnerability extends IVulnerabilityNode {
-  findings: IFinding[];
+  finding: IFinding;
 }
 
 interface IFindingVulnerabilities {

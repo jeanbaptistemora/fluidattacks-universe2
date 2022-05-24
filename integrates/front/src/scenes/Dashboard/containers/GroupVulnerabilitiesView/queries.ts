@@ -6,6 +6,7 @@ const GET_GROUP_FINDINGS: DocumentNode = gql`
     group(groupName: $groupName) {
       findings {
         id
+        severityScore
         title
       }
       name
@@ -26,6 +27,7 @@ const GET_FINDING_VULNERABILITIES: DocumentNode = gql`
           node {
             id
             where
+            reportDate
             specific
           }
         }

@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { useGroupVulnerabilities } from "./hooks";
-import { formatLocation, formatType } from "./utils";
+import { formatLocation } from "./utils";
 
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
@@ -15,10 +15,17 @@ const tableHeaders: IHeaderConfig[] = [
     wrapped: true,
   },
   {
-    dataField: "findings",
-    formatter: formatType,
+    dataField: "finding.title",
     header: "Type",
     wrapped: true,
+  },
+  {
+    dataField: "reportDate",
+    header: "Found",
+  },
+  {
+    dataField: "finding.severityScore",
+    header: "Severity",
   },
 ];
 
