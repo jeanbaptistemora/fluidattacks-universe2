@@ -1,5 +1,4 @@
 {
-  local_pkgs,
   pkgs,
   python_version,
   src,
@@ -11,7 +10,7 @@
     fetchPypi = pkgs.python3Packages.fetchPypi;
   };
   python_pkgs = import ./build/deps {
-    inherit local_pkgs pkgs lib python_version;
+    inherit pkgs lib python_version;
   };
   self_pkgs = import ./build/pkg {
     inherit src lib metadata python_pkgs;

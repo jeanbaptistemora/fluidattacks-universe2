@@ -12,6 +12,7 @@
     cachetools
     click
     fa-purity
+    fa-singer-io
     more-itertools
     mypy-boto3-s3
     python-dateutil

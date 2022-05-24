@@ -15,6 +15,17 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = _fa_purity_src;
   };
 
+  _fa_singer_io_src = builtins.fetchGit {
+    url = "https://gitlab.com/dmurciaatfluid/singer_io";
+    ref = "refs/tags/v1.1.0";
+  };
+  fa-singer-io = import _fa_singer_io_src {
+    inherit system;
+    legacyPkgs = legacy_pkgs;
+    src = _fa_singer_io_src;
+    purity = fa-purity;
+  };
+
   _redshift_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
     ref = "refs/tags/v0.7.0";
@@ -76,10 +87,10 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = _legacy_singer_io;
   };
 
-  local_pkgs = {inherit fa-purity legacy-paginator legacy-postgres-client legacy-singer-io redshift-client utils-logger;};
+  local_pkgs = {inherit fa-purity fa-singer-io legacy-paginator legacy-postgres-client legacy-singer-io redshift-client utils-logger;};
   out = import ./. {
-    inherit local_pkgs python_version;
-    pkgs = legacy_pkgs;
+    inherit python_version;
+    pkgs = legacy_pkgs // local_pkgs;
     src = ./.;
   };
 in
