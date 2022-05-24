@@ -744,6 +744,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[Vulnerability],
     is_reattack_open: Optional[bool] = None,
+    is_closing_event: bool = False,
 ) -> bool:
     # All vulns must be open before verifying them
     # we will just keep them open or close them
@@ -761,13 +762,16 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         for vuln in await finding_vulns_loader.load(finding_id)
         if vuln.id in vulnerability_ids
     ]
-    vulnerabilities = [
-        vulns_utils.validate_reattack_requested(vuln)
-        for vuln in vulnerabilities
-    ]
-    vulnerabilities = [
-        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
-    ]
+    # Sometimes vulns on hold end up being closed before the event is solved
+    # Therefore, this allows these vulns to be auto-verified when it happens
+    if not is_closing_event:
+        vulnerabilities = [
+            vulns_utils.validate_reattack_requested(vuln)
+            for vuln in vulnerabilities
+        ]
+        vulnerabilities = [
+            vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
+        ]
     if not vulnerabilities:
         raise VulnNotFound()
 

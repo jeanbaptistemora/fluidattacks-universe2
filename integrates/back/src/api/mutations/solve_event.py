@@ -52,7 +52,11 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
-    (success, reattacks_dict) = await events_domain.solve_event(
+    (
+        success,
+        reattacks_dict,
+        verifications_dict,
+    ) = await events_domain.solve_event(
         info, event_id, affectation, hacker_email, date
     )
 
@@ -70,13 +74,23 @@ async def mutate(
                 finding_ids=list(reattacks_dict.keys()),
                 vulnerability_ids=[
                     vuln_id
-                    for hold_ids in reattacks_dict.values()
-                    for vuln_id in hold_ids
+                    for reattack_ids in reattacks_dict.values()
+                    for vuln_id in reattack_ids
+                ],
+            )
+        if bool(verifications_dict):
+            await update_unreliable_indicators_by_deps(
+                EntityDependency.verify_vulnerabilities_request,
+                finding_ids=list(verifications_dict.keys()),
+                vulnerability_ids=[
+                    vuln_id
+                    for verification_ids in verifications_dict.values()
+                    for vuln_id in verification_ids
                 ],
             )
     else:
         logs_utils.cloudwatch_log(
-            info.context, "Security: Attempted to solve event {event_id}"
+            info.context, f"Security: Attempted to solve event {event_id}"
         )
 
     return SimplePayload(success=success)

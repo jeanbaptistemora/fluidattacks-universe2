@@ -109,7 +109,11 @@ async def test_add_event_file_image() -> None:
 async def test_solve_event() -> None:
     request = await create_dummy_session("unittesting@fluidattacks.com")
     info = create_dummy_info(request)
-    (success, _reattacks_dict) = await events_domain.solve_event(
+    (
+        success,
+        _reattacks_dict,
+        _verifications_dict,
+    ) = await events_domain.solve_event(
         info=info,
         event_id="538745942",
         affectation=1,

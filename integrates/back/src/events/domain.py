@@ -42,6 +42,9 @@ from db_model.groups.types import (
 from db_model.roots.types import (
     Root,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -321,9 +324,10 @@ async def solve_event(  # pylint: disable=too-many-locals
     affectation: str,
     hacker_email: str,
     date: datetime,
-) -> Tuple[bool, Dict[str, Set[str]]]:
-    """Solves an Event, can either return a bool and an empty dict or a bool
-    with the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`"""
+) -> Tuple[bool, Dict[str, Set[str]], Dict[str, List[str]]]:
+    """Solves an Event, can either return a bool and two empty dicts or a bool
+    with the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
+    and the `verifications_dict[finding_id, list_of_respective_vuln_ids]`"""
     event = await get_event(event_id)
     success = False
     loaders = info.context.loaders
@@ -343,11 +347,19 @@ async def solve_event(  # pylint: disable=too-many-locals
     has_reattacks: bool = len(affected_reattacks) > 0
     if has_reattacks:
         user_info = await token_utils.get_jwt_content(info.context)
+        # For open vulns on hold
         reattacks_dict: Dict[str, Set[str]] = {}
+        # For closed vulns on hold (yes, that can happen)
+        verifications_dict: Dict[str, List[str]] = {}
         for vuln in affected_reattacks:
-            reattacks_dict.setdefault(vuln.finding_id, set()).add(vuln.id)
+            if vuln.state.status == VulnerabilityStateStatus.OPEN:
+                reattacks_dict.setdefault(vuln.finding_id, set()).add(vuln.id)
+            elif vuln.state.status == VulnerabilityStateStatus.CLOSED:
+                verifications_dict.setdefault(vuln.finding_id, []).append(
+                    vuln.id
+                )
 
-        for finding_id, hold_ids in reattacks_dict.items():
+        for finding_id, reattack_ids in reattacks_dict.items():
             await findings_domain.request_vulnerabilities_verification(
                 loaders=loaders,
                 finding_id=finding_id,
@@ -356,7 +368,22 @@ async def solve_event(  # pylint: disable=too-many-locals
                     f"Event #{event_id} was solved. The reattacks are back to "
                     "the Requested stage."
                 ),
-                vulnerability_ids=hold_ids,
+                vulnerability_ids=reattack_ids,
+                is_closing_event=True,
+            )
+        for finding_id, verification_ids in verifications_dict.items():
+            # Mark all closed vulns as verified
+            await findings_domain.verify_vulnerabilities(
+                context=info.context,
+                finding_id=finding_id,
+                user_info=user_info,
+                justification=(
+                    f"Event #{event_id} was solved. As these vulnerabilities "
+                    "were closed, the reattacks are set to Verified."
+                ),
+                open_vulns_ids=[],
+                closed_vulns_ids=verification_ids,
+                vulns_to_close_from_file=[],
                 is_closing_event=True,
             )
 
@@ -394,8 +421,8 @@ async def solve_event(  # pylint: disable=too-many-locals
     ]
     success = await events_dal.update(event_id, {"historic_state": history})
     if has_reattacks:
-        return (success, reattacks_dict)
-    return (success, {})
+        return (success, reattacks_dict, verifications_dict)
+    return (success, {}, {})
 
 
 async def update_evidence(
