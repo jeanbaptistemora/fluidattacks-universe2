@@ -85,10 +85,27 @@ const GET_USER_WELCOME = gql`
   }
 `;
 
+const VALIDATE_GIT_ACCESS = gql`
+  mutation ValidateGitAccess(
+    $credentials: CredentialsInput!
+    $groupName: String!
+    $url: String!
+  ) {
+    validateGitAccess(
+      credentials: $credentials
+      groupName: $groupName
+      url: $url
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
   AUTOENROLL_DEMO,
   GET_USER_WELCOME,
+  VALIDATE_GIT_ACCESS,
 };

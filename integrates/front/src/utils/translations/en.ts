@@ -271,8 +271,13 @@ export const enTranslations: ResourceKey = {
           placeholder: "Test credential",
         },
         password: "Repository password",
+        sshKey: "Private SSH Key",
         token: "Repository access token",
-        type: "Credential type",
+        type: {
+          https: "HTTPS",
+          label: "Credential type",
+          ssh: "SSH",
+        },
         user: "Repository user",
       },
       environment: {

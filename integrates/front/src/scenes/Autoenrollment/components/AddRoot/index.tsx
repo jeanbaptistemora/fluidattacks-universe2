@@ -2,8 +2,9 @@ import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
-import React, { useCallback, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
@@ -12,12 +13,17 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import type { IRootAttr } from "scenes/Autoenrollment/helpers";
 import {
   handleCreationError,
+  handleValidationError,
   rootSchema,
   useRootSubmit,
 } from "scenes/Autoenrollment/helpers";
-import { ADD_GIT_ROOT } from "scenes/Autoenrollment/queries";
+import {
+  ADD_GIT_ROOT,
+  VALIDATE_GIT_ACCESS,
+} from "scenes/Autoenrollment/queries";
 import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
 
 interface IAddRootProps {
@@ -54,13 +60,46 @@ const AddRoot: React.FC<IAddRootProps> = ({
     },
   });
 
-  const handleAccess = useCallback((): void => {
-    setIsGitAccessible(true);
-    setRootMessages({
-      message: t("group.scope.git.repo.credentials.checkAccess.success"),
-      type: "success",
-    });
-  }, [setIsGitAccessible, t]);
+  const formRef = useRef<FormikProps<IRootAttr>>(null);
+
+  const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
+    onCompleted: (): void => {
+      setShowSubmitAlert(false);
+      setIsGitAccessible(true);
+      setRootMessages({
+        message: t("group.scope.git.repo.credentials.checkAccess.success"),
+        type: "success",
+      });
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      setShowSubmitAlert(false);
+      handleValidationError(graphQLErrors, setRootMessages);
+      setIsGitAccessible(false);
+    },
+  });
+
+  function handleAccess(): void {
+    if (formRef.current !== null) {
+      void validateGitAccess({
+        variables: {
+          credentials: {
+            key: formRef.current.values.credentials.key
+              ? Buffer.from(formRef.current.values.credentials.key).toString(
+                  "base64"
+                )
+              : undefined,
+            name: formRef.current.values.credentials.name,
+            password: formRef.current.values.credentials.password,
+            token: formRef.current.values.credentials.token,
+            type: formRef.current.values.credentials.type,
+            user: formRef.current.values.credentials.user,
+          },
+          groupName: group,
+          url: formRef.current.values.url,
+        },
+      });
+    }
+  }
 
   return (
     <div>
@@ -82,9 +121,10 @@ const AddRoot: React.FC<IAddRootProps> = ({
           exclusions: [],
           url: "",
         }}
+        innerRef={formRef}
         name={"newRoot"}
         onSubmit={useRootSubmit(addGitRoot, group)}
-        validationSchema={rootSchema(true)}
+        validationSchema={rootSchema(isGitAccessible)}
       >
         {({ isSubmitting, values }): JSX.Element => {
           if (isSubmitting) {
@@ -149,7 +189,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   <Row>
                     <Col>
                       <strong>
-                        {t("autoenrollment.addRoot.credentials.type")}
+                        {t("autoenrollment.addRoot.credentials.type.label")}
                       </strong>
                     </Col>
                   </Row>
@@ -161,10 +201,10 @@ const AddRoot: React.FC<IAddRootProps> = ({
                       >
                         <option value={""}>{""}</option>
                         <option value={"HTTPS"}>
-                          {t("group.scope.git.repo.credentials.https")}
+                          {t("autoenrollment.addRoot.credentials.type.https")}
                         </option>
                         <option value={"SSH"}>
-                          {t("group.scope.git.repo.credentials.ssh")}
+                          {t("autoenrollment.addRoot.credentials.type.ssh")}
                         </option>
                       </Field>
                     </Col>
@@ -182,6 +222,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     <Col>
                       <Field
                         component={FormikText}
+                        disabled={values.credentials.type === ""}
                         name={"credentials.name"}
                         placeholder={t(
                           "autoenrollment.addRoot.credentials.name.placeholder"
@@ -361,7 +402,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                 <Row justify={"center"}>
                   <Col>
                     <Button
-                      disabled={false}
+                      disabled={!showSubmitAlert}
                       type={"submit"}
                       variant={"primary"}
                     >

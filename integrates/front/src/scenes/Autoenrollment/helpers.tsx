@@ -82,6 +82,29 @@ const handleCreationError = (
   });
 };
 
+const handleValidationError = (
+  graphQLErrors: readonly GraphQLError[],
+  setMessages: modalMessages
+): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    if (
+      error.message ===
+      "Exception - Git repository was not accessible with given credentials"
+    ) {
+      setMessages({
+        message: translate.t("group.scope.git.errors.invalidGitCredentials"),
+        type: "error",
+      });
+    } else {
+      setMessages({
+        message: translate.t("groupAlerts.errorTextsad"),
+        type: "error",
+      });
+      Logger.error("Couldn't activate root", error);
+    }
+  });
+};
+
 function useRootSubmit(
   addGitRoot: (
     variables: Record<string, unknown>
@@ -226,4 +249,11 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
       })
   );
 
-export { handleCreationError, rootSchema, useRootSubmit };
+export type { IRootAttr };
+
+export {
+  handleCreationError,
+  handleValidationError,
+  rootSchema,
+  useRootSubmit,
+};
