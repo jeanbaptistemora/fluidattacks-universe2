@@ -1,6 +1,7 @@
 {
   fetchNixpkgs,
-  makeTemplate,
+  makeScript,
+  outputs,
   projectPath,
   ...
 }: let
@@ -8,11 +9,16 @@
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs;
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "sorts-association-rules-bin";
+  makeScript {
     searchPaths = {
       bin = [
         env
       ];
+      source = [
+        outputs."/common/utils/aws"
+        outputs."/common/utils/sops"
+      ];
     };
+    name = "sorts-association-rules-bin";
+    entrypoint = ./entrypoint.sh;
   }
