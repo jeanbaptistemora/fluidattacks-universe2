@@ -76,4 +76,29 @@ describe("ToelinesActionButtons", (): void => {
       screen.queryByText("group.toe.lines.actionButtons.editButton.text")
     ).toBeInTheDocument();
   });
+
+  it("should display the addition button", (): void => {
+    expect.hasAssertions();
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_add_toe_lines_mutate" },
+    ]);
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <ActionButtons
+          areToeLinesDatasSelected={true}
+          isAdding={false}
+          isEditing={false}
+          isInternal={true}
+          onAdd={jest.fn()}
+          onEdit={jest.fn()}
+        />
+      </authzPermissionsContext.Provider>
+    );
+
+    expect(screen.queryByRole("button")).toBeInTheDocument();
+    expect(
+      screen.queryByText("group.toe.lines.actionButtons.addButton.text")
+    ).toBeInTheDocument();
+  });
 });
