@@ -90,11 +90,10 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       });
     },
   });
-  const [updateGitRoot] = useMutation(UPDATE_IP_ROOT, {
+  const [updateIpRoot] = useMutation(UPDATE_IP_ROOT, {
     onCompleted: (): void => {
       onUpdate();
       closeModal();
-      setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error): void => {
@@ -131,13 +130,13 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
             variables: { address: address.trim(), groupName, nickname, port },
           });
         } else {
-          await updateGitRoot({
+          await updateIpRoot({
             variables: { groupName, nickname, rootId: id },
           });
         }
       }
     },
-    [addIpRoot, groupName, isManagingRoot, updateGitRoot]
+    [addIpRoot, groupName, isManagingRoot, updateIpRoot]
   );
 
   const [activateRoot] = useMutation(ACTIVATE_ROOT, {
