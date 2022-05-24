@@ -375,8 +375,6 @@ type Mutation {
     url: String!
     "Name of the group the root is associated with"
     groupName: String!
-    "Query component of the root"
-    query: String
     "Nickname of the root"
     nickname: String!
   ): AddRootPayload!
