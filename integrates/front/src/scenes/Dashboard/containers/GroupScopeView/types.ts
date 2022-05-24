@@ -23,7 +23,7 @@ interface IGitRootAttr {
   branch: string;
   cloningStatus: {
     message: string;
-    status: "FAIL" | "OK" | "UNKNOWN";
+    status: "FAIL" | "N/A" | "OK" | "UNKNOWN";
   };
   credentials: ICredentials;
   environment: string;

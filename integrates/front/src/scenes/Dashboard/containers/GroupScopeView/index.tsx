@@ -9,7 +9,7 @@ import { IPRoots } from "./IPRoots";
 import { GET_ROOTS } from "./queries";
 import type { Root } from "./types";
 import { URLRoots } from "./URLRoots";
-import { isGitRoot, isIPRoot, isURLRoot } from "./utils";
+import { isGitRoot, isIPRoot, isURLRoot, mapInactiveStatus } from "./utils";
 
 import { GroupSettingsView } from "../GroupSettingsView";
 import { Have } from "utils/authz/Have";
@@ -35,7 +35,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
         <GitRoots
           groupName={groupName}
           onUpdate={refetch}
-          roots={roots.filter(isGitRoot)}
+          roots={mapInactiveStatus(roots.filter(isGitRoot))}
         />
       </Have>
       <Have I={"has_service_black"}>

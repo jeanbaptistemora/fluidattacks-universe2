@@ -1,6 +1,6 @@
 import type { IBadgeProps } from "components/Badge";
 
-const statusGrayColor: string[] = ["Requested", "Unknown"];
+const statusGrayColor: string[] = ["Requested", "Unknown", "N/a"];
 const statusGreenColor: string[] = [
   "Active",
   "Closed",

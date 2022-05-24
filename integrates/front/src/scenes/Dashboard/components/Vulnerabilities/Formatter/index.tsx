@@ -15,8 +15,9 @@ interface IStatus {
 
 const Status: React.FC<IStatus> = ({ status }: IStatus): JSX.Element => {
   const { t } = useTranslation();
-  const formatedStatus: string =
-    _.upperCase(status) === "OK" ? _.upperCase(status) : _.capitalize(status);
+  const formatedStatus: string = ["OK", "N/A"].includes(status.toUpperCase())
+    ? status.toUpperCase()
+    : _.capitalize(status);
   const currentStateBgColor = getBgColor(_.capitalize(status));
 
   return (
