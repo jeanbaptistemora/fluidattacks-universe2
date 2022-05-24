@@ -2748,7 +2748,501 @@
             "PartitionKeyAlias": "GROUP#name",
             "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "ONESHOT"
+              },
+              "managed": {
+                "BOOL": false
+              },
+              "service": {
+                "S": "BLACK"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "ONESHOT"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": true
+              },
+              "tier": {
+                "S": "MACHINE"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "ONESHOT"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#setpendingdeletion"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "OTHER"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#kurome"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": true
+              },
+              "tier": {
+                "S": "SQUAD"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "ONESHOT"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#gotham"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "SQUAD"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#barranquilla"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": true
+              },
+              "tier": {
+                "S": "FREE"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "GROUP#lubbock"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "FREE"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#monteria"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": true
+              },
+              "tier": {
+                "S": "MACHINE"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "GROUP#deleteimamura"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "OTHER"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#asgard"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "OTHER"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "pending_deletion_date": {
+                "S": "2020-12-22T19:36:29+00:00"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#deletegroup"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "MACHINE"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#metropolis"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "has_squad": {
+                "BOOL": false
+              },
+              "tier": {
+                "S": "OTHER"
+              },
+              "managed": {
+                "BOOL": true
+              },
+              "service": {
+                "S": "WHITE"
+              },
+              "sk": {
+                "S": "STATE#2020-05-20T22:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "has_machine": {
+                "BOOL": false
+              },
+              "pk": {
+                "S": "GROUP#sheele"
+              },
+              "modified_date": {
+                "S": "2020-05-20T22:00:00+00:00"
+              },
+              "type": {
+                "S": "CONTINUOUS"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "type",
             "status",
