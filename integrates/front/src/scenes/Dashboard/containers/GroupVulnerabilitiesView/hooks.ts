@@ -8,6 +8,7 @@ import type {
   IGroupFindings,
   IVulnerability,
 } from "./types";
+import { mergeObjectArrays } from "./utils";
 
 /*
  * [Experimental]
@@ -39,14 +40,13 @@ const useGroupVulnerabilities = (groupName: string): IVulnerability[] => {
           data,
         }: ApolloQueryResult<IFindingVulnerabilities>): void => {
           const { edges, pageInfo } = data.finding.vulnerabilitiesConnection;
-          const loadedVulnerabilities = edges.map(
-            (edge): IVulnerability => edge.node
+          const incomingValues = edges.map(
+            (edge): IVulnerability => ({ ...edge.node, findings: [finding] })
           );
 
-          setVulnerabilities((currentValues): IVulnerability[] => [
-            ...currentValues,
-            ...loadedVulnerabilities,
-          ]);
+          setVulnerabilities((currentValues): IVulnerability[] =>
+            mergeObjectArrays(currentValues, incomingValues)
+          );
 
           if (pageInfo.hasNextPage) {
             void observableQuery.fetchMore({
