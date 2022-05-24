@@ -1,16 +1,24 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 
 
 async def resolve(
     parent: Group,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
 ) -> str:
-    return await orgs_domain.get_name_by_id(parent.organization_id)
+    loaders: Dataloaders = info.context.loaders
+    org_id = parent.organization_id
+    organization: Organization = await loaders.organization_typed.load(org_id)
+    organization_name = organization.name
+
+    return organization_name

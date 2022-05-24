@@ -7,6 +7,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     require_login,
 )
@@ -58,7 +61,10 @@ async def resolve(
         org_id: str = await orgs_domain.get_id_for_group(
             group_names_filtered[0]
         )
-        org_name: str = await orgs_domain.get_name_by_id(org_id)
+        organization: Organization = await loaders.organization_typed.load(
+            org_id
+        )
+        org_name: str = organization.name
 
         allowed_tags: list[str] = await tags_domain.filter_allowed_tags(
             loaders, org_name, group_names_filtered

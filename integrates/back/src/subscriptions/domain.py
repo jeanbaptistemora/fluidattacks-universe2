@@ -33,6 +33,9 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.users.types import (
     User,
 )
@@ -241,7 +244,10 @@ async def _send_analytics_report(
 
     report_entity = report_entity.lower()
     if report_entity == "organization":
-        report_subject = await orgs_domain.get_name_by_id(report_subject)
+        organization: Organization = await loaders.organization_typed.load(
+            report_subject
+        )
+        report_subject = organization.name
     elif report_entity == "portfolio":
         report_subject = report_subject.split("PORTFOLIO#")[-1]
 

@@ -18,6 +18,9 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
 )
@@ -322,7 +325,8 @@ async def request_vulnerability_zero_risk(
     group_name = finding.group_name
 
     org_id = await orgs_domain.get_id_for_group(group_name)
-    org_name = await orgs_domain.get_name_by_id(org_id)
+    organization: Organization = await loaders.organization_typed.load(org_id)
+    org_name = organization.name
     finding_url = (
         f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
         f"{finding_id}/locations"
