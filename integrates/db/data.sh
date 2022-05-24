@@ -11,6 +11,9 @@ function main {
     git_root_metadata
     git_root_historic_state
     git_root_historic_cloning
+    group_metadata
+    group_historic_state
+    group_unreliable_indicators
     ip_root_metadata
     ip_root_historic_state
     machine_git_root_execution
