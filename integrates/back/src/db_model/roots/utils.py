@@ -76,6 +76,7 @@ def format_url_state(state: Item) -> URLRootState:
         path=state["path"],
         port=state["port"],
         protocol=state["protocol"],
+        query=state.get("query"),
         reason=state.get("reason"),
         status=RootStatus[state["status"]],
     )
