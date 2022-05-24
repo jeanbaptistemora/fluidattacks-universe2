@@ -965,8 +965,8 @@
     queue = "unlimited_spot";
     attempts = 1;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 4;
+    memory = 14400;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
