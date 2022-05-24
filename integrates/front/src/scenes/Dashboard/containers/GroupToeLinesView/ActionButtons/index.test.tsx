@@ -109,4 +109,31 @@ describe("ToelinesActionButtons", (): void => {
       screen.queryByText("group.toe.lines.actionButtons.addButton.text")
     ).toBeInTheDocument();
   });
+
+  it("should display the verify button", (): void => {
+    expect.hasAssertions();
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
+    ]);
+
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <ActionButtons
+          areToeLinesDatasSelected={true}
+          isAdding={false}
+          isEditing={false}
+          isInternal={true}
+          isVerifying={false}
+          onAdd={jest.fn()}
+          onEdit={jest.fn()}
+          onVerify={jest.fn()}
+        />
+      </authzPermissionsContext.Provider>
+    );
+
+    expect(
+      screen.queryByText("group.toe.lines.actionButtons.verifyButton.text")
+    ).toBeInTheDocument();
+  });
 });
