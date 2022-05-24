@@ -905,6 +905,9 @@ export const enTranslations: ResourceKey = {
           invalid: "Invalid URL",
         },
         host: "Host",
+        modal: {
+          title: "URL Root",
+        },
         nickname: "Nickname",
         path: "Path",
         port: "Port",
