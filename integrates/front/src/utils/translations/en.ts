@@ -1105,6 +1105,11 @@ export const enTranslations: ResourceKey = {
           procced: "Proceed",
           title: "Add lines",
         },
+        alerts: {
+          verifyToeLines: {
+            success: "Lines has been verified.",
+          },
+        },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
         attackedLines: "Attacked lines",

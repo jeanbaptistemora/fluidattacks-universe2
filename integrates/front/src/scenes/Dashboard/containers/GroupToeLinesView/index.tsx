@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
@@ -33,7 +33,10 @@ import type {
   IHeaderConfig,
   ISelectRowProps,
 } from "components/Table/types";
-import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
+import {
+  GET_TOE_LINES,
+  VERIFY_TOE_LINES,
+} from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
   IFilterSet,
   IGroupToeLinesViewProps,
@@ -42,12 +45,15 @@ import type {
   IToeLinesConnection,
   IToeLinesData,
   IToeLinesEdge,
+  IVerifyToeLinesResultAttr,
 } from "scenes/Dashboard/containers/GroupToeLinesView/types";
 import { GET_ROOT_IDS } from "scenes/Dashboard/queries";
 import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
+import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 
 const NOEXTENSION = ".no.extension.";
 
@@ -85,8 +91,9 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
   const { groupName } = useParams<{ groupName: string }>();
 
-  const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeLinesDatas, setSelectedToeLinesDatas] = useState<
     IToeLinesData[]
@@ -358,6 +365,23 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   ];
 
   // // GraphQL operations
+  const [handleVerifyToeLines] = useMutation<IVerifyToeLinesResultAttr>(
+    VERIFY_TOE_LINES,
+    {
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - The toe lines has been updated by another operation":
+              msgError(t("group.toe.lines.editModal.alerts.alreadyUpdate"));
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred verifying a toe lines", error);
+          }
+        });
+      },
+    }
+  );
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeLines: IToeLinesConnection };
   }>(GET_TOE_LINES, {
@@ -485,6 +509,48 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   }
   function toggleEdit(): void {
     setIsEditing(!isEditing);
+  }
+
+  const handleOnVerifyCompleted = (
+    result: FetchResult<IVerifyToeLinesResultAttr>
+  ): void => {
+    if (
+      !_.isNil(result.data) &&
+      result.data.updateToeLinesAttackedLines.success
+    ) {
+      msgSuccess(
+        t("group.toe.lines.alerts.verifyToeLines.success"),
+        t("groupAlerts.updatedTitle")
+      );
+      void refetch();
+      setSelectedToeLinesDatas([]);
+    }
+  };
+
+  async function handleVerify(): Promise<void> {
+    setIsVerifying(true);
+    const results = await Promise.all(
+      selectedToeLinesDatas.map(
+        async (
+          toeInputData: IToeLinesData
+        ): Promise<FetchResult<IVerifyToeLinesResultAttr>> =>
+          handleVerifyToeLines({
+            variables: {
+              filename: toeInputData.filename,
+              groupName,
+              rootId: toeInputData.rootId,
+            },
+          })
+      )
+    );
+    const errors = getErrors<IVerifyToeLinesResultAttr>(results);
+
+    if (!_.isEmpty(results) && _.isEmpty(errors)) {
+      handleOnVerifyCompleted(results[0]);
+    } else {
+      void refetch();
+    }
+    setIsVerifying(false);
   }
 
   const onBasicFilterValueChange = (
@@ -698,8 +764,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
             isAdding={isAdding}
             isEditing={isEditing}
             isInternal={isInternal}
+            isVerifying={isVerifying}
             onAdd={toggleAdd}
             onEdit={toggleEdit}
+            onVerify={handleVerify}
           />
         }
         headers={headersToeLinesTable}

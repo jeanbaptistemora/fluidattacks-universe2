@@ -2,14 +2,17 @@ import React from "react";
 
 import { AddButton } from "./AddButton";
 import { EditButton } from "./EditButton";
+import { VerifyButton } from "./VerifyButton";
 
 interface IActionButtonsProps {
   areToeLinesDatasSelected: boolean;
   isAdding: boolean;
   isInternal: boolean;
   isEditing: boolean;
+  isVerifying: boolean;
   onAdd: () => void;
   onEdit: () => void;
+  onVerify: () => void;
 }
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
@@ -17,14 +20,22 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isAdding,
   isInternal,
   isEditing,
+  isVerifying,
   onAdd,
   onEdit,
+  onVerify,
 }: IActionButtonsProps): JSX.Element | null => {
+  const isActiveAction = isAdding || isVerifying || isEditing;
+
   return isInternal ? (
     <React.StrictMode>
-      <AddButton isDisabled={isAdding} onAdd={onAdd} />
+      <AddButton isDisabled={isActiveAction} onAdd={onAdd} />
+      <VerifyButton
+        isDisabled={isActiveAction || !areToeLinesDatasSelected}
+        onVerify={onVerify}
+      />
       <EditButton
-        isDisabled={isEditing || !areToeLinesDatasSelected}
+        isDisabled={isActiveAction || !areToeLinesDatasSelected}
         onEdit={onEdit}
       />
     </React.StrictMode>

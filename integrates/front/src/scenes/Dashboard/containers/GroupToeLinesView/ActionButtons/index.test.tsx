@@ -21,8 +21,10 @@ describe("ToelinesActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={true}
+          isVerifying={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onVerify={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
@@ -43,8 +45,10 @@ describe("ToelinesActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={false}
+          isVerifying={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onVerify={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
@@ -58,6 +62,7 @@ describe("ToelinesActionButtons", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
     ]);
+
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <ActionButtons
@@ -65,13 +70,14 @@ describe("ToelinesActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={true}
+          isVerifying={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onVerify={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
 
-    expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(
       screen.queryByText("group.toe.lines.actionButtons.editButton.text")
     ).toBeInTheDocument();
@@ -90,8 +96,10 @@ describe("ToelinesActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={true}
+          isVerifying={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onVerify={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
