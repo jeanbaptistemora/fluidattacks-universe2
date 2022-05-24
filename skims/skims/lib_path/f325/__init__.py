@@ -14,6 +14,7 @@ from lib_path.f325.terraform import (
     tfm_iam_has_privileges_over_iam,
     tfm_iam_has_wildcard_resource_on_write_action,
     tfm_iam_is_policy_miss_configured,
+    tfm_kms_key_has_master_keys_exposed_to_everyone,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -107,6 +108,15 @@ def run_tfm_iam_has_wildcard_resource_on_write_action(
 
 
 @SHIELD_BLOCKING
+def run_tfm_kms_key_has_master_keys_exposed_to_everyone(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return tfm_kms_key_has_master_keys_exposed_to_everyone(
+        content=content, path=path, model=model
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -144,6 +154,7 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
+                    run_tfm_kms_key_has_master_keys_exposed_to_everyone,
                     run_tfm_iam_has_privileges_over_iam,
                     run_tfm_iam_is_policy_miss_configured,
                     run_tfm_iam_has_wildcard_resource_on_write_action,

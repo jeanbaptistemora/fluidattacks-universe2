@@ -3047,6 +3047,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
+        file_name="terraform",
+        name="tfm_kms_key_has_master_keys_exposed_to_everyone",
+        module="lib_path",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_is_role_over_privileged",

@@ -9953,6 +9953,31 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_e
   37 |       ""Type"": ""AWS::KMS::Key"",
      ^ Col 0
 ",cloudformation.cfn_kms_key_has_master_keys_exposed_to_everyone
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_kms_key_has_master_keys_exposed_to_everyone.tf,5,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
+ in namespace/skims/test/data/lib_path/f325/tfm_kms_key_has_master_keys_exposed_to_everyone.tf","
+   1 | resource ""aws_kms_key"" ""a"" {
+   2 |   description             = ""KMS key 1""
+   3 |   deletion_window_in_days = 10
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Version"": ""2012-10-17"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Principal"": {
+  11 |           ""AWS"": ""*""
+  12 |         },
+  13 |         ""Effect"": ""Allow""
+  14 |       }
+  15 |     ]
+  16 |   }
+  17 |   EOF
+  18 | }
+  19 |
+  20 | resource ""aws_kms_key"" ""a"" {
+  21 |   description             = ""KMS key 1""
+     ^ Col 0
+",terraform.tfm_kms_key_has_master_keys_exposed_to_everyone
 F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,8,250,skims,267. Excessive Privileges - Kubernetes,"Ensure CAP_SYS_ADMIN Linux capability or PRIVILEGED mode is not used
  in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
    1 | apiVersion: v1

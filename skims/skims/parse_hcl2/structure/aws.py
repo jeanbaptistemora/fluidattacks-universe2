@@ -137,6 +137,15 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
                 )
 
 
+def iter_aws_kms_key_policy_statements(
+    model: Any,
+) -> Iterator[AWSIamPolicyStatement]:
+    iterator = iterate_resources(model, "resource", "aws_kms_key")
+    for res in iterator:
+        attribute = get_block_attribute(res, "policy")
+        yield from _yield_statements_from_policy_document_attribute(attribute)
+
+
 def _yield_statements_from_policy_document_attribute(
     attribute: Any,
 ) -> Iterator[AWSIamPolicyStatement]:

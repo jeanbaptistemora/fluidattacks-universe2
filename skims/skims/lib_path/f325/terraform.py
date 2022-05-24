@@ -16,6 +16,7 @@ from parse_hcl2.common import (
     get_attribute,
 )
 from parse_hcl2.structure.aws import (
+    iter_aws_kms_key_policy_statements,
     iter_iam_policy_attachment,
     iterate_iam_policy_documents,
 )
@@ -128,6 +129,17 @@ def _tfm_iam_has_wildcard_resource_on_write_action_iter_vulns(
             yield stmt
 
 
+def _tfm_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
+    stmts_iterator: Iterator[Any],
+) -> Iterator[Union[Any, Node]]:
+    for stmt in stmts_iterator:
+        effect = stmt.data.get("Effect")
+        principal = stmt.data.get("Principal")
+        p_aws = principal.get("AWS") if principal else None
+        if effect == "Allow" and p_aws == "*":
+            yield stmt
+
+
 def tfm_iam_has_privileges_over_iam(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -176,4 +188,22 @@ def tfm_iam_has_wildcard_resource_on_write_action(
         ),
         path=path,
         method=MethodsEnum.TFM_IAM_WILDCARD_WRITE,
+    )
+
+
+def tfm_kms_key_has_master_keys_exposed_to_everyone(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone"
+        ),
+        iterator=get_cloud_iterator(
+            _tfm_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
+                stmts_iterator=iter_aws_kms_key_policy_statements(model=model),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_KMS_MASTER_KEYS_EXPOSED,
     )
