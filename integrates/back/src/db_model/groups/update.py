@@ -5,6 +5,7 @@ from .types import (
 )
 from .utils import (
     format_metadata_item,
+    format_unreliable_indicators_item,
     remove_org_id_prefix,
 )
 from boto3.dynamodb.conditions import (
@@ -18,9 +19,6 @@ from db_model import (
 )
 from db_model.groups.enums import (
     GroupStateStatus,
-)
-from decimal import (
-    Decimal,
 )
 from dynamodb import (
     keys,
@@ -126,10 +124,7 @@ async def update_unreliable_indicators(
             "name": group_name,
         },
     )
-    unreliable_indicators = {
-        key: Decimal(str(value)) if isinstance(value, float) else value
-        for key, value in json.loads(json.dumps(indicators)).items()
-    }
+    unreliable_indicators = format_unreliable_indicators_item(indicators)
     await operations.update_item(
         item=unreliable_indicators,
         key=group_key,
