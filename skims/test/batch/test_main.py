@@ -150,10 +150,9 @@ async def test_mock_git_report(test_group: str, mocker: MockerFixture) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.skip(reason="Fixing")
-@pytest.mark.usefixtures("mock_pull_repo_next_commit")
+@pytest.mark.usefixtures("mock_pull_git_repo_next_commit")
 @pytest.mark.usefixtures("test_integrates_session")
-async def test_rebase_no_change_line(
+async def test_rebase_change_line(
     test_group: str, mocker: MockerFixture
 ) -> None:
     mocker.patch(
@@ -166,8 +165,8 @@ async def test_rebase_no_change_line(
             time="test",
             additional_info=json.dumps(
                 {
-                    "roots": ["namespace4"],
-                    "checks": ["F099"],
+                    "roots": ["dynamic_namespace_1"],
+                    "checks": ["F073"],
                 }
             ),
             queue="unlimited_spot",
@@ -180,27 +179,38 @@ async def test_rebase_no_change_line(
     }
 
     findings = await get_group_findings(group=test_group)
-    finding_id = "6ca298ce-8306-4f0d-9db9-103aa92d89d6"
+
     for finding in findings:
-        if (
-            finding.title.startswith("099")
-            and finding.identifier == finding_id
-        ):
+        if finding.title.startswith("073"):
             title = finding.title
-
-    import batch
-
-    assert await batch.main(action_dynamo_pk="test") is None
+            finding_id = finding.identifier
 
     vulns_before_rebase: EphemeralStore = await get_finding_vulnerabilities(
         finding=titles_to_finding[title],
         finding_id=finding_id,
     )
+    vulns_before_length = len(vulns_before_rebase)
     for item in vulns_before_rebase.iterate():
-        if (
-            item.integrates_metadata.uuid
-            == "a487943a-a23e-4da5-a693-1b2dbb6ee5a1"
-        ):
-            where = item.where
+        if item.where == "2":
+            vuln_1_id = item.integrates_metadata.uuid
+        elif item.where == "17":
+            vuln_2_id = item.integrates_metadata.uuid
 
-    assert where == "4"
+    assert vuln_1_id is not None and vuln_2_id is not None
+
+    await batch_main(action_dynamo_pk="test")
+
+    vulns_after_rebase: EphemeralStore = await get_finding_vulnerabilities(
+        finding=titles_to_finding[title],
+        finding_id=finding_id,
+    )
+
+    assert len(vulns_after_rebase) == vulns_before_length
+
+    for item in vulns_after_rebase.iterate():
+        if item.integrates_metadata.uuid == vuln_1_id:
+            final_where_1 = item.where
+        elif item.integrates_metadata.uuid == vuln_2_id:
+            final_where_2 = item.where
+
+    assert final_where_1 == "11" and final_where_2 == "26"

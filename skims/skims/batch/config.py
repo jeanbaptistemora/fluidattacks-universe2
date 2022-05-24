@@ -56,9 +56,12 @@ def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
 
     for parsed_url in {parse_url(url) for url in urls}:
         if parsed_url.port is None:
-            targets.append((parsed_url.host, "443"))
+            if ((parsed_url.host, "443")) not in targets:
+                targets.append((parsed_url.host, "443"))
         else:
-            targets.append((parsed_url.host, str(parsed_url.port)))
+            if ((parsed_url.host, str(parsed_url.port))) not in targets:
+                targets.append((parsed_url.host, str(parsed_url.port)))
+    targets.sort(key=lambda x: x[0])
 
     return targets
 

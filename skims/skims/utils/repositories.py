@@ -112,6 +112,7 @@ def _rebase_one_commit_at_a_time(
     patch: PatchedFile
 
     diff = get_diff(repo, rev_a=rev_a, rev_b=rev_b)
+    rebased_line = line
     for patch in diff:
         if patch.source_file == f"a/{path}":
             if patch.is_removed_file:
@@ -133,12 +134,11 @@ def _rebase_one_commit_at_a_time(
                 elif line > hunk_source_end:
                     # The line exists after this hunk and therefore
                     # we should increase/decrease the line number
-                    line += hunk.added - hunk.removed
+                    rebased_line += hunk.added - hunk.removed
                 elif hunk.source_start <= line <= hunk_source_end:
                     # We cannot rebase because the line was modified
                     # by this hunk
                     # We cannot guess the next position of the line
                     # deterministically
                     return None
-
-    return RebaseResult(path=path, line=line, rev=rev_b)
+    return RebaseResult(path=path, line=rebased_line, rev=rev_b)

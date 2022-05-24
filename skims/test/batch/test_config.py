@@ -89,8 +89,8 @@ async def test_generate_config(test_group: str) -> None:
         ),
         ssl=SkimsSslConfig(
             include=(
-                SkimsSslTarget(host="fluidattacks.com", port=443),
                 SkimsSslTarget(host="app.fluidattacks.com", port=443),
+                SkimsSslTarget(host="fluidattacks.com", port=443),
             )
         ),
         start_dir=os.getcwd(),
