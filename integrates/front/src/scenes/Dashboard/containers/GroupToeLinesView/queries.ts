@@ -61,4 +61,21 @@ const GET_TOE_LINES: DocumentNode = gql`
   }
 `;
 
-export { GET_TOE_LINES };
+const VERIFY_TOE_LINES: DocumentNode = gql`
+  mutation VerifyToeLines(
+    $groupName: String!
+    $rootId: String!
+    $filename: String!
+  ) {
+    updateToeLinesAttackedLines(
+      groupName: $groupName
+      rootId: $rootId
+      filename: $filename
+      comments: ""
+    ) {
+      success
+    }
+  }
+`;
+
+export { GET_TOE_LINES, VERIFY_TOE_LINES };

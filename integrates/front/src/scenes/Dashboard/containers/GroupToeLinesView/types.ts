@@ -79,6 +79,12 @@ interface IGroupToeLinesViewProps {
   isInternal: boolean;
 }
 
+interface IVerifyToeLinesResultAttr {
+  updateToeLinesAttackedLines: {
+    success: boolean;
+  };
+}
+
 export type {
   IFilterSet,
   IGitRootAttr,
@@ -88,4 +94,5 @@ export type {
   IToeLinesData,
   IToeLinesEdge,
   ISortsSuggestionAttr,
+  IVerifyToeLinesResultAttr,
 };
