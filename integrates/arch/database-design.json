@@ -216,7 +216,7 @@
         },
         {
           "AttributeName": "files",
-          "AttributeType": "SS"
+          "AttributeType": "L"
         },
         {
           "AttributeName": "nickname",
@@ -1702,7 +1702,1030 @@
             "PartitionKeyAlias": "GROUP#name",
             "SortKeyAlias": "ORG#organization_id"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "name": {
+                "S": "oneshottest"
+              },
+              "description": {
+                "S": "oneshot testing"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "ONESHOT"
+                  },
+                  "managed": {
+                    "BOOL": false
+                  },
+                  "service": {
+                    "S": "BLACK"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "ONESHOT"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  },
+                  {
+                    "S": "another-tag"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "agent_token": {
+                "S": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBoZXJ0ZXh0IjoiTC1iZVRYUTZXYXFZcmFORUZWOEc5NGhMcUtnVWt4U295elN2YVRKeF8tMUQ2bUtjRFRtUDFWaFpIY0hHelc2VS15ZjY2ak5yYkdoZkNQZHZSREtzNnNKQkdobHNPN0Zyb3pVZG9VMXIxTzNzcmtmM1RwWTdsWWxTcVpCNXpmcU1menlHby04aG42dXpadU5IcnVsS05ZTml1V0J6RFk5TFVQaFlGcHhLQnVRRkMzaU9aeTNUbGdCa1ItTkJ2b2VMc1dUbTU4NTNDUndoY2VDVENiWjl6cGw0YThBMFEzYTZwdC1idU1RME1EMGktSl9WV0xEbGN2WFkiLCJlbmNyeXB0ZWRfa2V5IjoiT0pLeEpTZkgyN2U5MEN5QjVXdW5DUG5ra0FKMkktNGxLYllEU0cwUV9yNCIsImhlYWRlciI6eyJpdiI6IlduQXh2TFVfQmtTZzJwdl8iLCJ0YWciOiJBUm1nOUlhdUZKWlF6cEhodTZnd0xRIn0sIml2IjoieXYyMmpIb0MyUUQwWjg4RCIsInByb3RlY3RlZCI6ImV5SmhiR2NpT2lKQk1qVTJSME5OUzFjaUxDSmxibU1pT2lKQk1qVTJSME5OSW4wIiwidGFnIjoiczFIZmlMblByYjJqRjZtYWQ1MkczdyJ9.t9RTji3iySHZ9dTSMHgv_g0pCeJZ8GJgfavdOzQNQPWRK-NKplBNCaWfHjfXtZmOA8p7pEzLc2vIRN1jaENjxw"
+              },
+              "description": {
+                "S": "Integrates unit test group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  }
+                ]
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "name": {
+                "S": "unittesting"
+              },
+              "context": {
+                "S": "Group context test"
+              },
+              "disambiguation": {
+                "S": "Disambiguation test"
+              },
+              "files": {
+                "L": [
+                  {
+                    "M": {
+                      "modified_by": {
+                        "S": "unittest@fluidattacks.com"
+                      },
+                      "description": {
+                        "S": "Test"
+                      },
+                      "modified_date": {
+                        "S": "2019-03-01T20:21:00+00:00"
+                      },
+                      "file_name": {
+                        "S": "test.zip"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "modified_by": {
+                        "S": "unittest@fluidattacks.com"
+                      },
+                      "description": {
+                        "S": "shell"
+                      },
+                      "modified_date": {
+                        "S": "2019-04-24T19:56:00+00:00"
+                      },
+                      "file_name": {
+                        "S": "shell.exe"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "modified_by": {
+                        "S": "unittest@fluidattacks.com"
+                      },
+                      "description": {
+                        "S": "shell2"
+                      },
+                      "modified_date": {
+                        "S": "2019-04-24T19:59:00+00:00"
+                      },
+                      "file_name": {
+                        "S": "shell2.exe"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "modified_by": {
+                        "S": "unittest@fluidattacks.com"
+                      },
+                      "description": {
+                        "S": "eerweterterter"
+                      },
+                      "modified_date": {
+                        "S": "2019-08-06T19:28:00+00:00"
+                      },
+                      "file_name": {
+                        "S": "asdasd.py"
+                      }
+                    }
+                  }
+                ]
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": true
+                  },
+                  "tier": {
+                    "S": "MACHINE"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": true
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "name": {
+                "S": "setpendingdeletion"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#setpendingdeletion"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "ONESHOT"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "name": {
+                "S": "kurome"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#kurome"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "OTHER"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "name": {
+                "S": "continuoustesting"
+              },
+              "description": {
+                "S": "Integrates continuous group"
+              },
+              "files": {
+                "L": [
+                  {
+                    "M": {
+                      "modified_by": {
+                        "S": "unittest@fluidattacks.com"
+                      },
+                      "description": {
+                        "S": "shell2"
+                      },
+                      "modified_date": {
+                        "S": "2019-04-24T19:59:00+00:00"
+                      },
+                      "file_name": {
+                        "S": "shell2.exe"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "modified_by": {
+                        "S": "unittest@fluidattacks.com"
+                      },
+                      "description": {
+                        "S": "asdasd"
+                      },
+                      "modified_date": {
+                        "S": "2019-08-06T19:28:00+00:00"
+                      },
+                      "file_name": {
+                        "S": "asdasd.py"
+                      }
+                    }
+                  }
+                ]
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": true
+                  },
+                  "tier": {
+                    "S": "SQUAD"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": true
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "another-tag"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "name": {
+                "S": "gotham"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#gotham"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "ONESHOT"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "name": {
+                "S": "barranquilla"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#barranquilla"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "SQUAD"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              },
+              "sk": {
+                "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              },
+              "name": {
+                "S": "lubbock"
+              },
+              "description": {
+                "S": "Integrates deleted group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#lubbock"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": true
+                  },
+                  "tier": {
+                    "S": "FREE"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": true
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "another-tag"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "name": {
+                "S": "monteria"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#monteria"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "FREE"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "sk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "name": {
+                "S": "deleteimamura"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#deleteimamura"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": true
+                  },
+                  "tier": {
+                    "S": "MACHINE"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": true
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "name": {
+                "S": "asgard"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#asgard"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "OTHER"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "name": {
+                "S": "deletegroup"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#deletegroup"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "OTHER"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "pending_deletion_date": {
+                    "S": "2020-12-22T19:36:29+00:00"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "name": {
+                "S": "metropolis"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#metropolis"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "MACHINE"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "test-groups"
+                  }
+                ]
+              }
+            },
+            {
+              "business_name": {
+                "S": "Testing Company & Sons"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "name": {
+                "S": "sheele"
+              },
+              "description": {
+                "S": "Integrates group"
+              },
+              "language": {
+                "S": "EN"
+              },
+              "pk": {
+                "S": "GROUP#sheele"
+              },
+              "state": {
+                "M": {
+                  "has_squad": {
+                    "BOOL": false
+                  },
+                  "tier": {
+                    "S": "OTHER"
+                  },
+                  "managed": {
+                    "BOOL": true
+                  },
+                  "service": {
+                    "S": "WHITE"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "has_machine": {
+                    "BOOL": false
+                  },
+                  "modified_date": {
+                    "S": "2020-05-20T22:00:00+00:00"
+                  },
+                  "type": {
+                    "S": "CONTINUOUS"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "business_id": {
+                "S": "14441323"
+              },
+              "sprint_duration": {
+                "N": "2"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "name",
             "description",
