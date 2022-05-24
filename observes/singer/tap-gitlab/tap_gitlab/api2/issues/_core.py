@@ -3,6 +3,7 @@ from dataclasses import (
 )
 from datetime import (
     date,
+    datetime,
 )
 from enum import (
     Enum,
@@ -42,8 +43,8 @@ class Issue:
     due_date: Maybe[date]
     epic: Maybe[EpicId]
     weight: Maybe[int]
-    created_at: date
-    updated_at: Maybe[date]
-    closed_at: Maybe[date]
+    created_at: datetime
+    updated_at: Maybe[datetime]
+    closed_at: Maybe[datetime]
     closed_by: Maybe[UserId]
     health_status: Maybe[str]

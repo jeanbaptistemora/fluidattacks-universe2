@@ -23,5 +23,4 @@ class MilestoneId:
 
 @dataclass(frozen=True)
 class UserId:
-    global_id: str
-    internal_id: int
+    user_id: str
