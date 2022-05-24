@@ -1087,7 +1087,7 @@ export const enTranslations: ResourceKey = {
             tooltip: "Edit attacked lines",
           },
           verifyButton: {
-            text: "Verify",
+            text: "Verified",
             tooltip: "Verify attacked file",
           },
         },
