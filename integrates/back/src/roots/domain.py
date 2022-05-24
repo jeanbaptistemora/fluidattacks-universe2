@@ -46,6 +46,9 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.roots.enums import (
     RootStatus,
     RootType,
@@ -188,8 +191,10 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
-
-    organization_name = await orgs_domain.get_name_by_id(group.organization_id)
+    organization: Organization = await loaders.organization_typed.load(
+        group.organization_id
+    )
+    organization_name = organization.id
     if ensure_org_uniqueness and not validations.is_git_unique(
         url,
         branch,
@@ -284,7 +289,10 @@ async def add_ip_root(
         raise InvalidParameter()
 
     group: Group = await loaders.group_typed.load(group_name)
-    organization_name = await orgs_domain.get_name_by_id(group.organization_id)
+    organization: Organization = await loaders.organization_typed.load(
+        group.organization_id
+    )
+    organization_name = organization.name
     if ensure_org_uniqueness and not validations.is_ip_unique(
         address,
         port,
@@ -350,7 +358,10 @@ async def add_url_root(  # pylint: disable=too-many-locals
     protocol: str = url_attributes.scheme.upper()
 
     group: Group = await loaders.group_typed.load(group_name)
-    organization_name = await orgs_domain.get_name_by_id(group.organization_id)
+    organization: Organization = await loaders.organization_typed.load(
+        group.organization_id
+    )
+    organization_name = organization.name
     if ensure_org_uniqueness and not validations.is_url_unique(
         host,
         path,
@@ -655,9 +666,10 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     if url != root.state.url:
         if await loaders.root_vulnerabilities.load(root.id):
             raise HasVulns()
-        organization_name = await orgs_domain.get_name_by_id(
+        organization: Organization = await loaders.organization_typed.load(
             group.organization_id
         )
+        organization_name = organization.name
         if not validations.is_git_unique(
             url,
             branch,
@@ -975,9 +987,10 @@ async def activate_root(
 
     if root.state.status != new_status:
         group: Group = await loaders.group_typed.load(group_name)
-        organization_name = await orgs_domain.get_name_by_id(
+        organization: Organization = await loaders.organization_typed.load(
             group.organization_id
         )
+        organization_name = organization.name
         org_roots = await loaders.organization_roots.load(organization_name)
 
         if isinstance(root, GitRoot):
