@@ -1083,6 +1083,10 @@ export const enTranslations: ResourceKey = {
             text: "Edit",
             tooltip: "Edit attacked lines",
           },
+          verifyButton: {
+            text: "Verify",
+            tooltip: "Verify attacked file",
+          },
         },
         addModal: {
           alerts: {
