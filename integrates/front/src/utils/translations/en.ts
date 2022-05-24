@@ -261,11 +261,20 @@ export const enTranslations: ResourceKey = {
         label: "Branch",
         placeholder: "QA",
       },
-      credentialName: {
-        label: "Credential name",
-        placeholder: "Test credential",
+      credentials: {
+        auth: {
+          token: "Access Token",
+          user: "User and Password",
+        },
+        name: {
+          label: "Credential name",
+          placeholder: "Test credential",
+        },
+        password: "Repository password",
+        token: "Repository access token",
+        type: "Credential type",
+        user: "Repository user",
       },
-      credentialType: "Credential type",
       environment: {
         label: "Environment kind",
         placeholder: "QA",
