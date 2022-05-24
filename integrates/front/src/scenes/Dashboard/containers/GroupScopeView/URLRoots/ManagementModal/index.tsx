@@ -4,13 +4,20 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { ModalFooter } from "components/Modal";
+import type { IURLRootAttr } from "scenes/Dashboard/containers/GroupToeInputsView/HandleAdditionModal/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
+  initialValues: IURLRootAttr;
+  isEditing: boolean;
   onClose: () => void;
-  onSubmit: (values: { nickname: string; url: string }) => Promise<void>;
+  onSubmit: (values: {
+    id: string;
+    nickname: string;
+    url: string;
+  }) => Promise<void>;
 }
 
 const validations = object().shape({
@@ -21,15 +28,21 @@ const validations = object().shape({
 });
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
+  initialValues,
+  isEditing,
   onClose,
   onSubmit,
 }: IManagementModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <Modal onClose={onClose} open={true} title={t(`group.scope.common.add`)}>
+    <React.StrictMode>
       <Formik
-        initialValues={{ nickname: "", url: "" }}
+        initialValues={{
+          id: initialValues.id,
+          nickname: initialValues.nickname,
+          url: initialValues.host,
+        }}
         name={"urlRoot"}
         onSubmit={onSubmit}
         validationSchema={validations}
@@ -41,7 +54,12 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t("group.scope.url.url")}
               </ControlLabel>
-              <Field component={FormikText} name={"url"} type={"text"} />
+              <Field
+                component={FormikText}
+                disabled={isEditing}
+                name={"url"}
+                type={"text"}
+              />
             </div>
             <div>
               <ControlLabel>
@@ -65,7 +83,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
           </Form>
         )}
       </Formik>
-    </Modal>
+    </React.StrictMode>
   );
 };
 

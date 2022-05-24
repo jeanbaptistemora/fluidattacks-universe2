@@ -269,6 +269,18 @@ const UPDATE_IP_ROOT: DocumentNode = gql`
   }
 `;
 
+const UPDATE_URL_ROOT: DocumentNode = gql`
+  mutation UpdateUrlRoot(
+    $groupName: String!
+    $rootId: ID!
+    $nickname: String!
+  ) {
+    updateUrlRoot(groupName: $groupName, rootId: $rootId, nickname: $nickname) {
+      success
+    }
+  }
+`;
+
 const ADD_IP_ROOT = gql`
   mutation AddIpRoot(
     $address: String!
@@ -438,6 +450,7 @@ export {
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
   UPDATE_IP_ROOT,
+  UPDATE_URL_ROOT,
   VALIDATE_GIT_ACCESS,
   REMOVE_ENVIRONMENT_URL_SECRET,
   GET_GROUP_CREDENTIALS,
