@@ -1,5 +1,18 @@
 import _ from "lodash";
 
+import type { IFinding, IVulnerability } from "./types";
+
+const formatLocation = (
+  _cell: string,
+  row: IVulnerability
+): React.ReactNode => {
+  return `${row.where}:${row.specific}`;
+};
+
+const formatType = (cell: IFinding[]): React.ReactNode => {
+  return cell.map((finding): string => `- ${finding.title}`).join(", ");
+};
+
 const mergeObjectArrays = <T>(currentValues: T[], incomingValues: T[]): T[] => {
   return Object.values(
     _.mergeWith(
@@ -16,4 +29,4 @@ const mergeObjectArrays = <T>(currentValues: T[], incomingValues: T[]): T[] => {
   );
 };
 
-export { mergeObjectArrays };
+export { formatLocation, formatType, mergeObjectArrays };
