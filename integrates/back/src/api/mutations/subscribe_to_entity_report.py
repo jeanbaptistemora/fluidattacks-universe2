@@ -4,6 +4,9 @@ from ariadne import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -35,8 +38,10 @@ async def mutate(
     success: bool = False
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
+    loaders: Dataloaders = info.context.loaders
 
     if await subscriptions_domain.can_subscribe_user_to_entity_report(
+        loaders=loaders,
         report_entity=report_entity,
         report_subject=report_subject,
         user_email=user_email,

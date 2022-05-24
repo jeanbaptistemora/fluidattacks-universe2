@@ -16,6 +16,10 @@ from custom_types import (
     GraphicsForEntityParameters,
     ReportParameters,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -148,6 +152,7 @@ async def handle_authz_claims(
     ],
     request: Request,
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     user_info = await token_utils.get_jwt_content(request)
     email = user_info["user_email"]
     if params.subject.endswith("_30") or params.subject.endswith("_90"):
@@ -168,7 +173,9 @@ async def handle_authz_claims(
         ):
             raise PermissionError("Access denied")
     elif params.entity == "portfolio":
-        if not await tags_domain.has_user_access(email, subject):
+        if not await tags_domain.has_user_access(
+            loaders=loaders, email=email, subject=subject
+        ):
             raise PermissionError("Access denied")
     else:
         raise ValueError(f"Invalid entity: {params.entity}")

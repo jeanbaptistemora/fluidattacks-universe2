@@ -85,13 +85,16 @@ async def cancel_health_check(
 
 async def delete_group(
     *,
+    loaders: Any,
     deletion_date: str,
     group_name: str,
     requester_email: str,
     reason: str,
 ) -> bool:
-    org_id = await orgs_domain.get_id_for_group(group_name)
-    org_name = await orgs_domain.get_name_by_id(org_id)
+    group: Group = await loaders.group_typed.load(group_name)
+    org_id = group.organization_id
+    organization: Organization = await loaders.organization_typed.load(org_id)
+    org_name = organization.name
     return cast(
         bool,
         await in_thread(

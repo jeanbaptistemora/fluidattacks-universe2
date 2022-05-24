@@ -123,6 +123,7 @@ def _translate_entity(entity: str) -> str:
 
 async def can_subscribe_user_to_entity_report(
     *,
+    loaders: Any,
     report_entity: str,
     report_subject: str,
     user_email: str,
@@ -141,6 +142,7 @@ async def can_subscribe_user_to_entity_report(
         )
     elif report_entity.lower() == "portfolio":
         success = await tags_domain.has_user_access(
+            loaders=loaders,
             email=user_email,
             subject=report_subject,
         )
@@ -488,7 +490,9 @@ async def _validate_subscription(
 ) -> bool:
     # A user may be subscribed but now he does not have access to the
     #   group or organization, so let's handle this case
+    loaders: Dataloaders = get_new_context()
     if await can_subscribe_user_to_entity_report(
+        loaders=loaders,
         report_entity=subscription["sk"]["entity"],
         report_subject=subscription["sk"]["subject"],
         user_email=subscription["pk"]["email"],

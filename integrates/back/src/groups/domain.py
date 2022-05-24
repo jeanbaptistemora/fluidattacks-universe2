@@ -69,6 +69,9 @@ from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -492,7 +495,7 @@ async def complete_register_for_group_invitation(
 
 
 async def complete_register_for_organization_invitation(
-    organization_access: dict[str, Any]
+    loaders: Any, organization_access: dict[str, Any]
 ) -> bool:
     success: bool = False
     invitation = organization_access["invitation"]
@@ -500,7 +503,10 @@ async def complete_register_for_organization_invitation(
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     organization_id = organization_access["pk"]
-    organization_name = await orgs_domain.get_name_by_id(organization_id)
+    organization: Organization = loaders.organization_typed.load(
+        organization_id
+    )
+    organization_name = organization.name
     role = invitation["role"]
     user_email = organization_access["sk"].split("#")[1]
     updated_invitation = invitation.copy()
@@ -873,6 +879,7 @@ async def update_group(
         user_email=user_email,
     )
     await notifications_domain.delete_group(
+        loaders=loaders,
         deletion_date=datetime_utils.get_now_as_str(),
         group_name=group_name,
         requester_email=user_email,

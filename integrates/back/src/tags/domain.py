@@ -8,6 +8,9 @@ from contextlib import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.portfolios.constants import (
     OLD_GROUPS,
 )
@@ -69,10 +72,13 @@ async def get_tags(
     return await dal.get_tags(organization, attributes)
 
 
-async def has_user_access(email: str, subject: str) -> bool:
+async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
-        organization_name = await orgs_domain.get_name_by_id(org_id)
+        organization: Organization = await loaders.organization_typed.load(
+            org_id
+        )
+        organization_name = organization.name
         portfolio_info = await get_attributes(
             organization_name, portfolio, [OLD_GROUPS]
         )

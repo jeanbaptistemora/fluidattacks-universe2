@@ -44,6 +44,7 @@ from custom_exceptions import (
     SecureAccessException,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from decorators import (
@@ -219,9 +220,10 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
             url_token
         )
         if organization_access:
+            loaders: Dataloaders = get_new_context()
             success = await (
                 groups_domain.complete_register_for_organization_invitation(
-                    organization_access
+                    loaders, organization_access
                 )
             )
             if success:
