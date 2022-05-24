@@ -227,7 +227,41 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=RootType.GIT,
                 ),
                 "historic_state": [],
-            }
+            },
+            {
+                "root": GitRoot(
+                    cloning=GitRootCloning(
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        reason="root creation",
+                        status=GitCloningStatus("UNKNOWN"),
+                    ),
+                    group_name="group1",
+                    id="e782e588-060d-4ae7-8930-3c11d2ba4395",
+                    organization_name="orgtest",
+                    state=GitRootState(
+                        branch="master",
+                        environment="production",
+                        environment_urls=["https://.com"],
+                        git_environment_urls=[
+                            GitEnvironmentUrl(
+                                url="https://testtest.com",
+                                id="683d198c-f88d-4a92-a02d-7377ad2dca45",
+                            )
+                        ],
+                        gitignore=["node_modules/*"],
+                        includes_health_check=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-11-19T13:37:10+00:00",
+                        nickname="product123",
+                        other=None,
+                        reason=None,
+                        status=RootStatus.ACTIVE,
+                        url="https://gitlab.com/fluidattacks/product",
+                    ),
+                    type=RootType.GIT,
+                ),
+                "historic_state": [],
+            },
         ],
         "toe_inputs": (
             ToeInput(
@@ -320,7 +354,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4444",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
@@ -355,7 +389,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4545",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
@@ -390,7 +424,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4646",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
@@ -453,7 +487,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdceb",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4747",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",

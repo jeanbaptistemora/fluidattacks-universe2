@@ -674,7 +674,9 @@ async def should_send_update_treatment(
     translations = {"IN_PROGRESS": "In Progress"}
     if treatment in translations:
         vulns_grouped = group_vulnerabilities(updated_vulns)
-        vulns_data = vulns_utils.format_vulnerabilities(vulns_grouped)
+        vulns_data = await vulns_utils.format_vulnerabilities(
+            group_name, loaders, vulns_grouped
+        )
         mail_content = get_updated_manager_mail_content(vulns_data)
         schedule(
             vulns_mail.send_mail_updated_treatment(

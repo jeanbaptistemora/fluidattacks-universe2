@@ -8,6 +8,7 @@ from datetime import (
 )
 from db_model.roots.types import (
     GitRoot,
+    Root,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -26,7 +27,6 @@ from typing import (
     Dict,
     List,
     Set,
-    Tuple,
 )
 from users.domain import (
     is_registered,
@@ -110,20 +110,26 @@ async def get_valid_assigned(
 async def get_root_nicknames_for_skims(
     dataloaders: Any,
     group: str,
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulnerabilities: tuple[Vulnerability, ...],
 ) -> Set[str]:
     # If a vuln is linked to a root, return it
     # otherwise return all roots, the vuln must belong to one of them
-    include_all: bool = False
     root_nicknames: Set[str] = set()
 
-    for vuln in vulnerabilities:
-        if vuln.repo:
-            root_nicknames.add(vuln.repo)
-        else:
-            include_all = True
-
-    if include_all:
+    root_ids: tuple[str, ...] = tuple(
+        vulnerability.root_id
+        for vulnerability in vulnerabilities
+        if vulnerability.root_id
+    )
+    if len(vulnerabilities) == len(root_ids):
+        non_duplicate_root_ids: set[str] = set(root_ids)
+        roots: tuple[Root, ...] = await dataloaders.group_roots.load(group)
+        root_nicknames.update(
+            root.state.nickname
+            for root in roots
+            if root.id in non_duplicate_root_ids
+        )
+    else:
         root_nicknames.update(
             root.state.nickname
             for root in await dataloaders.group_roots.load(group)

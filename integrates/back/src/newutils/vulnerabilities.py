@@ -1,6 +1,9 @@
 from . import (
     datetime as datetime_utils,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     AlreadyOnHold,
     AlreadyRequested,
@@ -9,6 +12,7 @@ from custom_exceptions import (
     InvalidRange,
     NotVerificationRequested,
     NotZeroRiskRequested,
+    RootNotFound,
     VulnAlreadyClosed,
 )
 from custom_types import (
@@ -17,6 +21,9 @@ from custom_types import (
 from datetime import (
     date as datetype,
     datetime,
+)
+from db_model.roots.types import (
+    Root,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -184,8 +191,8 @@ def filter_remediated(
     )
 
 
-def format_vulnerabilities(
-    vulnerabilities: Tuple[Vulnerability, ...]
+async def format_vulnerabilities(
+    group_name: str, loaders: Any, vulnerabilities: Tuple[Vulnerability, ...]
 ) -> Dict[str, List[Dict[str, str]]]:
     finding: Dict[str, List[Dict[str, str]]] = {
         "ports": [],
@@ -212,8 +219,12 @@ def format_vulnerabilities(
             finding[vuln_type][-1]["commit_hash"] = vuln.commit
         if vuln.stream:
             finding[vuln_type][-1]["stream"] = ",".join(vuln.stream)
-        if vuln.repo:
-            finding[vuln_type][-1]["repo_nickname"] = vuln.repo
+        if vuln.root_id:
+            with suppress(RootNotFound):
+                root: Root = await loaders.root.load(
+                    (group_name, vuln.root_id)
+                )
+                finding[vuln_type][-1]["repo_nickname"] = root.state.nickname
     return finding
 
 

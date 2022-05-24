@@ -156,7 +156,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="7777",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
@@ -185,7 +185,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="8888",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",
@@ -214,7 +214,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
-                    repo="product",
+                    root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="9999",
                     state=VulnerabilityState(
                         modified_by="hacker@gmail.com",

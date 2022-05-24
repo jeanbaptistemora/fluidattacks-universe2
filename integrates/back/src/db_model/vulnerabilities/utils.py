@@ -123,7 +123,6 @@ def format_vulnerability(item: Item) -> Vulnerability:
         ),
         finding_id=item["sk"].split("#")[1],
         hash=item.get("hash", None),
-        repo=item.get("repo", None),
         root_id=item.get("root_id", None),
         skims_method=item.get("skims_method", None),
         skims_technique=item.get("skims_technique", None),

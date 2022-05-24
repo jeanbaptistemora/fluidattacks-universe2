@@ -607,16 +607,16 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
     )
     if not vulnerabilities:
         raise VulnNotFound()
-    root_nicknames = {
-        vuln.repo
+    root_ids = {
+        vuln.root_id
         for vuln in vulnerabilities
-        if vuln.repo and not check_hold(vuln)
+        if vuln.root_id and not check_hold(vuln)
     }
     roots: tuple[GitRoot, ...] = await loaders.group_roots.load(
         finding.group_name
     )
-    roots = tuple(
-        root for root in roots if root.state.nickname in root_nicknames
+    root_nicknames: tuple[str, ...] = tuple(
+        root.state.nickname for root in roots if root.id in root_ids
     )
     if root_nicknames and FI_ENVIRONMENT == "production":
         with suppress(ClientError):

@@ -1,6 +1,7 @@
 from .constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
+    ROOT_INDEX_METADATA,
 )
 from .enums import (
     VulnerabilityStateStatus,
@@ -62,6 +63,7 @@ async def update_metadata(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"finding_id": finding_id, "id": vulnerability_id},
     )
+
     vulnerability_item = {
         key: None if not value else value
         for key, value in json.loads(json.dumps(metadata)).items()
@@ -69,6 +71,22 @@ async def update_metadata(
     }
     if vulnerability_item:
         try:
+            if metadata.root_id:
+                gsi_2_index = TABLE.indexes["gsi_2"]
+                gsi_2_key = keys.build_key(
+                    facet=ROOT_INDEX_METADATA,
+                    values={
+                        "root_id": metadata.root_id,
+                        "vuln_id": vulnerability_id,
+                    },
+                )
+                vulnerability_item[
+                    gsi_2_index.primary_key.partition_key
+                ] = gsi_2_key.partition_key
+                vulnerability_item[
+                    gsi_2_index.primary_key.sort_key
+                ] = gsi_2_key.sort_key
+
             await operations.update_item(
                 condition_expression=Attr(
                     key_structure.partition_key

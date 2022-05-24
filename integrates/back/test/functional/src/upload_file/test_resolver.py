@@ -2,6 +2,7 @@ from . import (
     get_result,
 )
 from custom_exceptions import (
+    InvalidCannotModifyNicknameWhenClosing,
     InvalidNewVulnState,
 )
 from dataloaders import (
@@ -19,6 +20,9 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerificationSummary,
+)
+from db_model.roots.types import (
+    Root,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -41,16 +45,22 @@ from typing import (
 
 
 async def _get_vulns(
-    loaders: Dataloaders, finding_id: str
+    loaders: Dataloaders,
+    finding_id: str,
+    group_name: str,
 ) -> list[dict[str, Any]]:
     finding_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load(finding_id)
+    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots_nickname: dict[str, str] = {
+        root.id: root.state.nickname for root in roots
+    }
     return sorted(
         (
             dict(
                 commit_hash=vuln.commit,
-                repo_nickname=vuln.repo,
+                repo_nickname=roots_nickname[vuln.root_id],
                 specific=vuln.specific,
                 state_status=vuln.state.status.value,
                 stream=vuln.stream,
@@ -92,7 +102,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["uploadFile"]["success"]
-    assert await _get_vulns(loaders, finding_id) == [
+    assert await _get_vulns(loaders, finding_id, "group1") == [
         {
             "commit_hash": "111111111111111111111111111111111111111f",
             "repo_nickname": "product",
@@ -326,3 +336,29 @@ async def test_upload_new_closed_error(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == InvalidNewVulnState.msg
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["hacker@gmail.com"],
+        ["reattacker@gmail.com"],
+    ],
+)
+async def test_upload_error(populate: bool, email: str) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    file_name = "test-vulns-error.yaml"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == InvalidCannotModifyNicknameWhenClosing.msg
+    )
