@@ -4,6 +4,7 @@ from lib_root.f052.c_sharp import (
     c_sharp_insecure_cipher,
     c_sharp_insecure_hash,
     c_sharp_insecure_keys,
+    c_sharp_obsolete_key_derivation,
     c_sharp_rsa_secure_mode,
 )
 from lib_root.f052.go import (
@@ -40,6 +41,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_rsa_secure_mode),
     (FINDING, c_sharp_insecure_keys),
     (FINDING, c_sharp_disabled_strong_crypto),
+    (FINDING, c_sharp_obsolete_key_derivation),
     (FINDING, go_insecure_cipher),
     (FINDING, go_insecure_hash),
     (FINDING, java_insecure_cipher),
