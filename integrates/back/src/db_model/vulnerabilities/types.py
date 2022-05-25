@@ -74,6 +74,7 @@ class Vulnerability(NamedTuple):
     state: VulnerabilityState
     type: VulnerabilityType
     where: str
+    event_id: Optional[str] = None
     bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
     custom_severity: Optional[int] = None

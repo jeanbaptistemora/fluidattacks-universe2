@@ -101,6 +101,14 @@ def is_reattack_requested(vulnerability: Vulnerability) -> bool:
     )
 
 
+def is_reattack_on_hold(vulnerability: Vulnerability) -> bool:
+    return bool(
+        vulnerability.verification
+        and vulnerability.verification.status
+        == VulnerabilityVerificationStatus.ON_HOLD
+    )
+
+
 def is_range(specific: str) -> bool:
     """Validate if a specific field has range value."""
     return "-" in specific
