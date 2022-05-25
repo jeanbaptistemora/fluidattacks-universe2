@@ -27,9 +27,7 @@ from typing import (
 
 QUEUES = frozenset(
     [
-        "limited_dedicated",
         "limited_spot",
-        "unlimited_dedicated",
         "unlimited_spot",
         "unlimited_spot_clone",
     ]

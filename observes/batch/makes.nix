@@ -103,7 +103,7 @@ in {
     observesCodeEtlMigration2 =
       sharedConfiguration
       // {
-        queue = "limited_dedicated";
+        queue = "limited_spot";
         attempts = 1;
         attemptDurationSeconds = 604800;
         command = ["m" "f" "/observes/etl/code/upload/migration/fa-hash/v2"];
@@ -123,13 +123,13 @@ in {
         attemptDurationSeconds = 172800;
         attempts = 1;
         command = ["m" "f" "/observes/etl/dynamo/v2"];
-        queue = "unlimited_dedicated";
+        queue = "unlimited_spot";
       };
 
     observesDbMigration =
       sharedConfiguration
       // {
-        queue = "limited_dedicated";
+        queue = "limited_spot";
         attempts = 1;
         attemptDurationSeconds = 172800;
         command = ["m" "f" "/observes/job/migration"];
