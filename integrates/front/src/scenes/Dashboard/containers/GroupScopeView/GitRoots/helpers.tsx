@@ -271,6 +271,12 @@ const handleCreationError = (
           type: "error",
         });
         break;
+      case "Exception - Unsanitized input found":
+        setModalMessages({
+          message: translate.t("validations.unsanitizedInputFound"),
+          type: "error",
+        });
+        break;
       default:
         setModalMessages({
           message: translate.t("groupAlerts.errorTextsad"),
@@ -312,6 +318,12 @@ const handleUpdateError = (
         break;
       case "Exception - Git repository was not accessible with given credentials":
         showMessage("group.scope.git.errors.invalidGitCredentials");
+        break;
+      case "Exception - Unsanitized input found":
+        setModalMessages({
+          message: translate.t("validations.unsanitizedInputFound"),
+          type: "error",
+        });
         break;
       default:
         showMessage("groupAlerts.errorTextsad");
