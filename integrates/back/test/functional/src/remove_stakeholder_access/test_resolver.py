@@ -13,7 +13,6 @@ from datetime import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -31,7 +30,7 @@ async def test_remove_stakeholder_access(populate: bool, email: str) -> None:
     assert populate
     stakeholder_email: str = "admin@gmail.com"
     group_name: str = "group1"
-    result: Dict[str, Any] = await put_mutation(
+    result: dict[str, Any] = await put_mutation(
         user=email,
         group=group_name,
         stakeholder=stakeholder_email,
@@ -60,7 +59,7 @@ async def test_remove_stakeholder_access_fail(
     assert populate
     stakeholder_email: str = "hacker@gmail.com"
     group_name: str = "group1"
-    result: Dict[str, Any] = await put_mutation(
+    result: dict[str, Any] = await put_mutation(
         user=email,
         group=group_name,
         stakeholder=stakeholder_email,
@@ -98,7 +97,7 @@ async def test_remove_stakeholder_remaining_access(
     assert result_jwt["data"]["updateAccessToken"]["success"]
 
     session_jwt: str = result_jwt["data"]["updateAccessToken"]["sessionJwt"]
-    first_result_query: Dict[str, Any] = await get_result(
+    first_result_query: dict[str, Any] = await get_result(
         user=stakeholder_email,
         session_jwt=session_jwt,
     )
@@ -109,7 +108,7 @@ async def test_remove_stakeholder_remaining_access(
         == number_organizations
     )
 
-    result_mutation: Dict[str, Any] = await put_mutation(
+    result_mutation: dict[str, Any] = await put_mutation(
         user=email,
         group=group_name,
         stakeholder=stakeholder_email,
@@ -118,7 +117,7 @@ async def test_remove_stakeholder_remaining_access(
     assert "success" in result_mutation["data"]["removeStakeholderAccess"]
     assert result_mutation["data"]["removeStakeholderAccess"]["success"]
 
-    second_result_query: Dict[str, Any] = await get_result(
+    second_result_query: dict[str, Any] = await get_result(
         user=stakeholder_email,
         session_jwt=session_jwt,
     )

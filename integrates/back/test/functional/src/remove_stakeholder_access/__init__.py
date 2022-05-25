@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def put_mutation(
     user: str,
     group: str,
     stakeholder: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             removeStakeholderAccess (
@@ -29,7 +28,7 @@ async def put_mutation(
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(
@@ -43,7 +42,7 @@ async def get_access_token(
     *,
     user: str,
     expiration_time: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         mutation UpdateAccessTokenMutation($expirationTime: Int!) {
             updateAccessToken(expirationTime: $expirationTime) {
@@ -52,7 +51,7 @@ async def get_access_token(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "expirationTime": expiration_time,
@@ -70,7 +69,7 @@ async def get_result(
     *,
     user: str,
     session_jwt: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query GetUserOrganizationsGroups {
             me {
@@ -85,7 +84,7 @@ async def get_result(
             }
         }
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(

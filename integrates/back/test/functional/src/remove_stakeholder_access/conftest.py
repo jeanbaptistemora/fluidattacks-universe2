@@ -19,16 +19,15 @@ from db_model.groups.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_stakeholder_access")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     new_user: str = "justonegroupacess@gmail.com"
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "orgs": [
             {
                 "name": "orgtest4",
@@ -76,7 +75,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         tier=GroupTier.OTHER,
                         type=GroupSubscriptionType.CONTINUOUS,
                     ),
-                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    organization_id="e75525d6-70a6-45ba-9f87-66c2dd2678d9",
                 ),
             },
         ],
