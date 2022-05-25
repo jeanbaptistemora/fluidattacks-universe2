@@ -111,15 +111,21 @@ def is_ip_unique(address: str, port: str, roots: Tuple[Root, ...]) -> bool:
     )
 
 
-def is_url_unique(
-    host: str, path: str, port: str, protocol: str, roots: Tuple[Root, ...]
+def is_url_unique(  # pylint: disable=too-many-arguments
+    host: str,
+    path: str,
+    port: str,
+    protocol: str,
+    query: Optional[str],
+    roots: Tuple[Root, ...],
 ) -> bool:
-    return (host, path, port, protocol) not in tuple(
+    return (host, path, port, protocol, query) not in tuple(
         (
             root.state.host,
             root.state.path,
             root.state.port,
             root.state.protocol,
+            root.state.query,
         )
         for root in roots
         if isinstance(root, URLRoot) and root.state.status == RootStatus.ACTIVE

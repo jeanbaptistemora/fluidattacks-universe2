@@ -368,6 +368,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
         path,
         port,
         protocol,
+        query,
         await loaders.organization_roots.load(organization_name),
     ):
         raise RepeatedRoot()
@@ -1059,6 +1060,7 @@ async def activate_root(
                 root.state.path,
                 root.state.port,
                 root.state.protocol,
+                root.state.query,
                 org_roots,
             ):
                 raise RepeatedRoot()
@@ -1353,6 +1355,7 @@ async def move_root(
             root.state.path,
             root.state.port,
             root.state.protocol,
+            root.state.query,
             target_group_roots,
         ):
             raise RepeatedRoot()
