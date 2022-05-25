@@ -454,6 +454,10 @@
         __argScoreTemporal__ = score.score.temporal;
         __argSeverityBase__ = score.severity.base;
         __argSeverityTemporal__ = score.severity.temporal;
+        __argCodeExamples__ = section {
+          title = "## Code Examples";
+          content = src.code_examples;
+        };
         __argDetails__ = section {
           title = "## Details";
           content = src.metadata.en.details;

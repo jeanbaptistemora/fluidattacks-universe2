@@ -33,6 +33,7 @@
       o procedimientos parametrizados.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -211,6 +212,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -265,6 +267,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -336,6 +339,7 @@
       y evite los caracteres especiales.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -450,6 +454,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -515,6 +520,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -570,6 +576,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -625,6 +632,7 @@
       de inyección de scripts.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -711,6 +719,7 @@
       o variables de entorno administrativas.
     threat: Atacante con acceso al código fuente desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -798,6 +807,7 @@
       por medio de listas blancas.
     threat: Atacante autorizado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -847,6 +857,7 @@
       por el fabricante.
     threat: Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -947,6 +958,7 @@
       la función escape(String) del framework.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "10"
   score:
     base:
@@ -999,6 +1011,7 @@
     threat: >
       Usuario autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -1050,6 +1063,7 @@
       Cualquier cliente de la organización
       autorizado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -1095,6 +1109,7 @@
       Atacante sin autorización desde red adyacente
       ejecutando un ataque de Sniffing.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -1167,6 +1182,7 @@
     threat: >
       Atacante sin autorización desde red adjacente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "100"
   score:
     base:
@@ -1304,6 +1320,7 @@
     threat: >
       Atacante anónimo desde una red adyacente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -1350,6 +1367,7 @@
       y con las credenciales respectivas.
     threat: Atacante anónimo desde red local.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -1393,6 +1411,7 @@
       en archivos temporales o en caché.
     threat: Atacante autenticado desde la red local.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -1449,6 +1468,7 @@
       Atacante anónimo con acceso al código fuente
       desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -1519,6 +1539,7 @@
       mas comunes de inyección.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -1570,6 +1591,7 @@
       Atacante anónimo en red adyacente
       ejecutando un ataque de hombre en el medio.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -1640,6 +1662,7 @@
       para prevenir redirecciones a hosts de terceros.
     threat: Atacante sin autorización desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "10"
   score:
     base:
@@ -1699,6 +1722,7 @@
       siguiendo el principio de mínimo privilegio.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -1771,6 +1795,7 @@
       para cifrar las llamadas.
     threat: Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -1819,6 +1844,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -1888,6 +1914,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -1940,6 +1967,7 @@
       Atacante autenticado con acceso
       local al servidor.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -1997,6 +2025,7 @@
       de archivos permitido.
     threat: Atacante autorizado desde Internet.
   category: Manipulate System
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -2075,6 +2104,7 @@
       Atacante anónimo desde red adyacente
       ejecutando un ataque de sniffing.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -2136,6 +2166,7 @@
       con acceso a cualquiera
       de los roles mal configurados.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -2225,6 +2256,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -2282,6 +2314,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -2342,6 +2375,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -2429,6 +2463,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -2481,6 +2516,7 @@
       Atacante anónimo con acceso local
       al navegador de la víctima.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -2548,6 +2584,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -2642,6 +2679,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -2688,6 +2726,7 @@
       cierta información se encuentren autenticados.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -2740,6 +2779,7 @@
       para usuarios no autorizados.
     threat: Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -2793,6 +2833,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -2848,6 +2889,7 @@
       cuando se generan las cookies.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -2921,6 +2963,7 @@
       y configurarla de forma segura.
     threat: Atacante sin autorización desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -2985,6 +3028,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -3051,6 +3095,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -3126,6 +3171,7 @@
       desde Internet
       con acceso a el APK.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -3188,6 +3234,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -3281,6 +3328,7 @@
       con un dispositivo rooteado
       y el APK instalado.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -3346,6 +3394,7 @@
     threat: >
       Atacante anónimo desde una red adyacente.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -3420,6 +3469,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -3478,6 +3528,7 @@
       Atacante autenticado desde Internet
       con acceso a los hashes.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -3532,6 +3583,7 @@
     threat: >
       Atacante anónimo desde red interna.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -3605,6 +3657,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "300"
   score:
     base:
@@ -3659,6 +3712,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -3733,6 +3787,7 @@
       Atacante sin autorización
       con el APK instalado en un dispositivo.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -3809,6 +3864,7 @@
     threat: >
       Atacante anónimo desde red adyacente.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -3933,6 +3989,7 @@
     threat: >
       Atacante anónimo con acceso local.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -3990,6 +4047,7 @@
       Atacante sin autorización
       desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -4062,6 +4120,7 @@
       Atacante local autorizado
       con acceso a los logs.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -4110,6 +4169,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -4166,6 +4226,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -4237,6 +4298,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -4305,6 +4367,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -4381,6 +4444,7 @@
       Atacante anónimo
       desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -4446,6 +4510,7 @@
     threat: >
       Atacante anónimo desde red local.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -4501,6 +4566,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -4613,6 +4679,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -4669,6 +4736,7 @@
       Atacante anónimo desde red local
       con acceso a una sesión desatendida.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -4730,6 +4798,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -4803,6 +4872,7 @@
       Atacante no autorizado de la red
       adyacente que realiza un MiTM.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -4895,6 +4965,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -4953,6 +5024,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -5002,6 +5074,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -5020,7 +5093,34 @@
   requirements: ["096", "176", "265"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Code examples
+
+        #### 1. Non-compliant Code:
+        ```hcl
+        resource "aws_rds_cluster_instance" "cluster_instances" {
+          count               = 2
+          publicly_accessible = true
+          identifier          = "aurora-cluster-demo-${count.index}"
+          cluster_identifier  = aws_rds_cluster.default.id
+          instance_class      = "db.r4.large"
+          engine              = aws_rds_cluster.default.engine
+          engine_version      = aws_rds_cluster.default.engine_version
+        }
+        ```
+
+        #### 2. Compliant Code:
+        ```hcl
+        resource "aws_rds_cluster_instance" "cluster_instances" {
+          count               = 2
+          publicly_accessible = false
+          identifier          = "aurora-cluster-demo-${count.index}"
+          cluster_identifier  = aws_rds_cluster.default.id
+          instance_class      = "db.r4.large"
+          engine              = aws_rds_cluster.default.engine
+          engine_version      = aws_rds_cluster.default.engine_version
+        }
+        ```
 "074":
   en:
     title: Commented-out code
@@ -5063,6 +5163,7 @@
       Atacante autentificado desde Internet
       con permisos de escritura en el repositorio.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -5146,6 +5247,7 @@
       propietario de una aplicación de terceros
       instalada en el dispositivo.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -5164,7 +5266,38 @@
   requirements: ["096", "176", "264", "320"]
   metadata:
     en:
-      details: __empty__
+      details:  |
+        ### Code examples
+
+        #### 1. Non-compliant Code:
+        ```html
+        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+            <uses-permission android:name="android.permission.SEND_SMS"/>
+            <application android:label="@7F040001" android:icon="@7F020002">
+                <provider
+                    android:authorities="com.andriod.databasetest.contentprovider"
+                    android:name=".db.ContentProviderDb"
+                    android:exported="true"
+                    android:grantUriPermissions="true">
+                </provider>
+            </application>
+        </manifest>
+        ```
+
+        #### 2. Compliant Code:
+        ```h
+        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+            <uses-permission android:name="android.permission.SEND_SMS"/>
+            <application android:label="@7F040001" android:icon="@7F020002">
+                <provider
+                    android:authorities="com.andriod.databasetest.contentprovider"
+                    android:name=".db.ContentProviderDb"
+                    android:exported="false"
+                    android:grantUriPermissions="true">
+                </provider>
+            </application>
+        </manifest>
+        ```
 "076":
   en:
     title: Insecure session management
@@ -5217,6 +5350,7 @@
       Atacante anónimo desde Internet
       con acceso a un token de sesión.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -5281,6 +5415,7 @@
       Atacante desde Internet ejecutando
       un ataque MitM.
   category: Manipulate System
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -5326,6 +5461,7 @@
       sin información sensible.
     threat: Atacante anónimo desde Internet con acceso al hash.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -5395,6 +5531,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -5443,6 +5580,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -5508,6 +5646,7 @@
       de los recursos críticos.
     threat: Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -5565,6 +5704,7 @@
     threat: >
       Atacante autenticado desde red local.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -5624,6 +5764,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -5690,6 +5831,7 @@
     threat: >
       Atacante autenticado en la red local.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -5754,6 +5896,7 @@
       Atacante con acceso físico
       o virtual al navegador de la víctima.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -5772,7 +5915,22 @@
   requirements: ["177", "329"]
   metadata:
     en:
-      details: __empty__
+      details:  |
+        ### Code examples
+
+        #### 1. Non-compliant Code:
+        ```jsx
+        localStorage.getItem('password');
+        localStorage.setItem('whatever', sessionID);
+        localStorage.setItem(token.jwt, '123');
+        localStorage.getItem(session_token);
+        ```
+
+        #### 2. Compliant Code:
+        ```jsx
+        localStorage.setItem('whatever','non-sensitive');
+        localStorage.getItem(non.sensitive);
+        ```
 "086":
   en:
     title: Missing subresource integrity check
@@ -5806,6 +5964,7 @@
       Atacante sin autorización
       desde la red de Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -5862,6 +6021,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -5912,6 +6072,7 @@
       Atacante no autenticado desde
       Internet en la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "300"
   score:
     base:
@@ -5970,6 +6131,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -6025,6 +6187,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -6087,6 +6250,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Manipulate System
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -6138,6 +6302,7 @@
       Atacante sin autorización
       desde red adyacente ejecutando un MITM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -6265,6 +6430,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -6315,6 +6481,7 @@
       Atacante sin autorización
       desde red adyacente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -6370,6 +6537,7 @@
       espera un valor único.
     threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -6421,6 +6589,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -6488,6 +6657,7 @@
     threat: >
       Atacante anónimo desde red local.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -6546,6 +6716,7 @@
     threat: >
       Atacante anónimo desde red externa.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -6599,6 +6770,7 @@
       Atacante autenticado desde Internet
       con acceso al bucket.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -6617,7 +6789,33 @@
   requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
-      details: __empty__
+      details:  |
+        ### Code examples
+
+        #### 1. Non-compliant Code:
+        ```yaml
+        Resources:
+          UnencryptedS3Bucket:
+            Type: AWS::S3::Bucket
+            DeletionPolicy: Retain
+            Properties:
+              BucketName: SKIMS-EXAMPLE-BUCKET
+        ```
+
+        #### 2. Compliant Code:
+        ```yaml
+        Resources:
+          EncryptedS3Bucket:
+            Type: AWS::S3::Bucket
+            Properties:
+              BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+              BucketEncryption:
+                ServerSideEncryptionConfiguration:
+                  - ServerSideEncryptionByDefault:
+                      SSEAlgorithm: aws:kms
+                      KMSMasterKeyID: KMS-KEY-ARN
+            DeletionPolicy: Delete
+        ```
 "100":
   en:
     title: Server-side request forgery (SSRF)
@@ -6706,6 +6904,7 @@
       aceptados para consulta.
     threat: Atacante no autorizado desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -6766,6 +6965,7 @@
       que llegue a modificar o borrar la
       información de las bases de datos.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -6784,7 +6984,32 @@
   requirements: ["186", "265"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Code examples
+
+        #### 1. Non-compliant Code:
+        ```hcl
+        resource "azurerm_key_vault" "vulnerable" {
+          name                       = "examplekeyvault"
+          location                   = azurerm_resource_group.example.location
+          resource_group_name        = azurerm_resource_group.example.name
+          tenant_id                  = data.azurerm_client_config.current.tenant_id
+          soft_delete_retention_days = 7
+        }
+        ```
+
+        #### 2. Compliant Code:
+        ```hcl
+        resource "azurerm_key_vault" "not_vulnerable" {
+          name                       = "examplekeyvault"
+          location                   = azurerm_resource_group.example.location
+          resource_group_name        = azurerm_resource_group.example.name
+          tenant_id                  = data.azurerm_client_config.current.tenant_id
+          soft_delete_retention_days = 7
+          soft_delete_enabled        = true
+          purge_protection_enabled   = true
+        }
+        ```
 "102":
   en:
     title: Email uniqueness not properly verified
@@ -6815,6 +7040,7 @@
       y/o representar una cuenta.
     threat: Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -6861,6 +7087,7 @@
       Atacante no autenticado
       desde Internet.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -6918,6 +7145,7 @@
       con software malicioso.
     threat: Atacante interno no autorizado.
   category: Manipulate System
+  code_examples: __empty__
   remediation_time: "450"
   score:
     base:
@@ -6988,6 +7216,7 @@
     threat: >
       Atacante no autorizado en Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -7038,6 +7267,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -7091,6 +7321,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -7153,6 +7384,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -7201,6 +7433,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -7219,7 +7452,32 @@
   requirements: ["255"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Code examples
+
+        #### 1. Non-compliant Code:
+        ```hcl
+        resource "aws_rds_cluster" "cluster_instances" {
+          count              = 2
+          identifier         = "aurora-cluster-demo-${count.index}"
+          cluster_identifier = aws_rds_cluster.default.id
+          instance_class     = "db.r4.large"
+          engine             = aws_rds_cluster.default.engine
+          engine_version     = aws_rds_cluster.default.engine_version
+        }
+        ```
+
+        #### 2. Compliant Code:
+        ```hcl
+        resource "aws_rds_cluster" "cluster_instances" {
+          count              = 2
+          identifier         = "aurora-cluster-demo-${count.index}"
+          cluster_identifier = aws_rds_cluster.default.id
+          instance_class     = "db.r4.large"
+          engine             = aws_rds_cluster.default.engine
+          engine_version     = aws_rds_cluster.default.engine_version
+        }
+        ```
 "110":
   en:
     title: HTTP request smuggling
@@ -7277,6 +7535,7 @@
       entre las peticiones.
     threat: Atacante no autorizado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -7336,6 +7595,7 @@
       Atacante externo con acceso
       a la aplicación.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -7399,6 +7659,7 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -7462,6 +7723,7 @@
       no autorizado.
     threat: Atacante externo autentificado.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -7528,6 +7790,7 @@
       con los usuarios.
     threat: Atacante anónimo desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -7575,6 +7838,7 @@
       en espacios de tiempo definidos.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -7630,6 +7894,7 @@
       los casos de carga de la aplicación.
     threat: Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -7701,6 +7966,7 @@
       Atacante autenticado
       desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -7757,6 +8023,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -7812,6 +8079,7 @@
       Atacante con acceso al repositorio
       desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -7898,6 +8166,7 @@
       Atacante anónimo con acceso a la
       aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -7966,6 +8235,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8024,6 +8294,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -8099,6 +8370,7 @@
     threat: >
       - Atacante no autorizado desde red local.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -8162,6 +8434,7 @@
     threat: >
       Atacante anónimo en el sistema.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8235,6 +8508,7 @@
     threat: >
       Atacante externo con acceso a la aplicación.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -8296,6 +8570,7 @@
       Atacante externo con
       acceso a la aplicación.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -8352,6 +8627,7 @@
       pero evitar que se interpreten.
     threat: Usuario autorizado de la intranet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8407,6 +8683,7 @@
       desde internet
       ejecutando un ataque XSS.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8460,6 +8737,7 @@
       Atacante desde Internet
       ejecutando un ataque CSRF.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8521,6 +8799,7 @@
       desde red adyacente
       ejecutando un MITM.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8580,6 +8859,7 @@
       desde red adyacente
       ejecutando un ataque de sniffing.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8701,6 +8981,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8763,6 +9044,7 @@
       que haya comprometido
       una llave privada.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -8819,6 +9101,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8877,6 +9160,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8941,6 +9225,7 @@
       Atacante sin autorización
       desde red local.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -8999,6 +9284,7 @@
       Atacante sin autorización
       desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -9048,6 +9334,7 @@
     threat: >
       Usuario autorizado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -9100,6 +9387,7 @@
       conocimiento de las vulnerabilidades
       de la dependencia.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -9164,6 +9452,7 @@
     threat: >
       Atacante autenticado en la aplicación desde Internet
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "40"
   score:
     base:
@@ -9221,6 +9510,7 @@
       Atacante externo con valores válidos
       para el parámetro radicadoHours.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -9299,6 +9589,7 @@
       de cifrado directamente del repositorio de
       la aplicación o de un archivo de la aplicación.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -9359,6 +9650,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -9442,6 +9734,7 @@
     threat: >
       Atacante no autorizado con acceso al código.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -9495,6 +9788,7 @@
       Atacante autenticado desde Internet
       con permisos de edición en el código.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -9549,6 +9843,7 @@
       o procedimientos parametrizados.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -9602,6 +9897,7 @@
     threat: >
       Atacante interno sin autenticar.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -9656,6 +9952,7 @@
     threat: >
       Atacante anónimo desde red adyacente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -9711,6 +10008,7 @@
     threat: >
       Atacante interno no autorizado.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -9773,6 +10071,7 @@
       Atacante anónimo en la red
       interna ejecutando un MitM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -9826,6 +10125,7 @@
     threat: >
       Atacante anónimo desde red adyacente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -9883,6 +10183,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -9946,6 +10247,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -10027,6 +10329,7 @@
     threat: >
       Anonymous attacker from an intranet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10087,6 +10390,7 @@
       Atacante interno autenticado
       en la aplicación.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10140,6 +10444,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -10196,6 +10501,7 @@
     threat: >
       Usuario no autorizado en red local.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10262,6 +10568,7 @@
     threat: >
       Usuario autorizado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10350,6 +10657,7 @@
       Atacante con acceso a la
       aplicación desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -10415,6 +10723,7 @@
     threat: >
       Atacante autenticado con acceso local al servidor.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10570,6 +10879,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10644,6 +10954,7 @@
       la aplicación, puede ver los
       binarios y ver el código fuente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10717,6 +11028,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -10766,6 +11078,7 @@
     threat: >
       Atacante anónimo desde internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -10829,6 +11142,7 @@
     threat: >
       Atacante externo con credenciales.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -10878,6 +11192,7 @@
       Usuario del dominio no autorizado con
       credenciales válidas en la red interna.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -10954,6 +11269,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11044,6 +11360,7 @@
     threat: >
       Atacante autenticado desde intranet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11096,6 +11413,7 @@
       Atacante autenticado desde Internet
       con acceso al código fuente.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11174,6 +11492,7 @@
     threat: >
       Atacante interno en la red.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -11240,6 +11559,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -11293,6 +11613,7 @@
       Atacante anónimo con acceso local al
       dispositivo de un usuario.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -11346,6 +11667,7 @@
       Atacante sin autenticar con acceso
       físico al dispositivo móvil.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11409,6 +11731,7 @@
       Atacante externo no autorizado con un servicio
       que permite la subida de archivos.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "300"
   score:
     base:
@@ -11458,6 +11781,7 @@
     threat: >
       Atacante anónimo desde red interna.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11508,6 +11832,7 @@
     threat: >
       Atacante externo sin credenciales.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -11563,6 +11888,7 @@
       Atacante anónimo con acceso a una instancia
       de EC2 desde una red interna.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11609,6 +11935,7 @@
     threat: >
       Atacante anónimo en la Intranet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11654,6 +11981,7 @@
     threat: >
       Atacante interno autenticado.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -11702,6 +12030,7 @@
     threat: >
       Atacante anónimo de Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11750,6 +12079,7 @@
     threat: >
       Usuario de Internet no autorizado con credenciales.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11808,6 +12138,7 @@
       Un atacante anónimo de Internet puede enviar
       correo utilizando el endpoint sendEmail.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -11861,6 +12192,7 @@
     threat: >
       Atacante externo con acceso a la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -11916,6 +12248,7 @@
     threat: >
       Atacante externo con acceso a la aplicación.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -11975,6 +12308,7 @@
     threat: >
       Atacante en Internet con acceso al servicio.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12046,6 +12380,7 @@
     threat: >
       Atacante anónimo desde intranet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12102,6 +12437,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12157,6 +12493,7 @@
     threat: >
       Atacante autenticado desde Internet
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -12212,6 +12549,7 @@
     threat: >
       Atacante externo no autorizado con ID de proceso.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12265,6 +12603,7 @@
       Atacante externo con acceso a Internet
       y con un token válido.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12323,6 +12662,7 @@
     threat: >
       Atacante desde intranet con acceso a la aplicación.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12375,6 +12715,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12422,6 +12763,7 @@
     threat: >
       Atacante anónimo desde una red adyacente.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12474,6 +12816,7 @@
     threat: >
       Atacante autorizado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12530,6 +12873,7 @@
     threat: >
       Usuario autorizado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12588,6 +12932,7 @@
     threat: >
       Usuario no autorizado con acceso a la aplicación.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12639,6 +12984,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12695,6 +13041,7 @@
     threat: >
       Usuario autenticado en Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -12750,6 +13097,7 @@
       Atacante anónimo desde Internet utilizando
       usuarios enumerados.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -12802,6 +13150,7 @@
     threat: >
       Atacante interno no autorizado.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -12865,6 +13214,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -12918,6 +13268,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -12965,6 +13316,7 @@
     threat: >
       Anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -13020,6 +13372,7 @@
     threat: >
       Usuario autorizado desde Internet.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -13068,6 +13421,7 @@
     threat: >
       Atacante anónimo entrando en la sucursal.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: __empty__
   score:
     base:
@@ -13126,6 +13480,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "300"
   score:
     base:
@@ -13188,6 +13543,7 @@
     threat: >
       Ataque anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "300"
   score:
     base:
@@ -13243,6 +13599,7 @@
     threat: >
       Atacante interno no autorizado.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -13292,6 +13649,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -13356,6 +13714,7 @@
     threat: >
       Atacante anónimo desde internet con un token válido.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "450"
   score:
     base:
@@ -13411,6 +13770,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -13474,6 +13834,7 @@
     threat: >
       Usuario no autorizado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -13533,6 +13894,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -13610,6 +13972,7 @@
       Atacante no autorizado con acesso a la
       información de la empresa.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -13659,6 +14022,7 @@
     threat: >
       Atacante interno con acceso al código fuente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -13718,6 +14082,7 @@
     threat: >
       Atacante interno con acceso al código fuente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -13793,6 +14158,7 @@
     threat: >
       Atacante externo con acceso a token válido.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -13851,6 +14217,7 @@
     threat: >
       Atacante anónimo en red local.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -13921,6 +14288,7 @@
     threat: >
       Atacante interno con credenciales Redis.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -13970,6 +14338,7 @@
     threat: >
       Atacante externo con acceso a los tokens.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14025,6 +14394,7 @@
     threat: >
       Atacante interno con acceso al código.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14129,6 +14499,7 @@
       Atacante autorizado con las credenciales
       obtenidas desde el código fuente, en Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14200,6 +14571,7 @@
       Atacante externo con acceso a
       la información empresarial.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14271,6 +14643,7 @@
     threat: >
       Atacante con acceso a código.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -14343,6 +14716,7 @@
       Atacante externo con acceso y permisos sobre
       la base de datos y arquitectura del servicio.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -14400,6 +14774,7 @@
     threat: >
       Atacante con acceso al código fuente de la aplicación.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14487,6 +14862,7 @@
       Atacante anónimo desde Internet realizando
       un ataque man-in-the-middle.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14541,6 +14917,7 @@
     threat: >
       Atacante externo no autenticado en la aplicación.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -14610,6 +14987,7 @@
       Usuario no autenticado en la
       aplicación desde internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -14658,6 +15036,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14728,6 +15107,7 @@
     threat: >
       Atacante externo con acceso al código.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -14778,6 +15158,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -14838,6 +15219,7 @@
     threat: >
       Atacante interno con acceso al código fuente.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -14895,6 +15277,7 @@
     threat: >
       Atacante autenticado desde Internet
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -14943,6 +15326,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -14991,6 +15375,7 @@
     threat: >
       Usuario no autorizado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -15067,6 +15452,7 @@
       Atacante local autenticado con
       acceso a la consola del servidor.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -15117,6 +15503,7 @@
       Un atacante anónimo desde la red de Internet
       realiza una consulta de introspección.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -15170,6 +15557,7 @@
     threat: >
       Atacante autorizado desde internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -15235,6 +15623,7 @@
     threat: >
       Atacante no autorizado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "300"
   score:
     base:
@@ -15288,6 +15677,7 @@
       Atacante no autorizado con probabilidad de que
       se salte el proceso de autenticación.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -15346,6 +15736,7 @@
     threat: >
       Atacante interno sin autenticar
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -15403,6 +15794,7 @@
     threat: >
       Usuario no autorizado desde red interna.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -15468,6 +15860,7 @@
     threat: >
       Atacante interno no autorizado.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -15520,6 +15913,7 @@
     threat: >
       Atacante interno sin autorización realizando un MitM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -15572,6 +15966,7 @@
     threat: >
       Atacante sin autenticar con acceso al dispositivo.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -15629,6 +16024,7 @@
     threat: >
       Atacante con acceso al código desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -15678,6 +16074,7 @@
     threat: >
       Un atacante con acceso al código desde internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -15733,6 +16130,7 @@
       Atacante autenticado desde Internet
       con acceso al código fuente
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -15791,6 +16189,7 @@
     threat: >
       Atacante autenticado con acceso local a la máquina.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -15846,6 +16245,7 @@
     threat: >
       Atacante externo con acceso al código fuente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -15906,6 +16306,7 @@
     threat: >
       Atacante interno con acceso al VPC.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -15958,6 +16359,7 @@
     threat: >
       Atacante anónimo desde internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -16004,6 +16406,7 @@
     threat: >
       Atacante con acceso a la aplicación desde internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -16056,6 +16459,7 @@
       Atacante desde red interna sin autenticación
       con hashes de usuarios del dominio.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -16109,6 +16513,7 @@
     threat: >
       Atacante con acceso a la consola AWS.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16160,6 +16565,7 @@
     threat: >
       Atacante externo con credenciales de AWS.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16220,6 +16626,7 @@
       Atacante con acceso a la consola de AWS
       que modifica o borra información.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16275,6 +16682,7 @@
     threat: >
       Atacante en Internet con acceso a la consola AWS.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16328,6 +16736,7 @@
     threat: >
       Atacante interno con acceso al IPA.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "450"
   score:
     base:
@@ -16373,6 +16782,7 @@
     threat: >
       Atacante anónimo desde intranet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16421,6 +16831,7 @@
       Atacante no autorizado desde red
       interna ejecutando un MitM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16470,6 +16881,7 @@
       Atacante autentificado desde Internet con
       hashes de BD comprometidos.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16524,6 +16936,7 @@
       Atacante no autorizado desde red
       interna ejecutando un MitM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16578,6 +16991,7 @@
     threat: >
       Atacante con acceso al código.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16636,6 +17050,7 @@
     threat: >
       Atacante autenticado con acceso local al contenedor.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -16690,6 +17105,7 @@
       Atacante autenticado con acceso local al PoD
       o contenedor.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16752,6 +17168,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -16798,6 +17215,7 @@
     threat: >
       Usuario no autorizado con acceso al código.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16850,6 +17268,7 @@
     threat: >
       Usuario autenticado desde internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -16904,6 +17323,7 @@
     threat: >
       Atacante con acceso a la aplicación desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -16957,6 +17377,7 @@
       Atacante anónimo desde red adyacente
       ejecutando un MitM.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -17002,6 +17423,7 @@
     threat: >
       Atacante autenticado en Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -17077,6 +17499,7 @@
       Atacante externo con acceso a la
       información de los empleados.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -17134,6 +17557,7 @@
     threat: >
       Atacante no autorizado con acceso físico al dispositivo.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17186,6 +17610,7 @@
     threat: >
       Atacante no autorizado con acceso local a la máquina.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17249,6 +17674,7 @@
       Atacante externo con credenciales
       no autorizadas.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -17303,6 +17729,7 @@
     threat: >
       Atacante no autorizado desde internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -17354,6 +17781,7 @@
     threat: >
       Atacante con acceso a la APK.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "450"
   score:
     base:
@@ -17404,6 +17832,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -17471,6 +17900,7 @@
       Atacante anónimo desde red adyacente
       ejecutando un MitM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -17516,6 +17946,7 @@
     threat: >
       Atacante autorizado desde la red interna.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -17579,6 +18010,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17643,6 +18075,7 @@
       Atacante con acceso al código
       fuente desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17700,6 +18133,7 @@
     threat: >
       Atacante interno en el mismo segmento de red.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -17755,6 +18189,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17836,6 +18271,7 @@
       Usuario no autorizado con acceso a la
       información corporativa.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17893,6 +18329,7 @@
       Usuario autorizado desde internet con acceso
       al número de producto encriptado.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -17950,6 +18387,7 @@
     threat: >
       Atacante externo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -17995,6 +18433,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -18068,6 +18507,7 @@
     threat: >
       Un atacante autenticado desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -18132,6 +18572,7 @@
     threat: >
       Atacante no autorizado con acceso a la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -18197,6 +18638,7 @@
     threat: >
       Atacantea anónimo en red adyancente.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18254,6 +18696,7 @@
       Usuario no autorizado con acceso a
       la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18303,6 +18746,7 @@
       Usuario no autorizado desde Internet
       con acceso a la sesión de un usuario.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18356,6 +18800,7 @@
     threat: >
       Usuario desde Internet con acceso a la sesión.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -18408,6 +18853,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -18475,6 +18921,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18533,6 +18980,7 @@
     threat: >
       Atacante anónimo desde intranet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18596,6 +19044,7 @@
     threat: >
       Atacante anónimo con accesso a credenciales desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18647,6 +19096,7 @@
     threat: >
       Actor malicioso desde intranet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -18700,6 +19150,7 @@
     threat: >
       Atacante desde Internet con un token de sesión.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18770,6 +19221,7 @@
     threat: >
       Usuario autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -18840,6 +19292,7 @@
     threat: >
       Usuario anónimo con acceso a la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -18893,6 +19346,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -18948,6 +19402,7 @@
     threat: >
       Usuario no autorizado desde red local.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -19015,6 +19470,7 @@
     threat: >
       Usuario autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -19069,6 +19525,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -19134,6 +19591,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19197,6 +19655,7 @@
       Atacante desde Internet con acceso a
       la aplicación de GLIA.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -19268,6 +19727,7 @@
     threat: >
       Atacante externo no autorizado.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -19318,6 +19778,7 @@
     threat: >
       Atacante sin autorización desde internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19368,6 +19829,7 @@
     threat: >
       Atacante sin autorización desde intranet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19414,6 +19876,7 @@
     threat: >
       Usuario de Internet con credenciales.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19473,6 +19936,7 @@
       Atacante autorizado usando las credenciales
       que yacen en el código fuente desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19528,6 +19992,7 @@
     threat: >
       Atacante con acceso a la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -19577,6 +20042,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -19637,6 +20103,7 @@
     threat: >
       Atacante anónimo desde internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19690,6 +20157,7 @@
     threat: >
       Usuario no autorizado con accesso a información sensible.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -19753,6 +20221,7 @@
       Atacante interno con acceso a las
       configuraciones de servicios.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19817,6 +20286,7 @@
     threat: >
       Atacante no autorizado en Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -19863,6 +20333,7 @@
     threat: >
       Atacante anónimo desde Internet con un Token de sesión.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -19930,6 +20401,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "120"
   score:
     base:
@@ -20010,6 +20482,7 @@
       Atacante externo autorizado con privilegios
       para añadir usuarios.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -20069,6 +20542,7 @@
     threat: >
       Atacante desde internet con acceso a las máquinas.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -20122,6 +20596,7 @@
     threat: >
       Atacante interno con acceso al artifactory.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -20179,6 +20654,7 @@
     threat: >
       Atacante con acceso a la aplicación desde Internet.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -20226,6 +20702,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -20272,6 +20749,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -20325,6 +20803,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
+  code_examples: __empty__
   remediation_time: "10"
   score:
     base:
@@ -20374,6 +20853,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -20430,6 +20910,7 @@
       Atacante anónimo en red adyacente ejecutando
       un ataque man-in-the-middle.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -20477,6 +20958,7 @@
     threat: >
       Atacante en internet con acceso a la consola de AWS.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -20544,6 +21026,7 @@
     threat: >
       Atacante interno con acceso a configuraciones de servicios.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -20603,6 +21086,7 @@
     threat: >
       Atacante en Internet con acceso a los Buckets de S3.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -20656,6 +21140,7 @@
     threat: >
       Atacante con acceso a la aplicación desde internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -20719,6 +21204,7 @@
     threat: >
       Atacante desde Internet sin autenticación.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -20763,6 +21249,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -20810,6 +21297,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -20856,6 +21344,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -20913,6 +21402,7 @@
     threat: >
       Atacante externo autenticado.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -20976,6 +21466,7 @@
     threat: >
       Usuario anónimo en Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -21045,6 +21536,7 @@
       Usuario con acceso al tráfico de la víctima
       (ataque man-in-the-middle).
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -21094,6 +21586,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -21160,6 +21653,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -21212,6 +21706,7 @@
     threat: >
       Atacante autenticado con acceso local a la aplicación.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -21269,6 +21764,7 @@
     threat: >
       Usuario no autorizado con acceso a la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -21316,6 +21812,7 @@
     threat: >
       Atacante anónimo desde una red adyacente.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -21373,6 +21870,7 @@
     threat: >
       Atacante anónimo consulta la página de login.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -21430,6 +21928,7 @@
     threat: >
       Atacante sin autorización desde intranet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -21478,6 +21977,7 @@
     threat: >
       Atacante externo con acceso a integrates.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -21561,6 +22061,7 @@
     threat: >
       El atacante externo puede ejecutar las pipelines.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -21621,6 +22122,7 @@
     threat: >
       Atacante no autorizado con acceso a un token.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -21676,6 +22178,7 @@
       Atacante desde Internet con token de sesión
       válido para subir archivos.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "45"
   score:
     base:
@@ -21725,6 +22228,7 @@
       Atacante anónimo desde Internet con acceso de
       escritura a un recurso utilizado por la aplicación.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -21775,6 +22279,7 @@
     threat: >
       Atacante en Internet autenticado.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -21828,6 +22333,7 @@
     threat: >
       Atacante autenticado en la aplicación.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -21876,6 +22382,7 @@
     threat: >
       Atacante autorizado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -21938,6 +22445,7 @@
     threat: >
       Atacante externo con acceso al código fuente.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "90"
   score:
     base:
@@ -21987,6 +22495,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -22026,6 +22535,7 @@
     threat: >
       Unauthorized user from the Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Missing secure obfuscation - JavaScript
@@ -22080,6 +22590,7 @@
     threat: >
       Anonymous attacker from the Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Technical information leak - Content response
@@ -22134,6 +22645,7 @@
       Attacker with an account creation
       invitation from the Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   es:
     title: Weak credential policy - Password strength
@@ -22185,6 +22697,7 @@
     threat: >
       Anonymous attacker from the Internet
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "30"
   es:
     title: Weak credential policy - Temporary passwords
@@ -22236,6 +22749,7 @@
     threat: >
       Unauthorized external attacker.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "90"
   es:
     title: Authentication mechanism absence or evasion - Response tampering
@@ -22308,6 +22822,7 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   score:
     base:
@@ -22346,6 +22861,7 @@
     threat: >
       Authenticated user from Internet with access to the source code.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "120"
   es:
     title: Sensitive information in source code - Git history
@@ -22406,6 +22922,7 @@
     threat: >
       Anonymous attacker from the Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Unrestricted access between network segments - StrictHostKeyChecking
@@ -22474,6 +22991,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Insecure object reference - User deletion
@@ -22531,6 +23049,7 @@
     threat: >
       User authenticated from the Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "240"
   es:
     title: Authentication mechanism absence or evasion - Security Image
@@ -22581,6 +23100,7 @@
     threat: >
       Unauthorized attacker from the Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "90"
   es:
     title: DOM-Based cross-site scripting (XSS)
@@ -22633,6 +23153,7 @@
       Anonymous attacker on adjacent network
       running a MitM.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Use of an insecure channel - HTTP
@@ -22697,6 +23218,7 @@
     threat: >
       Anonymous attacker from adjacent network.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Use of an insecure channel - Oracle Database
@@ -22772,6 +23294,7 @@
       An attacker access to the application and can debug it, will
       be able to get sensitive information stored in a device.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "450"
   es:
     title: Security controls bypass or absence - Debug Protection
@@ -22835,6 +23358,7 @@
     threat: >
       Authorized attacker from the Internet.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "450"
   es:
     title: Security controls bypass or absence - Tampering Protection
@@ -22901,6 +23425,7 @@
       core binary to determine its source code, algorithms
       and resources embedded within the app to execute dubious actions.
   category: Subvert Access
+  code_examples: __empty__
   remediation_time: "450"
   es:
     title: Security controls bypass or absence - Reversing Protection
@@ -22984,6 +23509,7 @@
       communication endpoints or set itself as a
       man in the middle (MitM) between them.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "300"
   es:
     title: Insufficient data authenticity validation - Device Binding
@@ -23051,6 +23577,7 @@
       An attacker from an adjacent network
       performing a sniffing attack.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   es:
     title: Non-encrypted confidential information - Hexadecimal
@@ -23105,6 +23632,7 @@
       Authorized attacker from the Internet
       with access to the application.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Inappropriate coding practices - Unnecessary imports
@@ -23159,6 +23687,7 @@
       Anonymous attacker from Internet
       with write access to the provider releases.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Supply Chain Attack - Docker
@@ -23212,6 +23741,7 @@
       Anonymous attacker from Internet
       with write access to the provider releases.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Supply Chain Attack - Terraform
@@ -23290,6 +23820,7 @@
     threat: >
       Attacker without credentials from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Insufficient data authenticity validation - Front bypass
@@ -23347,6 +23878,7 @@
     threat: >
       Anonymous attacker from the Internet.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Insecurely generated token - OTP
@@ -23404,6 +23936,7 @@
     threat: >
       Attacker authenticated in the application from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   es:
     title: Inappropriate coding practices - Wildcard export
@@ -23459,6 +23992,7 @@
     threat: >
       Attacker with access to source code from the Internet.
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "30"
   es:
     title: Non-encrypted confidential information - Keys
@@ -23513,6 +24047,7 @@
     threat: >
       Attacker on the Internet sending malicious links.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   es:
     title: Cross-Site Leak - Frame Counting
@@ -23564,6 +24099,7 @@
     threat: >
       Anonymous attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "90"
   es:
     title: Insecure service configuration - Object Reutilization
@@ -23614,6 +24150,7 @@
     threat: >
       Anonymous attacker from adjacent network performing a MitM.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "120"
   es:
     title: Insecure authentication method - NTLM
@@ -23665,6 +24202,7 @@
     threat: >
       Anonymous attacker from Internet with access to the JAR Files.
   category: Manipulate Data
+  code_examples: __empty__
   remediation_time: "90"
   es:
     title: Insufficient data authenticity validation - JAR signing
@@ -23720,6 +24258,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Inject Unexpected
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Prototype Pollution
@@ -23781,6 +24320,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Inappropriate coding practices - Unused properties
@@ -23834,6 +24374,7 @@
     threat: >
       Anonymous attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Security controls bypass or absence - Firewall
@@ -23907,6 +24448,7 @@
       o cuenten con vulnerabilidades Zero Day.
     threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   score:
     base:
@@ -23961,6 +24503,7 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   score:
     base:
@@ -24000,6 +24543,7 @@
       Authenticated attacker from the Internet
       with access to the source code.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "30"
   es:
     title: Insecure generation of random numbers -  Static IV
@@ -24056,6 +24600,7 @@
     threat: >
       Anonymous attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Insecure service configuration - KMS
@@ -24125,6 +24670,7 @@
     threat: >
       Unauthorized attacker from intranet.
   category: Protocol Manipulation
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Insecure authentication method - LDAP
@@ -24200,6 +24746,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   es:
     title: Fragment Injection
@@ -24259,6 +24806,7 @@
       Authenticated attacker from the Internet
       who succeeded to compromise a resource.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "90"
   es:
     title: Security controls absence - Monitoring
@@ -24314,6 +24862,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Traceability Loss - AWS
@@ -24367,6 +24916,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Insecure service configuration - AKV Secret Expiration
@@ -24420,6 +24970,7 @@
     threat: >
       Authenticated attacker from the Internet.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "60"
   es:
     title: Traceability Loss - Azure
@@ -24484,6 +25035,7 @@
       the same network segment as an
       application user.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Insecure service configuration - usesCleartextTraffic
@@ -24553,6 +25105,7 @@
     threat: >
       Authenticated local attacker with access to the machine.
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "120"
   es:
     title: OS Command Injection
@@ -24610,6 +25163,7 @@
     threat: >
       Anonymous attacker with local access to the machine
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "15"
   es:
     title: Excessive privileges - Access Mode
@@ -24663,6 +25217,7 @@
       Anonymous attacker with local access
       to one or more EFS instances
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Non-encrypted confidential information - EFS
@@ -24717,6 +25272,7 @@
     threat: >
       Anonymous attacker with local access to a EBS instance
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Non-encrypted confidential information - EBS Volumes
@@ -24774,6 +25330,7 @@
       Authenticated attacker from the Internet
       with access to the AWS console
   category: Deceptive Interactions
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Traceability Loss - API Gateway
@@ -24829,6 +25386,7 @@
       Authenticated attacker from the Internet
       with access to the Database
   category: Collect Information
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Non-encrypted confidential information - DynamoDB
@@ -24888,6 +25446,7 @@
     threat: >
       Anonymous attacker from the Internet
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Dependency Confusion
@@ -24947,6 +25506,7 @@
     threat: >
       Authenticated attacker from the Internet with access to the service
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Insecure encryption algorithm - Default encryption
@@ -25002,6 +25562,7 @@
       Authenticated attacker from the Internet
       with write permissions in the vault
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Lack of protection against deletion - Azure Key Vault
@@ -25055,6 +25616,7 @@
     threat: >
       Anonymous attacker from local machine
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Insecure file upload - DLL Injection
@@ -25108,6 +25670,7 @@
     threat: >
       Anonymoous attacker from the Internet
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Insecure service configuration - Header Checking
@@ -25160,6 +25723,7 @@
     threat: >
       Authenticated attacker from the Internet
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "50"
   es:
     title: Insecure service configuration - Container level access policy
@@ -25214,6 +25778,7 @@
     threat: >
       Authenticated attacker from the Internet
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: XAML injection
@@ -25271,6 +25836,7 @@
     threat: >
       Authenticated attacker from the Internet
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "100"
   es:
     title: Account Takeover
@@ -25328,6 +25894,7 @@
     threat: >
       Authenticated local attacker with access to the container
   category: Abuse Functionality
+  code_examples: __empty__
   remediation_time: "20"
   es:
     title: Insecure service configuration - Docker

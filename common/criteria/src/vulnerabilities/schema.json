@@ -27,6 +27,19 @@
             { "type": "string", "pattern": "^Protocol Manipulation$" }
           ]
         },
+        "code_examples": {
+          "oneOf": [
+            { "type": "object",
+              "additionalProperties": false,
+              "required": [ "noncompliant", "compliant" ],
+              "properties": {
+                "noncompliant": { "type": "string" },
+                "compliant": { "type": "string" }
+              }
+            },
+            { "type": "string", "pattern": "^__empty__$" }
+          ]
+        },
         "remediation_time": {
           "oneOf": [
             { "type": "string", "pattern": "^[0-9]+$" },
