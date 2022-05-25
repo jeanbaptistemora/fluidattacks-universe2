@@ -664,6 +664,33 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__add_url_root:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.06
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'add_url_root'
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__approve_draft:
   artifacts:
     expire_in: 1 day
@@ -3116,6 +3143,7 @@
     - /integrates/back/test/functional__add_push_token
     - /integrates/back/test/functional__add_toe_input
     - /integrates/back/test/functional__add_toe_lines
+    - /integrates/back/test/functional__add_url_root
     - /integrates/back/test/functional__approve_draft
     - /integrates/back/test/functional__batch
     - /integrates/back/test/functional__confirm_vulnerabilities_zero_risk
@@ -3138,7 +3166,6 @@
     - /integrates/back/test/functional__move_root
     - /integrates/back/test/functional__organization
     - /integrates/back/test/functional__organization_id
-    - /integrates/back/test/functional__refresh_toe_inputs
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -3166,6 +3193,7 @@
   image: ghcr.io/fluidattacks/makes:22.06
   interruptible: true
   needs:
+    - /integrates/back/test/functional__refresh_toe_inputs
     - /integrates/back/test/functional__refresh_toe_lines
     - /integrates/back/test/functional__reject_draft
     - /integrates/back/test/functional__reject_vulnerabilities_zero_risk
@@ -3205,7 +3233,6 @@
     - /integrates/back/test/functional__update_forces_access_token
     - /integrates/back/test/functional__update_git_root
     - /integrates/back/test/functional__update_group
-    - /integrates/back/test/functional__update_group_access_info
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -3233,6 +3260,7 @@
   image: ghcr.io/fluidattacks/makes:22.06
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_group_access_info
     - /integrates/back/test/functional__update_group_disambiguation
     - /integrates/back/test/functional__update_group_info
     - /integrates/back/test/functional__update_group_managed

@@ -47,6 +47,7 @@ TEST_GROUPS: Set[str] = {
     "add_push_token",
     "add_toe_input",
     "add_toe_lines",
+    "add_url_root",
     "approve_draft",
     "confirm_vulnerabilities_zero_risk",
     "deactivate_root",
