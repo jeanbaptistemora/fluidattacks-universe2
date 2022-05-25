@@ -1348,6 +1348,7 @@ export const enTranslations: ResourceKey = {
       text: "Delete Account",
       tooltip: "Delete account from ASM",
     },
+    featurePreview: "Feature preview",
     help: {
       chat: "Live Chat",
       expert: "Talk to an expert",

@@ -20,7 +20,8 @@ import {
 } from "utils/authz/config";
 import { BugsnagErrorBoundary } from "utils/bugsnagErrorBoundary";
 import { getEnvironment } from "utils/environment";
-import { useWindowSize } from "utils/hooks";
+import { featurePreviewContext } from "utils/featurePreview";
+import { useStoredState, useWindowSize } from "utils/hooks";
 import { secureStore, secureStoreContext } from "utils/secureStore";
 import "react-toastify/dist/ReactToastify.min.css";
 import "tachyons/css/tachyons.min.css";
@@ -36,6 +37,12 @@ const App: React.FC = (): JSX.Element => {
     userEmail: "",
     userName: "",
   });
+  const [featurePreview, setFeaturePreview] = useStoredState(
+    "featurePreview",
+    false,
+    localStorage
+  );
+
   const matomoInstance = createInstance({
     siteId: 3,
     urlBase: "https://fluidattacks.matomo.cloud",
@@ -59,10 +66,14 @@ const App: React.FC = (): JSX.Element => {
                 <authzPermissionsContext.Provider value={userLevelPermissions}>
                   <secureStoreContext.Provider value={secureStore}>
                     <authContext.Provider value={{ ...user, setUser }}>
-                      <Switch>
-                        <Route component={Login} exact={true} path={"/"} />
-                        <Route component={Welcome} path={"/"} />
-                      </Switch>
+                      <featurePreviewContext.Provider
+                        value={{ featurePreview, setFeaturePreview }}
+                      >
+                        <Switch>
+                          <Route component={Login} exact={true} path={"/"} />
+                          <Route component={Welcome} path={"/"} />
+                        </Switch>
+                      </featurePreviewContext.Provider>
                     </authContext.Provider>
                   </secureStoreContext.Provider>
                 </authzPermissionsContext.Provider>

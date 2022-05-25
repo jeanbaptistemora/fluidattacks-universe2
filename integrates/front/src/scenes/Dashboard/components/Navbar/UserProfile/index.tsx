@@ -35,11 +35,14 @@ import {
 } from "../styles";
 import { clickedPortal } from "../utils";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { Alert, ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
+import type { IFeaturePreviewContext } from "utils/featurePreview";
+import { featurePreviewContext } from "utils/featurePreview";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -53,6 +56,13 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const { userEmail, userName, userIntPhone } = useContext(authContext);
   const { t } = useTranslation();
   const { push } = useHistory();
+
+  const { featurePreview, setFeaturePreview } = useContext(
+    featurePreviewContext as React.Context<Required<IFeaturePreviewContext>>
+  );
+  const toggleFeaturePreview = useCallback((): void => {
+    setFeaturePreview((currentValue): boolean => !currentValue);
+  }, [setFeaturePreview]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = useCallback((): void => {
@@ -155,6 +165,13 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   {t(`userModal.roles.${_.camelCase(userRole)}`)}
                 </React.Fragment>
               )}
+              <br />
+              {t("navbar.featurePreview")}&nbsp;
+              <Switch
+                checked={featurePreview}
+                name={"featurePreview"}
+                onChange={toggleFeaturePreview}
+              />
             </DropdownButton>
           </li>
           <DropdownDivider />
