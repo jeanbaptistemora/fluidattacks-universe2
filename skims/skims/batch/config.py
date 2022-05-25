@@ -192,6 +192,68 @@ def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
     return targets
 
 
+def is_additional_path(dirs: List[str], files: List[str]) -> bool:
+    for file in files:
+        match_config = file_match_expected_patterns(file, dirs, files)
+        if match_config is not None:
+            return True
+
+    return False
+
+
+async def generate_configs(
+    *,
+    group_name: str,
+    namespace: str,
+    checks: Tuple[str, ...],
+    language: LocalesEnum = LocalesEnum.EN,
+    working_dir: str = ".",
+    is_first: bool = True,
+) -> List[SkimsConfig]:
+    additional_paths: List[str] = []
+    all_configs: List[SkimsConfig] = []
+    for current_dir, dirs, files in os.walk(working_dir):
+        if current_dir.endswith(working_dir) or any(
+            additional_path in current_dir
+            for additional_path in additional_paths
+        ):
+            continue
+
+        if is_additional_path(dirs, files):
+            additional_paths = [
+                *additional_paths,
+                current_dir.replace(f"{working_dir}/", ""),
+            ]
+            all_configs = [
+                *all_configs,
+                *(
+                    await generate_configs(
+                        group_name=group_name,
+                        namespace=namespace,
+                        checks=checks,
+                        language=language,
+                        working_dir=current_dir,
+                        is_first=False,
+                    )
+                ),
+            ]
+
+    all_configs = [
+        await generate_config(
+            group_name=group_name,
+            namespace=namespace,
+            checks=checks,
+            language=language,
+            working_dir=working_dir,
+            is_main=is_first,
+            exclude=tuple(additional_paths),
+        ),
+        *all_configs,
+    ]
+
+    return all_configs
+
+
 async def generate_config(
     *,
     group_name: str,
