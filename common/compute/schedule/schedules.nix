@@ -1,6 +1,31 @@
 # Schedule expressions:
 # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 {
+  common_google_close_sessions = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/common/google/close-sessions"
+    ];
+
+    schedule_expression = "cron(0 8 * * ? *)";
+    queue = "unlimited_spot";
+    attempts = 3;
+    timeout = 86400;
+    cpu = 2;
+    memory = 3600;
+    parallel = 1;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "common_google_close_sessions";
+      "management:area" = "cost";
+      "management:product" = "common";
+      "management:type" = "product";
+    };
+  };
   common_okta_close_sessions = {
     enabled = true;
     command = [
