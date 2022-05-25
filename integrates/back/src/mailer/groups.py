@@ -133,10 +133,17 @@ async def send_mail_added_root(
     email_to: List[str],
     environment: str,
     group_name: str,
+    health_check: bool,
     root_nickname: str,
+    root_url: str,
     responsible: str,
     modified_date: str,
+    vpn_required: bool,
 ) -> None:
+    bool_translations: dict[bool, str] = {
+        True: "Yes",
+        False: "No",
+    }
     await send_mails_async(
         email_to=email_to,
         context={
@@ -145,6 +152,9 @@ async def send_mail_added_root(
             "group": group_name,
             "root_nickname": root_nickname,
             "responsible": responsible,
+            "health_check": bool_translations[health_check],
+            "root_url": root_url,
+            "vpn_required": bool_translations[vpn_required],
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
         },
         tags=GENERAL_TAG,

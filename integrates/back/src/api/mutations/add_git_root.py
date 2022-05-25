@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -16,6 +13,9 @@ from batch.enums import (
 )
 from custom_types import (
     AddRootPayload,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.enums import (
     Notification,
@@ -70,7 +70,7 @@ async def mutate(
 ) -> AddRootPayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    loaders: DataLoader = info.context.loaders
+    loaders: Dataloaders = info.context.loaders
     root: GitRoot = await roots_domain.add_git_root(
         loaders, user_email, **kwargs
     )
@@ -138,9 +138,12 @@ async def mutate(
         email_to=users_email,
         environment=root.state.environment,
         group_name=group_name,
+        health_check=root.state.includes_health_check,
         root_nickname=root.state.nickname,
+        root_url=root.state.url,
         responsible=user_email,
         modified_date=root.state.modified_date,
+        vpn_required=root.state.use_vpn,
     )
 
     logs_utils.cloudwatch_log(
