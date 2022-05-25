@@ -175,6 +175,9 @@ async def add_git_root(  # pylint: disable=too-many-locals
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
+    validation_utils.validate_sanitized_csv_input(
+        nickname, url, kwargs["environment"]
+    )
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
@@ -302,6 +305,7 @@ async def add_ip_root(
 
     nickname = kwargs["nickname"]
     loaders.group_roots.clear(group_name)
+    validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
@@ -339,9 +343,12 @@ async def add_url_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> str:
     group_name = str(kwargs["group_name"]).lower()
+    nickname: str = str(kwargs["nickname"])
+    url: str = str(kwargs["url"])
+    validation_utils.validate_sanitized_csv_input(url, nickname)
 
     try:
-        url_attributes = parse_url(kwargs["url"])
+        url_attributes = parse_url(url)
     except LocationParseError as ex:
         raise InvalidParameter() from ex
 
@@ -374,9 +381,9 @@ async def add_url_root(  # pylint: disable=too-many-locals
         raise RepeatedRoot()
 
     loaders.group_roots.clear(group_name)
-    validations.validate_nickname(kwargs["nickname"])
+    validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        kwargs["nickname"], await loaders.group_roots.load(group_name)
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     modified_date = datetime_utils.get_iso_date()
@@ -388,7 +395,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
             host=host,
             modified_by=user_email,
             modified_date=modified_date,
-            nickname=kwargs["nickname"],
+            nickname=nickname,
             other=None,
             path=path,
             port=port,
@@ -647,10 +654,11 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group_typed.load(group_name)
     root: Root = await loaders.root.load((group_name, root_id))
-
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     nickname: str = root.state.nickname
+
+    validation_utils.validate_sanitized_csv_input(kwargs["environment"], url)
     if not (
         isinstance(root, GitRoot)
         and root.state.status == RootStatus.ACTIVE
@@ -660,6 +668,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         raise InvalidParameter()
 
     if kwargs.get("nickname") and kwargs.get("nickname") != nickname:
+        validation_utils.validate_sanitized_csv_input(kwargs["nickname"])
         validations.validate_nickname(kwargs["nickname"])
         validations.validate_nickname_is_unique(
             kwargs["nickname"], await loaders.group_roots.load(group_name)
@@ -777,6 +786,7 @@ async def update_ip_root(
     if nickname == root.state.nickname:
         return
 
+    validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
@@ -827,6 +837,7 @@ async def update_url_root(
     if nickname == root.state.nickname:
         return
 
+    validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
