@@ -34,7 +34,6 @@ from fa_purity.stream.factory import (
 )
 from fa_purity.stream.transform import (
     chain,
-    squash,
     until_empty,
 )
 from tap_gitlab.api2._raw import (
