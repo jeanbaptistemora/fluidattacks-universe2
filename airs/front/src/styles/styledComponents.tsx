@@ -370,29 +370,6 @@ const BlogPageArticle: StyledComponent<
   `,
 })``;
 
-const Title = styled.p.attrs({
-  className: `
-    neue
-    ma0
-    lh-solid
-    fw7
-  `,
-})<{ fSizeL: string; fSizeM: string; fSizeS: string; fColor: string }>`
-  color: ${({ fColor }): string => `${fColor}`};
-
-  @media screen and (min-width: 60em) {
-    font-size: ${({ fSizeL }): string => `${fSizeL}`};
-  }
-
-  @media screen and (min-width: 30em) and (max-width: 60em) {
-    font-size: ${({ fSizeM }): string => `${fSizeM}`};
-  }
-
-  @media screen and (max-width: 30em) {
-    font-size: ${({ fSizeS }): string => `${fSizeS}`};
-  }
-`;
-
 const ArticleTitle: StyledComponent<
   "h1",
   Record<string, unknown>
@@ -1829,7 +1806,6 @@ export {
   SolutionsSubtitle,
   SquaredCardContainer,
   SubcategoryLink,
-  Title,
   TitleContainer,
   WhiteBigParagraph,
 };

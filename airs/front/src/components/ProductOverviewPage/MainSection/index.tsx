@@ -13,10 +13,10 @@ import {
   FullWidthContainer,
   NewRegularRedButton,
   PhantomRegularRedButton,
-  Title,
 } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
+import { Title } from "../../Texts";
 
 interface IProps {
   description: string;
@@ -28,12 +28,7 @@ const MainSection: React.FC<IProps> = ({
   return (
     <Container>
       <MainTextContainer>
-        <Title
-          fColor={"#f4f4f6"}
-          fSizeL={"72px"}
-          fSizeM={"64px"}
-          fSizeS={"48px"}
-        >
+        <Title fColor={"#f4f4f6"} fSize={"72"} fSizeM={"64"} fSizeS={"48"}>
           {translate.t("productOverview.title")}
         </Title>
         <ProductParagraph>{description}</ProductParagraph>
