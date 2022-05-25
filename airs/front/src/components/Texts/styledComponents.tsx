@@ -7,6 +7,7 @@ interface ITextProps {
   fSizeS?: string;
   marginBottom?: string;
   marginTop?: string;
+  maxWidth?: string;
 }
 
 const getSize = (defaultFSize: string, fSize?: string): string => {
@@ -23,6 +24,14 @@ const getMargin = (margin?: string): string => {
   }
 
   return `${margin}rem`;
+};
+
+const getWidth = (width?: string): string => {
+  if (width === undefined) {
+    return "none";
+  }
+
+  return `${width}px`;
 };
 
 const Title = styled.p.attrs({
@@ -53,11 +62,13 @@ const Paragraph = styled.p.attrs({
   className: `
     roboto
     lh-solid
+    center
   `,
 })<ITextProps>`
   color: ${(props): string => props.fColor};
   margin-bottom: ${(props): string => getMargin(props.marginBottom)};
   margin-top: ${(props): string => getMargin(props.marginTop)};
+  max-width: ${(props): string => getWidth(props.maxWidth)};
 
   @media screen and (min-width: 60em) {
     font-size: ${(props): string => getSize(props.fSize)};

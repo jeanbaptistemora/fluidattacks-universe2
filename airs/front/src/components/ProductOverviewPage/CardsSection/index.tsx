@@ -15,17 +15,14 @@ const CardsSection: React.FC = (): JSX.Element => {
     {
       image: "card-1",
       text: translate.t("productOverview.cardsSection.card1Description"),
-      title: translate.t("productOverview.cardsSection.card1Title"),
     },
     {
       image: "card-2",
       text: translate.t("productOverview.cardsSection.card2Description"),
-      title: translate.t("productOverview.cardsSection.card2Title"),
     },
     {
       image: "card-3",
       text: translate.t("productOverview.cardsSection.card3Description"),
-      title: translate.t("productOverview.cardsSection.card3Title"),
     },
   ];
 
@@ -46,7 +43,6 @@ const CardsSection: React.FC = (): JSX.Element => {
               image={card.image}
               key={`card-${card.text}`}
               text={card.text}
-              title={card.title}
             />
           );
         })}

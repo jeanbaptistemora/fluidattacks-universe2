@@ -132,18 +132,11 @@ const pageTexts: ResourceKey = {
   },
   productOverview: {
     cardsSection: {
-      card1Description:
-        "You can be aware of all vulnerability types " +
-        "we identify in your system and their main attributes to act promptly.",
-      card1Title: "Know your vulnerabilities",
+      card1Description: "Know your organizational risk exposure and manage it",
       card2Description:
-        "Your developers and managers can understand what is happening " +
-        "with each vulnerability reported on the Attack Surface Manager (ASM).",
-      card2Title: "Learn details of each vulnerability",
+        "Decrease the time-to-market of your products and services",
       card3Description:
-        "You can decide the course of action for each " +
-        "vulnerability: start its remediation or accept its presence.",
-      card3Title: "Define treatments for vulnerabilities",
+        "Achieve higher remediation rates faster and at lower costs",
       paragraph:
         "We integrate automatic and manual testing (SAST, DAST and SCA) with speed " +
         "and precision to detect and report all vulnerabilities and security issues " +

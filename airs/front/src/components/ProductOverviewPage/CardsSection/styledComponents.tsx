@@ -13,17 +13,17 @@ const Container = styled.div.attrs({
 
 const CardContainer = styled.div.attrs({
   className: `
-    bg-fluid-black
     mh3
     mb4
     pv4
-    ph3
+    ph4
     tc
-    br3
+    br2
     w-100
   `,
 })`
-  max-width: 424px;
+  max-width: 400px;
+  background-color: #ffffff;
 `;
 
 const CardTitle = styled.p.attrs({
@@ -34,16 +34,6 @@ const CardTitle = styled.p.attrs({
     mb1
     fw7
     mv4
-  `,
-})``;
-
-const CardText = styled.p.attrs({
-  className: `
-    c-fluid-gray
-    b
-    mt0
-    f5
-    roboto
   `,
 })``;
 
@@ -67,12 +57,13 @@ const MainTextContainer = styled.div.attrs({
     center
     mt5
   `,
-})``;
+})`
+  max-width: 1300px;
+`;
 
 export {
   CardContainer,
   CardsContainer,
-  CardText,
   CardTitle,
   Container,
   MainTextContainer,
