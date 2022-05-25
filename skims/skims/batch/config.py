@@ -15,16 +15,22 @@ from model.core_model import (
     SkimsSslTarget,
 )
 import os
+import re
 from typing import (
+    Any,
+    cast,
+    Dict,
     List,
+    Optional,
     Set,
     Tuple,
+    Union,
 )
 from urllib3.util.url import (
     parse_url,
 )
 
-PATTERNS = [
+PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
     {
         "name": ".csproj",
         "description": "visual studio c sharp project",
@@ -95,6 +101,56 @@ PATTERNS = [
 ]
 
 
+def evaluate_requirement(
+    requirement: Dict[str, Any],
+    current_directories: List[str],
+    current_files: List[str],
+) -> bool:
+    if requirement.get("optional", False):
+        return True
+    if requirement["name"] == "directory":
+        return all(
+            required_directory in current_directories
+            for required_directory in requirement["values"]
+        )
+    if requirement["name"] == "file":
+        return all(
+            required_file in current_files
+            for required_file in requirement["values"]
+        )
+    return False
+
+
+def file_match_expected_patterns(
+    file: str,
+    current_directories: List[str],
+    current_files: List[str],
+) -> Optional[Dict[str, Any]]:
+    for config in PATTERNS:
+        if (
+            config["type"] == "file_extension"
+            and re.match(f"(.?)*{config['name']}$", file) is not None
+        ):
+            # matches the pattern of a project configuration file
+            return config
+
+        if config["type"] == "specific_file" and config["name"] == file:
+            # has the name of a configuration file
+            if requires := config.get("requires"):
+                requires = cast(List[Dict[str, Any]], requires)
+                if all(
+                    evaluate_requirement(
+                        req, current_directories, current_files
+                    )
+                    for req in requires
+                ):
+                    return config
+            else:
+                return config
+
+    return None
+
+
 async def get_scopes_from_group(group: str, namespace: str) -> Set[str]:
     roots = await get_group_roots(group=group)
     return {
@@ -142,13 +198,19 @@ async def generate_config(
     namespace: str,
     checks: Tuple[str, ...],
     language: LocalesEnum = LocalesEnum.EN,
+    exclude: Tuple[str, ...] = (),
     working_dir: str = ".",
+    is_main: bool = True,
 ) -> SkimsConfig:
     create_session(os.environ["INTEGRATES_API_TOKEN"])
 
-    scopes: Set[str] = await get_scopes_from_group(group_name, namespace)
-    urls: List[str] = get_urls_from_scopes(scopes)
-    ssl_targets: List[Tuple[str, str]] = get_ssl_targets(urls)
+    scopes: Set[str] = set()
+    urls: List[str] = []
+    ssl_targets: List[Tuple[str, str]] = []
+    if is_main:
+        scopes = await get_scopes_from_group(group_name, namespace)
+        urls = get_urls_from_scopes(scopes)
+        ssl_targets = get_ssl_targets(urls)
 
     return SkimsConfig(
         apk=SkimsAPKConfig(
@@ -173,7 +235,7 @@ async def generate_config(
         output=os.path.abspath("result.csv"),
         path=SkimsPathConfig(
             include=(".",),
-            exclude=("glob(**/.git)",),
+            exclude=tuple(sorted(("glob(**/.git)", *exclude))),
             lib_path=True,
             lib_root=True,
         ),
