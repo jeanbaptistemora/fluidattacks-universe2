@@ -16,12 +16,6 @@ from dynamodb.exceptions import (
 from newutils import (
     logs as logs_utils,
 )
-from newutils.analytics import (
-    mixpanel_track,
-)
-from newutils.token import (
-    get_jwt_content,
-)
 from starlette.requests import (
     Request,
 )
@@ -57,10 +51,6 @@ async def _log_request(request: Request, operation: Operation) -> None:
         request,
         f"API: {operation.name} with parameters {operation.variables}. "
         f"Complete query: {operation.query}",
-    )
-    user_data = await get_jwt_content(request)
-    await mixpanel_track(
-        user_data["user_email"], f"API/{operation.name}", query=operation.query
     )
 
 
