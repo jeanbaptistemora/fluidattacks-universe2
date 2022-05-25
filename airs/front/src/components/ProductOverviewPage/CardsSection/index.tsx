@@ -29,10 +29,15 @@ const CardsSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <MainTextContainer>
-        <Title fColor={"#2e2e38"} fSize={"36"}>
+        <Title fColor={"#2e2e38"} fSize={"36"} fSizeS={"24"}>
           {translate.t("productOverview.cardsSection.title")}
         </Title>
-        <Paragraph fColor={"#5c5c70"} fSize={"24"} marginTop={"2"}>
+        <Paragraph
+          fColor={"#5c5c70"}
+          fSize={"24"}
+          fSizeS={"20"}
+          marginTop={"2"}
+        >
           {translate.t("productOverview.cardsSection.paragraph")}
         </Paragraph>
       </MainTextContainer>
