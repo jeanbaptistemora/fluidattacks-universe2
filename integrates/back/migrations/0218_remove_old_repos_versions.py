@@ -5,8 +5,8 @@ Remove objects from bucket
 remove all previous versions of objects, along with
 objects that have already been marked as deleted
 
-Execution Time:
-Finalization Time:
+Execution Time: 2022-05-25 at 01:52:49 UTCUTC
+Finalization Time: 2002-05-25 at 06:22:52 UTCUTC
 """
 
 from aioextensions import (
@@ -56,6 +56,7 @@ async def main() -> None:
                     (obj["Key"], obj["VersionId"])
                     for obj in response.get("Versions", [])
                     if obj["IsLatest"] is False
+                    or not obj["Key"].endswith(".tar.gz")
                 ],
             ]
             if (
