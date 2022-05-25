@@ -11,6 +11,7 @@ from botocore.exceptions import (
 )
 from custom_exceptions import (
     InvalidOrganization,
+    OrganizationNotFound,
     UnavailabilityError,
 )
 from custom_types import (
@@ -240,12 +241,13 @@ async def get_by_id(
         query_attrs.update({"ProjectionExpression": projection})
     try:
         response_item = await dynamodb_query(TABLE_NAME, query_attrs)
-        if response_item:
-            organization = response_item[0]
-            if "sk" in organization:
-                organization.update(
-                    {"sk": cast(str, organization["sk"]).split("#")[1]}
-                )
+        if not response_item:
+            raise OrganizationNotFound()
+        organization = response_item[0]
+        if "sk" in organization:
+            organization.update(
+                {"sk": cast(str, organization["sk"]).split("#")[1]}
+            )
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return _map_keys_to_domain(organization)

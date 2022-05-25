@@ -12,6 +12,7 @@ from custom_exceptions import (
     InvalidSeverity,
     InvalidUserProvided,
     InvalidVulnerabilityGracePeriod,
+    OrganizationNotFound,
     UserNotInOrganization,
 )
 from dataloaders import (
@@ -109,7 +110,7 @@ async def test_add_customer_manager_good() -> None:
 async def test_add_organization() -> None:
     org_name = "esdeath"
     user = "org_testusermanager1@gmail.com"
-    with pytest.raises(InvalidOrganization):
+    with pytest.raises(OrganizationNotFound):
         await orgs_domain.get_id_by_name(org_name)
 
     await orgs_domain.add_organization_typed(org_name, user)
@@ -150,7 +151,7 @@ async def test_get_id_by_name() -> None:
     org_id = await orgs_domain.get_id_by_name(org_name)
     assert org_id == expected_org_id
 
-    with pytest.raises(InvalidOrganization):
+    with pytest.raises(OrganizationNotFound):
         await orgs_domain.get_id_by_name("madeup-org")
 
 
@@ -160,7 +161,7 @@ async def test_get_name_by_id() -> None:
     org_name = await orgs_domain.get_name_by_id(org_id)
     assert org_name == expected_org_name
 
-    with pytest.raises(InvalidOrganization):
+    with pytest.raises(OrganizationNotFound):
         await orgs_domain.get_name_by_id("ORG#madeup-id")
 
 

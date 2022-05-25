@@ -13,6 +13,7 @@ from context import (
 )
 from custom_exceptions import (
     InvalidOrganization,
+    OrganizationNotFound,
     StakeholderNotFound,
     UserNotInOrganization,
 )
@@ -313,7 +314,7 @@ async def test_get_organization_id() -> None:
 
     data = {"query": query.substitute(name="madeup-name")}
     result = await _get_result_async(data)
-    exe = InvalidOrganization()
+    exe = OrganizationNotFound()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 

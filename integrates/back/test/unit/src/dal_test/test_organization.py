@@ -1,6 +1,7 @@
 # pylint: disable=protected-access
 from custom_exceptions import (
     InvalidOrganization,
+    OrganizationNotFound,
 )
 from decimal import (
     Decimal,
@@ -142,13 +143,14 @@ async def test_exists() -> None:
 
 async def test_get_by_id() -> None:
     ex_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    not_ex_org_id = "ORG#2395b997-c81a-4094-9dae-b171a7b5428c"
     existing_org = await orgs_dal.get_by_id(ex_org_id)
     assert isinstance(existing_org, dict)
     assert "name" in existing_org
     assert existing_org["id"] == ex_org_id
-    not_existent_org = await orgs_dal.get_by_id(not_ex_org_id)
-    assert not not_existent_org
+
+    not_ex_org_id = "ORG#2395b997-c81a-4094-9dae-b171a7b5428c"
+    with pytest.raises(OrganizationNotFound):
+        await orgs_dal.get_by_id(not_ex_org_id)
 
 
 async def test_get_by_name() -> None:
@@ -166,12 +168,17 @@ async def test_get_many_by_id() -> None:
     org_ids = [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
-        "ORG#49bcf63c-cd96-442f-be79-aa51574dc187",  # does not exist
     ]
     orgs = await orgs_dal.get_many_by_id(org_ids, ["id", "name"])
     assert orgs[0]["id"] == org_ids[0]
     assert orgs[1]["name"] == "bulat"
-    assert not orgs[2]
+
+    org_ids_non_existent = [
+        "ORG#49bcf63c-cd96-442f-be79-aa51574dc187",
+        "ORG#50bcf74c-cd96-442f-be79-aa51574dc187",
+    ]
+    with pytest.raises(OrganizationNotFound):
+        await orgs_dal.get_many_by_id(org_ids_non_existent, ["id", "name"])
 
 
 async def test_get_id_for_group() -> None:

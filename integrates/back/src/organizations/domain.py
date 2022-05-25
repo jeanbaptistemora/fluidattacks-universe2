@@ -240,7 +240,7 @@ async def get_id_by_name(organization_name: str) -> str:
         organization_name.lower(), ["id"]
     )
     if not result:
-        raise InvalidOrganization()
+        raise OrganizationNotFound()
     return str(result["id"])
 
 
@@ -258,7 +258,7 @@ async def get_name_by_id(organization_id: str) -> str:
         organization_id, ["name"]
     )
     if not result:
-        raise InvalidOrganization()
+        raise OrganizationNotFound()
     return str(result["name"])
 
 
