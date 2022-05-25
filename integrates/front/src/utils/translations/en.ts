@@ -259,7 +259,7 @@ export const enTranslations: ResourceKey = {
     addRoot: {
       branch: {
         label: "Branch",
-        placeholder: "QA",
+        placeholder: "quality assurance",
       },
       credentials: {
         auth: {
@@ -282,7 +282,7 @@ export const enTranslations: ResourceKey = {
       },
       environment: {
         label: "Environment kind",
-        placeholder: "QA",
+        placeholder: "quality assurance",
       },
       exclusions: {
         label: "Exclusions",
@@ -880,7 +880,7 @@ export const enTranslations: ResourceKey = {
             user: "Repository user",
           },
           environment: "Environment kind",
-          environmentHint: "(Production, QA or other)",
+          environmentHint: "(production, quality assurance or other)",
           machineExecutions: {
             active: "There is an active analysis in progress",
             messageComplete: "Last complete Machine execution",
