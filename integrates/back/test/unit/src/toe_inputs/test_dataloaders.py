@@ -38,6 +38,32 @@ async def test_get_by_group() -> None:
                     be_present=True,
                     be_present_until=None,
                     component="https://test.com/test2/test.aspx",
+                    entry_point="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    group_name="unittesting",
+                    has_vulnerabilities=False,
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-11T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="test2@test.com",
+                    unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                ),
+                cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJJTlBVVF"
+                "MjUk9PVCM0MDM5ZDA5OC1mZmM1LTQ5ODQtOGVkMy1lYjE3YmNhOThlMTkjQ09"
+                "NUE9ORU5UI2h0dHBzOi8vdGVzdC5jb20vdGVzdDIvdGVzdC5hc3B4I0VOVFJZ"
+                "UE9JTlQifQ==",
+            ),
+            ToeInputEdge(
+                node=ToeInput(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    attacked_by="test2@test.com",
+                    be_present=True,
+                    be_present_until=None,
+                    component="https://test.com/test2/test.aspx",
                     entry_point="-",
                     first_attack_at=datetime.fromisoformat(
                         "2021-02-11T05:00:00+00:00"

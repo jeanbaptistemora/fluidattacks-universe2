@@ -6204,6 +6204,56 @@
             },
             {
               "seen_first_time_by": {
+                "S": "test2@test.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "has_vulnerabilities": {
+                "BOOL": false
+              },
+              "attacked_at": {
+                "S": "2021-02-11T05:00:00+00:00"
+              },
+              "be_present": {
+                "BOOL": true
+              },
+              "attacked_by": {
+                "S": "test2@test.com"
+              },
+              "be_present_until": {
+                "S": ""
+              },
+              "component": {
+                "S": "https://test.com/test2/test.aspx"
+              },
+              "unreliable_root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk": {
+                "S": "INPUTS#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "GROUP#unittesting"
+              },
+              "first_attack_at": {
+                "S": "2021-02-11T05:00:00+00:00"
+              },
+              "entry_point": {
+                "S": ""
+              },
+              "sk_2": {
+                "S": "INPUTS#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT"
+              },
+              "seen_at": {
+                "S": "2020-01-11T05:00:00+00:00"
+              }
+            },
+            {
+              "seen_first_time_by": {
                 "S": ""
               },
               "group_name": {

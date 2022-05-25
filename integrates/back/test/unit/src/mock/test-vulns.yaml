@@ -1,5 +1,5 @@
 inputs:
-- field: '-'
+- field: ''
   state: open
   repo_nickname: product
   url: https://test.com/test2/test.aspx
