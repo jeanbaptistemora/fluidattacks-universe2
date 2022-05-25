@@ -192,7 +192,7 @@ def filter_remediated(
 
 
 async def format_vulnerabilities(
-    group_name: str, loaders: Any, vulnerabilities: Tuple[Vulnerability, ...]
+    group_name: str, loaders: Any, vulnerabilities: tuple[Vulnerability, ...]
 ) -> Dict[str, List[Dict[str, str]]]:
     finding: Dict[str, List[Dict[str, str]]] = {
         "ports": [],
