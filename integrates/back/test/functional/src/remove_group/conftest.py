@@ -73,7 +73,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         tier=GroupTier.OTHER,
                         type=GroupSubscriptionType.CONTINUOUS,
                     ),
-                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ady6db",
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     files=[
                         GroupFile(
                             description="Test",
