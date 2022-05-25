@@ -24,6 +24,76 @@ from urllib3.util.url import (
     parse_url,
 )
 
+PATTERNS = [
+    {
+        "name": ".csproj",
+        "description": "visual studio c sharp project",
+        "type": "file_extension",
+    },
+    {
+        "name": ".vbproj",
+        "description": "visual studio visual basic project",
+        "type": "file_extension",
+    },
+    {
+        "name": "pom.xml",
+        "requires": [
+            {"name": "directory", "values": ["src"], "optional": False}
+        ],
+        "description": "java maven project",
+        "type": "specific_file",
+    },
+    {
+        "name": "build.gradle",
+        "requires": [
+            {"name": "directory", "values": ["src"], "optional": False}
+        ],
+        "description": "java gradel project",
+        "type": "specific_file",
+    },
+    {
+        "name": "settings.gradle",
+        "description": "java gradel project",
+        "type": "specific_file",
+    },
+    {
+        "name": "setup.cfg",
+        "description": "python project",
+        "type": "specific_file",
+    },
+    {
+        "name": "pyproject.toml",
+        "description": "python project",
+        "type": "specific_file",
+    },
+    {
+        "name": "requirements.txt",
+        "description": "file of dependencies in python projects",
+        "type": "specific_file",
+    },
+    {
+        "name": "poetry.lock",
+        "description": "python poetry project",
+        "type": "specific_file",
+    },
+    {
+        "name": "package.json",
+        "description": "node npm project",
+        "requires": [
+            {"name": "directory", "values": ["src"], "optional": False}
+        ],
+        "type": "specific_file",
+    },
+    {
+        "name": "yarn.lock",
+        "description": "node yarn project",
+        "requires": [
+            {"name": "directory", "values": ["src"], "optional": False}
+        ],
+        "type": "specific_file",
+    },
+]
+
 
 async def get_scopes_from_group(group: str, namespace: str) -> Set[str]:
     roots = await get_group_roots(group=group)
