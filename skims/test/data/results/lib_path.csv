@@ -34424,6 +34424,20 @@ F011,lines,namespace/skims/test/data/lib_root/f011/xsl_transform_object.cs,12,93
   19 |
      ^ Col 3
 ",c_sharp.c_sharp_xsl_transform_object
+F011,lines,namespace/skims/test/data/lib_root/f011/schema_by_url.cs,8,937,skims,011. Use of software with known vulnerabilities,"Overload of XmlSchemaCollection.Add(String, String) is using XmlUrlResolver to specify external XML schema in the form of an URI. If the URI String is tainted, it may lead to parsing of a malicious XML schema
+ in namespace/skims/test/data/lib_root/f011/schema_by_url.cs","
+   1 | using System;
+   2 |
+   3 | class ExampleClass
+   4 | {
+   5 |     public void ExampleMethod()
+   6 |     {
+   7 |         XmlSchemaCollection xsc = new XmlSchemaCollection();
+>  8 |         xsc.Add(""urn: bookstore - schema"", ""books.xsd"");
+   9 |     }
+  10 | }
+     ^ Col 0
+",c_sharp.c_sharp_schema_by_url
 F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (System.Security.Cryptography.X509Certificates v4.1.0) [GHSA-7mfr-774f-w5r9],31,937,skims,011. Use of software with known vulnerabilities,Use of System.Security.Cryptography.X509Certificates at version 4.1.0 with GHSA-7mfr-774f-w5r9 in namespace/skims/test/data/lib_path/f011/packages.config,"
   13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
   14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
