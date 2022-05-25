@@ -10,13 +10,15 @@ import { Badge } from "components/Badge";
 import { getBgColor } from "utils/colors";
 
 interface IStatus {
-  status: string;
+  status: string | undefined;
 }
 
 const Status: React.FC<IStatus> = ({ status }: IStatus): JSX.Element => {
   const { t } = useTranslation();
-  const formatedStatus: string = ["OK", "N/A"].includes(status.toUpperCase())
-    ? status.toUpperCase()
+  const formatedStatus: string = ["OK", "N/A"].includes(
+    status ?? "".toUpperCase()
+  )
+    ? status ?? "".toUpperCase()
     : _.capitalize(status);
   const currentStateBgColor = getBgColor(_.capitalize(status));
 
@@ -29,7 +31,7 @@ const Status: React.FC<IStatus> = ({ status }: IStatus): JSX.Element => {
   );
 };
 
-const statusFormatter = (value: string): JSX.Element => (
+const statusFormatter = (value: string | undefined): JSX.Element => (
   <Status status={value} />
 );
 
