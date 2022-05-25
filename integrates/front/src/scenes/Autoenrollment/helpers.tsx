@@ -150,27 +150,15 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
   lazy(
     (values: IRootAttr): BaseSchema =>
       object().shape({
-        branch: string().required(),
+        branch: string().required(translate.t("validations.required")),
         credentials: object({
           auth: string(),
-          id: string(),
           key: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "SSH";
-              },
+              is: "SSH",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
-            .test(
-              "isGitAccesible",
-              translate.t(
-                "group.scope.git.repo.credentials.checkAccess.noAccess"
-              ),
-              (): boolean => {
-                return isGitAccessible;
-              }
-            )
             .test(
               "hasSshFormat",
               translate.t("validations.invalidSshFormat"),
@@ -184,6 +172,19 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
 
                 return regex.test(value);
               }
+            )
+            .test(
+              "isGitAccesible",
+              translate.t(
+                "group.scope.git.repo.credentials.checkAccess.noAccess"
+              ),
+              (value): boolean => {
+                if (value === undefined || values.credentials.type !== "SSH") {
+                  return true;
+                }
+
+                return isGitAccessible;
+              }
             ),
           name: string().when("type", {
             is: undefined,
@@ -192,9 +193,7 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
           }),
           password: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "HTTPS" && values.credentials.auth === "USER";
-              },
+              is: values.credentials.auth === "USER" ? "HTTPS" : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -203,15 +202,20 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
               translate.t(
                 "group.scope.git.repo.credentials.checkAccess.noAccess"
               ),
-              (): boolean => {
+              (value): boolean => {
+                if (
+                  value === undefined ||
+                  values.credentials.type !== "HTTPS"
+                ) {
+                  return true;
+                }
+
                 return isGitAccessible;
               }
             ),
           token: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "HTTPS" && values.credentials.auth === "TOKEN";
-              },
+              is: values.credentials.auth === "TOKEN" ? "HTTPS" : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -220,16 +224,21 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
               translate.t(
                 "group.scope.git.repo.credentials.checkAccess.noAccess"
               ),
-              (): boolean => {
+              (value): boolean => {
+                if (
+                  value === undefined ||
+                  values.credentials.type !== "HTTPS"
+                ) {
+                  return true;
+                }
+
                 return isGitAccessible;
               }
             ),
-          type: string(),
+          type: string().required(translate.t("validations.required")),
           user: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "HTTPS" && values.credentials.auth === "USER";
-              },
+              is: values.credentials.auth === "USER" ? "HTTPS" : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -238,14 +247,21 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
               translate.t(
                 "group.scope.git.repo.credentials.checkAccess.noAccess"
               ),
-              (): boolean => {
+              (value): boolean => {
+                if (
+                  value === undefined ||
+                  values.credentials.type !== "HTTPS"
+                ) {
+                  return true;
+                }
+
                 return isGitAccessible;
               }
             ),
         }),
-        environment: string().required(),
+        env: string().required(translate.t("validations.required")),
         exclusions: array().of(string()),
-        url: string().required(),
+        url: string().required(translate.t("validations.required")),
       })
   );
 

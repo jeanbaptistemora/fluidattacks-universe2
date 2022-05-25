@@ -78,7 +78,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
     },
   });
 
-  function handleAccess(): void {
+  function checkAccess(): void {
     if (formRef.current !== null) {
       void validateGitAccess({
         variables: {
@@ -126,9 +126,23 @@ const AddRoot: React.FC<IAddRootProps> = ({
         onSubmit={useRootSubmit(addGitRoot, group)}
         validationSchema={rootSchema(isGitAccessible)}
       >
-        {({ isSubmitting, values }): JSX.Element => {
+        {({ isSubmitting, values, setFieldTouched }): JSX.Element => {
           if (isSubmitting) {
             setShowSubmitAlert(false);
+          }
+
+          function handleAccess(): void {
+            checkAccess();
+            setFieldTouched("branch", true);
+            setFieldTouched("credentials.key", true);
+            setFieldTouched("credentials.name", true);
+            setFieldTouched("credentials.password", true);
+            setFieldTouched("credentials.token", true);
+            setFieldTouched("credentials.type", true);
+            setFieldTouched("credentials.user", true);
+            setFieldTouched("env", true);
+            setFieldTouched("exclusions", true);
+            setFieldTouched("url", true);
           }
 
           return (
@@ -347,7 +361,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     <Col>
                       <Field
                         component={FormikText}
-                        name={"environment"}
+                        name={"env"}
                         placeholder={t(
                           "autoenrollment.addRoot.environment.placeholder"
                         )}
@@ -401,11 +415,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
               {isGitAccessible ? (
                 <Row justify={"center"}>
                   <Col>
-                    <Button
-                      disabled={!showSubmitAlert}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
+                    <Button type={"submit"} variant={"primary"}>
                       {t("autoenrollment.addRoot.proceed.next")}
                     </Button>
                   </Col>
@@ -413,11 +423,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
               ) : (
                 <Row justify={"center"}>
                   <Col>
-                    <Button
-                      disabled={false}
-                      onClick={handleAccess}
-                      variant={"primary"}
-                    >
+                    <Button onClick={handleAccess} variant={"primary"}>
                       {t("autoenrollment.addRoot.proceed.checkAccess")}
                     </Button>
                   </Col>
