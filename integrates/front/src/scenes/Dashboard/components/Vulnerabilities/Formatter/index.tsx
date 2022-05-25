@@ -1,7 +1,3 @@
-/* eslint-disable react/forbid-component-props
-  --------
-  Need it to override default background color based on condition
-*/
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
