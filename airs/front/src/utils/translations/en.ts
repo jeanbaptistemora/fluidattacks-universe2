@@ -144,6 +144,12 @@ const pageTexts: ResourceKey = {
         "You can decide the course of action for each " +
         "vulnerability: start its remediation or accept its presence.",
       card3Title: "Define treatments for vulnerabilities",
+      paragraph:
+        "We integrate automatic and manual testing (SAST, DAST and SCA) with speed " +
+        "and precision to detect and report all vulnerabilities and security issues " +
+        "in your applications, infrastructure and source code.",
+      title:
+        "Accurate automation, AI prioritization and expert intelligence in one place",
     },
     faqSection: {
       paragraph: "Questions? Explore our FAQ ",

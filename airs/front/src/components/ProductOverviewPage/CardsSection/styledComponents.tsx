@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 const Container = styled.div.attrs({
   className: `
-    bg-gray-36
     center
     flex
     flex-wrap
     ph-body
   `,
-})``;
+})`
+  background: #f4f4f6;
+`;
 
 const CardContainer = styled.div.attrs({
   className: `
@@ -59,4 +60,20 @@ const CardsContainer = styled.div.attrs({
   `,
 })``;
 
-export { CardContainer, CardsContainer, CardText, CardTitle, Container };
+const MainTextContainer = styled.div.attrs({
+  className: `
+    tc
+    w-100
+    center
+    mt5
+  `,
+})``;
+
+export {
+  CardContainer,
+  CardsContainer,
+  CardText,
+  CardTitle,
+  Container,
+  MainTextContainer,
+};

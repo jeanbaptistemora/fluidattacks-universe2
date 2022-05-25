@@ -1,9 +1,14 @@
 import React from "react";
 
 import { ProductCard } from "./ProductCard";
-import { CardsContainer, Container } from "./styledComponents";
+import {
+  CardsContainer,
+  Container,
+  MainTextContainer,
+} from "./styledComponents";
 
 import { translate } from "../../../utils/translations/translate";
+import { Paragraph, Title } from "../../Texts";
 
 const CardsSection: React.FC = (): JSX.Element => {
   const data = [
@@ -26,6 +31,14 @@ const CardsSection: React.FC = (): JSX.Element => {
 
   return (
     <Container>
+      <MainTextContainer>
+        <Title fColor={"#2e2e38"} fSize={"36"}>
+          {translate.t("productOverview.cardsSection.title")}
+        </Title>
+        <Paragraph fColor={"#5c5c70"} fSize={"24"} marginTop={"2"}>
+          {translate.t("productOverview.cardsSection.paragraph")}
+        </Paragraph>
+      </MainTextContainer>
       <CardsContainer>
         {data.map((card): JSX.Element => {
           return (
