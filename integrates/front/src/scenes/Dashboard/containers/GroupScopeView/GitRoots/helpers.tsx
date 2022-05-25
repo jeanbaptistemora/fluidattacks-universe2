@@ -49,6 +49,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
 };
 
 const gitModalSchema = (
+  credExists: boolean,
   hasSquad: boolean,
   initialValues: IGitRootAttr,
   isCheckedHealthCheck: boolean,
@@ -65,9 +66,7 @@ const gitModalSchema = (
           id: string(),
           key: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "SSH";
-              },
+              is: credExists ? "" : "SSH",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -101,9 +100,7 @@ const gitModalSchema = (
           }),
           password: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "HTTPS" && isHttpsCredentialsTypeUser;
-              },
+              is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -118,9 +115,7 @@ const gitModalSchema = (
             ),
           token: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "HTTPS" && !isHttpsCredentialsTypeUser;
-              },
+              is: !credExists && !isHttpsCredentialsTypeUser ? "HTTPS" : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })
@@ -136,9 +131,7 @@ const gitModalSchema = (
           type: string(),
           user: string()
             .when("type", {
-              is: (type: string): boolean => {
-                return type === "HTTPS" && isHttpsCredentialsTypeUser;
-              },
+              is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",
               otherwise: string(),
               then: string().required(translate.t("validations.required")),
             })

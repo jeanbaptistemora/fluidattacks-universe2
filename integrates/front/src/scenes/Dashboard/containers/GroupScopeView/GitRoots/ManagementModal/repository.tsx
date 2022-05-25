@@ -241,6 +241,7 @@ const Repository: React.FC<IRepositoryProps> = ({
         name={"gitRoot"}
         onSubmit={onSubmit}
         validationSchema={gitModalSchema(
+          credExists,
           hasSquad,
           initialValues,
           isCheckedHealthCheck,
