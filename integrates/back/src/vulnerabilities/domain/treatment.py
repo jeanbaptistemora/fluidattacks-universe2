@@ -293,6 +293,14 @@ async def _handle_vulnerability_acceptance(
         treatments_to_add = (
             new_treatment._replace(assigned=vulnerability.treatment.assigned),
         )
+        await send_treatment_report_mail(
+            loaders=loaders,
+            assigned=vulnerability.treatment.assigned,
+            modified_by=new_treatment.modified_by,
+            justification=new_treatment.justification,
+            vulnerability_id=vulnerability.id,
+            is_approved=True,
+        )
     elif (
         new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.REJECTED
@@ -437,17 +445,16 @@ async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
 async def send_treatment_report_mail(
     *,
     loaders: Any,
-    finding_title: str,
-    group_name: str,
-    modified_by: str,
-    updated_values: Dict[str, str],
+    modified_by: Optional[str],
+    justification: Optional[str],
+    assigned: str,
     vulnerability_id: str,
+    is_approved: bool = False,
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
+    old_vuln_values: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
-    assigned: str = updated_values["assigned"]
-    justification: str = updated_values["justification"]
+    finding: Finding = await loaders.finding.load(old_vuln_values.finding_id)
     roles: set[str] = {
         "resourcer",
         "customer_manager",
@@ -456,21 +463,22 @@ async def send_treatment_report_mail(
     }
     users_email = await group_access_domain.get_users_email_by_preferences(
         loaders=loaders,
-        group_name=group_name,
+        group_name=finding.group_name,
         notification=Notification.UPDATED_TREATMENT,
         roles=roles,
     )
     await vulns_mailer.send_mail_treatment_report(
         loaders=loaders,
         assigned=assigned,
-        finding_id=vulnerability.finding_id,
-        finding_title=finding_title,
-        group_name=group_name,
+        finding_id=old_vuln_values.finding_id,
+        finding_title=finding.title,
+        group_name=finding.group_name,
         justification=justification,
         modified_by=modified_by,
         modified_date=str(datetime_utils.get_iso_date()),
-        location=vulnerability.where,
+        location=old_vuln_values.where,
         email_to=users_email,
+        is_approved=is_approved,
     )
 
 

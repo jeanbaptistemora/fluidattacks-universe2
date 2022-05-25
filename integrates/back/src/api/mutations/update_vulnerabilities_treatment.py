@@ -115,10 +115,9 @@ async def mutate(
             ):
                 await vulns_domain.send_treatment_report_mail(
                     loaders=loaders,
-                    finding_title=finding.title,
-                    group_name=group_name,
                     modified_by=user_email,
-                    updated_values=parameters,
+                    justification=parameters["justification"],
+                    assigned=parameters["assigned"],
                     vulnerability_id=vulnerability_id,
                 )
 

@@ -943,7 +943,8 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         and root.cloning.status == GitCloningStatus.OK
     )
     if (
-        status == GitCloningStatus.OK
+        not root.state.use_vpn
+        and status == GitCloningStatus.OK
         and root.cloning.status == GitCloningStatus.FAILED
         or is_failed
     ):

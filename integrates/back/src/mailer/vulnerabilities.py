@@ -23,6 +23,7 @@ from newutils import (
 from typing import (
     Any,
     List,
+    Optional,
     Tuple,
 )
 
@@ -76,11 +77,12 @@ async def send_mail_treatment_report(
     finding_id: str,
     finding_title: str,
     group_name: str,
-    justification: str,
-    modified_by: str,
+    justification: Optional[str],
+    modified_by: Optional[str],
     modified_date: str,
     location: str,
     email_to: List[str],
+    is_approved: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     email_context: dict[str, Any] = {
@@ -91,6 +93,7 @@ async def send_mail_treatment_report(
         "justification": justification,
         "finding": finding_title,
         "location": location,
+        "is_approved": is_approved,
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/vulns/{finding_id}"
