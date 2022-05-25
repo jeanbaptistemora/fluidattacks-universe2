@@ -25,10 +25,12 @@ const GET_FINDING_VULNERABILITIES: DocumentNode = gql`
       vulnerabilitiesConnection(after: $after, first: $first) {
         edges {
           node {
+            currentState
             id
-            where
             reportDate
             specific
+            treatment
+            where
           }
         }
         pageInfo {

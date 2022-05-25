@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { useGroupVulnerabilities } from "./hooks";
-import { formatLocation } from "./utils";
+import { filterByState, filterByTreatment, formatLocation } from "./utils";
 
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
@@ -35,14 +35,32 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
 
   return (
     <div>
-      <Table
-        dataset={vulnerabilities}
-        exportCsv={false}
-        headers={tableHeaders}
-        id={"tblVulnerabilities"}
-        pageSize={10}
-        search={false}
-      />
+      {[
+        { filter: filterByState("open"), title: "Open" },
+        { filter: filterByState("closed"), title: "Closed" },
+        {
+          filter: filterByTreatment("ACCEPTED"),
+          title: "Temporarily accepted",
+        },
+        {
+          filter: filterByTreatment("ACCEPTED_UNDEFINED"),
+          title: "Permanently accepted",
+        },
+      ].map(({ title, filter }): JSX.Element => {
+        return (
+          <section key={title}>
+            <h2>{title}</h2>
+            <Table
+              dataset={vulnerabilities.filter(filter)}
+              exportCsv={false}
+              headers={tableHeaders}
+              id={`tblVulnerabilities${title}`}
+              pageSize={10}
+              search={false}
+            />
+          </section>
+        );
+      })}
     </div>
   );
 };

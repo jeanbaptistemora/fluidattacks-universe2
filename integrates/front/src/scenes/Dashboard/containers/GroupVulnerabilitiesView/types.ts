@@ -12,10 +12,12 @@ interface IGroupFindings {
 }
 
 interface IVulnerabilityNode {
+  currentState: string;
   id: string;
-  where: string;
   reportDate: string;
   specific: string;
+  treatment: string;
+  where: string;
 }
 
 interface IVulnerability extends IVulnerabilityNode {
