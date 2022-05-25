@@ -103,7 +103,7 @@ async def mutate(
                 entity=group_name,
                 subject=user_email,
                 additional_info="mutation_update_group",
-                queue="limited_dedicated",
+                queue="limited_spot",
                 product_name=Product.INTEGRATES,
             )
     except PermissionDenied:

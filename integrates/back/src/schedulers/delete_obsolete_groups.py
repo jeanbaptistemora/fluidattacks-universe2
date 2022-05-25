@@ -52,7 +52,7 @@ async def _remove_group(
         entity=group_name,
         subject=user_email,
         additional_info="obsolete_groups",
-        queue="limited_dedicated",
+        queue="limited_spot",
         product_name=Product.INTEGRATES,
     )
 

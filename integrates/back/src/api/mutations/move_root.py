@@ -79,7 +79,7 @@ async def mutate(
                 "source_root_id": root_id,
             },
         ),
-        queue="unlimited_dedicated",
+        queue="unlimited_spot",
         product_name=Product.INTEGRATES,
     )
     root: Root = await loaders.root.load((group_name, root_id))

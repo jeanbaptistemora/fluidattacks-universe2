@@ -89,7 +89,7 @@ async def mutate(
             entity=group_name,
             subject=requester_email,
             additional_info="mutation_remove_group",
-            queue="limited_dedicated",
+            queue="limited_spot",
             product_name=Product.INTEGRATES,
         )
     except PermissionDenied:
