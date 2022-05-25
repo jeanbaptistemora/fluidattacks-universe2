@@ -23,6 +23,9 @@ from tap_gitlab.api2.ids import (
 from tap_gitlab.api2.issues import (
     IssueObj,
 )
+from tap_gitlab.singer.issues.core import (
+    SingerStreams,
+)
 
 
 def _encode_assignee(
@@ -89,14 +92,26 @@ def issue_records(issue_obj: IssueObj) -> PureIter[SingerRecord]:
     assignees_records = pure_map(
         lambda a: _encode_assignee(issue_obj[0], a), issue.assignees
     ).map(
-        lambda d: SingerRecord("issue_assignees", from_unfolded_dict(d), None)
+        lambda d: SingerRecord(
+            SingerStreams.issue_assignees.value, from_unfolded_dict(d), None
+        )
     )
     labels_records = pure_map(
         lambda l: _encode_label(issue_obj[0], l), issue.labels
-    ).map(lambda d: SingerRecord("issue_labels", from_unfolded_dict(d), None))
+    ).map(
+        lambda d: SingerRecord(
+            SingerStreams.issue_labels.value, from_unfolded_dict(d), None
+        )
+    )
     records = (
         from_flist(
-            (SingerRecord("issue", from_unfolded_dict(encoded_issue), None),)
+            (
+                SingerRecord(
+                    SingerStreams.issue.value,
+                    from_unfolded_dict(encoded_issue),
+                    None,
+                ),
+            )
         ),
         assignees_records,
         labels_records,
