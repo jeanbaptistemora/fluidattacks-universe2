@@ -1371,6 +1371,8 @@ async def move_root(
         ):
             raise RepeatedRoot()
 
+        query = "" if root.state.query is None else f"?{root.state.query}"
+        path = "" if root.state.path == "/" else root.state.path
         new_root_id = await add_url_root(
             loaders,
             user_email,
@@ -1379,7 +1381,7 @@ async def move_root(
             nickname=root.state.nickname,
             url=(
                 f"{root.state.protocol}://{root.state.host}:{root.state.port}"
-                f"{root.state.path}"
+                f"{path}{query}"
             ),
         )
 
