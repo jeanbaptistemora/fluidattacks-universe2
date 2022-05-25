@@ -4567,45 +4567,38 @@
     "CVE-2017-16069": "<=0.0.2-security"
   },
   "nodeload-nmickuli": {
-    "GMS-2017-327": ">=0.0.0-alpha"
+    "npm:nodeload-nmickuli:20170418": "<=1.0.3"
   },
   "nodemailer": {
     "CVE-2020-7769": "<6.4.16",
     "CVE-2021-23400": "<6.6.1"
   },
   "nodemailer-js": {
-    "CVE-2017-16071": ">=0",
-    "GMS-2017-150": ">=0.0.0-alpha"
+    "CVE-2017-16071": "<=0.0.2-security"
   },
   "nodemailer.js": {
-    "CVE-2017-16072": ">=0",
-    "GMS-2017-149": ">=0.0.0-alpha"
+    "CVE-2017-16072": "<=0.0.2-security"
   },
   "nodemssql": {
-    "CVE-2017-16057": ">=0",
-    "GMS-2017-164": ">=0.0.0-alpha"
+    "CVE-2017-16057": "<=0.0.2-security"
   },
   "noderequest": {
-    "CVE-2017-16073": ">=0",
-    "GMS-2017-148": ">=0.0.0-alpha"
+    "CVE-2017-16073": "<=0.0.2-security"
   },
   "nodes.js": {
     "GHSA-38vq-cjh5-vw7x": ">=0"
   },
   "nodesass": {
-    "CVE-2017-16080": ">=0",
-    "GMS-2017-141": ">=0.0.0-alpha"
+    "CVE-2017-16080": "<=0.0.2-security"
   },
   "nodeschnaps": {
-    "CVE-2016-10622": "<=0.12.0",
-    "GMS-2017-77": "<0.8.0"
+    "CVE-2016-10622": "<=0.12.0"
   },
   "nodesqlite": {
-    "CVE-2017-16049": ">=0",
-    "GMS-2017-171": ">=0.0.0-alpha"
+    "CVE-2017-16049": "<=0.0.2-security"
   },
   "nodewebkit": {
-    "GMS-2016-113": ">=0.0.0"
+    "CVE-2016-10580": "<=0.11.2-1"
   },
   "nopt": {},
   "normalize-package-data": {},
@@ -4628,8 +4621,7 @@
     "CVE-2020-15095": "<6.14.6",
     "GHSA-4328-8hgf-7wjr": "<6.13.4",
     "GHSA-93f3-23rq-pjfp": "<6.14.6",
-    "GHSA-x8qc-rrcw-4r46": "<6.13.3",
-    "GMS-2016-23": "<=2.15.0 || >=3.0.0alpha <=3.8.2"
+    "GHSA-x8qc-rrcw-4r46": "<6.13.3"
   },
   "npm-git-publish": {
     "GHSA-49mg-94fc-2fx6": ">=0"
