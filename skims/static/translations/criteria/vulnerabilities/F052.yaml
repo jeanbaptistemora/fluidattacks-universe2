@@ -24,3 +24,8 @@ lib_ssl.analyze_protocol.weak_ciphers_allowed:
     server accepts connections with weak cipher method {insecure_cipher}, included in: {v_name}
   es: >
     el servidor acepta conexiones con el siguiente método de cifrado débil: {insecure_cipher}, included in: {v_name}
+lib_root.f052.c_sharp_obsolete_key_derivation:
+  en: >
+    {expression} is used to generate a weak key derivation
+  es: >
+    {expression} se utiliza para generar una derivación de clave débil

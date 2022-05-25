@@ -2078,6 +2078,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_OBSOLETE_KEY_DERIVATION = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_obsolete_key_derivation",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     GO_INSECURE_CIPHER = MethodInfo(
         file_name="go",
         name="go_insecure_cipher",

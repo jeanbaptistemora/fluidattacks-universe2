@@ -1,3 +1,6 @@
+from itertools import (
+    chain,
+)
 from lib_root.utilities.c_sharp import (
     check_member_acces_expression,
     yield_shard_member_access,
@@ -16,9 +19,11 @@ from model.graph_model import (
     GraphShard,
     GraphShardMetadataLanguage,
     GraphShardNodes,
+    MetadataGraphShardNodes,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+    get_vulnerabilities_from_n_ids_metadata,
 )
 from symbolic_eval.evaluate import (
     evaluate,
@@ -35,6 +40,9 @@ from typing import (
 import utils.graph as g
 from utils.graph.text_nodes import (
     node_to_str,
+)
+from utils.string import (
+    build_attr_paths,
 )
 
 
@@ -337,6 +345,65 @@ def c_sharp_disabled_strong_crypto(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f052.c_sharp_disabled_strong_crypto",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def c_sharp_obsolete_key_derivation(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CS_OBSOLETE_KEY_DERIVATION
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
+    def n_ids() -> MetadataGraphShardNodes:
+        metadata = {}
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            possible_paths = build_attr_paths(
+                "System",
+                "Security",
+                "Cryptography",
+                "rfc2898DeriveBytes",
+                "CryptDeriveKey",
+            )
+            s_graph = shard.syntax_graph
+
+            for nid in chain(
+                g.filter_nodes(
+                    s_graph,
+                    s_graph.nodes,
+                    g.pred_has_labels(label_type="MethodInvocation"),
+                ),
+                g.filter_nodes(
+                    s_graph,
+                    s_graph.nodes,
+                    g.pred_has_labels(label_type="ObjectCreation"),
+                ),
+            ):
+                if (
+                    s_graph.nodes[nid].get("label_type") == "MethodInvocation"
+                    and s_graph.nodes[nid].get("expression") in possible_paths
+                ):
+                    metadata["desc_params"] = {
+                        "expression": s_graph.nodes[nid].get("expression")
+                    }
+                    yield shard, nid, metadata
+                elif (
+                    s_graph.nodes[nid].get("label_type") == "ObjectCreation"
+                    and s_graph.nodes[nid].get("name") == "PasswordDeriveBytes"
+                ):
+                    metadata["desc_params"] = {
+                        "expression": s_graph.nodes[nid].get("name")
+                    }
+                    yield shard, nid, metadata
+
+    return get_vulnerabilities_from_n_ids_metadata(
+        desc_key="lib_root.f052.c_sharp_obsolete_key_derivation",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
