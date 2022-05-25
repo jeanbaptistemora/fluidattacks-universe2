@@ -2071,7 +2071,9 @@ async def request_upgrade(
     if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
-    await notifications_domain.request_groups_upgrade(user_email, groups)
+    await notifications_domain.request_groups_upgrade(
+        loaders, user_email, groups
+    )
 
 
 async def get_creation_date(

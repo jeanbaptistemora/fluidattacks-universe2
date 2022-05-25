@@ -2,7 +2,6 @@ from aiodataloader import (
     DataLoader,
 )
 from aioextensions import (
-    collect,
     in_thread,
 )
 from context import (
@@ -379,25 +378,25 @@ async def send_push_notification(
 
 
 async def request_groups_upgrade(
+    loaders: Any,
     user_email: str,
     groups: tuple[Group, ...],
 ) -> None:
     organization_ids = set(group.organization_id for group in groups)
-    organization_names: tuple[str, ...] = await collect(
-        orgs_domain.get_name_by_id(id) for id in organization_ids
-    )
+    organizations: tuple[
+        Organization
+    ] = await loaders.organization_typed.load_many(organization_ids)
+
     organizations_message = "".join(
         f"""
-            - Organization {organization_name}:
+            - Organization {organization.name}:
                 {', '.join(
                     group.name
                     for group in groups
-                    if await orgs_domain.get_name_by_id(
-                        group.organization_id,
-                    ) == organization_name)
+                    if group.organization_id == organization.id)
                 }
         """
-        for organization_name in organization_names
+        for organization in organizations
     )
 
     await in_thread(
