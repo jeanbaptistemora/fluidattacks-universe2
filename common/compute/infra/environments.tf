@@ -1,24 +1,7 @@
 locals {
   environments = {
-    limited_dedicated = {
-      max_vcpus = 50
-      type      = "EC2"
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-        data.aws_subnet.batch_main.id,
-      ]
-    }
     limited_spot = {
       max_vcpus = 75
-      type      = "SPOT"
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-        data.aws_subnet.batch_main.id,
-      ]
-    }
-    unlimited_dedicated = {
-      max_vcpus = 10000
-      type      = "EC2"
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -26,7 +9,6 @@ locals {
     }
     unlimited_spot = {
       max_vcpus = 10000
-      type      = "SPOT"
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -34,7 +16,6 @@ locals {
     }
     unlimited_spot_clone = {
       max_vcpus = 10000
-      type      = "SPOT"
       subnets = [
         data.aws_subnet.batch_clone.id,
       ]
@@ -128,7 +109,7 @@ resource "aws_batch_compute_environment" "main" {
   compute_resources {
     bid_percentage = 100
     image_id       = "ami-0c09d65d2051ada93"
-    type           = each.value.type
+    type           = "SPOT"
 
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0
