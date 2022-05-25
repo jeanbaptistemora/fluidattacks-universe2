@@ -1406,6 +1406,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_SCHEMA_BY_URL = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_schema_by_url",
+        module="lib_root",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_JPA_LIKE = MethodInfo(
         file_name="java",
         name="java_jpa_like",

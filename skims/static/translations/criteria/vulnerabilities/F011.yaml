@@ -8,3 +8,10 @@ lib_root.f011.csharp_xsl_transform_object:
   es: >
     Se crea una instancia de System.Xml.Xsl.XslTransform, que no restringe
     las referencias externas potencialmente peligrosas ni evita los scripts.
+lib_root.f011.c_sharp_schema_by_url:
+  en: >
+    Overload of XmlSchemaCollection.Add(String, String) is using XmlUrlResolver to specify external XML schema
+    in the form of an URI. If the URI String is tainted, it may lead to parsing of a malicious XML schema
+  es: >
+    La sobrecarga de XmlSchemaCollection.Add(String, String) utiliza XmlUrlResolver para especificar un esquema XML
+    externo en forma de URI. Si la cadena URI está contaminada, puede conducir al análisis de un esquema XML malicioso
