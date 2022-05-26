@@ -54,7 +54,6 @@ import time
 logging.config.dictConfig(LOGGING)
 
 # Constants
-LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
@@ -102,16 +101,22 @@ async def process_vulnerability(
     root_id_pk: str = (
         str(item["pk_2"]).split("#")[1] if item["pk_2"] != "ROOT" else ""
     )
-    root_id: str = item["root_id"]
+    root_id: str = item.get("root_id", "")
     repo: str = item["repo"]
-    root_by_id: Root = await loaders.root.load((group_name, root_id))
+    if not root_id or not root_id_pk:
+        return
+
     root_by_pk: Root = await loaders.root.load((group_name, root_id_pk))
+    root_by_id: Root = root_by_pk
+    if root_id:
+        root_by_id = await loaders.root.load((group_name, root_id))
 
     LOGGER_CONSOLE.info(
         "Processing vulnerability",
         extra={
             "extra": {
                 "vulnerability_id": str(item["pk"]).split("#")[1],
+                "finding_id": finding_id,
                 "repo": repo,
                 "root_by_id": root_by_id.id,
                 "root_by_pk": root_by_pk.id,
@@ -129,12 +134,13 @@ async def process_vulnerability(
         )
         return
 
-    historic_root_by_id: tuple[
-        RootState, ...
-    ] = await loaders.root_historic_states.load(root_id)
     historic_root_by_pk: tuple[
         RootState, ...
     ] = await loaders.root_historic_states.load(root_id_pk)
+    historic_root_by_id: tuple[RootState, ...] = historic_root_by_pk
+    if root_id:
+        historic_root_by_id = await loaders.root_historic_states.load(root_id)
+
     nicknames: set[str] = {state.nickname for state in historic_root_by_id}
     nicknames.update({state.nickname for state in historic_root_by_pk})
 
