@@ -740,7 +740,7 @@ type Mutation {
     "Identifier of the Event to solve"
     eventId: String!
     "Time spent solving the Event, in hours"
-    affectation: String!
+    affectation: String
     "Datetime of solving of the Event, in the format yyyy-MM-ddThh:mm:ssZ"
     date: DateTime!
   ): SimplePayload!

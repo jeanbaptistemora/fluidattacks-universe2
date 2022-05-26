@@ -47,8 +47,8 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     event_id: str,
-    affectation: str,
     date: datetime,
+    affectation: str = "0",
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
