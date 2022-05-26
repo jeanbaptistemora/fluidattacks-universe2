@@ -58,7 +58,6 @@ import newutils.git
 from newutils.git import (
     ssh_ls_remote,
 )
-import os
 from roots import (
     domain as roots_domain,
 )
@@ -172,12 +171,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
-        queue_name = os.environ.get("AWS_BATCH_JQ_NAME")
-        queue = (
-            SkimsBatchQueue.HIGH
-            if queue_name == "unlimited_spot"
-            else SkimsBatchQueue.LOW
-        )
+        queue = SkimsBatchQueue.SMALL
         await queue_job_new(
             dataloaders=dataloaders,
             group_name=group_name,
@@ -364,8 +358,8 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if roots_to_clone:
         result = await put_action(
             action=Action.CLONE_ROOTS,
-            vcpus=2,
-            memory=3600,
+            vcpus=1,
+            memory=1800,
             entity=group_name,
             subject=user_email,
             additional_info=",".join(
@@ -377,7 +371,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                     *roots_in_current_actions,
                 }
             ),
-            queue="unlimited_spot_clone",
+            queue="clone",
             product_name=Product.INTEGRATES,
             dynamodb_pk=current_action.key if current_action else None,
         )

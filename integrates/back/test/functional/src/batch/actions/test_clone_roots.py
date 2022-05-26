@@ -64,7 +64,7 @@ async def test_clone_roots(
         time=str(get_as_epoch(get_now())),
         additional_info="nickname2",
         batch_job_id=None,
-        queue="unlimited_spot",
+        queue="small",
         key="2",
     )
     assert "README.md" in os.listdir(mock_tmp_repository)
@@ -112,7 +112,7 @@ async def test_clone_roots_failed(
         time=str(get_as_epoch(get_now())),
         additional_info="nickname2",
         batch_job_id=None,
-        queue="unlimited_spot",
+        queue="small",
         key="2",
     )
     assert "README.md" in os.listdir(mock_tmp_repository)
@@ -139,7 +139,7 @@ async def test_clone_roots_real_https(
         time=str(get_as_epoch(get_now())),
         additional_info="nickname8",
         batch_job_id=None,
-        queue="unlimited_spot",
+        queue="small",
         key="2",
     )
     await clone_roots.clone_roots(item=action)
@@ -164,7 +164,7 @@ async def test_clone_roots_real_ssh(
         time=str(get_as_epoch(get_now())),
         additional_info="nickname6",
         batch_job_id=None,
-        queue="unlimited_spot",
+        queue="small",
         key="2",
     )
 

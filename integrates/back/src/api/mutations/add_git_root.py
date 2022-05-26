@@ -100,7 +100,7 @@ async def mutate(
                 entity=root.group_name,
                 product_name=Product.INTEGRATES,
                 subject="integrates@fluidattacks.com",
-                queue="unlimited_spot",
+                queue="small",
                 dependsOn=[
                     {
                         "jobId": result_queue_sync.batch_job_id,
@@ -122,7 +122,7 @@ async def mutate(
             finding_codes=tuple(
                 key for key in FINDINGS.keys() if is_check_available(key)
             ),
-            queue=SkimsBatchQueue.HIGH,
+            queue=SkimsBatchQueue.MEDIUM,
             roots=[root.state.nickname],
             dataloaders=loaders,
             dependsOn=[

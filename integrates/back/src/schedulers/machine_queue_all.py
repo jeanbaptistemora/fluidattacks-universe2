@@ -67,7 +67,7 @@ async def _queue_all_checks(
         dataloaders=loaders,
         group_name=group_name,
         finding_codes=finding_codes,
-        queue=SkimsBatchQueue.LOW,
+        queue=SkimsBatchQueue.MEDIUM,
     )
     if result:
         info(

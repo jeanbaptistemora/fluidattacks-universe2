@@ -122,7 +122,7 @@ async def _get_url_group_report(
             additional_info=additional_info,
             vcpus=4,
             attempt_duration_seconds=7200,
-            queue="unlimited_spot",
+            queue="small",
             product_name=Product.INTEGRATES,
             memory=7600,
         )

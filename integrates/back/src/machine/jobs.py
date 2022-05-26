@@ -89,8 +89,10 @@ FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
 
 
 class SkimsBatchQueue(Enum):
-    HIGH: str = "limited_spot"
-    LOW: str = "unlimited_spot"
+    SMALL: str = "small"
+    MEDIUM: str = "medium"
+    LARGE: str = "large"
+    CLONE: str = "clone"
 
 
 class JobArguments(NamedTuple):
@@ -259,7 +261,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
     group_name: str,
     dataloaders: Any,
     finding_codes: Union[Tuple[str, ...], List[str]],
-    queue: SkimsBatchQueue = SkimsBatchQueue.HIGH,
+    queue: SkimsBatchQueue = SkimsBatchQueue.MEDIUM,
     roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
     clone_before: bool = False,
     **kwargs: Any,
@@ -434,18 +436,9 @@ async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
         if root_nickname == root.state.nickname
     )
 
-    active_urgent_jobs = tuple(
-        job
-        for job in active_jobs_from_batch
-        if job.queue == SkimsBatchQueue.HIGH.value
-    )
-    active_normal_jobs = tuple(
-        job
-        for job in active_jobs_from_batch
-        if job.queue == SkimsBatchQueue.LOW.value
-    )
+    jobs = tuple(job for job in active_jobs_from_batch)
 
     return LastMachineExecutions(
-        complete=active_normal_jobs[0] if active_normal_jobs else None,
-        specific=active_urgent_jobs[0] if active_urgent_jobs else None,
+        complete=jobs[0] if jobs else None,
+        specific=jobs[0] if jobs else None,
     )

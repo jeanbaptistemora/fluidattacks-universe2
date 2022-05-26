@@ -80,8 +80,9 @@ async def main() -> None:
                 [
                     get_all_jobs(batch, queue=queue, status="RUNNING")
                     for queue in (
-                        SkimsBatchQueue.LOW.value,
-                        SkimsBatchQueue.HIGH.value,
+                        SkimsBatchQueue.SMALL.value,
+                        SkimsBatchQueue.MEDIUM.value,
+                        SkimsBatchQueue.LARGE.value,
                     )
                 ]
             )
@@ -130,7 +131,7 @@ async def main() -> None:
                 put_action_to_batch(
                     action_name=Action.EXECUTE_MACHINE.value,
                     vcpus=8,
-                    queue=SkimsBatchQueue.HIGH.value,
+                    queue=SkimsBatchQueue.LARGE.value,
                     entity=action.entity,
                     attempt_duration_seconds=86400,
                     action_dynamo_pk=action.key,

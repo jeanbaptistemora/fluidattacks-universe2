@@ -334,7 +334,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             time=str(get_as_epoch(get_now())),
             additional_info="nickname1,nickname2,nickname3,nickname4",
             batch_job_id=None,
-            queue="unlimited_spot",
+            queue="small",
             key="1",
         ),
         dict(
@@ -344,7 +344,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             time=str(get_as_epoch(get_now())),
             additional_info="nickname1,nickname3",
             batch_job_id=None,
-            queue="unlimited_spot",
+            queue="small",
             key="2",
         ),
         dict(
@@ -354,7 +354,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             time=str(get_as_epoch(get_now())),
             additional_info="nickname6",
             batch_job_id=None,
-            queue="unlimited_spot",
+            queue="small",
             key="3",
         ),
     )

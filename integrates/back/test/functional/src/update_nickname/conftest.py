@@ -237,7 +237,7 @@ async def populate() -> bool:
             time=str(get_as_epoch(get_now())),
             additional_info="group123",
             batch_job_id=None,
-            queue="unlimited_spot",
+            queue="small",
             key="1",
         ),
     )

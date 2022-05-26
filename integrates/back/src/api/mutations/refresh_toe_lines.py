@@ -45,7 +45,7 @@ async def mutate(
         group_name = parameters["group_name"]
         user_info = await token_utils.get_jwt_content(info.context)
         action = Action.REFRESH_TOE_LINES
-        queue = "limited_spot"
+        queue = "small"
         job_payloads = await batch_domain.get_job_payloads(
             queues=[queue],
             statuses=[

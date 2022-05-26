@@ -163,7 +163,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
                 additional_info="nickname1",
-                queue="unlimited_spot",
+                queue="small",
                 batch_job_id="1",
                 running=False,
             ),
@@ -363,7 +363,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 additional_info=(
                     "nickname1,nickname2,nickname3,nickname6,nickname8"
                 ),
-                queue="unlimited_spot",
+                queue="small",
                 batch_job_id="1",
                 running=False,
             ),
@@ -374,7 +374,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
                 additional_info="nickname1",
-                queue="unlimited_spot",
+                queue="small",
                 batch_job_id="1",
                 running=True,
             ),
@@ -407,7 +407,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     additional_info=(
                         "nickname1,nickname2,nickname3,nickname6,nickname8"
                     ),
-                    queue="unlimited_spot",
+                    queue="small",
                     batch_job_id="1",
                     running=False,
                 ),
@@ -425,7 +425,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     additional_info=(
                         "nickname1,nickname2,nickname3,nickname6,nickname8"
                     ),
-                    queue="unlimited_spot",
+                    queue="small",
                     batch_job_id="1",
                     running=False,
                 ),
@@ -443,7 +443,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     additional_info=(
                         "nickname1,nickname2,nickname3,nickname6,nickname8"
                     ),
-                    queue="unlimited_spot",
+                    queue="small",
                     batch_job_id="1",
                     running=False,
                 ),
@@ -454,7 +454,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     subject="any",
                     time="1",
                     additional_info="nickname1",
-                    queue="unlimited_spot",
+                    queue="small",
                     batch_job_id="1",
                     running=True,
                 ),
@@ -470,7 +470,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     subject="any",
                     time="1",
                     additional_info="nickname1",
-                    queue="unlimited_spot",
+                    queue="small",
                     batch_job_id="1",
                     running=True,
                 ),
@@ -486,7 +486,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     subject="any",
                     time="1",
                     additional_info="nickname1,nickname2",
-                    queue="unlimited_spot",
+                    queue="small",
                     batch_job_id="1",
                     running=False,
                 ),

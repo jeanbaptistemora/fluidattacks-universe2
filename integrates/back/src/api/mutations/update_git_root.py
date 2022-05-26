@@ -89,7 +89,7 @@ async def mutate(
             entity=root_id,
             memory=3800,
             product_name=Product.INTEGRATES,
-            queue="unlimited_spot",
+            queue="small",
             subject=user_email,
             vcpus=2,
         )
