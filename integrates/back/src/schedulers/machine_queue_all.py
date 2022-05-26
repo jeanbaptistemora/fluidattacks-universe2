@@ -107,7 +107,7 @@ async def _roots_by_group(
     loaders: Dataloaders,
     group: Group,
 ) -> RootsByGroup:
-    if group.state.has_machine:
+    if not group.state.has_machine:
         return RootsByGroup(
             group_name=group.name,
             roots=[],
