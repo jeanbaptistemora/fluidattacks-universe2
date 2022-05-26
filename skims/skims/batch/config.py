@@ -83,6 +83,11 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
         "type": "specific_file",
     },
     {
+        "name": "setup.py",
+        "description": "python poetry project",
+        "type": "specific_file",
+    },
+    {
         "name": "package.json",
         "description": "node npm project",
         "requires": [
@@ -96,6 +101,18 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
         "requires": [
             {"name": "directory", "values": ["src"], "optional": False}
         ],
+        "type": "specific_file",
+    },
+    {
+        "name": "main.tf",
+        "description": "terraform infra",
+        "type": "specific_file",
+    },
+    {
+        "name": "variables.tf",
+        "description": (
+            "terraform infra, main can not be present, this can be a module"
+        ),
         "type": "specific_file",
     },
 ]
