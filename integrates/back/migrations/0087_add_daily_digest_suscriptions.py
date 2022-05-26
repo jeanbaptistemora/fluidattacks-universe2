@@ -17,7 +17,7 @@ from aioextensions import (
 from group_access import (
     domain as group_access_domain,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from itertools import (

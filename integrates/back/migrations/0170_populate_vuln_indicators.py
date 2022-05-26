@@ -42,7 +42,7 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_all as get_all_groups,
 )
 import logging

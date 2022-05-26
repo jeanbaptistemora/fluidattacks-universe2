@@ -20,7 +20,7 @@ from dataloaders import (
 from findings import (
     dal as findings_dal,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 import time

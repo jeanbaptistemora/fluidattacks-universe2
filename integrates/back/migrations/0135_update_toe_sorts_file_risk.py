@@ -22,7 +22,7 @@ from dataloaders import (
 from db_model.services_toe_lines.types import (
     ServicesToeLines,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from itertools import (

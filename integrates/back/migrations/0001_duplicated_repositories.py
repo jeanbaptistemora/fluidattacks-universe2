@@ -12,7 +12,7 @@ from custom_types import (
     Historic as HistoricType,
     Resource as ResourceType,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_all as get_all_groups,
     TABLE_NAME as GROUP_TABLE,
 )

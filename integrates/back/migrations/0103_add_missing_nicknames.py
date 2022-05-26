@@ -14,7 +14,7 @@ from dynamodb.types import (
     GitRootState,
     RootItem,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from roots import (

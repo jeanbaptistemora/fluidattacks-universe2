@@ -29,7 +29,7 @@ from dynamodb import (
 from dynamodb.types import (
     PrimaryKey,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_all,
 )
 import time

@@ -13,7 +13,7 @@ from aioextensions import (
     collect,
     run,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
     get_attributes,
     update,

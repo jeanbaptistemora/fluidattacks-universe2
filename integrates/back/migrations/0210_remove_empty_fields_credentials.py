@@ -22,7 +22,7 @@ from db_model.credentials.types import (
 from dynamodb.resource import (
     get_resource,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 import logging

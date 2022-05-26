@@ -21,7 +21,7 @@ from dataloaders import (
 from forces.domain import (
     add_forces_user,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from groups.domain import (

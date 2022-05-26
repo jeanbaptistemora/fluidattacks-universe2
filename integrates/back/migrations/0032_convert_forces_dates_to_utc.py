@@ -15,7 +15,7 @@ from dateutil.parser import (  # type: ignore
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from groups.domain import (

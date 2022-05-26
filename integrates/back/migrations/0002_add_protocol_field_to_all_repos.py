@@ -17,7 +17,7 @@ from custom_types import (
     Group as GroupType,
     Resource as ResourceType,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_all as get_all_groups,
     TABLE_NAME as GROUP_TABLE,
 )

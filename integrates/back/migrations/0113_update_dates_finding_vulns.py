@@ -19,7 +19,7 @@ from custom_types import (
 from dataloaders import (
     get_new_context,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from newutils import (

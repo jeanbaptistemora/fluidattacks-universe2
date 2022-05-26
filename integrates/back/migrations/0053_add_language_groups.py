@@ -17,7 +17,7 @@ from custom_types import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     TABLE_NAME as GROUPS_TABLE,
 )
 from typing import (

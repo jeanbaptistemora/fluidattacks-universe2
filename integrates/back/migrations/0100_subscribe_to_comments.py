@@ -14,7 +14,7 @@ from aioextensions import (
 from group_access.domain import (
     get_users_to_notify,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
 )
 from itertools import (

@@ -13,7 +13,7 @@ from aioextensions import (
 from dynamodb.types import (
     Item,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     _get_attributes,
     _update,
 )

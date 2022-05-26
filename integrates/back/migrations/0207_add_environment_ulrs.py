@@ -16,7 +16,7 @@ from dataloaders import (
 from db_model.roots.types import (
     GitRootItem,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_all as get_all_groups,
 )
 import logging

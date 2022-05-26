@@ -10,7 +10,7 @@ from aioextensions import (
     collect,
     run,
 )
-from groups.dal import (
+from groups.dal import (  # pylint: disable=import-error
     get_attributes,
     update,
 )
