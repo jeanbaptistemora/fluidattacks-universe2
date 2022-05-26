@@ -54,7 +54,7 @@ def ssl_connect(
     host: str = ssl_settings.context.host
     port: int = ssl_settings.context.port
     intention: str = ssl_settings.intention[LocalesEnum.EN]
-
+    socket_has_errors = False
     try:
         sock: Optional[socket.socket] = tcp_connect(host, port, intention)
 
@@ -66,10 +66,23 @@ def ssl_connect(
             ssl_ctx.maximum_version = ssl_id2tls_id(ssl_settings.tls_version)
 
             ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
-            ssl_sock.do_handshake()
+            try:
+                ssl_sock.do_handshake()
+            except ConnectionResetError as error:
+                socket_has_errors = True
+                log_blocking(
+                    "warning",
+                    "%s: occured with %s:%d while %s",
+                    error.strerror,
+                    host,
+                    port,
+                    intention,
+                )
+                yield None
             yield ssl_sock
 
     except ssl.SSLError as error:
+        socket_has_errors = True
         log_blocking(
             "warning",
             "%s:%s occured with %s:%d while %s",
@@ -81,7 +94,7 @@ def ssl_connect(
         )
         yield None
     finally:
-        if sock is not None:
+        if sock is not None and not socket_has_errors:
             ssl_sock.shutdown(socket.SHUT_RDWR)
             ssl_sock.close()
 
