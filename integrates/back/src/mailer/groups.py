@@ -297,7 +297,7 @@ async def send_mail_root_cloning_status(
         "root_nickname": root_nickname,
         "root_id": root_id,
         "modified_by": modified_by,
-        "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
+        "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
     }
     await send_mails_async(
         email_to=email_to,
@@ -372,7 +372,7 @@ async def send_mail_devsecops_agent_token(
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group_name": group_name,
-        "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
+        "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
         "responsible": user_email,
         "had_token": had_token,
     }
@@ -394,7 +394,7 @@ async def send_mail_user_unsubscribed(
 ) -> None:
     email_context: dict[str, Any] = {
         "group_name": group_name,
-        "report_date": report_date.strftime("on %m/%d/%y at %H:%M:%S"),
+        "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
         "user_email": user_email,
     }
     await send_mails_async(
