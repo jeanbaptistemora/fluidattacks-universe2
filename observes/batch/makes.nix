@@ -4,7 +4,7 @@
     definition = "makes";
     environment = ["PRODUCT_API_TOKEN"];
     memory = 1800 * vcpus;
-    queue = "limited_spot";
+    queue = "small";
     setup = [outputs."/secretsForAwsFromEnv/prodObserves"];
     vcpus = 1;
   };
@@ -81,7 +81,6 @@ in {
         attempts = 1;
         attemptDurationSeconds = 864000;
         command = ["m" "f" "/observes/etl/mailchimp"];
-        queue = "unlimited_spot";
       };
 
     observesCodeEtlMirror =
@@ -89,7 +88,6 @@ in {
       // {
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/code/mirror"];
-        queue = "unlimited_spot";
       };
 
     observesCodeEtlUpload =
@@ -97,13 +95,11 @@ in {
       // {
         attemptDurationSeconds = 28800;
         command = ["m" "f" "/observes/etl/code/upload"];
-        queue = "unlimited_spot";
       };
 
     observesCodeEtlMigration2 =
       sharedConfiguration
       // {
-        queue = "limited_spot";
         attempts = 1;
         attemptDurationSeconds = 604800;
         command = ["m" "f" "/observes/etl/code/upload/migration/fa-hash/v2"];
@@ -114,7 +110,6 @@ in {
       // {
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/dynamo/v2"];
-        queue = "unlimited_spot";
       };
 
     observesDynamoV2EtlBig =
@@ -123,13 +118,11 @@ in {
         attemptDurationSeconds = 172800;
         attempts = 1;
         command = ["m" "f" "/observes/etl/dynamo/v2"];
-        queue = "unlimited_spot";
       };
 
     observesDbMigration =
       sharedConfiguration
       // {
-        queue = "limited_spot";
         attempts = 1;
         attemptDurationSeconds = 172800;
         command = ["m" "f" "/observes/job/migration"];
