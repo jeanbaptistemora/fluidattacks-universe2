@@ -4,7 +4,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useContext } from "react";
 import {
   Redirect,
   Route,
@@ -35,6 +35,7 @@ import { TabContent, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
+import { featurePreviewContext } from "utils/featurePreview";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -43,6 +44,7 @@ import { translate } from "utils/translations/translate";
 const GroupContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const { groupName } = useParams<{ groupName: string }>();
+  const { featurePreview } = useContext(featurePreviewContext);
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
@@ -99,14 +101,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                     title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
                   />
-                  <Can do={"front_experimental_group_vulns"}>
-                    <ContentTab
-                      id={"vulnsTab"}
-                      link={`${url}/vulnerabilities`}
-                      title={translate.t("group.tabs.findings.text")}
-                      tooltip={translate.t("group.tabs.findings.tooltip")}
-                    />
-                  </Can>
                   <ContentTab
                     id={"analyticsTab"}
                     link={`${url}/analytics`}
@@ -189,14 +183,13 @@ const GroupContent: React.FC = (): JSX.Element => {
                       path={`${path}/analytics`}
                     />
                     <Route
-                      component={GroupFindingsView}
+                      component={
+                        featurePreview
+                          ? GroupVulnerabilitiesView
+                          : GroupFindingsView
+                      }
                       exact={true}
                       path={`${path}/vulns`}
-                    />
-                    <Route
-                      component={GroupVulnerabilitiesView}
-                      exact={true}
-                      path={`${path}/vulnerabilities`}
                     />
                     <Route
                       component={GroupDraftsView}
