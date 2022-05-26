@@ -126,12 +126,13 @@ async def test_add_organization() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_organization() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     email = "org_testuser1@gmail.com"
     await orgs_domain.remove_organization(org_id, email)
 
-    org = await orgs_domain.get_by_id(org_id)
-    assert orgs_utils.is_deleted(org)
+    org = await loaders.organization.load(org_id)
+    assert orgs_utils.is_deleted_typed(org)
 
 
 async def test_get_groups() -> None:
@@ -275,7 +276,7 @@ async def test_update_policies() -> None:
     org_id = "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
     org_name = "bulat"
     loaders = get_new_context()
-    organization: Organization = await loaders.organization_typed.load(org_id)
+    organization: Organization = await loaders.organization.load(org_id)
     max_acceptance_days = organization.policies.max_acceptance_days
     max_acceptance_severity = organization.policies.max_acceptance_severity
     max_number_acceptances = organization.policies.max_number_acceptances
@@ -297,7 +298,7 @@ async def test_update_policies() -> None:
     )
 
     loaders = get_new_context()
-    updated_org: Organization = await loaders.organization_typed.load(org_id)
+    updated_org: Organization = await loaders.organization.load(org_id)
     max_acceptance_days = updated_org.policies.max_acceptance_days
     max_acceptance_severity = updated_org.policies.max_acceptance_severity
     max_number_acceptances = updated_org.policies.max_number_acceptances

@@ -41,9 +41,7 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group.load(kwargs["group_name"])
-    org: Organization = await loaders.organization_typed.load(
-        group.organization_id
-    )
+    org: Organization = await loaders.organization.load(group.organization_id)
 
     # Update subscription
     result: bool = await billing_domain.update_subscription(

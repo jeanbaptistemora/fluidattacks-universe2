@@ -92,7 +92,7 @@ async def delete_group(
 ) -> bool:
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
-    organization: Organization = await loaders.organization_typed.load(org_id)
+    organization: Organization = await loaders.organization.load(org_id)
     org_name = organization.name
     return cast(
         bool,
@@ -327,7 +327,7 @@ async def request_vulnerability_zero_risk(
     group_name = finding.group_name
 
     org_id = await orgs_domain.get_id_for_group(group_name)
-    organization: Organization = await loaders.organization_typed.load(org_id)
+    organization: Organization = await loaders.organization.load(org_id)
     org_name = organization.name
     finding_url = (
         f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
@@ -383,9 +383,9 @@ async def request_groups_upgrade(
     groups: tuple[Group, ...],
 ) -> None:
     organization_ids = set(group.organization_id for group in groups)
-    organizations: tuple[
-        Organization
-    ] = await loaders.organization_typed.load_many(organization_ids)
+    organizations: tuple[Organization] = await loaders.organization.load_many(
+        organization_ids
+    )
 
     organizations_message = "".join(
         f"""

@@ -28,4 +28,4 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     organization_id: str = kwargs["organization_id"]
 
-    return await loaders.organization_typed.load(organization_id)
+    return await loaders.organization.load(organization_id)

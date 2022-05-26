@@ -39,7 +39,7 @@ async def mutate(
     user_data = await token_utils.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
     loaders: Dataloaders = info.context.loaders
-    organization: Organization = await loaders.organization_typed.load(
+    organization: Organization = await loaders.organization.load(
         organization_id
     )
     organization_name = organization.name

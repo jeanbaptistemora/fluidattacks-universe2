@@ -41,7 +41,7 @@ async def test_update_organization_policies(
     assert result["data"]["updateOrganizationPolicies"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    organization: Organization = await loaders.organization_typed.load(org_id)
+    organization: Organization = await loaders.organization.load(org_id)
     assert organization.policies.max_acceptance_days == 5
     assert organization.policies.max_acceptance_severity == Decimal("8.2")
     assert organization.policies.max_number_acceptances == 3

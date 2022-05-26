@@ -195,7 +195,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
-    organization: Organization = await loaders.organization_typed.load(
+    organization: Organization = await loaders.organization.load(
         group.organization_id
     )
     organization_name = organization.id
@@ -293,7 +293,7 @@ async def add_ip_root(
         raise InvalidParameter()
 
     group: Group = await loaders.group.load(group_name)
-    organization: Organization = await loaders.organization_typed.load(
+    organization: Organization = await loaders.organization.load(
         group.organization_id
     )
     organization_name = organization.name
@@ -367,7 +367,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     protocol: str = url_attributes.scheme.upper()
 
     group: Group = await loaders.group.load(group_name)
-    organization: Organization = await loaders.organization_typed.load(
+    organization: Organization = await loaders.organization.load(
         group.organization_id
     )
     organization_name = organization.name
@@ -679,7 +679,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     if url != root.state.url:
         if await loaders.root_vulnerabilities.load(root.id):
             raise HasVulns()
-        organization: Organization = await loaders.organization_typed.load(
+        organization: Organization = await loaders.organization.load(
             group.organization_id
         )
         organization_name = organization.name
@@ -1003,7 +1003,7 @@ async def activate_root(
 
     if root.state.status != new_status:
         group: Group = await loaders.group.load(group_name)
-        organization: Organization = await loaders.organization_typed.load(
+        organization: Organization = await loaders.organization.load(
             group.organization_id
         )
         organization_name = organization.name

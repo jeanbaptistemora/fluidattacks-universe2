@@ -502,7 +502,7 @@ async def complete_register_for_organization_invitation(
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     organization_id = organization_access["pk"]
-    organization: Organization = loaders.organization_typed.load(
+    organization: Organization = await loaders.organization.load(
         organization_id
     )
     organization_name = organization.name

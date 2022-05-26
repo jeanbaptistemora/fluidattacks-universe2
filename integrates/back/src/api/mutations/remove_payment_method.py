@@ -33,7 +33,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    org: Organization = await info.context.loaders.organization_typed.load(
+    org: Organization = await info.context.loaders.organization.load(
         kwargs["organization_id"]
     )
 

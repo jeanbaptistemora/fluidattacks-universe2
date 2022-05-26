@@ -107,8 +107,8 @@ async def _validate_acceptance_days(
             values["acceptance_date"]
         )
         acceptance_days = Decimal((acceptance_date - today).days)
-        organization_data: Organization = (
-            await loaders.organization_typed.load(organization_id)
+        organization_data: Organization = await loaders.organization.load(
+            organization_id
         )
         max_acceptance_days = organization_data.policies.max_acceptance_days
         if (
@@ -131,8 +131,8 @@ async def _validate_acceptance_severity(
     """
     valid: bool = True
     if values.get("treatment") == "ACCEPTED":
-        organization_data: Organization = (
-            await loaders.organization_typed.load(organization_id)
+        organization_data: Organization = await loaders.organization.load(
+            organization_id
         )
         min_value = organization_data.policies.min_acceptance_severity
         max_value = organization_data.policies.max_acceptance_severity
@@ -161,8 +161,8 @@ async def _validate_number_acceptances(
     """
     valid: bool = True
     if values["treatment"] == "ACCEPTED":
-        organization_data: Organization = (
-            await loaders.organization_typed.load(organization_id)
+        organization_data: Organization = await loaders.organization.load(
+            organization_id
         )
         max_acceptances = organization_data.policies.max_number_acceptances
         current_acceptances: int = sum(

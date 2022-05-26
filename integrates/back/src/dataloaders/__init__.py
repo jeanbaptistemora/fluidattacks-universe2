@@ -6,7 +6,6 @@ from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
 from .organization import (
-    OrganizationLoader,
     OrganizationTypedLoader,
 )
 from .organization_stakeholders import (
@@ -122,13 +121,12 @@ class Dataloaders(NamedTuple):
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
-    organization: OrganizationLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
-    organization_typed: OrganizationTypedLoader
+    organization: OrganizationTypedLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_secrets: RootSecretsLoader
@@ -217,13 +215,12 @@ def get_new_context() -> Dataloaders:
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
-        organization=OrganizationLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
-        organization_typed=OrganizationTypedLoader(),
+        organization=OrganizationTypedLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),

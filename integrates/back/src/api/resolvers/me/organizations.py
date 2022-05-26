@@ -28,8 +28,6 @@ async def resolve(
     organization_ids: list[str] = await orgs_domain.get_user_organizations(
         user_email
     )
-    organizations = await loaders.organization_typed.load_many(
-        organization_ids
-    )
+    organizations = await loaders.organization.load_many(organization_ids)
 
     return orgs_utils.filter_active_organizations_typed(organizations)

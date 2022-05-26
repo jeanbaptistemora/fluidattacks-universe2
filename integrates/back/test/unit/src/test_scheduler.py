@@ -371,12 +371,13 @@ async def test_update_portfolios_indicators() -> None:
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_delete_obsolete_orgs() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
     org_name = "makoto"
     org_ids = []
     async for organization_id, _ in iterate_organizations():
-        organization = await orgs_domain.get_by_id(organization_id)
-        if not orgs_utils.is_deleted(organization):
+        organization = await loaders.organization.load(organization_id)
+        if not orgs_utils.is_deleted_typed(organization):
             org_ids.append(organization_id)
     assert org_id in org_ids
     assert len(org_ids) == 10
@@ -388,8 +389,9 @@ async def test_delete_obsolete_orgs() -> None:
 
     new_org_ids = []
     async for organization_id, _ in iterate_organizations():
-        organization = await orgs_domain.get_by_id(organization_id)
-        if not orgs_utils.is_deleted(organization):
+        new_loaders: Dataloaders = get_new_context()
+        organization = await new_loaders.organization.load(organization_id)
+        if not orgs_utils.is_deleted_typed(organization):
             new_org_ids.append(organization_id)
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9

@@ -73,9 +73,7 @@ async def get_tags(
 async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
-        organization: Organization = await loaders.organization_typed.load(
-            org_id
-        )
+        organization: Organization = await loaders.organization.load(org_id)
         organization_name = organization.name
         portfolio_info = await get_attributes(
             organization_name, portfolio, [OLD_GROUPS]

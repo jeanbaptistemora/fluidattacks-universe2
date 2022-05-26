@@ -246,7 +246,7 @@ async def _send_analytics_report(
 
     report_entity = report_entity.lower()
     if report_entity == "organization":
-        organization: Organization = await loaders.organization_typed.load(
+        organization: Organization = await loaders.organization.load(
             report_subject
         )
         report_subject = organization.name

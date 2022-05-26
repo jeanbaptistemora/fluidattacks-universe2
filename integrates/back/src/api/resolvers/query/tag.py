@@ -61,9 +61,7 @@ async def resolve(
         org_id: str = await orgs_domain.get_id_for_group(
             group_names_filtered[0]
         )
-        organization: Organization = await loaders.organization_typed.load(
-            org_id
-        )
+        organization: Organization = await loaders.organization.load(org_id)
         org_name: str = organization.name
 
         allowed_tags: list[str] = await tags_domain.filter_allowed_tags(

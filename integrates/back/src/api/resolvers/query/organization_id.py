@@ -32,4 +32,4 @@ async def resolve(
     organization_name: str = kwargs["organization_name"]
     organization_id = await orgs_domain.get_id_by_name(organization_name)
 
-    return await loaders.organization_typed.load(organization_id)
+    return await loaders.organization.load(organization_id)

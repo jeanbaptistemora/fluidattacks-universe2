@@ -73,7 +73,7 @@ async def mutate(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )
         group: Group = await loaders.group.load(finding.group_name)
-        organization: Organization = await loaders.organization_typed.load(
+        organization: Organization = await loaders.organization.load(
             group.organization_id
         )
         organization_name = organization.name

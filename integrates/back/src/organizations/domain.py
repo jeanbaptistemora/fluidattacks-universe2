@@ -216,13 +216,6 @@ async def get_all_active_group_names(
     return active_group_names
 
 
-async def get_by_id(org_id: str) -> Dict[str, Any]:
-    organization: Dict[str, Any] = await orgs_dal.get_by_id(org_id)
-    if organization:
-        return format_organization(organization)
-    raise OrganizationNotFound()
-
-
 async def get_by_name(name: str) -> Dict[str, Any]:
     organization: Dict[str, Any] = await orgs_dal.get_by_name(name.lower())
     if organization:
@@ -559,7 +552,7 @@ async def update_policies(
         raise GraphQLError(str(exe)) from exe
     if all(valid):
         success = True
-        organization: Organization = await loaders.organization_typed.load(
+        organization: Organization = await loaders.organization.load(
             organization_id
         )
         org_policies_to_update = organization.policies
@@ -604,7 +597,7 @@ async def send_mail_policies(
     responsible: str,
     date: Optional[str],
 ) -> None:
-    organization_data: Organization = await loaders.organization_typed.load(
+    organization_data: Organization = await loaders.organization.load(
         organization_id
     )
     policies_format = {
@@ -660,7 +653,7 @@ async def validate_acceptance_severity_range_typed(
     loaders: Any, organization_id: str, values: OrganizationPolicies
 ) -> bool:
     success: bool = True
-    organization_data: Organization = await loaders.organization_typed.load(
+    organization_data: Organization = await loaders.organization.load(
         organization_id
     )
     min_acceptance_severity = (

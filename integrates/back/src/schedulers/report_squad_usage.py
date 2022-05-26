@@ -36,9 +36,9 @@ async def main() -> None:
     squad_orgs_ids: list[str] = [
         group.organization_id for group in squad_groups
     ]
-    squad_orgs: list[
-        Organization
-    ] = await loaders.organization_typed.load_many(squad_orgs_ids)
+    squad_orgs: list[Organization] = await loaders.organization.load_many(
+        squad_orgs_ids
+    )
     await collect(
         [
             billing_domain.report_subscription_usage(

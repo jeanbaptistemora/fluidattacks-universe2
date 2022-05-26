@@ -63,7 +63,7 @@ async def mutate(
 
     organization_id: str = str(parameters.get("organization_id"))
     loaders: Dataloaders = info.context.loaders
-    organization: Organization = await loaders.organization_typed.load(
+    organization: Organization = await loaders.organization.load(
         organization_id
     )
     organization_name: str = organization.name
