@@ -198,7 +198,7 @@ async def get_access_by_url_token(
     return access
 
 
-async def get_all_active_groups_typed(
+async def get_all_active_groups(
     loaders: Any,
 ) -> tuple[Group, ...]:
     all_groups_names: list[str] = []
@@ -211,7 +211,7 @@ async def get_all_active_groups_typed(
 async def get_all_active_group_names(
     loaders: Any,
 ) -> tuple[str, ...]:
-    active_groups = await get_all_active_groups_typed(loaders)
+    active_groups = await get_all_active_groups(loaders)
     active_group_names = tuple(group.name for group in active_groups)
     return active_group_names
 

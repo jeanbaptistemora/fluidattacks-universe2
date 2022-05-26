@@ -29,7 +29,7 @@ bugsnag_utils.start_scheduler_session()
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    active_groups = await orgs_domain.get_all_active_groups(loaders)
     squad_groups: tuple[Group, ...] = tuple(
         group for group in active_groups if group.state.tier == GroupTier.SQUAD
     )

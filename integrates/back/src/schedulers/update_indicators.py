@@ -1068,7 +1068,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
 async def update_group_indicators(group: Group) -> None:
     try:
         indicators = await get_group_indicators(group)
-        await groups_domain.update_indicators_typed(
+        await groups_domain.update_indicators(
             group_name=group.name, indicators=indicators
         )
     except (ClientError, TypeError, UnavailabilityError) as ex:
@@ -1078,9 +1078,7 @@ async def update_group_indicators(group: Group) -> None:
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    groups = await orgs_domain.get_all_active_groups_typed(
-        loaders=get_new_context()
-    )
+    groups = await orgs_domain.get_all_active_groups(loaders=get_new_context())
     await collect(map(update_group_indicators, groups), workers=1)
 
 

@@ -156,7 +156,7 @@ async def process_group(
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    active_groups = await orgs_domain.get_all_active_groups(loaders)
     active_group_names = sorted([group.name for group in active_groups])
     LOGGER_CONSOLE.info(
         "Active groups",

@@ -216,7 +216,7 @@ async def update_token(
     organization_id: str,
     token: str,
 ) -> None:
-    return await groups_domain.update_metadata_typed(
+    return await groups_domain.update_metadata(
         group_name=group_name,
         metadata=GroupMetadataToUpdate(
             agent_token=token,

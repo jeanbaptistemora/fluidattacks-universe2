@@ -13,7 +13,7 @@ import sys
 async def main() -> None:
     file_path = sys.argv[1]
     loaders: Dataloaders = get_new_context()
-    all_active_groups = await orgs_domain.get_all_active_groups_typed(loaders)
+    all_active_groups = await orgs_domain.get_all_active_groups(loaders)
     group_names = [
         group.name
         for group in all_active_groups

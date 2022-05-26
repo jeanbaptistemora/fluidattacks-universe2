@@ -787,7 +787,7 @@ async def update_group_managed(
     group: Group = await loaders.group.load(group_name)
 
     if managed != group.state.managed:
-        await update_state_typed(
+        await update_state(
             group_name=group_name,
             organization_id=group.organization_id,
             state=GroupState(
@@ -840,7 +840,7 @@ async def update_group(
     if tier == GroupTier.OTHER:
         tier = GroupTier.FREE
 
-    await update_state_typed(
+    await update_state(
         group_name=group_name,
         organization_id=group.organization_id,
         state=GroupState(
@@ -1307,7 +1307,7 @@ async def mask_files(
             )
             for file in group.files
         ]
-        await update_metadata_typed(
+        await update_metadata(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(files=masked_files),
             organization_id=group.organization_id,
@@ -1348,7 +1348,7 @@ async def add_file(
             modified_date=modified_date,
         )
     files_to_update.append(group_file_to_add)
-    await update_metadata_typed(
+    await update_metadata(
         group_name=group_name,
         metadata=GroupMetadataToUpdate(
             files=files_to_update,
@@ -1376,7 +1376,7 @@ async def remove_file(
 
     file_url = f"{group_name}/{file_name}"
     await resources_utils.remove_file(file_url)
-    await update_metadata_typed(
+    await update_metadata(
         group_name=group_name,
         metadata=GroupMetadataToUpdate(
             files=[
@@ -1584,7 +1584,7 @@ async def send_mail_unsubscribed(
     )
 
 
-async def update_metadata_typed(
+async def update_metadata(
     *,
     group_name: str,
     metadata: GroupMetadataToUpdate,
@@ -1614,7 +1614,7 @@ async def update_group_info(
         roles=roles,
     )
 
-    await update_metadata_typed(
+    await update_metadata(
         group_name=group_name,
         metadata=metadata,
         organization_id=group.organization_id,
@@ -1681,7 +1681,7 @@ async def send_mail_devsecops_agent(
     )
 
 
-async def update_state_typed(
+async def update_state(
     *,
     group_name: str,
     state: GroupState,
@@ -1692,7 +1692,7 @@ async def update_state_typed(
     )
 
 
-async def update_indicators_typed(
+async def update_indicators(
     *,
     group_name: str,
     indicators: GroupUnreliableIndicators,
@@ -1708,7 +1708,7 @@ async def set_pending_deletion_date(
     pending_deletion_date: str,
 ) -> None:
     """Update pending deletion date in group's state."""
-    await update_state_typed(
+    await update_state(
         group_name=group.name,
         organization_id=group.organization_id,
         state=group.state._replace(
@@ -1724,7 +1724,7 @@ async def remove_pending_deletion_date(
     modified_by: str,
 ) -> None:
     """Clear pending deletion date in group's state."""
-    await update_state_typed(
+    await update_state(
         group_name=group.name,
         organization_id=group.organization_id,
         state=group.state._replace(
@@ -1742,7 +1742,7 @@ async def add_tags(
     user_email: str,
 ) -> None:
     updated_tags = group.tags.union(tags_to_add) if group.tags else tags_to_add
-    await update_metadata_typed(
+    await update_metadata(
         group_name=group.name,
         metadata=GroupMetadataToUpdate(
             tags=updated_tags,
@@ -1767,7 +1767,7 @@ async def remove_tag(
 ) -> None:
     if group.tags:
         group.tags.remove(tag_to_remove)
-        await update_metadata_typed(
+        await update_metadata(
             group_name=group.name,
             metadata=GroupMetadataToUpdate(
                 tags=group.tags,

@@ -147,9 +147,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
     loaders: Dataloaders = get_new_context()
-    active_groups = sorted(
-        await orgs_domain.get_all_active_groups_typed(loaders)
-    )
+    active_groups = sorted(await orgs_domain.get_all_active_groups(loaders))
     group_names: set[str] = {
         group.name
         for group in active_groups
