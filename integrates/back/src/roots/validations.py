@@ -184,11 +184,6 @@ def validate_git_root(root: Root) -> None:
         raise InvalidGitRoot()
 
 
-def validate_environment(environment: str) -> None:
-    if re.search(r"[^a-z0-9\s!@$%*=?]", environment):
-        raise InvalidChar("environment")
-
-
 def validate_nickname(nickname: str) -> None:
     if not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
         raise InvalidChar()
