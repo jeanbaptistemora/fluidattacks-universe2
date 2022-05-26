@@ -8,6 +8,8 @@ locals {
             Sid    = "s3Write"
             Effect = "Allow"
             Action = ["*"]
+            // This buckets and resources list belog to docs, so the wildcard
+            // above is not dangerous
             Resource = [
               "arn:aws:s3:::docs.fluidattacks.com",
               "arn:aws:s3:::docs.fluidattacks.com/*",
@@ -15,21 +17,6 @@ locals {
               "arn:aws:s3:::docs-dev.fluidattacks.com/*",
               "arn:aws:s3:::fluidattacks-terraform-states-prod/docs*",
             ]
-          },
-          {
-            Sid    = "kmsRead"
-            Effect = "Allow"
-            Action = [
-              "kms:CreateAlias",
-              "kms:CreateKey",
-              "kms:Describe*",
-              "kms:Get*",
-              "kms:List*",
-              "kms:TagResource",
-              "kms:UntagResource",
-              "kms:UpdateAlias",
-            ]
-            Resource = ["*"]
           },
           {
             Sid    = "dynamoWrite"

@@ -7,8 +7,9 @@ locals {
           {
             Sid    = "s3Write"
             Effect = "Allow"
-            // This bucket belogs to airs, so this wildcard is not dangerous
             Action = ["*"]
+            // This buckets and resources list belog to airs, so the wildcard
+            // above is not dangerous
             Resource = [
               "arn:aws:s3:::fluidattacks.com",
               "arn:aws:s3:::fluidattacks.com/*",
