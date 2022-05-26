@@ -6,24 +6,32 @@ import { object, string } from "yup";
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikDropdown } from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 
 interface IUpdateSubscriptionProps {
-  groupName: string;
   current: string;
+  groupName: string;
+  managed: boolean;
   onClose: () => void;
-  onSubmit: (values: { subscription: string }) => Promise<void>;
+  onSubmit: (values: {
+    managed: string;
+    subscription: string;
+  }) => Promise<void>;
+  permissions: string[];
 }
 
 const validations = object().shape({
+  managed: string().required(),
   subscription: string().required(),
 });
 
 export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
-  groupName,
   current,
+  groupName,
+  managed,
   onClose,
   onSubmit,
+  permissions,
 }: IUpdateSubscriptionProps): JSX.Element => {
   const { t } = useTranslation();
   const subs = ["FREE", "MACHINE", "SQUAD"];
@@ -33,12 +41,13 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
     <Modal
       onClose={onClose}
       open={true}
-      title={`${t(
-        "organization.tabs.billing.groups.updateSubscription.title"
-      )} ${groupName} subscription`}
+      size={"small"}
+      title={t("organization.tabs.billing.groups.updateSubscription.title")}
     >
       <Formik
         initialValues={{
+          groupName,
+          managed: String(managed),
           subscription: initialValue,
         }}
         name={"updateSubscription"}
@@ -47,14 +56,47 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
       >
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
-            <div>
+            <div className={"flex flex-wrap w-100"}>
+              <ControlLabel>
+                {t("organization.tabs.billing.groups.name")}
+              </ControlLabel>
+              <Field
+                component={FormikText}
+                disabled={true}
+                name={"groupName"}
+                value={groupName}
+              />
+            </div>
+            <div className={"pt2"}>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t("organization.tabs.billing.groups.managed.title")}
+              </ControlLabel>
+              <Field component={FormikDropdown} name={"managed"}>
+                <option value={"true"}>
+                  {t("organization.tabs.billing.groups.managed.yes")}
+                </option>
+                <option value={"false"}>
+                  {t("organization.tabs.billing.groups.managed.no")}
+                </option>
+              </Field>
+            </div>
+            <div className={"pt2"}>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t(
                   "organization.tabs.billing.groups.updateSubscription.subscription"
                 )}
               </ControlLabel>
-              <Field component={FormikDropdown} name={"subscription"}>
+              <Field
+                component={FormikDropdown}
+                disabled={
+                  !permissions.includes(
+                    "api_mutations_update_subscription_mutate"
+                  )
+                }
+                name={"subscription"}
+              >
                 <option value={""} />
                 {subs.map(
                   (sub: string): JSX.Element => (
@@ -67,18 +109,20 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 )}
               </Field>
             </div>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                disabled={!dirty || isSubmitting}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <div className={"pt2"}>
+              <ModalFooter>
+                <Button onClick={onClose} variant={"secondary"}>
+                  {t("confirmmodal.cancel")}
+                </Button>
+                <Button
+                  disabled={!dirty || isSubmitting}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {t("confirmmodal.proceed")}
+                </Button>
+              </ModalFooter>
+            </div>
           </Form>
         )}
       </Formik>

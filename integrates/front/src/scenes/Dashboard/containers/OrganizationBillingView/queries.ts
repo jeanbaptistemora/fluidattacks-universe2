@@ -99,10 +99,34 @@ const UPDATE_SUBSCRIPTION: DocumentNode = gql`
   }
 `;
 
+const UPDATE_GROUP_MUTATION: DocumentNode = gql`
+  mutation UpdateGroupMutation(
+    $comments: String!
+    $groupName: String!
+    $isManagedChanged: Boolean!
+    $isSubscriptionChanged: Boolean!
+    $managed: Boolean!
+    $subscription: BillingSubscriptionType!
+  ) {
+    updateGroupManaged(
+      comments: $comments
+      groupName: $groupName
+      managed: $managed
+    ) @include(if: $isManagedChanged) {
+      success
+    }
+    updateSubscription(groupName: $groupName, subscription: $subscription)
+      @include(if: $isSubscriptionChanged) {
+      success
+    }
+  }
+`;
+
 export {
   ADD_PAYMENT_METHOD,
   GET_ORGANIZATION_BILLING,
   REMOVE_PAYMENT_METHOD,
+  UPDATE_GROUP_MUTATION,
   UPDATE_PAYMENT_METHOD,
   UPDATE_SUBSCRIPTION,
 };

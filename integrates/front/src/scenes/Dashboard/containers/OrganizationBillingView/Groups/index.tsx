@@ -5,10 +5,13 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { areMutationsValid } from "./helpers";
+import { linkFormatter } from "./linkFormatter";
 import { Container } from "./styles";
+import type { IUpdateGroupResultAttr } from "./types";
 import { UpdateSubscriptionModal } from "./UpdateSubscriptionModal";
 
-import { UPDATE_SUBSCRIPTION } from "../queries";
+import { UPDATE_GROUP_MUTATION, UPDATE_SUBSCRIPTION } from "../queries";
 import type { IGroupAttr } from "../types";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
@@ -68,18 +71,14 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   const accesibleGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
     groupData.filter(
       (group): boolean =>
-        group.permissions.includes(
+        (group.permissions.includes(
           "api_mutations_update_subscription_mutate"
-        ) && group.authors !== null
+        ) ||
+          group.permissions.includes(
+            "api_mutations_update_group_managed_mutate"
+          )) &&
+        group.authors !== null
     );
-
-  const formatBoolean = useCallback(
-    (value: boolean): string =>
-      value
-        ? t("organization.tabs.billing.groups.managed.yes")
-        : t("organization.tabs.billing.groups.managed.no"),
-    [t]
-  );
 
   const formatGroupsData = (groupData: IGroupAttr[]): IGroupAttr[] =>
     groupData.map((group: IGroupAttr): IGroupAttr => {
@@ -87,7 +86,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
         false: "organization.tabs.groups.disabled",
         true: "organization.tabs.groups.enabled",
       };
-      const name: string = group.name.toUpperCase();
+      const name: string = _.capitalize(group.name);
       const service: string = _.capitalize(group.service);
       const tier: string = _.capitalize(group.tier);
       const forces: string = t(servicesParameters[group.hasForces.toString()]);
@@ -129,6 +128,17 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     setCustomFilterEnabled(!isCustomFilterEnabled);
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
+  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
+  const [isUpdatingSubscription, setIsUpdatingSubscription] = useState<
+    false | { mode: "UPDATE" }
+  >(false);
+  const openUpdateModal = useCallback((groupRow?: Dictionary<string>): void => {
+    if (groupRow) {
+      setCurrentRow(groupRow as unknown as IGroupAttr);
+      setIsUpdatingSubscription({ mode: "UPDATE" });
+    }
+  }, []);
+
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
@@ -137,8 +147,9 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       width: "20%",
     },
     {
+      changeFunction: openUpdateModal,
       dataField: "managed",
-      formatter: formatBoolean,
+      formatter: linkFormatter,
       header: "Managed",
       headerFormatter: tooltipFormatter,
       tooltipDataField: t("organization.tabs.billing.groups.managed.tooltip"),
@@ -384,18 +395,14 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   ];
 
   // Edit group subscription
-  const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
-  const [isUpdatingSubscription, setIsUpdatingSubscription] = useState<
-    false | { mode: "UPDATE" }
-  >(false);
-  const openModal = (_0: Record<string, unknown>, row: IGroupAttr): void => {
-    setCurrentRow(row);
-    setIsUpdatingSubscription({ mode: "UPDATE" });
-  };
   const closeModal = useCallback((): void => {
     setIsUpdatingSubscription(false);
   }, []);
-  const [updateSubscription] = useMutation(UPDATE_SUBSCRIPTION, {
+  const [updateGroup] = useMutation<IUpdateGroupResultAttr>(
+    UPDATE_GROUP_MUTATION
+  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_updateSubscription] = useMutation(UPDATE_SUBSCRIPTION, {
     onCompleted: (): void => {
       onUpdate();
       closeModal();
@@ -449,17 +456,95 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       });
     },
   });
-  const handleUpdateSubscriptionSubmit = useCallback(
-    async ({ subscription }: { subscription: string }): Promise<void> => {
+  const handleUpdateGroupSubmit = useCallback(
+    async ({
+      managed,
+      subscription,
+    }: {
+      managed: string;
+      subscription: string;
+    }): Promise<void> => {
       const groupName = currentRow.name.toLowerCase();
-      await updateSubscription({
-        variables: {
-          groupName,
-          subscription,
-        },
-      });
+      const updatedManaged: boolean = managed === "true";
+      const isSubscriptionChanged: boolean =
+        subscription !== currentRow.tier.toLocaleUpperCase();
+      const isManagedChanged: boolean = updatedManaged !== currentRow.managed;
+
+      try {
+        const resultMutation = await updateGroup({
+          variables: {
+            comments: "",
+            groupName,
+            isManagedChanged,
+            isSubscriptionChanged,
+            managed: updatedManaged,
+            subscription,
+          },
+        });
+        if (areMutationsValid(resultMutation)) {
+          onUpdate();
+          closeModal();
+          msgSuccess(
+            t(
+              "organization.tabs.billing.groups.updateSubscription.success.body"
+            ),
+            t(
+              "organization.tabs.billing.groups.updateSubscription.success.title"
+            )
+          );
+        }
+      } catch (updateError: unknown) {
+        switch (String(updateError).slice(7)) {
+          case "Exception - Cannot perform action. Please add a valid payment method first":
+            msgError(
+              t(
+                "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
+              )
+            );
+            break;
+          case "Exception - Invalid subscription. Provided subscription is already active":
+            msgError(
+              t(
+                "organization.tabs.billing.groups.updateSubscription.errors.alreadyActive"
+              )
+            );
+            break;
+          case "Exception - Invalid customer. Provided customer does not have a payment method":
+            msgError(
+              t(
+                "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
+              )
+            );
+            break;
+          case "Exception - Subscription could not be updated, please review your invoices":
+            msgError(
+              t(
+                "organization.tabs.billing.groups.updateSubscription.errors.couldNotBeUpdated"
+              )
+            );
+            break;
+          case "Exception - Subscription could not be downgraded, payment intent for Squad failed":
+            msgError(
+              t(
+                "organization.tabs.billing.groups.updateSubscription.errors.couldNotBeDowngraded"
+              )
+            );
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("Couldn't update group subscription", updateError);
+        }
+      }
     },
-    [updateSubscription, currentRow.name]
+    [
+      closeModal,
+      currentRow.managed,
+      currentRow.name,
+      currentRow.tier,
+      onUpdate,
+      t,
+      updateGroup,
+    ]
   );
 
   return (
@@ -502,15 +587,16 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
               headers={tableHeaders}
               id={"tblGroups"}
               pageSize={10}
-              rowEvents={{ onClick: openModal }}
               search={false}
             />
             {isUpdatingSubscription === false ? undefined : (
               <UpdateSubscriptionModal
                 current={currentRow.tier.toUpperCase()}
                 groupName={currentRow.name}
+                managed={currentRow.managed}
                 onClose={closeModal}
-                onSubmit={handleUpdateSubscriptionSubmit}
+                onSubmit={handleUpdateGroupSubmit}
+                permissions={currentRow.permissions}
               />
             )}
           </Row>

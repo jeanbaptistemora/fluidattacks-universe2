@@ -1409,9 +1409,11 @@ export const enTranslations: ResourceKey = {
         groups: {
           managed: {
             no: "Not manually",
+            title: "Managed",
             tooltip: "If the payment method is managed manually",
             yes: "Manually",
           },
+          name: "Group name",
           title: "Groups",
           updateSubscription: {
             errors: {
@@ -1425,10 +1427,10 @@ export const enTranslations: ResourceKey = {
             },
             subscription: "Subscription",
             success: {
-              body: "Group subscription successfully updated",
+              body: "Group data successfully updated",
               title: "Success",
             },
-            title: "Update",
+            title: "Update Group",
             types: {
               free: "Free",
               machine: "Machine",
@@ -1496,8 +1498,14 @@ export const enTranslations: ResourceKey = {
         disabled: "Disabled",
         enabled: "Enabled",
         filtersTooltips: {
+          forces: "Filter by forces",
           groupName: "Filter by group name",
+          machine: "Filter by machine",
           plan: "Filter by plan",
+          service: "Filter by service",
+          squad: "Filter by squad",
+          subscription: "Filter by subscription",
+          tier: "Filter by tier",
         },
         newGroup: {
           businessId: {

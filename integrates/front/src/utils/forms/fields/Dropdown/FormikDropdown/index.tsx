@@ -7,10 +7,12 @@ import { StyledSelect, ValidationError } from "utils/forms/fields/styles";
 interface IDropdownProps extends FieldProps<string, Record<string, string>> {
   children: React.ReactNode;
   customChange: FormikHandlers["handleChange"] | undefined;
+  disabled: boolean | undefined;
 }
 
 const FormikDropdown: React.FC<IDropdownProps> = ({
   children,
+  disabled = false,
   field,
   form,
   customChange,
@@ -33,6 +35,7 @@ const FormikDropdown: React.FC<IDropdownProps> = ({
     <React.Fragment>
       <StyledSelect
         aria-label={name}
+        disabled={disabled}
         name={name}
         onBlur={handleBlur}
         onChange={handleChange}
