@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -60,6 +61,22 @@ describe("Organization billing groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
     expect(screen.getAllByRole("button")).toHaveLength(2);
+    expect(screen.queryByText("Manually")).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "organization.tabs.billing.groups.updateSubscription.title"
+      )
+    ).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByText("Manually"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(
+          "organization.tabs.billing.groups.updateSubscription.title"
+        )
+      ).toBeInTheDocument();
+    });
 
     jest.clearAllMocks();
   });
