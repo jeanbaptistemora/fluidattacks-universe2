@@ -6,6 +6,8 @@ from fa_singer_io.json_schema.factory import (
     datetime_schema,
     from_json,
     from_prim_type,
+    opt_datetime_schema,
+    opt_prim_type,
 )
 from fa_singer_io.singer import (
     SingerSchema,
@@ -61,18 +63,18 @@ def issue() -> SingerSchema:
             "up_votes": JsonValue(from_prim_type(int).encode()),
             "down_votes": JsonValue(from_prim_type(int).encode()),
             "merge_requests_count": JsonValue(from_prim_type(int).encode()),
-            "description": JsonValue(from_prim_type(str).encode()),
-            "milestone_id": JsonValue(from_prim_type(str).encode()),
-            "milestone_iid": JsonValue(from_prim_type(int).encode()),
-            "due_date": JsonValue(datetime_schema().encode()),
-            "epic_id": JsonValue(from_prim_type(str).encode()),
-            "epic_iid": JsonValue(from_prim_type(int).encode()),
-            "weight": JsonValue(from_prim_type(int).encode()),
+            "description": JsonValue(opt_prim_type(str).encode()),
+            "milestone_id": JsonValue(opt_prim_type(str).encode()),
+            "milestone_iid": JsonValue(opt_prim_type(int).encode()),
+            "due_date": JsonValue(opt_datetime_schema().encode()),
+            "epic_id": JsonValue(opt_prim_type(str).encode()),
+            "epic_iid": JsonValue(opt_prim_type(int).encode()),
+            "weight": JsonValue(opt_prim_type(int).encode()),
             "created_at": JsonValue(datetime_schema().encode()),
-            "updated_at": JsonValue(datetime_schema().encode()),
-            "closed_at": JsonValue(datetime_schema().encode()),
-            "closed_by": JsonValue(from_prim_type(str).encode()),
-            "health_status": JsonValue(from_prim_type(str).encode()),
+            "updated_at": JsonValue(opt_datetime_schema().encode()),
+            "closed_at": JsonValue(opt_datetime_schema().encode()),
+            "closed_by": JsonValue(opt_prim_type(str).encode()),
+            "health_status": JsonValue(opt_prim_type(str).encode()),
         }
     )
     schema = FrozenDict({"properties": JsonValue(properties)})
