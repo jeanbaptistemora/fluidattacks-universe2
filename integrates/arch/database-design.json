@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 24, 2022, 11:27 AM",
+    "DateLastModified": "May 26, 2022, 08:58 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -13011,9 +13011,6 @@
               "pk_5": {
                 "S": "FIN#436992569"
               },
-              "repo": {
-                "S": "product"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -15894,9 +15891,6 @@
               "pk_5": {
                 "S": "FIN#463558592"
               },
-              "repo": {
-                "S": "product"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -16647,7 +16641,6 @@
             "type",
             "tags",
             "commit",
-            "repo",
             "where",
             "specific",
             "stream",
