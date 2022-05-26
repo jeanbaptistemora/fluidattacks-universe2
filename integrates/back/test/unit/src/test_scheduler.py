@@ -266,7 +266,7 @@ async def test_update_group_indicators() -> None:
     await update_indicators.main()
 
     test_data: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
     assert len(test_data) == 27
     assert test_data.last_closed_vulnerability_days == 946
@@ -320,7 +320,7 @@ async def test_update_group_indicators() -> None:
     )
 
     test_imamura_data: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load("deleteimamura")
+        await loaders.group_unreliable_indicators.load("deleteimamura")
     )
     assert len(test_imamura_data) == 27
 
@@ -463,10 +463,10 @@ async def test_remove_obsolete_groups() -> None:
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 not in all_active_groups_names
 
-    loaders.group_typed.clear_all()
-    test_group_1: Group = await loaders.group_typed.load(test_group_name_1)
+    loaders.group.clear_all()
+    test_group_1: Group = await loaders.group.load(test_group_name_1)
     assert test_group_1.state.status == GroupStateStatus.ACTIVE
     assert test_group_1.state.pending_deletion_date
 
-    test_group_2: Group = await loaders.group_typed.load(test_group_name_2)
+    test_group_2: Group = await loaders.group.load(test_group_name_2)
     assert test_group_2.state.status == GroupStateStatus.DELETED

@@ -38,7 +38,7 @@ async def get_data_one_group(
     group_name: str,
 ) -> RemediatedAccepted:
     indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
     open_vulnerabilities: int = indicators.open_vulnerabilities or 0
     treatment = indicators.treatment_summary

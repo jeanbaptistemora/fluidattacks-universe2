@@ -72,7 +72,7 @@ async def mutate(
         allowed_mime_type = await files_utils.assert_uploaded_file_mime(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )
-        group: Group = await loaders.group_typed.load(finding.group_name)
+        group: Group = await loaders.group.load(finding.group_name)
         organization: Organization = await loaders.organization_typed.load(
             group.organization_id
         )

@@ -26,7 +26,7 @@ async def resolve(
 ) -> Tuple[Group, ...]:
     group_names: List[str] = get_key_or_fallback(parent, "groups", "projects")
     loaders: Dataloaders = info.context.loaders
-    groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
+    groups: Tuple[Group, ...] = await loaders.group.load_many(
         tuple(group_names)
     )
     return groups_utils.filter_active_groups(groups)

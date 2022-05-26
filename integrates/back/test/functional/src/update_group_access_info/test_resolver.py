@@ -48,7 +48,7 @@ async def test_update_group_info(
     assert result["data"]["updateGroupAccessInfo"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.context == group_context
 
 
@@ -67,7 +67,7 @@ async def test_update_group_info_clear_field(
     assert populate
     loaders: Dataloaders = get_new_context()
     group_name: str = "group1"
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.context is not None
 
     result: dict[str, Any] = await get_result(
@@ -79,6 +79,6 @@ async def test_update_group_info_clear_field(
     assert "success" in result["data"]["updateGroupAccessInfo"]
     assert result["data"]["updateGroupAccessInfo"]["success"]
 
-    loaders.group_typed.clear(group_name)
-    group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group = await loaders.group.load(group_name)
     assert group.context is None

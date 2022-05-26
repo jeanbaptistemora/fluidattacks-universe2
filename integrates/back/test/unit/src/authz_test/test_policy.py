@@ -23,15 +23,11 @@ async def test_get_cached_group_service_attributes_policies() -> None:
     loaders: Dataloaders = get_new_context()
     function = get_cached_group_service_policies
 
-    assert sorted(
-        await function(await loaders.group_typed.load("oneshottest"))
-    ) == [
+    assert sorted(await function(await loaders.group.load("oneshottest"))) == [
         "asm",
         "service_black",
     ]
-    assert sorted(
-        await function(await loaders.group_typed.load("unittesting"))
-    ) == [
+    assert sorted(await function(await loaders.group.load("unittesting"))) == [
         "asm",
         "continuous",
         "forces",

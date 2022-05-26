@@ -51,7 +51,7 @@ async def test_add_group(populate: bool, email: str) -> None:
     assert result["data"]["addGroup"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.agent_token is None
     assert group.language == GroupLanguage.EN
     assert group.organization_id == org_id

@@ -108,7 +108,7 @@ async def test_group_service_attributes_enforcer() -> None:
         ("oneshottest", "non_existing_attribute", False),
     ]:
         enforcer = await authz.get_group_service_attributes_enforcer(
-            await loaders.group_typed.load(group_name)
+            await loaders.group.load(group_name)
         )
 
         assert (

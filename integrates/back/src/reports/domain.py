@@ -47,7 +47,7 @@ async def get_group_report_url(
             reverse=True,
         )
     )
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
 
     if report_type == "XLS":
         return await technical_report.generate_xls_file(

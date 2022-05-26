@@ -48,7 +48,7 @@ async def test_add_files_to_db(
     assert result["data"]["addFilesToDb"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.files
     file_uploaded = next(
         file for file in group.files if file.file_name == file_name

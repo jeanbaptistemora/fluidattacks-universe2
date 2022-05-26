@@ -50,7 +50,7 @@ async def mutate(
     )
 
     if success:
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         group_org_id = group.organization_id
         redis_del_by_deps_soon(
             "unsubscribe_from_group",

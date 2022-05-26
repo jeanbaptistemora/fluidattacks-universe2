@@ -48,7 +48,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_info = await token_utils.get_jwt_content(info.context)
     responsible = user_info["user_email"]
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
 
     user_email = forces_domain.format_forces_user_email(group_name)
     if not await users_domain.ensure_user_exists(user_email):

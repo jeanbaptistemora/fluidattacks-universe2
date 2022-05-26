@@ -10,7 +10,7 @@ from typing import (
 
 
 async def get_organization_name(loaders: Any, group_name: str) -> str:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization_typed.load(
         group.organization_id
     )

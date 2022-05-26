@@ -47,7 +47,5 @@ async def resolve(
     user_groups = active + inactive
 
     loaders: Dataloaders = info.context.loaders
-    groups: Tuple[Group, ...] = await loaders.group_typed.load_many(
-        user_groups
-    )
+    groups: Tuple[Group, ...] = await loaders.group.load_many(user_groups)
     return groups_utils.filter_active_groups(groups)

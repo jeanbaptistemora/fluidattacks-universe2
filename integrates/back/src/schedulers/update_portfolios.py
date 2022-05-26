@@ -109,7 +109,7 @@ async def get_group_indicators_and_tags(
     loaders: Dataloaders,
     group: Group,
 ) -> dict[str, Any]:
-    unreliable_indicators = await loaders.group_indicators_typed.load(
+    unreliable_indicators = await loaders.group_unreliable_indicators.load(
         group.name
     )
     filtered_indicators = format_indicators(unreliable_indicators)
@@ -171,7 +171,7 @@ async def update_portfolios() -> None:
             "[scheduler]: working on organization",
             extra={"organization": org_name},
         )
-        org_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        org_groups: tuple[Group, ...] = await loaders.group.load_many(
             org_group_names
         )
         tag_groups: tuple[Group, ...] = tuple(

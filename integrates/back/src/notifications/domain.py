@@ -90,7 +90,7 @@ async def delete_group(
     requester_email: str,
     reason: str,
 ) -> bool:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
     organization: Organization = await loaders.organization_typed.load(org_id)
     org_name = organization.name

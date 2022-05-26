@@ -201,7 +201,7 @@ class CertificateCreator(CreatorPdf):
             [format_finding(loaders, finding, words) for finding in findings]
         )
         remediation_table = make_remediation_table(context_findings, words)
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         start_date: datetime = get_datetime_from_iso_str(
             await groups_domain.get_creation_date(loaders, group_name)
         )

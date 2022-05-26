@@ -146,7 +146,7 @@ async def main() -> None:
     _groups_roots: list[RootsByGroup] = await collect(
         [
             _roots_by_group(loaders, group)
-            for group in await loaders.group_typed.load_many(group_names)
+            for group in await loaders.group.load_many(group_names)
         ]
     )
 

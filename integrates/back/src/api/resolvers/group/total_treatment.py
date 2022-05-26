@@ -23,7 +23,7 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
     total_treatment = (
         group_indicators.treatment_summary._asdict()

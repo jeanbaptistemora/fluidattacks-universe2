@@ -38,7 +38,7 @@ async def resolve(
     user_group_names: list[str] = await groups_domain.get_groups_by_user(
         user_email, organization_id=organization_id
     )
-    user_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+    user_groups: tuple[Group, ...] = await loaders.group.load_many(
         user_group_names
     )
 

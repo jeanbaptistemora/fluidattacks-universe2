@@ -63,7 +63,7 @@ async def mutate(
         )
         raise ErrorUpdatingGroup.new()
 
-    group = await loaders.group_typed.load(group_name)
+    group = await loaders.group.load(group_name)
     await groups_domain.add_tags(
         loaders=loaders,
         group=group,
@@ -71,12 +71,12 @@ async def mutate(
         user_email=user_email,
     )
 
-    loaders.group_typed.clear(group_name)
+    loaders.group.clear(group_name)
     redis_del_by_deps_soon("add_group_tags", group_name=group_name)
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Tags added to {group_name} group successfully",
     )
 
-    group = await loaders.group_typed.load(group_name)
+    group = await loaders.group.load(group_name)
     return SimpleGroupPayload(success=True, group=group)

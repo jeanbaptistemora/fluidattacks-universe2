@@ -38,7 +38,7 @@ async def get_data_one_group(
     group_name: str,
 ) -> RemediatedStatus:
     indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
     return RemediatedStatus(
         group_name=group_name,

@@ -51,7 +51,7 @@ async def mutate(
 ) -> SimpleGroupPayload:
     group_name = group_name.lower()
     loaders: Dataloaders = info.context.loaders
-    group = await loaders.group_typed.load(group_name)
+    group = await loaders.group.load(group_name)
     user_info = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
@@ -74,6 +74,6 @@ async def mutate(
         )
         raise ErrorUpdatingGroup.new()
 
-    loaders.group_typed.clear(group_name)
-    group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group = await loaders.group.load(group_name)
     return SimpleGroupPayload(success=True, group=group)

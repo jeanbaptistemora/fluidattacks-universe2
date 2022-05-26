@@ -67,7 +67,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     requester_email = user_info["user_email"]
 
     try:

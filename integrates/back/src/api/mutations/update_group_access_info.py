@@ -49,7 +49,7 @@ async def mutate(
 ) -> SimplePayloadType:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     try:
         group_context = validations_utils.validate_markdown(
             kwargs.get("group_context", "")

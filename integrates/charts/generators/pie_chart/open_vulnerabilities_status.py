@@ -28,7 +28,7 @@ async def get_data_group(
     group_name: str,
 ) -> PortfoliosGroupsInfo:
     indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
     return PortfoliosGroupsInfo(
         group_name=group_name,

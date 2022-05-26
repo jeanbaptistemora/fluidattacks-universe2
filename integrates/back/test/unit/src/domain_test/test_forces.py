@@ -25,16 +25,14 @@ async def test_update_secret_token() -> None:
 
         token = "mock token"
         await update_token(group_name, organization_id, token)
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         assert group.agent_token == token
 
         await update_token(group_name, organization_id, "")
-        loaders.group_typed.clear(group_name)
-        group = await loaders.group_typed.load(group_name)
+        loaders.group.clear(group_name)
+        group = await loaders.group.load(group_name)
         assert group.agent_token is None
 
         group_name_no_token = "oneshottest"
-        group_no_token: Group = await loaders.group_typed.load(
-            group_name_no_token
-        )
+        group_no_token: Group = await loaders.group.load(group_name_no_token)
         assert group_no_token.agent_token is None

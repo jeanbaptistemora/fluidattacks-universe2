@@ -32,7 +32,7 @@ async def test_remove_files(populate: bool, email: str) -> None:
     group_name: str = "group1"
     file_name: str = "test.zip"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert len(group.files) == 4
     file_to_remove: GroupFile = next(
         file for file in group.files if file.file_name == file_name
@@ -46,8 +46,8 @@ async def test_remove_files(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["removeFiles"]["success"]
 
-    loaders.group_typed.clear(group_name)
-    group_updated: Group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group_updated: Group = await loaders.group.load(group_name)
     assert len(group_updated.files) == 3
     file_removed: Optional[GroupFile] = next(
         (file for file in group_updated.files if file.file_name == file_name),

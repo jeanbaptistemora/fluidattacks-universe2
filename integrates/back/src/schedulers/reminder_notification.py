@@ -47,7 +47,7 @@ async def send_reminder_notification() -> None:
             if group_name not in FI_TEST_PROJECTS.split(",")
         )
 
-    groups = await loaders.group_typed.load_many(group_names)
+    groups = await loaders.group.load_many(group_names)
     orgs_ids: set[str] = set(group.organization_id for group in groups)
 
     stakeholders_emails: list[str] = [

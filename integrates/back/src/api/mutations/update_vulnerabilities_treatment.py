@@ -76,7 +76,7 @@ async def mutate(
         loaders: Dataloaders = info.context.loaders
         finding: Finding = await loaders.finding.load(finding_id)
         group_name: str = finding.group_name
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         severity_score = findings_domain.get_severity_score(finding.severity)
         if parameters.get("treatment_manager"):
             parameters = duplicate_dict_keys(

@@ -59,7 +59,7 @@ async def resolve(
     group_name: str = str(get_key_or_fallback(kwargs)).lower()
     group_name_key = get_present_key(kwargs)
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
 
     return {
         "files": _format_group_files(group.files) if group.files else None,

@@ -164,7 +164,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> GitRoot:
     group_name = str(kwargs["group_name"]).lower()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     url: str = format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
@@ -291,7 +291,7 @@ async def add_ip_root(
     if not is_valid:
         raise InvalidParameter()
 
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization_typed.load(
         group.organization_id
     )
@@ -365,7 +365,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     port = url_attributes.port if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
 
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization_typed.load(
         group.organization_id
     )
@@ -652,7 +652,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
 ) -> Root:
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     root: Root = await loaders.root.load((group_name, root_id))
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
@@ -1001,7 +1001,7 @@ async def activate_root(
     new_status = RootStatus.ACTIVE
 
     if root.state.status != new_status:
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         organization: Organization = await loaders.organization_typed.load(
             group.organization_id
         )
@@ -1311,9 +1311,9 @@ async def move_root(
     target_group_name: str,
 ) -> str:
     root: Root = await loaders.root.load((group_name, root_id))
-    source_group: Group = await loaders.group_typed.load(group_name)
+    source_group: Group = await loaders.group.load(group_name)
     source_org_id = await orgs_domain.get_id_for_group(group_name)
-    target_group: Group = await loaders.group_typed.load(target_group_name)
+    target_group: Group = await loaders.group.load(target_group_name)
 
     if (
         root.state.status != RootStatus.ACTIVE

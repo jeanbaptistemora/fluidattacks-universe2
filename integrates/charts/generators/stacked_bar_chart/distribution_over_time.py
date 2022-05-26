@@ -46,7 +46,7 @@ async def get_group_document(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
 ) -> RiskOverTime:
     group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group)
+        await loaders.group_unreliable_indicators.load(group)
     )
     data: List[GroupDocumentData] = []
     data_monthly: List[GroupDocumentData] = []

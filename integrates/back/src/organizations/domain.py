@@ -204,7 +204,7 @@ async def get_all_active_groups_typed(
     all_groups_names: list[str] = []
     async for _, _, org_group_names in iterate_organizations_and_groups():
         all_groups_names.extend(org_group_names)
-    all_groups = await loaders.group_typed.load_many(all_groups_names)
+    all_groups = await loaders.group.load_many(all_groups_names)
     return groups_utils.filter_active_groups(tuple(all_groups))
 
 

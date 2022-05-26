@@ -430,7 +430,7 @@ async def _has_repeated_tags(
 ) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         existing_tags = group.tags
         all_tags = list(existing_tags or {}) + tags
         has_repeated_tags = len(all_tags) != len(set(all_tags))
@@ -718,8 +718,8 @@ async def remove_group(
     For production, remember to remove additional resources
     (user, findings, vulns ,etc) via the batch action remove_group_resources.
     """
-    loaders.group_typed.clear(group_name)
-    group: Group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group: Group = await loaders.group.load(group_name)
     if group.state.status == GroupStateStatus.DELETED:
         raise AlreadyPendingDeletion()
 
@@ -784,7 +784,7 @@ async def update_group_managed(
 ) -> None:
     validate_fields([comments])
     validate_string_length_between(comments, 0, 250)
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
 
     if managed != group.state.managed:
         await update_state_typed(
@@ -828,7 +828,7 @@ async def update_group(
         has_asm,
     )
 
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     if service != group.state.service:
         await deactivate_all_roots(
             loaders=loaders,
@@ -1221,7 +1221,7 @@ async def invite_to_group(
     modified_by: str,
 ) -> bool:
     success = False
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     if (
         validate_field_length(responsibility, 50)
         and validate_alphanumeric_field(responsibility)
@@ -1269,7 +1269,7 @@ async def exists(
     group_name: str,
 ) -> bool:
     try:
-        await loaders.group_typed.load(group_name)
+        await loaders.group.load(group_name)
         return True
     except GroupNotFound:
         return False
@@ -1280,7 +1280,7 @@ async def is_valid(
     group_name: str,
 ) -> bool:
     if await exists(loaders, group_name):
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         if group.state.status == GroupStateStatus.ACTIVE:
             return True
     return False
@@ -1290,7 +1290,7 @@ async def mask_files(
     loaders: Any,
     group_name: str,
 ) -> None:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     resources_files = await resources_utils.search_file(f"{group_name}/")
     if resources_files:
         await collect(
@@ -1322,7 +1322,7 @@ async def add_file(
     group_name: str,
     user_email: str,
 ) -> None:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     modified_date: str = datetime_utils.get_iso_date()
     validations.validate_fields([description])
     validations.validate_field_length(description, 200)
@@ -1364,7 +1364,7 @@ async def remove_file(
     file_name: str,
     user_email: str,
 ) -> None:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     if not group.files:
         raise ErrorUpdatingGroup.new()
 
@@ -1501,7 +1501,7 @@ async def remove_user(
     if not success:
         return False
 
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
     has_org_access, user_groups_names = await collect(
         (
@@ -1517,7 +1517,7 @@ async def remove_user(
         for group_name in user_groups_names
         if group_name in org_groups_names
     )
-    user_org_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+    user_org_groups: tuple[Group, ...] = await loaders.group.load_many(
         user_org_groups_names
     )
     has_groups_in_org = bool(
@@ -1531,7 +1531,7 @@ async def remove_user(
     if not success:
         return False
 
-    all_groups_by_user = await loaders.group_typed.load_many(user_groups_names)
+    all_groups_by_user = await loaders.group.load_many(user_groups_names)
     all_active_groups_by_user = groups_utils.filter_active_groups(
         all_groups_by_user
     )
@@ -1604,7 +1604,7 @@ async def update_group_info(
     metadata: GroupMetadataToUpdate,
     user_email: str,
 ) -> None:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
 
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     users_email = await group_access_domain.get_users_email_by_preferences(
@@ -1639,7 +1639,7 @@ async def update_forces_access_token(
     expiration_time: int,
     responsible: str,
 ) -> UpdateAccessTokenPayloadType:
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     had_token: bool = bool(group.agent_token)
 
     result = await users_domain.update_access_token(email, expiration_time)
@@ -2084,9 +2084,7 @@ async def request_upgrade(
     ):
         raise GroupNotFound()
 
-    groups: tuple[Group, ...] = await loaders.group_typed.load_many(
-        group_names
-    )
+    groups: tuple[Group, ...] = await loaders.group.load_many(group_names)
     if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
@@ -2099,9 +2097,9 @@ async def get_creation_date(
     loaders: Any,
     group_name: str,
 ) -> str:
-    historic: tuple[
-        GroupState, ...
-    ] = await loaders.group_historic_state_typed.load(group_name)
+    historic: tuple[GroupState, ...] = await loaders.group_historic_state.load(
+        group_name
+    )
     return historic[0].modified_date
 
 

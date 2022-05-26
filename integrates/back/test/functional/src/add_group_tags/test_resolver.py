@@ -33,7 +33,7 @@ async def test_add_group_tags(
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     if group.tags:
         assert tag_to_add not in group.tags
 
@@ -46,8 +46,8 @@ async def test_add_group_tags(
     assert "success" in result["data"]["addGroupTags"]
     assert result["data"]["addGroupTags"]["success"]
 
-    loaders.group_typed.clear(group_name)
-    group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group = await loaders.group.load(group_name)
     if group.tags:
         assert tag_to_add in group.tags
     else:

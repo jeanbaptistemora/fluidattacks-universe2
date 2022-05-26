@@ -290,7 +290,7 @@ async def _send_digest_report(
 
     if FI_ENVIRONMENT == "production":
         loaders = loaders if loaders else get_new_context()
-        user_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        user_groups: tuple[Group, ...] = await loaders.group.load_many(
             group_names
         )
         groups_filtered = groups_utils.filter_active_groups(user_groups)
@@ -375,7 +375,7 @@ async def _should_not_send_report(
 ) -> bool:
     if report_entity.lower() == "group":
         group_name = report_subject.lower()
-        group: Group = await loaders.group_typed.load(group_name)
+        group: Group = await loaders.group.load(group_name)
         if group.state.status == GroupStateStatus.DELETED:
             await unsubscribe_user_to_entity_report(
                 report_entity=report_entity,
@@ -462,7 +462,7 @@ async def _get_digest_stats(
     digest_group_names = tuple(set(chain.from_iterable(digest_group_names)))
 
     if FI_ENVIRONMENT == "production":
-        all_groups: tuple[Group, ...] = await loaders.group_typed.load_many(
+        all_groups: tuple[Group, ...] = await loaders.group.load_many(
             digest_group_names
         )
         groups_filtered = groups_utils.filter_active_groups(all_groups)

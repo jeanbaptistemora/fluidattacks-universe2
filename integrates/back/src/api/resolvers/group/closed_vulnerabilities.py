@@ -24,6 +24,6 @@ async def resolve(
 ) -> Optional[int]:
     loaders: Dataloaders = info.context.loaders
     group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(parent.name)
+        await loaders.group_unreliable_indicators.load(parent.name)
     )
     return group_indicators.closed_vulnerabilities

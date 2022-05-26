@@ -23,7 +23,7 @@ async def generate_one(
     group_name: str,
 ) -> int:
     indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
 
     return (

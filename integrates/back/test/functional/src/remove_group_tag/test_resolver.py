@@ -33,7 +33,7 @@ async def test_remove_group_tag(
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert tag_name in group.tags
 
     result: dict[str, Any] = await get_result(
@@ -43,8 +43,8 @@ async def test_remove_group_tag(
     assert "success" in result["data"]["removeGroupTag"]
     assert result["data"]["removeGroupTag"]["success"]
 
-    loaders.group_typed.clear(group_name)
-    group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group = await loaders.group.load(group_name)
     if group.tags:
         assert tag_name not in group.tags
     else:

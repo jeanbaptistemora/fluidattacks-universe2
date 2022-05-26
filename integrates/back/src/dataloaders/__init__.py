@@ -111,24 +111,24 @@ class Dataloaders(NamedTuple):
         FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
     me_vulnerabilities: AssignedVulnerabilitiesLoader
+    group: GroupLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
-    group_historic_state_typed: GroupHistoricStateLoader
-    group_indicators_typed: GroupUnreliableIndicatorsLoader
+    group_historic_state: GroupHistoricStateLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
-    group_typed: GroupLoader
+    group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     organization: OrganizationLoader
-    organization_groups_typed: OrganizationGroupsLoader
+    organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
-    organization_typed: OrganizationTypedLoader
     organization_tags: OrganizationTagsLoader
+    organization_typed: OrganizationTypedLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_secrets: RootSecretsLoader
@@ -206,19 +206,19 @@ def get_new_context() -> Dataloaders:
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
+        group=GroupLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=group_findings_loader,
-        group_historic_state_typed=GroupHistoricStateLoader(),
-        group_indicators_typed=GroupUnreliableIndicatorsLoader(),
+        group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=GroupStakeholdersLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
-        group_typed=GroupLoader(),
+        group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         organization=OrganizationLoader(),
-        organization_groups_typed=OrganizationGroupsLoader(),
+        organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),

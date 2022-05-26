@@ -27,7 +27,7 @@ from typing import (
 async def generate_one(group: str) -> Decimal:
     loaders: Dataloaders = get_new_context()
     group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group)
+        await loaders.group_unreliable_indicators.load(group)
     )
 
     return group_indicators.last_closed_vulnerability_days or Decimal("0.0")

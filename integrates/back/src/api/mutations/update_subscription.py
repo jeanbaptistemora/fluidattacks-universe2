@@ -40,7 +40,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group_typed.load(kwargs["group_name"])
+    group: Group = await loaders.group.load(kwargs["group_name"])
     org: Organization = await loaders.organization_typed.load(
         group.organization_id
     )

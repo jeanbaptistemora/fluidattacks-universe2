@@ -47,7 +47,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     is_finding_released: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
     type_ = str(comment_data["comment_type"])

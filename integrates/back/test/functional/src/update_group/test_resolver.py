@@ -31,7 +31,7 @@ async def test_update_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.state.type == GroupSubscriptionType.CONTINUOUS
     assert group.state.has_machine is False
     assert group.state.has_squad is True
@@ -43,8 +43,8 @@ async def test_update_group(populate: bool, email: str) -> None:
     assert "success" in result["data"]["updateGroup"]
     assert result["data"]["updateGroup"]["success"]
 
-    loaders.group_typed.clear(group_name)
-    group_updated: Group = await loaders.group_typed.load(group_name)
+    loaders.group.clear(group_name)
+    group_updated: Group = await loaders.group.load(group_name)
     assert group_updated.state.type == GroupSubscriptionType.ONESHOT
     assert group_updated.state.has_machine is False
     assert group_updated.state.has_squad is False

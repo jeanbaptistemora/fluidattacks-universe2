@@ -363,7 +363,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
             store = token_utils.get_request_store(context)
             group_name = await resolve_group_name(context, args, kwargs)
             loaders = context.loaders
-            group: Group = await loaders.group_typed.load(group_name)
+            group: Group = await loaders.group.load(group_name)
 
             # Unique ID for this decorator function
             context_store_key: str = function.get_id(

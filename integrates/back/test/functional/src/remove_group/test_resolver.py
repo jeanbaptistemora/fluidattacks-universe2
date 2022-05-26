@@ -46,7 +46,7 @@ async def test_remove_group(populate: bool, email: str) -> None:
     assert result["data"]["removeGroup"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.state.has_machine is False
     assert group.state.has_squad is False
     assert (

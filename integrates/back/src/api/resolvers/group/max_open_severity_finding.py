@@ -48,7 +48,7 @@ async def resolve_no_cache(
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     group_indicators: GroupUnreliableIndicators = (
-        await loaders.group_indicators_typed.load(group_name)
+        await loaders.group_unreliable_indicators.load(group_name)
     )
     finding_id = group_indicators.last_closed_vulnerability_finding
 

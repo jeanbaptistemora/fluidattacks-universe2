@@ -52,7 +52,7 @@ async def test_update_group_info(
     assert result["data"]["updateGroupInfo"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group_typed.load(group_name)
+    group: Group = await loaders.group.load(group_name)
     assert group.description == description
     assert group.language == GroupLanguage[language]
 

@@ -27,6 +27,6 @@ async def resolve(
 ) -> Group:
     group_name: str = str(kwargs["group_name"]).lower()
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group_typed.load(group_name.lower())
+    group: Group = await loaders.group.load(group_name.lower())
 
     return group
