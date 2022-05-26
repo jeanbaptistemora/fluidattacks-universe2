@@ -6,6 +6,9 @@ from cfn_tools.yaml_loader import (
     multi_constructor,
     TAG_MAP,
 )
+from contextlib import (
+    suppress,
+)
 from frozendict import (  # type: ignore
     frozendict,
 )
@@ -25,16 +28,6 @@ from parse_common.types import (
 from parse_json import (
     loads_blocking,
 )
-from ruamel.yaml.constructor import (
-    DuplicateKeyError,
-)
-from ruamel.yaml.error import (
-    MarkedYAMLError,
-    YAMLError,
-)
-from ruamel.yaml.reader import (
-    ReaderError,
-)
 from typing import (
     Any,
     AsyncIterator,
@@ -44,7 +37,6 @@ from typing import (
 )
 from utils.logs import (
     log_exception,
-    log_exception_blocking,
 )
 import yaml  # type: ignore
 
@@ -212,7 +204,7 @@ async def load_templates(
 
 
 def load_templates_blocking(content: str, fmt: str) -> Iterator[Node]:
-    try:
+    with suppress(Exception):
         templates: Node = load_cfn(
             stream=content,
             fmt=fmt,
@@ -224,15 +216,6 @@ def load_templates_blocking(content: str, fmt: str) -> Iterator[Node]:
         ):
             # Exception: FP(AsyncIterator is subtype of Iterator)
             yield template  # NOSONAR
-    except (
-        MetaloaderError,
-        ReaderError,
-        KeyError,
-        DuplicateKeyError,
-        YAMLError,
-        MarkedYAMLError,
-    ) as exc:
-        log_exception_blocking("error", exc)
 
 
 async def load(content: str, fmt: str) -> Any:
