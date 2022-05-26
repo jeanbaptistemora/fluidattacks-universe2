@@ -46,7 +46,6 @@ type Credentials {
   type: String!
   "Https user"
   user: String
-
 }
 
 "Git Root type definition"
@@ -141,6 +140,8 @@ type URLRoot implements IRoot {
   port: Int!
   "URL protocol"
   protocol: URLProtocol!
+  "URL query"
+  query: String
   "Secrets for the environment"
   secrets: [Secret!]!
   "Whether the root is active or not"

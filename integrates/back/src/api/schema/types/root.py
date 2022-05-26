@@ -33,6 +33,7 @@ from api.resolvers.url_root import (
     path,
     port as url_port,
     protocol,
+    query,
 )
 from ariadne import (
     ObjectType,
@@ -77,6 +78,7 @@ URLROOT.set_field("nickname", nickname.resolve)
 URLROOT.set_field("path", path.resolve)
 URLROOT.set_field("port", url_port.resolve)
 URLROOT.set_field("protocol", protocol.resolve)
+URLROOT.set_field("query", query.resolve)
 URLROOT.set_field("secrets", secrets.resolve)
 URLROOT.set_field("state", state.resolve)
 URLROOT.set_field("vulnerabilities", vulnerabilities.resolve)
