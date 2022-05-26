@@ -25,14 +25,16 @@ const ComponentField: React.FC<IComponentFieldProps> = (
       </ControlLabel>
       <Row>
         {_.isUndefined(host) ? undefined : <span>{host}</span>}
-        <Field
-          component={FormikText}
-          disabled={false}
-          name={"path"}
-          placeholder={t("group.toe.inputs.addModal.fields.path")}
-          type={"text"}
-          validate={validatePath}
-        />
+        {_.isString(host) && host.includes("?") ? undefined : (
+          <Field
+            component={FormikText}
+            disabled={false}
+            name={"path"}
+            placeholder={t("group.toe.inputs.addModal.fields.path")}
+            type={"text"}
+            validate={validatePath}
+          />
+        )}
       </Row>
     </FormGroup>
   );

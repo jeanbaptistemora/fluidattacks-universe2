@@ -49,6 +49,7 @@ interface IURLRootAttr {
   path: string;
   port: number;
   protocol: "HTTP" | "HTTPS";
+  query: string | null;
   state: "ACTIVE" | "INACTIVE";
 }
 

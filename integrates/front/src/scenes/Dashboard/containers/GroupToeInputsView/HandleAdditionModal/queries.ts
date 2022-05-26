@@ -47,6 +47,7 @@ const GET_ROOTS: DocumentNode = gql`
           path
           port
           protocol
+          query
           state
         }
       }
