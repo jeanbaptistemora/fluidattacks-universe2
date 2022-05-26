@@ -179,6 +179,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         nickname, url, kwargs["environment"]
     )
     validations.validate_nickname(nickname)
+    validations.validate_environment(kwargs["environment"])
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
     )
