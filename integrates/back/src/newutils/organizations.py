@@ -1,3 +1,7 @@
+from db_model.organizations.constants import (
+    DEFAULT_MAX_SEVERITY,
+    DEFAULT_MIN_SEVERITY,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -81,12 +85,18 @@ def format_organization_policies(item: Item) -> OrganizationPolicies:
         max_acceptance_days=int(item["max_acceptance_days"])
         if item.get("max_acceptance_days") is not None
         else None,
-        max_acceptance_severity=item.get("max_acceptance_severity"),
+        max_acceptance_severity=item.get(
+            "max_acceptance_severity", DEFAULT_MAX_SEVERITY
+        ),
         max_number_acceptances=int(max_number_acceptances)
         if max_number_acceptances is not None
         else None,
-        min_acceptance_severity=item.get("min_acceptance_severity"),
-        min_breaking_severity=item.get("min_breaking_severity"),
+        min_acceptance_severity=item.get(
+            "min_acceptance_severity", DEFAULT_MIN_SEVERITY
+        ),
+        min_breaking_severity=item.get(
+            "min_breaking_severity", DEFAULT_MIN_SEVERITY
+        ),
         modified_date=convert_to_iso_str(last_entry_policies["date"])
         if last_entry_policies.get("date")
         else None,

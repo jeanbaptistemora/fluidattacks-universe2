@@ -544,8 +544,8 @@ async def update_policies(
                 )
                 valid.append(validator_func(value))
         valid.append(
-            await validate_acceptance_severity_range(
-                loaders, organization_id, org_policies._asdict()
+            await validate_acceptance_severity_range_typed(
+                loaders, organization_id, org_policies
             )
         )
     except (
@@ -656,28 +656,34 @@ async def send_mail_policies(
         )
 
 
-async def validate_acceptance_severity_range(
-    loaders: Any, organization_id: str, values: Dict[str, Optional[Decimal]]
+async def validate_acceptance_severity_range_typed(
+    loaders: Any, organization_id: str, values: OrganizationPolicies
 ) -> bool:
     success: bool = True
-    organization_data = await loaders.organization.load(organization_id)
-    min_acceptance_severity: Decimal = organization_data[
-        "min_acceptance_severity"
-    ]
-    max_acceptance_severity: Decimal = organization_data[
-        "max_acceptance_severity"
-    ]
-    min_value: Decimal = (
-        cast(Decimal, values["min_acceptance_severity"])
-        if values.get("min_acceptance_severity", None) is not None
+    organization_data: Organization = await loaders.organization_typed.load(
+        organization_id
+    )
+    min_acceptance_severity = (
+        organization_data.policies.min_acceptance_severity
+    )
+    max_acceptance_severity = (
+        organization_data.policies.max_acceptance_severity
+    )
+    min_value = (
+        values.min_acceptance_severity
+        if values.min_acceptance_severity is not None
         else min_acceptance_severity
     )
-    max_value: Decimal = (
-        cast(Decimal, values["max_acceptance_severity"])
-        if values.get("max_acceptance_severity", None) is not None
+    max_value = (
+        values.max_acceptance_severity
+        if values.max_acceptance_severity is not None
         else max_acceptance_severity
     )
-    if min_value > max_value:
+    if (
+        min_value is not None
+        and max_value is not None
+        and (min_value > max_value)
+    ):
         raise InvalidAcceptanceSeverityRange()
     return success
 

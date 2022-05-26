@@ -37,6 +37,9 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.users.types import (
     User,
 )
@@ -60,9 +63,6 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     validations,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -107,10 +107,10 @@ async def _validate_acceptance_days(
             values["acceptance_date"]
         )
         acceptance_days = Decimal((acceptance_date - today).days)
-        organization_data = await loaders.organization.load(organization_id)
-        max_acceptance_days: Optional[Decimal] = organization_data[
-            "max_acceptance_days"
-        ]
+        organization_data: Organization = (
+            await loaders.organization_typed.load(organization_id)
+        )
+        max_acceptance_days = organization_data.policies.max_acceptance_days
         if (
             max_acceptance_days is not None
             and acceptance_days > max_acceptance_days
@@ -131,13 +131,19 @@ async def _validate_acceptance_severity(
     """
     valid: bool = True
     if values.get("treatment") == "ACCEPTED":
-        organization_data = await loaders.organization.load(organization_id)
-        min_value: Decimal = organization_data["min_acceptance_severity"]
-        max_value: Decimal = organization_data["max_acceptance_severity"]
-        if not (
-            min_value
-            <= Decimal(severity).quantize(Decimal("0.1"))
-            <= max_value
+        organization_data: Organization = (
+            await loaders.organization_typed.load(organization_id)
+        )
+        min_value = organization_data.policies.min_acceptance_severity
+        max_value = organization_data.policies.max_acceptance_severity
+        if (
+            min_value is not None
+            and max_value is not None
+            and not (
+                min_value
+                <= Decimal(severity).quantize(Decimal("0.1"))
+                <= max_value
+            )
         ):
             raise InvalidAcceptanceSeverity(str(severity))
     return valid
@@ -155,12 +161,10 @@ async def _validate_number_acceptances(
     """
     valid: bool = True
     if values["treatment"] == "ACCEPTED":
-        organization_data = await loaders.organization.load(organization_id)
-        max_acceptances: Optional[Decimal] = get_key_or_fallback(
-            organization_data,
-            "max_number_acceptances",
-            "max_number_acceptations",
+        organization_data: Organization = (
+            await loaders.organization_typed.load(organization_id)
         )
+        max_acceptances = organization_data.policies.max_number_acceptances
         current_acceptances: int = sum(
             1
             for item in historic_treatment

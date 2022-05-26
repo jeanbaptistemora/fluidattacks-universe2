@@ -392,12 +392,12 @@ async def test_validate_severity_range() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_min_acceptance_severity(Decimal("10.1"))
 
-    values = {
-        "min_acceptance_severity": Decimal("8.0"),
-        "max_acceptance_severity": Decimal("5.0"),
-    }
+    values = OrganizationPolicies(
+        min_acceptance_severity=Decimal("8.0"),
+        max_acceptance_severity=Decimal("5.0"),
+    )
     with pytest.raises(InvalidAcceptanceSeverityRange):
-        await orgs_domain.validate_acceptance_severity_range(
+        await orgs_domain.validate_acceptance_severity_range_typed(
             get_new_context(),
             "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
             values,
