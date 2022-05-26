@@ -34,6 +34,7 @@ const ManagementUrlModal: React.FC<IManagementModalProps> = ({
     path: "",
     port: 0,
     protocol: "HTTPS",
+    query: "",
     state: "ACTIVE",
   },
   onClose,

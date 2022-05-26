@@ -237,6 +237,10 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                     header: t("group.scope.url.protocol"),
                   },
                   {
+                    dataField: "query",
+                    header: t("group.scope.url.query"),
+                  },
+                  {
                     dataField: "nickname",
                     header: t("group.scope.ip.nickname"),
                   },
