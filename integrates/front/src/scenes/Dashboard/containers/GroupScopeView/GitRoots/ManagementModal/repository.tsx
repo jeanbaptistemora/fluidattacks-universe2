@@ -41,7 +41,12 @@ import {
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { openUrl } from "utils/resourceHelpers";
-import { hasSshFormat } from "utils/validations";
+import {
+  composeValidators,
+  hasSshFormat,
+  required,
+  validEnvironment,
+} from "utils/validations";
 
 interface IRepositoryProps {
   groupName: string;
@@ -506,6 +511,10 @@ const Repository: React.FC<IRepositoryProps> = ({
                             "group.scope.git.repo.environmentHint"
                           )}
                           type={"text"}
+                          validate={composeValidators([
+                            required,
+                            validEnvironment,
+                          ])}
                         />
                       </div>
                     </div>
