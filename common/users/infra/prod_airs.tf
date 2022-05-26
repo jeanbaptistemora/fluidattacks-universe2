@@ -7,6 +7,7 @@ locals {
           {
             Sid    = "s3Write"
             Effect = "Allow"
+            // This bucket belogs to airs, so this wildcard is not dangerous
             Action = ["*"]
             Resource = [
               "arn:aws:s3:::fluidattacks.com",
@@ -15,21 +16,6 @@ locals {
               "arn:aws:s3:::web.eph.fluidattacks.com",
               "arn:aws:s3:::web.eph.fluidattacks.com/*",
             ]
-          },
-          {
-            Sid    = "kmsRead"
-            Effect = "Allow"
-            Action = [
-              "kms:CreateAlias",
-              "kms:CreateKey",
-              "kms:Describe*",
-              "kms:Get*",
-              "kms:List*",
-              "kms:TagResource",
-              "kms:UntagResource",
-              "kms:UpdateAlias",
-            ]
-            Resource = ["*"]
           },
           {
             Sid    = "dynamoWrite"
