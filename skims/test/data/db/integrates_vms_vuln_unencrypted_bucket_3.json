@@ -10,7 +10,7 @@
             "S": "2022-05-13T16:49:07.781638+00:00"
           },
           "pk": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "sk": {
             "S": "STATE#2022-05-13T16:49:07.781638+00:00"
@@ -31,7 +31,7 @@
             "S": "2022-05-13T16:49:07.781638+00:00"
           },
           "pk": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "sk": {
             "S": "TREATMENT#2022-05-13T16:49:07.781638+00:00"
@@ -49,7 +49,7 @@
             "S": "2022-05-13T20:57:20.750128+00:00"
           },
           "pk": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "sk": {
             "S": "VERIFICATION#2022-05-13T20:57:20.750128+00:00"
@@ -64,19 +64,19 @@
       "PutRequest": {
         "Item": {
           "commit": {
-            "S": "04a4964e15c13ed87a78837fc3c022c4f9dab7b7"
+            "S": "2b690c13d846927be02050c1bdca6c44dca73700"
           },
           "developer": {
             "S": "developer@fluidattacks.com"
           },
           "finding_id": {
-            "S": "bf2e6dbf-dea2-424e-8fee-7428979d5413"
+            "S": "ac27825e-b74e-4fe1-bb7c-eece7f9f6457"
           },
           "id": {
-            "S": "3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "226fe320-8986-4c94-8305-76d773bbeded"
           },
           "pk": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "pk_2": {
             "S": "ROOT#29d4bced-0785-450d-bdfe-d0babfcf7c83"
@@ -88,7 +88,7 @@
             "S": "EVENT"
           },
           "pk_5": {
-            "S": "FIN#bf2e6dbf-dea2-424e-8fee-7428979d5413"
+            "S": "FIN#ac27825e-b74e-4fe1-bb7c-eece7f9f6457"
           },
           "repo": {
             "S": "dynamic_namespace_3"
@@ -97,22 +97,22 @@
             "S": "29d4bced-0785-450d-bdfe-d0babfcf7c83"
           },
           "sk": {
-            "S": "FIN#bf2e6dbf-dea2-424e-8fee-7428979d5413"
+            "S": "FIN#ac27825e-b74e-4fe1-bb7c-eece7f9f6457"
           },
           "sk_2": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "sk_3": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "sk_4": {
-            "S": "VULN#3355d4d7-4d6c-4455-8079-172ed577e6de"
+            "S": "VULN#226fe320-8986-4c94-8305-76d773bbeded"
           },
           "sk_5": {
-            "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#requested"
+            "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#verified"
           },
           "skims_method": {
-            "S": "terraform.tfm_db_cluster_inside_subnet"
+            "S": "terraform.tfm_unencrypted_buckets"
           },
           "skims_technique": {
             "S": "BSAST"
@@ -193,7 +193,7 @@
                 "S": "2022-05-13T20:57:20.750128+00:00"
               },
               "status": {
-                "S": "REQUESTED"
+                "S": "VERIFIED"
               }
             }
           },

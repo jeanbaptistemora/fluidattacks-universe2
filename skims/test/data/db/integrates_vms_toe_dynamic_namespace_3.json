@@ -37,7 +37,7 @@
             "S": "customer@domain.com"
           },
           "last_commit": {
-            "S": "5a772da889fbc6d3afd55e058e2111994e3ae2c0"
+            "S": "2b690c13d846927be02050c1bdca6c44dca73700"
           },
           "loc": {
             "N": "0"
