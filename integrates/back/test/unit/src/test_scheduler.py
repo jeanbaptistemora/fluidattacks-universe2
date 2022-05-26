@@ -16,6 +16,9 @@ from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -41,7 +44,6 @@ from organizations import (
 )
 from organizations.domain import (
     get_id_by_name,
-    get_pending_deletion_date_str,
     iterate_organizations,
     update_pending_deletion_date,
 )
@@ -390,15 +392,19 @@ async def test_delete_obsolete_orgs() -> None:
     new_org_ids = []
     async for organization_id, _ in iterate_organizations():
         new_loaders: Dataloaders = get_new_context()
-        organization = await new_loaders.organization.load(organization_id)
-        if not orgs_utils.is_deleted_typed(organization):
+        new_org: Organization = await new_loaders.organization.load(
+            organization_id
+        )
+        if not orgs_utils.is_deleted_typed(new_org):
             new_org_ids.append(organization_id)
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9
 
     org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
-    org_pending_deletion_date = await get_pending_deletion_date_str(org_id)
-    assert org_pending_deletion_date == "2020-01-29 19:00:00"
+    new_loader = get_new_context()
+    new_organization: Organization = await new_loader.organization.load(org_id)
+    org_pending_deletion_date = new_organization.state.pending_deletion_date
+    assert org_pending_deletion_date == "2020-01-30T00:00:00+00:00"
 
 
 @pytest.mark.changes_db

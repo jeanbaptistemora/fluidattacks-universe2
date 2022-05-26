@@ -241,11 +241,6 @@ async def get_id_for_group(group_name: str) -> str:
     return await orgs_dal.get_id_for_group(group_name)
 
 
-async def get_name_for_group(group_name: str) -> str:
-    organization_id: str = await get_id_for_group(group_name)
-    return await get_name_by_id(organization_id)
-
-
 async def get_name_by_id(organization_id: str) -> str:
     result: Dict[str, Any] = await orgs_dal.get_by_id(
         organization_id, ["name"]
@@ -313,14 +308,6 @@ async def get_or_add(
     if email and (org_created or not has_access):
         await add_user(str(org["id"]), email, org_role)
     return org
-
-
-async def get_pending_deletion_date_str(organization_id: str) -> Optional[str]:
-    result = cast(
-        Dict[str, str],
-        await orgs_dal.get_by_id(organization_id, ["pending_deletion_date"]),
-    )
-    return result.get("pending_deletion_date")
 
 
 async def get_user_access(organization_id: str, email: str) -> Dict[str, Any]:

@@ -157,13 +157,19 @@ async def test_get_id_by_name() -> None:
 
 
 async def test_get_name_by_id() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     expected_org_name = "okada"
-    org_name = await orgs_domain.get_name_by_id(org_id)
+    organization: Organization = await loaders.organization.load(org_id)
+    org_name = organization.name
     assert org_name == expected_org_name
 
     with pytest.raises(OrganizationNotFound):
-        await orgs_domain.get_name_by_id("ORG#madeup-id")
+        new_loader: Dataloaders = get_new_context()
+        new_organization: Organization = await new_loader.organization.load(
+            "ORG#madeup-id"
+        )
+        org_name = new_organization.name
 
 
 async def test_get_id_for_group() -> None:
