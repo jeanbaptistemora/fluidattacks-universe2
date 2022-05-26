@@ -2,8 +2,8 @@
 """
 Migrate groups to "integrates_vms" table.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-05-26 at 02:20:18 UTC
+Finalization Time: 2022-05-26 at 02:36:49 UTC
 """
 
 from aioextensions import (
