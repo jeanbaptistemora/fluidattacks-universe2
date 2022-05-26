@@ -2,6 +2,11 @@ locals {
   environments = {
     limited_spot = {
       max_vcpus = 75
+      instances = [
+        "c5ad.large",
+        "c5ad.xlarge",
+        "c5ad.2xlarge",
+      ]
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -9,6 +14,11 @@ locals {
     }
     unlimited_spot = {
       max_vcpus = 10000
+      instances = [
+        "c5ad.large",
+        "c5ad.xlarge",
+        "c5ad.2xlarge",
+      ]
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -16,6 +26,42 @@ locals {
     }
     unlimited_spot_clone = {
       max_vcpus = 10000
+      instances = [
+        "c5ad.large",
+        "c5ad.xlarge",
+        "c5ad.2xlarge",
+      ]
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+      ]
+    }
+    small = {
+      max_vcpus = 10000
+      instances = ["c5ad.large"]
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+    }
+    medium = {
+      max_vcpus = 10000
+      instances = ["c5ad.xlarge"]
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+    }
+    large = {
+      max_vcpus = 10000
+      instances = ["c5ad.2xlarge"]
+      subnets = [
+        data.aws_subnet.batch_clone.id,
+        data.aws_subnet.batch_main.id,
+      ]
+    }
+    clone = {
+      max_vcpus = 10000
+      instances = ["c5ad.large"]
       subnets = [
         data.aws_subnet.batch_clone.id,
       ]
@@ -117,11 +163,7 @@ resource "aws_batch_compute_environment" "main" {
     instance_role       = aws_iam_instance_profile.main.arn
     spot_iam_fleet_role = data.aws_iam_role.prod_common.arn
 
-    instance_type = [
-      "c5ad.large",
-      "c5ad.xlarge",
-      "c5ad.2xlarge",
-    ]
+    instance_type      = each.value.instances
     security_group_ids = [aws_security_group.main.id]
     subnets            = each.value.subnets
 
