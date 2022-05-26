@@ -142,6 +142,7 @@ async def update_event_index(
     finding_id: str,
     entry: VulnerabilityVerification,
     vulnerability_id: str,
+    delete_index: bool = False,
 ) -> None:
     key_structure = TABLE.primary_key
     gsi_4_index = TABLE.indexes["gsi_4"]
@@ -170,6 +171,17 @@ async def update_event_index(
             await operations.update_item(
                 condition_expression=(base_condition),
                 item=vulnerability_item,
+                key=vulnerability_key,
+                table=TABLE,
+            )
+        if delete_index:
+            vulnerability_item_to_delete = {
+                gsi_4_index.primary_key.partition_key: None,
+                gsi_4_index.primary_key.sort_key: None,
+            }
+            await operations.update_item(
+                condition_expression=(base_condition),
+                item=vulnerability_item_to_delete,
                 key=vulnerability_key,
                 table=TABLE,
             )

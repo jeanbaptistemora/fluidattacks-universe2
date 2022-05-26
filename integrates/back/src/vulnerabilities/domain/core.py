@@ -43,6 +43,9 @@ from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
 )
+from db_model.vulnerabilities.update import (
+    update_event_index,
+)
 from dynamodb.types import (
     OrgFindingPolicyItem,
 )
@@ -906,8 +909,23 @@ async def close_by_exclusion(
                 justification=StateRemovalJustification.EXCLUSION,
             ),
         )
-        if vulns_utils.is_reattack_requested(vulnerability):
+        if vulns_utils.is_reattack_requested(
+            vulnerability
+        ) or vulns_utils.is_reattack_on_hold(vulnerability):
             await verify_vulnerability(vulnerability)
+            # If the root was deactivated/moved, we need to remove the on_hold
+            # status from vulns and remove them from the corresponding Event
+            if vulnerability.event_id is not None:
+                await update_event_index(
+                    finding_id=vulnerability.finding_id,
+                    entry=VulnerabilityVerification(
+                        modified_date=datetime_utils.get_iso_date(),
+                        status=VulnerabilityVerificationStatus.VERIFIED,
+                        event_id=None,
+                    ),
+                    vulnerability_id=vulnerability.id,
+                    delete_index=True,
+                )
 
 
 async def get_reattack_requester(
