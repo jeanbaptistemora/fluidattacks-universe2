@@ -1,4 +1,7 @@
 import aioboto3
+from aioboto3.dynamodb.table import (
+    CustomTableResource,
+)
 from aiobotocore.config import (
     AioConfig,
 )
@@ -12,6 +15,9 @@ from context import (
 )
 from contextlib import (
     AsyncExitStack,
+)
+from dynamodb.types import (
+    Table,
 )
 from typing import (
     Any,
@@ -46,6 +52,7 @@ RESOURCE_OPTIONS = {
 SESSION = aioboto3.Session()
 CONTEXT_STACK = None
 RESOURCE = None
+TABLE_RESOURCES: dict[str, CustomTableResource] = {}
 
 
 async def dynamo_startup() -> None:
@@ -57,6 +64,7 @@ async def dynamo_startup() -> None:
         SESSION.resource(**RESOURCE_OPTIONS)
     )
     CONTEXT_STACK = stack
+    TABLE_RESOURCES["integrates_vms"] = await RESOURCE.Table("integrates_vms")
 
 
 async def dynamo_shutdown() -> None:
@@ -69,3 +77,11 @@ async def get_resource() -> Any:
         await dynamo_startup()
 
     return RESOURCE
+
+
+async def get_table_resource(table: Table) -> CustomTableResource:
+    if table.name in TABLE_RESOURCES:
+        return TABLE_RESOURCES[table.name]
+
+    resource = await get_resource()
+    return await resource.Table(table.name)

@@ -4,7 +4,6 @@ from .utils import (
 )
 from aioboto3.dynamodb.table import (
     BatchWriter,
-    CustomTableResource,
 )
 import aioextensions
 from aioextensions import (
@@ -24,6 +23,7 @@ from dynamodb.exceptions import (
 )
 from dynamodb.resource import (
     get_resource,
+    get_table_resource,
 )
 from dynamodb.types import (
     Facet,
@@ -135,8 +135,7 @@ async def batch_delete_item(
     *, keys: Tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
 
     async with PatchedBatchWriter(
         table_resource.name,
@@ -205,8 +204,7 @@ async def batch_get_item(
 
 
 async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
 
     async with PatchedBatchWriter(
         table_resource.name,
@@ -235,8 +233,7 @@ async def delete_item(
     table: Table,
 ) -> None:
     key_structure = table.primary_key
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
     args = {
         "ConditionExpression": condition_expression,
         "Key": {
@@ -276,8 +273,7 @@ async def get_item(
     *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
 ) -> Optional[Item]:
     item: Optional[Item] = None
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
     get_item_args = _build_get_item_args(key=key, facets=facets, table=table)
 
     try:
@@ -296,8 +292,7 @@ async def put_item(
     item: Item,
     table: Table,
 ) -> None:
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
     facet_item = _build_facet_item(facet=facet, item=item, table=table)
     args = {
         "ConditionExpression": condition_expression,
@@ -321,8 +316,7 @@ async def query(  # pylint: disable=too-many-locals
     paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
     start_key = None
     if after:
         start_key = get_key_from_cursor(after, index, table)
@@ -396,8 +390,7 @@ async def update_item(
         for attr, value in item.items()
         if value is None
     )
-    resource = await get_resource()
-    table_resource: CustomTableResource = await resource.Table(table.name)
+    table_resource = await get_table_resource(table)
     base_args: Dict[str, Any] = {
         "ConditionExpression": condition_expression,
         "ExpressionAttributeNames": attr_names,
