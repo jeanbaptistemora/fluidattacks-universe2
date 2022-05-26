@@ -1,12 +1,14 @@
+from aws.model import (
+    AWSIamPolicyAttachment,
+    AWSIamPolicyStatement,
+    AWSIamRole,
+)
 from aws.services import (
     ACTIONS,
 )
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
-)
-from metaloaders.model import (
-    Node,
 )
 from model.core_model import (
     MethodsEnum,
@@ -16,9 +18,15 @@ from parse_hcl2.common import (
     get_attribute,
 )
 from parse_hcl2.structure.aws import (
+    _yield_statements_from_policy_document_attribute,
+    iter_aws_iam_role,
     iter_aws_kms_key_policy_statements,
     iter_iam_policy_attachment,
+    iter_iam_role_policy_statements,
     iterate_iam_policy_documents,
+)
+from parse_hcl2.tokens import (
+    Attribute,
 )
 import re
 from typing import (
@@ -28,6 +36,9 @@ from typing import (
     Pattern,
     Union,
 )
+
+WILDCARD_ACTION: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
+WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
 
 
 def _service_is_present_action(
@@ -41,8 +52,8 @@ def _service_is_present_action(
 
 
 def _tfm_iam_has_privileges_over_iam_iter_vulns(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
+    resource_iterator: Iterator[AWSIamPolicyStatement],
+) -> Iterator[AWSIamPolicyStatement]:
     for stmt in resource_iterator:
         effect = stmt.data.get("Effect", "")
         actions = stmt.data.get("Action", [])
@@ -50,7 +61,7 @@ def _tfm_iam_has_privileges_over_iam_iter_vulns(
             yield stmt
 
 
-def get_wildcard_nodes(actions: Node, pattern: Pattern) -> bool:
+def get_wildcard_nodes(actions: Any, pattern: Pattern) -> bool:
     for act in actions if isinstance(actions, list) else [actions]:
         if pattern.match(act):
             return True
@@ -72,8 +83,9 @@ def _is_statement_miss_configured(stmt: Any) -> bool:
 
 
 def _tfm_iam_is_policy_miss_configured_iter_vulns(
-    stmts_iterator: Iterator[Any], policy_iterator: Iterator[Any]
-) -> Iterator[Union[Any, Node]]:
+    stmts_iterator: Iterator[AWSIamPolicyStatement],
+    policy_iterator: Iterator[AWSIamPolicyAttachment],
+) -> Iterator[Union[AWSIamPolicyStatement, Attribute]]:
     for stmt in stmts_iterator:
         if _is_statement_miss_configured(stmt):
             yield stmt
@@ -112,8 +124,8 @@ def _resource_all(resource: Union[str, List[str]]) -> bool:
 
 
 def _tfm_iam_has_wildcard_resource_on_write_action_iter_vulns(
-    stmts_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
+    stmts_iterator: Iterator[AWSIamPolicyStatement],
+) -> Iterator[AWSIamPolicyStatement]:
     for stmt in stmts_iterator:
         effect = stmt.data.get("Effect")
         resource = stmt.data.get("Resource")
@@ -130,13 +142,76 @@ def _tfm_iam_has_wildcard_resource_on_write_action_iter_vulns(
 
 
 def _tfm_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
-    stmts_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
+    stmts_iterator: Iterator[AWSIamPolicyStatement],
+) -> Iterator[AWSIamPolicyStatement]:
     for stmt in stmts_iterator:
         effect = stmt.data.get("Effect")
         principal = stmt.data.get("Principal")
         p_aws = principal.get("AWS") if principal else None
         if effect == "Allow" and p_aws == "*":
+            yield stmt
+
+
+def _has_admin_access(managed_policies: List[Any]) -> bool:
+    if managed_policies:
+        for man_pol in managed_policies:
+            # IAM role should not have AdministratorAccess policy
+            if "AdministratorAccess" in str(man_pol):
+                return True
+    return False
+
+
+def _check_assume_role_policies(assume_role_policy: Attribute) -> bool:
+    for stmt in _yield_statements_from_policy_document_attribute(
+        assume_role_policy
+    ):
+        actions = stmt.data.get("Action")
+        effect = stmt.data.get("Effect")
+
+        if effect != "Allow":
+            continue
+        if stmt.data.get("NotAction") or stmt.data.get("NotPrincipal"):
+            return True
+
+        if actions and get_wildcard_nodes(actions, WILDCARD_ACTION):
+            return True
+    return False
+
+
+def _check_policy_documents(stmt: AWSIamPolicyStatement) -> bool:
+    effect = stmt.data.get("Effect")
+    resources = stmt.data.get("Resource")
+    actions = stmt.data.get("Action")
+
+    if effect != "Allow":
+        return False
+
+    if stmt.data.get("NotAction") or stmt.data.get("NotResource"):
+        return True
+
+    if actions and get_wildcard_nodes(actions, WILDCARD_ACTION):
+        return True
+    if resources and get_wildcard_nodes(resources, WILDCARD_RESOURCE):
+        return True
+    return False
+
+
+def _tfm_iam_role_is_over_privileged_iter_vulns(
+    role_iterator: Iterator[AWSIamRole],
+    role_policy_stmts_iterator: Iterator[AWSIamPolicyStatement],
+) -> Iterator[Any]:
+    for res in role_iterator:
+        managed_policies = get_attribute(res.data, "managed_policy_arns")
+        if managed_policies and _has_admin_access(managed_policies.val):
+            yield managed_policies
+
+        assume_role_policy = get_attribute(res.data, "assume_role_policy")
+        if assume_role_policy and _check_assume_role_policies(
+            assume_role_policy
+        ):
+            yield assume_role_policy
+    for stmt in role_policy_stmts_iterator:
+        if _check_policy_documents(stmt):
             yield stmt
 
 
@@ -206,4 +281,23 @@ def tfm_kms_key_has_master_keys_exposed_to_everyone(
         ),
         path=path,
         method=MethodsEnum.TFM_KMS_MASTER_KEYS_EXPOSED,
+    )
+
+
+def tfm_iam_role_is_over_privileged(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("src.lib_path.f325.iam_is_role_over_privileged"),
+        iterator=get_cloud_iterator(
+            _tfm_iam_role_is_over_privileged_iter_vulns(
+                role_iterator=iter_aws_iam_role(model=model),
+                role_policy_stmts_iterator=iter_iam_role_policy_statements(
+                    model=model
+                ),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_IAM_ROLE_OVER_PRIVILEGED,
     )

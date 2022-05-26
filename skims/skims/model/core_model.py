@@ -3079,6 +3079,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
+        file_name="terraform",
+        name="tfm_iam_role_is_over_privileged",
+        module="lib_path",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_is_role_over_privileged",

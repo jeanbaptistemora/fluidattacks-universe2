@@ -13901,6 +13901,214 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   76 | }
      ^ Col 0
 ",cloudformation.cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""sts:AssumeRole""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""NotAction"": ""s3:ListBucket"",
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf","
+  23 |       }
+  24 |     ]
+  25 |   }
+  26 |   EOF
+  27 | }
+  28 |
+  29 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  30 |   name = ""test_policy""
+  31 |   role = aws_iam_role.test_role.id
+  32 |
+> 33 |   policy = <<-EOF
+  34 |   {
+  35 |     ""Statement"": [
+  36 |       {
+  37 |         ""Effect"": ""Allow"",
+  38 |         ""NotAction"": ""*"",
+  39 |         ""NotResource"": ""*""
+  40 |       },
+  41 |       {
+  42 |         ""Effect"": ""Allow"",
+  43 |         ""NotAction"": ""*"",
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf","
+   1 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   2 |   name = ""test_policy""
+   3 |   role = aws_iam_role.test_role.id
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Action"": ""iam:PassRole"",
+  11 |         ""Resource"": ""*"",
+  12 |         ""Condition"": {
+  13 |           ""StringEquals"": {
+  14 |             ""iam:PassedToService"": ""cloudwatch.amazonaws.com""
+  15 |           }
+  16 |         }
+  17 |       },
+  18 |       {
+  19 |         ""Effect"": ""Allow"",
+  20 |         ""Action"": ""iam:PassRole"",
+  21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""sts:AssumeRole""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""ec2:*"",
+  44 |           ""autoscaling:*"",
+  45 |           ""eks:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf","
+   1 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   2 |   name = ""test_policy""
+   3 |   role = aws_iam_role.test_role.id
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Version"": ""2012-10-17"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Action"": [
+  11 |           ""ec2:*"",
+  12 |           ""s3:DeleteObjectVersion"",
+  13 |           ""eks:*""
+  14 |         ],
+  15 |         ""Resource"": ""*"",
+  16 |         ""Effect"": ""Allow"",
+  17 |         ""Principal"": ""*""
+  18 |       },
+  19 |       {
+  20 |         ""Action"": [
+  21 |           ""ec2:Something""
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""ssm:*""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""Deny"",
+  44 |           ""autoscaling:*"",
+  45 |           ""ssm:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,52,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
 - Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
@@ -14733,6 +14941,188 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   108 |            ]
       ^ Col 3
 ",cloudformation.cfn_iam_is_role_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""Action"": [
+  16 |           ""sts:AssumeRole""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_has_privileges_over_iam.tf","
+  27 |       }
+  28 |     ]
+  29 |   }
+  30 |   EOF
+  31 | }
+  32 |
+  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  34 |   name = ""test_policy""
+  35 |   role = aws_iam_role.test_role.id
+  36 |
+> 37 |   policy = <<-EOF
+  38 |   {
+  39 |     ""Version"": ""2012-10-17"",
+  40 |     ""Statement"": [
+  41 |       {
+  42 |         ""Action"": [
+  43 |           ""ec2:*"",
+  44 |           ""iam:*"",
+  45 |           ""eks:*""
+  46 |         ],
+  47 |         ""Resource"": ""*"",
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_has_wildcard_resource_on_write_action.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_has_wildcard_resource_on_write_action.tf","
+   1 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   2 |   name = ""test_policy""
+   3 |   role = aws_iam_role.test_role.id
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Version"": ""2012-10-17"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Action"": [
+  11 |           ""ec2:*"",
+  12 |           ""iam:*"",
+  13 |           ""eks:*""
+  14 |         ],
+  15 |         ""Resource"": ""*"",
+  16 |         ""Effect"": ""Allow""
+  17 |       },
+  18 |       {
+  19 |         ""Action"": [
+  20 |           ""ec2:Something""
+  21 |         ],
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_is_policy_miss_configured.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_is_policy_miss_configured.tf","
+   1 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   2 |   name = ""test_policy""
+   3 |   role = aws_iam_role.test_role.id
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Version"": ""2012-10-17"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Action"": [
+  11 |           ""ec2:*"",
+  12 |           ""iam:*"",
+  13 |           ""eks:*""
+  14 |         ],
+  15 |         ""Resource"": ""*"",
+  16 |         ""Effect"": ""Allow""
+  17 |       },
+  18 |       {
+  19 |         ""Action"": [
+  20 |           ""ec2:Something""
+  21 |         ],
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_role_is_over_privileged.tf,5,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_role_is_over_privileged.tf","
+   1 | resource ""aws_iam_role"" ""role"" {
+   2 |   name = ""test_role""
+   3 |   path = ""/""
+   4 |
+>  5 |   assume_role_policy = <<-EOF
+   6 |   {
+   7 |     ""Statement"": [
+   8 |       {
+   9 |         ""Effect"": ""Allow"",
+  10 |         ""Principal"": {
+  11 |           ""Service"": [
+  12 |             ""ec2.amazonaws.com""
+  13 |           ]
+  14 |         },
+  15 |         ""NotPrincipal"": {
+  16 |           ""Service"": [
+  17 |             ""s3.amazonaws.com""
+  18 |           ]
+  19 |         },
+  20 |         ""Action"": [
+  21 |           ""sts:AssumeRole""
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_role_is_over_privileged.tf,28,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_role_is_over_privileged.tf","
+  18 |           ]
+  19 |         },
+  20 |         ""Action"": [
+  21 |           ""sts:AssumeRole""
+  22 |         ]
+  23 |       }
+  24 |     ]
+  25 |   }
+  26 |   EOF
+  27 |
+> 28 |   managed_policy_arns = [
+  29 |     aws_iam_policy.policy_one.arn,
+  30 |     aws_iam_policy.policy_two.arn,
+  31 |     ""arn:aws:iam::aws:policy/AdministratorAccess"",
+  32 |     ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
+  33 |   ]
+  34 | }
+  35 |
+  36 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  37 |   name = ""test_policy""
+  38 |   role = aws_iam_role.test_role.id
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F325,lines,namespace/skims/test/data/lib_path/f325/tfm_iam_role_is_over_privileged.tf,40,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured:
+- Should not allow  action on its trust policy - Should not allow  action on its permissions policy - Should not allow AllowNotPrincipal in its trust policy - Should not allow  resource with PassRole action on its permissions policy - Should not allow  resource on its permissions policy - Should not allow AllowNotAction on trust permissions - Should not allow AllowNotAction - Should not allow AllowNotResource - Should not have AdministratorAccess policy
+ in namespace/skims/test/data/lib_path/f325/tfm_iam_role_is_over_privileged.tf","
+  30 |     aws_iam_policy.policy_two.arn,
+  31 |     ""arn:aws:iam::aws:policy/AdministratorAccess"",
+  32 |     ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
+  33 |   ]
+  34 | }
+  35 |
+  36 | resource ""aws_iam_role_policy"" ""test_policy"" {
+  37 |   name = ""test_policy""
+  38 |   role = aws_iam_role.test_role.id
+  39 |
+> 40 |   policy = <<-EOF
+  41 |   {
+  42 |     ""Version"": ""2012-10-17"",
+  43 |     ""Statement"": [
+  44 |       {
+  45 |         ""Action"": [
+  46 |           ""ec2:action""
+  47 |         ],
+  48 |         ""Resource"": ""*"",
+  49 |         ""Effect"": ""Allow""
+  50 |       }
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,23,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
   13 |           - Effect: Allow
   14 |             Action:

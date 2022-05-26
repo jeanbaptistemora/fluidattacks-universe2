@@ -17,6 +17,7 @@ from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyAttachment,
     AWSIamPolicyStatement,
+    AWSIamRole,
     AWSInstance,
     AWSKmsKey,
     AWSLaunchConfiguration,
@@ -142,6 +143,26 @@ def iter_aws_kms_key_policy_statements(
 ) -> Iterator[AWSIamPolicyStatement]:
     iterator = iterate_resources(model, "resource", "aws_kms_key")
     for res in iterator:
+        attribute = get_block_attribute(res, "policy")
+        yield from _yield_statements_from_policy_document_attribute(attribute)
+
+
+def iter_aws_iam_role(
+    model: Any,
+) -> Iterator[AWSIamRole]:
+    iterator = iterate_resources(model, "resource", "aws_iam_role")
+    for resource in iterator:
+        yield AWSIamRole(
+            data=resource.body,
+            column=resource.column,
+            line=resource.line,
+        )
+
+
+def iter_iam_role_policy_statements(
+    model: Any,
+) -> Iterator[AWSIamPolicyStatement]:
+    for res in iterate_resources(model, "resource", "aws_iam_role_policy"):
         attribute = get_block_attribute(res, "policy")
         yield from _yield_statements_from_policy_document_attribute(attribute)
 
