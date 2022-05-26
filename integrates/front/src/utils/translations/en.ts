@@ -308,6 +308,11 @@ export const enTranslations: ResourceKey = {
           "Git associates a remote URL with a name, and your default remote is usually called origin.",
       },
     },
+    cancelModal: {
+      body: "Do you want to cancel your free trial?",
+      no: "no",
+      yes: "yes",
+    },
   },
   comments: {
     editorPlaceholder: "Add your comment here",

@@ -12,6 +12,7 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
+import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   handleValidationError,
@@ -33,7 +34,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
   setRepositoryValues,
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
-  const { goBack } = useHistory();
+  const { push } = useHistory();
 
   const [rootMessages, setRootMessages] = useState({
     message: "",
@@ -43,6 +44,17 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
   const [isGitAccessible, setIsGitAccessible] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  function cancelClick(): void {
+    setShowCancelModal(true);
+  }
+  function yesClick(): void {
+    push("/");
+  }
+  function noClick(): void {
+    setShowCancelModal(false);
+  }
 
   const formRef = useRef<FormikProps<IRootAttr>>(null);
 
@@ -401,9 +413,20 @@ const AddRoot: React.FC<IAddRootProps> = ({
               )}
               <Row justify={"center"}>
                 <Col>
-                  <Button onClick={goBack} variant={"secondary"}>
+                  <Button onClick={cancelClick} variant={"secondary"}>
                     {t("confirmmodal.cancel")}
                   </Button>
+                  <Modal open={showCancelModal} size={"medium"} title={""}>
+                    <p>{t("autoenrollment.cancelModal.body")}</p>
+                    <ModalFooter>
+                      <Button onClick={yesClick} variant={"primary"}>
+                        {t("autoenrollment.cancelModal.yes")}
+                      </Button>
+                      <Button onClick={noClick} variant={"secondary"}>
+                        {t("autoenrollment.cancelModal.no")}
+                      </Button>
+                    </ModalFooter>
+                  </Modal>
                 </Col>
               </Row>
             </Form>

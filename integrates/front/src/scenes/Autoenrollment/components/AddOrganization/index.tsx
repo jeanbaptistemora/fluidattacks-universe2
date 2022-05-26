@@ -16,6 +16,7 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
+import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   handleGroupCreateError,
@@ -50,7 +51,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   setIsRepository,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
-  const { goBack, replace } = useHistory();
+  const { push, replace } = useHistory();
 
   const [orgMessages, setOrgMessages] = useState({
     message: "",
@@ -58,8 +59,18 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   });
   const [organization, setOrganization] = useState("");
   const [group, setGroup] = useState("");
-
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  function cancelClick(): void {
+    setShowCancelModal(true);
+  }
+  function yesClick(): void {
+    push("/");
+  }
+  function noClick(): void {
+    setShowCancelModal(false);
+  }
 
   const [addOrganization, { loading: submittingOrg }] =
     useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
@@ -340,9 +351,20 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
           </Row>
           <Row justify={"center"}>
             <Col>
-              <Button onClick={goBack} variant={"secondary"}>
+              <Button onClick={cancelClick} variant={"secondary"}>
                 {t("confirmmodal.cancel")}
               </Button>
+              <Modal open={showCancelModal} size={"medium"} title={""}>
+                <p>{t("autoenrollment.cancelModal.body")}</p>
+                <ModalFooter>
+                  <Button onClick={yesClick} variant={"primary"}>
+                    {t("autoenrollment.cancelModal.yes")}
+                  </Button>
+                  <Button onClick={noClick} variant={"secondary"}>
+                    {t("autoenrollment.cancelModal.no")}
+                  </Button>
+                </ModalFooter>
+              </Modal>
             </Col>
           </Row>
         </Form>
