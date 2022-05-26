@@ -31,9 +31,9 @@
           "oneOf": [
             { "type": "object",
               "additionalProperties": false,
-              "required": [ "noncompliant", "compliant" ],
+              "required": [ "non_compliant", "compliant" ],
               "properties": {
-                "noncompliant": { "type": "string" },
+                "non_compliant": { "type": "string" },
                 "compliant": { "type": "string" }
               }
             },

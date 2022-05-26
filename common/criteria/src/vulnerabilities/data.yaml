@@ -339,7 +339,61 @@
       y evite los caracteres especiales.
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```c {3,7,15}
+        public void bad() throws Throwable
+      {
+        String data;
+
+        /* get environment variable ADD */
+        /* POTENTIAL FLAW: Read data from an environment variable */
+        data = System.getenv("ADD");
+
+        String osCommand;
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+        {
+            /* running on Windows */
+            osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
+        }
+        else
+        {
+            /* running on non-Windows */
+            osCommand = "/bin/ls ";
+        }
+
+        /* POTENTIAL FLAW: command injection */
+        Process process = Runtime.getRuntime().exec(osCommand + data);
+        process.waitFor();
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      private void goodG2B() throws Throwable
+      {
+        String data;
+
+        /* FIX: Use a hardcoded string */
+        data = "foo";
+
+        String osCommand;
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+        {
+            /* running on Windows */
+            osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
+        }
+        else
+        {
+            /* running on non-Windows */
+            osCommand = "/bin/ls ";
+        }
+
+        /* POTENTIAL FLAW: command injection */
+        Process process = Runtime.getRuntime().exec(osCommand + data);
+        process.waitFor();
+      }
+      ```
+      Source Code: https://raw.githubusercontent.com/find-sec-bugs/juliet-test-suite/master/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_01.java
   remediation_time: "30"
   score:
     base:
@@ -358,65 +412,7 @@
   requirements: ["173", "265", "266"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```c {3,7,15}
-         public void bad() throws Throwable
-        {
-          String data;
-
-          /* get environment variable ADD */
-          /* POTENTIAL FLAW: Read data from an environment variable */
-          data = System.getenv("ADD");
-
-          String osCommand;
-          if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-          {
-              /* running on Windows */
-              osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
-          }
-          else
-          {
-              /* running on non-Windows */
-              osCommand = "/bin/ls ";
-          }
-
-          /* POTENTIAL FLAW: command injection */
-          Process process = Runtime.getRuntime().exec(osCommand + data);
-          process.waitFor();
-        }
-        ```
-
-        #### 2. Compliant Code:
-
-        ```c {3,7,15}
-        private void goodG2B() throws Throwable
-        {
-          String data;
-
-          /* FIX: Use a hardcoded string */
-          data = "foo";
-
-          String osCommand;
-          if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-          {
-              /* running on Windows */
-              osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
-          }
-          else
-          {
-              /* running on non-Windows */
-              osCommand = "/bin/ls ";
-          }
-
-          /* POTENTIAL FLAW: command injection */
-          Process process = Runtime.getRuntime().exec(osCommand + data);
-          process.waitFor();
-        }
-        ```
-        Source Code: https://raw.githubusercontent.com/find-sec-bugs/juliet-test-suite/master/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_01.java
+      details: __empty__
 "005":
   en:
     title: Privilege escalation
@@ -719,7 +715,17 @@
       o variables de entorno administrativas.
     threat: Atacante con acceso al código fuente desde Internet.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      azon.aws.accesskey          = AKIA0000000000000000
+      sonar.password = 123
+      ```
+    compliant: |
+      ```yaml
+      azon.aws.accesskey          = ${aws_access_key}
+      sonar.password = ENC(something-base64-encoded-but-encrypted)
+      ```
   remediation_time: "30"
   score:
     base:
@@ -759,21 +765,6 @@
         in addition to removing the credentials from the code,
         we require a customer confirmation
         that the credentials were changed to close the vulnerability.
-
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        azon.aws.accesskey          = AKIA0000000000000000
-        sonar.password = 123
-        ```
-
-        #### 2. Compliant Code:
-
-        ```hcl
-        azon.aws.accesskey          = ${aws_access_key}
-        sonar.password = ENC(something-base64-encoded-but-encrypted)
-        ```
 "010":
   en:
     title: Stored cross-site scripting (XSS)
@@ -857,7 +848,30 @@
       por el fabricante.
     threat: Atacante autenticado desde Internet.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```json
+      {
+        "name": "test",
+        "version": "1.0.0",
+        "description": "nothing",
+        "main": "index.js",
+        "author": "Luis Saavedra",
+        "license": "MIT",
+        "private": false,
+        "dependencies": {
+          "@angular/core": "^13.3.3",
+          "cloudron-sysadmin": "1.0.0",
+          "script-manager": "0.8.6",
+          "slug": "0.9.0"
+        },
+        "devDependencies": {
+          "xmldom": "0.4.0"
+        }
+      }
+      ```
+    compliant: |
+      Search for known vulnerabilities of any dependencies used on the code, replace them for safer alternatives
   remediation_time: "60"
   score:
     base:
@@ -876,33 +890,7 @@
   requirements: ["262"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        The xmldom dependency has known vulnerabilities (e.g. Improper input validation)
-        ```json
-        {
-          "name": "test",
-          "version": "1.0.0",
-          "description": "nothing",
-          "main": "index.js",
-          "author": "Luis Saavedra",
-          "license": "MIT",
-          "private": false,
-          "dependencies": {
-            "@angular/core": "^13.3.3",
-            "cloudron-sysadmin": "1.0.0",
-            "script-manager": "0.8.6",
-            "slug": "0.9.0"
-          },
-          "devDependencies": {
-            "xmldom": "0.4.0"
-          }
-        }
-        ```
-        #### 2. Compliant Code:
-        Search for known vulnerabilities of any dependencies used on the code, replace them for safer alternatives
+      details: __empty__
 "012":
   en:
     title: SQL injection - Java Persistence API
@@ -1109,7 +1097,28 @@
       Atacante sin autorización desde red adyacente
       ejecutando un ataque de Sniffing.
   category: Protocol Manipulation
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      resource "azurerm_linux_virtual_machine" "vulnerable" {
+        name           = "example-machine"
+        size           = "Standard_F2"
+        admin_username = "adminuser"
+      }
+      ```
+    compliant: |
+      ```yaml
+      resource "azurerm_linux_virtual_machine" "not_vulnerable" {
+        name           = "example-machine"
+        size           = "Standard_F2"
+        admin_username = "adminuser"
+
+        admin_ssh_key {
+          username   = "adminuser"
+          public_key = file("~/.ssh/id_rsa.pub")
+        }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -1128,32 +1137,7 @@
   requirements: ["030", "228", "319"]
   metadata:
     en:
-      details:  |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        resource "azurerm_linux_virtual_machine" "vulnerable" {
-          name           = "example-machine"
-          size           = "Standard_F2"
-          admin_username = "adminuser"
-
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```hcl
-        resource "azurerm_linux_virtual_machine" "not_vulnerable" {
-          name           = "example-machine"
-          size           = "Standard_F2"
-          admin_username = "adminuser"
-
-          admin_ssh_key {
-            username   = "adminuser"
-            public_key = file("~/.ssh/id_rsa.pub")
-          }
-        }
-        ```
+      details: __empty__
 "016":
   en:
     title: Insecure encryption algorithm - SSL/TLS
@@ -1182,7 +1166,37 @@
     threat: >
       Atacante sin autorización desde red adjacente.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      resource "azurerm_storage_account" "insecure_example" {
+        name                     = "storageaccountname"
+        resource_group_name      = azurerm_resource_group.example.name
+        location                 = azurerm_resource_group.example.location
+        account_tier             = "Standard"
+        account_replication_type = "GRS"
+        min_tls_version          = "TLS1_0"
+
+        tags = {
+          environment = "staging"
+        }
+      }
+      ```
+    compliant: |
+      ```yaml
+      resource "azurerm_storage_account" "secure_example" {
+        name                     = "storageaccountname"
+        resource_group_name      = azurerm_resource_group.example.name
+        location                 = azurerm_resource_group.example.location
+        account_tier             = "Standard"
+        account_replication_type = "GRS"
+        min_tls_version          = "TLS1_3"
+
+        tags = {
+          environment = "staging"
+        }
+      }
+      ```
   remediation_time: "100"
   score:
     base:
@@ -1248,42 +1262,6 @@
         have no trusted third-party assurance
         that the website they are visiting
         is what it claims to be.
-
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-
-        ```hcl
-        resource "azurerm_storage_account" "insecure_example" {
-          name                     = "storageaccountname"
-          resource_group_name      = azurerm_resource_group.example.name
-          location                 = azurerm_resource_group.example.location
-          account_tier             = "Standard"
-          account_replication_type = "GRS"
-          min_tls_version          = "TLS1_0"
-
-          tags = {
-            environment = "staging"
-          }
-        }
-        ```
-
-        #### 2. Compliant Code:
-
-        ```hcl
-        resource "azurerm_storage_account" "secure_example" {
-          name                     = "storageaccountname"
-          resource_group_name      = azurerm_resource_group.example.name
-          location                 = azurerm_resource_group.example.location
-          account_tier             = "Standard"
-          account_replication_type = "GRS"
-          min_tls_version          = "TLS1_3"
-
-          tags = {
-            environment = "staging"
-          }
-        }
-        ```
 "017":
   en:
     title: Sensitive information sent insecurely
@@ -1591,7 +1569,19 @@
       Atacante anónimo en red adyacente
       ejecutando un ataque de hombre en el medio.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```java
+      bg.ws.endpoint =  http://www.test.com
+      bg.ws.endpoint = https://www.test.com
+      bg.ws.endpoint = ftps://www.test.com
+      ```
+    compliant: |
+      ```java
+      bg.ws.endpoint = ${http://www.test.com}
+      bg.ws.endpoint = http://localhost
+      bg.ws.endpoint = http://0.0.0.0
+      ```
   remediation_time: "15"
   score:
     base:
@@ -1610,22 +1600,7 @@
   requirements: ["181"]
   metadata:
     en:
-      details:  |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```java
-        bg.ws.endpoint =  http://www.test.com
-        bg.ws.endpoint = https://www.test.com
-        bg.ws.endpoint = ftps://www.test.com
-        ```
-
-        #### 2. Compliant Code:
-        ```java
-        bg.ws.endpoint = ${http://www.test.com}
-        bg.ws.endpoint = http://localhost
-        bg.ws.endpoint = http://0.0.0.0
-        ```
+      details: __empty__
 "023":
   en:
     title: Uncontrolled external site redirect - Host Header Injection
@@ -1722,7 +1697,31 @@
       siguiendo el principio de mínimo privilegio.
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```json
+      resource "aws_security_group_rule" "vulnerable" {
+        security_group_id = "sg-123456"
+        type              = "ingress"
+        from_port         = 0
+        to_port           = 65535
+        protocol          = "-1"
+        cidr_blocks       = "0.0.0.0/0"
+        prefix_list_ids   = ["pl-12c4e678"]
+      }
+      ```
+    compliant: |
+      ```json
+      resource "aws_security_group_rule" "not_vulnerable" {
+        security_group_id = "sg-123456"
+        type              = "ingress"
+        from_port         = 443
+        to_port           = 443
+        protocol          = "tcp"
+        cidr_blocks       = "127.0.0.1/32"
+        prefix_list_ids   = ["pl-12c4e678"]
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -1741,34 +1740,7 @@
   requirements: ["255"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        resource "aws_security_group_rule" "vulnerable" {
-          security_group_id = "sg-123456"
-          type              = "ingress"
-          from_port         = 0
-          to_port           = 65535
-          protocol          = "-1"
-          cidr_blocks       = "0.0.0.0/0"
-          prefix_list_ids   = ["pl-12c4e678"]
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```hcl
-        resource "aws_security_group_rule" "not_vulnerable" {
-          security_group_id = "sg-123456"
-          type              = "ingress"
-          from_port         = 443
-          to_port           = 443
-          protocol          = "tcp"
-          cidr_blocks       = "127.0.0.1/32"
-          prefix_list_ids   = ["pl-12c4e678"]
-        }
-        ```
+      details: __empty__
 "025":
   en:
     title: Call interception
@@ -2166,7 +2138,43 @@
       con acceso a cualquiera
       de los roles mal configurados.
   category: Subvert Access
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      Resources:
+        BucketPolicy1:
+          Type: AWS::S3::BucketPolicy
+          Properties:
+            Bucket: DOC-EXAMPLE-BUCKET
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Action:
+                    - 's3:GetObject'
+                  Effect: Allow
+                  Resource:
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - DOC-EXAMPLE-BUCKET
+                      - /*
+                  Principal: '*'
+                  Condition:
+                    StringLike:
+                      'aws:Referer':
+                        - 'http://www.example.com/*'
+                        - 'http://example.net/*'
+      ```
+    compliant: |
+      ```json
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "arn:aws:::123456789012:role/SomeRole"
+          "arn:aws:::123456789012:role/OtherRole"
+        ]
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -2375,7 +2383,39 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Probabilistic Techniques
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```java
+      public class BenchmarkTest00167 extends HttpServlet {
+        @Override
+        public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          response.setContentType("text/html;charset=UTF-8");
+
+          long l = new java.util.Random().nextLong();
+          String rememberMeKey = Long.toString(l);
+
+          String cookieName = "rememberMe";
+              request.getSession().setAttribute(cookieName, rememberMeKey);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class BenchmarkTest00167 extends HttpServlet {
+        @Override
+        public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+          response.setContentType("text/html;charset=UTF-8");
+          // create instance of SecureRandom class
+          SecureRandom rand = new SecureRandom();
+
+          long l = new rand.nextInt().nextLong();
+          String rememberMeKey = Long.toString(l);
+
+          String cookieName = "rememberMe";
+              request.getSession().setAttribute(cookieName, rememberMeKey);
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -2394,42 +2434,7 @@
   requirements: ["223", "224"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```java
-        public class BenchmarkTest00167 extends HttpServlet {
-          @Override
-          public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType("text/html;charset=UTF-8");
-
-            long l = new java.util.Random().nextLong();
-            String rememberMeKey = Long.toString(l);
-
-            String cookieName = "rememberMe";
-                request.getSession().setAttribute(cookieName, rememberMeKey);
-          }
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```java
-         public class BenchmarkTest00167 extends HttpServlet {
-          @Override
-          public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType("text/html;charset=UTF-8");
-            // create instance of SecureRandom class
-            SecureRandom rand = new SecureRandom();
-
-            long l = new rand.nextInt().nextLong();
-            String rememberMeKey = Long.toString(l);
-
-            String cookieName = "rememberMe";
-                request.getSession().setAttribute(cookieName, rememberMeKey);
-          }
-        }
-        ```
+      details: __empty__
 "035":
   en:
     title: Weak credential policy
@@ -2584,7 +2589,48 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```java
+      import org.apache.logging.log4j.Logger;
+      import org.apache.logging.log4j.LogManager;
+
+      public class Test {
+        private static Logger logger = LogManager.getLogger(Log4jExample.class);
+
+        public static void main(String[ ] args) {
+          try {
+            int[] myNumbers = {1, 2, 3};
+            System.out.println(myNumbers[10]);
+          } catch (IndexException e) {
+            if (e.toString() == "Error"){
+              System.out.println("Error");
+            }
+            e.printStackTrace();
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      import org.apache.logging.log4j.Logger;
+      import org.apache.logging.log4j.LogManager;
+
+      public class Test {
+        private static Logger logger = LogManager.getLogger(Log4jExample.class);
+
+        public static void main(String[ ] args) {
+          try {
+            int[] myNumbers = {1, 2, 3};
+            System.out.println(myNumbers[10]);
+          } catch (IndexException e) {
+            if (e.toString() == "Error"){
+              System.out.println("Error");
+            }
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -2603,33 +2649,7 @@
   requirements: ["077", "176"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```java
-        import org.apache.logging.log4j.Logger;
-        import org.apache.logging.log4j.LogManager;
-
-        public class Test {
-          private static Logger logger = LogManager.getLogger(Log4jExample.class);
-
-          public static void main(String[ ] args) {
-            try {
-              int[] myNumbers = {1, 2, 3};
-              System.out.println(myNumbers[10]);
-            } catch (IndexException e) {
-              if (e.toString() == "Error"){
-                System.out.println("Error");
-              }
-              e.printStackTrace();
-            }
-          }
-        }
-        ```
-
-        #### 2. Compliant Code:
-        Delete all debugging outputs from the code
+      details: __empty__
 "038":
   en:
     title: Business information leak
@@ -3234,7 +3254,39 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      Resources:
+        securityGroup1:
+          Properties:
+            GroupDescription: groupDescription1
+            SecurityGroupIngress:
+              - CidrIp: 34.229.161.227/16
+                FromPort: 1
+                IpProtocol: "-1"
+                ToPort: 65535
+            SecurityGroupEgress:
+              - CidrIp: 34.229.161.227/16
+                FromPort: 8080
+                IpProtocol: "-1"
+                ToPort: 8080
+          Type: AWS::EC2::SecurityGroup
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        securityGroup1:
+          Properties:
+            GroupDescription: groupDescription1
+            SecurityGroupIngress:
+              - CidrIp: 34.229.161.227/16
+                IpProtocol: "tcp"
+            SecurityGroupEgress:
+              - CidrIp: 34.229.161.227/16
+                IpProtocol: "tcp"
+          Type: AWS::EC2::SecurityGroup
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3253,42 +3305,7 @@
   requirements: ["237", "266", "327"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```yaml
-        Resources:
-          securityGroup1:
-            Properties:
-              GroupDescription: groupDescription1
-              SecurityGroupIngress:
-                - CidrIp: 34.229.161.227/16
-                  FromPort: 1
-                  IpProtocol: "-1"
-                  ToPort: 65535
-              SecurityGroupEgress:
-                - CidrIp: 34.229.161.227/16
-                  FromPort: 8080
-                  IpProtocol: "-1"
-                  ToPort: 8080
-            Type: AWS::EC2::SecurityGroup
-        ```
-
-        #### 2. Compliant Code:
-        ```yaml
-        Resources:
-          securityGroup1:
-            Properties:
-              GroupDescription: groupDescription1
-              SecurityGroupIngress:
-                - CidrIp: 34.229.161.227/16
-                  IpProtocol: "tcp"
-              SecurityGroupEgress:
-                - CidrIp: 34.229.161.227/16
-                  IpProtocol: "tcp"
-            Type: AWS::EC2::SecurityGroup
-        ```
+      details: __empty__
 "048":
   en:
     title: Lack of root detection
@@ -3583,7 +3600,26 @@
     threat: >
       Atacante anónimo desde red interna.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```javascript
+      const crypto = require("crypto");
+
+      let keyString = "*4wQZgn+U2RW_mb=";
+      const key = Buffer.from(keyString.substring(0, 8), "utf8");
+
+      const cipher = crypto.createCipheriv("des-ecb", key, "");
+      ```
+    compliant: |
+      ```javascript
+      //Use alternative libraries that comply with the required security standards
+      const forge = require('node-forge');
+
+      let keyString = "*4wQZgn+U2RW_mb=";
+      const key = Buffer.from(keyString.substring(0, 8), "utf8");
+
+      const cipher = forge.cipher.createCipher('AES-CBC', key);
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3602,21 +3638,7 @@
   requirements: ["148", "149", "150", "181", "336"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```javascript
-        const crypto = require("crypto");
-
-        let keyString = "*4wQZgn+U2RW_mb=";
-        const key = Buffer.from(keyString.substring(0, 8), "utf8");
-
-        const cipher = crypto.createCipheriv("des-ecb", key, "");
-        ```
-
-        #### 2. Compliant Code:
-        Use alternative libraries that comply with the required security standards
+      details: __empty__
 "053":
   en:
     title: Lack of protection against brute force attacks
@@ -3787,7 +3809,23 @@
       Atacante sin autorización
       con el APK instalado en un dispositivo.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:label="@7F040001" android:icon="@7F020002">
+          </application>
+      </manifest>
+      ```
+    compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:label="@7F040001" android:icon="@7F020002" android:allowBackup="False">
+          </application>
+      </manifest>
+      ```
   remediation_time: "60"
   score:
     base:
@@ -3806,27 +3844,7 @@
   requirements: ["185", "266"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        Remember the android:allowBackup is set to enabled by default
-        ```html
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-            <uses-permission android:name="android.permission.SEND_SMS"/>
-            <application android:label="@7F040001" android:icon="@7F020002">
-            </application>
-        </manifest>
-        ```
-
-        #### 2. Compliant Code:
-        ```html
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-            <uses-permission android:name="android.permission.SEND_SMS"/>
-            <application android:label="@7F040001" android:icon="@7F020002" android:allowBackup="False">
-            </application>
-        </manifest>
-        ```
+      details: __empty__
 "056":
   en:
     title: Anonymous connection
@@ -3864,7 +3882,27 @@
     threat: >
       Atacante anónimo desde red adyacente.
   category: Subvert Access
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```json
+      {
+        "$schema": "http://json.schemastore.org/launchsettings.json",
+        "iisSettings": {
+          "windowsAuthentication": false,
+          "anonymousAuthentication": true,
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      {
+        "$schema": "http://json.schemastore.org/launchsettings.json",
+        "iisSettings": {
+          "windowsAuthentication": false,
+          "anonymousAuthentication": false,
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3883,30 +3921,7 @@
   requirements: ["142", "264", "265", "266", "319"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```json
-        {
-          "$schema": "http://json.schemastore.org/launchsettings.json",
-          "iisSettings": {
-            "windowsAuthentication": false,
-            "anonymousAuthentication": true,
-          }
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```json
-        {
-          "$schema": "http://json.schemastore.org/launchsettings.json",
-          "iisSettings": {
-            "windowsAuthentication": false,
-            "anonymousAuthentication": false,
-          }
-        }
-        ```
+      details: __empty__
 "057":
   en:
     title: Asymmetric denial of service - Content length
@@ -4047,7 +4062,23 @@
       Atacante sin autorización
       desde Internet.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:debuggable="true" android:label="@7F040001" android:icon="@7F020002">
+          </application>
+      </manifest>
+      ```
+    compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:debuggable="false" android:label="@7F040001" android:icon="@7F020002">
+          </application>
+      </manifest>
+      ```
   remediation_time: "15"
   score:
     base:
@@ -4066,26 +4097,7 @@
   requirements: ["077", "078"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```html
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-            <uses-permission android:name="android.permission.SEND_SMS"/>
-            <application android:debuggable="true" android:label="@7F040001" android:icon="@7F020002">
-            </application>
-        </manifest>
-        ```
-
-        #### 2. Compliant Code:
-        ```html
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-            <uses-permission android:name="android.permission.SEND_SMS"/>
-            <application android:debuggable="false" android:label="@7F040001" android:icon="@7F020002">
-            </application>
-        </manifest>
-        ```
+      details: __empty__
 "059":
   en:
     title: Sensitive information stored in logs
@@ -4367,7 +4379,30 @@
       Atacante autenticado
       desde Internet.
   category: Inject Unexpected
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```java
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string input = Request.Form[""url""];
+          Response.Redirect(input);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string input = Request.Form[""url""];
+          input = input.replaceAll("[~^\\(/.)]*", "");
+          Response.Redirect(input);
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -4386,35 +4421,7 @@
   requirements: ["173", "320", "342"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        Potentially untrusted HTTP request input reaches an HTTP response redirect.
-        ```java
-        public partial class WebForm : System.Web.UI.Page
-        {
-          protected void Page_Load(object sender, EventArgs e)
-          {
-            string input = Request.Form[""url""];
-            Response.Redirect(input);
-          }
-        }
-        ```
-
-        #### 2. Compliant Code:
-        Validar los inputs para remover caracteres especiales que puedan utilizarse para acceder a rutas sensibles
-        ```java
-        public partial class WebForm : System.Web.UI.Page
-        {
-          protected void Page_Load(object sender, EventArgs e)
-          {
-            string input = Request.Form[""url""];
-            input = input.replaceAll("[~^\\(/.)]*", "");
-            Response.Redirect(input);
-          }
-        }
-        ```
+      details: __empty__
 "064":
   en:
     title: Traceability loss - Server's clock
@@ -4872,7 +4879,37 @@
       Atacante no autorizado de la red
       adyacente que realiza un MiTM.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      resource "aws_lb_listener" "front_end" {
+        load_balancer_arn = aws_lb.front_end.arn
+        port              = "443"
+        protocol          = "HTTPS"
+        ssl_policy        = "ELBSecurityPolicy-FS-1-1-2019-08"
+        certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+
+        default_action {
+          type             = "forward"
+          target_group_arn = aws_lb_target_group.front_end.arn
+        }
+      }
+      ```
+    compliant: |
+      ```yaml
+      <resource "aws_lb_listener" "front_end" {
+        load_balancer_arn = aws_lb.front_end.arn
+        port              = "443"
+        protocol          = "HTTPS"
+        ssl_policy        = "ELBSecurityPolicy-2016-08"
+        certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+
+        default_action {
+          type             = "forward"
+          target_group_arn = aws_lb_target_group.front_end.arn
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -4891,40 +4928,7 @@
   requirements: ["266"]
   metadata:
     en:
-      details:  |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        resource "aws_lb_listener" "front_end" {
-          load_balancer_arn = aws_lb.front_end.arn
-          port              = "443"
-          protocol          = "HTTPS"
-          ssl_policy        = "ELBSecurityPolicy-FS-1-1-2019-08"
-          certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
-
-          default_action {
-            type             = "forward"
-            target_group_arn = aws_lb_target_group.front_end.arn
-          }
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```hcl
-        <resource "aws_lb_listener" "front_end" {
-          load_balancer_arn = aws_lb.front_end.arn
-          port              = "443"
-          protocol          = "HTTPS"
-          ssl_policy        = "ELBSecurityPolicy-2016-08"
-          certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
-
-          default_action {
-            type             = "forward"
-            target_group_arn = aws_lb_target_group.front_end.arn
-          }
-        }
-        ```
+      details:  __empty__
 "071":
   en:
     title: Insecure or unset HTTP headers - Referrer-Policy
@@ -5074,7 +5078,31 @@
     threat: >
       Atacante anónimo desde Internet.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      resource "aws_rds_cluster_instance" "cluster_instances" {
+        count               = 2
+        publicly_accessible = true
+        identifier          = "aurora-cluster-demo-${count.index}"
+        cluster_identifier  = aws_rds_cluster.default.id
+        instance_class      = "db.r4.large"
+        engine              = aws_rds_cluster.default.engine
+        engine_version      = aws_rds_cluster.default.engine_version
+      }
+      ```
+    compliant: |
+      ```yaml
+      resource "aws_rds_cluster_instance" "cluster_instances" {
+        count               = 2
+        publicly_accessible = false
+        identifier          = "aurora-cluster-demo-${count.index}"
+        cluster_identifier  = aws_rds_cluster.default.id
+        instance_class      = "db.r4.large"
+        engine              = aws_rds_cluster.default.engine
+        engine_version      = aws_rds_cluster.default.engine_version
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -5093,34 +5121,7 @@
   requirements: ["096", "176", "265"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        resource "aws_rds_cluster_instance" "cluster_instances" {
-          count               = 2
-          publicly_accessible = true
-          identifier          = "aurora-cluster-demo-${count.index}"
-          cluster_identifier  = aws_rds_cluster.default.id
-          instance_class      = "db.r4.large"
-          engine              = aws_rds_cluster.default.engine
-          engine_version      = aws_rds_cluster.default.engine_version
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```hcl
-        resource "aws_rds_cluster_instance" "cluster_instances" {
-          count               = 2
-          publicly_accessible = false
-          identifier          = "aurora-cluster-demo-${count.index}"
-          cluster_identifier  = aws_rds_cluster.default.id
-          instance_class      = "db.r4.large"
-          engine              = aws_rds_cluster.default.engine
-          engine_version      = aws_rds_cluster.default.engine_version
-        }
-        ```
+      details: __empty__
 "074":
   en:
     title: Commented-out code
@@ -5247,7 +5248,35 @@
       propietario de una aplicación de terceros
       instalada en el dispositivo.
   category: Subvert Access
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:label="@7F040001" android:icon="@7F020002">
+              <provider
+                  android:authorities="com.andriod.databasetest.contentprovider"
+                  android:name=".db.ContentProviderDb"
+                  android:exported="true"
+                  android:grantUriPermissions="true">
+              </provider>
+          </application>
+      </manifest>
+      ```
+    compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:label="@7F040001" android:icon="@7F020002">
+              <provider
+                  android:authorities="com.andriod.databasetest.contentprovider"
+                  android:name=".db.ContentProviderDb"
+                  android:exported="false"
+                  android:grantUriPermissions="true">
+              </provider>
+          </application>
+      </manifest>
+      ```
   remediation_time: "30"
   score:
     base:
@@ -5266,38 +5295,7 @@
   requirements: ["096", "176", "264", "320"]
   metadata:
     en:
-      details:  |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```html
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-            <uses-permission android:name="android.permission.SEND_SMS"/>
-            <application android:label="@7F040001" android:icon="@7F020002">
-                <provider
-                    android:authorities="com.andriod.databasetest.contentprovider"
-                    android:name=".db.ContentProviderDb"
-                    android:exported="true"
-                    android:grantUriPermissions="true">
-                </provider>
-            </application>
-        </manifest>
-        ```
-
-        #### 2. Compliant Code:
-        ```h
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-            <uses-permission android:name="android.permission.SEND_SMS"/>
-            <application android:label="@7F040001" android:icon="@7F020002">
-                <provider
-                    android:authorities="com.andriod.databasetest.contentprovider"
-                    android:name=".db.ContentProviderDb"
-                    android:exported="false"
-                    android:grantUriPermissions="true">
-                </provider>
-            </application>
-        </manifest>
-        ```
+      details:  __empty__
 "076":
   en:
     title: Insecure session management
@@ -5896,7 +5894,19 @@
       Atacante con acceso físico
       o virtual al navegador de la víctima.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```jsx
+      localStorage.getItem('password');
+      localStorage.setItem('whatever', sessionID);
+      localStorage.setItem(token.jwt, '123');
+      localStorage.getItem(session_token);
+      ```
+    compliant: |
+      ```jsx
+      localStorage.setItem('whatever','non-sensitive');
+      localStorage.getItem(non.sensitive);
+      ```
   remediation_time: "120"
   score:
     base:
@@ -5915,22 +5925,7 @@
   requirements: ["177", "329"]
   metadata:
     en:
-      details:  |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```jsx
-        localStorage.getItem('password');
-        localStorage.setItem('whatever', sessionID);
-        localStorage.setItem(token.jwt, '123');
-        localStorage.getItem(session_token);
-        ```
-
-        #### 2. Compliant Code:
-        ```jsx
-        localStorage.setItem('whatever','non-sensitive');
-        localStorage.getItem(non.sensitive);
-        ```
+      details:  __empty__
 "086":
   en:
     title: Missing subresource integrity check
@@ -6770,7 +6765,30 @@
       Atacante autenticado desde Internet
       con acceso al bucket.
   category: Collect Information
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      Resources:
+        UnencryptedS3Bucket:
+          Type: AWS::S3::Bucket
+          DeletionPolicy: Retain
+          Properties:
+            BucketName: SKIMS-EXAMPLE-BUCKET
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        EncryptedS3Bucket:
+          Type: AWS::S3::Bucket
+          Properties:
+            BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: aws:kms
+                    KMSMasterKeyID: KMS-KEY-ARN
+          DeletionPolicy: Delete
+      ```
   remediation_time: "15"
   score:
     base:
@@ -6789,33 +6807,7 @@
   requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
-      details:  |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```yaml
-        Resources:
-          UnencryptedS3Bucket:
-            Type: AWS::S3::Bucket
-            DeletionPolicy: Retain
-            Properties:
-              BucketName: SKIMS-EXAMPLE-BUCKET
-        ```
-
-        #### 2. Compliant Code:
-        ```yaml
-        Resources:
-          EncryptedS3Bucket:
-            Type: AWS::S3::Bucket
-            Properties:
-              BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
-              BucketEncryption:
-                ServerSideEncryptionConfiguration:
-                  - ServerSideEncryptionByDefault:
-                      SSEAlgorithm: aws:kms
-                      KMSMasterKeyID: KMS-KEY-ARN
-            DeletionPolicy: Delete
-        ```
+      details:  __empty__
 "100":
   en:
     title: Server-side request forgery (SSRF)
@@ -6965,7 +6957,29 @@
       que llegue a modificar o borrar la
       información de las bases de datos.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      resource "azurerm_key_vault" "vulnerable" {
+        name                       = "examplekeyvault"
+        location                   = azurerm_resource_group.example.location
+        resource_group_name        = azurerm_resource_group.example.name
+        tenant_id                  = data.azurerm_client_config.current.tenant_id
+        soft_delete_retention_days = 7
+      }
+      ```
+    compliant: |
+      ```yaml
+      resource "azurerm_key_vault" "not_vulnerable" {
+        name                       = "examplekeyvault"
+        location                   = azurerm_resource_group.example.location
+        resource_group_name        = azurerm_resource_group.example.name
+        tenant_id                  = data.azurerm_client_config.current.tenant_id
+        soft_delete_retention_days = 7
+        soft_delete_enabled        = true
+        purge_protection_enabled   = true
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -6984,32 +6998,7 @@
   requirements: ["186", "265"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        resource "azurerm_key_vault" "vulnerable" {
-          name                       = "examplekeyvault"
-          location                   = azurerm_resource_group.example.location
-          resource_group_name        = azurerm_resource_group.example.name
-          tenant_id                  = data.azurerm_client_config.current.tenant_id
-          soft_delete_retention_days = 7
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```hcl
-        resource "azurerm_key_vault" "not_vulnerable" {
-          name                       = "examplekeyvault"
-          location                   = azurerm_resource_group.example.location
-          resource_group_name        = azurerm_resource_group.example.name
-          tenant_id                  = data.azurerm_client_config.current.tenant_id
-          soft_delete_retention_days = 7
-          soft_delete_enabled        = true
-          purge_protection_enabled   = true
-        }
-        ```
+      details: __empty__
 "102":
   en:
     title: Email uniqueness not properly verified
@@ -7433,7 +7422,29 @@
     threat: >
       Atacante autenticado desde Internet.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      ```yaml
+      resource "aws_rds_cluster" "cluster_instances" {
+        count              = 2
+        identifier         = "aurora-cluster-demo-${count.index}"
+        cluster_identifier = aws_rds_cluster.default.id
+        instance_class     = "db.r4.large"
+        engine             = aws_rds_cluster.default.engine
+        engine_version     = aws_rds_cluster.default.engine_version
+      }
+      ```
+    compliant: |
+      ```yaml
+      resource "aws_rds_cluster" "cluster_instances" {
+        count              = 2
+        identifier         = "aurora-cluster-demo-${count.index}"
+        cluster_identifier = aws_rds_cluster.default.id
+        instance_class     = "db.r4.large"
+        engine             = aws_rds_cluster.default.engine
+        engine_version     = aws_rds_cluster.default.engine_version
+      }
+      ```
   remediation_time: "90"
   score:
     base:
@@ -7452,32 +7463,7 @@
   requirements: ["255"]
   metadata:
     en:
-      details: |
-        ### Code examples
-
-        #### 1. Non-compliant Code:
-        ```hcl
-        resource "aws_rds_cluster" "cluster_instances" {
-          count              = 2
-          identifier         = "aurora-cluster-demo-${count.index}"
-          cluster_identifier = aws_rds_cluster.default.id
-          instance_class     = "db.r4.large"
-          engine             = aws_rds_cluster.default.engine
-          engine_version     = aws_rds_cluster.default.engine_version
-        }
-        ```
-
-        #### 2. Compliant Code:
-        ```hcl
-        resource "aws_rds_cluster" "cluster_instances" {
-          count              = 2
-          identifier         = "aurora-cluster-demo-${count.index}"
-          cluster_identifier = aws_rds_cluster.default.id
-          instance_class     = "db.r4.large"
-          engine             = aws_rds_cluster.default.engine
-          engine_version     = aws_rds_cluster.default.engine_version
-        }
-        ```
+      details: __empty__
 "110":
   en:
     title: HTTP request smuggling
@@ -7966,7 +7952,12 @@
       Atacante autenticado
       desde Internet.
   category: Abuse Functionality
-  code_examples: __empty__
+  code_examples:
+    non_compliant: |
+      Master branch of the repository stores binary files or unverifiable files.
+      e.g. MyJar.class
+    compliant: |
+      All the files on the repository can be read and verified
   remediation_time: "15"
   score:
     base:
