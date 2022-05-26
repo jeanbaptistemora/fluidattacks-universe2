@@ -16,6 +16,7 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "Accept-Encoding",
                 "identity",
             ],
+            ["Cross-Origin-Opener-Policy", "same-origin"],
             [
                 "Referrer-Policy",
                 "strict-origin-when-cross-origin",
