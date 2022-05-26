@@ -8,7 +8,7 @@ import { AddRoot } from "./components/AddRoot";
 import { Sidebar } from "./components/Sidebar";
 import { GET_USER_WELCOME } from "./queries";
 import { Container, DashboardContent, FormContent } from "./styles";
-import type { IGetUserWelcomeResult } from "./types";
+import type { IGetUserWelcomeResult, IRootAttr } from "./types";
 
 import { Col, Row } from "components/Layout";
 import { Dashboard } from "scenes/Dashboard";
@@ -18,13 +18,27 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   const { push } = useHistory();
-  const goToRoot = useCallback((): void => {
-    push("/autoenrollment/repository");
+  const goToOrg = useCallback((): void => {
+    push("/autoenrollment/organization");
   }, [push]);
 
-  const [orgName, setOrgName] = useState("");
-  const [groupName, setGroupName] = useState("");
   const [isRepository, setIsRepository] = useState(false);
+  const [repository, setRepository] = useState<IRootAttr>({
+    branch: "",
+    credentials: {
+      auth: "TOKEN",
+      id: "",
+      key: "",
+      name: "",
+      password: "",
+      token: "",
+      type: "",
+      user: "",
+    },
+    env: "",
+    exclusions: [],
+    url: "",
+  });
 
   const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME, {
     onError: (error): void => {
@@ -59,9 +73,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                     <Col large={"25"} medium={"50"} small={"70"}>
                       <FormContent>
                         <AddOrganization
-                          onCompleted={goToRoot}
-                          setGroupName={setGroupName}
-                          setOrgName={setOrgName}
+                          repositoryValues={repository}
+                          setIsRepository={setIsRepository}
                         />
                       </FormContent>
                     </Col>
@@ -82,9 +95,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                     <Col large={"40"} medium={"60"} small={"80"}>
                       <FormContent>
                         <AddRoot
-                          group={groupName}
-                          organization={orgName}
-                          setIsRepository={setIsRepository}
+                          initialValues={repository}
+                          onCompleted={goToOrg}
+                          setRepositoryValues={setRepository}
                         />
                       </FormContent>
                     </Col>
@@ -92,7 +105,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 </Col>
               </Row>
             </Route>
-            <Redirect to={"/autoenrollment/organization"} />
+            <Redirect to={"/autoenrollment/repository"} />
           </Switch>
         </DashboardContent>
       </Container>

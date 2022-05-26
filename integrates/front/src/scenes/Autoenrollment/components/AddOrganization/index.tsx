@@ -3,25 +3,34 @@ import type { ApolloError } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
-import type { GraphQLError } from "graphql";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { array, object, string } from "yup";
 
-import {
-  ADD_GROUP_MUTATION,
-  ADD_ORGANIZATION,
-  GET_USER_WELCOME,
-} from "../../queries";
-import type { IAddOrganizationResult } from "../../types";
+import { Alert } from "components/Alert";
+import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import {
+  handleGroupCreateError,
+  handleRootCreateError,
+} from "scenes/Autoenrollment/helpers";
+import {
+  ADD_GIT_ROOT,
+  ADD_GROUP_MUTATION,
+  ADD_ORGANIZATION,
+  GET_USER_WELCOME,
+} from "scenes/Autoenrollment/queries";
+import type {
+  IAddOrganizationResult,
+  IRootAttr,
+} from "scenes/Autoenrollment/types";
 import {
   FormikCheckbox,
   FormikDropdown,
@@ -31,21 +40,26 @@ import {
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-type setNames = React.Dispatch<React.SetStateAction<string>>;
-
 interface IAddOrganizationProps {
-  onCompleted: () => void;
-  setGroupName: setNames;
-  setOrgName: setNames;
+  repositoryValues: IRootAttr;
+  setIsRepository: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddOrganization: React.FC<IAddOrganizationProps> = ({
-  onCompleted,
-  setGroupName,
-  setOrgName,
+  repositoryValues,
+  setIsRepository,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
-  const { goBack } = useHistory();
+  const { goBack, replace } = useHistory();
+
+  const [orgMessages, setOrgMessages] = useState({
+    message: "",
+    type: "success",
+  });
+  const [organization, setOrganization] = useState("");
+  const [group, setGroup] = useState("");
+
+  const [showSubmitAlert, setShowSubmitAlert] = useState(false);
 
   const [addOrganization, { loading: submittingOrg }] =
     useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
@@ -73,24 +87,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       refetchQueries: [GET_USER_WELCOME],
     });
 
-  const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      switch (error.message) {
-        case "Exception - Error invalid group name":
-          msgError(t("organization.tabs.groups.newGroup.invalidName"));
-          break;
-        case "Exception - User is not a member of the target organization":
-          msgError(
-            t("organization.tabs.groups.newGroup.userNotInOrganization")
-          );
-          break;
-        default:
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred adding a group", error);
-      }
-    });
-  };
-
   const [addGroup, { loading: submittingGroup }] = useMutation(
     ADD_GROUP_MUTATION,
     {
@@ -102,9 +98,25 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
           );
         }
       },
-      onError: handleCreateError,
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        handleGroupCreateError(graphQLErrors);
+      },
     }
   );
+
+  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
+    onCompleted: (): void => {
+      localStorage.clear();
+      sessionStorage.clear();
+      replace(
+        `/orgs/${organization.toLowerCase()}/groups/${group.toLowerCase()}/scope`
+      );
+      setIsRepository(true);
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      handleRootCreateError(graphQLErrors, setOrgMessages);
+    },
+  });
 
   const handleSubmit = useCallback(
     async (values: {
@@ -131,11 +143,40 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
           subscription: "CONTINUOUS",
         },
       });
-      setGroupName(values.groupName.toUpperCase());
-      setOrgName(values.organizationName.toUpperCase());
-      onCompleted();
+      setGroup(values.groupName.toUpperCase());
+      setOrganization(values.organizationName.toUpperCase());
+      const { branch, credentials, env, exclusions, url } = repositoryValues;
+      mixpanel.track("AddGitRoot");
+      await addGitRoot({
+        variables: {
+          branch: branch.trim(),
+          credentials: {
+            id: "",
+            key: credentials.key,
+            name: credentials.name,
+            password: credentials.password,
+            token: credentials.token,
+            type: credentials.type,
+            user: credentials.user,
+          },
+          environment: env,
+          gitignore: exclusions,
+          groupName: values.groupName.toUpperCase(),
+          includesHealthCheck: false,
+          nickname: "",
+          url: url.trim(),
+          useVpn: false,
+        },
+      });
     },
-    [addGroup, addOrganization, onCompleted, setGroupName, setOrgName]
+    [
+      addGitRoot,
+      addGroup,
+      addOrganization,
+      repositoryValues,
+      setGroup,
+      setOrganization,
+    ]
   );
 
   const minLenth = 4;
@@ -277,6 +318,15 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               </Field>
             </Col>
           </Row>
+          {!showSubmitAlert && orgMessages.message !== "" && (
+            <Alert
+              icon={true}
+              timer={setShowSubmitAlert}
+              variant={orgMessages.type as IAlertProps["variant"]}
+            >
+              {orgMessages.message}
+            </Alert>
+          )}
           <Row justify={"center"}>
             <Col>
               <Button

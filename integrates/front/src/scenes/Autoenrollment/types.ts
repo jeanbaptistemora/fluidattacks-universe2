@@ -23,8 +23,34 @@ interface IAutoenrollDemoResult {
   };
 }
 
+type IAlertMessages = React.Dispatch<
+  React.SetStateAction<{
+    message: string;
+    type: string;
+  }>
+>;
+
+interface IRootAttr {
+  branch: string;
+  credentials: {
+    auth: "TOKEN" | "USER";
+    id: string;
+    key: string;
+    name: string;
+    password: string;
+    token: string;
+    type: "" | "HTTPS" | "SSH";
+    user: string;
+  };
+  env: string;
+  exclusions: string[];
+  url: string;
+}
+
 export type {
   IAddOrganizationResult,
   IAutoenrollDemoResult,
   IGetUserWelcomeResult,
+  IRootAttr,
+  IAlertMessages,
 };

@@ -13,52 +13,36 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import type { IRootAttr } from "scenes/Autoenrollment/helpers";
 import {
-  handleCreationError,
   handleValidationError,
   rootSchema,
-  useRootSubmit,
 } from "scenes/Autoenrollment/helpers";
-import {
-  ADD_GIT_ROOT,
-  VALIDATE_GIT_ACCESS,
-} from "scenes/Autoenrollment/queries";
+import { VALIDATE_GIT_ACCESS } from "scenes/Autoenrollment/queries";
+import type { IRootAttr } from "scenes/Autoenrollment/types";
 import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
 
 interface IAddRootProps {
-  organization: string;
-  group: string;
-  setIsRepository: React.Dispatch<React.SetStateAction<boolean>>;
+  initialValues: IRootAttr;
+  onCompleted: () => void;
+  setRepositoryValues: React.Dispatch<React.SetStateAction<IRootAttr>>;
 }
 
 const AddRoot: React.FC<IAddRootProps> = ({
-  setIsRepository,
-  organization,
-  group,
+  initialValues,
+  onCompleted,
+  setRepositoryValues,
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
-  const { goBack, replace } = useHistory();
+  const { goBack } = useHistory();
 
   const [rootMessages, setRootMessages] = useState({
     message: "",
     type: "success",
   });
+  const group = "UNITTESTING";
 
   const [isGitAccessible, setIsGitAccessible] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
-
-  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
-    onCompleted: (): void => {
-      localStorage.clear();
-      sessionStorage.clear();
-      replace(`/orgs/${organization.toLowerCase()}/groups`);
-      setIsRepository(true);
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleCreationError(graphQLErrors, setRootMessages);
-    },
-  });
 
   const formRef = useRef<FormikProps<IRootAttr>>(null);
 
@@ -98,6 +82,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
           url: formRef.current.values.url,
         },
       });
+      setRepositoryValues(formRef.current.values);
     }
   }
 
@@ -105,25 +90,10 @@ const AddRoot: React.FC<IAddRootProps> = ({
     <div>
       <Formik
         enableReinitialize={true}
-        initialValues={{
-          branch: "",
-          credentials: {
-            auth: "TOKEN",
-            id: "",
-            key: "",
-            name: "",
-            password: "",
-            token: "",
-            type: "",
-            user: "",
-          },
-          env: "",
-          exclusions: [],
-          url: "",
-        }}
+        initialValues={initialValues}
         innerRef={formRef}
         name={"newRoot"}
-        onSubmit={useRootSubmit(addGitRoot, group)}
+        onSubmit={onCompleted}
         validationSchema={rootSchema(isGitAccessible)}
       >
         {({ isSubmitting, values, setFieldTouched }): JSX.Element => {

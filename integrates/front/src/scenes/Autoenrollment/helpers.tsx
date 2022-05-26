@@ -1,44 +1,38 @@
 /* eslint-disable react/forbid-prop-types */
-import type { FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
-import { useCallback } from "react";
 import type { BaseSchema, InferType } from "yup";
 import { array, lazy, object, string } from "yup";
 import type { TypedSchema } from "yup/lib/util/types";
 
+import type { IAlertMessages, IRootAttr } from "./types";
+
 import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-type modalMessages = React.Dispatch<
-  React.SetStateAction<{
-    message: string;
-    type: string;
-  }>
->;
+const handleGroupCreateError = (
+  graphQLErrors: readonly GraphQLError[]
+): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    switch (error.message) {
+      case "Exception - Error invalid group name":
+        msgError(translate.t("organization.tabs.groups.newGroup.invalidName"));
+        break;
+      case "Exception - User is not a member of the target organization":
+        msgError(
+          translate.t("organization.tabs.groups.newGroup.userNotInOrganization")
+        );
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred adding a group", error);
+    }
+  });
+};
 
-interface IRootAttr {
-  branch: string;
-  credentials: {
-    auth: "TOKEN" | "USER";
-    id: string;
-    key: string;
-    name: string;
-    password: string;
-    token: string;
-    type: "" | "HTTPS" | "SSH";
-    user: string;
-  };
-  env: string;
-  exclusions: string[];
-  url: string;
-}
-
-const handleCreationError = (
+const handleRootCreateError = (
   graphQLErrors: readonly GraphQLError[],
-  setMessages: modalMessages
+  setMessages: IAlertMessages
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
@@ -84,7 +78,7 @@ const handleCreationError = (
 
 const handleValidationError = (
   graphQLErrors: readonly GraphQLError[],
-  setMessages: modalMessages
+  setMessages: IAlertMessages
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     if (
@@ -104,47 +98,6 @@ const handleValidationError = (
     }
   });
 };
-
-function useRootSubmit(
-  addGitRoot: (
-    variables: Record<string, unknown>
-  ) => Promise<FetchResult<unknown>>,
-  group: string
-): ({ branch, credentials, env, exclusions, url }: IRootAttr) => Promise<void> {
-  return useCallback(
-    async ({
-      branch,
-      credentials,
-      env,
-      exclusions,
-      url,
-    }: IRootAttr): Promise<void> => {
-      mixpanel.track("AddGitRoot");
-      await addGitRoot({
-        variables: {
-          branch: branch.trim(),
-          credentials: {
-            id: "",
-            key: credentials.key,
-            name: credentials.name,
-            password: credentials.password,
-            token: credentials.token,
-            type: credentials.type,
-            user: credentials.user,
-          },
-          environment: env,
-          gitignore: exclusions,
-          groupName: group,
-          includesHealthCheck: false,
-          nickname: "",
-          url: url.trim(),
-          useVpn: false,
-        },
-      });
-    },
-    [addGitRoot, group]
-  );
-}
 
 const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
   lazy(
@@ -265,11 +218,9 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
       })
   );
 
-export type { IRootAttr };
-
 export {
-  handleCreationError,
+  handleGroupCreateError,
+  handleRootCreateError,
   handleValidationError,
   rootSchema,
-  useRootSubmit,
 };
