@@ -25,10 +25,6 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
-class ErrorAddingGroup(_SingleMessageException):
-    msg: str = "Unable to add group"
-
-
 class ErrorFileNameAlreadyExists(_SingleMessageException):
     msg: str = "File name already exists in group files"
 
