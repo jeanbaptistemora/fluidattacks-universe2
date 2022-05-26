@@ -7,6 +7,8 @@ from symbolic_eval.types import (
 )
 from typing import (
     Iterator,
+    List,
+    Optional,
     Set,
 )
 from utils import (
@@ -81,3 +83,44 @@ def get_lookup_path(graph: Graph, path: Path, symbol_id: NId) -> Path:
     cfg_parent = g.lookup_first_cfg_parent(graph, symbol_id)
     cfg_parent_idx = path.index(cfg_parent)  # current instruction idx
     return path[cfg_parent_idx + 1 :]  # from previus instruction idx
+
+
+def get_object_identifiers(graph: Graph, obj_names: Set[str]) -> List[str]:
+    identifiers = []
+    for nid in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(
+            label_type="ObjectCreation",
+        ),
+    ):
+        if (
+            graph.nodes[nid].get("name") in obj_names
+            and (pred := g.pred_ast(graph, nid)[0])
+            and graph.nodes[pred].get("label_type") == "VariableDeclaration"
+        ):
+            identifiers.append(graph.nodes[pred].get("variable"))
+    return identifiers
+
+
+def get_value_member_access(
+    graph: Graph, expression: str, member: str
+) -> Optional[str]:
+    possible_types = {"Literal"}
+    for nid in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(
+            label_type="MemberAccess",
+            expression=expression,
+            member=member,
+        ),
+    ):
+        if (
+            (pred := g.pred_ast(graph, nid)[0])
+            and graph.nodes[pred].get("label_type") == "Assignment"
+            and (value := list(g.match_ast(graph, pred).values())[1])
+            and graph.nodes[value].get("label_type") in possible_types
+        ):
+            return value
+    return None
