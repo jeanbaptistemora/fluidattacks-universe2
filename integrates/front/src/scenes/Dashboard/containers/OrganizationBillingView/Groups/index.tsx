@@ -11,7 +11,7 @@ import { Container } from "./styles";
 import type { IUpdateGroupResultAttr } from "./types";
 import { UpdateSubscriptionModal } from "./UpdateSubscriptionModal";
 
-import { UPDATE_GROUP_MUTATION, UPDATE_SUBSCRIPTION } from "../queries";
+import { UPDATE_GROUP_MUTATION } from "../queries";
 import type { IGroupAttr } from "../types";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
@@ -401,61 +401,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   const [updateGroup] = useMutation<IUpdateGroupResultAttr>(
     UPDATE_GROUP_MUTATION
   );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_updateSubscription] = useMutation(UPDATE_SUBSCRIPTION, {
-    onCompleted: (): void => {
-      onUpdate();
-      closeModal();
-      msgSuccess(
-        t("organization.tabs.billing.groups.updateSubscription.success.body"),
-        t("organization.tabs.billing.groups.updateSubscription.success.title")
-      );
-    },
-    onError: ({ graphQLErrors }): void => {
-      graphQLErrors.forEach((error): void => {
-        switch (error.message) {
-          case "Exception - Cannot perform action. Please add a valid payment method first":
-            msgError(
-              t(
-                "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
-              )
-            );
-            break;
-          case "Exception - Invalid subscription. Provided subscription is already active":
-            msgError(
-              t(
-                "organization.tabs.billing.groups.updateSubscription.errors.alreadyActive"
-              )
-            );
-            break;
-          case "Exception - Invalid customer. Provided customer does not have a payment method":
-            msgError(
-              t(
-                "organization.tabs.billing.groups.updateSubscription.errors.addPaymentMethod"
-              )
-            );
-            break;
-          case "Exception - Subscription could not be updated, please review your invoices":
-            msgError(
-              t(
-                "organization.tabs.billing.groups.updateSubscription.errors.couldNotBeUpdated"
-              )
-            );
-            break;
-          case "Exception - Subscription could not be downgraded, payment intent for Squad failed":
-            msgError(
-              t(
-                "organization.tabs.billing.groups.updateSubscription.errors.couldNotBeDowngraded"
-              )
-            );
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning("Couldn't update group subscription", error);
-        }
-      });
-    },
-  });
   const handleUpdateGroupSubmit = useCallback(
     async ({
       managed,
