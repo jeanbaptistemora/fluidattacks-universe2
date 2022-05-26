@@ -17,7 +17,7 @@ fetchNixpkgs: projectPath: observesIndex: let
 
   _fa_singer_io_src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/singer_io";
-    ref = "refs/tags/v1.1.0";
+    ref = "refs/tags/v1.3.0";
   };
   fa-singer-io = import _fa_singer_io_src {
     inherit system;
