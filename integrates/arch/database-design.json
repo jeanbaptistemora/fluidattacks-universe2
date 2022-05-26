@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 26, 2022, 08:58 AM",
+    "DateLastModified": "May 26, 2022, 04:20 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -744,6 +744,14 @@
         },
         {
           "AttributeName": "query",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "policies",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "billing_customer",
           "AttributeType": "S"
         }
       ],
@@ -1630,74 +1638,30 @@
         {
           "FacetName": "organization_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name",
+            "PartitionKeyAlias": "ORG#id",
             "SortKeyAlias": "ORG#name"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ORG#okada"
-              },
-              "sk": {
-                "S": "ORG#okada"
-              },
-              "name": {
-                "S": "okada"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "name"
+            "billing_customer",
+            "id",
+            "name",
+            "policies",
+            "state"
           ]
         },
         {
           "FacetName": "organization_historic_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "ORG#name#STATE#iso8601utc",
-            "SortKeyAlias": "ORG#name"
+            "PartitionKeyAlias": "ORG#id",
+            "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "ORG#okada#STATE#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "ORG#okada"
-              },
-              "settings": {
-                "M": {
-                  "max_acceptance_days": {
-                    "N": "0"
-                  },
-                  "max_acceptance_severity": {
-                    "N": "0.0"
-                  },
-                  "min_acceptance_severity": {
-                    "N": "0.0"
-                  },
-                  "max_number_acceptations": {
-                    "N": "0"
-                  },
-                  "min_breaking_severity": {
-                    "N": "0.0"
-                  },
-                  "vulnerability_grace_period": {
-                    "N": "0"
-                  }
-                }
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "settings",
+            "modified_by",
             "modified_date",
-            "modified_by"
+            "pending_deletion_date",
+            "status"
           ]
         },
         {
