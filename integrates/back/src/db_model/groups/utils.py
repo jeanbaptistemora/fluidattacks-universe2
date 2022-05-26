@@ -1,6 +1,3 @@
-from .constants import (
-    ORGANIZATION_ID_PREFIX,
-)
 from .enums import (
     GroupLanguage,
     GroupService,
@@ -19,6 +16,9 @@ from .types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
+from db_model.organizations.utils import (
+    add_org_id_prefix,
+)
 from dynamodb.types import (
     Item,
 )
@@ -26,15 +26,6 @@ from typing import (
     Any,
     Optional,
 )
-
-
-def add_org_id_prefix(organization_id: str) -> str:
-    no_prefix_id = remove_org_id_prefix(organization_id)
-    return f"{ORGANIZATION_ID_PREFIX}{no_prefix_id}"
-
-
-def remove_org_id_prefix(organization_id: str) -> str:
-    return organization_id.lstrip(ORGANIZATION_ID_PREFIX)
 
 
 def serialize_sets(object_: Any) -> Any:

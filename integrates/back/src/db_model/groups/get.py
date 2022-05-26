@@ -7,7 +7,6 @@ from .utils import (
     format_group,
     format_state,
     format_unreliable_indicators,
-    remove_org_id_prefix,
 )
 from aiodataloader import (
     DataLoader,
@@ -23,6 +22,9 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.organizations.utils import (
+    remove_org_id_prefix,
 )
 from dynamodb import (
     keys,

@@ -6,7 +6,6 @@ from .types import (
 from .utils import (
     format_metadata_item,
     format_unreliable_indicators_item,
-    remove_org_id_prefix,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -19,6 +18,9 @@ from db_model import (
 )
 from db_model.groups.enums import (
     GroupStateStatus,
+)
+from db_model.organizations.utils import (
+    remove_org_id_prefix,
 )
 from dynamodb import (
     keys,

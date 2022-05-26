@@ -1,3 +1,4 @@
+# pylint:disable=too-many-lines
 from aioextensions import (
     collect,
     schedule,
