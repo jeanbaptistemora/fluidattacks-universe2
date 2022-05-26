@@ -1,5 +1,7 @@
-# pylint: skip-file
-
+from ._streams import (
+    project_stream,
+    Streams,
+)
 import click
 import re
 from returns.maybe import (
@@ -16,6 +18,7 @@ from tap_gitlab.streams import (
     SupportedStreams,
 )
 from typing import (
+    NoReturn,
     Optional,
     Tuple,
 )
@@ -88,11 +91,34 @@ def clean_stuck_jobs(api_key: str, project: str, dry_run: bool) -> None:
     cleaner.clean(creds, project, dry_run)
 
 
+@click.command("stream")
+@click.option("--api-key", type=str, required=True)
+@click.option("--project", type=str, required=True)
+@click.argument(
+    "stream",
+    type=click.Choice([x.value for x in iter(Streams)], case_sensitive=False),
+    required=False,
+    default=None,
+)
+def stream_v2(api_key: str, project: str, stream: str) -> NoReturn:
+    project_stream(api_key, project, stream).compute()
+
+
+@click.group()
+def v2() -> None:
+    # cli group entrypoint
+    pass
+
+
+v2.add_command(stream_v2)
+
+
 @click.group()
 def main() -> None:
     # cli group entrypoint
     pass
 
 
+main.add_command(v2)
 main.add_command(stream)
 main.add_command(clean_stuck_jobs)
