@@ -1,5 +1,6 @@
 from .config import (
     generate_config,
+    generate_configs,
 )
 from aioextensions import (
     collect,
@@ -20,7 +21,7 @@ from core.rebase import (
     main as execute_rebase,
 )
 from core.scan import (
-    main as execute_skims,
+    execute_set_of_configs as execute_skims_configs,
 )
 from ctx import (
     CTX,
@@ -267,25 +268,34 @@ async def main(  # pylint: disable=too-many-locals)
     )
     await delete_out_of_scope_files(group_name, *roots_nicknames)
     group_language = await get_group_language(group_name)
-    configs = await collect(
-        generate_config(
-            group_name=group_name,
-            namespace=root_nickname,
-            checks=tuple(checks),
-            language=cast(LocalesEnum, group_language),
-            working_dir=namespaces_path_dict[root_nickname],
+
+    set_configs: List[List[SkimsConfig]] = list(
+        await collect(
+            generate_configs(
+                group_name=group_name,
+                namespace=root_nickname,
+                checks=tuple(checks),
+                language=cast(LocalesEnum, group_language),
+                working_dir=namespaces_path_dict[root_nickname],
+            )
+            for root_nickname in roots_nicknames
+            if root_nickname in namespaces_path_dict
         )
-        for root_nickname in roots_nicknames
-        if namespaces_path_dict.get(root_nickname) is not None
     )
 
-    for config in configs:
+    for configs in set_configs:
         with suppress(Exception):
-            log_blocking("info", "Running skims for %s", config.namespace)
-            await execute_rebase(
-                group_name, config.namespace, config.working_dir, token
-            )
-            await execute_skims(config, group_name, token)
+            if configs:
+                log_blocking(
+                    "info", "Running skims for %s", configs[0].namespace
+                )
+                await execute_rebase(
+                    group_name,
+                    configs[0].namespace,
+                    configs[0].working_dir,
+                    token,
+                )
+            await execute_skims_configs(configs, group_name, token)
 
     delete_action(action_dynamo_pk=action_dynamo_pk)
     return None

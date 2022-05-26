@@ -44,6 +44,7 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
+    List,
     Optional,
     Union,
 )
@@ -62,7 +63,9 @@ from zone import (
 )
 
 
-async def execute_skims() -> Dict[core_model.FindingEnum, EphemeralStore]:
+async def execute_skims(
+    stores: Optional[Dict[core_model.FindingEnum, EphemeralStore]] = None
+) -> Dict[core_model.FindingEnum, EphemeralStore]:
     """
     Execute skims according to the provided config.
 
@@ -71,7 +74,7 @@ async def execute_skims() -> Dict[core_model.FindingEnum, EphemeralStore]:
     """
     CTX.value_to_add = value_model.ValueToAdd(MANAGER.dict())
 
-    stores: Dict[core_model.FindingEnum, EphemeralStore] = {
+    stores = stores or {
         finding: get_ephemeral_store() for finding in core_model.FindingEnum
     }
 
@@ -249,3 +252,59 @@ async def main(
         if CTX and CTX.config and CTX.config.start_dir:
             os.chdir(CTX.config.start_dir)
             reset_ephemeral_state()
+
+
+async def execute_set_of_configs(
+    configs: List[core_model.SkimsConfig],
+    group: Optional[str],
+    token: Optional[str],
+) -> bool:
+    configure_logs()
+    reset_ephemeral_state()
+    integrates_access = False
+    if group and token:
+        create_session(token)
+        integrates_access = await verify_permissions(group=group)
+
+    batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
+
+    if integrates_access and batch_job_id:
+        await notify_start(batch_job_id)
+    stores = {
+        finding: get_ephemeral_store() for finding in core_model.FindingEnum
+    }
+    for index, current_config in enumerate(configs):
+        CTX.config = current_config
+
+        add_bugsnag_data(namespace=CTX.config.namespace)
+
+        log_blocking("info", f"Executing config {index+1}: {len(configs)}")
+        log_blocking("info", f"Namespace: {CTX.config.namespace}/")
+        log_blocking("info", f"Startup work dir is: {CTX.config.start_dir}")
+        log_blocking("info", f"Moving work dir to: {CTX.config.working_dir}")
+
+        os.chdir(CTX.config.working_dir)
+
+        stores = await execute_skims(stores)
+
+    persisted_results = {}
+    success = True
+    if integrates_access:
+        persisted_results = await persist_to_integrates(stores)
+    else:
+        log_blocking(
+            "info",
+            (
+                "In case you want to persist results to Integrates "
+                "please make sure you set the --token and --group flag "
+                "in the CLI"
+            ),
+        )
+
+    success = all(persisted_results.values())
+
+    if integrates_access and batch_job_id:
+        await notify_end(batch_job_id, persisted_results)
+
+    reset_ephemeral_state()
+    return success
