@@ -13,6 +13,9 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.groups.types import (
+    Group,
+)
 from decorators import (
     enforce_group_level_auth_async,
 )
@@ -45,6 +48,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_info = await token_utils.get_jwt_content(info.context)
     responsible = user_info["user_email"]
+    group: Group = await loaders.group_typed.load(group_name)
 
     user_email = forces_domain.format_forces_user_email(group_name)
     if not await users_domain.ensure_user_exists(user_email):
@@ -77,7 +81,9 @@ async def mutate(
                 ),
             )
             await forces_domain.update_token(
-                group_name=group_name, token=result.session_jwt
+                group_name=group_name,
+                organization_id=group.organization_id,
+                token=result.session_jwt,
             )
             logs_utils.cloudwatch_log(
                 info.context,

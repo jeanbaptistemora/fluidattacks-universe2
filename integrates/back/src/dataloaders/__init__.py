@@ -2,12 +2,6 @@ from .event import (
     EventLoader,
     EventTypedLoader,
 )
-from .group import (
-    GroupHistoricStateTypedLoader,
-    GroupIndicatorsTypedLoader,
-    GroupTypedLoader,
-    OrganizationGroupsTypedLoader,
-)
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
@@ -38,6 +32,12 @@ from db_model.findings.get import (
     GroupDraftsAndFindingsLoader,
     GroupDraftsLoader,
     GroupFindingsLoader,
+)
+from db_model.groups.get import (
+    GroupHistoricStateLoader,
+    GroupLoader,
+    GroupUnreliableIndicatorsLoader,
+    OrganizationGroupsLoader,
 )
 from db_model.roots.get import (
     GitEnvironmentSecretsLoader,
@@ -115,15 +115,15 @@ class Dataloaders(NamedTuple):
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_findings: GroupFindingsLoader
-    group_historic_state_typed: GroupHistoricStateTypedLoader
-    group_indicators_typed: GroupIndicatorsTypedLoader
+    group_historic_state_typed: GroupHistoricStateLoader
+    group_indicators_typed: GroupUnreliableIndicatorsLoader
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
-    group_typed: GroupTypedLoader
+    group_typed: GroupLoader
     organization: OrganizationLoader
-    organization_groups_typed: OrganizationGroupsTypedLoader
+    organization_groups_typed: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
@@ -210,15 +210,15 @@ def get_new_context() -> Dataloaders:
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_findings=group_findings_loader,
-        group_historic_state_typed=GroupHistoricStateTypedLoader(),
-        group_indicators_typed=GroupIndicatorsTypedLoader(),
+        group_historic_state_typed=GroupHistoricStateLoader(),
+        group_indicators_typed=GroupUnreliableIndicatorsLoader(),
         group_roots=GroupRootsLoader(),
         group_stakeholders=GroupStakeholdersLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
-        group_typed=GroupTypedLoader(),
+        group_typed=GroupLoader(),
         organization=OrganizationLoader(),
-        organization_groups_typed=OrganizationGroupsTypedLoader(),
+        organization_groups_typed=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),

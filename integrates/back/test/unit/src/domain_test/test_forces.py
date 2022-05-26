@@ -20,14 +20,15 @@ pytestmark = pytest.mark.asyncio
 async def test_update_secret_token() -> None:
     with mock_secretsmanager():
         loaders: Dataloaders = get_new_context()
-
         group_name = "unittesting"
+        organization_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+
         token = "mock token"
-        await update_token(group_name, token)
+        await update_token(group_name, organization_id, token)
         group: Group = await loaders.group_typed.load(group_name)
         assert group.agent_token == token
 
-        await update_token(group_name, "")
+        await update_token(group_name, organization_id, "")
         loaders.group_typed.clear(group_name)
         group = await loaders.group_typed.load(group_name)
         assert group.agent_token is None

@@ -33,7 +33,6 @@ from custom_exceptions import (
     InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
-    UnavailabilityError,
     UserCannotEnrollDemo,
     UserNotInOrganization,
 )
@@ -42,6 +41,9 @@ from custom_types import (
 )
 from datetime import (
     date,
+)
+from db_model import (
+    groups as groups_model,
 )
 from db_model.enums import (
     Notification,
@@ -105,9 +107,6 @@ from group_access import (
 from group_comments.domain import (
     get_total_comments_date,
     mask_comments,
-)
-from groups import (
-    dal as groups_dal,
 )
 import logging
 import logging.config
@@ -598,7 +597,7 @@ async def add_group(
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
-    await groups_dal.add_typed(
+    await groups_model.add(
         group=Group(
             description=description,
             language=language,
@@ -752,8 +751,9 @@ async def remove_group(
     ):
         raise ErrorRemovingGroup.new()
 
-    await update_state_typed(
+    await groups_model.update_state(
         group_name=group_name,
+        organization_id=group.organization_id,
         state=group.state._replace(
             modified_date=datetime_utils.get_iso_date(),
             has_machine=False,
@@ -789,6 +789,7 @@ async def update_group_managed(
     if managed != group.state.managed:
         await update_state_typed(
             group_name=group_name,
+            organization_id=group.organization_id,
             state=GroupState(
                 comments=comments,
                 modified_date=datetime_utils.get_iso_date(),
@@ -841,6 +842,7 @@ async def update_group(
 
     await update_state_typed(
         group_name=group_name,
+        organization_id=group.organization_id,
         state=GroupState(
             comments=comments,
             modified_date=datetime_utils.get_iso_date(),
@@ -1269,7 +1271,7 @@ async def exists(
     try:
         await loaders.group_typed.load(group_name)
         return True
-    except UnavailabilityError:
+    except GroupNotFound:
         return False
 
 
@@ -1308,6 +1310,7 @@ async def mask_files(
         await update_metadata_typed(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(files=masked_files),
+            organization_id=group.organization_id,
         )
 
 
@@ -1350,6 +1353,7 @@ async def add_file(
         metadata=GroupMetadataToUpdate(
             files=files_to_update,
         ),
+        organization_id=group.organization_id,
     )
 
 
@@ -1381,6 +1385,7 @@ async def remove_file(
                 if file.file_name != file_to_remove.file_name
             ]
         ),
+        organization_id=group.organization_id,
     )
     await send_mail_file_report(
         loaders=loaders,
@@ -1583,9 +1588,12 @@ async def update_metadata_typed(
     *,
     group_name: str,
     metadata: GroupMetadataToUpdate,
+    organization_id: str,
 ) -> None:
-    await groups_dal.update_metadata_typed(
-        group_name=group_name, metadata=metadata
+    await groups_model.update_metadata(
+        group_name=group_name,
+        metadata=metadata,
+        organization_id=organization_id,
     )
 
 
@@ -1606,7 +1614,11 @@ async def update_group_info(
         roles=roles,
     )
 
-    await update_metadata_typed(group_name=group_name, metadata=metadata)
+    await update_metadata_typed(
+        group_name=group_name,
+        metadata=metadata,
+        organization_id=group.organization_id,
+    )
 
     if metadata:
         await groups_mail.send_mail_updated_group_information(
@@ -1673,8 +1685,11 @@ async def update_state_typed(
     *,
     group_name: str,
     state: GroupState,
+    organization_id: str,
 ) -> None:
-    await groups_dal.update_state_typed(group_name=group_name, state=state)
+    await groups_model.update_state(
+        group_name=group_name, state=state, organization_id=organization_id
+    )
 
 
 async def update_indicators_typed(
@@ -1682,7 +1697,7 @@ async def update_indicators_typed(
     group_name: str,
     indicators: GroupUnreliableIndicators,
 ) -> None:
-    await groups_dal.update_indicators_typed(
+    await groups_model.update_unreliable_indicators(
         group_name=group_name, indicators=indicators
     )
 
@@ -1695,6 +1710,7 @@ async def set_pending_deletion_date(
     """Update pending deletion date in group's state."""
     await update_state_typed(
         group_name=group.name,
+        organization_id=group.organization_id,
         state=group.state._replace(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
@@ -1710,6 +1726,7 @@ async def remove_pending_deletion_date(
     """Clear pending deletion date in group's state."""
     await update_state_typed(
         group_name=group.name,
+        organization_id=group.organization_id,
         state=group.state._replace(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
@@ -1730,6 +1747,7 @@ async def add_tags(
         metadata=GroupMetadataToUpdate(
             tags=updated_tags,
         ),
+        organization_id=group.organization_id,
     )
     await send_mail_portfolio_report(
         loaders=loaders,
@@ -1754,6 +1772,7 @@ async def remove_tag(
             metadata=GroupMetadataToUpdate(
                 tags=group.tags,
             ),
+            organization_id=group.organization_id,
         )
         await send_mail_portfolio_report(
             loaders=loaders,

@@ -7,7 +7,11 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
+    Group,
     GroupMetadataToUpdate,
 )
 from decorators import (
@@ -43,7 +47,9 @@ async def mutate(
     group_name: str,
     **kwargs: Any,
 ) -> SimplePayloadType:
+    loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
+    group: Group = await loaders.group_typed.load(group_name)
     try:
         disambiguation = validations_utils.validate_markdown(
             kwargs.get("disambiguation", "")
@@ -54,6 +60,7 @@ async def mutate(
             metadata=GroupMetadataToUpdate(
                 disambiguation=disambiguation,
             ),
+            organization_id=group.organization_id,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

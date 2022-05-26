@@ -16,6 +16,7 @@ from dataloaders import (
 from db_model import (
     credentials as creds_model,
     findings as findings_model,
+    groups as groups_model,
     roots as roots_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
@@ -58,9 +59,6 @@ from group_access import (
 )
 from group_comments import (
     dal as dal_group_comments,
-)
-from groups import (
-    dal as dal_groups,
 )
 from newutils.datetime import (
     get_from_str,
@@ -176,7 +174,7 @@ async def populate_orgs(data: List[Any]) -> bool:
 async def _populate_group_unreliable_indicators(data: Dict[str, Any]) -> None:
     group: Group = data["group"]
     if data.get("unreliable_indicators"):
-        await dal_groups.update_indicators_typed(
+        await groups_model.update_unreliable_indicators(
             group_name=group.name,
             indicators=data["unreliable_indicators"],
         )
@@ -184,21 +182,18 @@ async def _populate_group_unreliable_indicators(data: Dict[str, Any]) -> None:
 
 async def _populate_group_historic_state(data: Dict[str, Any]) -> None:
     group: Group = data["group"]
-    historic = (
-        (group.state, *data["historic_state"])
-        if data.get("historic_state")
-        else (group.state,)
-    )
+    historic = data.get("historic_state", [])
     for state in historic:
-        await dal_groups.update_state_typed(
+        await groups_model.update_state(
             group_name=group.name,
+            organization_id=group.organization_id,
             state=state,
         )
 
 
 async def populate_groups(data: List[Dict[str, Any]]) -> bool:
     await collect(
-        dal_groups.add_typed(
+        groups_model.add(
             group=item["group"],
         )
         for item in data

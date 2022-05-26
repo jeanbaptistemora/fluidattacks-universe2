@@ -4,9 +4,9 @@ from back.test.unit.src.utils import (
     create_dummy_session,
 )
 from custom_exceptions import (
+    GroupNotFound,
     InvalidGroupServicesConfig,
     RepeatedValues,
-    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -760,7 +760,7 @@ async def test_update_group_attrs_fail(
     has_asm: bool,
     tier: GroupTier,
 ) -> None:
-    with pytest.raises(UnavailabilityError):
+    with pytest.raises(GroupNotFound):
         await update_group(
             loaders=get_new_context(),
             comments="",

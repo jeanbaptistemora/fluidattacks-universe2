@@ -211,10 +211,15 @@ def match_fields(my_dict: Dict[str, Any]) -> Dict[str, Any]:
     return new
 
 
-async def update_token(group_name: str, token: str) -> None:
+async def update_token(
+    group_name: str,
+    organization_id: str,
+    token: str,
+) -> None:
     return await groups_domain.update_metadata_typed(
         group_name=group_name,
         metadata=GroupMetadataToUpdate(
             agent_token=token,
         ),
+        organization_id=organization_id,
     )

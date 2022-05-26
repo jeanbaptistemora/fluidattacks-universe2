@@ -13,7 +13,7 @@ from botocore.exceptions import (
     ClientError,
 )
 from forces.domain import (
-    update_token,
+    update_token_legacy,
 )
 from groups.domain import (
     get_groups_with_forces,
@@ -47,7 +47,7 @@ async def main() -> None:
         print(f"[INFO] processing {project}")
         current_token = await get_old_forces_token(project)
         if current_token:
-            await update_token(project, current_token)
+            await update_token_legacy(project, current_token)
             print(f"[OK] {project}")
 
 
