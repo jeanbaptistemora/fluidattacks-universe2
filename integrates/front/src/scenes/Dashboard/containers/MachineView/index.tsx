@@ -150,7 +150,7 @@ const MachineView: React.FC = (): JSX.Element => {
   const rootNicknamesSorted: IGroupRoot[] = _.isUndefined(dataRoots)
     ? []
     : _.sortBy(dataRoots.group.roots, [
-        (root: IGroupRoot): string => root.nickname.toLowerCase(),
+        (root: IGroupRoot): string => (root.nickname || "").toLowerCase(),
       ]);
   const rootNicknames: string[] = rootNicknamesSorted
     .filter((root: IGroupRoot): boolean => root.state === "ACTIVE")
