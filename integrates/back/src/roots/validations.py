@@ -138,7 +138,7 @@ def validate_active_root(root: Root) -> None:
     raise InactiveRoot()
 
 
-def validate_component(root: Root, component: str) -> None:
+def validate_git_root_component(root: Root, component: str) -> None:
     if isinstance(root, GitRoot):
         if not is_valid_url(component):
             raise InvalidUrl()
@@ -152,21 +152,35 @@ def validate_component(root: Root, component: str) -> None:
                 formatted_environment_url
             ):
                 return
+        raise InvalidRootComponent()
 
+
+def validate_url_root_component(root: Root, component: str) -> None:
     if isinstance(root, URLRoot):
         if not is_valid_url(component):
             raise InvalidUrl()
-        host = (
+        url_with_port = (
             f"{root.state.host}:{root.state.port}"
             if root.state.port
             else root.state.host
         )
-        if f"{component}/".startswith(
-            f"{root.state.protocol.lower()}://{host}"
+
+        if root.state.query is None and f"{component}/".startswith(
+            f"{root.state.protocol.lower()}://{url_with_port}"
             f"{root.state.path.removesuffix('/')}/"
         ):
             return
 
+        if (
+            root.state.query is not None
+            and component == f"{root.state.protocol.lower()}://{url_with_port}"
+            f"{root.state.path}?{root.state.query}"
+        ):
+            return
+        raise InvalidRootComponent()
+
+
+def validate_ip_root_component(root: Root, component: str) -> None:
     if isinstance(root, IPRoot):
         host = (
             f"{root.state.address}:{root.state.port}"
@@ -175,8 +189,13 @@ def validate_component(root: Root, component: str) -> None:
         )
         if component == host or component.startswith(f"{host}/"):
             return
+        raise InvalidRootComponent()
 
-    raise InvalidRootComponent()
+
+def validate_component(root: Root, component: str) -> None:
+    validate_git_root_component(root, component)
+    validate_url_root_component(root, component)
+    validate_ip_root_component(root, component)
 
 
 def validate_git_root(root: Root) -> None:
