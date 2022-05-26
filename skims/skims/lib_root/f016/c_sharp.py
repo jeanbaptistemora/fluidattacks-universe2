@@ -166,3 +166,40 @@ def insecure_shared_access_protocol(
         graph_shard_nodes=n_ids(),
         method=method,
     )
+
+
+def httpclient_no_revocation_list(
+    shard_db: ShardDb,  # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
+    finding = method.value.finding
+    c_sharp = GraphShardMetadataLanguage.CSHARP
+
+    def n_ids() -> GraphShardNodes:
+        for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+
+            s_graph = shard.syntax_graph
+
+            for nid in g.filter_nodes(
+                s_graph,
+                nodes=shard.syntax_graph.nodes,
+                predicate=g.pred_has_labels(
+                    label_type="ObjectCreation",
+                ),
+            ):
+                if not s_graph.nodes[nid].get("name") == "HttpClient":
+                    continue
+                for path in get_backward_paths(s_graph, nid):
+                    evaluation = evaluate(c_sharp, finding, s_graph, path, nid)
+                    if evaluation and evaluation.danger:
+                        yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f016.insecure_shared_access_protocol",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
