@@ -445,24 +445,6 @@ const validField: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
-const validEnvironment: Validator = (value: string): string | undefined => {
-  if (!_.isNil(value)) {
-    const textMatch: RegExpMatchArray | null =
-      // We use them for control character pattern matching.
-      // eslint-disable-next-line no-control-regex
-      /[^a-z0-9\s!@$%*=?]/u.exec(value);
-    if (!_.isNull(textMatch)) {
-      return translate.t("validations.invalidTextField", {
-        chars: `'${textMatch[0]}'`,
-      });
-    }
-
-    return undefined;
-  }
-
-  return undefined;
-};
-
 const validPath: (host: string | undefined) => Validator =
   (host: string | undefined): Validator =>
   (path: string): string | undefined => {
@@ -618,7 +600,6 @@ export {
   validExploitFile,
   validFindingTypology,
   validRecordsFile,
-  validEnvironment,
   validOptionalDatetime,
   dateTimeBeforeToday,
   dateTimeBetween,
