@@ -12,9 +12,9 @@
     schedule_expression = "cron(0 8 * * ? *)";
     queue = "unlimited_spot";
     attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    timeout = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -37,9 +37,9 @@
     schedule_expression = "cron(0 8 * * ? *)";
     queue = "unlimited_spot";
     attempts = 3;
-    timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    timeout = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -63,8 +63,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -88,8 +88,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -113,8 +113,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -140,8 +140,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -167,8 +167,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -194,8 +194,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -221,8 +221,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -248,8 +248,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -275,8 +275,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -302,8 +302,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -329,8 +329,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -356,8 +356,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -383,8 +383,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -410,8 +410,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -437,8 +437,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -464,8 +464,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -491,8 +491,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -518,8 +518,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -545,8 +545,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -572,8 +572,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -599,8 +599,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -625,8 +625,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -652,8 +652,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -679,8 +679,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -706,8 +706,8 @@
     queue = "unlimited_spot";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
