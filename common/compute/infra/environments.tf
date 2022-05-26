@@ -1,40 +1,5 @@
 locals {
   environments = {
-    limited_spot = {
-      max_vcpus = 75
-      instances = [
-        "c5ad.large",
-        "c5ad.xlarge",
-        "c5ad.2xlarge",
-      ]
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-        data.aws_subnet.batch_main.id,
-      ]
-    }
-    unlimited_spot = {
-      max_vcpus = 10000
-      instances = [
-        "c5ad.large",
-        "c5ad.xlarge",
-        "c5ad.2xlarge",
-      ]
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-        data.aws_subnet.batch_main.id,
-      ]
-    }
-    unlimited_spot_clone = {
-      max_vcpus = 10000
-      instances = [
-        "c5ad.large",
-        "c5ad.xlarge",
-        "c5ad.2xlarge",
-      ]
-      subnets = [
-        data.aws_subnet.batch_clone.id,
-      ]
-    }
     small = {
       max_vcpus = 10000
       instances = ["c5ad.large"]
