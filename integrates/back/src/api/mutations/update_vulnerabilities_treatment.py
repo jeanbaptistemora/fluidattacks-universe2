@@ -109,6 +109,10 @@ async def mutate(
                 "Security: Vulnerabilities treatment successfully updated in "
                 f"finding {finding_id}",
             )
+
+            justification: str = parameters["justification"]
+            assigned: str = parameters["assigned"]
+
             if (
                 parameters.get("treatment")
                 == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
@@ -116,18 +120,23 @@ async def mutate(
                 await vulns_domain.send_treatment_report_mail(
                     loaders=loaders,
                     modified_by=user_email,
-                    justification=parameters["justification"],
-                    assigned=parameters["assigned"],
+                    justification=justification,
+                    assigned=assigned,
                     vulnerability_id=vulnerability_id,
                 )
 
+            # Clearing cache
+            loaders.finding_vulnerabilities_all.clear(finding_id)
+
             await vulns_domain.send_treatment_change_mail(
-                loaders,
-                finding_id,
-                finding.title,
-                group_name,
-                datetime.now(timezone.utc) - timedelta(days=1),
-                user_email,
+                loaders=loaders,
+                assigned=assigned,
+                finding_id=finding_id,
+                finding_title=finding.title,
+                group_name=group_name,
+                justification=justification,
+                min_date=datetime.now(timezone.utc) - timedelta(days=1),
+                modified_by=user_email,
             )
 
     except APP_EXCEPTIONS:

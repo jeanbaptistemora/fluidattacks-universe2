@@ -415,11 +415,14 @@ async def handle_vulnerabilities_acceptance(
     await collect(coroutines)
 
 
-async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
+async def send_treatment_change_mail(
+    *,
     loaders: Any,
+    assigned: str,
     finding_id: str,
     finding_title: str,
     group_name: str,
+    justification: str,
     min_date: Datetime,
     modified_by: str,
 ) -> bool:
@@ -436,9 +439,11 @@ async def send_treatment_change_mail(  # pylint: disable=too-many-arguments
         ]
         await should_send_update_treatment(
             loaders=loaders,
+            assigned=assigned,
             finding_id=finding_id,
             finding_title=finding_title,
             group_name=group_name,
+            justification=justification,
             treatment=treatment,
             updated_vulns=tuple(change[1] for change in treatments_change),
             modified_by=modified_by,

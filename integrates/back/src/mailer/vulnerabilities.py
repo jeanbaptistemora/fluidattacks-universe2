@@ -31,9 +31,11 @@ from typing import (
 async def send_mail_updated_treatment(
     *,
     loaders: Any,
+    assigned: str,
     finding_id: str,
     finding_title: str,
     group_name: str,
+    justification: str,
     treatment: str,
     vulnerabilities: str,
     modified_by: str,
@@ -48,7 +50,9 @@ async def send_mail_updated_treatment(
         in user.notifications_preferences.email
     ]
     email_context: dict[str, Any] = {
+        "assigned": assigned,
         "group": group_name,
+        "justification": justification,
         "responsible": modified_by,
         "treatment": treatment,
         "finding": finding_title,

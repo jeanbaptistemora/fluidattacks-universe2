@@ -667,14 +667,19 @@ def get_updated_manager_mail_content(
 async def should_send_update_treatment(
     *,
     loaders: Any,
+    assigned: str,
     finding_id: str,
     finding_title: str,
     group_name: str,
+    justification: str,
     treatment: str,
     updated_vulns: Tuple[Vulnerability, ...],
     modified_by: str,
 ) -> None:
-    translations = {"IN_PROGRESS": "In Progress"}
+    translations: dict[str, str] = {
+        "IN_PROGRESS": "In Progress",
+        "ACCEPTED": "Temporarily accepted",
+    }
     if treatment in translations:
         vulns_grouped = group_vulnerabilities(updated_vulns)
         vulns_data = await vulns_utils.format_vulnerabilities(
@@ -684,9 +689,11 @@ async def should_send_update_treatment(
         schedule(
             vulns_mail.send_mail_updated_treatment(
                 loaders=loaders,
+                assigned=assigned,
                 finding_id=finding_id,
                 finding_title=finding_title,
                 group_name=group_name,
+                justification=justification,
                 treatment=translations[treatment],
                 vulnerabilities=mail_content,
                 modified_by=modified_by,
