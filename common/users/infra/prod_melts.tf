@@ -8,24 +8,11 @@ locals {
             Sid    = "s3Write"
             Effect = "Allow"
             Action = ["*"]
+            // This buckets and resources list belog to melts, so the wildcard
+            // above is not dangerous
             Resource = [
               "arn:aws:s3:::fluidattacks-terraform-states-prod/melts*",
             ]
-          },
-          {
-            Sid    = "kmsRead"
-            Effect = "Allow"
-            Action = [
-              "kms:CreateAlias",
-              "kms:CreateKey",
-              "kms:Describe*",
-              "kms:Get*",
-              "kms:List*",
-              "kms:TagResource",
-              "kms:UntagResource",
-              "kms:UpdateAlias",
-            ]
-            Resource = ["*"]
           },
           {
             Sid    = "dynamoWrite"
