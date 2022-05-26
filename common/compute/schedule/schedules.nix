@@ -10,7 +10,7 @@
     ];
 
     schedule_expression = "cron(0 8 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 7200;
     cpu = 1;
@@ -35,7 +35,7 @@
     ];
 
     schedule_expression = "cron(0 8 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 7200;
     cpu = 1;
@@ -60,7 +60,7 @@
     ];
 
     schedule_expression = "cron(0 9 */2 * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -85,7 +85,7 @@
     ];
 
     schedule_expression = "cron(0 12 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -110,7 +110,7 @@
     ];
 
     schedule_expression = "cron(0 9 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -137,7 +137,7 @@
     ];
 
     schedule_expression = "cron(0 5,8,11,14,17,21 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -164,7 +164,7 @@
     ];
 
     schedule_expression = "cron(30 6,11,16 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -191,7 +191,7 @@
     ];
 
     schedule_expression = "cron(0 1 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -218,7 +218,7 @@
     ];
 
     schedule_expression = "cron(0 2 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -245,7 +245,7 @@
     ];
 
     schedule_expression = "cron(0 9 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -272,7 +272,7 @@
     ];
 
     schedule_expression = "cron(0 14 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -299,7 +299,7 @@
     ];
 
     schedule_expression = "cron(30 5,16 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -326,7 +326,7 @@
     ];
 
     schedule_expression = "cron(0 5 ? * 5 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -353,7 +353,7 @@
     ];
 
     schedule_expression = "cron(0 12,19 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -380,7 +380,7 @@
     ];
 
     schedule_expression = "cron(0 20 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -407,7 +407,7 @@
     ];
 
     schedule_expression = "cron(0 19 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -434,7 +434,7 @@
     ];
 
     schedule_expression = "cron(0 18,00 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -461,7 +461,7 @@
     ];
 
     schedule_expression = "cron(15 * ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -488,7 +488,7 @@
     ];
 
     schedule_expression = "cron(0 0 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -515,7 +515,7 @@
     ];
 
     schedule_expression = "cron(30 * ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -542,7 +542,7 @@
     ];
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -569,7 +569,7 @@
     ];
 
     schedule_expression = "cron(0 10 1 * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -596,7 +596,7 @@
     ];
 
     schedule_expression = "cron(0 10 ? * 2 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -622,7 +622,7 @@
     ];
 
     schedule_expression = "cron(0 9 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -649,7 +649,7 @@
     ];
 
     schedule_expression = "cron(0 10 ? * * *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -676,7 +676,7 @@
     ];
 
     schedule_expression = "cron(0 9,18 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -703,7 +703,7 @@
     ];
 
     schedule_expression = "cron(0 7,14 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
     cpu = 1;
@@ -728,11 +728,11 @@
     ];
 
     schedule_expression = "cron(0 2,17 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 2;
     timeout = 3600;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -753,7 +753,7 @@
     ];
 
     schedule_expression = "cron(0 12-23/3 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 1;
     timeout = 10800;
     cpu = 1;
@@ -778,11 +778,11 @@
     ];
 
     schedule_expression = "cron(0 11 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 2;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -803,11 +803,11 @@
     ];
 
     schedule_expression = "cron(0 9 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 2;
     timeout = 18000;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = [
@@ -831,11 +831,11 @@
     ];
 
     schedule_expression = "cron(0 4 1,15 * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 4;
     timeout = 18000;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = [
@@ -859,7 +859,7 @@
     ];
 
     schedule_expression = "cron(0 * * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 1;
     timeout = 3600;
     cpu = 1;
@@ -887,11 +887,11 @@
     ];
 
     schedule_expression = "cron(0 12 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 2;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -912,7 +912,7 @@
     ];
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 1;
     timeout = 3600;
     cpu = 1;
@@ -937,7 +937,7 @@
     ];
 
     schedule_expression = "cron(0 * * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 1;
     timeout = 1800;
     cpu = 1;
@@ -962,11 +962,11 @@
     ];
 
     schedule_expression = "cron(0 11-23/2 * * ? *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -987,7 +987,7 @@
     ];
 
     schedule_expression = "cron(0 0 1 1-12/3 ? *)";
-    queue = "unlimited_spot";
+    queue = "large";
     attempts = 1;
     timeout = 86400;
     cpu = 4;
@@ -1013,11 +1013,11 @@
     ];
 
     schedule_expression = "cron(0 23 ? * 7 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 86400;
-    cpu = 2;
-    memory = 7200;
+    cpu = 1;
+    memory = 1800;
     parallel = 15;
 
     environment = ["PRODUCT_API_TOKEN"];
@@ -1038,11 +1038,11 @@
     ];
 
     schedule_expression = "cron(0 5 ? * 6 *)";
-    queue = "unlimited_spot";
+    queue = "small";
     attempts = 3;
     timeout = 129600;
-    cpu = 2;
-    memory = 3600;
+    cpu = 1;
+    memory = 1800;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
