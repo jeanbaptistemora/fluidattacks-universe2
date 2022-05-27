@@ -179,12 +179,30 @@ const pageTexts: ResourceKey = {
       title: "Ready to try Continuous Hacking?",
     },
     productSection: {
+      analyticsDescription:
+        "Explore the stats of your applications' vulnerabilities and your risk " +
+        "exposure at any time. Download reports, share the information with your team and implement " +
+        "timely actions to maintain and improve the security of your applications.",
+      analyticsSubtitle:
+        "Check the status and progress of your applications’ security",
+      analyticsTitle: "ANALYTICS",
       remediationDescription:
         "Assign users to remediate reported vulnerabilities easily " +
         "and track progress. Request reattacks to confirm that vulnerabilities have been " +
         "successfully fixed. Review your organizational remediation rate whenever you want.",
       remediationSubtitle: "Speed up and control the remediation process",
       remediationTitle: "REMEDIATION",
+      strictDescription:
+        "Integrate our DevSecOps Agent into your CI pipelines to check that your " +
+        "applications are free of vulnerabilities before going into production. Prevent operational " +
+        "risks by breaking the build when your systems' security policies are not met.",
+      strictSubtitle: "Prevent going live with unmanaged risks",
+      strictTitle: "STRICT RELEASE CONTROL",
+      supportDescription:
+        "Solve your questions by contacting us through our support channels on the ASM: " +
+        "Live chat, Consulting sections and Talk to an expert.",
+      supportSubtitle: "We help you develop software with confidence",
+      supportTitle: "SUPPORT",
       vulnDescription:
         "Know your applications and system’s security issues through our " +
         "Attack Surface Manager (ASM). Learn details about each vulnerability, such as severity, " +

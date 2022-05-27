@@ -6,12 +6,14 @@ import { CloudImage } from "../../../CloudImage";
 import { HotSpotButton } from "../../../HotSpotButton";
 
 interface IInteractiveProps {
+  hasHotSpot: boolean;
   image1: string;
   image2: string;
   isRight: boolean;
 }
 
 const InteractiveImage: React.FC<IInteractiveProps> = ({
+  hasHotSpot,
   image1,
   image2,
   isRight,
@@ -24,12 +26,14 @@ const InteractiveImage: React.FC<IInteractiveProps> = ({
 
   return (
     <Container>
-      <HotSpotButton
-        id={image1}
-        isRight={isRight}
-        onClick={onClick}
-        tooltipMessage={"Click to view"}
-      />
+      {hasHotSpot ? (
+        <HotSpotButton
+          id={image1}
+          isRight={isRight}
+          onClick={onClick}
+          tooltipMessage={"Click to view"}
+        />
+      ) : undefined}
       <CloudImage
         alt={"Image Demo"}
         src={isTouch ? image2 : image1}

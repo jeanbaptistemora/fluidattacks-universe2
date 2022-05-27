@@ -10,7 +10,7 @@ const ButtonContainer = styled.div.attrs({
 })<{ isRight: boolean }>`
   width: 50px;
   height: 50px;
-
+  z-index: 1;
   left: ${({ isRight }): string => (isRight ? "-25px" : "25px")};
   float: ${({ isRight }): string => (isRight ? "left" : "right")};
   top: 50%;

@@ -5,7 +5,6 @@ const Container = styled.div.attrs({
     center
     dib
     relative
-    bg-white
   `,
 })``;
 

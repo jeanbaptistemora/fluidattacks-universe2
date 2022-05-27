@@ -7,6 +7,7 @@ import { InteractiveImage } from "../InteractiveImage";
 
 interface IDemoProps {
   description: string;
+  hasHotSpot: boolean;
   image1: string;
   image2: string;
   imageRight: boolean;
@@ -16,6 +17,7 @@ interface IDemoProps {
 
 const DemoBanner: React.FC<IDemoProps> = ({
   description,
+  hasHotSpot,
   image1,
   image2,
   imageRight,
@@ -39,6 +41,7 @@ const DemoBanner: React.FC<IDemoProps> = ({
           </TextContainer>
           <ImageContainer margin={imageRight}>
             <InteractiveImage
+              hasHotSpot={hasHotSpot}
               image1={`/airs/product-overview/demo-section/${image1}`}
               image2={`/airs/product-overview/demo-section/${image2}`}
               isRight={imageRight}
@@ -49,6 +52,7 @@ const DemoBanner: React.FC<IDemoProps> = ({
         <React.Fragment>
           <ImageContainer margin={imageRight}>
             <InteractiveImage
+              hasHotSpot={hasHotSpot}
               image1={`/airs/product-overview/demo-section/${image1}`}
               image2={`/airs/product-overview/demo-section/${image2}`}
               isRight={imageRight}
