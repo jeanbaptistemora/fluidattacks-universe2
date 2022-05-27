@@ -5,6 +5,7 @@ const ButtonContainer = styled.div.attrs({
     flex
     relative
     pointer
+    roboto
   `,
 })<{ isRight: boolean }>`
   width: 50px;
@@ -17,8 +18,19 @@ const ButtonContainer = styled.div.attrs({
   :hover > div + div {
     opacity: 0.4;
   }
+
   :hover > div + div + div {
     opacity: 0.2;
+  }
+
+  :hover > div + div + div + div {
+    opacity: 1;
+    display: flex;
+    position: absolute;
+    width: 120px;
+    justify-content: center;
+    top: -70% !important;
+    left: -70% !important;
   }
 `;
 
