@@ -59,6 +59,15 @@ interface ICustomFiltersProps {
   };
 }
 
+interface IEditorProps {
+  defaulValue: string;
+  style: string;
+  className: string;
+  onKeyDown: () => void;
+  onBlur: () => void;
+  onUpdate: () => void;
+}
+
 interface ITableProps {
   clearFiltersButton?: () => void;
   columnToggle?: boolean;
@@ -116,6 +125,7 @@ export type {
   ICustomFiltersProps,
   ICustomSearchProps,
   ICustomToggleProps,
+  IEditorProps,
   IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
