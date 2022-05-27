@@ -123,10 +123,10 @@ def format_organization_state(item: Item) -> OrganizationState:
 
     return OrganizationState(
         status=state_status,
-        modified_by=last_entry_state.get("modified_by"),
+        modified_by=last_entry_state.get("modified_by") or "unknown",
         modified_date=convert_to_iso_str(last_entry_state["modified_date"])
         if last_entry_state.get("modified_date")
-        else None,
+        else get_iso_date(),
         pending_deletion_date=pending_deletion_date,
     )
 
@@ -151,9 +151,7 @@ def format_organization_item(organization: Organization) -> Item:
                 "modified_by": organization.state.modified_by,
                 "modified_date": convert_from_iso_str(
                     organization.state.modified_date
-                )
-                if organization.state.modified_date
-                else None,
+                ),
                 "status": organization.state.status.value,
             }
         ],

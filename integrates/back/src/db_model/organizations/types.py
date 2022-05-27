@@ -16,8 +16,8 @@ from typing import (
 
 class OrganizationState(NamedTuple):
     status: OrganizationStateStatus
-    modified_by: Optional[str] = None
-    modified_date: Optional[str] = None
+    modified_by: str
+    modified_date: str
     pending_deletion_date: Optional[str] = None
 
 
