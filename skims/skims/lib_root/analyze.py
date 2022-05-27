@@ -37,6 +37,7 @@ from lib_root import (
     f338,
     f366,
     f413,
+    f414,
     f416,
 )
 from lib_sast.types import (
@@ -93,6 +94,7 @@ QUERIES: graph_model.Queries = (
     *f338.QUERIES,
     *f366.QUERIES,
     *f413.QUERIES,
+    *f414.QUERIES,
     *f416.QUERIES,
     *sast_query.QUERIES,
 )
