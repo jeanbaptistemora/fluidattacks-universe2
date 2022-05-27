@@ -27,18 +27,14 @@
             { "type": "string", "pattern": "^Protocol Manipulation$" }
           ]
         },
-        "code_examples": {
-          "oneOf": [
-            { "type": "object",
-              "additionalProperties": false,
-              "required": [ "non_compliant", "compliant" ],
-              "properties": {
-                "non_compliant": { "type": "string" },
-                "compliant": { "type": "string" }
-              }
-            },
-            { "type": "string", "pattern": "^__empty__$" }
-          ]
+        "examples": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [ "non_compliant", "compliant" ],
+          "properties": {
+            "non_compliant": { "type": "string" },
+            "compliant": { "type": "string" }
+          }
         },
         "remediation_time": {
           "oneOf": [
