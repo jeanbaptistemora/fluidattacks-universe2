@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { groupLinkFormatter } from "components/Table/formatters";
+import { linkFormatter } from "components/Table/formatters";
 import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
@@ -157,7 +157,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "name",
-      formatter: groupLinkFormatter,
+      formatter: linkFormatter(
+        (cell): string => `groups/${cell.toLowerCase()}/vulns`
+      ),
       header: t("organization.tabs.groups.newGroup.name"),
     },
     {
@@ -175,7 +177,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       dataField: "eventFormat",
-      formatter: groupLinkFormatter,
+      formatter: linkFormatter(
+        (_cell, row): string => `groups/${row.name.toLowerCase()}/events`
+      ),
       header: t("organization.tabs.groups.newGroup.events.text"),
       headerFormatter: tooltipFormatter,
       tooltipDataField: t("organization.tabs.groups.newGroup.events.tooltip"),
