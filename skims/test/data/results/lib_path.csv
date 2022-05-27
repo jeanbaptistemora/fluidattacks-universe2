@@ -23928,6 +23928,21 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls
   14 |
      ^ Col 22
 ",analyze_headers.c_sharp_weak_protocol
+F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
+ in namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs","
+   1 | ng System.Net.Http;
+   2 |
+   3 | ss ExampleClass
+   4 |
+   5 |  void ExampleMethod()
+   6 |  {
+   7 |      WinHttpHandler winHttpHandler = new WinHttpHandler();
+   8 |      winHttpHandler.CheckCertificateRevocationList = false;
+>  9 |      HttpClient httpClient = new HttpClient(winHttpHandler);
+  10 |  }
+  11 |
+     ^ Col 3
+",c_sharp.c_sharp_insecure_shared_access_protocol
 F016,lines,namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs,11,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
  in namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs","
    1 | using System;
