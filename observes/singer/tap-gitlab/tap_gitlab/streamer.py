@@ -11,6 +11,9 @@ from fa_purity.stream.transform import (
 from fa_singer_io.singer import (
     emitter,
 )
+from tap_gitlab.api2.ids import (
+    ProjectId,
+)
 from tap_gitlab.api2.issues import (
     IssueClient,
 )
@@ -26,9 +29,9 @@ from typing import (
 class Streamer:
     _target: IO[str]
 
-    def issues(self, client: IssueClient, project_id: int) -> Cmd[None]:
+    def issues(self, client: IssueClient, project: ProjectId) -> Cmd[None]:
         return (
-            client.project_issues(project_id)
+            client.project_issues(project)
             .map(issue_record.issue_records)
             .transform(lambda x: chain(x))
             .map(lambda s: emitter.emit(self._target, s))

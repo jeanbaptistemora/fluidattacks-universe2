@@ -9,6 +9,9 @@ from tap_gitlab.api2._raw import (
     Credentials,
     RawClient,
 )
+from tap_gitlab.api2.ids import (
+    ProjectId,
+)
 from tap_gitlab.api2.issues import (
     IssueClient,
 )
@@ -23,7 +26,7 @@ class Streams(Enum):
 
 def project_stream(api_key: str, project: str, stream: str) -> Cmd[None]:
     _stream = Streams(stream.upper())
-    _project = int(project)
+    _project = ProjectId.from_name(project)
     raw = RawClient(Credentials(api_key))
     streamer = Streamer(sys.stdout)
     if _stream is Streams.ISSUES:

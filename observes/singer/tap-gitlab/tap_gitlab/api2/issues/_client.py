@@ -42,6 +42,9 @@ from tap_gitlab.api2._raw import (
 from tap_gitlab.api2._raw.page import (
     Page,
 )
+from tap_gitlab.api2.ids import (
+    ProjectId,
+)
 from typing import (
     Dict,
     Optional,
@@ -80,7 +83,7 @@ class IssueClient:
 
     def _project_issues_page(
         self,
-        project_id: int,
+        project: ProjectId,
         page: Page,
     ) -> Cmd[FrozenList[IssueObj]]:
         raw_args: Dict[str, JsonValue] = {
@@ -90,14 +93,14 @@ class IssueClient:
         if self._filter:
             raw_args.update(self._filter.to_json())
         return self._client.get_list(
-            f"/projects/{project_id}/issues", freeze(raw_args)
+            "/projects/" + project.str_val + "/issues", freeze(raw_args)
         ).map(lambda l: tuple(map(decode_issue_obj, l)))
 
-    def project_issues(self, project_id: int) -> Stream[IssueObj]:
+    def project_issues(self, project: ProjectId) -> Stream[IssueObj]:
         return (
             infinite_range(1, 1)
             .map(lambda i: Page.new_page(i, self._per_page).unwrap())
-            .map(lambda p: self._project_issues_page(project_id, p))
+            .map(lambda p: self._project_issues_page(project, p))
             .transform(lambda x: from_piter(x))
             .map(
                 lambda l: Maybe.from_optional(l if l else None).map(
