@@ -1,6 +1,10 @@
 from fa_purity import (
     FrozenDict,
     JsonValue,
+    PureIter,
+)
+from fa_purity.pure_iter.factory import (
+    from_list,
 )
 from fa_singer_io.json_schema.factory import (
     datetime_schema,
@@ -79,8 +83,12 @@ def issue() -> SingerSchema:
     )
     schema = FrozenDict({"properties": JsonValue(properties)})
     return SingerSchema.new(
-        SingerStreams.issue_labels.value,
+        SingerStreams.issue.value,
         from_json(schema).unwrap(),
         frozenset(["id"]),
         None,
     ).unwrap()
+
+
+def all_schemas() -> PureIter[SingerSchema]:
+    return from_list([issue(), issue_assignees(), issue_labels()])
