@@ -103,13 +103,13 @@ describe("EventDescriptionView", (): void => {
     });
 
     expect(
-      screen.queryByRole("spinbutton", { name: "affectation" })
+      screen.queryByText("group.events.description.solved.date")
     ).not.toBeInTheDocument();
 
     userEvent.click(screen.getByText("searchFindings.tabSeverity.solve"));
     await waitFor((): void => {
       expect(
-        screen.queryByRole("spinbutton", { name: "affectation" })
+        screen.getByText("group.events.description.solved.date")
       ).toBeInTheDocument();
     });
   });

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import _, { toString } from "lodash";
+import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -31,7 +31,6 @@ import { msgError } from "utils/notifications";
 import {
   composeValidators,
   dateTimeBeforeToday,
-  numeric,
   required,
   validDatetime,
 } from "utils/validations";
@@ -115,11 +114,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
 
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
-      const castValues = {
-        affectation: toString(values.affectation),
-        date: values.date,
-      };
-      void solveEvent({ variables: { eventId, ...castValues } });
+      void solveEvent({ variables: { date: values.date, eventId } });
       closeSolvingModal();
     },
     [eventId, closeSolvingModal, solveEvent]
@@ -151,35 +146,20 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             {({ dirty }): React.ReactNode => (
               <Form id={"solveEvent"}>
                 <Row>
-                  <Col50>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.events.description.solved.date")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikDateTime}
-                        name={"date"}
-                        validate={composeValidators([
-                          required,
-                          validDatetime,
-                          dateTimeBeforeToday,
-                        ])}
-                      />
-                    </FormGroup>
-                  </Col50>
-                  <Col50>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.events.description.solved.affectation")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikText}
-                        name={"affectation"}
-                        type={"number"}
-                        validate={composeValidators([required, numeric])}
-                      />
-                    </FormGroup>
-                  </Col50>
+                  <FormGroup>
+                    <ControlLabel>
+                      {t("group.events.description.solved.date")}
+                    </ControlLabel>
+                    <Field
+                      component={FormikDateTime}
+                      name={"date"}
+                      validate={composeValidators([
+                        required,
+                        validDatetime,
+                        dateTimeBeforeToday,
+                      ])}
+                    />
+                  </FormGroup>
                 </Row>
                 {_.isEmpty(data.event.affectedReattacks) ? undefined : (
                   <Row>

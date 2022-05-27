@@ -22,12 +22,8 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
 `;
 
 const SOLVE_EVENT_MUTATION: DocumentNode = gql`
-  mutation SolveEventMutation(
-    $eventId: String!
-    $affectation: String!
-    $date: DateTime!
-  ) {
-    solveEvent(eventId: $eventId, affectation: $affectation, date: $date) {
+  mutation SolveEventMutation($eventId: String!, $date: DateTime!) {
+    solveEvent(eventId: $eventId, date: $date) {
       success
     }
   }
