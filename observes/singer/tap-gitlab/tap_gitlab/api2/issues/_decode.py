@@ -33,7 +33,7 @@ def _extract_user(item: JsonValue) -> UnfoldResult[UserId]:
     return (
         Unfolder(item)
         .to_unfolder_dict()
-        .bind(lambda x: x["id"].to_primitive(str))
+        .bind(lambda x: x["id"].to_primitive(int))
         .map(UserId)
     )
 
@@ -44,14 +44,14 @@ def _extract_user_or_fail(item: JsonValue) -> UserId:
 
 @dataclass(frozen=True)
 class _Ids:
-    id: str
+    id: int
     iid: int
 
 
 def _extract_ids(item: Unfolder) -> UnfoldResult[_Ids]:
     return item.to_unfolder_dict().map(
         lambda x: _Ids(
-            x["id"].to_primitive(str).unwrap(),
+            x["id"].to_primitive(int).unwrap(),
             x["iid"].to_primitive(int).unwrap(),
         )
     )
@@ -74,7 +74,10 @@ def decode_issue(raw: JsonObj) -> Issue:
         .map(lambda x: IssueType(x))
         .unwrap(),
         Unfolder(raw["confidential"]).to_primitive(bool).unwrap(),
-        Unfolder(raw["discussion_locked"]).to_primitive(bool).unwrap(),
+        Unfolder(raw["discussion_locked"])
+        .to_optional(lambda u: u.to_primitive(bool))
+        .map(lambda x: Maybe.from_optional(x))
+        .unwrap(),
         _extract_user(raw["author"]).unwrap(),
         Unfolder(raw["upvotes"]).to_primitive(int).unwrap(),
         Unfolder(raw["downvotes"]).to_primitive(int).unwrap(),
@@ -131,7 +134,7 @@ def decode_issue(raw: JsonObj) -> Issue:
 
 def decode_issue_obj(raw: JsonObj) -> IssueObj:
     _id = IssueId(
-        Unfolder(raw["id"]).to_primitive(str).unwrap(),
+        Unfolder(raw["id"]).to_primitive(int).unwrap(),
         Unfolder(raw["iid"]).to_primitive(int).unwrap(),
     )
     return (_id, decode_issue(raw))

@@ -33,7 +33,7 @@ def _encode_assignee(
 ) -> FrozenDict[str, UnfoldedJVal]:
     return FrozenDict(
         {
-            "issue_id": issue.global_id,
+            "issue_id": str(issue.global_id),
             "assignee": assignee.user_id,
         }
     )
@@ -42,7 +42,7 @@ def _encode_assignee(
 def _encode_label(issue: IssueId, label: str) -> FrozenDict[str, UnfoldedJVal]:
     return FrozenDict(
         {
-            "issue_id": issue.global_id,
+            "issue_id": str(issue.global_id),
             "label": label,
         }
     )
@@ -52,13 +52,13 @@ def issue_records(issue_obj: IssueObj) -> PureIter[SingerRecord]:
     issue = issue_obj[1]
     encoded_issue: FrozenDict[str, UnfoldedJVal] = FrozenDict(
         {
-            "id": issue_obj[0].global_id,
+            "id": str(issue_obj[0].global_id),
             "iid": issue_obj[0].internal_id,
             "title": issue.title,
             "state": issue.state,
             "issue_type": issue.issue_type.value,
             "confidential": issue.confidential,
-            "discussion_locked": issue.discussion_locked,
+            "discussion_locked": issue.discussion_locked.value_or(None),
             "author_id": issue.author.user_id,
             "up_votes": issue.up_votes,
             "down_votes": issue.down_votes,

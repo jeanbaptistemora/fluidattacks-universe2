@@ -13,25 +13,25 @@ from urllib.parse import (
 
 @dataclass(frozen=True)
 class EpicId:
-    global_id: str
+    global_id: int
     internal_id: int
 
 
 @dataclass(frozen=True)
 class IssueId:
-    global_id: str
+    global_id: int
     internal_id: int
 
 
 @dataclass(frozen=True)
 class MilestoneId:
-    global_id: str
+    global_id: int
     internal_id: int
 
 
 @dataclass(frozen=True)
 class UserId:
-    user_id: str
+    user_id: int
 
 
 @dataclass(frozen=True)

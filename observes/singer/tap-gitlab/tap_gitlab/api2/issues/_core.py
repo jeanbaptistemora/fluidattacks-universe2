@@ -27,6 +27,7 @@ class IssueType(Enum):
     issue = "issue"
     incident = "incident"
     test_case = "test_case"
+    requirement = "requirement"
 
 
 @dataclass(frozen=True)
@@ -35,7 +36,7 @@ class Issue:
     state: str
     issue_type: IssueType
     confidential: bool
-    discussion_locked: bool
+    discussion_locked: Maybe[bool]
     author: UserId
     up_votes: int
     down_votes: int
