@@ -2,6 +2,7 @@
 
 function main {
   export DATA
+  export TF_VAR_sizes
   export TF_VAR_schedules
 
   # Environment
@@ -11,7 +12,8 @@ function main {
   export PRODUCT_API_TOKEN
 
   DATA="$(cat "__argSchedules__")" \
-    && TF_VAR_schedules="$(python "__argParser__")"
+    && TF_VAR_schedules="$(python "__argParser__")" \
+    && TF_VAR_sizes="$(yq -rec "." "__argSizes__")"
 }
 
 main "${@}"

@@ -1,7 +1,9 @@
 variable "schedules" {}
+variable "sizes" {}
 
 locals {
   schedules = jsondecode(var.schedules)
+  sizes     = jsondecode(var.sizes)
 }
 
 resource "aws_batch_job_definition" "schedule" {
@@ -18,11 +20,11 @@ resource "aws_batch_job_definition" "schedule" {
       resourceRequirements = [
         {
           type  = "VCPU"
-          value = tostring(each.value.cpu)
+          value = tostring(local.sizes[each.value.size].cpu)
         },
         {
           type  = "MEMORY"
-          value = tostring(each.value.memory)
+          value = tostring(local.sizes[each.value.size].memory)
         },
       ]
 
@@ -83,7 +85,7 @@ resource "aws_cloudwatch_event_target" "main" {
 
   target_id = each.key
   rule      = aws_cloudwatch_event_rule.main[each.key].name
-  arn       = aws_batch_job_queue.main[each.value.queue].arn
+  arn       = aws_batch_job_queue.main[local.sizes[each.value.size].queue].arn
   role_arn  = data.aws_iam_role.prod_common.arn
 
   batch_target {

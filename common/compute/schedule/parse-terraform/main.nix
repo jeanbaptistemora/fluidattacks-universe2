@@ -11,8 +11,12 @@ makeTemplate {
     __argSchedules__ = toFileJson "data.json" (
       import (projectPath "/common/compute/schedule/schedules.nix")
     );
+    __argSizes__ = projectPath "/common/compute/arch/sizes/data.yaml";
   };
-  searchPaths.bin = [inputs.nixpkgs.python39];
+  searchPaths.bin = [
+    inputs.nixpkgs.python39
+    inputs.nixpkgs.yq
+  ];
   template = ./template.sh;
   name = "common-compute-schedule-parse-terraform";
 }

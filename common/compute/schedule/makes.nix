@@ -1,6 +1,16 @@
-{inputs, ...}: let
+{
+  fromYaml,
+  projectPath,
+  inputs,
+  ...
+}: let
   lib = inputs.nixpkgs.lib;
   schedules = import ./schedules.nix;
+  sizes = fromYaml (
+    builtins.readFile (
+      projectPath "/common/compute/arch/sizes/data.yaml"
+    )
+  );
   mapToBatch = name: value:
     lib.nameValuePair
     "schedule_${name}"
@@ -12,10 +22,10 @@
       definition = "makes";
       environment = value.environment;
       includePositionalArgsInName = false;
-      memory = value.memory;
+      memory = sizes.${value.size}.memory;
       parallel = value.parallel;
-      queue = value.queue;
-      vcpus = value.cpu;
+      queue = sizes.${value.size}.queue;
+      vcpus = sizes.${value.size}.cpu;
     };
 in {
   imports = [
