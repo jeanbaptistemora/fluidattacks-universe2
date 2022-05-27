@@ -99,7 +99,10 @@ const handleValidationError = (
   });
 };
 
-const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
+const rootSchema = (
+  isGitAccessible: boolean,
+  isDirty: boolean
+): InferType<TypedSchema> =>
   lazy(
     (values: IRootAttr): BaseSchema =>
       object().shape({
@@ -132,7 +135,11 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
                 "group.scope.git.repo.credentials.checkAccess.noAccess"
               ),
               (value): boolean => {
-                if (value === undefined || values.credentials.type !== "SSH") {
+                if (
+                  isDirty ||
+                  value === undefined ||
+                  values.credentials.type !== "SSH"
+                ) {
                   return true;
                 }
 
@@ -157,6 +164,7 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
               ),
               (value): boolean => {
                 if (
+                  isDirty ||
                   value === undefined ||
                   values.credentials.type !== "HTTPS"
                 ) {
@@ -179,6 +187,7 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
               ),
               (value): boolean => {
                 if (
+                  isDirty ||
                   value === undefined ||
                   values.credentials.type !== "HTTPS"
                 ) {
@@ -202,6 +211,7 @@ const rootSchema = (isGitAccessible: boolean): InferType<TypedSchema> =>
               ),
               (value): boolean => {
                 if (
+                  isDirty ||
                   value === undefined ||
                   values.credentials.type !== "HTTPS"
                 ) {

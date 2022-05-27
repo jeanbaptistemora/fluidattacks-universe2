@@ -115,14 +115,20 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
     }
   );
 
-  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
-    onCompleted: (): void => {
+  const [addGitRoot, { loading: submittingRoot }] = useMutation(ADD_GIT_ROOT, {
+    onCompleted: (result: { addGitRoot: { success: boolean } }): void => {
       localStorage.clear();
       sessionStorage.clear();
       replace(
         `/orgs/${organization.toLowerCase()}/groups/${group.toLowerCase()}/scope`
       );
       setIsRepository(true);
+      if (result.addGitRoot.success) {
+        msgSuccess(
+          t("autoenrollment.addOrganization.messages.success.body"),
+          t("autoenrollment.addOrganization.messages.success.title")
+        );
+      }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       handleRootCreateError(graphQLErrors, setOrgMessages);
@@ -341,7 +347,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
           <Row justify={"center"}>
             <Col>
               <Button
-                disabled={submittingOrg || submittingGroup}
+                disabled={submittingOrg || submittingGroup || submittingRoot}
                 type={"submit"}
                 variant={"primary"}
               >

@@ -43,6 +43,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
   const group = "UNITTESTING";
 
   const [isGitAccessible, setIsGitAccessible] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
 
@@ -60,8 +61,8 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
   const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
     onCompleted: (): void => {
-      setShowSubmitAlert(false);
       setIsGitAccessible(true);
+      setShowSubmitAlert(false);
       setRootMessages({
         message: t("group.scope.git.repo.credentials.checkAccess.success"),
         type: "success",
@@ -74,9 +75,9 @@ const AddRoot: React.FC<IAddRootProps> = ({
     },
   });
 
-  function checkAccess(): void {
+  async function checkAccess(): Promise<void> {
     if (formRef.current !== null) {
-      void validateGitAccess({
+      await validateGitAccess({
         variables: {
           credentials: {
             key: formRef.current.values.credentials.key
@@ -98,6 +99,14 @@ const AddRoot: React.FC<IAddRootProps> = ({
     }
   }
 
+  function handleSubmit(): void {
+    setRootMessages({
+      message: t("group.scope.git.repo.credentials.checkAccess.success"),
+      type: "success",
+    });
+    onCompleted();
+  }
+
   return (
     <div>
       <Formik
@@ -105,16 +114,18 @@ const AddRoot: React.FC<IAddRootProps> = ({
         initialValues={initialValues}
         innerRef={formRef}
         name={"newRoot"}
-        onSubmit={onCompleted}
-        validationSchema={rootSchema(isGitAccessible)}
+        onSubmit={handleSubmit}
+        validationSchema={rootSchema(isGitAccessible, isDirty)}
       >
-        {({ isSubmitting, values, setFieldTouched }): JSX.Element => {
+        {({ dirty, isSubmitting, setFieldTouched, values }): JSX.Element => {
           if (isSubmitting) {
             setShowSubmitAlert(false);
           }
 
-          function handleAccess(): void {
-            checkAccess();
+          setIsDirty(dirty);
+
+          async function handleAccess(): Promise<void> {
+            await checkAccess();
             setFieldTouched("branch", true);
             setFieldTouched("credentials.key", true);
             setFieldTouched("credentials.name", true);
@@ -394,10 +405,14 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   {rootMessages.message}
                 </Alert>
               )}
-              {isGitAccessible ? (
+              {isGitAccessible && !dirty ? (
                 <Row justify={"center"}>
                   <Col>
-                    <Button type={"submit"} variant={"primary"}>
+                    <Button
+                      disabled={isSubmitting}
+                      type={"submit"}
+                      variant={"primary"}
+                    >
                       {t("autoenrollment.addRoot.proceed.next")}
                     </Button>
                   </Col>

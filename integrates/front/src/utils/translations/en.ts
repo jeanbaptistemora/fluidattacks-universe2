@@ -243,6 +243,12 @@ export const enTranslations: ResourceKey = {
         label: "Group name",
         placeholder: "My group name",
       },
+      messages: {
+        success: {
+          body: "You started Machine Plan free trial",
+          title: "Done!",
+        },
+      },
       organizationName: {
         label: "Organization name",
         placeholder: "My organization",
