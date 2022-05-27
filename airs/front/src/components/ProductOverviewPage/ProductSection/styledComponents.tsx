@@ -8,8 +8,6 @@ const Container = styled.div.attrs({
     ph-body
     bg-white
   `,
-})`
-  max-width: 1400px;
-`;
+})``;
 
 export { Container };

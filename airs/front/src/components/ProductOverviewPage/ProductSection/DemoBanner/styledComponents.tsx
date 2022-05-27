@@ -4,11 +4,12 @@ const Container = styled.div.attrs({
   className: `
     center
     flex
-    bg-white
     items-center
     mv5
   `,
-})``;
+})`
+  max-width: 1400px;
+`;
 
 const TextContainer = styled.div.attrs({
   className: `
