@@ -273,3 +273,52 @@ def mock_pull_git_repo_next_commit(
         yield
     finally:
         rmtree(repo_path)
+
+
+@pytest.fixture(scope="function")
+def mock_pull_git_repo_commits_for_zr(
+    mocker: MockerFixture,
+    test_group: str,  # pylint: disable=redefined-outer-name
+) -> Iterator[None]:
+    repo_path = os.path.join(
+        NAMESPACES_FOLDER, test_group, "dynamic_namespace_3"
+    )
+
+    repo_file_path = os.path.join(
+        repo_path, "skims/test/data/lib_path/f109/subnet_test_rebase.tf"
+    )
+
+    new_file_path = "skims/test/data/lib_path/f109/subnet_test.tf"
+    try:
+        os.makedirs(repo_path, exist_ok=True)
+        repo = Repo.init(repo_path)
+
+        os.makedirs(os.path.split(repo_file_path)[0], exist_ok=True)
+
+        copyfile(new_file_path, repo_file_path)
+
+        repo.index.add(repo_file_path)
+        repo.index.commit(
+            message="Initial commit",
+            author_date=datetime.date(2020, 7, 21).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            commit_date=datetime.date(2020, 7, 21).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+        )
+
+        copyfile(
+            "skims/test/data/lib_path/f109/subnet_test_rebase.tf",
+            repo_file_path,
+        )
+        repo.index.add(repo_file_path)
+        repo.index.commit(message="Rebase commit")
+
+        mocker.patch(
+            "batch.repositories.pull_namespace_from_s3", return_value=repo_path
+        )
+        yield
+
+    finally:
+        rmtree(repo_path)
