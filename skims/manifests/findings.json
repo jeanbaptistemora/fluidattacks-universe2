@@ -863,6 +863,14 @@
       "title": "413. Insecure file upload - DLL Injection"
     }
   },
+  "F414": {
+    "EN": {
+      "title": "414. Insecure service configuration - Header Checking"
+    },
+    "ES": {
+      "title": "414. Insecure service configuration - Header Checking"
+    }
+  },
   "F416": {
     "EN": {
       "title": "416. XAML injection"
