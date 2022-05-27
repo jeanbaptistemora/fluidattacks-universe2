@@ -163,6 +163,10 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintWithAjv/common/compute/arch/sizes";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintWithAjv/common/criteria/compliance";
           gitlabExtra = gitlabLint;
         }

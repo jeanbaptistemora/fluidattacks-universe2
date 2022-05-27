@@ -1,6 +1,7 @@
 # https://github.com/fluidattacks/makes
 {outputs, ...}: {
   imports = [
+    ./arch/makes.nix
     ./schedule/makes.nix
   ];
   deployTerraform = {
