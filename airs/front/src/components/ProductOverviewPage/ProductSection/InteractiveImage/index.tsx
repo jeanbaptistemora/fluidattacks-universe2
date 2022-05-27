@@ -25,7 +25,11 @@ const InteractiveImage: React.FC<IInteractiveProps> = ({
   return (
     <Container>
       <HotSpotButton isRight={isRight} onClick={onClick} />
-      <CloudImage alt={"Image Demo"} src={isTouch ? image2 : image1} />
+      <CloudImage
+        alt={"Image Demo"}
+        src={isTouch ? image2 : image1}
+        styles={"bs-product-image"}
+      />
     </Container>
   );
 };
