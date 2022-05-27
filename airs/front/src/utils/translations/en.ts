@@ -178,6 +178,20 @@ const pageTexts: ResourceKey = {
         "of organizations are already enjoying.",
       title: "Ready to try Continuous Hacking?",
     },
+    productSection: {
+      remediationDescription:
+        "Assign users to remediate reported vulnerabilities easily " +
+        "and track progress. Request reattacks to confirm that vulnerabilities have been " +
+        "successfully fixed. Review your organizational remediation rate whenever you want.",
+      remediationSubtitle: "Speed up and control the remediation process",
+      remediationTitle: "REMEDIATION",
+      vulnDescription:
+        "Know your applications and system’s security issues through our " +
+        "Attack Surface Manager (ASM). Learn details about each vulnerability, such as severity, " +
+        "evidence and non-compliant standards, as well as remediation suggestions. ",
+      vulnSubtitle: "Assess your risk exposure and move strategically",
+      vulnTitle: "VULNERABILITIES",
+    },
     title: "Try our continuous hacking solution",
   },
   resources: {
