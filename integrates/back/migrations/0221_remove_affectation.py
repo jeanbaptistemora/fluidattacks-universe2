@@ -1,0 +1,112 @@
+# pylint: disable=invalid-name
+"""
+This migration wipes event affectation data from the DB
+
+Execution Time:
+Finalization Time:
+"""
+
+from aioextensions import (
+    collect,
+    run,
+)
+from aiohttp.client_exceptions import (
+    ClientError,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import time
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+)
+
+# Constants
+PROD: bool = True
+
+EVENTS_TABLE: str = "FI_events"
+
+
+async def get_all_events(
+    filtering_exp: object = "",
+    data_attr: str = "",
+) -> List[Dict[str, Any]]:
+    scan_attrs = {}
+    if filtering_exp:
+        scan_attrs["FilterExpression"] = filtering_exp
+    if data_attr:
+        scan_attrs["ProjectionExpression"] = data_attr
+    items = await dynamodb_ops.scan(EVENTS_TABLE, scan_attrs)
+    return cast(List[Dict[str, Any]], items)
+
+
+async def update(email: str, data: Dict[str, None]) -> bool:
+    """Manually updates db data"""
+    success = False
+    set_expression = ""
+    remove_expression = ""
+    expression_names = {}
+    expression_values = {}  # type: ignore
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f"#{attr}, "
+            expression_names.update({f"#{attr}": attr})
+        else:
+            set_expression += f"#{attr} = :{attr}, "
+            expression_names.update({f"#{attr}": attr})
+            expression_values.update({f":{attr}": value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        "Key": {
+            "email": email,
+        },
+        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
+    }
+    if expression_values:
+        update_attrs.update({"ExpressionAttributeValues": expression_values})
+    if expression_names:
+        update_attrs.update({"ExpressionAttributeNames": expression_names})
+    try:
+        success = await dynamodb_ops.update_item(EVENTS_TABLE, update_attrs)
+    except ClientError as ex:
+        print(f"- ERROR: {ex}")
+    return success
+
+
+async def process_event(event: Dict[str, Any]) -> bool:
+    success = False
+    if PROD:
+        success = await update(
+            event["event_id"],
+            {"affectation": None},
+        )
+    return success
+
+
+async def remove_affectations(events: List[Dict[str, Any]]) -> None:
+    success = all(await collect(process_event(event) for event in events))
+    print(f"Affectations removed: {success}")
+
+
+async def main() -> None:
+    events = await get_all_events()
+    await remove_affectations(events)
+
+
+if __name__ == "__main__":
+    execution_time = time.strftime(
+        "Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z"
+    )
+    run(main())
+    finalization_time = time.strftime(
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z"
+    )
+    print(f"{execution_time}\n{finalization_time}")
