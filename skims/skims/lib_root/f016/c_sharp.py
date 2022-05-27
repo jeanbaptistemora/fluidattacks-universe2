@@ -172,7 +172,7 @@ def httpclient_no_revocation_list(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
+    method = core_model.MethodsEnum.CS_HTTPCLIENT_NO_REVOCATION_LIST
     finding = method.value.finding
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
@@ -198,7 +198,7 @@ def httpclient_no_revocation_list(
                         yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f016.insecure_shared_access_protocol",
+        desc_key="lib_root.f016.httpclient_no_revocation_list",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

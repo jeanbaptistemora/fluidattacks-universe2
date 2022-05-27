@@ -23928,7 +23928,7 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls
   14 |
      ^ Col 22
 ",analyze_headers.c_sharp_weak_protocol
-F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
+F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
  in namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs","
    1 | ng System.Net.Http;
    2 |
@@ -23942,7 +23942,7 @@ F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list
   10 |  }
   11 |
      ^ Col 3
-",c_sharp.c_sharp_insecure_shared_access_protocol
+",c_sharp.c_sharp_httpclient_no_revocation_list
 F016,lines,namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs,11,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
  in namespace/skims/test/data/lib_root/f016/insecure_shared_access_protocol.cs","
    1 | using System;

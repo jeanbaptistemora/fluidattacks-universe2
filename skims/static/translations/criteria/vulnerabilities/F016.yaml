@@ -50,3 +50,10 @@ lib_root.f016.insecure_shared_access_protocol:
   es: >
     Usar el método GetSharedAccessSignature para generar una firma de acceso
     compartido (SAS) con protocolos específicos como HttpsOrHttp.
+lib_root.f016.httpclient_no_revocation_list:
+  en: >
+    Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList
+    no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
+  es: >
+    Using System.Net.Http.HttpClient with its CheckCertificateRevocationList property
+    not set to true will allow HttpClient to accept revoked certificates as valid.
