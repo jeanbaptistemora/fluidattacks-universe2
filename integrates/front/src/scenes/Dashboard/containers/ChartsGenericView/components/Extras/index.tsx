@@ -23,6 +23,7 @@ import {
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { ExternalLink } from "components/ExternalLink";
+import { ScrollUpButton } from "components/ScrollUpButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
@@ -195,6 +196,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
                         )}
                         scrollInto={false}
                       />
+                      <ScrollUpButton visibleAt={400} />
                     </ButtonToolbarCenter>
                   </div>
                 </div>
