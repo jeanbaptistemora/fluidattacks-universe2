@@ -22,18 +22,22 @@ const HotSpotButton: React.FC<IHotspotButton> = ({
   tooltipMessage,
 }: IHotspotButton): JSX.Element => {
   return (
-    <ButtonContainer
-      data-for={id}
-      data-tip={tooltipMessage}
-      data-type={"dark"}
-      isRight={isRight}
-      onClick={onClick}
-    >
-      <FirstCircle />
-      <SecondCircle />
-      <ThirdCircle />
+    <React.Fragment>
+      <ButtonContainer
+        data-background-color={"black"}
+        data-class={"roboto"}
+        data-effect={"solid"}
+        data-for={id}
+        data-tip={tooltipMessage}
+        isRight={isRight}
+        onClick={onClick}
+      >
+        <FirstCircle />
+        <SecondCircle />
+        <ThirdCircle />
+      </ButtonContainer>
       <ReactTooltip id={id} />
-    </ButtonContainer>
+    </React.Fragment>
   );
 };
 

@@ -22,16 +22,6 @@ const ButtonContainer = styled.div.attrs({
   :hover > div + div + div {
     opacity: 0.2;
   }
-
-  :hover > div + div + div + div {
-    opacity: 1;
-    display: flex;
-    position: absolute;
-    width: 120px;
-    justify-content: center;
-    top: -70% !important;
-    left: -70% !important;
-  }
 `;
 
 const FirstCircle = styled.div.attrs({
