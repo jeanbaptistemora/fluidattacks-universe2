@@ -68,19 +68,26 @@ locals {
             Sid    = "redshiftRead"
             Effect = "Allow"
             Action = [
-              "redshift-data:*",
+              "redshift-data:Get*",
+              "redshift-data:List*",
+              "redshift-data:Describe*",
               "redshift:Describe*",
             ]
-            Resource = ["*"]
+            Resource = [
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
+            ]
           },
           {
             Sid    = "redshiftWrite"
             Effect = "Allow"
-            Action = ["*"]
+            Action = [
+              "redshift:*",
+              "redshift-data:*",
+            ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:fluid-redshift",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:fluid-redshift/*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:fluid-redshift/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:observes/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:observes/*",
             ]
           },
           {
