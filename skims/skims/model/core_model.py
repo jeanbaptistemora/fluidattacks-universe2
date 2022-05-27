@@ -3502,6 +3502,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    CS_DISABLED_HTTP_HEADER_CHECK = MethodInfo(
+        file_name="csharp",
+        name="csharp_disabled_http_header_check",
+        module="lib_root",
+        finding=FindingEnum.F414,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_XAML_INJECTION = MethodInfo(
         file_name="csharp",
         name="csharp_xaml_injection",
