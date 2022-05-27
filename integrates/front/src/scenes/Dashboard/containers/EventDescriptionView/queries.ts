@@ -5,7 +5,6 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
   query GetEventDescription($eventId: String!) {
     event(identifier: $eventId) {
       accessibility
-      affectation
       affectedComponents
       affectedReattacks {
         findingId

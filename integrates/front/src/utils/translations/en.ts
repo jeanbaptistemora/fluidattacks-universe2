@@ -426,7 +426,6 @@ export const enTranslations: ResourceKey = {
       },
       description: {
         solved: {
-          affectation: "Affectation (hours)",
           date: "Resolution date",
           holds:
             "{{ length }} reattack(s) put on hold by this Event " +
@@ -2286,7 +2285,6 @@ export const enTranslations: ResourceKey = {
         other: "Other",
         testOtherPartToe: "Test other part ToE",
       },
-      affectation: "Affectation",
       affectedComponents: "Affected components",
       affectedComponentsValues: {
         clientStation: "Client's test station",
@@ -2308,6 +2306,7 @@ export const enTranslations: ResourceKey = {
         toeUnstable: "Unstable ToE",
         vpnConnection: "VPN connectivity",
       },
+      affectedReattacks: "Reattacks on hold",
       client: "Client",
       comments: "Comments",
       date: "Date reported",

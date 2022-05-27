@@ -44,7 +44,6 @@ interface IAffectedReattacks {
 interface IEventDescriptionData {
   event: {
     accessibility: string;
-    affectation: string;
     affectedComponents: string;
     affectedReattacks: IAffectedReattacks[];
     hacker: string;
@@ -250,12 +249,12 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       alignField={"horizontalWide"}
                       component={FormikText}
                       currentValue={
-                        _.isEmpty(data.event.affectation)
-                          ? "-"
-                          : data.event.affectation
+                        _.isEmpty(data.event.affectedReattacks)
+                          ? "0"
+                          : String(data.event.affectedReattacks.length)
                       }
-                      label={t("searchFindings.tabEvents.affectation")}
-                      name={"affectation"}
+                      label={t("searchFindings.tabEvents.affectedReattacks")}
+                      name={"affectedReattacks"}
                       renderAsEditable={false}
                       type={"text"}
                     />
