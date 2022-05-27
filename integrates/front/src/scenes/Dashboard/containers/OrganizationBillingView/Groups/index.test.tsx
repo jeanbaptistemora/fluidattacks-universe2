@@ -1,3 +1,4 @@
+import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
@@ -5,8 +6,19 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { UPDATE_GROUP_MUTATION } from "../queries";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/index";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgSuccess } from "utils/notifications";
+
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("Organization billing groups view", (): void => {
   it("should return a function", (): void => {
@@ -17,13 +29,36 @@ describe("Organization billing groups view", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockMutation: MockedResponse = {
+      request: {
+        query: UPDATE_GROUP_MUTATION,
+        variables: {
+          comments: "",
+          groupName: "unittesting",
+          isManagedChanged: true,
+          isSubscriptionChanged: false,
+          managed: false,
+          subscription: "SQUAD",
+        },
+      },
+      result: {
+        data: {
+          updateGroupManaged: {
+            success: true,
+          },
+        },
+      },
+    };
+
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_subscription_mutate" },
+      { action: "api_mutations_update_group_managed_mutate" },
       { action: "api_resolvers_organization_billing_portal_resolve" },
     ]);
+    const onUpdate: jest.Mock = jest.fn();
     render(
       <MemoryRouter initialEntries={["/orgs/okada/billing"]}>
-        <MockedProvider addTypename={false} mocks={[]}>
+        <MockedProvider addTypename={false} mocks={[mockMutation]}>
           <Route path={"/orgs/:organizationName/billing"}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <OrganizationGroups
@@ -41,13 +76,16 @@ describe("Organization billing groups view", (): void => {
                     machine: "",
                     managed: true,
                     name: "unittesting",
-                    permissions: ["api_mutations_update_subscription_mutate"],
+                    permissions: [
+                      "api_mutations_update_subscription_mutate",
+                      "api_mutations_update_group_managed_mutate",
+                    ],
                     service: "WHITE",
                     squad: "true",
                     tier: "SQUAD",
                   },
                 ]}
-                onUpdate={jest.fn()}
+                onUpdate={onUpdate}
               />
             </authzPermissionsContext.Provider>
           </Route>
@@ -77,6 +115,27 @@ describe("Organization billing groups view", (): void => {
         )
       ).toBeInTheDocument();
     });
+
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+
+    userEvent.selectOptions(screen.getByRole("combobox", { name: "managed" }), [
+      "organization.tabs.billing.groups.managed.no",
+    ]);
+
+    await waitFor((): void => {
+      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+    });
+
+    userEvent.click(screen.getByText("confirmmodal.proceed"));
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "organization.tabs.billing.groups.updateSubscription.success.body",
+        "organization.tabs.billing.groups.updateSubscription.success.title"
+      );
+    });
+
+    expect(onUpdate).toHaveBeenCalledTimes(1);
 
     jest.clearAllMocks();
   });
