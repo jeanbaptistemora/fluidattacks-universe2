@@ -1,6 +1,10 @@
 from aioextensions import (
     collect,
 )
+from batch import (
+    BatchProcessing,
+    main as batch_main,
+)
 from cli import (
     cli,
 )
@@ -21,12 +25,16 @@ import io
 from itertools import (
     zip_longest,
 )
+import json
 from model import (
     core_model,
     cvss3_model,
 )
 import os
 import pytest
+from pytest_mock import (
+    MockerFixture,
+)
 import re
 from state.ephemeral import (
     EphemeralStore,
@@ -511,6 +519,115 @@ async def test_reattack_comments_open_and_closed_vulnerability(
     assert re.search(open_vulns_comment, comment_1) or re.search(
         open_vulns_comment, comment_2
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.skims_test_group("functional")
+@pytest.mark.usefixtures("test_integrates_session")
+async def test_rebase_change_line_2(test_group: str) -> None:
+
+    titles_to_finding: Dict[str, core_model.FindingEnum] = {
+        t(finding.value.title): finding for finding in core_model.FindingEnum
+    }
+
+    findings = await get_group_findings(group=test_group)
+
+    for finding in findings:
+        if finding.title.startswith("109"):
+            title = finding.title
+            finding_id = finding.identifier
+
+    vulns_before_rebase: EphemeralStore = await get_finding_vulnerabilities(
+        finding=titles_to_finding[title],
+        finding_id=finding_id,
+    )
+
+    vulns_before_rebase_zr: EphemeralStore = await get_finding_vulnerabilities(
+        finding=titles_to_finding[title],
+        finding_id=finding_id,
+        get_zr=True,
+    )
+    assert any(
+        vuln.integrates_metadata.uuid == "226fe320-8986-4c94-8305-76d773bbeded"
+        for vuln in vulns_before_rebase_zr.iterate()
+    )
+    assert (
+        vulns_before_rebase.length() == 0
+        and vulns_before_rebase_zr.length() == 1
+    )
+
+    for item in vulns_before_rebase_zr.iterate():
+        if (
+            item.integrates_metadata.uuid
+            == "226fe320-8986-4c94-8305-76d773bbeded"
+        ):
+            assert item.where == "1"
+
+
+@pytest.mark.asyncio
+@pytest.mark.skims_test_group("functional")
+@pytest.mark.usefixtures("mock_pull_git_repo_commits_for_zr")
+@pytest.mark.usefixtures("test_integrates_session")
+async def test_rebase_change_line_3(
+    test_group: str, mocker: MockerFixture
+) -> None:
+    mocker.patch(
+        "batch.get_action",
+        return_value=BatchProcessing(
+            key="test",
+            action_name="execute-machine",
+            entity=test_group,
+            subject="skims@fluidattacks.com",
+            time="test",
+            additional_info=json.dumps(
+                {
+                    "roots": ["dynamic_namespace_3"],
+                    "checks": ["F109"],
+                }
+            ),
+            queue="unlimited_spot",
+        ),
+    )
+    mocker.patch("batch.set_running", return_value=None)
+    mocker.patch("batch.delete_action", return_value=None)
+    titles_to_finding: Dict[str, core_model.FindingEnum] = {
+        t(finding.value.title): finding for finding in core_model.FindingEnum
+    }
+
+    findings = await get_group_findings(group=test_group)
+
+    for finding in findings:
+        if finding.title.startswith("109"):
+            title = finding.title
+            finding_id = finding.identifier
+
+    await batch_main(action_dynamo_pk="test")
+
+    vulns_after_rebase: EphemeralStore = await get_finding_vulnerabilities(
+        finding=titles_to_finding[title],
+        finding_id=finding_id,
+    )
+    vulns_after_rebase_zr: EphemeralStore = await get_finding_vulnerabilities(
+        finding=titles_to_finding[title],
+        finding_id=finding_id,
+        get_zr=True,
+    )
+    # Check that F109 is zero risk
+    assert (
+        vulns_after_rebase.length() == 1
+        and vulns_after_rebase_zr.length() == 2
+    )
+    assert any(
+        vuln.integrates_metadata.uuid == "226fe320-8986-4c94-8305-76d773bbeded"
+        for vuln in vulns_after_rebase_zr.iterate()
+    )
+
+    for item in vulns_after_rebase_zr.iterate():
+        if (
+            item.integrates_metadata.uuid
+            == "226fe320-8986-4c94-8305-76d773bbeded"
+        ):
+            assert item.where == "10"
 
 
 @pytest.mark.asyncio

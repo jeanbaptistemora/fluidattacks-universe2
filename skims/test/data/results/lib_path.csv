@@ -22146,52 +22146,52 @@ F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,311,skims,2
   22 | }
      ^ Col 0
 ",terraform.tfm_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,2,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
-   1 |
->  2 | resource ""aws_db_instance"" ""default"" {
-   3 |   publicly_accessible  = false
-   4 |   allocated_storage    = 10
-   5 |   engine               = ""mysql""
-   6 |   engine_version       = ""5.7""
-   7 |   deletion_protection  = true
-   8 |   instance_class       = ""db.t3.micro""
-   9 |   name                 = ""mydb""
-  10 |   username             = ""foo""
-  11 |   password             = ""foobarbaz""
-  12 |   parameter_group_name = ""default.mysql5.7""
-  13 |   skip_final_snapshot  = true
-  14 | }
-  15 |
-  16 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  17 |   count              = 2
-  18 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier = aws_rds_cluster.default.id
-  20 |   instance_class     = ""db.r4.large""
-  21 |   engine             = aws_rds_cluster.default.engine
+F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,10,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+   1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+> 10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,16,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
-   3 |   publicly_accessible  = false
-   4 |   allocated_storage    = 10
-   5 |   engine               = ""mysql""
-   6 |   engine_version       = ""5.7""
-   7 |   deletion_protection  = true
-   8 |   instance_class       = ""db.t3.micro""
-   9 |   name                 = ""mydb""
-  10 |   username             = ""foo""
-  11 |   password             = ""foobarbaz""
-  12 |   parameter_group_name = ""default.mysql5.7""
-  13 |   skip_final_snapshot  = true
-  14 | }
-  15 |
-> 16 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  17 |   count              = 2
-  18 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier = aws_rds_cluster.default.id
-  20 |   instance_class     = ""db.r4.large""
-  21 |   engine             = aws_rds_cluster.default.engine
-  22 |   engine_version     = aws_rds_cluster.default.engine_version
-  23 | }
+F246,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,1,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+>  1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+  10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_rds_has_unencrypted_storage
 F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,43,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
@@ -28554,52 +28554,52 @@ F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,1
   22 | }
      ^ Col 0
 ",terraform.tfm_rds_instance_inside_subnet
-F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,2,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
-   1 |
->  2 | resource ""aws_db_instance"" ""default"" {
-   3 |   publicly_accessible  = false
-   4 |   allocated_storage    = 10
-   5 |   engine               = ""mysql""
-   6 |   engine_version       = ""5.7""
-   7 |   deletion_protection  = true
-   8 |   instance_class       = ""db.t3.micro""
-   9 |   name                 = ""mydb""
-  10 |   username             = ""foo""
-  11 |   password             = ""foobarbaz""
-  12 |   parameter_group_name = ""default.mysql5.7""
-  13 |   skip_final_snapshot  = true
-  14 | }
-  15 |
-  16 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  17 |   count              = 2
-  18 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier = aws_rds_cluster.default.id
-  20 |   instance_class     = ""db.r4.large""
-  21 |   engine             = aws_rds_cluster.default.engine
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,10,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+   1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+> 10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_db_cluster_inside_subnet
-F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,16,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
-   3 |   publicly_accessible  = false
-   4 |   allocated_storage    = 10
-   5 |   engine               = ""mysql""
-   6 |   engine_version       = ""5.7""
-   7 |   deletion_protection  = true
-   8 |   instance_class       = ""db.t3.micro""
-   9 |   name                 = ""mydb""
-  10 |   username             = ""foo""
-  11 |   password             = ""foobarbaz""
-  12 |   parameter_group_name = ""default.mysql5.7""
-  13 |   skip_final_snapshot  = true
-  14 | }
-  15 |
-> 16 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  17 |   count              = 2
-  18 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier = aws_rds_cluster.default.id
-  20 |   instance_class     = ""db.r4.large""
-  21 |   engine             = aws_rds_cluster.default.engine
-  22 |   engine_version     = aws_rds_cluster.default.engine_version
-  23 | }
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+>  1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+  10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_rds_instance_inside_subnet
 F109,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
@@ -29162,28 +29162,28 @@ F256,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,693,skims,2
   22 | }
      ^ Col 0
 ",terraform.tfm_rds_no_deletion_protection
-F256,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,16,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
-   3 |   publicly_accessible  = false
-   4 |   allocated_storage    = 10
-   5 |   engine               = ""mysql""
-   6 |   engine_version       = ""5.7""
-   7 |   deletion_protection  = true
-   8 |   instance_class       = ""db.t3.micro""
-   9 |   name                 = ""mydb""
-  10 |   username             = ""foo""
-  11 |   password             = ""foobarbaz""
-  12 |   parameter_group_name = ""default.mysql5.7""
-  13 |   skip_final_snapshot  = true
-  14 | }
-  15 |
-> 16 | resource ""aws_rds_cluster"" ""cluster_instances"" {
-  17 |   count              = 2
-  18 |   identifier         = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier = aws_rds_cluster.default.id
-  20 |   instance_class     = ""db.r4.large""
-  21 |   engine             = aws_rds_cluster.default.engine
-  22 |   engine_version     = aws_rds_cluster.default.engine_version
-  23 | }
+F256,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,1,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+>  1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+  10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_rds_no_deletion_protection
 F256,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"

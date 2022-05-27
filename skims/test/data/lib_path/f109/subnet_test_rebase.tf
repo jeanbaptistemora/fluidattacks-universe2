@@ -1,3 +1,11 @@
+resource "aws_rds_cluster" "cluster_instances" {
+  count              = 2
+  identifier         = "aurora-cluster-demo-${count.index}"
+  cluster_identifier = aws_rds_cluster.default.id
+  instance_class     = "db.r4.large"
+  engine             = aws_rds_cluster.default.engine
+  engine_version     = aws_rds_cluster.default.engine_version
+}
 
 resource "aws_db_instance" "default" {
   publicly_accessible  = false
@@ -11,13 +19,4 @@ resource "aws_db_instance" "default" {
   password             = "foobarbaz"
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
-}
-
-resource "aws_rds_cluster" "cluster_instances" {
-  count              = 2
-  identifier         = "aurora-cluster-demo-${count.index}"
-  cluster_identifier = aws_rds_cluster.default.id
-  instance_class     = "db.r4.large"
-  engine             = aws_rds_cluster.default.engine
-  engine_version     = aws_rds_cluster.default.engine_version
 }
