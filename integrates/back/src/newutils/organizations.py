@@ -8,6 +8,7 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationPolicies,
+    OrganizationPoliciesToUpdate,
     OrganizationState,
 )
 from dynamodb.types import (
@@ -16,6 +17,7 @@ from dynamodb.types import (
 from newutils.datetime import (
     convert_from_iso_str,
     convert_to_iso_str,
+    get_iso_date,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -99,8 +101,8 @@ def format_organization_policies(item: Item) -> OrganizationPolicies:
         ),
         modified_date=convert_to_iso_str(last_entry_policies["date"])
         if last_entry_policies.get("date")
-        else None,
-        modified_by=last_entry_policies.get("user"),
+        else get_iso_date(),
+        modified_by=last_entry_policies.get("user") or "unknown",
         vulnerability_grace_period=int(item["vulnerability_grace_period"])
         if item.get("vulnerability_grace_period") is not None
         else None,
@@ -140,8 +142,9 @@ def format_organization(item: Item) -> Organization:
 
 
 def format_organization_item(organization: Organization) -> Item:
+    organization_id = remove_org_id_prefix(organization.id)
     return {
-        "pk": f"ORG#{organization.id}",
+        "pk": f"ORG#{organization_id}",
         "sk": f"INFO#{organization.name.lower().strip()}",
         "historic_state": [
             {
@@ -150,34 +153,35 @@ def format_organization_item(organization: Organization) -> Item:
                     organization.state.modified_date
                 )
                 if organization.state.modified_date
-                else "",
-                "status": organization.state.status,
+                else None,
+                "status": organization.state.status.value,
             }
         ],
     }
 
 
 def format_org_policies_item(
-    metadata: OrganizationPolicies, historic: list
+    historic: list[Item],
+    modified_by: str,
+    modified_date: str,
+    policies: OrganizationPoliciesToUpdate,
 ) -> Item:
-    if metadata.max_number_acceptances is not None:
+    if policies.max_number_acceptances is not None:
         historic.append(
             {
-                "date": convert_from_iso_str(metadata.modified_date)
-                if metadata.modified_date
-                else "",
-                "max_number_acceptations": metadata.max_number_acceptances,
-                "user": metadata.modified_by,
+                "date": convert_from_iso_str(modified_date),
+                "max_number_acceptations": policies.max_number_acceptances,
+                "user": modified_by,
             }
         )
     item = {
-        "max_acceptance_days": metadata.max_acceptance_days,
-        "max_acceptance_severity": metadata.max_acceptance_severity,
-        "min_acceptance_severity": metadata.min_acceptance_severity,
-        "min_breaking_severity": metadata.min_breaking_severity,
-        "vulnerability_grace_period": metadata.vulnerability_grace_period,
+        "max_acceptance_days": policies.max_acceptance_days,
+        "max_acceptance_severity": policies.max_acceptance_severity,
+        "min_acceptance_severity": policies.min_acceptance_severity,
+        "min_breaking_severity": policies.min_breaking_severity,
+        "vulnerability_grace_period": policies.vulnerability_grace_period,
         "historic_max_number_acceptances": historic,
-        "max_number_acceptances": metadata.max_number_acceptances,
+        "max_number_acceptances": policies.max_number_acceptances,
     }
 
     return {

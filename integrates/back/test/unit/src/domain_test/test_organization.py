@@ -21,7 +21,7 @@ from dataloaders import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPolicies,
+    OrganizationPoliciesToUpdate,
 )
 from decimal import (
     Decimal,
@@ -281,7 +281,8 @@ async def test_remove_user() -> None:
 async def test_update_policies() -> None:
     org_id = "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
     org_name = "bulat"
-    loaders = get_new_context()
+    email = "org_testuser1@gmail.com"
+    loaders: Dataloaders = get_new_context()
     organization: Organization = await loaders.organization.load(org_id)
     max_acceptance_days = organization.policies.max_acceptance_days
     max_acceptance_severity = organization.policies.max_acceptance_severity
@@ -293,14 +294,14 @@ async def test_update_policies() -> None:
     assert max_number_acceptances is None
     assert min_acceptance_severity == Decimal("3.4")
 
-    new_values = OrganizationPolicies(
+    new_values = OrganizationPoliciesToUpdate(
         max_acceptance_days=20,
         max_acceptance_severity=Decimal("8.3"),
         max_number_acceptances=3,
         min_acceptance_severity=Decimal("2.2"),
     )
     await orgs_domain.update_policies(
-        get_new_context(), org_id, org_name, "", new_values
+        get_new_context(), org_id, org_name, email, new_values
     )
 
     loaders = get_new_context()
@@ -315,7 +316,7 @@ async def test_update_policies() -> None:
     assert max_number_acceptances == Decimal("3")
     assert min_acceptance_severity == Decimal("2.2")
 
-    new_values = OrganizationPolicies(max_acceptance_days=-10)
+    new_values = OrganizationPoliciesToUpdate(max_acceptance_days=-10)
     exe = InvalidAcceptanceDays()
     with pytest.raises(GraphQLError) as excinfo:
         await orgs_domain.update_policies(
@@ -323,7 +324,7 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
-    new_values = OrganizationPolicies(
+    new_values = OrganizationPoliciesToUpdate(
         max_acceptance_severity=Decimal("10.5"),
     )
     exe = InvalidAcceptanceSeverity()
@@ -333,14 +334,14 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
-    new_values = OrganizationPolicies(max_number_acceptances=-1)
+    new_values = OrganizationPoliciesToUpdate(max_number_acceptances=-1)
     exe = InvalidNumberAcceptances()
     with pytest.raises(GraphQLError) as excinfo:
         await orgs_domain.update_policies(
             get_new_context(), org_id, org_name, "", new_values
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
-    new_values = OrganizationPolicies(
+    new_values = OrganizationPoliciesToUpdate(
         min_acceptance_severity=Decimal("-1.5"),
     )
     exe = InvalidAcceptanceSeverity()
@@ -350,7 +351,7 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
-    new_values = OrganizationPolicies(
+    new_values = OrganizationPoliciesToUpdate(
         max_acceptance_severity=Decimal("5.0"),
         min_acceptance_severity=Decimal("7.4"),
     )
@@ -361,7 +362,7 @@ async def test_update_policies() -> None:
         )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
-    new_values = OrganizationPolicies(
+    new_values = OrganizationPoliciesToUpdate(
         min_breaking_severity=Decimal("10.5"),
     )
     exe = InvalidSeverity([0.0, 10.0])
@@ -399,7 +400,7 @@ async def test_validate_severity_range() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_min_acceptance_severity(Decimal("10.1"))
 
-    values = OrganizationPolicies(
+    values = OrganizationPoliciesToUpdate(
         min_acceptance_severity=Decimal("8.0"),
         max_acceptance_severity=Decimal("5.0"),
     )

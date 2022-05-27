@@ -22,7 +22,7 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPolicies,
+    OrganizationPoliciesToUpdate,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
@@ -526,10 +526,11 @@ async def update(
 async def update_policies_typed(
     organization_id: str,
     organization_name: str,
-    policies: OrganizationPolicies,
+    policies_to_update: OrganizationPoliciesToUpdate,
+    user_email: str,
 ) -> bool:
-    historic_policies = []
-    if policies.max_number_acceptances is not None:
+    historic_policies: list[Item] = []
+    if policies_to_update.max_number_acceptances is not None:
         organization_data = await get_by_id(
             organization_id=organization_id,
             attributes=[
@@ -544,7 +545,10 @@ async def update_policies_typed(
             fallback=[],
         )
     organization_item = format_org_policies_item(
-        policies, historic=historic_policies
+        historic=historic_policies,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        policies=policies_to_update,
     )
     success = await update(
         organization_id=organization_id,
