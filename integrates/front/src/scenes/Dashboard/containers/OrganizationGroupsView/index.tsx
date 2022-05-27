@@ -157,7 +157,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const tableHeaders: IHeaderConfig[] = [
     {
       dataField: "name",
-      formatter: linkFormatter(
+      formatter: linkFormatter<IGroupData>(
         (cell): string => `groups/${cell.toLowerCase()}/vulns`
       ),
       header: t("organization.tabs.groups.newGroup.name"),
@@ -177,7 +177,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       dataField: "eventFormat",
-      formatter: linkFormatter(
+      formatter: linkFormatter<IGroupData>(
         (_cell, row): string => `groups/${row.name.toLowerCase()}/events`
       ),
       header: t("organization.tabs.groups.newGroup.events.text"),

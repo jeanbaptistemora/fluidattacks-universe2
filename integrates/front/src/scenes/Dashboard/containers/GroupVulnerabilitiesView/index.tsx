@@ -2,9 +2,16 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { useGroupVulnerabilities } from "./hooks";
-import { filterByState, filterByTreatment, formatLocation } from "./utils";
+import type { IVulnerability } from "./types";
+import {
+  filterByState,
+  filterByTreatment,
+  formatEvidence,
+  formatLocation,
+} from "./utils";
 
 import { Table } from "components/Table";
+import { linkFormatter } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
 
 const tableHeaders: IHeaderConfig[] = [
@@ -16,6 +23,9 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "finding.title",
+    formatter: linkFormatter<IVulnerability>(
+      (_cell, row): string => `vulns/${row.finding.id}/description`
+    ),
     header: "Type",
     wrapped: true,
   },
@@ -25,7 +35,15 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "finding.severityScore",
+    formatter: linkFormatter<IVulnerability>(
+      (_cell, row): string => `vulns/${row.finding.id}/severity`
+    ),
     header: "Severity",
+  },
+  {
+    dataField: "evidence",
+    formatter: formatEvidence,
+    header: "Evidence",
   },
 ];
 

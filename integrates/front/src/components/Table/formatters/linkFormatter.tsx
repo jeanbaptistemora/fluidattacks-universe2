@@ -14,17 +14,14 @@ const TableLink = styled(Link)`
   }
 `;
 
-const linkFormatter = (
-  callback: (cell: string, row: Record<string, string>) => string
-): ColumnFormatter<Record<string, string>> => {
-  const renderLink = (
-    cell: string,
-    row: Record<string, string>
-  ): JSX.Element => {
+function linkFormatter<T>(
+  callback: (cell: string, row: T) => string
+): ColumnFormatter<T> {
+  const renderLink = (cell: string, row: T): JSX.Element => {
     return <TableLink to={callback(cell, row)}>{_.capitalize(cell)}</TableLink>;
   };
 
   return renderLink;
-};
+}
 
 export { linkFormatter };
