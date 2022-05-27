@@ -2,8 +2,8 @@
 """
 This migration wipes event affectation data from the DB
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-05-27 at 17:50:26 UTC-5
+Finalization Time: 2022-05-27 at 17:50:41 UTC-5
 """
 
 from aioextensions import (
@@ -27,7 +27,7 @@ from typing import (
 # Constants
 PROD: bool = True
 
-EVENTS_TABLE: str = "FI_events"
+EVENTS_TABLE: str = "fi_events"
 
 
 async def get_all_events(
@@ -43,7 +43,7 @@ async def get_all_events(
     return cast(List[Dict[str, Any]], items)
 
 
-async def update(email: str, data: Dict[str, None]) -> bool:
+async def update(event_id: str, data: Dict[str, None]) -> bool:
     """Manually updates db data"""
     success = False
     set_expression = ""
@@ -66,7 +66,7 @@ async def update(email: str, data: Dict[str, None]) -> bool:
 
     update_attrs = {
         "Key": {
-            "email": email,
+            "event_id": event_id,
         },
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }

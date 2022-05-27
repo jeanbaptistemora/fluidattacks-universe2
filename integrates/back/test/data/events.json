@@ -138,9 +138,6 @@
           "accessibility": {
             "S": "Repositorio"
           },
-          "affectation": {
-            "S": "4"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },
@@ -245,9 +242,6 @@
     {
       "PutRequest": {
         "Item": {
-          "affectation": {
-            "S": "5"
-          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },
