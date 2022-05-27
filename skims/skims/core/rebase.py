@@ -1,6 +1,7 @@
 from aioextensions import (
     collect,
 )
+import asyncio
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
@@ -47,16 +48,19 @@ async def iterate_vulnerabilities_to_rebase(
     group: str,
     namespace: str,
 ) -> AsyncIterator[Vulnerability]:
-    for finding_id in await get_group_finding_ids(group):
-        # Intentionally awaiting inside the loop in order to
-        # allow integrates to rest a little, this query is heavy weighted
-        store = await get_finding_vulnerabilities(
+    finding_ids = await get_group_finding_ids(group)
+    futures = [
+        get_finding_vulnerabilities(
             # The finding code does not matter for our purpose, use any
             # This will get only ZR vulnerabilities
             finding=core_model.FindingEnum.F008,
             finding_id=finding_id,
             get_zr=True,
         )
+        for finding_id in finding_ids
+    ]
+    for result in asyncio.as_completed(futures):
+        store = await result
         vulnerability: Vulnerability
         for vulnerability in store.iterate():
             # The vulnerability must be for the namespace we are interested in
@@ -135,7 +139,7 @@ async def main(
             namespace=namespace,
         )
     ]
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase = list(
             executor.map(
                 lambda vuln: (_rebase(repo, vuln), vuln), vulnerabilities

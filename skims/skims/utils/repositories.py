@@ -2,9 +2,6 @@ from git import (
     GitError,
     Repo,
 )
-from more_itertools import (
-    pairwise,
-)
 from typing import (
     List,
     NamedTuple,
@@ -82,16 +79,14 @@ def rebase(
     # Let's rebase one commit at a time,
     # this way we reduce the probability of conflicts
     # and ensure line numbers are updated up to the latest possible commit
-    for rev_1, rev_2 in pairwise(revs):
-        if rebase_result := _rebase_one_commit_at_a_time(
-            repo, path=path, line=line, rev_a=rev_1, rev_b=rev_2
-        ):
-            path = rebase_result.path
-            line = rebase_result.line
-            rev = rebase_result.rev
-        else:
-            # We cannot continue rebasing
-            break
+    rev_1 = revs[0]
+    rev_2 = revs[-1]
+    if rebase_result := _rebase_one_commit_at_a_time(
+        repo, path=path, line=line, rev_a=rev_1, rev_b=rev_2
+    ):
+        path = rebase_result.path
+        line = rebase_result.line
+        rev = rebase_result.rev
 
     if rev == rev_a:
         # We did not rebase anything

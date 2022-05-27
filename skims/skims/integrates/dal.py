@@ -232,6 +232,8 @@ async def get_group_findings(
         client=client,
     )
 
+    opt_findings: Optional[List[Any]] = None
+    opt_drafts: Optional[List[Any]] = None
     with suppress(AttributeError, KeyError, TypeError):
         opt_findings = result["data"]["group"]["findings"]
     with suppress(AttributeError, KeyError, TypeError):

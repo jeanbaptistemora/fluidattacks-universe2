@@ -342,6 +342,7 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
 ) -> Dict[str, Dict[str, Any]]:
     # Dependencies type could be "devDependencies" for dev dependencies
     # or "dependencies" for prod dependencies
+    enumerated_tree: Dict[str, Dict[str, Any]] = {}
     yarn_content = get_file_content_block(path_yarn)
     windower: Iterator[Tuple[Tuple[int, str], Tuple[int, str]]] = windowed(
         fillvalue="",

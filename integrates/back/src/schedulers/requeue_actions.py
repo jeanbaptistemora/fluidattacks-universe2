@@ -32,37 +32,6 @@ async def _get_machine_keys_to_delete(
     # If there is a failed job, requeue the execution using more resources.
     # If it still fails, delete it from the DB or else it will be requeued
     # indefinitely
-    machine_actions_to_retry: list[BatchProcessing] = [
-        action
-        for action in running_actions
-        if action.action_name == Action.EXECUTE_MACHINE.value
-        for batch_job in complete_batch_jobs
-        if action.batch_job_id == batch_job["jobId"]
-        and batch_job["status"] == JobStatus.FAILED.value
-        and batch_job.get("statusReason")
-        not in ("not required", "job peggated")
-        and {
-            res["type"]: int(res["value"])
-            for res in batch_job.get("container", {}).get(
-                "resourceRequirements", []
-            )
-        }.get("VCPU", 2)
-        <= 4
-    ]
-    await collect(
-        batch_dal.put_action(
-            action=Action.EXECUTE_MACHINE,
-            additional_info=action.additional_info,
-            attempt_duration_seconds=86400,
-            entity=action.entity,
-            memory=15400,
-            product_name=Product.SKIMS,
-            queue=action.queue,
-            subject=action.subject,
-            vcpus=8,
-        )
-        for action in machine_actions_to_retry
-    )
 
     machine_keys_to_delete: list[str] = [
         action.key
@@ -216,6 +185,8 @@ async def requeue_actions() -> bool:
     }
     futures = []
     for action in actions_to_requeue:
+        if action.action_name == "execute-machine":
+            continue
         if action.batch_job_id:
             if action.batch_job_id in batch_jobs_dict:
                 try:
@@ -239,11 +210,7 @@ async def requeue_actions() -> bool:
                     action_dynamo_pk=action.key,
                     entity=action.entity,
                     queue=action.queue,
-                    product_name=(
-                        Product.SKIMS
-                        if action.action_name == "execute-machine"
-                        else Product.INTEGRATES
-                    ).value,
+                    product_name=Product.INTEGRATES.value,
                     memory=memory,
                     vcpus=vcpus,
                 )
