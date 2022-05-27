@@ -32,7 +32,6 @@ async def test_get_event(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert "event" in result["data"]
     assert result["data"]["event"]["accessibility"] == "Repositorio"
-    assert result["data"]["event"]["affectation"] == ""
     assert (
         result["data"]["event"]["affectedComponents"]
         == "affected_components_test"

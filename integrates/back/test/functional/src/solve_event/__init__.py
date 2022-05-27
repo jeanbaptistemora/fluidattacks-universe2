@@ -19,8 +19,7 @@ async def get_result(
     query: str = f"""
         mutation {{
             solveEvent(
-                eventId: "{event}",
-                affectation: "1",
+                eventId: "{event}"
                 date: "2020-02-01T00:00:00Z"
             ) {{
                 success

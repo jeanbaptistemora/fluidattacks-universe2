@@ -8,7 +8,6 @@ from typing import (
 
 
 class EventHistory(NamedTuple):
-    affectation: str
     date: str
     state: EventStatus
 

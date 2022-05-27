@@ -37,7 +37,6 @@ async def _batch_load_fn(event_ids: List[str]) -> List[Dict[str, Any]]:
             accessibility=event.get("accessibility", ""),
             action_after_blocking=event.get("action_after_blocking", "NONE"),
             action_before_blocking=event.get("action_before_blocking", "NONE"),
-            affectation=history[-1].get("affectation", ""),
             affected_components=event.get("affected_components", ""),
             analyst=event.get("analyst", ""),
             client=event.get("client", ""),

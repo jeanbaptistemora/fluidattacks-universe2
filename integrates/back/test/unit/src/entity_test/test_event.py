@@ -50,7 +50,6 @@ async def test_event() -> None:
             eventDate
             eventStatus
             historicState
-            affectation
             accessibility
             affectedComponents
             context
@@ -128,10 +127,10 @@ async def test_solve_event() -> None:
 
     query = """
         mutation {
-            solveEvent(eventId: "418900971",
-                        affectation: "1",
-                        date: "2020-02-01T00:00:00Z") {
-                success
+            solveEvent(
+                eventId: "418900971"
+                date: "2020-02-01T00:00:00Z") {
+                    success
             }
         }
     """

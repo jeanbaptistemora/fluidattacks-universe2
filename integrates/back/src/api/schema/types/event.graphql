@@ -8,8 +8,6 @@ type Event {
   "Actions before getting blocked by an event"
   actionBeforeBlocking: ActionsBeforeBlocking @deprecated(reason: """This field will
     be removed after 2022/10/21.""")
-  "Time spent solving the Event, in hours"
-  affectation: String
   "Components involved or affected by the event, if applicable"
   affectedComponents: String
   """Vulnerabilities requested for a reattack that had to be put on hold

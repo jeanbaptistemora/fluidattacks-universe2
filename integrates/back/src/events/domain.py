@@ -321,7 +321,6 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
 async def solve_event(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo,
     event_id: str,
-    affectation: str,
     hacker_email: str,
     date: datetime,
 ) -> Tuple[bool, Dict[str, Set[str]], Dict[str, List[str]]]:
@@ -413,7 +412,6 @@ async def solve_event(  # pylint: disable=too-many-locals
             "state": "CLOSED",
         },
         {
-            "affectation": affectation,
             "analyst": hacker_email,
             "date": datetime_utils.get_as_str(today),
             "state": "SOLVED",

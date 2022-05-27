@@ -48,7 +48,6 @@ async def mutate(
     info: GraphQLResolveInfo,
     event_id: str,
     date: datetime,
-    affectation: str = "0",
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
@@ -56,9 +55,7 @@ async def mutate(
         success,
         reattacks_dict,
         verifications_dict,
-    ) = await events_domain.solve_event(
-        info, event_id, affectation, hacker_email, date
-    )
+    ) = await events_domain.solve_event(info, event_id, hacker_email, date)
 
     if success:
         info.context.loaders.event.clear(event_id)

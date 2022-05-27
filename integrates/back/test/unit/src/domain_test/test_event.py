@@ -116,7 +116,6 @@ async def test_solve_event() -> None:
     ) = await events_domain.solve_event(
         info=info,
         event_id="538745942",
-        affectation=1,
         hacker_email="unittesting@fluidattacks.com",
         date=parse_datetime("2019-12-09T05:00:00.000Z"),
     )
@@ -127,7 +126,6 @@ async def test_solve_event() -> None:
         assert await events_domain.solve_event(
             info=info,
             event_id="538745942",
-            affectation=1,
             hacker_email="unittesting@fluidattacks.com",
             date=parse_datetime("2019-12-09T05:00:00.000Z"),
         )

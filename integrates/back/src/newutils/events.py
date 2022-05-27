@@ -35,7 +35,6 @@ def format_data(event: Dict[str, Any]) -> Dict[str, Any]:
 
 def event_history(item: Item, history_state: EventStatus) -> EventHistory:
     return EventHistory(
-        affectation=item.get("affectation", ""),
         date=item.get("date", ""),
         state=history_state,
     )

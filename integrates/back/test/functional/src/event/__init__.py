@@ -26,7 +26,6 @@ async def get_result(
             eventDate
             eventStatus
             historicState
-            affectation
             accessibility
             affectedComponents
             context
