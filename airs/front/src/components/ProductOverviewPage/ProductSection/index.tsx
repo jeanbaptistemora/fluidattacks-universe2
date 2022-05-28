@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DemoBanner } from "./DemoBanner";
-import { Container } from "./styledComponents";
+import { Container, SectionContainer } from "./styledComponents";
 
 import { translate } from "../../../utils/translations/translate";
 
@@ -68,20 +68,22 @@ const ProductSection: React.FC = (): JSX.Element => {
 
   return (
     <Container>
-      {data.map((banner): JSX.Element => {
-        return (
-          <DemoBanner
-            description={banner.description}
-            hasHotSpot={banner.hasHotSpot}
-            image1={banner.image1}
-            image2={banner.image2}
-            imageRight={banner.imageRight}
-            key={banner.title}
-            subtitle={banner.subtitle}
-            title={banner.title}
-          />
-        );
-      })}
+      <SectionContainer>
+        {data.map((banner): JSX.Element => {
+          return (
+            <DemoBanner
+              description={banner.description}
+              hasHotSpot={banner.hasHotSpot}
+              image1={banner.image1}
+              image2={banner.image2}
+              imageRight={banner.imageRight}
+              key={banner.title}
+              subtitle={banner.subtitle}
+              title={banner.title}
+            />
+          );
+        })}
+      </SectionContainer>
     </Container>
   );
 };

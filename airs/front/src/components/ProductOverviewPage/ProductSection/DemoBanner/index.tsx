@@ -1,6 +1,11 @@
 import React from "react";
 
-import { Container, ImageContainer, TextContainer } from "./styledComponents";
+import {
+  BannerContainer,
+  CardContainer,
+  ImageContainer,
+  TextContainer,
+} from "./styledComponents";
 
 import { Paragraph, Title } from "../../../Texts";
 import { InteractiveImage } from "../InteractiveImage";
@@ -25,9 +30,9 @@ const DemoBanner: React.FC<IDemoProps> = ({
   title,
 }: IDemoProps): JSX.Element => {
   return (
-    <Container>
+    <React.Fragment>
       {imageRight ? (
-        <React.Fragment>
+        <BannerContainer>
           <TextContainer>
             <Title fColor={"#ff3435"} fSize={"24"}>
               {title}
@@ -47,9 +52,9 @@ const DemoBanner: React.FC<IDemoProps> = ({
               isRight={imageRight}
             />
           </ImageContainer>
-        </React.Fragment>
+        </BannerContainer>
       ) : (
-        <React.Fragment>
+        <BannerContainer>
           <ImageContainer margin={imageRight}>
             <InteractiveImage
               hasHotSpot={hasHotSpot}
@@ -69,9 +74,30 @@ const DemoBanner: React.FC<IDemoProps> = ({
               {description}
             </Paragraph>
           </TextContainer>
-        </React.Fragment>
+        </BannerContainer>
       )}
-    </Container>
+      <CardContainer>
+        <TextContainer>
+          <Title fColor={"#ff3435"} fSize={"20"}>
+            {title}
+          </Title>
+          <Title fColor={"#2e2e38"} fSize={"32"} marginTop={"1.5"}>
+            {subtitle}
+          </Title>
+          <Paragraph fColor={"#5c5c70"} fSize={"20"} marginTop={"1.5"}>
+            {description}
+          </Paragraph>
+        </TextContainer>
+        <ImageContainer margin={false}>
+          <InteractiveImage
+            hasHotSpot={hasHotSpot}
+            image1={`/airs/product-overview/demo-section/${image1}`}
+            image2={`/airs/product-overview/demo-section/${image2}`}
+            isRight={false}
+          />
+        </ImageContainer>
+      </CardContainer>
+    </React.Fragment>
   );
 };
 
