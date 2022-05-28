@@ -15,7 +15,7 @@
   compliance = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/33d657ed62e197f1def6dbe0c6f6e9136470e44a/common/criteria/src/compliance/data.yaml";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/c1c950d4ba7c1672052938ddeb3d26cc543f85d2/common/criteria/src/compliance/data.yaml";
         sha256 = "sha256-JlWVxP6BiGV8Q+34F/jEFRFo3embrlRDYyw/TRwMXi4=";
       }
     )
@@ -23,7 +23,7 @@
   requirements = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/33d657ed62e197f1def6dbe0c6f6e9136470e44a/common/criteria/src/requirements/data.yaml";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/c1c950d4ba7c1672052938ddeb3d26cc543f85d2/common/criteria/src/requirements/data.yaml";
         sha256 = "sha256-ebaod2SMymXI5hK5IH2/kLIgglcpg7Qt+zV57/mT2Co=";
       }
     )
@@ -31,8 +31,8 @@
   vulnerabilities = fromYaml (
     builtins.readFile (
       inputs.nixpkgs.fetchurl {
-        url = "https://gitlab.com/fluidattacks/product/-/raw/33d657ed62e197f1def6dbe0c6f6e9136470e44a/common/criteria/src/vulnerabilities/data.yaml";
-        sha256 = "sha256-ztGXhAyHqTmZSIh7NOnuIkyST4OsCPm5mWxBds2cKBE=";
+        url = "https://gitlab.com/fluidattacks/product/-/raw/c1c950d4ba7c1672052938ddeb3d26cc543f85d2/common/criteria/src/vulnerabilities/data.yaml";
+        sha256 = "sha256-IaDIqnbAXDSzxa0/HA1Aism+n6TdQc+jogvf3TVpdqg=";
       }
     )
   );
@@ -185,6 +185,25 @@
   vulnerabilitiesRemediationTime = vulnerabilityId: let
     remediationTime = vulnerabilities.${vulnerabilityId}.remediation_time;
   in "⌚ ${remediationTime} minutes.";
+
+  # Compliant and non-compliant code
+  codeExamples = {
+    exampleNC,
+    exampleC,
+  }: let
+    compliant = section {
+      title = "### Compliant code";
+      content = exampleC;
+    };
+    non_compliant = section {
+      title = "### Non compliant code";
+      content = exampleNC;
+    };
+  in
+    section {
+      title = "## Code Examples";
+      content = compliant + non_compliant;
+    };
 
   # Requirements list for a definition
   definitionRequirements = {
@@ -454,9 +473,9 @@
         __argScoreTemporal__ = score.score.temporal;
         __argSeverityBase__ = score.severity.base;
         __argSeverityTemporal__ = score.severity.temporal;
-        __argCodeExamples__ = section {
-          title = "## Code Examples";
-          content = src.code_examples;
+        __argExamples__ = codeExamples {
+          exampleC = src.examples.compliant;
+          exampleNC = src.examples.non_compliant;
         };
         __argDetails__ = section {
           title = "## Details";
