@@ -4960,7 +4960,7 @@
 
       - The front-end connection between the client and
       the load balancer is vulnerable to eavesdropping
-      and man-in-the-middle (MITM) attacks.
+      and man-in-the-middle (MitM) attacks.
     recommendation: >
       - Application load balancers should use
       acceptable policies.
@@ -4972,7 +4972,7 @@
       uses a secure listener.
     threat: >
       Unauthorized attacker from adjacent
-      network performing a MiTM.
+      network performing a MitM.
   es:
     title: Insecure service configuration - ELB
     description: >
@@ -4986,7 +4986,7 @@
 
       - La conexión frontal entre el cliente y el
       equilibrador de carga es vulnerable a los ataques
-      de escucha y de hombre en el medio (MITM).
+      de escucha y de hombre en el medio (MitM).
     recommendation: >
       - Los balanceadores de carga de aplicaciones
       deben utilizar políticas aceptables.
@@ -4998,7 +4998,7 @@
       de carga utilice un oyente seguro.
     threat: >
       Atacante no autorizado de la red
-      adyacente que realiza un MiTM.
+      adyacente que realiza un MitM.
   category: Abuse Functionality
   examples:
     non_compliant: |
@@ -5512,8 +5512,8 @@
 
       - Facilitate other attacks such as
       Denial-of-Service DoS attacks, session
-      hijacking and Man-in-the-middle
-      MITM attacks.
+      hijacking and man-in-the-middle
+      MitM attacks.
     recommendation: >
       Set network controls
       (PortSecurity) in the affected switches.
@@ -5534,7 +5534,7 @@
       - Facilitar otros ataques como los
       de denegación de servicio (DoS), el
       secuestro de sesiones y los ataques
-      MITM (Man-in-the-middle).
+      MitM (man-in-the-middle).
     recommendation: >
       Establecer controles de red
       (PortSecurity) en los switches afectados.
@@ -6430,14 +6430,14 @@
       with anonymous cipher suites.
     impact: >
       Obtain sensitive information
-      by performing a MiTM attack.
+      by performing a MitM attack.
     recommendation: >
       Use algorithms considered
       cryptographically secure.
     threat: >
       Unauthorized attacker
       from adjacent network
-      performing a MITM attack.
+      performing a MitM attack.
   es:
     title: Insecure encryption algorithm - Anonymous cipher suites
     description: >
@@ -6446,13 +6446,13 @@
     impact: >
       Obtener información sensible
       realizando un ataque
-      de hombre en el medio.
+      de hombre en el medio MitM.
     recommendation: >
       Utilizar algoritmos considerados
       criptográficamente seguros.
     threat: >
       Atacante sin autorización
-      desde red adyacente ejecutando un MITM.
+      desde red adyacente ejecutando un MitM.
   category: Collect Information
   examples:
     non_compliant: __empty__
@@ -8993,7 +8993,7 @@
     threat: >
       Unauthorized attacker
       from adjacent network
-      performing a MITM.
+      performing a MitM.
   es:
     title: Insecurely generated cookies - Secure
     description: >
@@ -9013,7 +9013,7 @@
     threat: >
       Atacante sin autorización
       desde red adyacente
-      ejecutando un MITM.
+      ejecutando un MitM.
   category: Subvert Access
   examples:
     non_compliant: __empty__
@@ -10179,7 +10179,7 @@
       information can be captured in plain text.
     impact: >
       Capture user credentials after
-      a MiTM attack.
+      a MitM attack.
     recommendation: >
       Deploy the application over an
       encrypted communication channel,
@@ -10196,7 +10196,7 @@
       e información confidencial.
     impact: >
       Capturar credenciales de usuario
-      tras un ataque de MiTM.
+      tras un ataque de MitM.
     recommendation: >
       Desplegar la aplicación sobre un
       canal de comunicación cifrado, como
@@ -19085,7 +19085,7 @@
       connections from the app to external servers
       should not be allowed.
     impact: >
-      Conduct MiTM attacks over insecure channels
+      Conduct MitM attacks over insecure channels
       to obtain sensitive user information.
     recommendation: >
       Configure in the applications info.plist
@@ -19103,7 +19103,7 @@
       que no se deben permitir conexiones inseguras
       desde la app a servidores externos.
     impact: >
-      Realizar ataques de MiTM sobre canales inseguros
+      Realizar ataques de MitM sobre canales inseguros
       para obtener información sensible de los usuarios.
     recommendation: >
       Configurar en el info.plist de la aplicación
@@ -26699,12 +26699,12 @@
       true, which allows it to access resources
       that do not use encryption, a situation
       that could be exploited by an attacker
-      to perform MITM attacks and compromise
+      to perform MitM attacks and compromise
       the confidentiality and integrity
       of the application.
     impact: >
       - Obtain sensitive information
-      through MITM attacks.
+      through MitM attacks.
 
       - Modify intercepted information with
       the aim of deceiving an application user.
@@ -26729,11 +26729,11 @@
       a recursos que no usan cifrado,
       situación que podría ser aprovechada
       por un atacante para realizar ataques
-      tipo MITM y comprometer la confidencialidad
+      tipo MitM y comprometer la confidencialidad
       e integridad de la aplicación.
     impact: >
       - Obtener información sensible
-      mediante ataques MITM.
+      mediante ataques MitM.
 
       - Modificar la información
       interceptada con el objetivo de engañar
