@@ -5,6 +5,7 @@ from .types import (
     Organization,
     OrganizationMetadataToUpdate,
     OrganizationPolicies,
+    OrganizationPoliciesToUpdate,
     OrganizationState,
 )
 from db_model.organizations.enums import (
@@ -62,6 +63,29 @@ def format_policies(policies: Item) -> OrganizationPolicies:
         if "vulnerability_grace_period" in policies
         else None,
     )
+
+
+def format_policies_item(
+    modified_by: str,
+    modified_date: str,
+    policies: OrganizationPoliciesToUpdate,
+) -> Item:
+    item = {
+        "modified_by": modified_by,
+        "modified_date": modified_date,
+        "max_acceptance_days": policies.max_acceptance_days,
+        "max_acceptance_severity": policies.max_acceptance_severity,
+        "min_acceptance_severity": policies.min_acceptance_severity,
+        "min_breaking_severity": policies.min_breaking_severity,
+        "vulnerability_grace_period": policies.vulnerability_grace_period,
+        "max_number_acceptances": policies.max_number_acceptances,
+    }
+
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
 
 
 def format_state(state: Item) -> OrganizationState:

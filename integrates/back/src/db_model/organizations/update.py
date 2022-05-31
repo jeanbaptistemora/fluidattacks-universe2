@@ -1,9 +1,11 @@
 from .types import (
     OrganizationMetadataToUpdate,
+    OrganizationPoliciesToUpdate,
     OrganizationState,
 )
 from .utils import (
     format_metadata_item,
+    format_policies_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -59,6 +61,60 @@ async def update_metadata(
             raise OrganizationNotFound() from ex
 
 
+async def update_policies(
+    *,
+    modified_by: str,
+    modified_date: str,
+    organization_id: str,
+    organization_name: str,
+    policies: OrganizationPoliciesToUpdate,
+) -> None:
+    organization_id = remove_org_id_prefix(organization_id)
+    key_structure = TABLE.primary_key
+    policies_item = format_policies_item(modified_by, modified_date, policies)
+
+    try:
+        organization_key = keys.build_key(
+            facet=TABLE.facets["organization_metadata"],
+            values={
+                "id": organization_id,
+                "name": organization_name,
+            },
+        )
+        organization_item = {"policies": policies_item}
+        condition_expression = Attr(
+            key_structure.partition_key
+        ).exists() & Attr("state.status").ne(
+            OrganizationStateStatus.DELETED.value
+        )
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=organization_item,
+            key=organization_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise OrganizationNotFound() from ex
+
+    historic_policies_key = keys.build_key(
+        facet=TABLE.facets["organization_historic_policies"],
+        values={
+            "id": organization_id,
+            "iso8601utc": modified_date,
+        },
+    )
+    historic_item = {
+        key_structure.partition_key: historic_policies_key.partition_key,
+        key_structure.sort_key: historic_policies_key.sort_key,
+        **policies_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["organization_historic_policies"],
+        item=historic_item,
+        table=TABLE,
+    )
+
+
 async def update_state(
     *,
     organization_id: str,
@@ -69,7 +125,7 @@ async def update_state(
     key_structure = TABLE.primary_key
     state_item = json.loads(json.dumps(state))
     state_item = {
-        key: None if not value and value is not False else value
+        key: None if not value else value
         for key, value in state_item.items()
         if value is not None
     }
