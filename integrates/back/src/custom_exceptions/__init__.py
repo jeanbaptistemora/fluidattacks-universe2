@@ -110,6 +110,10 @@ class InvalidVulnWhere(_SingleMessageException):
     msg: str = "Vulnerability where should match: ^(?!=)+[^/]+/.+$"
 
 
+class OrganizationAlreadyCreated(_SingleMessageException):
+    msg: str = "This organization has already been created"
+
+
 class SnapshotNotFound(_SingleMessageException):
     msg: str = "Snapshot not found in analytics bucket"
 

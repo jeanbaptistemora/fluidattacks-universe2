@@ -17,7 +17,7 @@ from dynamodb.types import (
 from newutils.datetime import (
     convert_from_iso_str,
     convert_to_iso_str,
-    get_iso_date,
+    get_now_as_str,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -101,7 +101,7 @@ def format_organization_policies(item: Item) -> OrganizationPolicies:
         ),
         modified_date=convert_to_iso_str(last_entry_policies["date"])
         if last_entry_policies.get("date")
-        else get_iso_date(),
+        else convert_to_iso_str(get_now_as_str()),
         modified_by=last_entry_policies.get("user") or "unknown",
         vulnerability_grace_period=int(item["vulnerability_grace_period"])
         if item.get("vulnerability_grace_period") is not None
@@ -126,7 +126,7 @@ def format_organization_state(item: Item) -> OrganizationState:
         modified_by=last_entry_state.get("modified_by") or "unknown",
         modified_date=convert_to_iso_str(last_entry_state["modified_date"])
         if last_entry_state.get("modified_date")
-        else get_iso_date(),
+        else convert_to_iso_str(get_now_as_str()),
         pending_deletion_date=pending_deletion_date,
     )
 
