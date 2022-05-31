@@ -300,8 +300,8 @@ async def main(  # pylint: disable=too-many-locals)
                     configs[0].working_dir,
                     token,
                 )
-            log_blocking("info", "Executing set of configs")
-            await execute_skims_configs(configs, group_name, token)
+        log_blocking("info", "Executing set of configs")
+        await execute_skims_configs(configs, group_name, token)
 
     delete_action(action_dynamo_pk=action_dynamo_pk)
     return None
