@@ -1,22 +1,21 @@
-variable "alertChannelUsers" {
-  type = list(string)
+variable "accountId" {
+  sensitive = true
 }
 variable "alertSms" {
   type = string
 }
-variable "bitbucketPwd" {
+variable "alertUsers" {
+  type = list(string)
+}
+variable "apiKey" {
   sensitive = true
 }
-variable "bitbucketUser" {
+variable "envBitBucketPwd" {
   sensitive = true
 }
-variable "checklyAccountId" {
+variable "envBitBucketUser" {
   sensitive = true
 }
-variable "checklyApiKey" {
+variable "envIntegratesApiToken" {
   sensitive = true
 }
-variable "integratesApiToken" {
-  sensitive = true
-}
-

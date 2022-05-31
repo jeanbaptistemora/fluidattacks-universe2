@@ -15,10 +15,10 @@ resource "checkly_check_group" "fluidattacks" {
   ]
 
   environment_variables = {
-    BITBUCKET_PWD        = var.bitbucketPwd
-    BITBUCKET_USER       = var.bitbucketUser
-    CHECKLY_API_KEY      = var.checklyApiKey
-    INTEGRATES_API_TOKEN = var.integratesApiToken
+    BITBUCKET_PWD        = var.envBitBucketPwd
+    BITBUCKET_USER       = var.envBitBucketUser
+    CHECKLY_API_KEY      = var.apiKey
+    INTEGRATES_API_TOKEN = var.envIntegratesApiToken
   }
 
   use_global_alert_settings = false
@@ -46,7 +46,7 @@ resource "checkly_check_group" "fluidattacks" {
 
   dynamic "alert_channel_subscription" {
     for_each = {
-      for user in var.alertChannelUsers : split("@", user)[0] => user
+      for user in var.alertUsers : split("@", user)[0] => user
     }
     content {
       channel_id = checkly_alert_channel.emails[alert_channel_subscription.key].id

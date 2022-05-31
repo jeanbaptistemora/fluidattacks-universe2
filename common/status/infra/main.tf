@@ -24,6 +24,6 @@ terraform {
 provider "aws" {}
 
 provider "checkly" {
-  account_id = var.checklyAccountId
-  api_key    = var.checklyApiKey
+  account_id = var.accountId
+  api_key    = var.apiKey
 }

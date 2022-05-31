@@ -29,38 +29,38 @@
   secretsForEnvFromSops = {
     commonStatusProd = {
       vars = [
-        "BITBUCKET_PWD"
-        "BITBUCKET_USER"
-        "CHECKLY_ACCOUNT_ID"
-        "CHECKLY_API_KEY"
-        "INTEGRATES_API_TOKEN"
-        "STATUS_ALERT_CHANNEL_USERS"
-        "STATUS_ALERT_SMS"
+        "ACCOUNT_ID"
+        "ALERT_SMS"
+        "ALERT_USERS"
+        "API_KEY"
+        "ENV_BITBUCKET_PWD"
+        "ENV_BITBUCKET_USER"
+        "ENV_INTEGRATES_API_TOKEN"
       ];
-      manifest = "/common/secrets/prod.yaml";
+      manifest = "/common/status/secrets.yaml";
     };
     commonStatusDev = {
       vars = [
-        "BITBUCKET_PWD"
-        "BITBUCKET_USER"
-        "CHECKLY_ACCOUNT_ID"
-        "CHECKLY_API_KEY"
-        "INTEGRATES_API_TOKEN"
-        "STATUS_ALERT_CHANNEL_USERS"
-        "STATUS_ALERT_SMS"
+        "ACCOUNT_ID"
+        "ALERT_SMS"
+        "ALERT_USERS"
+        "API_KEY"
+        "ENV_BITBUCKET_PWD"
+        "ENV_BITBUCKET_USER"
+        "ENV_INTEGRATES_API_TOKEN"
       ];
-      manifest = "/common/secrets/dev.yaml";
+      manifest = "/common/status/secrets.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     commonStatus = {
-      alertChannelUsers = "STATUS_ALERT_CHANNEL_USERS";
-      alertSms = "STATUS_ALERT_SMS";
-      bitbucketPwd = "BITBUCKET_PWD";
-      bitbucketUser = "BITBUCKET_USER";
-      checklyAccountId = "CHECKLY_ACCOUNT_ID";
-      checklyApiKey = "CHECKLY_API_KEY";
-      integratesApiToken = "INTEGRATES_API_TOKEN";
+      accountId = "ACCOUNT_ID";
+      alertSms = "ALERT_SMS";
+      alertUsers = "ALERT_USERS";
+      apiKey = "API_KEY";
+      envBitBucketPwd = "ENV_BITBUCKET_PWD";
+      envBitBucketUser = "ENV_BITBUCKET_USER";
+      envIntegratesApiToken = "ENV_INTEGRATES_API_TOKEN";
     };
   };
   testTerraform = {

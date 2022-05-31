@@ -2,7 +2,7 @@
 
 resource "checkly_alert_channel" "emails" {
   for_each = {
-    for user in var.alertChannelUsers : split("@", user)[0] => user
+    for user in var.alertUsers : split("@", user)[0] => user
   }
   email {
     address = each.value
