@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { HashRouter, Redirect, Route, useParams } from "react-router-dom";
 
 import { useGroupVulnerabilities } from "./hooks";
 import type { IVulnerability } from "./types";
@@ -13,6 +13,8 @@ import {
 import { Table } from "components/Table";
 import { linkFormatter } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
+import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { TabContent, TabsContainer } from "styles/styledComponents";
 
 const tableHeaders: IHeaderConfig[] = [
   {
@@ -47,38 +49,57 @@ const tableHeaders: IHeaderConfig[] = [
   },
 ];
 
+const views = [
+  { filter: filterByState("open"), title: "Open" },
+  { filter: filterByState("closed"), title: "Closed" },
+  {
+    filter: filterByTreatment("ACCEPTED"),
+    title: "Temporarily accepted",
+  },
+  {
+    filter: filterByTreatment("ACCEPTED_UNDEFINED"),
+    title: "Permanently accepted",
+  },
+];
+
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const vulnerabilities = useGroupVulnerabilities(groupName);
 
   return (
     <div>
-      {[
-        { filter: filterByState("open"), title: "Open" },
-        { filter: filterByState("closed"), title: "Closed" },
-        {
-          filter: filterByTreatment("ACCEPTED"),
-          title: "Temporarily accepted",
-        },
-        {
-          filter: filterByTreatment("ACCEPTED_UNDEFINED"),
-          title: "Permanently accepted",
-        },
-      ].map(({ title, filter }): JSX.Element => {
-        return (
-          <section key={title}>
-            <h2>{title}</h2>
-            <Table
-              dataset={vulnerabilities.filter(filter)}
-              exportCsv={false}
-              headers={tableHeaders}
-              id={`tblVulnerabilities${title}`}
-              pageSize={10}
-              search={false}
-            />
-          </section>
-        );
-      })}
+      <HashRouter>
+        <TabsContainer>
+          {views.map(({ title }): JSX.Element => {
+            return (
+              <ContentTab
+                id={`${title}VulnerabilitiesTab`}
+                key={title}
+                link={`/${title}`}
+                title={title}
+                tooltip={""}
+              />
+            );
+          })}
+        </TabsContainer>
+        <TabContent>
+          {views.map(({ title, filter }): JSX.Element => {
+            return (
+              <Route exact={true} key={title} path={`/${title}`}>
+                <Table
+                  dataset={vulnerabilities.filter(filter)}
+                  exportCsv={false}
+                  headers={tableHeaders}
+                  id={`tblVulnerabilities${title}`}
+                  pageSize={10}
+                  search={false}
+                />
+              </Route>
+            );
+          })}
+          <Redirect to={"/Open"} />
+        </TabContent>
+      </HashRouter>
     </div>
   );
 };
