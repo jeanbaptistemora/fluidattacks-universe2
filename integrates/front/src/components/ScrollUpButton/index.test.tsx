@@ -12,7 +12,7 @@ describe("ScrollUpButton", (): void => {
   it("should render a scroll up button", (): void => {
     expect.hasAssertions();
 
-    const { container } = render(<ScrollUpButton visibleAt={400} />);
+    const { container } = render(<ScrollUpButton />);
 
     expect(container.querySelector("#scroll-up")).toBeInTheDocument();
   });

@@ -331,6 +331,9 @@ export const enTranslations: ResourceKey = {
     reply: "Reply",
     send: "Comment",
   },
+  components: {
+    scrollUpButton: "Back to top",
+  },
   configuration: {
     close: "Close",
     comments: {

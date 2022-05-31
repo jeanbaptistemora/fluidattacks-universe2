@@ -308,7 +308,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
                   </Switch>
                 </main>
               </DashboardContent>
-              <ScrollUpButton visibleAt={400} />
+              <ScrollUpButton />
               <Modal
                 open={idleWarning}
                 title={translate.t("validations.inactiveSessionModal")}

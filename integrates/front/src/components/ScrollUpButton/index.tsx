@@ -1,31 +1,60 @@
-import React from "react";
-import ScrollUp from "react-scroll-up";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-const StyledScrollUp: StyledComponent<
-  "span",
-  Record<string, unknown>
-> = styled.span.attrs<{
-  className: string;
-}>({
-  className:
-    "bg-black bottom-9 br3 fixed o-60 ph2 pv0 right3 su-c su-dib " +
-    "su-icon su-icon-f su-v-mid white",
-})``;
+import { Button } from "components/Button";
 
-interface IScrollUPButtonProps {
-  visibleAt: number;
+const FloatButton: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "fixed",
+  id: "scroll-up",
+})`
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+`;
+
+interface IScrollUpButtonProps {
+  scrollerId?: string;
+  visibleAt?: number;
 }
 
-export const ScrollUpButton: React.FC<IScrollUPButtonProps> = (
-  props: Readonly<IScrollUPButtonProps>
-): JSX.Element => {
-  const { visibleAt } = props;
+export const ScrollUpButton: React.FC<IScrollUpButtonProps> = ({
+  scrollerId = "dashboard",
+  visibleAt = 500,
+}: Readonly<IScrollUpButtonProps>): JSX.Element => {
+  const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
+  const [scroller, setScroller] = useState<HTMLElement | null>();
+
+  useEffect((): void => {
+    setScroller(document.getElementById(scrollerId));
+    scroller?.addEventListener("scroll", (): void => {
+      setVisible(scroller.scrollTop > visibleAt);
+    });
+  }, [scroller, scrollerId, visibleAt]);
+
+  const goToTop = useCallback((): void => {
+    scroller?.scrollTo({
+      behavior: "smooth",
+      top: 0,
+    });
+  }, [scroller]);
 
   return (
-    <ScrollUp duration={400} showUnder={visibleAt}>
-      <StyledScrollUp id={"scroll-up"} />
-    </ScrollUp>
+    <FloatButton>
+      {visible && (
+        <Button onClick={goToTop} variant={"primary"}>
+          {t("components.scrollUpButton")}
+          &nbsp;
+          <FontAwesomeIcon icon={faArrowUp} />
+        </Button>
+      )}
+    </FloatButton>
   );
 };
