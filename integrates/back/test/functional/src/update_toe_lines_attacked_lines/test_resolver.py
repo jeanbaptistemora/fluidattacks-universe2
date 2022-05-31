@@ -201,6 +201,6 @@ async def test_update_toe_lines_attacked_lines_invalid_attacked_lines(
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == (
-        "Exception - The attacked lines must be between 1 and the loc "
+        "Exception - The attacked lines must be between 0 and the loc "
         "(lines of code)"
     )

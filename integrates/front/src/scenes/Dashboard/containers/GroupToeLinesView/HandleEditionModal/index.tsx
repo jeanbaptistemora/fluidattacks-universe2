@@ -45,7 +45,7 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = ({
                   t("group.toe.lines.editModal.alerts.invalidAttackedAt")
                 );
                 break;
-              case "Exception - The attacked lines must be between 1 and the loc (lines of code)":
+              case "Exception - The attacked lines must be between 0 and the loc (lines of code)":
                 msgError(
                   t("group.toe.lines.editModal.alerts.invalidAttackedLines")
                 );

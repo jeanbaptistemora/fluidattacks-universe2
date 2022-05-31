@@ -1198,7 +1198,7 @@ class InvalidToeLinesAttackAt(CustomBaseException):
 class InvalidToeLinesAttackedLines(CustomBaseException):
     def __init__(self) -> None:
         msg = (
-            "Exception - The attacked lines must be between 1 and the loc "
+            "Exception - The attacked lines must be between 0 and the loc "
             "(lines of code)"
         )
         super(InvalidToeLinesAttackedLines, self).__init__(msg)
