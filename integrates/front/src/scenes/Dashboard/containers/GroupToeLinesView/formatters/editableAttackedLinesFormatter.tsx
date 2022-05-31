@@ -47,12 +47,29 @@ const EditableFormatter: React.FC<IEditableFormatterProps> = ({
     }
   }
 
+  function handleInputKeyDown(
+    event: React.KeyboardEvent<HTMLInputElement>
+  ): void {
+    if (
+      event.key.length > 1 ||
+      /\d/u.test(event.key) ||
+      event.key === "Control" ||
+      event.key.toLocaleLowerCase() === "c"
+    )
+      return;
+    event.preventDefault();
+  }
+
   return isFocused ? (
     <StyledInput
       autoFocus={true}
       defaultValue={defaultValue}
+      max={row.loc}
+      min={"0"}
       onBlur={handleOnInputBlur}
+      onKeyDown={handleInputKeyDown}
       onKeyUp={handleOnInputKeyUp}
+      step={"1"}
       type={"number"}
     />
   ) : (
