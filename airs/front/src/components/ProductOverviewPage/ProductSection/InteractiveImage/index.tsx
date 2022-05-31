@@ -37,7 +37,7 @@ const InteractiveImage: React.FC<IInteractiveProps> = ({
       <CloudImage
         alt={"Image Demo"}
         src={isTouch ? image2 : image1}
-        styles={"bs-product-image"}
+        styles={`bs-product-image ${hasHotSpot ? "mt0" : "mt4"}`}
       />
     </Container>
   );
