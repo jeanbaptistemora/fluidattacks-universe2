@@ -1,5 +1,5 @@
 lib_path.f266.container_whitout_user:
   en: >
-    Ensure a user for the container has been created
+    Make sure the container is running as non-root, by creating a user or group for it
   es: >
-    Asegúrese de que se haya creado un usuario para el contenedor
+    Asegúrese de que el contenedor este corriendo como non-root, creando un usuario o grupo para este
