@@ -571,7 +571,7 @@ async def send_mail_policies(
     organization_id: str,
     organization_name: str,
     responsible: str,
-    date: Optional[str],
+    date: str,
 ) -> None:
     organization_data: Organization = await loaders.organization.load(
         organization_id
@@ -605,7 +605,7 @@ async def send_mail_policies(
         "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
         "policies_content": policies_content,
         "responsible": responsible,
-        "date": date,
+        "date": datetime_utils.get_datetime_from_iso_str(date),
     }
 
     org_stakeholders_loaders = await loaders.organization_stakeholders.load(
