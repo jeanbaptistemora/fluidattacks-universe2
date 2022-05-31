@@ -27,6 +27,7 @@ TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger("transactional")
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, name: str
 ) -> AddOrganizationPayload:
+    loaders = info.context.loaders
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
@@ -35,7 +36,9 @@ async def mutate(
         user_email,
         name,
     )
-    organization = await orgs_domain.add_organization_typed(name, user_email)
+    organization = await orgs_domain.add_organization_typed(
+        loaders, name, user_email
+    )
     TRANSACTIONS_LOGGER.info(
         "Organization %s with ID %s was successfully added by %s",
         organization.name,

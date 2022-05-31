@@ -3,16 +3,32 @@ from custom_exceptions import (
     InvalidOrganization,
     OrganizationNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPolicies,
+    OrganizationState,
+)
 from decimal import (
     Decimal,
 )
 from newutils import (
     organizations as orgs_utils,
 )
+from newutils.datetime import (
+    get_iso_date,
+)
 from organizations import (
     dal as orgs_dal,
 )
 import pytest
+import uuid
 
 # Run async tests
 pytestmark = [
@@ -79,13 +95,19 @@ async def test_add_user() -> None:
 async def test_add() -> None:
     org_name = "test-create-org"
     email = "org_testuser1@gmail.com"
-    new_org = await orgs_dal.add(modified_by=email, organization_name=org_name)
-    assert isinstance(new_org, dict)
-    assert "id" in new_org
-    assert not str(new_org["id"]).startswith("ORG#")
-    assert new_org["name"] == org_name
-    with pytest.raises(InvalidOrganization):
-        await orgs_dal.add(modified_by=email, organization_name=org_name)
+    org = Organization(
+        id=str(uuid.uuid4()),
+        name=org_name.lower().strip(),
+        policies=OrganizationPolicies(
+            modified_by=email, modified_date=get_iso_date()
+        ),
+        state=OrganizationState(
+            modified_by=email,
+            modified_date=get_iso_date(),
+            status=OrganizationStateStatus.ACTIVE,
+        ),
+    )
+    await orgs_dal.add_typed(org)
 
 
 @pytest.mark.changes_db
@@ -154,14 +176,16 @@ async def test_get_by_id() -> None:
 
 
 async def test_get_by_name() -> None:
+    loaders: Dataloaders = get_new_context()
     ex_org_name = "okada"
     not_ex_org_name = "no-exists"
     existing_org = await orgs_dal.get_by_name(ex_org_name)
     assert isinstance(existing_org, dict)
     assert "id" in existing_org
     assert existing_org["name"] == ex_org_name
-    not_existent_org = await orgs_dal.get_by_name(not_ex_org_name)
-    assert not not_existent_org
+    with pytest.raises(OrganizationNotFound):
+        not_existent_org = await loaders.organization.load(not_ex_org_name)
+        assert not not_existent_org
 
 
 async def test_get_many_by_id() -> None:

@@ -562,7 +562,7 @@ async def reject_register_for_group_invitation(
     return success
 
 
-async def add_group(
+async def add_group(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     description: str,
@@ -590,7 +590,10 @@ async def add_group(
     if not description.strip() or not group_name.strip():
         raise InvalidParameter()
 
-    organization_id = await orgs_domain.get_id_by_name(organization_name)
+    organization: Organization = await loaders.organization.load(
+        organization_name
+    )
+    organization_id = organization.id
     if not await orgs_domain.has_user_access(organization_id, user_email):
         raise UserNotInOrganization(organization_id)
 

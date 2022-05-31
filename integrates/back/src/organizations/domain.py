@@ -133,18 +133,6 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
     return success
 
 
-async def add_organization(name: str, email: str) -> Dict[str, Any]:
-    if not re.match(r"^[a-zA-Z]{4,10}$", name):
-        raise InvalidOrganization()
-
-    org = await orgs_dal.get_by_name(name, ["id"])
-    if org:
-        raise InvalidOrganization()
-
-    new_organization = await get_or_add(name, email)
-    return new_organization
-
-
 async def remove_organization(organization_id: str, modified_by: str) -> bool:
     return await orgs_dal.remove(
         organization_id=organization_id,
@@ -217,13 +205,6 @@ async def get_all_active_group_names(
     return active_group_names
 
 
-async def get_by_name(name: str) -> Dict[str, Any]:
-    organization: Dict[str, Any] = await orgs_dal.get_by_name(name.lower())
-    if organization:
-        return format_organization(organization)
-    raise OrganizationNotFound()
-
-
 async def get_groups(organization_id: str) -> Tuple[str, ...]:
     """Return a tuple of group names for the provided organization."""
     return tuple(await orgs_dal.get_groups(organization_id))
@@ -251,16 +232,18 @@ async def get_name_by_id(organization_id: str) -> str:
     return str(result["name"])
 
 
-async def if_exist(organization_name: str) -> bool:
-    if await orgs_dal.get_by_name(organization_name.lower().strip()):
+async def if_exist(loaders: Any, organization_name: str) -> bool:
+    try:
+        await loaders.organization.load(organization_name.lower().strip())
         return True
-    return False
+    except OrganizationNotFound:
+        return False
 
 
 async def add_organization_typed(
-    organization_name: str, email: str
+    loaders: Any, organization_name: str, email: str
 ) -> Organization:
-    if await if_exist(organization_name) or not re.match(
+    if await if_exist(loaders, organization_name) or not re.match(
         r"^[a-zA-Z]{4,10}$", organization_name
     ):
         raise InvalidOrganization()
@@ -295,8 +278,10 @@ async def get_or_add(
     org_created: bool = False
     org_role: str = "user"
     organization_name = organization_name.lower().strip()
-
-    org = await orgs_dal.get_by_name(organization_name, ["id", "name"])
+    try:
+        org = await orgs_dal.get_by_name(organization_name, ["id", "name"])
+    except OrganizationNotFound:
+        org = {}
     if org:
         org["id"] = remove_org_id_prefix(org["id"])
         has_access = (

@@ -108,20 +108,23 @@ async def test_add_customer_manager_good() -> None:
 
 @pytest.mark.changes_db
 async def test_add_organization() -> None:
+    loaders: Dataloaders = get_new_context()
     org_name = "esdeath"
     user = "org_testusermanager1@gmail.com"
     with pytest.raises(OrganizationNotFound):
-        await orgs_domain.get_id_by_name(org_name)
+        await loaders.organization.load(org_name)
 
-    await orgs_domain.add_organization_typed(org_name, user)
-    org_id = await orgs_domain.get_id_by_name(org_name)
+    await orgs_domain.add_organization_typed(loaders, org_name, user)
+
+    organization: Organization = await loaders.organization.load(org_name)
+    org_id = organization.id
     assert await orgs_domain.has_user_access(org_id, user)
     assert (
         await authz.get_organization_level_role(user, org_id) == "user_manager"
     )
 
     with pytest.raises(InvalidOrganization):
-        await orgs_domain.add_organization_typed(org_name, user)
+        await orgs_domain.add_organization_typed(loaders, org_name, user)
 
 
 @pytest.mark.changes_db

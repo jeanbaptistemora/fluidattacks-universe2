@@ -15,9 +15,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -30,6 +27,5 @@ async def resolve(
 ) -> Organization:
     loaders: Dataloaders = info.context.loaders
     organization_name: str = kwargs["organization_name"]
-    organization_id = await orgs_domain.get_id_by_name(organization_name)
 
-    return await loaders.organization.load(organization_id)
+    return await loaders.organization.load(organization_name)

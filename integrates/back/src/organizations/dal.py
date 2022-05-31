@@ -201,9 +201,11 @@ async def exists(org_name: str) -> bool:
     """
     Returns True if the organization key exists.
     """
-    if await get_by_name(org_name):
+    try:
+        await get_by_name(org_name.lower().strip())
         return True
-    return False
+    except OrganizationNotFound:
+        return False
 
 
 async def get_access_by_url_token(
@@ -274,12 +276,13 @@ async def get_by_name(
         query_attrs["ProjectionExpression"] = projection
     try:
         response_items = await dynamodb_query(TABLE_NAME, query_attrs)
-        if response_items:
-            organization = response_items[0]
-            if "sk" in organization:
-                organization.update(
-                    {"sk": cast(str, organization["sk"]).split("#")[1]}
-                )
+        if not response_items:
+            raise OrganizationNotFound()
+        organization = response_items[0]
+        if "sk" in organization:
+            organization.update(
+                {"sk": cast(str, organization["sk"]).split("#")[1]}
+            )
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return _map_keys_to_domain(organization)
