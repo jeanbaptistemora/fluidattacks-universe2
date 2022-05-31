@@ -50,7 +50,15 @@ def test_iterate_iam_policy_documents() -> None:
                 "Effect": "Allow",
                 "Action": ["s3:ListBucket"],
                 "Resource": ["arn:aws:s3:::${var.s3_bucket_name}"],
-                "Condition": "set",
+                "Condition": {
+                    "StringLike": {
+                        "s3:prefix": [
+                            "",
+                            "home/",
+                            "home/&{aws:username}/",
+                        ],
+                    },
+                },
             },
             line=116,
         ),

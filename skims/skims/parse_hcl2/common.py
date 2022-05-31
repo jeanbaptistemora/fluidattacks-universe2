@@ -32,6 +32,12 @@ def get_block_block(block: Block, namespace: str) -> Optional[Block]:
     return None
 
 
+def get_blocks_by_namespace(block: Block, namespace: str) -> Iterator[Block]:
+    for nested_block in iterate_block_blocks(block):
+        if nested_block.namespace and nested_block.namespace[0] == namespace:
+            yield nested_block
+
+
 def get_attribute_by_block(
     block: Block, namespace: str, key: str
 ) -> Optional[Attribute]:

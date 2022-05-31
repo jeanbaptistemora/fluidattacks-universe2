@@ -35,10 +35,10 @@ from itertools import (
     chain,
 )
 from parse_hcl2.common import (
-    get_attribute_by_block,
     get_attribute_value,
     get_block_attribute,
     get_block_block,
+    get_blocks_by_namespace,
     iterate_resources,
 )
 from parse_hcl2.tokens import (
@@ -48,6 +48,9 @@ from parse_hcl2.tokens import (
 from typing import (
     Any,
     Iterator,
+    Literal,
+    Optional,
+    Union,
 )
 
 
@@ -83,6 +86,55 @@ def _iterate_iam_policy_documents_from_resource_with_policy(
         yield from _yield_statements_from_policy_document_attribute(attribute)
 
 
+def get_principals_and_not_principals(
+    block: Block,
+    kind: Literal["principals", "not_principals"],
+) -> Optional[Union[str, dict]]:
+    principal_val: dict = {}
+    wildcard = "*"
+    principals = get_blocks_by_namespace(block, kind)
+    if not principals:
+        return None
+    for principal in principals:
+        type_attr = get_block_attribute(principal, "type")
+        identifiers_attr = get_block_attribute(principal, "identifiers")
+        if type_attr is None or identifiers_attr is None:
+            continue
+        type_val: str = type_attr.val
+        identifiers_val: list = (
+            [identifiers_attr.val]
+            if identifiers_attr and identifiers_attr.val == wildcard
+            else identifiers_attr.val
+        )
+        if type_val == wildcard and wildcard in identifiers_val:
+            return wildcard
+        principal_val.update({type_val: identifiers_val})
+
+    return principal_val
+
+
+def get_conditions(block: Block) -> Optional[dict]:
+    condition_val: dict = {}
+    conditions = get_blocks_by_namespace(block, "condition")
+    if not conditions:
+        return None
+    for condition in conditions:
+        test_attr = get_block_attribute(condition, "test")
+        values_attr = get_block_attribute(condition, "values")
+        variable_attr = get_block_attribute(condition, "variable")
+        if test_attr is None or values_attr is None or variable_attr is None:
+            continue
+        test: str = test_attr.val
+        values: str = values_attr.val
+        variable: str = variable_attr.val
+        if test not in condition_val:
+            condition_val.update({test: {variable: values}})
+        else:
+            condition_val[test].update({variable: values})
+
+    return condition_val
+
+
 def _iterate_iam_policy_documents_from_data_iam_policy_document(
     model: Any,
 ) -> Iterator[AWSIamPolicyStatement]:
@@ -103,29 +155,23 @@ def _iterate_iam_policy_documents_from_data_iam_policy_document(
                         "not_actions": "NotAction",
                         "resources": "Resource",
                         "not_resources": "NotResource",
-                        # pending to implement:
-                        #  condition, not_principals, principals
                     }.items()
                     for attr_data in [get_block_attribute(block, attr)]
                     if attr_data is not None
                 }
 
-                # Load nested blocks
-                data.update(
-                    {
-                        attr_alias: "set"
-                        for attr, attr_alias in {
-                            "condition": "Condition",
-                            "not_principals": "NotPrincipal",
-                        }.items()
-                        for sub_block in [get_block_block(block, attr)]
-                        if sub_block is not None
-                    }
-                )
-                if principals := get_attribute_by_block(
-                    block, "principals", "identifiers"
+                if principals := get_principals_and_not_principals(
+                    block, "principals"
                 ):
-                    data.update({"Principal": principals.val})
+                    data.update({"Principal": principals})
+
+                if not_principals := get_principals_and_not_principals(
+                    block, "not_principals"
+                ):
+                    data.update({"NotPrincipal": not_principals})
+
+                if conditions := get_conditions(block):
+                    data.update({"Condition": conditions})
 
                 # By default it's Allow in terraform
                 if "Effect" not in data:
@@ -142,6 +188,15 @@ def iter_aws_kms_key_policy_statements(
     model: Any,
 ) -> Iterator[AWSIamPolicyStatement]:
     iterator = iterate_resources(model, "resource", "aws_kms_key")
+    for res in iterator:
+        attribute = get_block_attribute(res, "policy")
+        yield from _yield_statements_from_policy_document_attribute(attribute)
+
+
+def iter_aws_s3_bucket_policy_statements(
+    model: Any,
+) -> Iterator[AWSIamPolicyStatement]:
+    iterator = iterate_resources(model, "resource", "aws_s3_bucket_policy")
     for res in iterator:
         attribute = get_block_attribute(res, "policy")
         yield from _yield_statements_from_policy_document_attribute(attribute)

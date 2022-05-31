@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "example" {
     sid    = "Enable IAM User Permissions"
     effect = "Allow"
     principals {
-      type        = "AWS"
+      type        = "*"
       identifiers = ["*"]
     }
     actions = [

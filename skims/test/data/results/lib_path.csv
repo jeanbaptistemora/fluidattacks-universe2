@@ -15903,7 +15903,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   55 |     sid    = ""Enable IAM User Permissions""
   56 |     effect = ""Allow""
   57 |     principals {
-  58 |       type        = ""AWS""
+  58 |       type        = ""*""
   59 |       identifiers = [""*""]
   60 |     }
   61 |     actions = [
@@ -16538,7 +16538,7 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   55 |     sid    = ""Enable IAM User Permissions""
   56 |     effect = ""Allow""
   57 |     principals {
-  58 |       type        = ""AWS""
+  58 |       type        = ""*""
   59 |       identifiers = [""*""]
   60 |     }
   61 |     actions = [
