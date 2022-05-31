@@ -253,22 +253,26 @@ async def main(  # pylint: disable=too-many-locals)
             download_url=download_url,
         )
 
+    log_blocking("info", "Downloading roots")
     namespaces_path_dict = dict(
         await collect(
             [
                 _get_namespace(
                     group_name,
                     root_nickname,
-                    roots_dict_by_nickname[root_nickname].download_url or "",
+                    roots_dict_by_nickname[root_nickname].download_url or ".",
                 )
                 for root_nickname in roots_nicknames
                 if root_nickname in roots_dict_by_nickname
+                and roots_dict_by_nickname[root_nickname].download_url
+                is not None
             ]
         )
     )
     await delete_out_of_scope_files(group_name, *roots_nicknames)
     group_language = await get_group_language(group_name)
 
+    log_blocking("info", "Generating Configs")
     set_configs: List[List[SkimsConfig]] = list(
         await collect(
             generate_configs(
@@ -289,12 +293,14 @@ async def main(  # pylint: disable=too-many-locals)
                 log_blocking(
                     "info", "Running skims for %s", configs[0].namespace
                 )
+                log_blocking("info", "Executing rebase")
                 await execute_rebase(
                     group_name,
                     configs[0].namespace,
                     configs[0].working_dir,
                     token,
                 )
+            log_blocking("info", "Executing set of configs")
             await execute_skims_configs(configs, group_name, token)
 
     delete_action(action_dynamo_pk=action_dynamo_pk)
