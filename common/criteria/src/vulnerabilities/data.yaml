@@ -34,8 +34,48 @@
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using Microsoft.AspNetCore.Mvc;
+      using Microsoft.EntityFrameworkCore;
+      using WebApplication1.Controllers;
+
+      namespace WebApplicationDotNetCore.Controllers
+      {
+        public class RSPEC3649SQLiNoncompliant
+        {
+          public IActionResult Authenticate(UserAccountContext context, string user)
+          {
+            string insecure_query = "SELECT * FROM Users WHERE Username = '" + user + "'";
+
+            insecure_obj = new SqlCommand(insecure_query);
+
+            insecure_methd = sqcontext.Database.ExecuteSqlCommand(insecure_query);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using Microsoft.AspNetCore.Mvc;
+      using Microsoft.EntityFrameworkCore;
+      using WebApplication1.Controllers;
+
+      namespace WebApplicationDotNetCore.Controllers
+      {
+        public class RSPEC3649SQLiNoncompliant
+        {
+          public IActionResult Authenticate(UserAccountContext context, string user)
+          {
+            string secure_query = "UPDATE Sales.Store SET Demographics = @demographics " + "WHERE CustomerID = @ID;";
+
+            secure_obj = new SqlCommand(secure_query);
+
+            secure_methd = sqcontext.Database.ExecuteSqlCommand(secure_query);
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -641,8 +681,57 @@
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      public void bad(HttpServletRequest request, HttpServletResponse response) throws Throwable
+      {
+        String data = "";
+        {
+          Socket socket = null;
+          BufferedReader readerBuffered = null;
+          InputStreamReader readerInputStream = null;
+          try
+          {
+            socket = new Socket("host.example.org", 39544);
+            readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
+            readerBuffered = new BufferedReader(readerInputStream);
+            data = readerBuffered.readLine();
+          }
+          catch (IOException exceptIO)
+          {
+              IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
+          }
+          // Not shown: Code to close the socket...
+        }
+        if (data != null)
+        {
+          //* POTENTIAL FLAW: Display of data in web page after using replaceAll() to remove script tags,
+          // which will still allow XSS with strings like <scr<script>ipt>
+          response.getWriter().println("<br>bad(): data = " + data.replaceAll("(<script>)", ""));
+        }
+      }
+      ```
+    compliant:  |
+      ```c {3,7,15}
+      namespace Controllers
+      {
+        public class Calculate
+        {
+          public static void ProcessRequest(HttpRequest req, HttpResponse res)
+          {
+            string name = req.QueryString["name"];
+            res.Write("Hello " + name);
+
+            string value = req.QueryString["value"];
+            if (value == null || !Regex.IsMatch(value, "^[a-zA-Z0-9]+$"))
+            {
+              throw new InvalidOperationException("Invalid value");
+            }
+            res.AddHeader("X-Header", value);
+          }
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -866,6 +955,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Example importing a dependency with known vulnerabilities
       ```json
       {
         "name": "test",
@@ -883,6 +973,19 @@
         },
         "devDependencies": {
           "xmldom": "0.4.0"
+        }
+      }
+      ```
+      Example using software with known vulnerabilities
+      ```c {3,7,15}
+      using System;
+      class ExampleClass
+      {
+        public void ExampleMethod()
+        {
+          //Is the URI is tainted, it may lead to parsing of a malicious XML schema
+          XmlSchemaCollection xsc = new XmlSchemaCollection();
+          xsc.Add("urn: bookstore - schema", "books.xsd");
         }
       }
       ```
@@ -1206,6 +1309,7 @@
   examples:
     non_compliant: |
       ```yaml
+      //AWS Vulnerable resource
       resource "azurerm_storage_account" "insecure_example" {
         name                     = "storageaccountname"
         resource_group_name      = azurerm_resource_group.example.name
@@ -1216,6 +1320,22 @@
 
         tags = {
           environment = "staging"
+        }
+      }
+      ```
+      Example using method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp
+      ```c {3,7,15}
+      using System;
+      using Microsoft.WindowsAzure.Storage;
+      using Microsoft.WindowsAzure.Storage.File;
+
+      class ExampleClass
+      {
+        public void ExampleMethod(SharedAccessFilePolicy policy, SharedAccessFileHeaders headers, string groupPolicyIdentifier, IPAddressOrRange ipAddressOrRange)
+        {
+          CloudFile cloudFile = new CloudFile(null);
+          SharedAccessProtocol protocols = SharedAccessProtocol.HttpsOrHttp;
+          cloudFile.GetSharedAccessSignature(policy, headers, groupPolicyIdentifier, protocols, ipAddressOrRange);
         }
       }
       ```
@@ -1336,8 +1456,32 @@
       Atacante anónimo desde una red adyacente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      class jwtbuild {
+        public static void Main() {
+          IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
+
+          var insecure_decode = decoder.Decode(token, secret, verify: false);
+
+          var insecure_decode2 = decoder.Decode(token, secret, false);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      class jwtbuild {
+        public static void Main() {
+          IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
+
+          var secure_decode = decoder.Decode(token, secret, verify: true);
+
+          var secure_decode2 = decoder.Decode(token, secret, true);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -1563,8 +1707,76 @@
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      public void bad() throws Throwable
+      {
+        String data = "";
+        /* Read data using an outbound tcp connection */
+        {
+          Socket socket = null;
+          BufferedReader readerBuffered = null;
+          InputStreamReader readerInputStream = null;
+          try
+          {
+            socket = new Socket("host.example.org", 39544);
+            readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
+            readerBuffered = new BufferedReader(readerInputStream);
+            data = readerBuffered.readLine();
+          }
+          // Not shown: Code to clean up the socket
+        }
+
+        String xmlFile = null;
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+        {
+          /* running on Windows */
+          xmlFile = "\\src\\testcases\\CWE643_Xpath Injection\\CWE643_Xpath_Injection__Helper.xml";
+        }
+        else
+        {
+          /* running on non-Windows */
+          xmlFile = "./src/testcases/CWE643_Xpath Injection/CWE643_Xpath_Injection__Helper.xml";
+        }
+
+        if (data != null)
+        {
+          /* assume username||password as source */
+          String [] tokens = data.split("||");
+          if (tokens.length < 2)
+          {
+            return;
+          }
+          String username = tokens[0];
+          String password = tokens[1];
+          /* build xpath */
+          XPath xPath = XPathFactory.newInstance().newXPath();
+          InputSource inputXml = new InputSource(xmlFile);
+          /* INCIDENTAL: CWE180 Incorrect Behavior Order: Validate Before Canonicalize
+          *     The user input should be canonicalized before validation. */
+          /* POTENTIAL FLAW: user input is used without validate */
+          String query = "//users/user[name/text()='" + username +
+                        "' and pass/text()='" + password + "']" +
+                        "/secret/text()";
+          String secret = (String)xPath.evaluate(query, inputXml, XPathConstants.STRING);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Xml.XPath;
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load()
+        {
+          string operation = Request.Form["operation"];
+          XPathNavigator AuthorizedOperations  = new XPathNavigator();
+          // Must report
+          XPathNavigator node = AuthorizedOperations.SelectSingleNode(operation);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -2534,8 +2746,43 @@
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      namespace Controllers
+      {
+        public class DBaccess
+        {
+          public void dbauth()
+          {
+            DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+            con_str = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=";
+            optionsBuilder.UseSqlServer(con_str);
+
+            DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
+            optionsBuilder2.UseSqlServer("Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=");
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      public class Startup
+      {
+        public void start(IServiceCollection services)
+        {
+          services.Configure<IdentityOptions>( options =>
+          {
+            options.Password.RequireDigit = true;
+            options.Password.RequireDigit = true;
+            options.Password.RequiredLength = 16;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequiredUniqueChars = 10;
+          });
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -2987,8 +3234,43 @@
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace cookies
+      {
+        public class CookieExample
+        {
+          public static void Main(string[] args)
+          {
+            var insecure_cookie = new HttpCookie(key , value);
+            insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+            insecure_cookie.HttpOnly = true;
+
+            var insecure = new HttpCookie(key , value);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace cookies
+      {
+        public class CookieExample
+        {
+          public static void Main(string[] args)
+          {
+            var secure_cookie = new HttpCookie(key , value);
+            secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+            secure_cookie.HttpOnly = true;
+            secure_cookie.Secure = true;
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -3697,6 +3979,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Insecure encryption library
       ```javascript
       const crypto = require("crypto");
 
@@ -3705,7 +3988,26 @@
 
       const cipher = crypto.createCipheriv("des-ecb", key, "");
       ```
+      Insecure hash examples
+      ```c {3,7,15}
+      using System.Security.Cryptography;
+
+      namespace Cypher_Example
+      {
+        class CypherExample
+        {
+          public static void Main()
+          {
+            HMACMD5 myAes = HMACMD5.Create();
+            DES myAes = DES.Create();
+            TripleDES myAes = TripleDES.Create();
+            var hashProvider3 = new RC2CryptoServiceProvider();
+          }
+        }
+      }
+      ```
     compliant: |
+      Secure encryption library
       ```javascript
       //Use alternative libraries that comply with the required security standards
       const forge = require('node-forge');
@@ -3714,6 +4016,21 @@
       const key = Buffer.from(keyString.substring(0, 8), "utf8");
 
       const cipher = forge.cipher.createCipher('AES-CBC', key);
+      ```
+      Secure hash examples
+      ```c {3,7,15}
+      using System.Security.Cryptography;
+
+      namespace Cypher_Example
+      {
+        class CypherExample
+        {
+          public static void Main()
+          {
+            var hashProvider3 = new RC2CryptoServiceProvider();
+          }
+        }
+      }
       ```
   remediation_time: "30"
   score:
@@ -4500,6 +4817,56 @@
         }
       }
       ```
+
+      ```c {3,7,15}
+      public void bad() throws Throwable
+      {
+        String data;
+        data = "";
+        {
+          Socket socket = null;
+          BufferedReader readerBuffered = null;
+          InputStreamReader readerInputStream = null;
+          try
+          {
+            socket = new Socket("host.example.org", 39544);
+            readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
+            readerBuffered = new BufferedReader(readerInputStream);
+            data = readerBuffered.readLine();
+          }
+          catch (IOException exceptIO)
+          {
+            IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
+          }
+          //Not shown code to close the socket
+        }
+
+        String root;
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+        {
+          /* running on Windows */
+          root = "C:\\uploads\\";
+        }
+        else
+        {
+          /* running on non-Windows */
+          root = "/home/user/uploads/";
+        }
+
+        if (data != null)
+        {
+          // POTENTIAL FLAW: no validation of concatenated value
+          File file = new File(root + data);
+          FileInputStream streamFileInputSink = null;
+          InputStreamReader readerInputStreamSink = null;
+          BufferedReader readerBufferdSink = null;
+          if (file.exists() && file.isFile())
+          {
+            dosomething()
+          }
+        }
+      }
+      ```
     compliant: |
       ```java
       public partial class WebForm : System.Web.UI.Page
@@ -4687,8 +5054,23 @@
       Atacante autenticado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      namespace Example
+      {
+        public class Example
+        {
+          public Test()
+          {
+            var text_str = "hello world";
+            Console.WriteLine($"String: {text_str}");
+          }
+        }
+      }
+      ```
+    compliant:  |
+      No console functions in production code
   remediation_time: "15"
   score:
     base:
@@ -5290,8 +5672,43 @@
       con permisos de escritura en el repositorio.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      namespace Controllers
+      {
+        public class Calculate
+        {
+          public static int Sum(int num1, int num2)
+          {
+            /*
+            if(num1 < 4){
+                return 0;
+            }
+            */
+            int total;
+            //This is a sum
+            total = num1 + num2;
+            return total;
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      namespace Controllers
+      {
+        public class Calculate
+        {
+          public static int Sum(int num1, int num2)
+          {
+            int total;
+            //This is a sum
+            total = num1 + num2;
+            return total;
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -6401,8 +6818,39 @@
       Atacante autenticado desde Internet.
   category: Manipulate System
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using Microsoft.AspNetCore.Mvc;
+
+      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
+      {
+        public void LogSomething(HttpRequest id)
+        {
+          private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+          _logger.Info(id);
+          var logger = new DBLogger();
+          logger.Log(id);
+          var log = new FileLogger();
+          log.Debug(id);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using Microsoft.AspNetCore.Mvc;
+
+      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
+      {
+        public void LogSomething(HttpRequest id)
+        {
+          private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+          id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+          sec_log.Info(id);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -6750,8 +7198,29 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      public class XmlSerializerTestCase : Controller
+      {
+        public ActionResult unsecuredeserialization(HttpRequest typeName)
+        {
+          Tpe t = Type.GetType(typeName);
+          XmlSerializer serializer = new XmlSerializer(t);
+          XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      public class XmlSerializerTestCase : Controller
+      {
+        public ActionResult unsecuredeserialization(HttpRequest typeName)
+        {
+          ExpectedType obj = null;
+          XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -6881,8 +7350,32 @@
       Atacante anónimo desde red externa.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.IO;
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string userInput = Request.Params["UserInput"];
+          var elem = File.Open(userInput, FileMode.Open);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.IO;
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string VerifiedFilePath = "/myTrustedPath"
+          var elem = File.Open(userInput, FileMode.Open);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -7068,8 +7561,46 @@
     threat: Atacante no autorizado desde Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace testmod
+      {
+        public class Controllers
+        {
+          public void ReadContentOfURL(HttpRequest url)
+          {
+            //Insecure
+            WebRequest req = WebRequest.Create(url);
+            if (!whiteList.Contains(url))
+            {
+              return BadRequest();
+            }
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace testmod
+      {
+        public class Controllers
+        {
+          public void ReadContentOfURL(HttpRequest url)
+          {
+            //Secure
+            isVerifiedUrl = verifyUrl(url);
+            if isVerifiedUrl
+              {
+                WebRequest request = WebRequest.Create(url);
+              }
+          }
+        }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -7494,8 +8025,42 @@
       desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.DirectoryServices;
+
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string userName = Request.Params["user"];
+          string filter = "(uid=" + userName + ")";
+
+          DirectorySearcher searcher = new DirectorySearcher(filter);
+          SearchResultCollection results = searcher.FindAll();
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.DirectoryServices;
+
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string userName = Request.Params["user"];
+
+          userNameVerified = cleanUserName(userName);
+          string filter = "(uid=" + userNameVerified + ")";
+
+          DirectorySearcher searcher = new DirectorySearcher(filter);
+          SearchResultCollection results = searcher.FindAll();
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -8838,8 +9403,54 @@
     threat: Usuario autorizado de la intranet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      package f127
+
+      import (
+        "dabatase/sql"
+        "db"
+        "math"
+        "strconv"
+      )
+
+      func DangerousFloat(request *http.Request) {
+        amount := strconv.ParseFloat(request.Amount)
+        sql.QueryRow(`INSERT INTO tbl $1`, amount)
+      }
+
+      func DangerousFloat2(request *http.Request) {
+        amount := strconv.ParseFloat(request.Amount)
+        DBQuerySameFile("Message", amount, 0)
+      }
+      ```
+    compliant: |
+      ```javascript
+      package f127
+
+      import (
+        "dabatase/sql"
+        "db"
+        "math"
+        "strconv"
+      )
+
+      func SafeFloat(request *http.Request) {
+        amount := strconv.ParseFloat(request.Amount)
+        if math.IsNaN(amount) || math.IsInf(amount, 0) {
+          return "Not a valid value"
+        }
+        sql.QueryRow(`INSERT INTO tbl $1`, amount)
+      }
+
+      func SafeFloat2(request *http.Request) {
+        amount := strconv.ParseFloat(request.Amount)
+        if math.IsNaN(amount) || math.IsInf(amount, 0) {
+          return "Not a valid value"
+        }
+        DBQuerySameFile("Message", amount, 0)
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9326,8 +9937,64 @@
       desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace testmod
+      {
+        public class Controllers
+        {
+          public void Configure(IApplicationBuilder app)
+          {
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin();
+
+            var policyBuilder = new CorsPolicyBuilder();
+            var policy = policyBuilder
+              .AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .Build();
+
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            app.UseCors( cors => cors
+              .AllowAnyMethod()
+              .AllowAnyOrigin());
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace testmod
+      {
+        public class Controllers
+        {
+          public void Configure(IApplicationBuilder app)
+          {
+            var SecCorsBuilder = new CorsPolicyBuilder();
+            SecCorsBuilder.AllowAnyHeader();
+            SecCorsBuilder.AllowAnyMethod();
+
+            var SecPolicyBuilder = new CorsPolicyBuilder();
+            var SecPolicy = SecPolicyBuilder
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .Build();
+
+            app.UseCors( x => x
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -11042,9 +11709,30 @@
           }
       }
       ```
+      Create a temporary path without limiting values
+      ```c {3,7,15}
+      using System;
+      using System.IO;
+
+      namespace StreamReadWrite
+      {
+        class Program
+        {
+          static void Main(string[] args)
+          {
+            var tempPath = Path.GetTempFileName();
+            var randomPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+            using (var writer = new StreamWriter(tempPath))
+            {
+              writer.WriteLine("content");
+            }
+          }
+        }
+      }
+      ```
     compliant: |
       ```import java.nio.file.Files;
-
       public class Test {
           public static void main(String[] args){
               try {
@@ -14262,8 +14950,39 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System.Text.RegularExpressions;
+      namespace Controllers
+      {
+        public class Controller : Controller
+        {
+          public IActionResult Validate(string regex, string input)
+          {
+              var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
+              Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+              bool match = reg.IsMatch("testing", @"\b(?<word>\w+)\s+(\k<word>)\b");
+              bool match2 = reg.IsMatch(input, expreg);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System.Text.RegularExpressions;
+      namespace Controllers
+      {
+        public class Controller : Controller
+        {
+          public IActionResult Validate(string regex, string input)
+          {
+              var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
+              Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+              bool match = reg.IsMatch(input, reg.Escape(regex));
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -15996,8 +16715,32 @@
       acceso a la consola del servidor.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class Test{
+        public static void main(String[] args){
+            try {
+                throw new IOException();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class Test{
+        public static void main(String[] args){
+            try {
+                throw new IOException();
+            }
+            catch (IOException e) {
+                dealWithException(e);
+            }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -16105,8 +16848,42 @@
       Atacante autorizado desde internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      namespace API
+      {
+        public class Program
+        {
+          public static void Main()
+          {
+              BuildWebHost();
+          }
+
+          public static IWebHost BuildWebHost() =>
+            WebHost.CreateDefaultBuilder()
+              .UseSetting(WebHostDefaults.DetailedErrorsKey, "true")
+              .Build();
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      namespace API
+      {
+        public class Program
+        {
+          public static void Main()
+          {
+              BuildWebHost();
+          }
+          public static IWebHost BuildWebHost() =>
+            WebHost.CreateDefaultBuilder()
+              .Build();
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -21299,8 +22076,28 @@
       configuraciones de servicios.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      class cipher{
+        public void Encrypt()
+        {
+          DirectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
+          myDirectoryEntry.AuthenticationType = AuthenticationTypes.None;
+          DirectoryEntry sndDirectoryEntry = new DirectoryEntry(adPath, "u", "p", AuthenticationTypes.None);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      class cipher{
+        public void Encrypt()
+        {
+          DirectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, "u", "p", AuthenticationTypes.Secure);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22477,8 +23274,38 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant:  |
+      ```c {3,7,15}
+      namespace Controllers
+      {
+        public class Encrypt
+        {
+          public static void Process(string password)
+          {
+            var salt = Encoding.UTF8.GetBytes("salt");
+            var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+            var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes("test"));
+            var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes("test"));
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      namespace Controllers
+      {
+        public class Encrypt
+        {
+          public static void Process(string password)
+          {
+            var salt = RNGCryptoServiceProvider().GetBytes(salt=new byte[16]);
+            var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+            var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes("test"));
+            var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes("test"));
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -24231,8 +25058,46 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Security;
+
+      namespace MyLibrary
+      {
+        [SecurityCritical]
+        public class Foo
+        {
+          [SecuritySafeCritical]
+          public void Bar()
+          {
+          }
+
+          public void Testeo()
+          {
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Security;
+
+      namespace MyLibrary
+      {
+        public class Foo
+        {
+          public void Bar()
+          {
+          }
+
+          public void Testeo()
+          {
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -27448,8 +28313,35 @@
       Anonymous attacker from local machine
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Reflection;
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string input = Request.Form["in"];
+          byte[] rawAssembly = Convert.FromBase64String(input);
+          Assembly.Load(rawAssembly);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Reflection;
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string input = Request.Form["in"];
+          string cleanInput = clearRawUserInput(input);
+          byte[] rawAssembly = Convert.FromBase64String(cleanInput);
+          Assembly.Load(rawAssembly);
+        }
+      }
+      ```
   remediation_time: "20"
   es:
     title: Insecure file upload - DLL Injection
@@ -27504,8 +28396,34 @@
       Anonymoous attacker from the Internet
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Web.Configuration;
+
+      class TestClass
+      {
+        public void TestMethod()
+        {
+          HttpRuntimeSection httpRuntimeSection = new HttpRuntimeSection();
+          httpRuntimeSection.EnableHeaderChecking = false;
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.Web.Configuration;
+
+      class TestClass
+      {
+        public void TestMethod()
+        {
+          HttpRuntimeSection httpRuntimeSection = new HttpRuntimeSection();
+          httpRuntimeSection.EnableHeaderChecking = true;
+        }
+      }
+      ```
   remediation_time: "20"
   es:
     title: Insecure service configuration - Header Checking
@@ -27616,8 +28534,39 @@
       Authenticated attacker from the Internet
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.IO;
+
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string input = Request.Form["in"];
+          byte[] bytes = Convert.FromBase64String(input);
+          MemoryStream ms = new MemoryStream(bytes);
+          System.Windows.Markup.XamlReader.Load(ms);
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using System;
+      using System.IO;
+
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          string input = Request.Form["in"];
+          string cleanInput = clearRawUserInput(input);
+          byte[] bytes = Convert.FromBase64String(cleaninput);
+          MemoryStream ms = new MemoryStream(bytes);
+          System.Windows.Markup.XamlReader.Load(ms);
+        }
+      }
+      ```
   remediation_time: "20"
   es:
     title: XAML injection

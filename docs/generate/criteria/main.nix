@@ -187,17 +187,14 @@
   in "⌚ ${remediationTime} minutes.";
 
   # Compliant and non-compliant code
-  codeExamples = {
-    exampleNC,
-    exampleC,
-  }: let
+  codeExamples = examples: let
     compliant = section {
       title = "### Compliant code";
-      content = exampleC;
+      content = examples.compliant;
     };
     non_compliant = section {
       title = "### Non compliant code";
-      content = exampleNC;
+      content = examples.non_compliant;
     };
   in
     section {
@@ -473,10 +470,7 @@
         __argScoreTemporal__ = score.score.temporal;
         __argSeverityBase__ = score.severity.base;
         __argSeverityTemporal__ = score.severity.temporal;
-        __argExamples__ = codeExamples {
-          exampleC = src.examples.compliant;
-          exampleNC = src.examples.non_compliant;
-        };
+        __argExamples__ = codeExamples src.examples;
         __argDetails__ = section {
           title = "## Details";
           content = src.metadata.en.details;
