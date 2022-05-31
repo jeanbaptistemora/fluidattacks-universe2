@@ -711,6 +711,29 @@
       "management:type" = "product";
     };
   };
+  observes_etl_gitlab_issues = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/observes/etl/gitlab/product/issues"
+    ];
+
+    schedule_expression = "cron(0 11 ? * 1-5 *)";
+    size = "nano";
+    attempts = 1;
+    timeout = 10800;
+    parallel = 1;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "observes_etl_gitlab_issues";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+  };
   observes_etl_mixpanel = {
     enabled = true;
     command = [
