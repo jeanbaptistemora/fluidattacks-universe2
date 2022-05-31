@@ -35,14 +35,20 @@ def format_organization(item: Item) -> Organization:
 
 def format_policies(policies: Item) -> OrganizationPolicies:
     return OrganizationPolicies(
-        max_acceptance_days=int(policies["max_acceptance_days"]),
-        max_acceptance_severity=policies["max_acceptance_severity"],
-        max_number_acceptances=int(policies["max_number_acceptances"]),
-        min_acceptance_severity=policies["min_acceptance_severity"],
-        min_breaking_severity=policies["min_breaking_severity"],
+        max_acceptance_days=int(policies["max_acceptance_days"])
+        if "max_acceptance_days" in policies
+        else None,
+        max_acceptance_severity=policies.get("max_acceptance_severity"),
+        max_number_acceptances=int(policies["max_number_acceptances"])
+        if "max_number_acceptances" in policies
+        else None,
+        min_acceptance_severity=policies.get("min_acceptance_severity"),
+        min_breaking_severity=policies.get("min_breaking_severity"),
         modified_date=policies["modified_date"],
         modified_by=policies["modified_by"],
-        vulnerability_grace_period=int(policies["vulnerability_grace_period"]),
+        vulnerability_grace_period=int(policies["vulnerability_grace_period"])
+        if "vulnerability_grace_period" in policies
+        else None,
     )
 
 
