@@ -22,6 +22,7 @@ from newutils import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Tuple,
@@ -109,6 +110,45 @@ async def send_mail_treatment_report(
         GENERAL_TAG,
         f"A permanent treatment is requested in [{group_name}]",
         "treatment_report",
+    )
+
+
+async def send_mail_temporal_treatment_report(
+    *,
+    loaders: Any,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
+    locations: Dict[str, Any],
+) -> None:
+    roles: set[str] = {
+        "resourcer",
+        "customer_manager",
+        "user_manager",
+        "vulnerability_manager",
+    }
+    users_email = await group_access_domain.get_users_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.UPDATED_TREATMENT,
+        roles=roles,
+    )
+    org_name = await get_organization_name(loaders, group_name)
+    email_context: dict[str, Any] = {
+        "group": group_name,
+        "finding": finding_title,
+        "locations": locations,
+        "finding_link": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
+            f"/vulns/{finding_id}"
+        ),
+    }
+    await send_mails_async(
+        users_email,
+        email_context,
+        GENERAL_TAG,
+        f"Temporal treatments are close to end in [{group_name}]",
+        "temporal_treatment_report",
     )
 
 
