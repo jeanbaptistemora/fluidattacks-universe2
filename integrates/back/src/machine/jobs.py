@@ -30,9 +30,6 @@ from datetime import (
 from dateutil.parser import (  # type: ignore
     parse as date_parse,
 )
-from db_model.enums import (
-    GitCloningStatus,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -276,7 +273,6 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
             for root in git_roots
             if isinstance(root, GitRoot)
             and root.state.status == RootStatus.ACTIVE
-            and root.cloning.status == GitCloningStatus.OK
         )
 
     if not roots:
@@ -350,8 +346,8 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
         entity=group_name,
         additional_info=json.dumps(
             {
-                "roots": list(roots),
-                "checks": list(finding_codes),
+                "roots": list(sorted(roots)),
+                "checks": list(sorted(finding_codes)),
             }
         ),
         attempt_duration_seconds=86400,
