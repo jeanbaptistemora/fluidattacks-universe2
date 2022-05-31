@@ -3,6 +3,7 @@ from .constants import (
 )
 from .types import (
     Organization,
+    OrganizationMetadataToUpdate,
     OrganizationPolicies,
     OrganizationState,
 )
@@ -21,6 +22,17 @@ def add_org_id_prefix(organization_id: str) -> str:
 
 def remove_org_id_prefix(organization_id: str) -> str:
     return organization_id.lstrip(ORGANIZATION_ID_PREFIX)
+
+
+def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
+    item = {
+        "billing_customer": metadata.billing_customer,
+    }
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
 
 
 def format_organization(item: Item) -> Organization:

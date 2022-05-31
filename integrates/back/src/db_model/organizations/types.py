@@ -47,3 +47,7 @@ class Organization(NamedTuple):
     policies: OrganizationPolicies
     state: OrganizationState
     billing_customer: Optional[str] = None
+
+
+class OrganizationMetadataToUpdate(NamedTuple):
+    billing_customer: Optional[str] = None
