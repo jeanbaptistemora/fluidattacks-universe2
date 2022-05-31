@@ -61,7 +61,7 @@ const Title = styled.p.attrs({
 const Paragraph = styled.p.attrs({
   className: `
     roboto
-    lh-solid
+    lh-15
     center
   `,
 })<ITextProps>`

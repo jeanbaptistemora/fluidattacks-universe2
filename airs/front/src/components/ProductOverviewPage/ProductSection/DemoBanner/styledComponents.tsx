@@ -15,21 +15,11 @@ const BannerContainer = styled.div.attrs({
 const CardContainer = styled.div.attrs({
   className: `
     mv5
-    mh4
+    ph4
     dn-l
-    flex
-    flex-wrap
   `,
 })`
-  @media (max-width: 960px) {
-    min-width: 500px;
-  }
-  @media (max-width: 700px) {
-    min-width: 300px;
-  }
-  @media (max-width: 500px) {
-    min-width: 200px;
-  }
+  min-width: 100%;
 `;
 
 const TextContainer = styled.div.attrs({
