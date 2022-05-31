@@ -27,7 +27,16 @@ locals {
           {
             Sid    = "iamWrite"
             Effect = "Allow"
-            Action = ["*"]
+            Action = [
+              "iam:Attach*",
+              "iam:Create*",
+              "iam:Delete*",
+              "iam:Detach*",
+              "iam:Pass*",
+              "iam:Put*",
+              "iam:Tag*",
+              "iam:Update*",
+            ]
             Resource = [
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/*sorts*",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*sorts*",
