@@ -46,6 +46,7 @@
   # new standard
   index = inputs.observesIndex;
   pkgTargets = with index; [
+    common.asm_dal
     service.batch_stability
     service.scheduler
     service.job_last_success
