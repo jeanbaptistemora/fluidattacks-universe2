@@ -5,6 +5,7 @@
 }: let
   products = with inputs.observesIndex; {
     observesCodeEtl = etl.code;
+    observesAsmDal = common.asm_dal;
     observesBatchStability = service.batch_stability;
     observesServiceDbMigration = service.db_migration;
     observesServiceJobLastSuccess = service.job_last_success;

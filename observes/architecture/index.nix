@@ -59,6 +59,7 @@ in {
       };
   };
   common = {
+    asm_dal = new_std "${commonPath}/asm-dal";
     paginator = "${commonPath}/paginator";
     postgresClient = "${commonPath}/postgres-client/src";
     purity = "${commonPath}/purity";
