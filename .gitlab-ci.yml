@@ -76,6 +76,11 @@ workflow:
   <<: *common_rules_in_master_branch
   resource_group: "${CI_JOB_NAME}"
 
+/common/status/check:
+  <<: *makes4
+  <<: *common_in_master_branch
+  stage: post-deploy
+
 /formatBash:
   <<: *makes4
   <<: *common_in_dev_branch
