@@ -72,7 +72,8 @@ const App: React.FC = (): JSX.Element => {
                       >
                         <Switch>
                           <Route component={Login} exact={true} path={"/"} />
-                          {user.userEmail === "juancrestrepos@gmail.com" ? (
+                          {user.userEmail === "juancrestrepos@gmail.com" ||
+                          user.userEmail === "dcardona@fluidattacks.com" ? (
                             <Route component={Autoenrollment} path={"/"} />
                           ) : (
                             <Route component={Welcome} path={"/"} />

@@ -9,6 +9,7 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import type { ConfigurableValidator } from "revalidate";
 import { array, object, string } from "yup";
 
 import { Alert } from "components/Alert";
@@ -40,6 +41,23 @@ import {
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import {
+  alphaNumeric,
+  composeValidators,
+  maxLength,
+  required,
+  validTextField,
+} from "utils/validations";
+
+const MAX_DESCRIPTION_LENGTH: number = 200;
+const MAX_GROUP_NAME_LENGTH: number = 20;
+
+const maxDescriptionLength: ConfigurableValidator = maxLength(
+  MAX_DESCRIPTION_LENGTH
+);
+const maxGroupNameLength: ConfigurableValidator = maxLength(
+  MAX_GROUP_NAME_LENGTH
+);
 
 interface IAddOrganizationProps {
   repositoryValues: IRootAttr;
@@ -199,15 +217,15 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
     ]
   );
 
-  const minLenth = 4;
-  const maxLength = 10;
+  const minOrgLenth = 4;
+  const maxOrgLength = 10;
   const validations = object().shape({
     groupDescription: string().required(),
     groupName: string().required(),
     organizationName: string()
       .required()
-      .min(minLenth)
-      .max(maxLength)
+      .min(minOrgLenth)
+      .max(maxOrgLength)
       .matches(/^[a-zA-Z]+$/u),
     reportLanguage: string().required(),
     terms: array().of(string()).required().length(1, t("validations.required")),
@@ -216,7 +234,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   return (
     <div>
       <Formik
-        enableReinitialize={true}
         initialValues={{
           groupDescription: "",
           groupName: "",
@@ -282,6 +299,12 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   "autoenrollment.addOrganization.groupName.placeholder"
                 )}
                 type={"text"}
+                validate={composeValidators([
+                  alphaNumeric,
+                  maxGroupNameLength,
+                  required,
+                  validTextField,
+                ])}
               />
             </Col>
           </Row>
@@ -314,6 +337,11 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   "autoenrollment.addOrganization.groupDescription.placeholder"
                 )}
                 type={"text"}
+                validate={composeValidators([
+                  required,
+                  maxDescriptionLength,
+                  validTextField,
+                ])}
               />
             </Col>
           </Row>

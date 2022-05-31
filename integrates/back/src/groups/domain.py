@@ -2129,7 +2129,7 @@ async def enroll_user_to_demo(email: str) -> None:
 
     org = await orgs_domain.get_or_add(organization_name=FI_DEFAULT_ORG)
     await orgs_domain.add_user(
-        organization_id=str(org["id"]), email=email, role="user"
+        organization_id=str(org["id"]), email=email, role="user_manager"
     )
 
     for group_name in FI_COMMUNITY_PROJECTS.split(","):
