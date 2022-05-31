@@ -249,6 +249,14 @@ level according to our
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 metric.
 
+## Vulnerabilities by assignment
+
+![Vulnerabilities By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654033821/docs/web/analytics/common/vulnerabilities_by_assignment.png)
+
+The percentage of open vulnerabilities
+that have been assigned to a developer
+versus those that have not.
+
 ## Vulnerabilities treatment
 
 On the ASM, you can plan and manage the
