@@ -122,16 +122,17 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       replace(
         `/orgs/${organization.toLowerCase()}/groups/${group.toLowerCase()}/scope`
       );
-      setIsRepository(true);
       if (result.addGitRoot.success) {
         msgSuccess(
           t("autoenrollment.addOrganization.messages.success.body"),
           t("autoenrollment.addOrganization.messages.success.title")
         );
       }
+      setIsRepository(true);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       handleRootCreateError(graphQLErrors, setOrgMessages);
+      setShowSubmitAlert(false);
     },
   });
 
@@ -143,6 +144,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       reportLanguage: string;
       terms: string[];
     }): Promise<void> => {
+      setIsRepository(false);
       mixpanel.track("AddOrganization");
       await addOrganization({
         variables: { name: values.organizationName.toUpperCase() },
@@ -192,6 +194,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       addOrganization,
       repositoryValues,
       setGroup,
+      setIsRepository,
       setOrganization,
     ]
   );
@@ -335,17 +338,17 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               </Field>
             </Col>
           </Row>
-          {!showSubmitAlert && orgMessages.message !== "" && (
-            <Alert
-              icon={true}
-              timer={setShowSubmitAlert}
-              variant={orgMessages.type as IAlertProps["variant"]}
-            >
-              {orgMessages.message}
-            </Alert>
-          )}
           <Row justify={"center"}>
             <Col>
+              {!showSubmitAlert && orgMessages.message !== "" && (
+                <Alert
+                  icon={true}
+                  timer={setShowSubmitAlert}
+                  variant={orgMessages.type as IAlertProps["variant"]}
+                >
+                  {orgMessages.message}
+                </Alert>
+              )}
               <Button
                 disabled={submittingOrg || submittingGroup || submittingRoot}
                 type={"submit"}

@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import type { BaseSchema, InferType } from "yup";
 import { array, lazy, object, string } from "yup";
 import type { TypedSchema } from "yup/lib/util/types";
@@ -223,7 +224,33 @@ const rootSchema = (
             ),
         }),
         env: string().required(translate.t("validations.required")),
-        exclusions: array().of(string()),
+        exclusions: array().of(
+          string()
+            .required(translate.t("validations.required"))
+            .test(
+              "excludeFormat",
+              translate.t("validations.excludeFormat"),
+              (value): boolean => {
+                const repoUrl = values.url;
+
+                if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
+                  const [urlBasename] = repoUrl.split("/").slice(-1);
+                  const repoName: string = urlBasename.endsWith(".git")
+                    ? urlBasename.replace(".git", "")
+                    : urlBasename;
+
+                  return (
+                    value
+                      .toLowerCase()
+                      .split("/")
+                      .indexOf(repoName.toLowerCase()) !== 0
+                  );
+                }
+
+                return false;
+              }
+            )
+        ),
         url: string().required(translate.t("validations.required")),
       })
   );

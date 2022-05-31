@@ -22,7 +22,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     push("/autoenrollment/organization");
   }, [push]);
 
-  const [isRepository, setIsRepository] = useState(false);
+  const [isRepository, setIsRepository] = useState(true);
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
     credentials: {
@@ -53,7 +53,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   }
 
   const organizations = data === undefined ? [] : data.me.organizations;
-  const isFirstTimeUser = organizations.length === 0;
+  const isFirstTimeUser =
+    organizations.length === 0 ||
+    (organizations.length === 1 && organizations[0].name === "okada");
 
   if (isFirstTimeUser || !isRepository) {
     return (

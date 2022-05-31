@@ -20,7 +20,12 @@ import {
 } from "scenes/Autoenrollment/helpers";
 import { VALIDATE_GIT_ACCESS } from "scenes/Autoenrollment/queries";
 import type { IRootAttr } from "scenes/Autoenrollment/types";
-import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
+import {
+  FormikArrayField,
+  FormikDropdown,
+  FormikText,
+  FormikTextArea,
+} from "utils/forms/fields";
 
 interface IAddRootProps {
   initialValues: IRootAttr;
@@ -383,15 +388,23 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     </Col>
                   </Row>
                   <Row>
-                    <Col>
-                      <Field
-                        component={FormikText}
+                    <Col large={"100"} medium={"100"} small={"100"}>
+                      <FormikArrayField
+                        allowEmpty={true}
+                        initialValue={""}
                         name={"exclusions"}
-                        placeholder={t(
-                          "autoenrollment.addRoot.exclusions.placeholder"
+                      >
+                        {(fieldName: string): JSX.Element => (
+                          <Field
+                            component={FormikText}
+                            name={fieldName}
+                            placeholder={t(
+                              "autoenrollment.addRoot.exclusions.placeholder"
+                            )}
+                            type={"text"}
+                          />
                         )}
-                        type={"text"}
-                      />
+                      </FormikArrayField>
                     </Col>
                   </Row>
                 </Col>
