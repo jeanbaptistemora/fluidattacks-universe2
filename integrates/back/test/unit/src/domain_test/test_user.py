@@ -8,7 +8,11 @@ from custom_exceptions import (
     InvalidPushToken,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -17,7 +21,6 @@ from groups import (
     domain as groups_domain,
 )
 from organizations.domain import (
-    get_id_by_name,
     get_user_organizations,
 )
 import pytest
@@ -74,7 +77,9 @@ async def test_remove_push_token() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_user() -> None:
-    organization_id: str = await get_id_by_name(FI_DEFAULT_ORG)
+    loader: Dataloaders = get_new_context()
+    organization: Organization = await loader.organization.load(FI_DEFAULT_ORG)
+    organization_id: str = organization.id
     email: str = "testanewuser@test.test"
     await autoenroll_user(email)
     await groups_domain.enroll_user_to_demo(email)

@@ -43,7 +43,6 @@ from organizations import (
     domain as orgs_domain,
 )
 from organizations.domain import (
-    get_id_by_name,
     iterate_organizations,
     update_pending_deletion_date,
 )
@@ -411,8 +410,9 @@ async def test_delete_obsolete_orgs() -> None:
 @freeze_time("2021-01-01")
 async def test_remove_imamura_stakeholders() -> None:
     org_name = "imamura"
-    org_id = await get_id_by_name(org_name)
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
+    organization: Organization = await loaders.organization.load(org_name)
+    org_id = organization.id
     org_stakeholders_loader = loaders.organization_stakeholders
     org_stakeholders = await org_stakeholders_loader.load(org_id)
     org_stakeholders_emails = [

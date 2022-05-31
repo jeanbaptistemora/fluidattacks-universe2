@@ -11,13 +11,13 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 import logging
 import logging.config
 from newutils import (
     groups as groups_utils,
-)
-from organizations import (
-    domain as organizations_domain,
 )
 from organizations_finding_policies.domain import (
     get_finding_policy,
@@ -57,9 +57,10 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         "INACTIVE",
     }:
         loaders: Dataloaders = get_new_context()
-        organization_id: str = await organizations_domain.get_id_by_name(
+        organization: Organization = await loaders.organization.load(
             organization_name
         )
+        organization_id: str = organization.id
         groups: tuple[Group, ...] = await loaders.organization_groups.load(
             organization_id
         )

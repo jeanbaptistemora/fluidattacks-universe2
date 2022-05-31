@@ -11,6 +11,12 @@ from custom_exceptions import (
 from custom_types import (
     AddStakeholderPayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
@@ -30,9 +36,6 @@ from newutils import (
 )
 from newutils.utils import (
     map_roles,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -69,8 +72,12 @@ async def mutate(
             logs_utils.cloudwatch_log(
                 info.context, f"Security: Added stakeholder {email}"
             )
+            loaders: Dataloaders = info.context.loaders
             # Update org stakeholder cache
-            org_id: str = await orgs_domain.get_id_by_name(FI_DEFAULT_ORG)
+            organization: Organization = await loaders.organization.load(
+                FI_DEFAULT_ORG
+            )
+            org_id: str = organization.id
             await redis_del_by_deps(
                 "add_stakeholder",
                 organization_id=org_id,

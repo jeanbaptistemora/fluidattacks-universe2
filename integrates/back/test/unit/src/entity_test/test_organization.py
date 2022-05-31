@@ -19,6 +19,11 @@ from custom_exceptions import (
 )
 from dataloaders import (
     apply_context_attrs,
+    Dataloaders,
+    get_new_context,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from decimal import (
     Decimal,
@@ -181,8 +186,9 @@ async def test_grant_stakeholder_organization_access() -> None:
         ]["email"]
         == stakeholder
     )
-
-    default_org_id: str = await orgs_domain.get_id_by_name(FI_DEFAULT_ORG)
+    loaders: Dataloaders = get_new_context()
+    default_org: Organization = await loaders.organization.load(FI_DEFAULT_ORG)
+    default_org_id: str = default_org.id
     assert await orgs_domain.has_user_access(org_id, stakeholder)
     assert not await orgs_domain.has_user_access(default_org_id, stakeholder)
 
