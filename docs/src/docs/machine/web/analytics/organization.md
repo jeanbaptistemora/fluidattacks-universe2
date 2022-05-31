@@ -77,9 +77,9 @@ These graph shows the vulnerabilities
 that have been open for the
 highest amount of days.
 
-## Unsolved events by group
+## Unsolved events by groups
 
-![Unsolved Events By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
+![Unsolved Events By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
 
 Unsolved [events](/machine/web/groups/events)
 refer to situations that arise
