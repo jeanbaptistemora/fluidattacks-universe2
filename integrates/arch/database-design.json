@@ -753,6 +753,30 @@
         {
           "AttributeName": "billing_customer",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "max_acceptance_days",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "max_acceptance_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "max_number_acceptances",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "min_acceptance_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "min_breaking_severity",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "vulnerability_grace_period",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -1648,6 +1672,24 @@
             "name",
             "policies",
             "state"
+          ]
+        },
+        {
+          "FacetName": "organization_historic_policies",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ORG#id",
+            "SortKeyAlias": "POLICIES#iso8601utc"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "modified_by",
+            "modified_date",
+            "max_acceptance_days",
+            "max_acceptance_severity",
+            "max_number_acceptances",
+            "min_acceptance_severity",
+            "min_breaking_severity",
+            "vulnerability_grace_period"
           ]
         },
         {
