@@ -21313,6 +21313,30 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
    69 | erties"": {
       ^ Col 11
 ",cloudformation.cfn_bucket_policy_has_secure_transport
+F281,lines,namespace/skims/test/data/lib_path/f281/tfm_bucket_policy_has_secure_transport.tf,4,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/tfm_bucket_policy_has_secure_transport.tf,"
+   1 | resource ""aws_s3_bucket_policy"" ""b"" {
+   2 |   bucket = aws_s3_bucket.b.id
+   3 |
+>  4 |   policy = <<POLICY
+   5 |   {
+   6 |     ""Version"": ""2012-10-17"",
+   7 |     ""Id"": ""MYBUCKETPOLICY"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Sid"": ""IPAllow"",
+  11 |         ""Effect"": ""Allow"",
+  12 |         ""Principal"": ""*"",
+  13 |         ""Action"": ""s3:*"",
+  14 |         ""Resource"": ""arn:aws:s3:::my_tf_test_bucket/*"",
+  15 |         ""Condition"": {
+  16 |             ""IpAddress"": {""aws:SourceIp"": ""8.8.8.8/32""},
+  17 |             ""Bool"": {""aws:SecureTransport"": ""False""}
+  18 |         }
+  19 |       }
+  20 |     ]
+  21 |   }
+     ^ Col 0
+",terraform.tfm_bucket_policy_has_secure_transport
 F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,20,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled in namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,"
   10 | etObject'
   11 | llow

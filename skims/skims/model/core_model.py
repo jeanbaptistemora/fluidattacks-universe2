@@ -3094,6 +3094,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    TFM_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
+        file_name="terraform",
+        name="tfm_bucket_policy_has_secure_transport",
+        module="lib_path",
+        finding=FindingEnum.F281,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="terraform",
         name="tfm_iam_role_is_over_privileged",

@@ -98,6 +98,16 @@ def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
     return cur_node
 
 
+def get_dict_values(dict_val: dict, *keys: str) -> Optional[Any]:
+    cur_dict = dict_val
+    for key in keys:
+        if key in cur_dict:
+            cur_dict = cur_dict[key]
+        else:
+            return None
+    return cur_dict
+
+
 def shield(
     *,
     on_error_return: Any = RAISE,
