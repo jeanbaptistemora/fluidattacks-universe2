@@ -7,6 +7,10 @@ from context import (
 )
 from custom_exceptions import (
     InvalidAuthorization,
+    UnableToSendMail,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from group_access.dal import (
     get_access_by_url_token,
@@ -22,6 +26,9 @@ from jose import (
 )
 from jwcrypto.jwe import (
     JWException,
+)
+from mailchimp_transactional.api_client import (
+    ApiClientError,
 )
 from mailer.common import (
     send_mail_confirm_deletion,
@@ -60,6 +67,12 @@ from typing import (
 from users.domain import (
     delete,
 )
+
+mail_confirm_deletion = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(send_mail_confirm_deletion)
 
 
 async def remove_user_all_organizations(*, loaders: Any, email: str) -> None:
@@ -186,6 +199,6 @@ async def confirm_deletion_mail(
             "confirm_deletion_url": confirm_access_url,
             "empty_notification_notice": True,
         }
-        schedule(send_mail_confirm_deletion(mail_to, email_context))
+        schedule(mail_confirm_deletion(mail_to, email_context))
 
     return success
