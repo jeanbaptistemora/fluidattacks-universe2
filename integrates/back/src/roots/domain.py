@@ -475,12 +475,14 @@ def _format_root_credential(
     )
 
 
-async def update_git_environments(
+async def update_git_environments(  # pylint: disable=too-many-arguments
     loaders: Any,
     user_email: str,
     group_name: str,
     root_id: str,
     environment_urls: List[str],
+    reason: Optional[str],
+    other: Optional[str],
 ) -> None:
     root: Root = await loaders.root.load((group_name, root_id))
     modified_date: str = datetime_utils.get_iso_date()
@@ -542,8 +544,8 @@ async def update_git_environments(
             modified_by=user_email,
             modified_date=modified_date,
             nickname=root.state.nickname,
-            other=None,
-            reason=None,
+            other=other,
+            reason=reason,
             status=root.state.status,
             url=root.state.url,
             use_vpn=root.state.use_vpn,

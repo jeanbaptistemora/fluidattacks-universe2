@@ -161,6 +161,8 @@ async def update_envs(group_name: str) -> None:
                         group_name=group_name,
                         root_id=matching_root["sk"],
                         environment_urls=envs,
+                        reason=None,
+                        other=None,
                     )
             else:
                 print(

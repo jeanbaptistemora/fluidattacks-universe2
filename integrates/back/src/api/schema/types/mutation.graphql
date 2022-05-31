@@ -890,6 +890,10 @@ type Mutation {
     id: ID!
     "URLs to access the environment"
     environmentUrls: [String!]!
+    "Custom reason provided"
+    other: String
+    "Reason for the removal of environment URLs"
+    reason: RootDeactivationReason
   ): SimplePayload!
 
   "Updates a Group's Git root and its attributes"

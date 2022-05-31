@@ -23,6 +23,7 @@ from roots import (
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 
 
@@ -35,6 +36,8 @@ async def mutate(
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
+    reason: Optional[str] = kwargs.get("reason", None)
+    other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
 
     await roots_domain.update_git_environments(
         info.context.loaders,
@@ -42,6 +45,8 @@ async def mutate(
         kwargs["group_name"],
         kwargs["id"],
         kwargs["environment_urls"],
+        reason,
+        other,
     )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated git envs for root {kwargs["id"]}'

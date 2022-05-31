@@ -314,7 +314,7 @@ enum OrganizationRole {
   USER_MANAGER
 }
 
-"Reasons allowed for removing a group enum dfinition"
+"Reasons allowed for removing a group enum definition"
 enum RemoveGroupReason {
   "Different security testing strategy"
   DIFF_SECTST
