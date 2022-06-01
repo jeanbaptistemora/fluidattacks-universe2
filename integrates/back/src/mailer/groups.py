@@ -415,6 +415,8 @@ async def send_mail_environment_report(
     urls_added: List[str],
     urls_deleted: List[str],
     modified_date: str,
+    other: Optional[str],
+    reason: Optional[str],
 ) -> None:
     await send_mails_async(
         email_to=email_to,
@@ -427,6 +429,11 @@ async def send_mail_environment_report(
             "report_date": str(
                 datetime_utils.get_date_from_iso_str(modified_date)
             ),
+            "reason": other
+            if other
+            else reason.replace("_", " ").capitalize()
+            if reason
+            else "",
         },
         tags=GENERAL_TAG,
         subject=f"Environment has been modified in [{group_name}]",

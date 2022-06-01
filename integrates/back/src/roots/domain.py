@@ -528,6 +528,8 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
             urls_added=urls_added,
             urls_deleted=urls_deleted,
             user_email=user_email,
+            other=other,
+            reason=reason,
         )
 
     await roots_model.update_root_state(
@@ -1499,6 +1501,8 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
     urls_added: List[str],
     urls_deleted: List[str],
     user_email: str,
+    other: Optional[str],
+    reason: Optional[str],
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     users_email = await group_access_domain.get_users_email_by_preferences(
@@ -1516,6 +1520,8 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
         urls_added=urls_added,
         urls_deleted=urls_deleted,
         modified_date=date,
+        other=other,
+        reason=reason,
     )
 
 
