@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const BannerContainer = styled.div.attrs({
   className: `
-    center
     flex-l
     dn
     items-center

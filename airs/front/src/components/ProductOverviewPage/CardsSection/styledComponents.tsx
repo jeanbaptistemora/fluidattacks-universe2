@@ -44,10 +44,10 @@ const CardsContainer = styled.div.attrs({
     flex
     mb4
     mt5
-    justify-around
+    justify-center
     flex-wrap
     flex-nowrap-l
-    mw-1920
+    w-100
   `,
 })``;
 

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { DemoBanner } from "./DemoBanner";
-import { Container, SectionContainer } from "./styledComponents";
+import {
+  Container,
+  ProgressBar,
+  ProgressCol,
+  ProgressContainer,
+  SectionContainer,
+} from "./styledComponents";
 
 import { translate } from "../../../utils/translations/translate";
 
@@ -66,8 +72,45 @@ const ProductSection: React.FC = (): JSX.Element => {
     },
   ];
 
+  const [scrollTop, setScrollTop] = useState(10);
+
+  const onScroll = (): void => {
+    const scrollDistance = -document
+      .getElementsByClassName("product-section")[0]
+      .getBoundingClientRect().top;
+    const progressPercentage =
+      (scrollDistance /
+        (document
+          .getElementsByClassName("product-section")[0]
+          .getBoundingClientRect().height -
+          document.documentElement.clientHeight)) *
+      100;
+    const scrolled = Math.floor(progressPercentage);
+
+    if (scrolled <= 5) {
+      setScrollTop(5);
+    } else if (scrolled >= 100) {
+      setScrollTop(100);
+    } else {
+      setScrollTop(scrolled);
+    }
+  };
+
+  useEffect((): (() => void) => {
+    window.addEventListener("scroll", onScroll);
+
+    return (): void => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <Container>
+      <ProgressCol>
+        <ProgressContainer>
+          <ProgressBar height={`${scrollTop}`} />
+        </ProgressContainer>
+      </ProgressCol>
       <SectionContainer>
         {data.map((banner): JSX.Element => {
           return (
