@@ -171,6 +171,42 @@ async def populate_orgs(data: List[Any]) -> bool:
     return success
 
 
+async def populate_organization_groups(data: list[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    for org in data:
+        for group in org["groups"]:
+            coroutines.append(
+                dal_organizations.add_group(
+                    f'ORG#{org["id"]}',
+                    group,
+                )
+            )
+    return all(await collect(coroutines))
+
+
+async def populate_organization_users(data: list[Any]) -> bool:
+    coroutines: List[Awaitable[bool]] = []
+    for org in data:
+        for user in org["users"]:
+            coroutines.append(
+                dal_organizations.add_user(
+                    f'ORG#{org["id"]}',
+                    user,
+                )
+            )
+    return all(await collect(coroutines))
+
+
+async def populate_organizations(data: list[Any]) -> bool:
+    await collect(
+        dal_organizations.add_typed(
+            organization=item["organization"],
+        )
+        for item in data
+    )
+    return True
+
+
 async def _populate_group_unreliable_indicators(data: Dict[str, Any]) -> None:
     group: Group = data["group"]
     if data.get("unreliable_indicators"):

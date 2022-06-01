@@ -31,7 +31,7 @@ async def test_get_organization_ver_1(
         "user_manager@gmail.com",
         "vulnerability_manager@gmail.com",
     ]
-    group_name: str = "group2"
+    group_name: str = "group1"
     result: dict[str, Any] = await get_result(
         user=email, org=org_id, group=group_name
     )

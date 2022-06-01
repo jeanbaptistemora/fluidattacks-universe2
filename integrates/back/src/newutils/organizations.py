@@ -143,6 +143,7 @@ def format_organization(item: Item) -> Organization:
 
 def format_organization_item(organization: Organization) -> Item:
     organization_id = remove_org_id_prefix(organization.id)
+    policies = organization.policies
     return {
         "pk": f"ORG#{organization_id}",
         "sk": f"INFO#{organization.name.lower().strip()}",
@@ -153,6 +154,19 @@ def format_organization_item(organization: Organization) -> Item:
                     organization.state.modified_date
                 ),
                 "status": organization.state.status.value,
+            }
+        ],
+        "max_acceptance_days": policies.max_acceptance_days,
+        "max_acceptance_severity": policies.max_acceptance_severity,
+        "max_number_acceptances": policies.max_number_acceptances,
+        "min_acceptance_severity": policies.min_acceptance_severity,
+        "min_breaking_severity": policies.min_breaking_severity,
+        "vulnerability_grace_period": policies.vulnerability_grace_period,
+        "historic_max_number_acceptances": [
+            {
+                "date": convert_from_iso_str(policies.modified_date),
+                "max_number_acceptations": policies.max_number_acceptances,
+                "user": policies.modified_by,
             }
         ],
     }
