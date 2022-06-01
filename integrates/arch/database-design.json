@@ -1665,7 +1665,637 @@
             "PartitionKeyAlias": "ORG#id",
             "SortKeyAlias": "ORG#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "sk": {
+                "S": "ORG#kiba"
+              },
+              "name": {
+                "S": "kiba"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0.0"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "10.0"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+              },
+              "id": {
+                "S": "33c08ebd-2068-47e7-9673-e1aa03dc9448"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#imamura"
+              },
+              "name": {
+                "S": "imamura"
+              },
+              "policies": {
+                "M": {
+                  "min_acceptance_severity": {
+                    "N": "1"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
+                  },
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0"
+                  },
+                  "max_acceptance_days": {
+                    "N": "30"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "8.5"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "pending_deletion_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#makimachi"
+              },
+              "name": {
+                "S": "makimachi"
+              },
+              "policies": {
+                "M": {
+                  "max_number_acceptances": {
+                    "N": "4"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "3"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0"
+                  },
+                  "max_acceptance_days": {
+                    "N": "90"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "7"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#himura"
+              },
+              "name": {
+                "S": "himura"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0.0"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "10.0"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
+              },
+              "id": {
+                "S": "ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#hajime"
+              },
+              "name": {
+                "S": "hajime"
+              },
+              "policies": {
+                "M": {
+                  "max_number_acceptances": {
+                    "N": "1"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0"
+                  },
+                  "max_acceptance_days": {
+                    "N": "60"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "7"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "pending_deletion_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#bulat"
+              },
+              "name": {
+                "S": "bulat"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0.0"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "3.4"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "6.9"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "pending_deletion_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#ikari"
+              },
+              "name": {
+                "S": "ikari"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0.0"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "10.0"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee"
+              },
+              "id": {
+                "S": "ed6f051c-2572-420f-bc11-476c4e71b4ee"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-30T15:00:00+00:00"
+                  },
+                  "status": {
+                    "S": "DELETED"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#kamiya"
+              },
+              "name": {
+                "S": "kamiya"
+              },
+              "policies": {
+                "M": {
+                  "max_number_acceptances": {
+                    "N": "3"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "1"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0"
+                  },
+                  "max_acceptance_days": {
+                    "N": "30"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "8.5"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#tatsumi"
+              },
+              "name": {
+                "S": "tatsumi"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0.0"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "10.0"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              },
+              "id": {
+                "S": "fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#okada"
+              },
+              "name": {
+                "S": "okada"
+              },
+              "policies": {
+                "M": {
+                  "max_number_acceptances": {
+                    "N": "2"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0"
+                  },
+                  "max_acceptance_days": {
+                    "N": "60"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "10.0"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "pending_deletion_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#makoto"
+              },
+              "name": {
+                "S": "makoto"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0.0"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0.0"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "10.0"
+                  }
+                }
+              },
+              "pk_2": {
+                "S": "ORG#all"
+              },
+              "pk": {
+                "S": "ORG#d32674a9-9838-4337-b222-68c88bf54647"
+              },
+              "id": {
+                "S": "d32674a9-9838-4337-b222-68c88bf54647"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unknown"
+                  },
+                  "modified_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  },
+                  "status": {
+                    "S": "ACTIVE"
+                  },
+                  "pending_deletion_date": {
+                    "S": "2019-11-22T20:07:57+00:00"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "ORG#d32674a9-9838-4337-b222-68c88bf54647"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "billing_customer",
             "id",
