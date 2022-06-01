@@ -1,4 +1,5 @@
 from .constants import (
+    ALL_ORGANIZATIONS_INDEX_METADATA,
     ORGANIZATION_ID_PREFIX,
 )
 from .types import (
@@ -17,6 +18,7 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
+    ErrorLoadingOrganizations,
     OrganizationNotFound,
 )
 from db_model import (
@@ -32,6 +34,29 @@ from dynamodb import (
 from typing import (
     Iterable,
 )
+
+
+async def get_all_organizations() -> tuple[Organization, ...]:
+    primary_key = keys.build_key(
+        facet=ALL_ORGANIZATIONS_INDEX_METADATA,
+        values={"all": "all"},
+    )
+    index = TABLE.indexes["gsi_2"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(ALL_ORGANIZATIONS_INDEX_METADATA,),
+        table=TABLE,
+        index=index,
+    )
+
+    if not response.items:
+        raise ErrorLoadingOrganizations()
+
+    return tuple(format_organization(item) for item in response.items)
 
 
 async def _get_organization_by_id(*, organization_id: str) -> Organization:

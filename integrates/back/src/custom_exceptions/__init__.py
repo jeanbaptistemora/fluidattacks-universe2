@@ -29,6 +29,10 @@ class ErrorFileNameAlreadyExists(_SingleMessageException):
     msg: str = "File name already exists in group files"
 
 
+class ErrorLoadingOrganizations(_SingleMessageException):
+    msg: str = "Unable to read organizations data"
+
+
 class ErrorRemovingGroup(_SingleMessageException):
     msg: str = "Unable to remove group"
 
