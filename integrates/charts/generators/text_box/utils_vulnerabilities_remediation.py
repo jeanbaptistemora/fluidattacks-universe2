@@ -1,15 +1,19 @@
 from aioextensions import (
     collect,
-    run,
 )
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.generators.single_value_indicator.remediation import (
     get_totals_by_week,
+)
+from charts.utils import (
+    format_cvssf,
+    get_cvssf,
+    get_portfolios_groups,
+    iterate_groups,
+    iterate_organizations_and_groups,
+    json_dump,
 )
 from contextlib import (
     suppress,
@@ -67,7 +71,7 @@ async def generate_one(  # pylint: disable=too-many-locals
         group_name
     )
     findings_cvssf: dict[str, Decimal] = {
-        finding.id: utils.get_cvssf(get_severity_score(finding.severity))
+        finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings
     }
     vulnerabilities: tuple[
@@ -92,10 +96,10 @@ async def generate_one(  # pylint: disable=too-many-locals
         loaders=loaders,
     )
 
-    total_closed: Decimal = utils.format_cvssf(total_current_closed)
-    total_open: Decimal = utils.format_cvssf(total_current_open)
-    previous_closed: Decimal = utils.format_cvssf(total_previous_closed)
-    previous_open: Decimal = utils.format_cvssf(total_previous_open)
+    total_closed: Decimal = format_cvssf(total_current_closed)
+    total_open: Decimal = format_cvssf(total_current_open)
+    previous_closed: Decimal = format_cvssf(total_previous_closed)
+    previous_open: Decimal = format_cvssf(total_previous_open)
     solved: Decimal = Decimal(
         (total_closed - previous_closed) / total_closed
         if total_closed
@@ -141,7 +145,14 @@ async def get_many_groups(
     )
 
 
-def format_data(count: FormatSprint) -> dict:
+def format_data(count: Decimal) -> dict:
+    return dict(
+        fontSizeRatio=0.5,
+        text=count,
+    )
+
+
+def format_count(count: FormatSprint) -> dict[str, Decimal]:
     return {
         "created": count.created,
         "remediated": count.remediated,
@@ -149,46 +160,46 @@ def format_data(count: FormatSprint) -> dict:
     }
 
 
-async def generate_all() -> None:
+async def generate_all(state: str) -> None:
     loaders: Dataloaders = get_new_context()
-    async for group_name in utils.iterate_groups():
-        utils.json_dump(
+    async for group_name in iterate_groups():
+        json_dump(
             document=format_data(
-                count=await generate_one(
-                    loaders=loaders, group_name=group_name
-                ),
+                count=format_count(
+                    count=await generate_one(
+                        loaders=loaders, group_name=group_name
+                    ),
+                )[state]
             ),
             entity="group",
             subject=group_name,
         )
 
     async for org_id, _, org_group_names in (
-        utils.iterate_organizations_and_groups()
+        iterate_organizations_and_groups()
     ):
-        utils.json_dump(
+        json_dump(
             document=format_data(
-                count=await get_many_groups(
-                    loaders=loaders, group_names=org_group_names
-                ),
+                count=format_count(
+                    count=await get_many_groups(
+                        loaders=loaders, group_names=org_group_names
+                    ),
+                )[state]
             ),
             entity="organization",
             subject=org_id,
         )
 
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, group_names in await utils.get_portfolios_groups(
-            org_name
-        ):
-            utils.json_dump(
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
+        for portfolio, group_names in await get_portfolios_groups(org_name):
+            json_dump(
                 document=format_data(
-                    count=await get_many_groups(
-                        loaders=loaders, group_names=tuple(group_names)
-                    ),
+                    count=format_count(
+                        count=await get_many_groups(
+                            loaders=loaders, group_names=tuple(group_names)
+                        ),
+                    )[state]
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
-
-
-if __name__ == "__main__":
-    run(generate_all())
