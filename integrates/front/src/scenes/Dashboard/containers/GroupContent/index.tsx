@@ -188,7 +188,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                           ? GroupVulnerabilitiesView
                           : GroupFindingsView
                       }
-                      exact={true}
                       path={`${path}/vulns`}
                     />
                     <Route

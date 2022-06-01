@@ -2,15 +2,11 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
 import { Button } from "components/Button";
 
-const FloatButton: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
+const FloatButton = styled.div.attrs({
   className: "fixed",
   id: "scroll-up",
 })`

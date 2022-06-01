@@ -225,7 +225,8 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       const nextIndex = index + 1;
 
       return pathBreadcrumbItems.length > nextIndex &&
-        findingAlias.includes(item)
+        findingAlias.includes(item) &&
+        arr.length > nextIndex + 1
         ? arr[nextIndex]
         : id;
     },

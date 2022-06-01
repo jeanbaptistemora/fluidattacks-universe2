@@ -1,5 +1,12 @@
 import React from "react";
-import { HashRouter, Redirect, Route, useParams } from "react-router-dom";
+import {
+  MemoryRouter,
+  Redirect,
+  Route,
+  Switch,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 
 import { useGroupVulnerabilities } from "./hooks";
 import type { IVulnerability } from "./types";
@@ -26,7 +33,7 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "finding.title",
     formatter: linkFormatter<IVulnerability>(
-      (_cell, row): string => `vulns/${row.finding.id}/description`
+      (_cell, row): string => `${row.finding.id}/description`
     ),
     header: "Type",
     wrapped: true,
@@ -38,7 +45,7 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "finding.severityScore",
     formatter: linkFormatter<IVulnerability>(
-      (_cell, row): string => `vulns/${row.finding.id}/severity`
+      (_cell, row): string => `${row.finding.id}/severity`
     ),
     header: "Severity",
   },
@@ -64,28 +71,29 @@ const views = [
 
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
+  const { path, url } = useRouteMatch();
   const vulnerabilities = useGroupVulnerabilities(groupName);
 
   return (
     <div>
-      <HashRouter>
-        <TabsContainer>
-          {views.map(({ title }): JSX.Element => {
-            return (
-              <ContentTab
-                id={`${title}VulnerabilitiesTab`}
-                key={title}
-                link={`/${title}`}
-                title={title}
-                tooltip={""}
-              />
-            );
-          })}
-        </TabsContainer>
-        <TabContent>
+      <TabsContainer>
+        {views.map(({ title }): JSX.Element => {
+          return (
+            <ContentTab
+              id={`${title}VulnerabilitiesTab`}
+              key={title}
+              link={`${url}/${title}`}
+              title={title}
+              tooltip={""}
+            />
+          );
+        })}
+      </TabsContainer>
+      <TabContent>
+        <Switch>
           {views.map(({ title, filter }): JSX.Element => {
             return (
-              <Route exact={true} key={title} path={`/${title}`}>
+              <Route exact={true} key={title} path={`${path}/${title}`}>
                 <Table
                   dataset={vulnerabilities.filter(filter)}
                   exportCsv={false}
@@ -97,9 +105,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
               </Route>
             );
           })}
-          <Redirect to={"/Open"} />
-        </TabContent>
-      </HashRouter>
+          <Redirect to={`${path}/Open`} />
+        </Switch>
+      </TabContent>
     </div>
   );
 };

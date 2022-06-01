@@ -24,7 +24,7 @@ const formatEvidence = (
   rowIndex: number
 ): React.ReactNode => {
   return linkFormatter<IVulnerability>(
-    (): string => `vulns/${row.finding.id}/evidence`
+    (): string => `${row.finding.id}/evidence`
   )("View", row, rowIndex);
 };
 
