@@ -133,10 +133,25 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
     return success
 
 
-async def remove_organization(organization_id: str, modified_by: str) -> bool:
-    return await orgs_dal.remove(
-        organization_id=organization_id,
+async def update_org_state(
+    loaders: Any,
+    organization_id: str,
+    modified_by: str,
+    state: OrganizationStateStatus,
+) -> bool:
+    organization: Organization = await loaders.organization.load(
+        organization_id
+    )
+    historic_state: OrganizationState = organization.state
+    new_state = historic_state._replace(
         modified_by=modified_by,
+        modified_date=datetime_utils.get_iso_date(),
+        status=state,
+    )
+    return await orgs_dal.update_state(
+        organization_id=organization_id,
+        organization_name=organization.name,
+        state=new_state,
     )
 
 

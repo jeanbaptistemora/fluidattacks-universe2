@@ -115,17 +115,25 @@ async def test_remove() -> None:
     org_name = "himura"
     email = "org_testuser1@gmail.com"
     assert await orgs_dal.exists(org_name)
-    org = await orgs_dal.get_by_name(org_name)
-    assert not orgs_utils.is_deleted(org)
-
-    await orgs_dal.remove(
-        organization_id=org["id"],
+    loaders: Dataloaders = get_new_context()
+    org: Organization = await loaders.organization.load(org_name)
+    assert not orgs_utils.is_deleted_typed(org)
+    new_state = OrganizationState(
         modified_by=email,
+        modified_date=get_iso_date(),
+        status=OrganizationStateStatus.DELETED,
+    )
+
+    await orgs_dal.update_state(
+        organization_id=org.id,
+        organization_name=org.name,
+        state=new_state,
     )
 
     assert await orgs_dal.exists(org_name)
-    org = await orgs_dal.get_by_name(org_name)
-    assert orgs_utils.is_deleted(org)
+    new_loader: Dataloaders = get_new_context()
+    org = await new_loader.organization.load(org_name)
+    assert orgs_utils.is_deleted_typed(org)
     with pytest.raises(InvalidOrganization):
         await orgs_dal.add(modified_by=email, organization_name=org_name)
 

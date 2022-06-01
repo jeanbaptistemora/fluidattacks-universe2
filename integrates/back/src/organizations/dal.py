@@ -23,6 +23,7 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationPoliciesToUpdate,
+    OrganizationState,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,
@@ -43,6 +44,7 @@ from newutils import (
 from newutils.organizations import (
     format_org_policies_item,
     format_organization_item,
+    format_organization_state_item,
     remove_org_id_prefix,
 )
 from newutils.utils import (
@@ -167,23 +169,19 @@ async def add(
     }
 
 
-async def remove(
+async def update_state(
     *,
     organization_id: str,
-    modified_by: str,
+    organization_name: str,
+    state: OrganizationState,
 ) -> bool:
-    """Remove an organization, updating its status to DELETED."""
-    organization: Item = await get_by_id(
-        organization_id, ["historic_state", "name"]
-    )
+    organization: Item = await get_by_id(organization_id, ["historic_state"])
     historic_state: list[dict[str, str]] = organization.get(
         "historic_state", []
     )
-    new_state = {
-        "modified_by": modified_by,
-        "modified_date": datetime_utils.get_now_as_str(),
-        "status": OrganizationStateStatus.DELETED.value,
-    }
+    new_state: Item = format_organization_state_item(
+        state,
+    )
     item_to_update: Item = {
         "historic_state": [
             *historic_state,
@@ -192,7 +190,7 @@ async def remove(
     }
     return await update(
         organization_id=organization_id,
-        organization_name=organization["name"],
+        organization_name=organization_name,
         values=item_to_update,
     )
 

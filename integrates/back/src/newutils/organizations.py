@@ -158,6 +158,14 @@ def format_organization_item(organization: Organization) -> Item:
     }
 
 
+def format_organization_state_item(org_state: OrganizationState) -> Item:
+    return {
+        "modified_by": org_state.modified_by,
+        "modified_date": convert_from_iso_str(org_state.modified_date),
+        "status": org_state.status.value,
+    }
+
+
 def format_org_policies_item(
     historic: list[Item],
     modified_by: str,

@@ -15,6 +15,9 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupStateRemovalJustification,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -72,7 +75,12 @@ async def _remove_organization(
         _remove_group(loaders, group, modified_by) for group in org_groups
     )
     if success:
-        await orgs_domain.remove_organization(organization_id, modified_by)
+        await orgs_domain.update_org_state(
+            loaders,
+            organization_id,
+            modified_by,
+            OrganizationStateStatus.DELETED,
+        )
         info(
             f"Organization removed {organization_name}, "
             f"groups removed: {org_groups}"

@@ -19,6 +19,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
 from db_model.organizations.types import (
     Organization,
     OrganizationPoliciesToUpdate,
@@ -132,9 +135,12 @@ async def test_remove_organization() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     email = "org_testuser1@gmail.com"
-    await orgs_domain.remove_organization(org_id, email)
+    await orgs_domain.update_org_state(
+        loaders, org_id, email, OrganizationStateStatus.DELETED
+    )
 
-    org = await loaders.organization.load(org_id)
+    new_loaders: Dataloaders = get_new_context()
+    org: Organization = await new_loaders.organization.load(org_id)
     assert orgs_utils.is_deleted_typed(org)
 
 
