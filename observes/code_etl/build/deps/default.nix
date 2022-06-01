@@ -1,13 +1,13 @@
 {
-  extras,
+  pkgs,
   lib,
-  pythonPkgs,
+  python_version,
 }: let
-  python_version = "python39";
-  pythonPkgs2 =
-    pythonPkgs
+  _python_pkgs = pkgs."${python_version}Packages";
+  _python_pkgs_2 =
+    _python_pkgs
     // {
-      click = pythonPkgs.click.overridePythonAttrs (
+      click = _python_pkgs.click.overridePythonAttrs (
         old: rec {
           version = "7.1.2";
           src = lib.fetchPypi {
@@ -17,7 +17,7 @@
           };
         }
       );
-      types-requests = pythonPkgs.types-requests.overridePythonAttrs (
+      types-requests = _python_pkgs.types-requests.overridePythonAttrs (
         old: rec {
           version = "2.27.16";
           src = lib.fetchPypi {
@@ -29,19 +29,19 @@
       );
     };
 in
-  pythonPkgs2
+  _python_pkgs_2
   // {
-    fa-purity = extras.purity."${python_version}".pkg;
+    fa-purity = pkgs.fa-purity."${python_version}".pkg;
     import-linter = import ./import-linter {
       inherit lib;
-      pythonPkgs = pythonPkgs2;
+      pythonPkgs = _python_pkgs_2;
     };
     pathos = import ./pathos {
       inherit lib;
-      pythonPkgs = pythonPkgs2;
+      pythonPkgs = _python_pkgs_2;
     };
-    postgres-client = extras.postgres-client."${python_version}".pkg;
-    redshift-client = extras.redshift-client."${python_version}".pkg;
+    postgres-client = pkgs.postgres-client."${python_version}".pkg;
+    redshift-client = pkgs.redshift-client."${python_version}".pkg;
     types-click = import ./click/stubs.nix lib;
-    utils-logger = extras.utils-logger."${python_version}".pkg;
+    utils-logger = pkgs.utils-logger."${python_version}".pkg;
   }

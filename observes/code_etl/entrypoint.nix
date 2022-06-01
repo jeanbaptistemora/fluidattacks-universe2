@@ -10,7 +10,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     url = "https://gitlab.com/dmurciaatfluid/purity";
     ref = "refs/tags/v1.17.0";
   };
-  purity = import _purity_src {
+  fa-purity = import _purity_src {
     inherit system legacy_pkgs;
     src = _purity_src;
   };
@@ -23,7 +23,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     inherit system legacy_pkgs;
     src = _redshift_src;
     others = {
-      fa-purity = purity;
+      inherit fa-purity;
     };
   };
 
@@ -47,9 +47,10 @@ fetchNixpkgs: projectPath: observesIndex: let
           };
       };
   };
-  extras = {inherit postgres-client purity redshift-client utils-logger;};
+  local_pkgs = {inherit postgres-client fa-purity redshift-client utils-logger;};
   out = import ./. {
-    inherit legacy_pkgs extras;
+    pkgs = legacy_pkgs // local_pkgs;
+    python_version = "python39";
     src = ./.;
   };
 in

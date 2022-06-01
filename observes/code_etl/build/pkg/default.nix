@@ -1,31 +1,31 @@
 {
   lib,
-  pythonPkgs,
-  src,
   metadata,
+  python_pkgs,
+  src,
 }: let
-  runtime_deps = [
-    pythonPkgs.click
-    pythonPkgs.fa-purity
-    pythonPkgs.GitPython
-    pythonPkgs.pathos
-    pythonPkgs.postgres-client
-    pythonPkgs.psycopg2
-    pythonPkgs.ratelimiter
-    pythonPkgs.redshift-client
-    pythonPkgs.requests
-    pythonPkgs.six
-    pythonPkgs.types-click
-    pythonPkgs.types-requests
-    pythonPkgs.utils-logger
+  runtime_deps = with python_pkgs; [
+    click
+    fa-purity
+    GitPython
+    pathos
+    postgres-client
+    psycopg2
+    ratelimiter
+    redshift-client
+    requests
+    six
+    types-click
+    types-requests
+    utils-logger
   ];
-  dev_deps = [
-    pythonPkgs.import-linter
-    pythonPkgs.mypy
-    pythonPkgs.poetry
-    pythonPkgs.pytest
-    pythonPkgs.toml
-    pythonPkgs.types-toml
+  dev_deps = with python_pkgs; [
+    import-linter
+    mypy
+    poetry
+    pytest
+    toml
+    types-toml
   ];
   pkg = (import ./build.nix) {
     inherit lib src metadata;
