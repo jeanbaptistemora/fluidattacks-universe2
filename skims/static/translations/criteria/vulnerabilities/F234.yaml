@@ -1,4 +1,4 @@
-lib_path.f234.stacktrace:
+src.lib_path.f234.stacktrace:
   en: >
     Errors or exceptional events are not properly handled by the application
   es: >

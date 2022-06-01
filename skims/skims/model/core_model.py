@@ -2780,7 +2780,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-
+    PYTHON_LEAK_STACKTRACE = MethodInfo(
+        file_name="python",
+        name="python_has_generic_exceptions",
+        module="lib_path",
+        finding=FindingEnum.F234,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_LEAK_STACKTRACE = MethodInfo(
         file_name="java",
         name="java_info_leak_stacktrace",
