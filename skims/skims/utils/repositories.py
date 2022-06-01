@@ -1,6 +1,12 @@
+from contextlib import (
+    suppress,
+)
 from git import (
     GitError,
     Repo,
+)
+from git.exc import (
+    GitCommandError,
 )
 from more_itertools import (
     pairwise,
@@ -43,18 +49,21 @@ def get_diff(
     *,
     rev_a: str,
     rev_b: str,
-) -> PatchSet:
-    patch = PatchSet(
-        repo.git.diff(
-            "--color=never",
-            "--minimal",
-            "--patch",
-            "--unified=0",
-            f"{rev_a}...{rev_b}",
-        ),
-    )
+    path: Optional[str] = None,
+) -> Optional[PatchSet]:
+    with suppress(GitCommandError):
+        return PatchSet(
+            repo.git.diff(
+                "--color=never",
+                "--minimal",
+                "--patch",
+                "--unified=0",
+                f"{rev_a}...{rev_b}",
+                *((path,) if path else tuple()),
+            ),
+        )
 
-    return patch
+    return None
 
 
 class RebaseResult(NamedTuple):
@@ -111,7 +120,10 @@ def _rebase_one_commit_at_a_time(
     hunk: Hunk
     patch: PatchedFile
 
-    diff = get_diff(repo, rev_a=rev_a, rev_b=rev_b)
+    diff = get_diff(repo, rev_a=rev_a, rev_b=rev_b, path=path)
+    if not diff:
+        return None
+
     rebased_line = line
     for patch in diff:
         if patch.source_file == f"a/{path}":
