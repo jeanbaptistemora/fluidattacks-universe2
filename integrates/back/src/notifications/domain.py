@@ -36,9 +36,6 @@ from newutils import (
 from notifications import (
     dal as notifications_dal,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from typing import (
     Any,
     cast,
@@ -326,7 +323,8 @@ async def request_vulnerability_zero_risk(
     finding_title = finding.title
     group_name = finding.group_name
 
-    org_id = await orgs_domain.get_id_for_group(group_name)
+    group: Group = await loaders.group.load(group_name)
+    org_id = group.organization_id
     organization: Organization = await loaders.organization.load(org_id)
     org_name = organization.name
     finding_url = (

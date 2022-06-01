@@ -438,6 +438,7 @@ async def _has_repeated_tags(
 
 
 async def complete_register_for_group_invitation(
+    loaders: Any,
     group_access: dict[str, Any],
 ) -> bool:
     coroutines: list[Awaitable[bool]] = []
@@ -468,8 +469,8 @@ async def complete_register_for_group_invitation(
             authz.grant_group_level_role(user_email, group_name, role),
         ]
     )
-
-    organization_id = await orgs_domain.get_id_for_group(group_name)
+    group: Group = await loaders.group.load(group_name)
+    organization_id = group.organization_id
     if not await orgs_domain.has_user_access(organization_id, user_email):
         coroutines.append(
             orgs_domain.add_user(organization_id, user_email, "user")
@@ -741,8 +742,7 @@ async def remove_group(
         group_name
     )
     is_removed_from_org = await orgs_domain.remove_group(
-        group_name=group_name,
-        organization_id=await orgs_domain.get_id_for_group(group_name),
+        group_name=group_name, organization_id=group.organization_id
     )
     if not all(
         [
@@ -1847,7 +1847,8 @@ async def after_complete_register(
     enforcer = await authz.get_user_level_enforcer(user_email)
     if enforcer("self", "keep_default_organization_access"):
         return
-    organization_id: str = await orgs_domain.get_id_for_group(group_name)
+    group: Group = await loaders.group.load(group_name)
+    organization_id: str = group.organization_id
     default_org = await orgs_domain.get_or_add(FI_DEFAULT_ORG)
     default_org_id: str = str(default_org["id"])
     if (

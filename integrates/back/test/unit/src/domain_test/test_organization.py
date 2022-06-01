@@ -4,6 +4,7 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
+    GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
@@ -18,6 +19,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
@@ -187,10 +191,13 @@ async def test_get_name_by_id() -> None:
 async def test_get_id_for_group() -> None:
     group_name = "unittesting"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    org_id = await orgs_domain.get_id_for_group(group_name)
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group.load(group_name)
+    org_id = group.organization_id
     assert org_id == expected_org_id
 
-    assert await orgs_domain.get_id_for_group("madeup-group") == ""
+    with pytest.raises(GroupNotFound):
+        await loaders.group.load("madeup-group")
 
 
 @pytest.mark.changes_db

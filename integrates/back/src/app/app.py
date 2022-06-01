@@ -146,9 +146,10 @@ async def confirm_access(request: Request) -> HTMLResponse:
             url_token
         )
         if group_access:
+            loaders: Dataloaders = get_new_context()
             success = (
                 await groups_domain.complete_register_for_group_invitation(
-                    group_access
+                    loaders, group_access
                 )
             )
             if success:
@@ -157,7 +158,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
                 )
                 schedule(
                     groups_domain.after_complete_register(
-                        get_new_context(), group_access
+                        loaders, group_access
                     )
                 )
             else:

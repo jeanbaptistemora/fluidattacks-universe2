@@ -1,11 +1,15 @@
 # pylint: disable=protected-access
 from custom_exceptions import (
+    GroupNotFound,
     InvalidOrganization,
     OrganizationNotFound,
 )
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
@@ -214,12 +218,14 @@ async def test_get_many_by_id() -> None:
 
 
 async def test_get_id_for_group() -> None:
-    existing_group = "unittesting"
-    non_existent_group = "madeup"
-    org_id_1 = await orgs_dal.get_id_for_group(existing_group)
-    org_id_2 = await orgs_dal.get_id_for_group(non_existent_group)
+    existing_group_name = "unittesting"
+    non_existent_group_name = "madeup"
+    loaders: Dataloaders = get_new_context()
+    existing_group: Group = await loaders.group.load(existing_group_name)
+    org_id_1 = existing_group.organization_id
     assert org_id_1 == "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    assert org_id_2 == ""
+    with pytest.raises(GroupNotFound):
+        await loaders.group.load(non_existent_group_name)
 
 
 async def test_get_ids_for_user() -> None:

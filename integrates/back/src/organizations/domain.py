@@ -74,7 +74,6 @@ import sys
 from typing import (
     Any,
     AsyncIterator,
-    cast,
     Dict,
     List,
     Optional,
@@ -153,37 +152,6 @@ async def update_org_state(
         organization_name=organization.name,
         state=new_state,
     )
-
-
-def format_organization(organization: Dict[str, Any]) -> Dict[str, Any]:
-    historic_policies: List[Dict[str, Decimal]] = cast(
-        List[Dict[str, Decimal]],
-        organization.get("historic_max_number_acceptations", []),
-    )
-    max_number_acceptances: Optional[Decimal] = (
-        historic_policies[-1]["max_number_acceptations"]
-        if historic_policies
-        else None
-    )
-    return {
-        **organization,
-        "historic_max_number_acceptations": organization.get(
-            "historic_max_number_acceptations", []
-        ),
-        "max_acceptance_days": organization.get(
-            "max_acceptance_days",
-        ),
-        "max_acceptance_severity": organization.get(
-            "max_acceptance_severity", DEFAULT_MAX_SEVERITY
-        ),
-        "max_number_acceptations": max_number_acceptances,
-        "min_acceptance_severity": organization.get(
-            "min_acceptance_severity", DEFAULT_MIN_SEVERITY
-        ),
-        "min_breaking_severity": organization.get(
-            "min_breaking_severity", DEFAULT_MIN_SEVERITY
-        ),
-    }
 
 
 async def get_access_by_url_token(

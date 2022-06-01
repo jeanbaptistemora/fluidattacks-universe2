@@ -112,7 +112,8 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     success = (
         success
         and await groups_domain.complete_register_for_group_invitation(
-            group_access
+            loaders=info.context.loaders,
+            group_access=group_access,
         )
     )
     if not success:

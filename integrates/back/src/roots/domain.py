@@ -1316,7 +1316,7 @@ async def move_root(
 ) -> str:
     root: Root = await loaders.root.load((group_name, root_id))
     source_group: Group = await loaders.group.load(group_name)
-    source_org_id = await orgs_domain.get_id_for_group(group_name)
+    source_org_id = source_group.organization_id
     target_group: Group = await loaders.group.load(target_group_name)
 
     if (

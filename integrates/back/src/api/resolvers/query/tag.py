@@ -7,6 +7,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -21,9 +24,6 @@ from groups import (
 )
 from newutils import (
     token as token_utils,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from tags import (
     domain as tags_domain,
@@ -58,9 +58,8 @@ async def resolve(
     ]
 
     if group_names_filtered:
-        org_id: str = await orgs_domain.get_id_for_group(
-            group_names_filtered[0]
-        )
+        group: Group = await loaders.group.load(group_names_filtered[0])
+        org_id: str = group.organization_id
         organization: Organization = await loaders.organization.load(org_id)
         org_name: str = organization.name
 
