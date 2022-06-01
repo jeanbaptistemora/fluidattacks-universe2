@@ -8,7 +8,7 @@ import { AddRoot } from "./components/AddRoot";
 import { Sidebar } from "./components/Sidebar";
 import { GET_USER_WELCOME } from "./queries";
 import { Container, DashboardContent, FormContent } from "./styles";
-import type { IGetUserWelcomeResult, IRootAttr } from "./types";
+import type { IGetUserWelcomeResult, IOrgAttr, IRootAttr } from "./types";
 
 import { Col, Row } from "components/Layout";
 import { Dashboard } from "scenes/Dashboard";
@@ -38,6 +38,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     env: "",
     exclusions: [],
     url: "",
+  });
+
+  const [organization, setOrganization] = useState<IOrgAttr>({
+    groupDescription: "",
+    groupName: "",
+    organizationName: "",
+    reportLanguage: "",
+    terms: [],
   });
 
   const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME, {
@@ -75,8 +83,10 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                     <Col large={"25"} medium={"50"} small={"70"}>
                       <FormContent>
                         <AddOrganization
+                          orgValues={organization}
                           repositoryValues={repository}
                           setIsRepository={setIsRepository}
+                          setOrgValues={setOrganization}
                         />
                       </FormContent>
                     </Col>

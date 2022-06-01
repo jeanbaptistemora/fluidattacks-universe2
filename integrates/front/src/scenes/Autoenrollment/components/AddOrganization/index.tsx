@@ -31,6 +31,7 @@ import {
 } from "scenes/Autoenrollment/queries";
 import type {
   IAddOrganizationResult,
+  IOrgAttr,
   IRootAttr,
 } from "scenes/Autoenrollment/types";
 import {
@@ -60,13 +61,17 @@ const maxGroupNameLength: ConfigurableValidator = maxLength(
 );
 
 interface IAddOrganizationProps {
+  orgValues: IOrgAttr;
   repositoryValues: IRootAttr;
   setIsRepository: React.Dispatch<React.SetStateAction<boolean>>;
+  setOrgValues: React.Dispatch<React.SetStateAction<IOrgAttr>>;
 }
 
 const AddOrganization: React.FC<IAddOrganizationProps> = ({
+  orgValues,
   repositoryValues,
   setIsRepository,
+  setOrgValues,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
   const { push, replace } = useHistory();
@@ -163,6 +168,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       terms: string[];
     }): Promise<void> => {
       setIsRepository(false);
+      setOrgValues(values);
       mixpanel.track("AddOrganization");
       await addOrganization({
         variables: { name: values.organizationName.toUpperCase() },
@@ -214,6 +220,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       setGroup,
       setIsRepository,
       setOrganization,
+      setOrgValues,
     ]
   );
 
@@ -234,13 +241,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   return (
     <div>
       <Formik
-        initialValues={{
-          groupDescription: "",
-          groupName: "",
-          organizationName: "",
-          reportLanguage: "",
-          terms: [],
-        }}
+        initialValues={orgValues}
         name={"newOrganization"}
         onSubmit={handleSubmit}
         validationSchema={validations}

@@ -47,10 +47,19 @@ interface IRootAttr {
   url: string;
 }
 
+interface IOrgAttr {
+  groupDescription: string;
+  groupName: string;
+  organizationName: string;
+  reportLanguage: string;
+  terms: string[];
+}
+
 export type {
   IAddOrganizationResult,
   IAutoenrollDemoResult,
   IGetUserWelcomeResult,
+  IOrgAttr,
   IRootAttr,
   IAlertMessages,
 };
