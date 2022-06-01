@@ -9,13 +9,8 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      A permanent treatment
-      {% if is_approved %}
-        has been approved
-      {% else %}
-        is requested
-      {% endif %}
-      in the group <strong>{{ group }}</strong> by <strong>{{ responsible }}</strong>:
+      A permanent treatment {{ approve_state }} in the group
+      <strong>{{ group }}</strong> by <strong>{{ responsible }}</strong>:
     </p>
     <p>
       <strong>Date</strong>: {{ date }}<br>

@@ -1894,7 +1894,9 @@ export const enTranslations: ResourceKey = {
       UPDATED_TREATMENT: {
         name: "Treatment updates",
         tooltip:
-          "Get notifications when a user defines how to address a vulnerability.",
+          "Get notifications when a user defines how to address a " +
+          "vulnerability, a permanent treatment is requested or approved, " +
+          "and a temporal treatment is close to ending.",
       },
       VULNERABILITY_ASSIGNED: {
         name: "Vulnerability assignment",

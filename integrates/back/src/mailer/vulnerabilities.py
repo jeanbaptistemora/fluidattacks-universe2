@@ -90,6 +90,7 @@ async def send_mail_treatment_report(
     is_approved: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
+    approve_state: str = "has been approved" if is_approved else "is requested"
     email_context: dict[str, Any] = {
         "assigned": assigned,
         "date": datetime_utils.get_date_from_iso_str(modified_date),
@@ -98,7 +99,7 @@ async def send_mail_treatment_report(
         "justification": justification,
         "finding": finding_title,
         "location": location,
-        "is_approved": is_approved,
+        "approve_state": approve_state,
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/vulns/{finding_id}"
@@ -108,7 +109,7 @@ async def send_mail_treatment_report(
         email_to,
         email_context,
         GENERAL_TAG,
-        f"A permanent treatment is requested in [{group_name}]",
+        f"A permanent treatment {approve_state} in [{group_name}]",
         "treatment_report",
     )
 
