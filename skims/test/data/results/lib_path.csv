@@ -36707,51 +36707,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [CVE-
   406 |   integrity sha512-/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==
       ^ Col 0
 ",npm.npm_yarn_lock
-F011,lines,namespace/skims/test/data/lib_path/f011/package.json (slug v0.9.0) [GMS-2017-215],13,937,skims,011. Use of software with known vulnerabilities,Use of slug at version 0.9.0 with GMS-2017-215 in namespace/skims/test/data/lib_path/f011/package.json,"
-   1 | {
-   2 |   ""name"": ""test"",
-   3 |   ""version"": ""1.0.0"",
-   4 |   ""description"": ""nothing"",
-   5 |   ""main"": ""index.js"",
-   6 |   ""author"": ""Luis Saavedra"",
-   7 |   ""license"": ""MIT"",
-   8 |   ""private"": false,
-   9 |   ""dependencies"": {
-  10 |     ""@angular/core"": ""^13.3.3"",
-  11 |     ""cloudron-sysadmin"": ""1.0.0"",
-  12 |     ""script-manager"": ""0.8.6"",
-> 13 |     ""slug"": ""0.9.0""
-  14 |   },
-  15 |   ""devDependencies"": {
-  16 |     ""xmldom"": ""0.4.0""
-  17 |   }
-  18 | }
-     ^ Col 0
-",npm.npm_package_json
-F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [GMS-2017-215],396,937,skims,011. Use of software with known vulnerabilities,Use of slug at version 0.9.0 with GMS-2017-215 in namespace/skims/test/data/lib_path/f011/yarn.lock,"
-  386 |     portscanner ""2.2.0""
-  387 |     request ""2.88.0""
-  388 |     serializator ""1.0.1""
-  389 |     uuid ""3.3.2""
-  390 |
-  391 | serializator@1.0.1:
-  392 |   version ""1.0.1""
-  393 |   resolved ""https://registry.yarnpkg.com/serializator/-/serializator-1.0.1.tgz#177a317a8bd6ad9b120e362ebca0b89d12bc61e0""
-  394 |   integrity sha512-xrMfCMi8Z3x/qF81YXdGdDpChwWALravGj+gGkNQPGnIaLbGNcv9P8I7NDaHE7aUjLhvP3/FvIKTeK2wmKPF/g==
-  395 |
-> 396 | slug@0.9.0:
-  397 |   version ""0.9.0""
-  398 |   resolved ""https://registry.yarnpkg.com/slug/-/slug-0.9.0.tgz#3972141a5bb7608d29bf1721da58ef3acaa5eea0""
-  399 |   integrity sha1-OXIUGlu3YI0pvxch2ljvOsql7qA=
-  400 |   dependencies:
-  401 |     unicode "">= 0.3.1""
-  402 |
-  403 | sshpk@^1.7.0:
-  404 |   version ""1.17.0""
-  405 |   resolved ""https://registry.yarnpkg.com/sshpk/-/sshpk-1.17.0.tgz#578082d92d4fe612b13007496e543fa0fbcbe4c5""
-  406 |   integrity sha512-/9HIEs1ZXGhSPE8X6Ccm7Nam1z8KcoCqPdI7ecm1N33EzAetWahvQWVqLZtaZQ+IDKX4IyA2o0gBzqIMkAagHQ==
-      ^ Col 0
-",npm.npm_yarn_lock
 F393,lines,namespace/skims/test/data/lib_path/f011/package.json (xmldom v0.4.0) [CVE-2021-21366],16,937,skims,393. Use of software with known vulnerabilities in development,Use of xmldom at version 0.4.0 with CVE-2021-21366 in namespace/skims/test/data/lib_path/f011/package.json,"
    1 | {
    2 |   ""name"": ""test"",
