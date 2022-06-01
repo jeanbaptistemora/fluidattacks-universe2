@@ -5,7 +5,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    SimplePayload as SimplePayloadType,
+    UpdateToeLinesPayload,
 )
 from dataloaders import (
     Dataloaders,
@@ -53,7 +53,7 @@ async def mutate(
     group_name: str,
     root_id: str,
     **kwargs: Any,
-) -> SimplePayloadType:
+) -> UpdateToeLinesPayload:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
@@ -74,15 +74,17 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Updated toe lines attacked lines "
+            "Security: Updated toe lines attacked lines "
             f"for group {group_name}, and root id {root_id} successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Tried to update toe lines attacked lines "
+            "Security: Tried to update toe lines attacked lines "
             f"for group {group_name}, and root id {root_id}",
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return UpdateToeLinesPayload(
+        success=True, group_name=group_name, filename=filename, root_id=root_id
+    )

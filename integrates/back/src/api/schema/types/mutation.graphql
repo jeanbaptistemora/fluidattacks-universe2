@@ -1201,7 +1201,7 @@ type Mutation {
     attackedLines: Int
     "Comments related with the attack"
     comments: String
-  ): SimplePayload!
+  ): UpdateToeLinesPayload!
 
   """
   Updates the sorts_risk_level attribute in one or more ToEs of a concrete

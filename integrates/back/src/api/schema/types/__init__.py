@@ -100,6 +100,9 @@ from .vulnerability import (
 from .vulnerability_historic_state import (
     VULNERABILITY_HISTORIC_STATE,
 )
+from api.schema.types.mutation_payloads import (
+    UPDATETOELINESPAYLOAD,
+)
 from api.schema.types.toe_lines import (
     TOELINES,
 )
@@ -147,6 +150,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,
+    UPDATETOELINESPAYLOAD,
     URLROOT,
     VERIFICATION,
     VERIFICATION_SUMMARY,

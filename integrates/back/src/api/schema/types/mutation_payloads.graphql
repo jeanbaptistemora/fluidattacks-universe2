@@ -81,6 +81,14 @@ type UpdateStakeholderPayload implements Payload {
   success: Boolean!
 }
 
+"Update toe lines Payload type definition"
+type UpdateToeLinesPayload implements Payload {
+  "Did the query succeed?"
+  success: Boolean!
+  "Modified Toe Lines"
+  toeLines: ToeLines!
+}
+
 "Add stakeholder Payload type definition"
 type AddStakeholderPayload implements Payload {
   "Email address of the potential new Stakeholder"
@@ -153,9 +161,11 @@ type SignedUrlObject {
   url: String!
 }
 
-"""Signed fields object Payload type definition, for more information about
+"""
+Signed fields object Payload type definition, for more information about
 this type feel free to check the relevant
-[AWS docs](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html)"""
+[AWS docs](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html)
+"""
 type SignedFieldsObject {
   "AWS Access key identifier"
   awsaccesskeyid: String!
