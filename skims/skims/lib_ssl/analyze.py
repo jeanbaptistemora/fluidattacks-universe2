@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
+from contextlib import (
+    suppress,
+)
 from ctx import (
     CTX,
 )
@@ -13,6 +16,7 @@ from lib_ssl.suites import (
 )
 from lib_ssl.types import (
     SSLContext,
+    SSLServerResponse,
 )
 from model import (
     core_model,
@@ -64,25 +68,27 @@ async def analyze_one(
 
 
 async def get_ssl_contexts() -> Set[SSLContext]:
-    ssl_contexts: Set[SSLContext] = {
-        SSLContext(
-            host=target.host,
-            port=target.port,
-            tls_responses=tuple(
-                tls_response
-                for v_id in SSLVersionId
-                if v_id != SSLVersionId.sslv3_0
-                and (
+    ssl_contexts: Set[SSLContext] = set()
+    for target in CTX.config.ssl.include:
+        responses: List[SSLServerResponse] = []
+        for v_id in SSLVersionId:
+            with suppress(Exception):
+                if v_id != SSLVersionId.sslv3_0 and (
                     tls_response := analyze_protocol.tls_connect(
                         host=target.host,
                         port=target.port,
                         v_id=v_id,
                     )
-                )
+                ):
+                    responses = [*responses, tls_response]
+        ssl_contexts = {
+            *ssl_contexts,
+            SSLContext(
+                host=target.host,
+                port=target.port,
+                tls_responses=tuple(responses),
             ),
-        )
-        for target in CTX.config.ssl.include
-    }
+        }
 
     return ssl_contexts
 
