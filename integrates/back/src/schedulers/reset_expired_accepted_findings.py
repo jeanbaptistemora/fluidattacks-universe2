@@ -91,11 +91,11 @@ async def reset_expired_accepted_findings() -> None:
     loaders: Dataloaders = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
     await collect(
-        [
+        tuple(
             reset_group_expired_accepted_findings(loaders, group_name, today)
             for group_name in group_names
-        ],
-        workers=40,
+        ),
+        workers=16,
     )
 
 
