@@ -1626,7 +1626,7 @@ export const enTranslations: ResourceKey = {
             notFound: "Finding policy not found",
           },
           form: {
-            finding: "Vulnerability",
+            finding: "Vulnerability type",
             tags: "Tags",
           },
           handlePolicies: {
@@ -1638,7 +1638,7 @@ export const enTranslations: ResourceKey = {
           submitPolicies: {
             modalTitle: "Re-submit organization vulnerability policy",
           },
-          title: "Organization Vulnerabilities Policies",
+          title: "Vulnerability types policies",
           tooltip: {
             addButton: "Add organization policy pending to approve",
             approveButton: "Approve organization vulnerability policy",
@@ -1669,14 +1669,6 @@ export const enTranslations: ResourceKey = {
             "break the build (DevSecOps only)",
         },
         policy: "Policy",
-        recommended: {
-          acceptanceDays: "0",
-          acceptanceSeverity: "0.0    -    0.0",
-          breakableSeverity: "0.0",
-          numberAcceptances: "0",
-          title: "Recommended Values",
-          vulnerabilityGracePeriod: "0",
-        },
         save: "Save",
         success: "Organization policies updated successfully",
         successTitle: "Success",

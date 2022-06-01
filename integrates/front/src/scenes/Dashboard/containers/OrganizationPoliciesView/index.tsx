@@ -14,7 +14,6 @@ import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
@@ -127,19 +126,13 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       dataField: "policy",
       header: t("organization.tabs.policies.policy"),
-      width: "50%",
+      width: "65%",
       wrapped: true,
     },
     {
       dataField: "value",
       header: t("organization.tabs.policies.value"),
-      width: "25%",
-      wrapped: true,
-    },
-    {
-      dataField: "recommended",
-      header: t("organization.tabs.policies.recommended.title"),
-      width: "25%",
+      width: "35%",
       wrapped: true,
     },
   ];
@@ -148,11 +141,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       policy: (
         <p>{t("organization.tabs.policies.policies.maxAcceptanceDays")}</p>
-      ),
-      recommended: (
-        <p className={style.recommended}>
-          {t("organization.tabs.policies.recommended.acceptanceDays")}
-        </p>
       ),
       value: (
         <Can
@@ -174,11 +162,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       policy: (
         <p>{t("organization.tabs.policies.policies.maxNumberAcceptances")}</p>
-      ),
-      recommended: (
-        <p className={style.recommended}>
-          {t("organization.tabs.policies.recommended.numberAcceptances")}
-        </p>
       ),
       value: (
         <Can
@@ -203,11 +186,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           {t("organization.tabs.policies.policies.vulnerabilityGracePeriod")}
         </p>
       ),
-      recommended: (
-        <p className={style.recommended}>
-          {t("organization.tabs.policies.recommended.vulnerabilityGracePeriod")}
-        </p>
-      ),
       value: (
         <Can
           do={"api_mutations_update_organization_policies_mutate"}
@@ -228,11 +206,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       policy: (
         <p>{t("organization.tabs.policies.policies.minBreakingSeverity")}</p>
-      ),
-      recommended: (
-        <p className={style.recommended}>
-          {t("organization.tabs.policies.recommended.breakableSeverity")}
-        </p>
       ),
       value: (
         <Can
@@ -258,11 +231,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       policy: (
         <p>
           {t("organization.tabs.policies.policies.acceptanceSeverityRange")}
-        </p>
-      ),
-      recommended: (
-        <p className={style.recommended}>
-          {t("organization.tabs.policies.recommended.acceptanceSeverity")}
         </p>
       ),
       value: (
