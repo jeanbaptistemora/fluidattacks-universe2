@@ -15,14 +15,14 @@ const CardContainer = styled.div.attrs({
   className: `
     mh3
     mb4
-    pv4
+    pv2
     ph4
     tc
     br2
     w-100
   `,
 })`
-  max-width: 400px;
+  max-width: 300px;
   background-color: #ffffff;
   box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.06);
 `;

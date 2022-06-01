@@ -34,13 +34,13 @@ const DemoBanner: React.FC<IDemoProps> = ({
       {imageRight ? (
         <BannerContainer>
           <TextContainer>
-            <Title fColor={"#ff3435"} fSize={"24"}>
+            <Title fColor={"#ff3435"} fSize={"20"}>
               {title}
             </Title>
-            <Title fColor={"#2e2e38"} fSize={"36"} marginTop={"1.5"}>
+            <Title fColor={"#2e2e38"} fSize={"24"} marginTop={"1.5"}>
               {subtitle}
             </Title>
-            <Paragraph fColor={"#5c5c70"} fSize={"20"} marginTop={"1.5"}>
+            <Paragraph fColor={"#5c5c70"} fSize={"16"} marginTop={"1.5"}>
               {description}
             </Paragraph>
           </TextContainer>
@@ -64,13 +64,13 @@ const DemoBanner: React.FC<IDemoProps> = ({
             />
           </ImageContainer>
           <TextContainer>
-            <Title fColor={"#ff3435"} fSize={"24"}>
+            <Title fColor={"#ff3435"} fSize={"20"}>
               {title}
             </Title>
-            <Title fColor={"#2e2e38"} fSize={"36"} marginTop={"1.5"}>
+            <Title fColor={"#2e2e38"} fSize={"24"} marginTop={"1.5"}>
               {subtitle}
             </Title>
-            <Paragraph fColor={"#5c5c70"} fSize={"20"} marginTop={"1.5"}>
+            <Paragraph fColor={"#5c5c70"} fSize={"16"} marginTop={"1.5"}>
               {description}
             </Paragraph>
           </TextContainer>
@@ -81,10 +81,10 @@ const DemoBanner: React.FC<IDemoProps> = ({
           <Title fColor={"#ff3435"} fSize={"20"}>
             {title}
           </Title>
-          <Title fColor={"#2e2e38"} fSize={"32"} marginTop={"1.5"}>
+          <Title fColor={"#2e2e38"} fSize={"24"} marginTop={"1.5"}>
             {subtitle}
           </Title>
-          <Paragraph fColor={"#5c5c70"} fSize={"20"} marginTop={"1.5"}>
+          <Paragraph fColor={"#5c5c70"} fSize={"16"} marginTop={"1.5"}>
             {description}
           </Paragraph>
         </TextContainer>

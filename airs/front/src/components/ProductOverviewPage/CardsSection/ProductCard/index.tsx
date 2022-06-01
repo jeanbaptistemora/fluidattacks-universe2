@@ -19,10 +19,10 @@ const ProductCard: React.FC<IProductCard> = ({
       />
       <Paragraph
         fColor={"#5c5c70"}
-        fSize={"24"}
+        fSize={"16"}
         marginBottom={"2"}
         marginTop={"2"}
-        maxWidth={"330"}
+        maxWidth={"220"}
       >
         {text}
       </Paragraph>

@@ -28,7 +28,7 @@ const MainSection: React.FC<IProps> = ({
   return (
     <Container>
       <MainTextContainer>
-        <Title fColor={"#f4f4f6"} fSize={"72"} fSizeM={"64"} fSizeS={"48"}>
+        <Title fColor={"#f4f4f6"} fSize={"48"}>
           {translate.t("productOverview.title")}
         </Title>
         <ProductParagraph>{description}</ProductParagraph>
