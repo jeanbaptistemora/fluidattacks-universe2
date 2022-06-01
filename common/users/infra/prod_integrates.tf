@@ -87,15 +87,17 @@ locals {
             Action = [
               "batch:Describe*",
               "batch:List*",
-              "batch:CancelJob",
-              "batch:TerminateJob",
             ]
             Resource = ["*"]
           },
           {
             Sid    = "batchWrite"
             Effect = "Allow"
-            Action = ["*"]
+            Action = [
+              "batch:CancelJob",
+              "batch:SubmitJob",
+              "batch:TerminateJob",
+            ]
             Resource = [
               "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
               "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/*",

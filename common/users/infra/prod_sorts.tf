@@ -17,7 +17,9 @@ locals {
             Sid    = "batchWrite"
             Effect = "Allow"
             Action = [
+              "batch:CancelJob",
               "batch:SubmitJob",
+              "batch:TerminateJob",
             ]
             Resource = [
               "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-definition/*",
