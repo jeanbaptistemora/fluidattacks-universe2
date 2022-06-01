@@ -68,6 +68,42 @@ def test_org_analytics(
             timeout,
         )
 
+    driver.get(
+        f"{asm_endpoint}/graphic?documentName=mttrBenchmarkingCvssf&"
+        "documentType=barChart&entity=organization&generatorName=generic&"
+        "generatorType=c3&height=320&subject=ORG%2338eb8f25-7945-4173-ab6e"
+        "-0af4ad8b7ef3_30&width=1055"
+    )
+    assert utils.wait_for_id(
+        driver,
+        "root",
+        timeout,
+    )
+
+    driver.get(
+        f"{asm_endpoint}/graphic?documentName=mttrBenchmarkingCvssf&"
+        "documentType=barChart&entity=organization&generatorName=generic&"
+        "generatorType=c3&height=320&subject=ORG%2338eb8f25-7945-4173-ab6e"
+        "-0af4ad8b7ef3_90&width=1055"
+    )
+    assert utils.wait_for_id(
+        driver,
+        "root",
+        timeout,
+    )
+
+    driver.get(
+        f"{asm_endpoint}/graphic?documentName=mttrBenchmarkingCvssf&"
+        "documentType=barChart&entity=organization&generatorName=generic&"
+        "generatorType=c3&height=320&subject=ORG%2338eb8f25-7945-4173-ab6e"
+        "-0af4ad8b7ef3&width=1055"
+    )
+    assert utils.wait_for_id(
+        driver,
+        "root",
+        timeout,
+    )
+
 
 def test_org_groups(
     driver: WebDriver,
