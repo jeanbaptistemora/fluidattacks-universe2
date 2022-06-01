@@ -92,7 +92,6 @@ function deploy {
 
 function main {
   deploy "master" "app" \
-    && deploy "mastertest" "apptest" \
     && rollout "master" \
     && report_deployment
 }
