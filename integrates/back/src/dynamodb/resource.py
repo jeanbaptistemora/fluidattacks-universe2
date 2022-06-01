@@ -37,6 +37,8 @@ RESOURCE_OPTIONS = {
         # The time in seconds till a timeout exception is thrown when
         # attempting to read from a connection. [60]
         read_timeout=30,
+        # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/retries.html
+        retries={"max_attempts": 3, "mode": "standard"},
     ),
     "endpoint_url": (
         # FP: the endpoint is hosted in a local environment
