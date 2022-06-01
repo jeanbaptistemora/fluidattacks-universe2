@@ -51,10 +51,29 @@ from typing import (
     Optional,
     Sequence,
     Set,
+    Union,
 )
 
 _ORGS_TABLE = "fi_organizations"
-_LastObjKey = Mapping[str, bytes | bytearray | str | int | Decimal | bool | Set[int] | Set[Decimal] | Set[str] | Set[bytes] | Set[bytearray] | Sequence[Any] | Mapping[str, Any] | None]  # type: ignore[misc]
+_LastObjKey = Mapping[  # type: ignore[misc]
+    str,
+    Union[
+        bytes,
+        bytearray,
+        str,
+        int,
+        Decimal,
+        bool,
+        Set[int],
+        Set[Decimal],
+        Set[str],
+        Set[bytes],
+        Set[bytearray],
+        Sequence[Any],
+        Mapping[str, Any],
+        None,
+    ],
+]
 
 
 @dataclass(frozen=True)  # type: ignore[misc]

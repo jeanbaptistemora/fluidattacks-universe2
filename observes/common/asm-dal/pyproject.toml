@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asm_dal"
-version = "0.1.0"
+version = "1.0.0"
 description = "ASM Synchronous Data Access Layer"
 authors = ["Product Team <development@fluidattacks.com>"]
 
