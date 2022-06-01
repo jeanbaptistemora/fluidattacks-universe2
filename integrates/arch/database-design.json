@@ -2626,7 +2626,210 @@
             "PartitionKeyAlias": "ORG#id",
             "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "pending_deletion_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "pending_deletion_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "pending_deletion_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-30T15:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee"
+              },
+              "modified_date": {
+                "S": "2019-11-30T15:00:00+00:00"
+              },
+              "status": {
+                "S": "DELETED"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "pending_deletion_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "unknown"
+              },
+              "pk": {
+                "S": "ORG#d32674a9-9838-4337-b222-68c88bf54647"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              },
+              "pending_deletion_date": {
+                "S": "2019-11-22T20:07:57+00:00"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "modified_by",
             "modified_date",
