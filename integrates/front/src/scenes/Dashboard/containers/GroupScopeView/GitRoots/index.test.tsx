@@ -227,7 +227,7 @@ describe("GitRoots", (): void => {
         user: "",
       },
       environment: "",
-      environmentUrls: [""],
+      environmentUrls: [],
       gitEnvironmentUrls: [
         {
           createdAt: "2022-04-27T17:30:07.230355",
@@ -290,17 +290,22 @@ describe("GitRoots", (): void => {
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       expect(screen.queryAllByRole("link")).toHaveLength(3);
     });
+
+    // Enter add git environment URLs modal
     userEvent.click(
       screen.getByRole("link", { name: "group.scope.git.envUrls" })
     );
+
+    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+
+    // Click add environment URL button
+    userEvent.click(screen.getAllByRole("button")[0]);
 
     await waitFor((): void => {
       expect(
         screen.getByRole("textbox", { name: "environmentUrls[0]" })
       ).toBeInTheDocument();
     });
-
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
 
     userEvent.type(
       screen.getByRole("textbox", { name: "environmentUrls[0]" }),
@@ -315,6 +320,8 @@ describe("GitRoots", (): void => {
         {
           ...initialValues,
           environmentUrls: ["https://app.fluidattacks.com/"],
+          other: "",
+          reason: "",
         },
         expect.anything()
       );

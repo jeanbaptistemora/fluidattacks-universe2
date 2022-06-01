@@ -33,7 +33,11 @@ import {
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 } from "../queries";
-import type { IEnvironmentUrl, IGitRootAttr } from "../types";
+import type {
+  IEnvironmentUrl,
+  IGitRootAttr,
+  IUpdateGitEnvironments,
+} from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
@@ -300,9 +304,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   );
 
   const handleEnvsSubmit = useCallback(
-    async ({ environmentUrls, id }: IGitRootAttr): Promise<void> => {
+    async ({
+      environmentUrls,
+      id,
+      reason,
+      other,
+    }: IUpdateGitEnvironments): Promise<void> => {
       setRootModalMessages({ message: "", type: "success" });
-      await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
+      await updateGitEnvs({
+        variables: { environmentUrls, groupName, id, other, reason },
+      });
     },
     [groupName, setRootModalMessages, updateGitEnvs]
   );

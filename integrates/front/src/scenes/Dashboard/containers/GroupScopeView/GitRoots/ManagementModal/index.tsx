@@ -156,10 +156,10 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
             </Route>
             <Route path={"/environments"}>
               <Environments
-                initialValues={initialValues}
                 modalMessages={modalMessages}
                 onClose={onClose}
                 onSubmit={onSubmitEnvs}
+                rootInitialValues={initialValues}
               />
             </Route>
             <Route path={"/secrets"}>

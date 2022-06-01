@@ -268,6 +268,10 @@ def test_group_scope_environments(
     environment_name: str = utils.rand_name("https://test.fluidattacks.com")
     environment.clear()
     environment.send_keys(environment_name)
+
+    environment = utils.wait_for_name(driver, "reason", timeout)
+    environment.send_keys("REGISTERED_BY_MISTAKE")
+
     proceed = utils.wait_for_id(
         driver,
         "envs-manage-proceed",

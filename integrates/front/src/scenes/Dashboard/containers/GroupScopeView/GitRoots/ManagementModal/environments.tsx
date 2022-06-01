@@ -1,4 +1,5 @@
 import { Field, Form, Formik } from "formik";
+import _ from "lodash";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
@@ -8,28 +9,51 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ModalFooter } from "components/Modal";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikArrayField, FormikText } from "utils/forms/fields";
+import {
+  ControlLabel,
+  FormGroup,
+  RequiredField,
+} from "styles/styledComponents";
+import {
+  FormikArrayField,
+  FormikDropdown,
+  FormikText,
+} from "utils/forms/fields";
 
 interface IEnvironmentsProps {
-  initialValues: IGitRootAttr;
+  rootInitialValues: IGitRootAttr;
   modalMessages: { message: string; type: string };
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
 
 const Environments: React.FC<IEnvironmentsProps> = ({
-  initialValues,
+  rootInitialValues,
   modalMessages,
   onClose,
   onSubmit,
 }: IEnvironmentsProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const [deletedUrls, setDeletedUrls] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
   const validations = object().shape({
     environmentUrls: array().of(string().required(t("validations.required"))),
+    other: string().when("reason", {
+      is: "OTHER",
+      otherwise: string(),
+      then: string().required(t("validations.required")),
+    }),
+    reason: string().test(
+      "hasDeletedUrls",
+      t("validations.required"),
+      (value): boolean => {
+        return !deletedUrls || !_.isEmpty(value);
+      }
+    ),
   });
-
-  const [showAlert, setShowAlert] = useState(false);
+  const initialValues = { ...rootInitialValues, other: "", reason: "" };
 
   return (
     <Formik
@@ -38,10 +62,14 @@ const Environments: React.FC<IEnvironmentsProps> = ({
       onSubmit={onSubmit}
       validationSchema={validations}
     >
-      {({ dirty, isSubmitting }): JSX.Element => {
+      {({ dirty, isSubmitting, values }): JSX.Element => {
         if (isSubmitting) {
           setShowAlert(false);
         }
+        setDeletedUrls(
+          _.intersection(initialValues.environmentUrls, values.environmentUrls)
+            .length < initialValues.environmentUrls.length
+        );
 
         return (
           <Form>
@@ -74,6 +102,34 @@ const Environments: React.FC<IEnvironmentsProps> = ({
                   </Alert>
                 )}
               </div>
+              {deletedUrls ? (
+                <FormGroup>
+                  <br />
+                  <ControlLabel>
+                    {t("group.scope.common.deactivation.reason.label")}
+                  </ControlLabel>
+                  <Field component={FormikDropdown} name={"reason"}>
+                    <option value={""} />
+                    <option value={"OUT_OF_SCOPE"}>
+                      {t("group.scope.common.deactivation.reason.scope")}
+                    </option>
+                    <option value={"REGISTERED_BY_MISTAKE"}>
+                      {t("group.scope.common.deactivation.reason.mistake")}
+                    </option>
+                    <option value={"OTHER"}>
+                      {t("group.scope.common.deactivation.reason.other")}
+                    </option>
+                  </Field>
+                </FormGroup>
+              ) : undefined}
+              {deletedUrls && values.reason === "OTHER" ? (
+                <FormGroup>
+                  <ControlLabel>
+                    {t("group.scope.common.deactivation.other")}
+                  </ControlLabel>
+                  <Field component={FormikText} name={"other"} />
+                </FormGroup>
+              ) : undefined}
               <ModalFooter>
                 <Button onClick={onClose} variant={"secondary"}>
                   {t("confirmmodal.cancel")}

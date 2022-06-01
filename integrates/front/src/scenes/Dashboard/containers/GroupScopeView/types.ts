@@ -61,6 +61,11 @@ interface IURLRootAttr {
   state: "ACTIVE" | "INACTIVE";
 }
 
+interface IUpdateGitEnvironments extends IGitRootAttr {
+  reason?: string;
+  other?: string;
+}
+
 type Root = IGitRootAttr | IIPRootAttr | IURLRootAttr;
 
 export type {
@@ -71,4 +76,5 @@ export type {
   IEnvironmentUrl,
   ISecret,
   ICredentials,
+  IUpdateGitEnvironments,
 };
