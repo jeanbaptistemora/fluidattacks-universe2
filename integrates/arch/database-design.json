@@ -1671,7 +1671,9 @@
             "id",
             "name",
             "policies",
-            "state"
+            "state",
+            "pk_2",
+            "sk_2"
           ]
         },
         {
