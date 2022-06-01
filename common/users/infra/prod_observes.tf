@@ -45,11 +45,6 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes-*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/analytics/analytics",
               "arn:aws:s3:::continuous-repositories",
               "arn:aws:s3:::continuous-repositories/*",
               "arn:aws:s3:::continuous-data",
@@ -81,7 +76,9 @@ locals {
               "redshift:*",
               "redshift-data:*",
             ]
-            Resource = ["*"]
+            Resource = [
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
+            ]
           },
           {
             Sid    = "dynamoWrite"
@@ -113,6 +110,9 @@ locals {
               "iam:UpdateAssumeRolePolicy",
             ]
             Resource = [
+              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/analytics",
+              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/analytics",
+              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/analytics/analytics",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes*",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes*",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/redshift*",
