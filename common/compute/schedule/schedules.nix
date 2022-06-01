@@ -590,6 +590,31 @@
       "management:type" = "product";
     };
   };
+  integrates_temporal_treatment_report = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.temporal_treatment_report.main"
+    ];
+
+    schedule_expression = "cron(0 15 ? * * *)";
+    size = "nano";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "integrates_temporal_treatment_report";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_update_group_toe_vulns = {
     enabled = true;
     command = [
