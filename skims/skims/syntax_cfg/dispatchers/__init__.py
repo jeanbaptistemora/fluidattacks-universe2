@@ -15,6 +15,7 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "Class",
+            "ConstructorDeclaration",
             "MethodDeclaration",
             "Namespace",
         },
