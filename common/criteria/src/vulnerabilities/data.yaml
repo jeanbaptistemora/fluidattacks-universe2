@@ -821,13 +821,13 @@
   examples:
     non_compliant: |
       ```yaml
-      azon.aws.accesskey          = AKIA0000000000000000
-      sonar.password = 123
+      azon.aws.accesskey = AKIA0000000000000000
+      sonar.password     = 123
       ```
     compliant: |
       ```yaml
-      azon.aws.accesskey          = ${aws_access_key}
-      sonar.password = ENC(something-base64-encoded-but-encrypted)
+      azon.aws.accesskey = ${aws_access_key}
+      sonar.password     = ENC(something-base64-encoded-but-encrypted)
       ```
   remediation_time: "30"
   score:
@@ -902,8 +902,50 @@
     threat: Atacante autorizado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      class ContactForm{
+        public function configure(InputsMeta $inputs)
+        {
+          addWidgets(
+            new sfWidgetFormInput($inputs->name),
+            new sfWidgetFormInput($inputs->email),
+            new sfWidgetFormSelect($inputs->subject),
+            new sfWidgetFormTextarea($inputs->message)
+          );
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      class ContactController {
+          /**
+          * @input("name", type = "string", singleLine = true, required = false)
+          * @input("email", type = "email")
+          * @input("subject", type = "string", alternatives = ['Subject A', 'Subject B', 'Subject C'])
+          * @input("message", type = "string", range = [4,])
+          */
+          public function post(Inputs $inputs){
+              //Validates inputs and throw error when they are not included in the allowed and pre defined lists values
+          }
+      }
+
+      class ContactForm extends sfFormX {
+        public function configure(InputsMeta $inputs)
+        {
+          //Bind the form to the input list of the @controller.@method
+          //throws error when the @controller.@method.@input is not defined for a widget
+          $this->addWidgets(
+            new sfWidgetFormInput($inputs->name),
+            new sfWidgetFormInput($inputs->email),
+            new sfWidgetFormSelect($inputs->subject),
+            new sfWidgetFormTextarea($inputs->message)
+          );
+          $this->widgetSchema->setNameFormat('contact[%s]');
+        }
+      }
+
+      ```
   remediation_time: "45"
   score:
     base:
@@ -1081,8 +1123,51 @@
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      package com.fluidattacks.skims.test.f001;
+
+      import org.skife.jdbi.v2.sqlobject.SqlQuery;
+      import org.springframework.data.jpa.repository.JpaRepository;
+      import org.springframework.data.jpa.repository.Query;
+
+      import java.util.List;
+      public interface ParametersJpaRepository extends JpaRepository<Parameter, String> {
+          /* LIKE statement injection */
+          @SqlQuery("select u from User u where u.lastname like %:#{[0]}%")
+          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+          /* LIKE statement injection */
+          @Query("select u from User u where u.lastname like %:#{" + "[0]}%")
+          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+      }
+      ```
+    compliant: |
+      ```java
+      package com.fluidattacks.skims.test.f001;
+
+      import org.skife.jdbi.v2.sqlobject.SqlQuery;
+      import org.springframework.data.jpa.repository.JpaRepository;
+      import org.springframework.data.jpa.repository.Query;
+
+      import java.util.List;
+      public interface ParametersJpaRepository extends JpaRepository<Parameter, String> {
+
+          /* Secure */
+          @Query(value = "SELECT * FROM schema.table " +
+              "WHERE CODE = ?1", nativeQuery = true)
+          List<Parameter> findByParameterType(String parameterTypeCode);
+          /* Secure */
+          @Query("select u from User u where u.firstname like %?#{escape([0])}% escape ?#{escapeCharacter()}")
+          List<User> findContainingEscaped(String namePart);
+
+          /* LIKE statement secure */
+          @Query("select u from User u where u.lastname like %?#{escape([0])}%")
+          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+          /* LIKE statement secure */
+          @Query("select u from User u where u.firstname like %?#{esc" + "ape([0])}%")
+          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+      }
+      ```
   remediation_time: "10"
   score:
     base:
@@ -1239,7 +1324,7 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_linux_virtual_machine" "vulnerable" {
         name           = "example-machine"
         size           = "Standard_F2"
@@ -1247,7 +1332,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_linux_virtual_machine" "not_vulnerable" {
         name           = "example-machine"
         size           = "Standard_F2"
@@ -1308,7 +1393,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       //AWS Vulnerable resource
       resource "azurerm_storage_account" "insecure_example" {
         name                     = "storageaccountname"
@@ -1340,7 +1425,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_storage_account" "secure_example" {
         name                     = "storageaccountname"
         resource_group_name      = azurerm_resource_group.example.name
@@ -1634,8 +1719,42 @@
       desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using Microsoft.AspNetCore.Mvc;
+      using Microsoft.EntityFrameworkCore;
+      using WebApplication1.Controllers;
+
+      namespace WebApplicationDotNetCore.Controllers
+      {
+        public class Query
+        {
+          public IActionResult Authenticate(UserAccountContext context, string user)
+          {
+            access_key = "this_db_access_key";
+            string query = "SELECT * FROM Users WHERE Username = user AND Key = access_key;
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      using Microsoft.AspNetCore.Mvc;
+      using Microsoft.EntityFrameworkCore;
+      using WebApplication1.Controllers;
+
+      namespace WebApplicationDotNetCore.Controllers
+      {
+        public class Query
+        {
+          public IActionResult Authenticate(UserAccountContext context, string user)
+          {
+            access_key = encrypted_key;
+            string query = "SELECT * FROM Users WHERE Username = user AND Key = access_key;
+          }
+        }
+      }
+      ```
   remediation_time: "90"
   score:
     base:
@@ -1830,13 +1949,13 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```java
-      bg.ws.endpoint =  http://www.test.com
+      ```yaml
+      bg.ws.endpoint = http://www.test.com
       bg.ws.endpoint = https://www.test.com
       bg.ws.endpoint = ftps://www.test.com
       ```
     compliant: |
-      ```java
+      ```yaml
       bg.ws.endpoint = ${http://www.test.com}
       bg.ws.endpoint = http://localhost
       bg.ws.endpoint = http://0.0.0.0
@@ -1897,8 +2016,20 @@
     threat: Atacante sin autorización desde Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant:  |
+      ```json
+      GET http://localhost/
+      X-Forwarded-Host: id42.example-cdn.com
+      ```
+
+      ```html
+      <script src="http://<?php echo _SERVER['HOST'] ?>/script.js">
+      ```
+    compliant:  |
+      ```json
+      GET http://localhost/
+      Validate HOST from ALLOWED_HOSTS
+      ```
   remediation_time: "10"
   score:
     base:
@@ -1960,7 +2091,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      ```json
+      ```terraform
       resource "aws_security_group_rule" "vulnerable" {
         security_group_id = "sg-123456"
         type              = "ingress"
@@ -1972,7 +2103,7 @@
       }
       ```
     compliant: |
-      ```json
+      ```terraform
       resource "aws_security_group_rule" "not_vulnerable" {
         security_group_id = "sg-123456"
         type              = "ingress"
@@ -2836,8 +2967,22 @@
       al navegador de la víctima.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <html>
+        <body>
+          <input type="hidden" name="__VIEWSTATE" value="/wEPBQVhYmNkZQ9nAgE=">
+        </body>
+      </html>
+      ```
+    compliant: |
+      ```html
+      <html>
+        <body>
+          <input type="hidden" name="__VIEWSTATE">
+        </body>
+      </html>
+      ```
   remediation_time: "15"
   score:
     base:
@@ -3345,8 +3490,16 @@
     threat: Atacante sin autorización desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000
+      Content-Security-Policy: frame-ancestors 'none'
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000
+      Content-Security-Policy: default-src 'self' trusted.com *.trusted.com
+      ```
   remediation_time: "15"
   score:
     base:
@@ -3559,8 +3712,10 @@
       con acceso a el APK.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The source code of the app can be extracted directly using any relevant tool
+    compliant: |
+      An obfuscation process was performed before publishing the app code
   remediation_time: "120"
   score:
     base:
@@ -3715,8 +3870,15 @@
       y el APK instalado.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The app has no methods to check if Android System is rooted
+    compliant: |
+      ```java
+      private static boolean checkRootMethod1() {
+        String buildTags = android.os.Build.TAGS;
+        return buildTags != null && buildTags.contains("test-keys");
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -4602,8 +4764,22 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      def doConnection(host, port, intention):
+        sock = tcp_connect(host, port, intention)
+        ssl_sock.do_handshake()
+        return ssl_sock
+      ```
+    compliant: |
+      ```python
+      def doConnection(host, port, intention):
+        isValidHost = validateHost(host, port)
+        if isValidhost:
+          sock = tcp_connect(host, port, intention)
+          ssl_sock.do_handshake()
+          return ssl_sock
+      ```
   remediation_time: "15"
   score:
     base:
@@ -4661,8 +4837,28 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void File_Load(object file, EventArgs e)
+        {
+          runScrypt(file);
+        }
+      }
+      ```
+    compliant: |
+      Implement a check for every fragment introduced to the application
+      ```java
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void File_Load(object file, EventArgs e)
+        {
+          verifiedFile = secureFileContents(file, args*)
+          runScrypt(verifiedFile);
+        }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -4928,8 +5124,20 @@
       desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: text/html; charset=utf-8
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 "Wrong Clock" GMT
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: text/html; charset=utf-8
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:38:00 GMT
+      ```
   remediation_time: "30"
   score:
     base:
@@ -5384,7 +5592,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_lb_listener" "front_end" {
         load_balancer_arn = aws_lb.front_end.arn
         port              = "443"
@@ -5399,7 +5607,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       <resource "aws_lb_listener" "front_end" {
         load_balancer_arn = aws_lb.front_end.arn
         port              = "443"
@@ -5473,8 +5681,16 @@
       desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant:  |
+      ```http
+      GET http://localhost/
+      Referrer-Policy: none
+      ```
+    compliant:  |
+      ```http
+      GET http://localhost/
+      Referrer-Policy: origin-when-cross-origin
+      ```
   remediation_time: "30"
   score:
     base:
@@ -5587,7 +5803,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_rds_cluster_instance" "cluster_instances" {
         count               = 2
         publicly_accessible = true
@@ -5599,7 +5815,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "aws_rds_cluster_instance" "cluster_instances" {
         count               = 2
         publicly_accessible = false
@@ -6080,8 +6296,29 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      var moduleName = require("<name of dependency>");
+      const createUser = (user) => {
+          moduleName(user);
+      }
+      ```
+    compliant: |
+      ```json
+      {
+        "name": "test",
+        "version": "1.0.0",
+        "description": "nothing",
+        "main": "index.js",
+        "author": "Luis Saavedra",
+        "license": "MIT",
+        "private": false,
+        "dependencies": {
+          "@angular/core": "^13.3.3",
+          "cloudron-sysadmin": "1.0.0",
+        },
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -6131,8 +6368,51 @@
       Atacante autenticado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const registerUser = async (req, res, next) => {
+        const { username, password } = req.body
+        try {
+          await User.create({
+            username,
+            password,
+          }).then(user =>
+            res.status(200).json({
+              message: "User successfully created",
+              user,
+            })
+          )
+          return user, password
+        } catch (err) {
+          res.status(401).json({
+            message: "User not successful created",
+            error: error.mesage,
+          })
+        }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      const registerUser = async (req, res, next) => {
+        const { username, HashPassword } = req.body
+        try {
+          await User.create({
+            username,
+            HashPassword,
+          }).then(user =>
+            res.status(200).json({
+              message: "User successfully created",
+              user,
+            })
+          )
+        } catch (err) {
+          res.status(401).json({
+            message: "User not successful created",
+            error: error.mesage,
+          })
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -6259,8 +6539,27 @@
       Atacante autenticado desde red local.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object fileToDelete, EventArgs e)
+        {
+          file.delete(fileToDelete);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public partial class WebForm : System.Web.UI.Page
+      {
+        protected void Page_Load(object fileToDelete, EventArgs e)
+        {
+          overWriteFile(fileToDelete, "0000000000000")
+          file.delete(fileToDelete);
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -6458,14 +6757,14 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```jsx
+      ```javascript
       localStorage.getItem('password');
       localStorage.setItem('whatever', sessionID);
       localStorage.setItem(token.jwt, '123');
       localStorage.getItem(session_token);
       ```
     compliant: |
-      ```jsx
+      ```javascript
       localStorage.setItem('whatever','non-sensitive');
       localStorage.getItem(non.sensitive);
       ```
@@ -6522,8 +6821,25 @@
       desde la red de Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <html>
+        <head>
+          <script src="https://bam-cell.nr-data.net/thing.js"></script>
+        </head>
+      </html>
+      ```
+    compliant: |
+      ```html
+      <html>
+        <head>
+          <script src="https://bam-cell.nr-data.net/thing.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          crossorigin="anonymous"
+          ></script>
+        </head>
+      </html>
+      ```
   remediation_time: "15"
   score:
     base:
@@ -6695,8 +7011,24 @@
       desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public void insecure() {
+        HttpServletRequest request = new HttpServletRequest();
+        User currentUser = new User("Jane", "Doe", "xxxxxxxxxx");
+        currentUser.userId = this.createRandom();
+        request.getSession().setAttribute("testInstanceReference", currentUser.getUserId());
+      }
+      ```
+    compliant: |
+      ```java
+      public void secure() {
+        HttpServletRequest request = new HttpServletRequest();
+        User currentUser = new User("Jane", "Doe");
+        currentUser.userId = this.getSecureUuid();
+        request.getSession().setAttribute("testInstanceReference", currentUser.name);
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -6903,8 +7235,36 @@
       desde red adyacente ejecutando un MitM.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "off";
+          ssl_ciphers: "*";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -7086,8 +7446,36 @@
       desde red adyacente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_RSA_WITH_IDEA_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -7663,7 +8051,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_key_vault" "vulnerable" {
         name                       = "examplekeyvault"
         location                   = azurerm_resource_group.example.location
@@ -7673,7 +8061,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_key_vault" "not_vulnerable" {
         name                       = "examplekeyvault"
         location                   = azurerm_resource_group.example.location
@@ -7783,8 +8171,33 @@
       desde Internet.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Unconfigured signing keys for the apk
+      ```json
+      android {
+        signingConfigs {
+          getByName("config") {
+            empty
+          }
+        }
+        ...
+      }
+      ```
+    compliant: |
+      Correctly configure the signing keys before building the apk
+      ```json
+      android {
+        signingConfigs {
+          getByName("config") {
+            keyAlias = keystoreProperties["keyAlias"]
+            keyPassword = keystoreProperties["keyPassword"]
+            storeFile = file(keystoreProperties["storeFile"])
+            storePassword = keystoreProperties["storePassword"]
+          }
+        }
+        ...
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -8176,7 +8589,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_rds_cluster" "cluster_instances" {
         count              = 2
         identifier         = "aurora-cluster-demo-${count.index}"
@@ -8187,7 +8600,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "aws_rds_cluster" "cluster_instances" {
         count              = 2
         identifier         = "aurora-cluster-demo-${count.index}"
@@ -8402,8 +8815,38 @@
       desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      param = java.net.URLDecoder.decode(param, ""UTF-8"");
+
+      String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ param + ""')"";
+
+      try {
+        java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+        // Updating db model without filtering user input
+        int count = statement.executeUpdate( sql );
+        org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+      } catch (java.sql.SQLException e) {
+        ...
+      );
+      ```
+    compliant: |
+      ```java
+      param = java.net.URLDecoder.decode(param, ""UTF-8"");
+
+      cleanParam = getCleanValue(param)
+
+      String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ cleanParam + ""')"";
+
+      try {
+        java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+        // Updating db model without filtering user input
+        int count = statement.executeUpdate( sql );
+        org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+      } catch (java.sql.SQLException e) {
+        ...
+      );
+      ```
   remediation_time: "30"
   score:
     base:
@@ -8723,7 +9166,7 @@
       Master branch of the repository stores binary files or unverifiable files.
       e.g. MyJar.class
     compliant: |
-      All the files on the repository can be read and verified
+      There are no binary files in the repository
   remediation_time: "15"
   score:
     base:
@@ -9507,8 +9950,22 @@
       ejecutando un ataque XSS.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: text/html; charset=utf-8
+      Set-Cookie: session=/; Path=/
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: text/html; charset=utf-8
+      Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9563,8 +10020,22 @@
       ejecutando un ataque CSRF.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: text/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; SameSite=Lax
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: text/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; SameSite=Strict
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9627,8 +10098,22 @@
       ejecutando un MitM.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; secure = false
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/currentSession; Path=/mypath; secure = true
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9689,8 +10174,25 @@
       ejecutando un ataque de sniffing.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; secure = false
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; secure = false
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9813,8 +10315,25 @@
       desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; secure = false
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      X-Content-Type-Options: nosniff
+      Set-Cookie: session=/; Path=/; secure = false
+      Server: Werkzeug/2.0.1 Python/3.8.9
+      Date: Tue, 01 Feb 2022 20:29:25 GMT
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9878,8 +10397,42 @@
       una llave privada.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index index.html;
+          listen localhost:4446 ssl;
+          location / {
+            root server_root;
+          }
+          server_name localhost;
+          ssl_prefer_server_ciphers off;
+          ssl_ciphers "ADH-AES128-SHA:ADH-AES256-SHA:ADH-CAMELLIA128-SHA:ADH-CAMELLIA256-SHA:ADH-DES-CBC3-SHA:ADH-RC4-MD5:ADH-SEED-SHA:AES128-SHA:AES256-SHA:CAMELLIA128-SHA:ADH-SEED-SHA:AES128-SHA";
+          ssl_certificate ert.crt;
+          ssl_certificate_key cert.key;
+          ssl_protocols SSLv3 TLSv1 TLSv1.1;
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index index.html;
+          listen localhost:4446 ssl;
+          location / {
+            root server_root;
+          }
+          server_name localhost;
+          ssl_prefer_server_ciphers off;
+          ssl_ciphers EECDH+AESGCM:EDH+AESGCM;;
+          ssl_certificate ert.crt;
+          ssl_certificate_key cert.key;
+          ssl_protocols SSLv3 TLSv1 TLSv1.1;
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -11440,7 +11993,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_key_vault" "vulnerable" {
         name                       = "examplekeyvault"
         location                   = azurerm_resource_group.example.location
@@ -11456,7 +12009,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_key_vault" "not_vulnerable" {
         name                       = "examplekeyvault"
         location                   = azurerm_resource_group.example.location
@@ -14280,8 +14833,31 @@
       Atacante interno no autorizado.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function do_something() {
+          try {
+              return something;
+          } finally {
+              return somethingElse;
+          }
+        //Potential uncaught error
+      }
+      ```
+    compliant: |
+      ```javascript
+      try {
+          // a function that potentially throws an error
+          do_Something();
+      } catch (err) {
+          // this code handles exceptions
+          throw new Error(err);
+      } finally {
+          // this code will always be executed
+          return ResultMsg();
+      }
+      ```
+
   remediation_time: "30"
   score:
     base:
@@ -14650,8 +15226,17 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are no specific protection methods in the application to detect external hooks and stop the runtime
+    compliant: |
+      ```java
+      try {
+          //Code to detect external hooks/files or non native files or procedures
+          throw new Exception("Deteck hook");
+      } catch (Exception e) {
+        Log.Careful("HookDetection", e.toString());
+      }
+      ```
   remediation_time: "300"
   score:
     base:
@@ -14715,8 +15300,28 @@
       Ataque anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <?xml version="1.0" encoding="utf-8"?>
+      <network-security-config>
+        <domain-config>
+            <domain includeSubdomains="true">example.com</domain>
+        </domain-config>
+      </network-security-config>
+      ```
+    compliant: |
+      ```html
+      <?xml version="1.0" encoding="utf-8"?>
+      <network-security-config>
+        <domain-config>
+            <domain includeSubdomains="true">example.com</domain>
+            <pin-set>
+                <pin digest="SHA-256">ZC3lTYTDBJQVf1P2V7+fibTqbIsWNR/X7CWNVW+CEEA=</pin>
+                <pin digest="SHA-256">GUAL5bejH7czkXcAeJ0vCiRxwMnVBsDlBMBsFtfLF8A=</pin>
+            </pin-set>
+        </domain-config>
+      </network-security-config>
+      ```
   remediation_time: "300"
   score:
     base:
@@ -17006,8 +17611,32 @@
       se salte el proceso de autenticación.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The system does not define any authentication mechanisms
+    compliant: |
+      There is at least one authentication mechanism enabled in the system
+      ```terraform
+      resource "aws_iam_saml_provider" "default" {
+        name                   = "my-saml-provider"
+        saml_metadata_document = file("saml-metadata.xml")
+      }
+
+      resource "aws_cognito_identity_pool" "main" {
+        identity_pool_name               = "identity pool"
+        allow_unauthenticated_identities = false
+        allow_classic_flow               = false
+
+        cognito_identity_providers {
+          client_id               = "6lhlkkfbfb4q5kpp90urffae"
+          provider_name           = "cognito-idp.us-east-1.amazonaws.com/us-east-1_Tv0493apJ"
+          server_side_token_check = false
+        }
+
+        supported_login_providers = {
+          "/auth"  = "7346241598935552"
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -17306,7 +17935,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
         storage_encrypted       = false
@@ -17323,7 +17952,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
         storage_encrypted       = true
@@ -17397,8 +18026,36 @@
       Atacante con acceso al código desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      provider "aws" {
+        region     = "us-west-2"
+        access_key = "plain_access_key"
+        secret_key = "my-secret-key"
+      }
+      resource "aws_lb" "test" {
+        name               = ""test-lb-tf""
+        internal           = false
+        load_balancer_type = ""application""
+        security_groups    = [aws_security_group.lb_sg.id]
+        enable_deletion_protection = false
+      }
+      ```
+    compliant: |
+      ```terraform
+      provider "aws" {
+        region     = "us-west-2"
+        access_key = encrypted_key
+        secret_key = secret_key
+      }
+      resource "aws_lb" "test" {
+        name               = ""test-lb-tf""
+        internal           = false
+        load_balancer_type = ""application""
+        security_groups    = [aws_security_group.lb_sg.id]
+        enable_deletion_protection = true
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -17710,8 +18367,46 @@
       Atacante interno con acceso al VPC.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Resources:
+        InstanceSecurityGroup:
+          Type: AWS::EC2::SecurityGroup
+          Properties:
+              GroupDescription: Allow http to client host
+              VpcId:
+                Ref: myVPC
+              SecurityGroupIngress:
+              - IpProtocol: tcp
+                FromPort: 0
+                ToPort: 8000
+                CidrIp: 10.0.0.0/8
+              SecurityGroupEgress:
+              - IpProtocol: udp
+                FromPort: 0
+                ToPort: 8000
+                CidrIp: 0.0.0.0/0
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        InstanceSecurityGroup:
+          Type: AWS::EC2::SecurityGroup
+          Properties:
+              GroupDescription: Allow http to client host
+              VpcId:
+                Ref: myVPC
+              SecurityGroupIngress:
+              - IpProtocol: tcp
+                FromPort: 20
+                ToPort: 22
+                CidrIp: 10.0.0.0/8
+              SecurityGroupEgress:
+              - IpProtocol: udp
+                FromPort: 20
+                ToPort: 22
+                CidrIp: 0.0.0.0/0
+      ```
   remediation_time: "120"
   score:
     base:
@@ -17926,7 +18621,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
         engine                  = "mysql"
@@ -17942,7 +18637,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
         engine                  = "mysql"
@@ -18179,7 +18874,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```json
+      ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         name           = "GameScores"
         billing_mode   = "PROVISIONED"
@@ -18229,7 +18924,7 @@
       }
       ```
     compliant: |
-      ```json
+      ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         name           = "GameScores"
         billing_mode   = "PROVISIONED"
@@ -18846,8 +19541,22 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      @Override
+      protected void processLogic(Bundle savedInstanceState) {
+        mContentWv.getSettings().setJavaScriptEnabled(true);
+        mContentWv.loadUrl("my_url");
+      }
+      ```
+    compliant: |
+      ```javascript
+      @Override
+      protected void processLogic(Bundle savedInstanceState) {
+        mContentWv.getSettings().setJavaScriptEnabled(false);
+        mContentWv.loadUrl("my_url");
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -19370,8 +20079,19 @@
       no autorizadas.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      resource "system_passwordpolicy" "strict" {
+        enable_password_expiration = disable
+      }
+      ```
+    compliant: |
+      ```terraform
+      resource "system_passwordpolicy" "strict" {
+        enable_password_expiration = enable
+        expire_day                 = 90
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -20831,7 +21551,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      ```json
+      ```terraform
       resource "azurerm_app_service" "not_vulnerable" {
         name                = var.functionapp_name
         location            = var.rg_location
@@ -20845,7 +21565,7 @@
       }
       ```
     compliant: |
-      ```json
+      ```terraform
       resource "azurerm_function_app" "not_vulnerable" {
         name                       = "test-azure-functions"
         location                   = azurerm_resource_group.example.location
@@ -21670,8 +22390,28 @@
       Atacante sin autorización desde intranet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      android {
+        defaultConfig {
+          minSdkVersion 17
+          targetSdkVersion 20
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      android {
+        compileSdkVersion 31
+        ...
+        defaultConfig {
+          minSdkVersion 25
+          targetSdkVersion 30
+          ...
+        }
+        ...
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22428,7 +23168,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      ```json
+      ```terraform
       data "aws_iam_policy_document" "example" {
         statement {
           sid    = "Enable IAM User Permissions"
@@ -22447,7 +23187,7 @@
       }
       ```
     compliant: |
-      ```json
+      ```terraform
       data "aws_iam_policy_document" "example" {
         statement {
           sid    = "Enable IAM User Permissions"
@@ -23066,7 +23806,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_s3_bucket" "state_bucket" {
         bucket        = "${data.aws_caller_identity.current.account_id}-terraform-state"
         acl           = var.acl
@@ -23087,7 +23827,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "aws_s3_bucket" "state_bucket" {
         bucket        = "${data.aws_caller_identity.current.account_id}-terraform-state"
         acl           = var.acl
@@ -25440,7 +26180,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_storage_account" "vulnerable" {
         name                      = "storageaccountname"
         resource_group_name       = azurerm_resource_group.example.name
@@ -25464,7 +26204,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_storage_account" "not_vulnerable" {
         name                     = "storageaccountname"
         resource_group_name      = azurerm_resource_group.example.name
@@ -26837,8 +27577,45 @@
     threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Example importing a dependency with known vulnerabilities
+      ```json
+      {
+        "name": "test",
+        "version": "1.0.0",
+        "description": "nothing",
+        "main": "index.js",
+        "author": "Luis Saavedra",
+        "license": "MIT",
+        "private": false,
+        "dependencies": {
+          "@angular/core": "^13.3.3",
+          "cloudron-sysadmin": "1.0.0",
+          "script-manager": "0.8.6",
+          "slug": "0.9.0"
+        },
+        "devDependencies": {
+          "xmldom": "0.4.0"
+        }
+      }
+      ```
+    compliant: |
+      Search for known vulnerabilities of any dependencies used on the code, replace them for safer alternatives
+      ```json
+      {
+        "name": "test",
+        "version": "1.0.0",
+        "description": "nothing",
+        "main": "index.js",
+        "author": "Luis Saavedra",
+        "license": "MIT",
+        "private": false,
+        "dependencies": {
+          "@angular/core": "^13.3.3",
+          "cloudron-sysadmin": "1.0.0",
+        },
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -27203,8 +27980,27 @@
       Authenticated attacker from the Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      @Override
+      String initialFragment = getIntent().getStringExtra(EXTRA_SHOW_FRAGMENT);
+      Bundle initialArguments = getIntent().getBundleExtra(EXTRA_SHOW_FRAGMENT_ARGUMENTS);
+      if (savedInstanceState != null) {
+        //Handle Exception
+      } else {
+          if (initialFragment != null && mSinglePane) {
+            // Add Fragment to the application
+          }
+        }
+      }
+      ```
+    compliant: |
+      Implement a check for every fragment introduced to the application
+      ```java
+      public boolean isValidFragment(String fragmentName) {
+        return MyFragment.class.getName().equals(fragmentName);
+      }
+      ```
   remediation_time: "120"
   es:
     title: Fragment Injection
@@ -27408,7 +28204,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_key_vault_secret" "vulnerable" {
         name         = "example"
         value        = var.value_azsqlrevapp
@@ -27416,7 +28212,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_key_vault_secret" "not_vulnerable" {
         name            = "kvAzsqlRevApphist"
         expiration_date = "2020-12-30T20:00:00Z"
@@ -27479,7 +28275,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_storage_account" "vulnerable" {
         name                     = "example"
         resource_group_name      = data.azurerm_resource_group.example.name
@@ -27498,7 +28294,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "azurerm_storage_account" "not_vulnerable" {
         name                     = "example"
         resource_group_name      = data.azurerm_resource_group.example.name
@@ -28033,7 +28829,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```yaml
+      ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         server_side_encryption {
           enabled     = false
@@ -28042,7 +28838,7 @@
       }
       ```
     compliant: |
-      ```yaml
+      ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         server_side_encryption {
           enabled     = true
@@ -28257,8 +29053,27 @@
       with write permissions in the vault
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      resource "azurerm_key_vault" "vulnerable" {
+        name                       = "examplekeyvault"
+        location                   = azurerm_resource_group.example.location
+        resource_group_name        = azurerm_resource_group.example.name
+        tenant_id                  = data.azurerm_client_config.current.tenant_id
+      }
+      ```
+    compliant: |
+      ```terraform
+      resource "azurerm_key_vault" "not_vulnerable" {
+        name                       = "examplekeyvault"
+        location                   = azurerm_resource_group.example.location
+        resource_group_name        = azurerm_resource_group.example.name
+        tenant_id                  = data.azurerm_client_config.current.tenant_id
+        soft_delete_retention_days = 7
+        soft_delete_enabled        = true
+        purge_protection_enabled   = true
+      }
+      ```
   remediation_time: "20"
   es:
     title: Lack of protection against deletion - Azure Key Vault
