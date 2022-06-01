@@ -13,7 +13,6 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
@@ -126,13 +125,13 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     {
       dataField: "policy",
       header: t("organization.tabs.policies.policy"),
-      width: "65%",
+      width: "80%",
       wrapped: true,
     },
     {
       dataField: "value",
       header: t("organization.tabs.policies.value"),
-      width: "35%",
+      width: "20%",
       wrapped: true,
     },
   ];
@@ -346,19 +345,14 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       >
         {({ dirty, isValid, submitForm }): JSX.Element => (
           <Form id={"orgPolicies"}>
-            <TooltipWrapper
-              id={t("organization.tabs.policies.permissionTooltip.id")}
-              message={t("organization.tabs.policies.permissionTooltip")}
-            >
-              <Table
-                dataset={policiesDataSet}
-                exportCsv={false}
-                headers={tableHeaders}
-                id={"policiesTbl"}
-                pageSize={10}
-                search={false}
-              />
-            </TooltipWrapper>
+            <Table
+              dataset={policiesDataSet}
+              exportCsv={false}
+              headers={tableHeaders}
+              id={"policiesTbl"}
+              pageSize={10}
+              search={false}
+            />
             <Can do={"api_mutations_update_organization_policies_mutate"}>
               {!dirty || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar>

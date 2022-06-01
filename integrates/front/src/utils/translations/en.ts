@@ -1651,9 +1651,6 @@ export const enTranslations: ResourceKey = {
             tagsInput: "Tags associated to the policy",
           },
         },
-        permissionTooltip:
-          "You need to have a User Manager role to be able to modify " +
-          "these values",
         policies: {
           acceptanceSeverityRange:
             "Temporal CVSS 3.1 score range between which a finding can be accepted",
