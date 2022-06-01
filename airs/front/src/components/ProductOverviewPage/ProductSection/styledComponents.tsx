@@ -23,7 +23,7 @@ const SectionContainer = styled.div.attrs({
 const ProgressCol = styled.div.attrs({
   className: `
     dn
-    mr3
+    mr4
     mv5
     db-l
     relative
@@ -35,7 +35,7 @@ const ProgressContainer = styled.div.attrs({
     absolute
   `,
 })`
-  width: 5px;
+  width: 3px;
   height: 88%;
   background-color: #f4f4f6;
 `;
