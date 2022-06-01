@@ -132,6 +132,15 @@ UpdateStakeholderPayload = NamedTuple(
         ("modified_stakeholder", Dict[str, Any]),
     ],
 )
+UpdateToeLinesPayload = NamedTuple(
+    "UpdateToeLinesPayload",
+    [
+        ("filename", str),
+        ("group_name", str),
+        ("root_id", str),
+        ("success", bool),
+    ],
+)
 ExecuteMachinePayload = NamedTuple(
     "ExecuteMachinePayload",
     [
