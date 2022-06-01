@@ -7,6 +7,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.organizations.constants import (
+    ALL_ORGANIZATIONS_INDEX_METADATA,
+)
 from db_model.organizations.utils import (
     remove_org_id_prefix,
 )
@@ -25,6 +28,7 @@ async def add(*, organization: Organization) -> None:
 
     items = []
     key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
     organization_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={
@@ -41,9 +45,19 @@ async def add(*, organization: Organization) -> None:
     if item_in_db:
         raise OrganizationAlreadyCreated.new()
 
+    gsi_2_key = keys.build_key(
+        facet=ALL_ORGANIZATIONS_INDEX_METADATA,
+        values={
+            "all": "all",
+            "id": organization.id,
+        },
+    )
+
     organization_item = {
         key_structure.partition_key: organization_key.partition_key,
         key_structure.sort_key: organization_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         **json.loads(json.dumps(organization)),
     }
     items.append(organization_item)
