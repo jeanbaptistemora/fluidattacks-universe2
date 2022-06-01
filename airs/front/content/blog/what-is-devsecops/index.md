@@ -43,6 +43,8 @@ So,
 we need to explain
 what is the difference between DevOps and DevSecOps.
 
+### DevOps
+
 Perhaps as famous a concept as DevSecOps,
 [DevOps](../devops-concept/) is defined as a development methodology
 whose aim is to bridge the gap between development and operations.
@@ -68,6 +70,8 @@ In GitLab's aforementioned
 almost 60% of developers said
 they released code twice as fast thanks to DevOps.
 
+### DevSecOps
+
 Great as DevOps may sound,
 there's no point in releasing fast
 if the product might be riddled with bugs.
@@ -75,7 +79,7 @@ Teams attempt to prevent this
 by implementing DevSecOps, meaning
 they assess their code with security testing automated tools
 or manual tecniques.
-They do this during the entire development lifecycle.
+They do this during the entire development lifecycle (SDLC).
 That's right: from its beginning to its end.
 
 ## Benefits of DevSecOps
@@ -195,7 +199,7 @@ Thus, we offer the following:
 
 We can't stress enough
 the importance of starting security testing from the very beginning.
-Visualize the software development lifecycle across a straight horizontal line,
+Visualize the SDLC across a straight horizontal line,
 project planning on the leftmost point
 and production deployment on the rightmost point:
 We're asking you to move security testing ever to the left.
@@ -204,8 +208,7 @@ The whole idea concerning shift-left testing is to identify
 and address security issues in software
 from the early stages of development.
 That is,
-not well into the traditional testing stage
-of the software development lifecycle
+not well into the traditional testing stage of the SDLC
 but much earlier,
 even when defining its requirements
 (e.g., what it should do and the resources needed).
@@ -232,12 +235,71 @@ these tools may generate false positives
 and false negatives,
 so an even better strategy is to have actual people use manual techniques
 (e.g., manual SAST, DAST
-and [pentesting](../../solutions/penetration-testing/))
+and [SCA](../../categories/sca/))
 to find vulnerabilities in your software.
 In fact,
 our ethical hackers [found about 81%](https://try.fluidattacks.com/report/state-of-attacks-2021/)
 of the high and critical severity vulnerabilities reported
 in systems over an analysis period in 2020.
+
+## DevSecOps as a service
+
+Some organizations may find it necessary
+to outsource DevSecOps services.
+When they do this,
+they expect to be provided a solution
+that leverages the knowledge and practical experience
+of certified DevSecOps professionals.
+The provider of DevSecOps as a service is responsible
+for embedding security methodologies and toolkits
+(such as tools to run security checks in CI/CD pipelines)
+across the entire SDLC.
+Moreover,
+they should assess current
+and potential vulnerabilities in the system
+and help enforce cybersecurity best practices beyond secure coding.
+
+We at `Fluid Attacks` offer [DevSecOps](../../solutions/devsecops/)
+implementation
+as part of our [Continuous Hacking](../../services/continuous-hacking/)
+solution.
+As mentioned above,
+we understand
+that using manual techniques for security testing
+has evident benefits over automated security testing tools.
+So,
+we help organizations implement DevSecOps
+by offering our ethical hackers' skills (in addition to automated tools)
+to find vulnerabilities across the SDLC.
+
+## How does DevSecOps relate to red teams?
+
+You may then want your system to be tested for vulnerabilities
+in the most realistic way.
+That is,
+to have ethical hackers perform actual attacks.
+[Red teaming](../../solutions/red-teaming/) can do this for you.
+Its relation with DevSecOps is
+that you can gain a better understanding of your system's security
+if ethical hackers continually test the system versions
+just like malicious attackers would.
+This implies
+that [only some people](../tiber-eu-framework/)
+in your organization
+should be aware of the contractual agreement with the red team;
+the rest will have to respond to the attacks,
+which will be carried out [without any previous announcement](../attack-no-announce/).
+
+A resulting way in which red teaming [may enhance](https://www.devsecops.org/blog/tag/Red+Team)
+your DevSecOps adoption
+is by challenging a pernicious mindset:
+That vulnerabilities can be accepted,
+since there's little chance they will be exploited.
+So,
+when you have actual evidence
+that hackers exploited it,
+you have no option but to prioritize its remediation
+instead of focusing on deploying new features.
 
 We at `Fluid Attacks` help you enact your DevSecOps practices:
 You can integrate our [DevSecOps agent](https://docs.fluidattacks.com/machine/agent)
