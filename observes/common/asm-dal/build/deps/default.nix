@@ -46,4 +46,5 @@ in
     mypy = typing_ext_override python_pkgs.mypy;
     mypy-boto3-dynamodb = import ./boto3/dynamodb-stubs.nix lib python_pkgs;
     types-boto3 = import ./boto3/stubs.nix lib python_pkgs;
+    types-click = import ./click/stubs.nix lib;
   }
