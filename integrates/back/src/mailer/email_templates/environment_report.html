@@ -21,7 +21,7 @@
           <li><strong>URLs added</strong>:</li>
           <ul>
             {% for url_added in urls_added %}
-              <li>{{ url_added }}</li>
+              <li><a href="{{ url_added }}" target="_blank" rel="noopener noreferrer">{{ url_added }}</a></li>
             {% endfor %}
           </ul>
         </ul>
@@ -31,7 +31,7 @@
           <li><strong>URLs deleted</strong>:</li>
           <ul>
             {% for url_deleted in urls_deleted %}
-              <li>{{ url_deleted }}</li>
+              <li><a href="{{ url_deleted }}" target="_blank" rel="noopener noreferrer">{{ url_deleted }}</a></li>
             {% endfor %}
           </ul>
         </ul>

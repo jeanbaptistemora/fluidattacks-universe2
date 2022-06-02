@@ -30,7 +30,11 @@
               from:
           	</div>
             <div class="column right">
-              {{ old_state[key] }}
+              {% if key == "url" %}
+                <a href="{{ old_state[key] }}" target="_blank" rel="noopener noreferrer">{{ old_state[key] }}</a>
+              {% else %}
+                {{ old_state[key] }}
+              {% endif %}
           	</div>
           </div>
           <div class="row" style="margin-bottom:1rem !important;">
@@ -38,7 +42,11 @@
               to:
           	</div>
             <div class="column right">
-              {{ value }}
+              {% if key == "url" %}
+                <a href="{{ value }}" target="_blank" rel="noopener noreferrer">{{ value }}</a>
+              {% else %}
+                {{ value }}
+              {% endif %}
           	</div>
           </div>
         {% else %}
