@@ -1,8 +1,11 @@
+/* eslint react/forbid-component-props: 0 */
 import React, { useEffect, useState } from "react";
 
 import { DemoBanner } from "./DemoBanner";
 import {
   Container,
+  HorizontalProgressBar,
+  HorizontalProgressContainer,
   ProgressBar,
   ProgressCol,
   ProgressContainer,
@@ -72,20 +75,17 @@ const ProductSection: React.FC = (): JSX.Element => {
     },
   ];
 
-  const [scrollTop, setScrollTop] = useState(10);
+  const [scrollTop, setScrollTop] = useState(5);
+  const [scrollHorizontal, setScrollHorizontal] = useState(5);
 
   const onScroll = (): void => {
     const scrollDistance = -document
       .getElementsByClassName("product-section")[0]
       .getBoundingClientRect().top;
     const progressPercentage =
-      (scrollDistance /
-        (document
-          .getElementsByClassName("product-section")[0]
-          .getBoundingClientRect().height -
-          document.documentElement.clientHeight)) *
-      100;
-    const scrolled = Math.floor(progressPercentage);
+      document.getElementsByClassName("product-section")[0].scrollHeight -
+      document.documentElement.clientHeight;
+    const scrolled = (scrollDistance / progressPercentage) * 100;
 
     if (scrolled <= 5) {
       setScrollTop(5);
@@ -96,11 +96,32 @@ const ProductSection: React.FC = (): JSX.Element => {
     }
   };
 
+  const onHorizontalScroll = (): void => {
+    const scrollDistance =
+      document.getElementsByClassName("product-section")[0].scrollLeft;
+    const progressPercentage =
+      document.getElementsByClassName("product-section")[0].scrollWidth -
+      document.getElementsByClassName("product-section")[0].clientWidth;
+    const scrolled = (scrollDistance / progressPercentage) * 100;
+
+    if (scrolled <= 5) {
+      setScrollHorizontal(5);
+    } else if (scrolled >= 100) {
+      setScrollHorizontal(100);
+    } else {
+      setScrollHorizontal(scrolled);
+    }
+  };
+
   useEffect((): (() => void) => {
+    const productSection = document.getElementsByClassName("product-section");
+
     window.addEventListener("scroll", onScroll);
+    productSection[0].addEventListener("scroll", onHorizontalScroll);
 
     return (): void => {
       window.removeEventListener("scroll", onScroll);
+      productSection[0].removeEventListener("scroll", onHorizontalScroll);
     };
   }, []);
 
@@ -108,7 +129,7 @@ const ProductSection: React.FC = (): JSX.Element => {
     <Container>
       <ProgressCol>
         <ProgressContainer>
-          <ProgressBar height={`${scrollTop}`} />
+          <ProgressBar style={{ height: `${scrollTop}%` }} />
         </ProgressContainer>
       </ProgressCol>
       <SectionContainer>
@@ -127,6 +148,9 @@ const ProductSection: React.FC = (): JSX.Element => {
           );
         })}
       </SectionContainer>
+      <HorizontalProgressContainer>
+        <HorizontalProgressBar style={{ width: `${scrollHorizontal}%` }} />
+      </HorizontalProgressContainer>
     </Container>
   );
 };
