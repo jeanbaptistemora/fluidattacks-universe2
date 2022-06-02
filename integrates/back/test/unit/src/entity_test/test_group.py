@@ -1023,6 +1023,7 @@ async def test_update_git_environments_delete() -> None:
           environmentUrls: [
             "https://app.fluidattacks.com/"
           ]
+          reason: OUT_OF_SCOPE
         ) {
           success
         }

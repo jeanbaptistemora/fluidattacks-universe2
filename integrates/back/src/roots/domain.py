@@ -514,6 +514,12 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
         if url not in root.state.environment_urls
     ]
 
+    if urls_deleted:
+        if not reason:
+            raise InvalidParameter(field="Reason")
+        if reason == "OTHER" and not other:
+            raise InvalidParameter(field="Other")
+
     await collect(
         [remove_environment_url(root_id, url) for url in urls_deleted]
     )

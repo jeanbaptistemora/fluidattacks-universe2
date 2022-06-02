@@ -2,6 +2,12 @@ from . import (
     get_result_add,
     get_result_remove,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    InvalidParameter,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -64,6 +70,26 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     loaders = get_new_context()
     root: GitRoot = await loaders.root.load((group_name, root_id))
     assert root.state.environment_urls == env_urls
+
+    with suppress(InvalidParameter):
+        # No reason for deletion
+        await get_result_remove(
+            user=email,
+            group=group_name,
+            env_urls=[env_urls[0]],
+            other="",
+            reason="",
+            root_id=root_id,
+        )
+        # Not specifying other when pointing it out as the reason
+        await get_result_remove(
+            user=email,
+            group=group_name,
+            env_urls=[env_urls[0]],
+            other="",
+            reason="OTHER",
+            root_id=root_id,
+        )
 
     result: Dict[str, Any] = await get_result_remove(
         user=email,

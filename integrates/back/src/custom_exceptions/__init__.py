@@ -649,11 +649,14 @@ class InvalidOrganization(CustomBaseException):
 
 
 class InvalidParameter(CustomBaseException):
-    """Exception to control empty parameter"""
+    """Exception to control empty required parameters"""
 
-    def __init__(self) -> None:
+    def __init__(self, field: str = "") -> None:
         """Constructor"""
-        msg = "Exception - Error empty value is not valid"
+        if field:
+            msg = f"Exception - Field {field} cannot be empty"
+        else:
+            msg = "Exception - Error empty value is not valid"
         super(InvalidParameter, self).__init__(msg)
 
 
