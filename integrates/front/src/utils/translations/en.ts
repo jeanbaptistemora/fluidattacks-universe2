@@ -1657,13 +1657,13 @@ export const enTranslations: ResourceKey = {
           maxAcceptanceDays:
             "Temporal acceptance: maximum number of days for assignment",
           maxNumberAcceptances:
-            "Temporal acceptance: maximum number of assignments for a single" +
+            "Temporal acceptance: maximum number of assignments for a single " +
             "vulnerability",
           minBreakingSeverity:
-            "DevSecOps: Minimum CVSS 3.1 score from which agent breaks the" +
+            "DevSecOps: Minimum CVSS 3.1 score from which agent breaks the " +
             "build for open vulnerabilities",
           vulnerabilityGracePeriod:
-            "DevSecOps: Days before agent starts breaking the build for new" +
+            "DevSecOps: Days before agent starts breaking the build for new " +
             "vulnerabilities",
         },
         policy: "Policy",
