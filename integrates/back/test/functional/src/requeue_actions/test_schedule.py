@@ -29,12 +29,6 @@ async def test_requeue_actions(populate: bool) -> None:
         "d594e2851fe5d537742959291fbff448758dfab9b8bee35047f000c6e1fc0402"
     ]
 
-    # An action with the same parameters with more resources should be created
-    action_to_clone = await batch_dal.get_action(
-        action_dynamo_pk="75d0d7e2f4d87093f1084535790ef9d4923e474cd2f431cda3f6"
-        "b4c34e385a10"
-    )
-
     # An active action that will not have any changes
     unchanged_actions = await collect(
         batch_dal.get_action(action_dynamo_pk=pk)
@@ -104,7 +98,6 @@ async def test_requeue_actions(populate: bool) -> None:
         for index, key in enumerate(running_actions)
     )
     write_response = [
-        "6fbe3011-eb29-426a-b52d-396382d32c1c",
         "2507485d-4a2e-4c14-a68b-fbe0c34d5f01",
     ]
     with mock.patch(
@@ -118,23 +111,10 @@ async def test_requeue_actions(populate: bool) -> None:
             await requeue_actions.main()
             actions = await batch_dal.get_actions()
             actions_ids = [action.key for action in actions]
-            assert len(actions) == 4
+            assert len(actions) == 3
             assert not any(
                 action in actions_ids for action in actions_to_delete
             )
-
-            machine_action = next(
-                action
-                for action in actions
-                if action.action_name == Action.EXECUTE_MACHINE.value
-            )
-            assert machine_action.action_name == action_to_clone.action_name
-            assert (
-                machine_action.additional_info
-                == action_to_clone.additional_info
-            )
-            assert machine_action.entity == action_to_clone.entity
-            assert machine_action.queue == action_to_clone.queue
 
             clone_action = next(
                 action
