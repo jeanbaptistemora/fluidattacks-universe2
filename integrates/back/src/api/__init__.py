@@ -31,14 +31,14 @@ APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 class Operation(NamedTuple):
     name: str
     query: str
-    variables: str
+    variables: Dict[str, Any]
 
 
 def _get_operation(data: Dict[str, Any]) -> Operation:
     return Operation(
         name=data.get("operationName") or "External (unnamed)",
         query=data.get("query", "").replace("\n", "") or "-",
-        variables=data.get("variables") or "-",
+        variables=data.get("variables") or {},
     )
 
 
