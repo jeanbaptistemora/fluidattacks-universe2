@@ -145,7 +145,43 @@ async def get_many_groups(
     )
 
 
-def format_data(count: Decimal) -> dict:
+def format_data(count: Decimal, state: str) -> dict:
+    if state == "created" and count > Decimal("0.0"):
+        return dict(
+            arrowFontSizeRatio=0.6,
+            fontSizeRatio=0.5,
+            text=count,
+            color="red",
+            arrow="\uD83E\uDC29",
+        )
+
+    if state == "solved" and count > Decimal("0.0"):
+        return dict(
+            arrowFontSizeRatio=0.6,
+            fontSizeRatio=0.5,
+            text=count,
+            color="green",
+            arrow="\uD83E\uDC29",
+        )
+
+    if state == "remediated" and count > Decimal("0.0"):
+        return dict(
+            arrowFontSizeRatio=0.6,
+            fontSizeRatio=0.5,
+            text=count,
+            color="green",
+            arrow="\uD83E\uDC29",
+        )
+
+    if state == "remediated" and count < Decimal("0.0"):
+        return dict(
+            arrowFontSizeRatio=0.6,
+            fontSizeRatio=0.5,
+            text=count,
+            color="green",
+            arrow="\uD83E\uDC2B",
+        )
+
     return dict(
         fontSizeRatio=0.5,
         text=count,
@@ -169,7 +205,8 @@ async def generate_all(state: str) -> None:
                     count=await generate_one(
                         loaders=loaders, group_name=group_name
                     ),
-                )[state]
+                )[state],
+                state=state,
             ),
             entity="group",
             subject=group_name,
@@ -184,7 +221,8 @@ async def generate_all(state: str) -> None:
                     count=await get_many_groups(
                         loaders=loaders, group_names=org_group_names
                     ),
-                )[state]
+                )[state],
+                state=state,
             ),
             entity="organization",
             subject=org_id,
@@ -198,7 +236,8 @@ async def generate_all(state: str) -> None:
                         count=await get_many_groups(
                             loaders=loaders, group_names=tuple(group_names)
                         ),
-                    )[state]
+                    )[state],
+                    state=state,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
