@@ -48,6 +48,7 @@ DISPATCHERS: Dispatchers = (
             "MethodInvocation",
             "ThrowStatement",
             "VariableDeclaration",
+            "UsingStatement",
         },
         cfg_builder=connect_to_next.build,
     ),

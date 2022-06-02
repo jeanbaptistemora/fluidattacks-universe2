@@ -29087,7 +29087,797 @@
           }
         ]
       },
-      "syntax_graph": null
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "10": {
+            "12": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "185": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "22": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "303": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "468": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "12": {
+            "19": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "155": {
+            "158": {
+              "label_ast": "AST"
+            },
+            "163": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "174": {
+              "label_cfg": "CFG"
+            }
+          },
+          "158": {
+            "159": {
+              "label_ast": "AST"
+            },
+            "161": {
+              "label_ast": "AST"
+            }
+          },
+          "163": {
+            "165": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "165": {
+            "167": {
+              "label_ast": "AST"
+            }
+          },
+          "167": {
+            "168": {
+              "label_ast": "AST"
+            }
+          },
+          "174": {
+            "176": {
+              "label_ast": "AST"
+            }
+          },
+          "176": {
+            "177": {
+              "label_ast": "AST"
+            },
+            "178": {
+              "label_ast": "AST"
+            }
+          },
+          "178": {
+            "181": {
+              "label_ast": "AST"
+            }
+          },
+          "185": {
+            "190": {
+              "label_ast": "AST"
+            },
+            "196": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "190": {
+            "192": {
+              "label_ast": "AST"
+            }
+          },
+          "196": {
+            "198": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "218": {
+              "label_ast": "AST"
+            },
+            "294": {
+              "label_ast": "AST"
+            }
+          },
+          "198": {
+            "201": {
+              "label_ast": "AST"
+            },
+            "208": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "218": {
+              "label_cfg": "CFG"
+            }
+          },
+          "2": {
+            "10": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "201": {
+            "203": {
+              "label_ast": "AST"
+            }
+          },
+          "203": {
+            "204": {
+              "label_ast": "AST"
+            }
+          },
+          "208": {
+            "210": {
+              "label_ast": "AST"
+            }
+          },
+          "210": {
+            "211": {
+              "label_ast": "AST"
+            },
+            "212": {
+              "label_ast": "AST"
+            }
+          },
+          "212": {
+            "215": {
+              "label_ast": "AST"
+            }
+          },
+          "218": {
+            "221": {
+              "label_ast": "AST"
+            },
+            "294": {
+              "label_cfg": "CFG"
+            }
+          },
+          "22": {
+            "27": {
+              "label_ast": "AST"
+            },
+            "33": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "221": {
+            "228": {
+              "label_ast": "AST"
+            }
+          },
+          "27": {
+            "29": {
+              "label_ast": "AST"
+            }
+          },
+          "294": {
+            "296": {
+              "label_ast": "AST"
+            }
+          },
+          "296": {
+            "297": {
+              "label_ast": "AST"
+            }
+          },
+          "303": {
+            "308": {
+              "label_ast": "AST"
+            },
+            "314": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "308": {
+            "310": {
+              "label_ast": "AST"
+            }
+          },
+          "314": {
+            "316": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "336": {
+              "label_ast": "AST"
+            },
+            "459": {
+              "label_ast": "AST"
+            }
+          },
+          "316": {
+            "319": {
+              "label_ast": "AST"
+            },
+            "326": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "336": {
+              "label_cfg": "CFG"
+            }
+          },
+          "319": {
+            "321": {
+              "label_ast": "AST"
+            }
+          },
+          "321": {
+            "322": {
+              "label_ast": "AST"
+            }
+          },
+          "326": {
+            "328": {
+              "label_ast": "AST"
+            }
+          },
+          "328": {
+            "329": {
+              "label_ast": "AST"
+            },
+            "330": {
+              "label_ast": "AST"
+            }
+          },
+          "33": {
+            "155": {
+              "label_ast": "AST"
+            },
+            "174": {
+              "label_ast": "AST"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "44": {
+              "label_ast": "AST"
+            }
+          },
+          "330": {
+            "333": {
+              "label_ast": "AST"
+            }
+          },
+          "336": {
+            "339": {
+              "label_ast": "AST"
+            },
+            "459": {
+              "label_cfg": "CFG"
+            }
+          },
+          "339": {
+            "346": {
+              "label_ast": "AST"
+            }
+          },
+          "36": {
+            "42": {
+              "label_ast": "AST"
+            },
+            "44": {
+              "label_cfg": "CFG"
+            }
+          },
+          "44": {
+            "155": {
+              "label_cfg": "CFG"
+            },
+            "47": {
+              "label_ast": "AST"
+            }
+          },
+          "459": {
+            "461": {
+              "label_ast": "AST"
+            }
+          },
+          "461": {
+            "462": {
+              "label_ast": "AST"
+            }
+          },
+          "468": {
+            "473": {
+              "label_ast": "AST"
+            },
+            "479": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "47": {
+            "54": {
+              "label_ast": "AST"
+            }
+          },
+          "473": {
+            "475": {
+              "label_ast": "AST"
+            }
+          },
+          "479": {
+            "481": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "499": {
+              "label_ast": "AST"
+            },
+            "597": {
+              "label_ast": "AST"
+            }
+          },
+          "481": {
+            "484": {
+              "label_ast": "AST"
+            },
+            "489": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "499": {
+              "label_cfg": "CFG"
+            }
+          },
+          "484": {
+            "485": {
+              "label_ast": "AST"
+            },
+            "487": {
+              "label_ast": "AST"
+            }
+          },
+          "489": {
+            "491": {
+              "label_ast": "AST"
+            }
+          },
+          "491": {
+            "492": {
+              "label_ast": "AST"
+            },
+            "493": {
+              "label_ast": "AST"
+            }
+          },
+          "493": {
+            "496": {
+              "label_ast": "AST"
+            }
+          },
+          "499": {
+            "502": {
+              "label_ast": "AST"
+            },
+            "597": {
+              "label_cfg": "CFG"
+            }
+          },
+          "502": {
+            "509": {
+              "label_ast": "AST"
+            }
+          },
+          "597": {
+            "599": {
+              "label_ast": "AST"
+            }
+          },
+          "599": {
+            "600": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "10": {
+            "label_type": "DeclarationBlock"
+          },
+          "12": {
+            "block_id": "19",
+            "label_type": "ConstructorDeclaration",
+            "name": "StudentController"
+          },
+          "155": {
+            "condition_id": "158",
+            "label_type": "If",
+            "true_id": "163"
+          },
+          "158": {
+            "label_type": "BinaryOperation",
+            "left_id": "159",
+            "operator": "==",
+            "right_id": "161"
+          },
+          "159": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
+          },
+          "161": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "163": {
+            "label_type": "ExecutionBlock"
+          },
+          "165": {
+            "label_type": "Return",
+            "value_id": "167"
+          },
+          "167": {
+            "expression": "NotFound",
+            "expression_id": "168",
+            "label_type": "MethodInvocation"
+          },
+          "168": {
+            "label_type": "SymbolLookup",
+            "symbol": "NotFound"
+          },
+          "174": {
+            "label_type": "Return",
+            "value_id": "176"
+          },
+          "176": {
+            "arguments_id": "178",
+            "expression": "Ok",
+            "expression_id": "177",
+            "label_type": "MethodInvocation"
+          },
+          "177": {
+            "label_type": "SymbolLookup",
+            "symbol": "Ok"
+          },
+          "178": {
+            "label_type": "ArgumentList"
+          },
+          "181": {
+            "label_type": "SymbolLookup",
+            "symbol": "student"
+          },
+          "185": {
+            "block_id": "196",
+            "label_type": "MethodDeclaration",
+            "name": "PostNewStudent",
+            "parameters_id": "190"
+          },
+          "19": {
+            "label_type": "ExecutionBlock"
+          },
+          "190": {
+            "label_type": "ParameterList"
+          },
+          "192": {
+            "label_type": "Parameter",
+            "variable": "student",
+            "variable_type": "StudentViewModel"
+          },
+          "196": {
+            "label_type": "ExecutionBlock"
+          },
+          "198": {
+            "condition_id": "201",
+            "label_type": "If",
+            "true_id": "208"
+          },
+          "2": {
+            "block_id": "10",
+            "label_type": "Class",
+            "name": "StudentController"
+          },
+          "201": {
+            "expression_id": "203",
+            "label_type": "PrefixOperation",
+            "prefix": "!"
+          },
+          "203": {
+            "expression": "ModelState",
+            "expression_id": "204",
+            "label_type": "MemberAccess",
+            "member": "IsValid"
+          },
+          "204": {
+            "label_type": "SymbolLookup",
+            "symbol": "ModelState"
+          },
+          "208": {
+            "label_type": "Return",
+            "value_id": "210"
+          },
+          "210": {
+            "arguments_id": "212",
+            "expression": "BadRequest",
+            "expression_id": "211",
+            "label_type": "MethodInvocation"
+          },
+          "211": {
+            "label_type": "SymbolLookup",
+            "symbol": "BadRequest"
+          },
+          "212": {
+            "label_type": "ArgumentList"
+          },
+          "215": {
+            "label_type": "Literal",
+            "value": "\"Invalid data.\"",
+            "value_type": "string"
+          },
+          "218": {
+            "declaration_id": "221",
+            "label_type": "UsingStatement"
+          },
+          "22": {
+            "block_id": "33",
+            "label_type": "MethodDeclaration",
+            "name": "GetStudentById",
+            "parameters_id": "27"
+          },
+          "221": {
+            "label_type": "VariableDeclaration",
+            "value_id": "228",
+            "variable": "ctx",
+            "variable_type": "var"
+          },
+          "228": {
+            "label_type": "ObjectCreation",
+            "name": "SchoolDBEntities"
+          },
+          "27": {
+            "label_type": "ParameterList"
+          },
+          "29": {
+            "label_type": "Parameter",
+            "variable": "id",
+            "variable_type": "int"
+          },
+          "294": {
+            "label_type": "Return",
+            "value_id": "296"
+          },
+          "296": {
+            "expression": "Ok",
+            "expression_id": "297",
+            "label_type": "MethodInvocation"
+          },
+          "297": {
+            "label_type": "SymbolLookup",
+            "symbol": "Ok"
+          },
+          "303": {
+            "block_id": "314",
+            "label_type": "MethodDeclaration",
+            "name": "Put",
+            "parameters_id": "308"
+          },
+          "308": {
+            "label_type": "ParameterList"
+          },
+          "310": {
+            "label_type": "Parameter",
+            "variable": "student",
+            "variable_type": "StudentViewModel"
+          },
+          "314": {
+            "label_type": "ExecutionBlock"
+          },
+          "316": {
+            "condition_id": "319",
+            "label_type": "If",
+            "true_id": "326"
+          },
+          "319": {
+            "expression_id": "321",
+            "label_type": "PrefixOperation",
+            "prefix": "!"
+          },
+          "321": {
+            "expression": "ModelState",
+            "expression_id": "322",
+            "label_type": "MemberAccess",
+            "member": "IsValid"
+          },
+          "322": {
+            "label_type": "SymbolLookup",
+            "symbol": "ModelState"
+          },
+          "326": {
+            "label_type": "Return",
+            "value_id": "328"
+          },
+          "328": {
+            "arguments_id": "330",
+            "expression": "BadRequest",
+            "expression_id": "329",
+            "label_type": "MethodInvocation"
+          },
+          "329": {
+            "label_type": "SymbolLookup",
+            "symbol": "BadRequest"
+          },
+          "33": {
+            "label_type": "ExecutionBlock"
+          },
+          "330": {
+            "label_type": "ArgumentList"
+          },
+          "333": {
+            "label_type": "Literal",
+            "value": "\"Not a valid model\"",
+            "value_type": "string"
+          },
+          "336": {
+            "declaration_id": "339",
+            "label_type": "UsingStatement"
+          },
+          "339": {
+            "label_type": "VariableDeclaration",
+            "value_id": "346",
+            "variable": "ctx",
+            "variable_type": "var"
+          },
+          "346": {
+            "label_type": "ObjectCreation",
+            "name": "SchoolDBEntities"
+          },
+          "36": {
+            "label_type": "VariableDeclaration",
+            "value_id": "42",
+            "variable": "student",
+            "variable_type": "StudentViewModel"
+          },
+          "42": {
+            "label_type": "Literal",
+            "value": "null",
+            "value_type": "null"
+          },
+          "44": {
+            "declaration_id": "47",
+            "label_type": "UsingStatement"
+          },
+          "459": {
+            "label_type": "Return",
+            "value_id": "461"
+          },
+          "461": {
+            "expression": "Ok",
+            "expression_id": "462",
+            "label_type": "MethodInvocation"
+          },
+          "462": {
+            "label_type": "SymbolLookup",
+            "symbol": "Ok"
+          },
+          "468": {
+            "block_id": "479",
+            "label_type": "MethodDeclaration",
+            "name": "Delete",
+            "parameters_id": "473"
+          },
+          "47": {
+            "label_type": "VariableDeclaration",
+            "value_id": "54",
+            "variable": "ctx",
+            "variable_type": "var"
+          },
+          "473": {
+            "label_type": "ParameterList"
+          },
+          "475": {
+            "label_type": "Parameter",
+            "variable": "id",
+            "variable_type": "int"
+          },
+          "479": {
+            "label_type": "ExecutionBlock"
+          },
+          "481": {
+            "condition_id": "484",
+            "label_type": "If",
+            "true_id": "489"
+          },
+          "484": {
+            "label_type": "BinaryOperation",
+            "left_id": "485",
+            "operator": "<=",
+            "right_id": "487"
+          },
+          "485": {
+            "label_type": "SymbolLookup",
+            "symbol": "id"
+          },
+          "487": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "489": {
+            "label_type": "Return",
+            "value_id": "491"
+          },
+          "491": {
+            "arguments_id": "493",
+            "expression": "BadRequest",
+            "expression_id": "492",
+            "label_type": "MethodInvocation"
+          },
+          "492": {
+            "label_type": "SymbolLookup",
+            "symbol": "BadRequest"
+          },
+          "493": {
+            "label_type": "ArgumentList"
+          },
+          "496": {
+            "label_type": "Literal",
+            "value": "\"Not a valid student id\"",
+            "value_type": "string"
+          },
+          "499": {
+            "declaration_id": "502",
+            "label_type": "UsingStatement"
+          },
+          "502": {
+            "label_type": "VariableDeclaration",
+            "value_id": "509",
+            "variable": "ctx",
+            "variable_type": "var"
+          },
+          "509": {
+            "label_type": "ObjectCreation",
+            "name": "SchoolDBEntities"
+          },
+          "54": {
+            "label_type": "ObjectCreation",
+            "name": "SchoolDBEntities"
+          },
+          "597": {
+            "label_type": "Return",
+            "value_id": "599"
+          },
+          "599": {
+            "expression": "Ok",
+            "expression_id": "600",
+            "label_type": "MethodInvocation"
+          },
+          "600": {
+            "label_type": "SymbolLookup",
+            "symbol": "Ok"
+          }
+        }
+      }
     },
     {
       "graph": {

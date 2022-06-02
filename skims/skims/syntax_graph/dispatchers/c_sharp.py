@@ -40,6 +40,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     try_statement as c_sharp_try_statement,
     type_of_expression as c_sharp_type_of_expression,
     using_directive as c_sharp_using_directive,
+    using_statement as c_sharp_using_statement,
     variable_declaration as c_sharp_variable_declaration,
 )
 from syntax_graph.syntax_readers.common import (
@@ -388,6 +389,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "using_directive",
         },
         syntax_reader=c_sharp_using_directive.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "using_statement",
+        },
+        syntax_reader=c_sharp_using_statement.reader,
     ),
     Dispatcher(
         applicable_types={
