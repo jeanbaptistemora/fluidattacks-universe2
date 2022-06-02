@@ -53,20 +53,22 @@
     tap.checkly
     tap.gitlab
   ];
-  genPkgJobs = pkg: [
-    {
-      output = pkg.check.arch;
-      gitlabExtra = gitlabLint;
-    }
-    {
-      output = pkg.check.types;
-      gitlabExtra = gitlabLint;
-    }
-    {
-      output = pkg.check.tests;
-      gitlabExtra = gitlabTestCode;
-    }
-  ];
+  _if_exists = attrs: key: gitlabExtra:
+    if builtins.hasAttr key attrs
+    then [
+      {
+        inherit gitlabExtra;
+        output = attrs."${key}";
+      }
+    ]
+    else [];
+  genPkgJobs = pkg: let
+    arch_check = _if_exists pkg.check "arch" gitlabLint;
+    types_check = _if_exists pkg.check "types" gitlabLint;
+    tests_check = _if_exists pkg.check "tests" gitlabTestCode;
+    run_check = _if_exists pkg.check "runtime" gitlabTestCode;
+  in
+    arch_check ++ types_check ++ tests_check ++ run_check;
   pkgsJobs = builtins.concatLists (map genPkgJobs pkgTargets);
   # legacy standard
   targets = with index; [

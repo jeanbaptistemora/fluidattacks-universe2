@@ -32,6 +32,7 @@ let
     lint = "${root}/lint";
     test = "${root}/test";
   };
+  override_attrs = old: override: old // override old;
 in {
   service = {
     batch_stability = new_std "${servicePath}/batch-stability";
@@ -59,7 +60,9 @@ in {
       };
   };
   common = {
-    asm_dal = new_std "${commonPath}/asm-dal";
+    asm_dal = override_attrs (new_std "${commonPath}/asm-dal") (
+      old: {check = old.check // {runtime = "${old.root}/check/runtime";};}
+    );
     paginator = "${commonPath}/paginator";
     postgresClient = "${commonPath}/postgres-client/src";
     purity = "${commonPath}/purity";
