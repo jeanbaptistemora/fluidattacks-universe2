@@ -775,6 +775,7 @@ export const enTranslations: ResourceKey = {
             moved: "Moved to another group",
             other: "Other",
             scope: "Out of scope",
+            verboseLabel: "Reason for editing/removing URLs",
           },
           success: {
             message:

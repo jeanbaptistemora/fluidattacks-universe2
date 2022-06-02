@@ -106,7 +106,8 @@ const Environments: React.FC<IEnvironmentsProps> = ({
                 <FormGroup>
                   <br />
                   <ControlLabel>
-                    {t("group.scope.common.deactivation.reason.label")}
+                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                    {t("group.scope.common.deactivation.reason.verboseLabel")}
                   </ControlLabel>
                   <Field component={FormikDropdown} name={"reason"}>
                     <option value={""} />
@@ -125,6 +126,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
               {deletedUrls && values.reason === "OTHER" ? (
                 <FormGroup>
                   <ControlLabel>
+                    <RequiredField>{"*"}&nbsp;</RequiredField>
                     {t("group.scope.common.deactivation.other")}
                   </ControlLabel>
                   <Field component={FormikText} name={"other"} />

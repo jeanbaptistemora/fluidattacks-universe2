@@ -91,6 +91,7 @@
     ["update_evidence"]
     ["update_finding_description"]
     ["update_forces_access_token"]
+    ["update_git_environments"]
     ["update_git_root"]
     ["update_group"]
     ["update_group_access_info"]
