@@ -52,12 +52,16 @@ def _assert_dict(item: _T) -> Dict[Any, Any]:  # type: ignore[misc]
 
 
 def _to_items(page: ScanOutputTableTypeDef) -> FrozenList[OrganizationId]:
-    return tuple(  # type: ignore[misc]
+    return tuple(
         OrganizationId(
-            to_primitive(_assert_dict(item["pk"])["S"], str).unwrap().removeprefix("ORG#"),  # type: ignore[misc]
-            to_primitive(_assert_dict(item["sk"])["S"], str).unwrap().removeprefix("INFO#"),  # type: ignore[misc]
+            to_primitive(_assert_dict(item["pk"])["S"], str)
+            .unwrap()
+            .removeprefix("ORG#"),
+            to_primitive(_assert_dict(item["sk"])["S"], str)
+            .unwrap()
+            .removeprefix("INFO#"),
         )
-        for item in page["Items"]  # type: ignore[misc]
+        for item in page["Items"]
     )
 
 
@@ -81,9 +85,13 @@ class OrgsClient:
                     "begins_with(#pk, :pk) and begins_with(#sk, :sk)"
                 ),
                 TableName=_DB_TABLE,
-            )  # type: ignore[misc]
+            )
             LOG.debug("getting all_orgs")
-            return map(_mark_impure, response)  # type: ignore[misc]
+            return map(_mark_impure, response)
 
-        data = from_piter(unsafe_from_cmd(Cmd.from_cmd(_new_iter)))  # type: ignore[misc]
-        return data.map(lambda x: _to_items(x)).map(lambda x: from_flist(x)).transform(lambda s: chain(s))  # type: ignore[misc]
+        data = from_piter(unsafe_from_cmd(Cmd.from_cmd(_new_iter)))
+        return (
+            data.map(lambda x: _to_items(x))
+            .map(lambda x: from_flist(x))
+            .transform(lambda s: chain(s))
+        )

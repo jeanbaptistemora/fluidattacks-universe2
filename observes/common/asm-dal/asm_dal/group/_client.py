@@ -76,14 +76,17 @@ _LastObjKey = Mapping[  # type: ignore[misc]
 ]
 
 
-@dataclass(frozen=True)  # type: ignore[misc]
+@dataclass(frozen=True)
 class _Page:
     response: QueryOutputTableTypeDef
     last_index: Optional[_LastObjKey]
 
 
 def _to_group(pag: _Page) -> FrozenList[GroupId]:
-    return tuple(to_primitive(i["sk"], str).unwrap().split("#")[1] for i in pag.response["Items"])  # type: ignore[misc]
+    return tuple(
+        GroupId(to_primitive(i["sk"], str).unwrap().split("#")[1])
+        for i in pag.response["Items"]
+    )
 
 
 @dataclass(frozen=True)
@@ -104,20 +107,20 @@ class GroupsClient(_GroupsClient):
             ).begins_with("GROUP#")
             filter_exp = Attr("deletion_date").not_exists()
             response_items = (
-                self._table.query(  # type: ignore[misc]
+                self._table.query(
                     KeyConditionExpression=condition,
                     FilterExpression=filter_exp,
                     ExclusiveStartKey=last_index,
                 )
                 if last_index
-                else self._table.query(  # type: ignore[misc]
+                else self._table.query(
                     KeyConditionExpression=condition,
                     FilterExpression=filter_exp,
                 )
             )
             return _Page(
-                response_items,  # type: ignore[misc]
-                response_items.get("LastEvaluatedKey"),  # type: ignore[misc]
+                response_items,
+                response_items.get("LastEvaluatedKey"),
             )
 
         return Cmd.from_cmd(_action)

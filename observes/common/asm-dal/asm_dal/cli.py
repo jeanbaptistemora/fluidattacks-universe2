@@ -15,6 +15,7 @@ from fa_purity import (
     Cmd,
 )
 import logging
+import sys
 from typing import (
     NoReturn,
     TypeVar,
@@ -22,6 +23,11 @@ from typing import (
 
 LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
+
+
+def _print(item: _T) -> _T:
+    LOG.debug(item)
+    return item
 
 
 @click.command()  # type: ignore[misc]
@@ -41,11 +47,6 @@ def list_all_groups(key_id: str, secret: str, token: str) -> NoReturn:
     resource = new_resource(session)
     orgs_cli = OrgsClient(client)
     grp_cli = GroupsClient(resource)
-
-    def _print(item: _T) -> _T:
-        LOG.debug(item)
-        return item
-
     groups = (
         orgs_cli.all_orgs()
         .map(lambda o: _print(o))
@@ -55,7 +56,7 @@ def list_all_groups(key_id: str, secret: str, token: str) -> NoReturn:
         .map(lambda l: frozenset(l))
     )
     groups.map(lambda gs: "\n".join(g.name for g in gs)).bind(
-        lambda s: Cmd.from_cmd(lambda: LOG.info(s))
+        lambda s: Cmd.from_cmd(lambda: print(s, file=sys.stdout))
     ).compute()
 
 
