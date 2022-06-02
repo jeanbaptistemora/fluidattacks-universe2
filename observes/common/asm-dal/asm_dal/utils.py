@@ -14,7 +14,7 @@ from mypy_boto3_dynamodb import (
 class AwsCreds:
     key_id: str
     secret: str
-    session: str
+    session_token: str
 
     def __str__(self) -> str:
         return "[aws masked creds]"
@@ -27,7 +27,7 @@ def new_session(creds: AwsCreds) -> Session:
     return Session(
         aws_access_key_id=creds.key_id,
         aws_secret_access_key=creds.secret,
-        aws_session_token=creds.session,
+        aws_session_token=creds.session_token,
         region_name="us-east-1",
     )
 

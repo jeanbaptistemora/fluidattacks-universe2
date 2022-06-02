@@ -13,6 +13,9 @@ mypy-boto3-dynamodb = "^1.23.0"
 types-boto3 = "^1.0.2"
 types-click = "^7.1.8"
 
+[tool.poetry.scripts]
+asm-dal = 'asm_dal.cli:main'
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
