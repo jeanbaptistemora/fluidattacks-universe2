@@ -2,8 +2,9 @@
   lib,
   src,
   metadata,
-  propagatedBuildInputs,
-  nativeBuildInputs,
+  build_deps,
+  runtime_deps,
+  test_deps,
 }:
 lib.buildPythonPackage rec {
   pname = metadata.name;
@@ -12,7 +13,7 @@ lib.buildPythonPackage rec {
   type_check = ./check/types.sh;
   test_check = ./check/tests.sh;
   arch_check = ./check/arch.sh;
-  installCheckPhase = [
+  checkPhase = [
     ''
       source ${type_check} \
       && source ${test_check} \
@@ -21,5 +22,8 @@ lib.buildPythonPackage rec {
   ];
   doCheck = true;
   pythonImportsCheck = [pname];
-  inherit src propagatedBuildInputs nativeBuildInputs;
+  buildInputs = build_deps;
+  propagatedBuildInputs = runtime_deps;
+  checkInputs = test_deps;
+  inherit src;
 }
