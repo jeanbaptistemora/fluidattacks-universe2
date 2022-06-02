@@ -268,13 +268,13 @@ async def execute_set_of_configs(
 
     batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 
-    if integrates_access and batch_job_id:
-        await notify_start(batch_job_id)
     stores = {
         finding: get_ephemeral_store() for finding in core_model.FindingEnum
     }
     for index, current_config in enumerate(configs):
         CTX.config = current_config
+        if integrates_access and batch_job_id:
+            await notify_start(batch_job_id)
 
         add_bugsnag_data(namespace=CTX.config.namespace)
 
