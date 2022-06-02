@@ -1672,6 +1672,7 @@ export const enTranslations: ResourceKey = {
         success: "Organization policies updated successfully",
         successTitle: "Success",
         text: "Policies",
+        title: "Policies",
         tooltip:
           "Set common policies across all the groups of the organization",
         value: "Value",

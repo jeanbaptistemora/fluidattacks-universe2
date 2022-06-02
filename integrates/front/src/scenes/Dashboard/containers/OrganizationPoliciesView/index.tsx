@@ -233,6 +233,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
 
   return (
     <React.StrictMode>
+      <p className={"f3 fw7 mt4 mb3"}>{t(`${tPath}title`)}</p>
       <Formik
         enableReinitialize={true}
         initialValues={{
@@ -293,10 +294,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         )}
       </Formik>
       <br />
-      <p className={"mt4 mb3 f3"}>
-        <b>{t(`${tPath}findings.title`)}</b>
-      </p>
-      <hr className={"b--light-gray bw2 mt0"} />
+      <p className={"f3 fw7 mt4 mb3"}>{t(`${tPath}findings.title`)}</p>
       <VulnerabilityPolicies
         organizationId={organizationId}
         vulnerabilityPolicies={_.orderBy(
