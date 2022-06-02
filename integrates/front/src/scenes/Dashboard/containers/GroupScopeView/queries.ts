@@ -221,11 +221,15 @@ const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
     $groupName: String!
     $id: ID!
     $environmentUrls: [String!]!
+    $other: String
+    $reason: RootDeactivationReason
   ) {
     updateGitEnvironments(
       groupName: $groupName
       id: $id
       environmentUrls: $environmentUrls
+      other: $other
+      reason: $reason
     ) {
       success
     }

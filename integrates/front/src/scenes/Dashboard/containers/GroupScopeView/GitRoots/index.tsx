@@ -311,9 +311,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       other,
     }: IUpdateGitEnvironments): Promise<void> => {
       setRootModalMessages({ message: "", type: "success" });
-      await updateGitEnvs({
-        variables: { environmentUrls, groupName, id, other, reason },
-      });
+      if (_.isEmpty(reason)) {
+        await updateGitEnvs({
+          variables: { environmentUrls, groupName, id },
+        });
+      } else {
+        await updateGitEnvs({
+          variables: { environmentUrls, groupName, id, other, reason },
+        });
+      }
     },
     [groupName, setRootModalMessages, updateGitEnvs]
   );
