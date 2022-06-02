@@ -86,7 +86,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
     event.preventDefault();
   }
 
-  function handleOnMinusClick(event: React.MouseEvent<SVGSVGElement>): void {
+  function handleOnMinusClick(event: React.MouseEvent<HTMLInputElement>): void {
     event.stopPropagation();
     const newNumber = getCurrentNumber() - 1;
     if (newNumber >= min && newNumber <= max) {
@@ -95,7 +95,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
     setSpin(true);
   }
 
-  function handleOnPlusClick(event: React.MouseEvent<SVGSVGElement>): void {
+  function handleOnPlusClick(event: React.MouseEvent<HTMLDivElement>): void {
     event.stopPropagation();
     const newNumber = getCurrentNumber() + 1;
     if (newNumber >= min && newNumber <= max) {
@@ -135,20 +135,12 @@ const NumberInput: React.FC<INumberInputProps> = ({
           </Col50>
           <Col50>
             <Row>
-              <Col50>
-                <StyledFontAwesomeIcon
-                  icon={faMinus}
-                  onClick={handleOnMinusClick}
-                  tabIndex={-1}
-                />
+              <Col50 onClick={handleOnMinusClick}>
+                <StyledFontAwesomeIcon icon={faMinus} tabIndex={-1} />
               </Col50>
               <VerticalLine />
-              <Col50>
-                <StyledFontAwesomeIcon
-                  icon={faPlus}
-                  onClick={handleOnPlusClick}
-                  tabIndex={-1}
-                />
+              <Col50 onClick={handleOnPlusClick}>
+                <StyledFontAwesomeIcon icon={faPlus} tabIndex={-1} />
               </Col50>
             </Row>
           </Col50>
