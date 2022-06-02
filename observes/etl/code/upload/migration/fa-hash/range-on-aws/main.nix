@@ -11,6 +11,7 @@ in
         outputs."/common/utils/aws"
         outputs."/common/utils/git"
         outputs."/common/utils/sops"
+        outputs."/observes/common/list-groups"
       ];
     };
     replace = {
