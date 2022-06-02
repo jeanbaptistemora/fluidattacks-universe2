@@ -1653,17 +1653,18 @@ export const enTranslations: ResourceKey = {
         },
         policies: {
           acceptanceSeverityRange:
-            "Temporal CVSS 3.1 score range between which a finding can be accepted",
+            "Temporal acceptance: CVSS 3.1 score range allowed for assignment",
           maxAcceptanceDays:
-            "Maximum number of calendar days a finding can be temporarily accepted",
+            "Temporal acceptance: maximum number of days for assignment",
           maxNumberAcceptances:
-            "Maximum number of times a finding can be temporarily accepted",
+            "Temporal acceptance: maximum number of assignments for a single" +
+            "vulnerability",
           minBreakingSeverity:
-            "Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to" +
-            " break the build in strict mode",
+            "DevSecOps: Minimum CVSS 3.1 score from which agent breaks the" +
+            "build for open vulnerabilities",
           vulnerabilityGracePeriod:
-            "Grace period in days where newly reported vulnerabilities won't " +
-            "break the build (DevSecOps only)",
+            "DevSecOps: Days before agent starts breaking the build for new" +
+            "vulnerabilities",
         },
         policy: "Policy",
         save: "Save",
