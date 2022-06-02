@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-autofocus */
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -13,11 +14,14 @@ import {
   VerticalLine,
 } from "./styles";
 
+import { TooltipWrapper } from "components/TooltipWrapper";
+
 interface INumberInputProps {
   defaultValue: number;
   max: number;
   min: number;
   onEnter: (newValue: number | undefined) => void;
+  tooltipMessage?: string;
 }
 
 const NumberInput: React.FC<INumberInputProps> = ({
@@ -25,6 +29,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
   max,
   min,
   onEnter,
+  tooltipMessage,
 }): JSX.Element => {
   const [value, setValue] = useState(_.toString(defaultValue));
   const [spin, setSpin] = useState(false);
@@ -108,43 +113,50 @@ const NumberInput: React.FC<INumberInputProps> = ({
 
   return (
     <StyledInputContainer onBlur={handleOnInputContainerBlur} tabIndex={-1}>
-      <Row>
-        <Col50>
-          <StyledInput
-            max={max}
-            min={min}
-            onChange={handleOnInputChange}
-            onFocus={handleOnInputFocus}
-            onKeyDown={handleInputKeyDown}
-            onKeyUp={handleOnInputKeyUp}
-            ref={inputReference}
-            step={"1"}
-            type={"number"}
-            value={value}
-          />
-        </Col50>
-        <Col50>
-          <Row>
-            <Col50>
-              <StyledFontAwesomeIcon
-                icon={faMinus}
-                onClick={handleOnMinusClick}
-                tabIndex={-1}
-              />
-            </Col50>
-            <VerticalLine />
-            <Col50>
-              <StyledFontAwesomeIcon
-                icon={faPlus}
-                onClick={handleOnPlusClick}
-                tabIndex={-1}
-              />
-            </Col50>
-          </Row>
-        </Col50>
-      </Row>
+      <TooltipWrapper
+        hide={_.isUndefined(tooltipMessage)}
+        id={"numberInputTooltip"}
+        message={_.isUndefined(tooltipMessage) ? "" : tooltipMessage}
+      >
+        <Row>
+          <Col50>
+            <StyledInput
+              max={max}
+              min={min}
+              onChange={handleOnInputChange}
+              onFocus={handleOnInputFocus}
+              onKeyDown={handleInputKeyDown}
+              onKeyUp={handleOnInputKeyUp}
+              ref={inputReference}
+              step={"1"}
+              type={"number"}
+              value={value}
+            />
+          </Col50>
+          <Col50>
+            <Row>
+              <Col50>
+                <StyledFontAwesomeIcon
+                  icon={faMinus}
+                  onClick={handleOnMinusClick}
+                  tabIndex={-1}
+                />
+              </Col50>
+              <VerticalLine />
+              <Col50>
+                <StyledFontAwesomeIcon
+                  icon={faPlus}
+                  onClick={handleOnPlusClick}
+                  tabIndex={-1}
+                />
+              </Col50>
+            </Row>
+          </Col50>
+        </Row>
+      </TooltipWrapper>
     </StyledInputContainer>
   );
 };
 
+export type { INumberInputProps };
 export { NumberInput };
