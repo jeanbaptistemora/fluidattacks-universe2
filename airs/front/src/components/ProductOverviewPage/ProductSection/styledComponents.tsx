@@ -45,7 +45,7 @@ const ProgressContainer = styled.div.attrs({
   `,
 })`
   width: 3px;
-  height: 90%;
+  height: 95%;
   background-color: #f4f4f6;
 `;
 
