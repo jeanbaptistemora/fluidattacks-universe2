@@ -191,10 +191,10 @@ async def test_get_by_name() -> None:
     loaders: Dataloaders = get_new_context()
     ex_org_name = "okada"
     not_ex_org_name = "no-exists"
-    existing_org = await orgs_dal.get_by_name(ex_org_name)
-    assert isinstance(existing_org, dict)
-    assert "id" in existing_org
-    assert existing_org["name"] == ex_org_name
+    existing_org = await loaders.organization.load(ex_org_name)
+    assert isinstance(existing_org, Organization)
+    assert existing_org.id.startswith("ORG#")
+    assert existing_org.name == ex_org_name
     with pytest.raises(OrganizationNotFound):
         not_existent_org = await loaders.organization.load(not_ex_org_name)
         assert not not_existent_org

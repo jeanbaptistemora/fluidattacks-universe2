@@ -20,6 +20,9 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -260,11 +263,11 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             or kwargs.get("organization_name")
             or orgs_utils.add_org_id_prefix(args[0].id)
         )
-        organization_id = (
+        loaders = context.loaders
+        organization: Organization = await loaders.organization.load(
             organization_identifier
-            if organization_identifier.startswith("ORG#")
-            else await orgs_domain.get_id_by_name(organization_identifier)
         )
+        organization_id = organization.id
         user_data = await token_utils.get_jwt_content(context)
         subject = user_data["user_email"]
         object_ = organization_id.lower()
@@ -513,11 +516,11 @@ def require_organization_access(func: TVar) -> TVar:
 
         user_data = await token_utils.get_jwt_content(context)
         user_email = user_data["user_email"]
-        organization_id = (
+        loaders = context.loaders
+        organization: Organization = await loaders.organization.load(
             organization_identifier
-            if organization_identifier.startswith("ORG#")
-            else await orgs_domain.get_id_by_name(organization_identifier)
         )
+        organization_id = organization.id
         role, has_access = await collect(
             [
                 authz.get_organization_level_role(user_email, organization_id),

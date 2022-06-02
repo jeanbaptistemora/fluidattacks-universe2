@@ -193,15 +193,6 @@ async def get_groups(organization_id: str) -> Tuple[str, ...]:
     return tuple(await orgs_dal.get_groups(organization_id))
 
 
-async def get_id_by_name(organization_name: str) -> str:
-    result: Dict[str, Any] = await orgs_dal.get_by_name(
-        organization_name.lower(), ["id"]
-    )
-    if not result:
-        raise OrganizationNotFound()
-    return str(result["id"])
-
-
 async def get_id_for_group(group_name: str) -> str:
     return await orgs_dal.get_id_for_group(group_name)
 
