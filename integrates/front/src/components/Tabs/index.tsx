@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Tab } from "./Tab";
+
 const Tabs = styled.ul.attrs({
   className: "flex justify-around list ma0",
 })`
@@ -7,4 +9,4 @@ const Tabs = styled.ul.attrs({
   padding: 12px 0;
 `;
 
-export { Tabs };
+export { Tab, Tabs };
