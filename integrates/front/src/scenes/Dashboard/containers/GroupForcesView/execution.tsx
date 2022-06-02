@@ -11,7 +11,7 @@ import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monoka
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { Tab, Tabs } from "components/Tabs";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/GroupForcesView/queries";
@@ -22,7 +22,7 @@ import type {
   IGetForcesExecution,
   IVulnerabilities,
 } from "scenes/Dashboard/containers/GroupForcesView/types";
-import { Col33, Row, TabContent, TabsContainer } from "styles/styledComponents";
+import { Col33, Row, TabContent } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 
 const Execution: React.FC<IExecution> = (
@@ -307,20 +307,22 @@ const Execution: React.FC<IExecution> = (
       </Row>
       <br />
       <MemoryRouter initialEntries={["/summary"]} initialIndex={0}>
-        <TabsContainer>
-          <ContentTab
+        <Tabs>
+          <Tab
             id={"forcesExecutionSummaryTab"}
             link={"/summary"}
-            title={t("group.forces.tabs.summary.text")}
             tooltip={t("group.forces.tabs.summary.tooltip")}
-          />
-          <ContentTab
+          >
+            {t("group.forces.tabs.summary.text")}
+          </Tab>
+          <Tab
             id={"forcesExecutionLogTab"}
             link={"/log"}
-            title={t("group.forces.tabs.log.text")}
             tooltip={t("group.forces.tabs.log.tooltip")}
-          />
-        </TabsContainer>
+          >
+            {t("group.forces.tabs.log.text")}
+          </Tab>
+        </Tabs>
         <TabContent>
           <Switch>
             <Route path={"/summary"}>

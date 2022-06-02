@@ -12,13 +12,14 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
+import { Tab, Tabs } from "components/Tabs";
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
 import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView/index";
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
-import { Tab, TabContent, TabsContainer } from "styles/styledComponents";
+import { TabContent } from "styles/styledComponents";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -67,23 +68,23 @@ const EventContent: React.FC = (): JSX.Element => {
               eventType={eventType}
               id={id}
             />
-            <TabsContainer>
+            <Tabs>
               <li>
-                <Tab id={"resourcesTab"} to={`${url}/description`}>
+                <Tab id={"resourcesTab"} link={`${url}/description`}>
                   {t("searchFindings.tabEvents.description")}
                 </Tab>
               </li>
               <li>
-                <Tab id={"evidenceTab"} to={`${url}/evidence`}>
+                <Tab id={"evidenceTab"} link={`${url}/evidence`}>
                   {t("searchFindings.tabEvents.evidence")}
                 </Tab>
               </li>
               <li>
-                <Tab id={"commentsTab"} to={`${url}/comments`}>
+                <Tab id={"commentsTab"} link={`${url}/comments`}>
                   {t("searchFindings.tabEvents.comments")}
                 </Tab>
               </li>
-            </TabsContainer>
+            </Tabs>
             <TabContent>
               <Switch>
                 <Route

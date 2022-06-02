@@ -12,12 +12,12 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { Tab, Tabs } from "components/Tabs";
 import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { TabContent } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -48,22 +48,24 @@ const TagContent: React.FC = (): JSX.Element => {
         <div>
           <div>
             <div>
-              <TabsContainer>
-                <ContentTab
+              <Tabs>
+                <Tab
                   id={"tagIndicatorsTab"}
                   link={`${url}/analytics`}
-                  title={t("organization.tabs.portfolios.tabs.indicators.text")}
                   tooltip={t(
                     "organization.tabs.portfolios.tabs.indicators.tooltip"
                   )}
-                />
-                <ContentTab
+                >
+                  {t("organization.tabs.portfolios.tabs.indicators.text")}
+                </Tab>
+                <Tab
                   id={"tagGroupsTab"}
                   link={`${url}/groups`}
-                  title={t("organization.tabs.portfolios.tabs.group.text")}
                   tooltip={t("organization.tabs.portfolios.tabs.group.tooltip")}
-                />
-              </TabsContainer>
+                >
+                  {t("organization.tabs.portfolios.tabs.group.text")}
+                </Tab>
+              </Tabs>
             </div>
             <TabContent>
               <Switch>

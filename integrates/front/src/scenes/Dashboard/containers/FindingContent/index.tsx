@@ -26,7 +26,7 @@ import { ButtonCol, Title, TitleContainer } from "./styles";
 
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { Tab, Tabs } from "components/Tabs";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
@@ -45,12 +45,7 @@ import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
 import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index";
-import {
-  ControlLabel,
-  FormGroup,
-  TabContent,
-  TabsContainer,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup, TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
@@ -258,70 +253,79 @@ const FindingContent: React.FC = (): JSX.Element => {
                   severity={headerData.finding.severityScore}
                   status={headerData.finding.state}
                 />
-                <TabsContainer>
-                  <ContentTab
+                <Tabs>
+                  <Tab
                     id={"vulnItem"}
                     link={`${url}/locations`}
-                    title={t("searchFindings.tabVuln.tabTitle")}
                     tooltip={t("searchFindings.tabVuln.tooltip")}
-                  />
-                  <ContentTab
+                  >
+                    {t("searchFindings.tabVuln.tabTitle")}
+                  </Tab>
+                  <Tab
                     id={"infoItem"}
                     link={`${url}/description`}
-                    title={t("searchFindings.tabDescription.tabTitle")}
                     tooltip={t("searchFindings.tabDescription.tooltip")}
-                  />
-                  <ContentTab
+                  >
+                    {t("searchFindings.tabDescription.tabTitle")}
+                  </Tab>
+                  <Tab
                     id={"cssv2Item"}
                     link={`${url}/severity`}
-                    title={t("searchFindings.tabSeverity.tabTitle")}
                     tooltip={t("searchFindings.tabSeverity.tooltip")}
-                  />
-                  <ContentTab
+                  >
+                    {t("searchFindings.tabSeverity.tabTitle")}
+                  </Tab>
+                  <Tab
                     id={"evidenceItem"}
                     link={`${url}/evidence`}
-                    title={t("searchFindings.tabEvidence.tabTitle")}
                     tooltip={t("searchFindings.tabEvidence.tooltip")}
-                  />
-                  <ContentTab
+                  >
+                    {t("searchFindings.tabEvidence.tabTitle")}
+                  </Tab>
+                  <Tab
                     id={"trackingItem"}
                     link={`${url}/tracking`}
-                    title={t("searchFindings.tabTracking.tabTitle")}
                     tooltip={t("searchFindings.tabTracking.tooltip")}
-                  />
-                  <ContentTab
+                  >
+                    {t("searchFindings.tabTracking.tabTitle")}
+                  </Tab>
+                  <Tab
                     id={"recordsItem"}
                     link={`${url}/records`}
-                    title={t("searchFindings.tabRecords.tabTitle")}
                     tooltip={t("searchFindings.tabRecords.tooltip")}
-                  />
+                  >
+                    {t("searchFindings.tabRecords.tabTitle")}
+                  </Tab>
                   <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
-                    <ContentTab
+                    <Tab
                       id={"machineItem"}
                       link={`${url}/machine`}
-                      title={t("searchFindings.tabMachine.tabTitle")}
                       tooltip={t("searchFindings.tabMachine.tooltip")}
-                    />
+                    >
+                      {t("searchFindings.tabMachine.tabTitle")}
+                    </Tab>
                   </Can>
                   <Have I={"has_squad"}>
                     <Can do={"api_resolvers_finding_consulting_resolve"}>
-                      <ContentTab
+                      <Tab
                         id={"commentItem"}
                         link={`${url}/consulting`}
-                        title={t("searchFindings.tabComments.tabTitle")}
                         tooltip={t("searchFindings.tabComments.tooltip")}
-                      />
+                      >
+                        {t("searchFindings.tabComments.tabTitle")}
+                      </Tab>
                     </Can>
                   </Have>
                   <Can do={"api_resolvers_finding_observations_resolve"}>
-                    <ContentTab
+                    <Tab
                       id={"observationsItem"}
                       link={`${url}/observations`}
-                      title={t("searchFindings.tabObservations.tabTitle")}
                       tooltip={t("searchFindings.tabObservations.tooltip")}
-                    />
+                    >
+                      {t("searchFindings.tabObservations.tabTitle")}
+                    </Tab>
                   </Can>
-                </TabsContainer>
+                </Tabs>
               </div>
               <TabContent>
                 <Switch>

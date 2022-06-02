@@ -16,7 +16,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { Tab, Tabs } from "components/Tabs";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
 import { OrganizationBilling } from "scenes/Dashboard/containers/OrganizationBillingView";
 import {
@@ -34,7 +34,7 @@ import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPo
 import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
 import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useTabTracking } from "utils/hooks";
@@ -135,54 +135,60 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
         <div>
           <div>
             <div>
-              <TabsContainer>
-                <ContentTab
+              <Tabs>
+                <Tab
                   id={"analyticsTab"}
                   link={`${url}/analytics`}
-                  title={translate.t("organization.tabs.analytics.text")}
                   tooltip={translate.t("organization.tabs.analytics.tooltip")}
-                />
-                <ContentTab
+                >
+                  {translate.t("organization.tabs.analytics.text")}
+                </Tab>
+                <Tab
                   id={"groupsTab"}
                   link={`${url}/groups`}
-                  title={translate.t("organization.tabs.groups.text")}
                   tooltip={translate.t("organization.tabs.groups.tooltip")}
-                />
+                >
+                  {translate.t("organization.tabs.groups.text")}
+                </Tab>
                 {!_.isUndefined(portfoliosData) &&
                 !_.isEmpty(portfoliosData) &&
                 portfoliosData.me.tags.length > 0 ? (
-                  <ContentTab
+                  <Tab
                     id={"portfoliosTab"}
                     link={`${url}/portfolios`}
-                    title={translate.t("organization.tabs.portfolios.text")}
                     tooltip={translate.t(
                       "organization.tabs.portfolios.tooltip"
                     )}
-                  />
+                  >
+                    {translate.t("organization.tabs.portfolios.text")}
+                  </Tab>
                 ) : null}
                 <Can do={"api_resolvers_organization_stakeholders_resolve"}>
-                  <ContentTab
+                  <Tab
                     id={"usersTab"}
                     link={`${url}/stakeholders`}
-                    title={translate.t("organization.tabs.users.text")}
                     tooltip={translate.t("organization.tabs.users.tooltip")}
-                  />
+                  >
+                    {translate.t("organization.tabs.users.text")}
+                  </Tab>
                 </Can>
-                <ContentTab
+                <Tab
                   id={"policiesTab"}
                   link={`${url}/policies`}
-                  title={translate.t("organization.tabs.policies.text")}
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
-                />
+                >
+                  {translate.t("organization.tabs.policies.text")}
+                </Tab>
                 <Can do={"api_resolvers_organization_payment_methods_resolve"}>
-                  <ContentTab
+                  <Tab
                     id={"billingTab"}
                     link={`${url}/billing`}
-                    title={translate.t("organization.tabs.billing.text")}
                     tooltip={translate.t("organization.tabs.billing.tooltip")}
-                  />
+                  >
+                    {translate.t("organization.tabs.billing.text")}
+                  </Tab>
                 </Can>
-              </TabsContainer>
+              </Tabs>
             </div>
             <TabContent>
               <Switch>

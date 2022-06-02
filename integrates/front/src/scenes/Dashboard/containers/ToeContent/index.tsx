@@ -11,8 +11,8 @@ import { groupContext } from "../GroupContent/context";
 import type { IGroupContext } from "../GroupContent/types";
 import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { Tab, Tabs } from "components/Tabs";
+import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -34,24 +34,26 @@ const toeContent: React.FC<IToeContentProps> = ({
   return (
     <React.StrictMode>
       <div>
-        <TabsContainer>
+        <Tabs>
           <Can do={"api_resolvers_group_toe_lines_resolve"}>
-            <ContentTab
+            <Tab
               id={"toeLinesTab"}
               link={`${url}/lines`}
-              title={t("group.toe.tabs.lines.text")}
               tooltip={t("group.toe.tabs.lines.tooltip")}
-            />
+            >
+              {t("group.toe.tabs.lines.text")}
+            </Tab>
           </Can>
           <Can do={"api_resolvers_group_toe_inputs_resolve"}>
-            <ContentTab
+            <Tab
               id={"toeInputsTab"}
               link={`${url}/inputs`}
-              title={t("group.toe.tabs.inputs.text")}
               tooltip={t("group.toe.tabs.inputs.tooltip")}
-            />
+            >
+              {t("group.toe.tabs.inputs.text")}
+            </Tab>
           </Can>
-        </TabsContainer>
+        </Tabs>
       </div>
       <TabContent>
         <Switch>

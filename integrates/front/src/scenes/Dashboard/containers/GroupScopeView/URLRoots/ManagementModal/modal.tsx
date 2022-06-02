@@ -8,8 +8,8 @@ import { ManagementModal } from ".";
 import { Secrets } from "../../Secrets";
 import type { IURLRootAttr } from "../../types";
 import { Modal } from "components/Modal";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { Tab, Tabs } from "components/Tabs";
+import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -55,24 +55,22 @@ const ManagementUrlModal: React.FC<IManagementModalProps> = ({
     >
       <MemoryRouter initialEntries={[canUpdateRootState ? "/url" : "/secrets"]}>
         {isEditing ? (
-          <TabsContainer>
+          <Tabs>
             <Can do={"api_mutations_update_url_root_mutate"}>
-              <ContentTab
+              <Tab
                 id={"urlTab"}
                 link={"/url"}
-                title={t("group.scope.url.modal.title")}
                 tooltip={t("group.scope.url.modal.title")}
-              />
+              >
+                {t("group.scope.url.modal.title")}
+              </Tab>
             </Can>
             <Can do={"api_resolvers_git_root_secrets_resolve"}>
-              <ContentTab
-                id={"secretsTab"}
-                link={"/secrets"}
-                title={"Secrets"}
-                tooltip={""}
-              />
+              <Tab id={"secretsTab"} link={"/secrets"} tooltip={""}>
+                {"Secrets"}
+              </Tab>
             </Can>
-          </TabsContainer>
+          </Tabs>
         ) : undefined}
         <TabContent>
           <Switch>

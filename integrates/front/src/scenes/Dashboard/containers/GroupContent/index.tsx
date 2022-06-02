@@ -3,7 +3,6 @@ import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
 import React, { useContext } from "react";
 import {
   Redirect,
@@ -20,7 +19,7 @@ import { GroupScopeView } from "../GroupScopeView";
 import { GroupVulnerabilitiesView } from "../GroupVulnerabilitiesView";
 import { ToeContent } from "../ToeContent";
 import { Dot } from "components/Dot";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { Tab, Tabs } from "components/Tabs";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
@@ -31,7 +30,7 @@ import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/ind
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
@@ -62,27 +61,10 @@ const GroupContent: React.FC = (): JSX.Element => {
     },
     variables: { groupName },
   });
-  const event: JSX.Element = (
-    <ContentTab
-      id={"eventsTab"}
-      link={`${url}/events`}
-      title={translate.t("group.tabs.events.text")}
-      tooltip={translate.t("group.tabs.events.tooltip")}
-    />
-  );
-  const eventFormat: JSX.Element =
-    _.isUndefined(data) || _.isEmpty(data) ? (
-      event
-    ) : data.group.events.filter((eventElement): boolean =>
-        eventElement.eventStatus.includes("CREATED")
-      ).length > 0 ? (
-      <div className={"flex"}>
-        {event}
-        <Dot />
-      </div>
-    ) : (
-      event
-    );
+  const events = data === undefined ? [] : data.group.events;
+  const hasOpenEvents =
+    events.filter((event): boolean => event.eventStatus === "CREATED").length >
+    0;
 
   // Side effects
   useTabTracking("Group");
@@ -94,79 +76,97 @@ const GroupContent: React.FC = (): JSX.Element => {
           <div>
             <div>
               <div>
-                <TabsContainer>
-                  <ContentTab
+                <Tabs>
+                  <Tab
                     id={"findingsTab"}
                     link={`${url}/vulns`}
-                    title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
-                  />
-                  <ContentTab
+                  >
+                    {translate.t("group.tabs.findings.text")}
+                  </Tab>
+                  <Tab
                     id={"analyticsTab"}
                     link={`${url}/analytics`}
-                    title={translate.t("group.tabs.analytics.text")}
                     tooltip={translate.t("group.tabs.indicators.tooltip")}
-                  />
+                  >
+                    {translate.t("group.tabs.analytics.text")}
+                  </Tab>
                   <Can do={"api_resolvers_group_drafts_resolve"}>
-                    <ContentTab
+                    <Tab
                       id={"draftsTab"}
                       link={`${url}/drafts`}
-                      title={translate.t("group.tabs.drafts.text")}
                       tooltip={translate.t("group.tabs.drafts.tooltip")}
-                    />
+                    >
+                      {translate.t("group.tabs.drafts.text")}
+                    </Tab>
                   </Can>
-                  <ContentTab
+                  <Tab
                     id={"forcesTab"}
                     link={`${url}/devsecops`}
-                    title={translate.t("group.tabs.forces.text")}
                     tooltip={translate.t("group.tabs.forces.tooltip")}
-                  />
-                  {eventFormat}
+                  >
+                    {translate.t("group.tabs.forces.text")}
+                  </Tab>
+                  <div className={"flex"}>
+                    <Tab
+                      id={"eventsTab"}
+                      link={`${url}/events`}
+                      tooltip={translate.t("group.tabs.events.tooltip")}
+                    >
+                      {translate.t("group.tabs.events.text")}
+                      {hasOpenEvents ? <Dot /> : undefined}
+                    </Tab>
+                  </div>
                   <Have I={"has_squad"}>
                     <Can do={"api_resolvers_group_consulting_resolve"}>
-                      <ContentTab
+                      <Tab
                         id={"commentsTab"}
                         link={`${url}/consulting`}
-                        title={translate.t("group.tabs.comments.text")}
                         tooltip={translate.t("group.tabs.comments.tooltip")}
-                      />
+                      >
+                        {translate.t("group.tabs.comments.text")}
+                      </Tab>
                     </Can>
                   </Have>
                   <Can
                     do={"api_resolvers_query_stakeholder__resolve_for_group"}
                   >
-                    <ContentTab
+                    <Tab
                       id={"usersTab"}
                       link={`${url}/stakeholders`}
-                      title={translate.t("group.tabs.users.text")}
                       tooltip={translate.t("group.tabs.users.tooltip")}
-                    />
+                    >
+                      {translate.t("group.tabs.users.text")}
+                    </Tab>
                   </Can>
                   <Have I={"has_service_white"}>
                     <Can do={"api_resolvers_group_authors_resolve"}>
-                      <ContentTab
+                      <Tab
                         id={"authorsTab"}
                         link={`${url}/authors`}
-                        title={translate.t("group.tabs.authors.text")}
                         tooltip={translate.t("group.tabs.authors.tooltip")}
-                      />
+                      >
+                        {translate.t("group.tabs.authors.text")}
+                      </Tab>
                     </Can>
                   </Have>
                   {!canGetToeInputs && !canGetToeLines ? undefined : (
-                    <ContentTab
+                    <Tab
                       id={"toeTab"}
                       link={`${url}/surface`}
-                      title={translate.t("group.tabs.toe.text")}
                       tooltip={translate.t("group.tabs.toe.tooltip")}
-                    />
+                    >
+                      {translate.t("group.tabs.toe.text")}
+                    </Tab>
                   )}
-                  <ContentTab
+                  <Tab
                     id={"resourcesTab"}
                     link={`${url}/scope`}
-                    title={translate.t("group.tabs.resources.text")}
                     tooltip={translate.t("group.tabs.resources.tooltip")}
-                  />
-                </TabsContainer>
+                  >
+                    {translate.t("group.tabs.resources.text")}
+                  </Tab>
+                </Tabs>
               </div>
 
               <TabContent>

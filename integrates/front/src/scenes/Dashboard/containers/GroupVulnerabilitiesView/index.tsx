@@ -19,8 +19,8 @@ import {
 import { Table } from "components/Table";
 import { linkFormatter } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { Tab, Tabs } from "components/Tabs";
+import { TabContent } from "styles/styledComponents";
 
 const tableHeaders: IHeaderConfig[] = [
   {
@@ -75,19 +75,20 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
 
   return (
     <div>
-      <TabsContainer>
+      <Tabs>
         {views.map(({ title }): JSX.Element => {
           return (
-            <ContentTab
+            <Tab
               id={`${title}VulnerabilitiesTab`}
               key={title}
               link={`${url}/${title}`}
-              title={title}
               tooltip={""}
-            />
+            >
+              {title}
+            </Tab>
           );
         })}
-      </TabsContainer>
+      </Tabs>
       <TabContent>
         <Switch>
           {views.map(({ title, filter }): JSX.Element => {

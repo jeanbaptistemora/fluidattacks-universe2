@@ -11,8 +11,8 @@ import { Secrets } from "../../Secrets";
 import type { IGitRootAttr } from "../../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
-import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import { TabContent, TabsContainer } from "styles/styledComponents";
+import { Tab, Tabs } from "components/Tabs";
+import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -84,32 +84,35 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
         initialEntries={[canUpdateRootState ? "/repository" : "/secrets"]}
       >
         {isEditing ? (
-          <TabsContainer>
+          <Tabs>
             <Can do={"api_mutations_update_git_root_mutate"}>
-              <ContentTab
+              <Tab
                 id={"repoTab"}
                 link={"/repository"}
-                title={t("group.scope.git.repo.title")}
                 tooltip={t("group.scope.git.repo.title")}
-              />
+              >
+                {t("group.scope.git.repo.title")}
+              </Tab>
             </Can>
             <Can do={"api_mutations_update_git_environments_mutate"}>
-              <ContentTab
+              <Tab
                 id={"envsTab"}
                 link={"/environments"}
-                title={t("group.scope.git.envUrls")}
                 tooltip={t("group.scope.git.manageEnvsTooltip")}
-              />
+              >
+                {t("group.scope.git.envUrls")}
+              </Tab>
             </Can>
             <Can do={"api_resolvers_git_root_secrets_resolve"}>
-              <ContentTab
+              <Tab
                 id={"secretsTab"}
                 link={"/secrets"}
-                title={"Secrets"}
                 tooltip={t("group.scope.git.repo.title")}
-              />
+              >
+                {"Secrets"}
+              </Tab>
             </Can>
-          </TabsContainer>
+          </Tabs>
         ) : undefined}
         <TabContent>
           <Switch>
